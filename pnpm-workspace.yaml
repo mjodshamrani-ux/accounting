@@ -1,0 +1,7 @@
+allowBuilds:
+  esbuild: true
+  sharp: false
+  workerd: false
+
+overrides:
+  "exceljs>uuid": "11.1.1"
