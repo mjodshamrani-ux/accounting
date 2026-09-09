@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.0-experimental';
+export const ENGINE_VERSION = '0.3.1-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
 export type SheetData = {

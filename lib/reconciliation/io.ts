@@ -4,6 +4,51 @@ import ExcelJS from 'exceljs';
 import { ENGINE_VERSION, MAX_FILE_BYTES, MAX_ROWS } from './types.ts';
 import type { SourceFile, SheetData, Comparison, AuditEvent } from './types.ts';
 import { money, compare, normalizeSource } from './core.ts';
+// Admit only formats whose visible numeric meaning is understood. Native values
+// stay exact; unsupported display semantics require source review, never guessing.
+function transparentNumericFormat(format: string, value: number): boolean {
+  if (!format || /^general$/i.test(format)) return true;
+  const sections = format.split(';');
+  if (sections.length > 4) return false;
+  const index =
+    value < 0 && sections.length > 1
+      ? 1
+      : value === 0 && sections.length > 2
+        ? 2
+        : 0;
+  let section = sections[index].replace(/_.|\*./gu, '');
+  const currency = (s: string) =>
+    /^(?:[$€£¥₹₩]|SAR|USD|EUR|GBP|AED|KWD|JPY|ر\.س\.?|د\.إ\.?|د\.ك\.?)$/i.test(
+      s.replace(/[\u200e\u200f\u061c]/g, '').trim(),
+    );
+  let understood = true;
+  section = section
+    .replace(/"([^"]*)"/g, (_, literal: string) => {
+      if (!literal.trim()) return '';
+      if (value === 0 && literal === '-') return '-';
+      if (!currency(literal)) understood = false;
+      return '';
+    })
+    .replace(/\[\$([^\]]*)\]/g, (_, tag: string) => {
+      const match = /^(.*)-[0-9a-f]+$/i.exec(tag);
+      const symbol = match ? match[1] : tag;
+      if (symbol && !currency(symbol)) understood = false;
+      return '';
+    })
+    .replace(/\[(?:Black|Blue|Cyan|Green|Magenta|Red|Yellow)\]/gi, '')
+    .replace(/\\([$€£¥() +\-])/g, '$1')
+    .replace(/[$€£¥₹₩\s]/g, '');
+  if (!understood || /["\\\[\]%]/.test(section)) return false;
+  if (/^general$/i.test(section)) return true;
+  if (value === 0 && /^-\?*$/.test(section)) return true;
+  if (index === 1) {
+    if (section.startsWith('-')) section = section.slice(1);
+    else if (section.startsWith('(') && section.endsWith(')'))
+      section = section.slice(1, -1);
+    else return false; // A negative section without a sign hides its sign.
+  }
+  return /^(?:0+|#{1,3},##0)(?:\.[0#]+)?$/.test(section);
+}
 export function validateCellText(text: string): void {
   if (
     /[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/u.test(text) ||
@@ -185,6 +230,15 @@ export async function readFile(
     const issue = (row: number, message: string) => {
       (rowIssues[row] ??= []).push(message);
     };
+    // ExcelJS 4.4 exposes this parsed model field but omits it from Worksheet's declarations.
+    const formats = (
+      sheet as ExcelJS.Worksheet & {
+        conditionalFormattings: ExcelJS.ConditionalFormattingOptions[];
+      }
+    ).conditionalFormattings;
+    const conditionalNumberFormat = formats.some((format) =>
+      format.rules.some((rule) => !!rule.style?.numFmt),
+    );
     if (
       sheet.rowCount > MAX_ROWS + 30 ||
       sheet.columnCount > 100 ||
@@ -198,6 +252,11 @@ export async function readFile(
       const row = sheet.getRow(r),
         values: string[] = [];
       if (row.hidden) hiddenRows.push(r);
+      if (conditionalNumberFormat)
+        issue(
+          r,
+          'الورقة تحتوي تنسيق أرقام شرطيًا؛ لا ينفذ المحرك شروط Excel، استخدم نسخة قيم بتنسيق أرقام ثابت موثوق',
+        );
       for (let c = 1; c <= sheet.columnCount; c++) {
         const cell = row.getCell(c);
         let text = '';
@@ -206,6 +265,14 @@ export async function readFile(
           issue(r, 'خلايا مدمجة في صف البيانات؛ استخدم جدولًا دون دمج');
         if (typeof value === 'number')
           numericCells[`${r}:${c}`] = { value, format: cell.numFmt ?? '' };
+        if (
+          typeof value === 'number' &&
+          !transparentNumericFormat(cell.numFmt ?? '', value)
+        )
+          issue(
+            r,
+            `تنسيق Excel في ${cell.address} قد يغيّر عرض الإشارة أو القيمة أو المرجع؛ استخدم قيمة صريحة بتنسيق موثوق`,
+          );
         if (
           typeof value === 'number' &&
           (!Number.isFinite(value) || Math.abs(value) >= 1e15)

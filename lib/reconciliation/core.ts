@@ -67,15 +67,15 @@ export function parseMoney(
   return negative ? -n : n;
 }
 export function safeSum(values: number[]): number {
-  let sum = 0;
+  let sum = 0n;
   for (const v of values) {
     if (!Number.isSafeInteger(v) || Math.abs(v) > 1e14)
       throw new Error('قيمة غير صحيحة في الإجمالي');
-    sum += v;
-    if (!Number.isSafeInteger(sum) || Math.abs(sum) > 1e14)
-      throw new Error('الإجمالي يتجاوز الحد الآمن');
+    sum += BigInt(v);
   }
-  return sum;
+  if (sum > 100000000000000n || sum < -100000000000000n)
+    throw new Error('الإجمالي يتجاوز الحد الآمن');
+  return Number(sum);
 }
 export function money(value: number, decimals = 2): string {
   const sign = value < 0 ? '-' : '';
@@ -124,6 +124,27 @@ export function normalizeReference(s: string): string {
     .toUpperCase()
     .replace(/[\s\-/]/g, '');
 }
+function validateScope(scope: Scope) {
+  if (
+    !scope ||
+    typeof scope.confirmed !== 'boolean' ||
+    typeof scope.coverageConfirmed !== 'boolean' ||
+    ![
+      scope.supplier,
+      scope.entity,
+      scope.account,
+      scope.currency,
+      scope.cutoff,
+    ].every((v) => typeof v === 'string') ||
+    ![0, 2, 3].includes(scope.decimals) ||
+    !Number.isInteger(scope.dateWindow) ||
+    scope.dateWindow < 0 ||
+    scope.dateWindow > 7
+  )
+    throw new Error(
+      'بنية النطاق أو تأكيداته غير صالحة؛ يلزم تأكيد صريح وإعدادات قراءة صحيحة',
+    );
+}
 export function inferMapping(
   file: SourceFile,
   sheet = 0,
@@ -151,10 +172,13 @@ export function inferMapping(
           .length;
       return score(row) > score(rows[best] ?? []) ? i : best;
     }, 0);
-  for (const [key, regex] of Object.entries(patterns))
-    m[key as keyof typeof patterns] = (rows[m.header] ?? []).findIndex((c) =>
-      regex.test(c.trim()),
+  for (const [key, regex] of Object.entries(patterns)) {
+    const candidates = (rows[m.header] ?? []).flatMap((c, index) =>
+      regex.test(c.trim()) ? [index] : [],
     );
+    m[key as keyof typeof patterns] =
+      candidates.length === 1 ? candidates[0] : -1;
+  }
   if (m.amount < 0 && m.debit >= 0 && m.credit >= 0) m.mode = 'split';
   return m;
 }
@@ -164,6 +188,7 @@ export function normalizeSource(
   scope: Scope,
   side: 'supplier' | 'ledger',
 ): SourceResult {
+  validateScope(scope);
   if (
     ![0, 2, 3].includes(scope.decimals) ||
     ![1, -1].includes(mapping.multiplier) ||
@@ -177,6 +202,19 @@ export function normalizeSource(
     throw new Error('ورقة غير صالحة');
   const sheet = file.sheets[mapping.sheet];
   if (!sheet) throw new Error('ورقة غير موجودة');
+  if (
+    !mapping.excluded ||
+    typeof mapping.excluded !== 'object' ||
+    Array.isArray(mapping.excluded) ||
+    Object.entries(mapping.excluded).some(
+      ([row, reason]) =>
+        !/^[1-9]\d*$/.test(row) ||
+        Number(row) > sheet.rows.length ||
+        typeof reason !== 'string' ||
+        !reason.trim(),
+    )
+  )
+    throw new Error('استبعاد غير صالح؛ حدد صفًا موجودًا وسببًا نصيًا واضحًا');
   if (
     !Number.isInteger(mapping.header) ||
     mapping.header < 0 ||
@@ -412,6 +450,7 @@ export function compare(
   decisions: Decision[] = [],
   rejected: string[] = [],
 ): Comparison {
+  validateScope(scope);
   if (
     !scope.confirmed ||
     ![scope.supplier, scope.entity, scope.account, scope.currency].every((x) =>

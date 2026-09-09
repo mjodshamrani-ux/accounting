@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -15,7 +15,8 @@
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "preview": "vite preview --host 127.0.0.1",
     "test:browser": "node scripts/browser-test.mjs",
-    "check": "pnpm typecheck && pnpm test && pnpm build && pnpm test:browser"
+    "test:mutations": "node scripts/test-mutations.mjs",
+    "check": "pnpm typecheck && pnpm test && pnpm test:mutations && pnpm build && pnpm test:browser"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

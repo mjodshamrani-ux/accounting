@@ -50,10 +50,17 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     )
   )
     return rejected('الرابط مرفوض من المراجع');
-  const difference = safeSum([
-    ...(p.supplierIds as string[]).map((id) => a.get(id)!.amount),
-    ...(p.ledgerIds as string[]).map((id) => -b.get(id)!.amount),
-  ]);
+  let difference: number;
+  try {
+    difference = safeSum([
+      ...(p.supplierIds as string[]).map((id) => a.get(id)!.amount),
+      ...(p.ledgerIds as string[]).map((id) => -b.get(id)!.amount),
+    ]);
+  } catch {
+    return rejected(
+      'فرق الاقتراح يتجاوز حدود الحساب الآمن؛ لا يمكن إثباته داخل المحرك',
+    );
+  }
   return {
     status: 'needs-review' as const,
     difference,
@@ -91,6 +98,35 @@ export function containsExactIdentifier(
   ).test(question);
 }
 
+// Shared by rule explanations and model routing: an unknown literal reference
+// must never be substituted, and an ambiguous reference is never a row choice.
+export function resolveQuestionReferences(
+  result: Comparison,
+  question: string,
+): Transaction[] | null {
+  const q = latinDigits(question).trim();
+  const all = [...result.supplier.transactions, ...result.ledger.transactions];
+  const requested = (q.match(/[\p{L}\p{N}][\p{L}\p{N}_:/.-]*/gu) ?? []).filter(
+    (token) =>
+      token.length >= 4 && /\p{L}/u.test(token) && /\p{N}/u.test(token),
+  );
+  if (
+    requested.some(
+      (token) =>
+        !all.some(
+          (t) => t.id === token || latinDigits(t.reference.trim()) === token,
+        ),
+    )
+  )
+    return null;
+  return all.filter(
+    (t) =>
+      containsExactIdentifier(q, t.id) ||
+      (t.reference.trim().length >= 4 &&
+        containsExactIdentifier(q, latinDigits(t.reference.trim()))),
+  );
+}
+
 export function explainResult(
   result: Comparison,
   question: string,
@@ -109,25 +145,8 @@ export function explainResult(
   // Only explicit IDs or literal references resolve a document; never fuzzy-select one.
   const selected = selectedId
     ? all.filter((t) => t.id === selectedId)
-    : all.filter(
-        (t) =>
-          containsExactIdentifier(q, t.id) ||
-          (t.reference.trim().length >= 4 &&
-            containsExactIdentifier(q, latinDigits(t.reference.trim()))),
-      );
-  const requested = (q.match(/[\p{L}\p{N}][\p{L}\p{N}_:/.-]*/gu) ?? []).filter(
-    (token) =>
-      token.length >= 4 && /\p{L}/u.test(token) && /\p{N}/u.test(token),
-  );
-  if (
-    !selectedId &&
-    requested.some(
-      (token) =>
-        !all.some(
-          (t) => t.id === token || latinDigits(t.reference.trim()) === token,
-        ),
-    )
-  )
+    : resolveQuestionReferences(result, question);
+  if (selected === null)
     return {
       kind: 'unsupported',
       text: 'لم أجد المرجع المطلوب كاملًا في النتيجة الحالية. اختر الحركة من الجدول أو تحقق من المرجع؛ لن أستبدله بمرجع مشابه.',

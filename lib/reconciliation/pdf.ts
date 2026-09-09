@@ -13,6 +13,7 @@ export function checkPdfOperators(
   fn: number[],
   args: unknown[][],
   _area: number,
+  textBoxes: number[][] = [],
 ) {
   let state = {
     mode: 0,
@@ -24,6 +25,23 @@ export function checkPdfOperators(
     blended: false,
     transferred: false,
     clipped: false,
+    matrix: [1, 0, 0, 1, 0, 0],
+    lineWidth: 1,
+    maskResource: false,
+  };
+  let seenText = false;
+  const transform = (m: number[]) => {
+    if (m.length !== 6 || !m.every(Number.isFinite))
+      throw new Error('تحويل رسم PDF غير صالح');
+    const [a, b, c, d, e, f] = state.matrix;
+    state.matrix = [
+      a * m[0] + c * m[1],
+      b * m[0] + d * m[1],
+      a * m[2] + c * m[3],
+      b * m[2] + d * m[3],
+      a * m[4] + c * m[5] + e,
+      b * m[4] + d * m[5] + f,
+    ];
   };
   const stack: (typeof state)[] = [];
   // PDF.js resolves supported solid color spaces to RGB. Patterns and unknown
@@ -44,7 +62,14 @@ export function checkPdfOperators(
       // Form bounding boxes and transparency groups introduce clipping or
       // compositing that this text-only importer does not visually validate.
       if (op === ops.paintFormXObjectBegin && a[1]) state.clipped = true;
+      if (op === ops.paintFormXObjectBegin && a[0])
+        transform(Array.from(a[0] as ArrayLike<number>));
       if (op === ops.beginGroup) state.masked = true;
+      if (
+        op === ops.beginGroup &&
+        (a[0] as { smask?: unknown } | undefined)?.smask
+      )
+        state.maskResource = true;
     } else if (
       op === ops.restore ||
       op === ops.paintFormXObjectEnd ||
@@ -52,7 +77,9 @@ export function checkPdfOperators(
     ) {
       const previous = stack.pop();
       if (previous) state = previous;
-    } else if (op === ops.setGState) {
+    } else if (op === ops.transform) transform(a as number[]);
+    else if (op === ops.setLineWidth) state.lineWidth = Number(a[0]);
+    else if (op === ops.setGState) {
       if (!Array.isArray(a[0]))
         throw new Error(
           'حالة عرض PDF غير مفهومة؛ اطلب PDF نصيًا بسيطًا أو Excel',
@@ -62,6 +89,7 @@ export function checkPdfOperators(
           throw new Error('حالة عرض PDF غير مفهومة؛ اطلب Excel');
         const [key, value] = entry;
         if (key === 'ca') state.fillAlpha = Number(value);
+        else if (key === 'LW') state.lineWidth = Number(value);
         else if (key === 'CA') state.strokeAlpha = Number(value);
         else if (key === 'SMask')
           state.masked = value !== false && value !== null;
@@ -84,6 +112,7 @@ export function checkPdfOperators(
         ops.nextLineSetSpacingShowText,
       ].includes(op)
     ) {
+      seenText = true;
       if (state.mode === 3 || state.mode === 7)
         throw new Error(
           'PDF يحتوي نصًا مخفيًا أو طبقة OCR؛ اطلب كشفًا نصيًا أصليًا أو Excel',
@@ -120,6 +149,76 @@ export function checkPdfOperators(
       )
         throw new Error(
           'PDF يحتوي نصًا أبيض أو لون عرض غير قابل للتحقق؛ اطلب نسخة نصية بسيطة أو Excel',
+        );
+    } else if (
+      [
+        ops.constructPath,
+        ops.rawFillPath,
+        ops.fill,
+        ops.eoFill,
+        ops.stroke,
+        ops.closeStroke,
+        ops.fillStroke,
+        ops.eoFillStroke,
+        ops.closeFillStroke,
+        ops.closeEOFillStroke,
+        ops.shadingFill,
+      ].includes(op)
+    ) {
+      // Soft-mask definitions render to a resource canvas, not the page. The
+      // active mask is checked separately when any transaction text is painted.
+      if (state.maskResource) continue;
+      const kind = op === ops.constructPath ? a[0] : op;
+      if (kind === ops.endPath) continue;
+      const fillOnly = kind === ops.fill || kind === ops.eoFill;
+      // A plain white background painted before text cannot cover later glyphs.
+      if (
+        !seenText &&
+        fillOnly &&
+        state.fillColor === '#ffffff' &&
+        state.fillAlpha === 1 &&
+        !state.masked &&
+        !state.blended &&
+        !state.transferred
+      )
+        continue;
+      const bounds =
+        op === ops.constructPath &&
+        a[2] &&
+        (Array.isArray(a[2]) || ArrayBuffer.isView(a[2]))
+          ? Array.from(a[2] as ArrayLike<number>)
+          : [];
+      if (bounds.length !== 4 || !bounds.every(Number.isFinite))
+        throw new Error(
+          'رسم PDF قد يغطي النص ولا يمكن إثبات حدوده؛ اطلب نسخة نصية بسيطة أو Excel',
+        );
+      const [x0, y0, x1, y1] = bounds;
+      const [ma, mb, mc, md, me, mf] = state.matrix;
+      const corners = [
+        [x0, y0],
+        [x0, y1],
+        [x1, y0],
+        [x1, y1],
+      ].map(([x, y]) => [ma * x + mc * y + me, mb * x + md * y + mf]);
+      const pad = fillOnly
+        ? 0
+        : Math.max(1, Math.abs(state.lineWidth)) * Math.hypot(ma, mb, mc, md);
+      const box = [
+        Math.min(...corners.map((p) => p[0])) - pad,
+        Math.min(...corners.map((p) => p[1])) - pad,
+        Math.max(...corners.map((p) => p[0])) + pad,
+        Math.max(...corners.map((p) => p[1])) + pad,
+      ];
+      if (
+        !box.every(Number.isFinite) ||
+        !textBoxes.length ||
+        textBoxes.some(
+          (t) =>
+            box[0] < t[2] && box[2] > t[0] && box[1] < t[3] && box[3] > t[1],
+        )
+      )
+        throw new Error(
+          'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel',
         );
     } else if (
       [
@@ -246,14 +345,6 @@ export async function readPdf(buffer: ArrayBuffer, cuts: number[] = []) {
         );
       if ((await page.getAnnotations()).some((a) => a.subtype === 'Widget'))
         throw new Error('نماذج PDF التفاعلية غير مدعومة؛ اطلب نسخة مسطحة');
-      const operators = await page.getOperatorList();
-      const { OPS } = await getResolvedPDFJS();
-      checkPdfOperators(
-        OPS,
-        operators.fnArray,
-        operators.argsArray,
-        (page.view[2] - page.view[0]) * (page.view[3] - page.view[1]),
-      );
       const text = await page.getTextContent({ disableNormalization: true });
       const tokens: PdfToken[] = [];
       for (const item of text.items) {
@@ -281,6 +372,20 @@ export async function readPdf(buffer: ArrayBuffer, cuts: number[] = []) {
         throw new Error(
           `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. OCR غير متاح حاليًا؛ اطلب PDF نصيًا أو Excel`,
         );
+      const operators = await page.getOperatorList();
+      const { OPS } = await getResolvedPDFJS();
+      checkPdfOperators(
+        OPS,
+        operators.fnArray,
+        operators.argsArray,
+        (page.view[2] - page.view[0]) * (page.view[3] - page.view[1]),
+        tokens.map((t) => [
+          t.x + page.view[0],
+          t.y - t.height * 0.3,
+          t.x + page.view[0] + t.width,
+          t.y + t.height,
+        ]),
+      );
       for (const line of layoutPdfPage(
         tokens,
         cuts,

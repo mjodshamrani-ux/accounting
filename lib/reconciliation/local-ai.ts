@@ -1,7 +1,7 @@
 import {
   explainResult,
   verifyHypothesis,
-  containsExactIdentifier,
+  resolveQuestionReferences,
 } from './assistant.ts';
 import type { EvidenceAnswer } from './assistant.ts';
 import type { Comparison } from './types.ts';
@@ -28,7 +28,8 @@ export function interpretModelOutput(
   raw: string,
   question = '',
 ): EvidenceAnswer | null {
-  if (raw.length > 4096) return null;
+  if (raw.length > 4096 || !question.trim() || question.length > 500)
+    return null;
   try {
     const p = JSON.parse(raw);
     if (
@@ -48,25 +49,16 @@ export function interpretModelOutput(
       return null;
     if (p.transactionId !== undefined && typeof p.transactionId !== 'string')
       return null;
+    const mentioned = resolveQuestionReferences(result, question);
+    if (mentioned === null) return null;
+    if (
+      p.intent !== 'transaction' &&
+      (p.transactionId !== undefined || mentioned.length)
+    )
+      return null;
     let answer: EvidenceAnswer;
     if (p.intent === 'transaction') {
-      const cited = [
-        ...result.supplier.transactions,
-        ...result.ledger.transactions,
-      ].find((t) => t.id === p.transactionId);
-      if (
-        !cited ||
-        !(
-          containsExactIdentifier(question, cited.id) ||
-          containsExactIdentifier(question, cited.reference)
-        )
-      )
-        return null;
-      if (
-        ![...result.supplier.transactions, ...result.ledger.transactions].some(
-          (t) => t.id === p.transactionId,
-        )
-      )
+      if (mentioned.length !== 1 || mentioned[0].id !== p.transactionId)
         return null;
       answer = explainResult(result, 'شرح', p.transactionId);
     } else if (p.intent in intents)
