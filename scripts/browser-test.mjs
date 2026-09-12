@@ -295,12 +295,24 @@ try {
   );
   await context.setOffline(true);
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
-    await workpaperPage
-      .getByLabel(label, { exact: true })
-      .setInputFiles(downloaded);
+    await workpaperPage.getByLabel(label, { exact: true }).setInputFiles({
+      name: 'synthetic-workpaper.xlsx',
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: await readFile(downloaded),
+    });
     await workpaperPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
     );
+    assert.deepEqual(
+      await workpaperPage.getByRole('alert').allTextContents(),
+      [],
+    );
+    await workpaperPage
+      .locator('.dropzone')
+      .filter({ hasText: label })
+      .getByText('synthetic-workpaper.xlsx', { exact: true })
+      .waitFor();
   }
   await workpaperPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
