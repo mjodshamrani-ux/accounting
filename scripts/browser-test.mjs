@@ -257,14 +257,12 @@ try {
   });
   const helperBytes = Buffer.from(await helperBook.xlsx.writeBuffer());
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
-    await uploadPage
-      .getByLabel(label, { exact: true })
-      .setInputFiles({
-        name: 'synthetic-helpers.xlsx',
-        mimeType:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        buffer: helperBytes,
-      });
+    await uploadPage.getByLabel(label, { exact: true }).setInputFiles({
+      name: 'synthetic-helpers.xlsx',
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: helperBytes,
+    });
     await uploadPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
     );
@@ -307,9 +305,19 @@ try {
   await workpaperPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  assert.equal(
-    await workpaperPage.getByText(/هذا ملف عمل مُصدَّر من ميزان/).count(),
-    2,
+  assert.match(
+    await workpaperPage
+      .getByRole('combobox', { name: 'ورقة العمل', exact: true })
+      .nth(0)
+      .innerText(),
+    /Supplier source/,
+  );
+  assert.match(
+    await workpaperPage
+      .getByRole('combobox', { name: 'ورقة العمل', exact: true })
+      .nth(1)
+      .innerText(),
+    /Ledger source/,
   );
   assert.equal(
     await workpaperPage
