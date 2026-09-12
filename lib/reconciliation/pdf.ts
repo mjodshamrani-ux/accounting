@@ -8,6 +8,165 @@ export type PdfToken = {
   width: number;
   height: number;
 };
+type PdfPoint = [number, number];
+const boxOverlaps = (a: number[], b: number[]) =>
+  a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+
+// PDF.js 6 DrawOPS is a compact path stream, separate from its page OPS enum.
+// A stroke paints the edges, not the full bounding box of a compound table grid.
+// Keep unknown/curved paths conservative; do not infer an empty interior for them.
+function straightPathOverlaps(
+  encoded: unknown,
+  matrix: number[],
+  halfWidth: number,
+  lineJoin: number,
+  miterLimit: number,
+  textBoxes: number[][],
+  closeLast: boolean,
+  fillOnly: boolean,
+): boolean | undefined {
+  if (!Array.isArray(encoded) || encoded.length !== 1) return undefined;
+  const data = encoded[0];
+  if (!Array.isArray(data) && !ArrayBuffer.isView(data)) return undefined;
+  const values = Array.from(data as ArrayLike<number>);
+  if (!values.every(Number.isFinite)) return undefined;
+  const paths: {
+    points: PdfPoint[];
+    localPoints: PdfPoint[];
+    closed: boolean;
+  }[] = [];
+  let path: (typeof paths)[number] | undefined;
+  const point = (x: number, y: number): PdfPoint => [
+    matrix[0] * x + matrix[2] * y + matrix[4],
+    matrix[1] * x + matrix[3] * y + matrix[5],
+  ];
+  for (let i = 0; i < values.length;) {
+    const op = values[i++];
+    if (op === 0 || op === 1) {
+      if (i + 2 > values.length) return undefined;
+      const local: PdfPoint = [values[i++], values[i++]];
+      const p = point(...local);
+      if (!p.every(Number.isFinite)) return undefined;
+      if (op === 0) {
+        path = { points: [p], localPoints: [local], closed: false };
+        paths.push(path);
+      } else {
+        if (!path || path.closed) return undefined;
+        path.points.push(p);
+        path.localPoints.push(local);
+      }
+    } else if (op === 4) {
+      if (!path || path.closed) return undefined;
+      path.closed = true;
+    } else return undefined;
+  }
+  if (closeLast && path) path.closed = true;
+  for (const current of paths) {
+    const { points, localPoints, closed } = current;
+    if (
+      closed &&
+      points.length > 1 &&
+      points[0][0] === points.at(-1)![0] &&
+      points[0][1] === points.at(-1)![1]
+    ) {
+      points.pop();
+      localPoints.pop();
+    }
+  }
+  if (fillOnly) {
+    // A fill can contain several disconnected subpaths, e.g. thin rectangles
+    // used as table rules. Bound each filled component, retaining a conservative
+    // bound for holes/concave polygons rather than painting the space between.
+    return paths.some(({ points }) => {
+      if (points.length < 3) return false;
+      const box = [Infinity, Infinity, -Infinity, -Infinity];
+      for (const p of points) {
+        box[0] = Math.min(box[0], p[0]);
+        box[1] = Math.min(box[1], p[1]);
+        box[2] = Math.max(box[2], p[0]);
+        box[3] = Math.max(box[3], p[1]);
+      }
+      return textBoxes.some((t) => boxOverlaps(box, t));
+    });
+  }
+  const segmentHits = (p: PdfPoint, q: PdfPoint, t: number[]) => {
+    // Bound even rotated square caps at endpoints, then clip the actual
+    // segment. A diagonal stroke still does not fill its aggregate bbox.
+    const cap = halfWidth * Math.SQRT2;
+    if (
+      [p, q].some((end) =>
+        boxOverlaps(
+          [end[0] - cap, end[1] - cap, end[0] + cap, end[1] + cap],
+          t,
+        ),
+      )
+    )
+      return true;
+    const box = [
+      t[0] - halfWidth,
+      t[1] - halfWidth,
+      t[2] + halfWidth,
+      t[3] + halfWidth,
+    ];
+    let from = 0,
+      to = 1;
+    for (let axis = 0; axis < 2; axis++) {
+      const delta = q[axis] - p[axis];
+      if (delta === 0) {
+        if (p[axis] < box[axis] || p[axis] > box[axis + 2]) return false;
+      } else {
+        const a = (box[axis] - p[axis]) / delta;
+        const b = (box[axis + 2] - p[axis]) / delta;
+        from = Math.max(from, Math.min(a, b));
+        to = Math.min(to, Math.max(a, b));
+        if (from > to) return false;
+      }
+    }
+    return true;
+  };
+  for (const { points, localPoints, closed } of paths) {
+    for (let i = 1; i < points.length; i++)
+      if (textBoxes.some((t) => segmentHits(points[i - 1], points[i], t)))
+        return true;
+    if (closed && points.length > 1)
+      if (textBoxes.some((t) => segmentHits(points.at(-1)!, points[0], t)))
+        return true;
+    // A miter join may project beyond the normal stroke half-width. Bound
+    // that projection separately at actual corners, including a closed start.
+    if (lineJoin === 0 && points.length > 2) {
+      const start = closed ? 0 : 1;
+      const end = closed ? points.length : points.length - 1;
+      for (let i = start; i < end; i++) {
+        const p = points[i],
+          local = localPoints[i],
+          before = localPoints[(i + points.length - 1) % points.length],
+          after = localPoints[(i + 1) % points.length];
+        // Join angles belong to the untransformed path. The half-width already
+        // uses maximum transform scale, so this also bounds skewed miter tips.
+        const u = [before[0] - local[0], before[1] - local[1]];
+        const v = [after[0] - local[0], after[1] - local[1]];
+        const product = Math.hypot(...u) * Math.hypot(...v);
+        if (!product) continue;
+        const cosine = Math.max(
+          -1,
+          Math.min(1, (u[0] * v[0] + u[1] * v[1]) / product),
+        );
+        const sineHalf = Math.sqrt((1 - cosine) / 2);
+        const pad =
+          halfWidth *
+          Math.min(miterLimit, sineHalf ? 1 / sineHalf : miterLimit);
+        if (
+          textBoxes.some((t) =>
+            boxOverlaps([p[0] - pad, p[1] - pad, p[0] + pad, p[1] + pad], t),
+          )
+        )
+          return true;
+      }
+    }
+  }
+  return false;
+}
+
 export function checkPdfOperators(
   ops: Record<string, number>,
   fn: number[],
@@ -27,6 +186,8 @@ export function checkPdfOperators(
     clipped: false,
     matrix: [1, 0, 0, 1, 0, 0],
     lineWidth: 1,
+    lineJoin: 0,
+    miterLimit: 10,
     maskResource: false,
   };
   let seenText = false;
@@ -79,6 +240,8 @@ export function checkPdfOperators(
       if (previous) state = previous;
     } else if (op === ops.transform) transform(a as number[]);
     else if (op === ops.setLineWidth) state.lineWidth = Number(a[0]);
+    else if (op === ops.setLineJoin) state.lineJoin = Number(a[0]);
+    else if (op === ops.setMiterLimit) state.miterLimit = Number(a[0]);
     else if (op === ops.setGState) {
       if (!Array.isArray(a[0]))
         throw new Error(
@@ -90,6 +253,8 @@ export function checkPdfOperators(
         const [key, value] = entry;
         if (key === 'ca') state.fillAlpha = Number(value);
         else if (key === 'LW') state.lineWidth = Number(value);
+        else if (key === 'LJ') state.lineJoin = Number(value);
+        else if (key === 'ML') state.miterLimit = Number(value);
         else if (key === 'CA') state.strokeAlpha = Number(value);
         else if (key === 'SMask')
           state.masked = value !== false && value !== null;
@@ -200,9 +365,53 @@ export function checkPdfOperators(
         [x1, y0],
         [x1, y1],
       ].map(([x, y]) => [ma * x + mc * y + me, mb * x + md * y + mf]);
+      // Largest singular value bounds stroke expansion under scale/shear.
+      const squareScale = ma * ma + mb * mb + mc * mc + md * md;
+      const determinant = ma * md - mb * mc;
+      const scale = Math.sqrt(
+        (squareScale +
+          Math.sqrt(
+            Math.max(
+              0,
+              squareScale * squareScale - 4 * determinant * determinant,
+            ),
+          )) /
+          2,
+      );
       const pad = fillOnly
         ? 0
-        : Math.max(1, Math.abs(state.lineWidth)) * Math.hypot(ma, mb, mc, md);
+        : Math.max(0.5, (Math.abs(state.lineWidth) * scale) / 2);
+      if (
+        !Number.isFinite(pad) ||
+        ![0, 1, 2].includes(state.lineJoin) ||
+        !Number.isFinite(state.miterLimit) ||
+        state.miterLimit < 1
+      )
+        throw new Error(
+          'إعدادات حدود رسم PDF غير صالحة؛ اطلب نسخة نصية بسيطة أو Excel',
+        );
+      const strokeOnly = kind === ops.stroke || kind === ops.closeStroke;
+      if (
+        (strokeOnly || fillOnly) &&
+        op === ops.constructPath &&
+        textBoxes.length
+      ) {
+        const overlaps = straightPathOverlaps(
+          a[1],
+          state.matrix,
+          pad,
+          state.lineJoin,
+          state.miterLimit,
+          textBoxes,
+          kind === ops.closeStroke,
+          fillOnly,
+        );
+        if (overlaps === false) continue;
+        if (overlaps === true)
+          throw new Error(
+            'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel',
+          );
+      }
       const box = [
         Math.min(...corners.map((p) => p[0])) - pad,
         Math.min(...corners.map((p) => p[1])) - pad,
@@ -212,10 +421,7 @@ export function checkPdfOperators(
       if (
         !box.every(Number.isFinite) ||
         !textBoxes.length ||
-        textBoxes.some(
-          (t) =>
-            box[0] < t[2] && box[2] > t[0] && box[1] < t[3] && box[3] > t[1],
-        )
+        textBoxes.some((t) => boxOverlaps(box, t))
       )
         throw new Error(
           'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel',

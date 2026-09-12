@@ -72,6 +72,10 @@ import type {
   Transaction,
 } from '@/lib/reconciliation/types';
 import { inferMapping, money } from '@/lib/reconciliation/core';
+import {
+  getMappedImportIssues,
+  selectImportMapping,
+} from '@/lib/reconciliation/import-selection';
 import { demoFiles, demoMappings, demoScope } from '@/lib/reconciliation/demo';
 const initialScope: Scope = {
   supplier: '',
@@ -349,6 +353,10 @@ export default function App() {
         signal,
       );
       if (!alive()) return;
+      const selection = selectImportMapping(
+        parsed,
+        i === 0 ? 'supplier' : 'ledger',
+      );
       invalidate();
       setDemo(false);
       setFiles(
@@ -361,10 +369,11 @@ export default function App() {
       setMappings(
         (ms) =>
           ms.map((m, j) =>
-            j === i ? { ...inferMapping(parsed), pdfReviewed: false } : m,
+            j === i ? { ...selection.mapping, pdfReviewed: false } : m,
           ) as [Mapping, Mapping],
       );
       setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
+      setNotice(selection.notice);
     });
   }
   async function configurePdf(i: number, cuts: number[]) {
@@ -954,6 +963,7 @@ export default function App() {
             )}
             <section className="surface pad stack">
               <Tick
+                disabled={mappings.some((m) => m.sheet < 0)}
                 checked={scope.confirmed}
                 onChange={(v) => updateScope({ confirmed: v })}
               >
@@ -975,7 +985,12 @@ export default function App() {
               <div className="actions">
                 <Button
                   onClick={() => void reconcile()}
-                  disabled={!scope.confirmed || !scope.cutoff || !!busy}
+                  disabled={
+                    !scope.confirmed ||
+                    !scope.cutoff ||
+                    !!busy ||
+                    mappings.some((m) => m.sheet < 0)
+                  }
                 >
                   تحقق وقارن
                   <ArrowLeft size={16} />
@@ -1497,8 +1512,8 @@ function SourceConfiguration({
   onError: (s: string) => void;
   onPdfApply: (cuts: number[]) => void;
 }) {
-  const sheet = file.sheets[mapping.sheet] ?? file.sheets[0];
-  const header = sheet.rows[mapping.header] ?? [];
+  const sheet = file.sheets[mapping.sheet];
+  const header = sheet?.rows[mapping.header] ?? [];
   const columns: [string, string][] = [
     ['-1', 'غير محدد'],
     ...header.map(
@@ -1510,6 +1525,14 @@ function SourceConfiguration({
   const [excludeReason, setExcludeReason] = useState('');
   const [pdfDirty, setPdfDirty] = useState(false);
   useEffect(() => setPdfDirty(false), [file]);
+  const initialSelection = useMemo(
+    () => selectImportMapping(file, side === 0 ? 'supplier' : 'ledger'),
+    [file, side],
+  );
+  const importIssues = useMemo(
+    () => getMappedImportIssues(file, mapping),
+    [file, mapping],
+  );
   function col(
     key:
       | 'date'
@@ -1530,6 +1553,32 @@ function SourceConfiguration({
       />
     );
   }
+  if (!sheet) {
+    return (
+      <section className="surface pad stack">
+        <h2>{sideNames[side]}</h2>
+        <p>
+          <bdi>{file.name}</bdi>
+        </p>
+        <p className="notice" role="status">
+          {initialSelection.notice}
+        </p>
+        <Choice
+          label="ورقة العمل — اختر جدول المصدر"
+          value="-1"
+          options={[
+            ['-1', 'اختر ورقة العمل'],
+            ...file.sheets.map(
+              (s, i) => [String(i), s.name] as [string, string],
+            ),
+          ]}
+          onChange={(v) => {
+            if (Number(v) >= 0) onChange(inferMapping(file, Number(v)));
+          }}
+        />
+      </section>
+    );
+  }
   return (
     <section className="surface">
       <div className="section-heading">
@@ -1541,6 +1590,11 @@ function SourceConfiguration({
         </div>
         <FileSpreadsheet />
       </div>
+      {initialSelection.kind === 'workpaper' && (
+        <p className="notice" role="status">
+          {initialSelection.notice}
+        </p>
+      )}
       {file.pdf && (
         <>
           <PdfReview
@@ -1566,6 +1620,25 @@ function SourceConfiguration({
         </>
       )}
       <div className="pad stack" style={{ paddingTop: 0 }}>
+        {importIssues.length > 0 && (
+          <div className="notice" role="status">
+            <p>
+              تم تحميل الملف. توجد {importIssues.length} ملاحظة قراءة في صفوف
+              البيانات والأعمدة المختارة تحتاج مراجعة قبل المطابقة. الخلايا غير
+              المستخدمة لا تمنع معالجة الجدول.
+            </p>
+            {importIssues.slice(0, 5).map((issue, index) => (
+              <p key={`${issue.row}:${issue.column ?? 0}:${index}`}>
+                صف {issue.row}
+                {issue.column ? `، عمود ${issue.column}` : ''}:{' '}
+                {issue.messages.join('؛ ')}
+              </p>
+            ))}
+            {importIssues.length > 5 && (
+              <p>تظهر التفاصيل المتبقية في فحص القراءة عند المطابقة.</p>
+            )}
+          </div>
+        )}
         <div className="form-grid">
           <Choice
             label="ورقة العمل"

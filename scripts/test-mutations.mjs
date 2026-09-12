@@ -18,8 +18,33 @@ const tests = [
   'tests/reliability.test.ts',
   'tests/assistant-adversarial.test.ts',
   'tests/supplier-layouts.test.ts',
+  'tests/excel-import-regression.test.ts',
+  'tests/import-selection.test.ts',
+  'tests/pdf-adversarial.test.ts',
 ];
 const mutations = [
+  {
+    name: 'reject-supported-multisheet-workpapers',
+    file: 'lib/reconciliation/types.ts',
+    changes: [
+      ['export const MAX_SHEETS = 40;', 'export const MAX_SHEETS = 12;'],
+    ],
+  },
+  {
+    name: 'reject-unused-helper-formulas',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        'if (!sheet.cellIssues && formulaRows.has(rn))',
+        'if (formulaRows.has(rn))',
+      ],
+    ],
+  },
+  {
+    name: 'treat-pdf-table-edges-as-filled-area',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['if (overlaps === false) continue;', 'if (false) continue;']],
+  },
   {
     name: 'reverse-source-sign',
     file: 'lib/reconciliation/core.ts',

@@ -289,10 +289,6 @@ export function normalizeSource(
       continue;
     }
     result.rowCount++;
-    if (row.every((v) => !v.trim())) {
-      result.excluded.push({ row: rn, reason: 'صف فارغ', values: row });
-      continue;
-    }
     if (mapping.excluded[String(rn)]?.trim()) {
       result.excluded.push({
         row: rn,
@@ -310,10 +306,24 @@ export function normalizeSource(
         );
       if (sheet.rowIssues?.[rn]?.length)
         throw new Error(sheet.rowIssues[rn].join('؛ '));
-      if (formulaRows.has(rn))
+      const mappedIssues = selected.flatMap(
+        (column) => sheet.cellIssues?.[`${rn}:${column + 1}`] ?? [],
+      );
+      if (mapping.reference >= 0)
+        mappedIssues.push(
+          ...(sheet.referenceIssues?.[`${rn}:${mapping.reference + 1}`] ?? []),
+        );
+      if (mappedIssues.length) throw new Error(mappedIssues.join('؛ '));
+      // Older in-memory sources have only row-level formula metadata. Parsed
+      // Excel files carry precise cell issues, including formulas, instead.
+      if (!sheet.cellIssues && formulaRows.has(rn))
         throw new Error(
           'الصف يحتوي صيغة؛ استخدم نسخة قيم ثابتة موثوقة أو استبعده مع سبب',
         );
+      if (row.every((v) => !v.trim())) {
+        result.excluded.push({ row: rn, reason: 'صف فارغ', values: row });
+        continue;
+      }
       if (hiddenRows.has(rn))
         result.warnings.push(`الصف ${rn} مخفي في المصدر وأُدرج في المقارنة`);
       if (

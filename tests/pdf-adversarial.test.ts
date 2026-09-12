@@ -45,3 +45,78 @@ test('ordinary white backgrounds and disjoint table lines preserve actual text',
     ]);
   }
 });
+
+test('bordered supplier tables paint edges, not a solid rectangle over every amount', async () => {
+  const grids = [
+    '30 715 470 35 re S',
+    '30 715 m 500 715 l 500 750 l 30 750 l h S',
+    '30 715 m 500 715 l 30 750 m 500 750 l 30 715 m 30 750 l 150 715 m 150 750 l 270 715 m 270 750 l 500 715 m 500 750 l S',
+    '30 715 120 35 re 150 715 120 35 re 270 715 230 35 re S',
+    'q 2 0 0 2 0 0 cm 15 357.5 235 17.5 re S Q',
+  ];
+  for (const grid of grids) {
+    for (const stream of [
+      text + '\nq 0 G 0.5 w ' + grid + ' Q',
+      'q 0 G 0.5 w ' + grid + ' Q\n' + text,
+    ]) {
+      const result = await read(stream).catch((error) =>
+        assert.fail(
+          `Ordinary table borders must be accepted: ${String(error)}`,
+        ),
+      );
+      assert.deepEqual(result.sheets[0].rows, [
+        ['2026-08-01', 'INV-100', '1250.00'],
+      ]);
+      assert.deepEqual(result.sheets[0].rowIssues, {});
+    }
+  }
+});
+
+test('separate underlines do not connect into an imaginary painted area', async () => {
+  const result = await read(
+    text +
+      '\nq 0.5 w 38 725 m 103 725 l 167 744 m 230 744 l 298 725 m 348 725 l S Q',
+  );
+  assert.deepEqual(result.sheets[0].rows, [
+    ['2026-08-01', 'INV-100', '1250.00'],
+  ]);
+});
+
+test('stroke width and actual crossing lines still reject covered transaction text', async () => {
+  for (const path of [
+    '1 w 295 733 m 350 733 l S',
+    '1 w 295 727 m 350 744 l S',
+    '12 w 295 724 m 350 724 l S',
+    '3 w 298 726 60 20 re S',
+    'q 2 0 0 2 0 0 cm 4 w 145 362 m 180 362 l S Q',
+  ])
+    await assert.rejects(read(text + '\nq ' + path + ' Q'), /رسم|تغط/);
+});
+
+test('thin filled rectangles used as supplier table borders stay separate', async () => {
+  const borders =
+    '30 715 470 0.5 re 30 750 470 0.5 re 30 715 0.5 35 re 150 715 0.5 35 re 270 715 0.5 35 re 500 715 0.5 35 re f';
+  for (const stream of [
+    text + '\nq ' + borders + ' Q',
+    'q ' + borders + ' Q\n' + text,
+  ]) {
+    assert.deepEqual((await read(stream)).sheets[0].rows, [
+      ['2026-08-01', 'INV-100', '1250.00'],
+    ]);
+  }
+  await assert.rejects(
+    read(text + '\nq 30 715 470 0.5 re 298 725 60 20 re f Q'),
+    /رسم|تغط/,
+  );
+});
+
+test('implicit close strokes and curved paths cannot conceal an amount', async () => {
+  await assert.rejects(
+    read(text + '\nq 2 w 295 726 m 350 744 l 350 750 l s Q'),
+    /رسم|تغط/,
+  );
+  await assert.rejects(
+    read(text + '\nq 5 w 295 733 m 310 720 335 744 350 733 c S Q'),
+    /رسم|تغط/,
+  );
+});

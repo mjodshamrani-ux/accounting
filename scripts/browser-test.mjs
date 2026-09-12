@@ -222,6 +222,140 @@ try {
     0,
   );
   assert.deepEqual(errors, []);
+  // Regression: real XLSX upload selects the transaction sheet, ignores unused
+  // calculations/display formats, and compares both sides completely offline.
+  const helperBook = new ExcelJS.Workbook();
+  helperBook.addWorksheet('Read me').addRow(['Notes for the accountant']);
+  const helperSheet = helperBook.addWorksheet('Transactions');
+  helperSheet.addRow(['date', 'reference', 'amount', 'rate', 'running total']);
+  helperSheet.addRow([
+    '2026-08-01',
+    'INV-0001',
+    100,
+    0.15,
+    { formula: 'C2', result: 100 },
+  ]);
+  helperSheet.addRow([
+    '2026-08-02',
+    'PAY-0001',
+    -20,
+    0.15,
+    { formula: 'C2+C3', result: 80 },
+  ]);
+  helperSheet.getColumn(4).numFmt = '0%';
+  helperSheet.getColumn(3).numFmt = '#,##0.00;[Red](#,##0.00)';
+  helperSheet.addConditionalFormatting({
+    ref: 'D2:D3',
+    rules: [
+      {
+        type: 'expression',
+        priority: 1,
+        formulae: ['TRUE'],
+        style: { numFmt: '0%' },
+      },
+    ],
+  });
+  const helperBytes = Buffer.from(await helperBook.xlsx.writeBuffer());
+  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+    await uploadPage
+      .getByLabel(label, { exact: true })
+      .setInputFiles({
+        name: 'synthetic-helpers.xlsx',
+        mimeType:
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        buffer: helperBytes,
+      });
+    await uploadPage.waitForFunction(
+      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    );
+  }
+  await uploadPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  for (const label of ['المورد', 'الجهة القانونية', 'نطاق الحساب'])
+    await uploadPage.getByLabel(label, { exact: true }).fill('Synthetic');
+  await uploadPage
+    .getByLabel('تاريخ القطع', { exact: true })
+    .fill('2026-08-31');
+  await uploadPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
+  await uploadPage
+    .getByRole('button', { name: 'تحقق وقارن', exact: true })
+    .click();
+  await uploadPage.getByRole('heading', { name: 'مساحة المراجعة' }).waitFor();
+  assert.equal(
+    await uploadPage.locator('.metric').nth(0).locator('strong').innerText(),
+    '2',
+  );
+
+  // Upload the synthetic 18-sheet workpaper actually downloaded above. Neither
+  // the first Diagnostics sheet nor its old review decision may be restored.
+  await context.setOffline(false);
+  const workpaperPage = await context.newPage();
+  await workpaperPage.goto(`${origin}/mizan-test/`);
+  await workpaperPage.waitForFunction(
+    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+  );
+  await context.setOffline(true);
+  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+    await workpaperPage
+      .getByLabel(label, { exact: true })
+      .setInputFiles(downloaded);
+    await workpaperPage.waitForFunction(
+      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    );
+  }
+  await workpaperPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  assert.equal(
+    await workpaperPage.getByText(/هذا ملف عمل مُصدَّر من ميزان/).count(),
+    2,
+  );
+  assert.equal(
+    await workpaperPage
+      .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
+      .isChecked(),
+    false,
+  );
+  assert.equal(
+    await workpaperPage.getByLabel('المورد', { exact: true }).inputValue(),
+    '',
+  );
+  assert.equal(
+    await workpaperPage
+      .getByLabel('صف العناوين 0', { exact: true })
+      .inputValue(),
+    '2',
+  );
+  assert.equal(
+    await workpaperPage
+      .getByLabel('صف العناوين 1', { exact: true })
+      .inputValue(),
+    '2',
+  );
+  for (const label of ['المورد', 'الجهة القانونية', 'نطاق الحساب'])
+    await workpaperPage.getByLabel(label, { exact: true }).fill('Synthetic');
+  await workpaperPage
+    .getByLabel('تاريخ القطع', { exact: true })
+    .fill('2026-08-31');
+  await workpaperPage
+    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
+    .check();
+  await workpaperPage
+    .getByRole('button', { name: 'تحقق وقارن', exact: true })
+    .click();
+  await workpaperPage
+    .getByRole('heading', { name: 'مساحة المراجعة' })
+    .waitFor();
+  assert.equal(
+    await workpaperPage.locator('.metric').nth(0).locator('strong').innerText(),
+    '2',
+  );
+  assert.ok(
+    (await workpaperPage.locator('body').innerText()).includes(
+      'مقارنة حركات فقط',
+    ),
+  );
   await context.setOffline(false);
   const pdfPage = await context.newPage();
   await pdfPage.goto(`${origin}/mizan-test/`);
@@ -233,13 +367,17 @@ try {
     name: 'synthetic.pdf',
     mimeType: 'application/pdf',
     buffer: Buffer.from(
-      syntheticPdf([
+      syntheticPdf(
         [
-          ['date', 'reference', 'amount', 'description'],
-          ['2026-08-01', 'INV-0001', '100.00', 'Invoice'],
-          ['2026-08-02', 'PAY-0001', '-20.00', 'Payment'],
+          [
+            ['date', 'reference', 'amount', 'description'],
+            ['2026-08-01', 'INV-0001', '100.00', 'Invoice'],
+            ['2026-08-02', 'PAY-0001', '-20.00', 'Payment'],
+          ],
         ],
-      ]),
+        10,
+        'q 0 G 0.5 w 30 700 520 65 re 30 745 m 550 745 l 30 725 m 550 725 l 150 700 m 150 765 l 270 700 m 270 765 l 400 700 m 400 765 l S Q',
+      ),
     ),
   });
   await pdfPage.waitForFunction(
@@ -316,7 +454,9 @@ try {
           'mapping invalidation',
           '390px layout',
           'actual CSV upload offline',
-          'PDF upload, review, comparison and Excel export offline',
+          'XLSX upload with helper formulas, percentages and multiple sheets offline',
+          '18-sheet workpaper reimport chooses original sources without restoring approvals',
+          'bordered PDF upload, review, comparison and Excel export offline',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

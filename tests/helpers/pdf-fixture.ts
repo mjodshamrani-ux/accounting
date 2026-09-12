@@ -1,5 +1,9 @@
 // Small valid PDF fixture with independent, explicit glyph positions and xref.
-export function syntheticPdf(pages: string[][][], fontSize = 10) {
+export function syntheticPdf(
+  pages: string[][][],
+  fontSize = 10,
+  decoration = '',
+) {
   const objects: string[] = [
     '<< /Type /Catalog /Pages 2 0 R >>',
     '',
@@ -9,14 +13,17 @@ export function syntheticPdf(pages: string[][][], fontSize = 10) {
   for (const rows of pages) {
     const id = objects.length + 1;
     kids.push(id);
-    const stream = rows
-      .flatMap((row, i) =>
-        row.map(
-          (t, j) =>
-            `BT /F1 ${fontSize} Tf 1 0 0 1 ${[40, 170, 300, 420][j]} ${750 - i * 20} Tm (${t.replace(/[\\()]/g, (x) => '\\' + x)}) Tj ET`,
-        ),
-      )
-      .join('\n');
+    const stream =
+      rows
+        .flatMap((row, i) =>
+          row.map(
+            (t, j) =>
+              `BT /F1 ${fontSize} Tf 1 0 0 1 ${[40, 170, 300, 420][j]} ${750 - i * 20} Tm (${t.replace(/[\\()]/g, (x) => '\\' + x)}) Tj ET`,
+          ),
+        )
+        .join('\n') +
+      '\n' +
+      decoration;
     objects.push(
       `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 600 800] /Resources << /Font << /F1 3 0 R >> >> /Contents ${id + 1} 0 R >>`,
     );

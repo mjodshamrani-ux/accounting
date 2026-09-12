@@ -1,7 +1,12 @@
 import { validateZipContents } from './zip.ts';
 import { readPdf } from './pdf.ts';
 import ExcelJS from 'exceljs';
-import { ENGINE_VERSION, MAX_FILE_BYTES, MAX_ROWS } from './types.ts';
+import {
+  ENGINE_VERSION,
+  MAX_FILE_BYTES,
+  MAX_ROWS,
+  MAX_SHEETS,
+} from './types.ts';
 import type { SourceFile, SheetData, Comparison, AuditEvent } from './types.ts';
 import { money, compare, normalizeSource } from './core.ts';
 // Admit only formats whose visible numeric meaning is understood. Native values
@@ -47,7 +52,69 @@ function transparentNumericFormat(format: string, value: number): boolean {
       section = section.slice(1, -1);
     else return false; // A negative section without a sign hides its sign.
   }
-  return /^(?:0+|#{1,3},##0)(?:\.[0#]+)?$/.test(section);
+  return /^(?:#*0+|#{1,3},##0)(?:\.[0#]+)?$/.test(section);
+}
+
+// ExcelJS returns a { id, formatCode } object for a parsed differential style,
+// although its public types describe numFmt as a string.
+function conditionalFormatCode(value: unknown): string {
+  if (typeof value === 'string') return value;
+  if (
+    value &&
+    typeof value === 'object' &&
+    'formatCode' in value &&
+    typeof value.formatCode === 'string'
+  )
+    return value.formatCode;
+  return '[unsupported]';
+}
+
+function numericReference(format: string, value: number): string | null {
+  if (!format || /^general$/i.test(format)) return String(value);
+  if (/^0+$/.test(format) && Number.isInteger(value)) {
+    if (value >= 0) return String(value).padStart(format.length, '0');
+    if (format === '0') return String(value);
+  }
+  return null;
+}
+
+function transparentTextFormat(format: string): boolean {
+  const sections = format.split(';');
+  if (sections.length < 4) return true;
+  if (sections.length !== 4) return false;
+  return (
+    sections[3]
+      .replace(/_.|\*./gu, '')
+      .replace(/\[(?:Black|Blue|Cyan|Green|Magenta|Red|Yellow)\]/gi, '')
+      .trim() === '@'
+  );
+}
+
+// Conditional formats apply to ranges, not the entire worksheet. Unknown
+// range syntax is conservatively treated as applicable, never silently ignored.
+function rangeContains(ref: string, row: number, column: number): boolean {
+  const colIndex = (letters: string) =>
+    [...letters.toUpperCase()].reduce(
+      (n, letter) => n * 26 + letter.charCodeAt(0) - 64,
+      0,
+    );
+  return ref.split(/\s+/).some((range) => {
+    const clean = range.replace(/\$/g, '');
+    const cells = /^([A-Z]+)(\d+)(?::([A-Z]+)(\d+))?$/i.exec(clean);
+    if (cells)
+      return (
+        row >= +cells[2] &&
+        row <= +(cells[4] ?? cells[2]) &&
+        column >= colIndex(cells[1]) &&
+        column <= colIndex(cells[3] ?? cells[1])
+      );
+    const columns = /^([A-Z]+):([A-Z]+)$/i.exec(clean);
+    if (columns)
+      return column >= colIndex(columns[1]) && column <= colIndex(columns[2]);
+    const rows = /^(\d+):(\d+)$/.exec(clean);
+    if (rows) return row >= +rows[1] && row <= +rows[2];
+    return true;
+  });
 }
 export function validateCellText(text: string): void {
   if (
@@ -218,7 +285,8 @@ export async function readFile(
   await validateZipContents(buffer);
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(buffer);
-  if (workbook.worksheets.length > 12) throw new Error('الحد 12 ورقة في الملف');
+  if (workbook.worksheets.length > MAX_SHEETS)
+    throw new Error(`الحد ${MAX_SHEETS} ورقة في الملف`);
   if (
     workbook.worksheets.reduce((n, s) => n + s.rowCount * s.columnCount, 0) >
     1000000
@@ -226,9 +294,10 @@ export async function readFile(
     throw new Error('إجمالي خلايا المصنف يتجاوز مليون خلية');
   const sheets: SheetData[] = workbook.worksheets.map((sheet) => {
     const numericCells: NonNullable<SheetData['numericCells']> = {};
-    const rowIssues: Record<string, string[]> = {};
-    const issue = (row: number, message: string) => {
-      (rowIssues[row] ??= []).push(message);
+    const cellIssues: Record<string, string[]> = {};
+    const referenceIssues: Record<string, string[]> = {};
+    const issue = (row: number, column: number, message: string) => {
+      (cellIssues[`${row}:${column}`] ??= []).push(message);
     };
     // ExcelJS 4.4 exposes this parsed model field but omits it from Worksheet's declarations.
     const formats = (
@@ -236,7 +305,7 @@ export async function readFile(
         conditionalFormattings: ExcelJS.ConditionalFormattingOptions[];
       }
     ).conditionalFormattings;
-    const conditionalNumberFormat = formats.some((format) =>
+    const conditionalFormats = formats.filter((format) =>
       format.rules.some((rule) => !!rule.style?.numFmt),
     );
     if (
@@ -252,25 +321,67 @@ export async function readFile(
       const row = sheet.getRow(r),
         values: string[] = [];
       if (row.hidden) hiddenRows.push(r);
-      if (conditionalNumberFormat)
-        issue(
-          r,
-          'الورقة تحتوي تنسيق أرقام شرطيًا؛ لا ينفذ المحرك شروط Excel، استخدم نسخة قيم بتنسيق أرقام ثابت موثوق',
-        );
       for (let c = 1; c <= sheet.columnCount; c++) {
         const cell = row.getCell(c);
         let text = '';
         const value = cell.value;
+        const applicableFormats = conditionalFormats
+          .filter((format) => rangeContains(format.ref, r, c))
+          .flatMap((format) =>
+            format.rules
+              .filter((rule) => !!rule.style?.numFmt)
+              .map((rule) => conditionalFormatCode(rule.style!.numFmt)),
+          );
+        if (
+          typeof value === 'string' &&
+          value &&
+          [cell.numFmt ?? '', ...applicableFormats].some(
+            (format) => !transparentTextFormat(format),
+          )
+        )
+          issue(
+            r,
+            c,
+            `تنسيق النص في ${cell.address} قد يخفي محتوى الخلية أو يغيّره؛ استخدم نصًا ظاهرًا بتنسيق عام`,
+          );
         if (cell.isMerged)
-          issue(r, 'خلايا مدمجة في صف البيانات؛ استخدم جدولًا دون دمج');
+          issue(
+            r,
+            c,
+            `خلية مدمجة في ${cell.address}؛ استخدم جدولًا دون دمج في الأعمدة المختارة`,
+          );
+        if (
+          typeof value === 'number' &&
+          applicableFormats.some(
+            (format) => !transparentNumericFormat(format, value),
+          )
+        )
+          issue(
+            r,
+            c,
+            `تنسيق أرقام شرطي في ${cell.address} قد يغيّر عرض القيمة؛ استخدم تنسيق أرقام ثابتًا موثوقًا لهذه الخلية`,
+          );
         if (typeof value === 'number')
           numericCells[`${r}:${c}`] = { value, format: cell.numFmt ?? '' };
+        if (typeof value === 'number') {
+          const reference = numericReference(cell.numFmt ?? '', value);
+          if (
+            reference === null ||
+            applicableFormats.some(
+              (format) => numericReference(format, value) !== reference,
+            )
+          )
+            referenceIssues[`${r}:${c}`] = [
+              `تنسيق المرجع الرقمي في ${cell.address} قد يغيّر نص المعرف؛ احفظ المرجع الظاهر كنص صريح قبل المطابقة`,
+            ];
+        }
         if (
           typeof value === 'number' &&
           !transparentNumericFormat(cell.numFmt ?? '', value)
         )
           issue(
             r,
+            c,
             `تنسيق Excel في ${cell.address} قد يغيّر عرض الإشارة أو القيمة أو المرجع؛ استخدم قيمة صريحة بتنسيق موثوق`,
           );
         if (
@@ -279,6 +390,7 @@ export async function readFile(
         )
           issue(
             r,
+            c,
             `قيمة رقمية قد تفقد الدقة في ${cell.address}؛ احفظ المراجع الطويلة كنص`,
           );
         if (value instanceof Date) {
@@ -290,18 +402,27 @@ export async function readFile(
             value.getUTCSeconds() ||
             value.getUTCMilliseconds()
           )
-            issue(r, 'تاريخ Excel يحتوي وقتًا؛ استخدم تاريخًا صريحًا دون وقت');
+            issue(
+              r,
+              c,
+              `تاريخ Excel في ${cell.address} يحتوي وقتًا؛ استخدم تاريخًا صريحًا دون وقت`,
+            );
           text = value.toISOString().slice(0, 10);
         } else if (typeof value === 'object' && value !== null) {
           if ('formula' in value || 'sharedFormula' in value) {
             formulaRows.push(r);
+            issue(
+              r,
+              c,
+              `صيغة Excel في ${cell.address}؛ استخدم قيمة ثابتة موثوقة في العمود المختار أو استبعد الصف مع سبب`,
+            );
             text = String('result' in value ? (value.result ?? '') : '');
           } else if ('richText' in value)
             text = value.richText.map((t) => t.text).join('');
           else if ('text' in value) text = String(value.text);
           else if ('error' in value) {
             text = String(value.error);
-            issue(r, `خطأ Excel في ${cell.address}: ${text}`);
+            issue(r, c, `خطأ Excel في ${cell.address}: ${text}`);
           }
         } else if (
           typeof value === 'number' &&
@@ -320,7 +441,8 @@ export async function readFile(
     return {
       name: sheet.name,
       numericCells,
-      rowIssues,
+      cellIssues,
+      referenceIssues,
       rows,
       formulaRows: [...new Set(formulaRows)],
       hiddenRows,
