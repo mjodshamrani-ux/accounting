@@ -32,7 +32,10 @@ test('PDF cannot read covered amount text through an opaque vector rectangle', a
   );
 });
 test('PDF black background cannot silently conceal black transaction text', async () => {
-  await assert.rejects(read('q 0 g 298 725 60 20 re f Q\n' + text), /رسم|تغط/);
+  await assert.rejects(
+    read('q 0 g 298 725 60 20 re f Q\n' + text),
+    /رسم|تغط|تباين/,
+  );
 });
 test('ordinary white backgrounds and disjoint table lines preserve actual text', async () => {
   for (const decoration of [

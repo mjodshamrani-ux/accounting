@@ -1,11 +1,16 @@
 import { saveSession, restoreSession } from './session.ts';
 import { readFile, exportWorkbook } from './io.ts';
 import { normalizeSource, compare } from './core.ts';
+import { ENGINE_VERSION } from './types.ts';
+import { WORKER_CHANNEL, isRequest } from './protocol.ts';
 self.onmessage = async (event: MessageEvent) => {
+  const input: unknown = event.data;
+  if (!isRequest(input)) return;
   const { id, action, payload } = event.data;
+  const reply = { channel: WORKER_CHANNEL, id, action };
   try {
     let value: unknown;
-    if (action === 'ready') value = { ready: true };
+    if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
     else if (action === 'save-session') value = await saveSession(payload);
     else if (action === 'restore-session')
       value = await restoreSession(payload.buffer);
@@ -57,13 +62,16 @@ self.onmessage = async (event: MessageEvent) => {
       );
     else throw new Error('عملية غير معروفة');
     if (value instanceof ArrayBuffer)
-      self.postMessage({ id, value }, { transfer: [value] });
-    else self.postMessage({ id, value });
+      self.postMessage({ ...reply, ok: true, value }, { transfer: [value] });
+    else self.postMessage({ ...reply, ok: true, value });
   } catch (error) {
     self.postMessage({
-      id,
+      ...reply,
+      ok: false,
       error:
-        error instanceof Error ? error.message : 'تعذر إكمال العملية محليًا',
+        error instanceof Error && error.message.trim()
+          ? error.message
+          : 'تعذر إكمال العملية محليًا',
     });
   }
 };

@@ -97,8 +97,32 @@ export function parseDate(
 ): string {
   const s = latinDigits(value).trim();
   let y: number, m: number, d: number;
+  // A spelled-out English month is unambiguous. Do not use Date.parse, which
+  // varies by runtime and can silently roll impossible calendar dates forward.
+  const named = /^(\d{1,2})-([A-Za-z]+)-(\d{4})$/.exec(s);
   if (/^\d{4}-\d{2}-\d{2}$/.test(s)) [y, m, d] = s.split('-').map(Number);
-  else {
+  else if (named) {
+    const months = [
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december',
+    ];
+    const month = named[2].toLowerCase();
+    m =
+      months.findIndex((name) => name === month || name.slice(0, 3) === month) +
+      1;
+    d = Number(named[1]);
+    y = Number(named[3]);
+  } else {
     const p = s.split(/[\/.-]/);
     if (p.length !== 3 || p.some((x) => !/^\d+$/.test(x)))
       throw new Error('تاريخ غير صالح؛ حدد صيغة التاريخ');
@@ -158,9 +182,9 @@ export function inferMapping(
       /^(reference|invoice|invoice no\.?|invoice number|document reference|document no\.?|المرجع|رقم الفاتورة|رقم المستند)$/i,
     description: /^(description|details|البيان|الوصف)$/i,
     amount:
-      /^(amount|signed amount|outstanding|remaining|المبلغ|المتبقي|الرصيد المتبقي)$/i,
-    debit: /^(debit|مدين)$/i,
-    credit: /^(credit|دائن)$/i,
+      /^(amount|signed amount|outstanding|remaining|المبلغ|المتبقي|الرصيد المتبقي)(?:\s*\([a-z]{3}\))?$/i,
+    debit: /^(debit|مدين)(?:\s*\([a-z]{3}\))?$/i,
+    credit: /^(credit|دائن)(?:\s*\([a-z]{3}\))?$/i,
     currencyColumn: /^(currency|العملة)$/i,
   };
   const rows = file.sheets[sheet]?.rows ?? [];
@@ -269,6 +293,16 @@ export function normalizeSource(
       : mapping.debit < 0 || mapping.credit < 0)
   )
     throw new Error('حدد أعمدة التاريخ والمبلغ أو المدين والدائن');
+  // Currency in a selected value header is evidence, not decorative text.
+  for (const column of mapping.mode === 'signed'
+    ? [mapping.amount]
+    : [mapping.debit, mapping.credit]) {
+    const code = /\(([A-Za-z]{3})\)\s*$/.exec(
+      sheet.rows[mapping.header]?.[column] ?? '',
+    )?.[1];
+    if (code && code.toUpperCase() !== scope.currency.toUpperCase())
+      throw new Error('عملة عنوان المبلغ لا تطابق العملة المؤكدة');
+  }
   const cutoff = parseDate(scope.cutoff, 'ymd');
   let start = '';
   if (mapping.periodStart) start = parseDate(mapping.periodStart, 'ymd');

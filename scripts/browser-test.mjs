@@ -5,6 +5,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { syntheticPdf } from '../tests/helpers/pdf-fixture.ts';
+import { syntheticStyledPdf } from '../tests/helpers/styled-pdf-fixture.ts';
 const root = path.resolve('dist');
 const server = createServer(async (req, res) => {
   try {
@@ -454,6 +455,106 @@ try {
     pdfBook.getWorksheet('Supplier transactions').getCell('J2').value,
     1,
   );
+  // Import recovery is a user workflow: a rejected PDF must not poison the
+  // next XLSX or PDF request. Keep the entire sequence offline.
+  await context.setOffline(false);
+  const recoveryPage = await context.newPage();
+  await recoveryPage.goto(`${origin}/mizan-test/`);
+  await recoveryPage.waitForFunction(
+    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+  );
+  await context.setOffline(true);
+  await recoveryPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
+    name: 'synthetic-covered.pdf',
+    mimeType: 'application/pdf',
+    buffer: Buffer.from(syntheticStyledPdf(true)),
+  });
+  await recoveryPage
+    .getByRole('alert')
+    .filter({ hasText: /يغطي|تغط/ })
+    .waitFor();
+  await recoveryPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
+    name: 'synthetic-recovered.xlsx',
+    mimeType:
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    buffer: helperBytes,
+  });
+  await recoveryPage.waitForFunction(
+    () =>
+      document.body.innerText.includes('synthetic-recovered.xlsx') &&
+      !document.body.innerText.includes('قراءة الملف على جهازك'),
+  );
+  assert.equal(await recoveryPage.getByRole('alert').count(), 0);
+  await recoveryPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
+    name: 'synthetic-styled.pdf',
+    mimeType: 'application/pdf',
+    buffer: Buffer.from(syntheticStyledPdf()),
+  });
+  await recoveryPage.waitForFunction(
+    () =>
+      document.body.innerText.includes('synthetic-styled.pdf') &&
+      !document.body.innerText.includes('قراءة الملف على جهازك'),
+  );
+  await recoveryPage
+    .getByLabel('تقرير الحسابات الدائنة', { exact: true })
+    .setInputFiles({
+      name: 'synthetic-july.csv',
+      mimeType: 'text/csv',
+      buffer: Buffer.from(
+        'date,reference,amount\n2026-07-02,SYN-7001,1250.00\n2026-07-12,SYN-CN-2,-150.00',
+      ),
+    });
+  await recoveryPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  await recoveryPage
+    .getByLabel('حدود أعمدة PDF', { exact: true })
+    .fill('25,45');
+  await recoveryPage
+    .getByRole('button', {
+      name: 'تطبيق حدود الأعمدة وإعادة القراءة',
+      exact: true,
+    })
+    .click();
+  await recoveryPage.waitForFunction(
+    () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
+  );
+  for (const label of ['المورد', 'الجهة القانونية', 'نطاق الحساب'])
+    await recoveryPage.getByLabel(label, { exact: true }).fill('Synthetic');
+  await recoveryPage
+    .getByLabel('تاريخ القطع', { exact: true })
+    .fill('2026-07-31');
+  await recoveryPage
+    .getByRole('checkbox', { name: /راجعت جميع صفحات PDF/ })
+    .check();
+  await recoveryPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
+  await recoveryPage
+    .getByRole('button', { name: 'تحقق وقارن', exact: true })
+    .click();
+  await recoveryPage
+    .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
+    .waitFor();
+  assert.equal(
+    await recoveryPage.locator('.metric').nth(0).locator('strong').innerText(),
+    '2',
+  );
+  await recoveryPage
+    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .click();
+  const recoveredExport = recoveryPage.waitForEvent('download');
+  await recoveryPage
+    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .click();
+  const recoveredBook = new ExcelJS.Workbook();
+  await recoveredBook.xlsx.readFile(await (await recoveredExport).path());
+  assert.deepEqual(
+    [2, 3].map(
+      (row) =>
+        recoveredBook.getWorksheet('Supplier transactions').getCell(`H${row}`)
+          .value,
+    ),
+    [1250, -150],
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -477,6 +578,7 @@ try {
           'XLSX upload with helper formulas, percentages and multiple sheets offline',
           '18-sheet workpaper reimport chooses original sources without restoring approvals',
           'bordered PDF upload, review, comparison and Excel export offline',
+          'covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

@@ -1,5 +1,7 @@
 import { getResolvedPDFJS } from 'unpdf';
 import type { SheetData } from './types.ts';
+import { bindTextPaints, visibleOnBackground } from './pdf-paint-order.ts';
+import type { PdfBackground } from './pdf-paint-order.ts';
 
 export type PdfToken = {
   text: string;
@@ -15,16 +17,11 @@ const boxOverlaps = (a: number[], b: number[]) =>
 // PDF.js 6 DrawOPS is a compact path stream, separate from its page OPS enum.
 // A stroke paints the edges, not the full bounding box of a compound table grid.
 // Keep unknown/curved paths conservative; do not infer an empty interior for them.
-function straightPathOverlaps(
+function decodeStraightPaths(
   encoded: unknown,
   matrix: number[],
-  halfWidth: number,
-  lineJoin: number,
-  miterLimit: number,
-  textBoxes: number[][],
   closeLast: boolean,
-  fillOnly: boolean,
-): boolean | undefined {
+) {
   if (!Array.isArray(encoded) || encoded.length !== 1) return undefined;
   const data = encoded[0];
   if (!Array.isArray(data) && !ArrayBuffer.isView(data)) return undefined;
@@ -73,6 +70,56 @@ function straightPathOverlaps(
       localPoints.pop();
     }
   }
+  return paths;
+}
+function filledRectangles(
+  encoded: unknown,
+  matrix: number[],
+): number[][] | null {
+  const paths = decodeStraightPaths(encoded, matrix, false);
+  if (!paths) return null;
+  const boxes: number[][] = [];
+  for (const { points } of paths) {
+    if (
+      points.length !== 4 ||
+      new Set(points.map((p) => p.join(':'))).size !== 4
+    )
+      return null;
+    if (
+      points.some((p, i) => {
+        const next = points[(i + 1) % 4];
+        return p[0] !== next[0] && p[1] !== next[1];
+      })
+    )
+      return null;
+    const box = [
+      Math.min(...points.map((p) => p[0])),
+      Math.min(...points.map((p) => p[1])),
+      Math.max(...points.map((p) => p[0])),
+      Math.max(...points.map((p) => p[1])),
+    ];
+    if (
+      box[0] === box[2] ||
+      box[1] === box[3] ||
+      boxes.some((b) => boxOverlaps(b, box))
+    )
+      return null;
+    boxes.push(box);
+  }
+  return boxes;
+}
+function straightPathOverlaps(
+  encoded: unknown,
+  matrix: number[],
+  halfWidth: number,
+  lineJoin: number,
+  miterLimit: number,
+  textBoxes: number[][],
+  closeLast: boolean,
+  fillOnly: boolean,
+): boolean | undefined {
+  const paths = decodeStraightPaths(encoded, matrix, closeLast);
+  if (!paths) return undefined;
   if (fillOnly) {
     // A fill can contain several disconnected subpaths, e.g. thin rectangles
     // used as table rules. Bound each filled component, retaining a conservative
@@ -173,7 +220,13 @@ export function checkPdfOperators(
   args: unknown[][],
   _area: number,
   textBoxes: number[][] = [],
+  textRuns?: string[],
 ) {
+  const paints = textRuns
+    ? bindTextPaints(ops, fn, args, textRuns, textBoxes)
+    : null;
+  const paintedBoxes: number[][] = [];
+  const backgrounds: PdfBackground[] = [];
   let state = {
     mode: 0,
     fillColor: '#000000',
@@ -303,18 +356,25 @@ export function checkPdfOperators(
         throw new Error(
           'PDF يحتوي شفافية أو قناع عرض يؤثر في النص؛ لا يمكن إثبات ظهوره، اطلب Excel',
         );
-      const visibleFill =
-        fill && state.fillColor && state.fillColor !== '#ffffff';
+      const currentBoxes = paints?.get(i) ?? textBoxes;
+      const visible = (color: string) =>
+        paints
+          ? currentBoxes.every((box) =>
+              visibleOnBackground(color, box, backgrounds),
+            )
+          : color !== '#ffffff';
+      const visibleFill = fill && state.fillColor && visible(state.fillColor);
       const visibleStroke =
-        stroke && state.strokeColor && state.strokeColor !== '#ffffff';
+        stroke && state.strokeColor && visible(state.strokeColor);
       if (
         (!visibleFill && !visibleStroke) ||
         (fill && !state.fillColor) ||
         (stroke && !state.strokeColor)
       )
         throw new Error(
-          'PDF يحتوي نصًا أبيض أو لون عرض غير قابل للتحقق؛ اطلب نسخة نصية بسيطة أو Excel',
+          'PDF يحتوي نصًا أبيض أو ضعيف التباين لا يمكن إثبات ظهوره على الخلفية؛ اطلب نسخة نصية بسيطة أو Excel',
         );
+      paintedBoxes.push(...currentBoxes);
     } else if (
       [
         ops.constructPath,
@@ -338,6 +398,7 @@ export function checkPdfOperators(
       const fillOnly = kind === ops.fill || kind === ops.eoFill;
       // A plain white background painted before text cannot cover later glyphs.
       if (
+        !paints &&
         !seenText &&
         fillOnly &&
         state.fillColor === '#ffffff' &&
@@ -390,6 +451,28 @@ export function checkPdfOperators(
         throw new Error(
           'إعدادات حدود رسم PDF غير صالحة؛ اطلب نسخة نصية بسيطة أو Excel',
         );
+      const rectangles =
+        paints &&
+        fillOnly &&
+        state.fillColor &&
+        state.fillAlpha === 1 &&
+        !state.masked &&
+        !state.blended &&
+        !state.transferred &&
+        !state.clipped
+          ? filledRectangles(a[1], state.matrix)
+          : null;
+      if (rectangles) {
+        if (
+          rectangles.some((box) =>
+            paintedBoxes.some((text) => boxOverlaps(box, text)),
+          )
+        )
+          throw new Error('رسم PDF لاحق يغطي نصًا مرسومًا؛ لا يمكن اعتماد القراءة');
+        for (const box of rectangles)
+          backgrounds.push({ box, color: state.fillColor });
+        continue;
+      }
       const strokeOnly = kind === ops.stroke || kind === ops.closeStroke;
       if (
         (strokeOnly || fillOnly) &&
@@ -591,6 +674,7 @@ export async function readPdf(buffer: ArrayBuffer, cuts: number[] = []) {
           t.x + page.view[0] + t.width,
           t.y + t.height,
         ]),
+        tokens.map((token) => token.text),
       );
       for (const line of layoutPdfPage(
         tokens,

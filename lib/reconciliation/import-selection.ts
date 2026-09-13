@@ -1,5 +1,6 @@
 import { inferMapping } from './core.ts';
 import { defaultMapping } from './types.ts';
+import { assertSourceFile } from './protocol.ts';
 import type { Mapping, SheetData, SourceFile } from './types.ts';
 
 export type ImportSelection = {
@@ -61,6 +62,7 @@ export function selectImportMapping(
   file: SourceFile,
   side: 'supplier' | 'ledger',
 ): ImportSelection {
+  assertSourceFile(file);
   const sources = workpaperSources(file);
   if (sources) {
     const sheet = sources[side === 'supplier' ? 0 : 1];
