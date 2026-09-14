@@ -665,7 +665,7 @@ try {
       name: 'synthetic-ambiguous.csv',
       mimeType: 'text/csv',
       buffer: Buffer.from(
-        'date,reference,amount,currency\n03/04/2026,Q-AMB,1.234,KWD',
+        'date,reference,amount,currency\n03/04/2026,Q-AMB-0001,1.234,KWD',
       ),
     });
     await ambiguityPage.waitForFunction(
