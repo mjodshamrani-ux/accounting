@@ -567,14 +567,12 @@ try {
   ]);
   const quickBytes = Buffer.from(await quickBook.xlsx.writeBuffer());
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
-    await quickPage
-      .getByLabel(label, { exact: true })
-      .setInputFiles({
-        name: 'synthetic-prefill.xlsx',
-        mimeType:
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        buffer: quickBytes,
-      });
+    await quickPage.getByLabel(label, { exact: true }).setInputFiles({
+      name: 'synthetic-prefill.xlsx',
+      mimeType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      buffer: quickBytes,
+    });
     await quickPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
     );
@@ -663,15 +661,13 @@ try {
   );
   await context.setOffline(true);
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
-    await ambiguityPage
-      .getByLabel(label, { exact: true })
-      .setInputFiles({
-        name: 'synthetic-ambiguous.csv',
-        mimeType: 'text/csv',
-        buffer: Buffer.from(
-          'date,reference,amount,currency\n03/04/2026,Q-AMB,1.234,KWD',
-        ),
-      });
+    await ambiguityPage.getByLabel(label, { exact: true }).setInputFiles({
+      name: 'synthetic-ambiguous.csv',
+      mimeType: 'text/csv',
+      buffer: Buffer.from(
+        'date,reference,amount,currency\n03/04/2026,Q-AMB,1.234,KWD',
+      ),
+    });
     await ambiguityPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
     );
@@ -732,6 +728,57 @@ try {
     await ambiguityPage.locator('.metric').nth(0).locator('strong').innerText(),
     '1',
   );
+  await context.setOffline(false);
+  const precisionPage = await context.newPage();
+  await precisionPage.goto(`${origin}/mizan-test/`);
+  await precisionPage.waitForFunction(
+    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+  );
+  await context.setOffline(true);
+  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+    await precisionPage
+      .getByLabel(label, { exact: true })
+      .setInputFiles({
+        name: 'synthetic-precision.csv',
+        mimeType: 'text/csv',
+        buffer: Buffer.from(
+          'date,reference,amount,currency\n2026-06-01,Q-PREC,100,ZZZ',
+        ),
+      });
+    await precisionPage.waitForFunction(
+      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    );
+  }
+  await precisionPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  await precisionPage
+    .getByLabel('تاريخ القطع', { exact: true })
+    .fill('2026-06-30');
+  await precisionPage
+    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
+    .check();
+  assert.equal(
+    await precisionPage
+      .getByRole('button', { name: 'تحقق وقارن', exact: true })
+      .isDisabled(),
+    true,
+  );
+  await precisionPage
+    .getByRole('combobox', { name: 'دقة العملة', exact: true })
+    .click();
+  await precisionPage
+    .getByRole('option', { name: 'منزلتان — مثل SAR', exact: true })
+    .click();
+  await precisionPage
+    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
+    .check();
+  assert.equal(
+    await precisionPage
+      .getByRole('button', { name: 'تحقق وقارن', exact: true })
+      .isEnabled(),
+    true,
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -758,6 +805,7 @@ try {
           'covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline',
           'clear files show only two input fields; explicit metadata and unambiguous formats filled and numeric export verified',
           'both ambiguous date and 3-decimal amount formats require independent choices',
+          'unknown currency precision requires an explicit choice including the existing two-decimal value',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

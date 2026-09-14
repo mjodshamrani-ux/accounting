@@ -1185,9 +1185,14 @@ export default function App() {
                   </Field>
                   <Choice
                     label="دقة العملة"
-                    value={String(scope.decimals)}
-                    onChange={(v) => updateScope({ decimals: Number(v) })}
+                    value={precisionMissing ? '' : String(scope.decimals)}
+                    onChange={(v) => {
+                      if (v) updateScope({ decimals: Number(v) });
+                    }}
                     options={[
+                      ...(precisionMissing
+                        ? ([['', 'اختر دقة العملة']] as [string, string][])
+                        : []),
                       ['0', 'دون منازل عشرية'],
                       ['2', 'منزلتان — مثل SAR'],
                       ['3', 'ثلاث منازل — مثل KWD'],
