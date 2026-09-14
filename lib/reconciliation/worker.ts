@@ -15,7 +15,12 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'restore-session')
       value = await restoreSession(payload.buffer);
     else if (action === 'read')
-      value = await readFile(payload.name, payload.buffer, payload.pdfCuts);
+      value = await readFile(
+        payload.name,
+        payload.buffer,
+        payload.pdfCuts,
+        payload.autoPdfColumns === true,
+      );
     else if (action === 'reconcile') {
       const a = normalizeSource(
         payload.files[0],

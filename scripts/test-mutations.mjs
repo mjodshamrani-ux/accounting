@@ -78,7 +78,9 @@ const mutations = [
   {
     name: 'allow-unconfirmed-coverage',
     file: 'lib/reconciliation/core.ts',
-    changes: [['scope.coverageConfirmed &&', 'true &&']],
+    changes: [
+      ['hasData &&\n    scope.coverageConfirmed &&', 'hasData &&\n    true &&'],
+    ],
   },
   {
     name: 'promote-ai-hypothesis',

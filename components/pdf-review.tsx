@@ -7,8 +7,10 @@ export function PdfReview({
   file,
   onApply,
   onInvalidate,
+  header,
 }: {
   file: SourceFile;
+  header: number;
   onApply: (cuts: number[]) => void;
   onInvalidate: () => void;
 }) {
@@ -40,34 +42,45 @@ export function PdfReview({
       <a href={url} target="_blank" rel="noopener noreferrer">
         فتح PDF الأصلي محليًا للمراجعة
       </a>
-      <label>
-        حدود الأعمدة من يسار الصفحة، كنسب مئوية
-        <Input
-          aria-label="حدود أعمدة PDF"
-          dir="ltr"
-          placeholder="20, 45, 75"
-          value={cuts}
-          onChange={(e) => {
-            setCuts(e.target.value);
-            onInvalidate();
-          }}
-        />
-      </label>
-      <p className="muted">
-        مثلًا 20, 45, 75 تقسم عرض الصفحة إلى أربعة أعمدة. ضع الحدود في الفراغات
-        بين أعمدة الكشف، ثم افحص الجدول أدناه. النص الذي يعبر حدًا يُعلّم كخطأ
-        للمراجعة.
-      </p>
-      <Button
-        variant="outline"
-        onClick={() =>
-          onApply(
-            cuts.trim() ? cuts.split(/[,،]/).map((x) => Number(x.trim())) : [],
-          )
-        }
-      >
-        تطبيق حدود الأعمدة وإعادة القراءة
-      </Button>
+      {file.pdf?.autoColumns && (
+        <p className="notice" role="status">
+          اقتُرحت أعمدة الجدول من عناوينه والفراغات بين خلاياه. راجع الصفوف أدناه؛
+          الاقتراح لا يعتمد القراءة أو المطابقات.
+        </p>
+      )}
+      <details open={!file.pdf?.autoColumns ? true : undefined}>
+        <summary>تعديل حدود أعمدة PDF</summary>
+        <label>
+          حدود الأعمدة من يسار الصفحة، كنسب مئوية
+          <Input
+            aria-label="حدود أعمدة PDF"
+            dir="ltr"
+            placeholder="20, 45, 75"
+            value={cuts}
+            onChange={(e) => {
+              setCuts(e.target.value);
+              onInvalidate();
+            }}
+          />
+        </label>
+        <p className="muted">
+          مثلًا 20, 45, 75 تقسم عرض الصفحة إلى أربعة أعمدة. ضع الحدود في الفراغات
+          بين أعمدة الكشف، ثم افحص الجدول أدناه. النص الذي يعبر حدًا يُعلّم كخطأ
+          للمراجعة.
+        </p>
+        <Button
+          variant="outline"
+          onClick={() =>
+            onApply(
+              cuts.trim()
+                ? cuts.split(/[,،]/).map((x) => Number(x.trim()))
+                : [],
+            )
+          }
+        >
+          تطبيق حدود الأعمدة وإعادة القراءة
+        </Button>
+      </details>
       <div className="actions">
         <Button
           variant="outline"
@@ -87,7 +100,7 @@ export function PdfReview({
           صفحة PDF التالية
         </Button>
       </div>
-      <div className="preview" style={{ maxHeight: 420, overflow: 'auto' }}>
+      <div className="preview" style={{ maxHeight: 300, overflow: 'auto' }}>
         <table>
           <thead>
             <tr>
@@ -108,8 +121,12 @@ export function PdfReview({
                   </td>
                 ))}
                 <td>
-                  {sheet.rowIssues?.[String(rn)]?.join('؛ ') ??
-                    'يحتاج مراجعتك مع الأصل'}
+                  {rn < header + 1
+                    ? 'معلومات قبل جدول الحركات'
+                    : rn === header + 1
+                      ? 'صف العناوين المختار'
+                      : (sheet.rowIssues?.[String(rn)]?.join('؛ ') ??
+                        'يحتاج مراجعتك مع الأصل')}
                 </td>
               </tr>
             ))}

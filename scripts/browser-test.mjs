@@ -76,8 +76,9 @@ try {
   // Everything after initial preload must work without a network connection, including first comparison and export.
   await context.setOffline(true);
   await page.getByRole('button', { name: 'تجربة مثال', exact: true }).click();
-  await page.getByRole('checkbox').nth(0).check();
-  await page.getByRole('checkbox').nth(1).check();
+  await page.getByRole('checkbox', { name: /إضافة تسوية الأرصدة/ }).check();
+  await page.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
+  await page.getByRole('checkbox', { name: /أؤكد اكتمال تغطية/ }).check();
   await page.getByRole('button', { name: 'تحقق وقارن', exact: true }).click();
   await page
     .getByRole('heading', { name: 'مساحة المراجعة' })
@@ -148,7 +149,10 @@ try {
     0,
   );
   await page.getByLabel('المورد', { exact: true }).fill('اسم معدل');
-  assert.equal(await page.getByRole('checkbox').nth(0).isChecked(), false);
+  assert.equal(
+    await page.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).isChecked(),
+    false,
+  );
   assert.equal(
     await page
       .getByRole('button', { name: 'تحقق وقارن', exact: true })
@@ -184,15 +188,11 @@ try {
   await uploadPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  await uploadPage.getByLabel('المورد', { exact: true }).fill('اختبار');
-  await uploadPage
-    .getByLabel('الجهة القانونية', { exact: true })
-    .fill('اختبار');
-  await uploadPage.getByLabel('نطاق الحساب', { exact: true }).fill('اختبار');
+  await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-08-31');
-  await uploadPage.getByRole('checkbox').nth(0).check();
+  await uploadPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
   await uploadPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -271,8 +271,7 @@ try {
   await uploadPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  for (const label of ['المورد', 'الجهة القانونية', 'نطاق الحساب'])
-    await uploadPage.getByLabel(label, { exact: true }).fill('Synthetic');
+  await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-08-31');
@@ -319,17 +318,11 @@ try {
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
   assert.match(
-    await workpaperPage
-      .getByRole('combobox', { name: 'ورقة العمل', exact: true })
-      .nth(0)
-      .innerText(),
+    await workpaperPage.locator('.reading-summary').nth(0).innerText(),
     /Supplier source/,
   );
   assert.match(
-    await workpaperPage
-      .getByRole('combobox', { name: 'ورقة العمل', exact: true })
-      .nth(1)
-      .innerText(),
+    await workpaperPage.locator('.reading-summary').nth(1).innerText(),
     /Ledger source/,
   );
   assert.equal(
@@ -354,8 +347,7 @@ try {
       .inputValue(),
     '2',
   );
-  for (const label of ['المورد', 'الجهة القانونية', 'نطاق الحساب'])
-    await workpaperPage.getByLabel(label, { exact: true }).fill('Synthetic');
+  await workpaperPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await workpaperPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-08-31');
@@ -417,6 +409,7 @@ try {
   await pdfPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
+  await pdfPage.getByText('تعديل حدود أعمدة PDF', { exact: true }).click();
   await pdfPage.getByLabel('حدود أعمدة PDF', { exact: true }).fill('25,45,65');
   await pdfPage
     .getByRole('button', {
@@ -427,8 +420,7 @@ try {
   await pdfPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
   );
-  for (const label of ['المورد', 'الجهة القانونية', 'نطاق الحساب'])
-    await pdfPage.getByLabel(label, { exact: true }).fill('Synthetic');
+  await pdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await pdfPage.getByLabel('تاريخ القطع', { exact: true }).fill('2026-08-31');
   await pdfPage.getByRole('checkbox', { name: /راجعت جميع صفحات PDF/ }).check();
   await pdfPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
@@ -507,6 +499,7 @@ try {
   await recoveryPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
+  await recoveryPage.getByText('تعديل حدود أعمدة PDF', { exact: true }).click();
   await recoveryPage
     .getByLabel('حدود أعمدة PDF', { exact: true })
     .fill('25,45');
@@ -519,8 +512,7 @@ try {
   await recoveryPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
   );
-  for (const label of ['المورد', 'الجهة القانونية', 'نطاق الحساب'])
-    await recoveryPage.getByLabel(label, { exact: true }).fill('Synthetic');
+  await recoveryPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await recoveryPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-07-31');
@@ -555,6 +547,191 @@ try {
     ),
     [1250, -150],
   );
+  // Metadata + strict format prefill: no names, currency or cutoff are typed.
+  await context.setOffline(false);
+  const quickPage = await context.newPage();
+  await quickPage.goto(`${origin}/mizan-test/`);
+  await quickPage.waitForFunction(
+    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+  );
+  await context.setOffline(true);
+  const quickBook = new ExcelJS.Workbook();
+  quickBook.addWorksheet('Statement').addRows([
+    ['Supplier', 'Synthetic Vendor'],
+    ['Customer', 'Synthetic Entity'],
+    ['Customer Account', 'SYN-7'],
+    ['Period', '2026-06-01 to 2026-06-30'],
+    ['date', 'reference', 'amount', 'currency'],
+    ['14/06/2026', 'Q-1', 123.45, 'SAR'],
+    ['15/06/2026', 'Q-2', -20, 'SAR'],
+  ]);
+  const quickBytes = Buffer.from(await quickBook.xlsx.writeBuffer());
+  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+    await quickPage
+      .getByLabel(label, { exact: true })
+      .setInputFiles({
+        name: 'synthetic-prefill.xlsx',
+        mimeType:
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        buffer: quickBytes,
+      });
+    await quickPage.waitForFunction(
+      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    );
+  }
+  await quickPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  assert.equal(
+    await quickPage.getByLabel('تاريخ القطع', { exact: true }).inputValue(),
+    '2026-06-30',
+  );
+  assert.equal(
+    await quickPage.getByLabel('العملة', { exact: true }).inputValue(),
+    'SAR',
+  );
+  assert.equal(
+    await quickPage.getByLabel('المورد', { exact: true }).inputValue(),
+    'Synthetic Vendor',
+  );
+  assert.equal(
+    await quickPage.getByLabel('الجهة القانونية', { exact: true }).inputValue(),
+    'Synthetic Entity',
+  );
+  assert.equal(
+    await quickPage.getByLabel('المورد', { exact: true }).isVisible(),
+    false,
+  );
+  assert.equal(
+    await quickPage.locator('input:visible').count(),
+    2,
+    'only cutoff and currency inputs are initially visible for clear files',
+  );
+  assert.equal(
+    await quickPage
+      .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
+      .isChecked(),
+    false,
+  );
+  assert.ok(
+    (await quickPage.locator('.reading-summary').first().innerText()).includes(
+      'يوم / شهر / سنة',
+    ),
+  );
+  await quickPage.screenshot({
+    path: 'work/qa/quick-confirmation.png',
+    fullPage: true,
+  });
+  await quickPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
+  await quickPage
+    .getByRole('button', { name: 'تحقق وقارن', exact: true })
+    .click();
+  await quickPage
+    .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
+    .waitFor();
+  assert.equal(
+    await quickPage.locator('.metric').nth(0).locator('strong').innerText(),
+    '2',
+  );
+  await quickPage
+    .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+    .click();
+  const quickDownload = quickPage.waitForEvent('download');
+  await quickPage
+    .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+    .click();
+  const quickExport = new ExcelJS.Workbook();
+  await quickExport.xlsx.readFile(await (await quickDownload).path());
+  assert.deepEqual(
+    [2, 3].map(
+      (row) =>
+        quickExport.getWorksheet('Supplier transactions').getCell(`H${row}`)
+          .value,
+    ),
+    [123.45, -20],
+  );
+  assert.equal(
+    quickExport.getWorksheet('Supplier transactions').getCell('D2').value,
+    '2026-06-14',
+  );
+  // Two independent ambiguous formats must both remain unresolved until chosen.
+  await context.setOffline(false);
+  const ambiguityPage = await context.newPage();
+  await ambiguityPage.goto(`${origin}/mizan-test/`);
+  await ambiguityPage.waitForFunction(
+    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+  );
+  await context.setOffline(true);
+  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+    await ambiguityPage
+      .getByLabel(label, { exact: true })
+      .setInputFiles({
+        name: 'synthetic-ambiguous.csv',
+        mimeType: 'text/csv',
+        buffer: Buffer.from(
+          'date,reference,amount,currency\n03/04/2026,Q-AMB,1.234,KWD',
+        ),
+      });
+    await ambiguityPage.waitForFunction(
+      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    );
+  }
+  await ambiguityPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  await ambiguityPage
+    .getByLabel('تاريخ القطع', { exact: true })
+    .fill('2026-12-31');
+  assert.equal(
+    await ambiguityPage.getByLabel('العملة', { exact: true }).inputValue(),
+    'KWD',
+  );
+  await ambiguityPage
+    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
+    .check();
+  assert.equal(
+    await ambiguityPage
+      .getByRole('button', { name: 'تحقق وقارن', exact: true })
+      .isDisabled(),
+    true,
+  );
+  for (const side of [0, 1]) {
+    await ambiguityPage
+      .getByRole('combobox', { name: `حسم صيغة التاريخ ${side}`, exact: true })
+      .click();
+    await ambiguityPage
+      .getByRole('option', { name: 'يوم / شهر / سنة', exact: true })
+      .click();
+    await ambiguityPage
+      .getByRole('combobox', { name: `حسم صيغة المبالغ ${side}`, exact: true })
+      .click();
+    await ambiguityPage
+      .getByRole('option', { name: '1,234.56', exact: true })
+      .click();
+    assert.ok(
+      (
+        await ambiguityPage
+          .getByRole('combobox', {
+            name: `حسم صيغة التاريخ ${side}`,
+            exact: true,
+          })
+          .innerText()
+      ).includes('يوم / شهر / سنة'),
+    );
+  }
+  await ambiguityPage
+    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
+    .check();
+  await ambiguityPage
+    .getByRole('button', { name: 'تحقق وقارن', exact: true })
+    .click();
+  await ambiguityPage
+    .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
+    .waitFor();
+  assert.equal(
+    await ambiguityPage.locator('.metric').nth(0).locator('strong').innerText(),
+    '1',
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -579,6 +756,8 @@ try {
           '18-sheet workpaper reimport chooses original sources without restoring approvals',
           'bordered PDF upload, review, comparison and Excel export offline',
           'covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline',
+          'clear files show only two input fields; explicit metadata and unambiguous formats filled and numeric export verified',
+          'both ambiguous date and 3-decimal amount formats require independent choices',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

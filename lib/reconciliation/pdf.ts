@@ -2,6 +2,7 @@ import { getResolvedPDFJS } from 'unpdf';
 import type { SheetData } from './types.ts';
 import { bindTextPaints, visibleOnBackground } from './pdf-paint-order.ts';
 import type { PdfBackground } from './pdf-paint-order.ts';
+import { suggestPdfColumns } from './pdf-column-suggestions.ts';
 
 export type PdfToken = {
   text: string;
@@ -592,7 +593,11 @@ export function layoutPdfPage(
     return { row, issues: [...new Set(issues)] };
   });
 }
-export async function readPdf(buffer: ArrayBuffer, cuts: number[] = []) {
+export async function readPdf(
+  buffer: ArrayBuffer,
+  cuts: number[] = [],
+  autoColumns = false,
+) {
   validateCuts(cuts);
   if (new TextDecoder().decode(buffer.slice(0, 5)) !== '%PDF-')
     throw new Error('محتوى الملف ليس PDF صالحًا');
@@ -624,6 +629,7 @@ export async function readPdf(buffer: ArrayBuffer, cuts: number[] = []) {
       rowIssues: {},
       rowPages: {},
     };
+    const pages: { width: number; tokens: PdfToken[] }[] = [];
     let count = 0,
       chars = 0;
     for (let pageNo = 1; pageNo <= doc.numPages; pageNo++) {
@@ -676,20 +682,33 @@ export async function readPdf(buffer: ArrayBuffer, cuts: number[] = []) {
         ]),
         tokens.map((token) => token.text),
       );
+      pages.push({ tokens, width: page.view[2] - page.view[0] });
+      page.cleanup();
+    }
+    const suggested =
+      autoColumns && !cuts.length ? suggestPdfColumns(pages) : null;
+    const effectiveCuts = suggested ?? cuts;
+    for (const [index, page] of pages.entries()) {
       for (const line of layoutPdfPage(
-        tokens,
-        cuts,
-        page.view[2] - page.view[0],
+        page.tokens,
+        effectiveCuts,
+        page.width,
       )) {
         sheet.rows.push(line.row);
         const rn = String(sheet.rows.length);
-        sheet.rowPages![rn] = pageNo;
+        sheet.rowPages![rn] = index + 1;
         if (line.issues.length) sheet.rowIssues![rn] = line.issues;
         if (sheet.rows.length > 20000) throw new Error('الحد 20,000 صف مستخرج');
       }
-      page.cleanup();
     }
-    return { sheets: [sheet], pdf: { cuts: [...cuts], pages: doc.numPages } };
+    return {
+      sheets: [sheet],
+      pdf: {
+        cuts: [...effectiveCuts],
+        pages: doc.numPages,
+        ...(suggested ? { autoColumns: true } : {}),
+      },
+    };
   } finally {
     await loading.destroy();
   }

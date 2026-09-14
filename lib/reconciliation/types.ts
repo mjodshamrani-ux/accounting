@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.3-experimental';
+export const ENGINE_VERSION = '0.3.4-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -20,7 +20,7 @@ export type SourceFile = {
   sheets: SheetData[];
   original?: ArrayBuffer;
   sha256?: string;
-  pdf?: { cuts: number[]; pages: number };
+  pdf?: { cuts: number[]; pages: number; autoColumns?: boolean };
 };
 export type ReportType = 'transactions' | 'open-items';
 export type Mapping = {

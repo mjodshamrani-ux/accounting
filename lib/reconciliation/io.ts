@@ -243,6 +243,7 @@ export async function readFile(
   name: string,
   buffer: ArrayBuffer,
   pdfCuts?: number[],
+  autoPdfColumns = false,
 ): Promise<SourceFile> {
   if (buffer.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
@@ -267,7 +268,7 @@ export async function readFile(
     };
   }
   if (/\.pdf$/i.test(name)) {
-    const extracted = await readPdf(buffer, pdfCuts);
+    const extracted = await readPdf(buffer, pdfCuts, autoPdfColumns);
     for (const s of extracted.sheets)
       for (const row of s.rows)
         for (const cell of row) {

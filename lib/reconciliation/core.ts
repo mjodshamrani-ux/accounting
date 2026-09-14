@@ -497,11 +497,13 @@ export function compare(
   validateScope(scope);
   if (
     !scope.confirmed ||
-    ![scope.supplier, scope.entity, scope.account, scope.currency].every((x) =>
-      x.trim(),
-    )
+    !scope.currency.trim() ||
+    (scope.coverageConfirmed &&
+      ![scope.supplier, scope.entity, scope.account].every((x) => x.trim()))
   )
-    throw new Error('أكد المورد والجهة والحساب والعملة أولًا');
+    throw new Error(
+      'أكد نطاق الملفين والعملة؛ أسماء المورد والجهة والحساب مطلوبة عند طلب تسوية الأرصدة',
+    );
   if (!/^[A-Z]{3}$/.test(scope.currency))
     throw new Error('استخدم رمز عملة من ثلاثة أحرف لاتينية');
   if (

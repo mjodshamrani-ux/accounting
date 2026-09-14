@@ -599,3 +599,25 @@ th {
     transition: none !important;
   }
 }
+
+.reading-summary {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f7faf9;
+  font-size: 14px;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.reading-summary p + p {
+  margin-top: 5px;
+}
+.surface details > summary {
+  cursor: pointer;
+  color: #264c47;
+  padding-block: 8px;
+  font-weight: 600;
+}
+.surface details > .form-grid {
+  margin-top: 12px;
+}
