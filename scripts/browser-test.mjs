@@ -562,8 +562,8 @@ try {
     ['Customer Account', 'SYN-7'],
     ['Period', '2026-06-01 to 2026-06-30'],
     ['date', 'reference', 'amount', 'currency'],
-    ['14/06/2026', 'Q-1', 123.45, 'SAR'],
-    ['15/06/2026', 'Q-2', -20, 'SAR'],
+    ['14/06/2026', 'Q-0001', 123.45, 'SAR'],
+    ['15/06/2026', 'Q-0002', -20, 'SAR'],
   ]);
   const quickBytes = Buffer.from(await quickBook.xlsx.writeBuffer());
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
