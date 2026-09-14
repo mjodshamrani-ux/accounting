@@ -601,9 +601,9 @@ try {
     false,
   );
   assert.equal(
-    await quickPage.locator('input:visible').count(),
+    await quickPage.locator('input:not([type=checkbox]):visible').count(),
     2,
-    'only cutoff and currency inputs are initially visible for clear files',
+    'only cutoff and currency entry fields are initially visible; attestations are separate',
   );
   assert.equal(
     await quickPage
@@ -736,15 +736,13 @@ try {
   );
   await context.setOffline(true);
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
-    await precisionPage
-      .getByLabel(label, { exact: true })
-      .setInputFiles({
-        name: 'synthetic-precision.csv',
-        mimeType: 'text/csv',
-        buffer: Buffer.from(
-          'date,reference,amount,currency\n2026-06-01,Q-PREC,100,ZZZ',
-        ),
-      });
+    await precisionPage.getByLabel(label, { exact: true }).setInputFiles({
+      name: 'synthetic-precision.csv',
+      mimeType: 'text/csv',
+      buffer: Buffer.from(
+        'date,reference,amount,currency\n2026-06-01,Q-PREC,100,ZZZ',
+      ),
+    });
     await precisionPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
     );
