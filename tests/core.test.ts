@@ -162,15 +162,28 @@ test('cutoff exclusions retained and blank/header rows accounted for', () => {
     file.sheets[0].rows.length,
   );
 });
-test('formula rows and totals block matching, no silent skip', () => {
+test('a formula row blocks, a total row is classified, and no row is skipped silently', () => {
   const f = fixture([
     ['2026-08-01', 'INV-104', '100'],
     ['', 'Total', '100'],
   ]);
   f.sheets[0].formulaRows = [2];
   const r = normalizeSource(f, mapping, scope, 'supplier');
-  assert.equal(r.errors.length, 2);
+  // Row 2 carries a formula, so its value is not trusted.
+  assert.deepEqual(
+    r.errors.map((e) => e.row),
+    [2],
+  );
   assert.equal(r.transactions.length, 0);
+  // Row 3 is the statement's own total: excluded with a recorded reason and its
+  // original cells retained, never dropped without a trace.
+  const total = r.excluded.find((e) => e.row === 3)!;
+  assert.match(total.reason, /استُبعد تلقائيًا/);
+  assert.deepEqual(total.values, ['', 'Total', '100']);
+  assert.equal(
+    r.transactions.length + r.excluded.length + r.errors.length,
+    f.sheets[0].rows.length,
+  );
 });
 test('manual exclusions require reason and preserve source contents', () => {
   const f = fixture([

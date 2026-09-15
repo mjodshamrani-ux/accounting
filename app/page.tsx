@@ -21,6 +21,7 @@ import {
   CircleHelp,
   X,
   FileCheck2,
+  Pencil,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -75,7 +76,10 @@ import { inferMapping, money } from '@/lib/reconciliation/core';
 import { suggestFormats } from '@/lib/reconciliation/format-inference';
 import { currencyPrecision } from '@/lib/reconciliation/currency-precision';
 import type { FormatSuggestions } from '@/lib/reconciliation/format-inference';
-import { inferScopeSuggestions } from '@/lib/reconciliation/scope-inference';
+import {
+  inferScopeSuggestions,
+  latestSourceDate,
+} from '@/lib/reconciliation/scope-inference';
 import type { ScopeSuggestionField } from '@/lib/reconciliation/scope-inference';
 import {
   getMappedImportIssues,
@@ -264,6 +268,10 @@ export default function App() {
       ),
     [files, mappings, scope.decimals],
   );
+  const latestDate = useMemo(
+    () => latestSourceDate(files, mappings),
+    [files, mappings],
+  );
   useEffect(() => {
     setScope((previous) => {
       const next = { ...previous };
@@ -271,6 +279,9 @@ export default function App() {
         if (!scopeEdited.current[field])
           next[field] = scopeSuggestions.values[field] ?? initialScope[field];
       }
+      // Rows after the cut-off are excluded, so defaulting to the latest date in
+      // the sources excludes nothing and still lets the accountant narrow it.
+      if (!scopeEdited.current.cutoff && !next.cutoff) next.cutoff = latestDate;
       const changed = (Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
         (field) => previous[field] !== next[field],
       );
@@ -278,7 +289,7 @@ export default function App() {
         ? { ...next, confirmed: false, coverageConfirmed: false }
         : previous;
     });
-  }, [scopeSuggestions]);
+  }, [scopeSuggestions, latestDate]);
   useEffect(() => {
     setMappings((previous) => {
       let changed = false;
@@ -288,7 +299,7 @@ export default function App() {
           if (field === 'numberFormat' && !scope.currency) continue;
           const value = formatSuggestions[i]?.patch[field];
           if (value && !formatChoices[i][field] && value !== mapping[field]) {
-            Object.assign(updated, { [field]: value, pdfReviewed: false });
+            Object.assign(updated, { [field]: value });
             changed = true;
           }
         }
@@ -345,7 +356,52 @@ export default function App() {
       !scopeEdited.current[field],
   );
 
+  const [scopeOpen, setScopeOpen] = useState(false);
+  const scopeNeedsInput = !scope.cutoff || !scope.currency || precisionMissing;
+  const scopeConflict = unresolvedScope.length > 0;
+  const pdfReviewPending = files.some(
+    (file, i) => file?.pdf && mappings[i].pdfReviewed !== true,
+  );
+  // A disabled action must always be able to say what it is waiting for.
+  const columnsMissing = mappings.some(
+    (m, i) =>
+      files[i] &&
+      (m.date < 0 ||
+        (m.mode === 'signed' ? m.amount < 0 : m.debit < 0 || m.credit < 0)),
+  );
+  const blocked = !files.every(Boolean)
+    ? 'أضف الملفين أولًا.'
+    : mappings.some((m) => m.sheet < 0)
+      ? 'اختر ورقة جدول المصدر في بطاقة الملف أعلاه.'
+      : columnsMissing
+        ? 'حدد عمود التاريخ وعمود المبلغ في بطاقة الملف أعلاه.'
+        : !scope.cutoff
+          ? 'حدد تاريخ المقارنة من «تعديل» في بطاقة النطاق.'
+          : !scope.currency
+            ? 'حدد عملة الملفين من «تعديل» في بطاقة النطاق.'
+            : precisionMissing
+              ? 'حدد دقة العملة من «تعديل» في بطاقة النطاق.'
+              : unresolvedScope.length
+                ? 'اختر القيمة الصحيحة للحقول المتعارضة من «تعديل».'
+                : unresolvedFormats
+                  ? 'اختر تفسير التواريخ أو المبالغ الملتبسة في بطاقة الملف.'
+                  : pdfReviewPending
+                    ? 'أكد مراجعة استخراج PDF في بطاقة المصدر.'
+                    : balanceMode &&
+                        (!scope.coverageConfirmed ||
+                          !scope.supplier.trim() ||
+                          !scope.entity.trim() ||
+                          !scope.account.trim())
+                      ? 'تسوية الأرصدة تتطلب أسماء الأطراف وتأكيد التغطية.'
+                      : preparationPending
+                        ? 'جارٍ تحديث إعدادات القراءة…'
+                        : '';
   const [step, setStep] = useState(0);
+  // Open the panel when the confirmation step still needs a value, then leave it
+  // to the accountant: it must not snap shut as the last field is filled.
+  useEffect(() => {
+    if (step === 1 && (scopeNeedsInput || scopeConflict)) setScopeOpen(true);
+  }, [step, scopeNeedsInput, scopeConflict]);
   const [demo, setDemo] = useState(false);
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
@@ -428,15 +484,7 @@ export default function App() {
     setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
     setMappings(
       (ms) =>
-        ms.map((m, j) =>
-          j === i
-            ? {
-                ...m,
-                ...p,
-                ...('pdfReviewed' in p ? {} : { pdfReviewed: false }),
-              }
-            : m,
-        ) as [Mapping, Mapping],
+        ms.map((m, j) => (j === i ? { ...m, ...p } : m)) as [Mapping, Mapping],
     );
   }
   function updateFormat(
@@ -594,10 +642,14 @@ export default function App() {
         throw new Error(
           'راجع معلومات النطاق المتعارضة واختر القيم الصحيحة أولًا',
         );
+      // Pressing compare is the confirmation itself: it is an explicit act on the
+      // settings shown above, and any later edit clears it again through
+      // updateScope/updateMapping. No separate attestation box repeats it.
+      const confirmed: Scope = { ...scope, confirmed: true };
       const payload = {
         files,
         mappings,
-        scope,
+        scope: confirmed,
         decisions: nextDecisions,
         rejected: nextRejected,
       };
@@ -614,6 +666,7 @@ export default function App() {
       }
       const r = computed.result;
       if (!alive()) return;
+      setScope(confirmed);
       setResult(r);
       setAuditEvents((events) => [
         ...events,
@@ -622,7 +675,7 @@ export default function App() {
           ...(event ?? {
             action: 'compare' as const,
             ids: [],
-            note: 'إعادة الحساب من المدخلات المؤكدة',
+            note: `تأكيد الإعدادات وتشغيل المقارنة: حتى ${confirmed.cutoff}، ${confirmed.currency}، نافذة ${confirmed.dateWindow} يوم`,
           }),
         },
       ]);
@@ -724,6 +777,17 @@ export default function App() {
       );
     });
   }
+  const skippedRows = result
+    ? result.supplier.errors.length + result.ledger.errors.length
+    : 0;
+  // Every diagnostic stays in the export. On screen, drop the balance notes when
+  // balances were never requested: repeating them three times was noise.
+  const onScreenDiagnostics = (result?.diagnostics ?? []).filter(
+    (d) =>
+      !d.transactionIds.length &&
+      d.code !== 'SKIPPED_ROWS' &&
+      (d.code !== 'BALANCE_UNVERIFIED' || result!.scope.coverageConfirmed),
+  );
   const matchedBySupplier = useMemo(
     () => new Map(result?.matches.map((m) => [m.supplierId, m]) ?? []),
     [result],
@@ -882,7 +946,7 @@ export default function App() {
               {step === 0
                 ? 'ملفّان. صورة أوضح.'
                 : step === 1
-                  ? 'نتأكد أولًا، ثم نطابق.'
+                  ? 'راجع الملخص، ثم قارن.'
                   : step === 2
                     ? 'الفروق أمامك. القرار لك.'
                     : 'ورقة عمل تحكي التفاصيل.'}
@@ -891,7 +955,7 @@ export default function App() {
               {step === 0
                 ? 'قارن كشف المورد بدفترك، راجع الفروق، واحتفظ بورقة عمل واضحة.'
                 : step === 1
-                  ? 'أكد معنى الأعمدة والنطاق؛ لا نفترض اكتمال البيانات من شكل الملف.'
+                  ? 'قُرئ ما يمكن قراءته من الملفين. عدّل ما تريد تعديله فقط.'
                   : step === 2
                     ? 'افحص الأدلة والمبالغ ومصادر الحركات قبل اعتماد أي ربط.'
                     : 'تصدير موثق للمصادر والقواعد والقرارات والاستثناءات المفتوحة.'}
@@ -1074,199 +1138,222 @@ export default function App() {
             style={{ border: 0, padding: 0, minWidth: 0 }}
           >
             <section className="surface pad stack">
-              <div>
-                <h2>مراجعة سريعة قبل المقارنة</h2>
-                <p className="muted">
-                  عُبئت المعلومات الواضحة من الملفات. راجع الملخص وأكمل الناقص
-                  فقط؛ يمكنك تعديل أي اختيار.
-                </p>
-              </div>
-              <div className="form-grid">
-                <Field
-                  label="المقارنة حتى تاريخ"
-                  hint={
-                    scopeSuggestions.fields.cutoff.status === 'suggested'
-                      ? `من ${sideNames[scopeSuggestions.fields.cutoff.evidence[0].side === 'supplier' ? 0 : 1]}، صف ${scopeSuggestions.fields.cutoff.evidence[0].row}. لا نعتمد آخر حركة على أنه نهاية الكشف.`
-                      : 'حدد تاريخًا مشتركًا؛ لا يمكن استنتاج نهاية الفترة من آخر حركة وحدها.'
-                  }
+              <div className="summary-head">
+                <div>
+                  <h2>نطاق المقارنة</h2>
+                  <p className="summary-line">
+                    حتى{' '}
+                    {scope.cutoff ? (
+                      <strong>
+                        <bdi dir="ltr">{scope.cutoff}</bdi>
+                      </strong>
+                    ) : (
+                      <span className="gap">حدد التاريخ</span>
+                    )}{' '}
+                    ·{' '}
+                    {scope.currency ? (
+                      <strong>
+                        <bdi dir="ltr">{scope.currency}</bdi>
+                      </strong>
+                    ) : (
+                      <span className="gap">حدد العملة</span>
+                    )}{' '}
+                    · نافذة مطابقة {scope.dateWindow} يوم
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  onClick={() => setScopeOpen(!scopeOpen)}
+                  aria-expanded={scopeOpen}
+                  aria-label="تعديل نطاق المقارنة"
                 >
-                  <Input
-                    type="date"
-                    aria-label="تاريخ القطع"
-                    value={scope.cutoff}
-                    onChange={(e) => updateScope({ cutoff: e.target.value })}
-                  />
-                </Field>
-                <Field
-                  label="عملة الملفين"
-                  hint={
-                    scopeSuggestions.fields.currency.status === 'suggested'
-                      ? 'مستخرجة من عنوان صريح أو عمود العملة؛ راجعها.'
-                      : 'لم تثبت العملة من الملفين؛ أدخل رمزها مثل SAR.'
-                  }
-                >
-                  <Input
-                    aria-label="العملة"
-                    maxLength={3}
-                    dir="ltr"
-                    placeholder="SAR"
-                    value={scope.currency}
-                    onChange={(e) =>
-                      updateScope({ currency: e.target.value.toUpperCase() })
-                    }
-                  />
-                </Field>
+                  <Pencil size={14} />
+                  {scopeOpen ? 'إغلاق' : 'تعديل'}
+                </Button>
               </div>
-              <p className="muted">
-                دقة المبالغ:{' '}
-                {scope.decimals === 0
-                  ? 'دون منازل عشرية'
-                  : scope.decimals === 2
-                    ? 'منزلتان عشريتان'
-                    : 'ثلاث منازل عشرية'}{' '}
-                · نافذة المطابقة: {scope.dateWindow} يوم. يمكن تعديلهما في
-                الإعدادات أدناه.
-              </p>
-              {precisionMissing && (
-                <p className="notice">
-                  حدد دقة هذه العملة في الإعدادات أدناه؛ لم نفترض عدد المنازل
-                  العشرية.
+              {scopeNeedsInput && !scopeOpen && (
+                <p className="hint">
+                  {!scope.cutoff && !scope.currency
+                    ? 'لم نستنتج التاريخ ولا العملة من الملفين؛ أضفهما من «تعديل».'
+                    : !scope.cutoff
+                      ? 'لم نستنتج تاريخًا من الملفين؛ أضفه من «تعديل».'
+                      : !scope.currency
+                        ? 'لم نستنتج العملة من الملفين؛ أضفها من «تعديل».'
+                        : 'حدد دقة هذه العملة من «تعديل»؛ لم نفترض عدد المنازل العشرية.'}
                 </p>
               )}
-              {unresolvedScope.length > 0 && (
-                <div className="notice error" role="status">
-                  معلومات متعارضة تحتاج قرارك:{' '}
+              {scopeConflict && !scopeOpen && (
+                <p className="hint warn" role="status">
+                  قيمتان مختلفتان لـ
                   {unresolvedScope
                     .map((field) => scopeLabels[field])
-                    .join('، ')}
-                  . اختر القيمة الصحيحة بعد مراجعة المصدرين.
-                </div>
-              )}
-              <details
-                open={
-                  balanceMode ||
-                  precisionMissing ||
-                  unresolvedScope.some((field) =>
-                    ['supplier', 'entity', 'account'].includes(field),
-                  )
-                    ? true
-                    : undefined
-                }
-              >
-                <summary>
-                  بيانات ورقة العمل والإعدادات الإضافية
-                  {balanceMode
-                    ? ' — مطلوبة لتسوية الأرصدة'
-                    : ' — الأسماء اختيارية لمقارنة الحركات'}
-                </summary>
-                <div className="form-grid" style={{ marginTop: 16 }}>
-                  <Field label="المورد / الطرف المقابل">
-                    <Input
-                      aria-label="المورد"
-                      value={scope.supplier}
-                      onChange={(e) =>
-                        updateScope({ supplier: e.target.value })
-                      }
-                    />
-                  </Field>
-                  <Field label="الجهة القانونية">
-                    <Input
-                      aria-label="الجهة القانونية"
-                      value={scope.entity}
-                      onChange={(e) => updateScope({ entity: e.target.value })}
-                    />
-                  </Field>
-                  <Field label="الحساب / المواقع المشمولة">
-                    <Input
-                      aria-label="نطاق الحساب"
-                      value={scope.account}
-                      onChange={(e) => updateScope({ account: e.target.value })}
-                    />
-                  </Field>
-                  <Choice
-                    label="دقة العملة"
-                    value={precisionMissing ? '' : String(scope.decimals)}
-                    onChange={(v) => {
-                      if (v) updateScope({ decimals: Number(v) });
-                    }}
-                    options={[
-                      ...(precisionMissing
-                        ? ([['', 'اختر دقة العملة']] as [string, string][])
-                        : []),
-                      ['0', 'دون منازل عشرية'],
-                      ['2', 'منزلتان — مثل SAR'],
-                      ['3', 'ثلاث منازل — مثل KWD'],
-                    ]}
-                  />
-                  <Choice
-                    label="نافذة التاريخ للمطابقة الآلية"
-                    value={String(scope.dateWindow)}
-                    onChange={(v) => updateScope({ dateWindow: Number(v) })}
-                    options={Array.from(
-                      { length: 8 },
-                      (_, i) => [String(i), `${i} يوم`] as [string, string],
-                    )}
-                  />
-                </div>
-              </details>
-              {(Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
-                (field) => scopeSuggestions.fields[field].evidence.length,
-              ) && (
-                <details>
-                  <summary>مصادر البيانات المعبأة وملاحظات النطاق</summary>
-                  <div className="stack" style={{ marginTop: 12 }}>
-                    {(Object.keys(scopeLabels) as ScopeSuggestionField[]).map(
-                      (field) =>
-                        scopeSuggestions.fields[field].evidence.length > 0 && (
-                          <div key={field}>
-                            <strong>
-                              {scopeLabels[field]}
-                              {scopeSuggestions.fields[field].status ===
-                              'conflict'
-                                ? ' — تعارض'
-                                : ''}
-                            </strong>
-                            {scopeSuggestions.fields[field].evidence.map(
-                              (item, i) => (
-                                <p className="muted" key={i}>
-                                  <bdi>{item.value}</bdi> —{' '}
-                                  {sideNames[item.side === 'supplier' ? 0 : 1]}،{' '}
-                                  <bdi>{item.sheet}</bdi>، صف {item.row}
-                                </p>
-                              ),
-                            )}
-                          </div>
-                        ),
-                    )}
-                  </div>
-                </details>
-              )}
-              <Tick
-                checked={balanceMode}
-                onChange={(value) => {
-                  setBalanceMode(value);
-                  updateScope({ coverageConfirmed: false, confirmed: false });
-                  if (!value) {
-                    setMappings(
-                      (previous) =>
-                        previous.map((m) => ({
-                          ...m,
-                          opening: '',
-                          closing: '',
-                          periodStart: '',
-                        })) as [Mapping, Mapping],
-                    );
-                    setFormatChoices(freshFormatChoices());
-                  }
-                }}
-              >
-                إضافة تسوية الأرصدة — اختيارية؛ تتطلب الأرصدة وتغطية الفترة
-              </Tick>
-              {!balanceMode && (
-                <p className="muted">
-                  ستبدأ مقارنة الحركات دون طلب أرصدة افتتاحية أو ختامية. ترك
-                  الأسماء فارغة لا يثبت هوية الطرفين؛ تأكيد النطاق يبقى مطلوبًا.
+                    .join('، ')}{' '}
+                  بين الملفين؛ اختر الصحيح من «تعديل».
                 </p>
+              )}
+              {scopeOpen && (
+                <div className="panel stack">
+                  <div className="form-grid">
+                    <Field
+                      label="المقارنة حتى تاريخ"
+                      hint={
+                        scopeSuggestions.fields.cutoff.status === 'suggested'
+                          ? `مأخوذ من ${sideNames[scopeSuggestions.fields.cutoff.evidence[0].side === 'supplier' ? 0 : 1]}، صف ${scopeSuggestions.fields.cutoff.evidence[0].row}.`
+                          : scope.cutoff && scope.cutoff === latestDate
+                            ? 'آخر تاريخ في الملفين. الحركات بعد هذا التاريخ تُستبعد.'
+                            : 'الحركات بعد هذا التاريخ تُستبعد من المقارنة.'
+                      }
+                    >
+                      <Input
+                        type="date"
+                        aria-label="تاريخ القطع"
+                        value={scope.cutoff}
+                        onChange={(e) =>
+                          updateScope({ cutoff: e.target.value })
+                        }
+                      />
+                    </Field>
+                    <Field
+                      label="عملة الملفين"
+                      hint={
+                        scopeSuggestions.fields.currency.status === 'suggested'
+                          ? 'مأخوذة من عنوان صريح أو عمود العملة.'
+                          : 'أدخل رمزها بثلاثة أحرف، مثل SAR.'
+                      }
+                    >
+                      <Input
+                        aria-label="العملة"
+                        maxLength={3}
+                        dir="ltr"
+                        placeholder="SAR"
+                        value={scope.currency}
+                        onChange={(e) =>
+                          updateScope({
+                            currency: e.target.value.toUpperCase(),
+                          })
+                        }
+                      />
+                    </Field>
+                    <Choice
+                      label="دقة العملة"
+                      value={precisionMissing ? '' : String(scope.decimals)}
+                      onChange={(v) => {
+                        if (v) updateScope({ decimals: Number(v) });
+                      }}
+                      options={[
+                        ...(precisionMissing
+                          ? ([['', 'اختر دقة العملة']] as [string, string][])
+                          : []),
+                        ['0', 'دون منازل عشرية'],
+                        ['2', 'منزلتان — مثل SAR'],
+                        ['3', 'ثلاث منازل — مثل KWD'],
+                      ]}
+                    />
+                    <Choice
+                      label="نافذة التاريخ للمطابقة الآلية"
+                      value={String(scope.dateWindow)}
+                      onChange={(v) => updateScope({ dateWindow: Number(v) })}
+                      options={Array.from(
+                        { length: 8 },
+                        (_, i) => [String(i), `${i} يوم`] as [string, string],
+                      )}
+                    />
+                  </div>
+                  <Tick
+                    checked={balanceMode}
+                    onChange={(value) => {
+                      setBalanceMode(value);
+                      updateScope({
+                        coverageConfirmed: false,
+                        confirmed: false,
+                      });
+                      if (!value) {
+                        setMappings(
+                          (previous) =>
+                            previous.map((m) => ({
+                              ...m,
+                              opening: '',
+                              closing: '',
+                              periodStart: '',
+                            })) as [Mapping, Mapping],
+                        );
+                        setFormatChoices(freshFormatChoices());
+                      }
+                    }}
+                  >
+                    أريد تسوية الأرصدة أيضًا — تتطلب إدخال الأرصدة وأسماء الأطراف
+                  </Tick>
+                  {balanceMode && (
+                    <div className="form-grid">
+                      <Field label="المورد / الطرف المقابل">
+                        <Input
+                          aria-label="المورد"
+                          value={scope.supplier}
+                          onChange={(e) =>
+                            updateScope({ supplier: e.target.value })
+                          }
+                        />
+                      </Field>
+                      <Field label="الجهة القانونية">
+                        <Input
+                          aria-label="الجهة القانونية"
+                          value={scope.entity}
+                          onChange={(e) =>
+                            updateScope({ entity: e.target.value })
+                          }
+                        />
+                      </Field>
+                      <Field label="الحساب / المواقع المشمولة">
+                        <Input
+                          aria-label="نطاق الحساب"
+                          value={scope.account}
+                          onChange={(e) =>
+                            updateScope({ account: e.target.value })
+                          }
+                        />
+                      </Field>
+                    </div>
+                  )}
+                  {(Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
+                    (field) => scopeSuggestions.fields[field].evidence.length,
+                  ) && (
+                    <details>
+                      <summary>من أين جاءت هذه القيم؟</summary>
+                      <div className="stack" style={{ marginTop: 12 }}>
+                        {(
+                          Object.keys(scopeLabels) as ScopeSuggestionField[]
+                        ).map(
+                          (field) =>
+                            scopeSuggestions.fields[field].evidence.length >
+                              0 && (
+                              <div key={field}>
+                                <strong>
+                                  {scopeLabels[field]}
+                                  {scopeSuggestions.fields[field].status ===
+                                  'conflict'
+                                    ? ' — تعارض'
+                                    : ''}
+                                </strong>
+                                {scopeSuggestions.fields[field].evidence.map(
+                                  (item, i) => (
+                                    <p className="muted" key={i}>
+                                      <bdi>{item.value}</bdi> —{' '}
+                                      {
+                                        sideNames[
+                                          item.side === 'supplier' ? 0 : 1
+                                        ]
+                                      }
+                                      ، <bdi>{item.sheet}</bdi>، صف {item.row}
+                                    </p>
+                                  ),
+                                )}
+                              </div>
+                            ),
+                        )}
+                      </div>
+                    </details>
+                  )}
+                </div>
               )}
             </section>
             {files.map(
@@ -1292,49 +1379,22 @@ export default function App() {
                 ),
             )}
             <section className="surface pad stack">
-              <Tick
-                disabled={mappings.some((m) => m.sheet < 0)}
-                checked={scope.confirmed}
-                onChange={(v) => updateScope({ confirmed: v })}
-              >
-                أؤكد أن الملفين لنفس المورد والجهة والحساب والعملة وتاريخ القطع،
-                وأن نوع التقرير ومعنى الأعمدة واتجاه المديونية وصيغ الأرقام
-                والتاريخ في الملخص صحيحة.
-              </Tick>
+              {pdfReviewPending && (
+                <p className="hint warn">
+                  أكد مراجعة استخراج PDF في بطاقة المصدر أعلاه قبل المقارنة.
+                </p>
+              )}
               {balanceMode && (
                 <Tick
                   checked={scope.coverageConfirmed}
                   onChange={(v) => updateScope({ coverageConfirmed: v })}
                 >
-                  أؤكد اكتمال تغطية التقريرين للفترة/البنود المفتوحة والأرصدة
-                  التي أدخلتها. هذا التأكيد مطلوب للتحقق من الأرصدة، وليس لمقارنة
-                  الحركات وحدها.
+                  أؤكد أن التقريرين يغطيان الفترة نفسها وأن الأرصدة التي أدخلتها
+                  صحيحة. مطلوب لتسوية الأرصدة فقط.
                 </Tick>
               )}
-              <div className="notice">
-                المبلغ الموجب يزيد المديونية للمورد، والسالب يخفضها. الأرصدة
-                المدخلة هنا تتبع المعنى نفسه مهما كانت إشارات المصدر.
-              </div>
               <div className="actions">
-                <Button
-                  onClick={() => void reconcile()}
-                  disabled={
-                    !scope.confirmed ||
-                    !scope.cutoff ||
-                    !scope.currency ||
-                    precisionMissing ||
-                    preparationPending ||
-                    unresolvedFormats ||
-                    unresolvedScope.length > 0 ||
-                    (balanceMode &&
-                      (!scope.coverageConfirmed ||
-                        !scope.supplier.trim() ||
-                        !scope.entity.trim() ||
-                        !scope.account.trim())) ||
-                    !!busy ||
-                    mappings.some((m) => m.sheet < 0)
-                  }
-                >
+                <Button onClick={() => void reconcile()} disabled={!!blocked}>
                   تحقق وقارن
                   <ArrowLeft size={16} />
                 </Button>
@@ -1348,6 +1408,10 @@ export default function App() {
                   العودة للملفات
                 </Button>
               </div>
+              <p className="hint">
+                {blocked ||
+                  'بالضغط تُقرأ الملفات على جهازك بالإعدادات أعلاه، وتُسجَّل في ورقة العمل.'}
+              </p>
             </section>
           </fieldset>
         )}
@@ -1407,30 +1471,56 @@ export default function App() {
                 )}
                 hint="في الملفين المقدمين"
               />
-              <Metric
-                label="فرق الأرصدة"
-                value={
-                  result.bridge
-                    ? money(result.bridge.delta, scope.decimals)
-                    : '—'
-                }
-                hint={result.bridge ? scope.currency : 'لا تتوافر أرصدة متحققة'}
-              />
+              {result.scope.coverageConfirmed || result.bridge ? (
+                <Metric
+                  label="فرق الأرصدة"
+                  value={
+                    result.bridge
+                      ? money(result.bridge.delta, scope.decimals)
+                      : '—'
+                  }
+                  hint={
+                    result.bridge ? scope.currency : 'لا تتوافر أرصدة متحققة'
+                  }
+                />
+              ) : (
+                // With balances not requested, the number that matters is how
+                // much of the source never made it into the comparison.
+                <Metric
+                  label="صفوف لم تُقرأ"
+                  value={String(skippedRows)}
+                  hint={
+                    skippedRows
+                      ? 'المقارنة غير مكتملة حتى تُعالج'
+                      : 'كل صفوف البيانات دخلت المقارنة'
+                  }
+                />
+              )}
             </div>
-            {!result.balanceComparable && (
+            {skippedRows > 0 && (
+              <div className="notice error" role="status">
+                {result.diagnostics
+                  .filter((d) => d.code === 'SKIPPED_ROWS')
+                  .map((d, i) => (
+                    <p key={i}>{d.message}</p>
+                  ))}
+                <p>
+                  صحح المصدر أو استبعد الصف بسبب من «تعديل الإعدادات»؛ تفاصيل كل
+                  صف في ورقة Diagnostics عند التصدير.
+                </p>
+              </div>
+            )}
+            {result.scope.coverageConfirmed && !result.balanceComparable && (
               <div className="notice">
                 مقارنة حركات فقط: لم يتحقق اتساق الأرصدة والتغطية على أساس مشترك.
                 لا توجد تسوية أرصدة مكتملة.
               </div>
             )}
-            {!!result.diagnostics.filter((d) => !d.transactionIds.length)
-              .length && (
+            {!!onScreenDiagnostics.length && (
               <div className="notice" role="status">
-                {result.diagnostics
-                  .filter((d) => !d.transactionIds.length)
-                  .map((d, i) => (
-                    <p key={i}>{d.message}</p>
-                  ))}
+                {onScreenDiagnostics.map((d, i) => (
+                  <p key={i}>{d.message}</p>
+                ))}
               </div>
             )}
             <AccountingAssistant
@@ -1872,10 +1962,9 @@ function SourceConfiguration({
         [String(i), `${i + 1} · ${h || 'بلا عنوان'}`] as [string, string],
     ),
   ];
+  const [open, setOpen] = useState(false);
   const [excludeRow, setExcludeRow] = useState('');
   const [excludeReason, setExcludeReason] = useState('');
-  const [pdfDirty, setPdfDirty] = useState(false);
-  useEffect(() => setPdfDirty(false), [file]);
   const initialSelection = useMemo(
     () => selectImportMapping(file, side === 0 ? 'supplier' : 'ledger'),
     [file, side],
@@ -1884,6 +1973,22 @@ function SourceConfiguration({
     () => getMappedImportIssues(file, mapping),
     [file, mapping],
   );
+  // An ambiguity stays on screen after it is resolved, showing the recorded
+  // choice, so the reading the comparison used is never hidden.
+  const ambiguous = (['dateFormat', 'numberFormat'] as const).filter(
+    (field) => formats?.[field].status === 'ambiguous',
+  );
+  const undecided = ambiguous.filter((field) => !formatChoices[field]);
+  // The card opens by itself only when something in it actually needs a decision.
+  const missingColumns =
+    mapping.date < 0 ||
+    (mapping.mode === 'signed'
+      ? mapping.amount < 0
+      : mapping.debit < 0 || mapping.credit < 0);
+  const needsAttention = missingColumns || undecided.length > 0;
+  useEffect(() => {
+    if (needsAttention) setOpen(true);
+  }, [needsAttention]);
   function col(
     key:
       | 'date'
@@ -1907,11 +2012,15 @@ function SourceConfiguration({
   if (!sheet) {
     return (
       <section className="surface pad stack">
-        <h2>{sideNames[side]}</h2>
-        <p>
-          <bdi>{file.name}</bdi>
-        </p>
-        <p className="notice" role="status">
+        <div className="summary-head">
+          <div>
+            <h2>{sideNames[side]}</h2>
+            <p className="summary-line">
+              <bdi>{file.name}</bdi>
+            </p>
+          </div>
+        </div>
+        <p className="hint warn" role="status">
           {initialSelection.notice}
         </p>
         <Choice
@@ -1930,165 +2039,161 @@ function SourceConfiguration({
       </section>
     );
   }
+  // "التاريخ date" reads well; "التاريخ التاريخ" does not. When a column's own
+  // heading already is the label, name it once.
+  const columnName = (index: number) =>
+    index >= 0 ? header[index] || `عمود ${index + 1}` : 'غير محدد';
+  const named = (label: string, index: number) => {
+    const name = columnName(index);
+    return name.trim() === label ? (
+      <strong>{label}</strong>
+    ) : (
+      <>
+        {label} <strong>{name}</strong>
+      </>
+    );
+  };
   return (
-    <section className="surface">
-      <div className="section-heading">
+    <section className="surface pad stack">
+      <div className="summary-head">
         <div>
           <h2>{sideNames[side]}</h2>
-          <p>
-            <bdi>{file.name}</bdi> · {sheet.rows.length} صفًا في الورقة المختارة
+          <p className="summary-line">
+            <bdi>{file.name}</bdi>
+            {file.sheets.length > 1 && (
+              <>
+                {' · '}
+                <bdi>{sheet.name}</bdi>
+              </>
+            )}
+            {' · '}
+            {named('التاريخ', mapping.date)}
+            {' · '}
+            {mapping.mode === 'signed' ? (
+              <>{named('المبلغ', mapping.amount)}</>
+            ) : (
+              <>
+                {named('مدين', mapping.debit)} / {named('دائن', mapping.credit)}
+              </>
+            )}
+            {mapping.reference >= 0 && (
+              <>
+                {' · '}
+                {named('المرجع', mapping.reference)}
+              </>
+            )}
+          </p>
+          <p className="hint">
+            {mapping.mode === 'signed'
+              ? mapping.multiplier === 1
+                ? 'الموجب يزيد ما ندين به للمورد.'
+                : 'السالب يزيد ما ندين به للمورد.'
+              : mapping.multiplier === 1
+                ? 'المدين يزيد المديونية، والدائن يخفضها.'
+                : 'الدائن يزيد المديونية، والمدين يخفضها.'}{' '}
+            <button
+              type="button"
+              className="inline-link"
+              onClick={() =>
+                onChange({ multiplier: (mapping.multiplier * -1) as 1 | -1 })
+              }
+            >
+              عكس الاتجاه
+            </button>
           </p>
         </div>
-        <FileSpreadsheet />
+        <Button
+          variant="ghost"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label={`تعديل ${sideNames[side]}`}
+        >
+          <Pencil size={14} />
+          {open ? 'إغلاق' : 'تعديل'}
+        </Button>
       </div>
+      {mapping.reference < 0 && (
+        <p className="hint">
+          لا يوجد عمود مرجع؛ لن تُنشأ مطابقات آلية. حدده من «تعديل» إن وُجد.
+        </p>
+      )}
       {initialSelection.kind === 'workpaper' && (
-        <p className="notice" role="status">
+        <p className="hint" role="status">
           {initialSelection.notice}
         </p>
       )}
       {file.pdf && (
-        <>
-          <PdfReview
-            file={file}
-            header={mapping.header}
-            onApply={onPdfApply}
-            onInvalidate={() => {
-              setPdfDirty(true);
-              onChange({ pdfReviewed: false });
-            }}
-          />
-          <div className="pad">
-            {pdfDirty && <p>طبّق حدود الأعمدة أولًا قبل تأكيد المراجعة.</p>}
-            <Tick
-              disabled={pdfDirty || !file.pdf.cuts.length}
-              checked={mapping.pdfReviewed === true}
-              onChange={(v) => onChange({ pdfReviewed: v })}
-            >
-              راجعت جميع صفحات PDF والصفوف المستخرجة مع الأصل، وتحققت من اكتمال
-              الحركات ومواقع الأعمدة والإشارات والأرقام. إعادة القراءة تستلزم
-              مراجعة جديدة.
-            </Tick>
-          </div>
-        </>
+        <PdfReview
+          file={file}
+          header={mapping.header}
+          reviewed={mapping.pdfReviewed === true}
+          onReviewedChange={(v) => onChange({ pdfReviewed: v })}
+          onApply={onPdfApply}
+        />
       )}
-      <div className="pad stack" style={{ paddingTop: 0 }}>
-        {importIssues.length > 0 && (
-          <div className="notice" role="status">
-            <p>
-              تم تحميل الملف. توجد {importIssues.length} ملاحظة قراءة في صفوف
-              البيانات والأعمدة المختارة تحتاج مراجعة قبل المطابقة. الخلايا غير
-              المستخدمة لا تمنع معالجة الجدول.
+      {ambiguous.map((field) => (
+        <div className="panel stack" key={field}>
+          <p className={formatChoices[field] ? 'hint' : 'hint warn'}>
+            {formatChoices[field] ? 'اختيارك المسجل. ' : ''}
+            {formats![field].reason}
+          </p>
+          <Choice
+            label={
+              field === 'dateFormat'
+                ? `حسم صيغة التاريخ ${side}`
+                : `حسم صيغة المبالغ ${side}`
+            }
+            value={formatChoices[field] ? mapping[field] : ''}
+            onChange={(value) => onFormatChange(field, value)}
+            options={[
+              ['', 'اختر التفسير الصحيح'],
+              ...formats![field].candidates.map(
+                (value) =>
+                  [
+                    value,
+                    field === 'dateFormat'
+                      ? dateLabels[value as Mapping['dateFormat']]
+                      : numberLabels[value as Mapping['numberFormat']],
+                  ] as [string, string],
+              ),
+            ]}
+          />
+        </div>
+      ))}
+      {!!validation?.errors.length && (
+        <div className="panel stack">
+          <p className="hint warn" role="status">
+            {validation.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. صحح المصدر
+            أو استبعد الصف بسبب.
+          </p>
+          {validation.errors.slice(0, 8).map((e) => (
+            <p className="muted" key={`${e.row}-${e.message}`}>
+              صف {e.row}: {e.message}
             </p>
-            {importIssues.slice(0, 5).map((issue, index) => (
-              <p key={`${issue.row}:${issue.column ?? 0}:${index}`}>
-                صف {issue.row}
-                {issue.column ? `، عمود ${issue.column}` : ''}:{' '}
-                {issue.messages.join('؛ ')}
-              </p>
-            ))}
-            {importIssues.length > 5 && (
-              <p>تظهر التفاصيل المتبقية في فحص القراءة عند المطابقة.</p>
-            )}
-          </div>
-        )}
-        <div className="reading-summary" aria-label={`ملخص القراءة ${side}`}>
-          <p>
-            <strong>الجدول:</strong> <bdi>{sheet.name}</bdi> · العناوين في الصف{' '}
-            {mapping.header + 1}
-          </p>
-          <p>
-            <strong>الأعمدة:</strong> التاريخ ←{' '}
-            <bdi>{header[mapping.date] || 'غير محدد'}</bdi> · المرجع ←{' '}
-            <bdi>{header[mapping.reference] || 'غير محدد'}</bdi> ·{' '}
-            {mapping.mode === 'signed' ? (
-              <>
-                المبلغ ← <bdi>{header[mapping.amount] || 'غير محدد'}</bdi>
-              </>
-            ) : (
-              <>
-                مدين ← <bdi>{header[mapping.debit] || 'غير محدد'}</bdi> / دائن ←{' '}
-                <bdi>{header[mapping.credit] || 'غير محدد'}</bdi>
-              </>
-            )}
-          </p>
-          <p>
-            <strong>نوع التقرير واتجاهه:</strong>{' '}
-            {mapping.reportType === 'transactions'
-              ? 'حركات فترة'
-              : 'بنود مفتوحة'}{' '}
-            ·{' '}
-            {mapping.mode === 'signed'
-              ? mapping.multiplier === 1
-                ? 'الموجب يزيد المديونية للمورد'
-                : 'السالب يزيد المديونية للمورد'
-              : mapping.multiplier === 1
-                ? 'المدين يزيد المديونية؛ الدائن يخفضها'
-                : 'الدائن يزيد المديونية؛ المدين يخفضها'}
-          </p>
-          <p>
-            <strong>القراءة:</strong>{' '}
-            {formats?.dateFormat.status === 'proven' &&
-            formats.dateFormat.candidates.length > 1
-              ? 'تواريخ صريحة بلا التباس في ترتيب اليوم والشهر'
-              : dateLabels[mapping.dateFormat]}{' '}
-            · أرقام <bdi>{numberLabels[mapping.numberFormat]}</bdi>
-          </p>
-          {mapping.reference < 0 && (
+          ))}
+          {validation.errors.length > 8 && (
             <p className="muted">
-              لم يُحدد مرجع؛ لن نعتمد مطابقة آلية دون مرجع قابل للتحقق.
+              وتظهر بقية الصفوف في ورقة Diagnostics عند التصدير.
             </p>
           )}
         </div>
-        {(['dateFormat', 'numberFormat'] as const).map(
-          (field) =>
-            formats?.[field].status === 'ambiguous' && (
-              <div className="notice" key={field}>
-                <p>
-                  {formatChoices[field] ? 'اختيارك المسجل: ' : 'يلزم قرارك: '}
-                  {formats[field].reason}
-                </p>
-                <Choice
-                  label={
-                    field === 'dateFormat'
-                      ? `حسم صيغة التاريخ ${side}`
-                      : `حسم صيغة المبالغ ${side}`
-                  }
-                  value={formatChoices[field] ? mapping[field] : ''}
-                  onChange={(value) => onFormatChange(field, value)}
-                  options={[
-                    ['', 'اختر التفسير الصحيح'],
-                    ...formats[field].candidates.map(
-                      (value) =>
-                        [
-                          value,
-                          field === 'dateFormat'
-                            ? dateLabels[value as Mapping['dateFormat']]
-                            : numberLabels[value as Mapping['numberFormat']],
-                        ] as [string, string],
-                    ),
-                  ]}
-                />
-              </div>
-            ),
-        )}
-        <details
-          open={
-            mapping.date < 0 ||
-            (mapping.mode === 'signed'
-              ? mapping.amount < 0
-              : mapping.debit < 0 || mapping.credit < 0)
-              ? true
-              : undefined
-          }
-        >
-          <summary>تعديل الأعمدة ونوع التقرير واتجاه المبالغ</summary>
+      )}
+      {open && (
+        <div className="panel stack">
+          {missingColumns && (
+            <p className="hint warn">
+              حدد عمود التاريخ وعمود المبلغ (أو المدين والدائن) لتتم القراءة.
+            </p>
+          )}
           <div className="form-grid">
-            <Choice
-              label="ورقة العمل"
-              value={String(mapping.sheet)}
-              options={file.sheets.map((s, i) => [String(i), s.name])}
-              onChange={(v) => onChange(inferMapping(file, Number(v)))}
-            />
+            {file.sheets.length > 1 && (
+              <Choice
+                label="ورقة العمل"
+                value={String(mapping.sheet)}
+                options={file.sheets.map((s, i) => [String(i), s.name])}
+                onChange={(v) => onChange(inferMapping(file, Number(v)))}
+              />
+            )}
             <Field label="رقم صف العناوين">
               <Input
                 type="number"
@@ -2103,17 +2208,6 @@ function SourceConfiguration({
                 }}
               />
             </Field>
-            <Choice
-              label="نوع التقرير — تأكيد إلزامي ضمن النطاق"
-              value={mapping.reportType}
-              options={[
-                ['transactions', 'حركات فترة'],
-                ['open-items', 'بنود مفتوحة عند تاريخ القطع'],
-              ]}
-              onChange={(v) =>
-                onChange({ reportType: v as Mapping['reportType'] })
-              }
-            />
             <Choice
               label="شكل المبالغ"
               value={mapping.mode}
@@ -2135,252 +2229,260 @@ function SourceConfiguration({
             )}
             {col('description', 'عمود الوصف — اختياري')}
             {col('currencyColumn', 'عمود العملة — إن وُجد')}
-            <Choice
-              label="اتجاه المديونية"
-              value={String(mapping.multiplier)}
-              options={
-                mapping.mode === 'signed'
-                  ? [
-                      ['1', 'الموجب يزيد ما ندين به للمورد'],
-                      ['-1', 'السالب يزيد ما ندين به للمورد'],
-                    ]
-                  : [
-                      ['1', 'المدين يزيد المديونية، الدائن يخفضها'],
-                      ['-1', 'الدائن يزيد المديونية، المدين يخفضها'],
-                    ]
-              }
-              onChange={(v) => onChange({ multiplier: Number(v) as 1 | -1 })}
-            />
-            <Choice
-              label="صيغة الأرقام في المصدر"
-              value={mapping.numberFormat}
-              options={[
-                ['dot', '1,234.56 — النقطة عشرية'],
-                ['comma', '1.234,56 — الفاصلة عشرية'],
-              ]}
-              onChange={(v) => onFormatChange('numberFormat', v)}
-            />
-            <Choice
-              label="صيغة التاريخ النصي"
-              value={mapping.dateFormat}
-              options={[
-                ['ymd', 'سنة / شهر / يوم'],
-                ['dmy', 'يوم / شهر / سنة'],
-                ['mdy', 'شهر / يوم / سنة'],
-              ]}
-              onChange={(v) => onFormatChange('dateFormat', v)}
-            />
           </div>
-        </details>
-        <details>
-          <summary>معاينة المصدر قبل المطابقة</summary>
-          <div className="preview">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>الصف</TableHead>
-                  {header.map((h, i) => (
-                    <TableHead key={i}>
-                      {i + 1} · {h || 'بلا عنوان'}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sheet.rows
-                  .slice(mapping.header + 1, mapping.header + 7)
-                  .map((r, i) => (
-                    <TableRow key={i}>
-                      <TableCell>{mapping.header + i + 2}</TableCell>
-                      {r.map((v, j) => (
-                        <TableCell key={j}>
-                          <bdi>{v.slice(0, 80)}</bdi>
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </div>
-        </details>
-        {balanceMode && (
-          <details open>
-            <summary>الأرصدة وتغطية الفترة — لتسوية الأرصدة</summary>
-            <div className="form-grid" style={{ marginTop: 18 }}>
-              {mapping.reportType === 'transactions' && (
-                <>
-                  <Field label="بداية فترة الحركات">
-                    <Input
-                      type="date"
-                      aria-label={`بداية الفترة ${side}`}
-                      value={mapping.periodStart}
-                      onChange={(e) =>
-                        onChange({ periodStart: e.target.value })
-                      }
-                    />
-                  </Field>
-                  <Field label="الرصيد الافتتاحي — موجب إذا كنا مدينين للمورد">
-                    <Input
-                      dir="ltr"
-                      aria-label={`الرصيد الافتتاحي ${side}`}
-                      value={mapping.opening}
-                      onChange={(e) => onChange({ opening: e.target.value })}
-                    />
-                  </Field>
-                </>
-              )}
-              <Field label="الرصيد الختامي / مجموع المتبقي عند القطع">
-                <Input
-                  dir="ltr"
-                  aria-label={`الرصيد الختامي ${side}`}
-                  value={mapping.closing}
-                  onChange={(e) => onChange({ closing: e.target.value })}
-                />
-              </Field>
+          <details>
+            <summary>معاينة أول صفوف الجدول</summary>
+            <div className="preview">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>الصف</TableHead>
+                    {header.map((h, i) => (
+                      <TableHead key={i}>
+                        {i + 1} · {h || 'بلا عنوان'}
+                      </TableHead>
+                    ))}
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {sheet.rows
+                    .slice(mapping.header + 1, mapping.header + 7)
+                    .map((r, i) => (
+                      <TableRow key={i}>
+                        <TableCell>{mapping.header + i + 2}</TableCell>
+                        {r.map((v, j) => (
+                          <TableCell key={j}>
+                            <bdi>{v.slice(0, 80)}</bdi>
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
             </div>
-            <p className="muted" style={{ marginTop: 12 }}>
-              الأرصدة مدخلة يدويًا من مصادر راجعتها؛ التطابق الحسابي لا يثبت اكتمال
-              المصدر. استخدم صيغة الأرقام المحددة أعلاه.
-            </p>
           </details>
-        )}
-        <details open={!!validation?.errors.length}>
-          <summary>فحص القراءة واستبعاد صف مع توثيق</summary>
-          <div className="stack" style={{ marginTop: 15 }}>
-            {validation && (
-              <>
+          <details>
+            <summary>إعدادات القراءة ونوع التقرير</summary>
+            <div className="form-grid" style={{ marginTop: 12 }}>
+              <Choice
+                label="نوع التقرير"
+                value={mapping.reportType}
+                options={[
+                  ['transactions', 'حركات فترة'],
+                  ['open-items', 'بنود مفتوحة عند تاريخ القطع'],
+                ]}
+                onChange={(v) =>
+                  onChange({ reportType: v as Mapping['reportType'] })
+                }
+              />
+              <Choice
+                label="اتجاه المديونية"
+                value={String(mapping.multiplier)}
+                options={
+                  mapping.mode === 'signed'
+                    ? [
+                        ['1', 'الموجب يزيد ما ندين به للمورد'],
+                        ['-1', 'السالب يزيد ما ندين به للمورد'],
+                      ]
+                    : [
+                        ['1', 'المدين يزيد المديونية، الدائن يخفضها'],
+                        ['-1', 'الدائن يزيد المديونية، المدين يخفضها'],
+                      ]
+                }
+                onChange={(v) => onChange({ multiplier: Number(v) as 1 | -1 })}
+              />
+              <Choice
+                label="صيغة الأرقام في المصدر"
+                value={mapping.numberFormat}
+                options={[
+                  ['dot', '1,234.56 — النقطة عشرية'],
+                  ['comma', '1.234,56 — الفاصلة عشرية'],
+                ]}
+                onChange={(v) => onFormatChange('numberFormat', v)}
+              />
+              <Choice
+                label="صيغة التاريخ النصي"
+                value={mapping.dateFormat}
+                options={[
+                  ['ymd', 'سنة / شهر / يوم'],
+                  ['dmy', 'يوم / شهر / سنة'],
+                  ['mdy', 'شهر / يوم / سنة'],
+                ]}
+                onChange={(v) => onFormatChange('dateFormat', v)}
+              />
+            </div>
+            <div className="actions" style={{ marginTop: 14 }}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  try {
+                    localStorage.setItem(
+                      `mizan.mapping.${side}.v1`,
+                      JSON.stringify(localTemplate(mapping)),
+                    );
+                    onNotice('حُفظ تعيين الأعمدة محليًا دون محتوى مالي.');
+                  } catch {
+                    onError('تعذر حفظ القالب في هذا المتصفح.');
+                  }
+                }}
+              >
+                حفظ كقالب
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => {
+                  const t = getTemplate(side);
+                  if (
+                    !t ||
+                    !file.sheets[t.sheet] ||
+                    t.header >= file.sheets[t.sheet].rows.length
+                  ) {
+                    onError('لا يوجد قالب صالح لهذا الملف.');
+                    return;
+                  }
+                  onChange(t);
+                  onNotice('طُبق القالب. راجع الأعمدة قبل المقارنة.');
+                }}
+              >
+                استعادة القالب
+              </Button>
+            </div>
+          </details>
+          <details open={importIssues.length > 0}>
+            <summary>
+              استبعاد صف بسبب
+              {importIssues.length > 0
+                ? ` — ${importIssues.length} ملاحظة قراءة`
+                : ''}
+            </summary>
+            <div className="stack" style={{ marginTop: 12 }}>
+              {importIssues.slice(0, 5).map((issue, index) => (
+                <p
+                  className="muted"
+                  key={`${issue.row}:${issue.column ?? 0}:${index}`}
+                >
+                  صف {issue.row}
+                  {issue.column ? `، عمود ${issue.column}` : ''}:{' '}
+                  {issue.messages.join('؛ ')}
+                </p>
+              ))}
+              {validation && (
                 <p className="muted">
                   {validation.transactions.length} حركة مقروءة ·{' '}
-                  {validation.excluded.length} صف مستبعد مع العناوين ·{' '}
-                  {validation.errors.length} خطأ. اتساق الرصيد:{' '}
-                  {validation.balanceValid ? 'تحقق حسابيًا' : 'غير متحقق'}.
+                  {validation.excluded.length} صف مستبعد ·{' '}
+                  {validation.errors.length} صف لم يُقرأ
                 </p>
-                {validation.errors.slice(0, 25).map((e) => (
-                  <div
-                    key={`${e.row}-${e.message}`}
-                    className="notice error"
-                    style={{ margin: 0 }}
-                  >
-                    صف {e.row}: {e.message}
-                  </div>
-                ))}
-                {validation.errors.length > 25 && (
-                  <p>توجد أخطاء إضافية؛ صحح المصدر قبل المتابعة.</p>
-                )}
-                {validation.warnings.slice(0, 10).map((w) => (
-                  <p className="notice" key={w}>
-                    {w}
-                  </p>
-                ))}
-              </>
-            )}
-            <div className="form-grid">
-              <Field label="رقم الصف المراد استبعاده">
-                <Input
-                  type="number"
-                  min={mapping.header + 2}
-                  max={sheet.rows.length}
-                  aria-label={`صف الاستبعاد ${side}`}
-                  value={excludeRow}
-                  onChange={(e) => setExcludeRow(e.target.value)}
-                />
-              </Field>
-              <Field label="سبب الاستبعاد">
-                <Input
-                  aria-label={`سبب الاستبعاد ${side}`}
-                  value={excludeReason}
-                  onChange={(e) => setExcludeReason(e.target.value)}
-                  maxLength={200}
-                />
-              </Field>
-            </div>
-            <Button
-              variant="outline"
-              onClick={() => {
-                const n = Number(excludeRow);
-                if (
-                  !Number.isInteger(n) ||
-                  n <= mapping.header + 1 ||
-                  n > sheet.rows.length ||
-                  !excludeReason.trim()
-                ) {
-                  onError('حدد صف بيانات صحيحًا وسبب استبعاده.');
-                  return;
-                }
-                onChange({
-                  excluded: {
-                    ...mapping.excluded,
-                    [String(n)]: excludeReason.trim(),
-                  },
-                });
-                setExcludeRow('');
-                setExcludeReason('');
-              }}
-            >
-              استبعاد الصف وتسجيل السبب
-            </Button>
-            {Object.entries(mapping.excluded).map(([row, reason]) => (
-              <div className="actions" key={row}>
-                <span className="muted">
-                  صف {row}: {reason}
-                </span>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => {
-                    const e = { ...mapping.excluded };
-                    delete e[row];
-                    onChange({ excluded: e });
-                  }}
-                >
-                  إعادة إدراج
-                </Button>
+              )}
+              <div className="form-grid">
+                <Field label="رقم الصف">
+                  <Input
+                    type="number"
+                    min={mapping.header + 2}
+                    max={sheet.rows.length}
+                    aria-label={`صف الاستبعاد ${side}`}
+                    value={excludeRow}
+                    onChange={(e) => setExcludeRow(e.target.value)}
+                  />
+                </Field>
+                <Field label="سبب الاستبعاد">
+                  <Input
+                    aria-label={`سبب الاستبعاد ${side}`}
+                    value={excludeReason}
+                    onChange={(e) => setExcludeReason(e.target.value)}
+                    maxLength={200}
+                  />
+                </Field>
               </div>
-            ))}
-          </div>
-        </details>
-        <details>
-          <summary>قوالب الأعمدة المحفوظة على جهازك</summary>
-          <div className="actions">
-            <Button
-              variant="ghost"
-              onClick={() => {
-                try {
-                  localStorage.setItem(
-                    `mizan.mapping.${side}.v1`,
-                    JSON.stringify(localTemplate(mapping)),
-                  );
-                  onNotice(
-                    'حُفظت أرقام الأعمدة وتفضيلات القراءة محليًا دون محتوى مالي.',
-                  );
-                } catch {
-                  onError('تعذر حفظ القالب في هذا المتصفح.');
-                }
-              }}
-            >
-              حفظ تعيين الأعمدة محليًا
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={() => {
-                const t = getTemplate(side);
-                if (
-                  !t ||
-                  !file.sheets[t.sheet] ||
-                  t.header >= file.sheets[t.sheet].rows.length
-                ) {
-                  onError('لا يوجد قالب صالح لهذا الملف.');
-                  return;
-                }
-                onChange(t);
-                onNotice('طُبق القالب. راجع الأعمدة وأعد تأكيد النطاق.');
-              }}
-            >
-              استعادة القالب
-            </Button>
-          </div>
-        </details>
-      </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  const n = Number(excludeRow);
+                  if (
+                    !Number.isInteger(n) ||
+                    n <= mapping.header + 1 ||
+                    n > sheet.rows.length ||
+                    !excludeReason.trim()
+                  ) {
+                    onError('حدد صف بيانات صحيحًا وسبب استبعاده.');
+                    return;
+                  }
+                  onChange({
+                    excluded: {
+                      ...mapping.excluded,
+                      [String(n)]: excludeReason.trim(),
+                    },
+                  });
+                  setExcludeRow('');
+                  setExcludeReason('');
+                }}
+              >
+                استبعاد الصف
+              </Button>
+              {Object.entries(mapping.excluded).map(([row, reason]) => (
+                <div className="actions" key={row}>
+                  <span className="muted">
+                    صف {row}: {reason}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => {
+                      const e = { ...mapping.excluded };
+                      delete e[row];
+                      onChange({ excluded: e });
+                    }}
+                  >
+                    إعادة إدراج
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </details>
+          {balanceMode && (
+            <div className="stack">
+              <strong>الأرصدة وتغطية الفترة</strong>
+              <div className="form-grid">
+                {mapping.reportType === 'transactions' && (
+                  <>
+                    <Field label="بداية فترة الحركات">
+                      <Input
+                        type="date"
+                        aria-label={`بداية الفترة ${side}`}
+                        value={mapping.periodStart}
+                        onChange={(e) =>
+                          onChange({ periodStart: e.target.value })
+                        }
+                      />
+                    </Field>
+                    <Field label="الرصيد الافتتاحي — موجب إذا كنا مدينين">
+                      <Input
+                        dir="ltr"
+                        aria-label={`الرصيد الافتتاحي ${side}`}
+                        value={mapping.opening}
+                        onChange={(e) => onChange({ opening: e.target.value })}
+                      />
+                    </Field>
+                  </>
+                )}
+                <Field label="الرصيد الختامي عند القطع">
+                  <Input
+                    dir="ltr"
+                    aria-label={`الرصيد الختامي ${side}`}
+                    value={mapping.closing}
+                    onChange={(e) => onChange({ closing: e.target.value })}
+                  />
+                </Field>
+              </div>
+              <p className="hint">
+                الأرصدة مدخلة يدويًا؛ التطابق الحسابي لا يثبت اكتمال المصدر.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </section>
   );
 }

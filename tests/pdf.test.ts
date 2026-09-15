@@ -88,34 +88,40 @@ test('PDF actual bytes preserve columns, signs, row provenance and original byte
   );
   assert.equal(s.transactions[1].sourcePage, 1);
 });
-test('PDF cannot reconcile without explicit extraction review or configured columns', async () => {
+test('PDF cannot reconcile without explicit extraction review', async () => {
   const f = await readFile('a.pdf', syntheticPdf([rows]), cuts);
   assert.throws(
     () =>
       normalizeSource(f, { ...mapping, pdfReviewed: false }, scope, 'supplier'),
     /PDF/,
   );
+  // A boundary list is geometry, not an approval: a single-column extraction has
+  // no boundary to set, and the review is still the thing that unlocks the read.
   f.pdf!.cuts = [];
-  assert.throws(() => normalizeSource(f, mapping, scope, 'supplier'), /PDF/);
+  assert.throws(
+    () =>
+      normalizeSource(f, { ...mapping, pdfReviewed: false }, scope, 'supplier'),
+    /PDF/,
+  );
+  assert.ok(normalizeSource(f, mapping, scope, 'supplier').transactions.length);
 });
 test('multi-page PDF keeps repeated headers and page lineage instead of silently deleting rows', async () => {
   const f = await readFile('a.pdf', syntheticPdf([rows, rows]), cuts);
   assert.equal(f.sheets[0].rows.length, 6);
   assert.equal(f.sheets[0].rowPages?.['4'], 2);
   const s = normalizeSource(f, mapping, scope, 'supplier');
-  assert.ok(s.errors.some((e) => e.row === 4));
-  const reviewed = normalizeSource(
-    f,
-    {
-      ...mapping,
-      excluded: { '4': 'Repeated page header verified against page 2' },
-    },
-    scope,
-    'supplier',
+  // Page two repeats the header verbatim. It is classified, not turned into an
+  // error the accountant has to clear, and its cells stay in the record.
+  const repeated = s.excluded.find((e) => e.row === 4)!;
+  assert.match(repeated.reason, /عناوين مُكرر/);
+  assert.deepEqual(repeated.values, rows[0]);
+  assert.deepEqual(s.errors, []);
+  assert.equal(s.transactions.length, 4);
+  assert.equal(s.transactions[2].sourcePage, 2);
+  assert.equal(
+    s.transactions.length + s.excluded.length + s.errors.length,
+    f.sheets[0].rows.length,
   );
-  assert.equal(reviewed.errors.length, 0);
-  assert.equal(reviewed.transactions.length, 4);
-  assert.equal(reviewed.transactions[2].sourcePage, 2);
 });
 test('blank/scanned page rejects the entire PDF including text/image mixed documents', async () => {
   for (const pages of [[[]], [rows, []]])

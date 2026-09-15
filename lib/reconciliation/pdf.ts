@@ -2,7 +2,10 @@ import { getResolvedPDFJS } from 'unpdf';
 import type { SheetData } from './types.ts';
 import { bindTextPaints, visibleOnBackground } from './pdf-paint-order.ts';
 import type { PdfBackground } from './pdf-paint-order.ts';
-import { suggestPdfColumns } from './pdf-column-suggestions.ts';
+import {
+  suggestPdfColumns,
+  projectPdfColumns,
+} from './pdf-column-suggestions.ts';
 
 export type PdfToken = {
   text: string;
@@ -685,8 +688,12 @@ export async function readPdf(
       pages.push({ tokens, width: page.view[2] - page.view[0] });
       page.cleanup();
     }
+    // Prefer the header-signature reading; fall back to column geometry so an
+    // ordinary statement is not stranded by unfamiliar header wording.
     const suggested =
-      autoColumns && !cuts.length ? suggestPdfColumns(pages) : null;
+      autoColumns && !cuts.length
+        ? (suggestPdfColumns(pages) ?? projectPdfColumns(pages))
+        : null;
     const effectiveCuts = suggested ?? cuts;
     for (const [index, page] of pages.entries()) {
       for (const line of layoutPdfPage(

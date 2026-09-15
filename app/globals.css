@@ -621,3 +621,77 @@ th {
 .surface details > .form-grid {
   margin-top: 12px;
 }
+
+/* One rhythm for every card: a title with its summary on the left and the single
+   action that opens it on the right. */
+.summary-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.summary-head > div:first-child {
+  min-width: 0;
+  flex: 1 1 320px;
+}
+.summary-line {
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.85;
+  color: #43586a;
+  overflow-wrap: anywhere;
+}
+.summary-line strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.summary-line .gap {
+  color: #9c6a1f;
+  border-bottom: 1px dashed #d4ab62;
+}
+/* One quiet voice for guidance, one warm voice for something awaiting a decision.
+   Nothing on the default path shouts. */
+.hint {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #6b7c8a;
+  margin-top: 6px;
+}
+.hint.warn {
+  color: #8a5a12;
+}
+.panel {
+  margin-top: 4px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fafcfd;
+}
+.panel > .form-grid:first-child {
+  margin-top: 0;
+}
+.inline-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #1b6b58;
+  font: inherit;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.inline-link:hover {
+  color: #0f4a3c;
+}
+.panel details > summary {
+  cursor: pointer;
+  color: #3c5462;
+  font-weight: 600;
+  font-size: 14px;
+  padding-block: 6px;
+}
+.panel .preview {
+  max-height: 200px;
+}

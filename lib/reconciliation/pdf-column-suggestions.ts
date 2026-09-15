@@ -137,3 +137,103 @@ export function suggestPdfColumns(
     return null;
   return cuts;
 }
+
+// Geometry fallback for statements whose headers are not in the vocabulary above.
+// A column boundary is a vertical band that no table token overlaps on any page.
+// This reads positions only: no cell is rewritten, merged, excluded or relabelled.
+type PdfLine = PdfToken[];
+
+function pageLines(page: { width: number; tokens: PdfToken[] }): PdfLine[] {
+  const lines: { y: number; tokens: PdfToken[] }[] = [];
+  for (const token of [...page.tokens].sort((a, b) => b.y - a.y || a.x - b.x)) {
+    if (
+      ![token.x, token.y, token.width, token.height].every(Number.isFinite) ||
+      token.width <= 0 ||
+      token.height <= 0
+    )
+      return [];
+    const previous = lines.at(-1);
+    if (
+      previous &&
+      Math.abs(previous.y - token.y) <= Math.min(1, token.height / 8)
+    )
+      previous.tokens.push(token);
+    else lines.push({ y: token.y, tokens: [token] });
+  }
+  return lines.map((line) => line.tokens.sort((a, b) => a.x - b.x));
+}
+
+const dateLike =
+  /^(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.](?:\d{1,2}|[a-z]{3,9})[-/.]\d{2,4})$/i;
+
+// Repeating table rows carry the column geometry. A title or a footer spans the
+// page and would erase every gap, so those lines are not evidence of a column.
+function tableLines(lines: PdfLine[]): PdfLine[] {
+  const wide = lines.filter((line) => line.length >= 3);
+  const dated = wide.filter((line) =>
+    line.some((token) => dateLike.test(token.text.trim())),
+  );
+  if (dated.length >= 3) return dated;
+  const counts = new Map<number, number>();
+  for (const line of wide)
+    counts.set(line.length, (counts.get(line.length) ?? 0) + 1);
+  let mode = 0;
+  for (const [length, count] of counts)
+    if (
+      count > (counts.get(mode) ?? 0) ||
+      (count === (counts.get(mode) ?? 0) && length > mode)
+    )
+      mode = length;
+  const modal = wide.filter((line) => line.length === mode);
+  return modal.length >= 3 ? modal : [];
+}
+
+export function projectPdfColumns(
+  pages: { width: number; tokens: PdfToken[] }[],
+): number[] | null {
+  const spans: [number, number][] = [];
+  let heights: number[] = [];
+  for (const page of pages) {
+    if (!Number.isFinite(page.width) || page.width <= 0) return null;
+    const rows = tableLines(pageLines(page));
+    if (!rows.length) return null;
+    for (const line of rows)
+      for (const token of line) {
+        spans.push([
+          (token.x / page.width) * 100,
+          ((token.x + token.width) / page.width) * 100,
+        ]);
+        heights.push((token.height / page.width) * 100);
+      }
+  }
+  if (spans.length < 6) return null;
+  heights = heights.sort((a, b) => a - b);
+  // An inter-word space is narrower than the glyph height; a column gap is not.
+  const minimum = Math.max(1, heights[heights.length >> 1] * 0.9);
+  const ordered = [...spans].sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const covered: [number, number][] = [];
+  for (const span of ordered) {
+    const last = covered.at(-1);
+    if (last && span[0] <= last[1]) last[1] = Math.max(last[1], span[1]);
+    else covered.push([...span]);
+  }
+  const cuts: number[] = [];
+  for (let i = 1; i < covered.length; i++) {
+    const gap = covered[i][0] - covered[i - 1][1];
+    if (gap < minimum) continue;
+    cuts.push(
+      Math.round(((covered[i - 1][1] + covered[i][0]) / 2) * 10000) / 10000,
+    );
+  }
+  if (!cuts.length || cuts.length > 19) return null;
+  if (cuts.some((c, i) => c <= 0 || c >= 100 || (i > 0 && c <= cuts[i - 1])))
+    return null;
+  // No table token may cross a boundary derived from the gaps between them.
+  if (
+    spans.some(([start, end]) =>
+      cuts.some((c) => c > start + 0.05 && c < end - 0.05),
+    )
+  )
+    return null;
+  return cuts;
+}

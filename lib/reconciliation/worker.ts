@@ -37,10 +37,13 @@ self.onmessage = async (event: MessageEvent) => {
       value = {
         a,
         b,
-        result:
-          a.errors.length || b.errors.length
-            ? null
-            : compare(a, b, payload.scope, payload.decisions, payload.rejected),
+        result: compare(
+          a,
+          b,
+          payload.scope,
+          payload.decisions,
+          payload.rejected,
+        ),
       };
     } else if (action === 'compare') {
       const [a, b] = payload.files;

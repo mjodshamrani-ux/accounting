@@ -296,9 +296,13 @@ export async function readFile(
   const sheets: SheetData[] = workbook.worksheets.map((sheet) => {
     const numericCells: NonNullable<SheetData['numericCells']> = {};
     const cellIssues: Record<string, string[]> = {};
+    const cellNotes: Record<string, string[]> = {};
     const referenceIssues: Record<string, string[]> = {};
     const issue = (row: number, column: number, message: string) => {
       (cellIssues[`${row}:${column}`] ??= []).push(message);
+    };
+    const note = (row: number, column: number, message: string) => {
+      (cellNotes[`${row}:${column}`] ??= []).push(message);
     };
     // ExcelJS 4.4 exposes this parsed model field but omits it from Worksheet's declarations.
     const formats = (
@@ -403,10 +407,10 @@ export async function readFile(
             value.getUTCSeconds() ||
             value.getUTCMilliseconds()
           )
-            issue(
+            note(
               r,
               c,
-              `تاريخ Excel في ${cell.address} يحتوي وقتًا؛ استخدم تاريخًا صريحًا دون وقت`,
+              `تاريخ ${cell.address} يحمل وقتًا؛ قُرئ اليوم ${value.toISOString().slice(0, 10)} دون الوقت`,
             );
           text = value.toISOString().slice(0, 10);
         } else if (typeof value === 'object' && value !== null) {
@@ -443,6 +447,7 @@ export async function readFile(
       name: sheet.name,
       numericCells,
       cellIssues,
+      cellNotes,
       referenceIssues,
       rows,
       formulaRows: [...new Set(formulaRows)],

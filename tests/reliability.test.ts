@@ -137,13 +137,17 @@ test('Excel cell errors and overprecision numeric references block selected data
     assert.equal(r.transactions.length, 0);
   }
 });
-test('Excel timestamps are not silently accepted as dates', async () => {
-  const r = checkImported(
-    await xlsx((s) => {
-      s.getCell('A2').value = new Date('2026-08-01T12:00:00Z');
-    }),
-  );
-  assert.ok(r.errors.some((e) => e.message.includes('يحتوي وقت')));
+test('an Excel timestamp reads as its day and the dropped time is reported', async () => {
+  const file = await xlsx((s) => {
+    s.getCell('A2').value = new Date('2026-08-01T12:00:00Z');
+  });
+  // The serial's integer part is the day, so the time cannot move the date.
+  const note = file.sheets[0].cellNotes?.['2:1']?.join('؛ ') ?? '';
+  assert.match(note, /يحمل وقتًا/);
+  assert.match(note, /2026-08-01/);
+  const r = checkImported(file);
+  assert.deepEqual(r.errors, []);
+  assert.equal(r.transactions[0].date, '2026-08-01');
 });
 test('all matched transactions have exact amounts, original reference equality, uniqueness and evidence', () => {
   const r = run();

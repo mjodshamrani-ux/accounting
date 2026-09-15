@@ -177,15 +177,16 @@ export function inferMapping(
   const m = defaultMapping();
   m.sheet = sheet;
   const patterns = {
-    date: /^(date|transaction date|posting date|invoice date|التاريخ|تاريخ الحركة|تاريخ المستند)$/i,
+    date: /^(date|transaction date|posting date|invoice date|doc\.? date|document date|value date|التاريخ|تاريخ الحركة|تاريخ المستند|تاريخ القيد)$/i,
     reference:
-      /^(reference|invoice|invoice no\.?|invoice number|document reference|document no\.?|المرجع|رقم الفاتورة|رقم المستند)$/i,
-    description: /^(description|details|البيان|الوصف)$/i,
+      /^(reference|ref\.?|our ref\.?|your ref\.?|invoice|invoice no\.?|invoice number|document reference|document no\.?|doc\.? ref\.?|doc\.? no\.?|voucher|voucher no\.?|المرجع|رقم الفاتورة|رقم المستند|رقم السند|السند)$/i,
+    description:
+      /^(description|details|narration|particulars|memo|remarks|البيان|الوصف|التفاصيل|الشرح|ملاحظات)$/i,
     amount:
-      /^(amount|signed amount|outstanding|remaining|المبلغ|المتبقي|الرصيد المتبقي)(?:\s*\([a-z]{3}\))?$/i,
-    debit: /^(debit|مدين)(?:\s*\([a-z]{3}\))?$/i,
-    credit: /^(credit|دائن)(?:\s*\([a-z]{3}\))?$/i,
-    currencyColumn: /^(currency|العملة)$/i,
+      /^(amount|signed amount|outstanding|remaining|value|net|net amount|charge|المبلغ|القيمة|المتبقي|الرصيد المتبقي|الصافي)(?:\s*\([a-z]{3}\))?$/i,
+    debit: /^(debit|dr\.?|مدين)(?:\s*\([a-z]{3}\))?$/i,
+    credit: /^(credit|cr\.?|دائن)(?:\s*\([a-z]{3}\))?$/i,
+    currencyColumn: /^(currency|ccy|العملة)$/i,
   };
   const rows = file.sheets[sheet]?.rows ?? [];
   m.header =
@@ -204,8 +205,100 @@ export function inferMapping(
       candidates.length === 1 ? candidates[0] : -1;
   }
   if (m.amount < 0 && m.debit >= 0 && m.credit >= 0) m.mode = 'split';
+  inferColumnsFromValues(m, rows);
+  if (m.amount < 0 && m.debit >= 0 && m.credit >= 0) m.mode = 'split';
   return m;
 }
+// Data rows below the confirmed header, skipping blanks and the statement's own
+// total lines, so those cannot make a column look inconsistent.
+function dataRows(rows: string[][], header: number): string[][] {
+  return rows
+    .slice(header + 1)
+    .filter(
+      (row) =>
+        row.some((cell) => cell.trim()) &&
+        !row.some((cell) => summaryLabel.test(cell.trim())),
+    );
+}
+const readsAsMoney = (text: string) =>
+  (['dot', 'comma'] as const).some((format) => {
+    try {
+      parseMoney(text, format, 3);
+      return true;
+    } catch {
+      return false;
+    }
+  });
+/** Fill in the date, amount and reference columns a header name did not reveal,
+ * but only where the values leave exactly one possibility. Two money columns —
+ * an amount and a running balance — are genuinely ambiguous, so neither is
+ * chosen and the accountant picks. This never rewrites an explicit header match.
+ */
+function inferColumnsFromValues(m: Mapping, rows: string[][]): void {
+  const body = dataRows(rows, m.header);
+  if (!body.length) return;
+  const width = rows[m.header]?.length ?? 0;
+  const taken = () =>
+    new Set(
+      [
+        m.date,
+        m.reference,
+        m.description,
+        m.amount,
+        m.debit,
+        m.credit,
+        m.currencyColumn,
+      ].filter((column) => column >= 0),
+    );
+  const only = (test: (values: string[]) => boolean) => {
+    const used = taken();
+    const found = Array.from({ length: width }, (_, column) => column).filter(
+      (column) =>
+        !used.has(column) &&
+        test(body.map((row) => (row[column] ?? '').trim())),
+    );
+    return found.length === 1 ? found[0] : -1;
+  };
+  if (m.date < 0)
+    m.date = only((values) =>
+      values.every((value) => {
+        if (!value) return false;
+        try {
+          parseDate(value, m.dateFormat);
+          return true;
+        } catch {
+          return false;
+        }
+      }),
+    );
+  if (m.amount < 0 && (m.debit < 0 || m.credit < 0))
+    m.amount = only(
+      (values) =>
+        values.every(Boolean) &&
+        values.every(readsAsMoney) &&
+        // Bare positive whole numbers are as likely to be a document number or a
+        // quantity as a value, so a column must show a sign, a decimal or a
+        // thousands separator somewhere before it is read as the amount.
+        values.some((value) => /[-+(.,٫٬]/.test(latinDigits(value))),
+    );
+  // Mirror the auto-match rule exactly: a column qualifies only if every value
+  // is the kind of reference the engine would be willing to match on.
+  if (m.reference < 0)
+    m.reference = only(
+      (values) =>
+        values.every(
+          (value) =>
+            normalizeReference(value).length >= 4 &&
+            /[\p{L}]/u.test(normalizeReference(value)) &&
+            /[0-9]/.test(normalizeReference(value)),
+        ) && new Set(values.map(normalizeReference)).size === values.length,
+    );
+}
+// A cell whose whole text is one of these names marks a total or balance line,
+// not a transaction. Matching the entire cell keeps a description that merely
+// mentions a balance from being excluded.
+export const summaryLabel =
+  /^(?:total|subtotal|grand total|opening balance|closing balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
 export function normalizeSource(
   file: SourceFile,
   mapping: Mapping,
@@ -271,10 +364,8 @@ export function normalizeSource(
     sourceName: file.name,
     sourceHash: file.sha256,
   };
-  if (file.pdf && (mapping.pdfReviewed !== true || !file.pdf.cuts.length))
-    throw new Error(
-      'حدد حدود أعمدة PDF وراجع الصفوف المستخرجة مع الأصل، ثم أكد مراجعة الاستخراج',
-    );
+  if (file.pdf && mapping.pdfReviewed !== true)
+    throw new Error('راجع الصفوف المستخرجة من PDF مع الأصل ثم أكد المراجعة');
   const selected = [
     mapping.date,
     mapping.reference,
@@ -309,6 +400,11 @@ export function normalizeSource(
   if (start && start > cutoff) throw new Error('بداية الفترة بعد تاريخ القطع');
   const get = (row: string[], col: number) =>
     col < 0 ? '' : (row[col] ?? '').trim();
+  const headerRow = sheet.rows[mapping.header];
+  const repeatedHeader = (row: string[]) =>
+    row.length === headerRow.length &&
+    headerRow.some((value) => value.trim()) &&
+    row.every((value, i) => value.trim() === headerRow[i].trim());
   const formulaRows = new Set(sheet.formulaRows);
   const hiddenRows = new Set(sheet.hiddenRows);
   for (let i = 0; i < sheet.rows.length; i++) {
@@ -338,6 +434,26 @@ export function normalizeSource(
         throw new Error(
           'قيم إضافية خارج أعمدة العناوين؛ تحقق من فاصل CSV وبنية الصف',
         );
+      // A statement's own totals and its headers repeated on each page are not
+      // transactions. Exclude them with a recorded reason instead of demanding a
+      // typed justification per row; they stay listed, counted and exported.
+      const label = row.find((value) => summaryLabel.test(value.trim()));
+      if (label) {
+        result.excluded.push({
+          row: rn,
+          reason: `صف إجمالي أو رصيد — استُبعد تلقائيًا («${label.trim()}»)`,
+          values: row,
+        });
+        continue;
+      }
+      if (repeatedHeader(row)) {
+        result.excluded.push({
+          row: rn,
+          reason: 'صف عناوين مُكرر — استُبعد تلقائيًا',
+          values: row,
+        });
+        continue;
+      }
       if (sheet.rowIssues?.[rn]?.length)
         throw new Error(sheet.rowIssues[rn].join('؛ '));
       const mappedIssues = selected.flatMap(
@@ -360,16 +476,6 @@ export function normalizeSource(
       }
       if (hiddenRows.has(rn))
         result.warnings.push(`الصف ${rn} مخفي في المصدر وأُدرج في المقارنة`);
-      if (
-        row.some((v) =>
-          /^(total|subtotal|grand total|opening balance|closing balance|balance brought forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)$/i.test(
-            v.trim(),
-          ),
-        )
-      )
-        throw new Error(
-          'صف إجمالي أو رصيد محتمل؛ راجعه واستبعده صراحة إن لم يكن حركة',
-        );
       const date = parseDate(get(row, mapping.date), mapping.dateFormat);
       if (
         date > cutoff ||
@@ -514,10 +620,6 @@ export function compare(
     throw new Error('نافذة التاريخ من 0 إلى 7 أيام');
   if (supplier.mapping.reportType !== ledger.mapping.reportType)
     throw new Error('الزوج المختلط غير مدعوم. اختر تقريرين من النوع نفسه');
-  if (supplier.errors.length || ledger.errors.length)
-    throw new Error(
-      'صحح أخطاء القراءة أو استبعد الصفوف مع توثيق السبب قبل المطابقة',
-    );
   if (!supplier.transactions.length || !ledger.transactions.length)
     throw new Error('لا توجد حركات كافية في أحد الطرفين');
   const a = indexBy(supplier.transactions, key),
@@ -648,6 +750,12 @@ export function compare(
     [supplier, 'المورد'],
     [ledger, 'الدفتر'],
   ] as const) {
+    if (source.errors.length)
+      diagnostics.push({
+        code: 'SKIPPED_ROWS',
+        message: `${label}: ${source.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. المقارنة غير مكتملة حتى تُقرأ أو تُستبعد بسبب.`,
+        transactionIds: [],
+      });
     for (const warning of source.warnings)
       diagnostics.push({
         code: 'SOURCE_WARNING',

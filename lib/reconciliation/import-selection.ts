@@ -69,7 +69,7 @@ export function selectImportMapping(
     return {
       mapping: inferMapping(file, sheet),
       kind: 'workpaper',
-      notice: `هذا ملف عمل مُصدَّر من ميزان. اقترحنا ورقة ${file.sheets[sheet].name} التي تحتوي نسخة جدول المصدر. راجع الورقة والأعمدة واتجاه المبالغ؛ لم تُستعد قرارات المطابقة أو الأرصدة أو تأكيدات النطاق السابقة.`,
+      notice: `ملف عمل مصدَّر من ميزان؛ اخترنا ورقة ${file.sheets[sheet].name}. لم تُستعد قرارات المطابقة ولا الأرصدة ولا تأكيدات النطاق السابقة.`,
     };
   }
   const candidates = file.sheets.flatMap((sheet, index) => {
@@ -81,15 +81,14 @@ export function selectImportMapping(
     return {
       mapping,
       kind: 'unique-table',
-      notice: `تم تحميل الملف واقتراح ورقة ${file.sheets[mapping.sheet].name} بحسب عناوين الجدول. راجع الأعمدة والنطاق قبل المطابقة.`,
+      notice: `قُرئ الملف من ورقة ${file.sheets[mapping.sheet].name}. راجع الأعمدة في بطاقة الملف.`,
     };
   }
   if (file.sheets.length === 1) {
     return {
       mapping: inferMapping(file, 0),
       kind: 'single-sheet',
-      notice:
-        'تم تحميل الملف. حدد صف العناوين ومعنى الأعمدة وراجع البيانات قبل المطابقة.',
+      notice: 'قُرئ الملف. راجع صف العناوين والأعمدة في بطاقة الملف.',
     };
   }
   return {
@@ -97,8 +96,8 @@ export function selectImportMapping(
     kind: 'choose-sheet',
     notice:
       candidates.length > 1
-        ? 'تم تحميل الملف، وتوجد عدة أوراق تحتوي جداول محتملة. اختر ورقة المصدر المقصودة صراحة؛ لم يختَر المحرك بينها.'
-        : 'تم تحميل الملف. اختر ورقة جدول المصدر ثم حدد صف العناوين ومعنى الأعمدة؛ لم نجد جدولًا واحدًا واضحًا لاقتراحه.',
+        ? 'عدة أوراق تحتوي جداول محتملة؛ اختر ورقة المصدر المقصودة.'
+        : 'لم نجد جدولًا واضحًا؛ اختر ورقة المصدر ثم صف العناوين.',
   };
 }
 

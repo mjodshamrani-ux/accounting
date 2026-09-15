@@ -21,6 +21,7 @@ const tests = [
   'tests/excel-import-regression.test.ts',
   'tests/import-selection.test.ts',
   'tests/pdf-adversarial.test.ts',
+  'tests/ordinary-statements.test.ts',
 ];
 const mutations = [
   {
@@ -44,6 +45,36 @@ const mutations = [
     name: 'treat-pdf-table-edges-as-filled-area',
     file: 'lib/reconciliation/pdf.ts',
     changes: [['if (overlaps === false) continue;', 'if (false) continue;']],
+  },
+  {
+    name: 'count-total-rows-as-transactions',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        'const label = row.find((value) => summaryLabel.test(value.trim()));',
+        'const label = undefined as string | undefined;',
+      ],
+    ],
+  },
+  {
+    name: 'drop-classified-rows-without-a-reason',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        `reason: \`صف إجمالي أو رصيد — استُبعد تلقائيًا («\${label.trim()}»)\`,`,
+        "reason: '',",
+      ],
+    ],
+  },
+  {
+    name: 'accept-a-timestamp-as-a-read-issue',
+    file: 'lib/reconciliation/io.ts',
+    changes: [
+      [
+        'const note = (row: number, column: number, message: string) => {\n      (cellNotes[`${row}:${column}`] ??= []).push(message);',
+        'const note = (row: number, column: number, message: string) => {\n      (cellIssues[`${row}:${column}`] ??= []).push(message);',
+      ],
+    ],
   },
   {
     name: 'reverse-source-sign',

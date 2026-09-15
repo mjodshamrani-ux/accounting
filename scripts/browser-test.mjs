@@ -39,7 +39,14 @@ const errors = [],
   external = [],
   post = [];
 try {
-  browser = await chromium.launch({ headless: true });
+  // MIZAN_CHROMIUM lets a sandbox with a preinstalled browser point at it; CI
+  // leaves it unset and uses the version Playwright manages itself.
+  browser = await chromium.launch({
+    headless: true,
+    ...(process.env.MIZAN_CHROMIUM
+      ? { executablePath: process.env.MIZAN_CHROMIUM }
+      : {}),
+  });
   context = await browser.newContext({
     viewport: { width: 1440, height: 1050 },
     acceptDownloads: true,
@@ -76,9 +83,15 @@ try {
   // Everything after initial preload must work without a network connection, including first comparison and export.
   await context.setOffline(true);
   await page.getByRole('button', { name: 'تجربة مثال', exact: true }).click();
-  await page.getByRole('checkbox', { name: /إضافة تسوية الأرصدة/ }).check();
-  await page.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
-  await page.getByRole('checkbox', { name: /أؤكد اكتمال تغطية/ }).check();
+  // Balance reconciliation is opt-in and lives behind the scope card's edit
+  // action, so nothing about it is on the default path.
+  await page
+    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .click();
+  await page.getByRole('checkbox', { name: /أريد تسوية الأرصدة/ }).check();
+  await page
+    .getByRole('checkbox', { name: /أؤكد أن التقريرين يغطيان/ })
+    .check();
   await page.getByRole('button', { name: 'تحقق وقارن', exact: true }).click();
   await page
     .getByRole('heading', { name: 'مساحة المراجعة' })
@@ -141,7 +154,8 @@ try {
   assert.ok(wb.getWorksheet('Review history').rowCount >= 3);
   assert.equal(wb.getWorksheet('Supplier source').rowCount, 10);
   await page.screenshot({ path: 'work/qa/export.png', fullPage: true });
-  // Changes to input invalidate comparison state and require new attestation.
+  // A settings edit discards the previous result: pressing compare is the
+  // confirmation, so a stale comparison can never survive an input change.
   await page.getByRole('button', { name: 'العودة للمراجعة' }).click();
   await page.getByRole('button', { name: 'تعديل الإعدادات' }).click();
   assert.equal(
@@ -150,14 +164,9 @@ try {
   );
   await page.getByLabel('المورد', { exact: true }).fill('اسم معدل');
   assert.equal(
-    await page.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).isChecked(),
-    false,
-  );
-  assert.equal(
-    await page
-      .getByRole('button', { name: 'تحقق وقارن', exact: true })
-      .isDisabled(),
-    true,
+    await page.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
+    0,
+    'an edited scope must not leave the earlier comparison on screen',
   );
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: 'work/qa/mobile.png', fullPage: true });
@@ -192,7 +201,6 @@ try {
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-08-31');
-  await uploadPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
   await uploadPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -201,8 +209,10 @@ try {
     await uploadPage.locator('.metric').nth(0).locator('strong').innerText(),
     '2',
   );
-  assert.ok(
-    (await uploadPage.locator('body').innerText()).includes('مقارنة حركات فقط'),
+  assert.match(
+    await uploadPage.locator('.metric').nth(3).innerText(),
+    /صفوف لم تُقرأ/,
+    'without a verified balance no balance figure may be presented',
   );
   await uploadPage
     .getByRole('button', { name: 'عملية جديدة', exact: true })
@@ -275,7 +285,6 @@ try {
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-08-31');
-  await uploadPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
   await uploadPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -318,42 +327,38 @@ try {
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
   assert.match(
-    await workpaperPage.locator('.reading-summary').nth(0).innerText(),
+    await workpaperPage.locator('.summary-line').nth(1).innerText(),
     /Supplier source/,
   );
   assert.match(
-    await workpaperPage.locator('.reading-summary').nth(1).innerText(),
+    await workpaperPage.locator('.summary-line').nth(2).innerText(),
     /Ledger source/,
   );
-  assert.equal(
+  // The per-source details live behind one edit action instead of a stack of
+  // disclosures, so open each card to read the header row it picked.
+  for (const [index, label] of [
+    'تعديل كشف المورد',
+    'تعديل تقرير الحسابات الدائنة',
+  ].entries()) {
     await workpaperPage
-      .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
-      .isChecked(),
-    false,
-  );
-  assert.equal(
-    await workpaperPage.getByLabel('المورد', { exact: true }).inputValue(),
-    '',
-  );
-  assert.equal(
+      .getByRole('button', { name: label, exact: true })
+      .click();
+    assert.equal(
+      await workpaperPage
+        .getByLabel(`صف العناوين ${index}`, { exact: true })
+        .inputValue(),
+      '2',
+    );
+  }
+  // An exported workpaper carries no restored scope, so set it explicitly.
+  if (!(await workpaperPage.getByLabel('العملة', { exact: true }).isVisible()))
     await workpaperPage
-      .getByLabel('صف العناوين 0', { exact: true })
-      .inputValue(),
-    '2',
-  );
-  assert.equal(
-    await workpaperPage
-      .getByLabel('صف العناوين 1', { exact: true })
-      .inputValue(),
-    '2',
-  );
+      .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+      .click();
   await workpaperPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await workpaperPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-08-31');
-  await workpaperPage
-    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
-    .check();
   await workpaperPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -364,10 +369,10 @@ try {
     await workpaperPage.locator('.metric').nth(0).locator('strong').innerText(),
     '2',
   );
-  assert.ok(
-    (await workpaperPage.locator('body').innerText()).includes(
-      'مقارنة حركات فقط',
-    ),
+  assert.match(
+    await workpaperPage.locator('.metric').nth(3).innerText(),
+    /صفوف لم تُقرأ/,
+    'without a verified balance no balance figure may be presented',
   );
   await context.setOffline(false);
   const pdfPage = await context.newPage();
@@ -409,21 +414,19 @@ try {
   await pdfPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  await pdfPage.getByText('تعديل حدود أعمدة PDF', { exact: true }).click();
+  await pdfPage
+    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .click();
   await pdfPage.getByLabel('حدود أعمدة PDF', { exact: true }).fill('25,45,65');
   await pdfPage
-    .getByRole('button', {
-      name: 'تطبيق حدود الأعمدة وإعادة القراءة',
-      exact: true,
-    })
+    .getByRole('button', { name: 'تطبيق وإعادة القراءة', exact: true })
     .click();
   await pdfPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
   );
   await pdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await pdfPage.getByLabel('تاريخ القطع', { exact: true }).fill('2026-08-31');
-  await pdfPage.getByRole('checkbox', { name: /راجعت جميع صفحات PDF/ }).check();
-  await pdfPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
+  await pdfPage.getByRole('checkbox', { name: /راجعت الجدول أعلاه/ }).check();
   await pdfPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -499,15 +502,14 @@ try {
   await recoveryPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  await recoveryPage.getByText('تعديل حدود أعمدة PDF', { exact: true }).click();
+  await recoveryPage
+    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .click();
   await recoveryPage
     .getByLabel('حدود أعمدة PDF', { exact: true })
     .fill('25,45');
   await recoveryPage
-    .getByRole('button', {
-      name: 'تطبيق حدود الأعمدة وإعادة القراءة',
-      exact: true,
-    })
+    .getByRole('button', { name: 'تطبيق وإعادة القراءة', exact: true })
     .click();
   await recoveryPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
@@ -517,9 +519,8 @@ try {
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-07-31');
   await recoveryPage
-    .getByRole('checkbox', { name: /راجعت جميع صفحات PDF/ })
+    .getByRole('checkbox', { name: /راجعت الجدول أعلاه/ })
     .check();
-  await recoveryPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
   await recoveryPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -580,6 +581,36 @@ try {
   await quickPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
+  // Everything needed was read from the files, so the confirmation step asks for
+  // nothing: no entry field and no attestation box stand between the accountant
+  // and the comparison.
+  assert.equal(
+    await quickPage.locator('input:not([type=checkbox]):visible').count(),
+    0,
+    'a fully inferred scope must present no entry field to fill',
+  );
+  assert.equal(
+    await quickPage.getByRole('checkbox').count(),
+    0,
+    'the default path must not ask for any attestation',
+  );
+  assert.equal(
+    await quickPage
+      .getByRole('button', { name: 'تحقق وقارن', exact: true })
+      .isDisabled(),
+    false,
+    'with nothing missing, compare must be available immediately',
+  );
+  const quickSummary = await quickPage
+    .locator('.summary-line')
+    .first()
+    .innerText();
+  assert.match(quickSummary, /2026-06-30/);
+  assert.match(quickSummary, /SAR/);
+  // The values are inferred, not invented: open the panel and read them back.
+  await quickPage
+    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .click();
   assert.equal(
     await quickPage.getByLabel('تاريخ القطع', { exact: true }).inputValue(),
     '2026-06-30',
@@ -588,6 +619,7 @@ try {
     await quickPage.getByLabel('العملة', { exact: true }).inputValue(),
     'SAR',
   );
+  await quickPage.getByRole('checkbox', { name: /أريد تسوية الأرصدة/ }).check();
   assert.equal(
     await quickPage.getByLabel('المورد', { exact: true }).inputValue(),
     'Synthetic Vendor',
@@ -596,31 +628,25 @@ try {
     await quickPage.getByLabel('الجهة القانونية', { exact: true }).inputValue(),
     'Synthetic Entity',
   );
+  await quickPage
+    .getByRole('checkbox', { name: /أريد تسوية الأرصدة/ })
+    .uncheck();
   assert.equal(
     await quickPage.getByLabel('المورد', { exact: true }).isVisible(),
     false,
   );
-  assert.equal(
-    await quickPage.locator('input:not([type=checkbox]):visible').count(),
-    2,
-    'only cutoff and currency entry fields are initially visible; attestations are separate',
-  );
-  assert.equal(
-    await quickPage
-      .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
-      .isChecked(),
-    false,
-  );
-  assert.ok(
-    (await quickPage.locator('.reading-summary').first().innerText()).includes(
-      'يوم / شهر / سنة',
-    ),
+  await quickPage
+    .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+    .click();
+  assert.match(
+    await quickPage.locator('.summary-line').nth(1).innerText(),
+    /التاريخ/,
+    'each source card states which column it read the date from',
   );
   await quickPage.screenshot({
     path: 'work/qa/quick-confirmation.png',
     fullPage: true,
   });
-  await quickPage.getByRole('checkbox', { name: /أؤكد أن الملفين/ }).check();
   await quickPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -682,9 +708,6 @@ try {
     await ambiguityPage.getByLabel('العملة', { exact: true }).inputValue(),
     'KWD',
   );
-  await ambiguityPage
-    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
-    .check();
   assert.equal(
     await ambiguityPage
       .getByRole('button', { name: 'تحقق وقارن', exact: true })
@@ -715,9 +738,6 @@ try {
       ).includes('يوم / شهر / سنة'),
     );
   }
-  await ambiguityPage
-    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
-    .check();
   await ambiguityPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -753,9 +773,6 @@ try {
   await precisionPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-06-30');
-  await precisionPage
-    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
-    .check();
   assert.equal(
     await precisionPage
       .getByRole('button', { name: 'تحقق وقارن', exact: true })
@@ -768,15 +785,118 @@ try {
   await precisionPage
     .getByRole('option', { name: 'منزلتان — مثل SAR', exact: true })
     .click();
-  await precisionPage
-    .getByRole('checkbox', { name: /أؤكد أن الملفين/ })
-    .check();
   assert.equal(
     await precisionPage
       .getByRole('button', { name: 'تحقق وقارن', exact: true })
       .isEnabled(),
     true,
   );
+  // A statement PDF whose header wording is outside the suggestion vocabulary:
+  // the columns must come from the page geometry, so the accountant never has to
+  // type a percentage to get past this step.
+  await context.setOffline(false);
+  const autoPdfPage = await context.newPage();
+  await autoPdfPage.goto(`${origin}/mizan-test/`);
+  await autoPdfPage.waitForFunction(
+    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+  );
+  await context.setOffline(true);
+  const autoRows = [
+    ['Date', 'Doc. Ref', 'Narration', 'Value'],
+    ['2026-08-01', 'INV-0001', 'Invoice', '100.00'],
+    ['2026-08-02', 'PAY-0001', 'Payment', '-20.00'],
+    ['2026-08-03', 'INV-0002', 'Invoice', '55.50'],
+  ];
+  await autoPdfPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
+    name: 'auto-columns.pdf',
+    mimeType: 'application/pdf',
+    buffer: Buffer.from(syntheticPdf([autoRows])),
+  });
+  await autoPdfPage.waitForFunction(
+    () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+  );
+  await autoPdfPage
+    .getByLabel('تقرير الحسابات الدائنة', { exact: true })
+    .setInputFiles({
+      name: 'auto-columns.csv',
+      mimeType: 'text/csv',
+      buffer: Buffer.from(
+        'date,reference,amount\n2026-08-01,INV-0001,100.00\n2026-08-02,PAY-0001,-20.00\n2026-08-03,INV-0002,55.50',
+      ),
+    });
+  await autoPdfPage.waitForFunction(
+    () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+  );
+  await autoPdfPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  // The review box must be reachable without applying a boundary by hand: this
+  // is the dead end that used to block the whole flow.
+  const autoReview = autoPdfPage.getByRole('checkbox', {
+    name: /راجعت الجدول أعلاه/,
+  });
+  assert.equal(
+    await autoReview.isDisabled(),
+    false,
+    'the PDF review box must never be unreachable',
+  );
+  await autoReview.check();
+  assert.equal(await autoReview.isChecked(), true);
+  // Typing a boundary and abandoning it must not latch the box off.
+  await autoPdfPage
+    .getByRole('button', { name: 'تعديل حدود الأعمدة', exact: true })
+    .click();
+  const autoCuts = autoPdfPage.getByLabel('حدود أعمدة PDF', { exact: true });
+  const appliedCuts = await autoCuts.inputValue();
+  assert.ok(appliedCuts.length, 'geometry must have produced boundaries');
+  await autoCuts.fill('oops');
+  assert.equal(
+    await autoPdfPage
+      .getByRole('button', { name: 'تطبيق وإعادة القراءة', exact: true })
+      .isDisabled(),
+    false,
+  );
+  await autoCuts.fill(appliedCuts);
+  assert.equal(
+    await autoReview.isChecked(),
+    true,
+    'restoring the applied boundaries must leave the review intact',
+  );
+  await autoPdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
+  assert.equal(
+    await autoPdfPage
+      .getByRole('button', { name: 'تحقق وقارن', exact: true })
+      .isDisabled(),
+    false,
+  );
+  await autoPdfPage
+    .getByRole('button', { name: 'تحقق وقارن', exact: true })
+    .click();
+  await autoPdfPage
+    .getByRole('heading', { name: 'مساحة المراجعة' })
+    .waitFor({ timeout: 20000 });
+  assert.equal(
+    await autoPdfPage.locator('.metric').nth(0).locator('strong').innerText(),
+    '3',
+    'all three PDF rows must match the ledger',
+  );
+  // With balances not requested, the result reports how much of the source
+  // never entered the comparison, and says zero when nothing was skipped.
+  const skipped = autoPdfPage.locator('.metric').nth(3);
+  assert.match(await skipped.innerText(), /صفوف لم تُقرأ/);
+  assert.equal(await skipped.locator('strong').innerText(), '0');
+  assert.equal(
+    (await autoPdfPage.locator('body').innerText()).includes(
+      'اتساق الرصيد أو التغطية غير متحقق',
+    ),
+    false,
+    'balance notes must not appear when balances were never requested',
+  );
+  await autoPdfPage.screenshot({
+    path: 'work/qa/auto-columns.png',
+    fullPage: true,
+  });
+
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -804,6 +924,7 @@ try {
           'clear files show only two input fields; explicit metadata and unambiguous formats filled and numeric export verified',
           'both ambiguous date and 3-decimal amount formats require independent choices',
           'unknown currency precision requires an explicit choice including the existing two-decimal value',
+          'PDF columns detected from geometry with a reachable review box',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

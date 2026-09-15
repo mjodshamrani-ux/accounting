@@ -407,3 +407,32 @@ export function inferScopeSuggestions(
   }
   return result;
 }
+
+/** The latest date present in either mapped date column, or '' when none parses.
+ * Used only as a default cut-off. Rows after the cut-off are excluded, so the
+ * latest observed date excludes nothing: it is a starting point the accountant
+ * narrows, never a claim about where the statement period ends.
+ */
+export function latestSourceDate(
+  files: [SourceFile | null, SourceFile | null],
+  mappings: [Mapping, Mapping],
+): string {
+  let latest = '';
+  files.forEach((file, index) => {
+    const mapping = mappings[index];
+    const sheet = file?.sheets[mapping.sheet];
+    if (!sheet || mapping.date < 0 || !Number.isInteger(mapping.header)) return;
+    for (let row = mapping.header + 1; row < sheet.rows.length; row++) {
+      if (mapping.excluded[String(row + 1)]?.trim()) continue;
+      const text = (sheet.rows[row][mapping.date] ?? '').trim();
+      if (!text) continue;
+      try {
+        const date = parseDate(text, mapping.dateFormat);
+        if (date > latest) latest = date;
+      } catch {
+        // An unreadable cell is not evidence of a date; the row is reported later.
+      }
+    }
+  });
+  return latest;
+}

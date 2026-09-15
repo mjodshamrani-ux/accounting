@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.4-experimental';
+export const ENGINE_VERSION = '0.3.5-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -12,6 +12,9 @@ export type SheetData = {
   // Excel issues are scoped to cells (one-based row:column), then checked against
   // the user's mapping. Unused helper columns must not invalidate a transaction.
   cellIssues?: Record<string, string[]>;
+  // Observations that do not change the value read from the cell. They are shown
+  // to the accountant but never block a row, unlike cellIssues.
+  cellNotes?: Record<string, string[]>;
   referenceIssues?: Record<string, string[]>;
   rowPages?: Record<string, number>;
 };

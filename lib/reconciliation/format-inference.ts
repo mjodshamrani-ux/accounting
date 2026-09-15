@@ -1,4 +1,4 @@
-import { parseDate, parseMoney } from './core.ts';
+import { parseDate, parseMoney, summaryLabel } from './core.ts';
 import { MAX_ROWS } from './types.ts';
 import type { Mapping, Scope, SourceFile } from './types.ts';
 
@@ -17,8 +17,6 @@ export type FormatSuggestions = {
 
 const dateFormats: Mapping['dateFormat'][] = ['ymd', 'dmy', 'mdy'];
 const numberFormats: Mapping['numberFormat'][] = ['dot', 'comma'];
-const summaryLabel =
-  /^(?:total|subtotal|grand total|opening balance|closing balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
 
 function assessment<T extends string>(
   status: FormatStatus,
