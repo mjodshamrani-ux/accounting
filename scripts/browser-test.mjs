@@ -1206,10 +1206,17 @@ try {
     await directionPage
       .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
       .waitFor();
+    // F7 is the formula "100" in the formula fixture. The restricted balance
+    // evaluator accepts cell references joined by +/- only, so neither this
+    // cached opening nor its dependent closing proves a balance bridge. Both
+    // phases still have an explicit period and two readable transactions.
+    const directionMetric = directionPage.locator('.metric').nth(3);
     assert.match(
-      await directionPage.locator('.metric').nth(3).innerText(),
-      /فرق الأرصدة/,
-      `${directionPhase}: extracted source balances support the arithmetic bridge`,
+      await directionMetric.innerText(),
+      formulas ? /صفوف لم تُقرأ/ : /فرق الأرصدة/,
+      formulas
+        ? 'unsupported balance formulas must not turn cached values into a verified bridge'
+        : 'fixed source balances support the arithmetic bridge',
     );
     assert.equal(
       await directionPage
@@ -1220,12 +1227,8 @@ try {
       '2',
     );
     assert.equal(
-      await directionPage
-        .locator('.metric')
-        .nth(3)
-        .locator('strong')
-        .innerText(),
-      '0.00',
+      await directionMetric.locator('strong').innerText(),
+      formulas ? '0' : '0.00',
     );
     await directionPage
       .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
