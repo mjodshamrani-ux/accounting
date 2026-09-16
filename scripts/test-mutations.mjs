@@ -22,6 +22,10 @@ const tests = [
   'tests/import-selection.test.ts',
   'tests/pdf-adversarial.test.ts',
   'tests/ordinary-statements.test.ts',
+  'tests/simplicity-safety.test.ts',
+  'tests/statement-direction.test.ts',
+  'tests/xlsx-namespaces.test.ts',
+  'tests/pdf-column-suggestions.test.ts',
 ];
 const mutations = [
   {
@@ -49,12 +53,7 @@ const mutations = [
   {
     name: 'count-total-rows-as-transactions',
     file: 'lib/reconciliation/core.ts',
-    changes: [
-      [
-        'const label = row.find((value) => summaryLabel.test(value.trim()));',
-        'const label = undefined as string | undefined;',
-      ],
-    ],
+    changes: [['return first.value;', 'return undefined;']],
   },
   {
     name: 'drop-classified-rows-without-a-reason',
@@ -75,6 +74,46 @@ const mutations = [
         'const note = (row: number, column: number, message: string) => {\n      (cellIssues[`${row}:${column}`] ??= []).push(message);',
       ],
     ],
+  },
+  {
+    name: 'automatically-match-with-unread-potential-duplicates',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['!completeReading ||', 'false ||']],
+  },
+  {
+    name: 'classify-any-summary-word-as-a-nontransaction',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        /const label = structuralSummaryLabel\([\s\S]*?\);/,
+        'const label = row.find(value => summaryLabel.test(value.trim()));',
+      ],
+    ],
+  },
+  {
+    name: 'ignore-date-and-reference-in-reordered-summary-rows',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        /if\s*\(\s*\(date && date !== first\.value\)\s*\|\|\s*references\.some\(\(?value\)?\s*=>\s*value !== first\.value\)\s*\)\s*return;/,
+        'if (false) return;',
+      ],
+    ],
+  },
+  {
+    name: 'prove-direction-from-a-single-movement',
+    file: 'lib/reconciliation/statement-direction.ts',
+    changes: [['nonzeroSteps < 2', 'nonzeroSteps < 1']],
+  },
+  {
+    name: 'reverse-proven-ap-direction',
+    file: 'lib/reconciliation/statement-direction.ts',
+    changes: [['delta === -net ? -1', 'delta === -net ? 1']],
+  },
+  {
+    name: 'ignore-contradictory-closing-footer-in-direction-proof',
+    file: 'lib/reconciliation/statement-direction.ts',
+    changes: [['footerAmounts[0] !== previousBalance', 'false']],
   },
   {
     name: 'reverse-source-sign',
@@ -162,7 +201,13 @@ for (const mutation of mutations) {
     const file = join(scratch, mutation.file);
     let source = await readFile(file, 'utf8');
     for (const [before, after] of mutation.changes) {
-      if (source.split(before).length !== 2)
+      // Some accounting statements span multiple lines after formatting. Match
+      // their syntax with a bounded regex while retaining exact uniqueness.
+      const count =
+        before instanceof RegExp
+          ? [...source.matchAll(new RegExp(before.source, 'g'))].length
+          : source.split(before).length - 1;
+      if (count !== 1)
         throw Error(`Stale or non-unique mutation anchor: ${mutation.name}`);
       source = source.replace(before, after);
     }

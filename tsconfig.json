@@ -23,7 +23,7 @@
     "app/page.tsx",
     "main.tsx",
     "lib/**/*.ts",
-    "components/ui/**/*.tsx",
+    "components/**/*.tsx",
     "hooks/**/*.ts",
     "tests/**/*.ts",
     "vite.config.ts"

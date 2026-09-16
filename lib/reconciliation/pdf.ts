@@ -3,7 +3,7 @@ import type { SheetData } from './types.ts';
 import { bindTextPaints, visibleOnBackground } from './pdf-paint-order.ts';
 import type { PdfBackground } from './pdf-paint-order.ts';
 import {
-  suggestPdfColumns,
+  suggestPdfColumnLayout,
   projectPdfColumns,
 } from './pdf-column-suggestions.ts';
 
@@ -690,20 +690,48 @@ export async function readPdf(
     }
     // Prefer the header-signature reading; fall back to column geometry so an
     // ordinary statement is not stranded by unfamiliar header wording.
+    const proposedLayout = suggestPdfColumnLayout(pages);
     const suggested =
       autoColumns && !cuts.length
-        ? (suggestPdfColumns(pages) ?? projectPdfColumns(pages))
+        ? (proposedLayout?.cuts ?? projectPdfColumns(pages))
         : null;
     const effectiveCuts = suggested ?? cuts;
     for (const [index, page] of pages.entries()) {
-      for (const line of layoutPdfPage(
-        page.tokens,
-        effectiveCuts,
-        page.width,
-      )) {
-        sheet.rows.push(line.row);
+      const lines = layoutPdfPage(page.tokens, effectiveCuts, page.width);
+      const band = proposedLayout?.headers[index];
+      const pieces = band?.lineIndexes.map((i) => lines[i]);
+      const merged =
+        pieces &&
+        Array.from({ length: effectiveCuts.length + 1 }, (_, col) =>
+          pieces
+            .map((piece) => piece.row[col]?.trim() ?? '')
+            .filter(Boolean)
+            .join(' '),
+        );
+      // Join only a proven multi-line HEADER. Every original token is retained
+      // in the fragment record and original PDF; transaction rows are untouched.
+      const joinHeader =
+        !!band &&
+        band.lineIndexes.length > 1 &&
+        !!pieces &&
+        pieces.every((piece) => piece && piece.issues.length === 0) &&
+        merged?.length === band.columns.length &&
+        merged.every((value, col) => value === band.columns[col]);
+      for (const [lineIndex, line] of lines.entries()) {
+        if (
+          joinHeader &&
+          band.lineIndexes.includes(lineIndex) &&
+          lineIndex !== band.lineIndexes[0]
+        )
+          continue;
+        const headerLine = joinHeader && lineIndex === band.lineIndexes[0];
+        sheet.rows.push(headerLine ? merged! : line.row);
         const rn = String(sheet.rows.length);
         sheet.rowPages![rn] = index + 1;
+        if (headerLine)
+          (sheet.pdfHeaderFragments ??= {})[rn] = pieces!.map(
+            (piece) => piece.row,
+          );
         if (line.issues.length) sheet.rowIssues![rn] = line.issues;
         if (sheet.rows.length > 20000) throw new Error('الحد 20,000 صف مستخرج');
       }

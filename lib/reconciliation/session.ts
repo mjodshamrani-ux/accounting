@@ -6,7 +6,7 @@ import type {
   Decision,
   AuditEvent,
 } from './types.ts';
-import { readFile } from './io.ts';
+import { readFile, verifyDirectionEvidence } from './io.ts';
 import { compare, normalizeSource } from './core.ts';
 export type SessionState = {
   files: [SourceFile, SourceFile];
@@ -39,13 +39,19 @@ const demoBytes = (file: SourceFile) =>
 export async function saveSession(state: SessionState): Promise<ArrayBuffer> {
   if (state.events.length > 2000)
     throw new Error('سجل الجلسة كبير؛ صدّر ورقة العمل');
+  const verifiedMappings: Mapping[] = [];
   const files = await Promise.all(
-    state.files.map(async (f) => {
+    state.files.map(async (f, side) => {
       const original = f.original ?? demoBytes(f);
       const name = f.original
         ? f.name
         : f.name.replace(/\.[^.]+$/, '') + '.csv';
       const checked = await readFile(name, original, f.pdf?.cuts);
+      verifiedMappings[side] = verifyDirectionEvidence(
+        checked,
+        state.mappings[side],
+        state.scope.decimals,
+      );
       return {
         name,
         sha256: checked.sha256,
@@ -60,7 +66,7 @@ export async function saveSession(state: SessionState): Promise<ArrayBuffer> {
       version: 1,
       engine: ENGINE_VERSION,
       files,
-      mappings: state.mappings,
+      mappings: verifiedMappings,
       scope: state.scope,
       decisions: state.decisions,
       rejected: state.rejected,
@@ -129,9 +135,12 @@ export async function restoreSession(bytes: ArrayBuffer) {
     p.review.notes.length > 3000
   )
     throw new Error('مراجعة الجلسة غير صالحة');
+  const mappings = p.mappings.map((mapping: Mapping, side: number) =>
+    verifyDirectionEvidence(files[side], mapping, p.scope.decimals),
+  ) as [Mapping, Mapping];
   const result = compare(
-    normalizeSource(files[0], p.mappings[0], p.scope, 'supplier'),
-    normalizeSource(files[1], p.mappings[1], p.scope, 'ledger'),
+    normalizeSource(files[0], mappings[0], p.scope, 'supplier'),
+    normalizeSource(files[1], mappings[1], p.scope, 'ledger'),
     p.scope,
     p.decisions,
     p.rejected,
@@ -155,7 +164,7 @@ export async function restoreSession(bytes: ArrayBuffer) {
       throw new Error('حدث مراجعة غير صالح');
   return {
     files,
-    mappings: p.mappings as [Mapping, Mapping],
+    mappings,
     scope: p.scope as Scope,
     decisions: p.decisions as Decision[],
     rejected: p.rejected as string[],

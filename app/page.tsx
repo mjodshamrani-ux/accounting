@@ -70,11 +70,11 @@ import type {
   Comparison,
   SourceResult,
   Decision,
-  Transaction,
 } from '@/lib/reconciliation/types';
 import { inferMapping, money } from '@/lib/reconciliation/core';
 import { suggestFormats } from '@/lib/reconciliation/format-inference';
 import { currencyPrecision } from '@/lib/reconciliation/currency-precision';
+import { inferStatementDirection } from '@/lib/reconciliation/statement-direction';
 import type { FormatSuggestions } from '@/lib/reconciliation/format-inference';
 import {
   inferScopeSuggestions,
@@ -256,6 +256,47 @@ export default function App() {
     Partial<Record<ScopeSuggestionField | 'decimals', boolean>>
   >({});
   const [formatChoices, setFormatChoices] = useState(freshFormatChoices);
+  const directionEdited = useRef<[boolean, boolean]>([false, false]);
+  const [pdfDrafts, setPdfDrafts] = useState<[boolean, boolean]>([
+    false,
+    false,
+  ]);
+  const directionProofs = useMemo(
+    () =>
+      files.map((file, i) =>
+        file
+          ? inferStatementDirection(file, mappings[i], scope.decimals)
+          : undefined,
+      ),
+    [files, mappings, scope.decimals],
+  );
+  useEffect(() => {
+    setMappings((previous) => {
+      let changed = false;
+      const next = previous.map((mapping, i) => {
+        const proof = directionProofs[i];
+        if (!proof && mapping.directionEvidence) {
+          changed = true;
+          return { ...mapping, directionEvidence: undefined };
+        }
+        if (
+          proof &&
+          !directionEdited.current[i] &&
+          (mapping.multiplier !== proof.multiplier ||
+            JSON.stringify(mapping.directionEvidence) !== JSON.stringify(proof))
+        ) {
+          changed = true;
+          return {
+            ...mapping,
+            multiplier: proof.multiplier,
+            directionEvidence: proof,
+          };
+        }
+        return mapping;
+      }) as [Mapping, Mapping];
+      return changed ? next : previous;
+    });
+  }, [directionProofs]);
   const [balanceMode, setBalanceMode] = useState(false);
   const scopeSuggestions = useMemo(
     () => inferScopeSuggestions(files, mappings),
@@ -281,7 +322,8 @@ export default function App() {
       }
       // Rows after the cut-off are excluded, so defaulting to the latest date in
       // the sources excludes nothing and still lets the accountant narrow it.
-      if (!scopeEdited.current.cutoff && !next.cutoff) next.cutoff = latestDate;
+      if (!scopeEdited.current.cutoff && !next.cutoff && !balanceMode)
+        next.cutoff = latestDate;
       const changed = (Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
         (field) => previous[field] !== next[field],
       );
@@ -289,7 +331,7 @@ export default function App() {
         ? { ...next, confirmed: false, coverageConfirmed: false }
         : previous;
     });
-  }, [scopeSuggestions, latestDate]);
+  }, [scopeSuggestions, latestDate, balanceMode]);
   useEffect(() => {
     setMappings((previous) => {
       let changed = false;
@@ -327,6 +369,12 @@ export default function App() {
     );
   }, [scope.currency]);
   const preparationPending =
+    directionProofs.some(
+      (proof, i) =>
+        proof &&
+        !directionEdited.current[i] &&
+        proof.multiplier !== mappings[i].multiplier,
+    ) ||
     (!scopeEdited.current.decimals &&
       currencyPrecision(scope.currency) !== undefined &&
       currencyPrecision(scope.currency) !== scope.decimals) ||
@@ -340,6 +388,13 @@ export default function App() {
             suggestion.patch[field] !== mappings[i][field],
         ),
     );
+  const unresolvedDirection = files.some(
+    (file, i) =>
+      file &&
+      mappings[i].mode === 'split' &&
+      !directionProofs[i] &&
+      !directionEdited.current[i],
+  );
   const unresolvedFormats = formatSuggestions.some(
     (suggestion, i) =>
       suggestion &&
@@ -371,31 +426,35 @@ export default function App() {
   );
   const blocked = !files.every(Boolean)
     ? 'أضف الملفين أولًا.'
-    : mappings.some((m) => m.sheet < 0)
-      ? 'اختر ورقة جدول المصدر في بطاقة الملف أعلاه.'
-      : columnsMissing
-        ? 'حدد عمود التاريخ وعمود المبلغ في بطاقة الملف أعلاه.'
-        : !scope.cutoff
-          ? 'حدد تاريخ المقارنة من «تعديل» في بطاقة النطاق.'
-          : !scope.currency
-            ? 'حدد عملة الملفين من «تعديل» في بطاقة النطاق.'
-            : precisionMissing
-              ? 'حدد دقة العملة من «تعديل» في بطاقة النطاق.'
-              : unresolvedScope.length
-                ? 'اختر القيمة الصحيحة للحقول المتعارضة من «تعديل».'
-                : unresolvedFormats
-                  ? 'اختر تفسير التواريخ أو المبالغ الملتبسة في بطاقة الملف.'
-                  : pdfReviewPending
-                    ? 'أكد مراجعة استخراج PDF في بطاقة المصدر.'
-                    : balanceMode &&
-                        (!scope.coverageConfirmed ||
-                          !scope.supplier.trim() ||
-                          !scope.entity.trim() ||
-                          !scope.account.trim())
-                      ? 'تسوية الأرصدة تتطلب أسماء الأطراف وتأكيد التغطية.'
-                      : preparationPending
-                        ? 'جارٍ تحديث إعدادات القراءة…'
-                        : '';
+    : pdfDrafts.some(Boolean)
+      ? 'طبّق تعديل حدود PDF أو تراجع عنه قبل المقارنة.'
+      : mappings.some((m) => m.sheet < 0)
+        ? 'اختر ورقة جدول المصدر في بطاقة الملف أعلاه.'
+        : columnsMissing
+          ? 'حدد عمود التاريخ وعمود المبلغ في بطاقة الملف أعلاه.'
+          : !scope.cutoff
+            ? 'حدد تاريخ المقارنة من «خيارات متقدمة» في بطاقة النطاق.'
+            : !scope.currency
+              ? 'حدد عملة الملفين من «خيارات متقدمة» في بطاقة النطاق.'
+              : precisionMissing
+                ? 'حدد دقة العملة من «خيارات متقدمة» في بطاقة النطاق.'
+                : unresolvedScope.length
+                  ? 'اختر القيمة الصحيحة للحقول المتعارضة من «خيارات متقدمة».'
+                  : unresolvedDirection
+                    ? 'حدد اتجاه المدين والدائن في بطاقة الملف؛ لم يمكن إثباته من الأرصدة.'
+                    : unresolvedFormats
+                      ? 'اختر تفسير التواريخ أو المبالغ الملتبسة في بطاقة الملف.'
+                      : pdfReviewPending
+                        ? 'أكد مراجعة استخراج PDF في بطاقة المصدر.'
+                        : balanceMode &&
+                            (!scope.coverageConfirmed ||
+                              !scope.supplier.trim() ||
+                              !scope.entity.trim() ||
+                              !scope.account.trim())
+                          ? 'تسوية الأرصدة تتطلب أسماء الأطراف وتأكيد التغطية.'
+                          : preparationPending
+                            ? 'جارٍ تحديث إعدادات القراءة…'
+                            : '';
   const [step, setStep] = useState(0);
   // Open the panel when the confirmation step still needs a value, then leave it
   // to the accountant: it must not snap shut as the last field is filled.
@@ -473,7 +532,29 @@ export default function App() {
     }));
   }
   function updateMapping(i: number, p: Partial<Mapping>) {
-    if (!('pdfReviewed' in p))
+    const readingChanged = [
+      'sheet',
+      'header',
+      'date',
+      'reference',
+      'description',
+      'amount',
+      'debit',
+      'credit',
+      'currencyColumn',
+      'mode',
+      'numberFormat',
+      'dateFormat',
+      'reportType',
+    ].some((key) => Object.hasOwn(p, key));
+    if (readingChanged) {
+      directionEdited.current[i] = false;
+      p = { ...p, directionEvidence: undefined };
+    } else if ('multiplier' in p) {
+      directionEdited.current[i] = true;
+      p = { ...p, directionEvidence: undefined };
+    }
+    if (readingChanged)
       setFormatChoices(
         (previous) =>
           previous.map((choice, j) =>
@@ -536,6 +617,7 @@ export default function App() {
     if (busy) return;
     invalidate();
     setDemo(true);
+    directionEdited.current = [true, true];
     scopeEdited.current = {
       supplier: true,
       entity: true,
@@ -566,6 +648,11 @@ export default function App() {
       const selection = selectImportMapping(
         parsed,
         i === 0 ? 'supplier' : 'ledger',
+      );
+      directionEdited.current[i] = false;
+      setPdfDrafts(
+        (previous) =>
+          previous.map((v, j) => (j === i ? false : v)) as [boolean, boolean],
       );
       invalidate();
       setDemo(false);
@@ -603,6 +690,7 @@ export default function App() {
       );
       if (!alive()) return;
       invalidate();
+      directionEdited.current[i] = false;
       setFormatChoices(
         (previous) =>
           previous.map((choice, j) =>
@@ -727,6 +815,8 @@ export default function App() {
       >('restore-session', { buffer: await file.arrayBuffer() }, signal);
       if (!alive()) return;
       invalidate();
+      directionEdited.current = [true, true];
+      setPdfDrafts([false, false]);
       setFiles(saved.files);
       setMappings(saved.mappings);
       scopeEdited.current = {
@@ -735,8 +825,12 @@ export default function App() {
         account: true,
         currency: true,
         cutoff: true,
+        decimals: true,
       };
-      setFormatChoices(freshFormatChoices());
+      setFormatChoices([
+        { dateFormat: true, numberFormat: true },
+        { dateFormat: true, numberFormat: true },
+      ]);
       setBalanceMode(saved.scope.coverageConfirmed);
       setScope(saved.scope);
       setDecisions(saved.decisions);
@@ -790,10 +884,6 @@ export default function App() {
   );
   const matchedBySupplier = useMemo(
     () => new Map(result?.matches.map((m) => [m.supplierId, m]) ?? []),
-    [result],
-  );
-  const ledgerById = useMemo(
-    () => new Map(result?.ledger.transactions.map((t) => [t.id, t]) ?? []),
     [result],
   );
   const rows = useMemo(() => {
@@ -861,6 +951,8 @@ export default function App() {
     cancel();
     invalidate();
     setFiles([null, null]);
+    directionEdited.current = [false, false];
+    setPdfDrafts([false, false]);
     setMappings([defaultMapping(), defaultMapping()]);
     scopeEdited.current = {};
     setFormatChoices(freshFormatChoices());
@@ -1168,18 +1260,18 @@ export default function App() {
                   aria-label="تعديل نطاق المقارنة"
                 >
                   <Pencil size={14} />
-                  {scopeOpen ? 'إغلاق' : 'تعديل'}
+                  {scopeOpen ? 'إغلاق' : 'خيارات متقدمة'}
                 </Button>
               </div>
               {scopeNeedsInput && !scopeOpen && (
                 <p className="hint">
                   {!scope.cutoff && !scope.currency
-                    ? 'لم نستنتج التاريخ ولا العملة من الملفين؛ أضفهما من «تعديل».'
+                    ? 'لم نستنتج التاريخ ولا العملة من الملفين؛ أضفهما من «خيارات متقدمة».'
                     : !scope.cutoff
-                      ? 'لم نستنتج تاريخًا من الملفين؛ أضفه من «تعديل».'
+                      ? 'لم نستنتج تاريخًا من الملفين؛ أضفه من «خيارات متقدمة».'
                       : !scope.currency
-                        ? 'لم نستنتج العملة من الملفين؛ أضفها من «تعديل».'
-                        : 'حدد دقة هذه العملة من «تعديل»؛ لم نفترض عدد المنازل العشرية.'}
+                        ? 'لم نستنتج العملة من الملفين؛ أضفها من «خيارات متقدمة».'
+                        : 'حدد دقة هذه العملة من «خيارات متقدمة»؛ لم نفترض عدد المنازل العشرية.'}
                 </p>
               )}
               {scopeConflict && !scopeOpen && (
@@ -1188,7 +1280,7 @@ export default function App() {
                   {unresolvedScope
                     .map((field) => scopeLabels[field])
                     .join('، ')}{' '}
-                  بين الملفين؛ اختر الصحيح من «تعديل».
+                  بين الملفين؛ اختر الصحيح من «خيارات متقدمة».
                 </p>
               )}
               {scopeOpen && (
@@ -1283,7 +1375,10 @@ export default function App() {
                   >
                     أريد تسوية الأرصدة أيضًا — تتطلب إدخال الأرصدة وأسماء الأطراف
                   </Tick>
-                  {balanceMode && (
+                  {(balanceMode ||
+                    unresolvedScope.some((field) =>
+                      ['supplier', 'entity', 'account'].includes(field),
+                    )) && (
                     <div className="form-grid">
                       <Field label="المورد / الطرف المقابل">
                         <Input
@@ -1375,6 +1470,18 @@ export default function App() {
                       updateFormat(i, field, value)
                     }
                     balanceMode={balanceMode}
+                    directionConfirmed={
+                      directionEdited.current[i] || !!directionProofs[i]
+                    }
+                    onPdfDraftChange={(pending) =>
+                      setPdfDrafts((previous) =>
+                        previous[i] === pending
+                          ? previous
+                          : (previous.map((v, j) =>
+                              j === i ? pending : v,
+                            ) as [boolean, boolean]),
+                      )
+                    }
                   />
                 ),
             )}
@@ -1410,7 +1517,7 @@ export default function App() {
               </div>
               <p className="hint">
                 {blocked ||
-                  'بالضغط تُقرأ الملفات على جهازك بالإعدادات أعلاه، وتُسجَّل في ورقة العمل.'}
+                  'بالضغط تؤكد أن الملفين لنفس المورد والجهة والحساب والعملة، وأن اتجاه المبالغ المعروض صحيح، وتبدأ المقارنة.'}
               </p>
             </section>
           </fieldset>
@@ -1492,7 +1599,7 @@ export default function App() {
                   hint={
                     skippedRows
                       ? 'المقارنة غير مكتملة حتى تُعالج'
-                      : 'كل صفوف البيانات دخلت المقارنة'
+                      : 'اكتملت قراءة الحركات؛ الاستبعادات موثقة'
                   }
                 />
               )}
@@ -1748,80 +1855,87 @@ export default function App() {
             )}
             {step === 3 && (
               <div className="stack">
-                <section className="surface pad stack">
-                  <div className="section-heading" style={{ padding: 0 }}>
-                    <h2>الأرصدة وحالة التسوية</h2>
-                    <FileCheck2 size={23} />
-                  </div>
-                  <div className="balance-lines">
-                    <div>
-                      <span>رصيد المورد المدخل</span>
-                      <bdi>
-                        {result.supplier.closing === null
-                          ? 'غير متاح'
-                          : money(result.supplier.closing, scope.decimals)}
-                      </bdi>
+                {result.scope.coverageConfirmed || result.bridge ? (
+                  <section className="surface pad stack">
+                    <div className="section-heading" style={{ padding: 0 }}>
+                      <h2>الأرصدة وحالة التسوية</h2>
+                      <FileCheck2 size={23} />
                     </div>
-                    <div>
-                      <span>رصيد الدفتر المدخل</span>
-                      <bdi>
-                        {result.ledger.closing === null
-                          ? 'غير متاح'
-                          : money(result.ledger.closing, scope.decimals)}
-                      </bdi>
+                    <div className="balance-lines">
+                      <div>
+                        <span>رصيد المورد المدخل</span>
+                        <bdi>
+                          {result.supplier.closing === null
+                            ? 'غير متاح'
+                            : money(result.supplier.closing, scope.decimals)}
+                        </bdi>
+                      </div>
+                      <div>
+                        <span>رصيد الدفتر المدخل</span>
+                        <bdi>
+                          {result.ledger.closing === null
+                            ? 'غير متاح'
+                            : money(result.ledger.closing, scope.decimals)}
+                        </bdi>
+                      </div>
+                      <div>
+                        <span>اتساق المصدرين</span>
+                        <span>
+                          {result.balanceComparable
+                            ? 'تحقق حسابيًا وفق تأكيد التغطية'
+                            : 'غير متحقق على أساس مشترك'}
+                        </span>
+                      </div>
+                      {result.bridge && (
+                        <>
+                          <hr className="divider" />
+                          <div>
+                            <span>فرق الرصيد الافتتاحي — سبب غير مثبت</span>
+                            <bdi>
+                              {money(
+                                result.bridge.openingAdjustment,
+                                scope.decimals,
+                              )}
+                            </bdi>
+                          </div>
+                          <div>
+                            <span>أثر جميع البنود دون مقابل</span>
+                            <bdi>
+                              {money(
+                                result.bridge.itemAdjustment,
+                                scope.decimals,
+                              )}
+                            </bdi>
+                          </div>
+                          <div>
+                            <span>الرصيد المعدل حسابيًا</span>
+                            <bdi>
+                              {money(result.bridge.adjusted, scope.decimals)}
+                            </bdi>
+                          </div>
+                          <div>
+                            <span>الباقي الحسابي للجسر</span>
+                            <bdi>
+                              {money(result.bridge.residual, scope.decimals)}
+                            </bdi>
+                          </div>
+                        </>
+                      )}
                     </div>
-                    <div>
-                      <span>اتساق المصدرين</span>
-                      <span>
-                        {result.balanceComparable
-                          ? 'تحقق حسابيًا وفق تأكيد التغطية'
-                          : 'غير متحقق على أساس مشترك'}
-                      </span>
+                    <div className="notice">
+                      حتى إذا كان الباقي صفرًا، لا يثبت ذلك أسباب الفروق أو صحة
+                      المستندات.{' '}
+                      {result.supplierOnly.length + result.ledgerOnly.length}{' '}
+                      حركة دون مقابل ما زالت موثقة للمراجعة. لا يقترح هذا الجسر
+                      قيودًا للترحيل.
                     </div>
-                    {result.bridge && (
-                      <>
-                        <hr className="divider" />
-                        <div>
-                          <span>فرق الرصيد الافتتاحي — سبب غير مثبت</span>
-                          <bdi>
-                            {money(
-                              result.bridge.openingAdjustment,
-                              scope.decimals,
-                            )}
-                          </bdi>
-                        </div>
-                        <div>
-                          <span>أثر جميع البنود دون مقابل</span>
-                          <bdi>
-                            {money(
-                              result.bridge.itemAdjustment,
-                              scope.decimals,
-                            )}
-                          </bdi>
-                        </div>
-                        <div>
-                          <span>الرصيد المعدل حسابيًا</span>
-                          <bdi>
-                            {money(result.bridge.adjusted, scope.decimals)}
-                          </bdi>
-                        </div>
-                        <div>
-                          <span>الباقي الحسابي للجسر</span>
-                          <bdi>
-                            {money(result.bridge.residual, scope.decimals)}
-                          </bdi>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="notice">
-                    حتى إذا كان الباقي صفرًا، لا يثبت ذلك أسباب الفروق أو صحة
-                    المستندات.{' '}
-                    {result.supplierOnly.length + result.ledgerOnly.length} حركة
-                    دون مقابل ما زالت موثقة للمراجعة. لا يقترح هذا الجسر قيودًا
-                    للترحيل.
-                  </div>
-                </section>
+                  </section>
+                ) : (
+                  <p className="hint">
+                    ورقة العمل توثق مقارنة الحركات والاستثناءات المتبقية. لم تُطلب
+                    تسوية الأرصدة.
+                  </p>
+                )}
                 <section className="surface pad stack">
                   <h2>توثيق المراجعة والتصدير</h2>
                   <Field label="اسم المراجع — اختياري للمسودة">
@@ -1935,10 +2049,12 @@ function SourceConfiguration({
   onNotice,
   onError,
   onPdfApply,
+  onPdfDraftChange,
   formats,
   formatChoices,
   onFormatChange,
   balanceMode,
+  directionConfirmed,
 }: {
   file: SourceFile;
   mapping: Mapping;
@@ -1948,10 +2064,12 @@ function SourceConfiguration({
   onNotice: (s: string) => void;
   onError: (s: string) => void;
   onPdfApply: (cuts: number[]) => void;
+  onPdfDraftChange: (pending: boolean) => void;
   formats?: FormatSuggestions;
   formatChoices: FormatChoices;
   onFormatChange: (field: 'dateFormat' | 'numberFormat', value: string) => void;
   balanceMode: boolean;
+  directionConfirmed: boolean;
 }) {
   const sheet = file.sheets[mapping.sheet];
   const header = sheet?.rows[mapping.header] ?? [];
@@ -1978,17 +2096,13 @@ function SourceConfiguration({
   const ambiguous = (['dateFormat', 'numberFormat'] as const).filter(
     (field) => formats?.[field].status === 'ambiguous',
   );
-  const undecided = ambiguous.filter((field) => !formatChoices[field]);
-  // The card opens by itself only when something in it actually needs a decision.
+  // Show just the missing essentials; detailed configuration remains optional.
   const missingColumns =
     mapping.date < 0 ||
     (mapping.mode === 'signed'
       ? mapping.amount < 0
       : mapping.debit < 0 || mapping.credit < 0);
-  const needsAttention = missingColumns || undecided.length > 0;
-  useEffect(() => {
-    if (needsAttention) setOpen(true);
-  }, [needsAttention]);
+
   function col(
     key:
       | 'date'
@@ -2083,24 +2197,26 @@ function SourceConfiguration({
               </>
             )}
           </p>
-          <p className="hint">
-            {mapping.mode === 'signed'
-              ? mapping.multiplier === 1
-                ? 'الموجب يزيد ما ندين به للمورد.'
-                : 'السالب يزيد ما ندين به للمورد.'
-              : mapping.multiplier === 1
-                ? 'المدين يزيد المديونية، والدائن يخفضها.'
-                : 'الدائن يزيد المديونية، والمدين يخفضها.'}{' '}
-            <button
-              type="button"
-              className="inline-link"
-              onClick={() =>
-                onChange({ multiplier: (mapping.multiplier * -1) as 1 | -1 })
-              }
-            >
-              عكس الاتجاه
-            </button>
-          </p>
+          {(mapping.mode === 'signed' || directionConfirmed) && (
+            <p className="hint">
+              {mapping.mode === 'signed'
+                ? mapping.multiplier === 1
+                  ? 'الموجب يزيد ما ندين به للمورد.'
+                  : 'السالب يزيد ما ندين به للمورد.'
+                : mapping.multiplier === 1
+                  ? 'المدين يزيد المديونية، والدائن يخفضها.'
+                  : 'الدائن يزيد المديونية، والمدين يخفضها.'}{' '}
+              <button
+                type="button"
+                className="inline-link"
+                onClick={() =>
+                  onChange({ multiplier: (mapping.multiplier * -1) as 1 | -1 })
+                }
+              >
+                عكس الاتجاه
+              </button>
+            </p>
+          )}
         </div>
         <Button
           variant="ghost"
@@ -2109,12 +2225,27 @@ function SourceConfiguration({
           aria-label={`تعديل ${sideNames[side]}`}
         >
           <Pencil size={14} />
-          {open ? 'إغلاق' : 'تعديل'}
+          {open ? 'إغلاق' : 'خيارات متقدمة'}
         </Button>
       </div>
+      {mapping.mode === 'split' && !mapping.directionEvidence && (
+        <Choice
+          label="أي عمود يزيد المبلغ المستحق للمورد؟"
+          value={directionConfirmed ? String(mapping.multiplier) : ''}
+          options={[
+            ['', 'اختر الاتجاه في هذا التقرير'],
+            ['1', 'المدين يزيد المستحق'],
+            ['-1', 'الدائن يزيد المستحق'],
+          ]}
+          onChange={(value) => {
+            if (value) onChange({ multiplier: Number(value) as 1 | -1 });
+          }}
+        />
+      )}
       {mapping.reference < 0 && (
         <p className="hint">
-          لا يوجد عمود مرجع؛ لن تُنشأ مطابقات آلية. حدده من «تعديل» إن وُجد.
+          لا يوجد عمود مرجع؛ لن تُنشأ مطابقات آلية. حدده من «خيارات متقدمة» إن
+          وُجد.
         </p>
       )}
       {initialSelection.kind === 'workpaper' && (
@@ -2129,6 +2260,7 @@ function SourceConfiguration({
           reviewed={mapping.pdfReviewed === true}
           onReviewedChange={(v) => onChange({ pdfReviewed: v })}
           onApply={onPdfApply}
+          onDraftChange={onPdfDraftChange}
         />
       )}
       {ambiguous.map((field) => (
@@ -2178,8 +2310,30 @@ function SourceConfiguration({
           )}
         </div>
       )}
+      {missingColumns && !open && (
+        <div className="panel stack">
+          <p className="hint warn">
+            لم يتحدد معنى بعض الأعمدة. اختر الناقص فقط، أو افتح الخيارات المتقدمة
+            لتعديل الجدول.
+          </p>
+          <div className="form-grid">
+            {mapping.date < 0 && col('date', 'عمود التاريخ')}
+            {mapping.mode === 'signed' ? (
+              mapping.amount < 0 && col('amount', 'عمود المبلغ')
+            ) : (
+              <>
+                {mapping.debit < 0 && col('debit', 'عمود المدين')}
+                {mapping.credit < 0 && col('credit', 'عمود الدائن')}
+              </>
+            )}
+          </div>
+        </div>
+      )}
       {open && (
         <div className="panel stack">
+          {mapping.directionEvidence && (
+            <p className="hint">{mapping.directionEvidence.reason}</p>
+          )}
           {missingColumns && (
             <p className="hint warn">
               حدد عمود التاريخ وعمود المبلغ (أو المدين والدائن) لتتم القراءة.

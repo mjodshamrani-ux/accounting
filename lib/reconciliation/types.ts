@@ -17,6 +17,7 @@ export type SheetData = {
   cellNotes?: Record<string, string[]>;
   referenceIssues?: Record<string, string[]>;
   rowPages?: Record<string, number>;
+  pdfHeaderFragments?: Record<string, string[][]>;
 };
 export type SourceFile = {
   name: string;
@@ -39,6 +40,12 @@ export type Mapping = {
   currencyColumn: number;
   mode: 'signed' | 'split';
   multiplier: 1 | -1;
+  directionEvidence?: {
+    multiplier: 1 | -1;
+    balanceColumn: number;
+    checkedRows: number;
+    reason: string;
+  };
   numberFormat: 'dot' | 'comma';
   dateFormat: 'ymd' | 'dmy' | 'mdy';
   reportType: ReportType;

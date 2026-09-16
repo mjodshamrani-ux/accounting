@@ -1,4 +1,9 @@
-import { parseDate, parseMoney, summaryLabel } from './core.ts';
+import {
+  parseDate,
+  parseMoney,
+  structuralSummaryLabel,
+  nonFinancialFooter,
+} from './core.ts';
 import { MAX_ROWS } from './types.ts';
 import type { Mapping, Scope, SourceFile } from './types.ts';
 
@@ -134,7 +139,16 @@ export function suggestFormats(
     const row = sheet.rows[i];
     const rn = i + 1;
     if (mapping.excluded[String(rn)]?.trim()) continue;
-    if (row.some((value) => summaryLabel.test(value.trim()))) continue;
+    if (
+      structuralSummaryLabel(
+        row,
+        mapping,
+        sheet.rows[mapping.header],
+        i === mapping.header + 1,
+      ) ||
+      nonFinancialFooter(row)
+    )
+      continue;
     const rowProblem =
       Boolean(sheet.rowIssues?.[String(rn)]?.length) ||
       (!sheet.cellIssues && formulaRows.has(rn));

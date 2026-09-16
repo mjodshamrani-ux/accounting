@@ -1,65 +1,181 @@
 import type { PdfToken } from './pdf.ts';
-// Suggestions only: ordinary text-table layouts, with the same header on every
-// page and an observed gap between every adjacent column. No cell is rewritten
-// or excluded and the accountant must still review the PDF extraction.
-export function suggestPdfColumns(
+
+export type PdfColumnLayout = {
+  cuts: number[];
+  // Zero-based line indexes use the same baseline grouping as layoutPdfPage.
+  // These are evidence for header fragments, not permission to remove rows.
+  headers: { lineIndexes: number[]; columns: string[] }[];
+};
+
+type HeaderBand = {
+  lineIndexes: number[];
+  columns: PdfToken[];
+};
+const dateHeader =
+  /^(date|transaction date|posting date|invoice date|التاريخ|تاريخ الحركة|تاريخ الفاتورة)$/i;
+const referenceHeader =
+  /^(reference|document no\.?|invoice no\.?|ap voucher|supplier ref|supplier reference|vendor ref|المرجع|رقم المستند|رقم الفاتورة)$/i;
+const amountHeader =
+  /^(amount|signed amount|debit|credit|المبلغ|مدين|دائن)(?:\s*\([a-z]{3}\))?$/i;
+const knownHeader =
+  /^(date|transaction date|posting date|invoice date|type|doc type|document type|document no\.?|invoice no\.?|reference|ap voucher|supplier ref|supplier reference|vendor ref|po\s*\/\s*bank ref|customer ref\s*\/\s*po|description|details|amount|signed amount|debit|credit|running balance|running ap balance|due date|currency|التاريخ|تاريخ الحركة|تاريخ الفاتورة|النوع|نوع المستند|المرجع|رقم المستند|رقم الفاتورة|الوصف|البيان|المبلغ|مدين|دائن|الرصيد|العملة)(?:\s*\([a-z]{3}\))?$/i;
+const dateCell =
+  /^(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.](?:\d{1,2}|[a-z]+)[-/.]\d{4})$/i;
+const label = (text: string) => text.trim().replace(/\s+/g, ' ');
+
+// PDF.js may split one header cell into several text items. Join only a
+// unique sequence of exact supported phrases, across an ordinary word space.
+// This builds geometry evidence; layoutPdfPage still receives the original tokens.
+function joinedToken(parts: PdfToken[]): PdfToken {
+  const x = parts[0].x;
+  return {
+    text: parts.map((part) => label(part.text)).join(' '),
+    x,
+    width: Math.max(...parts.map((part) => part.x + part.width)) - x,
+    y: parts[0].y,
+    height: Math.max(...parts.map((part) => part.height)),
+  };
+}
+function wordGap(left: PdfToken, right: PdfToken): boolean {
+  const gap = right.x - left.x - left.width;
+  return gap >= -0.2 && gap <= Math.min(left.height, right.height) * 0.85;
+}
+function headerWords(tokens: PdfLine, fragments = false): PdfLine | null {
+  if (tokens.length > 100) return null;
+  const fragment = /^(running|running ap|balance)$/i;
+  const memo = new Map<number, PdfLine[]>();
+  const visit = (index: number): PdfLine[] => {
+    if (index === tokens.length) return [[]];
+    if (memo.has(index)) return memo.get(index)!;
+    const results: PdfLine[] = [];
+    for (let end = index; end < Math.min(tokens.length, index + 6); end++) {
+      if (end > index && !wordGap(tokens[end - 1], tokens[end])) break;
+      const joined = joinedToken(tokens.slice(index, end + 1));
+      if (
+        !knownHeader.test(joined.text) &&
+        !(fragments && fragment.test(joined.text))
+      )
+        continue;
+      for (const remainder of visit(end + 1)) {
+        results.push([joined, ...remainder]);
+        if (results.length > 1) {
+          memo.set(index, results);
+          return results;
+        }
+      }
+    }
+    memo.set(index, results);
+    return results;
+  };
+  const choices = visit(0);
+  return choices.length === 1 ? choices[0] : null;
+}
+function bodyWords(tokens: PdfLine): PdfLine {
+  const groups: PdfToken[][] = [];
+  for (const token of tokens) {
+    const previous = groups.at(-1);
+    if (previous && wordGap(previous.at(-1)!, token)) previous.push(token);
+    else groups.push([token]);
+  }
+  return groups.map(joinedToken);
+}
+
+function headerBands(lines: PdfLine[]): HeaderBand[] {
+  return lines.flatMap((originalRow) => {
+    const row = headerWords(originalRow);
+    if (!row) return [];
+    if (
+      row.length < 3 ||
+      row.length > 20 ||
+      !dateHeader.test(label(row[0].text)) ||
+      !row.some((token) => referenceHeader.test(label(token.text))) ||
+      !row.some((token) => amountHeader.test(label(token.text))) ||
+      !row.every((token) => knownHeader.test(label(token.text)))
+    )
+      return [];
+    const height = Math.max(...row.map((token) => token.height));
+    const baseline = row[0].y;
+    const lineIndexes = lines.flatMap((line, i) =>
+      Math.abs(line[0].y - baseline) <= height * 1.3 ? [i] : [],
+    );
+    if (lineIndexes.length > 3) return [];
+    const lineWords = lineIndexes.map((i) => headerWords(lines[i], true));
+    if (lineWords.some((line) => line === null)) return [];
+    const tokens = lineWords
+      .flatMap((line) => line!)
+      .sort((a, b) => a.x - b.x || b.y - a.y);
+    const groups: PdfToken[][] = [];
+    for (const token of tokens) {
+      const previous = groups.at(-1);
+      if (
+        previous &&
+        token.x < Math.max(...previous.map((item) => item.x + item.width))
+      )
+        previous.push(token);
+      else groups.push([token]);
+    }
+    const columns: PdfToken[] = [];
+    for (const group of groups) {
+      const ordered = [...group].sort((a, b) => b.y - a.y);
+      // Vertically wrapped labels must overlap horizontally, remain compact,
+      // and join to a supported complete label. Adjacent words/cells are never guessed.
+      if (
+        ordered.some(
+          (token, i) =>
+            i > 0 &&
+            Math.abs(token.y - ordered[i - 1].y) <=
+              Math.min(1, token.height / 8),
+        )
+      )
+        return [];
+      if (ordered[0].y - ordered.at(-1)!.y > height * 1.8) return [];
+      const text = ordered.map((token) => label(token.text)).join(' ');
+      if (!knownHeader.test(text)) return [];
+      const x = Math.min(...ordered.map((token) => token.x));
+      const end = Math.max(...ordered.map((token) => token.x + token.width));
+      columns.push({ text, x, width: end - x, y: baseline, height });
+    }
+    if (
+      columns.length < 3 ||
+      columns.length > 20 ||
+      !dateHeader.test(columns[0].text)
+    )
+      return [];
+    return [{ lineIndexes, columns }];
+  });
+}
+
+// Suggestions only: one supported header band per page and an observed gap
+// between every adjacent column. All source tokens and rows stay unchanged.
+export function suggestPdfColumnLayout(
   pages: { width: number; tokens: PdfToken[] }[],
-): number[] | null {
-  const dateHeader =
-    /^(date|transaction date|posting date|التاريخ|تاريخ الحركة)$/i;
-  const referenceHeader =
-    /^(reference|document no\.?|invoice no\.?|المرجع|رقم المستند|رقم الفاتورة)$/i;
-  const amountHeader =
-    /^(amount|signed amount|debit|credit|المبلغ|مدين|دائن)(?:\s*\([a-z]{3}\))?$/i;
-  const knownHeader =
-    /^(date|transaction date|posting date|type|document no\.?|invoice no\.?|reference|customer ref\s*\/\s*po|description|details|amount|signed amount|debit|credit|running balance|due date|currency|التاريخ|تاريخ الحركة|النوع|المرجع|رقم المستند|رقم الفاتورة|الوصف|البيان|المبلغ|مدين|دائن|الرصيد|العملة)(?:\s*\([a-z]{3}\))?$/i;
-  const dateCell =
-    /^(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.](?:\d{1,2}|[a-z]+)[-/.]\d{4})$/i;
+): PdfColumnLayout | null {
   const datedRows: { width: number; rows: PdfToken[][] }[] = [];
+  const headers: PdfColumnLayout['headers'] = [];
   let signature = '',
     lower: number[] = [],
     upper: number[] = [];
   for (const page of pages) {
     if (!Number.isFinite(page.width) || page.width <= 0) return null;
-    const lines: { y: number; tokens: PdfToken[] }[] = [];
-    for (const token of [...page.tokens].sort(
-      (a, b) => b.y - a.y || a.x - b.x,
-    )) {
-      if (
-        ![token.x, token.y, token.width, token.height].every(Number.isFinite) ||
-        token.width <= 0 ||
-        token.height <= 0
-      )
-        return null;
-      const previous = lines.at(-1);
-      if (
-        previous &&
-        Math.abs(previous.y - token.y) <= Math.min(1, token.height / 8)
-      )
-        previous.tokens.push(token);
-      else lines.push({ y: token.y, tokens: [token] });
-    }
-    const ordered = lines.map((l) => l.tokens.sort((a, b) => a.x - b.x));
-    const candidates = ordered.flatMap((row, i) =>
-      row.length >= 3 &&
-      row.length <= 20 &&
-      dateHeader.test(row[0].text.trim()) &&
-      row.some((t) => referenceHeader.test(t.text.trim())) &&
-      row.some((t) => amountHeader.test(t.text.trim())) &&
-      row.every((t) => knownHeader.test(t.text.trim()))
-        ? [i]
-        : [],
-    );
+    const ordered = pageLines(page);
+    const candidates = headerBands(ordered);
     if (candidates.length !== 1) return null;
-    const index = candidates[0],
-      header = ordered[index],
-      key = header.map((t) => t.text.trim().toLowerCase()).join('|');
+    const { lineIndexes, columns: header } = candidates[0];
+    const key = header
+      .map((token) => label(token.text).toLowerCase())
+      .join('|');
     if (signature && key !== signature) return null;
+    headers.push({
+      lineIndexes: [...lineIndexes],
+      columns: header.map((token) => token.text),
+    });
     const body = ordered
-      .slice(index + 1)
+      .slice(lineIndexes.at(-1)! + 1)
       .filter((row) => dateCell.test(row[0]?.text.trim() ?? ''));
     datedRows.push({ width: page.width, rows: body });
-    const complete = body.filter((row) => row.length === header.length);
+    const complete = body
+      .map(bodyWords)
+      .filter((row) => row.length === header.length);
     if (!complete.length) return null;
     const rows = [header, ...complete];
     const left = header
@@ -79,63 +195,54 @@ export function suggestPdfColumns(
       upper = right;
       signature = key;
     } else {
-      lower = lower.map((v, i) => Math.max(v, left[i]));
-      upper = upper.map((v, i) => Math.min(v, right[i]));
+      lower = lower.map((value, i) => Math.max(value, left[i]));
+      upper = upper.map((value, i) => Math.min(value, right[i]));
     }
-    // Partial rows can contain a wider type/description than complete rows.
-    // Tighten each observed gap when a token extends from a known side. A token
-    // floating entirely inside a gap has no proven column, so do not suggest.
+    // Partial rows may widen a cell. Floating text has no proven column.
     for (const row of body)
       for (const token of row) {
-        const start = (token.x / page.width) * 100,
-          end = ((token.x + token.width) / page.width) * 100;
-        for (let i = 0; i < lower.length; i++) {
+        const start = (token.x / page.width) * 100;
+        const end = ((token.x + token.width) / page.width) * 100;
+        for (let i = 0; i < lower.length; i++)
           if (start < upper[i] && end > lower[i]) {
             if (start <= lower[i] && end < upper[i]) lower[i] = end;
             else if (start > lower[i] && end >= upper[i]) upper[i] = start;
             else return null;
           }
-        }
       }
-    if (lower.some((v, i) => v + 0.3 >= upper[i])) return null;
-    // Partial rows must fit the same columns. Extra split tokens are retained;
-    // any token crossing a candidate gap cancels the suggestion.
-    const cuts = lower.map((v, i) => (v + upper[i]) / 2);
-    if (
-      body.some((row) =>
-        row.some((t) =>
-          cuts.some(
-            (c) =>
-              c > (t.x / page.width) * 100 + 0.05 &&
-              c < ((t.x + t.width) / page.width) * 100 - 0.05,
-          ),
-        ),
-      )
-    )
-      return null;
+    if (lower.some((value, i) => value + 0.3 >= upper[i])) return null;
   }
   if (!signature) return null;
   const cuts = lower.map(
-    (v, i) => Math.round(((v + upper[i]) / 2) * 10000) / 10000,
+    (value, i) => Math.round(((value + upper[i]) / 2) * 10000) / 10000,
   );
-  // Recheck all pages after intersecting their allowed gap intervals.
   if (
     datedRows.some((page) =>
       page.rows.some((row) =>
         row.some((token) =>
           cuts.some(
-            (c) =>
-              c > (token.x / page.width) * 100 + 0.05 &&
-              c < ((token.x + token.width) / page.width) * 100 - 0.05,
+            (cut) =>
+              cut > (token.x / page.width) * 100 + 0.05 &&
+              cut < ((token.x + token.width) / page.width) * 100 - 0.05,
           ),
         ),
       ),
     )
   )
     return null;
-  if (cuts.some((c, i) => c <= 0 || c >= 100 || (i > 0 && c <= cuts[i - 1])))
+  if (
+    cuts.some(
+      (cut, i) => cut <= 0 || cut >= 100 || (i > 0 && cut <= cuts[i - 1]),
+    )
+  )
     return null;
-  return cuts;
+  return { cuts, headers };
+}
+
+export function suggestPdfColumns(
+  pages: { width: number; tokens: PdfToken[] }[],
+): number[] | null {
+  return suggestPdfColumnLayout(pages)?.cuts ?? null;
 }
 
 // Geometry fallback for statements whose headers are not in the vocabulary above.

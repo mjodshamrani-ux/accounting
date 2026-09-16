@@ -4,8 +4,86 @@ import { readFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
+import JSZip from 'jszip';
 import { syntheticPdf } from '../tests/helpers/pdf-fixture.ts';
 import { syntheticStyledPdf } from '../tests/helpers/styled-pdf-fixture.ts';
+
+async function openScope(page) {
+  if (!(await page.getByLabel('العملة', { exact: true }).isVisible()))
+    await page
+      .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
+      .click();
+}
+
+// Only synthetic XML emitted by ExcelJS is edited here. The production parser
+// canonicalizes namespaces using an XML parser, never these fixture regexes.
+async function prefixedWorkbook(workbook) {
+  const zip = await JSZip.loadAsync(
+    await workbook.xlsx.writeBuffer({ useSharedStrings: true }),
+  );
+  const main = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+  const relationships =
+    'http://schemas.openxmlformats.org/package/2006/relationships';
+  for (const [name, entry] of Object.entries(zip.files)) {
+    if (entry.dir || (!name.endsWith('.xml') && !name.endsWith('.rels')))
+      continue;
+    let xml = await entry.async('string');
+    const namespace = xml.includes(`xmlns="${main}"`)
+      ? main
+      : xml.includes(`xmlns="${relationships}"`)
+        ? relationships
+        : undefined;
+    if (!namespace) continue;
+    const prefix = namespace === main ? 'x' : 'pkg';
+    xml = xml
+      .replace(`xmlns="${namespace}"`, `xmlns:${prefix}="${namespace}"`)
+      .replace(/<(\/?)([A-Za-z][\w.-]*)(?=[\s/>])/g, `<$1${prefix}:$2`)
+      .replace(/xmlns:r=/g, 'xmlns:rel=')
+      .replace(/\sr:id=/g, ' rel:id=');
+    zip.file(name, xml);
+  }
+  return zip.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' });
+}
+
+async function directionWorkbook(ap, formulas = false) {
+  const workbook = new ExcelJS.Workbook();
+  const sheet = workbook.addWorksheet(ap ? 'AP ledger' : 'Supplier statement');
+  sheet.addRows([
+    ['Supplier', 'Synthetic Direction Vendor'],
+    ['Customer', 'Synthetic Direction Buyer'],
+    ['Customer Account', 'DIR-TEST'],
+    ['Currency', 'SAR'],
+    ['Period', '2026-07-01 to 2026-07-31'],
+    [
+      ap ? 'Posting Date' : 'Date',
+      ap ? 'Doc Type' : 'Type',
+      ap ? 'Supplier Ref' : 'Reference',
+      'Debit (SAR)',
+      'Credit (SAR)',
+      ap ? 'Running AP Balance' : 'Running Balance',
+    ],
+    ['2026-07-01', 'Opening Balance', 'B/F', ap ? 0 : 100, ap ? 100 : 0, 100],
+    ['2026-07-02', 'Invoice', 'DIR-INV-100', ap ? 0 : 25, ap ? 25 : 0, 125],
+    ['2026-07-03', 'Payment', 'DIR-PAY-100', ap ? 10 : 0, ap ? 0 : 10, 115],
+    [ap ? 'Closing AP Balance' : 'Closing Balance', '', '', '', '', 115],
+  ]);
+  for (const column of [4, 5, 6])
+    sheet.getColumn(column).numFmt = '#,##0.00;[Red](#,##0.00)';
+  if (formulas) {
+    sheet.getCell('F7').value = { formula: '100', result: 100 };
+    sheet.getCell('F8').value = {
+      formula: ap ? 'F7+E8-D8' : 'F7+D8-E8',
+      result: 125,
+    };
+    sheet.getCell('F9').value = {
+      formula: ap ? 'F8+E9-D9' : 'F8+D9-E9',
+      result: 115,
+    };
+    sheet.getCell('F10').value = { formula: 'F9', result: 115 };
+  }
+  return prefixedWorkbook(workbook);
+}
+
 const root = path.resolve('dist');
 const server = createServer(async (req, res) => {
   try {
@@ -162,6 +240,7 @@ try {
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
     0,
   );
+  await openScope(page);
   await page.getByLabel('المورد', { exact: true }).fill('اسم معدل');
   assert.equal(
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
@@ -197,6 +276,7 @@ try {
   await uploadPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
+  await openScope(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
@@ -281,6 +361,7 @@ try {
   await uploadPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
+  await openScope(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
@@ -424,6 +505,7 @@ try {
   await pdfPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
   );
+  await openScope(pdfPage);
   await pdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await pdfPage.getByLabel('تاريخ القطع', { exact: true }).fill('2026-08-31');
   await pdfPage.getByRole('checkbox', { name: /راجعت الجدول أعلاه/ }).check();
@@ -514,6 +596,7 @@ try {
   await recoveryPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
   );
+  await openScope(recoveryPage);
   await recoveryPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await recoveryPage
     .getByLabel('تاريخ القطع', { exact: true })
@@ -701,6 +784,7 @@ try {
   await ambiguityPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
+  await openScope(ambiguityPage);
   await ambiguityPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-12-31');
@@ -770,6 +854,7 @@ try {
   await precisionPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
+  await openScope(precisionPage);
   await precisionPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-06-30');
@@ -854,14 +939,26 @@ try {
     await autoPdfPage
       .getByRole('button', { name: 'تطبيق وإعادة القراءة', exact: true })
       .isDisabled(),
-    false,
+    true,
   );
+  assert.equal(
+    await autoPdfPage
+      .getByRole('button', { name: 'تحقق وقارن', exact: true })
+      .isDisabled(),
+    true,
+    'unapplied PDF edits must block comparison',
+  );
+  await autoPdfPage
+    .getByRole('button', { name: 'التراجع عن التعديل', exact: true })
+    .click();
+  assert.equal(await autoCuts.inputValue(), appliedCuts);
   await autoCuts.fill(appliedCuts);
   assert.equal(
     await autoReview.isChecked(),
     true,
     'restoring the applied boundaries must leave the review intact',
   );
+  await openScope(autoPdfPage);
   await autoPdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
   assert.equal(
     await autoPdfPage
@@ -897,6 +994,370 @@ try {
     fullPage: true,
   });
 
+  // Namespaced SpreadsheetML must reach the real browser worker. Opposite
+  // debit/credit conventions are inferred only from fixed running balances.
+  for (const formulas of [false, true]) {
+    await context.setOffline(false);
+    const directionPage = await context.newPage();
+    await directionPage.goto(`${origin}/mizan-test/`);
+    await directionPage.waitForFunction(
+      () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    );
+    await context.setOffline(true);
+    for (const [side, label] of [
+      'كشف المورد',
+      'تقرير الحسابات الدائنة',
+    ].entries()) {
+      const name = `synthetic-namespaced-${side}-${formulas ? 'formula' : 'fixed'}.xlsx`;
+      await directionPage.getByLabel(label, { exact: true }).setInputFiles({
+        name,
+        mimeType:
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        buffer: await directionWorkbook(side === 1, formulas),
+      });
+      await directionPage
+        .locator('.dropzone')
+        .filter({ hasText: label })
+        .getByText(name, { exact: true })
+        .waitFor();
+      await directionPage.waitForFunction(
+        () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      );
+      assert.deepEqual(
+        await directionPage.getByRole('alert').allTextContents(),
+        [],
+      );
+    }
+    await directionPage
+      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .click();
+    const directionCompare = directionPage.getByRole('button', {
+      name: 'تحقق وقارن',
+      exact: true,
+    });
+    assert.equal(
+      await directionPage.locator('input:not([type=checkbox]):visible').count(),
+      0,
+      'known metadata and native numeric cells need no typed fields',
+    );
+    assert.equal(await directionPage.getByRole('checkbox').count(), 0);
+    const directionQuestion = 'أي عمود يزيد المبلغ المستحق للمورد؟';
+    if (formulas) {
+      assert.equal(
+        await directionPage
+          .getByRole('combobox', { name: directionQuestion, exact: true })
+          .count(),
+        2,
+      );
+      assert.equal(
+        await directionCompare.isDisabled(),
+        true,
+        'formula caches cannot prove either direction',
+      );
+      for (const [side, label] of [
+        'كشف المورد',
+        'تقرير الحسابات الدائنة',
+      ].entries()) {
+        const card = directionPage.locator('section').filter({
+          has: directionPage.getByRole('heading', {
+            name: label,
+            exact: true,
+          }),
+        });
+        await card
+          .getByRole('combobox', { name: directionQuestion, exact: true })
+          .click();
+        await directionPage
+          .getByRole('option', {
+            name: side === 0 ? 'المدين يزيد المستحق' : 'الدائن يزيد المستحق',
+            exact: true,
+          })
+          .click();
+        if (side === 0)
+          assert.equal(
+            await directionCompare.isDisabled(),
+            true,
+            'the AP direction still requires its own answer',
+          );
+      }
+    } else {
+      assert.equal(
+        await directionPage.getByRole('combobox').count(),
+        0,
+        'every required choice is established by source evidence',
+      );
+    }
+    const apCard = directionPage.locator('section').filter({
+      has: directionPage.getByRole('heading', {
+        name: 'تقرير الحسابات الدائنة',
+        exact: true,
+      }),
+    });
+    if (!formulas) {
+      // A full mapping returned by header selection contains multiplier=+1.
+      // That default is not a manual sign decision: the AP proof must win again.
+      const editAp = directionPage.getByRole('button', {
+        name: 'تعديل تقرير الحسابات الدائنة',
+        exact: true,
+      });
+      await editAp.click();
+      const headerRow = directionPage.getByLabel('صف العناوين 1', {
+        exact: true,
+      });
+      assert.equal(await headerRow.inputValue(), '6');
+      await headerRow.fill('7');
+      await headerRow.fill('6');
+      await apCard
+        .getByText(/اتجاه المدين والدائن متحقق حسابيًا.*الدائن − المدين/)
+        .waitFor();
+      assert.equal(
+        await apCard
+          .getByRole('combobox', { name: directionQuestion, exact: true })
+          .count(),
+        0,
+      );
+      await editAp.click();
+      assert.equal(
+        await directionCompare.isEnabled(),
+        true,
+        'header selection must restore the proven AP direction, never endorse the mapping default',
+      );
+    } else {
+      // Failed replacement cannot reset an answer attached to the retained file.
+      await directionPage
+        .getByRole('button', { name: 'العودة للملفات', exact: true })
+        .click();
+      await directionPage
+        .getByLabel('تقرير الحسابات الدائنة', { exact: true })
+        .setInputFiles({
+          name: 'synthetic-invalid-replacement.xlsx',
+          mimeType:
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          buffer: Buffer.from('This is not an XLSX ZIP package.'),
+        });
+      await directionPage.getByRole('alert').waitFor();
+      await directionPage
+        .locator('.dropzone')
+        .filter({ hasText: 'تقرير الحسابات الدائنة' })
+        .getByText('synthetic-namespaced-1-formula.xlsx', { exact: true })
+        .waitFor();
+      await directionPage
+        .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+        .click();
+      assert.match(
+        await apCard
+          .getByRole('combobox', { name: directionQuestion, exact: true })
+          .innerText(),
+        /الدائن يزيد المستحق/,
+      );
+      assert.equal(
+        await directionCompare.isEnabled(),
+        true,
+        'the failed replacement must retain the old AP file and its manual negative multiplier',
+      );
+    }
+    assert.equal(await directionCompare.isEnabled(), true);
+    await directionPage.screenshot({
+      path: `work/qa/namespaced-${formulas ? 'essential-direction' : 'automatic-direction'}.png`,
+      fullPage: true,
+    });
+    await directionCompare.click();
+    await directionPage
+      .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
+      .waitFor();
+    assert.equal(
+      await directionPage
+        .locator('.metric')
+        .nth(0)
+        .locator('strong')
+        .innerText(),
+      '2',
+    );
+    assert.equal(
+      await directionPage
+        .locator('.metric')
+        .nth(3)
+        .locator('strong')
+        .innerText(),
+      '0',
+    );
+    await directionPage
+      .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
+      .click();
+    const directionDownload = directionPage.waitForEvent('download');
+    await directionPage
+      .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
+      .click();
+    const directionExport = new ExcelJS.Workbook();
+    await directionExport.xlsx.readFile(await (await directionDownload).path());
+    assert.equal(directionExport.getWorksheet('Matches').rowCount, 3);
+    for (const source of ['Supplier transactions', 'Ledger transactions']) {
+      assert.deepEqual(
+        [2, 3].map(
+          (row) =>
+            directionExport.getWorksheet(source).getCell(`H${row}`).value,
+        ),
+        [25, -10],
+      );
+      assert.deepEqual(
+        [2, 3].map(
+          (row) =>
+            directionExport.getWorksheet(source).getCell(`E${row}`).value,
+        ),
+        ['DIR-INV-100', 'DIR-PAY-100'],
+      );
+    }
+  }
+
+  // Each PDF carries its own review approval. A second checkbox must never
+  // toggle the first file, and replacing a multi-page file must reset its view.
+  await context.setOffline(false);
+  const bothPdfPage = await context.newPage();
+  await bothPdfPage.goto(`${origin}/mizan-test/`);
+  await bothPdfPage.waitForFunction(
+    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+  );
+  await context.setOffline(true);
+  const pairHeader = ['Date', 'Reference', 'Amount (SAR)'];
+  const pairInvoice = ['2026-07-02', 'PAIR-INV-100', '100.00'];
+  const pairPayment = ['2026-07-03', 'PAIR-PAY-100', '-20.00'];
+  const onePagePdf = Buffer.from(
+    syntheticPdf([[pairHeader, pairInvoice, pairPayment]]),
+  );
+  const twoPagePdf = Buffer.from(
+    syntheticPdf([
+      [pairHeader, pairInvoice],
+      [pairHeader, pairPayment],
+    ]),
+  );
+  for (const [side, label] of [
+    'كشف المورد',
+    'تقرير الحسابات الدائنة',
+  ].entries()) {
+    const name = `synthetic-pair-${side}.pdf`;
+    await bothPdfPage.getByLabel(label, { exact: true }).setInputFiles({
+      name,
+      mimeType: 'application/pdf',
+      buffer: side === 0 ? twoPagePdf : onePagePdf,
+    });
+    await bothPdfPage
+      .locator('.dropzone')
+      .filter({ hasText: label })
+      .getByText(name, { exact: true })
+      .waitFor();
+    await bothPdfPage.waitForFunction(
+      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    );
+  }
+  await bothPdfPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  const supplierPdfCard = bothPdfPage.locator('section').filter({
+    has: bothPdfPage.getByRole('heading', {
+      name: 'كشف المورد',
+      exact: true,
+    }),
+  });
+  const ledgerPdfCard = bothPdfPage.locator('section').filter({
+    has: bothPdfPage.getByRole('heading', {
+      name: 'تقرير الحسابات الدائنة',
+      exact: true,
+    }),
+  });
+  const supplierReview = supplierPdfCard.getByRole('checkbox', {
+    name: /راجعت الجدول أعلاه/,
+  });
+  const ledgerReview = ledgerPdfCard.getByRole('checkbox', {
+    name: /راجعت الجدول أعلاه/,
+  });
+  const bothCompare = bothPdfPage.getByRole('button', {
+    name: 'تحقق وقارن',
+    exact: true,
+  });
+  assert.equal(
+    await bothPdfPage
+      .getByRole('checkbox', { name: /راجعت الجدول أعلاه/ })
+      .count(),
+    2,
+  );
+  assert.equal(await supplierReview.isChecked(), false);
+  assert.equal(await ledgerReview.isChecked(), false);
+  assert.equal(await bothCompare.isDisabled(), true);
+  await supplierReview.check();
+  assert.equal(await supplierReview.isChecked(), true);
+  assert.equal(await ledgerReview.isChecked(), false);
+  assert.equal(await bothCompare.isDisabled(), true);
+  await ledgerReview.check();
+  assert.equal(await ledgerReview.isChecked(), true);
+  assert.equal(await supplierReview.isChecked(), true);
+  assert.equal(await bothCompare.isEnabled(), true);
+  await supplierReview.uncheck();
+  assert.equal(await ledgerReview.isChecked(), true);
+  assert.equal(await bothCompare.isDisabled(), true);
+  await supplierReview.check();
+  await supplierPdfCard
+    .getByRole('button', { name: 'الصفحة التالية', exact: true })
+    .click();
+  await supplierPdfCard
+    .locator('.preview tbody')
+    .getByText('PAIR-PAY-100', { exact: true })
+    .waitFor();
+  await bothPdfPage
+    .getByRole('button', { name: 'العودة للملفات', exact: true })
+    .click();
+  await bothPdfPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
+    name: 'synthetic-replacement-one-page.pdf',
+    mimeType: 'application/pdf',
+    buffer: onePagePdf,
+  });
+  await bothPdfPage
+    .locator('.dropzone')
+    .filter({ hasText: 'كشف المورد' })
+    .getByText('synthetic-replacement-one-page.pdf', { exact: true })
+    .waitFor();
+  await bothPdfPage
+    .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+    .click();
+  assert.equal(
+    await supplierPdfCard
+      .getByRole('button', { name: 'الصفحة التالية', exact: true })
+      .count(),
+    0,
+  );
+  assert.equal(await supplierPdfCard.locator('.preview tbody tr').count(), 2);
+  await supplierPdfCard
+    .locator('.preview tbody')
+    .getByText('PAIR-INV-100', { exact: true })
+    .waitFor();
+  assert.equal(
+    await supplierReview.isChecked(),
+    false,
+    'a replacement never inherits PDF approval',
+  );
+  assert.equal(
+    await ledgerReview.isChecked(),
+    true,
+    'the unchanged counterpart keeps its independent review',
+  );
+  assert.equal(await bothCompare.isDisabled(), true);
+  await supplierReview.check();
+  await bothCompare.click();
+  await bothPdfPage
+    .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
+    .waitFor();
+  assert.equal(
+    await bothPdfPage.locator('.metric').nth(0).locator('strong').innerText(),
+    '2',
+  );
+  assert.equal(
+    await bothPdfPage.locator('.metric').nth(3).locator('strong').innerText(),
+    '0',
+  );
+  await bothPdfPage.screenshot({
+    path: 'work/qa/two-pdf-independent-reviews.png',
+    fullPage: true,
+  });
+
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -921,10 +1382,14 @@ try {
           '18-sheet workpaper reimport chooses original sources without restoring approvals',
           'bordered PDF upload, review, comparison and Excel export offline',
           'covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline',
-          'clear files show only two input fields; explicit metadata and unambiguous formats filled and numeric export verified',
+          'clear files show no mandatory input fields; explicit metadata and unambiguous formats filled and numeric export verified',
           'both ambiguous date and 3-decimal amount formats require independent choices',
           'unknown currency precision requires an explicit choice including the existing two-decimal value',
           'PDF columns detected from geometry with a reachable review box',
+          'namespaced XLSX source pairs: zero mandatory fields with proven opposite directions and exact numeric Excel export',
+          'formula running balances require separate essential supplier/AP sign choices before comparison',
+          'header selection preserves proven AP direction; failed XLSX replacement preserves the retained file manual sign choice',
+          'two PDF review approvals remain independent; replacing a multi-page PDF resets its preview and approval',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

@@ -1,0 +1,102 @@
+Detected deliberate fault: reject-supported-multisheet-workpapers
+Detected deliberate fault: reject-unused-helper-formulas
+Detected deliberate fault: treat-pdf-table-edges-as-filled-area
+Detected deliberate fault: count-total-rows-as-transactions
+Detected deliberate fault: drop-classified-rows-without-a-reason
+Detected deliberate fault: accept-a-timestamp-as-a-read-issue
+Detected deliberate fault: automatically-match-with-unread-potential-duplicates
+Detected deliberate fault: classify-any-summary-word-as-a-nontransaction
+Detected deliberate fault: ignore-date-and-reference-in-reordered-summary-rows
+Detected deliberate fault: prove-direction-from-a-single-movement
+Detected deliberate fault: reverse-proven-ap-direction
+Detected deliberate fault: ignore-contradictory-closing-footer-in-direction-proof
+Detected deliberate fault: reverse-source-sign
+Detected deliberate fault: fuzzy-reference-auto-match
+Detected deliberate fault: ignore-date-window
+Detected deliberate fault: ignore-reference-duplicates
+Detected deliberate fault: allow-unconfirmed-coverage
+Detected deliberate fault: promote-ai-hypothesis
+Detected deliberate fault: corrupt-exported-amount
+{
+  "baselinePassed": true,
+  "detected": 19,
+  "total": 19,
+  "mutations": [
+    {
+      "mutation": "reject-supported-multisheet-workpapers",
+      "detected": true
+    },
+    {
+      "mutation": "reject-unused-helper-formulas",
+      "detected": true
+    },
+    {
+      "mutation": "treat-pdf-table-edges-as-filled-area",
+      "detected": true
+    },
+    {
+      "mutation": "count-total-rows-as-transactions",
+      "detected": true
+    },
+    {
+      "mutation": "drop-classified-rows-without-a-reason",
+      "detected": true
+    },
+    {
+      "mutation": "accept-a-timestamp-as-a-read-issue",
+      "detected": true
+    },
+    {
+      "mutation": "automatically-match-with-unread-potential-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "classify-any-summary-word-as-a-nontransaction",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-and-reference-in-reordered-summary-rows",
+      "detected": true
+    },
+    {
+      "mutation": "prove-direction-from-a-single-movement",
+      "detected": true
+    },
+    {
+      "mutation": "reverse-proven-ap-direction",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-contradictory-closing-footer-in-direction-proof",
+      "detected": true
+    },
+    {
+      "mutation": "reverse-source-sign",
+      "detected": true
+    },
+    {
+      "mutation": "fuzzy-reference-auto-match",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-window",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-reference-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "allow-unconfirmed-coverage",
+      "detected": true
+    },
+    {
+      "mutation": "promote-ai-hypothesis",
+      "detected": true
+    },
+    {
+      "mutation": "corrupt-exported-amount",
+      "detected": true
+    }
+  ]
+}

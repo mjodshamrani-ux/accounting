@@ -1,4 +1,5 @@
 import { validateZipContents } from './zip.ts';
+import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
 import { readPdf } from './pdf.ts';
 import ExcelJS from 'exceljs';
 import {
@@ -7,8 +8,15 @@ import {
   MAX_ROWS,
   MAX_SHEETS,
 } from './types.ts';
-import type { SourceFile, SheetData, Comparison, AuditEvent } from './types.ts';
+import type {
+  SourceFile,
+  SheetData,
+  Comparison,
+  AuditEvent,
+  Mapping,
+} from './types.ts';
 import { money, compare, normalizeSource } from './core.ts';
+import { inferStatementDirection } from './statement-direction.ts';
 // Admit only formats whose visible numeric meaning is understood. Native values
 // stay exact; unsupported display semantics require source review, never guessing.
 function transparentNumericFormat(format: string, value: number): boolean {
@@ -285,7 +293,7 @@ export async function readFile(
   checkZip(buffer);
   await validateZipContents(buffer);
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.load(buffer);
+  await workbook.xlsx.load(await prepareXlsxForExcelJs(buffer));
   if (workbook.worksheets.length > MAX_SHEETS)
     throw new Error(`الحد ${MAX_SHEETS} ورقة في الملف`);
   if (
@@ -457,6 +465,31 @@ export async function readFile(
   if (!sheets.length) throw new Error('الملف لا يحتوي أوراقًا');
   return { name, sheets, original: buffer.slice(0), sha256 };
 }
+export function verifyDirectionEvidence(
+  file: SourceFile,
+  mapping: Mapping,
+  decimals: number,
+): Mapping {
+  if (!mapping || typeof mapping !== 'object' || Array.isArray(mapping))
+    throw new Error('إعدادات قراءة المصدر غير صالحة');
+  if (mapping.directionEvidence === undefined) return mapping;
+  const claimed = mapping.directionEvidence;
+  const proven = inferStatementDirection(file, mapping, decimals);
+  if (
+    !claimed ||
+    typeof claimed !== 'object' ||
+    Array.isArray(claimed) ||
+    !proven ||
+    claimed.multiplier !== proven.multiplier ||
+    mapping.multiplier !== proven.multiplier ||
+    claimed.balanceColumn !== proven.balanceColumn ||
+    claimed.checkedRows !== proven.checkedRows
+  )
+    throw new Error(
+      'دليل اتجاه المدين والدائن لا يطابق المصدر؛ أعد التحقق من اتجاه المبالغ',
+    );
+  return { ...mapping, directionEvidence: proven };
+}
 export async function exportWorkbook(
   result: Comparison,
   files: [SourceFile, SourceFile],
@@ -477,6 +510,27 @@ export async function exportWorkbook(
   for (let i = 0; i < files.length; i++)
     if (files[i].sha256 !== verifiedFiles[i].sha256)
       throw new Error('بصمة الملف لا تطابق الأصل');
+  // Re-prove annotations from the original source; never export a stale claim
+  // or treat caller-provided explanation text as verified accounting evidence.
+  result = {
+    ...result,
+    supplier: {
+      ...result.supplier,
+      mapping: verifyDirectionEvidence(
+        verifiedFiles[0],
+        result.supplier.mapping,
+        result.scope.decimals,
+      ),
+    },
+    ledger: {
+      ...result.ledger,
+      mapping: verifyDirectionEvidence(
+        verifiedFiles[1],
+        result.ledger.mapping,
+        result.scope.decimals,
+      ),
+    },
+  };
   const recomputed = compare(
     normalizeSource(
       verifiedFiles[0],
@@ -823,6 +877,36 @@ export async function exportWorkbook(
         : [],
     ),
   );
+  const headerFragments = verifiedFiles.flatMap((file, side) =>
+    file.pdf
+      ? Object.entries(file.sheets[0].pdfHeaderFragments ?? {}).flatMap(
+          ([row, fragments]) =>
+            fragments.flatMap((fragment, line) =>
+              fragment.map((text, column) => [
+                side === 0 ? 'المورد' : 'الدفتر',
+                Number(row),
+                file.sheets[0].rowPages?.[row] ?? '',
+                line + 1,
+                column + 1,
+                text,
+              ]),
+            ),
+        )
+      : [],
+  );
+  if (headerFragments.length)
+    add(
+      'PDF header fragments',
+      [
+        'الطرف',
+        'صف العنوان المدمج',
+        'صفحة PDF',
+        'سطر العنوان الأصلي',
+        'عمود المصدر',
+        'نص العنوان الأصلي',
+      ],
+      headerFragments,
+    );
   const data = await book.xlsx.writeBuffer();
   return new Uint8Array(data).slice().buffer;
 }

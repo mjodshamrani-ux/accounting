@@ -149,7 +149,7 @@ test('one unreadable row reports itself instead of rejecting both files', () => 
   assert.equal(broken.errors.length, 1);
   assert.equal(broken.transactions.length, 1);
   const result = compare(broken, good, scope);
-  assert.equal(result.matches.length, 1, 'the readable row still compares');
+  assert.equal(result.matches.length, 0, 'an unread row may conceal a duplicate; readable rows remain for review');
   // The incompleteness is stated in the result, not hidden by proceeding.
   const skipped = result.diagnostics.filter((d) => d.code === 'SKIPPED_ROWS');
   assert.equal(skipped.length, 1);

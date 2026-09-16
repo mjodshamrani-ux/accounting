@@ -205,100 +205,132 @@ export function inferMapping(
       candidates.length === 1 ? candidates[0] : -1;
   }
   if (m.amount < 0 && m.debit >= 0 && m.credit >= 0) m.mode = 'split';
-  inferColumnsFromValues(m, rows);
+  // Meaning comes from explicit labels, never from the shape or uniqueness of
+  // values: a decimal quantity is not evidence of a monetary amount.
+  const names = rows[m.header] ?? [];
+  const posting = names.flatMap((name, i) =>
+    /^(posting date|تاريخ القيد)$/i.test(name.trim()) ? [i] : [],
+  );
+  if (
+    m.date < 0 &&
+    posting.length === 1 &&
+    names.some((name) => /^AP voucher$/i.test(name.trim())) &&
+    names.every(
+      (name, i) =>
+        i === posting[0] ||
+        !patterns.date.test(name.trim()) ||
+        /^(invoice date|تاريخ المستند)$/i.test(name.trim()),
+    )
+  )
+    m.date = posting[0];
+  const supplierRefs = names.flatMap((name, i) =>
+    /^(supplier ref(?:erence)?|supplier invoice(?: no\.?)?|مرجع المورد|رقم فاتورة المورد)$/i.test(
+      name.trim(),
+    )
+      ? [i]
+      : [],
+  );
+  if (supplierRefs.length === 1) m.reference = supplierRefs[0];
   if (m.amount < 0 && m.debit >= 0 && m.credit >= 0) m.mode = 'split';
   return m;
-}
-// Data rows below the confirmed header, skipping blanks and the statement's own
-// total lines, so those cannot make a column look inconsistent.
-function dataRows(rows: string[][], header: number): string[][] {
-  return rows
-    .slice(header + 1)
-    .filter(
-      (row) =>
-        row.some((cell) => cell.trim()) &&
-        !row.some((cell) => summaryLabel.test(cell.trim())),
-    );
-}
-const readsAsMoney = (text: string) =>
-  (['dot', 'comma'] as const).some((format) => {
-    try {
-      parseMoney(text, format, 3);
-      return true;
-    } catch {
-      return false;
-    }
-  });
-/** Fill in the date, amount and reference columns a header name did not reveal,
- * but only where the values leave exactly one possibility. Two money columns —
- * an amount and a running balance — are genuinely ambiguous, so neither is
- * chosen and the accountant picks. This never rewrites an explicit header match.
- */
-function inferColumnsFromValues(m: Mapping, rows: string[][]): void {
-  const body = dataRows(rows, m.header);
-  if (!body.length) return;
-  const width = rows[m.header]?.length ?? 0;
-  const taken = () =>
-    new Set(
-      [
-        m.date,
-        m.reference,
-        m.description,
-        m.amount,
-        m.debit,
-        m.credit,
-        m.currencyColumn,
-      ].filter((column) => column >= 0),
-    );
-  const only = (test: (values: string[]) => boolean) => {
-    const used = taken();
-    const found = Array.from({ length: width }, (_, column) => column).filter(
-      (column) =>
-        !used.has(column) &&
-        test(body.map((row) => (row[column] ?? '').trim())),
-    );
-    return found.length === 1 ? found[0] : -1;
-  };
-  if (m.date < 0)
-    m.date = only((values) =>
-      values.every((value) => {
-        if (!value) return false;
-        try {
-          parseDate(value, m.dateFormat);
-          return true;
-        } catch {
-          return false;
-        }
-      }),
-    );
-  if (m.amount < 0 && (m.debit < 0 || m.credit < 0))
-    m.amount = only(
-      (values) =>
-        values.every(Boolean) &&
-        values.every(readsAsMoney) &&
-        // Bare positive whole numbers are as likely to be a document number or a
-        // quantity as a value, so a column must show a sign, a decimal or a
-        // thousands separator somewhere before it is read as the amount.
-        values.some((value) => /[-+(.,٫٬]/.test(latinDigits(value))),
-    );
-  // Mirror the auto-match rule exactly: a column qualifies only if every value
-  // is the kind of reference the engine would be willing to match on.
-  if (m.reference < 0)
-    m.reference = only(
-      (values) =>
-        values.every(
-          (value) =>
-            normalizeReference(value).length >= 4 &&
-            /[\p{L}]/u.test(normalizeReference(value)) &&
-            /[0-9]/.test(normalizeReference(value)),
-        ) && new Set(values.map(normalizeReference)).size === values.length,
-    );
 }
 // A cell whose whole text is one of these names marks a total or balance line,
 // not a transaction. Matching the entire cell keeps a description that merely
 // mentions a balance from being excluded.
 export const summaryLabel =
-  /^(?:total|subtotal|grand total|opening balance|closing balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
+  /^(?:total|subtotal|grand total|opening balance|closing (?:ap )?balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
+// A label in a description/helper cell cannot erase a dated invoice. Only
+// an isolated structural label, or the leading B/F opening record, qualifies.
+export function structuralSummaryLabel(
+  row: string[],
+  mapping: Mapping,
+  headers: string[],
+  leading = false,
+): string | undefined {
+  const cells = row
+    .map((value, column) => ({ value: value.trim(), column }))
+    .filter((x) => x.value);
+  const first = cells[0];
+  if (!first) return;
+  const date = row[mapping.date]?.trim() ?? '';
+  const reference = row[mapping.reference]?.trim() ?? '';
+  // A numeric reference is still a document identity. Consider explicit source
+  // headers as well when reference mapping is absent or ambiguous.
+  const referenceColumns = new Set(
+    [
+      mapping.reference,
+      ...headers.flatMap((header, column) =>
+        /^(?:reference|ref\.?|our ref\.?|your ref\.?|invoice|invoice no\.?|invoice number|document reference|document no\.?|doc\.? ref\.?|doc\.? no\.?|voucher|voucher no\.?|supplier ref(?:erence)?|supplier invoice(?: no\.?)?|customer ref\s*\/\s*po|المرجع|رقم الفاتورة|رقم المستند|رقم السند|السند|مرجع المورد|رقم فاتورة المورد)$/i.test(
+          header.trim(),
+        )
+          ? [column]
+          : [],
+      ),
+    ].filter((column) => column >= 0),
+  );
+  const references = [...referenceColumns]
+    .map((column) => row[column]?.trim() ?? '')
+    .filter(Boolean);
+  const typeColumns = headers.flatMap((header, column) =>
+    /^(type|doc type|document type|النوع|نوع المستند)$/i.test(header.trim())
+      ? [column]
+      : [],
+  );
+  const type =
+    typeColumns.length === 1 ? (row[typeColumns[0]]?.trim() ?? '') : '';
+  const openingType =
+    /^(opening balance|balance brought forward|الرصيد الافتتاحي|رصيد افتتاحي)$/i;
+  const closingType =
+    /^(closing (?:ap )?balance|balance carried forward|الرصيد الختامي|رصيد ختامي)$/i;
+  const openingReference = /^(B\/F|B-F|BF|OPENING|افتتاحي)$/i;
+  const closingReference = /^(C\/F|C-F|CF|CLOSING|ختامي)$/i;
+  const balanceIdentity =
+    leading && openingType.test(type) && openingReference.test(reference)
+      ? openingReference
+      : closingType.test(type) && closingReference.test(reference)
+        ? closingReference
+        : undefined;
+  if (
+    balanceIdentity &&
+    references.every((value) => balanceIdentity.test(value))
+  ) {
+    // An explicit balance identity can have an as-of date, but a malformed date
+    // must remain a parsing issue rather than being erased by classification.
+    if (date) {
+      try {
+        parseDate(date, mapping.dateFormat);
+      } catch {
+        return;
+      }
+    }
+    return type;
+  }
+  // Date-like punctuation is also accepted by simpleValue below. Check mapped
+  // identities first, so changing column order cannot erase a dated transaction.
+  // Nonempty malformed dates are retained for normal parsing for the same reason.
+  if (
+    (date && date !== first.value) ||
+    references.some((value) => value !== first.value)
+  )
+    return;
+  const simpleValue = (value: string) =>
+    /^[A-Z]{3}$/.test(value) || /^[()\s+−\-0-9٠-٩۰-۹.,٬٫]+$/.test(value);
+  if (
+    summaryLabel.test(first.value) &&
+    cells.slice(1).every((x) => x.value === first.value || simpleValue(x.value))
+  )
+    return first.value;
+}
+export function nonFinancialFooter(row: string[]): boolean {
+  const nonempty = [...new Set(row.map((v) => v.trim()).filter(Boolean))];
+  return (
+    nonempty.length === 1 &&
+    !/[0-9٠-٩۰-۹]/.test(nonempty[0]) &&
+    /^(?:This (?:document|export|statement) (?:contains|is) .{20,}|(?:هذا المستند|هذا التقرير) .{20,})[.!؟]?$/i.test(
+      nonempty[0],
+    )
+  );
+}
 export function normalizeSource(
   file: SourceFile,
   mapping: Mapping,
@@ -437,8 +469,31 @@ export function normalizeSource(
       // A statement's own totals and its headers repeated on each page are not
       // transactions. Exclude them with a recorded reason instead of demanding a
       // typed justification per row; they stay listed, counted and exported.
-      const label = row.find((value) => summaryLabel.test(value.trim()));
-      if (label) {
+      const label = structuralSummaryLabel(
+        row,
+        mapping,
+        headerRow,
+        sheet.rows
+          .slice(mapping.header + 1, i)
+          .every((r) => r.every((v) => !v.trim())),
+      );
+      const unsafeLabel =
+        label &&
+        row.some(
+          (value, column) =>
+            value.trim() === label &&
+            ((sheet.cellIssues?.[`${rn}:${column + 1}`] ?? []).some(
+              (issue) => !issue.startsWith('خلية مدمجة في '),
+            ) ||
+              sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length),
+        );
+      const structuralReadingSafe =
+        !hiddenRows.has(rn) &&
+        !unsafeLabel &&
+        !(sheet.rowIssues?.[rn] ?? []).some(
+          (issue) => !issue.startsWith('نص يعبر حد عمود؛'),
+        );
+      if (label && structuralReadingSafe) {
         result.excluded.push({
           row: rn,
           reason: `صف إجمالي أو رصيد — استُبعد تلقائيًا («${label.trim()}»)`,
@@ -446,7 +501,15 @@ export function normalizeSource(
         });
         continue;
       }
-      if (repeatedHeader(row)) {
+      if (nonFinancialFooter(row) && structuralReadingSafe) {
+        result.excluded.push({
+          row: rn,
+          reason: 'تذييل نصي بلا مبلغ أو مرجع رقمي — استُبعد تلقائيًا',
+          values: row,
+        });
+        continue;
+      }
+      if (repeatedHeader(row) && structuralReadingSafe) {
         result.excluded.push({
           row: rn,
           reason: 'صف عناوين مُكرر — استُبعد تلقائيًا',
@@ -663,8 +726,13 @@ export function compare(
     )
       ambiguousIds.push(t.id);
   }
+  // An unread row may contain another occurrence of the same reference. Without
+  // all identities, uniqueness is not proven. Keep a review result, no auto links.
+  const completeReading =
+    supplier.errors.length === 0 && ledger.errors.length === 0;
   for (const s of supplier.transactions) {
     if (
+      !completeReading ||
       usedA.has(s.id) ||
       !s.normalizedReference ||
       s.normalizedReference.length < 4 ||
@@ -753,7 +821,7 @@ export function compare(
     if (source.errors.length)
       diagnostics.push({
         code: 'SKIPPED_ROWS',
-        message: `${label}: ${source.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. المقارنة غير مكتملة حتى تُقرأ أو تُستبعد بسبب.`,
+        message: `${label}: ${source.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. المقارنة غير مكتملة؛ أوقفت المطابقات الآلية لأن الصف غير المقروء قد يخفي مرجعًا مكررًا. صحح القراءة أو وثّق الاستبعاد.`,
         transactionIds: [],
       });
     for (const warning of source.warnings)
