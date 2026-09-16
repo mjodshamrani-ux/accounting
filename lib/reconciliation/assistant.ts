@@ -1,4 +1,10 @@
-import { latinDigits, money, normalizeReference, safeSum } from './core.ts';
+import {
+  latinDigits,
+  money,
+  normalizeReference,
+  parseDate,
+  safeSum,
+} from './core.ts';
 import type { Comparison, Transaction } from './types.ts';
 
 export type EvidenceAnswer = {
@@ -6,6 +12,192 @@ export type EvidenceAnswer = {
   text: string;
   sourceIds: string[];
 };
+const transactionEvidenceFields: (keyof Transaction)[] = [
+  'id',
+  'side',
+  'row',
+  'sheet',
+  'date',
+  'reference',
+  'normalizedReference',
+  'description',
+  'amount',
+  'amountMinor',
+  'originalAmount',
+  'currency',
+  'documentType',
+  'primaryReference',
+  'documentReference',
+  'voucherReference',
+  'poReference',
+  'bankReference',
+  'receiptReference',
+  'referenceEvidenceIssues',
+  'sourcePage',
+];
+const sameTransactionEvidence = (a: Transaction, b: Transaction) =>
+  transactionEvidenceFields.every(
+    (field) => JSON.stringify(a[field]) === JSON.stringify(b[field]),
+  );
+
+// Case members are display copies, never the authority for proposal amounts.
+// Check conservation and provenance before resolving IDs from canonical sources.
+function proposalEvidence(result: Comparison) {
+  const canonical = new Map<string, Transaction>();
+  const reviewable = new Set<string>();
+  const caseRows = new Set<string>();
+  const matchedRows = new Set<string>();
+  const failure = (reason: string): never => {
+    throw new Error(reason);
+  };
+  if (
+    !Array.isArray(result.rejectedPairs) ||
+    result.rejectedPairs.some((pair) => typeof pair !== 'string')
+  )
+    failure('سجل قرارات المراجعة غير صالح؛ أعد المصالحة');
+  if (
+    !result.scope.confirmed ||
+    !/^[A-Z]{3}$/.test(result.scope.currency) ||
+    ![0, 2, 3].includes(result.scope.decimals) ||
+    !Number.isInteger(result.scope.dateWindow) ||
+    result.scope.dateWindow < 0 ||
+    result.scope.dateWindow > 7
+  )
+    failure('نطاق النتيجة غير صالح؛ أعد المصالحة');
+  const cutoff = parseDate(result.scope.cutoff, 'ymd');
+  for (const [source, side] of [
+    [result.supplier, 'supplier'],
+    [result.ledger, 'ledger'],
+  ] as const) {
+    if (source.errors.length || !source.transactions.length)
+      failure('قراءة المصدر غير مكتملة؛ صحح أخطاء القراءة قبل فحص اقتراح AI');
+    for (const t of source.transactions) {
+      if (
+        !t.id ||
+        canonical.has(t.id) ||
+        t.side !== side ||
+        !Number.isInteger(t.row) ||
+        t.row < 1 ||
+        !t.sheet ||
+        t.id !== `${side}:${source.mapping.sheet}:${t.row}` ||
+        parseDate(t.date, 'ymd') !== t.date ||
+        t.date > cutoff ||
+        normalizeReference(t.reference) !== t.normalizedReference ||
+        (t.documentType !== undefined &&
+          !['Invoice', 'Credit Note', 'Payment', 'Journal', 'Unknown'].includes(
+            t.documentType,
+          )) ||
+        (t.referenceEvidenceIssues !== undefined &&
+          (!Array.isArray(t.referenceEvidenceIssues) ||
+            t.referenceEvidenceIssues.some(
+              (issue) => typeof issue !== 'string',
+            ))) ||
+        (t.amountMinor !== undefined && t.amountMinor !== t.amount)
+      )
+        failure('هوية أو تاريخ أو مبلغ حركة المصدر غير متسق؛ أعد المصالحة');
+      if (t.currency !== undefined && t.currency !== result.scope.currency)
+        failure('عملة حركة المصدر لا تطابق نطاق النتيجة');
+      safeSum([t.amount]);
+      canonical.set(t.id, t);
+    }
+    if (safeSum(source.transactions.map((t) => t.amount)) !== source.total)
+      failure('إجمالي المصدر لا يطابق حركاته الحالية؛ أعد المصالحة');
+  }
+  const caseIds = new Set<string>();
+  const casesById = new Map<string, Comparison['cases'][number]>();
+  for (const c of result.cases) {
+    if (
+      !c.caseId ||
+      caseIds.has(c.caseId) ||
+      !['Matched', 'Needs Review', 'Unmatched', 'Rejected'].includes(
+        c.status,
+      ) ||
+      c.reviewRequired !== (c.status !== 'Matched')
+    )
+      failure('حالة المصالحة غير صالحة أو مكررة؛ أعد المصالحة');
+    caseIds.add(c.caseId);
+    casesById.set(c.caseId, c);
+    const members = [...c.supplierMembers, ...c.ledgerMembers];
+    if (!members.length || c.sourceTrace.length !== members.length)
+      failure('سجل مصدر الحالة غير مكتمل؛ أعد المصالحة');
+    const traceIds = new Set<string>();
+    for (const [rows, side] of [
+      [c.supplierMembers, 'supplier'],
+      [c.ledgerMembers, 'ledger'],
+    ] as const) {
+      for (const member of rows) {
+        const t = canonical.get(member.id);
+        if (
+          !t ||
+          member.side !== side ||
+          caseRows.has(member.id) ||
+          !sameTransactionEvidence(t, member)
+        )
+          failure(
+            'عضو حالة غائب أو مكرر أو قديم بالنسبة للمصدر الحالي؛ أعد المصالحة',
+          );
+        caseRows.add(member.id);
+        if (c.status === 'Needs Review' || c.status === 'Unmatched')
+          reviewable.add(member.id);
+        if (c.status === 'Matched') matchedRows.add(member.id);
+      }
+    }
+    const memberIds = new Set(members.map((t) => t.id));
+    for (const trace of c.sourceTrace) {
+      const t = canonical.get(trace.sourceRowId);
+      if (
+        !t ||
+        !memberIds.has(trace.sourceRowId) ||
+        traceIds.has(trace.sourceRowId) ||
+        trace.side !== t.side ||
+        trace.sheet !== t.sheet ||
+        trace.row !== t.row ||
+        trace.page !== t.sourcePage
+      )
+        failure('دليل صف المصدر لا يطابق أعضاء الحالة؛ أعد المصالحة');
+      traceIds.add(trace.sourceRowId);
+    }
+    const a = safeSum(
+      c.supplierMembers.map((t) => canonical.get(t.id)!.amount),
+    );
+    const b = safeSum(c.ledgerMembers.map((t) => canonical.get(t.id)!.amount));
+    if (
+      a !== c.supplierTotal ||
+      b !== c.ledgerTotal ||
+      safeSum([a, -b]) !== c.variance ||
+      safeSum([b, -a]) !== c.bridgeEffect ||
+      (c.status === 'Matched' && a !== b)
+    )
+      failure('أرقام الحالة لا تطابق حركات المصدر الحالية؛ أعد المصالحة');
+  }
+  if (caseRows.size !== canonical.size)
+    failure('لا تظهر جميع حركات المصدر مرة واحدة في النتيجة الحالية');
+  const matchRows = new Set<string>();
+  for (const match of result.matches) {
+    const matchCase = match.caseId ? casesById.get(match.caseId) : undefined;
+    const a = match.supplierIds ?? [match.supplierId],
+      b = match.ledgerIds ?? [match.ledgerId];
+    if (
+      !matchCase ||
+      matchCase.status !== 'Matched' ||
+      !a.includes(match.supplierId) ||
+      !b.includes(match.ledgerId) ||
+      JSON.stringify([...a].sort()) !==
+        JSON.stringify(matchCase.supplierMembers.map((t) => t.id).sort()) ||
+      JSON.stringify([...b].sort()) !==
+        JSON.stringify(matchCase.ledgerMembers.map((t) => t.id).sort())
+    )
+      failure('سجل المطابقات لا يطابق حالات النتيجة الحالية');
+    for (const id of [...a, ...b]) {
+      if (!matchedRows.has(id) || matchRows.has(id))
+        failure('سجل المطابقات لا يطابق حالات النتيجة الحالية');
+      matchRows.add(id);
+    }
+  }
+  if (matchRows.size !== matchedRows.size)
+    failure('سجل المطابقات غير مكتمل؛ أعد المصالحة');
+  return { canonical, reviewable };
+}
 // No model text, claimed numbers or confidence scores can enter the ledger.
 // A future local model may only propose IDs; this boundary accepts unknown input.
 export function verifyHypothesis(result: Comparison, input: unknown) {
@@ -33,18 +225,25 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
   const ids = [...(p.supplierIds as string[]), ...(p.ledgerIds as string[])];
   if (new Set(ids).size !== ids.length)
     return rejected('حركة مكررة في الاقتراح');
-  const reviewable = result.cases.filter(
-    (c) => c.status === 'Needs Review' || c.status === 'Unmatched',
-  );
-  const a = new Map(
-    reviewable.flatMap((c) => c.supplierMembers).map((t) => [t.id, t]),
-  );
-  const b = new Map(
-    reviewable.flatMap((c) => c.ledgerMembers).map((t) => [t.id, t]),
-  );
+  let evidence: ReturnType<typeof proposalEvidence>;
+  try {
+    evidence = proposalEvidence(result);
+  } catch (error) {
+    return rejected(
+      error instanceof Error && !(error instanceof TypeError)
+        ? error.message
+        : 'بنية النتيجة الحالية غير صالحة؛ أعد المصالحة',
+    );
+  }
+  const a = new Map(result.supplier.transactions.map((t) => [t.id, t]));
+  const b = new Map(result.ledger.transactions.map((t) => [t.id, t]));
   if (
-    !(p.supplierIds as string[]).every((id) => a.has(id)) ||
-    !(p.ledgerIds as string[]).every((id) => b.has(id))
+    !(p.supplierIds as string[]).every(
+      (id) => a.has(id) && evidence.reviewable.has(id),
+    ) ||
+    !(p.ledgerIds as string[]).every(
+      (id) => b.has(id) && evidence.reviewable.has(id),
+    )
   )
     return rejected(
       'حركة غير موجودة أو مستخدمة؛ أعد التحقق من النتيجة الحالية',
@@ -57,6 +256,49 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     )
   )
     return rejected('الرابط مرفوض من المراجع');
+  const proposed = ids.map((id) => evidence.canonical.get(id)!);
+  if (proposed.some((t) => t.referenceEvidenceIssues?.length))
+    return rejected(
+      'دليل المرجع أو نوع المستند غير متحقق؛ راجع صفوف المصدر قبل اختبار الفرضية',
+    );
+  const types = new Set(
+    proposed
+      .map((t) => t.documentType)
+      .filter((type) => type && type !== 'Unknown'),
+  );
+  if (types.size > 1)
+    return rejected('أنواع المستندات متعارضة؛ تساوي المبلغ لا يثبت الربط');
+  const orders = new Set(proposed.map((t) => t.poReference).filter(Boolean));
+  if (orders.size > 1)
+    return rejected('أوامر الشراء الصريحة متعارضة؛ يلزم دليل خارجي لتفسيرها');
+  if (
+    proposed.some((t) => !t.amount) ||
+    new Set(proposed.map((t) => Math.sign(t.amount))).size > 1
+  )
+    return rejected(
+      'إشارات المبالغ غير متسقة أو توجد حركة صفرية؛ لا تُختزل بالمقاصة',
+    );
+  const dates = proposed.map((t) => Date.parse(t.date));
+  if (
+    (Math.max(...dates) - Math.min(...dates)) / 86400000 >
+    result.scope.dateWindow
+  )
+    return rejected('فارق تواريخ الحركات يتجاوز نافذة المقارنة المؤكدة');
+  const proposedIds = new Set(ids);
+  if (
+    proposed.some((t) =>
+      [...evidence.canonical.values()].some(
+        (other) =>
+          other.side === t.side &&
+          other.normalizedReference &&
+          other.normalizedReference === t.normalizedReference &&
+          !proposedIds.has(other.id),
+      ),
+    )
+  )
+    return rejected(
+      'المرجع مكرر؛ لا يجوز اختيار جزء من مجموعة ملتبسة وإخفاء بقية أعضائها',
+    );
   let difference: number;
   try {
     difference = safeSum([

@@ -30,8 +30,26 @@ const tests = [
   'tests/xlsx-diversity-audit.test.ts',
   'tests/pdf-diversity-audit.test.ts',
   'tests/matching-diversity-audit.test.ts',
+  'tests/ai-evidence-boundary.test.ts',
+  'tests/import-proposals.test.ts',
+  'tests/local-ai-context.test.ts',
 ];
 const mutations = [
+  {
+    name: 'reuse-an-ai-column-proposal-after-settings-change',
+    file: 'lib/reconciliation/import-proposals.ts',
+    changes: [['input.baseline !== context.baseline', 'false']],
+  },
+  {
+    name: 'trust-stale-case-member-evidence',
+    file: 'lib/reconciliation/assistant.ts',
+    changes: [['!sameTransactionEvidence(t, member)', 'false']],
+  },
+  {
+    name: 'allow-ai-proposals-outside-the-evidence-window',
+    file: 'lib/reconciliation/local-ai.ts',
+    changes: [['suppliedIds && proposed.some((id) => !suppliedIds.has(id))', 'false']],
+  },
   {
     name: 'skip-an-earlier-table-for-a-richer-later-header',
     file: 'lib/reconciliation/core.ts',

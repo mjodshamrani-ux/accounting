@@ -3,6 +3,7 @@ import { readFile, exportWorkbook } from './io.ts';
 import { normalizeSource, compare } from './core.ts';
 import { ENGINE_VERSION } from './types.ts';
 import { WORKER_CHANNEL, isRequest } from './protocol.ts';
+import { ImportDiagnosticError } from './import-diagnostics.ts';
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
@@ -80,6 +81,9 @@ self.onmessage = async (event: MessageEvent) => {
         error instanceof Error && error.message.trim()
           ? error.message
           : 'تعذر إكمال العملية محليًا',
+      ...(error instanceof ImportDiagnosticError
+        ? { diagnosis: error.diagnosis }
+        : {}),
     });
   }
 };

@@ -3,6 +3,11 @@ import type { SheetData } from './types.ts';
 import { bindTextPaints, visibleOnBackground } from './pdf-paint-order.ts';
 import type { PdfBackground } from './pdf-paint-order.ts';
 import {
+  ImportDiagnosticError,
+  isImportDiagnosis,
+} from './import-diagnostics.ts';
+import type { ImportDiagnosis } from './import-diagnostics.ts';
+import {
   suggestPdfColumnLayout,
   projectPdfColumns,
 } from './pdf-column-suggestions.ts';
@@ -19,6 +24,20 @@ export type PdfToken = {
 type PdfPoint = [number, number];
 const boxOverlaps = (a: number[], b: number[]) =>
   a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+
+const imageOperators = [
+  'paintImageXObject',
+  'paintInlineImageXObject',
+  'paintImageMaskXObject',
+  'paintImageXObjectRepeat',
+  'paintInlineImageXObjectGroup',
+  'paintImageMaskXObjectRepeat',
+  'paintImageMaskXObjectGroup',
+  'paintSolidColorImageMask',
+] as const;
+const isImagePaint = (ops: Record<string, number>, op: number) =>
+  imageOperators.some((name) => ops[name] === op);
+class PdfImageContentError extends Error {}
 
 function glyphBounds(token: PdfToken): number[] {
   const ascent = token.ascent ?? 0.8;
@@ -532,19 +551,8 @@ export function checkPdfOperators(
         throw new Error(
           'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel',
         );
-    } else if (
-      [
-        ops.paintImageXObject,
-        ops.paintInlineImageXObject,
-        ops.paintImageMaskXObject,
-        ops.paintImageXObjectRepeat,
-        ops.paintInlineImageXObjectGroup,
-        ops.paintImageMaskXObjectRepeat,
-        ops.paintImageMaskXObjectGroup,
-        ops.paintSolidColorImageMask,
-      ].includes(op)
-    )
-      throw new Error(
+    } else if (isImagePaint(ops, op))
+      throw new PdfImageContentError(
         'PDF يحتوي صورة قد تحمل بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة؛ OCR غير مدعوم حاليًا، اطلب PDF بلا صور أو Excel',
       );
   }
@@ -742,25 +750,67 @@ export async function readPdf(
           tokens.push(token);
         }
       }
-      if (!tokens.length)
-        throw new Error(
-          `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. OCR غير متاح حاليًا؛ اطلب PDF نصيًا أو Excel`,
-        );
       const operators = await page.getOperatorList();
       const { OPS } = await getResolvedPDFJS();
-      checkPdfOperators(
-        OPS,
-        operators.fnArray,
-        operators.argsArray,
-        (page.view[2] - page.view[0]) * (page.view[3] - page.view[1]),
-        tokens.map((t) => [
-          t.x + page.view[0],
-          t.y - t.height * 0.3,
-          t.x + page.view[0] + t.width,
-          t.y + t.height,
-        ]),
-        tokens.map((token) => token.text),
+      const imagePaints = operators.fnArray.reduce(
+        (count, op) => count + Number(isImagePaint(OPS, op)),
+        0,
       );
+      const diagnosticFailure = (
+        message: string,
+        code: ImportDiagnosis['code'],
+      ) => {
+        const diagnosis: ImportDiagnosis = {
+          schemaVersion: 1,
+          format: 'pdf',
+          totalPages: doc.numPages,
+          page: pageNo,
+          contentKind: tokens.length
+            ? imagePaints
+              ? 'mixed'
+              : 'native-text'
+            : imagePaints
+              ? 'image-only'
+              : 'no-extractable-text',
+          textItems: tokens.length,
+          textChars: tokens.reduce((sum, token) => sum + token.text.length, 0),
+          imagePaints,
+          code,
+          route: 'visual-extraction-required',
+          inspectedAllPages: false,
+        };
+        // An excessive diagnostic count cannot make the rejected source usable.
+        // Keep the original rejection message even when its facts exceed schema limits.
+        return isImportDiagnosis(diagnosis)
+          ? new ImportDiagnosticError(message, diagnosis)
+          : new Error(message);
+      };
+      if (!tokens.length)
+        throw diagnosticFailure(
+          `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. OCR غير متاح حاليًا؛ اطلب PDF نصيًا أو Excel`,
+          'PDF_NO_EXTRACTABLE_TEXT',
+        );
+      try {
+        checkPdfOperators(
+          OPS,
+          operators.fnArray,
+          operators.argsArray,
+          (page.view[2] - page.view[0]) * (page.view[3] - page.view[1]),
+          tokens.map((t) => [
+            t.x + page.view[0],
+            t.y - t.height * 0.3,
+            t.x + page.view[0] + t.width,
+            t.y + t.height,
+          ]),
+          tokens.map((token) => token.text),
+        );
+      } catch (error) {
+        // Only annotate the existing image guard. Earlier clipping, hidden text,
+        // occlusion and contrast failures keep their precedence and remain fatal.
+        if (error instanceof PdfImageContentError)
+          throw diagnosticFailure(error.message, 'PDF_IMAGE_CONTENT');
+        throw error;
+      }
       pages.push({ tokens, width: page.view[2] - page.view[0] });
       page.cleanup();
     }

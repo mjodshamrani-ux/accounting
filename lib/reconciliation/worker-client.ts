@@ -1,4 +1,8 @@
 import { WORKER_CHANNEL, isRecord, validateWorkerValue } from './protocol.ts';
+import {
+  ImportDiagnosticError,
+  isImportDiagnosis,
+} from './import-diagnostics.ts';
 export type WorkerPort = Pick<
   Worker,
   'postMessage' | 'terminate' | 'onmessage' | 'onerror' | 'onmessageerror'
@@ -76,14 +80,17 @@ export function createWorkerClient(
               'رد قارئ الملفات غير صالح؛ أُعيد تجهيز القارئ للمحاولة التالية.',
             ),
           );
-        if (!response.ok)
+        if (!response.ok) {
+          const message =
+            typeof response.error === 'string' && response.error.trim()
+              ? response.error
+              : 'تعذر قراءة الملف؛ أُعيد تجهيز القارئ للمحاولة التالية.';
           return fail(
-            new Error(
-              typeof response.error === 'string' && response.error.trim()
-                ? response.error
-                : 'تعذر قراءة الملف؛ أُعيد تجهيز القارئ للمحاولة التالية.',
-            ),
+            action === 'read' && isImportDiagnosis(response.diagnosis)
+              ? new ImportDiagnosticError(message, response.diagnosis)
+              : new Error(message),
           );
+        }
         try {
           validateWorkerValue(action, response.value, payload);
         } catch (error) {

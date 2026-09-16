@@ -593,6 +593,55 @@ try {
       !document.body.innerText.includes('قراءة الملف على جهازك'),
   );
   assert.equal(await recoveryPage.getByRole('alert').count(), 0);
+  // Typed worker diagnoses describe only the first failing page. They must not
+  // replace the successfully loaded XLSX with a partial or invented PDF table.
+  const diagnosisRows = [
+    ['Date', 'Reference', 'Amount'],
+    ['2026-07-02', 'SYN-DIAG-1', '1250.00'],
+  ];
+  for (const diagnostic of [
+    {
+      name: 'synthetic-image-only.pdf',
+      bytes: syntheticPdf(
+        [[]],
+        10,
+        'q 30 0 0 30 0 0 cm\nBI /W 1 /H 1 /CS /G /BPC 8 ID\nX\nEI\nQ',
+      ),
+      page: /توقفت القراءة عند الصفحة 1 من 1/,
+      kind: /صور دون نص قابل للاستخراج/,
+    },
+    {
+      name: 'synthetic-incomplete-text.pdf',
+      bytes: syntheticPdf([diagnosisRows, [], diagnosisRows]),
+      page: /توقفت القراءة عند الصفحة 2 من 3/,
+      kind: /لا نص قابل للاستخراج؛ لا يمكن الجزم بأنها صورة/,
+    },
+  ]) {
+    await recoveryPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
+      name: diagnostic.name,
+      mimeType: 'application/pdf',
+      buffer: Buffer.from(diagnostic.bytes),
+    });
+    const diagnosisAlert = recoveryPage.getByRole('alert');
+    await diagnosisAlert.filter({ hasText: diagnostic.page }).waitFor();
+    assert.match(await diagnosisAlert.innerText(), diagnostic.kind);
+    assert.match(await diagnosisAlert.innerText(), /لم تُعتمد قراءة جزئية/);
+    assert.match(
+      await diagnosisAlert.innerText(),
+      /قراءة الصور ليست متاحة في هذا الإصدار/,
+    );
+    const retainedSource = recoveryPage
+      .locator('.dropzone')
+      .filter({ hasText: 'كشف المورد' });
+    await retainedSource
+      .getByText('synthetic-recovered.xlsx', { exact: true })
+      .waitFor();
+    assert.equal(
+      await retainedSource.getByText(diagnostic.name, { exact: true }).count(),
+      0,
+      'a rejected PDF must not replace the existing source or retain a partial table',
+    );
+  }
   await recoveryPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
     name: 'synthetic-styled.pdf',
     mimeType: 'application/pdf',
@@ -602,6 +651,11 @@ try {
     () =>
       document.body.innerText.includes('synthetic-styled.pdf') &&
       !document.body.innerText.includes('قراءة الملف على جهازك'),
+  );
+  assert.equal(
+    await recoveryPage.getByRole('alert').count(),
+    0,
+    'a subsequent readable PDF must clear the previous typed diagnosis',
   );
   await recoveryPage
     .getByLabel('تقرير الحسابات الدائنة', { exact: true })
@@ -662,6 +716,250 @@ try {
     ),
     [1250, -150],
   );
+  // Synthetic, page-scoped browser API double. These assertions exercise the
+  // advice boundary and UI workflow, not a real model's accuracy or availability.
+  const unfamiliarCsv = [
+    'Supplier,Synthetic AI Vendor,',
+    'Customer,Synthetic AI Buyer,',
+    'Customer Account,AI-TEST,',
+    'Currency,SAR,',
+    'Period,2026-01-01 to 2026-01-31,',
+    'Date,Reference,Settlement face value',
+    '2026-01-05,AI-0001,250.00',
+    '2026-01-06,AI-0002,75.00',
+    '2026-01-07,AI-0003,-30.00',
+  ].join('\n');
+  for (const providerState of ['absent', 'downloadable', 'available']) {
+    await context.setOffline(false);
+    const importAiPage = await context.newPage();
+    await importAiPage.addInitScript((availability) => {
+      const state = {
+        syntheticTestProvider: true,
+        availabilityChecks: 0,
+        creates: 0,
+        prompts: 0,
+        destroys: 0,
+        echoedSourceHash: '',
+        proposedFields: [],
+      };
+      Object.defineProperty(window, '__syntheticImportModel', { value: state });
+      Object.defineProperty(window, 'LanguageModel', {
+        configurable: true,
+        value:
+          availability === 'absent'
+            ? undefined
+            : {
+                availability: async () => {
+                  state.availabilityChecks++;
+                  return availability;
+                },
+                create: async () => {
+                  state.creates++;
+                  if (availability !== 'available')
+                    throw new Error(
+                      'Synthetic test: downloading must never start',
+                    );
+                  return {
+                    prompt: async (prompt, options) => {
+                      state.prompts++;
+                      const marker = prompt.indexOf('DATA=');
+                      if (marker < 0)
+                        throw new Error(
+                          'Synthetic test: missing source context',
+                        );
+                      const data = JSON.parse(prompt.slice(marker + 5));
+                      if (
+                        data.columns[2]?.header.text !==
+                          'Settlement face value' ||
+                        !data.unresolvedFields.includes('amount') ||
+                        data.unresolvedFields.includes('date') ||
+                        data.unresolvedFields.includes('reference') ||
+                        !options.responseConstraint ||
+                        options.signal.aborted
+                      )
+                        throw new Error(
+                          'Synthetic test: unexpected inference context',
+                        );
+                      state.echoedSourceHash = data.sourceHash;
+                      state.proposedFields = ['amount'];
+                      return JSON.stringify({
+                        sourceHash: data.sourceHash,
+                        sheet: data.sheet,
+                        header: data.header,
+                        baseline: data.baseline,
+                        columns: { amount: 2 },
+                      });
+                    },
+                    destroy: () => {
+                      state.destroys++;
+                    },
+                  };
+                },
+              },
+      });
+    }, providerState);
+    await importAiPage.goto(`${origin}/mizan-test/`);
+    await importAiPage.waitForFunction(
+      () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    );
+    await context.setOffline(true);
+    for (const [side, label] of [
+      'كشف المورد',
+      'تقرير الحسابات الدائنة',
+    ].entries()) {
+      const filename = `synthetic-local-model-${providerState}-${side}.csv`;
+      await importAiPage.getByLabel(label, { exact: true }).setInputFiles({
+        name: filename,
+        mimeType: 'text/csv',
+        buffer: Buffer.from(
+          side === 0
+            ? unfamiliarCsv
+            : unfamiliarCsv.replace('Settlement face value', 'Amount'),
+        ),
+      });
+      await importAiPage
+        .locator('.dropzone')
+        .filter({ hasText: label })
+        .getByText(filename, { exact: true })
+        .waitFor();
+      await importAiPage.waitForFunction(
+        () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      );
+    }
+    await importAiPage
+      .getByRole('button', { name: 'تأكيد البيانات', exact: true })
+      .click();
+    const aiSupplier = importAiPage.locator('section').filter({
+      has: importAiPage.getByRole('heading', {
+        name: 'كشف المورد',
+        exact: true,
+      }),
+    });
+    const missingAmount = aiSupplier.getByRole('combobox', {
+      name: 'عمود المبلغ',
+      exact: true,
+    });
+    await missingAmount.waitFor();
+    assert.match(await missingAmount.innerText(), /غير محدد/);
+    assert.match(await aiSupplier.locator('.summary-line').innerText(), /Date/);
+    assert.match(
+      await aiSupplier.locator('.summary-line').innerText(),
+      /Reference/,
+    );
+    const importAiCompare = importAiPage.getByRole('button', {
+      name: 'تحقق وقارن',
+      exact: true,
+    });
+    assert.equal(await importAiCompare.isDisabled(), true);
+    const helperButton = importAiPage.getByRole('button', {
+      name: 'اقتراح الأعمدة بمساعد الجهاز',
+      exact: true,
+    });
+    if (providerState !== 'absent')
+      await importAiPage.waitForFunction(
+        () => window.__syntheticImportModel.availabilityChecks > 0,
+      );
+    if (providerState !== 'available') {
+      assert.equal(await helperButton.count(), 0);
+      assert.deepEqual(
+        await importAiPage.evaluate(() => ({
+          creates: window.__syntheticImportModel.creates,
+          prompts: window.__syntheticImportModel.prompts,
+        })),
+        { creates: 0, prompts: 0 },
+        'absence or a downloadable model must not create a session or download',
+      );
+      // Unsupported devices retain the ordinary manual mapping path.
+      await missingAmount.click();
+      await importAiPage
+        .getByRole('option', { name: '3 · Settlement face value', exact: true })
+        .click();
+    } else {
+      await helperButton.waitFor();
+      assert.equal(
+        await importAiPage.evaluate(
+          () => window.__syntheticImportModel.creates,
+        ),
+        0,
+        'checking model readiness must not start inference',
+      );
+      await helperButton.click();
+      const pendingProposal = importAiPage.locator(
+        '[aria-label="اقتراح أعمدة يحتاج مراجعة"]',
+      );
+      await pendingProposal.waitFor();
+      assert.match(await pendingProposal.innerText(), /Settlement face value/);
+      assert.match(await pendingProposal.innerText(), /250\.00/);
+      assert.match(
+        await pendingProposal.innerText(),
+        /لم تُعتمد أرقام أو مطابقات/,
+      );
+      assert.match(await missingAmount.innerText(), /غير محدد/);
+      assert.equal(await importAiCompare.isDisabled(), true);
+      assert.equal(
+        await importAiPage
+          .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
+          .count(),
+        0,
+        'receiving model advice must neither apply a mapping nor compare',
+      );
+      const modelState = await importAiPage.evaluate(
+        () => window.__syntheticImportModel,
+      );
+      assert.equal(modelState.syntheticTestProvider, true);
+      assert.equal(modelState.creates, 1);
+      assert.equal(modelState.prompts, 1);
+      assert.equal(modelState.destroys, 1);
+      assert.match(modelState.echoedSourceHash, /^[a-f0-9]{64}$/);
+      assert.deepEqual(modelState.proposedFields, ['amount']);
+      await pendingProposal
+        .getByRole('button', {
+          name: 'استخدام الأعمدة بعد مراجعتها',
+          exact: true,
+        })
+        .click();
+    }
+    await missingAmount.waitFor({ state: 'hidden' });
+    await importAiPage.waitForFunction(() =>
+      [...document.querySelectorAll('button')].some(
+        (button) =>
+          button.textContent?.trim() === 'تحقق وقارن' && !button.disabled,
+      ),
+    );
+    assert.equal(await helperButton.count(), 0);
+    assert.deepEqual(
+      await importAiPage.getByRole('alert').allTextContents(),
+      [],
+    );
+    await importAiCompare.click();
+    await importAiPage
+      .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
+      .waitFor();
+    assert.equal(
+      await importAiPage
+        .locator('.metric')
+        .nth(0)
+        .locator('strong')
+        .innerText(),
+      '3',
+    );
+    assert.equal(
+      await importAiPage
+        .locator('.metric')
+        .nth(2)
+        .locator('strong')
+        .innerText(),
+      '0',
+    );
+    assert.equal(
+      await importAiPage
+        .locator('.metric')
+        .nth(3)
+        .locator('strong')
+        .innerText(),
+      '0',
+    );
+  }
   // Metadata + strict format prefill: no names, currency or cutoff are typed.
   await context.setOffline(false);
   const quickPage = await context.newPage();
@@ -1431,6 +1729,8 @@ try {
           'case workpaper reimport chooses parsed sources without restoring approvals',
           'bordered PDF upload, review, comparison and Excel export offline',
           'covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline',
+          'typed image-only and first-failing-page PDF diagnoses retain the existing XLSX and recover on the next readable PDF',
+          'synthetic ready local-model advice requires explicit Apply before comparison; absent/downloadable providers never create sessions and retain manual mapping',
           'clear files show no mandatory input fields; explicit metadata and unambiguous formats filled and numeric export verified',
           'both ambiguous date and 3-decimal amount formats require independent choices',
           'unknown currency precision requires an explicit choice including the existing two-decimal value',

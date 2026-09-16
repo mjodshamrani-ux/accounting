@@ -8,6 +8,7 @@ import {
   assertSourceFile,
 } from '../lib/reconciliation/protocol.ts';
 import { ENGINE_VERSION } from '../lib/reconciliation/types.ts';
+import { ImportDiagnosticError } from '../lib/reconciliation/import-diagnostics.ts';
 class FakeWorker {
   onmessage: WorkerPort['onmessage'] = null;
   onerror: WorkerPort['onerror'] = null;
@@ -52,6 +53,64 @@ function setup(timeout = 1000) {
   }, timeout);
   return { workers, client };
 }
+test('typed PDF failure survives the worker without producing a partial source', async () => {
+  const { workers, client } = setup();
+  const failed = client.request('read', { name: 'mixed.pdf' });
+  const diagnosis = {
+    schemaVersion: 1,
+    format: 'pdf',
+    totalPages: 3,
+    page: 2,
+    contentKind: 'mixed',
+    textItems: 4,
+    textChars: 28,
+    imagePaints: 1,
+    code: 'PDF_IMAGE_CONTENT',
+    route: 'visual-extraction-required',
+    inspectedAllPages: false,
+  };
+  workers[0].respond({ ok: false, error: 'PDF contains an image', diagnosis });
+  await assert.rejects(failed, (error: unknown) => {
+    assert.ok(error instanceof ImportDiagnosticError);
+    assert.deepEqual(error.diagnosis, diagnosis);
+    return true;
+  });
+  assert.equal(workers[0].stopped, true);
+  const next = client.request('read', { name: 'synthetic.xlsx' });
+  workers[1].respond({ ok: true, value: valid() });
+  assert.ok(await next);
+});
+
+test('unvalidated or misplaced diagnosis remains a plain failure, never trusted metadata', async () => {
+  for (const [action, diagnosis] of [
+    ['read', { page: 2, contentKind: 'mixed' }],
+    [
+      'normalize',
+      {
+        schemaVersion: 1,
+        format: 'pdf',
+        totalPages: 3,
+        page: 2,
+        contentKind: 'mixed',
+        textItems: 4,
+        textChars: 28,
+        imagePaints: 1,
+        code: 'PDF_IMAGE_CONTENT',
+        route: 'visual-extraction-required',
+        inspectedAllPages: false,
+      },
+    ],
+  ] as const) {
+    const { workers, client } = setup();
+    const failed = client.request(action, {});
+    workers[0].respond({ ok: false, error: 'failed', diagnosis });
+    await assert.rejects(failed, (error: unknown) => {
+      assert.ok(error instanceof Error);
+      assert.ok(!(error instanceof ImportDiagnosticError));
+      return true;
+    });
+  }
+});
 test('worker wire protocol ignores library messages and stale ids instead of resolving undefined', async () => {
   const { workers, client } = setup();
   const p = client.request('read', { name: 'synthetic.xlsx' });

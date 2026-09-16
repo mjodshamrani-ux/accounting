@@ -58,6 +58,9 @@ import {
   PaginationItem,
 } from '@/components/ui/pagination';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
+import { ImportAssistant } from '@/components/import-assistant';
+import { ImportDiagnosticError } from '@/lib/reconciliation/import-diagnostics';
+import type { ImportDiagnosis } from '@/lib/reconciliation/import-diagnostics';
 import {
   defaultMapping,
   ENGINE_VERSION,
@@ -474,6 +477,8 @@ export default function App() {
   const [demo, setDemo] = useState(false);
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
+  const [importDiagnosis, setImportDiagnosis] =
+    useState<ImportDiagnosis | null>(null);
   const [notice, setNotice] = useState('');
   const [validated, setValidated] = useState<
     [SourceResult, SourceResult] | null
@@ -511,6 +516,7 @@ export default function App() {
     heading?.focus({ preventScroll: true });
   }, [step]);
   function invalidate() {
+    setImportDiagnosis(null);
     setAuditEvents([]);
     setResult(null);
     setValidated(null);
@@ -602,14 +608,19 @@ export default function App() {
       controller = new AbortController();
     job.current = { id, controller };
     setBusy(label);
+    setImportDiagnosis(null);
     setError('');
     setNotice('');
     const alive = () => job.current?.id === id && !controller.signal.aborted;
     try {
       await fn(controller.signal, alive);
     } catch (e) {
-      if (alive())
+      if (alive()) {
+        setImportDiagnosis(
+          e instanceof ImportDiagnosticError ? e.diagnosis : null,
+        );
         setError(e instanceof Error ? e.message : 'تعذر إكمال العملية');
+      }
     } finally {
       if (job.current?.id === id) {
         setBusy('');
@@ -1143,7 +1154,24 @@ export default function App() {
         )}
         {error && (
           <div className="notice error" role="alert">
-            {error}
+            <div>
+              <p>{error}</p>
+              {importDiagnosis && (
+                <p className="hint" style={{ marginTop: 8 }}>
+                  توقفت القراءة عند الصفحة {importDiagnosis.page} من{' '}
+                  {importDiagnosis.totalPages}:{' '}
+                  {importDiagnosis.contentKind === 'mixed'
+                    ? 'نص وصور في الصفحة.'
+                    : importDiagnosis.contentKind === 'image-only'
+                      ? 'صور دون نص قابل للاستخراج.'
+                      : importDiagnosis.contentKind === 'native-text'
+                        ? 'نص قابل للاستخراج.'
+                        : 'لا نص قابل للاستخراج؛ لا يمكن الجزم بأنها صورة.'}{' '}
+                  لم تُعتمد قراءة جزئية. قراءة الصور ليست متاحة في هذا الإصدار؛
+                  استخدم نسخة Excel أو PDF نصيًا بلا صور.
+                </p>
+              )}
+            </div>
           </div>
         )}
         {notice && (
@@ -1487,6 +1515,7 @@ export default function App() {
                     key={i}
                     file={file}
                     mapping={mappings[i]}
+                    proposalScopeKey={JSON.stringify(scope)}
                     side={i}
                     onChange={(p) => updateMapping(i, p)}
                     validation={validated?.[i]}
@@ -2094,6 +2123,7 @@ function Metric({
 function SourceConfiguration({
   file,
   mapping,
+  proposalScopeKey,
   side,
   onChange,
   validation,
@@ -2109,6 +2139,7 @@ function SourceConfiguration({
 }: {
   file: SourceFile;
   mapping: Mapping;
+  proposalScopeKey: string;
   side: number;
   onChange: (p: Partial<Mapping>) => void;
   validation?: SourceResult;
@@ -2298,6 +2329,20 @@ function SourceConfiguration({
           لا يوجد عمود مرجع؛ لن تُنشأ مطابقات آلية. حدده من «خيارات متقدمة» إن
           وُجد.
         </p>
+      )}
+      {(missingColumns || mapping.reference < 0) && (
+        <ImportAssistant
+          key={JSON.stringify([
+            proposalScopeKey,
+            file.sha256,
+            file.name,
+            file.pdf,
+            mapping,
+          ])}
+          file={file}
+          mapping={mapping}
+          onApply={onChange}
+        />
       )}
       {initialSelection.kind === 'workpaper' && (
         <p className="hint" role="status">
