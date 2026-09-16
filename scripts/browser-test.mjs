@@ -683,7 +683,9 @@ try {
   // nothing: no entry field and no attestation box stand between the accountant
   // and the comparison.
   assert.equal(
-    await quickPage.locator('input:not([type=checkbox]):visible').count(),
+    await quickPage
+      .locator('input:not([type=checkbox]):not([aria-hidden=true]):visible')
+      .count(),
     0,
     'a fully inferred scope must present no entry field to fill',
   );
@@ -1012,6 +1014,7 @@ try {
   // Namespaced SpreadsheetML must reach the real browser worker. Opposite
   // debit/credit conventions are inferred only from fixed running balances.
   for (const formulas of [false, true]) {
+    const directionPhase = formulas ? 'formula balances' : 'fixed balances';
     await context.setOffline(false);
     const directionPage = await context.newPage();
     await directionPage.goto(`${origin}/mizan-test/`);
@@ -1051,9 +1054,13 @@ try {
       exact: true,
     });
     assert.equal(
-      await directionPage.locator('input:not([type=checkbox]):visible').count(),
+      // BaseUI Selects render clipped aria-hidden transport inputs. The sign
+      // choices are asserted separately below; only actual entry fields count.
+      await directionPage
+        .locator('input:not([type=checkbox]):not([aria-hidden=true]):visible')
+        .count(),
       0,
-      'known metadata and native numeric cells need no typed fields',
+      `${directionPhase}: known metadata and native numeric cells need no typed fields`,
     );
     assert.equal(await directionPage.getByRole('checkbox').count(), 0);
     const directionQuestion = 'أي عمود يزيد المبلغ المستحق للمورد؟';
@@ -1063,6 +1070,7 @@ try {
           .getByRole('combobox', { name: directionQuestion, exact: true })
           .count(),
         2,
+        `${directionPhase}: each source must expose its own direction choice`,
       );
       assert.equal(
         await directionCompare.isDisabled(),
@@ -1099,7 +1107,7 @@ try {
       assert.equal(
         await directionPage.getByRole('combobox').count(),
         0,
-        'every required choice is established by source evidence',
+        `${directionPhase}: every required choice is established by source evidence`,
       );
     }
     const apCard = directionPage.locator('section').filter({

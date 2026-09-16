@@ -368,7 +368,16 @@ export default function App() {
           },
     );
   }, [scope.currency]);
+  const scopeAutofillPending = (
+    Object.keys(scopeLabels) as ScopeSuggestionField[]
+  ).some((field) => {
+    if (scopeEdited.current[field]) return false;
+    let expected = scopeSuggestions.values[field] ?? initialScope[field];
+    if (field === 'cutoff' && !expected && !balanceMode) expected = latestDate;
+    return scope[field] !== expected;
+  });
   const preparationPending =
+    scopeAutofillPending ||
     directionProofs.some(
       (proof, i) =>
         proof &&
@@ -459,8 +468,9 @@ export default function App() {
   // Open the panel when the confirmation step still needs a value, then leave it
   // to the accountant: it must not snap shut as the last field is filled.
   useEffect(() => {
-    if (step === 1 && (scopeNeedsInput || scopeConflict)) setScopeOpen(true);
-  }, [step, scopeNeedsInput, scopeConflict]);
+    if (step === 1 && !preparationPending && (scopeNeedsInput || scopeConflict))
+      setScopeOpen(true);
+  }, [step, scopeNeedsInput, scopeConflict, preparationPending]);
   const [demo, setDemo] = useState(false);
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
