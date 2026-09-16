@@ -28,21 +28,26 @@ function sourceCopy(sheet: SheetData | undefined): boolean {
 // Suggestions never restore exported approvals, balances, or review decisions.
 function workpaperSources(file: SourceFile): [number, number] | null {
   const get = (name: string) =>
-    file.sheets.find((sheet) => sheet.name === name);
+    file.sheets.find(
+      (sheet) => sheet.name.toLowerCase() === name.toLowerCase(),
+    );
   const settings = get('Run settings');
+  const supplierSource =
+    get('Parsed Supplier Source') ?? get('Supplier source');
+  const ledgerSource = get('Parsed Ledger Source') ?? get('Ledger source');
   if (
     !sameHeader(get('Diagnostics'), ['الرمز', 'التفسير', 'حركات المصدر']) ||
     !sameHeader(settings, ['الحقل', 'القيمة']) ||
     !['Scope', 'Supplier mapping', 'Ledger mapping'].every((key) =>
       settings?.rows.slice(1).some((row) => row[0] === key),
     ) ||
-    !sourceCopy(get('Supplier source')) ||
-    !sourceCopy(get('Ledger source'))
+    !sourceCopy(supplierSource) ||
+    !sourceCopy(ledgerSource)
   )
     return null;
   return [
-    file.sheets.findIndex((sheet) => sheet.name === 'Supplier source'),
-    file.sheets.findIndex((sheet) => sheet.name === 'Ledger source'),
+    file.sheets.indexOf(supplierSource!),
+    file.sheets.indexOf(ledgerSource!),
   ];
 }
 

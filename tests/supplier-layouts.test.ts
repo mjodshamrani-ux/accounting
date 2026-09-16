@@ -244,8 +244,10 @@ for (const extension of ['csv', 'xlsx'] as const)
               result.matches.map((m) => m.evidence?.reference),
               references.slice(0, 2),
             );
-            assert.equal(result.supplierOnly.length, 2);
-            assert.equal(result.ledgerOnly.length, 2);
+            assert.equal(result.supplierOnly.length, 1);
+            assert.equal(result.ledgerOnly.length, 1);
+            assert.equal(result.caseCounts.needsReviewCases, 1);
+            assert.equal(result.caseCounts.needsReviewSourceRows, 2);
             assert.deepEqual(result.bridge, {
               delta: -2300,
               openingAdjustment: 0,
@@ -254,7 +256,7 @@ for (const extension of ['csv', 'xlsx'] as const)
               residual: 0,
             });
             assert.ok(
-              result.diagnostics.some((d) => d.code === 'AMOUNT_DIFFERENCE'),
+              result.diagnostics.some((d) => d.code === 'AMOUNT_VARIANCE'),
             );
             const output = await exportWorkbook(result, [a.file, b.file], {
               name: '',

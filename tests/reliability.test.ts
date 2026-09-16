@@ -165,14 +165,19 @@ test('all matched transactions have exact amounts, original reference equality, 
   }
   assert.equal(
     r.supplier.transactions.length,
-    r.matches.length + r.supplierOnly.length,
+    r.cases.reduce((n, c) => n + c.supplierMembers.length, 0),
   );
   assert.equal(
     r.ledger.transactions.length,
-    r.matches.length + r.ledgerOnly.length,
+    r.cases.reduce((n, c) => n + c.ledgerMembers.length, 0),
   );
   assert.equal(
-    safeSum(r.supplierOnly.map((t) => t.amount)),
+    safeSum(
+      r.cases
+        .filter((c) => c.status !== 'Matched')
+        .flatMap((c) => c.supplierMembers)
+        .map((t) => t.amount),
+    ),
     safeSum([
       r.supplier.total,
       -safeSum(
@@ -286,13 +291,36 @@ test('export includes structured match evidence and diagnostics', async () => {
   const book = new ExcelJS.Workbook();
   await book.xlsx.load(bytes);
   assert.equal(
-    book.getWorksheet('Match evidence')!.rowCount,
-    r.matches.length + 1,
+    book.getWorksheet('Match Evidence')!.rowCount,
+    r.supplier.transactions.length + r.ledger.transactions.length + 1,
   );
   assert.equal(
     book.getWorksheet('Diagnostics')!.rowCount,
     r.diagnostics.length + 1,
   );
+  const evidence = book.getWorksheet('Match Evidence')!;
+  const sources = [...r.supplier.transactions, ...r.ledger.transactions];
+  const exportedIds: string[] = [];
+  for (let row = 2; row <= evidence.rowCount; row++) {
+    const id = String(evidence.getCell(row, 7).value);
+    exportedIds.push(id);
+    const transaction = sources.find((t) => t.id === id)!;
+    assert.ok(transaction);
+    const target =
+      transaction.side === 'supplier'
+        ? 'Parsed Supplier Source'
+        : 'Parsed Ledger Source';
+    const link = evidence.getCell(row, 20).value as ExcelJS.CellHyperlinkValue;
+    assert.equal(link.hyperlink, `#'${target}'!A${transaction.row + 1}`);
+    assert.equal(
+      book.getWorksheet(target)!.getCell(transaction.row + 1, 1).value,
+      transaction.row,
+    );
+    assert.equal(evidence.getCell(row, 19).value, transaction.amount / 100);
+    assert.ok(evidence.getCell(row, 11).value instanceof Date);
+  }
+  assert.deepEqual(exportedIds.sort(), sources.map((t) => t.id).sort());
+  assert.equal(new Set(exportedIds).size, exportedIds.length);
 });
 
 test('export rechecks sources and refuses altered balance, match and source', async () => {

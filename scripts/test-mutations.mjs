@@ -149,7 +149,7 @@ const mutations = [
     name: 'allow-unconfirmed-coverage',
     file: 'lib/reconciliation/core.ts',
     changes: [
-      ['hasData &&\n    scope.coverageConfirmed &&', 'hasData &&\n    true &&'],
+      ['arithmeticValid && scope.coverageConfirmed', 'arithmeticValid && true'],
     ],
   },
   {

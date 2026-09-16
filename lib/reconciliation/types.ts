@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.5-experimental';
+export const ENGINE_VERSION = '0.3.6-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -8,6 +8,7 @@ export type SheetData = {
   formulaRows: number[];
   hiddenRows: number[];
   numericCells?: Record<string, { value: number; format: string }>;
+  formulaCells?: Record<string, { formula: string }>;
   rowIssues?: Record<string, string[]>;
   // Excel issues are scoped to cells (one-based row:column), then checked against
   // the user's mapping. Unused helper columns must not invalidate a transaction.
@@ -66,6 +67,16 @@ export type Scope = {
   coverageConfirmed: boolean;
 };
 export type Transaction = {
+  amountMinor?: number;
+  primaryReference?: string;
+  referenceEvidenceIssues?: string[];
+  documentReference?: string;
+  voucherReference?: string;
+  poReference?: string;
+  bankReference?: string;
+  receiptReference?: string;
+  documentType?: 'Invoice' | 'Credit Note' | 'Payment' | 'Journal' | 'Unknown';
+  currency?: string;
   sourcePage?: number;
   id: string;
   side: 'supplier' | 'ledger';
@@ -80,6 +91,13 @@ export type Transaction = {
 };
 export type Excluded = { row: number; reason: string; values: string[] };
 export type SourceResult = {
+  metadata?: import('./statement-metadata.ts').StatementMetadata;
+  balanceArithmeticStatus?:
+    | 'BALANCE_ARITHMETIC_VERIFIED'
+    | 'BALANCE_ARITHMETIC_FAILED'
+    | 'BALANCE_ROW_NOT_FOUND';
+  periodStatus?: 'PERIOD_DETECTED' | 'PERIOD_NOT_DETECTED';
+  coverageStatus?: 'PERIOD_COVERAGE_CONFIRMED' | 'PERIOD_COVERAGE_UNCONFIRMED';
   transactions: Transaction[];
   excluded: Excluded[];
   errors: { row: number; message: string }[];
@@ -94,6 +112,9 @@ export type SourceResult = {
   sourceHash?: string;
 };
 export type Match = {
+  caseId?: string;
+  supplierIds?: string[];
+  ledgerIds?: string[];
   supplierId: string;
   ledgerId: string;
   kind: 'auto' | 'manual';
@@ -109,7 +130,53 @@ export type Match = {
   };
 };
 export type Decision = { supplierId: string; ledgerId: string; note: string };
+export type ReconciliationCase = {
+  caseId: string;
+  classification:
+    | 'EXACT_1_TO_1'
+    | 'EXACT_1_TO_MANY'
+    | 'EXACT_MANY_TO_1'
+    | 'AMOUNT_VARIANCE'
+    | 'PAYMENT_CANDIDATE'
+    | 'SUPPLIER_ONLY'
+    | 'LEDGER_ONLY'
+    | 'REJECTED_CANDIDATE'
+    | 'AMBIGUOUS_CANDIDATE';
+  status: 'Matched' | 'Needs Review' | 'Unmatched' | 'Rejected';
+  supplierMembers: Transaction[];
+  ledgerMembers: Transaction[];
+  supplierTotal: number;
+  ledgerTotal: number;
+  variance: number;
+  bridgeEffect: number;
+  matchingRule: string;
+  evidence: string[];
+  reviewRequired: boolean;
+  reviewerDecision?: 'Accepted' | 'Rejected';
+  reviewerReason?: string;
+  createdAt?: string;
+  reviewedAt?: string;
+  sourceTrace: {
+    sourceRowId: string;
+    side: Transaction['side'];
+    sheet: string;
+    row: number;
+    page?: number;
+  }[];
+};
+export type CaseCounts = {
+  autoMatchedCases: number;
+  matchedSourceRows: number;
+  needsReviewCases: number;
+  needsReviewSourceRows: number;
+  unmatchedCases: number;
+  unmatchedSourceRows: number;
+  manualMatches: number;
+  rejectedCandidates: number;
+};
 export type Comparison = {
+  cases: ReconciliationCase[];
+  caseCounts: CaseCounts;
   supplier: SourceResult;
   ledger: SourceResult;
   scope: Scope;

@@ -92,8 +92,21 @@ for (const decimals of [0, 2, 3])
         expected: {
           'Supplier transactions': ids('supplier'),
           'Ledger transactions': ids('ledger'),
-          'Supplier only': ids('supplier').filter((_, i) => [2, 3].includes(i)),
-          'Ledger only': ids('ledger').filter((_, i) => [2, 3].includes(i)),
+          Unmatched: [
+            ...ids('supplier').filter((_, i) => [2, 3].includes(i)),
+            ...ids('ledger').filter((_, i) => [2, 3].includes(i)),
+          ],
+        },
+        date: '2026-08-01',
+        counts: {
+          autoMatchedCases: 4,
+          matchedSourceRows: 8,
+          needsReviewCases: 0,
+          needsReviewSourceRows: 0,
+          unmatchedCases: 4,
+          unmatchedSourceRows: 4,
+          manualMatches: 0,
+          rejectedCandidates: 0,
         },
         description: rows[0][5],
       });

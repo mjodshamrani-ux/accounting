@@ -50,6 +50,7 @@ test('XLSX preserves formatted reference zeros and flags formula rows', async ()
   assert.equal(r.sheets[0].rows[1][1], '000104');
   assert.equal(r.sheets[0].rows[1][0], '2026-08-01');
   assert.deepEqual(r.sheets[0].formulaRows, [3]);
+  assert.deepEqual(r.sheets[0].formulaCells, { '3:3': { formula: '1+1' } });
   assert.deepEqual(r.sheets[0].hiddenRows, [2]);
 });
 test('Excel export roundtrip retains controls/source and never turns input into formula', async () => {
@@ -69,21 +70,26 @@ test('Excel export roundtrip retains controls/source and never turns input into 
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.load(b);
   assert.equal(wb.getWorksheet('Matches')!.rowCount, 3);
-  assert.equal(wb.getWorksheet('Supplier source')!.rowCount, 10);
+  assert.equal(wb.getWorksheet('Parsed Supplier Source')!.rowCount, 10);
   let formulas = 0;
   wb.eachSheet((s) =>
     s.eachRow((row) =>
       row.eachCell((c) => {
-        if (c.type === ExcelJS.ValueType.Formula) formulas++;
+        if (c.type === ExcelJS.ValueType.Formula) {
+          formulas++;
+          assert.ok(['Summary', 'Reconciliation Bridge'].includes(s.name));
+          assert.doesNotMatch(c.formula, /HYPERLINK|https?:\/\//i);
+        }
       }),
     ),
   );
-  assert.equal(formulas, 0);
+  assert.ok(formulas > 0, 'only engine-generated totals are native formulas');
   assert.equal(
     wb.getWorksheet('Supplier transactions')!.getCell('G2').value,
     files[0].sheets[0].rows[1][2],
   );
-  assert.ok(
-    wb.getWorksheet('Summary')!.getColumn(2).values.includes('42,000.00'),
-  );
+  assert.ok(wb.getWorksheet('Summary')!.getColumn(2).values.includes(42000));
+  const signoff = wb.getWorksheet('Review Sign-off')!;
+  assert.equal(signoff.getCell('B7').value, '=1+1');
+  assert.equal(signoff.getCell('B7').type, ExcelJS.ValueType.String);
 });

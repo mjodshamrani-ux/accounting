@@ -105,8 +105,11 @@ test('a duplicate with description Total remains visible and prevents an automat
   assert.equal(supplier.transactions.length, 2);
   assert.deepEqual(supplier.errors, []);
   assert.equal(result.matches.length, 0);
-  assert.equal(result.supplierOnly.length, 2);
-  assert.equal(result.ledgerOnly.length, 1);
+  assert.equal(result.caseCounts.needsReviewCases, 1);
+  assert.equal(result.caseCounts.needsReviewSourceRows, 3);
+  assert.equal(result.cases[0].classification, 'AMBIGUOUS_CANDIDATE');
+  assert.equal(result.cases[0].supplierMembers.length, 2);
+  assert.equal(result.cases[0].ledgerMembers.length, 1);
   assert.deepEqual(
     new Set(result.ambiguousIds),
     new Set(supplier.transactions.map((transaction) => transaction.id)),

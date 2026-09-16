@@ -890,7 +890,11 @@ export default function App() {
     (d) =>
       !d.transactionIds.length &&
       d.code !== 'SKIPPED_ROWS' &&
-      (d.code !== 'BALANCE_UNVERIFIED' || result!.scope.coverageConfirmed),
+      !['BALANCE_ARITHMETIC_VERIFIED', 'PERIOD_DETECTED'].includes(d.code) &&
+      (!['BALANCE_UNVERIFIED', 'PERIOD_COVERAGE_UNCONFIRMED'].includes(
+        d.code,
+      ) ||
+        result!.scope.coverageConfirmed),
   );
   const matchedBySupplier = useMemo(
     () => new Map(result?.matches.map((m) => [m.supplierId, m]) ?? []),
@@ -898,23 +902,38 @@ export default function App() {
   );
   const rows = useMemo(() => {
     if (!result) return [];
-    let tx =
+    const visibleCases = result.cases.filter((c) =>
       tab === 'matches'
-        ? result.supplier.transactions.filter((t) =>
-            matchedBySupplier.has(t.id),
-          )
+        ? c.status === 'Matched'
         : tab === 'ambiguities'
-          ? [
-              ...result.supplier.transactions,
-              ...result.ledger.transactions,
-            ].filter((t) => result.ambiguousIds.includes(t.id))
-          : [...result.supplierOnly, ...result.ledgerOnly];
-    if (query.trim()) {
-      const q = query.toLowerCase();
-      tx = tx.filter((t) =>
-        `${t.reference} ${t.description} ${t.row}`.toLowerCase().includes(q),
-      );
-    }
+          ? c.status === 'Needs Review' || c.status === 'Rejected'
+          : c.status === 'Unmatched',
+    );
+    const q = query.trim().toLowerCase();
+    const tx = visibleCases
+      .filter(
+        (c) =>
+          !q ||
+          [
+            c.caseId,
+            ...c.supplierMembers.flatMap((t) => [
+              t.reference,
+              t.documentReference,
+              t.description,
+              String(t.row),
+            ]),
+            ...c.ledgerMembers.flatMap((t) => [
+              t.reference,
+              t.documentReference,
+              t.description,
+              String(t.row),
+            ]),
+          ]
+            .join(' ')
+            .toLowerCase()
+            .includes(q),
+      )
+      .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
     return tx;
   }, [result, tab, query, matchedBySupplier]);
   // The optional agent interface only opens the synthetic example; it never exposes user files or results.
@@ -1572,7 +1591,7 @@ export default function App() {
                 value={String(
                   result.matches.filter((m) => m.kind === 'auto').length,
                 )}
-                hint="أزواج تستوفي القاعدة"
+                hint={`${result.caseCounts.matchedSourceRows} صف مصدر داخل حالات المطابقة`}
               />
               <Metric
                 label="تأكيدات يدوية"
@@ -1582,11 +1601,9 @@ export default function App() {
                 hint="قرارات موثقة للمراجع"
               />
               <Metric
-                label="حركات دون مقابل"
-                value={String(
-                  result.supplierOnly.length + result.ledgerOnly.length,
-                )}
-                hint="في الملفين المقدمين"
+                label="حالات غير مطابقة"
+                value={String(result.caseCounts.unmatchedCases)}
+                hint={`${result.caseCounts.unmatchedSourceRows} صف مصدر في الملفين`}
               />
               {result.scope.coverageConfirmed || result.bridge ? (
                 <Metric
@@ -1685,7 +1702,7 @@ export default function App() {
                           </TabsTrigger>
                           <TabsTrigger value="matches">المطابقات</TabsTrigger>
                           <TabsTrigger value="ambiguities">
-                            تكرار محتمل
+                            يحتاج مراجعة ({result.caseCounts.needsReviewCases})
                           </TabsTrigger>
                         </TabsList>
                       </Tabs>
@@ -1722,6 +1739,11 @@ export default function App() {
                       </TableHeader>
                       <TableBody>
                         {rows.slice(page * 30, (page + 1) * 30).map((t) => {
+                          const activeCase = result.cases.find((c) =>
+                            c.sourceTrace.some(
+                              (trace) => trace.sourceRowId === t.id,
+                            ),
+                          )!;
                           const match =
                             t.side === 'supplier'
                               ? matchedBySupplier.get(t.id)
@@ -1740,7 +1762,16 @@ export default function App() {
                                 </div>
                               </TableCell>
                               <TableCell className="mono">
-                                {money(t.amount, scope.decimals)}
+                                {money(
+                                  activeCase.supplierMembers.length
+                                    ? activeCase.supplierTotal
+                                    : activeCase.ledgerTotal,
+                                  scope.decimals,
+                                )}
+                                <div className="muted">
+                                  {activeCase.supplierMembers.length}:
+                                  {activeCase.ledgerMembers.length} أعضاء الحالة
+                                </div>
                               </TableCell>
                               <TableCell>
                                 <span
@@ -1750,9 +1781,17 @@ export default function App() {
                                     ? match.kind === 'auto'
                                       ? 'مطابقة آلية'
                                       : 'تأكيد يدوي'
-                                    : result.ambiguousIds.includes(t.id)
-                                      ? 'تكرار محتمل'
-                                      : 'دون مقابل'}
+                                    : activeCase.classification ===
+                                        'AMOUNT_VARIANCE'
+                                      ? 'فرق مبلغ'
+                                      : activeCase.classification ===
+                                          'PAYMENT_CANDIDATE'
+                                        ? 'مرشح دفعة'
+                                        : activeCase.status === 'Rejected'
+                                          ? 'مرشح مرفوض'
+                                          : activeCase.status === 'Needs Review'
+                                            ? 'يحتاج مراجعة'
+                                            : 'غير مطابق'}
                                 </span>
                               </TableCell>
                               <TableCell>
@@ -1785,7 +1824,7 @@ export default function App() {
                   )}
                   <div className="surface-footer">
                     <span>
-                      {rows.length} حركة · الصفحة {page + 1} من{' '}
+                      {rows.length} حالة · الصفحة {page + 1} من{' '}
                       {Math.max(1, Math.ceil(rows.length / 30))}
                     </span>
                     <Pagination style={{ width: 'auto', margin: 0 }}>
@@ -1873,7 +1912,7 @@ export default function App() {
                     </div>
                     <div className="balance-lines">
                       <div>
-                        <span>رصيد المورد المدخل</span>
+                        <span>رصيد المورد</span>
                         <bdi>
                           {result.supplier.closing === null
                             ? 'غير متاح'
@@ -1881,7 +1920,7 @@ export default function App() {
                         </bdi>
                       </div>
                       <div>
-                        <span>رصيد الدفتر المدخل</span>
+                        <span>رصيد الدفتر</span>
                         <bdi>
                           {result.ledger.closing === null
                             ? 'غير متاح'
@@ -1891,9 +1930,11 @@ export default function App() {
                       <div>
                         <span>اتساق المصدرين</span>
                         <span>
-                          {result.balanceComparable
-                            ? 'تحقق حسابيًا وفق تأكيد التغطية'
-                            : 'غير متحقق على أساس مشترك'}
+                          {result.bridge
+                            ? result.balanceComparable
+                              ? 'المعادلة متحققة والتغطية مؤكدة'
+                              : 'المعادلة متحققة؛ تأكيد التغطية معلق'
+                            : 'لم يتحقق اتساق الرصيدين'}
                         </span>
                       </div>
                       {result.bridge && (
@@ -1909,7 +1950,7 @@ export default function App() {
                             </bdi>
                           </div>
                           <div>
-                            <span>أثر جميع البنود دون مقابل</span>
+                            <span>صافي آثار حالات المصالحة</span>
                             <bdi>
                               {money(
                                 result.bridge.itemAdjustment,

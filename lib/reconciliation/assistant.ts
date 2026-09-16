@@ -33,8 +33,15 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
   const ids = [...(p.supplierIds as string[]), ...(p.ledgerIds as string[])];
   if (new Set(ids).size !== ids.length)
     return rejected('حركة مكررة في الاقتراح');
-  const a = new Map(result.supplierOnly.map((t) => [t.id, t]));
-  const b = new Map(result.ledgerOnly.map((t) => [t.id, t]));
+  const reviewable = result.cases.filter(
+    (c) => c.status === 'Needs Review' || c.status === 'Unmatched',
+  );
+  const a = new Map(
+    reviewable.flatMap((c) => c.supplierMembers).map((t) => [t.id, t]),
+  );
+  const b = new Map(
+    reviewable.flatMap((c) => c.ledgerMembers).map((t) => [t.id, t]),
+  );
   if (
     !(p.supplierIds as string[]).every((id) => a.has(id)) ||
     !(p.ledgerIds as string[]).every((id) => b.has(id))
@@ -167,6 +174,34 @@ export function explainResult(
     for (const t of chosen) {
       refs.add(t.id);
       lines.push(describe(t));
+      const reconciliationCase = result.cases.find((c) =>
+        c.sourceTrace.some((trace) => trace.sourceRowId === t.id),
+      );
+      if (reconciliationCase) {
+        lines.push(
+          `حالة ${reconciliationCase.caseId}: ${reconciliationCase.classification} — ${reconciliationCase.status}.`,
+        );
+        lines.push(...reconciliationCase.evidence);
+        for (const diagnostic of result.diagnostics.filter(
+          (d) =>
+            d.transactionIds.includes(t.id) &&
+            d.code !== reconciliationCase.classification,
+        )) {
+          lines.push(diagnostic.message);
+          diagnostic.transactionIds.forEach((id) => refs.add(id));
+        }
+        lines.push(
+          `مجموع المورد ${fmt(reconciliationCase.supplierTotal)}؛ مجموع الدفتر ${fmt(reconciliationCase.ledgerTotal)}؛ الفرق ${fmt(reconciliationCase.variance)}؛ أثر الجسر ${fmt(reconciliationCase.bridgeEffect)}.`,
+        );
+        for (const member of [
+          ...reconciliationCase.supplierMembers,
+          ...reconciliationCase.ledgerMembers,
+        ]) {
+          refs.add(member.id);
+          if (member.id !== t.id) lines.push(`عضو الحالة: ${describe(member)}`);
+        }
+        continue;
+      }
       const match = result.matches.find(
         (m) => m.supplierId === t.id || m.ledgerId === t.id,
       );
@@ -249,13 +284,14 @@ export function explainResult(
       text: [
         `فرق الأرصدة الفعلي (المورد ناقص الدفتر): ${fmt(b.delta)}. هذا الرقم من النتيجة؛ لا أعتمد رقمًا واردًا في السؤال.`,
         `رصيد المورد ${fmt(result.supplier.closing!)}؛ رصيد الدفتر ${fmt(result.ledger.closing!)}.`,
-        `الجسر من المورد إلى الدفتر: ${fmt(result.supplier.closing!)} + (${fmt(b.openingAdjustment)} فرق الافتتاح) + (${fmt(b.itemAdjustment)} صافي البنود دون مقابل) = ${fmt(b.adjusted)}.`,
+        `الجسر من المورد إلى الدفتر: ${fmt(result.supplier.closing!)} + (${fmt(b.openingAdjustment)} فرق الافتتاح) + (${fmt(b.itemAdjustment)} صافي آثار الحالات) = ${fmt(b.adjusted)}.`,
         `الباقي الحسابي ${fmt(b.residual)}؛ توجد ${result.supplierOnly.length + result.ledgerOnly.length} حركة دون مقابل. الصفر لا يثبت أسباب الفروق أو اكتمال التسوية.`,
-        'راجع بنود المورد والدفتر دون مقابل في ورقة العمل؛ لا يمكن استنتاج السبب المحاسبي من المجموع وحده.',
+        `${result.caseCounts.needsReviewCases} حالات تحتاج مراجعة. ${result.balanceComparable ? 'تغطية الفترة مؤكدة من المستخدم.' : 'معادلة الأرصدة متحققة؛ تأكيد اكتمال تغطية الفترة من المستخدم معلق.'}`,
+        'راجع حالات فروق المبالغ والحركات دون مقابل؛ مرشح الدفعة ذو أثر صفري يبقى للمراجعة.',
       ].join('\n'),
-      sourceIds: [...result.supplierOnly, ...result.ledgerOnly].map(
-        (t) => t.id,
-      ),
+      sourceIds: result.cases
+        .filter((c) => c.bridgeEffect !== 0 || c.reviewRequired)
+        .flatMap((c) => c.sourceTrace.map((t) => t.sourceRowId)),
     };
   }
   if (/أراجع|اراجع|next|review|ابدأ|ابدا/iu.test(q))
@@ -263,7 +299,7 @@ export function explainResult(
       kind: 'next',
       text: [
         `ابدأ بتحذيرات المصادر (${result.supplier.warnings.length + result.ledger.warnings.length}) ثم التكرارات المحتملة (${result.ambiguousIds.length} حركة).`,
-        `راجع ${result.supplierOnly.length} حركة لدى المورد و${result.ledgerOnly.length} حركة لدى الدفتر دون مقابل.`,
+        `راجع ${result.caseCounts.needsReviewCases} حالات تحتاج مراجعة، و${result.caseCounts.unmatchedCases} حالات غير مطابقة.`,
         'افتح «فحص» لتجد صف المصدر والإشارة والمرجع وأسباب المنع. تحقق من المستندات الخارجية قبل أي قرار يدوي.',
       ].join('\n'),
       sourceIds: result.ambiguousIds,
@@ -273,7 +309,7 @@ export function explainResult(
       kind: 'checks',
       text: [
         `استُخدمت ${result.supplier.transactions.length} حركة مورد و${result.ledger.transactions.length} حركة دفتر؛ استُبعد ${result.supplier.excluded.length + result.ledger.excluded.length} صف مع سبب (يشمل العناوين والفراغات).`,
-        `${result.matches.filter((m) => m.kind === 'auto').length} مطابقة آلية بمرجع أصلي مطابق غير مكرر ومبلغ موقّع متساوٍ وتاريخ ضمن ${result.scope.dateWindow} أيام.`,
+        `${result.caseCounts.autoMatchedCases} حالات مطابقة آلية فردية أو تجميعية بأدلة المرجع والمبلغ الموقّع والتاريخ؛ ${result.caseCounts.matchedSourceRows} صف مصدر داخل المطابقات.`,
         `${result.matches.filter((m) => m.kind === 'manual').length} قرار يدوي؛ تأكيد المستخدم ليس إثباتًا من المحرك.`,
         'لم يتحقق النظام من أصالة المستندات أو شمول الملفين للنظام المحاسبي أو السبب الاقتصادي للفروق. تأكيد النطاق والتغطية مصدره المستخدم.',
         ...result.diagnostics

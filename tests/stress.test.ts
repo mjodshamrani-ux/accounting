@@ -134,15 +134,27 @@ test('3000 seeded bilingual generated reconciliations agree with independent bru
       new Set(r.matches.map((m) => m.ledgerId)).size,
       r.matches.length,
     );
-    assert.equal(r.matches.length + r.supplierOnly.length, a.length);
-    assert.equal(r.matches.length + r.ledgerOnly.length, b.length);
-    const signed = r.matches.map(
-      (m) => r.supplier.transactions.find((t) => t.id === m.supplierId)!.amount,
+    const supplierMembers = r.cases.flatMap((c) => c.supplierMembers);
+    const ledgerMembers = r.cases.flatMap((c) => c.ledgerMembers);
+    assert.equal(supplierMembers.length, a.length);
+    assert.equal(ledgerMembers.length, b.length);
+    assert.deepEqual(
+      supplierMembers.map((t) => t.id).sort(),
+      r.supplier.transactions.map((t) => t.id).sort(),
+    );
+    assert.deepEqual(
+      ledgerMembers.map((t) => t.id).sort(),
+      r.ledger.transactions.map((t) => t.id).sort(),
     );
     assert.equal(
-      safeSum([...signed, ...r.supplierOnly.map((t) => t.amount)]),
+      new Set([...supplierMembers, ...ledgerMembers].map((t) => t.id)).size,
+      a.length + b.length,
+    );
+    assert.equal(
+      safeSum(supplierMembers.map((t) => t.amount)),
       r.supplier.total,
     );
+    assert.equal(safeSum(ledgerMembers.map((t) => t.amount)), r.ledger.total);
   }
   assert.ok(totalMatches > 1000, `only ${totalMatches} positive matches`);
   assert.ok(totalUnmatched > 1000);
@@ -192,7 +204,16 @@ test('20000 repeated references remain unpaired and bounded in time', () => {
   const r = run(a, a);
   assert.equal(r.matches.length, 0);
   assert.equal(r.ambiguousIds.length, 40000);
-  assert.equal(r.supplierOnly.length, 20000);
+  assert.equal(r.supplierOnly.length, 0);
+  assert.equal(r.caseCounts.needsReviewCases, 1);
+  assert.equal(r.caseCounts.needsReviewSourceRows, 40000);
+  assert.equal(r.cases[0].classification, 'AMBIGUOUS_CANDIDATE');
+  assert.equal(r.cases[0].supplierMembers.length, 20000);
+  assert.equal(r.cases[0].ledgerMembers.length, 20000);
+  assert.equal(
+    new Set(r.cases[0].sourceTrace.map((t) => t.sourceRowId)).size,
+    40000,
+  );
   assert.ok(performance.now() - start < 15000);
 });
 test('bilingual workbook export preserves source text, numbers and formula-looking content across all transaction sheets', async () => {
@@ -221,11 +242,18 @@ test('bilingual workbook export preserves source text, numbers and formula-looki
   wb.eachSheet((s) =>
     s.eachRow((row) =>
       row.eachCell((c) => {
-        if (c.type === ExcelJS.ValueType.Formula) formulas++;
+        if (c.type === ExcelJS.ValueType.Formula) {
+          formulas++;
+          assert.ok(['Summary', 'Reconciliation Bridge'].includes(s.name));
+          assert.doesNotMatch(c.formula, /HYPERLINK|https?:\/\//i);
+        }
       }),
     ),
   );
-  assert.equal(formulas, 0);
+  assert.ok(
+    formulas > 0,
+    'engine totals remain native formulas; user text remains inert',
+  );
   assert.equal(
     wb.getWorksheet('Supplier transactions')!.getCell('G2').value,
     a[0][3],
@@ -233,8 +261,7 @@ test('bilingual workbook export preserves source text, numbers and formula-looki
   for (const name of [
     'Supplier transactions',
     'Ledger transactions',
-    'Supplier only',
-    'Ledger only',
+    'Unmatched',
   ]) {
     const sheet = wb.getWorksheet(name)!;
     sheet.eachRow((row, n) => {
@@ -244,6 +271,9 @@ test('bilingual workbook export preserves source text, numbers and formula-looki
       }
     });
   }
+  const signoff = wb.getWorksheet('Review Sign-off')!;
+  assert.equal(signoff.getCell('B7').value, '=1+1');
+  assert.equal(signoff.getCell('B7').type, ExcelJS.ValueType.String);
 });
 test('XML-incompatible control characters cannot silently change during CSV to Excel export', async () => {
   await assert.rejects(async () => {

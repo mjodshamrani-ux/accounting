@@ -310,7 +310,7 @@ for (const font of ['Helvetica', 'Courier'] as const) {
     const bytes = await exportWorkbook(result, files, review);
     const workbook = new ExcelJS.Workbook();
     await workbook.xlsx.load(bytes);
-    const fragments = workbook.getWorksheet('PDF header fragments');
+    const fragments = workbook.getWorksheet('PDF Header Fragments');
     assert.ok(fragments);
     assert.equal(fragments.rowCount, 61);
     assert.deepEqual(
@@ -384,7 +384,7 @@ for (const font of ['Helvetica', 'Courier'] as const) {
       await exportWorkbook(restored.result, restored.files, restored.review),
     );
     const restoredFragments = restoredWorkbook.getWorksheet(
-      'PDF header fragments',
+      'PDF Header Fragments',
     )!;
     assert.deepEqual(
       Array.from({ length: restoredFragments.rowCount - 1 }, (_, row) =>

@@ -93,12 +93,14 @@ test('demo retains duplicate ambiguity and produces 2 strict automatic pairs', (
   const r = run();
   assert.equal(r.matches.length, 2);
   assert.equal(r.ambiguousIds.length, 2);
-  assert.equal(r.supplierOnly.length, 6);
-  assert.equal(r.ledgerOnly.length, 4);
+  assert.equal(r.supplierOnly.length, 3);
+  assert.equal(r.ledgerOnly.length, 2);
   assert.equal(r.bridge?.delta, 350000);
   assert.equal(r.bridge?.adjusted, 4200000);
   assert.equal(r.bridge?.residual, 0);
-  assert.equal(r.supplierOnly.length + r.ledgerOnly.length, 10);
+  assert.equal(r.caseCounts.needsReviewCases, 2);
+  assert.equal(r.caseCounts.needsReviewSourceRows, 5);
+  assert.equal(r.cases.flatMap((c) => c.sourceTrace).length, 14);
 });
 test('zero bridge residual never deletes opposite exceptions', () => {
   const files: [SourceFile, SourceFile] = [
@@ -219,10 +221,20 @@ test('reused column mapping is rejected', () => {
     ),
   );
 });
-test('incomplete balances and unmatched opening periods do not generate bridge', () => {
+test('arithmetic bridge stays separate from user coverage and invalid balances block it', () => {
+  const unconfirmed = run(demoFiles, demoMappings, {
+    ...scope,
+    coverageConfirmed: false,
+  });
+  assert.equal(unconfirmed.bridge?.residual, 0);
+  assert.equal(unconfirmed.balanceComparable, false);
   assert.equal(
-    run(demoFiles, demoMappings, { ...scope, coverageConfirmed: false }).bridge,
-    null,
+    unconfirmed.supplier.balanceArithmeticStatus,
+    'BALANCE_ARITHMETIC_VERIFIED',
+  );
+  assert.equal(
+    unconfirmed.supplier.coverageStatus,
+    'PERIOD_COVERAGE_UNCONFIRMED',
   );
   const m = structuredClone(demoMappings);
   m[1].closing = '41000';
@@ -271,12 +283,19 @@ test('manual pair cannot consume a transaction twice or conceal amount discrepan
     ]),
   );
 });
-test('rejected automatic match stays unmatched until a new explicit decision', () => {
+test('rejected automatic match stays a rejected case until a new explicit decision', () => {
   const r = run();
   const rejected = [`${r.matches[0].supplierId}|${r.matches[0].ledgerId}`];
   const r2 = compare(r.supplier, r.ledger, scope, [], rejected);
   assert.equal(r2.matches.length, 1);
-  assert.equal(r2.supplierOnly.length, 7);
+  const rejectedCase = r2.cases.find((c) => c.status === 'Rejected');
+  assert.equal(rejectedCase?.supplierMembers[0].id, r.matches[0].supplierId);
+  assert.equal(rejectedCase?.ledgerMembers[0].id, r.matches[0].ledgerId);
+  assert.equal(
+    new Set(r2.cases.flatMap((c) => c.sourceTrace.map((t) => t.sourceRowId)))
+      .size,
+    14,
+  );
 });
 test('inference suggests only column indices, no invented scope or balance', () => {
   const m = inferMapping(demoFiles[0]);

@@ -251,7 +251,7 @@ const state = (
   review,
 });
 const settingsMapping = (book: ExcelJS.Workbook, label: string): Mapping => {
-  const sheet = book.getWorksheet('Run settings')!;
+  const sheet = book.getWorksheet('Run Settings')!;
   for (let row = 2; row <= sheet.rowCount; row++)
     if (sheet.getCell(row, 1).value === label)
       return JSON.parse(String(sheet.getCell(row, 2).value));

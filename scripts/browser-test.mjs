@@ -190,8 +190,11 @@ try {
   );
   assert.equal(
     await page.locator('.metric').nth(2).locator('strong').innerText(),
-    '10',
+    '5',
   );
+  await page
+    .getByRole('tab', { name: 'يحتاج مراجعة (2)', exact: true })
+    .waitFor();
   await page
     .getByRole('button', { name: 'اسأل عن النتيجة — مساعد محلي', exact: true })
     .click();
@@ -238,9 +241,22 @@ try {
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.readFile(downloaded);
   assert.equal(wb.getWorksheet('Matches').rowCount, 2);
-  assert.ok(wb.getWorksheet('Summary'));
-  assert.ok(wb.getWorksheet('Review history').rowCount >= 3);
-  assert.equal(wb.getWorksheet('Supplier source').rowCount, 10);
+  assert.equal(wb.worksheets[0].name, 'Summary');
+  assert.deepEqual(
+    wb.worksheets
+      .filter((sheet) => sheet.state === 'visible')
+      .map((sheet) => sheet.name),
+    [
+      'Summary',
+      'Matches',
+      'Needs Review',
+      'Unmatched',
+      'Reconciliation Bridge',
+      'Review Sign-off',
+    ],
+  );
+  assert.ok(wb.getWorksheet('Review History').rowCount >= 3);
+  assert.equal(wb.getWorksheet('Parsed Supplier Source').rowCount, 10);
   await page.screenshot({ path: 'work/qa/export.png', fullPage: true });
   // A settings edit discards the previous result: pressing compare is the
   // confirmation, so a stale comparison can never survive an input change.
@@ -385,8 +401,8 @@ try {
     '2',
   );
 
-  // Upload the synthetic 18-sheet workpaper actually downloaded above. Neither
-  // the first Diagnostics sheet nor its old review decision may be restored.
+  // Upload the synthetic case workpaper actually downloaded above. Neither
+  // its Summary sheet nor its old review decision may be restored.
   await context.setOffline(false);
   const workpaperPage = await context.newPage();
   await workpaperPage.goto(`${origin}/mizan-test/`);
@@ -419,11 +435,11 @@ try {
     .click();
   assert.match(
     await workpaperPage.locator('.summary-line').nth(1).innerText(),
-    /Supplier source/,
+    /Parsed Supplier Source/,
   );
   assert.match(
     await workpaperPage.locator('.summary-line').nth(2).innerText(),
-    /Ledger source/,
+    /Parsed Ledger Source/,
   );
   // The per-source details live behind one edit action instead of a stack of
   // disclosures, so open each card to read the header row it picked.
@@ -774,10 +790,12 @@ try {
     ),
     [123.45, -20],
   );
-  assert.equal(
-    quickExport.getWorksheet('Supplier transactions').getCell('D2').value,
-    '2026-06-14',
-  );
+  const exportedDate = quickExport
+    .getWorksheet('Supplier transactions')
+    .getCell('D2');
+  assert.ok(exportedDate.value instanceof Date);
+  assert.equal(exportedDate.value.toISOString(), '2026-06-14T00:00:00.000Z');
+  assert.equal(exportedDate.numFmt, 'yyyy-mm-dd');
   // Two independent ambiguous formats must both remain unresolved until chosen.
   await context.setOffline(false);
   const ambiguityPage = await context.newPage();
@@ -1188,6 +1206,11 @@ try {
     await directionPage
       .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
       .waitFor();
+    assert.match(
+      await directionPage.locator('.metric').nth(3).innerText(),
+      /فرق الأرصدة/,
+      `${directionPhase}: extracted source balances support the arithmetic bridge`,
+    );
     assert.equal(
       await directionPage
         .locator('.metric')
@@ -1202,7 +1225,7 @@ try {
         .nth(3)
         .locator('strong')
         .innerText(),
-      '0',
+      '0.00',
     );
     await directionPage
       .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
@@ -1402,7 +1425,7 @@ try {
           '390px layout',
           'actual CSV upload offline',
           'XLSX upload with helper formulas, percentages and multiple sheets offline',
-          '18-sheet workpaper reimport chooses original sources without restoring approvals',
+          'case workpaper reimport chooses parsed sources without restoring approvals',
           'bordered PDF upload, review, comparison and Excel export offline',
           'covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline',
           'clear files show no mandatory input fields; explicit metadata and unambiguous formats filled and numeric export verified',

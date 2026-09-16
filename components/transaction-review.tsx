@@ -36,11 +36,15 @@ export function TransactionReview({
   const tx = all.find((t) => t.id === id);
   if (!tx) return null;
   const match = result.matches.find(
-    (m) => m.supplierId === id || m.ledgerId === id,
+    (m) =>
+      (m.supplierIds ?? [m.supplierId]).includes(id) ||
+      (m.ledgerIds ?? [m.ledgerId]).includes(id),
   );
-  const candidates = (
-    tx.side === 'supplier' ? result.ledgerOnly : result.supplierOnly
-  )
+  const candidates = result.cases
+    .filter((c) => c.status !== 'Matched')
+    .flatMap((c) =>
+      tx.side === 'supplier' ? c.ledgerMembers : c.supplierMembers,
+    )
     .filter(
       (t) =>
         !query ||

@@ -161,7 +161,7 @@ test('a real synthetic export reimports the appropriate source copy and does not
     assert.equal(selection.kind, 'workpaper');
     assert.equal(
       file.sheets[selection.mapping.sheet].name,
-      side === 'supplier' ? 'Supplier source' : 'Ledger source',
+      side === 'supplier' ? 'Parsed Supplier Source' : 'Parsed Ledger Source',
     );
     assert.ok(selection.mapping.header > 0);
     assert.equal(selection.mapping.opening, '');

@@ -15,7 +15,8 @@ import type {
   AuditEvent,
   Mapping,
 } from './types.ts';
-import { money, compare, normalizeSource } from './core.ts';
+import { compare, normalizeSource } from './core.ts';
+import { addCaseWorksheets, parsedSourceLink } from './case-workbook.ts';
 import { inferStatementDirection } from './statement-direction.ts';
 // Admit only formats whose visible numeric meaning is understood. Native values
 // stay exact; unsupported display semantics require source review, never guessing.
@@ -327,6 +328,7 @@ export async function readFile(
       sheet.rowCount * sheet.columnCount > 1000000
     )
       throw new Error('الورقة تتجاوز حدود الصفوف أو الأعمدة');
+    const formulaCells: NonNullable<SheetData['formulaCells']> = {};
     const rows: string[][] = [],
       formulaRows: number[] = [],
       hiddenRows: number[] = [];
@@ -424,6 +426,16 @@ export async function readFile(
         } else if (typeof value === 'object' && value !== null) {
           if ('formula' in value || 'sharedFormula' in value) {
             formulaRows.push(r);
+            // Preserve the expression for the separate, restricted balance-only
+            // evaluator. Transaction columns still reject formulas below. The
+            // getter translates shared formulas to this cell's own coordinates.
+            try {
+              const formula = cell.formula;
+              if (typeof formula === 'string' && formula.trim())
+                formulaCells[`${r}:${c}`] = { formula };
+            } catch {
+              // An unsupported shared expression is not a usable proof.
+            }
             issue(
               r,
               c,
@@ -454,6 +466,7 @@ export async function readFile(
     return {
       name: sheet.name,
       numericCells,
+      formulaCells,
       cellIssues,
       cellNotes,
       referenceIssues,
@@ -562,13 +575,21 @@ export async function exportWorkbook(
   book.creator = 'Mizan Local';
   book.created = new Date();
   const dp = result.scope.decimals;
+  addCaseWorksheets(book, result, verifiedFiles, review, validateCellText);
   const add = (
     name: string,
     headers: string[],
-    rows: (string | number)[][],
+    rows: ExcelJS.CellValue[][],
   ) => {
     const sheet = book.addWorksheet(name, {
+      state: 'hidden',
       views: [{ rightToLeft: true, state: 'frozen', ySplit: 1 }],
+      pageSetup: {
+        orientation: 'landscape',
+        fitToPage: true,
+        fitToWidth: 1,
+        fitToHeight: 0,
+      },
     });
     sheet.addRow(headers);
     for (const row of rows) {
@@ -584,13 +605,33 @@ export async function exportWorkbook(
     };
     sheet.getRow(1).height = 28;
     sheet.columns.forEach((c, i) => {
-      c.width = i === 0 ? 24 : 30;
+      c.width = Math.min(
+        65,
+        Math.max(
+          16,
+          headers[i].length + 4,
+          ...rows
+            .slice(0, 50)
+            .map((row) => Math.min(45, String(row[i] ?? '').length + 2)),
+        ),
+      );
     });
     if (headers.length > 1)
       sheet.autoFilter = {
         from: { row: 1, column: 1 },
-        to: { row: 1, column: headers.length },
+        to: { row: Math.max(1, rows.length + 1), column: headers.length },
       };
+    sheet.eachRow((row, index) => {
+      if (index > 1)
+        row.alignment = {
+          vertical: 'top',
+          wrapText: true,
+          readingOrder: 'ltr',
+        };
+      row.eachCell((cell) => {
+        if (cell.value instanceof Date) cell.numFmt = 'yyyy-mm-dd';
+      });
+    });
     return sheet;
   };
   add(
@@ -602,118 +643,105 @@ export async function exportWorkbook(
       d.transactionIds.join(' | '),
     ]),
   );
-  add(
-    'Match evidence',
-    ['حركة المورد', 'حركة الدفتر', 'دليل المحرك'],
-    result.matches.map((m) => [
-      m.supplierId,
-      m.ledgerId,
-      JSON.stringify(m.evidence ?? { rule: 'MANUAL_REVIEW', note: m.note }),
-    ]),
+  const evidenceSheet = add(
+    'Match Evidence',
+    [
+      'Case ID',
+      'Classification',
+      'Status',
+      'Rule',
+      'Evidence',
+      'Side',
+      'Source Row ID',
+      'Source Sheet',
+      'Source Row',
+      'PDF Page',
+      'Date',
+      'Primary Reference',
+      'Document Reference',
+      'Voucher Reference',
+      'PO Reference',
+      'Bank Reference',
+      'Receipt Reference',
+      'Currency',
+      'Amount',
+      'Source Link',
+      'Reviewer Decision',
+      'Reviewer Reason',
+    ],
+    result.cases.flatMap((c) =>
+      [...c.supplierMembers, ...c.ledgerMembers].map((t) => [
+        c.caseId,
+        c.classification,
+        c.status,
+        c.matchingRule,
+        c.evidence.join('\n'),
+        t.side,
+        t.id,
+        t.sheet,
+        t.row,
+        t.sourcePage ?? '',
+        new Date(`${t.date}T00:00:00.000Z`),
+        t.primaryReference || t.reference,
+        t.documentReference ?? '',
+        t.voucherReference ?? '',
+        t.poReference ?? '',
+        t.bankReference ?? '',
+        t.receiptReference ?? '',
+        t.currency ?? result.scope.currency,
+        (t.amountMinor ?? t.amount) / 10 ** dp,
+        parsedSourceLink(t),
+        c.reviewerDecision ?? '',
+        c.reviewerReason ?? '',
+      ]),
+    ),
   );
+  evidenceSheet.getColumn(19).numFmt = dp ? '#,##0.' + '0'.repeat(dp) : '#,##0';
   add(
-    'Review history',
-    ['التوقيت', 'الإجراء', 'حركات المصدر', 'سبب المستخدم'],
+    'Review History',
+    ['Timestamp', 'Action', 'Source Row IDs', 'User Reason'],
     (review.events ?? []).map((e) => [
-      e.time,
+      Number.isFinite(Date.parse(e.time)) ? new Date(e.time) : e.time,
       e.action,
       e.ids.join(' | '),
       e.note,
     ]),
   );
-  add(
-    'Numeric cell origins',
-    ['الطرف', 'الورقة', 'صف:عمود', 'القيمة الرقمية الأصلية', 'تنسيق Excel'],
-    verifiedFiles.flatMap((f, i) => {
-      const source = i === 0 ? result.supplier : result.ledger;
-      const sheet = f.sheets[source.mapping.sheet];
-      return Object.entries(sheet.numericCells ?? {}).map(([cell, meta]) => [
-        i === 0 ? 'المورد' : 'الدفتر',
+  const numericOrigins = verifiedFiles.flatMap((f, i) => {
+    const source = i === 0 ? result.supplier : result.ledger;
+    const sheet = f.sheets[source.mapping.sheet];
+    return [
+      ...Object.entries(sheet.numericCells ?? {}).map(([cell, meta]) => [
+        i === 0 ? 'supplier' : 'ledger',
         sheet.name,
         cell,
-        String(meta.value),
+        meta.value,
         meta.format,
-      ]);
-    }),
-  );
-  const b = result.bridge;
-  add(
-    'Summary',
-    ['الحقل', 'القيمة'],
-    [
-      ['الحالة', 'نسخة تجريبية — ورقة عمل للمراجعة وليست اعتمادًا محاسبيًا'],
-      ['المورد', result.scope.supplier],
-      ['الجهة', result.scope.entity],
-      ['الحساب', result.scope.account],
-      ['العملة', result.scope.currency],
-      ['تاريخ القطع', result.scope.cutoff],
-      ['نوع التقرير', result.supplier.mapping.reportType],
+        '',
+      ]),
+      ...Object.entries(sheet.formulaCells ?? {}).map(([cell, meta]) => [
+        i === 0 ? 'supplier' : 'ledger',
+        sheet.name,
+        cell,
+        null,
+        '',
+        meta.formula,
+      ]),
+    ];
+  });
+  if (numericOrigins.length)
+    add(
+      'Numeric Cell Origins',
       [
-        'المطابقات الآلية',
-        result.matches.filter((m) => m.kind === 'auto').length,
+        'Side',
+        'Source Sheet',
+        'Row:Column',
+        'Original Numeric Value',
+        'Original Excel Format',
+        'Original Formula (text; not a trusted cached amount)',
       ],
-      [
-        'المطابقات اليدوية',
-        result.matches.filter((m) => m.kind === 'manual').length,
-      ],
-      ['بنود المورد دون مقابل', result.supplierOnly.length],
-      ['بنود الدفتر دون مقابل', result.ledgerOnly.length],
-      [
-        'رصيد المورد',
-        result.supplier.closing === null
-          ? 'غير متاح'
-          : money(result.supplier.closing, dp),
-      ],
-      [
-        'رصيد الدفتر',
-        result.ledger.closing === null
-          ? 'غير متاح'
-          : money(result.ledger.closing, dp),
-      ],
-      [
-        'اتساق رصيد المورد',
-        result.supplier.balanceValid ? 'تحقق الاتساق فقط' : 'غير متحقق',
-      ],
-      [
-        'اتساق رصيد الدفتر',
-        result.ledger.balanceValid ? 'تحقق الاتساق فقط' : 'غير متحقق',
-      ],
-      [
-        'الجسر',
-        b ? 'جسر حسابي؛ لا يثبت أسباب الفروق' : 'غير متاح؛ مقارنة حركات فقط',
-      ],
-      ['فرق الأرصدة', b ? money(b.delta, dp) : 'غير متاح'],
-      ['تعديل فرق الافتتاح', b ? money(b.openingAdjustment, dp) : 'غير متاح'],
-      [
-        'صافي أثر البنود دون مقابل',
-        b ? money(b.itemAdjustment, dp) : 'غير متاح',
-      ],
-      ['الرصيد المعدل حسابيًا', b ? money(b.adjusted, dp) : 'غير متاح'],
-      ['الباقي الحسابي', b ? money(b.residual, dp) : 'غير متاح'],
-      [
-        'الأسباب المحاسبية',
-        'لا يعتمد المحرك أسباب الفروق؛ جميع الآثار غير المفسرة تبقى للمراجعة',
-      ],
-      [
-        'مراجعة المحاسب',
-        review.checked
-          ? 'أشار المستخدم إلى إتمام المراجعة'
-          : 'لم يؤكد المستخدم إتمام المراجعة',
-      ],
-      ['اسم المراجع', review.name],
-      ['ملاحظات المراجع', review.notes],
-      ['إصدار المحرك', ENGINE_VERSION],
-      [
-        'بصمة ملف المورد SHA-256',
-        files[0].sha256 ?? 'مثال اصطناعي دون ملف أصلي',
-      ],
-      [
-        'بصمة ملف الدفتر SHA-256',
-        files[1].sha256 ?? 'مثال اصطناعي دون ملف أصلي',
-      ],
-      ['وقت التصدير', new Date().toISOString()],
-    ],
-  );
+      numericOrigins,
+    );
   const txHeaders = [
     'المعرف',
     'الورقة',
@@ -730,7 +758,7 @@ export async function exportWorkbook(
     t.id,
     t.sheet,
     t.row,
-    t.date,
+    new Date(`${t.date}T00:00:00.000Z`),
     t.reference,
     t.normalizedReference,
     t.description,
@@ -745,76 +773,7 @@ export async function exportWorkbook(
       ? '#,##0.' + '0'.repeat(dp)
       : '#,##0';
   add(
-    'Matches',
-    ['حركة المورد', 'حركة الدفتر', 'النوع', 'دليل القاعدة', 'ملاحظة المستخدم'],
-    result.matches.map((m) => [
-      m.supplierId,
-      m.ledgerId,
-      m.kind,
-      m.reason,
-      m.note ?? '',
-    ]),
-  );
-  add('Supplier only', txHeaders, result.supplierOnly.map(tx));
-  add('Ledger only', txHeaders, result.ledgerOnly.map(tx));
-  for (const name of ['Supplier only', 'Ledger only'])
-    book.getWorksheet(name)!.getColumn(8).numFmt = dp
-      ? '#,##0.' + '0'.repeat(dp)
-      : '#,##0';
-  add(
-    'Suggestions',
-    ['حركة المورد', 'مرشحو الدفتر', 'الحالة'],
-    Object.entries(result.suggestions)
-      .filter(([, ids]) => ids.length)
-      .map(([id, ids]) => [
-        id,
-        ids.join(' | '),
-        'اقتراح غير معتمد؛ المبلغ قد يختلف',
-      ]),
-  );
-  add(
-    'Rejected links',
-    ['رابط الحركتين', 'القرار'],
-    result.rejectedPairs.map((pair) => [
-      pair,
-      'فك المستخدم الربط؛ لا يعاد آليًا في هذه الجلسة',
-    ]),
-  );
-  add(
-    'Ambiguities',
-    ['معرف الحركة', 'الحالة'],
-    result.ambiguousIds.map((id) => [id, 'تكرار مرجع؛ لا حذف تلقائي']),
-  );
-  add(
-    'Bridge items',
-    ['الطرف', 'الحركة', 'الأثر للوصول من المورد إلى الدفتر', 'السبب'],
-    [
-      ...(b && b.openingAdjustment !== 0
-        ? [
-            [
-              'الافتتاح',
-              'فرق أرصدة افتتاحية',
-              money(b.openingAdjustment, dp),
-              'غير مفسر',
-            ],
-          ]
-        : []),
-      ...result.supplierOnly.map((t) => [
-        'المورد',
-        t.id,
-        money(-t.amount, dp),
-        'لم يوجد مقابل في الملف المقدم؛ السبب غير مثبت',
-      ]),
-      ...result.ledgerOnly.map((t) => [
-        'الدفتر',
-        t.id,
-        money(t.amount, dp),
-        'لم يوجد مقابل في الملف المقدم؛ السبب غير مثبت',
-      ]),
-    ],
-  );
-  add(
-    'Excluded rows',
+    'Excluded Rows',
     ['الطرف', 'صف المصدر', 'سبب الاستبعاد', 'المحتوى'],
     [
       ...result.supplier.excluded.map((r) => [
@@ -832,7 +791,7 @@ export async function exportWorkbook(
     ],
   );
   add(
-    'Run settings',
+    'Run Settings',
     ['الحقل', 'القيمة'],
     [
       ['Scope', JSON.stringify(result.scope)],
@@ -840,6 +799,11 @@ export async function exportWorkbook(
       ['Ledger mapping', JSON.stringify(result.ledger.mapping)],
       ['Supplier PDF layout', JSON.stringify(files[0].pdf ?? null)],
       ['Ledger PDF layout', JSON.stringify(files[1].pdf ?? null)],
+      ['Supplier metadata', JSON.stringify(result.supplier.metadata ?? null)],
+      ['Ledger metadata', JSON.stringify(result.ledger.metadata ?? null)],
+      ['Rejected pairs', JSON.stringify(result.rejectedPairs)],
+      ['Ambiguous source rows', JSON.stringify(result.ambiguousIds)],
+      ['Candidate links (not approvals)', JSON.stringify(result.suggestions)],
       ['Supplier filename', files[0].name],
       ['Ledger filename', files[1].name],
       ['تحذيرات المورد', result.supplier.warnings.join(' | ')],
@@ -855,7 +819,7 @@ export async function exportWorkbook(
       file.sheets[(i === 0 ? result.supplier : result.ledger).mapping.sheet];
     const width = Math.max(1, ...sheet.rows.map((r) => r.length));
     add(
-      i === 0 ? 'Supplier source' : 'Ledger source',
+      i === 0 ? 'Parsed Supplier Source' : 'Parsed Ledger Source',
       [
         'صف المصدر',
         ...Array.from({ length: width }, (_, n) => `عمود ${n + 1}`),
@@ -864,7 +828,7 @@ export async function exportWorkbook(
     );
   });
   add(
-    'PDF row origins',
+    'PDF Row Origins',
     ['الطرف', 'صف الاستخراج', 'صفحة PDF', 'المحتوى المستخرج'],
     verifiedFiles.flatMap((file, i) =>
       file.pdf
@@ -896,7 +860,7 @@ export async function exportWorkbook(
   );
   if (headerFragments.length)
     add(
-      'PDF header fragments',
+      'PDF Header Fragments',
       [
         'الطرف',
         'صف العنوان المدمج',
@@ -907,6 +871,24 @@ export async function exportWorkbook(
       ],
       headerFragments,
     );
+  add(
+    'Export Metadata',
+    ['Field', 'Value'],
+    [
+      ['Engine version', ENGINE_VERSION],
+      ['Supplier SHA-256', verifiedFiles[0].sha256 ?? 'No original file'],
+      ['Ledger SHA-256', verifiedFiles[1].sha256 ?? 'No original file'],
+      ['Export time', book.created],
+      [
+        'Workbook mode',
+        'Verified snapshot; workbook edits do not change engine decisions',
+      ],
+      [
+        'Parsed source meaning',
+        'Extracted cells with original source row numbers, not visual reproductions of the original documents',
+      ],
+    ],
+  );
   const data = await book.xlsx.writeBuffer();
   return new Uint8Array(data).slice().buffer;
 }

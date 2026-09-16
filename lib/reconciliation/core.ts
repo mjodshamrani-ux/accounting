@@ -1,4 +1,7 @@
 import { defaultMapping } from './types.ts';
+import { transactionReferences } from './transaction-references.ts';
+import { buildReconciliationCases } from './cases.ts';
+import { extractStatementMetadata } from './statement-metadata.ts';
 import type {
   Mapping,
   Scope,
@@ -238,7 +241,7 @@ export function inferMapping(
 // not a transaction. Matching the entire cell keeps a description that merely
 // mentions a balance from being excluded.
 export const summaryLabel =
-  /^(?:total|subtotal|grand total|opening balance|closing (?:ap )?balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
+  /^(?:total|subtotal|grand total|opening balance|balance b\/f|balance c\/f|closing (?:ap )?balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
 // A label in a description/helper cell cannot erase a dated invoice. Only
 // an isolated structural label, or the leading B/F opening record, qualifies.
 export function structuralSummaryLabel(
@@ -279,9 +282,9 @@ export function structuralSummaryLabel(
   const type =
     typeColumns.length === 1 ? (row[typeColumns[0]]?.trim() ?? '') : '';
   const openingType =
-    /^(opening balance|balance brought forward|الرصيد الافتتاحي|رصيد افتتاحي)$/i;
+    /^(opening balance|balance b\/f|balance brought forward|الرصيد الافتتاحي|رصيد افتتاحي)$/i;
   const closingType =
-    /^(closing (?:ap )?balance|balance carried forward|الرصيد الختامي|رصيد ختامي)$/i;
+    /^(closing (?:ap )?balance|balance c\/f|balance carried forward|الرصيد الختامي|رصيد ختامي)$/i;
   const openingReference = /^(B\/F|B-F|BF|OPENING|افتتاحي)$/i;
   const closingReference = /^(C\/F|C-F|CF|CLOSING|ختامي)$/i;
   const balanceIdentity =
@@ -589,7 +592,8 @@ export function normalizeSource(
         amount = d - c;
       }
       amount *= mapping.multiplier;
-      const reference = get(row, mapping.reference);
+      const references = transactionReferences(sheet, mapping, row, rn);
+      const reference = references.primaryReference;
       result.transactions.push({
         id: `${side}:${mapping.sheet}:${rn}`,
         side,
@@ -600,6 +604,9 @@ export function normalizeSource(
         normalizedReference: normalizeReference(reference),
         description: get(row, mapping.description),
         amount,
+        amountMinor: amount,
+        currency: scope.currency,
+        ...references,
         originalAmount: original,
         ...(sheet.rowPages ? { sourcePage: sheet.rowPages[String(rn)] } : {}),
       });
@@ -608,13 +615,16 @@ export function normalizeSource(
     }
   }
   result.total = safeSum(result.transactions.map((t) => t.amount));
+  result.metadata = extractStatementMetadata(file, mapping, scope);
+  result.warnings.push(...result.metadata.warnings);
+  if (!start) start = result.metadata.periodStart;
   try {
     result.opening = mapping.opening.trim()
       ? parseMoney(mapping.opening, mapping.numberFormat, scope.decimals)
-      : null;
+      : result.metadata.openingBalance;
     result.closing = mapping.closing.trim()
       ? parseMoney(mapping.closing, mapping.numberFormat, scope.decimals)
-      : null;
+      : result.metadata.closingBalance;
   } catch (error) {
     result.errors.push({
       row: 0,
@@ -622,15 +632,29 @@ export function normalizeSource(
     });
   }
   const hasData = result.transactions.length > 0 && result.errors.length === 0;
-  result.balanceValid =
+  const arithmeticValid =
     hasData &&
-    scope.coverageConfirmed &&
     result.closing !== null &&
     (mapping.reportType === 'open-items'
       ? result.total === result.closing
       : !!start &&
         result.opening !== null &&
         safeSum([result.opening, result.total]) === result.closing);
+  result.balanceArithmeticStatus =
+    result.closing === null ||
+    (mapping.reportType === 'transactions' && result.opening === null)
+      ? 'BALANCE_ROW_NOT_FOUND'
+      : arithmeticValid
+        ? 'BALANCE_ARITHMETIC_VERIFIED'
+        : 'BALANCE_ARITHMETIC_FAILED';
+  result.periodStatus =
+    result.metadata.periodStart && result.metadata.periodEnd
+      ? 'PERIOD_DETECTED'
+      : 'PERIOD_NOT_DETECTED';
+  result.coverageStatus = scope.coverageConfirmed
+    ? 'PERIOD_COVERAGE_CONFIRMED'
+    : 'PERIOD_COVERAGE_UNCONFIRMED';
+  result.balanceValid = arithmeticValid && scope.coverageConfirmed;
   if (result.closing !== null) {
     const expected =
       mapping.reportType === 'open-items'
@@ -733,6 +757,7 @@ export function compare(
   for (const s of supplier.transactions) {
     if (
       !completeReading ||
+      s.referenceEvidenceIssues?.length ||
       usedA.has(s.id) ||
       !s.normalizedReference ||
       s.normalizedReference.length < 4 ||
@@ -751,6 +776,7 @@ export function compare(
     )
       continue;
     const l = bc[0];
+    if (l.referenceEvidenceIssues?.length) continue;
     if (s.reference.trim() !== l.reference.trim()) continue;
     if (usedB.has(l.id) || rejectedSet.has(`${s.id}|${l.id}`)) continue;
     const days = Math.abs(Date.parse(s.date) - Date.parse(l.date)) / 86400000;
@@ -773,8 +799,28 @@ export function compare(
       usedB.add(l.id);
     }
   }
-  const supplierOnly = supplier.transactions.filter((t) => !usedA.has(t.id)),
-    ledgerOnly = ledger.transactions.filter((t) => !usedB.has(t.id));
+  const caseResult = buildReconciliationCases(
+    supplier,
+    ledger,
+    scope,
+    matches,
+    rejected,
+  );
+  const cases = caseResult.cases;
+  matches.splice(0, matches.length, ...caseResult.matches);
+  const supplierOnly = cases
+      .filter((c) => c.status === 'Unmatched')
+      .flatMap((c) => c.supplierMembers),
+    ledgerOnly = cases
+      .filter((c) => c.status === 'Unmatched')
+      .flatMap((c) => c.ledgerMembers);
+  const matchedRows = new Set(
+    cases
+      .filter((c) => c.status === 'Matched')
+      .flatMap((c) => c.sourceTrace.map((t) => t.sourceRowId)),
+  );
+  for (let i = ambiguousIds.length - 1; i >= 0; i--)
+    if (matchedRows.has(ambiguousIds[i])) ambiguousIds.splice(i, 1);
   const suggestions: Record<string, string[]> = {};
   const unmatchedReferences = indexBy(ledgerOnly, (t) => t.normalizedReference);
   for (const s of supplierOnly) {
@@ -785,21 +831,33 @@ export function compare(
         .slice(0, 20)
         .map((l) => l.id);
   }
+  const arithmeticVerified = (source: SourceResult) =>
+    source.balanceArithmeticStatus === 'BALANCE_ARITHMETIC_VERIFIED' ||
+    (!source.balanceArithmeticStatus && source.balanceValid);
+  const periodStart = (source: SourceResult) =>
+    source.mapping.periodStart || source.metadata?.periodStart || '';
+  const periodEnd = (source: SourceResult) =>
+    source.metadata?.periodEnd || scope.cutoff;
+  const periodsAligned =
+    supplier.mapping.reportType === 'open-items' ||
+    (!!periodStart(supplier) &&
+      periodStart(supplier) === periodStart(ledger) &&
+      periodEnd(supplier) === scope.cutoff &&
+      periodEnd(ledger) === scope.cutoff);
+  const arithmeticComparable =
+    completeReading &&
+    arithmeticVerified(supplier) &&
+    arithmeticVerified(ledger) &&
+    periodsAligned;
   const balanceComparable =
-    supplier.balanceValid &&
-    ledger.balanceValid &&
-    (supplier.mapping.reportType === 'open-items' ||
-      supplier.mapping.periodStart === ledger.mapping.periodStart);
+    arithmeticComparable && supplier.balanceValid && ledger.balanceValid;
   let bridge: Comparison['bridge'] = null;
-  if (balanceComparable) {
+  if (arithmeticComparable) {
     const openingAdjustment =
       supplier.mapping.reportType === 'transactions'
         ? safeSum([ledger.opening!, -supplier.opening!])
         : 0;
-    const itemAdjustment = safeSum([
-      ...ledgerOnly.map((t) => t.amount),
-      ...supplierOnly.map((t) => -t.amount),
-    ]);
+    const itemAdjustment = safeSum(cases.map((c) => c.bridgeEffect));
     const adjusted = safeSum([
       supplier.closing!,
       openingAdjustment,
@@ -814,6 +872,13 @@ export function compare(
     };
   }
   const diagnostics: Comparison['diagnostics'] = [];
+  for (const t of [...supplier.transactions, ...ledger.transactions])
+    if (t.referenceEvidenceIssues?.length)
+      diagnostics.push({
+        code: 'REFERENCE_EVIDENCE_UNVERIFIED',
+        message: t.referenceEvidenceIssues.join('؛ '),
+        transactionIds: [t.id],
+      });
   for (const [source, label] of [
     [supplier, 'المورد'],
     [ledger, 'الدفتر'],
@@ -830,13 +895,34 @@ export function compare(
         message: `${label}: ${warning}`,
         transactionIds: [],
       });
-    if (!source.balanceValid)
+    diagnostics.push({
+      code:
+        source.balanceArithmeticStatus ??
+        (source.balanceValid
+          ? 'BALANCE_ARITHMETIC_VERIFIED'
+          : 'BALANCE_ROW_NOT_FOUND'),
+      message: `${label}: ${arithmeticVerified(source) ? 'معادلة الرصيد متحققة من الافتتاح والحركات والإقفال.' : source.closing === null ? 'لم يُستخرج رصيد كافٍ لاختبار المعادلة.' : 'معادلة الرصيد غير متحققة؛ راجع المصدر والإشارات والفترة.'}`,
+      transactionIds: [],
+    });
+    if (source.metadata?.periodStart && source.metadata?.periodEnd)
       diagnostics.push({
-        code: 'BALANCE_UNVERIFIED',
-        message: `${label}: اتساق الرصيد أو التغطية غير متحقق.`,
+        code: 'PERIOD_DETECTED',
+        message: `${label}: الفترة المعلنة ${source.metadata.periodStart} إلى ${source.metadata.periodEnd}.`,
+        transactionIds: [],
+      });
+    if (!scope.coverageConfirmed)
+      diagnostics.push({
+        code: 'PERIOD_COVERAGE_UNCONFIRMED',
+        message: `${label}: تأكيد المستخدم لاكتمال تغطية الفترة معلق؛ لا يغيّر ذلك نتيجة اختبار معادلة الرصيد.`,
         transactionIds: [],
       });
   }
+  for (const c of cases.filter((c) => c.status !== 'Unmatched'))
+    diagnostics.push({
+      code: c.classification,
+      message: c.evidence.join('\n'),
+      transactionIds: c.sourceTrace.map((t) => t.sourceRowId),
+    });
   const ambiguousSet = new Set(ambiguousIds);
   for (const s of supplierOnly) {
     const candidates = (refB.get(s.normalizedReference) ?? []).slice(0, 20);
@@ -877,7 +963,22 @@ export function compare(
         'لا يوجد مرجع مقابل في الملف المقدم؛ هذا لا يثبت غياب المستند عن النظام.',
       );
   }
+  for (const l of ledgerOnly) {
+    diagnostics.push({
+      code: 'NO_SUPPLIER_COUNTERPART',
+      message: 'لم يوجد مقابل مورد صالح لهذه الحركة في الملفات المقدمة.',
+      transactionIds: [l.id],
+    });
+    if (ambiguousIds.includes(l.id))
+      diagnostics.push({
+        code: 'DUPLICATE_REFERENCE',
+        message: 'مرجع الدفتر متكرر ولم تثبت مجموعة مطابقة فريدة.',
+        transactionIds: [l.id],
+      });
+  }
   return {
+    cases,
+    caseCounts: caseResult.caseCounts,
     diagnostics,
     supplier,
     ledger,
