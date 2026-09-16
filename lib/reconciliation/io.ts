@@ -294,7 +294,13 @@ export async function readFile(
   checkZip(buffer);
   await validateZipContents(buffer);
   const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.load(await prepareXlsxForExcelJs(buffer));
+  const numericLexemeIssues = new Map<
+    string,
+    import('./xlsx-namespaces.ts').NumericLexemeIssue[]
+  >();
+  await workbook.xlsx.load(
+    await prepareXlsxForExcelJs(buffer, numericLexemeIssues),
+  );
   if (workbook.worksheets.length > MAX_SHEETS)
     throw new Error(`الحد ${MAX_SHEETS} ورقة في الملف`);
   if (
@@ -313,6 +319,20 @@ export async function readFile(
     const note = (row: number, column: number, message: string) => {
       (cellNotes[`${row}:${column}`] ??= []).push(message);
     };
+    for (const raw of numericLexemeIssues.get(sheet.name) ?? []) {
+      const coordinate = /^([A-Z]+)([1-9]\d*)$/.exec(raw.cell);
+      if (!coordinate)
+        throw new Error('إحداثيات القيمة الرقمية الأصلية غير مدعومة');
+      const column = [...coordinate[1]].reduce(
+        (n, char) => n * 26 + char.charCodeAt(0) - 64,
+        0,
+      );
+      issue(
+        Number(coordinate[2]),
+        column,
+        `دقة القيمة الأصلية في ${raw.cell} تتغير عند قراءتها رقمياً؛ راجع المصدر وثبّت المبلغ بدقة العملة قبل اعتماده`,
+      );
+    }
     // ExcelJS 4.4 exposes this parsed model field but omits it from Worksheet's declarations.
     const formats = (
       sheet as ExcelJS.Worksheet & {
@@ -340,6 +360,14 @@ export async function readFile(
         const cell = row.getCell(c);
         let text = '';
         const value = cell.value;
+        const textValue =
+          typeof value === 'string'
+            ? value
+            : value && typeof value === 'object' && 'richText' in value
+              ? value.richText.map((part) => part.text).join('')
+              : value && typeof value === 'object' && 'text' in value
+                ? String(value.text)
+                : undefined;
         const applicableFormats = conditionalFormats
           .filter((format) => rangeContains(format.ref, r, c))
           .flatMap((format) =>
@@ -348,8 +376,7 @@ export async function readFile(
               .map((rule) => conditionalFormatCode(rule.style!.numFmt)),
           );
         if (
-          typeof value === 'string' &&
-          value &&
+          textValue &&
           [cell.numFmt ?? '', ...applicableFormats].some(
             (format) => !transparentTextFormat(format),
           )

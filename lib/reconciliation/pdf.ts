@@ -13,10 +13,29 @@ export type PdfToken = {
   y: number;
   width: number;
   height: number;
+  ascent?: number;
+  descent?: number;
 };
 type PdfPoint = [number, number];
 const boxOverlaps = (a: number[], b: number[]) =>
   a[0] < b[2] && a[2] > b[0] && a[1] < b[3] && a[3] > b[1];
+
+function glyphBounds(token: PdfToken): number[] {
+  const ascent = token.ascent ?? 0.8;
+  const descent = token.descent ?? -0.2;
+  if (
+    !Number.isFinite(ascent) ||
+    !Number.isFinite(descent) ||
+    ascent <= descent
+  )
+    throw new Error('حدود خط PDF غير موثوقة؛ اطلب نسخة Excel');
+  return [
+    token.x,
+    token.y + token.height * descent,
+    token.x + token.width,
+    token.y + token.height * ascent,
+  ];
+}
 
 // PDF.js 6 DrawOPS is a compact path stream, separate from its page OPS enum.
 // A stroke paints the edges, not the full bounding box of a compound table grid.
@@ -570,12 +589,55 @@ export function layoutPdfPage(
       previous.tokens.push(t);
     else lines.push({ y: t.y, tokens: [t] });
   }
-  return lines.map((line) => {
+  // Separate baselines do not prove separate visible rows: two complete lines
+  // can be painted over one another and still parse into valid dates/amounts.
+  // Use actual font metrics where available; line spacing itself is not evidence.
+  const bounds = lines.map((line) =>
+    line.tokens.sort((a, b) => a.x - b.x).map(glyphBounds),
+  );
+  let reach = 0;
+  for (let i = 0; i < lines.length; i++)
+    for (const box of bounds[i])
+      reach = Math.max(
+        reach,
+        Math.abs(box[1] - lines[i].y),
+        Math.abs(box[3] - lines[i].y),
+      );
+  const overlapRows = new Set<number>();
+  let comparisons = 0;
+  for (let i = 1; i < lines.length; i++)
+    for (let j = i - 1; j >= 0 && lines[j].y - lines[i].y <= reach * 2; j--) {
+      let left = 0,
+        right = 0;
+      while (left < bounds[i].length && right < bounds[j].length) {
+        if (++comparisons > 1_000_000)
+          throw new Error(
+            'كثافة تراكب نص PDF تتجاوز حدود التحقق؛ اطلب نسخة أبسط أو Excel',
+          );
+        const a = bounds[i][left],
+          b = bounds[j][right];
+        if (
+          a[0] < b[2] - 0.2 &&
+          a[2] > b[0] + 0.2 &&
+          a[1] < b[3] - 0.2 &&
+          a[3] > b[1] + 0.2
+        ) {
+          overlapRows.add(i);
+          overlapRows.add(j);
+          break;
+        }
+        if (a[2] < b[2]) left++;
+        else right++;
+      }
+    }
+  return lines.map((line, lineIndex) => {
     const cells = Array.from(
       { length: cuts.length + 1 },
       () => [] as PdfToken[],
     );
     const issues: string[] = [];
+    if (overlapRows.has(lineIndex))
+      issues.push('نصوص من صفوف متجاورة متراكبة؛ لا يمكن إثبات القراءة');
     for (const t of line.tokens.sort((a, b) => a.x - b.x)) {
       const left = (t.x / width) * 100,
         right = ((t.x + t.width) / width) * 100;
@@ -657,14 +719,28 @@ export async function readPdf(
             item.transform[3] <= 0)
         )
           throw new Error(`نص مائل أو معكوس في الصفحة ${pageNo}؛ اطلب Excel`);
-        if (item.str.trim())
-          tokens.push({
+        if (item.str.trim()) {
+          const style = text.styles[item.fontName];
+          const token: PdfToken = {
             text: item.str,
             x: item.transform[4] - page.view[0],
             y: item.transform[5],
             width: item.width,
             height: item.height,
-          });
+            ...(typeof style?.ascent === 'number'
+              ? { ascent: style.ascent }
+              : {}),
+            ...(typeof style?.descent === 'number'
+              ? { descent: style.descent }
+              : {}),
+          };
+          const box = glyphBounds(token);
+          if (box[1] < page.view[1] - 0.2 || box[3] > page.view[3] + 0.2)
+            throw new Error(
+              `نص مقصوص عند حافة الصفحة ${pageNo}؛ لا يمكن إثبات القراءة، اطلب نسخة كاملة أو Excel`,
+            );
+          tokens.push(token);
+        }
       }
       if (!tokens.length)
         throw new Error(

@@ -1,5 +1,11 @@
-import { latinDigits, parseDate } from './core.ts';
+import {
+  latinDigits,
+  parseDate,
+  structuralSummaryLabel,
+  nonFinancialFooter,
+} from './core.ts';
 import type { Mapping, Scope, SourceFile, SheetData } from './types.ts';
+import { headerMatches, normalizeHeaderLabel } from './header-labels.ts';
 
 export type ScopeSuggestionField =
   | 'supplier'
@@ -147,7 +153,7 @@ function trustedCell(
   const oneBased = row + 1;
   return (
     !sheet.hiddenRows.includes(oneBased) &&
-    !sheet.formulaRows.includes(oneBased) &&
+    !(!sheet.cellIssues && sheet.formulaRows.includes(oneBased)) &&
     !(sheet.rowIssues?.[String(oneBased)] ?? []).some(
       (issue) =>
         !allowMetadataSpan ||
@@ -329,11 +335,10 @@ export function inferScopeSuggestions(
     for (const column of new Set(amountColumns.filter((index) => index >= 0))) {
       if (!trustedCell(sheet, mapping.header, column)) continue;
       const raw = sheet.rows[mapping.header]?.[column] ?? '';
-      const match =
-        /^(?:amount|signed amount|outstanding|remaining|debit|credit|المبلغ|المتبقي|الرصيد المتبقي|مدين|دائن)\s*\(([A-Z]{3})\)$/i.exec(
-          clean(raw),
-        );
-      if (match)
+      const currencyLabel =
+        /^(?:amount|signed amount|outstanding|remaining|debit|credit|المبلغ|المتبقي|الرصيد المتبقي|مدين|دائن)\s*\([A-Z]{3}\)$/i;
+      const match = /\(([A-Z]{3})\)/i.exec(normalizeHeaderLabel(raw));
+      if (match && headerMatches(currencyLabel, raw))
         result.fields.currency.evidence.push(
           evidence(
             'currency',
@@ -358,6 +363,44 @@ export function inferScopeSuggestions(
         mapping.excluded[String(row + 1)]?.trim()
       )
         continue;
+      const header = sheet.rows[mapping.header];
+      const isRepeatedHeader =
+        cells.length === header.length &&
+        cells.every((cell, i) => cell.trim() === header[i].trim());
+      const isFooter = nonFinancialFooter(cells);
+      const isStructural =
+        isRepeatedHeader ||
+        isFooter ||
+        !!structuralSummaryLabel(
+          cells,
+          mapping,
+          header,
+          row === mapping.header + 1,
+        );
+      // Safe structural rows do not assert a transaction currency. Never skip
+      // an unreadable/hidden row or erase an explicit contradictory code.
+      const safeFooter =
+        isFooter &&
+        !sheet.hiddenRows.includes(row + 1) &&
+        !sheet.formulaRows.includes(row + 1) &&
+        !(sheet.rowIssues?.[String(row + 1)] ?? []).some(
+          (issue) =>
+            issue !==
+            'نص يعبر حد عمود؛ عدّل حدود أعمدة PDF دون تقسيم الرقم أو المرجع',
+        ) &&
+        cells.every(
+          (_, i) =>
+            !(sheet.cellIssues?.[`${row + 1}:${i + 1}`] ?? []).some(
+              (issue) => !issue.startsWith('خلية مدمجة في '),
+            ) && !sheet.referenceIssues?.[`${row + 1}:${i + 1}`]?.length,
+        );
+      if (
+        isStructural &&
+        (safeFooter || cells.every((_, i) => trustedCell(sheet, row, i)))
+      ) {
+        const raw = cells[column]?.trim() ?? '';
+        if (isRepeatedHeader || !raw) continue;
+      }
       count++;
       const raw = cells[column] ?? '';
       const code = normalizedValue('currency', raw, mapping);

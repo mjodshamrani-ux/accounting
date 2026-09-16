@@ -132,21 +132,51 @@ export function suggestFormats(
   let dateProblem: string | undefined;
   let amountProblem: string | undefined;
   const formulaRows = new Set(sheet.formulaRows);
+  const hiddenRows = new Set(sheet.hiddenRows);
+  const header = sheet.rows[mapping.header];
+  let precedingEmpty = true;
   const cellProblem = (row: number, column: number) =>
     Boolean(sheet.cellIssues?.[`${row}:${column + 1}`]?.length);
 
   for (let i = mapping.header + 1; i < sheet.rows.length; i++) {
     const row = sheet.rows[i];
     const rn = i + 1;
+    const leading = precedingEmpty;
+    precedingEmpty &&= row.every((value) => !value.trim());
     if (mapping.excluded[String(rn)]?.trim()) continue;
+    const label = structuralSummaryLabel(row, mapping, header, leading);
+    const structuralReadingSafe =
+      !hiddenRows.has(rn) &&
+      !(sheet.rowIssues?.[String(rn)] ?? []).some(
+        (issue) => !issue.startsWith('نص يعبر حد عمود؛'),
+      ) &&
+      !(
+        label &&
+        row.some(
+          (value, column) =>
+            value.trim() === label &&
+            ((sheet.cellIssues?.[`${rn}:${column + 1}`] ?? []).some(
+              (issue) => !issue.startsWith('خلية مدمجة في '),
+            ) ||
+              sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length),
+        )
+      );
+    const repeatedHeader =
+      row.length === header.length &&
+      header.some((value) => value.trim()) &&
+      row.every((value, column) => value.trim() === header[column].trim());
+    const headerReadingSafe =
+      (!formulaRows.has(rn) || !!sheet.cellIssues) &&
+      row.every(
+        (_, column) =>
+          !cellProblem(rn, column) &&
+          !sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length,
+      );
     if (
-      structuralSummaryLabel(
-        row,
-        mapping,
-        sheet.rows[mapping.header],
-        i === mapping.header + 1,
-      ) ||
-      nonFinancialFooter(row)
+      structuralReadingSafe &&
+      (label ||
+        nonFinancialFooter(row) ||
+        (repeatedHeader && headerReadingSafe))
     )
       continue;
     const rowProblem =

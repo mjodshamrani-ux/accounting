@@ -15,6 +15,22 @@ const exactRef = (a: Transaction, b: Transaction) =>
   strong(a.normalizedReference) &&
   a.normalizedReference === b.normalizedReference &&
   a.reference.trim() === b.reference.trim();
+export function identityConflicts(a: Transaction, b: Transaction): string[] {
+  const conflicts: string[] = [];
+  if (
+    a.documentType &&
+    b.documentType &&
+    a.documentType !== 'Unknown' &&
+    b.documentType !== 'Unknown' &&
+    a.documentType !== b.documentType
+  )
+    conflicts.push(
+      `نوعا المستند مختلفان: ${a.documentType} / ${b.documentType}`,
+    );
+  if (a.poReference && b.poReference && a.poReference !== b.poReference)
+    conflicts.push(`أمرا الشراء مختلفان: ${a.poReference} / ${b.poReference}`);
+  return conflicts;
+}
 const compatible = (a: Transaction, b: Transaction, scope: Scope) =>
   (a.currency ?? scope.currency) === (b.currency ?? scope.currency) &&
   gap(a, b) <= scope.dateWindow &&
@@ -30,6 +46,20 @@ const groupBy = (rows: Transaction[], by: (t: Transaction) => string) => {
   }
   return map;
 };
+const postingIdentity = (t: Transaction) =>
+  JSON.stringify([
+    t.date,
+    t.reference,
+    t.amount,
+    t.description.trim(),
+    t.documentType,
+    t.voucherReference,
+    t.poReference,
+    t.bankReference,
+    t.receiptReference,
+    t.documentReference,
+    t.currency,
+  ]);
 function identifier(
   classification: string,
   a: Transaction[],
@@ -176,6 +206,8 @@ export function buildReconciliationCases(
         .size > 1;
     const conflictingVoucher =
       new Set(group.map((t) => t.voucherReference).filter(Boolean)).size > 1;
+    const duplicatePosting =
+      new Set(group.map(postingIdentity)).size !== group.length;
     const equal =
       safeSum(a.map((t) => t.amount)) === safeSum(b.map((t) => t.amount));
     if (
@@ -185,6 +217,7 @@ export function buildReconciliationCases(
       sameGroupDate &&
       !conflictingPO &&
       !conflictingVoucher &&
+      !duplicatePosting &&
       (sharedPO || sharedVoucher) &&
       equal &&
       !rejectedGroup(a, b)
@@ -207,6 +240,26 @@ export function buildReconciliationCases(
     if (a.length !== 1 || b.length !== 1 || !free(a) || !free(b)) continue;
     const s = a[0],
       l = b[0];
+    const conflicts = identityConflicts(s, l);
+    if (
+      exactRef(s, l) &&
+      compatible(s, l, scope) &&
+      conflicts.length &&
+      !rejectedGroup(a, b)
+    ) {
+      add(
+        'AMBIGUOUS_CANDIDATE',
+        'Needs Review',
+        a,
+        b,
+        'CONTRADICTORY_DOCUMENT_EVIDENCE',
+        [
+          'المرجع متطابق لكن أدلة المستند متعارضة؛ لم تُعتمد المطابقة.',
+          ...conflicts,
+        ],
+      );
+      continue;
+    }
     if (
       exactRef(s, l) &&
       compatible(s, l, scope) &&
@@ -302,30 +355,36 @@ export function buildReconciliationCases(
         ],
       );
   }
-  const rejectedBySupplier = new Map<string, string[]>();
+  // A review decision rejects an edge; it does not choose a pairing among
+  // overlapping edges. Only isolated eligible edges can own a rejected case.
+  const eligibleRejections: [Transaction, Transaction][] = [];
+  const rejectionDegree = new Map<string, number>();
   for (const pair of rejected) {
-    const [s, l] = pair.split('|');
-    if (s && l)
-      rejectedBySupplier.set(s, [...(rejectedBySupplier.get(s) ?? []), l]);
+    const [supplierId, ledgerId] = pair.split('|');
+    const s = byId.get(supplierId),
+      l = byId.get(ledgerId);
+    if (
+      s?.side !== 'supplier' ||
+      l?.side !== 'ledger' ||
+      used.has(s.id) ||
+      used.has(l.id) ||
+      s.amount !== l.amount
+    )
+      continue;
+    eligibleRejections.push([s, l]);
+    for (const t of [s, l])
+      rejectionDegree.set(t.id, (rejectionDegree.get(t.id) ?? 0) + 1);
   }
-  for (const s of supplier.transactions)
-    if (!used.has(s.id)) {
-      const l = (rejectedBySupplier.get(s.id) ?? [])
-        .map((id) => byId.get(id))
-        .find(
-          (t) =>
-            t?.side === 'ledger' && !used.has(t.id) && s.amount === t.amount,
-        );
-      if (l)
-        add(
-          'REJECTED_CANDIDATE',
-          'Rejected',
-          [s],
-          [l],
-          'REVIEWER_REJECTED_PAIR',
-          ['رفض المراجع هذا الربط؛ لا تُعتمد المطابقة رغم تساوي المبلغ.'],
-        );
-    }
+  for (const [s, l] of eligibleRejections)
+    if (rejectionDegree.get(s.id) === 1 && rejectionDegree.get(l.id) === 1)
+      add(
+        'REJECTED_CANDIDATE',
+        'Rejected',
+        [s],
+        [l],
+        'REVIEWER_REJECTED_PAIR',
+        ['رفض المراجع هذا الربط؛ لا تُعتمد المطابقة رغم تساوي المبلغ.'],
+      );
   for (const s of supplier.transactions)
     if (!used.has(s.id))
       add(

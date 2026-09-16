@@ -26,8 +26,54 @@ const tests = [
   'tests/statement-direction.test.ts',
   'tests/xlsx-namespaces.test.ts',
   'tests/pdf-column-suggestions.test.ts',
+  'tests/layout-inference-audit.test.ts',
+  'tests/xlsx-diversity-audit.test.ts',
+  'tests/pdf-diversity-audit.test.ts',
+  'tests/matching-diversity-audit.test.ts',
 ];
 const mutations = [
+  {
+    name: 'skip-an-earlier-table-for-a-richer-later-header',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        'const firstTable = headerRows.findIndex(',
+        'const firstTable = -1; const ignoredFirstTable = headerRows.findIndex(',
+      ],
+    ],
+  },
+  {
+    name: 'ignore-known-document-evidence-conflicts',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      ['if (identityConflicts(s, l).length) continue;', 'if (false) continue;'],
+    ],
+  },
+  {
+    name: 'accept-duplicate-posting-lines-as-a-group',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['!duplicatePosting &&', 'true &&']],
+  },
+  {
+    name: 'ignore-xlsx-overwritten-cell-addresses',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [['if (address && seenCells.has(address))', 'if (false)']],
+  },
+  {
+    name: 'silently-round-original-xlsx-numeric-lexemes',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [
+      [
+        'if (issues?.length) numericIssuesBySheet.set(sheet.name, issues);',
+        'if (false) numericIssuesBySheet.set(sheet.name, issues);',
+      ],
+    ],
+  },
+  {
+    name: 'ignore-pdf-overlap-between-separate-baselines',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['if (overlapRows.has(lineIndex))', 'if (false)']],
+  },
   {
     name: 'reject-supported-multisheet-workpapers',
     file: 'lib/reconciliation/types.ts',

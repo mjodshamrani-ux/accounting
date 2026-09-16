@@ -1,7 +1,8 @@
 import { defaultMapping } from './types.ts';
 import { transactionReferences } from './transaction-references.ts';
-import { buildReconciliationCases } from './cases.ts';
+import { buildReconciliationCases, identityConflicts } from './cases.ts';
 import { extractStatementMetadata } from './statement-metadata.ts';
+import { headerMatches } from './header-labels.ts';
 import type {
   Mapping,
   Scope,
@@ -192,17 +193,36 @@ export function inferMapping(
     currencyColumn: /^(currency|ccy|العملة)$/i,
   };
   const rows = file.sheets[sheet]?.rows ?? [];
+  const headerRows = rows.slice(0, 100);
+  // The FIRST plausible table is a barrier even when its money column is
+  // unresolved. Skipping it for a more familiar later table can lose movements.
+  const firstTable = headerRows.findIndex(
+    (row) =>
+      row.some((c) => headerMatches(patterns.date, c)) &&
+      row.some((c) =>
+        [
+          patterns.reference,
+          patterns.amount,
+          patterns.debit,
+          patterns.credit,
+          /^(supplier ref(?:erence)?|مرجع المورد)$/i,
+        ].some((pattern) => headerMatches(pattern, c)),
+      ),
+  );
   m.header =
     header ??
-    rows.slice(0, 20).reduce((best, row, i) => {
-      const score = (r: string[]) =>
-        r.filter((c) => Object.values(patterns).some((p) => p.test(c.trim())))
-          .length;
-      return score(row) > score(rows[best] ?? []) ? i : best;
-    }, 0);
+    (firstTable >= 0
+      ? firstTable
+      : headerRows.reduce((best, row, i) => {
+          const score = (r: string[]) =>
+            r.filter((c) =>
+              Object.values(patterns).some((p) => headerMatches(p, c)),
+            ).length;
+          return score(row) > score(rows[best] ?? []) ? i : best;
+        }, 0));
   for (const [key, regex] of Object.entries(patterns)) {
     const candidates = (rows[m.header] ?? []).flatMap((c, index) =>
-      regex.test(c.trim()) ? [index] : [],
+      headerMatches(regex, c) ? [index] : [],
     );
     m[key as keyof typeof patterns] =
       candidates.length === 1 ? candidates[0] : -1;
@@ -212,23 +232,24 @@ export function inferMapping(
   // values: a decimal quantity is not evidence of a monetary amount.
   const names = rows[m.header] ?? [];
   const posting = names.flatMap((name, i) =>
-    /^(posting date|تاريخ القيد)$/i.test(name.trim()) ? [i] : [],
+    headerMatches(/^(posting date|تاريخ القيد)$/i, name) ? [i] : [],
   );
   if (
     m.date < 0 &&
     posting.length === 1 &&
-    names.some((name) => /^AP voucher$/i.test(name.trim())) &&
+    names.some((name) => headerMatches(/^AP voucher$/i, name)) &&
     names.every(
       (name, i) =>
         i === posting[0] ||
-        !patterns.date.test(name.trim()) ||
-        /^(invoice date|تاريخ المستند)$/i.test(name.trim()),
+        !headerMatches(patterns.date, name) ||
+        headerMatches(/^(invoice date|تاريخ المستند)$/i, name),
     )
   )
     m.date = posting[0];
   const supplierRefs = names.flatMap((name, i) =>
-    /^(supplier ref(?:erence)?|supplier invoice(?: no\.?)?|مرجع المورد|رقم فاتورة المورد)$/i.test(
-      name.trim(),
+    headerMatches(
+      /^(supplier ref(?:erence)?|supplier invoice(?: no\.?)?|مرجع المورد|رقم فاتورة المورد)$/i,
+      name,
     )
       ? [i]
       : [],
@@ -423,10 +444,12 @@ export function normalizeSource(
   for (const column of mapping.mode === 'signed'
     ? [mapping.amount]
     : [mapping.debit, mapping.credit]) {
-    const code = /\(([A-Za-z]{3})\)\s*$/.exec(
-      sheet.rows[mapping.header]?.[column] ?? '',
-    )?.[1];
-    if (code && code.toUpperCase() !== scope.currency.toUpperCase())
+    const codes = [
+      ...(sheet.rows[mapping.header]?.[column] ?? '').matchAll(
+        /\(([A-Za-z]{3})\)/g,
+      ),
+    ].map((match) => match[1].toUpperCase());
+    if (codes.some((code) => code !== scope.currency.toUpperCase()))
       throw new Error('عملة عنوان المبلغ لا تطابق العملة المؤكدة');
   }
   const cutoff = parseDate(scope.cutoff, 'ymd');
@@ -496,6 +519,19 @@ export function normalizeSource(
         !(sheet.rowIssues?.[rn] ?? []).some(
           (issue) => !issue.startsWith('نص يعبر حد عمود؛'),
         );
+      const wholeTextRowSafe = (allowTextLayout = false) =>
+        structuralReadingSafe &&
+        !formulaRows.has(rn) &&
+        !(sheet.rowIssues?.[rn] ?? []).some(
+          (issue) => !(allowTextLayout && issue.startsWith('نص يعبر حد عمود؛')),
+        ) &&
+        row.every(
+          (_, column) =>
+            !(sheet.cellIssues?.[`${rn}:${column + 1}`] ?? []).some(
+              (issue) =>
+                !(allowTextLayout && issue.startsWith('خلية مدمجة في ')),
+            ) && !sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length,
+        );
       if (label && structuralReadingSafe) {
         result.excluded.push({
           row: rn,
@@ -504,7 +540,7 @@ export function normalizeSource(
         });
         continue;
       }
-      if (nonFinancialFooter(row) && structuralReadingSafe) {
+      if (nonFinancialFooter(row) && wholeTextRowSafe(true)) {
         result.excluded.push({
           row: rn,
           reason: 'تذييل نصي بلا مبلغ أو مرجع رقمي — استُبعد تلقائيًا',
@@ -512,7 +548,7 @@ export function normalizeSource(
         });
         continue;
       }
-      if (repeatedHeader(row) && structuralReadingSafe) {
+      if (repeatedHeader(row) && wholeTextRowSafe()) {
         result.excluded.push({
           row: rn,
           reason: 'صف عناوين مُكرر — استُبعد تلقائيًا',
@@ -617,6 +653,15 @@ export function normalizeSource(
   result.total = safeSum(result.transactions.map((t) => t.amount));
   result.metadata = extractStatementMetadata(file, mapping, scope);
   result.warnings.push(...result.metadata.warnings);
+  if (
+    (result.metadata.currency && result.metadata.currency !== scope.currency) ||
+    result.metadata.warnings.includes('METADATA_CONFLICT: currency')
+  )
+    result.errors.push({
+      row: 0,
+      message:
+        'عملة بيانات الكشف متعارضة مع العملة المؤكدة أو مع تصريح آخر في الملف؛ راجع النطاق والمصدر',
+    });
   if (!start) start = result.metadata.periodStart;
   try {
     result.opening = mapping.opening.trim()
@@ -709,6 +754,14 @@ export function compare(
     throw new Error('الزوج المختلط غير مدعوم. اختر تقريرين من النوع نفسه');
   if (!supplier.transactions.length || !ledger.transactions.length)
     throw new Error('لا توجد حركات كافية في أحد الطرفين');
+  if (
+    [...supplier.transactions, ...ledger.transactions].some(
+      (t) => t.currency !== undefined && t.currency !== scope.currency,
+    )
+  )
+    throw new Error(
+      'عملة حركة المصدر لا تطابق نطاق المقارنة؛ أعد قراءة الملف بالنطاق الصحيح',
+    );
   const a = indexBy(supplier.transactions, key),
     b = indexBy(ledger.transactions, key),
     refA = indexBy(supplier.transactions, (t) => t.normalizedReference),
@@ -777,6 +830,7 @@ export function compare(
       continue;
     const l = bc[0];
     if (l.referenceEvidenceIssues?.length) continue;
+    if (identityConflicts(s, l).length) continue;
     if (s.reference.trim() !== l.reference.trim()) continue;
     if (usedB.has(l.id) || rejectedSet.has(`${s.id}|${l.id}`)) continue;
     const days = Math.abs(Date.parse(s.date) - Date.parse(l.date)) / 86400000;

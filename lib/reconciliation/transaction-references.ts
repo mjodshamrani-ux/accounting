@@ -1,4 +1,5 @@
 import type { Mapping, SheetData, Transaction } from './types.ts';
+import { headerMatches } from './header-labels.ts';
 
 // Secondary evidence is read only from explicit, unique headers and safe cells.
 // The original parsed row remains available even when a field is not usable.
@@ -13,7 +14,9 @@ export function transactionReferences(
   );
   const referenceEvidenceIssues: string[] = [];
   const field = (pattern: RegExp) => {
-    const columns = headers.flatMap((h, i) => (pattern.test(h) ? [i] : []));
+    const columns = headers.flatMap((h, i) =>
+      headerMatches(pattern, h) ? [i] : [],
+    );
     if (columns.length !== 1) {
       if (columns.length > 1)
         referenceEvidenceIssues.push(
@@ -53,6 +56,8 @@ export function transactionReferences(
           : /^(?:journal|adjustment|journal entry|قيد|تسوية)$/i.test(rawType)
             ? 'Journal'
             : 'Unknown';
+  if (rawType && documentType === 'Unknown')
+    referenceEvidenceIssues.push(`نوع مستند غير متحقق: ${rawType}`);
   const documentReference = field(
     /^(?:supplier ref(?:erence)?|document (?:no|number|ref(?:erence)?)|invoice (?:no|number|ref(?:erence)?)|رقم المستند|مرجع المورد|رقم الفاتورة)$/i,
   );
@@ -90,7 +95,17 @@ export function transactionReferences(
         mapped
       : documentType === 'Journal'
         ? voucherReference || batch || documentReference || mapped
-        : documentReference || voucherReference || poReference || mapped;
+        : documentReference || voucherReference || mapped || poReference;
+  // An order can legitimately have several invoices of the same amount. Keep
+  // an order-only identity visible, but never present it as proof of a document.
+  if (
+    poReference &&
+    primaryReference === poReference &&
+    !documentReference &&
+    !voucherReference &&
+    (!mapped || mapped === poReference)
+  )
+    referenceEvidenceIssues.push('أمر الشراء وحده لا يثبت هوية الفاتورة');
   return {
     primaryReference,
     documentReference,
