@@ -113,6 +113,17 @@ export function resolveQuestionReferences(
 ): Transaction[] | null {
   const q = latinDigits(question).trim();
   const all = [...result.supplier.transactions, ...result.ledger.transactions];
+  const references = (t: Transaction) =>
+    [
+      t.reference,
+      t.documentReference,
+      t.voucherReference,
+      t.poReference,
+      t.bankReference,
+      t.receiptReference,
+    ]
+      .filter((value): value is string => !!value)
+      .map((value) => latinDigits(value.trim()));
   const requested = (q.match(/[\p{L}\p{N}][\p{L}\p{N}_:/.-]*/gu) ?? []).filter(
     (token) =>
       token.length >= 4 && /\p{L}/u.test(token) && /\p{N}/u.test(token),
@@ -120,17 +131,17 @@ export function resolveQuestionReferences(
   if (
     requested.some(
       (token) =>
-        !all.some(
-          (t) => t.id === token || latinDigits(t.reference.trim()) === token,
-        ),
+        !all.some((t) => t.id === token || references(t).includes(token)),
     )
   )
     return null;
   return all.filter(
     (t) =>
       containsExactIdentifier(q, t.id) ||
-      (t.reference.trim().length >= 4 &&
-        containsExactIdentifier(q, latinDigits(t.reference.trim()))),
+      references(t).some(
+        (reference) =>
+          reference.length >= 4 && containsExactIdentifier(q, reference),
+      ),
   );
 }
 

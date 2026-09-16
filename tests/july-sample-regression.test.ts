@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { exportWorkbook } from '../lib/reconciliation/io.ts';
+import { explainResult } from '../lib/reconciliation/assistant.ts';
 import { compare, normalizeSource } from '../lib/reconciliation/core.ts';
 import type {
   Comparison,
@@ -284,6 +285,20 @@ test(
   async () => {
     for (const { result } of await samples()) {
       const c = requiredCase(result, 'PAYMENT_CANDIDATE');
+      for (const reference of [
+        'RCPT-77031',
+        'BANK-8821',
+        'PYM-000441',
+        'ALRAJHI-764992',
+      ]) {
+        const answer = explainResult(result, `اشرح ${reference}`);
+        assert.equal(answer.kind, 'transaction');
+        assert.ok(answer.text.includes('PAYMENT_CANDIDATE'));
+        assert.deepEqual(
+          new Set(answer.sourceIds),
+          new Set(c.sourceTrace.map((t) => t.sourceRowId)),
+        );
+      }
       assert.equal(c.status, 'Needs Review');
       assert.equal(c.reviewRequired, true);
       assert.deepEqual(

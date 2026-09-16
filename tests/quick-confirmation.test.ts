@@ -31,7 +31,13 @@ test('transaction comparison needs verified scope but not optional descriptive n
   const result = run();
   assert.equal(result.matches.length, 2);
   assert.equal(result.balanceComparable, false);
-  assert.equal(result.bridge, null);
+  assert.equal(result.bridge?.residual, 0);
+  assert.equal(result.balanceComparable, false);
+  assert.equal(
+    result.supplier.balanceArithmeticStatus,
+    'BALANCE_ARITHMETIC_VERIFIED',
+  );
+  assert.equal(result.supplier.coverageStatus, 'PERIOD_COVERAGE_UNCONFIRMED');
   assert.throws(() => run({ ...unnamed, confirmed: false }));
   assert.throws(() => run({ ...unnamed, currency: '' }));
   assert.throws(() => run({ ...unnamed, coverageConfirmed: true }));
