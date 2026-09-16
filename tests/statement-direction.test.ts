@@ -213,6 +213,15 @@ test('currency precision and Arabic numeric notation use exact engine parsing', 
 });
 
 test('selected-cell issues, unsafe opening identities and formula-only metadata cancel proof', () => {
+  for (const rn of [1, 2, 3, 4]) {
+    const hidden = fixture();
+    hidden.sheets[0].hiddenRows = [rn];
+    assert.equal(
+      inferStatementDirection(hidden, mapping),
+      undefined,
+      `hidden row ${rn} cannot supply proof`,
+    );
+  }
   for (const column of [0, 3, 4, 5]) {
     const file = fixture();
     file.sheets[0].cellIssues = {

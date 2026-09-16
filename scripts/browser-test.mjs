@@ -8,11 +8,21 @@ import JSZip from 'jszip';
 import { syntheticPdf } from '../tests/helpers/pdf-fixture.ts';
 import { syntheticStyledPdf } from '../tests/helpers/styled-pdf-fixture.ts';
 
-async function openScope(page) {
-  if (!(await page.getByLabel('العملة', { exact: true }).isVisible()))
+async function waitForScopeInputs(page) {
+  // These paths are missing an essential value, so the app opens this panel in
+  // an effect (or it was already opened in the demo). A visibility check followed
+  // by a toggle click can race that effect and close the panel. Wait for the
+  // observable result instead; missing-value auto-opening remains an assertion.
+  await page
+    .getByLabel('العملة', { exact: true })
+    .waitFor({ state: 'visible' });
+  assert.equal(
     await page
       .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
-      .click();
+      .getAttribute('aria-expanded'),
+    'true',
+    'missing essentials must reveal the scope inputs without a toggle race',
+  );
 }
 
 // Only synthetic XML emitted by ExcelJS is edited here. The production parser
@@ -240,7 +250,7 @@ try {
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
     0,
   );
-  await openScope(page);
+  await waitForScopeInputs(page);
   await page.getByLabel('المورد', { exact: true }).fill('اسم معدل');
   assert.equal(
     await page.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
@@ -276,7 +286,7 @@ try {
   await uploadPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  await openScope(uploadPage);
+  await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
@@ -361,7 +371,7 @@ try {
   await uploadPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  await openScope(uploadPage);
+  await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
     .getByLabel('تاريخ القطع', { exact: true })
@@ -431,11 +441,16 @@ try {
       '2',
     );
   }
-  // An exported workpaper carries no restored scope, so set it explicitly.
-  if (!(await workpaperPage.getByLabel('العملة', { exact: true }).isVisible()))
-    await workpaperPage
-      .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
-      .click();
+  // Previous approvals are not restored, but the original source columns still
+  // prove SAR and provide dates. This complete scope stays collapsed until an
+  // explicit edit; it must not use the missing-input auto-opening path.
+  const workpaperScope = workpaperPage.getByRole('button', {
+    name: 'تعديل نطاق المقارنة',
+    exact: true,
+  });
+  assert.equal(await workpaperScope.getAttribute('aria-expanded'), 'false');
+  await workpaperScope.click();
+  await waitForScopeInputs(workpaperPage);
   await workpaperPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await workpaperPage
     .getByLabel('تاريخ القطع', { exact: true })
@@ -505,7 +520,7 @@ try {
   await pdfPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
   );
-  await openScope(pdfPage);
+  await waitForScopeInputs(pdfPage);
   await pdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await pdfPage.getByLabel('تاريخ القطع', { exact: true }).fill('2026-08-31');
   await pdfPage.getByRole('checkbox', { name: /راجعت الجدول أعلاه/ }).check();
@@ -596,7 +611,7 @@ try {
   await recoveryPage.waitForFunction(
     () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
   );
-  await openScope(recoveryPage);
+  await waitForScopeInputs(recoveryPage);
   await recoveryPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await recoveryPage
     .getByLabel('تاريخ القطع', { exact: true })
@@ -784,7 +799,7 @@ try {
   await ambiguityPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  await openScope(ambiguityPage);
+  await waitForScopeInputs(ambiguityPage);
   await ambiguityPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-12-31');
@@ -854,7 +869,7 @@ try {
   await precisionPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
     .click();
-  await openScope(precisionPage);
+  await waitForScopeInputs(precisionPage);
   await precisionPage
     .getByLabel('تاريخ القطع', { exact: true })
     .fill('2026-06-30');
@@ -958,7 +973,7 @@ try {
     true,
     'restoring the applied boundaries must leave the review intact',
   );
-  await openScope(autoPdfPage);
+  await waitForScopeInputs(autoPdfPage);
   await autoPdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
   assert.equal(
     await autoPdfPage

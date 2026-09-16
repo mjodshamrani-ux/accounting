@@ -102,6 +102,7 @@ export function inferStatementDirection(
   };
   // Header semantics are evidence too; a formula/obscured header cannot prove them.
   if (
+    hidden.has(mapping.header + 1) ||
     rowIssue(mapping.header + 1) ||
     selected.some((column) => cellIssue(mapping.header + 1, column))
   )
@@ -120,6 +121,7 @@ export function inferStatementDirection(
     for (let i = mapping.header + 1; i < sheet.rows.length; i++) {
       const row = sheet.rows[i],
         rn = i + 1;
+      if (hidden.has(rn)) return;
       const populated = row.some((value) => value.trim());
       if (!populated) {
         if (rowIssue(rn) || selected.some((column) => cellIssue(rn, column)))
