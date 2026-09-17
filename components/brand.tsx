@@ -61,8 +61,6 @@ export function BrandMark({
   );
 }
 
-const brandAsset = (path: string) => `${import.meta.env.BASE_URL}brand/${path}`;
-
 export function BrandWordmark({
   className,
   showLatin = true,
@@ -76,16 +74,14 @@ export function BrandWordmark({
       role="img"
       aria-label={BRAND_NAME}
     >
-      <img
+      <span
         className="brand-wordmark-arabic"
-        src={brandAsset('tarasuf-wordmark.svg')}
-        width="2967.75"
-        height="1149"
-        alt=""
-        title={BRAND_DISPLAY_NAME}
+        dir="rtl"
+        lang="ar"
         aria-hidden="true"
-        draggable={false}
-      />
+      >
+        {BRAND_DISPLAY_NAME}
+      </span>
       {showLatin && (
         <span className="brand-wordmark-latin" dir="ltr" aria-hidden="true">
           {BRAND_LATIN_NAME}
@@ -95,7 +91,7 @@ export function BrandWordmark({
   );
 }
 
-/** Static lettering artwork; the owning view supplies its semantic h1/h2. */
+/** Native Arabic text: the font and browser own joining, marks and line wrapping. */
 export function DisplayHeading({
   id,
   className,
@@ -105,16 +101,13 @@ export function DisplayHeading({
 }) {
   const heading = DISPLAY_HEADINGS[id];
   return (
-    <span className={cn('display-heading', className)}>
-      <span className="sr-only">{heading.label}</span>
-      <img
-        src={brandAsset(`type/${id}.svg`)}
-        width={heading.width}
-        height={heading.height}
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-      />
+    <span
+      className={cn('display-heading', className)}
+      data-display-heading={id}
+      dir="rtl"
+      lang="ar"
+    >
+      {heading.text}
     </span>
   );
 }

@@ -1730,10 +1730,10 @@ try {
         checks: [
           'GitHub subpath assets',
           'production CSP',
-          'TARASUF title, actual local font, two ungated uploads and one semantic title',
+          'TARASUF title, authentic local native Thmanyah and Noto fonts, exact Arabic wordmark and two ungated uploads',
           'decorative scene pause/resume and reduced-motion stops all animations',
           '390px and 320px landing and confirmation layouts without page overflow',
-          'offline confirm/review/export lettering decodes with correct heading focus',
+          'offline native confirm/review/export headings retain correct font and focus; longest title wraps at 320px without shrinking',
           'offline first comparison',
           'engine/io cases run separately',
           'grounded assistant offline',
