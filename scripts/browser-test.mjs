@@ -1706,6 +1706,9 @@ try {
     fullPage: true,
   });
 
+  // Prior cases deliberately leave the context offline. OCR's first use needs
+  // only same-origin static program assets; its own case audits every request.
+  await context.setOffline(false);
   await verifyVisualReader(await context.newPage(), `${origin}/mizan-test/`);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
