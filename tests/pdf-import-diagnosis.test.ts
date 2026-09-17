@@ -15,9 +15,9 @@ const rows = [
 const raster = (size = 30) =>
   `q ${size} 0 0 ${size} 0 0 cm\nBI /W 1 /H 1 /CS /G /BPC 8 ID\nX\nEI\nQ`;
 const imageMessage =
-  'PDF يحتوي صورة قد تحمل بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة؛ OCR غير مدعوم حاليًا، اطلب PDF بلا صور أو Excel';
+  'PDF يحتوي صورة قد تحمل بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة؛ أرقام OCR لا تدخل التسوية حاليًا، اطلب PDF نصيًا أو Excel';
 const noTextMessage = (page: number) =>
-  `الصفحة ${page} مصورة أو بلا نص قابل للتحقق. OCR غير متاح حاليًا؛ اطلب PDF نصيًا أو Excel`;
+  `الصفحة ${page} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية؛ القراءة البصرية OCR مسودة غير متحققة`;
 const emptyDiagnosis = (): ImportDiagnosis => ({
   schemaVersion: 1,
   format: 'pdf',

@@ -695,3 +695,11 @@ th {
 .panel .preview {
   max-height: 200px;
 }
+
+.visual-reader { margin-block: 20px; }
+.visual-reader summary { cursor: pointer; font-weight: 600; }
+.visual-draft-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 20px; }
+.visual-words { max-height: 580px; overflow: auto; }
+.visual-word { display: inline-block; padding: 5px 8px; margin: 3px; border: 1px solid #d4d4d4; border-radius: 6px; cursor: pointer; background: #fff; color: #1c2725; }
+.visual-word[aria-pressed="true"] { background: #fef3c7; border-color: #d97706; }
+@media (max-width: 720px) { .visual-draft-grid { grid-template-columns: 1fr; } .visual-words { max-height: 300px; } }

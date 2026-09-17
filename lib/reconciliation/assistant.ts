@@ -3,6 +3,7 @@ import {
   money,
   normalizeReference,
   parseDate,
+  parseMoney,
   safeSum,
 } from './core.ts';
 import type { Comparison, Transaction } from './types.ts';
@@ -387,6 +388,65 @@ export function resolveQuestionReferences(
   );
 }
 
+function requestedVariance(
+  question: string,
+  decimals: number,
+  currency: string,
+):
+  | { kind: 'absent' }
+  | { kind: 'invalid'; reason: string }
+  | { kind: 'amount'; value: number } {
+  const amounts = [...question.matchAll(/[+−()\-]*\d[\d.,٬٫+−()\-]*/gu)];
+  if (!amounts.length) return { kind: 'absent' };
+  const invalid = {
+    kind: 'invalid' as const,
+    reason:
+      'لم أستطع تحديد قيمة فرق واحدة دون التباس. اكتب مبلغًا واحدًا بفواصل واضحة وإشارته، أو اكتب مرجع الحالة؛ لن أختار فرقًا آخر بدلًا منه.',
+  };
+  if (amounts.length !== 1) return invalid;
+  const token = amounts[0];
+  const before = question.slice(0, token.index).trimEnd();
+  const after = question.slice(token.index! + token[0].length).trimStart();
+  if (
+    /^[%٪]/u.test(after) ||
+    /(?:percent|percentage|نسبة|بالمئة|بالمائة)/iu.test(question)
+  )
+    return invalid;
+  const currencyCodes = new Set([
+    currency,
+    ...(typeof Intl.supportedValuesOf === 'function'
+      ? Intl.supportedValuesOf('currency')
+      : ['SAR', 'USD', 'EUR', 'GBP', 'AED', 'KWD', 'BHD', 'OMR', 'QAR', 'JPY']),
+  ]);
+  const codes = [
+    /(?:^|\s)([A-Za-z]{3})$/u.exec(before)?.[1],
+    /^([A-Za-z]{3})(?:\s|$|[?؟])/u.exec(after)?.[1],
+  ]
+    .filter(
+      (code): code is string =>
+        !!code &&
+        (code === code.toUpperCase() || currencyCodes.has(code.toUpperCase())),
+    )
+    .map((code) => code.toUpperCase());
+  if (codes.some((code) => code !== currency))
+    return {
+      kind: 'invalid',
+      reason:
+        'عملة المبلغ المطلوب تختلف عن نطاق النتيجة الحالية؛ لن أحوّل العملة أو أختار فرقًا بعملة أخرى.',
+    };
+  const values = new Set<number>();
+  for (const format of ['dot', 'comma'] as const) {
+    try {
+      values.add(parseMoney(token[0], format, decimals));
+    } catch {
+      /* The question never grants authority to guess a separator. */
+    }
+  }
+  return values.size === 1
+    ? { kind: 'amount', value: [...values][0] }
+    : invalid;
+}
+
 export function explainResult(
   result: Comparison,
   question: string,
@@ -519,22 +579,78 @@ export function explainResult(
       sourceIds: [...refs],
     };
   }
-  if (/فرق|difference|balance|رصيد|أرصدة|ارصدة/iu.test(q)) {
+  if (
+    /فرق|فروق|difference|variance|discrepancy|balance|رصيد|أرصدة|ارصدة/iu.test(
+      q,
+    )
+  ) {
+    const caseLines: string[] = [];
+    const caseIds = new Set<string>();
+    if (/فرق|فروق|difference|variance|discrepancy/iu.test(q)) {
+      const amount = requestedVariance(
+        q,
+        result.scope.decimals,
+        result.scope.currency,
+      );
+      if (amount.kind === 'invalid')
+        return { kind: 'difference', text: amount.reason, sourceIds: [] };
+      if (amount.kind === 'amount') {
+        let evidence: ReturnType<typeof proposalEvidence>;
+        try {
+          evidence = proposalEvidence(result);
+        } catch {
+          return {
+            kind: 'difference',
+            text: 'لا أستطيع نسبة المبلغ إلى حالة موثقة لأن النتيجة الحالية غير مكتملة أو غير متسقة مع المصدر. صحح القراءة وأعد المصالحة أولًا.',
+            sourceIds: [],
+          };
+        }
+        const related = result.cases.filter(
+          (c) => c.reviewRequired && c.variance === amount.value,
+        );
+        if (!related.length)
+          caseLines.push(
+            'لا توجد حالة فرق معلّقة بهذه القيمة الموقّعة في النتيجة الحالية؛ لن أستبدلها بحالة تحمل مبلغًا آخر.',
+          );
+        else {
+          caseLines.push(
+            'الحالات التالية تحمل فرق الحركات المطلوب (المورد ناقص الدفتر). هذا مستقل عن فرق الأرصدة الختامية، وأثر الجسر يحمل الإشارة المقابلة.',
+          );
+          for (const c of related) {
+            caseLines.push(
+              `حالة ${c.caseId}: ${c.classification} — ${c.status}. مجموع المورد ${fmt(c.supplierTotal)}؛ مجموع الدفتر ${fmt(c.ledgerTotal)}؛ فرق الحركات ${fmt(c.variance)}؛ أثر الجسر ${fmt(c.bridgeEffect)}.`,
+            );
+            for (const trace of c.sourceTrace) {
+              const t = evidence.canonical.get(trace.sourceRowId)!;
+              caseIds.add(t.id);
+              caseLines.push(
+                `المصدر: ${describe(t)}${t.sourcePage ? `، صفحة ${t.sourcePage}` : ''}.`,
+              );
+            }
+          }
+          caseLines.push(
+            'تطابق قيمة الفرق يحدد حالات للفحص فقط؛ لا يثبت أن الحالة سبب فرق الأرصدة أو يثبت السبب الاقتصادي. راجع مستندات الحالات؛ لم تُنشأ مطابقة أو يُخفَ فرق.',
+          );
+        }
+      }
+    }
     const b = result.bridge;
     if (!b)
       return {
         kind: 'difference',
         text:
+          (caseLines.length ? caseLines.join('\n') + '\n' : '') +
           'لا أستطيع إثبات فرق أرصدة مشترك: اتساق الأرصدة أو تغطية الفترات غير متحقق. المتاح مقارنة الحركات فقط.\n' +
           result.diagnostics
             .filter((d) => !d.transactionIds.length)
             .map((d) => d.message)
             .join('\n'),
-        sourceIds: [],
+        sourceIds: [...caseIds],
       };
     return {
       kind: 'difference',
       text: [
+        ...caseLines,
         `فرق الأرصدة الفعلي (المورد ناقص الدفتر): ${fmt(b.delta)}. هذا الرقم من النتيجة؛ لا أعتمد رقمًا واردًا في السؤال.`,
         `رصيد المورد ${fmt(result.supplier.closing!)}؛ رصيد الدفتر ${fmt(result.ledger.closing!)}.`,
         `الجسر من المورد إلى الدفتر: ${fmt(result.supplier.closing!)} + (${fmt(b.openingAdjustment)} فرق الافتتاح) + (${fmt(b.itemAdjustment)} صافي آثار الحالات) = ${fmt(b.adjusted)}.`,
@@ -542,9 +658,14 @@ export function explainResult(
         `${result.caseCounts.needsReviewCases} حالات تحتاج مراجعة. ${result.balanceComparable ? 'تغطية الفترة مؤكدة من المستخدم.' : 'معادلة الأرصدة متحققة؛ تأكيد اكتمال تغطية الفترة من المستخدم معلق.'}`,
         'راجع حالات فروق المبالغ والحركات دون مقابل؛ مرشح الدفعة ذو أثر صفري يبقى للمراجعة.',
       ].join('\n'),
-      sourceIds: result.cases
-        .filter((c) => c.bridgeEffect !== 0 || c.reviewRequired)
-        .flatMap((c) => c.sourceTrace.map((t) => t.sourceRowId)),
+      sourceIds: [
+        ...new Set([
+          ...caseIds,
+          ...result.cases
+            .filter((c) => c.bridgeEffect !== 0 || c.reviewRequired)
+            .flatMap((c) => c.sourceTrace.map((t) => t.sourceRowId)),
+        ]),
+      ],
     };
   }
   if (/أراجع|اراجع|next|review|ابدأ|ابدا/iu.test(q))

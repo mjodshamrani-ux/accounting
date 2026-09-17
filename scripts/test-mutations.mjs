@@ -15,6 +15,8 @@ import { spawnSync } from 'node:child_process';
 const root = resolve(import.meta.dirname, '..');
 const tests = [
   'tests/core.test.ts',
+  'tests/pdf-stream-integrity.test.ts',
+  'tests/visual-boundary.test.ts',
   'tests/reliability.test.ts',
   'tests/assistant-adversarial.test.ts',
   'tests/supplier-layouts.test.ts',
@@ -36,6 +38,21 @@ const tests = [
 ];
 const mutations = [
   {
+    name: 'accept-a-partial-pdf-operator-stream',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [
+      [
+        'await streamGuard.assertComplete();',
+        '/* deliberately skip completeness */',
+      ],
+    ],
+  },
+  {
+    name: 'allow-visual-drafts-into-accounting',
+    file: 'lib/reconciliation/source-boundary.ts',
+    changes: [["source.kind === 'visual-draft'", 'false']],
+  },
+  {
     name: 'reuse-an-ai-column-proposal-after-settings-change',
     file: 'lib/reconciliation/import-proposals.ts',
     changes: [['input.baseline !== context.baseline', 'false']],
@@ -48,7 +65,9 @@ const mutations = [
   {
     name: 'allow-ai-proposals-outside-the-evidence-window',
     file: 'lib/reconciliation/local-ai.ts',
-    changes: [['suppliedIds && proposed.some((id) => !suppliedIds.has(id))', 'false']],
+    changes: [
+      ['suppliedIds && proposed.some((id) => !suppliedIds.has(id))', 'false'],
+    ],
   },
   {
     name: 'skip-an-earlier-table-for-a-richer-later-header',

@@ -1,4 +1,5 @@
 import type { restoreSession } from '@/lib/reconciliation/session';
+import { VisualReader } from '@/components/visual-reader';
 import { TransactionReview } from '@/components/transaction-review';
 import { PdfReview } from '@/components/pdf-review';
 import type { AuditEvent } from '@/lib/reconciliation/types';
@@ -477,6 +478,8 @@ export default function App() {
   const [demo, setDemo] = useState(false);
   const [busy, setBusy] = useState('');
   const [error, setError] = useState('');
+  const [visualCandidate, setVisualCandidate] = useState<File | null>(null);
+  const [visualRevision, setVisualRevision] = useState(0);
   const [importDiagnosis, setImportDiagnosis] =
     useState<ImportDiagnosis | null>(null);
   const [notice, setNotice] = useState('');
@@ -636,6 +639,7 @@ export default function App() {
   }
   function loadDemo() {
     if (busy) return;
+    setVisualCandidate(null); setVisualRevision(v => v + 1);
     invalidate();
     setDemo(true);
     directionEdited.current = [true, true];
@@ -656,15 +660,20 @@ export default function App() {
   }
   async function loadFile(file: File | undefined, i: number) {
     if (!file || busy || !engineReady) return;
+    setVisualCandidate(null); setVisualRevision(v => v + 1);
     await task('قراءة الملف على جهازك', async (signal, alive) => {
       if (file.size > MAX_FILE_BYTES) throw new Error('الحد 8 MB لكل ملف');
       const buffer = await file.arrayBuffer();
       if (!alive()) return;
-      const parsed = await workerTask<SourceFile>(
-        'read',
-        { name: file.name, buffer, autoPdfColumns: true },
-        signal,
-      );
+      let parsed: SourceFile;
+      try {
+        parsed = await workerTask<SourceFile>(
+          'read', { name: file.name, buffer, autoPdfColumns: true }, signal,
+        );
+      } catch (failure) {
+        if (alive() && failure instanceof ImportDiagnosticError) setVisualCandidate(file);
+        throw failure;
+      }
       if (!alive()) return;
       const selection = selectImportMapping(
         parsed,
@@ -828,6 +837,7 @@ export default function App() {
   }
   async function loadSession(file?: File) {
     if (!file || busy || files.some(Boolean)) return;
+    setVisualCandidate(null); setVisualRevision(v => v + 1);
     await task('التحقق من الجلسة وإعادة حسابها', async (signal, alive) => {
       if (file.size > 30 * 1024 * 1024)
         throw new Error('حجم الجلسة يتجاوز 30 MB');
@@ -987,6 +997,8 @@ export default function App() {
     return () => lifecycle.abort();
   }, [files, busy]);
   function reset() {
+    setError(''); setImportDiagnosis(null);
+    setVisualCandidate(null); setVisualRevision(v => v + 1);
     setResetOpen(false);
     cancel();
     invalidate();
@@ -1167,8 +1179,8 @@ export default function App() {
                       : importDiagnosis.contentKind === 'native-text'
                         ? 'نص قابل للاستخراج.'
                         : 'لا نص قابل للاستخراج؛ لا يمكن الجزم بأنها صورة.'}{' '}
-                  لم تُعتمد قراءة جزئية. قراءة الصور ليست متاحة في هذا الإصدار؛
-                  استخدم نسخة Excel أو PDF نصيًا بلا صور.
+                  لم تُعتمد قراءة جزئية. استخدم Excel أو PDF نصيًا للتسوية؛
+                  يمكنك تجربة مساعد قراءة الصور أدناه لعرض مسودة غير متحققة.
                 </p>
               )}
             </div>
@@ -1260,6 +1272,7 @@ export default function App() {
                 </Button>
               </div>
             </section>
+            <VisualReader key={`${visualRevision}:${visualCandidate ? `${visualCandidate.name}:${visualCandidate.lastModified}` : 'visual'}`} candidate={visualCandidate} />
             <div className="demo-strip">
               <div>
                 <FlaskConical size={23} />

@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -628,7 +629,7 @@ try {
     assert.match(await diagnosisAlert.innerText(), /لم تُعتمد قراءة جزئية/);
     assert.match(
       await diagnosisAlert.innerText(),
-      /قراءة الصور ليست متاحة في هذا الإصدار/,
+      /يمكنك تجربة مساعد قراءة الصور أدناه لعرض مسودة غير متحققة/,
     );
     const retainedSource = recoveryPage
       .locator('.dropzone')
@@ -1705,6 +1706,7 @@ try {
     fullPage: true,
   });
 
+  await verifyVisualReader(await context.newPage(), `${origin}/mizan-test/`);
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -1739,6 +1741,7 @@ try {
           'formula running balances require separate essential supplier/AP sign choices before comparison',
           'header selection preserves proven AP direction; failed XLSX replacement preserves the retained file manual sign choice',
           'two PDF review approvals remain independent; replacing a multi-page PDF resets its preview and approval',
+          'real local PNG/raster-PDF OCR, source hash, word coordinates, cancel/clear, native-source isolation and static-assets-only network',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

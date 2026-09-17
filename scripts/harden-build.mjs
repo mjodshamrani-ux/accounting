@@ -5,7 +5,7 @@ const p = path.join(root, 'index.html');
 let html = await readFile(p, 'utf8');
 // No inline scripts; the worker bundle is self-contained. GitHub Pages cannot set custom HTTP headers.
 const policy =
-  "default-src 'none'; script-src 'self'; worker-src blob:; connect-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none';";
+  "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src blob:; connect-src 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none';";
 html = html.replace(
   '<head>',
   `<head>\n<meta http-equiv="Content-Security-Policy" content="${policy}" />`,

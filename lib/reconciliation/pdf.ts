@@ -7,6 +7,7 @@ import {
   isImportDiagnosis,
 } from './import-diagnostics.ts';
 import type { ImportDiagnosis } from './import-diagnostics.ts';
+import { guardPdfOperatorStreams } from './pdf-stream-integrity.ts';
 import {
   suggestPdfColumnLayout,
   projectPdfColumns,
@@ -553,7 +554,7 @@ export function checkPdfOperators(
         );
     } else if (isImagePaint(ops, op))
       throw new PdfImageContentError(
-        'PDF يحتوي صورة قد تحمل بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة؛ OCR غير مدعوم حاليًا، اطلب PDF بلا صور أو Excel',
+        'PDF يحتوي صورة قد تحمل بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة؛ أرقام OCR لا تدخل التسوية حاليًا، اطلب PDF نصيًا أو Excel',
       );
   }
 }
@@ -674,7 +675,7 @@ export async function readPdf(
   validateCuts(cuts);
   if (new TextDecoder().decode(buffer.slice(0, 5)) !== '%PDF-')
     throw new Error('محتوى الملف ليس PDF صالحًا');
-  const { getDocument } = await getResolvedPDFJS();
+  const { getDocument, version } = await getResolvedPDFJS();
   const loading = getDocument({
     data: new Uint8Array(buffer.slice(0)),
     useWorkerFetch: false,
@@ -685,8 +686,10 @@ export async function readPdf(
     stopAtErrors: true,
     enableXfa: false,
   });
+  let streamGuard: ReturnType<typeof guardPdfOperatorStreams> | undefined;
   try {
     const doc = await loading.promise;
+    streamGuard = guardPdfOperatorStreams(doc, version);
     if (doc.numPages < 1 || doc.numPages > 20)
       throw new Error('الحد الحالي 20 صفحة PDF؛ اطلب كشفًا أقصر أو Excel');
     if ((await doc.getPermissions()) !== null)
@@ -751,6 +754,7 @@ export async function readPdf(
         }
       }
       const operators = await page.getOperatorList();
+      await streamGuard.assertComplete();
       const { OPS } = await getResolvedPDFJS();
       const imagePaints = operators.fnArray.reduce(
         (count, op) => count + Number(isImagePaint(OPS, op)),
@@ -787,7 +791,7 @@ export async function readPdf(
       };
       if (!tokens.length)
         throw diagnosticFailure(
-          `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. OCR غير متاح حاليًا؛ اطلب PDF نصيًا أو Excel`,
+          `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية؛ القراءة البصرية OCR مسودة غير متحققة`,
           'PDF_NO_EXTRACTABLE_TEXT',
         );
       try {
@@ -871,6 +875,7 @@ export async function readPdf(
       },
     };
   } finally {
+    streamGuard?.restore();
     await loading.destroy();
   }
 }

@@ -1,4 +1,5 @@
 import { validateZipContents } from './zip.ts';
+import { assertNativeAccountingSource } from './source-boundary.ts';
 import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
 import { readPdf } from './pdf.ts';
 import ExcelJS from 'exceljs';
@@ -540,6 +541,7 @@ export async function exportWorkbook(
     events?: AuditEvent[];
   },
 ): Promise<ArrayBuffer> {
+  files.forEach(assertNativeAccountingSource);
   const verifiedFiles = await Promise.all(
     files.map((f) =>
       f.original

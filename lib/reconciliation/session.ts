@@ -1,4 +1,5 @@
 import { ENGINE_VERSION, MAX_FILE_BYTES } from './types.ts';
+import { assertNativeAccountingSource } from './source-boundary.ts';
 import type {
   SourceFile,
   Mapping,
@@ -37,6 +38,7 @@ const demoBytes = (file: SourceFile) =>
       .join('\n'),
   ).buffer;
 export async function saveSession(state: SessionState): Promise<ArrayBuffer> {
+  state.files.forEach(assertNativeAccountingSource);
   if (state.events.length > 2000)
     throw new Error('سجل الجلسة كبير؛ صدّر ورقة العمل');
   const verifiedMappings: Mapping[] = [];
@@ -113,6 +115,7 @@ export async function restoreSession(bytes: ArrayBuffer) {
         sha256: unknown;
         pdfCuts?: number[];
       }) => {
+        assertNativeAccountingSource(f);
         if (
           typeof f.name !== 'string' ||
           f.name.length > 255 ||

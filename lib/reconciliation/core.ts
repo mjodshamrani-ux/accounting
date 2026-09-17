@@ -1,4 +1,5 @@
 import { defaultMapping } from './types.ts';
+import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
 import { buildReconciliationCases, identityConflicts } from './cases.ts';
 import { extractStatementMetadata } from './statement-metadata.ts';
@@ -361,6 +362,7 @@ export function normalizeSource(
   scope: Scope,
   side: 'supplier' | 'ledger',
 ): SourceResult {
+  assertNativeAccountingSource(file);
   validateScope(scope);
   if (
     ![0, 2, 3].includes(scope.decimals) ||

@@ -39,3 +39,6 @@ next-env.d.ts
 
 # typescript incremental build cache
 tsconfig.tsbuildinfo
+
+# Static OCR assets generated from locked packages
+/public/ocr/
