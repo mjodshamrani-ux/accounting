@@ -1730,9 +1730,9 @@ try {
         checks: [
           'GitHub subpath assets',
           'production CSP',
-          'TARASUF title, authentic local native Thmanyah and Noto fonts, exact Arabic wordmark and two ungated uploads',
-          'decorative scene pause/resume and reduced-motion stops all animations',
-          '390px and 320px landing and confirmation layouts without page overflow',
+          'Arabic-only TARASUF identity, authentic local native fonts, keyboard-accessible uploads and atomic multi-file-drop rejection',
+          'vector paper clipping and proportions across 17 animation samples at six widths; pause/resume, offscreen suspension and reduced motion',
+          '320/390/768/820/1024/1280px landing and confirmation layouts without overflow; readable workflow labels and accessible privacy navigation',
           'offline native confirm/review/export headings retain correct font and focus; longest title wraps at 320px without shrinking',
           'offline first comparison',
           'engine/io cases run separately',

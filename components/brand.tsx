@@ -2,7 +2,6 @@ import { useId, type SVGProps } from 'react';
 import {
   BRAND_COLORS,
   BRAND_DISPLAY_NAME,
-  BRAND_LATIN_NAME,
   BRAND_NAME,
   DISPLAY_HEADINGS,
   type DisplayHeadingId,
@@ -61,13 +60,7 @@ export function BrandMark({
   );
 }
 
-export function BrandWordmark({
-  className,
-  showLatin = true,
-}: {
-  className?: string;
-  showLatin?: boolean;
-}) {
+export function BrandWordmark({ className }: { className?: string }) {
   return (
     <span
       className={cn('brand-wordmark', className)}
@@ -82,11 +75,6 @@ export function BrandWordmark({
       >
         {BRAND_DISPLAY_NAME}
       </span>
-      {showLatin && (
-        <span className="brand-wordmark-latin" dir="ltr" aria-hidden="true">
-          {BRAND_LATIN_NAME}
-        </span>
-      )}
     </span>
   );
 }

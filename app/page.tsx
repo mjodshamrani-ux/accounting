@@ -1,7 +1,12 @@
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
 import { BrandMark, BrandWordmark, DisplayHeading } from '@/components/brand';
-import { LandingIntro, LandingDetails } from '@/components/landing';
+import {
+  LandingIntro,
+  LandingDetails,
+  LandingBenefits,
+} from '@/components/landing';
+import { SourceUpload } from '@/components/source-upload';
 import { APP_VERSION } from '@/lib/brand';
 import { TransactionReview } from '@/components/transaction-review';
 import { PdfReview } from '@/components/pdf-review';
@@ -1098,7 +1103,12 @@ export default function App() {
         </div>
       </header>
       <main>
-        {showLanding && <LandingIntro />}
+        {showLanding && (
+          <>
+            <LandingIntro />
+            <LandingBenefits />
+          </>
+        )}
         <div className="workspace" id="reconciliation">
           {privacy && (
             <section
@@ -1208,21 +1218,36 @@ export default function App() {
             </div>
           </div>
           <nav className="steps" aria-label="خطوات التسوية">
-            {[
-              'إضافة الملفات',
-              'تأكيد البيانات',
-              'مراجعة الفروق',
-              'ورقة العمل',
-            ].map((s, i) => (
-              <div
-                className={i === step ? 'active' : ''}
-                key={s}
-                aria-current={i === step ? 'step' : undefined}
-              >
-                <span>{i < step ? <Check size={13} /> : i + 1}</span>
-                {s}
-              </div>
-            ))}
+            <ol>
+              {[
+                'إضافة الملفات',
+                'تأكيد البيانات',
+                'مراجعة الفروق',
+                'ورقة العمل',
+              ].map((label, index) => (
+                <li
+                  key={label}
+                  className={
+                    index === step ? 'active' : index < step ? 'complete' : ''
+                  }
+                  aria-current={index === step ? 'step' : undefined}
+                >
+                  <span className="step-number" aria-hidden="true">
+                    {index < step ? <Check size={16} /> : index + 1}
+                  </span>
+                  <span className="step-label">
+                    {label}
+                    <span className="sr-only">
+                      {index < step
+                        ? ' — مكتملة'
+                        : index === step
+                          ? ' — المرحلة الحالية'
+                          : ' — لاحقًا'}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
           </nav>
           {demo && (
             <div className="notice">
@@ -1292,7 +1317,7 @@ export default function App() {
           )}
           {step === 0 && (
             <>
-              <section className="surface">
+              <section className="surface upload-surface">
                 <div className="section-heading">
                   <div>
                     <h2>لنبدأ بالملفين</h2>
@@ -1301,53 +1326,36 @@ export default function App() {
                   <FileSpreadsheet size={23} />
                 </div>
                 <div className="file-grid">
-                  {sideNames.map((s, i) => (
-                    <div
-                      className={`dropzone ${files[i] ? 'has-file' : ''}`}
-                      key={s}
-                      onDragOver={(e) => e.preventDefault()}
-                      onDrop={(e) => {
-                        e.preventDefault();
-                        void loadFile(e.dataTransfer.files[0], i);
+                  {sideNames.map((label, side) => (
+                    <SourceUpload
+                      key={label}
+                      side={side}
+                      label={label}
+                      filename={files[side]?.name}
+                      busy={!!busy}
+                      ready={engineReady}
+                      onFile={(file) => {
+                        void loadFile(file, side);
                       }}
-                    >
-                      <span className="file-icon">
-                        {files[i] ? (
-                          <FileCheck2 size={30} />
-                        ) : (
-                          <FileSpreadsheet size={30} />
-                        )}
-                      </span>
-                      <h3>{s}</h3>
-                      <p>
-                        {files[i] ? (
-                          <bdi>{files[i]!.name}</bdi>
-                        ) : i === 0 ? (
-                          'الكشف الذي استلمته من المورد'
-                        ) : (
-                          'التقرير المستخرج من نظامك المحاسبي'
-                        )}
-                      </p>
-                      <label className="file-button">
-                        {files[i] ? 'استبدال الملف' : 'اختيار ملف من الجهاز'}
-                        <input
-                          type="file"
-                          accept=".xlsx,.csv,.pdf"
-                          aria-label={s}
-                          disabled={!!busy || !engineReady}
-                          onChange={(e) => {
-                            void loadFile(e.target.files?.[0], i);
-                            e.target.value = '';
-                          }}
-                        />
-                      </label>
-                      <small>
-                        XLSX أو CSV أو PDF نصي بلا صور · حتى 8 MB · PDF حتى 20
-                        صفحة، دون OCR للصور
-                      </small>
-                    </div>
+                      onError={(message) => {
+                        setImportDiagnosis(null);
+                        setError(message);
+                      }}
+                    />
                   ))}
                 </div>
+                <p className="source-file-limits" id="source-file-limits">
+                  <span>
+                    <bdi>XLSX</bdi> · <bdi>CSV</bdi> · <bdi>PDF</bdi> نصي بلا صور
+                  </span>
+                  <span>
+                    حتى <bdi>8 MB</bdi> للملف · <bdi>20</bdi> صفحة لـ
+                    <bdi>PDF</bdi>
+                  </span>
+                  <span>
+                    للصور: مساعد تجريبي منفصل أدناه، ينتج مسودة غير متحققة.
+                  </span>
+                </p>
                 <div className="surface-footer">
                   <span>
                     <LockKeyhole size={16} />
@@ -2223,7 +2231,15 @@ export default function App() {
           <BrandWordmark />
         </a>
         <p>دقّة تمنحك وضوحًا أكبر.</p>
-        <span dir="ltr">BUILT FOR ACCOUNTANTS</span>
+        {showLanding ? (
+          <a className="footer-privacy-link" href="#privacy-details">
+            حدود الخصوصية
+          </a>
+        ) : (
+          <button className="footer-privacy-link" onClick={togglePrivacy}>
+            حدود الخصوصية
+          </button>
+        )}
       </footer>
     </div>
   );
