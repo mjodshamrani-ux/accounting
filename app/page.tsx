@@ -1,5 +1,8 @@
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
+import { BrandMark, BrandWordmark, DisplayHeading } from '@/components/brand';
+import { LandingIntro, LandingDetails } from '@/components/landing';
+import { APP_VERSION } from '@/lib/brand';
 import { TransactionReview } from '@/components/transaction-review';
 import { PdfReview } from '@/components/pdf-review';
 import type { AuditEvent } from '@/lib/reconciliation/types';
@@ -7,7 +10,6 @@ import { AccountingAssistant } from '@/components/accounting-assistant';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
-  Scale,
   ShieldCheck,
   FileSpreadsheet,
   ArrowLeft,
@@ -62,11 +64,7 @@ import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import { ImportAssistant } from '@/components/import-assistant';
 import { ImportDiagnosticError } from '@/lib/reconciliation/import-diagnostics';
 import type { ImportDiagnosis } from '@/lib/reconciliation/import-diagnostics';
-import {
-  defaultMapping,
-  ENGINE_VERSION,
-  MAX_FILE_BYTES,
-} from '@/lib/reconciliation/types';
+import { defaultMapping, MAX_FILE_BYTES } from '@/lib/reconciliation/types';
 import type {
   SourceFile,
   Mapping,
@@ -469,6 +467,12 @@ export default function App() {
                             ? 'جارٍ تحديث إعدادات القراءة…'
                             : '';
   const [step, setStep] = useState(0);
+  const workflowHeading = useRef<HTMLHeadingElement>(null);
+  const previousStep = useRef(step);
+  const showLanding = step === 0 && !files.some(Boolean);
+  const previousLanding = useRef(showLanding);
+  const privacyHeading = useRef<HTMLHeadingElement>(null);
+  const privacyReturnFocus = useRef<HTMLElement | null>(null);
   // Open the panel when the confirmation step still needs a value, then leave it
   // to the accountant: it must not snap shut as the last field is filled.
   useEffect(() => {
@@ -514,10 +518,30 @@ export default function App() {
     return () => window.removeEventListener('beforeunload', warn);
   }, [files]);
   useEffect(() => {
-    const heading = document.querySelector('h1');
-    heading?.scrollIntoView({ block: 'start' });
-    heading?.focus({ preventScroll: true });
-  }, [step]);
+    if (
+      previousStep.current === step &&
+      previousLanding.current === showLanding
+    )
+      return;
+    previousStep.current = step;
+    previousLanding.current = showLanding;
+    workflowHeading.current?.scrollIntoView({ block: 'start' });
+    workflowHeading.current?.focus({ preventScroll: true });
+  }, [step, showLanding]);
+  useEffect(() => {
+    if (privacy) {
+      privacyHeading.current?.scrollIntoView({ block: 'start' });
+      privacyHeading.current?.focus({ preventScroll: true });
+    } else if (privacyReturnFocus.current?.isConnected) {
+      privacyReturnFocus.current.focus();
+      privacyReturnFocus.current = null;
+    }
+  }, [privacy]);
+  function togglePrivacy() {
+    if (!privacy && document.activeElement instanceof HTMLElement)
+      privacyReturnFocus.current = document.activeElement;
+    setPrivacy(!privacy);
+  }
   function invalidate() {
     setImportDiagnosis(null);
     setAuditEvents([]);
@@ -639,7 +663,8 @@ export default function App() {
   }
   function loadDemo() {
     if (busy) return;
-    setVisualCandidate(null); setVisualRevision(v => v + 1);
+    setVisualCandidate(null);
+    setVisualRevision((v) => v + 1);
     invalidate();
     setDemo(true);
     directionEdited.current = [true, true];
@@ -660,7 +685,8 @@ export default function App() {
   }
   async function loadFile(file: File | undefined, i: number) {
     if (!file || busy || !engineReady) return;
-    setVisualCandidate(null); setVisualRevision(v => v + 1);
+    setVisualCandidate(null);
+    setVisualRevision((v) => v + 1);
     await task('قراءة الملف على جهازك', async (signal, alive) => {
       if (file.size > MAX_FILE_BYTES) throw new Error('الحد 8 MB لكل ملف');
       const buffer = await file.arrayBuffer();
@@ -668,10 +694,13 @@ export default function App() {
       let parsed: SourceFile;
       try {
         parsed = await workerTask<SourceFile>(
-          'read', { name: file.name, buffer, autoPdfColumns: true }, signal,
+          'read',
+          { name: file.name, buffer, autoPdfColumns: true },
+          signal,
         );
       } catch (failure) {
-        if (alive() && failure instanceof ImportDiagnosticError) setVisualCandidate(file);
+        if (alive() && failure instanceof ImportDiagnosticError)
+          setVisualCandidate(file);
         throw failure;
       }
       if (!alive()) return;
@@ -827,7 +856,7 @@ export default function App() {
       );
       const a = document.createElement('a');
       a.href = url;
-      a.download = `mizan-${scope.cutoff}.mizan.json`;
+      a.download = `tarasuf-${scope.cutoff}.session.json`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 30000);
       setNotice(
@@ -837,7 +866,8 @@ export default function App() {
   }
   async function loadSession(file?: File) {
     if (!file || busy || files.some(Boolean)) return;
-    setVisualCandidate(null); setVisualRevision(v => v + 1);
+    setVisualCandidate(null);
+    setVisualRevision((v) => v + 1);
     await task('التحقق من الجلسة وإعادة حسابها', async (signal, alive) => {
       if (file.size > 30 * 1024 * 1024)
         throw new Error('حجم الجلسة يتجاوز 30 MB');
@@ -892,7 +922,7 @@ export default function App() {
       );
       const a = document.createElement('a');
       a.href = url;
-      a.download = `mizan-workpaper-${scope.cutoff}.xlsx`;
+      a.download = `tarasuf-workpaper-${scope.cutoff}.xlsx`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -997,8 +1027,10 @@ export default function App() {
     return () => lifecycle.abort();
   }, [files, busy]);
   function reset() {
-    setError(''); setImportDiagnosis(null);
-    setVisualCandidate(null); setVisualRevision(v => v + 1);
+    setError('');
+    setImportDiagnosis(null);
+    setVisualCandidate(null);
+    setVisualRevision((v) => v + 1);
     setResetOpen(false);
     cancel();
     invalidate();
@@ -1015,7 +1047,10 @@ export default function App() {
     setNotice('');
   }
   return (
-    <div className="app-shell">
+    <div className={`app-shell ${showLanding ? 'has-landing' : 'in-session'}`}>
+      <a className="skip-link" href="#reconciliation">
+        الانتقال إلى مساحة العمل
+      </a>
       <AlertDialog open={resetOpen} onOpenChange={setResetOpen}>
         <AlertDialogContent dir="rtl">
           <AlertDialogTitle>بدء عملية جديدة؟</AlertDialogTitle>
@@ -1032,1087 +1067,1164 @@ export default function App() {
         </AlertDialogContent>
       </AlertDialog>
       <header className="topbar">
-        <a className="brand" href="./">
-          <span className="brand-mark">
-            <Scale size={25} />
-          </span>
-          <strong>ميزان</strong>
-          <span className="brand-caption">مساحة تسوية الموردين</span>
+        <a
+          className="brand"
+          href={showLanding ? '#top' : '#reconciliation'}
+          aria-label="تراصف — مساحة تسوية الموردين"
+        >
+          <BrandMark />
+          <BrandWordmark />
         </a>
-        <button className="local-pill" onClick={() => setPrivacy(!privacy)}>
-          <ShieldCheck size={16} /> المعالجة على جهازك
-        </button>
+        {showLanding && (
+          <nav className="site-nav" aria-label="التنقل الرئيسي">
+            <a href="#how-it-works">كيف تعمل</a>
+            <a href="#privacy">الخصوصية</a>
+          </nav>
+        )}
+        <div className="topbar-actions">
+          <button
+            className="local-pill"
+            aria-expanded={privacy}
+            aria-controls={privacy ? 'privacy-info' : undefined}
+            onClick={togglePrivacy}
+          >
+            <ShieldCheck size={16} /> <span>المعالجة على جهازك</span>
+          </button>
+          {showLanding && (
+            <a className="nav-start" href="#reconciliation">
+              ابدأ الآن <ArrowLeft size={15} />
+            </a>
+          )}
+        </div>
       </header>
-      <main className="workspace">
-        {privacy && (
-          <section className="surface pad stack">
-            <div className="section-heading" style={{ padding: 0 }}>
-              <h2>حدود الخصوصية</h2>
+      <main>
+        {showLanding && <LandingIntro />}
+        <div className="workspace" id="reconciliation">
+          {privacy && (
+            <section
+              className="surface pad stack"
+              id="privacy-info"
+              aria-labelledby="privacy-detail-title"
+            >
+              <div className="section-heading" style={{ padding: 0 }}>
+                <h2
+                  ref={privacyHeading}
+                  tabIndex={-1}
+                  id="privacy-detail-title"
+                >
+                  حدود الخصوصية
+                </h2>
+                <Button
+                  aria-label="إغلاق الخصوصية"
+                  variant="ghost"
+                  onClick={() => setPrivacy(false)}
+                >
+                  <X />
+                </Button>
+              </div>
+              <p className="muted">
+                الملفات وأسماؤها ومعاملاتها تُقرأ وتُطابق وتُصدّر داخل المتصفح. لا
+                يستخدم التطبيق تحليلات أو خدمة معالجة مالية. استضافة الموقع تقدم
+                ملفات التطبيق، وقد تسجل زيارة الموقع وفق سياسة المضيف. لا نضمن
+                سلامة إضافات المتصفح أو الجهاز.
+              </p>
+              <p className="muted">
+                لا تُحفظ المعاملات بين الجلسات. القوالب التي تحفظها اختيارية وتحتوي
+                أرقام الأعمدة وتفضيلات القراءة فقط. يعمل المسار المحمّل دون اتصال؛
+                إعادة فتح الموقع بلا إنترنت غير مدعومة في هذه النسخة.
+              </p>
               <Button
-                aria-label="إغلاق الخصوصية"
-                variant="ghost"
-                onClick={() => setPrivacy(false)}
+                variant="outline"
+                onClick={() => {
+                  try {
+                    localStorage.removeItem('mizan.mapping.0.v1');
+                    localStorage.removeItem('mizan.mapping.1.v1');
+                    setNotice('مُسحت قوالب الأعمدة المحلية.');
+                  } catch {
+                    setError('تعذر الوصول إلى التخزين المحلي.');
+                  }
+                }}
               >
-                <X />
+                مسح القوالب المحلية
               </Button>
+            </section>
+          )}
+          <div className="page-heading">
+            <div>
+              <div className="eyebrow">
+                <span className="eyebrow-line" /> مساحة العمل / تسوية الموردين
+              </div>
+              {showLanding ? (
+                <h2
+                  className="workflow-title"
+                  ref={workflowHeading}
+                  tabIndex={-1}
+                >
+                  <DisplayHeading id="upload" />
+                </h2>
+              ) : (
+                <h1
+                  className="workflow-title"
+                  ref={workflowHeading}
+                  tabIndex={-1}
+                >
+                  <DisplayHeading
+                    id={
+                      step === 0
+                        ? 'upload'
+                        : step === 1
+                          ? 'confirm'
+                          : step === 2
+                            ? 'review'
+                            : 'export'
+                    }
+                  />
+                </h1>
+              )}
+              <p>
+                {step === 0
+                  ? 'قارن كشف المورد بدفترك، راجع الفروق، واحتفظ بورقة عمل واضحة.'
+                  : step === 1
+                    ? 'قُرئ ما يمكن قراءته من الملفين. عدّل ما تريد تعديله فقط.'
+                    : step === 2
+                      ? 'افحص الأدلة والمبالغ ومصادر الحركات قبل اعتماد أي ربط.'
+                      : 'تصدير موثق للمصادر والقواعد والقرارات والاستثناءات المفتوحة.'}
+              </p>
             </div>
-            <p className="muted">
-              الملفات وأسماؤها ومعاملاتها تُقرأ وتُطابق وتُصدّر داخل المتصفح. لا
-              يستخدم التطبيق تحليلات أو خدمة معالجة مالية. استضافة الموقع تقدم
-              ملفات التطبيق، وقد تسجل زيارة الموقع وفق سياسة المضيف. لا نضمن سلامة
-              إضافات المتصفح أو الجهاز.
-            </p>
-            <p className="muted">
-              لا تُحفظ المعاملات بين الجلسات. القوالب التي تحفظها اختيارية وتحتوي
-              أرقام الأعمدة وتفضيلات القراءة فقط. يعمل المسار المحمّل دون اتصال؛
-              إعادة فتح الموقع بلا إنترنت غير مدعومة في هذه النسخة.
-            </p>
+            <div className="stack">
+              <span className="version-badge">
+                نسخة تجريبية <bdi>{APP_VERSION}</bdi>
+              </span>
+              {files.some(Boolean) && (
+                <Button
+                  variant="ghost"
+                  onClick={() => setResetOpen(true)}
+                  disabled={!!busy}
+                >
+                  <RotateCcw size={15} />
+                  عملية جديدة
+                </Button>
+              )}
+            </div>
+          </div>
+          <nav className="steps" aria-label="خطوات التسوية">
+            {[
+              'إضافة الملفات',
+              'تأكيد البيانات',
+              'مراجعة الفروق',
+              'ورقة العمل',
+            ].map((s, i) => (
+              <div
+                className={i === step ? 'active' : ''}
+                key={s}
+                aria-current={i === step ? 'step' : undefined}
+              >
+                <span>{i < step ? <Check size={13} /> : i + 1}</span>
+                {s}
+              </div>
+            ))}
+          </nav>
+          {demo && (
+            <div className="notice">
+              <FlaskConical
+                size={17}
+                style={{ display: 'inline', marginLeft: 8 }}
+              />
+              بيانات اصطناعية للتجربة — لا تمثل شركة أو معاملات فعلية.
+            </div>
+          )}
+          {!engineReady && !!error && (
             <Button
               variant="outline"
               onClick={() => {
-                try {
-                  localStorage.removeItem('mizan.mapping.0.v1');
-                  localStorage.removeItem('mizan.mapping.1.v1');
-                  setNotice('مُسحت قوالب الأعمدة المحلية.');
-                } catch {
-                  setError('تعذر الوصول إلى التخزين المحلي.');
-                }
+                setError('');
+                void prepareWorker()
+                  .then(() => setEngineReady(true))
+                  .catch(() =>
+                    setError('تعذر تشغيل المحرك؛ جرّب متصفحًا حديثًا.'),
+                  );
               }}
             >
-              مسح القوالب المحلية
+              إعادة تشغيل المحرك
             </Button>
-          </section>
-        )}
-        <div className="page-heading">
-          <div>
-            <div className="eyebrow">أدوات المحاسب / تسوية الموردين</div>
-            <h1 tabIndex={-1}>
-              {step === 0
-                ? 'ملفّان. صورة أوضح.'
-                : step === 1
-                  ? 'راجع الملخص، ثم قارن.'
-                  : step === 2
-                    ? 'الفروق أمامك. القرار لك.'
-                    : 'ورقة عمل تحكي التفاصيل.'}
-            </h1>
-            <p>
-              {step === 0
-                ? 'قارن كشف المورد بدفترك، راجع الفروق، واحتفظ بورقة عمل واضحة.'
-                : step === 1
-                  ? 'قُرئ ما يمكن قراءته من الملفين. عدّل ما تريد تعديله فقط.'
-                  : step === 2
-                    ? 'افحص الأدلة والمبالغ ومصادر الحركات قبل اعتماد أي ربط.'
-                    : 'تصدير موثق للمصادر والقواعد والقرارات والاستثناءات المفتوحة.'}
-            </p>
-          </div>
-          <div className="stack">
-            <span className="version-badge">نسخة تجريبية {ENGINE_VERSION}</span>
-            {files.some(Boolean) && (
-              <Button
-                variant="ghost"
-                onClick={() => setResetOpen(true)}
-                disabled={!!busy}
-              >
-                <RotateCcw size={15} />
-                عملية جديدة
-              </Button>
-            )}
-          </div>
-        </div>
-        <nav className="steps" aria-label="خطوات التسوية">
-          {[
-            'إضافة الملفات',
-            'تأكيد البيانات',
-            'مراجعة الفروق',
-            'ورقة العمل',
-          ].map((s, i) => (
-            <div
-              className={i === step ? 'active' : ''}
-              key={s}
-              aria-current={i === step ? 'step' : undefined}
-            >
-              <span>{i < step ? <Check size={13} /> : i + 1}</span>
-              {s}
+          )}
+          {!engineReady && !error && (
+            <div className="notice loading" role="status">
+              <LoaderCircle className="spin" size={17} />
+              تحميل المحرك إلى جهازك…
             </div>
-          ))}
-        </nav>
-        {demo && (
-          <div className="notice">
-            <FlaskConical
-              size={17}
-              style={{ display: 'inline', marginLeft: 8 }}
-            />
-            بيانات اصطناعية للتجربة — لا تمثل شركة أو معاملات فعلية.
-          </div>
-        )}
-        {!engineReady && !!error && (
-          <Button
-            variant="outline"
-            onClick={() => {
-              setError('');
-              void prepareWorker()
-                .then(() => setEngineReady(true))
-                .catch(() => setError('تعذر تشغيل المحرك؛ جرّب متصفحًا حديثًا.'));
-            }}
-          >
-            إعادة تشغيل المحرك
-          </Button>
-        )}
-        {!engineReady && !error && (
-          <div className="notice loading" role="status">
-            <LoaderCircle className="spin" size={17} />
-            تحميل المحرك إلى جهازك…
-          </div>
-        )}
-        {error && (
-          <div className="notice error" role="alert">
-            <div>
-              <p>{error}</p>
-              {importDiagnosis && (
-                <p className="hint" style={{ marginTop: 8 }}>
-                  توقفت القراءة عند الصفحة {importDiagnosis.page} من{' '}
-                  {importDiagnosis.totalPages}:{' '}
-                  {importDiagnosis.contentKind === 'mixed'
-                    ? 'نص وصور في الصفحة.'
-                    : importDiagnosis.contentKind === 'image-only'
-                      ? 'صور دون نص قابل للاستخراج.'
-                      : importDiagnosis.contentKind === 'native-text'
-                        ? 'نص قابل للاستخراج.'
-                        : 'لا نص قابل للاستخراج؛ لا يمكن الجزم بأنها صورة.'}{' '}
-                  لم تُعتمد قراءة جزئية. استخدم Excel أو PDF نصيًا للتسوية؛
-                  يمكنك تجربة مساعد قراءة الصور أدناه لعرض مسودة غير متحققة.
-                </p>
-              )}
-            </div>
-          </div>
-        )}
-        {notice && (
-          <div className="notice success" role="status">
-            {notice}
-          </div>
-        )}
-        {busy && (
-          <div className="notice loading" role="status">
-            <LoaderCircle className="spin" size={20} />
-            {busy}
-            <Button variant="ghost" onClick={cancel}>
-              إلغاء
-            </Button>
-          </div>
-        )}
-        {step === 0 && (
-          <>
-            <section className="surface">
-              <div className="section-heading">
-                <div>
-                  <h2>لنبدأ بالملفين</h2>
-                  <p>مورد واحد · جهة واحدة · عملة واحدة</p>
-                </div>
-                <FileSpreadsheet size={23} />
-              </div>
-              <div className="file-grid">
-                {sideNames.map((s, i) => (
-                  <div
-                    className="dropzone"
-                    key={s}
-                    onDragOver={(e) => e.preventDefault()}
-                    onDrop={(e) => {
-                      e.preventDefault();
-                      void loadFile(e.dataTransfer.files[0], i);
-                    }}
-                  >
-                    <span className="file-icon">
-                      {files[i] ? (
-                        <FileCheck2 size={30} />
-                      ) : (
-                        <FileSpreadsheet size={30} />
-                      )}
-                    </span>
-                    <h3>{s}</h3>
-                    <p>
-                      {files[i] ? (
-                        <bdi>{files[i]!.name}</bdi>
-                      ) : i === 0 ? (
-                        'الكشف الذي استلمته من المورد'
-                      ) : (
-                        'التقرير المستخرج من نظامك المحاسبي'
-                      )}
-                    </p>
-                    <label className="file-button">
-                      {files[i] ? 'استبدال الملف' : 'اختيار ملف من الجهاز'}
-                      <input
-                        type="file"
-                        accept=".xlsx,.csv,.pdf"
-                        aria-label={s}
-                        disabled={!!busy || !engineReady}
-                        onChange={(e) => {
-                          void loadFile(e.target.files?.[0], i);
-                          e.target.value = '';
-                        }}
-                      />
-                    </label>
-                    <small>
-                      XLSX أو CSV أو PDF نصي بلا صور · حتى 8 MB · PDF حتى 20
-                      صفحة، دون OCR للصور
-                    </small>
-                  </div>
-                ))}
-              </div>
-              <div className="surface-footer">
-                <span>
-                  <LockKeyhole size={16} />
-                  لا تُرسل الملفات إلى خادم.
-                </span>
-                <Button
-                  disabled={!files.every(Boolean) || !!busy}
-                  onClick={() => setStep(1)}
-                >
-                  تأكيد البيانات
-                  <ArrowLeft size={17} />
-                </Button>
-              </div>
-            </section>
-            <VisualReader key={`${visualRevision}:${visualCandidate ? `${visualCandidate.name}:${visualCandidate.lastModified}` : 'visual'}`} candidate={visualCandidate} />
-            <div className="demo-strip">
+          )}
+          {error && (
+            <div className="notice error" role="alert">
               <div>
-                <FlaskConical size={23} />
-                <div>
-                  <strong>استكشف الخطوات أولًا</strong>
-                  <p>
-                    مثال يحتوي فواتير ومدفوعات ومراجع مكررة وفروقًا للمراجعة.
+                <p>{error}</p>
+                {importDiagnosis && (
+                  <p className="hint" style={{ marginTop: 8 }}>
+                    توقفت القراءة عند الصفحة {importDiagnosis.page} من{' '}
+                    {importDiagnosis.totalPages}:{' '}
+                    {importDiagnosis.contentKind === 'mixed'
+                      ? 'نص وصور في الصفحة.'
+                      : importDiagnosis.contentKind === 'image-only'
+                        ? 'صور دون نص قابل للاستخراج.'
+                        : importDiagnosis.contentKind === 'native-text'
+                          ? 'نص قابل للاستخراج.'
+                          : 'لا نص قابل للاستخراج؛ لا يمكن الجزم بأنها صورة.'}{' '}
+                    لم تُعتمد قراءة جزئية. استخدم Excel أو PDF نصيًا للتسوية؛
+                    يمكنك تجربة مساعد قراءة الصور أدناه لعرض مسودة غير متحققة.
                   </p>
-                </div>
+                )}
               </div>
-              <Button
-                variant="outline"
-                onClick={loadDemo}
-                disabled={!!busy || !engineReady}
-              >
-                تجربة مثال
+            </div>
+          )}
+          {notice && (
+            <div className="notice success" role="status">
+              {notice}
+            </div>
+          )}
+          {busy && (
+            <div className="notice loading" role="status">
+              <LoaderCircle className="spin" size={20} />
+              {busy}
+              <Button variant="ghost" onClick={cancel}>
+                إلغاء
               </Button>
             </div>
-          </>
-        )}
-        {step === 1 && (
-          <fieldset
-            disabled={!!busy}
-            className="stack"
-            style={{ border: 0, padding: 0, minWidth: 0 }}
-          >
-            <section className="surface pad stack">
-              <div className="summary-head">
-                <div>
-                  <h2>نطاق المقارنة</h2>
-                  <p className="summary-line">
-                    حتى{' '}
-                    {scope.cutoff ? (
-                      <strong>
-                        <bdi dir="ltr">{scope.cutoff}</bdi>
-                      </strong>
-                    ) : (
-                      <span className="gap">حدد التاريخ</span>
-                    )}{' '}
-                    ·{' '}
-                    {scope.currency ? (
-                      <strong>
-                        <bdi dir="ltr">{scope.currency}</bdi>
-                      </strong>
-                    ) : (
-                      <span className="gap">حدد العملة</span>
-                    )}{' '}
-                    · نافذة مطابقة {scope.dateWindow} يوم
-                  </p>
-                </div>
-                <Button
-                  variant="ghost"
-                  onClick={() => setScopeOpen(!scopeOpen)}
-                  aria-expanded={scopeOpen}
-                  aria-label="تعديل نطاق المقارنة"
-                >
-                  <Pencil size={14} />
-                  {scopeOpen ? 'إغلاق' : 'خيارات متقدمة'}
-                </Button>
-              </div>
-              {scopeNeedsInput && !scopeOpen && (
-                <p className="hint">
-                  {!scope.cutoff && !scope.currency
-                    ? 'لم نستنتج التاريخ ولا العملة من الملفين؛ أضفهما من «خيارات متقدمة».'
-                    : !scope.cutoff
-                      ? 'لم نستنتج تاريخًا من الملفين؛ أضفه من «خيارات متقدمة».'
-                      : !scope.currency
-                        ? 'لم نستنتج العملة من الملفين؛ أضفها من «خيارات متقدمة».'
-                        : 'حدد دقة هذه العملة من «خيارات متقدمة»؛ لم نفترض عدد المنازل العشرية.'}
-                </p>
-              )}
-              {scopeConflict && !scopeOpen && (
-                <p className="hint warn" role="status">
-                  قيمتان مختلفتان لـ
-                  {unresolvedScope
-                    .map((field) => scopeLabels[field])
-                    .join('، ')}{' '}
-                  بين الملفين؛ اختر الصحيح من «خيارات متقدمة».
-                </p>
-              )}
-              {scopeOpen && (
-                <div className="panel stack">
-                  <div className="form-grid">
-                    <Field
-                      label="المقارنة حتى تاريخ"
-                      hint={
-                        scopeSuggestions.fields.cutoff.status === 'suggested'
-                          ? `مأخوذ من ${sideNames[scopeSuggestions.fields.cutoff.evidence[0].side === 'supplier' ? 0 : 1]}، صف ${scopeSuggestions.fields.cutoff.evidence[0].row}.`
-                          : scope.cutoff && scope.cutoff === latestDate
-                            ? 'آخر تاريخ في الملفين. الحركات بعد هذا التاريخ تُستبعد.'
-                            : 'الحركات بعد هذا التاريخ تُستبعد من المقارنة.'
-                      }
-                    >
-                      <Input
-                        type="date"
-                        aria-label="تاريخ القطع"
-                        value={scope.cutoff}
-                        onChange={(e) =>
-                          updateScope({ cutoff: e.target.value })
-                        }
-                      />
-                    </Field>
-                    <Field
-                      label="عملة الملفين"
-                      hint={
-                        scopeSuggestions.fields.currency.status === 'suggested'
-                          ? 'مأخوذة من عنوان صريح أو عمود العملة.'
-                          : 'أدخل رمزها بثلاثة أحرف، مثل SAR.'
-                      }
-                    >
-                      <Input
-                        aria-label="العملة"
-                        maxLength={3}
-                        dir="ltr"
-                        placeholder="SAR"
-                        value={scope.currency}
-                        onChange={(e) =>
-                          updateScope({
-                            currency: e.target.value.toUpperCase(),
-                          })
-                        }
-                      />
-                    </Field>
-                    <Choice
-                      label="دقة العملة"
-                      value={precisionMissing ? '' : String(scope.decimals)}
-                      onChange={(v) => {
-                        if (v) updateScope({ decimals: Number(v) });
-                      }}
-                      options={[
-                        ...(precisionMissing
-                          ? ([['', 'اختر دقة العملة']] as [string, string][])
-                          : []),
-                        ['0', 'دون منازل عشرية'],
-                        ['2', 'منزلتان — مثل SAR'],
-                        ['3', 'ثلاث منازل — مثل KWD'],
-                      ]}
-                    />
-                    <Choice
-                      label="نافذة التاريخ للمطابقة الآلية"
-                      value={String(scope.dateWindow)}
-                      onChange={(v) => updateScope({ dateWindow: Number(v) })}
-                      options={Array.from(
-                        { length: 8 },
-                        (_, i) => [String(i), `${i} يوم`] as [string, string],
-                      )}
-                    />
+          )}
+          {step === 0 && (
+            <>
+              <section className="surface">
+                <div className="section-heading">
+                  <div>
+                    <h2>لنبدأ بالملفين</h2>
+                    <p>مورد واحد · جهة واحدة · عملة واحدة</p>
                   </div>
-                  <Tick
-                    checked={balanceMode}
-                    onChange={(value) => {
-                      setBalanceMode(value);
-                      updateScope({
-                        coverageConfirmed: false,
-                        confirmed: false,
-                      });
-                      if (!value) {
-                        setMappings(
-                          (previous) =>
-                            previous.map((m) => ({
-                              ...m,
-                              opening: '',
-                              closing: '',
-                              periodStart: '',
-                            })) as [Mapping, Mapping],
-                        );
-                        setFormatChoices(freshFormatChoices());
-                      }
-                    }}
-                  >
-                    أريد تسوية الأرصدة أيضًا — تتطلب إدخال الأرصدة وأسماء الأطراف
-                  </Tick>
-                  {(balanceMode ||
-                    unresolvedScope.some((field) =>
-                      ['supplier', 'entity', 'account'].includes(field),
-                    )) && (
-                    <div className="form-grid">
-                      <Field label="المورد / الطرف المقابل">
-                        <Input
-                          aria-label="المورد"
-                          value={scope.supplier}
-                          onChange={(e) =>
-                            updateScope({ supplier: e.target.value })
-                          }
-                        />
-                      </Field>
-                      <Field label="الجهة القانونية">
-                        <Input
-                          aria-label="الجهة القانونية"
-                          value={scope.entity}
-                          onChange={(e) =>
-                            updateScope({ entity: e.target.value })
-                          }
-                        />
-                      </Field>
-                      <Field label="الحساب / المواقع المشمولة">
-                        <Input
-                          aria-label="نطاق الحساب"
-                          value={scope.account}
-                          onChange={(e) =>
-                            updateScope({ account: e.target.value })
-                          }
-                        />
-                      </Field>
-                    </div>
-                  )}
-                  {(Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
-                    (field) => scopeSuggestions.fields[field].evidence.length,
-                  ) && (
-                    <details>
-                      <summary>من أين جاءت هذه القيم؟</summary>
-                      <div className="stack" style={{ marginTop: 12 }}>
-                        {(
-                          Object.keys(scopeLabels) as ScopeSuggestionField[]
-                        ).map(
-                          (field) =>
-                            scopeSuggestions.fields[field].evidence.length >
-                              0 && (
-                              <div key={field}>
-                                <strong>
-                                  {scopeLabels[field]}
-                                  {scopeSuggestions.fields[field].status ===
-                                  'conflict'
-                                    ? ' — تعارض'
-                                    : ''}
-                                </strong>
-                                {scopeSuggestions.fields[field].evidence.map(
-                                  (item, i) => (
-                                    <p className="muted" key={i}>
-                                      <bdi>{item.value}</bdi> —{' '}
-                                      {
-                                        sideNames[
-                                          item.side === 'supplier' ? 0 : 1
-                                        ]
-                                      }
-                                      ، <bdi>{item.sheet}</bdi>، صف {item.row}
-                                    </p>
-                                  ),
-                                )}
-                              </div>
-                            ),
-                        )}
-                      </div>
-                    </details>
-                  )}
+                  <FileSpreadsheet size={23} />
                 </div>
-              )}
-            </section>
-            {files.map(
-              (file, i) =>
-                file && (
-                  <SourceConfiguration
-                    key={i}
-                    file={file}
-                    mapping={mappings[i]}
-                    proposalScopeKey={JSON.stringify(scope)}
-                    side={i}
-                    onChange={(p) => updateMapping(i, p)}
-                    validation={validated?.[i]}
-                    onNotice={setNotice}
-                    onError={setError}
-                    onPdfApply={(cuts) => void configurePdf(i, cuts)}
-                    formats={formatSuggestions[i] ?? undefined}
-                    formatChoices={formatChoices[i]}
-                    onFormatChange={(field, value) =>
-                      updateFormat(i, field, value)
-                    }
-                    balanceMode={balanceMode}
-                    directionConfirmed={
-                      directionEdited.current[i] || !!directionProofs[i]
-                    }
-                    onPdfDraftChange={(pending) =>
-                      setPdfDrafts((previous) =>
-                        previous[i] === pending
-                          ? previous
-                          : (previous.map((v, j) =>
-                              j === i ? pending : v,
-                            ) as [boolean, boolean]),
-                      )
-                    }
-                  />
-                ),
-            )}
-            <section className="surface pad stack">
-              {pdfReviewPending && (
-                <p className="hint warn">
-                  أكد مراجعة استخراج PDF في بطاقة المصدر أعلاه قبل المقارنة.
-                </p>
-              )}
-              {balanceMode && (
-                <Tick
-                  checked={scope.coverageConfirmed}
-                  onChange={(v) => updateScope({ coverageConfirmed: v })}
-                >
-                  أؤكد أن التقريرين يغطيان الفترة نفسها وأن الأرصدة التي أدخلتها
-                  صحيحة. مطلوب لتسوية الأرصدة فقط.
-                </Tick>
-              )}
-              <div className="actions">
-                <Button onClick={() => void reconcile()} disabled={!!blocked}>
-                  تحقق وقارن
-                  <ArrowLeft size={16} />
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    invalidate();
-                    setStep(0);
-                  }}
-                >
-                  العودة للملفات
-                </Button>
-              </div>
-              <p className="hint">
-                {blocked ||
-                  'بالضغط تؤكد أن الملفين لنفس المورد والجهة والحساب والعملة، وأن اتجاه المبالغ المعروض صحيح، وتبدأ المقارنة.'}
-              </p>
-            </section>
-          </fieldset>
-        )}
-        {step === 0 && !files.some(Boolean) && (
-          <section className="surface pad">
-            <label>
-              استئناف جلسة محفوظة على جهازك{' '}
-              <input
-                type="file"
-                aria-label="استئناف جلسة محلية"
-                accept=".json"
-                disabled={!!busy || !engineReady}
-                onChange={(e) => {
-                  void loadSession(e.target.files?.[0]);
-                  e.target.value = '';
-                }}
-              />
-            </label>
-            <p className="muted">
-              يُقرأ ملف الجلسة محليًا وتُعاد مطابقة مصادره قبل استعادته.
-            </p>
-          </section>
-        )}
-        {result && step >= 2 && (
-          <>
-            <div className="actions">
-              <Button
-                variant="outline"
-                disabled={!!busy}
-                onClick={() => void storeSession()}
-              >
-                حفظ جلسة للاستكمال
-              </Button>
-              <span className="muted">
-                ملف محلي يتضمن بياناتك دون تشفير؛ احتفظ به في مكان خاص.
-              </span>
-            </div>
-            <div className="metric-grid">
-              <Metric
-                label="مطابقات آلية"
-                value={String(
-                  result.matches.filter((m) => m.kind === 'auto').length,
-                )}
-                hint={`${result.caseCounts.matchedSourceRows} صف مصدر داخل حالات المطابقة`}
-              />
-              <Metric
-                label="تأكيدات يدوية"
-                value={String(
-                  result.matches.filter((m) => m.kind === 'manual').length,
-                )}
-                hint="قرارات موثقة للمراجع"
-              />
-              <Metric
-                label="حالات غير مطابقة"
-                value={String(result.caseCounts.unmatchedCases)}
-                hint={`${result.caseCounts.unmatchedSourceRows} صف مصدر في الملفين`}
-              />
-              {result.scope.coverageConfirmed || result.bridge ? (
-                <Metric
-                  label="فرق الأرصدة"
-                  value={
-                    result.bridge
-                      ? money(result.bridge.delta, scope.decimals)
-                      : '—'
-                  }
-                  hint={
-                    result.bridge ? scope.currency : 'لا تتوافر أرصدة متحققة'
-                  }
-                />
-              ) : (
-                // With balances not requested, the number that matters is how
-                // much of the source never made it into the comparison.
-                <Metric
-                  label="صفوف لم تُقرأ"
-                  value={String(skippedRows)}
-                  hint={
-                    skippedRows
-                      ? 'المقارنة غير مكتملة حتى تُعالج'
-                      : 'اكتملت قراءة الحركات؛ الاستبعادات موثقة'
-                  }
-                />
-              )}
-            </div>
-            {skippedRows > 0 && (
-              <div className="notice error" role="status">
-                {result.diagnostics
-                  .filter((d) => d.code === 'SKIPPED_ROWS')
-                  .map((d, i) => (
-                    <p key={i}>{d.message}</p>
-                  ))}
-                <p>
-                  صحح المصدر أو استبعد الصف بسبب من «تعديل الإعدادات»؛ تفاصيل كل
-                  صف في ورقة Diagnostics عند التصدير.
-                </p>
-              </div>
-            )}
-            {result.scope.coverageConfirmed && !result.balanceComparable && (
-              <div className="notice">
-                مقارنة حركات فقط: لم يتحقق اتساق الأرصدة والتغطية على أساس مشترك.
-                لا توجد تسوية أرصدة مكتملة.
-              </div>
-            )}
-            {!!onScreenDiagnostics.length && (
-              <div className="notice" role="status">
-                {onScreenDiagnostics.map((d, i) => (
-                  <p key={i}>{d.message}</p>
-                ))}
-              </div>
-            )}
-            <AccountingAssistant
-              result={result}
-              selectedId={selected || undefined}
-            />
-            {step === 2 && (
-              <>
-                <section className="surface">
-                  <div className="section-heading">
-                    <div>
-                      <h2>مساحة المراجعة</h2>
-                      <p>
-                        «دون مقابل» تعني غيابه عن الملف المقدم، وليس بالضرورة عن
-                        النظام.
-                      </p>
-                    </div>
-                    <Button
-                      variant="outline"
-                      disabled={!!busy}
-                      onClick={() => {
-                        invalidate();
-                        setStep(1);
-                      }}
-                    >
-                      تعديل الإعدادات
-                    </Button>
-                  </div>
-                  <div className="pad" style={{ paddingTop: 0 }}>
+                <div className="file-grid">
+                  {sideNames.map((s, i) => (
                     <div
-                      className="actions"
-                      style={{ justifyContent: 'space-between' }}
+                      className={`dropzone ${files[i] ? 'has-file' : ''}`}
+                      key={s}
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        void loadFile(e.dataTransfer.files[0], i);
+                      }}
                     >
-                      <Tabs
-                        value={tab}
-                        onValueChange={(v) => {
-                          setTab(String(v));
-                          setPage(0);
-                          setSelected('');
-                        }}
-                      >
-                        <TabsList aria-label="تصفية النتائج">
-                          <TabsTrigger value="exceptions">
-                            دون مقابل
-                          </TabsTrigger>
-                          <TabsTrigger value="matches">المطابقات</TabsTrigger>
-                          <TabsTrigger value="ambiguities">
-                            يحتاج مراجعة ({result.caseCounts.needsReviewCases})
-                          </TabsTrigger>
-                        </TabsList>
-                      </Tabs>
-                      <div className="actions">
-                        <Search size={16} />
-                        <Input
-                          style={{ width: 190 }}
-                          aria-label="البحث في النتائج"
-                          placeholder="مرجع أو وصف أو صف"
-                          value={query}
+                      <span className="file-icon">
+                        {files[i] ? (
+                          <FileCheck2 size={30} />
+                        ) : (
+                          <FileSpreadsheet size={30} />
+                        )}
+                      </span>
+                      <h3>{s}</h3>
+                      <p>
+                        {files[i] ? (
+                          <bdi>{files[i]!.name}</bdi>
+                        ) : i === 0 ? (
+                          'الكشف الذي استلمته من المورد'
+                        ) : (
+                          'التقرير المستخرج من نظامك المحاسبي'
+                        )}
+                      </p>
+                      <label className="file-button">
+                        {files[i] ? 'استبدال الملف' : 'اختيار ملف من الجهاز'}
+                        <input
+                          type="file"
+                          accept=".xlsx,.csv,.pdf"
+                          aria-label={s}
+                          disabled={!!busy || !engineReady}
                           onChange={(e) => {
-                            setQuery(e.target.value);
-                            setPage(0);
+                            void loadFile(e.target.files?.[0], i);
+                            e.target.value = '';
                           }}
                         />
-                      </div>
+                      </label>
+                      <small>
+                        XLSX أو CSV أو PDF نصي بلا صور · حتى 8 MB · PDF حتى 20
+                        صفحة، دون OCR للصور
+                      </small>
                     </div>
-                  </div>
-                  <div style={{ overflowX: 'auto' }}>
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          {[
-                            'المصدر / الصف',
-                            'التاريخ',
-                            'المرجع',
-                            'المبلغ',
-                            'الحالة',
-                            'المراجعة',
-                          ].map((h) => (
-                            <TableHead key={h}>{h}</TableHead>
-                          ))}
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {rows.slice(page * 30, (page + 1) * 30).map((t) => {
-                          const activeCase = result.cases.find((c) =>
-                            c.sourceTrace.some(
-                              (trace) => trace.sourceRowId === t.id,
-                            ),
-                          )!;
-                          const match =
-                            t.side === 'supplier'
-                              ? matchedBySupplier.get(t.id)
-                              : undefined;
-                          return (
-                            <TableRow key={t.id}>
-                              <TableCell>
-                                {t.side === 'supplier' ? 'المورد' : 'الدفتر'} ·{' '}
-                                {t.row}
-                              </TableCell>
-                              <TableCell className="mono">{t.date}</TableCell>
-                              <TableCell>
-                                <bdi>{t.reference || 'بلا مرجع'}</bdi>
-                                <div className="muted">
-                                  {t.description.slice(0, 55)}
-                                </div>
-                              </TableCell>
-                              <TableCell className="mono">
-                                {money(
-                                  activeCase.supplierMembers.length
-                                    ? activeCase.supplierTotal
-                                    : activeCase.ledgerTotal,
-                                  scope.decimals,
-                                )}
-                                <div className="muted">
-                                  {activeCase.supplierMembers.length}:
-                                  {activeCase.ledgerMembers.length} أعضاء الحالة
-                                </div>
-                              </TableCell>
-                              <TableCell>
-                                <span
-                                  className={`status ${match ? 'good' : 'warn'}`}
-                                >
-                                  {match
-                                    ? match.kind === 'auto'
-                                      ? 'مطابقة آلية'
-                                      : 'تأكيد يدوي'
-                                    : activeCase.classification ===
-                                        'AMOUNT_VARIANCE'
-                                      ? 'فرق مبلغ'
-                                      : activeCase.classification ===
-                                          'PAYMENT_CANDIDATE'
-                                        ? 'مرشح دفعة'
-                                        : activeCase.status === 'Rejected'
-                                          ? 'مرشح مرفوض'
-                                          : activeCase.status === 'Needs Review'
-                                            ? 'يحتاج مراجعة'
-                                            : 'غير مطابق'}
-                                </span>
-                              </TableCell>
-                              <TableCell>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  disabled={!!busy}
-                                  onClick={() => setSelected(t.id)}
-                                >
-                                  فحص
-                                </Button>
-                                {auditEvents.some(
-                                  (e) =>
-                                    e.action === 'review' &&
-                                    e.ids.includes(t.id),
-                                ) && (
-                                  <small>
-                                    استثناء راجعه المستخدم — لم يطابق
-                                  </small>
-                                )}
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })}
-                      </TableBody>
-                    </Table>
-                  </div>
-                  {!rows.length && (
-                    <div className="empty">لا توجد حركات في هذه القائمة.</div>
-                  )}
-                  <div className="surface-footer">
-                    <span>
-                      {rows.length} حالة · الصفحة {page + 1} من{' '}
-                      {Math.max(1, Math.ceil(rows.length / 30))}
-                    </span>
-                    <Pagination style={{ width: 'auto', margin: 0 }}>
-                      <PaginationContent>
-                        <PaginationItem>
-                          <Button
-                            variant="ghost"
-                            aria-label="الصفحة السابقة"
-                            disabled={page === 0}
-                            onClick={() => setPage((p) => p - 1)}
-                          >
-                            <ArrowRight size={16} />
-                          </Button>
-                        </PaginationItem>
-                        <PaginationItem>
-                          <Button
-                            variant="ghost"
-                            aria-label="الصفحة التالية"
-                            disabled={(page + 1) * 30 >= rows.length}
-                            onClick={() => setPage((p) => p + 1)}
-                          >
-                            <ArrowLeft size={16} />
-                          </Button>
-                        </PaginationItem>
-                      </PaginationContent>
-                    </Pagination>
-                  </div>
-                </section>
-                {selected && (
-                  <TransactionReview
-                    key={selected}
-                    result={result}
-                    id={selected}
-                    busy={!!busy}
-                    onClose={() => setSelected('')}
-                    onLink={(d) =>
-                      void reconcile([...decisions, d], rejected, {
-                        action: 'link',
-                        ids: [d.supplierId, d.ledgerId],
-                        note: d.note,
-                      })
-                    }
-                    onUnlink={(a, b, note) =>
-                      void reconcile(
-                        decisions.filter((d) => d.supplierId !== a),
-                        [...rejected, `${a}|${b}`],
-                        { action: 'unlink', ids: [a, b], note },
-                      )
-                    }
-                    onReview={(id, note) => {
-                      setAuditEvents((events) => [
-                        ...events,
-                        {
-                          time: new Date().toISOString(),
-                          action: 'review',
-                          ids: [id],
-                          note,
-                        },
-                      ]);
-                      setReview((r) => ({ ...r, checked: false }));
-                      setNotice(
-                        'سُجلت مراجعة الاستثناء. لم تتغير المطابقات أو الفروق.',
-                      );
-                    }}
-                  />
-                )}
-                <div
-                  className="actions"
-                  style={{ justifyContent: 'flex-end', marginTop: 20 }}
-                >
-                  <Button disabled={!!busy} onClick={() => setStep(3)}>
-                    إعداد ورقة العمل
-                    <ArrowLeft size={16} />
+                  ))}
+                </div>
+                <div className="surface-footer">
+                  <span>
+                    <LockKeyhole size={16} />
+                    لا تُرسل الملفات إلى خادم.
+                  </span>
+                  <Button
+                    disabled={!files.every(Boolean) || !!busy}
+                    onClick={() => setStep(1)}
+                  >
+                    تأكيد البيانات
+                    <ArrowLeft size={17} />
                   </Button>
                 </div>
-              </>
-            )}
-            {step === 3 && (
-              <div className="stack">
-                {result.scope.coverageConfirmed || result.bridge ? (
-                  <section className="surface pad stack">
-                    <div className="section-heading" style={{ padding: 0 }}>
-                      <h2>الأرصدة وحالة التسوية</h2>
-                      <FileCheck2 size={23} />
-                    </div>
-                    <div className="balance-lines">
-                      <div>
-                        <span>رصيد المورد</span>
-                        <bdi>
-                          {result.supplier.closing === null
-                            ? 'غير متاح'
-                            : money(result.supplier.closing, scope.decimals)}
-                        </bdi>
-                      </div>
-                      <div>
-                        <span>رصيد الدفتر</span>
-                        <bdi>
-                          {result.ledger.closing === null
-                            ? 'غير متاح'
-                            : money(result.ledger.closing, scope.decimals)}
-                        </bdi>
-                      </div>
-                      <div>
-                        <span>اتساق المصدرين</span>
-                        <span>
-                          {result.bridge
-                            ? result.balanceComparable
-                              ? 'المعادلة متحققة والتغطية مؤكدة'
-                              : 'المعادلة متحققة؛ تأكيد التغطية معلق'
-                            : 'لم يتحقق اتساق الرصيدين'}
-                        </span>
-                      </div>
-                      {result.bridge && (
-                        <>
-                          <hr className="divider" />
-                          <div>
-                            <span>فرق الرصيد الافتتاحي — سبب غير مثبت</span>
-                            <bdi>
-                              {money(
-                                result.bridge.openingAdjustment,
-                                scope.decimals,
-                              )}
-                            </bdi>
-                          </div>
-                          <div>
-                            <span>صافي آثار حالات المصالحة</span>
-                            <bdi>
-                              {money(
-                                result.bridge.itemAdjustment,
-                                scope.decimals,
-                              )}
-                            </bdi>
-                          </div>
-                          <div>
-                            <span>الرصيد المعدل حسابيًا</span>
-                            <bdi>
-                              {money(result.bridge.adjusted, scope.decimals)}
-                            </bdi>
-                          </div>
-                          <div>
-                            <span>الباقي الحسابي للجسر</span>
-                            <bdi>
-                              {money(result.bridge.residual, scope.decimals)}
-                            </bdi>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <div className="notice">
-                      حتى إذا كان الباقي صفرًا، لا يثبت ذلك أسباب الفروق أو صحة
-                      المستندات.{' '}
-                      {result.supplierOnly.length + result.ledgerOnly.length}{' '}
-                      حركة دون مقابل ما زالت موثقة للمراجعة. لا يقترح هذا الجسر
-                      قيودًا للترحيل.
-                    </div>
-                  </section>
-                ) : (
+              </section>
+              <VisualReader
+                key={`${visualRevision}:${visualCandidate ? `${visualCandidate.name}:${visualCandidate.lastModified}` : 'visual'}`}
+                candidate={visualCandidate}
+              />
+              <div className="demo-strip">
+                <div>
+                  <FlaskConical size={23} />
+                  <div>
+                    <strong>استكشف الخطوات أولًا</strong>
+                    <p>
+                      مثال يحتوي فواتير ومدفوعات ومراجع مكررة وفروقًا للمراجعة.
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={loadDemo}
+                  disabled={!!busy || !engineReady}
+                >
+                  تجربة مثال
+                </Button>
+              </div>
+            </>
+          )}
+          {step === 1 && (
+            <fieldset
+              disabled={!!busy}
+              className="stack"
+              style={{ border: 0, padding: 0, minWidth: 0 }}
+            >
+              <section className="surface pad stack">
+                <div className="summary-head">
+                  <div>
+                    <h2>نطاق المقارنة</h2>
+                    <p className="summary-line">
+                      حتى{' '}
+                      {scope.cutoff ? (
+                        <strong>
+                          <bdi dir="ltr">{scope.cutoff}</bdi>
+                        </strong>
+                      ) : (
+                        <span className="gap">حدد التاريخ</span>
+                      )}{' '}
+                      ·{' '}
+                      {scope.currency ? (
+                        <strong>
+                          <bdi dir="ltr">{scope.currency}</bdi>
+                        </strong>
+                      ) : (
+                        <span className="gap">حدد العملة</span>
+                      )}{' '}
+                      · نافذة مطابقة {scope.dateWindow} يوم
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    onClick={() => setScopeOpen(!scopeOpen)}
+                    aria-expanded={scopeOpen}
+                    aria-label="تعديل نطاق المقارنة"
+                  >
+                    <Pencil size={14} />
+                    {scopeOpen ? 'إغلاق' : 'خيارات متقدمة'}
+                  </Button>
+                </div>
+                {scopeNeedsInput && !scopeOpen && (
                   <p className="hint">
-                    ورقة العمل توثق مقارنة الحركات والاستثناءات المتبقية. لم تُطلب
-                    تسوية الأرصدة.
+                    {!scope.cutoff && !scope.currency
+                      ? 'لم نستنتج التاريخ ولا العملة من الملفين؛ أضفهما من «خيارات متقدمة».'
+                      : !scope.cutoff
+                        ? 'لم نستنتج تاريخًا من الملفين؛ أضفه من «خيارات متقدمة».'
+                        : !scope.currency
+                          ? 'لم نستنتج العملة من الملفين؛ أضفها من «خيارات متقدمة».'
+                          : 'حدد دقة هذه العملة من «خيارات متقدمة»؛ لم نفترض عدد المنازل العشرية.'}
                   </p>
                 )}
-                <section className="surface pad stack">
-                  <h2>توثيق المراجعة والتصدير</h2>
-                  <Field label="اسم المراجع — اختياري للمسودة">
-                    <Input
-                      aria-label="اسم المراجع"
-                      value={review.name}
-                      onChange={(e) =>
-                        setReview((r) => ({
-                          ...r,
-                          name: e.target.value,
-                          checked: false,
-                        }))
+                {scopeConflict && !scopeOpen && (
+                  <p className="hint warn" role="status">
+                    قيمتان مختلفتان لـ
+                    {unresolvedScope
+                      .map((field) => scopeLabels[field])
+                      .join('، ')}{' '}
+                    بين الملفين؛ اختر الصحيح من «خيارات متقدمة».
+                  </p>
+                )}
+                {scopeOpen && (
+                  <div className="panel stack">
+                    <div className="form-grid">
+                      <Field
+                        label="المقارنة حتى تاريخ"
+                        hint={
+                          scopeSuggestions.fields.cutoff.status === 'suggested'
+                            ? `مأخوذ من ${sideNames[scopeSuggestions.fields.cutoff.evidence[0].side === 'supplier' ? 0 : 1]}، صف ${scopeSuggestions.fields.cutoff.evidence[0].row}.`
+                            : scope.cutoff && scope.cutoff === latestDate
+                              ? 'آخر تاريخ في الملفين. الحركات بعد هذا التاريخ تُستبعد.'
+                              : 'الحركات بعد هذا التاريخ تُستبعد من المقارنة.'
+                        }
+                      >
+                        <Input
+                          type="date"
+                          aria-label="تاريخ القطع"
+                          value={scope.cutoff}
+                          onChange={(e) =>
+                            updateScope({ cutoff: e.target.value })
+                          }
+                        />
+                      </Field>
+                      <Field
+                        label="عملة الملفين"
+                        hint={
+                          scopeSuggestions.fields.currency.status ===
+                          'suggested'
+                            ? 'مأخوذة من عنوان صريح أو عمود العملة.'
+                            : 'أدخل رمزها بثلاثة أحرف، مثل SAR.'
+                        }
+                      >
+                        <Input
+                          aria-label="العملة"
+                          maxLength={3}
+                          dir="ltr"
+                          placeholder="SAR"
+                          value={scope.currency}
+                          onChange={(e) =>
+                            updateScope({
+                              currency: e.target.value.toUpperCase(),
+                            })
+                          }
+                        />
+                      </Field>
+                      <Choice
+                        label="دقة العملة"
+                        value={precisionMissing ? '' : String(scope.decimals)}
+                        onChange={(v) => {
+                          if (v) updateScope({ decimals: Number(v) });
+                        }}
+                        options={[
+                          ...(precisionMissing
+                            ? ([['', 'اختر دقة العملة']] as [string, string][])
+                            : []),
+                          ['0', 'دون منازل عشرية'],
+                          ['2', 'منزلتان — مثل SAR'],
+                          ['3', 'ثلاث منازل — مثل KWD'],
+                        ]}
+                      />
+                      <Choice
+                        label="نافذة التاريخ للمطابقة الآلية"
+                        value={String(scope.dateWindow)}
+                        onChange={(v) => updateScope({ dateWindow: Number(v) })}
+                        options={Array.from(
+                          { length: 8 },
+                          (_, i) => [String(i), `${i} يوم`] as [string, string],
+                        )}
+                      />
+                    </div>
+                    <Tick
+                      checked={balanceMode}
+                      onChange={(value) => {
+                        setBalanceMode(value);
+                        updateScope({
+                          coverageConfirmed: false,
+                          confirmed: false,
+                        });
+                        if (!value) {
+                          setMappings(
+                            (previous) =>
+                              previous.map((m) => ({
+                                ...m,
+                                opening: '',
+                                closing: '',
+                                periodStart: '',
+                              })) as [Mapping, Mapping],
+                          );
+                          setFormatChoices(freshFormatChoices());
+                        }
+                      }}
+                    >
+                      أريد تسوية الأرصدة أيضًا — تتطلب إدخال الأرصدة وأسماء الأطراف
+                    </Tick>
+                    {(balanceMode ||
+                      unresolvedScope.some((field) =>
+                        ['supplier', 'entity', 'account'].includes(field),
+                      )) && (
+                      <div className="form-grid">
+                        <Field label="المورد / الطرف المقابل">
+                          <Input
+                            aria-label="المورد"
+                            value={scope.supplier}
+                            onChange={(e) =>
+                              updateScope({ supplier: e.target.value })
+                            }
+                          />
+                        </Field>
+                        <Field label="الجهة القانونية">
+                          <Input
+                            aria-label="الجهة القانونية"
+                            value={scope.entity}
+                            onChange={(e) =>
+                              updateScope({ entity: e.target.value })
+                            }
+                          />
+                        </Field>
+                        <Field label="الحساب / المواقع المشمولة">
+                          <Input
+                            aria-label="نطاق الحساب"
+                            value={scope.account}
+                            onChange={(e) =>
+                              updateScope({ account: e.target.value })
+                            }
+                          />
+                        </Field>
+                      </div>
+                    )}
+                    {(Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
+                      (field) => scopeSuggestions.fields[field].evidence.length,
+                    ) && (
+                      <details>
+                        <summary>من أين جاءت هذه القيم؟</summary>
+                        <div className="stack" style={{ marginTop: 12 }}>
+                          {(
+                            Object.keys(scopeLabels) as ScopeSuggestionField[]
+                          ).map(
+                            (field) =>
+                              scopeSuggestions.fields[field].evidence.length >
+                                0 && (
+                                <div key={field}>
+                                  <strong>
+                                    {scopeLabels[field]}
+                                    {scopeSuggestions.fields[field].status ===
+                                    'conflict'
+                                      ? ' — تعارض'
+                                      : ''}
+                                  </strong>
+                                  {scopeSuggestions.fields[field].evidence.map(
+                                    (item, i) => (
+                                      <p className="muted" key={i}>
+                                        <bdi>{item.value}</bdi> —{' '}
+                                        {
+                                          sideNames[
+                                            item.side === 'supplier' ? 0 : 1
+                                          ]
+                                        }
+                                        ، <bdi>{item.sheet}</bdi>، صف {item.row}
+                                      </p>
+                                    ),
+                                  )}
+                                </div>
+                              ),
+                          )}
+                        </div>
+                      </details>
+                    )}
+                  </div>
+                )}
+              </section>
+              {files.map(
+                (file, i) =>
+                  file && (
+                    <SourceConfiguration
+                      key={i}
+                      file={file}
+                      mapping={mappings[i]}
+                      proposalScopeKey={JSON.stringify(scope)}
+                      side={i}
+                      onChange={(p) => updateMapping(i, p)}
+                      validation={validated?.[i]}
+                      onNotice={setNotice}
+                      onError={setError}
+                      onPdfApply={(cuts) => void configurePdf(i, cuts)}
+                      formats={formatSuggestions[i] ?? undefined}
+                      formatChoices={formatChoices[i]}
+                      onFormatChange={(field, value) =>
+                        updateFormat(i, field, value)
+                      }
+                      balanceMode={balanceMode}
+                      directionConfirmed={
+                        directionEdited.current[i] || !!directionProofs[i]
+                      }
+                      onPdfDraftChange={(pending) =>
+                        setPdfDrafts((previous) =>
+                          previous[i] === pending
+                            ? previous
+                            : (previous.map((v, j) =>
+                                j === i ? pending : v,
+                              ) as [boolean, boolean]),
+                        )
                       }
                     />
-                  </Field>
-                  <Field label="ملاحظات عامة / أدلة تحتاج متابعة">
-                    <Textarea
-                      aria-label="ملاحظات المراجعة"
-                      value={review.notes}
-                      maxLength={3000}
-                      onChange={(e) =>
-                        setReview((r) => ({
-                          ...r,
-                          notes: e.target.value,
-                          checked: false,
-                        }))
-                      }
-                    />
-                  </Field>
+                  ),
+              )}
+              <section className="surface pad stack">
+                {pdfReviewPending && (
+                  <p className="hint warn">
+                    أكد مراجعة استخراج PDF في بطاقة المصدر أعلاه قبل المقارنة.
+                  </p>
+                )}
+                {balanceMode && (
                   <Tick
-                    checked={review.checked}
-                    onChange={(v) => {
-                      if (v && !review.name.trim()) {
-                        setError('أدخل اسم المراجع قبل تأكيد المراجعة.');
-                        return;
-                      }
-                      setReview((r) => ({ ...r, checked: v }));
+                    checked={scope.coverageConfirmed}
+                    onChange={(v) => updateScope({ coverageConfirmed: v })}
+                  >
+                    أؤكد أن التقريرين يغطيان الفترة نفسها وأن الأرصدة التي
+                    أدخلتها صحيحة. مطلوب لتسوية الأرصدة فقط.
+                  </Tick>
+                )}
+                <div className="actions">
+                  <Button onClick={() => void reconcile()} disabled={!!blocked}>
+                    تحقق وقارن
+                    <ArrowLeft size={16} />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      invalidate();
+                      setStep(0);
                     }}
                   >
-                    راجعت ورقة العمل والاستثناءات المتبقية. هذا إقرار محلي مني
-                    وليس اعتمادًا آليًا من الموقع.
-                  </Tick>
-                  <p className="muted">
-                    يتضمن Excel الملخص والمصادر والمطابقات والاقتراحات
-                    والاستثناءات والاستبعادات والقواعد وإصدار المحرك. يمكنك تصدير
-                    مسودة دون تأكيد المراجعة.
+                    العودة للملفات
+                  </Button>
+                </div>
+                <p className="hint">
+                  {blocked ||
+                    'بالضغط تؤكد أن الملفين لنفس المورد والجهة والحساب والعملة، وأن اتجاه المبالغ المعروض صحيح، وتبدأ المقارنة.'}
+                </p>
+              </section>
+            </fieldset>
+          )}
+          {step === 0 && !files.some(Boolean) && (
+            <section className="surface pad">
+              <label>
+                استئناف جلسة محفوظة على جهازك{' '}
+                <input
+                  type="file"
+                  aria-label="استئناف جلسة محلية"
+                  accept=".json"
+                  disabled={!!busy || !engineReady}
+                  onChange={(e) => {
+                    void loadSession(e.target.files?.[0]);
+                    e.target.value = '';
+                  }}
+                />
+              </label>
+              <p className="muted">
+                يُقرأ ملف الجلسة محليًا وتُعاد مطابقة مصادره قبل استعادته.
+              </p>
+            </section>
+          )}
+          {result && step >= 2 && (
+            <>
+              <div className="actions">
+                <Button
+                  variant="outline"
+                  disabled={!!busy}
+                  onClick={() => void storeSession()}
+                >
+                  حفظ جلسة للاستكمال
+                </Button>
+                <span className="muted">
+                  ملف محلي يتضمن بياناتك دون تشفير؛ احتفظ به في مكان خاص.
+                </span>
+              </div>
+              <div className="metric-grid">
+                <Metric
+                  label="مطابقات آلية"
+                  value={String(
+                    result.matches.filter((m) => m.kind === 'auto').length,
+                  )}
+                  hint={`${result.caseCounts.matchedSourceRows} صف مصدر داخل حالات المطابقة`}
+                />
+                <Metric
+                  label="تأكيدات يدوية"
+                  value={String(
+                    result.matches.filter((m) => m.kind === 'manual').length,
+                  )}
+                  hint="قرارات موثقة للمراجع"
+                />
+                <Metric
+                  label="حالات غير مطابقة"
+                  value={String(result.caseCounts.unmatchedCases)}
+                  hint={`${result.caseCounts.unmatchedSourceRows} صف مصدر في الملفين`}
+                />
+                {result.scope.coverageConfirmed || result.bridge ? (
+                  <Metric
+                    label="فرق الأرصدة"
+                    value={
+                      result.bridge
+                        ? money(result.bridge.delta, scope.decimals)
+                        : '—'
+                    }
+                    hint={
+                      result.bridge ? scope.currency : 'لا تتوافر أرصدة متحققة'
+                    }
+                  />
+                ) : (
+                  // With balances not requested, the number that matters is how
+                  // much of the source never made it into the comparison.
+                  <Metric
+                    label="صفوف لم تُقرأ"
+                    value={String(skippedRows)}
+                    hint={
+                      skippedRows
+                        ? 'المقارنة غير مكتملة حتى تُعالج'
+                        : 'اكتملت قراءة الحركات؛ الاستبعادات موثقة'
+                    }
+                  />
+                )}
+              </div>
+              {skippedRows > 0 && (
+                <div className="notice error" role="status">
+                  {result.diagnostics
+                    .filter((d) => d.code === 'SKIPPED_ROWS')
+                    .map((d, i) => (
+                      <p key={i}>{d.message}</p>
+                    ))}
+                  <p>
+                    صحح المصدر أو استبعد الصف بسبب من «تعديل الإعدادات»؛ تفاصيل
+                    كل صف في ورقة Diagnostics عند التصدير.
                   </p>
-                  <div className="actions">
-                    <Button onClick={() => void download()} disabled={!!busy}>
-                      <Download size={17} />
-                      {review.checked
-                        ? 'تنزيل ورقة العمل'
-                        : 'تنزيل مسودة Excel'}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={() => setStep(2)}
-                      disabled={!!busy}
-                    >
-                      العودة للمراجعة
+                </div>
+              )}
+              {result.scope.coverageConfirmed && !result.balanceComparable && (
+                <div className="notice">
+                  مقارنة حركات فقط: لم يتحقق اتساق الأرصدة والتغطية على أساس
+                  مشترك. لا توجد تسوية أرصدة مكتملة.
+                </div>
+              )}
+              {!!onScreenDiagnostics.length && (
+                <div className="notice" role="status">
+                  {onScreenDiagnostics.map((d, i) => (
+                    <p key={i}>{d.message}</p>
+                  ))}
+                </div>
+              )}
+              <AccountingAssistant
+                result={result}
+                selectedId={selected || undefined}
+              />
+              {step === 2 && (
+                <>
+                  <section className="surface">
+                    <div className="section-heading">
+                      <div>
+                        <h2>مساحة المراجعة</h2>
+                        <p>
+                          «دون مقابل» تعني غيابه عن الملف المقدم، وليس بالضرورة
+                          عن النظام.
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        disabled={!!busy}
+                        onClick={() => {
+                          invalidate();
+                          setStep(1);
+                        }}
+                      >
+                        تعديل الإعدادات
+                      </Button>
+                    </div>
+                    <div className="pad" style={{ paddingTop: 0 }}>
+                      <div
+                        className="actions"
+                        style={{ justifyContent: 'space-between' }}
+                      >
+                        <Tabs
+                          value={tab}
+                          onValueChange={(v) => {
+                            setTab(String(v));
+                            setPage(0);
+                            setSelected('');
+                          }}
+                        >
+                          <TabsList aria-label="تصفية النتائج">
+                            <TabsTrigger value="exceptions">
+                              دون مقابل
+                            </TabsTrigger>
+                            <TabsTrigger value="matches">المطابقات</TabsTrigger>
+                            <TabsTrigger value="ambiguities">
+                              يحتاج مراجعة ({result.caseCounts.needsReviewCases}
+                              )
+                            </TabsTrigger>
+                          </TabsList>
+                        </Tabs>
+                        <div className="actions">
+                          <Search size={16} />
+                          <Input
+                            style={{ width: 190 }}
+                            aria-label="البحث في النتائج"
+                            placeholder="مرجع أو وصف أو صف"
+                            value={query}
+                            onChange={(e) => {
+                              setQuery(e.target.value);
+                              setPage(0);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{ overflowX: 'auto' }}>
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            {[
+                              'المصدر / الصف',
+                              'التاريخ',
+                              'المرجع',
+                              'المبلغ',
+                              'الحالة',
+                              'المراجعة',
+                            ].map((h) => (
+                              <TableHead key={h}>{h}</TableHead>
+                            ))}
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {rows.slice(page * 30, (page + 1) * 30).map((t) => {
+                            const activeCase = result.cases.find((c) =>
+                              c.sourceTrace.some(
+                                (trace) => trace.sourceRowId === t.id,
+                              ),
+                            )!;
+                            const match =
+                              t.side === 'supplier'
+                                ? matchedBySupplier.get(t.id)
+                                : undefined;
+                            return (
+                              <TableRow key={t.id}>
+                                <TableCell>
+                                  {t.side === 'supplier' ? 'المورد' : 'الدفتر'}{' '}
+                                  · {t.row}
+                                </TableCell>
+                                <TableCell className="mono">{t.date}</TableCell>
+                                <TableCell>
+                                  <bdi>{t.reference || 'بلا مرجع'}</bdi>
+                                  <div className="muted">
+                                    {t.description.slice(0, 55)}
+                                  </div>
+                                </TableCell>
+                                <TableCell className="mono">
+                                  {money(
+                                    activeCase.supplierMembers.length
+                                      ? activeCase.supplierTotal
+                                      : activeCase.ledgerTotal,
+                                    scope.decimals,
+                                  )}
+                                  <div className="muted">
+                                    {activeCase.supplierMembers.length}:
+                                    {activeCase.ledgerMembers.length} أعضاء
+                                    الحالة
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  <span
+                                    className={`status ${match ? 'good' : 'warn'}`}
+                                  >
+                                    {match
+                                      ? match.kind === 'auto'
+                                        ? 'مطابقة آلية'
+                                        : 'تأكيد يدوي'
+                                      : activeCase.classification ===
+                                          'AMOUNT_VARIANCE'
+                                        ? 'فرق مبلغ'
+                                        : activeCase.classification ===
+                                            'PAYMENT_CANDIDATE'
+                                          ? 'مرشح دفعة'
+                                          : activeCase.status === 'Rejected'
+                                            ? 'مرشح مرفوض'
+                                            : activeCase.status ===
+                                                'Needs Review'
+                                              ? 'يحتاج مراجعة'
+                                              : 'غير مطابق'}
+                                  </span>
+                                </TableCell>
+                                <TableCell>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    disabled={!!busy}
+                                    onClick={() => setSelected(t.id)}
+                                  >
+                                    فحص
+                                  </Button>
+                                  {auditEvents.some(
+                                    (e) =>
+                                      e.action === 'review' &&
+                                      e.ids.includes(t.id),
+                                  ) && (
+                                    <small>
+                                      استثناء راجعه المستخدم — لم يطابق
+                                    </small>
+                                  )}
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
+                    </div>
+                    {!rows.length && (
+                      <div className="empty">لا توجد حركات في هذه القائمة.</div>
+                    )}
+                    <div className="surface-footer">
+                      <span>
+                        {rows.length} حالة · الصفحة {page + 1} من{' '}
+                        {Math.max(1, Math.ceil(rows.length / 30))}
+                      </span>
+                      <Pagination style={{ width: 'auto', margin: 0 }}>
+                        <PaginationContent>
+                          <PaginationItem>
+                            <Button
+                              variant="ghost"
+                              aria-label="الصفحة السابقة"
+                              disabled={page === 0}
+                              onClick={() => setPage((p) => p - 1)}
+                            >
+                              <ArrowRight size={16} />
+                            </Button>
+                          </PaginationItem>
+                          <PaginationItem>
+                            <Button
+                              variant="ghost"
+                              aria-label="الصفحة التالية"
+                              disabled={(page + 1) * 30 >= rows.length}
+                              onClick={() => setPage((p) => p + 1)}
+                            >
+                              <ArrowLeft size={16} />
+                            </Button>
+                          </PaginationItem>
+                        </PaginationContent>
+                      </Pagination>
+                    </div>
+                  </section>
+                  {selected && (
+                    <TransactionReview
+                      key={selected}
+                      result={result}
+                      id={selected}
+                      busy={!!busy}
+                      onClose={() => setSelected('')}
+                      onLink={(d) =>
+                        void reconcile([...decisions, d], rejected, {
+                          action: 'link',
+                          ids: [d.supplierId, d.ledgerId],
+                          note: d.note,
+                        })
+                      }
+                      onUnlink={(a, b, note) =>
+                        void reconcile(
+                          decisions.filter((d) => d.supplierId !== a),
+                          [...rejected, `${a}|${b}`],
+                          { action: 'unlink', ids: [a, b], note },
+                        )
+                      }
+                      onReview={(id, note) => {
+                        setAuditEvents((events) => [
+                          ...events,
+                          {
+                            time: new Date().toISOString(),
+                            action: 'review',
+                            ids: [id],
+                            note,
+                          },
+                        ]);
+                        setReview((r) => ({ ...r, checked: false }));
+                        setNotice(
+                          'سُجلت مراجعة الاستثناء. لم تتغير المطابقات أو الفروق.',
+                        );
+                      }}
+                    />
+                  )}
+                  <div
+                    className="actions"
+                    style={{ justifyContent: 'flex-end', marginTop: 20 }}
+                  >
+                    <Button disabled={!!busy} onClick={() => setStep(3)}>
+                      إعداد ورقة العمل
+                      <ArrowLeft size={16} />
                     </Button>
                   </div>
-                </section>
-              </div>
-            )}
-          </>
-        )}
-        <footer className="footnote">
-          المطابقة تساعدك على المراجعة؛ لا تعني اعتمادًا محاسبيًا. لا يُحفظ العمل بعد
-          إغلاق الجلسة.
-          <br />
-          <button
-            onClick={() => setPrivacy(!privacy)}
-            style={{ textDecoration: 'underline', marginTop: 8 }}
-          >
-            <CircleHelp
-              size={13}
-              style={{ display: 'inline', marginLeft: 5 }}
-            />
-            الخصوصية وحدود النسخة
-          </button>{' '}
-          · {ENGINE_VERSION}
-        </footer>
+                </>
+              )}
+              {step === 3 && (
+                <div className="stack">
+                  {result.scope.coverageConfirmed || result.bridge ? (
+                    <section className="surface pad stack">
+                      <div className="section-heading" style={{ padding: 0 }}>
+                        <h2>الأرصدة وحالة التسوية</h2>
+                        <FileCheck2 size={23} />
+                      </div>
+                      <div className="balance-lines">
+                        <div>
+                          <span>رصيد المورد</span>
+                          <bdi>
+                            {result.supplier.closing === null
+                              ? 'غير متاح'
+                              : money(result.supplier.closing, scope.decimals)}
+                          </bdi>
+                        </div>
+                        <div>
+                          <span>رصيد الدفتر</span>
+                          <bdi>
+                            {result.ledger.closing === null
+                              ? 'غير متاح'
+                              : money(result.ledger.closing, scope.decimals)}
+                          </bdi>
+                        </div>
+                        <div>
+                          <span>اتساق المصدرين</span>
+                          <span>
+                            {result.bridge
+                              ? result.balanceComparable
+                                ? 'المعادلة متحققة والتغطية مؤكدة'
+                                : 'المعادلة متحققة؛ تأكيد التغطية معلق'
+                              : 'لم يتحقق اتساق الرصيدين'}
+                          </span>
+                        </div>
+                        {result.bridge && (
+                          <>
+                            <hr className="divider" />
+                            <div>
+                              <span>فرق الرصيد الافتتاحي — سبب غير مثبت</span>
+                              <bdi>
+                                {money(
+                                  result.bridge.openingAdjustment,
+                                  scope.decimals,
+                                )}
+                              </bdi>
+                            </div>
+                            <div>
+                              <span>صافي آثار حالات المصالحة</span>
+                              <bdi>
+                                {money(
+                                  result.bridge.itemAdjustment,
+                                  scope.decimals,
+                                )}
+                              </bdi>
+                            </div>
+                            <div>
+                              <span>الرصيد المعدل حسابيًا</span>
+                              <bdi>
+                                {money(result.bridge.adjusted, scope.decimals)}
+                              </bdi>
+                            </div>
+                            <div>
+                              <span>الباقي الحسابي للجسر</span>
+                              <bdi>
+                                {money(result.bridge.residual, scope.decimals)}
+                              </bdi>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      <div className="notice">
+                        حتى إذا كان الباقي صفرًا، لا يثبت ذلك أسباب الفروق أو صحة
+                        المستندات.{' '}
+                        {result.supplierOnly.length + result.ledgerOnly.length}{' '}
+                        حركة دون مقابل ما زالت موثقة للمراجعة. لا يقترح هذا الجسر
+                        قيودًا للترحيل.
+                      </div>
+                    </section>
+                  ) : (
+                    <p className="hint">
+                      ورقة العمل توثق مقارنة الحركات والاستثناءات المتبقية. لم
+                      تُطلب تسوية الأرصدة.
+                    </p>
+                  )}
+                  <section className="surface pad stack">
+                    <h2>توثيق المراجعة والتصدير</h2>
+                    <Field label="اسم المراجع — اختياري للمسودة">
+                      <Input
+                        aria-label="اسم المراجع"
+                        value={review.name}
+                        onChange={(e) =>
+                          setReview((r) => ({
+                            ...r,
+                            name: e.target.value,
+                            checked: false,
+                          }))
+                        }
+                      />
+                    </Field>
+                    <Field label="ملاحظات عامة / أدلة تحتاج متابعة">
+                      <Textarea
+                        aria-label="ملاحظات المراجعة"
+                        value={review.notes}
+                        maxLength={3000}
+                        onChange={(e) =>
+                          setReview((r) => ({
+                            ...r,
+                            notes: e.target.value,
+                            checked: false,
+                          }))
+                        }
+                      />
+                    </Field>
+                    <Tick
+                      checked={review.checked}
+                      onChange={(v) => {
+                        if (v && !review.name.trim()) {
+                          setError('أدخل اسم المراجع قبل تأكيد المراجعة.');
+                          return;
+                        }
+                        setReview((r) => ({ ...r, checked: v }));
+                      }}
+                    >
+                      راجعت ورقة العمل والاستثناءات المتبقية. هذا إقرار محلي مني
+                      وليس اعتمادًا آليًا من الموقع.
+                    </Tick>
+                    <p className="muted">
+                      يتضمن Excel الملخص والمصادر والمطابقات والاقتراحات
+                      والاستثناءات والاستبعادات والقواعد وإصدار المحرك. يمكنك
+                      تصدير مسودة دون تأكيد المراجعة.
+                    </p>
+                    <div className="actions">
+                      <Button onClick={() => void download()} disabled={!!busy}>
+                        <Download size={17} />
+                        {review.checked
+                          ? 'تنزيل ورقة العمل'
+                          : 'تنزيل مسودة Excel'}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => setStep(2)}
+                        disabled={!!busy}
+                      >
+                        العودة للمراجعة
+                      </Button>
+                    </div>
+                  </section>
+                </div>
+              )}
+            </>
+          )}
+          <footer className="footnote">
+            المطابقة تساعدك على المراجعة؛ لا تعني اعتمادًا محاسبيًا. لا يُحفظ العمل
+            بعد إغلاق الجلسة.
+            <br />
+            <button
+              onClick={togglePrivacy}
+              aria-expanded={privacy}
+              style={{ textDecoration: 'underline', marginTop: 8 }}
+            >
+              <CircleHelp
+                size={13}
+                style={{ display: 'inline', marginLeft: 5 }}
+              />
+              الخصوصية وحدود النسخة
+            </button>{' '}
+            · {APP_VERSION}
+          </footer>
+        </div>
+        {showLanding && <LandingDetails />}
       </main>
+      <footer className="site-footer">
+        <a
+          className="brand footer-brand"
+          href={showLanding ? '#top' : '#reconciliation'}
+          aria-label="تراصف"
+        >
+          <BrandMark />
+          <BrandWordmark />
+        </a>
+        <p>دقّة تمنحك وضوحًا أكبر.</p>
+        <span dir="ltr">BUILT FOR ACCOUNTANTS</span>
+      </footer>
     </div>
   );
 }

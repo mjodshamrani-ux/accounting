@@ -261,7 +261,7 @@ export function addCaseWorksheets(
         ? 'Compare the original invoice, postings and adjustments; document the reason for the variance.'
         : c.classification === 'PAYMENT_CANDIDATE'
           ? 'Confirm the bank transfer or remittance advice and both payment references.'
-          : 'Inspect the linked source documents and record a supported decision in Mizan.',
+          : 'Inspect the linked source documents and record a supported decision in TARASUF.',
       c.reviewerDecision ?? 'Pending',
       c.reviewerReason ?? '',
       c.status,
@@ -473,7 +473,7 @@ export function addCaseWorksheets(
       ['Notes', review.notes],
       [
         'Workbook Mode',
-        'Snapshot. Editing this workbook does not change Mizan decisions, evidence or matching status. Record decisions in Mizan and export a new snapshot.',
+        'Snapshot. Editing this workbook does not change TARASUF decisions, evidence or matching status. Record decisions in TARASUF and export a new snapshot.',
       ],
       [
         'Review History',

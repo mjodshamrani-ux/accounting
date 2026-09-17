@@ -169,6 +169,7 @@ test('a real synthetic export reimports the appropriate source copy and does not
     assert.equal(selection.mapping.periodStart, '');
     assert.deepEqual(selection.mapping.excluded, {});
     assert.notEqual(selection.mapping.pdfReviewed, true);
+    assert.match(selection.notice, /مصدَّر من تراصف/);
     assert.match(selection.notice, /لم تُستعد/);
     const normalized = normalizeSource(file, selection.mapping, scope, side);
     const previous = side === 'supplier' ? supplier : ledger;

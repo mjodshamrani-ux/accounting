@@ -601,7 +601,7 @@ export async function exportWorkbook(
       'النتيجة لا تطابق إعادة الحساب من المصدر؛ أعد المقارنة قبل التصدير',
     );
   const book = new ExcelJS.Workbook();
-  book.creator = 'Mizan Local';
+  book.creator = 'Tarasuf Local';
   book.created = new Date();
   const dp = result.scope.decimals;
   addCaseWorksheets(book, result, verifiedFiles, review, validateCellText);

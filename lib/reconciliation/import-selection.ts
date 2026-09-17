@@ -74,7 +74,7 @@ export function selectImportMapping(
     return {
       mapping: inferMapping(file, sheet),
       kind: 'workpaper',
-      notice: `ملف عمل مصدَّر من ميزان؛ اخترنا ورقة ${file.sheets[sheet].name}. لم تُستعد قرارات المطابقة ولا الأرصدة ولا تأكيدات النطاق السابقة.`,
+      notice: `ملف عمل مصدَّر من تراصف؛ اخترنا ورقة ${file.sheets[sheet].name}. لم تُستعد قرارات المطابقة ولا الأرصدة ولا تأكيدات النطاق السابقة.`,
     };
   }
   const candidates = file.sheets.flatMap((sheet, index) => {

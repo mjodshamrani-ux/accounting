@@ -69,6 +69,7 @@ test('Excel export roundtrip retains controls/source and never turns input into 
   });
   const wb = new ExcelJS.Workbook();
   await wb.xlsx.load(b);
+  assert.equal(wb.creator, 'Tarasuf Local');
   assert.equal(wb.getWorksheet('Matches')!.rowCount, 3);
   assert.equal(wb.getWorksheet('Parsed Supplier Source')!.rowCount, 10);
   let formulas = 0;
@@ -92,4 +93,15 @@ test('Excel export roundtrip retains controls/source and never turns input into 
   const signoff = wb.getWorksheet('Review Sign-off')!;
   assert.equal(signoff.getCell('B7').value, '=1+1');
   assert.equal(signoff.getCell('B7').type, ExcelJS.ValueType.String);
+  assert.match(String(signoff.getCell('B8').value), /TARASUF/);
+  assert.doesNotMatch(String(signoff.getCell('B8').value), /Mizan/);
+  assert.ok(
+    wb
+      .getWorksheet('Needs Review')!
+      .getColumn(10)
+      .values.some(
+        (value) =>
+          typeof value === 'string' && value.includes('decision in TARASUF'),
+      ),
+  );
 });

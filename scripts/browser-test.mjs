@@ -1,5 +1,10 @@
 import { chromium } from 'playwright';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
+import {
+  verifyBrandLanding,
+  verifyNarrowLayouts,
+  verifyWorkflowBrand,
+} from './brand-browser-cases.mjs';
 import { createServer } from 'node:http';
 import { readFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
@@ -168,10 +173,12 @@ try {
     true,
   );
   await mkdir('work/qa', { recursive: true });
+  await verifyBrandLanding(page);
   await page.screenshot({ path: 'work/qa/home.png', fullPage: true });
   // Everything after initial preload must work without a network connection, including first comparison and export.
   await context.setOffline(true);
   await page.getByRole('button', { name: 'تجربة مثال', exact: true }).click();
+  await verifyWorkflowBrand(page, 'confirm');
   // Balance reconciliation is opt-in and lives behind the scope card's edit
   // action, so nothing about it is on the default path.
   await page
@@ -185,6 +192,7 @@ try {
   await page
     .getByRole('heading', { name: 'مساحة المراجعة' })
     .waitFor({ timeout: 20000 });
+  await verifyWorkflowBrand(page, 'review');
   assert.equal(
     await page.locator('.metric').nth(0).locator('strong').innerText(),
     '2',
@@ -222,6 +230,7 @@ try {
     () => document.querySelector('.metric strong')?.textContent === '1',
   );
   await page.getByRole('button', { name: 'إعداد ورقة العمل' }).click();
+  await verifyWorkflowBrand(page, 'export');
   await page
     .getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true })
     .fill('bad\u0008text');
@@ -280,6 +289,7 @@ try {
     () => document.documentElement.scrollWidth > window.innerWidth + 2,
   );
   assert.equal(overflow, false, 'mobile layout overflow');
+  await verifyNarrowLayouts(page, 'confirmation');
   // Re-open independently and exercise an actual CSV file selection, not only in-memory demo data.
   await context.setOffline(false);
   const uploadPage = await context.newPage();
@@ -1720,6 +1730,10 @@ try {
         checks: [
           'GitHub subpath assets',
           'production CSP',
+          'TARASUF title, actual local font, two ungated uploads and one semantic title',
+          'decorative scene pause/resume and reduced-motion stops all animations',
+          '390px and 320px landing and confirmation layouts without page overflow',
+          'offline confirm/review/export lettering decodes with correct heading focus',
           'offline first comparison',
           'engine/io cases run separately',
           'grounded assistant offline',
