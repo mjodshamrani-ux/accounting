@@ -41,134 +41,142 @@
 }
 .tarasuf-benefits-strip {
   display: grid;
-  grid-template-columns: 1.06fr 1fr 1fr;
-  border-block: 1px solid #e8eaf2;
-  padding-block: 34px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 22px;
 }
 .tarasuf-benefit {
   position: relative;
-  min-width: 0;
-  padding: 0 34px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-.tarasuf-benefit:first-child {
-  padding-inline-start: 12px;
-}
-.tarasuf-benefit:last-child {
-  padding-inline-end: 12px;
-}
-.tarasuf-benefit + .tarasuf-benefit {
-  border-inline-start: 1px solid #e8eaf2;
-}
-.tarasuf-benefit-symbol {
-  position: relative;
-  width: 52px;
-  height: 52px;
-  margin-bottom: 22px;
-  display: grid;
-  place-items: center;
-  color: #6053bd;
-  border-radius: 15px;
-  background: linear-gradient(145deg, #f3f7ff, #f5f0fc);
+  min-width: 0;
+  min-height: 463px;
+  padding: 30px 32px 18px;
+  border: 1px solid #e2e8f3;
+  border-radius: 23px;
+  overflow: hidden;
   isolation: isolate;
+  background: #fbfcff;
 }
-.tarasuf-benefit-local .tarasuf-benefit-symbol {
-  color: #3975ca;
+.tarasuf-benefit-local {
+  grid-column: span 7;
+  background: linear-gradient(145deg, #fcfdff, #f3f6fd);
 }
-.tarasuf-benefit-evidence .tarasuf-benefit-symbol {
-  color: #8255b7;
+.tarasuf-benefit-evidence {
+  grid-column: span 5;
+  background: linear-gradient(150deg, #fff, #f7f8fc);
 }
-.tarasuf-symbol-orbit {
-  position: absolute;
-  inset: -5px;
-  border: 1px solid #d8e7f7;
-  border-radius: 20px;
-  clip-path: polygon(
-    0 0,
-    60% 0,
-    60% 16%,
-    100% 16%,
-    100% 100%,
-    40% 100%,
-    40% 84%,
-    0 84%
-  );
+.tarasuf-benefit-flow {
+  grid-column: span 5;
+  background: linear-gradient(145deg, #fcfdff, #f3f7fc);
 }
-.tarasuf-symbol-status {
-  position: absolute;
-  bottom: -3px;
-  inset-inline-end: -2px;
-  display: grid;
-  place-items: center;
-  width: 17px;
-  height: 17px;
-  background: #3975ca;
-  color: white;
-  border: 3px solid white;
-  border-radius: 50%;
+.tarasuf-benefit-assistant {
+  grid-column: span 7;
+  background: linear-gradient(145deg, #fdfcff, #f5f4fc);
 }
-.tarasuf-flow-line,
-.tarasuf-symbol-trace {
-  position: absolute;
-  width: 15px;
-  height: 3px;
-  border-radius: 3px;
-  background: #d9d5f3;
-  inset-inline-end: -5px;
-  top: 11px;
-}
-.tarasuf-flow-line::after,
-.tarasuf-symbol-trace::after {
-  content: '';
-  position: absolute;
-  width: 10px;
-  height: 3px;
-  border-radius: 3px;
-  background: #d9d5f3;
-  top: 29px;
-  left: 39px;
+.tarasuf-benefit-copy {
+  position: relative;
+  z-index: 1;
 }
 .tarasuf-benefit-label {
-  color: #78698d;
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7890;
+  font-size: 13px;
   line-height: 1.8;
-  margin-bottom: 7px;
+  margin-bottom: 11px;
+}
+.tarasuf-benefit-label > span {
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #6896d8;
+  box-shadow: 0 0 0 4px #6896d80c;
+}
+.tarasuf-benefit-evidence .tarasuf-benefit-label > span,
+.tarasuf-benefit-assistant .tarasuf-benefit-label > span {
+  background: #9980cc;
 }
 .tarasuf-benefit h3 {
-  font-size: 17px;
-  color: #172a43;
-  font-weight: 650;
-  line-height: 1.9;
+  font-family: 'Thmanyah Serif Display', 'Noto Sans Arabic', serif;
+  font-synthesis: none;
+  font-size: clamp(23px, 2.3vw, 30px);
+  color: #192c48;
+  font-weight: 700;
+  letter-spacing: normal;
+  line-height: 1.6;
 }
 .tarasuf-benefit p {
+  color: #63718a;
   font-size: 13px;
-  color: #657187;
   line-height: 2;
   margin-top: 10px;
-  margin-bottom: 21px;
+  max-width: 430px;
+}
+.tarasuf-feature-stage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 210px;
+  height: 240px;
+  margin: -6px -14px -5px;
+  pointer-events: none;
+}
+.tarasuf-feature-art-svg {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: 240px;
+  overflow: visible;
+  transition: transform 0.55s cubic-bezier(0.22, 0.65, 0.3, 1);
+}
+.tarasuf-benefit-local .tarasuf-feature-art-svg {
+  height: 260px;
+}
+.tarasuf-benefit-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #dfe5f180;
 }
 .tarasuf-benefit a,
 .tarasuf-benefit-note {
-  margin-top: auto;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  line-height: 1.9;
-  color: #625185;
+  gap: 8px;
+  min-height: 44px;
+  color: #596b8a;
+  font-size: 13px;
+  line-height: 1.8;
 }
 .tarasuf-benefit a {
-  min-height: 44px;
   text-decoration: none;
   text-underline-offset: 5px;
 }
 .tarasuf-benefit a:hover {
   text-decoration: underline;
 }
-.tarasuf-benefit-note {
-  padding-block: 5px;
+.tarasuf-benefit a > svg,
+.tarasuf-benefit-note > svg {
+  flex-shrink: 0;
+  color: #8497bf;
+}
+.tarasuf-feature-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #6a7993;
+  font-size: 12px;
+  line-height: 1.8;
 }
 .tarasuf-benefit a:focus-visible,
 .tarasuf-detail-link:focus-visible,
@@ -176,6 +184,11 @@
   outline: 2px solid #7c3aed;
   outline-offset: 5px;
   border-radius: 4px;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tarasuf-benefit:hover .tarasuf-feature-art-svg {
+    transform: translateY(-4px);
+  }
 }
 .tarasuf-landing-details {
   padding-block: 84px 60px;
@@ -470,154 +483,176 @@
 .tarasuf-privacy-diagram {
   min-width: 0;
   position: relative;
-  padding: 32px 0 22px;
   isolation: isolate;
+  padding: 38px 0 16px;
+  perspective: 900px;
 }
-.tarasuf-privacy-diagram::before {
-  content: '';
+.tarasuf-privacy-orbit {
   position: absolute;
-  width: 320px;
-  max-width: 100%;
-  height: 280px;
-  border-radius: 50%;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: radial-gradient(
-    ellipse,
-    #e3e0fb66,
-    #e7f0ff44 47%,
-    transparent 70%
-  );
+  inset: 0;
   z-index: -1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
 }
-.tarasuf-device-boundary {
-  border: 1px solid #c6cfe5;
-  border-radius: 13px;
-  background: #ffffffeb;
-  box-shadow:
-    0 12px 32px #26376908,
-    0 0 0 8px #f3f4fa66;
-  overflow: hidden;
-  max-width: 348px;
+.tarasuf-privacy-orbit > span {
+  width: 290px;
+  height: 290px;
+  max-width: 100%;
+  border: 1px solid #dfe5f080;
+  border-radius: 50%;
+  transform: rotateX(65deg);
+}
+.tarasuf-privacy-orbit > span + span {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-color: #e7e9f370;
+}
+.tarasuf-privacy-device-sculpture {
+  position: relative;
+  width: 100%;
+  max-width: 346px;
   margin-inline: auto;
+  transform: rotateY(-12deg) rotateX(7deg);
+  transform-style: preserve-3d;
 }
-.tarasuf-device-bar {
+.tarasuf-privacy-device-face {
+  position: relative;
+  background: linear-gradient(145deg, #fff, #f1f5fd);
+  border: 1px solid #c0cfe9;
+  border-radius: 15px;
+  box-shadow:
+    2px 3px 0 #d6dfef,
+    5px 6px 0 #c6d3e9,
+    0 22px 28px #59749c16;
+  overflow: hidden;
+}
+.tarasuf-privacy-device-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  direction: ltr;
-  border-bottom: 1px solid #e6e9f2;
+  gap: 4px;
   height: 34px;
   padding-inline: 15px;
-  background: #fbfcff;
+  border-bottom: 1px solid #dfe6f3;
+  direction: ltr;
 }
-.tarasuf-device-bar > span {
-  display: flex;
-  gap: 4px;
-}
-.tarasuf-device-bar i {
+.tarasuf-privacy-device-top > i {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #d3daea;
+  background: #b5c4de;
 }
-.tarasuf-device-bar > b {
-  font-weight: 500;
-  font-size: 8px;
-  color: #8c94aa;
+.tarasuf-privacy-device-top > span {
   display: flex;
   align-items: center;
   gap: 5px;
+  margin-left: auto;
+  color: #768ba9;
+  font-size: 9px;
   direction: rtl;
 }
-.tarasuf-device-route {
+.tarasuf-privacy-device-content {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 0;
-  padding: 34px 20px 0;
-}
-.tarasuf-device-endpoint {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  color: #7a89a6;
-  gap: 9px;
-  width: 57px;
+  gap: 12px;
+  padding: 37px 18px 27px;
+}
+.tarasuf-privacy-contained-file {
+  width: 58px;
+  height: 80px;
+  border: 1px solid #cfd9ed;
+  border-radius: 5px;
+  background: white;
+  color: #9bb0d2;
+  padding: 10px 8px 5px;
+  box-shadow: 0 5px 10px #293f6510;
+}
+.tarasuf-privacy-contained-file > i {
+  display: block;
+  background: #e1e7f2;
+  height: 2px;
+  margin-top: 6px;
+  border-radius: 1px;
+}
+.tarasuf-privacy-contained-file > i + i {
+  width: 65%;
+  margin-top: 4px;
+}
+.tarasuf-privacy-contained-file > small {
+  display: block;
+  font-size: 8px;
+  color: #8496b1;
+  text-align: center;
+  margin-top: 7px;
+}
+.tarasuf-privacy-brand-plinth {
   flex-shrink: 0;
-}
-.tarasuf-device-endpoint span {
-  color: #67758d;
-  font-size: 9px;
-  line-height: 1.8;
-}
-.tarasuf-device-connector {
-  height: 1px;
-  flex: 1 1 20px;
-  max-width: 33px;
-  background: linear-gradient(90deg, #d4dcf0, #a2b3db);
-  margin-inline: 4px;
-}
-.tarasuf-device-brand {
-  width: 83px;
-  height: 85px;
+  width: 79px;
+  height: 88px;
   display: grid;
   place-items: center;
-  flex-shrink: 0;
+  border: 1px solid #e1e7f3;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #fff, #edf2fc);
+  box-shadow:
+    1px 3px 0 #d9e2f2,
+    0 8px 16px #778db621;
 }
-.tarasuf-device-brand .brand-mark {
-  width: 47px;
-  height: 67px;
-  flex-shrink: 0;
-  transform: none;
+.tarasuf-privacy-brand-plinth .brand-mark {
+  width: 40px;
+  height: 57px;
   filter: none;
+  transform: none;
   background: none;
   border-radius: 0;
 }
-.tarasuf-device-boundary > p {
+.tarasuf-privacy-device-foot {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  font-size: 9px;
-  color: #74829b;
-  line-height: 1.9;
-  margin: 17px 0 24px;
-}
-.tarasuf-device-boundary > p > span {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #bec8dc;
-}
-.tarasuf-device-local {
-  padding: 12px 18px;
-  border-top: 1px solid #e8ebf4;
-  background: #f7f9ff;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: #778baa;
+  gap: 8px;
+  padding-block: 12px;
+  border-top: 1px solid #dfe6f3;
+  color: #7990b0;
   font-size: 9px;
   line-height: 1.8;
 }
-.tarasuf-device-local > i {
+.tarasuf-privacy-device-foot > span {
   width: 5px;
   height: 5px;
+  background: #7a9dd1;
   border-radius: 50%;
-  background: #6592cc;
-  margin-inline-start: auto;
-  box-shadow: 0 0 0 3px #6592cc15;
+  box-shadow: 0 0 0 3px #7a9dd113;
+}
+.tarasuf-privacy-device-base {
+  position: relative;
+  margin: 4px -8px 0;
+  height: 12px;
+  border: 1px solid #c4d0e6;
+  border-radius: 3px 3px 11px 11px;
+  background: linear-gradient(180deg, #ebf0fa, #ccd8ec);
+  transform: rotateX(12deg);
+}
+.tarasuf-privacy-device-base::after {
+  content: '';
+  position: absolute;
+  width: 58px;
+  height: 3px;
+  left: calc(50% - 29px);
+  top: -1px;
+  background: #b5c5e1;
+  border-radius: 0 0 5px 5px;
 }
 .tarasuf-privacy-boundary-label {
-  margin-top: 21px;
+  margin-top: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-  font-size: 9px;
-  color: #677797;
+  font-size: 12px;
+  color: #627694;
   line-height: 1.9;
   text-align: center;
 }
@@ -680,7 +715,7 @@
 }
 [data-reveal].tarasuf-reveal-pending {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(20px) scale(0.988);
   transition:
     opacity 0.65s ease,
     transform 0.65s cubic-bezier(0.2, 0.65, 0.3, 1);
@@ -689,12 +724,32 @@
   opacity: 1;
   transform: none;
 }
+
+.tarasuf-benefit:nth-child(2).tarasuf-reveal-pending,
+.tarasuf-benefit:nth-child(4).tarasuf-reveal-pending,
+.tarasuf-process-step:nth-child(2).tarasuf-reveal-pending {
+  transition-delay: 0.08s;
+}
+.tarasuf-process-step:nth-child(3).tarasuf-reveal-pending {
+  transition-delay: 0.14s;
+}
 @media (max-width: 1000px) {
-  .tarasuf-benefit {
-    padding-inline: 22px;
+  .tarasuf-benefits-strip {
+    gap: 18px;
   }
-  .tarasuf-benefit h3 {
-    font-size: 16px;
+  .tarasuf-benefit {
+    padding-inline: 25px;
+  }
+  .tarasuf-benefit-local,
+  .tarasuf-benefit-assistant {
+    grid-column: span 6;
+  }
+  .tarasuf-benefit-evidence,
+  .tarasuf-benefit-flow {
+    grid-column: span 6;
+  }
+  .tarasuf-feature-seal {
+    display: none;
   }
   .tarasuf-process-track {
     gap: 22px;
@@ -706,11 +761,13 @@
     gap: 28px;
     padding: 38px 28px;
   }
-  .tarasuf-device-route {
-    padding-inline: 12px;
+  .tarasuf-privacy-device-content {
+    gap: 9px;
+    padding-inline: 13px;
   }
-  .tarasuf-device-brand {
+  .tarasuf-privacy-brand-plinth {
     width: 68px;
+    height: 80px;
   }
 }
 @media (max-width: 720px) {
@@ -719,44 +776,50 @@
     padding-inline: 24px;
   }
   .tarasuf-benefits-wrap {
-    padding-block: 38px 6px;
+    padding-block: 44px 8px;
   }
   .tarasuf-benefits-heading {
     text-align: start;
     margin-bottom: 27px;
   }
   .tarasuf-benefits-heading > p {
-    font-size: 13px;
     max-width: 290px;
   }
   .tarasuf-benefits-strip {
     grid-template-columns: 1fr;
-    padding-block: 0;
+    gap: 18px;
   }
-  .tarasuf-benefit,
-  .tarasuf-benefit:first-child,
-  .tarasuf-benefit:last-child {
-    padding: 26px 68px 26px 0;
+  .tarasuf-benefit-local,
+  .tarasuf-benefit-evidence,
+  .tarasuf-benefit-flow,
+  .tarasuf-benefit-assistant {
+    grid-column: 1;
   }
-  .tarasuf-benefit + .tarasuf-benefit {
-    border-inline-start: 0;
-    border-top: 1px solid #e8eaf2;
-  }
-  .tarasuf-benefit-symbol {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    width: 45px;
-    height: 45px;
-    border-radius: 13px;
+  .tarasuf-benefit {
+    min-height: 0;
+    padding: 25px 25px 12px;
+    border-radius: 19px;
   }
   .tarasuf-benefit h3 {
-    font-size: 16px;
+    font-size: 26px;
   }
   .tarasuf-benefit p {
-    font-size: 13px;
-    margin-bottom: 13px;
     margin-top: 8px;
+    max-width: 430px;
+  }
+  .tarasuf-feature-stage {
+    min-height: 0;
+    flex: none;
+    height: 220px;
+    margin: -6px -10px -3px;
+  }
+  .tarasuf-feature-art-svg,
+  .tarasuf-benefit-local .tarasuf-feature-art-svg {
+    height: 225px;
+    max-width: 360px;
+  }
+  .tarasuf-benefit-footer {
+    padding-top: 7px;
   }
   .tarasuf-landing-details {
     padding-block: 52px 48px;
@@ -768,7 +831,6 @@
     margin-inline: 0;
   }
   .tarasuf-detail-heading > p {
-    font-size: 13px;
     max-width: 280px;
   }
   .tarasuf-process-track {
@@ -778,8 +840,8 @@
   }
   .tarasuf-process-step {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 135px;
-    column-gap: 18px;
+    grid-template-columns: minmax(0, 1fr) 160px;
+    column-gap: 20px;
     align-items: start;
   }
   .tarasuf-process-step-top {
@@ -792,7 +854,7 @@
   .tarasuf-process-visual {
     grid-column: 2;
     grid-row: 2 / 4;
-    height: 145px;
+    height: 150px;
     margin: 0;
     border-radius: 12px;
   }
@@ -804,18 +866,17 @@
   .tarasuf-process-step > p {
     grid-column: 1;
     grid-row: 3;
-    font-size: 13px;
     margin-top: 8px;
   }
   .tarasuf-process-files {
     gap: 5px;
-    transform: scale(0.64);
+    transform: scale(0.72);
   }
   .tarasuf-process-evidence {
-    transform: scale(0.57);
+    transform: scale(0.69);
   }
   .tarasuf-process-workpaper {
-    transform: scale(0.61);
+    transform: scale(0.7);
   }
   .tarasuf-privacy {
     grid-template-columns: 1fr;
@@ -835,13 +896,11 @@
     margin-top: 18px;
   }
   .tarasuf-privacy-diagram {
-    padding-top: 15px;
+    padding-top: 20px;
   }
-  .tarasuf-device-route {
-    padding-inline: 14px;
-  }
-  .tarasuf-device-brand {
-    width: 75px;
+  .tarasuf-privacy-device-content {
+    gap: 13px;
+    padding-inline: 15px;
   }
   .tarasuf-privacy-formal {
     grid-template-columns: 1fr;
@@ -853,7 +912,6 @@
     max-width: none;
   }
   .tarasuf-privacy-disclosures summary {
-    font-size: 14px;
     padding-block: 19px;
   }
 }
@@ -882,17 +940,22 @@
   .tarasuf-landing-details {
     padding-inline: 18px;
   }
-  .tarasuf-benefit,
-  .tarasuf-benefit:first-child,
-  .tarasuf-benefit:last-child {
-    padding-inline-start: 60px;
+  .tarasuf-benefit {
+    padding-inline: 19px;
   }
   .tarasuf-benefit h3 {
-    font-size: 16px;
+    font-size: 23px;
   }
-  .tarasuf-benefit-symbol {
-    width: 40px;
-    height: 40px;
+  .tarasuf-benefit a,
+  .tarasuf-benefit-note {
+    font-size: 13px;
+  }
+  .tarasuf-feature-stage {
+    height: 196px;
+  }
+  .tarasuf-feature-art-svg,
+  .tarasuf-benefit-local .tarasuf-feature-art-svg {
+    height: 207px;
   }
   .tarasuf-privacy {
     padding-inline: 20px;
@@ -900,14 +963,17 @@
   .tarasuf-privacy-copy h2 {
     font-size: 30px;
   }
-  .tarasuf-device-endpoint {
-    width: 46px;
+  .tarasuf-privacy-device-content {
+    gap: 8px;
+    padding-inline: 10px;
   }
-  .tarasuf-device-brand {
-    width: 64px;
+  .tarasuf-privacy-contained-file {
+    width: 45px;
+    padding-inline: 5px;
   }
-  .tarasuf-device-route {
-    padding-inline: 8px;
+  .tarasuf-privacy-brand-plinth {
+    width: 62px;
+    height: 78px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -916,7 +982,11 @@
     transform: none;
     transition: none;
   }
-  .tarasuf-privacy-disclosures summary svg {
+  .tarasuf-privacy-disclosures summary svg,
+  .tarasuf-feature-art-svg {
     transition: none;
+  }
+  .tarasuf-benefit:hover .tarasuf-feature-art-svg {
+    transform: none;
   }
 }

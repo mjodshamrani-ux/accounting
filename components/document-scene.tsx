@@ -1,12 +1,12 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import '../app/document-scene.css';
 
-const PAPER_WIDTH = 164;
-const PAPER_HEIGHT = 338;
+// A4 proportions are preserved in the drawing and at every responsive size.
+const PAPER_WIDTH = 196;
+const PAPER_HEIGHT = 277.2; // 196 × 297 / 210
 
-/** One coordinate system keeps the paper, text and table proportional at every
- * viewport. Both the paper contents and its passage through the portal clip
- * inside their own geometry; no viewport overflow is used to hide mistakes. */
+/** Paper, ink and its own scan share local coordinates. The scan's entire
+ * travel stays inside the page; a separate clip also prevents any light spill. */
 function StatementSheet({
   kind,
   prefix,
@@ -16,10 +16,11 @@ function StatementSheet({
 }) {
   const supplier = kind === 'supplier';
   const clip = `${prefix}-${kind}-paper`;
+  const beam = `${prefix}-${kind}-scan-beam`;
   const accent = supplier ? '#386FD4' : '#7951CB';
   const position = supplier
-    ? 'translate(116 65) rotate(-6 82 330)'
-    : 'translate(282 52) rotate(6 82 330)';
+    ? 'translate(78 27) rotate(-5 98 277.2)'
+    : 'translate(286 27) rotate(5 98 277.2)';
   return (
     <g className={`document-scene__float document-scene__float--${kind}`}>
       <g
@@ -29,53 +30,64 @@ function StatementSheet({
       >
         <defs>
           <clipPath id={clip}>
-            <rect x="1" y="1" width="162" height="336" rx="9" />
+            <rect x="1" y="1" width="194" height="275.2" rx="8" />
           </clipPath>
+          <linearGradient
+            id={beam}
+            x1="0"
+            y1="-25"
+            x2="0"
+            y2="0"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor={accent} stopOpacity="0" />
+            <stop offset="1" stopColor={accent} stopOpacity=".12" />
+          </linearGradient>
         </defs>
         <rect
           className="document-scene__paper-edge"
-          x="4"
-          y="5"
+          x="3"
+          y="4"
           width={PAPER_WIDTH}
           height={PAPER_HEIGHT}
-          rx="10"
-          fill="#EDF0F7"
-          stroke="#D8DFEC"
+          rx="9"
+          fill="#EDF1F8"
+          stroke="#D5DEEC"
         />
         <rect
           className="document-scene__paper"
           width={PAPER_WIDTH}
           height={PAPER_HEIGHT}
-          rx="10"
+          rx="9"
           fill={`url(#${prefix}-paper)`}
-          stroke="#DAE1EC"
+          stroke="#D4DEEC"
           filter={`url(#${prefix}-paper-shadow)`}
         />
         <g className="document-scene__paper-content" clipPath={`url(#${clip})`}>
           <path
-            d="M1 11A10 10 0 0 1 11 1H153A10 10 0 0 1 163 11"
+            d="M1 10A9 9 0 0 1 10 1H186A9 9 0 0 1 195 10"
             fill="none"
             stroke="#FFFFFF"
           />
           <rect
-            x="18"
-            y="21"
-            width="52"
-            height="24"
+            x="20"
+            y="18"
+            width="64"
+            height="25"
             rx="6"
             fill={supplier ? '#EEF4FF' : '#F3EEFC'}
           />
           <path
-            d="M26 27h6l3 3v9h-9zM32 27v4h3"
+            d="M28 24h6l4 4v9H28zM34 24v5h4"
             fill="none"
             stroke={accent}
-            strokeWidth="1.1"
+            strokeWidth="1.2"
             strokeLinejoin="round"
           />
           <text
             className="document-scene__file-type"
-            x="40"
-            y="36.5"
+            x="44"
+            y="35"
             direction="ltr"
             textAnchor="start"
             unicodeBidi="isolate"
@@ -83,7 +95,7 @@ function StatementSheet({
           >
             {supplier ? 'PDF' : 'XLSX'}
           </text>
-          <g transform="translate(129 21) scale(.23)">
+          <g transform="translate(153 18) scale(.26)">
             <path
               d="M10 39C10 31 14 25 22 21L67 0C71-2 74 0 74 5V14C74 22 70 28 63 32L15 55C12 57 10 55 10 51Z"
               fill={accent}
@@ -95,8 +107,8 @@ function StatementSheet({
           </g>
           <text
             className="document-scene__paper-title"
-            x="146"
-            y="76"
+            x="176"
+            y="72"
             direction="rtl"
             lang="ar"
             textAnchor="start"
@@ -104,74 +116,104 @@ function StatementSheet({
             {supplier ? 'كشف المورد' : 'دفتر الحسابات'}
           </text>
           <path
-            d="M95 89H146M119 97H146"
-            stroke="#CCD4E2"
-            strokeWidth="3"
+            d="M115 85H176M138 94H176"
+            stroke="#C7D1E1"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
           <rect
-            x="18"
-            y="113"
-            width="128"
-            height="172"
+            x="20"
+            y="106"
+            width="156"
+            height="118"
             rx="4"
             fill="#FFFFFF"
-            stroke="#E4E8F0"
+            stroke="#E0E6EF"
           />
           <path
-            d="M22 113H142Q146 113 146 117V137H18V117Q18 113 22 113Z"
-            fill={supplier ? '#F0F5FD' : '#F5F1FC'}
+            d="M24 106H172Q176 106 176 110V128H20V110Q20 106 24 106Z"
+            fill={supplier ? '#EFF5FD' : '#F4F0FC'}
           />
-          <path d="M61 113V285M110 113V285" stroke="#E8EBF2" />
-          <path d="M18 137H146" stroke="#DEE5EF" />
+          <path d="M67 106V224M126 106V224" stroke="#E5EAF2" />
+          <path d="M20 128H176" stroke="#DDE4EF" />
           {[0, 1, 2].map((column) => (
             <rect
               key={column}
-              x={[27, 71, 119][column]}
-              y="123"
-              width={[24, 28, 18][column]}
-              height="3"
-              rx="1.5"
+              x={[29, 78, 139][column]}
+              y="116"
+              width={[27, 37, 25][column]}
+              height="2.6"
+              rx="1.3"
               fill={accent}
-              opacity="0.55"
+              opacity=".55"
             />
           ))}
           {Array.from({ length: 6 }, (_, row) => (
             <g className="document-scene__table-row" key={row}>
               {row > 0 && (
-                <path d={`M18 ${137 + row * 24.5}H146`} stroke="#EDF0F5" />
+                <path d={`M20 ${128 + row * 16}H176`} stroke="#EDF0F5" />
               )}
               <rect
-                x="27"
-                y={147 + row * 24.5}
-                width={row % 2 ? 23 : 18}
-                height="2.5"
-                rx="1.25"
-                fill="#BBC6D8"
+                x="29"
+                y={135 + row * 16}
+                width={row % 2 ? 25 : 19}
+                height="2.4"
+                rx="1.2"
+                fill="#B8C5D9"
               />
               <rect
-                x={row % 2 ? 76 : 70}
-                y={147 + row * 24.5}
-                width={row % 2 ? 23 : 29}
-                height="2.5"
-                rx="1.25"
-                fill="#C9D2E0"
+                x={row % 2 ? 86 : 77}
+                y={135 + row * 16}
+                width={row % 2 ? 29 : 38}
+                height="2.4"
+                rx="1.2"
+                fill="#C5D0E0"
               />
               <rect
-                x="120"
-                y={147 + row * 24.5}
-                width={row % 3 ? 16 : 12}
-                height="2.5"
-                rx="1.25"
-                fill={row === 2 ? accent : '#BBC6D8'}
+                x="139"
+                y={135 + row * 16}
+                width={row % 3 ? 25 : 19}
+                height="2.4"
+                rx="1.2"
+                fill={row === 2 ? accent : '#B8C5D9'}
                 opacity={row === 2 ? 0.65 : 1}
               />
             </g>
           ))}
-          <path d="M18 307H102" stroke="#D9E0EB" />
-          <circle cx="128" cy="307" r="2" fill={accent} opacity="0.5" />
-          <circle cx="137" cy="307" r="2" fill="#D4DCE9" />
-          <circle cx="146" cy="307" r="2" fill="#D4DCE9" />
+          <path d="M20 247H119" stroke="#D5DEEB" />
+          <circle cx="154" cy="247" r="2" fill={accent} opacity=".5" />
+          <circle cx="165" cy="247" r="2" fill="#D4DCE9" />
+          <circle cx="176" cy="247" r="2" fill="#D4DCE9" />
+        </g>
+        <g
+          className="document-scene__paper-scan-window"
+          clipPath={`url(#${clip})`}
+        >
+          <g
+            className={`document-scene__paper-scan document-scene__paper-scan--${kind}`}
+            data-scan-kind={kind}
+          >
+            <rect
+              x="10"
+              y="-25"
+              width="176"
+              height="25"
+              fill={`url(#${beam})`}
+            />
+            <path
+              d="M12 0H184"
+              stroke={accent}
+              strokeWidth="1.45"
+              strokeLinecap="round"
+              opacity=".7"
+            />
+            <path
+              d="M16 1H180"
+              stroke="#FFFFFF"
+              strokeWidth=".7"
+              opacity=".8"
+            />
+          </g>
         </g>
       </g>
     </g>
@@ -223,7 +265,7 @@ export function DocumentScene() {
       <div className="document-scene__stage" aria-hidden="true">
         <svg
           className="document-scene__art"
-          viewBox="0 0 560 460"
+          viewBox="0 0 560 490"
           fill="none"
           focusable="false"
         >
@@ -232,8 +274,8 @@ export function DocumentScene() {
               id={`${prefix}-paper`}
               x1="0"
               y1="0"
-              x2="164"
-              y2="338"
+              x2="196"
+              y2="277.2"
               gradientUnits="userSpaceOnUse"
             >
               <stop stopColor="#FFFFFF" />
@@ -308,98 +350,134 @@ export function DocumentScene() {
               width="150%"
               height="300%"
             >
-              <feGaussianBlur stdDeviation="8" />
+              <feGaussianBlur stdDeviation="6" />
             </filter>
-            <clipPath id={`${prefix}-aperture`}>
-              <path d="M0 0H560V343H448C448 366.75 372.78 386 280 386S112 366.75 112 343H0Z" />
-            </clipPath>
+            <linearGradient
+              id={`${prefix}-rays-blue`}
+              x1="0"
+              y1="302"
+              x2="0"
+              y2="387"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#2D8CFF" stopOpacity="0" />
+              <stop offset="1" stopColor="#2D8CFF" stopOpacity=".10" />
+            </linearGradient>
+            <linearGradient
+              id={`${prefix}-rays-purple`}
+              x1="0"
+              y1="302"
+              x2="0"
+              y2="387"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#7C3AED" stopOpacity="0" />
+              <stop offset="1" stopColor="#7C3AED" stopOpacity=".09" />
+            </linearGradient>
           </defs>
           <ellipse
             cx="280"
-            cy="258"
+            cy="269"
             rx="252"
-            ry="184"
+            ry="193"
             fill={`url(#${prefix}-ambient)`}
           />
           <ellipse
             cx="280"
-            cy="418"
+            cy="458"
             rx="180"
-            ry="15"
+            ry="10"
             fill="#536596"
             opacity=".12"
             filter={`url(#${prefix}-floor-shadow)`}
           />
-          <g className="document-scene__portal-back">
+          <g className="document-scene__portal-back" data-portal-top="335">
             <path
-              d="M82 350C82 315.76 170.65 288 280 288S478 315.76 478 350V369C478 403.24 389.35 431 280 431S82 403.24 82 369Z"
+              d="M82 390C82 359.62 170.65 335 280 335S478 359.62 478 390V408C478 438.38 389.35 463 280 463S82 438.38 82 408Z"
               fill={`url(#${prefix}-front)`}
             />
             <ellipse
               cx="280"
-              cy="350"
+              cy="390"
               rx="198"
-              ry="62"
+              ry="55"
               fill={`url(#${prefix}-rim)`}
               stroke="#304765"
             />
             <ellipse
               cx="280"
-              cy="343"
+              cy="383"
               rx="168"
-              ry="43"
+              ry="36"
               fill={`url(#${prefix}-well)`}
             />
             <ellipse
               cx="280"
-              cy="343"
+              cy="383"
               rx="168"
-              ry="43"
+              ry="36"
               stroke={`url(#${prefix}-light)`}
               strokeWidth="2"
               opacity=".9"
             />
             <path
-              d="M131 331C156 310 214 300 280 300S404 310 429 331"
+              d="M133 369C160 354 216 347 280 347S400 354 427 369"
               stroke="#8CA9F6"
               strokeOpacity=".27"
             />
           </g>
-          <g
-            className="document-scene__papers"
-            clipPath={`url(#${prefix}-aperture)`}
-          >
+          <g className="document-scene__light-columns">
+            <path
+              d="M102 302H268L239 385H151Z"
+              fill={`url(#${prefix}-rays-blue)`}
+            />
+            <path
+              d="M292 302H458L409 385H321Z"
+              fill={`url(#${prefix}-rays-purple)`}
+            />
+            <path
+              d="M117 315 157 380M254 315 235 380"
+              stroke="#2D8CFF"
+              strokeOpacity=".055"
+            />
+            <path
+              d="M306 315 325 380M443 315 403 380"
+              stroke="#7C3AED"
+              strokeOpacity=".055"
+            />
+          </g>
+          <g className="document-scene__papers">
             <StatementSheet kind="ledger" prefix={prefix} />
             <StatementSheet kind="supplier" prefix={prefix} />
           </g>
           <g className="document-scene__portal-front">
             <path
-              d="M82 350C82 384.24 170.65 412 280 412S478 384.24 478 350V369C478 403.24 389.35 431 280 431S82 403.24 82 369Z"
+              d="M82 390C82 420.38 170.65 445 280 445S478 420.38 478 390V408C478 438.38 389.35 463 280 463S82 438.38 82 408Z"
               fill={`url(#${prefix}-front)`}
             />
             <path
-              d="M82 350C82 384.24 170.65 412 280 412S478 384.24 478 350L448 343C448 366.75 372.78 386 280 386S112 366.75 112 343Z"
+              d="M82 390C82 420.38 170.65 445 280 445S478 420.38 478 390L448 383C448 402.88 372.78 419 280 419S112 402.88 112 383Z"
               fill={`url(#${prefix}-rim)`}
             />
             <path
-              d="M112 343C112 366.75 187.22 386 280 386S448 366.75 448 343"
+              d="M112 383C112 402.88 187.22 419 280 419S448 402.88 448 383"
               stroke={`url(#${prefix}-light)`}
               strokeWidth="2.2"
             />
             <path
-              d="M88 363C107 391 185 410 280 410S453 391 472 363"
+              d="M89 402C111 427 189 443 280 443S449 427 471 402"
               stroke="#8D9FBF"
               strokeOpacity=".18"
             />
             <path
-              d="M235 419H264"
+              d="M235 452H264"
               stroke="#2D8CFF"
               strokeWidth="2"
               strokeLinecap="round"
               opacity=".55"
             />
             <path
-              d="M273 420H290"
+              d="M273 453H290"
               stroke="#9360E9"
               strokeWidth="2"
               strokeLinecap="round"

@@ -12,7 +12,7 @@
 
 .document-scene__stage {
   width: 100%;
-  aspect-ratio: 560 / 460;
+  aspect-ratio: 560 / 490;
   pointer-events: none;
 }
 
@@ -34,16 +34,33 @@
   animation-delay: -3s;
 }
 
+.document-scene__paper-scan {
+  transform: translateY(160px);
+  transform-box: view-box;
+  animation: document-scene-paper-scan 8.5s cubic-bezier(0.45, 0, 0.55, 1)
+    infinite;
+  animation-play-state: paused;
+  will-change: auto;
+}
+
+.document-scene__paper-scan--supplier {
+  animation-delay: -1.8s;
+}
+
+.document-scene__paper-scan--ledger {
+  animation-delay: -5.9s;
+}
+
 .document-scene__file-type {
   font-family: Arial, sans-serif;
-  font-size: 8.5px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2px;
 }
 
 .document-scene__paper-title {
   font-family: 'Noto Sans Arabic', Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   letter-spacing: normal;
   font-synthesis: none;
@@ -114,7 +131,8 @@
   color: #718094;
 }
 
-.document-scene[data-running='true'] .document-scene__float {
+.document-scene[data-running='true'] .document-scene__float,
+.document-scene[data-running='true'] .document-scene__paper-scan {
   animation-play-state: running;
 }
 
@@ -124,7 +142,17 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-11px);
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes document-scene-paper-scan {
+  0%,
+  100% {
+    transform: translateY(80px);
+  }
+  50% {
+    transform: translateY(232px);
   }
 }
 
@@ -139,7 +167,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .document-scene .document-scene__float {
+  .document-scene .document-scene__float,
+  .document-scene .document-scene__paper-scan {
     animation: none;
   }
   .document-scene .document-scene__motion-toggle {

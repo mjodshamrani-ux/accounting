@@ -1,79 +1,166 @@
-import { useEffect, useRef, useState, type DragEvent } from 'react';
+import { useEffect, useId, useRef, useState, type DragEvent } from 'react';
 import { Check, Upload, FileCheck2 } from 'lucide-react';
 
 /** A visual affordance only; it never represents parsed or matched values. */
 function UploadIllustration() {
+  const id = `source-art-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   return (
     <svg
       className="source-card__drawing"
       viewBox="0 0 180 126"
       fill="none"
       aria-hidden="true"
+      focusable="false"
     >
+      <defs>
+        <linearGradient
+          id={`${id}-paper`}
+          x1="60"
+          y1="5"
+          x2="128"
+          y2="101"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#FFFFFF" />
+          <stop offset="1" stopColor="#F4F7FD" />
+        </linearGradient>
+        <linearGradient
+          id={`${id}-base`}
+          x1="40"
+          y1="100"
+          x2="140"
+          y2="119"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="currentColor" stopOpacity=".09" />
+          <stop offset="1" stopColor="currentColor" stopOpacity=".2" />
+        </linearGradient>
+        <filter
+          id={`${id}-shadow`}
+          x="-40%"
+          y="-20%"
+          width="180%"
+          height="150%"
+        >
+          <feDropShadow
+            dx="0"
+            dy="3"
+            stdDeviation="3"
+            floodColor="#263B65"
+            floodOpacity=".1"
+          />
+        </filter>
+      </defs>
       <ellipse
-        cx="88"
-        cy="111"
-        rx="52"
+        cx="90"
+        cy="117"
+        rx="54"
         ry="5"
         fill="currentColor"
-        opacity=".07"
+        opacity=".04"
       />
       <path
-        d="M35 99V36a8 8 0 0 1 8-8h22"
+        d="M36 107C36 99 60 93 90 93S144 99 144 107V110C144 118 120 123 90 123S36 118 36 110Z"
+        fill={`url(#${id}-base)`}
+      />
+      <ellipse
+        cx="90"
+        cy="106"
+        rx="54"
+        ry="12"
+        fill="#FFFFFF"
         stroke="currentColor"
-        opacity=".18"
-        strokeWidth="1.5"
+        strokeOpacity=".13"
+      />
+      <ellipse
+        cx="90"
+        cy="106"
+        rx="41"
+        ry="7"
+        fill="currentColor"
+        opacity=".045"
       />
       <g className="source-card__paper">
-        <path
-          d="M65 9h51l19 20v71a7 7 0 0 1-7 7H65a7 7 0 0 1-7-7V16a7 7 0 0 1 7-7Z"
-          fill="white"
+        <rect
+          x="64"
+          y="8"
+          width="68"
+          height="96.17"
+          rx="5"
+          fill="#E7EDF7"
           stroke="currentColor"
-          strokeOpacity=".3"
-          strokeWidth="1.5"
+          strokeOpacity=".12"
+        />
+        <rect
+          x="60"
+          y="5"
+          width="68"
+          height="96.17"
+          rx="5"
+          fill={`url(#${id}-paper)`}
+          stroke="currentColor"
+          strokeOpacity=".25"
+          filter={`url(#${id}-shadow)`}
         />
         <path
-          d="M115 10v15a5 5 0 0 0 5 5h14"
-          fill="currentColor"
-          fillOpacity=".05"
+          d="M104 21h12M92 29h24"
           stroke="currentColor"
-          strokeOpacity=".3"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M75 34h22M75 43h35"
-          stroke="currentColor"
-          strokeOpacity=".35"
+          strokeOpacity=".5"
           strokeWidth="2.5"
           strokeLinecap="round"
         />
         <rect
-          x="73"
-          y="56"
-          width="47"
-          height="33"
-          rx="3"
+          x="71"
+          y="18"
+          width="11"
+          height="13"
+          rx="2"
           fill="currentColor"
-          fillOpacity=".045"
+          opacity=".12"
+        />
+        <rect
+          x="71"
+          y="42"
+          width="46"
+          height="42"
+          rx="3"
+          fill="#FFFFFF"
+          stroke="currentColor"
+          strokeOpacity=".16"
+        />
+        <path d="M72 43h44v9H72Z" fill="currentColor" opacity=".08" />
+        <path
+          d="M72 52h44M72 62h44M72 73h44M86 43v40M102 43v40"
           stroke="currentColor"
           strokeOpacity=".15"
         />
         <path
-          d="M74 67h45M74 78h45M88 57v31M105 57v31"
+          d="M77 57h4M91 57h6M107 57h5M77 67h4M91 67h6M107 67h5M77 78h4M91 78h6M107 78h5"
           stroke="currentColor"
-          strokeOpacity=".16"
+          strokeOpacity=".35"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M94 91h22"
+          stroke="currentColor"
+          strokeOpacity=".23"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
       </g>
+      <circle cx="135" cy="86" r="16" fill="currentColor" opacity=".12" />
       <circle
-        cx="132"
-        cy="96"
-        r="17"
-        fill="white"
+        cx="134"
+        cy="83"
+        r="16"
+        fill="#FFFFFF"
         stroke="currentColor"
-        strokeOpacity=".2"
+        strokeOpacity=".25"
+        filter={`url(#${id}-shadow)`}
       />
       <path
-        d="M132 90v12M126 96h12"
+        d="M134 77v12M128 83h12"
         stroke="currentColor"
         strokeWidth="1.8"
         strokeLinecap="round"

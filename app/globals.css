@@ -1918,6 +1918,8 @@ td {
 .source-card__drawing {
   width: 180px;
   height: 126px;
+  /* The decorative paper stays inside its box; let its soft shadow breathe. */
+  overflow: visible;
 }
 .source-card__paper {
   transform-box: fill-box;

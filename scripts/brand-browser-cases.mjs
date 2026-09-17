@@ -11,8 +11,43 @@ const displayFontPath = '/fonts/thmanyah-serif-display-bold.woff2';
 const narrowWorkflowType = new WeakMap();
 const layoutWidths = [320, 390, 768, 820, 1024, 1280];
 
+async function verifyReadableTarget(target, description) {
+  await target.waitFor();
+  const visible = await target.evaluate(async (element) => {
+    const deadline = performance.now() + 3000;
+    while (performance.now() < deadline) {
+      let ancestor = element;
+      let opacity = 1;
+      while (ancestor) {
+        opacity *= Number(getComputedStyle(ancestor).opacity);
+        ancestor = ancestor.parentElement;
+      }
+      const bounds = element.getBoundingClientRect();
+      if (
+        opacity >= 0.99 &&
+        bounds.width > 0 &&
+        bounds.height > 0 &&
+        bounds.top >= 0 &&
+        bounds.bottom <= window.innerHeight
+      )
+        return true;
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+    }
+    return false;
+  });
+  assert.equal(visible, true, description);
+}
+
 async function verifyPrivacyNavigation(page) {
-  assert.equal(await page.locator('.tarasuf-benefit').count(), 3);
+  assert.equal(await page.locator('.tarasuf-benefit').count(), 4);
+  const assistantFeature = page.locator('.tarasuf-benefit-assistant');
+  assert.equal(
+    await assistantFeature.count(),
+    1,
+    'one feature explains the local accounting assistant',
+  );
+  assert.match(await assistantFeature.innerText(), /نتائج المحرك/);
+  assert.match(await assistantFeature.innerText(), /على جهازك/);
   assert.equal(await page.locator('.tarasuf-process-track > li').count(), 3);
   const marketingLabels = await page
     .locator('.hero-bottomline, .tarasuf-section-kicker')
@@ -25,17 +60,19 @@ async function verifyPrivacyNavigation(page) {
     .getByRole('link', { name: 'تعرّف على حدود الخصوصية', exact: true })
     .click();
   assert.equal(new URL(page.url()).hash, '#privacy');
+  await verifyReadableTarget(
+    page.locator('#privacy-title'),
+    'privacy anchor reveals the actual readable heading',
+  );
   await page
     .getByRole('link', { name: 'اقرأ حدود الخصوصية بالتفصيل', exact: true })
     .click();
   assert.equal(new URL(page.url()).hash, '#privacy-details');
   const policy = page.locator('#privacy-details');
-  await page.waitForFunction(() => {
-    const title = document.getElementById('privacy-formal-title');
-    if (!title) return false;
-    const bounds = title.getBoundingClientRect();
-    return bounds.top >= 0 && bounds.bottom <= window.innerHeight;
-  });
+  await verifyReadableTarget(
+    page.locator('#privacy-formal-title'),
+    'the formal privacy anchor cannot leave its target hidden by a reveal',
+  );
   const disclosures = policy.locator('details');
   assert.equal(
     await disclosures.count(),
@@ -44,6 +81,10 @@ async function verifyPrivacyNavigation(page) {
   );
   const firstSummary = disclosures.first().locator('summary');
   await firstSummary.focus();
+  await verifyReadableTarget(
+    firstSummary,
+    'a focused privacy disclosure is readable',
+  );
   await page.keyboard.press('Enter');
   assert.equal(
     await disclosures.first().evaluate((element) => element.open),
@@ -120,19 +161,44 @@ async function verifySceneGeometry(page) {
             inner.top >= outer.top - allowance &&
             inner.right <= outer.right + allowance &&
             inner.bottom <= outer.bottom + allowance;
+          const resolveClip = (element) => {
+            const match = element
+              ?.getAttribute('clip-path')
+              ?.match(/^url\(["']?#([^"')]+)["']?\)$/);
+            return match ? document.getElementById(match[1]) : null;
+          };
+          const transformedBounds = (element, transform) => {
+            const box = element.getBBox();
+            const points = [
+              [box.x, box.y],
+              [box.x + box.width, box.y],
+              [box.x, box.y + box.height],
+              [box.x + box.width, box.y + box.height],
+            ].map(([x, y]) => new DOMPoint(x, y).matrixTransform(transform));
+            return {
+              left: Math.min(...points.map((point) => point.x)),
+              right: Math.max(...points.map((point) => point.x)),
+              top: Math.min(...points.map((point) => point.y)),
+              bottom: Math.max(...points.map((point) => point.y)),
+            };
+          };
           const content = papers.map((paper) => {
             const body = paper.querySelector('.document-scene__paper');
             const inner = paper.querySelector('.document-scene__paper-content');
-            const match = inner
-              ?.getAttribute('clip-path')
-              ?.match(/^url\(["']?#([^"')]+)["']?\)$/);
-            const clip = match && document.getElementById(match[1]);
+            const clip = resolveClip(inner);
             const clipRect = clip?.querySelector('rect');
+            const scan = paper.querySelector('.document-scene__paper-scan');
+            const scanWindow = scan?.closest(
+              '.document-scene__paper-scan-window',
+            );
+            const scanClip = resolveClip(scanWindow);
+            const scanClipRect = scanClip?.querySelector('rect');
             return {
               kind: paper.dataset.paperKind,
+              ratio: body.getBBox().width / body.getBBox().height,
               clipLocal:
                 !!clip &&
-                art.contains(clip) &&
+                paper.contains(clip) &&
                 clip.getAttribute('clipPathUnits') !== 'objectBoundingBox',
               clipInsidePaper:
                 !!body &&
@@ -142,9 +208,26 @@ async function verifySceneGeometry(page) {
                 !!inner &&
                 !!clipRect &&
                 contained(bounds(inner.getBBox()), bounds(clipRect.getBBox())),
+              scanOwnClip:
+                !!scan &&
+                scan.dataset.scanKind === paper.dataset.paperKind &&
+                !!scanClipRect &&
+                paper.contains(scanClip) &&
+                scanClip.getAttribute('clipPathUnits') !==
+                  'objectBoundingBox' &&
+                contained(
+                  bounds(scanClipRect.getBBox()),
+                  bounds(body.getBBox()),
+                ),
             };
           });
           const animations = art.getAnimations({ subtree: true });
+          const floatAnimations = animations.filter((animation) =>
+            animation.effect.target.matches('.document-scene__float'),
+          );
+          const scanAnimations = animations.filter((animation) =>
+            animation.effect.target.matches('.document-scene__paper-scan'),
+          );
           const times = animations.map((animation) => animation.currentTime);
           const samples = [];
           try {
@@ -159,30 +242,49 @@ async function verifySceneGeometry(page) {
               });
               await new Promise((resolve) => requestAnimationFrame(resolve));
               const rootInverse = art.getScreenCTM().inverse();
+              const portal = art.querySelector('.document-scene__portal-back');
+              const portalBounds =
+                portal &&
+                transformedBounds(
+                  portal,
+                  rootInverse.multiply(portal.getScreenCTM()),
+                );
               for (const paper of papers) {
                 const body = paper.querySelector('.document-scene__paper');
-                const box = body.getBBox();
                 const transform = rootInverse.multiply(body.getScreenCTM());
-                const points = [
-                  [box.x, box.y],
-                  [box.x + box.width, box.y],
-                  [box.x, box.y + box.height],
-                  [box.x + box.width, box.y + box.height],
-                ].map(([x, y]) =>
-                  new DOMPoint(x, y).matrixTransform(transform),
-                );
+                const scan = paper.querySelector('.document-scene__paper-scan');
+                const scanClipRect = resolveClip(
+                  scan?.closest('.document-scene__paper-scan-window'),
+                )?.querySelector('rect');
+                const scanTransform =
+                  scan &&
+                  paper.getScreenCTM().inverse().multiply(scan.getScreenCTM());
+                const edge = paper.querySelector('.document-scene__paper-edge');
+                const edgeBounds =
+                  edge &&
+                  transformedBounds(
+                    edge,
+                    rootInverse.multiply(edge.getScreenCTM()),
+                  );
                 samples.push({
                   kind: paper.dataset.paperKind,
                   sample,
                   contained: contained(
-                    {
-                      left: Math.min(...points.map((point) => point.x)),
-                      right: Math.max(...points.map((point) => point.x)),
-                      top: Math.min(...points.map((point) => point.y)),
-                      bottom: Math.max(...points.map((point) => point.y)),
-                    },
+                    transformedBounds(body, transform),
                     bounds(view),
                   ),
+                  scanContained:
+                    !!scanClipRect &&
+                    !!scanTransform &&
+                    contained(
+                      transformedBounds(scan, scanTransform),
+                      bounds(scanClipRect.getBBox()),
+                    ),
+                  paperClearsRim:
+                    !!portalBounds &&
+                    !!edgeBounds &&
+                    contained(edgeBounds, bounds(view)) &&
+                    edgeBounds.bottom < portalBounds.top,
                   undistorted:
                     Math.abs(
                       Math.hypot(transform.a, transform.b) -
@@ -205,7 +307,20 @@ async function verifySceneGeometry(page) {
               0.01,
             content,
             samples,
-            animations: animations.length,
+            floatAnimations: floatAnimations.length,
+            scanAnimations: scanAnimations.length,
+            clipsResolve: [...art.querySelectorAll('[clip-path]')].every(
+              (element) => {
+                const clip = resolveClip(element);
+                return clip?.localName === 'clipPath' && art.contains(clip);
+              },
+            ),
+            uniqueSvgIds: (() => {
+              const ids = [...document.querySelectorAll('svg [id]')].map(
+                (element) => element.id,
+              );
+              return ids.length === new Set(ids).size;
+            })(),
           };
         });
       assert.equal(
@@ -217,19 +332,48 @@ async function verifySceneGeometry(page) {
         'ledger',
         'supplier',
       ]);
-      assert.equal(geometry.animations, 2, 'each paper has its own animation');
+      assert.equal(
+        geometry.floatAnimations,
+        2,
+        'each paper has its own floating animation',
+      );
+      assert.equal(
+        geometry.scanAnimations,
+        2,
+        'each paper has its own scan animation',
+      );
+      assert.equal(
+        geometry.uniqueSvgIds,
+        true,
+        'SVG definition ids must be unique across the page',
+      );
+      assert.equal(
+        geometry.clipsResolve,
+        true,
+        'all paper clip references must resolve inside their illustration',
+      );
       for (const paper of geometry.content) {
+        assert.ok(
+          Math.abs(paper.ratio - 210 / 297) < 0.002,
+          `${width}px ${paper.kind}: the actual paper uses A4 proportions`,
+        );
         assert.equal(
-          paper.clipLocal && paper.clipInsidePaper && paper.contentInsideClip,
+          paper.clipLocal &&
+            paper.clipInsidePaper &&
+            paper.contentInsideClip &&
+            paper.scanOwnClip,
           true,
           `${width}px ${paper.kind}: text and table must fit inside the paper, with a valid local content clip (${JSON.stringify(paper)})`,
         );
       }
       for (const sample of geometry.samples) {
         assert.equal(
-          sample.contained && sample.undistorted,
+          sample.contained &&
+            sample.undistorted &&
+            sample.scanContained &&
+            sample.paperClearsRim,
           true,
-          `${width}px ${sample.kind}, animation sample ${sample.sample}: paper cannot escape the scene or stretch`,
+          `${width}px ${sample.kind}, animation sample ${sample.sample}: paper cannot escape, stretch or cross the portal rim; its scan stays confined to its own paper`,
         );
       }
     }
@@ -249,6 +393,14 @@ async function verifyUploadInteractions(page) {
       const element = document.querySelector('input[aria-label="كشف المورد"]');
       return element && !element.disabled;
     });
+    // Enter a previously offscreen section directly by keyboard focus, before
+    // any scrolling or anchor interactions have revealed this fresh page.
+    const disclosure = uploadPage.locator('#privacy-details summary').first();
+    await disclosure.focus();
+    await verifyReadableTarget(
+      disclosure,
+      'keyboard focus reveals offscreen privacy content on a fresh page',
+    );
     await input.focus();
     await uploadPage.keyboard.press('Shift+Tab');
     await uploadPage.keyboard.press('Tab');
@@ -667,13 +819,16 @@ export async function verifyBrandLanding(page) {
     await scene.getByRole('button').getAttribute('aria-pressed'),
     'true',
   );
-  assert.equal(
-    await scene
-      .locator('.document-scene__float')
-      .first()
-      .evaluate((element) => getComputedStyle(element).animationPlayState),
-    'paused',
-  );
+  await page.waitForFunction(() => {
+    const animations =
+      document
+        .querySelector('.document-scene')
+        ?.getAnimations({ subtree: true }) || [];
+    return (
+      animations.length >= 4 &&
+      animations.every((animation) => animation.playState === 'paused')
+    );
+  });
   await page.locator('.site-footer').scrollIntoViewIfNeeded();
   await scene.scrollIntoViewIfNeeded();
   assert.equal(
@@ -694,7 +849,7 @@ export async function verifyBrandLanding(page) {
     const animations = scene?.getAnimations({ subtree: true }) || [];
     return (
       scene?.dataset.running === 'false' &&
-      animations.length === 2 &&
+      animations.length >= 4 &&
       animations.every((animation) => animation.playState === 'paused')
     );
   });
@@ -708,9 +863,11 @@ export async function verifyBrandLanding(page) {
     const scene = document.querySelector('.document-scene');
     return (
       scene?.dataset.running === 'false' &&
-      [...scene.querySelectorAll('.document-scene__float')].every(
-        (element) => getComputedStyle(element).animationName === 'none',
-      )
+      [
+        ...scene.querySelectorAll(
+          '.document-scene__float, .document-scene__paper-scan',
+        ),
+      ].every((element) => getComputedStyle(element).animationName === 'none')
     );
   });
   assert.equal(await scene.getByRole('button').isDisabled(), true);

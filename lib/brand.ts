@@ -2,7 +2,7 @@ export const BRAND_NAME = 'تراصف';
 export const BRAND_DISPLAY_NAME = 'تَـراصُـف';
 export const BRAND_LATIN_NAME = 'TARASUF';
 // The interface version is independent of saved accounting-engine evidence.
-export const APP_VERSION = '0.4.2';
+export const APP_VERSION = '0.4.3';
 
 export const BRAND_COLORS = {
   navy: '#0A1B2E',

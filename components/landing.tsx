@@ -8,15 +8,14 @@ import {
   FileCheck2,
   FileSpreadsheet,
   FileText,
-  Fingerprint,
-  GitCompareArrows,
-  HardDrive,
   Link2,
   LockKeyhole,
   ShieldCheck,
+  MessageSquareText,
 } from 'lucide-react';
 import { BrandMark, DisplayHeading } from '@/components/brand';
 import { DocumentScene } from '@/components/document-scene';
+import { FeatureArt } from '@/components/feature-art';
 import '@/app/landing-details.css';
 
 /** Sections stay readable when motion or intersection observation is unavailable. */
@@ -67,15 +66,48 @@ function useLandingReveal(root: RefObject<HTMLDivElement | null>) {
     };
     const onFocus = (event: FocusEvent) => {
       if (event.target instanceof Element) {
-        event.target.closest('[data-reveal]')?.classList.add('is-revealed');
+        let target: Element | null = event.target;
+        while (target && container.contains(target)) {
+          if (target.matches('[data-reveal]'))
+            target.classList.add('is-revealed');
+          target = target.parentElement;
+        }
       }
     };
+    const onHashChange = () => {
+      let anchor: Element | null = null;
+      try {
+        anchor = document.getElementById(
+          decodeURIComponent(window.location.hash.slice(1)),
+        );
+      } catch {
+        return;
+      }
+      if (!anchor || !container.contains(anchor)) return;
+      let target: Element | null = anchor;
+      while (target && container.contains(target)) {
+        if (target.matches('[data-reveal]'))
+          target.classList.add('is-revealed');
+        target = target.parentElement;
+      }
+      anchor
+        .querySelectorAll('[data-reveal]')
+        .forEach((element) => element.classList.add('is-revealed'));
+    };
+    onHashChange();
     motionPreference.addEventListener('change', onMotionChange);
     container.addEventListener('focusin', onFocus);
+    window.addEventListener('hashchange', onHashChange);
     return () => {
-      revealAll();
+      observer?.disconnect();
+      // Leave unobserved content readable without marking it as already seen.
+      // StrictMode can then observe offscreen elements on its next setup.
+      elements.forEach((element) =>
+        element.classList.remove('tarasuf-reveal-pending'),
+      );
       motionPreference.removeEventListener('change', onMotionChange);
       container.removeEventListener('focusin', onFocus);
+      window.removeEventListener('hashchange', onHashChange);
     };
   }, [root]);
 }
@@ -124,64 +156,104 @@ export function LandingBenefits() {
   useLandingReveal(root);
   return (
     <div className="tarasuf-benefits-wrap" ref={root}>
-      <section
-        className="tarasuf-benefits"
-        aria-labelledby="benefits-title"
-        data-reveal
-      >
-        <div className="tarasuf-benefits-heading">
+      <section className="tarasuf-benefits" aria-labelledby="benefits-title">
+        <div className="tarasuf-benefits-heading" data-reveal>
           <span className="tarasuf-section-kicker">ما يصنع الفارق</span>
           <h2 id="benefits-title">الثقة في التفاصيل.</h2>
           <p>خصوصية تحفظها، وخطوات تختصرها، ونتيجة تفهمها.</p>
         </div>
         <div className="tarasuf-benefits-strip">
-          <article className="tarasuf-benefit tarasuf-benefit-local">
-            <div className="tarasuf-benefit-symbol" aria-hidden="true">
-              <span className="tarasuf-symbol-orbit" />
-              <LockKeyhole size={26} strokeWidth={1.5} />
-              <span className="tarasuf-symbol-status">
-                <Check size={9} />
+          <article
+            className="tarasuf-benefit tarasuf-benefit-local"
+            data-reveal
+          >
+            <div className="tarasuf-benefit-copy">
+              <span className="tarasuf-benefit-label">
+                <span /> الخصوصية أولًا
+              </span>
+              <h3>خصوصيتك، داخل حدود جهازك.</h3>
+              <p>
+                ملفّاتك لا تغادر إلى خادم معالجة. القراءة والمقارنة تتم على جهازك،
+                دون حفظ تلقائي للمعاملات بين الجلسات.
+              </p>
+            </div>
+            <div className="tarasuf-feature-stage">
+              <FeatureArt kind="privacy" />
+            </div>
+            <div className="tarasuf-benefit-footer">
+              <a href="#privacy">
+                تعرّف على حدود الخصوصية <ArrowLeft size={16} />
+              </a>
+              <span className="tarasuf-feature-seal" aria-hidden="true">
+                <ShieldCheck size={14} /> محليّة بطبيعتها
               </span>
             </div>
-            <span className="tarasuf-benefit-label">الخصوصية أولًا</span>
-            <h3>المعالجة هنا. على جهازك.</h3>
-            <p>
-              لا نرفع ملفاتك إلى خادم معالجة، ولا نحفظ معاملاتك تلقائيًا بين
-              الجلسات.
-            </p>
-            <a href="#privacy">
-              تعرّف على حدود الخصوصية <ArrowLeft size={15} />
-            </a>
           </article>
-          <article className="tarasuf-benefit tarasuf-benefit-flow">
-            <div className="tarasuf-benefit-symbol" aria-hidden="true">
-              <span className="tarasuf-flow-line" />
-              <GitCompareArrows size={28} strokeWidth={1.5} />
+          <article
+            className="tarasuf-benefit tarasuf-benefit-evidence"
+            data-reveal
+          >
+            <div className="tarasuf-benefit-copy">
+              <span className="tarasuf-benefit-label">
+                <span /> نتائج قابلة للمراجعة
+              </span>
+              <h3>الدليل بجانب النتيجة.</h3>
+              <p>
+                تتبّع الحركة إلى مصدرها، وافهم سبب المطابقة. وما لم يثبت يبقى
+                للمراجعة.
+              </p>
             </div>
-            <span className="tarasuf-benefit-label">خطوات مباشرة</span>
-            <h3>ابدأ بملفّين. ركّز على الفروق.</h3>
-            <p>
-              قراءة البيانات ثم المقارنة والمراجعة. تستكمل ما ينقص بدل إعادة
-              إدخال كل شيء.
-            </p>
-            <span className="tarasuf-benefit-note">
-              <CheckCheck size={15} /> دون تسجيل أو إعداد تقني
-            </span>
+            <div className="tarasuf-feature-stage">
+              <FeatureArt kind="evidence" />
+            </div>
+            <div className="tarasuf-benefit-footer">
+              <span className="tarasuf-benefit-note">
+                <Link2 size={16} /> المصدر والسبب مع النتيجة
+              </span>
+            </div>
           </article>
-          <article className="tarasuf-benefit tarasuf-benefit-evidence">
-            <div className="tarasuf-benefit-symbol" aria-hidden="true">
-              <Fingerprint size={29} strokeWidth={1.5} />
-              <span className="tarasuf-symbol-trace" />
+          <article className="tarasuf-benefit tarasuf-benefit-flow" data-reveal>
+            <div className="tarasuf-benefit-copy">
+              <span className="tarasuf-benefit-label">
+                <span /> خطوات مباشرة
+              </span>
+              <h3>من ملفّين إلى صورة أوضح.</h3>
+              <p>
+                قراءة ومقارنة ومراجعة في مسار واحد. يوجّه المحرك انتباهك إلى ما
+                يحتاج تأكيدك.
+              </p>
             </div>
-            <span className="tarasuf-benefit-label">نتائج قابلة للمراجعة</span>
-            <h3>لكلّ نتيجة، دليل ترجع إليه.</h3>
-            <p>
-              تتبّع الحركة إلى مصدرها، وافهم سبب المطابقة. وما لم يثبت يبقى
-              للمراجعة.
-            </p>
-            <span className="tarasuf-benefit-note">
-              <Link2 size={15} /> المصدر والسبب مع النتيجة
-            </span>
+            <div className="tarasuf-feature-stage">
+              <FeatureArt kind="workflow" />
+            </div>
+            <div className="tarasuf-benefit-footer">
+              <span className="tarasuf-benefit-note">
+                <CheckCheck size={16} /> دون تسجيل أو إعداد تقني
+              </span>
+            </div>
+          </article>
+          <article
+            className="tarasuf-benefit tarasuf-benefit-assistant"
+            data-reveal
+          >
+            <div className="tarasuf-benefit-copy">
+              <span className="tarasuf-benefit-label">
+                <span /> شرح يستند إلى الدليل
+              </span>
+              <h3>مساعد يشرح النتيجة.</h3>
+              <p>
+                اسأل عمّا لم يتأكد، ولماذا بقي الفرق، وما الذي تراجعه الآن. يشرح
+                المساعد أدلة المحرك، ويُبقي قرار المراجعة لك.
+              </p>
+            </div>
+            <div className="tarasuf-feature-stage">
+              <FeatureArt kind="assistant" />
+            </div>
+            <div className="tarasuf-benefit-footer">
+              <span className="tarasuf-benefit-note">
+                <MessageSquareText size={16} /> من نتائج المحرك، على جهازك
+              </span>
+            </div>
           </article>
         </div>
       </section>
@@ -258,43 +330,45 @@ function ProcessVisual({ step }: { step: number }) {
 function PrivacyBoundary() {
   return (
     <div className="tarasuf-privacy-diagram" aria-hidden="true">
-      <div className="tarasuf-device-boundary">
-        <div className="tarasuf-device-bar">
-          <span>
+      <div className="tarasuf-privacy-orbit">
+        <span />
+        <span />
+      </div>
+      <div className="tarasuf-privacy-device-sculpture">
+        <div className="tarasuf-privacy-device-face">
+          <div className="tarasuf-privacy-device-top">
             <i />
             <i />
             <i />
-          </span>
-          <b>
-            <LockKeyhole size={11} /> داخل متصفحك
-          </b>
-        </div>
-        <div className="tarasuf-device-route">
-          <div className="tarasuf-device-endpoint">
-            <FileText size={22} strokeWidth={1.4} />
-            <span>ملفّاتك</span>
+            <span>
+              <LockKeyhole size={11} /> داخل متصفحك
+            </span>
           </div>
-          <i className="tarasuf-device-connector" />
-          <div className="tarasuf-device-brand">
-            <BrandMark />
+          <div className="tarasuf-privacy-device-content">
+            <div className="tarasuf-privacy-contained-file">
+              <FileText size={22} />
+              <i />
+              <i />
+              <small>ملفّاتك</small>
+            </div>
+            <div className="tarasuf-privacy-brand-plinth">
+              <BrandMark />
+            </div>
+            <div className="tarasuf-privacy-contained-file">
+              <FileCheck2 size={22} />
+              <i />
+              <i />
+              <small>نتائجك</small>
+            </div>
           </div>
-          <i className="tarasuf-device-connector" />
-          <div className="tarasuf-device-endpoint">
-            <FileCheck2 size={22} strokeWidth={1.4} />
-            <span>نتائجك</span>
+          <div className="tarasuf-privacy-device-foot">
+            <span /> قراءة · مقارنة · تصدير
           </div>
         </div>
-        <p>
-          قراءة <span /> مقارنة <span /> تصدير
-        </p>
-        <div className="tarasuf-device-local">
-          <HardDrive size={13} />
-          <span>مساحة المعالجة على جهازك</span>
-          <i />
-        </div>
+        <div className="tarasuf-privacy-device-base" />
       </div>
       <span className="tarasuf-privacy-boundary-label">
-        <ShieldCheck size={15} /> بيانات التسوية تبقى ضمن هذه الحدود
+        <ShieldCheck size={16} /> بيانات التسوية تبقى ضمن هذه الحدود
       </span>
     </div>
   );
@@ -309,9 +383,8 @@ export function LandingDetails() {
         className="tarasuf-process"
         id="how-it-works"
         aria-labelledby="process-title"
-        data-reveal
       >
-        <div className="tarasuf-detail-heading">
+        <div className="tarasuf-detail-heading" data-reveal>
           <span className="tarasuf-section-kicker">رحلة العمل</span>
           <h2 id="process-title">
             <DisplayHeading id="process" />
@@ -336,7 +409,7 @@ export function LandingDetails() {
               detail: 'ورقة عمل قابلة للتتبّع',
             },
           ].map(({ title, text, detail }, index) => (
-            <li className="tarasuf-process-step" key={title}>
+            <li className="tarasuf-process-step" key={title} data-reveal>
               <div className="tarasuf-process-step-top">
                 <span>{['١', '٢', '٣'][index]}</span>
                 <small>{detail}</small>
