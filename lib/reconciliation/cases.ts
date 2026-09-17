@@ -146,7 +146,7 @@ export function buildReconciliationCases(
       ...(status === 'Rejected'
         ? {
             reviewerDecision: 'Rejected' as const,
-            reviewerReason: 'رُفض الربط في سجل قرارات الجلسة',
+            reviewerReason: 'رفض المراجع هذا الربط في سجل قرارات الجلسة',
           }
         : {}),
     };
@@ -229,8 +229,8 @@ export function buildReconciliationCases(
         b,
         'EXACT_REFERENCE_GROUP_TOTAL_V1',
         [
-          `مطابقة تجميعية مثبتة: المرجع ${single.reference} مطابق؛ ${a.length} عضو مورد و${b.length} عضو دفتر؛ إجمالي كل طرف ${money(safeSum(a.map((t) => t.amount)), scope.decimals)} ${scope.currency}.`,
-          `نوع المستند ${single.documentType} متسق، وتاريخ أعضاء المجموعة واحد وضمن النافذة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة؛ لم يُبحث عن مجموعات جزئية.`,
+          `مطابقة تجميعية مثبتة: المرجع ${single.reference} مطابق؛ ${a.length} حركة مورد و${b.length} حركة دفتر؛ إجمالي كل طرف ${money(safeSum(a.map((t) => t.amount)), scope.decimals)} ${scope.currency}.`,
+          `نوع المستند ${single.documentType} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.`,
         ],
       );
     }
@@ -254,7 +254,7 @@ export function buildReconciliationCases(
         b,
         'CONTRADICTORY_DOCUMENT_EVIDENCE',
         [
-          'المرجع متطابق لكن أدلة المستند متعارضة؛ لم تُعتمد المطابقة.',
+          'المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.',
           ...conflicts,
         ],
       );
@@ -273,7 +273,7 @@ export function buildReconciliationCases(
         b,
         'EXACT_REFERENCE_AMOUNT_VARIANCE_V1',
         [
-          `مقابل محدد بالمرجع ${s.reference} والتاريخ؛ فرق المبلغ ${money(safeSum([s.amount, -l.amount]), scope.decimals)} ${scope.currency}. يحتاج تفسيرًا ومستندًا؛ لم تُعتمد مطابقة.`,
+          `مقابل محدد بالمرجع ${s.reference} والتاريخ؛ فرق المبلغ ${money(safeSum([s.amount, -l.amount]), scope.decimals)} ${scope.currency}. يلزم تفسير الفرق وإرفاق ما يدعمه من مستندات. لم تُعتمد مطابقة.`,
         ],
       );
   }
@@ -329,8 +329,8 @@ export function buildReconciliationCases(
       b,
       'UNIQUE_PAYMENT_AMOUNT_DATE_REVIEW_V1',
       [
-        `مرشح دفعة: المبلغ الموقّع ${money(s.amount, scope.decimals)} ${scope.currency} فريد بين الحركات في كل طرف، والنوع Payment في الطرفين، وفارق التاريخ ${gap(s, l)} يوم.`,
-        'وصف الطرفين يدل على تحويل بنكي؛ المراجع مختلفة ولا يوجد مرجع مشترك. تساوي المبلغ لا يثبت الربط؛ يلزم اعتماد المراجع.',
+        `اقتراح ربط دفعة: المبلغ بإشارته ${money(s.amount, scope.decimals)} ${scope.currency} فريد بين الحركات في كل طرف، ونوع المستند دفعة (Payment) في الطرفين، وفارق التاريخ ${gap(s, l)} يوم.`,
+        'يشير الوصف في الطرفين إلى تحويل بنكي، لكن المراجع مختلفة ولا يوجد مرجع مشترك. تساوي المبلغ لا يثبت صحة الربط، ويلزم اعتماد المراجع.',
       ],
     );
   }
@@ -348,10 +348,10 @@ export function buildReconciliationCases(
         b,
         'REFERENCE_GROUP_NOT_PROVEN',
         [
-          'المرجع متكرر ولم تستوف المجموعة الكاملة أدلة التجميع الفريد؛ لا اختيار تلقائي لمجموعة جزئية.',
+          'المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.',
           safeSum(a.map((t) => t.amount)) === safeSum(b.map((t) => t.amount))
-            ? 'المجموع متساوٍ، لكنه لا يثبت هوية الأعضاء.'
-            : 'مجموع الطرفين مختلف؛ يلزم فحص الأعضاء والمبالغ.',
+            ? 'المجموع متساوٍ، لكنه لا يثبت هوية الحركات ضمن المجموعة.'
+            : 'مجموع الطرفين مختلف. راجع حركات المجموعة ومبالغها.',
         ],
       );
   }
@@ -383,7 +383,7 @@ export function buildReconciliationCases(
         [s],
         [l],
         'REVIEWER_REJECTED_PAIR',
-        ['رفض المراجع هذا الربط؛ لا تُعتمد المطابقة رغم تساوي المبلغ.'],
+        ['رفض المراجع هذا الربط. لا تُعتمد المطابقة رغم تساوي المبلغ.'],
       );
   for (const s of supplier.transactions)
     if (!used.has(s.id))
@@ -410,7 +410,7 @@ export function buildReconciliationCases(
         ],
       );
   if (used.size !== byId.size)
-    throw new Error('لم تُحفظ جميع صفوف المصدر داخل حالات المصالحة');
+    throw new Error('لم تُحفظ جميع صفوف المصدر داخل حالات التسوية');
   const count = (status: ReconciliationCase['status']) =>
     cases.filter((c) => c.status === status);
   const rowCount = (items: ReconciliationCase[]) =>

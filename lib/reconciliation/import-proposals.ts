@@ -97,7 +97,7 @@ const cellMessages = (
   ...(sheet.cellIssues?.[`${row}:${column}`] ?? []),
   ...(sheet.referenceIssues?.[`${row}:${column}`] ?? []),
   ...(!sheet.cellIssues && formulaRows.has(row)
-    ? ['صف يحتوي صيغة؛ يلزم فحص القراءة الأصلي.']
+    ? ['الصف يحتوي معادلة. يلزم إجراء فحص القراءة الأصلي.']
     : []),
 ];
 
@@ -242,7 +242,7 @@ export function verifyImportProposal(
   if (!context)
     return fail(
       'unavailable-context',
-      'لا يتوفر مصدر وعنوان آمنان لاقتراح الأعمدة؛ راجع إعدادات الملف.',
+      'لا يتوفر مصدر وصف عناوين يمكن التحقق منهما لاقتراح الأعمدة. راجع إعدادات الملف.',
     );
   if (
     !record(input) ||
@@ -265,7 +265,7 @@ export function verifyImportProposal(
   )
     return fail(
       'stale-context',
-      'تغير المصدر أو إعدادات قراءته؛ أعد طلب اقتراح جديد.',
+      'تغيّر المصدر أو تغيّرت إعدادات قراءته. اطلب اقتراحًا جديدًا.',
     );
   const keys = Object.keys(input.columns);
   if (
@@ -295,7 +295,7 @@ export function verifyImportProposal(
     if (cellMessages(sheet, mapping.header + 1, column + 1, formulaRows).length)
       return fail(
         'unsafe-header',
-        'عنوان العمود المقترح عليه ملاحظة قراءة تمنع استخدامه دليلًا.',
+        'توجد مشكلة في قراءة عنوان العمود المقترح، لذلك لا يمكن الاعتماد عليه دليلًا.',
       );
     patch[field] = column;
   }
@@ -305,10 +305,7 @@ export function verifyImportProposal(
     (field) => patch[field] ?? mapping[field],
   ).filter((column) => column >= 0);
   if (new Set(columns).size !== columns.length)
-    return fail(
-      'duplicate-columns',
-      'لا يمكن استخدام العمود نفسه لأكثر من معنى.',
-    );
+    return fail('duplicate-columns', 'لا يمكن تعيين العمود نفسه لأكثر من حقل.');
   if (
     sheet.hiddenRows.some(
       (row) =>
@@ -321,7 +318,7 @@ export function verifyImportProposal(
   )
     return fail(
       'hidden-source-rows',
-      'توجد صفوف بيانات مخفية؛ راجع تعيين الأعمدة يدويًا مع المصدر.',
+      'توجد صفوف بيانات مخفية. راجع تعيين الأعمدة يدويًا مع المصدر.',
     );
   const evidence = (keys as ImportProposalField[]).map((field) => ({
     field,
@@ -340,10 +337,12 @@ export function verifyImportProposal(
     patch,
     evidence,
     warnings: [
-      'اقتراح أعمدة يحتاج مراجعتك؛ قابلية قراءة الأرقام لا تثبت أن العمود مبلغ محاسبي أو أن معناه صحيح.',
-      'هذا الفحص لا يعتمد قراءة الحركات أو الإشارات أو الأرصدة أو المطابقات. تبقى فحوص المحرك ومراجعة PDF واجبة بعد التطبيق.',
+      'اقتراح الأعمدة يحتاج إلى مراجعتك. قابلية قراءة الأرقام لا تثبت أن العمود يمثل مبلغًا محاسبيًا أو أن تفسير معناه صحيح.',
+      'هذا الفحص لا يعتمد قراءة الحركات أو إشارات المبالغ أو الأرصدة أو المطابقات. بعد تطبيق الاقتراح، تبقى فحوص المحرك ومراجعة PDF مطلوبة.',
       ...(evidence.some((item) => item.issueCount > 0)
-        ? ['توجد ملاحظات قراءة في الأعمدة المقترحة؛ لم تُحذف ولم يعتمدها الاقتراح.']
+        ? [
+            'توجد ملاحظات قراءة في الأعمدة المقترحة. لم تُحذف هذه الملاحظات ولم يتجاوزها الاقتراح.',
+          ]
         : []),
     ],
   };

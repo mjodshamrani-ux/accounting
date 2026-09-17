@@ -118,34 +118,34 @@ export function LandingIntro() {
       <div className="hero-inner">
         <div className="hero-copy">
           <div className="hero-eyebrow">
-            <span /> مساحة تسوية الموردين
+            <span /> تسوية حسابات الموردين
           </div>
           <h1 className="hero-title">
             <DisplayHeading id="heroLine1" />
             <DisplayHeading id="heroLine2" />
           </h1>
           <p className="hero-description">
-            من كشف المورد إلى دفترك المحاسبي.
+            ارفع كشف المورد وتقرير حساباتك،
             <br />
-            قارن الحركات، افهم الفروق، وارجع إلى مصدر كل نتيجة.
+            وقارن الحركات وافهم الفروق مع مصدر كل نتيجة.
           </p>
           <div className="hero-actions">
             <a href="#reconciliation" className="primary-link">
               ابدأ المطابقة <ArrowLeft size={19} />
             </a>
             <a href="#how-it-works" className="quiet-link">
-              كيف تعمل تراصف؟
+              كيف تستخدم تراصف
             </a>
           </div>
           <p className="hero-privacy">
-            <LockKeyhole size={14} /> معالجة على جهازك. دون إنشاء حساب.
+            <LockKeyhole size={14} /> المعالجة على جهازك ولا تحتاج إلى حساب.
           </p>
         </div>
         <DocumentScene />
       </div>
       <div className="hero-bottomline">
         <span>من البيانات إلى الوضوح</span>
-        <span>صُمّمت للمحاسب، ولتفاصيل عمله.</span>
+        <span>صممت لتسهيل عمل المحاسب</span>
       </div>
     </div>
   );
@@ -158,9 +158,12 @@ export function LandingBenefits() {
     <div className="tarasuf-benefits-wrap" ref={root}>
       <section className="tarasuf-benefits" aria-labelledby="benefits-title">
         <div className="tarasuf-benefits-heading" data-reveal>
-          <span className="tarasuf-section-kicker">ما يصنع الفارق</span>
-          <h2 id="benefits-title">الثقة في التفاصيل.</h2>
-          <p>خصوصية تحفظها، وخطوات تختصرها، ونتيجة تفهمها.</p>
+          <span className="tarasuf-section-kicker">ما تقدمه لك تراصف</span>
+          <h2 id="benefits-title">تسوية أسهل ونتائج تفهمها</h2>
+          <p>
+            ملفاتك على جهازك ومصدر كل نتيجة أمامك، مع خطوات واضحة ومساعد يشرح لك
+            ما حدث.
+          </p>
         </div>
         <div className="tarasuf-benefits-strip">
           <article
@@ -171,10 +174,10 @@ export function LandingBenefits() {
               <span className="tarasuf-benefit-label">
                 <span /> الخصوصية أولًا
               </span>
-              <h3>خصوصيتك، داخل حدود جهازك.</h3>
+              <h3>ملفاتك تبقى على جهازك</h3>
               <p>
-                ملفّاتك لا تغادر إلى خادم معالجة. القراءة والمقارنة تتم على جهازك،
-                دون حفظ تلقائي للمعاملات بين الجلسات.
+                نقرأ الملفات ونقارنها داخل متصفحك، دون إرسالها إلى خادم معالجة
+                أو حفظ المعاملات تلقائيًا بين الجلسات.
               </p>
             </div>
             <div className="tarasuf-feature-stage">
@@ -185,7 +188,7 @@ export function LandingBenefits() {
                 تعرّف على حدود الخصوصية <ArrowLeft size={16} />
               </a>
               <span className="tarasuf-feature-seal" aria-hidden="true">
-                <ShieldCheck size={14} /> محليّة بطبيعتها
+                <ShieldCheck size={14} /> معالجة على جهازك
               </span>
             </div>
           </article>
@@ -197,10 +200,10 @@ export function LandingBenefits() {
               <span className="tarasuf-benefit-label">
                 <span /> نتائج قابلة للمراجعة
               </span>
-              <h3>الدليل بجانب النتيجة.</h3>
+              <h3>اعرف سبب كل مطابقة</h3>
               <p>
-                تتبّع الحركة إلى مصدرها، وافهم سبب المطابقة. وما لم يثبت يبقى
-                للمراجعة.
+                راجع مصدر الحركة وسبب مطابقتها. إذا لم يجد المحرك دليلًا كافيًا على
+                المطابقة، يتركها لك للمراجعة.
               </p>
             </div>
             <div className="tarasuf-feature-stage">
@@ -208,7 +211,7 @@ export function LandingBenefits() {
             </div>
             <div className="tarasuf-benefit-footer">
               <span className="tarasuf-benefit-note">
-                <Link2 size={16} /> المصدر والسبب مع النتيجة
+                <Link2 size={16} /> مصدر الحركة وسبب المطابقة
               </span>
             </div>
           </article>
@@ -217,10 +220,10 @@ export function LandingBenefits() {
               <span className="tarasuf-benefit-label">
                 <span /> خطوات مباشرة
               </span>
-              <h3>من ملفّين إلى صورة أوضح.</h3>
+              <h3>راجع الملفين في مكان واحد</h3>
               <p>
-                قراءة ومقارنة ومراجعة في مسار واحد. يوجّه المحرك انتباهك إلى ما
-                يحتاج تأكيدك.
+                ارفع الملفات وراجع البيانات، ثم قارن الحركات ونزّل النتيجة.
+                المحرك يوضح لك ما يحتاج مراجعتك.
               </p>
             </div>
             <div className="tarasuf-feature-stage">
@@ -228,7 +231,7 @@ export function LandingBenefits() {
             </div>
             <div className="tarasuf-benefit-footer">
               <span className="tarasuf-benefit-note">
-                <CheckCheck size={16} /> دون تسجيل أو إعداد تقني
+                <CheckCheck size={16} /> لا تحتاج إلى حساب أو إعدادات تقنية
               </span>
             </div>
           </article>
@@ -238,12 +241,12 @@ export function LandingBenefits() {
           >
             <div className="tarasuf-benefit-copy">
               <span className="tarasuf-benefit-label">
-                <span /> شرح يستند إلى الدليل
+                <span /> مساعد للشرح والمراجعة
               </span>
-              <h3>مساعد يشرح النتيجة.</h3>
+              <h3>اسأل المساعد عن النتيجة</h3>
               <p>
-                اسأل عمّا لم يتأكد، ولماذا بقي الفرق، وما الذي تراجعه الآن. يشرح
-                المساعد أدلة المحرك، ويُبقي قرار المراجعة لك.
+                اسأل عن الفرق أو عن حركة لم تتطابق أو عن الخطوة التالية. يشرح
+                المساعد ما تؤكده نتائج المحرك دون أن يغيّر المطابقات.
               </p>
             </div>
             <div className="tarasuf-feature-stage">
@@ -251,7 +254,8 @@ export function LandingBenefits() {
             </div>
             <div className="tarasuf-benefit-footer">
               <span className="tarasuf-benefit-note">
-                <MessageSquareText size={16} /> من نتائج المحرك، على جهازك
+                <MessageSquareText size={16} /> يعتمد على نتائج المحرك ويعمل على
+                جهازك
               </span>
             </div>
           </article>
@@ -349,7 +353,7 @@ function PrivacyBoundary() {
               <FileText size={22} />
               <i />
               <i />
-              <small>ملفّاتك</small>
+              <small>ملفاتك</small>
             </div>
             <div className="tarasuf-privacy-brand-plinth">
               <BrandMark />
@@ -368,7 +372,7 @@ function PrivacyBoundary() {
         <div className="tarasuf-privacy-device-base" />
       </div>
       <span className="tarasuf-privacy-boundary-label">
-        <ShieldCheck size={16} /> بيانات التسوية تبقى ضمن هذه الحدود
+        <ShieldCheck size={16} /> بيانات التسوية تبقى داخل جهازك
       </span>
     </div>
   );
@@ -385,28 +389,28 @@ export function LandingDetails() {
         aria-labelledby="process-title"
       >
         <div className="tarasuf-detail-heading" data-reveal>
-          <span className="tarasuf-section-kicker">رحلة العمل</span>
+          <span className="tarasuf-section-kicker">كيف تستخدم تراصف</span>
           <h2 id="process-title">
             <DisplayHeading id="process" />
           </h2>
-          <p>من ملفّين مختلفين إلى ورقة عمل يمكنك الرجوع إليها.</p>
+          <p>ترفع الملفين وتراجع الفروق، ثم تحفظ النتائج في ورقة عمل.</p>
         </div>
         <ol className="tarasuf-process-track">
           {[
             {
-              title: 'أضف الملفّين',
-              text: 'كشف المورد وتقريرك المحاسبي. يقرأ المحرك البيانات، ويُظهر ما يحتاج مراجعتك.',
-              detail: 'البيانات من مصدرها',
+              title: 'ارفع الملفين',
+              text: 'ارفع كشف المورد وتقرير حساباتك. يقرأ المحرك البيانات ويوضح لك ما يحتاج تأكيدًا أو تصحيحًا.',
+              detail: 'ابدأ بالبيانات المتاحة',
             },
             {
-              title: 'راجع ما يستحق انتباهك',
-              text: 'مطابقات لها دليل، وفروق ظاهرة، وحالات تحتاج قرارك. راجع الحركة ومصدرها معًا.',
-              detail: 'كلّ فرق في مكانه',
+              title: 'راجع المطابقات والفروق',
+              text: 'تظهر لك الحركات المتطابقة والفروق والحالات التي تحتاج قرارك، مع مصدر كل حركة.',
+              detail: 'المصدر بجانب النتيجة',
             },
             {
-              title: 'خذ النتيجة بتفاصيلها',
-              text: 'صدّر ورقة Excel تجمع النتائج والمصادر وملاحظاتك، لتكمل المراجعة أنت وفريقك.',
-              detail: 'ورقة عمل قابلة للتتبّع',
+              title: 'نزّل ورقة العمل',
+              text: 'نزّل ملف Excel يجمع النتائج والمصادر وملاحظاتك، ليكون جاهزًا للمراجعة مع فريقك.',
+              detail: 'احتفظ بالنتائج والتفاصيل',
             },
           ].map(({ title, text, detail }, index) => (
             <li className="tarasuf-process-step" key={title} data-reveal>
@@ -428,20 +432,20 @@ export function LandingDetails() {
         data-reveal
       >
         <div className="tarasuf-privacy-copy">
-          <span className="tarasuf-section-kicker">خصوصية في أصل التصميم</span>
+          <span className="tarasuf-section-kicker">خصوصيتك من البداية</span>
           <h2 id="privacy-title">
             <DisplayHeading id="privacy" />
           </h2>
           <p>
-            ملفّات الموردين تحمل تفاصيل عملك. لذلك تتم القراءة والمقارنة والتصدير
-            داخل متصفحك، دون إرسال الملفات أو بيانات التسوية إلى خادم معالجة.
+            ملفات الموردين فيها تفاصيل عملك، لذلك نقرأها ونقارنها ونجهز التصدير
+            داخل متصفحك. لا نرسل الملفات أو بيانات التسوية إلى خادم معالجة.
           </p>
           <div className="tarasuf-privacy-assurances">
             <span>
-              <Check size={14} /> لا حفظ تلقائي للمعاملات
+              <Check size={14} /> لا نحفظ المعاملات تلقائيًا
             </span>
             <span>
-              <Check size={14} /> لا أدوات تتبّع داخل التطبيق
+              <Check size={14} /> لا نستخدم أدوات تتبع داخل التطبيق
             </span>
           </div>
           <a className="tarasuf-detail-link" href="#privacy-details">
@@ -457,57 +461,57 @@ export function LandingDetails() {
         data-reveal
       >
         <div className="tarasuf-privacy-formal-heading">
-          <span className="tarasuf-section-kicker">بوضوح، حتى في التفاصيل</span>
+          <span className="tarasuf-section-kicker">ماذا يحدث لملفاتك</span>
           <h2 id="privacy-formal-title">حدود الخصوصية</h2>
-          <p>ما يبقى داخل المتصفح، وما تختار حفظه بنفسك.</p>
+          <p>اعرف ما نعالجه داخل المتصفح وما تختار حفظه أو مشاركته.</p>
         </div>
         <div className="tarasuf-privacy-disclosures">
           <details>
             <summary>
-              أين تُعالج الملفات وبيانات التسوية؟
+              أين تتم معالجة الملفات
               <ChevronDown size={17} />
             </summary>
             <p>
-              تُقرأ الملفات وأسماؤها وحركاتها داخل المتصفح، وتتم المقارنة وإعداد
-              التصدير على جهازك. لا يرسل التطبيق هذه البيانات إلى خادم معالجة أو
-              خدمة ذكاء اصطناعي خارجية، ولا يتضمن أدوات تحليلات أو تتبّع للاستخدام.
+              نقرأ ملفاتك وأسماءها وحركاتها، ونقارن البيانات ونجهز التصدير داخل
+              المتصفح. لا نرسل بيانات التسوية إلى خادم معالجة أو خدمة ذكاء
+              اصطناعي خارجية، ولا نستخدم أدوات لتحليل استخدامك أو تتبعه.
             </p>
           </details>
           <details>
             <summary>
-              ما الذي يُحفظ، وما الذي لا يُحفظ؟
+              ما الذي نحفظه
               <ChevronDown size={17} />
             </summary>
             <p>
-              لا يحفظ التطبيق معاملات التسوية تلقائيًا بين الجلسات. إذا اخترت حفظ
-              قالب أعمدة، تُحفظ أرقام الأعمدة وتفضيلات القراءة محليًا في متصفحك،
-              ويمكن مسحها من لوحة الخصوصية أعلى الصفحة. ورقة العمل وملف الجلسة
-              اللذان تختار تنزيلهما يبقيان على جهازك حتى تحذفهما؛ أنت تتحكم في
-              حفظهما ومشاركتهما.
+              لا نحفظ معاملات التسوية تلقائيًا بين الجلسات. إذا اخترت حفظ قالب
+              للأعمدة، نحفظ أرقام الأعمدة وتفضيلات القراءة داخل متصفحك، ويمكنك
+              مسحها من لوحة الخصوصية أعلى الصفحة. ملفات ورقة العمل والجلسة التي
+              تنزّلها تبقى على جهازك حتى تحذفها، وأنت تختار أين تحفظها ومع من
+              تشاركها.
             </p>
           </details>
           <details>
             <summary>
-              هل يحتاج العمل إلى اتصال بالإنترنت؟
+              متى تحتاج إلى الإنترنت
               <ChevronDown size={17} />
             </summary>
             <p>
-              تحتاج إلى الإنترنت لفتح الموقع وتحميل ملفاته. يعمل المسار الذي
-              اكتمل تحميله دون اتصال، وقد تحتاج الأدوات التي لم تُحمّل بعد إلى
-              الاتصال أولًا. إعادة فتح الموقع من جديد دون إنترنت غير مدعومة في هذه
-              النسخة.
+              تحتاج إلى الإنترنت عند فتح الموقع وتحميل أدواته. بعد ذلك يمكنك
+              استخدام الأدوات التي اكتمل تحميلها دون اتصال، وقد تحتاج إلى الاتصال
+              لتحميل أداة تستخدمها لأول مرة. هذه النسخة لا تدعم إعادة فتح الموقع
+              من جديد دون إنترنت.
             </p>
           </details>
           <details>
             <summary>
-              ما حدود حماية التطبيق؟
+              ما حدود حماية الموقع
               <ChevronDown size={17} />
             </summary>
             <p>
-              يقدم مضيف الموقع ملفات التطبيق، وقد يسجل بيانات الزيارة وفق
-              سياسته؛ لا نرسل إليه ملفات التسوية. لا يستطيع التطبيق ضمان سلامة
-              جهازك أو إضافات متصفحك، ولا التحكم في النسخ التي تنزّلها أو تشاركها
-              خارج التطبيق.
+              قد تسجل خدمة استضافة الموقع بيانات الزيارة وفق سياستها، لكنها لا
+              تستقبل ملفات التسوية من التطبيق. لا نستطيع ضمان سلامة جهازك أو
+              إضافات متصفحك، أو التحكم في الملفات التي تنزّلها أو تشاركها خارج
+              التطبيق.
             </p>
           </details>
         </div>

@@ -347,7 +347,7 @@ void test('unknown, stale and cross-action replies never resolve the active page
       worker.reply(packet, 'resolve', { text: 'SECRET', blocks: [] }, patch);
     await assert.rejects(
       client.recognize(png()),
-      /استجابة القارئ البصري غير صالحة/,
+      /استجابة قارئ الصور غير صالحة/,
     );
     assert.equal(worker.terminated, 1);
     assert.equal(worker.listenerCount, 0);
@@ -416,17 +416,14 @@ void test('progress uses fixed status labels, rejects malformed status, and neve
     worker.succeed(packet);
   };
   await client.recognize(png());
-  assert.ok(statuses.includes('قراءة الصفحة داخل الجهاز'));
+  assert.ok(statuses.includes('قراءة الصفحة على جهازك'));
   assert.ok(statuses.every((status) => !status.includes('PRIVATE')));
   worker.handle = (packet) =>
     worker.reply(packet, 'progress', {
       status: 'PRIVATE DOCUMENT',
       progress: 0.9,
     });
-  await assert.rejects(
-    client.recognize(png()),
-    /استجابة القارئ البصري غير صالحة/,
-  );
+  await assert.rejects(client.recognize(png()), /استجابة قارئ الصور غير صالحة/);
   cleaned(worker);
 });
 

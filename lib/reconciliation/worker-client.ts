@@ -48,7 +48,7 @@ export function createWorkerClient(
             error instanceof Error && error.message.trim()
               ? error
               : new Error(
-                  'تعذر قراءة الملف؛ أُعيد تجهيز القارئ للمحاولة التالية.',
+                  'تعذر قراءة الملف. أُعيد تجهيز القارئ لتتمكن من المحاولة مجددًا.',
                 ),
           );
       };
@@ -77,14 +77,14 @@ export function createWorkerClient(
         if (response.action !== action || typeof response.ok !== 'boolean')
           return fail(
             new Error(
-              'رد قارئ الملفات غير صالح؛ أُعيد تجهيز القارئ للمحاولة التالية.',
+              'استجابة قارئ الملفات غير صالحة. أُعيد تجهيز القارئ لتتمكن من المحاولة مجددًا.',
             ),
           );
         if (!response.ok) {
           const message =
             typeof response.error === 'string' && response.error.trim()
               ? response.error
-              : 'تعذر قراءة الملف؛ أُعيد تجهيز القارئ للمحاولة التالية.';
+              : 'تعذر قراءة الملف. أُعيد تجهيز القارئ لتتمكن من المحاولة مجددًا.';
           return fail(
             action === 'read' && isImportDiagnosis(response.diagnosis)
               ? new ImportDiagnosticError(message, response.diagnosis)
@@ -102,11 +102,11 @@ export function createWorkerClient(
       worker.onerror = () =>
         fail(
           new Error(
-            'توقفت المعالجة المحلية. أُعيد تجهيز القارئ؛ أعد اختيار الملف.',
+            'توقفت المعالجة المحلية وأُعيد تجهيز القارئ. أعد اختيار الملف.',
           ),
         );
       worker.onmessageerror = () =>
-        fail(new Error('تعذر استلام بيانات القارئ المحلي؛ أعد اختيار الملف.'));
+        fail(new Error('تعذر استلام بيانات القارئ المحلي. أعد اختيار الملف.'));
       try {
         worker.postMessage({ channel: WORKER_CHANNEL, id, action, payload });
       } catch (error) {

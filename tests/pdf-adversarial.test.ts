@@ -25,16 +25,19 @@ const text =
 const read = (stream: string) =>
   readFile('synthetic.pdf', pdf(stream), [25, 45]);
 test('PDF cannot read covered amount text through an opaque vector rectangle', async () => {
-  await assert.rejects(read(text + '\nq 1 g 298 725 60 20 re f Q'), /رسم|تغط/);
+  await assert.rejects(
+    read(text + '\nq 1 g 298 725 60 20 re f Q'),
+    /رسوم|يغطي/,
+  );
   await assert.rejects(
     read(text + '\nq 0 1 1 0 280 700 cm 0 g 20 0 30 100 re f Q'),
-    /رسم|تغط/,
+    /رسوم|يغطي/,
   );
 });
 test('PDF black background cannot silently conceal black transaction text', async () => {
   await assert.rejects(
     read('q 0 g 298 725 60 20 re f Q\n' + text),
-    /رسم|تغط|تباين/,
+    /رسوم|يغطي|تباين/,
   );
 });
 test('ordinary white backgrounds and disjoint table lines preserve actual text', async () => {
@@ -93,7 +96,7 @@ test('stroke width and actual crossing lines still reject covered transaction te
     '3 w 298 726 60 20 re S',
     'q 2 0 0 2 0 0 cm 4 w 145 362 m 180 362 l S Q',
   ])
-    await assert.rejects(read(text + '\nq ' + path + ' Q'), /رسم|تغط/);
+    await assert.rejects(read(text + '\nq ' + path + ' Q'), /رسوم|يغطي/);
 });
 
 test('thin filled rectangles used as supplier table borders stay separate', async () => {
@@ -109,17 +112,17 @@ test('thin filled rectangles used as supplier table borders stay separate', asyn
   }
   await assert.rejects(
     read(text + '\nq 30 715 470 0.5 re 298 725 60 20 re f Q'),
-    /رسم|تغط/,
+    /رسوم|يغطي/,
   );
 });
 
 test('implicit close strokes and curved paths cannot conceal an amount', async () => {
   await assert.rejects(
     read(text + '\nq 2 w 295 726 m 350 744 l 350 750 l s Q'),
-    /رسم|تغط/,
+    /رسوم|يغطي/,
   );
   await assert.rejects(
     read(text + '\nq 5 w 295 733 m 310 720 335 744 350 733 c S Q'),
-    /رسم|تغط/,
+    /رسوم|يغطي/,
   );
 });

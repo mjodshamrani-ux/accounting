@@ -55,9 +55,9 @@ function rasterPdf(width, height, rgb) {
 export async function verifyVisualReader(page, baseUrl) {
   const app = new URL(baseUrl);
   await page.goto(app.href);
-  await page.getByRole('button', { name: 'تجربة مثال', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'جرّب المثال', exact: true }).waitFor();
   await page.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   const csp = await page
     .locator('meta[http-equiv="Content-Security-Policy"]')
@@ -66,7 +66,9 @@ export async function verifyVisualReader(page, baseUrl) {
   assert.ok(csp?.includes('worker-src blob:'));
   const panel = page.locator('#visual-reader');
   await panel.locator('summary').first().click();
-  const fileInput = page.getByLabel('ملف للقراءة البصرية', { exact: true });
+  const fileInput = page.getByLabel('صورة أو PDF للقراءة التجريبية', {
+    exact: true,
+  });
   const confirm = page.getByRole('button', {
     name: 'تأكيد البيانات',
     exact: true,
@@ -176,7 +178,7 @@ export async function verifyVisualReader(page, baseUrl) {
   };
   context.on('request', onRequest);
   const draftStatus = panel.getByRole('status').filter({
-    hasText: 'مسودة بصرية غير متحققة',
+    hasText: 'مسودة من الصور لم يُتحقق منها',
   });
   const assertIsolated = async (phase) => {
     assert.equal(
@@ -206,7 +208,9 @@ export async function verifyVisualReader(page, baseUrl) {
       (await draftStatus.innerText()).includes(name),
       `${name}: source identity is current`,
     );
-    assert.ok((await draftStatus.innerText()).includes('لم تُضف إلى التسوية'));
+    assert.ok(
+      (await draftStatus.innerText()).includes('لم تُضف بياناتها إلى التسوية'),
+    );
     const words = await panel.locator('.visual-word').allTextContents();
     for (const expected of requiredWords)
       assert.ok(
@@ -224,7 +228,7 @@ export async function verifyVisualReader(page, baseUrl) {
   };
   const clear = async () => {
     await panel
-      .getByRole('button', { name: 'مسح المسودة البصرية', exact: true })
+      .getByRole('button', { name: 'مسح مسودة الصور', exact: true })
       .click();
     await draftStatus.waitFor({ state: 'hidden' });
     assert.equal(await panel.locator('.visual-word').count(), 0);
@@ -348,10 +352,10 @@ export async function verifyVisualReader(page, baseUrl) {
     // A fresh session must also remove a completed image draft even though
     // that draft was never part of the accounting files or comparison result.
     await page
-      .getByRole('button', { name: 'عملية جديدة', exact: true })
+      .getByRole('button', { name: 'تسوية جديدة', exact: true })
       .click();
     await page
-      .getByRole('button', { name: 'حذف الجلسة والبدء', exact: true })
+      .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
       .click();
     await page.getByRole('alertdialog').waitFor({ state: 'hidden' });
     await draftStatus.waitFor({ state: 'hidden' });
@@ -380,7 +384,7 @@ export async function verifyVisualReader(page, baseUrl) {
       buffer: png,
     });
     const cancelButton = panel.getByRole('button', {
-      name: 'إلغاء القراءة البصرية',
+      name: 'إلغاء قراءة الصور',
       exact: true,
     });
     await cancelButton.click({ timeout: 10_000 });
@@ -397,7 +401,7 @@ export async function verifyVisualReader(page, baseUrl) {
     });
     await waitForDraft('visual-real-raster.pdf', pdf);
     const preview = panel.getByRole('img', {
-      name: 'أصل الصفحة 1 من المسودة البصرية',
+      name: 'الصورة الأصلية للصفحة 1',
       exact: true,
     });
     await preview.waitFor({ state: 'visible' });

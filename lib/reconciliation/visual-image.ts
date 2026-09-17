@@ -25,7 +25,7 @@ export function inspectVisualImage(buffer: ArrayBuffer): {
   mime: 'image/png' | 'image/jpeg';
 } {
   if (!buffer.byteLength || buffer.byteLength > VISUAL_IMAGE_LIMITS.bytes)
-    throw new Error('الحد 8 MB للصورة.');
+    throw new Error('الحد الأقصى لحجم الصورة هو 8 MB.');
   const bytes = new Uint8Array(buffer),
     view = new DataView(buffer);
   if (
@@ -36,7 +36,7 @@ export function inspectVisualImage(buffer: ArrayBuffer): {
       view.getUint32(8) !== 13 ||
       String.fromCharCode(...bytes.slice(12, 16)) !== 'IHDR'
     )
-      throw new Error('ترويسة PNG غير صالحة.');
+      throw new Error('بيانات تعريف ملف PNG غير صالحة.');
     const size = dimensions(view.getUint32(16), view.getUint32(20));
     let offset = 8,
       chunks = 0,
@@ -54,12 +54,12 @@ export function inspectVisualImage(buffer: ArrayBuffer): {
         break;
       }
     }
-    if (!ended) throw new Error('نهاية PNG غير مكتملة.');
+    if (!ended) throw new Error('بيانات نهاية ملف PNG غير مكتملة.');
     return { ...size, mime: 'image/png' };
   }
   if (bytes[0] === 0xff && bytes[1] === 0xd8) {
     if (bytes.at(-2) !== 0xff || bytes.at(-1) !== 0xd9)
-      throw new Error('نهاية JPEG غير مكتملة.');
+      throw new Error('بيانات نهاية ملف JPEG غير مكتملة.');
     let offset = 2;
     while (offset + 4 <= bytes.length) {
       if (bytes[offset++] !== 0xff) break;
@@ -80,9 +80,9 @@ export function inspectVisualImage(buffer: ArrayBuffer): {
       }
       offset += length;
     }
-    throw new Error('لم يمكن إثبات أبعاد JPEG قبل قراءته.');
+    throw new Error('تعذر التحقق من أبعاد صورة JPEG قبل قراءتها.');
   }
-  throw new Error('القراءة البصرية تقبل PNG أو JPEG فقط؛ اختر الملف الأصلي.');
+  throw new Error('قراءة الصور تقبل PNG أو JPEG فقط. اختر ملف الصورة الأصلي.');
 }
 export async function renderVisualImage(
   buffer: ArrayBuffer,
@@ -102,7 +102,9 @@ export async function renderVisualImage(
         (width === declared.height && height === declared.width)
       )
     )
-      throw new Error('أبعاد الصورة المقروءة لا تطابق ترويستها.');
+      throw new Error(
+        'أبعاد الصورة المقروءة لا تطابق أبعادها المسجلة في بيانات الملف.',
+      );
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;

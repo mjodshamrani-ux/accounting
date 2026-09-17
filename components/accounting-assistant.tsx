@@ -86,15 +86,16 @@ export function AccountingAssistant({
           <Button variant="ghost" style={{ justifyContent: 'space-between' }} />
         }
       >
-        اسأل عن النتيجة — مساعد محلي
+        مساعد فهم النتيجة
       </CollapsibleTrigger>
-      <CollapsibleContent className="stack" aria-label="مساعد شرح التسوية">
+      <CollapsibleContent className="stack" aria-label="شرح نتيجة التسوية">
         <div>
           <h2>اسأل عن النتيجة</h2>
           <p className="muted">
-            مساعد محلي يعتمد على أدلة المحرك. لا يرسل بياناتك ولا يغيّر المطابقات.
-            الشرح موثّق بالقواعد. للأسئلة غير المفهومة يُستخدم نموذج الجهاز إن كان
-            جاهزًا ويدعم اللغة؛ لا ننزّل نموذجًا ولا نستخدم خدمة خارجية.
+            يشرح المساعد النتيجة من أرقام المحرك وأدلته، ولا يغيّر المطابقات أو
+            يرسل بياناتك. إذا لم يفهم صياغة السؤال، يمكنه الاستعانة بنموذج على
+            جهازك إذا كان جاهزًا ويدعم لغة السؤال. لا ينزّل نموذجًا ولا يتصل بخدمة
+            خارجية.
           </p>
         </div>
         <div className="actions">
@@ -145,7 +146,8 @@ export function AccountingAssistant({
               {!!entry.answer.sourceIds.length && (
                 <details>
                   <summary>
-                    معرفات الصفوف الداعمة ({entry.answer.sourceIds.length})
+                    معرّفات الصفوف التي استند إليها الشرح (
+                    {entry.answer.sourceIds.length})
                   </summary>
                   <p className="mono" style={{ overflowWrap: 'anywhere' }}>
                     {entry.answer.sourceIds.join(' · ')}
@@ -164,14 +166,14 @@ export function AccountingAssistant({
         >
           <Input
             aria-label="سؤالك عن التسوية"
-            placeholder="اسأل عن فرق أو اكتب مرجع الفاتورة…"
+            placeholder="اكتب سؤالك عن الفرق أو مرجع الفاتورة"
             maxLength={500}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             style={{ flex: '1 1 220px' }}
           />
           <Button type="submit" disabled={busy || !question.trim()}>
-            {busy ? 'جارٍ الفهم محليًا…' : 'اسأل'}
+            {busy ? 'نجهّز الإجابة على جهازك' : 'اسأل'}
           </Button>
           {!!history.length && (
             <Button

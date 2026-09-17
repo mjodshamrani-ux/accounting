@@ -249,11 +249,15 @@ test('PDF diversity requires review: complete rows drawn across one another are 
     );
     assert.equal(file.sheets[0].rows.length, 4);
     assert.ok(
-      file.sheets[0].rowIssues?.['2']?.some((issue) => /متراكبة/.test(issue)),
+      file.sheets[0].rowIssues?.['2']?.some((issue) =>
+        /تتداخل|متداخلة/.test(issue),
+      ),
       `gap ${gap}`,
     );
     assert.ok(
-      file.sheets[0].rowIssues?.['3']?.some((issue) => /متراكبة/.test(issue)),
+      file.sheets[0].rowIssues?.['3']?.some((issue) =>
+        /تتداخل|متداخلة/.test(issue),
+      ),
       `gap ${gap}`,
     );
     assert.equal(file.sheets[0].rowIssues?.['4'], undefined);
@@ -438,6 +442,8 @@ test('PDF diversity: RTL-adjacent Arabic descriptions and Arabic numbers keep ex
     600,
   );
   assert.ok(
-    overlap.every((row) => row.issues.some((issue) => /متراكبة/.test(issue))),
+    overlap.every((row) =>
+      row.issues.some((issue) => /تتداخل|متداخلة/.test(issue)),
+    ),
   );
 });

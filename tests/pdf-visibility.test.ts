@@ -109,7 +109,7 @@ const softMaskResources =
 test('actual PDF soft masks reject text rather than trusting an invisible text layer', async () => {
   await assert.rejects(
     read(`/GS1 gs ${text}`, softMaskResources, [softMask]),
-    /قناع/,
+    /إعدادات إظهار محتواه/,
   );
 });
 
@@ -121,7 +121,10 @@ test('a disabled soft mask no longer marks later plain text as masked', async ()
 });
 
 test('unsupported blending rejects active text but a restored blend does not leak', async () => {
-  await assert.rejects(read(`/GS1 gs ${text}`, gs('/BM /Multiply')), /قناع/);
+  await assert.rejects(
+    read(`/GS1 gs ${text}`, gs('/BM /Multiply')),
+    /إعدادات إظهار محتواه/,
+  );
   assert.deepEqual(
     (await read(`q /GS1 gs Q ${text}`, gs('/BM /Multiply'))).sheets[0].rows,
     rows,

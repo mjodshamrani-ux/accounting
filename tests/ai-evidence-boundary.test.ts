@@ -251,7 +251,7 @@ test('invalid calendar dates, dates outside the window, zero and offsetting sign
         [{ ref: 'INV-B-81', amount: '0' }],
       ),
     ).reason,
-    /صفرية/,
+    /حركة بمبلغ صفر/,
   );
   assert.match(
     rejectedWithoutMutation(

@@ -202,13 +202,15 @@ export function SourceUpload({
     if (disabled) {
       setBlocked(
         busy
-          ? 'انتظر اكتمال القراءة الحالية أو ألغها قبل إضافة ملف آخر.'
-          : 'انتظر تجهيز المحرك قبل إضافة الملف.',
+          ? 'انتظر انتهاء القراءة أو ألغها قبل إضافة ملف آخر.'
+          : 'نجهّز أداة القراءة. انتظر قليلًا ثم أضف الملف.',
       );
       return;
     }
     if (files.length !== 1) {
-      onError('أضف ملفًا واحدًا لكل جهة. لم تُستبدل الملفات الحالية.');
+      onError(
+        'أرفقت أكثر من ملف. أضف ملفًا واحدًا في كل خانة. ملفاتك الحالية لم تتغير.',
+      );
       return;
     }
     onFile(files[0]);
@@ -275,23 +277,23 @@ export function SourceUpload({
         {blocked ? (
           blocked
         ) : busy ? (
-          'تجري المعالجة على جهازك…'
+          'المعالجة جارية على جهازك'
         ) : !ready ? (
-          'جارٍ تجهيز المحرك…'
+          'نجهّز أداة القراءة'
         ) : filename ? (
           <>
-            <Check size={15} aria-hidden="true" /> تمت قراءة الملف — التأكيد في
-            الخطوة التالية
+            <Check size={15} aria-hidden="true" /> قرأنا الملف. راجع بياناته في
+            الخطوة التالية.
           </>
         ) : dragging ? (
           'أفلت الملف هنا'
         ) : (
-          'اسحب ملفًا هنا، أو اختره من جهازك'
+          'اسحب الملف هنا أو اختره من جهازك'
         )}
       </span>
       <label className="file-button source-card__choose">
         <Upload size={16} aria-hidden="true" />
-        {filename ? 'استبدال الملف' : 'اختيار ملف من الجهاز'}
+        {filename ? 'استبدال الملف' : 'اختيار ملف'}
         <input
           type="file"
           accept=".xlsx,.csv,.pdf"

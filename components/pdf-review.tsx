@@ -78,16 +78,17 @@ export function PdfReview({
     <div className="panel stack">
       <div className="summary-head">
         <div>
-          <strong>استخراج PDF — {file.pdf!.pages} صفحة</strong>
+          <strong>مراجعة ملف PDF</strong>
           <p className="hint">
+            عدد الصفحات {file.pdf!.pages}.{' '}
             {!applied.length
-              ? 'قُرئت الصفحة كعمود واحد؛ إن كان الكشف جدولًا فحدد حدود الأعمدة.'
+              ? 'قُرئ الملف كعمود واحد. إذا كان يحتوي جدولًا، حدّد حدود الأعمدة أدناه.'
               : file.pdf?.autoColumns
-                ? `حُددت ${applied.length + 1} أعمدة تلقائيًا من فراغات الجدول.`
-                : `${applied.length + 1} أعمدة بحدود حددتها.`}
+                ? `عدد الأعمدة المستنتجة من فراغات الجدول: ${applied.length + 1}. راجعها مع الأصل.`
+                : `عدد الأعمدة حسب الحدود التي اخترتها: ${applied.length + 1}.`}
             {flagged.length > 0
-              ? ` ${flagged.length} صفًا يحتاج نظرك.`
-              : ' لم تُرصد مشكلات قراءة في الصفوف.'}
+              ? ` عدد الصفوف التي تحتاج مراجعتك: ${flagged.length}.`
+              : ' لم تُرصد مشكلات في قراءة الصفوف. راجعها مع الأصل قبل المتابعة.'}
           </p>
         </div>
         <a
@@ -96,16 +97,16 @@ export function PdfReview({
           target="_blank"
           rel="noopener noreferrer"
         >
-          فتح الأصل
+          فتح ملف PDF الأصلي
         </a>
       </div>
       <details open>
-        <summary>معاينة الجدول المستخرج</summary>
+        <summary>الجدول المقروء من الملف</summary>
         <div className="preview" style={{ maxHeight: 240 }}>
           <table>
             <thead>
               <tr>
-                <th>صف</th>
+                <th>الصف</th>
                 {Array.from({ length: applied.length + 1 }, (_, i) => (
                   <th key={i}>{sheet.rows[header]?.[i] || `عمود ${i + 1}`}</th>
                 ))}
@@ -165,7 +166,7 @@ export function PdfReview({
                 disabled={offset === 0}
                 onClick={() => setOffset((n) => Math.max(0, n - 50))}
               >
-                صفوف سابقة
+                الصفوف السابقة
               </Button>
               <span className="muted">
                 {offset + 1}–{Math.min(offset + 50, rows.length)} من{' '}
@@ -177,7 +178,7 @@ export function PdfReview({
                 disabled={offset + 50 >= rows.length}
                 onClick={() => setOffset((n) => n + 50)}
               >
-                صفوف تالية
+                الصفوف التالية
               </Button>
             </>
           )}
@@ -193,7 +194,7 @@ export function PdfReview({
         {open && (
           <div className="stack">
             <label className="field">
-              <span>حدود الأعمدة كنسب مئوية من عرض الصفحة</span>
+              <span>مواقع حدود الأعمدة بالنسبة المئوية من يسار الصفحة</span>
               <Input
                 aria-label="حدود أعمدة PDF"
                 dir="ltr"
@@ -203,8 +204,9 @@ export function PdfReview({
               />
             </label>
             <p className="hint">
-              مثلًا 25, 45, 65 تقسم الصفحة إلى أربعة أعمدة. ضع كل حد في الفراغ بين
-              عمودين. اتركها فارغة لقراءة الصفحة كعمود واحد.
+              ابدأ القياس من يسار الصفحة. الأرقام 25, 45, 65 تقسمها إلى أربعة
+              أعمدة. ضع كل حد في الفراغ بين عمودين، أو اترك الحقل فارغًا لقراءتها
+              كعمود واحد.
             </p>
             <div className="actions">
               <Button
@@ -213,7 +215,7 @@ export function PdfReview({
                 disabled={!pending || !parsed}
                 onClick={() => parsed && onApply(parsed)}
               >
-                تطبيق وإعادة القراءة
+                تطبيق الحدود وإعادة القراءة
               </Button>
               {pending && (
                 <Button
@@ -226,11 +228,13 @@ export function PdfReview({
               )}
               {!parsed && (
                 <span className="hint warn">
-                  استخدم أرقامًا مفصولة بفواصل فقط.
+                  اكتب أرقامًا وافصل بينها بفاصلة أو مسافة، مثل 25, 45, 65.
                 </span>
               )}
               {parsed && pending && (
-                <span className="hint">لم تُطبَّق الحدود الجديدة بعد.</span>
+                <span className="hint">
+                  لم نستخدم الحدود الجديدة بعد. طبّقها لإعادة قراءة الجدول.
+                </span>
               )}
             </div>
           </div>
@@ -239,8 +243,8 @@ export function PdfReview({
       <label className="checkline">
         <Checkbox checked={reviewed} onCheckedChange={onReviewedChange} />
         <span>
-          راجعت الجدول أعلاه في كل الصفحات ويطابق الأصل. إعادة القراءة تستلزم
-          مراجعة جديدة.
+          راجعت الجدول في جميع الصفحات وتأكدت من مطابقته للأصل. يلزم تكرار
+          المراجعة بعد إعادة القراءة.
         </span>
       </label>
     </div>

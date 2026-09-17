@@ -21,7 +21,7 @@ const cuts = [25, 45, 65];
 test('oversized PDF cells reject before reaching Excel and malformed PDFs do not poison later reads', async () => {
   await assert.rejects(
     readFile('long-cell.pdf', syntheticPdf([[['x'.repeat(5000)]]], 0.01)),
-    /خلية PDF/,
+    /خلايا PDF/,
   );
   await assert.rejects(
     readFile('broken.pdf', new TextEncoder().encode('%PDF-1.7\nbroken').buffer),

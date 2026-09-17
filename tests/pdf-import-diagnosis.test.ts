@@ -15,9 +15,9 @@ const rows = [
 const raster = (size = 30) =>
   `q ${size} 0 0 ${size} 0 0 cm\nBI /W 1 /H 1 /CS /G /BPC 8 ID\nX\nEI\nQ`;
 const imageMessage =
-  'PDF يحتوي صورة قد تحمل بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة؛ أرقام OCR لا تدخل التسوية حاليًا، اطلب PDF نصيًا أو Excel';
+  'يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب PDF نصيًا أو Excel.';
 const noTextMessage = (page: number) =>
-  `الصفحة ${page} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية؛ القراءة البصرية OCR مسودة غير متحققة`;
+  `الصفحة ${page} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية. القراءة البصرية (OCR) تنتج مسودة غير متحققة.`;
 const emptyDiagnosis = (): ImportDiagnosis => ({
   schemaVersion: 1,
   format: 'pdf',
@@ -117,7 +117,7 @@ test('PDF diagnosis: clean native-text PDFs retain the same exact extracted rows
 
 test('PDF diagnosis: earlier occlusion and hidden-text failures retain precedence over a later image', async () => {
   const decorations = [
-    ['q 1 g 298 725 60 15 re f Q', /رسم PDF لاحق يغطي نصًا مرسومًا/],
+    ['q 1 g 298 725 60 15 re f Q', /يغطي أحد رسوم PDF نصًا تحته/],
     ['3 Tr\nBT /F1 10 Tf 1 0 0 1 40 690 Tm (HIDDEN) Tj ET', /مخفي|غير مرئي/],
   ] as const;
   for (const [decoration, message] of decorations) {

@@ -82,13 +82,13 @@ export function interpretModelOutput(
       const check = verifyHypothesis(result, p.proposal);
       answer = {
         ...answer,
-        text: `${answer.text}\nاقتراح AI بعد فحص المحرك: ${check.reason}`,
+        text: `${answer.text}\nاقتراح الذكاء الاصطناعي بعد فحص المحرك: ${check.reason}`,
         sourceIds: [...new Set([...answer.sourceIds, ...check.sourceIds])],
       };
     }
     return {
       ...answer,
-      text: `فهم السؤال بمساعدة نموذج محلي؛ الشرح التالي من أدلة المحرك.\n${answer.text}`,
+      text: `استُخدم نموذج محلي لفهم السؤال. الشرح التالي مستند إلى أدلة المحرك.\n${answer.text}`,
     };
   } catch {
     return null;

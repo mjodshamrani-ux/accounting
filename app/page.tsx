@@ -110,7 +110,7 @@ const scopeLabels: Record<ScopeSuggestionField, string> = {
   entity: 'الجهة القانونية',
   account: 'الحساب',
   currency: 'العملة',
-  cutoff: 'تاريخ القطع',
+  cutoff: 'تاريخ المقارنة',
 };
 const dateLabels = {
   ymd: 'سنة / شهر / يوم',
@@ -443,9 +443,9 @@ export default function App() {
   const blocked = !files.every(Boolean)
     ? 'أضف الملفين أولًا.'
     : pdfDrafts.some(Boolean)
-      ? 'طبّق تعديل حدود PDF أو تراجع عنه قبل المقارنة.'
+      ? 'احفظ تعديل أعمدة PDF أو تراجع عنه قبل المقارنة.'
       : mappings.some((m) => m.sheet < 0)
-        ? 'اختر ورقة جدول المصدر في بطاقة الملف أعلاه.'
+        ? 'اختر ورقة Excel التي تحتوي الحركات من بطاقة الملف.'
         : columnsMissing
           ? 'حدد عمود التاريخ وعمود المبلغ في بطاقة الملف أعلاه.'
           : !scope.cutoff
@@ -453,21 +453,21 @@ export default function App() {
             : !scope.currency
               ? 'حدد عملة الملفين من «خيارات متقدمة» في بطاقة النطاق.'
               : precisionMissing
-                ? 'حدد دقة العملة من «خيارات متقدمة» في بطاقة النطاق.'
+                ? 'حدد المنازل العشرية للعملة من «خيارات متقدمة» في نطاق المقارنة.'
                 : unresolvedScope.length
                   ? 'اختر القيمة الصحيحة للحقول المتعارضة من «خيارات متقدمة».'
                   : unresolvedDirection
-                    ? 'حدد اتجاه المدين والدائن في بطاقة الملف؛ لم يمكن إثباته من الأرصدة.'
+                    ? 'لم تكفِ الأرصدة لتحديد اتجاه المدين والدائن. اختر الاتجاه في بطاقة الملف.'
                     : unresolvedFormats
-                      ? 'اختر تفسير التواريخ أو المبالغ الملتبسة في بطاقة الملف.'
+                      ? 'بعض التواريخ أو المبالغ تحتمل أكثر من قراءة. اختر الصيغة الصحيحة في بطاقة الملف.'
                       : pdfReviewPending
-                        ? 'أكد مراجعة استخراج PDF في بطاقة المصدر.'
+                        ? 'راجع البيانات المستخرجة من PDF ثم أكد المراجعة في بطاقة الملف.'
                         : balanceMode &&
                             (!scope.coverageConfirmed ||
                               !scope.supplier.trim() ||
                               !scope.entity.trim() ||
                               !scope.account.trim())
-                          ? 'تسوية الأرصدة تتطلب أسماء الأطراف وتأكيد التغطية.'
+                          ? 'لتسوية الأرصدة، أضف أسماء الأطراف وأكد أن التقريرين يغطيان الفترة نفسها.'
                           : preparationPending
                             ? 'جارٍ تحديث إعدادات القراءة…'
                             : '';
@@ -664,7 +664,7 @@ export default function App() {
     job.current?.controller.abort();
     job.current = null;
     setBusy('');
-    setNotice('أُلغيت العملية. لم تُرسل بيانات.');
+    setNotice('أُلغيت العملية.');
   }
   function loadDemo() {
     if (busy) return;
@@ -686,14 +686,17 @@ export default function App() {
     setMappings(structuredClone(demoMappings));
     setScope({ ...demoScope });
     setStep(1);
-    setNotice('هذه بيانات اصطناعية. أكد اتجاه المبالغ والنطاق قبل المقارنة.');
+    setNotice(
+      'هذا مثال للتجربة. راجع اتجاه المبالغ وإعدادات المقارنة قبل البدء.',
+    );
   }
   async function loadFile(file: File | undefined, i: number) {
     if (!file || busy || !engineReady) return;
     setVisualCandidate(null);
     setVisualRevision((v) => v + 1);
     await task('قراءة الملف على جهازك', async (signal, alive) => {
-      if (file.size > MAX_FILE_BYTES) throw new Error('الحد 8 MB لكل ملف');
+      if (file.size > MAX_FILE_BYTES)
+        throw new Error('حجم الملف أكبر من 8 MB. اختر ملفًا أصغر.');
       const buffer = await file.arrayBuffer();
       if (!alive()) return;
       let parsed: SourceFile;
@@ -746,7 +749,7 @@ export default function App() {
   async function configurePdf(i: number, cuts: number[]) {
     const file = files[i];
     if (!file?.pdf || !file.original || busy) return;
-    await task('إعادة قراءة أعمدة PDF محليًا', async (signal, alive) => {
+    await task('إعادة قراءة أعمدة PDF على جهازك', async (signal, alive) => {
       const parsed = await workerTask<SourceFile>(
         'read',
         { name: file.name, buffer: file.original, pdfCuts: cuts },
@@ -782,17 +785,24 @@ export default function App() {
     nextRejected = rejected,
     event?: Omit<AuditEvent, 'time'>,
   ) {
-    await task('التحقق والمطابقة محليًا', async (signal, alive) => {
-      if (!files[0] || !files[1]) throw new Error('اختر الملفين');
+    await task('فحص البيانات ومطابقة الحركات', async (signal, alive) => {
+      if (!files[0] || !files[1])
+        throw new Error('أضف كشف المورد وتقرير الحسابات قبل المقارنة.');
       if (preparationPending)
-        throw new Error('جارٍ تحديث إعدادات القراءة؛ أعد المحاولة بعد اكتمالها');
+        throw new Error(
+          'يجري تحديث إعدادات القراءة. انتظر اكتمالها ثم أعد المحاولة.',
+        );
       if (precisionMissing)
-        throw new Error('حدد دقة العملة غير الموجودة في القائمة المحلية');
+        throw new Error(
+          'هذه العملة غير مدرجة. حدد عدد منازلها العشرية قبل المقارنة.',
+        );
       if (unresolvedFormats)
-        throw new Error('اختر تفسير التواريخ أو المبالغ الملتبسة أولًا');
+        throw new Error(
+          'اختر الصيغة الصحيحة للتواريخ أو المبالغ التي تحتمل أكثر من قراءة.',
+        );
       if (unresolvedScope.length)
         throw new Error(
-          'راجع معلومات النطاق المتعارضة واختر القيم الصحيحة أولًا',
+          'تختلف بعض بيانات المقارنة بين الملفين. اختر القيم الصحيحة أولًا.',
         );
       // Pressing compare is the confirmation itself: it is an explicit act on the
       // settings shown above, and any later edit clears it again through
@@ -827,7 +837,7 @@ export default function App() {
           ...(event ?? {
             action: 'compare' as const,
             ids: [],
-            note: `تأكيد الإعدادات وتشغيل المقارنة: حتى ${confirmed.cutoff}، ${confirmed.currency}، نافذة ${confirmed.dateWindow} يوم`,
+            note: `تأكيد الإعدادات وتشغيل المقارنة: حتى ${confirmed.cutoff}، ${confirmed.currency}، فرق الأيام المسموح ${confirmed.dateWindow}`,
           }),
         },
       ]);
@@ -841,7 +851,7 @@ export default function App() {
   }
   async function storeSession() {
     if (!files[0] || !files[1] || !result) return;
-    await task('حفظ جلسة محلية', async (signal, alive) => {
+    await task('تجهيز ملف الجلسة', async (signal, alive) => {
       const buffer = await workerTask<ArrayBuffer>(
         'save-session',
         {
@@ -875,7 +885,7 @@ export default function App() {
     setVisualRevision((v) => v + 1);
     await task('التحقق من الجلسة وإعادة حسابها', async (signal, alive) => {
       if (file.size > 30 * 1024 * 1024)
-        throw new Error('حجم الجلسة يتجاوز 30 MB');
+        throw new Error('حجم ملف الجلسة أكبر من 30 MB. اختر ملف جلسة أصغر.');
       const saved = await workerTask<
         Awaited<ReturnType<typeof restoreSession>>
       >('restore-session', { buffer: await file.arrayBuffer() }, signal);
@@ -907,13 +917,13 @@ export default function App() {
       setDemo(false);
       setStep(2);
       setNotice(
-        'استعيدت الجلسة وأعيد حسابها من المصادر. راجع النتيجة قبل تأكيد المراجعة.',
+        'استعدنا الجلسة وأعدنا حساب النتائج من مصادرها. راجع النتيجة قبل تأكيدها.',
       );
     });
   }
   async function download() {
     if (!result) return;
-    await task('إنشاء ورقة العمل محليًا', async (signal, alive) => {
+    await task('إعداد ورقة العمل على جهازك', async (signal, alive) => {
       const buffer = await workerTask<ArrayBuffer>(
         'export',
         { result, files, review: { ...review, events: auditEvents } },
@@ -933,7 +943,7 @@ export default function App() {
       a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 30000);
       setNotice(
-        'أُنشئت ورقة العمل. اختر مكان حفظها وتحقق من وصول الملف إلى التنزيلات.',
+        'ورقة العمل جاهزة. احفظها على جهازك وتأكد من ظهورها في التنزيلات.',
       );
     });
   }
@@ -1058,15 +1068,15 @@ export default function App() {
       </a>
       <AlertDialog open={resetOpen} onOpenChange={setResetOpen}>
         <AlertDialogContent dir="rtl">
-          <AlertDialogTitle>بدء عملية جديدة؟</AlertDialogTitle>
+          <AlertDialogTitle>بدء تسوية جديدة</AlertDialogTitle>
           <AlertDialogDescription>
-            سيُحذف عمل هذه الجلسة من الموقع. صدّر ورقة العمل أولًا إذا أردت الاحتفاظ
-            بالنتائج؛ الملفات التي نزّلتها ستبقى على جهازك.
+            سيُمسح عمل الجلسة الحالية من المتصفح. نزّل ورقة العمل قبل البدء إذا
+            أردت الاحتفاظ بالنتائج. الملفات التي سبق تنزيلها ستبقى على جهازك.
           </AlertDialogDescription>
           <AlertDialogFooter>
             <AlertDialogCancel>متابعة الجلسة</AlertDialogCancel>
             <AlertDialogAction onClick={reset}>
-              حذف الجلسة والبدء
+              مسح الجلسة والبدء من جديد
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -1133,15 +1143,16 @@ export default function App() {
                 </Button>
               </div>
               <p className="muted">
-                الملفات وأسماؤها ومعاملاتها تُقرأ وتُطابق وتُصدّر داخل المتصفح. لا
-                يستخدم التطبيق تحليلات أو خدمة معالجة مالية. استضافة الموقع تقدم
-                ملفات التطبيق، وقد تسجل زيارة الموقع وفق سياسة المضيف. لا نضمن
-                سلامة إضافات المتصفح أو الجهاز.
+                تتم قراءة ملفاتك ومقارنة حركاتها وتصدير النتائج داخل متصفحك. لا
+                نرسل الملفات أو أسماءها أو بياناتها إلى خادم معالجة، ولا نستخدم
+                أدوات تتبع داخل التطبيق. قد تسجل شركة الاستضافة زيارة الموقع وفق
+                سياستها. حماية جهازك وإضافات متصفحك خارج نطاق التطبيق.
               </p>
               <p className="muted">
-                لا تُحفظ المعاملات بين الجلسات. القوالب التي تحفظها اختيارية وتحتوي
-                أرقام الأعمدة وتفضيلات القراءة فقط. يعمل المسار المحمّل دون اتصال؛
-                إعادة فتح الموقع بلا إنترنت غير مدعومة في هذه النسخة.
+                لا نحفظ معاملاتك تلقائيًا بين الجلسات. يمكنك حفظ قوالب للأعمدة
+                وإعدادات القراءة دون بيانات مالية. بعد تحميل أدوات العمل، يمكنك
+                إكمال الخطوات المحمّلة دون اتصال. تحتاج إلى الإنترنت لفتح الموقع
+                من جديد.
               </p>
               <Button
                 variant="outline"
@@ -1149,13 +1160,15 @@ export default function App() {
                   try {
                     localStorage.removeItem('mizan.mapping.0.v1');
                     localStorage.removeItem('mizan.mapping.1.v1');
-                    setNotice('مُسحت قوالب الأعمدة المحلية.');
+                    setNotice('مُسحت قوالب الأعمدة من هذا المتصفح.');
                   } catch {
-                    setError('تعذر الوصول إلى التخزين المحلي.');
+                    setError(
+                      'تعذر الوصول إلى القوالب المحفوظة. تحقق من سماح المتصفح بالتخزين المحلي.',
+                    );
                   }
                 }}
               >
-                مسح القوالب المحلية
+                مسح القوالب المحفوظة
               </Button>
             </section>
           )}
@@ -1193,12 +1206,12 @@ export default function App() {
               )}
               <p>
                 {step === 0
-                  ? 'قارن كشف المورد بدفترك، راجع الفروق، واحتفظ بورقة عمل واضحة.'
+                  ? 'أضف كشف المورد وتقرير حساباتك لمقارنة الحركات ومراجعة الفروق.'
                   : step === 1
-                    ? 'قُرئ ما يمكن قراءته من الملفين. عدّل ما تريد تعديله فقط.'
+                    ? 'راجع البيانات المستخرجة من الملفين وأكمل ما يحتاج تأكيدك.'
                     : step === 2
-                      ? 'افحص الأدلة والمبالغ ومصادر الحركات قبل اعتماد أي ربط.'
-                      : 'تصدير موثق للمصادر والقواعد والقرارات والاستثناءات المفتوحة.'}
+                      ? 'راجع الحركات ومصادرها وتأكد من سبب كل مطابقة.'
+                      : 'نزّل ملف Excel يجمع النتائج ومصادرها وملاحظات المراجعة.'}
               </p>
             </div>
             <div className="stack">
@@ -1212,7 +1225,7 @@ export default function App() {
                   disabled={!!busy}
                 >
                   <RotateCcw size={15} />
-                  عملية جديدة
+                  تسوية جديدة
                 </Button>
               )}
             </div>
@@ -1255,7 +1268,7 @@ export default function App() {
                 size={17}
                 style={{ display: 'inline', marginLeft: 8 }}
               />
-              بيانات اصطناعية للتجربة — لا تمثل شركة أو معاملات فعلية.
+              أنت تستخدم مثالًا للتجربة، وليس بيانات شركة أو معاملات حقيقية.
             </div>
           )}
           {!engineReady && !!error && (
@@ -1266,7 +1279,9 @@ export default function App() {
                 void prepareWorker()
                   .then(() => setEngineReady(true))
                   .catch(() =>
-                    setError('تعذر تشغيل المحرك؛ جرّب متصفحًا حديثًا.'),
+                    setError(
+                      'تعذر تشغيل أداة المقارنة. حدّث المتصفح ثم أعد المحاولة.',
+                    ),
                   );
               }}
             >
@@ -1276,7 +1291,7 @@ export default function App() {
           {!engineReady && !error && (
             <div className="notice loading" role="status">
               <LoaderCircle className="spin" size={17} />
-              تحميل المحرك إلى جهازك…
+              جارٍ تجهيز أداة المقارنة…
             </div>
           )}
           {error && (
@@ -1288,14 +1303,15 @@ export default function App() {
                     توقفت القراءة عند الصفحة {importDiagnosis.page} من{' '}
                     {importDiagnosis.totalPages}:{' '}
                     {importDiagnosis.contentKind === 'mixed'
-                      ? 'نص وصور في الصفحة.'
+                      ? 'تحتوي الصفحة نصوصًا وصورًا.'
                       : importDiagnosis.contentKind === 'image-only'
-                        ? 'صور دون نص قابل للاستخراج.'
+                        ? 'تحتوي الصفحة صورًا ولا يظهر فيها نص يمكن قراءته مباشرة.'
                         : importDiagnosis.contentKind === 'native-text'
-                          ? 'نص قابل للاستخراج.'
-                          : 'لا نص قابل للاستخراج؛ لا يمكن الجزم بأنها صورة.'}{' '}
-                    لم تُعتمد قراءة جزئية. استخدم Excel أو PDF نصيًا للتسوية؛
-                    يمكنك تجربة مساعد قراءة الصور أدناه لعرض مسودة غير متحققة.
+                          ? 'تحتوي الصفحة نصًا يمكن قراءته.'
+                          : 'لم نجد نصًا يمكن قراءته، ولا نستطيع التأكد من محتوى الصفحة.'}{' '}
+                    توقفت قراءة الملف حتى لا تدخل بيانات ناقصة في المقارنة. جرّب
+                    نسخة Excel أو PDF نصية. مساعد الصور أدناه يتيح تجربة
+                    القراءة، لكن مخرجاته مسودة لا تدخل في التسوية.
                   </p>
                 )}
               </div>
@@ -1320,7 +1336,7 @@ export default function App() {
               <section className="surface upload-surface">
                 <div className="section-heading">
                   <div>
-                    <h2>لنبدأ بالملفين</h2>
+                    <h2>أضف ملفي التسوية</h2>
                     <p>مورد واحد · جهة واحدة · عملة واحدة</p>
                   </div>
                   <FileSpreadsheet size={23} />
@@ -1353,7 +1369,8 @@ export default function App() {
                     <bdi>PDF</bdi>
                   </span>
                   <span>
-                    للصور: مساعد تجريبي منفصل أدناه، ينتج مسودة غير متحققة.
+                    إذا كان الملف صورة، جرّب مساعد الصور أدناه. نتائجه مسودة غير
+                    متحققة.
                   </span>
                 </p>
                 <div className="surface-footer">
@@ -1378,9 +1395,10 @@ export default function App() {
                 <div>
                   <FlaskConical size={23} />
                   <div>
-                    <strong>استكشف الخطوات أولًا</strong>
+                    <strong>جرّب بمثال جاهز</strong>
                     <p>
-                      مثال يحتوي فواتير ومدفوعات ومراجع مكررة وفروقًا للمراجعة.
+                      تعرّف على الخطوات باستخدام فواتير ومدفوعات وفروق جاهزة
+                      للمراجعة.
                     </p>
                   </div>
                 </div>
@@ -1389,7 +1407,7 @@ export default function App() {
                   onClick={loadDemo}
                   disabled={!!busy || !engineReady}
                 >
-                  تجربة مثال
+                  جرّب المثال
                 </Button>
               </div>
             </>
@@ -1421,7 +1439,7 @@ export default function App() {
                       ) : (
                         <span className="gap">حدد العملة</span>
                       )}{' '}
-                      · نافذة مطابقة {scope.dateWindow} يوم
+                      · فرق الأيام المسموح {scope.dateWindow}
                     </p>
                   </div>
                   <Button
@@ -1437,12 +1455,12 @@ export default function App() {
                 {scopeNeedsInput && !scopeOpen && (
                   <p className="hint">
                     {!scope.cutoff && !scope.currency
-                      ? 'لم نستنتج التاريخ ولا العملة من الملفين؛ أضفهما من «خيارات متقدمة».'
+                      ? 'لم نتمكن من تحديد تاريخ المقارنة والعملة. أضفهما من «خيارات متقدمة».'
                       : !scope.cutoff
-                        ? 'لم نستنتج تاريخًا من الملفين؛ أضفه من «خيارات متقدمة».'
+                        ? 'لم نتمكن من تحديد تاريخ المقارنة. أضفه من «خيارات متقدمة».'
                         : !scope.currency
-                          ? 'لم نستنتج العملة من الملفين؛ أضفها من «خيارات متقدمة».'
-                          : 'حدد دقة هذه العملة من «خيارات متقدمة»؛ لم نفترض عدد المنازل العشرية.'}
+                          ? 'لم نتمكن من تحديد العملة. اخترها من «خيارات متقدمة».'
+                          : 'حدد المنازل العشرية للعملة من «خيارات متقدمة» حتى تُقرأ المبالغ بدقة.'}
                   </p>
                 )}
                 {scopeConflict && !scopeOpen && (
@@ -1451,7 +1469,7 @@ export default function App() {
                     {unresolvedScope
                       .map((field) => scopeLabels[field])
                       .join('، ')}{' '}
-                    بين الملفين؛ اختر الصحيح من «خيارات متقدمة».
+                    بين الملفين. اختر القيمة الصحيحة من «خيارات متقدمة».
                   </p>
                 )}
                 {scopeOpen && (
@@ -1463,13 +1481,13 @@ export default function App() {
                           scopeSuggestions.fields.cutoff.status === 'suggested'
                             ? `مأخوذ من ${sideNames[scopeSuggestions.fields.cutoff.evidence[0].side === 'supplier' ? 0 : 1]}، صف ${scopeSuggestions.fields.cutoff.evidence[0].row}.`
                             : scope.cutoff && scope.cutoff === latestDate
-                              ? 'آخر تاريخ في الملفين. الحركات بعد هذا التاريخ تُستبعد.'
-                              : 'الحركات بعد هذا التاريخ تُستبعد من المقارنة.'
+                              ? 'استخدمنا آخر تاريخ في الملفين. الحركات بعد التاريخ المحدد لا تدخل في المقارنة.'
+                              : 'الحركات بعد التاريخ المحدد لا تدخل في المقارنة.'
                         }
                       >
                         <Input
                           type="date"
-                          aria-label="تاريخ القطع"
+                          aria-label="تاريخ المقارنة"
                           value={scope.cutoff}
                           onChange={(e) =>
                             updateScope({ cutoff: e.target.value })
@@ -1481,7 +1499,7 @@ export default function App() {
                         hint={
                           scopeSuggestions.fields.currency.status ===
                           'suggested'
-                            ? 'مأخوذة من عنوان صريح أو عمود العملة.'
+                            ? 'قرأنا العملة من عنوان واضح أو من عمود العملة.'
                             : 'أدخل رمزها بثلاثة أحرف، مثل SAR.'
                         }
                       >
@@ -1499,14 +1517,17 @@ export default function App() {
                         />
                       </Field>
                       <Choice
-                        label="دقة العملة"
+                        label="المنازل العشرية للعملة"
                         value={precisionMissing ? '' : String(scope.decimals)}
                         onChange={(v) => {
                           if (v) updateScope({ decimals: Number(v) });
                         }}
                         options={[
                           ...(precisionMissing
-                            ? ([['', 'اختر دقة العملة']] as [string, string][])
+                            ? ([['', 'اختر المنازل العشرية للعملة']] as [
+                                string,
+                                string,
+                              ][])
                             : []),
                           ['0', 'دون منازل عشرية'],
                           ['2', 'منزلتان — مثل SAR'],
@@ -1514,7 +1535,7 @@ export default function App() {
                         ]}
                       />
                       <Choice
-                        label="نافذة التاريخ للمطابقة الآلية"
+                        label="فرق الأيام المسموح للمطابقة"
                         value={String(scope.dateWindow)}
                         onChange={(v) => updateScope({ dateWindow: Number(v) })}
                         options={Array.from(
@@ -1545,14 +1566,14 @@ export default function App() {
                         }
                       }}
                     >
-                      أريد تسوية الأرصدة أيضًا — تتطلب إدخال الأرصدة وأسماء الأطراف
+                      أريد تسوية الأرصدة أيضًا
                     </Tick>
                     {(balanceMode ||
                       unresolvedScope.some((field) =>
                         ['supplier', 'entity', 'account'].includes(field),
                       )) && (
                       <div className="form-grid">
-                        <Field label="المورد / الطرف المقابل">
+                        <Field label="اسم المورد">
                           <Input
                             aria-label="المورد"
                             value={scope.supplier}
@@ -1570,7 +1591,7 @@ export default function App() {
                             }
                           />
                         </Field>
-                        <Field label="الحساب / المواقع المشمولة">
+                        <Field label="الحساب أو الفروع المشمولة">
                           <Input
                             aria-label="نطاق الحساب"
                             value={scope.account}
@@ -1585,7 +1606,7 @@ export default function App() {
                       (field) => scopeSuggestions.fields[field].evidence.length,
                     ) && (
                       <details>
-                        <summary>من أين جاءت هذه القيم؟</summary>
+                        <summary>مصادر القيم المقترحة</summary>
                         <div className="stack" style={{ marginTop: 12 }}>
                           {(
                             Object.keys(scopeLabels) as ScopeSuggestionField[]
@@ -1661,7 +1682,8 @@ export default function App() {
               <section className="surface pad stack">
                 {pdfReviewPending && (
                   <p className="hint warn">
-                    أكد مراجعة استخراج PDF في بطاقة المصدر أعلاه قبل المقارنة.
+                    راجع البيانات المستخرجة من PDF ثم أكد المراجعة في بطاقة
+                    الملف أعلاه.
                   </p>
                 )}
                 {balanceMode && (
@@ -1669,8 +1691,8 @@ export default function App() {
                     checked={scope.coverageConfirmed}
                     onChange={(v) => updateScope({ coverageConfirmed: v })}
                   >
-                    أؤكد أن التقريرين يغطيان الفترة نفسها وأن الأرصدة التي
-                    أدخلتها صحيحة. مطلوب لتسوية الأرصدة فقط.
+                    راجعت تغطية التقريرين للفترة نفسها وتحققت من الأرصدة التي
+                    أدخلتها. هذا التأكيد مطلوب عند تسوية الأرصدة فقط.
                   </Tick>
                 )}
                 <div className="actions">
@@ -1690,7 +1712,7 @@ export default function App() {
                 </div>
                 <p className="hint">
                   {blocked ||
-                    'بالضغط تؤكد أن الملفين لنفس المورد والجهة والحساب والعملة، وأن اتجاه المبالغ المعروض صحيح، وتبدأ المقارنة.'}
+                    'ببدء المقارنة، تؤكد أن الملفين يخصان المورد والجهة والحساب والعملة نفسها، وأن اتجاه المبالغ المعروض صحيح.'}
                 </p>
               </section>
             </fieldset>
@@ -1711,7 +1733,8 @@ export default function App() {
                 />
               </label>
               <p className="muted">
-                يُقرأ ملف الجلسة محليًا وتُعاد مطابقة مصادره قبل استعادته.
+                نقرأ ملف الجلسة على جهازك ونعيد المقارنة من مصادره قبل استعادة
+                العمل.
               </p>
             </section>
           )}
@@ -1723,10 +1746,11 @@ export default function App() {
                   disabled={!!busy}
                   onClick={() => void storeSession()}
                 >
-                  حفظ جلسة للاستكمال
+                  حفظ الجلسة للمتابعة لاحقًا
                 </Button>
                 <span className="muted">
-                  ملف محلي يتضمن بياناتك دون تشفير؛ احتفظ به في مكان خاص.
+                  يتضمن ملف الجلسة بياناتك دون تشفير. احفظه في مكان خاص على
+                  جهازك.
                 </span>
               </div>
               <div className="metric-grid">
@@ -1735,19 +1759,19 @@ export default function App() {
                   value={String(
                     result.matches.filter((m) => m.kind === 'auto').length,
                   )}
-                  hint={`${result.caseCounts.matchedSourceRows} صف مصدر داخل حالات المطابقة`}
+                  hint="حالات طابقها المحرك تلقائيًا"
                 />
                 <Metric
                   label="تأكيدات يدوية"
                   value={String(
                     result.matches.filter((m) => m.kind === 'manual').length,
                   )}
-                  hint="قرارات موثقة للمراجع"
+                  hint="مطابقات أكدها المراجع"
                 />
                 <Metric
                   label="حالات غير مطابقة"
                   value={String(result.caseCounts.unmatchedCases)}
-                  hint={`${result.caseCounts.unmatchedSourceRows} صف مصدر في الملفين`}
+                  hint={`عدد الحركات من الملفين: ${result.caseCounts.unmatchedSourceRows}`}
                 />
                 {result.scope.coverageConfirmed || result.bridge ? (
                   <Metric
@@ -1757,9 +1781,7 @@ export default function App() {
                         ? money(result.bridge.delta, scope.decimals)
                         : '—'
                     }
-                    hint={
-                      result.bridge ? scope.currency : 'لا تتوافر أرصدة متحققة'
-                    }
+                    hint={result.bridge ? scope.currency : 'لم نتحقق من الأرصدة'}
                   />
                 ) : (
                   // With balances not requested, the number that matters is how
@@ -1769,8 +1791,8 @@ export default function App() {
                     value={String(skippedRows)}
                     hint={
                       skippedRows
-                        ? 'المقارنة غير مكتملة حتى تُعالج'
-                        : 'اكتملت قراءة الحركات؛ الاستبعادات موثقة'
+                        ? 'المقارنة غير مكتملة حتى تُراجع هذه الصفوف'
+                        : 'لا توجد أخطاء قراءة متبقية والصفوف المستبعدة موثقة'
                     }
                   />
                 )}
@@ -1783,15 +1805,16 @@ export default function App() {
                       <p key={i}>{d.message}</p>
                     ))}
                   <p>
-                    صحح المصدر أو استبعد الصف بسبب من «تعديل الإعدادات»؛ تفاصيل
-                    كل صف في ورقة Diagnostics عند التصدير.
+                    من «تعديل الإعدادات»، صحح بيانات المصدر أو استبعد الصف مع
+                    توضيح السبب. تفاصيل أخطاء القراءة موجودة في ورقة Diagnostics
+                    عند التصدير.
                   </p>
                 </div>
               )}
               {result.scope.coverageConfirmed && !result.balanceComparable && (
                 <div className="notice">
-                  مقارنة حركات فقط: لم يتحقق اتساق الأرصدة والتغطية على أساس
-                  مشترك. لا توجد تسوية أرصدة مكتملة.
+                  هذه مقارنة للحركات فقط. لم نتحقق من الأرصدة وتغطية الفترة
+                  المشتركة، لذلك لا تمثل النتيجة تسوية أرصدة مكتملة.
                 </div>
               )}
               {!!onScreenDiagnostics.length && (
@@ -1812,8 +1835,8 @@ export default function App() {
                       <div>
                         <h2>مساحة المراجعة</h2>
                         <p>
-                          «دون مقابل» تعني غيابه عن الملف المقدم، وليس بالضرورة
-                          عن النظام.
+                          «دون مقابل» تعني أننا لم نجد الحركة في الملف الآخر. قد
+                          تكون موجودة في النظام لكنها غير مشمولة في التقرير.
                         </p>
                       </div>
                       <Button
@@ -1915,8 +1938,8 @@ export default function App() {
                                   )}
                                   <div className="muted">
                                     {activeCase.supplierMembers.length}:
-                                    {activeCase.ledgerMembers.length} أعضاء
-                                    الحالة
+                                    {activeCase.ledgerMembers.length} حركات
+                                    مرتبطة بالحالة
                                   </div>
                                 </TableCell>
                                 <TableCell>
@@ -1932,9 +1955,9 @@ export default function App() {
                                         ? 'فرق مبلغ'
                                         : activeCase.classification ===
                                             'PAYMENT_CANDIDATE'
-                                          ? 'مرشح دفعة'
+                                          ? 'مجموعة مقترحة للمطابقة'
                                           : activeCase.status === 'Rejected'
-                                            ? 'مرشح مرفوض'
+                                            ? 'اقتراح مرفوض'
                                             : activeCase.status ===
                                                 'Needs Review'
                                               ? 'يحتاج مراجعة'
@@ -1948,16 +1971,14 @@ export default function App() {
                                     disabled={!!busy}
                                     onClick={() => setSelected(t.id)}
                                   >
-                                    فحص
+                                    تفاصيل الحالة
                                   </Button>
                                   {auditEvents.some(
                                     (e) =>
                                       e.action === 'review' &&
                                       e.ids.includes(t.id),
                                   ) && (
-                                    <small>
-                                      استثناء راجعه المستخدم — لم يطابق
-                                    </small>
+                                    <small>تمت مراجعته وما زال غير مطابق</small>
                                   )}
                                 </TableCell>
                               </TableRow>
@@ -1971,7 +1992,7 @@ export default function App() {
                     )}
                     <div className="surface-footer">
                       <span>
-                        {rows.length} حالة · الصفحة {page + 1} من{' '}
+                        عدد الحالات {rows.length} · الصفحة {page + 1} من{' '}
                         {Math.max(1, Math.ceil(rows.length / 30))}
                       </span>
                       <Pagination style={{ width: 'auto', margin: 0 }}>
@@ -2033,7 +2054,7 @@ export default function App() {
                         ]);
                         setReview((r) => ({ ...r, checked: false }));
                         setNotice(
-                          'سُجلت مراجعة الاستثناء. لم تتغير المطابقات أو الفروق.',
+                          'سجلنا مراجعتك للحالة. بقيت المطابقات والفروق كما هي.',
                         );
                       }}
                     />
@@ -2075,20 +2096,20 @@ export default function App() {
                           </bdi>
                         </div>
                         <div>
-                          <span>اتساق المصدرين</span>
+                          <span>التحقق من الأرصدة</span>
                           <span>
                             {result.bridge
                               ? result.balanceComparable
-                                ? 'المعادلة متحققة والتغطية مؤكدة'
-                                : 'المعادلة متحققة؛ تأكيد التغطية معلق'
-                              : 'لم يتحقق اتساق الرصيدين'}
+                                ? 'الأرصدة متسقة حسابيًا وتغطية الفترة مؤكدة'
+                                : 'الأرصدة متسقة حسابيًا وتغطية الفترة تحتاج تأكيدك'
+                              : 'لم نتمكن من إثبات اتساق الأرصدة'}
                           </span>
                         </div>
                         {result.bridge && (
                           <>
                             <hr className="divider" />
                             <div>
-                              <span>فرق الرصيد الافتتاحي — سبب غير مثبت</span>
+                              <span>فرق افتتاحي لم يُثبت سببه</span>
                               <bdi>
                                 {money(
                                   result.bridge.openingAdjustment,
@@ -2097,7 +2118,7 @@ export default function App() {
                               </bdi>
                             </div>
                             <div>
-                              <span>صافي آثار حالات المصالحة</span>
+                              <span>صافي أثر حركات التسوية</span>
                               <bdi>
                                 {money(
                                   result.bridge.itemAdjustment,
@@ -2112,7 +2133,7 @@ export default function App() {
                               </bdi>
                             </div>
                             <div>
-                              <span>الباقي الحسابي للجسر</span>
+                              <span>الفرق المتبقي حسابيًا</span>
                               <bdi>
                                 {money(result.bridge.residual, scope.decimals)}
                               </bdi>
@@ -2121,22 +2142,22 @@ export default function App() {
                         )}
                       </div>
                       <div className="notice">
-                        حتى إذا كان الباقي صفرًا، لا يثبت ذلك أسباب الفروق أو صحة
-                        المستندات.{' '}
+                        وصول الفرق المتبقي إلى صفر لا يثبت أسباب الفروق أو صحة
+                        المستندات. عدد الحركات التي ما زالت دون مقابل:{' '}
                         {result.supplierOnly.length + result.ledgerOnly.length}{' '}
-                        حركة دون مقابل ما زالت موثقة للمراجعة. لا يقترح هذا الجسر
-                        قيودًا للترحيل.
+                        وهي موثقة في ورقة العمل. هذا العرض يوضح أثر الحركات على
+                        الأرصدة ولا يقترح قيودًا للترحيل.
                       </div>
                     </section>
                   ) : (
                     <p className="hint">
-                      ورقة العمل توثق مقارنة الحركات والاستثناءات المتبقية. لم
-                      تُطلب تسوية الأرصدة.
+                      ورقة العمل تشمل مقارنة الحركات والحالات التي تحتاج متابعة.
+                      لم تختر تسوية الأرصدة في هذه الجلسة.
                     </p>
                   )}
                   <section className="surface pad stack">
-                    <h2>توثيق المراجعة والتصدير</h2>
-                    <Field label="اسم المراجع — اختياري للمسودة">
+                    <h2>ملاحظات المراجعة وتنزيل الملف</h2>
+                    <Field label="اسم المراجع (اختياري للمسودة)">
                       <Input
                         aria-label="اسم المراجع"
                         value={review.name}
@@ -2149,7 +2170,7 @@ export default function App() {
                         }
                       />
                     </Field>
-                    <Field label="ملاحظات عامة / أدلة تحتاج متابعة">
+                    <Field label="ملاحظاتك وما يحتاج متابعة">
                       <Textarea
                         aria-label="ملاحظات المراجعة"
                         value={review.notes}
@@ -2173,13 +2194,13 @@ export default function App() {
                         setReview((r) => ({ ...r, checked: v }));
                       }}
                     >
-                      راجعت ورقة العمل والاستثناءات المتبقية. هذا إقرار محلي مني
-                      وليس اعتمادًا آليًا من الموقع.
+                      راجعت ورقة العمل والحالات المتبقية. أسجل هنا تأكيدي الشخصي
+                      للمراجعة، ولا يعني ذلك اعتمادًا من الموقع.
                     </Tick>
                     <p className="muted">
-                      يتضمن Excel الملخص والمصادر والمطابقات والاقتراحات
-                      والاستثناءات والاستبعادات والقواعد وإصدار المحرك. يمكنك
-                      تصدير مسودة دون تأكيد المراجعة.
+                      يشمل ملف Excel النتائج والمصادر وقرارات المراجعة والحالات
+                      المفتوحة والصفوف المستبعدة، مع قواعد المطابقة وإصدار
+                      المحرك. يمكنك تنزيل مسودة قبل تأكيد المراجعة.
                     </p>
                     <div className="actions">
                       <Button onClick={() => void download()} disabled={!!busy}>
@@ -2202,8 +2223,8 @@ export default function App() {
             </>
           )}
           <footer className="footnote">
-            المطابقة تساعدك على المراجعة؛ لا تعني اعتمادًا محاسبيًا. لا يُحفظ العمل
-            بعد إغلاق الجلسة.
+            النتائج تساعدك على المراجعة ولا تمثل اعتمادًا محاسبيًا. احفظ الجلسة أو
+            نزّل ورقة العمل قبل الإغلاق إذا أردت الاحتفاظ بها.
             <br />
             <button
               onClick={togglePrivacy}
@@ -2230,7 +2251,7 @@ export default function App() {
           <BrandMark />
           <BrandWordmark />
         </a>
-        <p>دقّة تمنحك وضوحًا أكبر.</p>
+        <p>وضوح يساعدك في المراجعة</p>
         {showLanding ? (
           <a className="footer-privacy-link" href="#privacy-details">
             حدود الخصوصية
@@ -2361,7 +2382,7 @@ function SourceConfiguration({
           {initialSelection.notice}
         </p>
         <Choice
-          label="ورقة العمل — اختر جدول المصدر"
+          label="الورقة التي تحتوي الحركات"
           value="-1"
           options={[
             ['-1', 'اختر ورقة العمل'],
@@ -2424,11 +2445,11 @@ function SourceConfiguration({
             <p className="hint">
               {mapping.mode === 'signed'
                 ? mapping.multiplier === 1
-                  ? 'الموجب يزيد ما ندين به للمورد.'
-                  : 'السالب يزيد ما ندين به للمورد.'
+                  ? 'المبلغ الموجب يزيد المستحق للمورد.'
+                  : 'المبلغ السالب يزيد المستحق للمورد.'
                 : mapping.multiplier === 1
-                  ? 'المدين يزيد المديونية، والدائن يخفضها.'
-                  : 'الدائن يزيد المديونية، والمدين يخفضها.'}{' '}
+                  ? 'المدين يزيد المستحق للمورد والدائن يخفضه.'
+                  : 'الدائن يزيد المستحق للمورد والمدين يخفضه.'}{' '}
               <button
                 type="button"
                 className="inline-link"
@@ -2436,7 +2457,7 @@ function SourceConfiguration({
                   onChange({ multiplier: (mapping.multiplier * -1) as 1 | -1 })
                 }
               >
-                عكس الاتجاه
+                عكس اتجاه المبالغ
               </button>
             </p>
           )}
@@ -2467,8 +2488,8 @@ function SourceConfiguration({
       )}
       {mapping.reference < 0 && (
         <p className="hint">
-          لا يوجد عمود مرجع؛ لن تُنشأ مطابقات آلية. حدده من «خيارات متقدمة» إن
-          وُجد.
+          لم نحدد عمود المرجع، لذلك لن تُعتمد مطابقات آلية. إذا كان موجودًا، اختره
+          من «خيارات متقدمة».
         </p>
       )}
       {(missingColumns || mapping.reference < 0) && (
@@ -2503,14 +2524,14 @@ function SourceConfiguration({
       {ambiguous.map((field) => (
         <div className="panel stack" key={field}>
           <p className={formatChoices[field] ? 'hint' : 'hint warn'}>
-            {formatChoices[field] ? 'اختيارك المسجل. ' : ''}
+            {formatChoices[field] ? 'الصيغة التي اخترتها. ' : ''}
             {formats![field].reason}
           </p>
           <Choice
             label={
               field === 'dateFormat'
-                ? `حسم صيغة التاريخ ${side}`
-                : `حسم صيغة المبالغ ${side}`
+                ? `صيغة التاريخ في ${sideNames[side]}`
+                : `صيغة المبالغ في ${sideNames[side]}`
             }
             value={formatChoices[field] ? mapping[field] : ''}
             onChange={(value) => onFormatChange(field, value)}
@@ -2532,8 +2553,8 @@ function SourceConfiguration({
       {!!validation?.errors.length && (
         <div className="panel stack">
           <p className="hint warn" role="status">
-            {validation.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. صحح المصدر
-            أو استبعد الصف بسبب.
+            تعذرت قراءة {validation.errors.length} من الصفوف ولم تدخل في
+            المقارنة. صحح بياناتها أو استبعدها مع توضيح السبب.
           </p>
           {validation.errors.slice(0, 8).map((e) => (
             <p className="muted" key={`${e.row}-${e.message}`}>
@@ -2542,7 +2563,7 @@ function SourceConfiguration({
           ))}
           {validation.errors.length > 8 && (
             <p className="muted">
-              وتظهر بقية الصفوف في ورقة Diagnostics عند التصدير.
+              تفاصيل بقية الصفوف تظهر في ورقة Diagnostics عند تنزيل ملف Excel.
             </p>
           )}
         </div>
@@ -2550,8 +2571,8 @@ function SourceConfiguration({
       {missingColumns && !open && (
         <div className="panel stack">
           <p className="hint warn">
-            لم يتحدد معنى بعض الأعمدة. اختر الناقص فقط، أو افتح الخيارات المتقدمة
-            لتعديل الجدول.
+            نحتاج مساعدتك في تحديد بعض الأعمدة. اختر الأعمدة الناقصة أدناه، وافتح
+            «خيارات متقدمة» إذا أردت تعديل بقية الإعدادات.
           </p>
           <div className="form-grid">
             {mapping.date < 0 && col('date', 'عمود التاريخ')}
@@ -2600,10 +2621,10 @@ function SourceConfiguration({
               />
             </Field>
             <Choice
-              label="شكل المبالغ"
+              label="طريقة عرض المبالغ"
               value={mapping.mode}
               options={[
-                ['signed', 'مبلغ واحد بإشارة'],
+                ['signed', 'عمود مبلغ موجب أو سالب'],
                 ['split', 'عمود مدين وعمود دائن'],
               ]}
               onChange={(v) => onChange({ mode: v as Mapping['mode'] })}
@@ -2618,11 +2639,11 @@ function SourceConfiguration({
                 {col('credit', 'عمود الدائن')}
               </>
             )}
-            {col('description', 'عمود الوصف — اختياري')}
-            {col('currencyColumn', 'عمود العملة — إن وُجد')}
+            {col('description', 'عمود الوصف (اختياري)')}
+            {col('currencyColumn', 'عمود العملة (إن وجد)')}
           </div>
           <details>
-            <summary>معاينة أول صفوف الجدول</summary>
+            <summary>معاينة بداية الجدول</summary>
             <div className="preview">
               <Table>
                 <TableHeader>
@@ -2659,25 +2680,25 @@ function SourceConfiguration({
                 label="نوع التقرير"
                 value={mapping.reportType}
                 options={[
-                  ['transactions', 'حركات فترة'],
-                  ['open-items', 'بنود مفتوحة عند تاريخ القطع'],
+                  ['transactions', 'حركات خلال فترة'],
+                  ['open-items', 'بنود مفتوحة حتى تاريخ المقارنة'],
                 ]}
                 onChange={(v) =>
                   onChange({ reportType: v as Mapping['reportType'] })
                 }
               />
               <Choice
-                label="اتجاه المديونية"
+                label="اتجاه المبالغ"
                 value={String(mapping.multiplier)}
                 options={
                   mapping.mode === 'signed'
                     ? [
-                        ['1', 'الموجب يزيد ما ندين به للمورد'],
-                        ['-1', 'السالب يزيد ما ندين به للمورد'],
+                        ['1', 'المبلغ الموجب يزيد المستحق للمورد'],
+                        ['-1', 'المبلغ السالب يزيد المستحق للمورد'],
                       ]
                     : [
-                        ['1', 'المدين يزيد المديونية، الدائن يخفضها'],
-                        ['-1', 'الدائن يزيد المديونية، المدين يخفضها'],
+                        ['1', 'المدين يزيد المستحق للمورد والدائن يخفضه'],
+                        ['-1', 'الدائن يزيد المستحق للمورد والمدين يخفضه'],
                       ]
                 }
                 onChange={(v) => onChange({ multiplier: Number(v) as 1 | -1 })}
@@ -2712,7 +2733,7 @@ function SourceConfiguration({
                       `mizan.mapping.${side}.v1`,
                       JSON.stringify(localTemplate(mapping)),
                     );
-                    onNotice('حُفظ تعيين الأعمدة محليًا دون محتوى مالي.');
+                    onNotice('حُفظت إعدادات الأعمدة على جهازك دون بيانات مالية.');
                   } catch {
                     onError('تعذر حفظ القالب في هذا المتصفح.');
                   }
@@ -2734,7 +2755,7 @@ function SourceConfiguration({
                     return;
                   }
                   onChange(t);
-                  onNotice('طُبق القالب. راجع الأعمدة قبل المقارنة.');
+                  onNotice('استعدنا إعدادات القالب. راجع الأعمدة قبل المقارنة.');
                 }}
               >
                 استعادة القالب
@@ -2743,7 +2764,7 @@ function SourceConfiguration({
           </details>
           <details open={importIssues.length > 0}>
             <summary>
-              استبعاد صف بسبب
+              استبعاد صف مع توضيح السبب
               {importIssues.length > 0
                 ? ` — ${importIssues.length} ملاحظة قراءة`
                 : ''}
@@ -2761,9 +2782,9 @@ function SourceConfiguration({
               ))}
               {validation && (
                 <p className="muted">
-                  {validation.transactions.length} حركة مقروءة ·{' '}
-                  {validation.excluded.length} صف مستبعد ·{' '}
-                  {validation.errors.length} صف لم يُقرأ
+                  الحركات المقروءة: {validation.transactions.length} · الصفوف
+                  المستبعدة: {validation.excluded.length} · الصفوف التي لم تُقرأ:{' '}
+                  {validation.errors.length}
                 </p>
               )}
               <div className="form-grid">
@@ -2848,7 +2869,7 @@ function SourceConfiguration({
                         }
                       />
                     </Field>
-                    <Field label="الرصيد الافتتاحي — موجب إذا كنا مدينين">
+                    <Field label="الرصيد الافتتاحي (موجب إذا كان مستحقًا للمورد)">
                       <Input
                         dir="ltr"
                         aria-label={`الرصيد الافتتاحي ${side}`}
@@ -2858,7 +2879,7 @@ function SourceConfiguration({
                     </Field>
                   </>
                 )}
-                <Field label="الرصيد الختامي عند القطع">
+                <Field label="الرصيد الختامي في تاريخ المقارنة">
                   <Input
                     dir="ltr"
                     aria-label={`الرصيد الختامي ${side}`}
@@ -2868,7 +2889,8 @@ function SourceConfiguration({
                 </Field>
               </div>
               <p className="hint">
-                الأرصدة مدخلة يدويًا؛ التطابق الحسابي لا يثبت اكتمال المصدر.
+                أنت أدخلت هذه الأرصدة يدويًا. اتساقها حسابيًا لا يثبت أن الملف يشمل
+                كل الحركات.
               </p>
             </div>
           )}

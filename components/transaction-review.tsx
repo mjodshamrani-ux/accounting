@@ -56,32 +56,32 @@ export function TransactionReview({
   const chosen = candidates.find((t) => t.id === candidate);
   const explanation = explainResult(result, 'شرح', id);
   return (
-    <section className="review-detail stack" aria-label="فحص الحركة">
+    <section className="review-detail stack" aria-label="مراجعة الحركة">
       <div className="actions" style={{ justifyContent: 'space-between' }}>
         <h2>
-          فحص الحركة · <bdi>{tx.reference || `صف ${tx.row}`}</bdi>
+          مراجعة الحركة <bdi>{tx.reference || `صف ${tx.row}`}</bdi>
         </h2>
         <Button variant="ghost" onClick={onClose}>
-          إغلاق الفحص
+          إغلاق المراجعة
         </Button>
       </div>
       <p style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
         {explanation.text}
       </p>
       <p>
-        قيمة المصدر: <bdi>{tx.originalAmount}</bdi> · معرف الصف:{' '}
+        المبلغ في الملف الأصلي: <bdi>{tx.originalAmount}</bdi> · معرّف الصف:{' '}
         <bdi>{tx.id}</bdi>
-        {tx.sourcePage && <> · صفحة PDF الأصلية: {tx.sourcePage}</>}
+        {tx.sourcePage && <> · الصفحة في ملف PDF: {tx.sourcePage}</>}
       </p>
       {!match && (
         <>
           <p className="muted">
-            المرشح لا يعني مطابقة. أول 50 نتيجة بحث من الطرف الآخر؛ لا يسمح باعتماد
-            مبالغ مختلفة.
+            نعرض حتى 50 نتيجة من الملف الآخر. ظهور حركة هنا لا يعني أنها مطابقة،
+            ولا يمكن تأكيد الربط إذا اختلف المبلغ.
           </p>
           <Input
-            aria-label="البحث عن مقابل"
-            placeholder="مرجع أو وصف أو صف في الطرف الآخر"
+            aria-label="البحث عن حركة مقابلة"
+            placeholder="ابحث بالمرجع أو الوصف أو رقم الصف في الملف الآخر"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -93,12 +93,12 @@ export function TransactionReview({
             onValueChange={(v) => setCandidate(String(v))}
           >
             <SelectTrigger aria-label="الحركة المقابلة">
-              <SelectValue placeholder="اختر حركة مقابلة" />
+              <SelectValue placeholder="اختر حركة من الملف الآخر" />
             </SelectTrigger>
             <SelectContent>
               {candidates.map((t) => (
                 <SelectItem key={t.id} value={t.id}>
-                  {t.reference || 'بلا مرجع'} ·{' '}
+                  {t.reference || 'بدون مرجع'} ·{' '}
                   {money(t.amount, result.scope.decimals)} · صف {t.row}
                 </SelectItem>
               ))}
@@ -108,15 +108,15 @@ export function TransactionReview({
             <p className={chosen.amount === tx.amount ? 'muted' : 'notice'}>
               {chosen.date} · {chosen.description} ·{' '}
               {chosen.amount === tx.amount
-                ? 'المبلغ متساوٍ؛ يلزم دليل محاسبي للربط.'
-                : 'المبلغ مختلف؛ الربط غير مسموح.'}
+                ? 'المبلغان متساويان. تأكيد الربط يحتاج دليلًا محاسبيًا.'
+                : 'المبلغان مختلفان، لذلك لا يمكن ربط الحركتين.'}
             </p>
           )}
         </>
       )}
       <Textarea
         aria-label="سبب القرار"
-        placeholder="وثّق المستند أو سبب المراجعة أو فك الرابط"
+        placeholder="اكتب دليل الربط أو سبب المراجعة أو فك الربط"
         maxLength={1000}
         value={note}
         onChange={(e) => setNote(e.target.value)}
@@ -154,7 +154,7 @@ export function TransactionReview({
                 setNote('');
               }}
             >
-              تسجيل مراجعة الاستثناء دون مطابقته
+              تسجيل مراجعة دون مطابقة
             </Button>
           </>
         )}

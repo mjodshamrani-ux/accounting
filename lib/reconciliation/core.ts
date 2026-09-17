@@ -25,7 +25,8 @@ export function parseMoney(
   format: 'dot' | 'comma' = 'dot',
   decimals = 2,
 ): number {
-  if (![0, 2, 3].includes(decimals)) throw new Error('دقة العملة غير مدعومة');
+  if (![0, 2, 3].includes(decimals))
+    throw new Error('عدد المنازل العشرية للعملة غير مدعوم');
   let s = latinDigits(String(value)).trim().replace(/−/g, '-');
   if (!s) throw new Error('مبلغ فارغ');
   let negative = false;
@@ -34,7 +35,10 @@ export function parseMoney(
     s = s.slice(1, -1).trim();
   }
   if (s.startsWith('-') || s.startsWith('+')) {
-    if (negative) throw new Error('إشارة مزدوجة');
+    if (negative)
+      throw new Error(
+        'إشارة المبلغ مزدوجة: لا تجمع الأقواس مع علامة موجب أو سالب.',
+      );
     negative = s[0] === '-';
     s = s.slice(1);
   }
@@ -44,7 +48,7 @@ export function parseMoney(
   const sep = format === 'dot' ? '.' : ',';
   const group = format === 'dot' ? ',' : '.';
   const pieces = s.split(sep);
-  if (pieces.length > 2) throw new Error('فواصل مبلغ غير صحيحة');
+  if (pieces.length > 2) throw new Error('فواصل المبلغ غير صحيحة');
   let whole = pieces[0],
     fraction = pieces[1] ?? '';
   if (whole.includes(group)) {
@@ -53,7 +57,7 @@ export function parseMoney(
       !/^\d{1,3}$/.test(groups[0]) ||
       groups.slice(1).some((g) => !/^\d{3}$/.test(g))
     )
-      throw new Error('تجميع الآلاف غير صحيح');
+      throw new Error('مواضع فواصل الآلاف غير صحيحة');
     whole = groups.join('');
   }
   if (
@@ -62,7 +66,7 @@ export function parseMoney(
     (pieces.length === 2 && !fraction) ||
     fraction.length > decimals
   )
-    throw new Error('مبلغ غير صالح أو منازل عشرية أكثر من دقة العملة');
+    throw new Error('المبلغ غير صالح أو يتجاوز عدد المنازل العشرية للعملة');
   const n = Number(
     BigInt(whole) * 10n ** BigInt(decimals) +
       BigInt(fraction.padEnd(decimals, '0') || '0'),
@@ -130,7 +134,7 @@ export function parseDate(
   } else {
     const p = s.split(/[\/.-]/);
     if (p.length !== 3 || p.some((x) => !/^\d+$/.test(x)))
-      throw new Error('تاريخ غير صالح؛ حدد صيغة التاريخ');
+      throw new Error('التاريخ غير صالح. حدد ترتيب اليوم والشهر والسنة.');
     if (format === 'ymd') [y, m, d] = p.map(Number);
     else if (format === 'dmy') [d, m, y] = p.map(Number);
     else [m, d, y] = p.map(Number);
@@ -143,7 +147,7 @@ export function parseDate(
     dt.getUTCMonth() !== m - 1 ||
     dt.getUTCDate() !== d
   )
-    throw new Error('يوم غير موجود في التقويم');
+    throw new Error('اليوم المحدد غير موجود في التقويم');
   return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 }
 export function normalizeReference(s: string): string {
@@ -171,7 +175,7 @@ function validateScope(scope: Scope) {
     scope.dateWindow > 7
   )
     throw new Error(
-      'بنية النطاق أو تأكيداته غير صالحة؛ يلزم تأكيد صريح وإعدادات قراءة صحيحة',
+      'إعدادات نطاق التسوية أو تأكيداته غير صالحة. راجع إعدادات القراءة وأكد النطاق.',
     );
 }
 export function inferMapping(
@@ -389,7 +393,9 @@ export function normalizeSource(
         !reason.trim(),
     )
   )
-    throw new Error('استبعاد غير صالح؛ حدد صفًا موجودًا وسببًا نصيًا واضحًا');
+    throw new Error(
+      'تعذر استبعاد الصف. اختر صفًا موجودًا واكتب سببًا واضحًا للاستبعاد.',
+    );
   if (
     !Number.isInteger(mapping.header) ||
     mapping.header < 0 ||
@@ -407,7 +413,7 @@ export function normalizeSource(
       : [mapping.debit, mapping.credit]),
   ])
     if (!Number.isInteger(col) || col < -1 || col >= width)
-      throw new Error('عمود خارج حدود العناوين');
+      throw new Error('العمود المختار خارج نطاق صف العناوين');
   const result: SourceResult = {
     transactions: [],
     excluded: [],
@@ -423,7 +429,9 @@ export function normalizeSource(
     sourceHash: file.sha256,
   };
   if (file.pdf && mapping.pdfReviewed !== true)
-    throw new Error('راجع الصفوف المستخرجة من PDF مع الأصل ثم أكد المراجعة');
+    throw new Error(
+      'راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة.',
+    );
   const selected = [
     mapping.date,
     mapping.reference,
@@ -434,7 +442,7 @@ export function normalizeSource(
       : [mapping.debit, mapping.credit]),
   ].filter((i) => i >= 0);
   if (new Set(selected).size !== selected.length)
-    throw new Error('لا يمكن استخدام العمود نفسه لأكثر من معنى');
+    throw new Error('لا يمكن تعيين العمود نفسه لأكثر من حقل');
   if (
     mapping.date < 0 ||
     (mapping.mode === 'signed'
@@ -457,7 +465,8 @@ export function normalizeSource(
   const cutoff = parseDate(scope.cutoff, 'ymd');
   let start = '';
   if (mapping.periodStart) start = parseDate(mapping.periodStart, 'ymd');
-  if (start && start > cutoff) throw new Error('بداية الفترة بعد تاريخ القطع');
+  if (start && start > cutoff)
+    throw new Error('بداية الفترة تأتي بعد تاريخ المقارنة');
   const get = (row: string[], col: number) =>
     col < 0 ? '' : (row[col] ?? '').trim();
   const headerRow = sheet.rows[mapping.header];
@@ -492,7 +501,7 @@ export function normalizeSource(
         row.slice(sheet.rows[mapping.header]?.length ?? 0).some((v) => v.trim())
       )
         throw new Error(
-          'قيم إضافية خارج أعمدة العناوين؛ تحقق من فاصل CSV وبنية الصف',
+          'توجد قيم إضافية خارج أعمدة العناوين. تحقق من فاصل CSV وترتيب بيانات الصف.',
         );
       // A statement's own totals and its headers repeated on each page are not
       // transactions. Exclude them with a recorded reason instead of demanding a
@@ -572,7 +581,7 @@ export function normalizeSource(
       // Excel files carry precise cell issues, including formulas, instead.
       if (!sheet.cellIssues && formulaRows.has(rn))
         throw new Error(
-          'الصف يحتوي صيغة؛ استخدم نسخة قيم ثابتة موثوقة أو استبعده مع سبب',
+          'الصف يحتوي معادلة. استخدم نسخة موثوقة بقيم ثابتة، أو استبعد الصف مع توضيح السبب.',
         );
       if (row.every((v) => !v.trim())) {
         result.excluded.push({ row: rn, reason: 'صف فارغ', values: row });
@@ -588,7 +597,7 @@ export function normalizeSource(
         result.excluded.push({
           row: rn,
           reason:
-            date > cutoff ? 'بعد تاريخ القطع' : 'قبل بداية الفترة المؤكدة',
+            date > cutoff ? 'بعد تاريخ المقارنة' : 'قبل بداية الفترة المؤكدة',
           values: row,
         });
         continue;
@@ -608,7 +617,9 @@ export function normalizeSource(
         if (!native)
           return parseMoney(text, mapping.numberFormat, scope.decimals);
         if (/%/.test(native.format))
-          throw new Error('خلية نسبة مئوية لا تصلح مبلغًا؛ حدد عمود القيمة');
+          throw new Error(
+            'الخلية تحتوي نسبة مئوية وليست مبلغًا. حدد العمود الذي يحتوي قيمة المبلغ.',
+          );
         // Excel numeric cells are locale-independent. Never interpret their decimal point as grouping.
         return parseMoney(String(native.value), 'dot', scope.decimals);
       };
@@ -623,10 +634,12 @@ export function normalizeSource(
         const c = credit ? readAmount(mapping.credit, credit) : 0;
         if (d < 0 || c < 0)
           throw new Error(
-            'قيمة سالبة في أعمدة مدين/دائن؛ يلزم مصدر بإشارات واضحة',
+            'توجد قيمة سالبة في عمود المدين أو الدائن. يلزم مصدر يوضح إشارات المبالغ.',
           );
         if (d !== 0 && c !== 0)
-          throw new Error('مدين ودائن غير صفريين في الصف نفسه');
+          throw new Error(
+            'يحتوي الصف نفسه مبلغًا غير صفري في كل من المدين والدائن',
+          );
         amount = d - c;
       }
       amount *= mapping.multiplier;
@@ -662,7 +675,7 @@ export function normalizeSource(
     result.errors.push({
       row: 0,
       message:
-        'عملة بيانات الكشف متعارضة مع العملة المؤكدة أو مع تصريح آخر في الملف؛ راجع النطاق والمصدر',
+        'عملة الكشف تتعارض مع العملة المؤكدة أو مع عملة أخرى مذكورة في الملف. راجع نطاق التسوية والمصدر.',
     });
   if (!start) start = result.metadata.periodStart;
   try {
@@ -711,7 +724,7 @@ export function normalizeSource(
           : null;
     if (expected !== null && expected !== result.closing)
       result.warnings.push(
-        `عدم اتساق الرصيد: المحسوب ${money(expected, scope.decimals)}؛ المدخل ${money(result.closing, scope.decimals)}؛ الفرق ${money(safeSum([expected, -result.closing]), scope.decimals)}. راجع التغطية والإشارات والاستبعادات.`,
+        `عدم اتساق الرصيد: المحسوب ${money(expected, scope.decimals)}؛ المدخل ${money(result.closing, scope.decimals)}؛ الفرق ${money(safeSum([expected, -result.closing]), scope.decimals)}. راجع تغطية الفترة وإشارات المبالغ والصفوف المستبعدة.`,
       );
   }
   return result;
@@ -742,7 +755,7 @@ export function compare(
       ![scope.supplier, scope.entity, scope.account].every((x) => x.trim()))
   )
     throw new Error(
-      'أكد نطاق الملفين والعملة؛ أسماء المورد والجهة والحساب مطلوبة عند طلب تسوية الأرصدة',
+      'أكد نطاق الملفين والعملة. عند طلب تسوية الأرصدة، أدخل أيضًا اسم المورد والجهة والحساب.',
     );
   if (!/^[A-Z]{3}$/.test(scope.currency))
     throw new Error('استخدم رمز عملة من ثلاثة أحرف لاتينية');
@@ -751,9 +764,11 @@ export function compare(
     scope.dateWindow < 0 ||
     scope.dateWindow > 7
   )
-    throw new Error('نافذة التاريخ من 0 إلى 7 أيام');
+    throw new Error('يجب أن يكون فرق الأيام المسموح للمطابقة من 0 إلى 7 أيام.');
   if (supplier.mapping.reportType !== ledger.mapping.reportType)
-    throw new Error('الزوج المختلط غير مدعوم. اختر تقريرين من النوع نفسه');
+    throw new Error(
+      'لا يمكن مقارنة نوعين مختلفين من التقارير. اختر تقريرين من النوع نفسه.',
+    );
   if (!supplier.transactions.length || !ledger.transactions.length)
     throw new Error('لا توجد حركات كافية في أحد الطرفين');
   if (
@@ -762,7 +777,7 @@ export function compare(
     )
   )
     throw new Error(
-      'عملة حركة المصدر لا تطابق نطاق المقارنة؛ أعد قراءة الملف بالنطاق الصحيح',
+      'عملة إحدى الحركات لا تطابق عملة نطاق المقارنة. صحح النطاق وأعد قراءة الملف.',
     );
   const a = indexBy(supplier.transactions, key),
     b = indexBy(ledger.transactions, key),
@@ -787,12 +802,12 @@ export function compare(
       s.amount !== l.amount
     )
       throw new Error(
-        'مطابقة يدوية غير صالحة: يلزم مبلغ متساوٍ وسبب وحركات غير مستخدمة',
+        'تعذر اعتماد المطابقة اليدوية. يجب أن تتساوى المبالغ، وأن تكون الحركات غير مستخدمة، مع كتابة سبب القرار.',
       );
     matches.push({
       ...d,
       kind: 'manual',
-      reason: 'تأكيد المحاسب؛ لا يثبت صحة المستند أو سبب الفرق',
+      reason: 'أكد المحاسب هذا الربط. تأكيده لا يثبت صحة المستند أو سبب الفرق.',
     });
     usedA.add(s.id);
     usedB.add(l.id);
@@ -841,7 +856,7 @@ export function compare(
         supplierId: s.id,
         ledgerId: l.id,
         kind: 'auto',
-        reason: `مرجع أصلي مطابق دون حذف رموزه؛ غير مكرر في كل طرف؛ مبلغ موقّع مطابق؛ فرق التاريخ ${days} يوم`,
+        reason: `المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ ${days} يوم.`,
         evidence: {
           rule: 'EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2',
           supplierRow: s.row,
@@ -942,7 +957,7 @@ export function compare(
     if (source.errors.length)
       diagnostics.push({
         code: 'SKIPPED_ROWS',
-        message: `${label}: ${source.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. المقارنة غير مكتملة؛ أوقفت المطابقات الآلية لأن الصف غير المقروء قد يخفي مرجعًا مكررًا. صحح القراءة أو وثّق الاستبعاد.`,
+        message: `${label}: ${source.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. المقارنة غير مكتملة. أُوقفت المطابقات الآلية لأن الصف غير المقروء قد يحتوي مرجعًا مكررًا. صحح القراءة أو وثّق الاستبعاد.`,
         transactionIds: [],
       });
     for (const warning of source.warnings)
@@ -957,7 +972,7 @@ export function compare(
         (source.balanceValid
           ? 'BALANCE_ARITHMETIC_VERIFIED'
           : 'BALANCE_ROW_NOT_FOUND'),
-      message: `${label}: ${arithmeticVerified(source) ? 'معادلة الرصيد متحققة من الافتتاح والحركات والإقفال.' : source.closing === null ? 'لم يُستخرج رصيد كافٍ لاختبار المعادلة.' : 'معادلة الرصيد غير متحققة؛ راجع المصدر والإشارات والفترة.'}`,
+      message: `${label}: ${arithmeticVerified(source) ? 'معادلة الرصيد متحققة من الرصيد الافتتاحي والحركات والرصيد الختامي.' : source.closing === null ? 'لم يُستخرج رصيد كافٍ لاختبار المعادلة.' : 'لم تتحقق معادلة الرصيد. راجع المصدر وإشارات المبالغ والفترة.'}`,
       transactionIds: [],
     });
     if (source.metadata?.periodStart && source.metadata?.periodEnd)
@@ -969,7 +984,7 @@ export function compare(
     if (!scope.coverageConfirmed)
       diagnostics.push({
         code: 'PERIOD_COVERAGE_UNCONFIRMED',
-        message: `${label}: تأكيد المستخدم لاكتمال تغطية الفترة معلق؛ لا يغيّر ذلك نتيجة اختبار معادلة الرصيد.`,
+        message: `${label}: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.`,
         transactionIds: [],
       });
   }
@@ -991,20 +1006,23 @@ export function compare(
     )
       add(
         'DUPLICATE_REFERENCE',
-        'المرجع متكرر؛ لا يُحسم التكرار بالمبلغ أو ترتيب الصفوف.',
+        'المرجع متكرر. تساوي المبالغ أو ترتيب الصفوف لا يكفي لحسم هذا التكرار.',
       );
     if (candidates.some((t) => t.amount === -s.amount && s.amount !== 0))
       add(
         'SIGN_CONFLICT',
-        'مرجع متشابه وقيمة مطلقة متساوية بإشارتين مختلفتين؛ لا يقلب المحرك الإشارة تلقائيًا.',
+        'يوجد مرجع متشابه ومبلغ بالقيمة نفسها لكن بإشارة معاكسة. لا يغيّر المحرك إشارة المبلغ تلقائيًا.',
       );
     if (candidates.some((t) => t.reference.trim() !== s.reference.trim()))
       add(
         'REFERENCE_VARIANT',
-        'تشابه بعد توحيد المرجع فقط؛ اختلاف الرموز أو الحروف يحتاج مراجعة.',
+        'يتشابه المرجعان بعد توحيد كتابتهما فقط. اختلاف الرموز أو الحروف يحتاج إلى مراجعة.',
       );
     if (candidates.some((t) => t.amount !== s.amount))
-      add('AMOUNT_DIFFERENCE', 'مبلغ موقّع مختلف لدى مرشح يحمل مرجعًا متشابهًا.');
+      add(
+        'AMOUNT_DIFFERENCE',
+        'توجد حركة بمرجع متشابه، لكن مبلغها بإشارته مختلف.',
+      );
     if (
       candidates.some(
         (t) =>
@@ -1012,17 +1030,18 @@ export function compare(
           scope.dateWindow,
       )
     )
-      add('DATE_GAP', 'فرق التاريخ يتجاوز النافذة المؤكدة.');
+      add('DATE_GAP', 'فرق التاريخ يتجاوز فرق الأيام المسموح للمطابقة.');
     if (!candidates.length)
       add(
         'NO_REFERENCE_CANDIDATE',
-        'لا يوجد مرجع مقابل في الملف المقدم؛ هذا لا يثبت غياب المستند عن النظام.',
+        'لا يوجد مرجع مقابل في الملف المقدم. هذا لا يثبت غياب المستند عن النظام المحاسبي.',
       );
   }
   for (const l of ledgerOnly) {
     diagnostics.push({
       code: 'NO_SUPPLIER_COUNTERPART',
-      message: 'لم يوجد مقابل مورد صالح لهذه الحركة في الملفات المقدمة.',
+      message:
+        'لم يُعثر في الملفات المقدمة على حركة مورد تصلح مقابلًا لهذه الحركة.',
       transactionIds: [l.id],
     });
     if (ambiguousIds.includes(l.id))

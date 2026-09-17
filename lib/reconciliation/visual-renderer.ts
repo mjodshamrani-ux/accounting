@@ -59,7 +59,7 @@ async function bounded<T>(
         signal?.addEventListener('abort', abort, { once: true });
         timer = setTimeout(() => {
           stop();
-          reject(failed('تجاوز عرض الصفحة 15 ثانية'));
+          reject(failed('استغرق عرض الصفحة أكثر من 15 ثانية'));
         }, VISUAL_PDF_LIMITS.pageMilliseconds);
       }),
     ]);
@@ -93,7 +93,7 @@ export class VisualPdfRenderer {
       !buffer.byteLength ||
       buffer.byteLength > VISUAL_PDF_LIMITS.bytes
     )
-      throw failed('الحد 8 MB لكل PDF');
+      throw failed('الحد الأقصى لحجم كل PDF هو 8 MB');
     if (new TextDecoder().decode(buffer.slice(0, 5)) !== '%PDF-')
       throw failed('الملف ليس PDF');
     const runtime = await this.dependencies.loadPdfJs();
@@ -130,7 +130,7 @@ export class VisualPdfRenderer {
         active + width * height > VISUAL_PDF_LIMITS.activeCanvasPixels
       ) {
         canvasFailure = true;
-        throw failed('تجاوزت الصفحة حدود الذاكرة البصرية');
+        throw failed('تتطلب الصفحة ذاكرة تتجاوز الحد المسموح للمعاينة');
       }
       canvas.width = width;
       canvas.height = height;
@@ -192,8 +192,11 @@ export class VisualPdfRenderer {
     };
     const assertResources = () => {
       if (resourceFailure)
-        throw failed('خط أو مورد مفقود؛ لا يمكن اعتماد صورة بخط بديل');
-      if (canvasFailure) throw failed('تجاوز الرسم حدود الذاكرة البصرية');
+        throw failed(
+          'أحد الخطوط أو الموارد المطلوبة مفقود. لا يمكن اعتماد صورة تستخدم خطًا بديلًا.',
+        );
+      if (canvasFailure)
+        throw failed('يتطلب الرسم ذاكرة تتجاوز الحد المسموح للمعاينة');
     };
     try {
       const pdf = await bounded(loading.promise, signal, stop);
@@ -203,14 +206,16 @@ export class VisualPdfRenderer {
         pdf.numPages < 1 ||
         pdf.numPages > VISUAL_PDF_LIMITS.pages
       )
-        throw failed('الحد التجريبي 5 صفحات PDF');
+        throw failed('الحد التجريبي لقراءة الصور هو 5 صفحات PDF');
       await bounded(
         (async () => {
           if (pdf.isPureXfa || (await pdf.getPermissions()) !== null)
             throw failed('PDF المحمي أو التفاعلي غير مدعوم');
           const layers = await pdf.getOptionalContentConfig();
           if (layers.getOrder()?.length)
-            throw failed('PDF ذو طبقات العرض يحتاج نسخة مسطحة');
+            throw failed(
+              'يحتوي PDF طبقات عرض. استخدم نسخة مسطحة تظهر كل البيانات.',
+            );
         })(),
         signal,
         stop,
@@ -228,7 +233,7 @@ export class VisualPdfRenderer {
               // or HTML layer. This first slice accepts already-flattened pages.
               if ((await page.getAnnotations()).length)
                 throw failed(
-                  'التعليقات أو النماذج التفاعلية تحتاج نسخة PDF مسطحة',
+                  'يحتوي PDF تعليقات أو نماذج تفاعلية. استخدم نسخة مسطحة تظهر كل البيانات.',
                 );
               if (![0, 90, 180, 270].includes(page.rotate))
                 throw failed('اتجاه الصفحة غير مدعوم');
@@ -255,7 +260,7 @@ export class VisualPdfRenderer {
                 width * height > VISUAL_PDF_LIMITS.outputPixels
               )
                 throw failed(
-                  'حجم الصفحة يتجاوز دقة العرض الآمنة؛ لم تُخفض الدقة تلقائيًا',
+                  'حجم الصفحة يتجاوز دقة العرض الآمنة. لم تُخفّض دقتها تلقائيًا.',
                 );
               const transform = [...viewport.transform];
               if (transform.length !== 6 || !transform.every(Number.isFinite))
@@ -282,7 +287,7 @@ export class VisualPdfRenderer {
                   (blob) =>
                     blob?.type === 'image/png' && blob.size
                       ? resolve(blob)
-                      : reject(failed('تعذر حفظ المعاينة PNG')),
+                      : reject(failed('تعذر حفظ المعاينة بصيغة PNG')),
                   'image/png',
                 ),
               );
@@ -377,7 +382,7 @@ async function assertPaintResources(
         font.isInvalidPDFjsFont ||
         (font.missingFile && !font.isType3Font)
       )
-        throw failed('خط مفقود؛ لا يمكن تخمين شكل الأرقام');
+        throw failed('أحد الخطوط مفقود. لا يمكن تخمين شكل الأرقام.');
     } else if (
       op === ops.paintImageXObject ||
       op === ops.paintImageXObjectRepeat

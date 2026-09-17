@@ -87,7 +87,7 @@ export function ImportAssistant({
       setProposal(result);
       if (!result)
         setMessage(
-          'لم ينتج اقتراح قابل للاستخدام. اختر الأعمدة من الخيارات الموجودة؛ لم تتغير بياناتك.',
+          'لم يستطع المساعد تقديم اقتراح يمكن استخدامه. اختر الأعمدة يدويًا من الخيارات المتاحة. لم تتغير بياناتك.',
         );
     } finally {
       clearTimeout(timer);
@@ -110,7 +110,7 @@ export function ImportAssistant({
           disabled={busy}
           onClick={() => void suggest()}
         >
-          {busy ? 'جارٍ اقتراح الأعمدة محليًا…' : 'اقتراح الأعمدة بمساعد الجهاز'}
+          {busy ? 'نبحث عن الأعمدة المناسبة على جهازك' : 'اقتراح الأعمدة'}
         </Button>
         {busy && (
           <Button
@@ -125,16 +125,16 @@ export function ImportAssistant({
       </div>
       {message && <output className="hint">{message}</output>}
       {proposal && (
-        <div className="panel stack" aria-label="اقتراح أعمدة يحتاج مراجعة">
+        <div className="panel stack" aria-label="أعمدة مقترحة للمراجعة">
           <p className="hint">
-            اقتراح AI محلي؛ تحقق من معنى الأعمدة من أمثلة المصدر. لم تُعتمد أرقام
-            أو مطابقات.
+            هذا اقتراح من مساعد الذكاء الاصطناعي على جهازك. راجع معنى كل عمود مع
+            أمثلة الملف قبل استخدامه. لم تُعتمد أي أرقام أو مطابقات.
           </p>
           <ul>
             {proposal.evidence.map((e) => (
               <li key={e.field}>
                 <strong>{labels[e.field]}</strong>: العمود {e.index + 1} «
-                <bdi>{e.header.text || 'بلا عنوان'}</bdi>» —{' '}
+                <bdi>{e.header.text || 'بدون عنوان'}</bdi>» —{' '}
                 {e.samples.map((sample) => (
                   <span key={sample.row}>
                     صف {sample.row}:{' '}
@@ -146,7 +146,7 @@ export function ImportAssistant({
                   </span>
                 ))}
                 {e.issueCount > 0 && (
-                  <span> ({e.issueCount} ملاحظة قراءة تحتاج فحص المحرك)</span>
+                  <span> (ملاحظات تحتاج فحص المحرك: {e.issueCount})</span>
                 )}
               </li>
             ))}
@@ -170,7 +170,7 @@ export function ImportAssistant({
               onApply(fresh.patch);
             }}
           >
-            استخدام الأعمدة بعد مراجعتها
+            تطبيق الأعمدة بعد مراجعتها
           </Button>
         </div>
       )}

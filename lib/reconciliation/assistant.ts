@@ -55,7 +55,7 @@ function proposalEvidence(result: Comparison) {
     !Array.isArray(result.rejectedPairs) ||
     result.rejectedPairs.some((pair) => typeof pair !== 'string')
   )
-    failure('سجل قرارات المراجعة غير صالح؛ أعد المصالحة');
+    failure('سجل قرارات المراجعة غير صالح؛ أعد التسوية');
   if (
     !result.scope.confirmed ||
     !/^[A-Z]{3}$/.test(result.scope.currency) ||
@@ -64,14 +64,16 @@ function proposalEvidence(result: Comparison) {
     result.scope.dateWindow < 0 ||
     result.scope.dateWindow > 7
   )
-    failure('نطاق النتيجة غير صالح؛ أعد المصالحة');
+    failure('نطاق النتيجة غير صالح؛ أعد التسوية');
   const cutoff = parseDate(result.scope.cutoff, 'ymd');
   for (const [source, side] of [
     [result.supplier, 'supplier'],
     [result.ledger, 'ledger'],
   ] as const) {
     if (source.errors.length || !source.transactions.length)
-      failure('قراءة المصدر غير مكتملة؛ صحح أخطاء القراءة قبل فحص اقتراح AI');
+      failure(
+        'قراءة المصدر غير مكتملة. صحح أخطاء القراءة قبل فحص اقتراح الذكاء الاصطناعي.',
+      );
     for (const t of source.transactions) {
       if (
         !t.id ||
@@ -95,14 +97,16 @@ function proposalEvidence(result: Comparison) {
             ))) ||
         (t.amountMinor !== undefined && t.amountMinor !== t.amount)
       )
-        failure('هوية أو تاريخ أو مبلغ حركة المصدر غير متسق؛ أعد المصالحة');
+        failure(
+          'توجد بيانات غير متسقة في معرّف حركة المصدر أو تاريخها أو مبلغها. أعد التسوية.',
+        );
       if (t.currency !== undefined && t.currency !== result.scope.currency)
         failure('عملة حركة المصدر لا تطابق نطاق النتيجة');
       safeSum([t.amount]);
       canonical.set(t.id, t);
     }
     if (safeSum(source.transactions.map((t) => t.amount)) !== source.total)
-      failure('إجمالي المصدر لا يطابق حركاته الحالية؛ أعد المصالحة');
+      failure('إجمالي المصدر لا يطابق حركاته الحالية؛ أعد التسوية');
   }
   const caseIds = new Set<string>();
   const casesById = new Map<string, Comparison['cases'][number]>();
@@ -115,12 +119,12 @@ function proposalEvidence(result: Comparison) {
       ) ||
       c.reviewRequired !== (c.status !== 'Matched')
     )
-      failure('حالة المصالحة غير صالحة أو مكررة؛ أعد المصالحة');
+      failure('توجد حالة تسوية غير صالحة أو مكررة. أعد التسوية.');
     caseIds.add(c.caseId);
     casesById.set(c.caseId, c);
     const members = [...c.supplierMembers, ...c.ledgerMembers];
     if (!members.length || c.sourceTrace.length !== members.length)
-      failure('سجل مصدر الحالة غير مكتمل؛ أعد المصالحة');
+      failure('سجل مصدر الحالة غير مكتمل؛ أعد التسوية');
     const traceIds = new Set<string>();
     for (const [rows, side] of [
       [c.supplierMembers, 'supplier'],
@@ -135,7 +139,7 @@ function proposalEvidence(result: Comparison) {
           !sameTransactionEvidence(t, member)
         )
           failure(
-            'عضو حالة غائب أو مكرر أو قديم بالنسبة للمصدر الحالي؛ أعد المصالحة',
+            'إحدى حركات الحالة غائبة أو مكررة أو لا تطابق المصدر الحالي. أعد التسوية.',
           );
         caseRows.add(member.id);
         if (c.status === 'Needs Review' || c.status === 'Unmatched')
@@ -155,7 +159,7 @@ function proposalEvidence(result: Comparison) {
         trace.row !== t.row ||
         trace.page !== t.sourcePage
       )
-        failure('دليل صف المصدر لا يطابق أعضاء الحالة؛ أعد المصالحة');
+        failure('بيانات تتبّع صف المصدر لا تطابق حركات الحالة. أعد التسوية.');
       traceIds.add(trace.sourceRowId);
     }
     const a = safeSum(
@@ -169,7 +173,7 @@ function proposalEvidence(result: Comparison) {
       safeSum([b, -a]) !== c.bridgeEffect ||
       (c.status === 'Matched' && a !== b)
     )
-      failure('أرقام الحالة لا تطابق حركات المصدر الحالية؛ أعد المصالحة');
+      failure('أرقام الحالة لا تطابق حركات المصدر الحالية؛ أعد التسوية');
   }
   if (caseRows.size !== canonical.size)
     failure('لا تظهر جميع حركات المصدر مرة واحدة في النتيجة الحالية');
@@ -196,7 +200,7 @@ function proposalEvidence(result: Comparison) {
     }
   }
   if (matchRows.size !== matchedRows.size)
-    failure('سجل المطابقات غير مكتمل؛ أعد المصالحة');
+    failure('سجل المطابقات غير مكتمل؛ أعد التسوية');
   return { canonical, reviewable };
 }
 // No model text, claimed numbers or confidence scores can enter the ledger.
@@ -212,7 +216,9 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     return rejected('بنية اقتراح غير صالحة');
   const p = input as Record<string, unknown>;
   if (Object.keys(p).sort().join(',') !== 'ledgerIds,supplierIds')
-    return rejected('يسمح بمعرفات المصدر فقط؛ لا مبالغ أو أوامر أو نصوص اعتماد');
+    return rejected(
+      'يقبل الاقتراح معرّفات حركات المصدر فقط، دون مبالغ أو أوامر أو نصوص لاعتماد المطابقة.',
+    );
   if (
     ![p.supplierIds, p.ledgerIds].every(
       (v) =>
@@ -222,7 +228,7 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
         v.every((id) => typeof id === 'string'),
     )
   )
-    return rejected('يلزم من حركة إلى عشر حركات لكل طرف');
+    return rejected('اختر من حركة واحدة إلى عشر حركات لكل طرف.');
   const ids = [...(p.supplierIds as string[]), ...(p.ledgerIds as string[])];
   if (new Set(ids).size !== ids.length)
     return rejected('حركة مكررة في الاقتراح');
@@ -233,7 +239,7 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     return rejected(
       error instanceof Error && !(error instanceof TypeError)
         ? error.message
-        : 'بنية النتيجة الحالية غير صالحة؛ أعد المصالحة',
+        : 'بنية النتيجة الحالية غير صالحة؛ أعد التسوية',
     );
   }
   const a = new Map(result.supplier.transactions.map((t) => [t.id, t]));
@@ -247,7 +253,7 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     )
   )
     return rejected(
-      'حركة غير موجودة أو مستخدمة؛ أعد التحقق من النتيجة الحالية',
+      'إحدى الحركات غير موجودة أو مستخدمة في مطابقة أخرى. أعد التحقق من النتيجة الحالية.',
     );
   if (
     (p.supplierIds as string[]).some((s) =>
@@ -260,7 +266,7 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
   const proposed = ids.map((id) => evidence.canonical.get(id)!);
   if (proposed.some((t) => t.referenceEvidenceIssues?.length))
     return rejected(
-      'دليل المرجع أو نوع المستند غير متحقق؛ راجع صفوف المصدر قبل اختبار الفرضية',
+      'دليل المرجع أو نوع المستند غير متحقق. راجع صفوف المصدر قبل فحص الاقتراح.',
     );
   const types = new Set(
     proposed
@@ -268,23 +274,27 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
       .filter((type) => type && type !== 'Unknown'),
   );
   if (types.size > 1)
-    return rejected('أنواع المستندات متعارضة؛ تساوي المبلغ لا يثبت الربط');
+    return rejected(
+      'أنواع المستندات متعارضة. تساوي المبلغ وحده لا يثبت صحة الربط.',
+    );
   const orders = new Set(proposed.map((t) => t.poReference).filter(Boolean));
   if (orders.size > 1)
-    return rejected('أوامر الشراء الصريحة متعارضة؛ يلزم دليل خارجي لتفسيرها');
+    return rejected(
+      'أرقام أوامر الشراء المذكورة صراحةً مختلفة. يلزم مستند خارجي يفسر هذا الاختلاف.',
+    );
   if (
     proposed.some((t) => !t.amount) ||
     new Set(proposed.map((t) => Math.sign(t.amount))).size > 1
   )
     return rejected(
-      'إشارات المبالغ غير متسقة أو توجد حركة صفرية؛ لا تُختزل بالمقاصة',
+      'تختلف إشارات المبالغ أو توجد حركة بمبلغ صفر. لا يمكن إثبات الربط بمقاصة هذه الحركات.',
     );
   const dates = proposed.map((t) => Date.parse(t.date));
   if (
     (Math.max(...dates) - Math.min(...dates)) / 86400000 >
     result.scope.dateWindow
   )
-    return rejected('فارق تواريخ الحركات يتجاوز نافذة المقارنة المؤكدة');
+    return rejected('فارق تواريخ الحركات يتجاوز فرق الأيام المسموح للمطابقة.');
   const proposedIds = new Set(ids);
   if (
     proposed.some((t) =>
@@ -298,7 +308,7 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     )
   )
     return rejected(
-      'المرجع مكرر؛ لا يجوز اختيار جزء من مجموعة ملتبسة وإخفاء بقية أعضائها',
+      'المرجع مكرر. لا يمكن اختيار جزء من مجموعة ملتبسة وتجاهل بقية حركاتها.',
     );
   let difference: number;
   try {
@@ -308,7 +318,7 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     ]);
   } catch {
     return rejected(
-      'فرق الاقتراح يتجاوز حدود الحساب الآمن؛ لا يمكن إثباته داخل المحرك',
+      'فرق الاقتراح يتجاوز حدود الحساب الآمن، لذلك لا يمكن للمحرك التحقق منه.',
     );
   }
   return {
@@ -317,8 +327,8 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     sourceIds: ids,
     reason:
       difference === 0
-        ? 'تحقق تساوي المجموع الموقّع فقط. لا يثبت علاقة المستندات؛ الاقتراح لا ينشئ مطابقة.'
-        : 'المبالغ الموقّعة لا تتساوى؛ لا يمكن اعتماد مطابقة.',
+        ? 'تحقق تساوي مجموع المبالغ مع إشاراتها فقط. هذا لا يثبت علاقة المستندات، والاقتراح لا ينشئ مطابقة.'
+        : 'المبالغ لا تتساوى عند احتساب إشاراتها. لا يمكن اعتماد مطابقة.',
   };
 }
 
@@ -331,7 +341,8 @@ export function localDescriptionHints(t: Transaction): string[] {
   if (/retention|محتجز|احتجاز/iu.test(t.description))
     hints.push('قد يشير الوصف إلى مبلغ محتجز');
   return hints.map(
-    (h) => `${h}؛ استدلال لفظي غير مثبت ولا يغيّر الإشارة أو التصنيف.`,
+    (h) =>
+      `${h}. هذا تفسير محتمل للوصف، ولم يُثبت. لا يغيّر إشارة المبلغ أو تصنيف الحركة.`,
   );
 }
 
@@ -401,7 +412,7 @@ function requestedVariance(
   const invalid = {
     kind: 'invalid' as const,
     reason:
-      'لم أستطع تحديد قيمة فرق واحدة دون التباس. اكتب مبلغًا واحدًا بفواصل واضحة وإشارته، أو اكتب مرجع الحالة؛ لن أختار فرقًا آخر بدلًا منه.',
+      'لم أستطع تحديد قيمة فرق واحدة دون التباس. اكتب مبلغًا واحدًا بفواصل واضحة مع إشارته، أو اكتب مرجع الحالة. لن أختار فرقًا آخر بدلًا منه.',
   };
   if (amounts.length !== 1) return invalid;
   const token = amounts[0];
@@ -432,7 +443,7 @@ function requestedVariance(
     return {
       kind: 'invalid',
       reason:
-        'عملة المبلغ المطلوب تختلف عن نطاق النتيجة الحالية؛ لن أحوّل العملة أو أختار فرقًا بعملة أخرى.',
+        'عملة المبلغ المطلوب تختلف عن عملة النتيجة الحالية. لن أحوّل العملة أو أختار فرقًا بعملة أخرى.',
     };
   const values = new Set<number>();
   for (const format of ['dot', 'comma'] as const) {
@@ -469,7 +480,7 @@ export function explainResult(
   if (selected === null)
     return {
       kind: 'unsupported',
-      text: 'لم أجد المرجع المطلوب كاملًا في النتيجة الحالية. اختر الحركة من الجدول أو تحقق من المرجع؛ لن أستبدله بمرجع مشابه.',
+      text: 'لم أجد المرجع المطلوب كاملًا في النتيجة الحالية. اختر الحركة من الجدول أو تحقق من كتابة المرجع. لن أستبدله بمرجع مشابه.',
       sourceIds: [],
     };
   const describe = (t: Transaction) =>
@@ -530,7 +541,7 @@ export function explainResult(
         refs.add(other.id);
         lines.push(`المقابل: ${describe(other)}`);
       } else {
-        lines.push('باقية للمراجعة؛ لا توجد مطابقة معتمدة لهذه الحركة.');
+        lines.push('هذه الحركة تحتاج إلى مراجعة، ولا توجد لها مطابقة معتمدة.');
         lines.push(
           ...result.diagnostics
             .filter((d) => d.transactionIds.includes(t.id))
@@ -543,10 +554,14 @@ export function explainResult(
           !/\d/.test(t.normalizedReference) ||
           t.normalizedReference.length < 4
         )
-          lines.push('المرجع لا يستوفي شرط المرجع القوي المختلط.');
-        if (!t.amount) lines.push('الحركة الصفرية لا تطابق آليًا.');
+          lines.push(
+            'لا يستوفي المرجع شروط المطابقة الآلية: يجب أن يضم حروفًا وأرقامًا، وألا يقل طوله بعد التوحيد عن أربعة محارف.',
+          );
+        if (!t.amount) lines.push('لا يطابق المحرك تلقائيًا حركة مبلغها صفر.');
         if (result.rejectedPairs.some((pair) => pair.split('|').includes(t.id)))
-          lines.push('يوجد رابط فكه المراجع؛ لا يعاد تلقائيًا.');
+          lines.push(
+            'فكّ المراجع أحد الروابط لهذه الحركة، ولن يعيده المحرك تلقائيًا.',
+          );
         lines.push(...localDescriptionHints(t));
         const counterparts = (
           t.side === 'supplier' ? result.ledgerOnly : result.supplierOnly
@@ -571,7 +586,7 @@ export function explainResult(
     }
     if (selected.length > 10)
       lines.push(
-        'يوجد أكثر من عشر حركات لهذا المرجع؛ اختر صفًا محددًا من المراجعة.',
+        'يرتبط بهذا المرجع أكثر من عشر حركات. اختر صفًا محددًا من صفحة المراجعة.',
       );
     return {
       kind: 'transaction',
@@ -601,7 +616,7 @@ export function explainResult(
         } catch {
           return {
             kind: 'difference',
-            text: 'لا أستطيع نسبة المبلغ إلى حالة موثقة لأن النتيجة الحالية غير مكتملة أو غير متسقة مع المصدر. صحح القراءة وأعد المصالحة أولًا.',
+            text: 'لا أستطيع نسبة المبلغ إلى حالة موثقة لأن النتيجة الحالية غير مكتملة أو غير متسقة مع المصدر. صحح القراءة وأعد التسوية أولًا.',
             sourceIds: [],
           };
         }
@@ -610,11 +625,11 @@ export function explainResult(
         );
         if (!related.length)
           caseLines.push(
-            'لا توجد حالة فرق معلّقة بهذه القيمة الموقّعة في النتيجة الحالية؛ لن أستبدلها بحالة تحمل مبلغًا آخر.',
+            'لا توجد حالة فرق معلّقة بهذه القيمة وإشارتها في النتيجة الحالية. لن أستبدلها بحالة تحمل مبلغًا آخر.',
           );
         else {
           caseLines.push(
-            'الحالات التالية تحمل فرق الحركات المطلوب (المورد ناقص الدفتر). هذا مستقل عن فرق الأرصدة الختامية، وأثر الجسر يحمل الإشارة المقابلة.',
+            'الحالات التالية تحمل فرق الحركات المطلوب، محسوبًا بطرح الدفتر من المورد. هذا مستقل عن فرق الأرصدة الختامية. أثر الجسر يعرض أثر الحالة على الانتقال من رصيد المورد إلى رصيد الدفتر، بإشارة معاكسة.',
           );
           for (const c of related) {
             caseLines.push(
@@ -629,7 +644,7 @@ export function explainResult(
             }
           }
           caseLines.push(
-            'تطابق قيمة الفرق يحدد حالات للفحص فقط؛ لا يثبت أن الحالة سبب فرق الأرصدة أو يثبت السبب الاقتصادي. راجع مستندات الحالات؛ لم تُنشأ مطابقة أو يُخفَ فرق.',
+            'تطابق قيمة الفرق يحدد حالات للفحص فقط. لا يثبت أن الحالة سبب فرق الأرصدة، ولا يثبت السبب الاقتصادي. راجع مستندات هذه الحالات. لم تُنشأ مطابقة ولم يُخفَ أي فرق.',
           );
         }
       }
@@ -651,12 +666,12 @@ export function explainResult(
       kind: 'difference',
       text: [
         ...caseLines,
-        `فرق الأرصدة الفعلي (المورد ناقص الدفتر): ${fmt(b.delta)}. هذا الرقم من النتيجة؛ لا أعتمد رقمًا واردًا في السؤال.`,
+        `فرق الأرصدة الفعلي (المورد ناقص الدفتر): ${fmt(b.delta)}. هذا الرقم من النتيجة الفعلية، وليس من المبلغ المذكور في السؤال.`,
         `رصيد المورد ${fmt(result.supplier.closing!)}؛ رصيد الدفتر ${fmt(result.ledger.closing!)}.`,
-        `الجسر من المورد إلى الدفتر: ${fmt(result.supplier.closing!)} + (${fmt(b.openingAdjustment)} فرق الافتتاح) + (${fmt(b.itemAdjustment)} صافي آثار الحالات) = ${fmt(b.adjusted)}.`,
-        `الباقي الحسابي ${fmt(b.residual)}؛ توجد ${result.supplierOnly.length + result.ledgerOnly.length} حركة دون مقابل. الصفر لا يثبت أسباب الفروق أو اكتمال التسوية.`,
-        `${result.caseCounts.needsReviewCases} حالات تحتاج مراجعة. ${result.balanceComparable ? 'تغطية الفترة مؤكدة من المستخدم.' : 'معادلة الأرصدة متحققة؛ تأكيد اكتمال تغطية الفترة من المستخدم معلق.'}`,
-        'راجع حالات فروق المبالغ والحركات دون مقابل؛ مرشح الدفعة ذو أثر صفري يبقى للمراجعة.',
+        `حساب الانتقال من رصيد المورد إلى رصيد الدفتر: ${fmt(result.supplier.closing!)} + (${fmt(b.openingAdjustment)} فرق الافتتاح) + (${fmt(b.itemAdjustment)} صافي آثار الحالات) = ${fmt(b.adjusted)}.`,
+        `الفرق المتبقي حسابيًا: ${fmt(b.residual)}. عدد الحركات دون مقابل: ${result.supplierOnly.length + result.ledgerOnly.length}. الصفر لا يثبت أسباب الفروق أو اكتمال التسوية.`,
+        `عدد الحالات التي تحتاج إلى مراجعة: ${result.caseCounts.needsReviewCases}. ${result.balanceComparable ? 'تغطية الفترة مؤكدة من المستخدم.' : 'معادلة الأرصدة متحققة، لكن المستخدم لم يؤكد بعد اكتمال تغطية الفترة.'}`,
+        'راجع فروق المبالغ والحركات التي لا مقابل لها. يبقى اقتراح ربط الدفعة للمراجعة حتى إن كان أثره الحسابي صفرًا.',
       ].join('\n'),
       sourceIds: [
         ...new Set([
@@ -672,9 +687,9 @@ export function explainResult(
     return {
       kind: 'next',
       text: [
-        `ابدأ بتحذيرات المصادر (${result.supplier.warnings.length + result.ledger.warnings.length}) ثم التكرارات المحتملة (${result.ambiguousIds.length} حركة).`,
-        `راجع ${result.caseCounts.needsReviewCases} حالات تحتاج مراجعة، و${result.caseCounts.unmatchedCases} حالات غير مطابقة.`,
-        'افتح «فحص» لتجد صف المصدر والإشارة والمرجع وأسباب المنع. تحقق من المستندات الخارجية قبل أي قرار يدوي.',
+        `ابدأ بمراجعة تحذيرات المصادر ثم التكرارات المحتملة، إن وُجدت. عدد التحذيرات: ${result.supplier.warnings.length + result.ledger.warnings.length}. عدد الحركات المحتمل تكرارها: ${result.ambiguousIds.length}.`,
+        `عدد الحالات التي تحتاج إلى مراجعة: ${result.caseCounts.needsReviewCases}. عدد الحالات غير المطابقة: ${result.caseCounts.unmatchedCases}.`,
+        'افتح «تفاصيل الحالة» للاطلاع على صف المصدر وإشارة المبلغ والمرجع وأسباب عدم المطابقة. تحقق من المستندات الخارجية قبل اتخاذ أي قرار يدوي.',
       ].join('\n'),
       sourceIds: result.ambiguousIds,
     };
@@ -682,9 +697,9 @@ export function explainResult(
     return {
       kind: 'checks',
       text: [
-        `استُخدمت ${result.supplier.transactions.length} حركة مورد و${result.ledger.transactions.length} حركة دفتر؛ استُبعد ${result.supplier.excluded.length + result.ledger.excluded.length} صف مع سبب (يشمل العناوين والفراغات).`,
-        `${result.caseCounts.autoMatchedCases} حالات مطابقة آلية فردية أو تجميعية بأدلة المرجع والمبلغ الموقّع والتاريخ؛ ${result.caseCounts.matchedSourceRows} صف مصدر داخل المطابقات.`,
-        `${result.matches.filter((m) => m.kind === 'manual').length} قرار يدوي؛ تأكيد المستخدم ليس إثباتًا من المحرك.`,
+        `عدد حركات المورد المستخدمة: ${result.supplier.transactions.length}. عدد حركات الدفتر المستخدمة: ${result.ledger.transactions.length}. عدد الصفوف المستبعدة مع توثيق السبب: ${result.supplier.excluded.length + result.ledger.excluded.length} (يشمل العناوين والصفوف الفارغة).`,
+        `عدد حالات المطابقة الآلية، الفردية أو التجميعية: ${result.caseCounts.autoMatchedCases}. قواعدها تعتمد على المرجع والمبلغ بإشارته والتاريخ. عدد صفوف المصدر الداخلة في المطابقات: ${result.caseCounts.matchedSourceRows}.`,
+        `عدد القرارات اليدوية: ${result.matches.filter((m) => m.kind === 'manual').length}. تأكيد المستخدم ليس إثباتًا من المحرك.`,
         'لم يتحقق النظام من أصالة المستندات أو شمول الملفين للنظام المحاسبي أو السبب الاقتصادي للفروق. تأكيد النطاق والتغطية مصدره المستخدم.',
         ...result.diagnostics
           .filter((d) => !d.transactionIds.length)
@@ -694,7 +709,7 @@ export function explainResult(
     };
   return {
     kind: 'unsupported',
-    text: 'لم أحدد سؤالًا تدعمه أدلة النتيجة. اسأل عن فرق الأرصدة، ما لم يتم التأكد منه، أو ماذا تراجع الآن. لسؤال عن فاتورة اختر «اشرح هذه الحركة» أو اكتب مرجعها الأصلي. هذا مساعد قواعد محلي، وليس نموذج AI توليديًا، ولا يقدم فتوى محاسبية عامة.',
+    text: 'لم أجد في النتيجة ما يتيح الإجابة عن هذا السؤال. يمكنك السؤال عن فرق الأرصدة، أو ما لم يُتحقق منه، أو ما ينبغي مراجعته الآن. للسؤال عن فاتورة، اختر «اشرح هذه الحركة» أو اكتب مرجعها الأصلي. يعمل هذا المساعد محليًا بقواعد محددة، وليس نموذج ذكاء اصطناعي توليديًا، ولا يقدم رأيًا محاسبيًا عامًا.',
     sourceIds: [],
   };
 }

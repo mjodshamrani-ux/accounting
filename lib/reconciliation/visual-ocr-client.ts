@@ -29,10 +29,10 @@ const PAGE_MS = 90_000;
 const MAX_PNG_BYTES = 64 * 1024 * 1024;
 const PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10];
 const progressText: Record<Action, string> = {
-  load: 'تهيئة القارئ البصري المحلي',
-  loadLanguage: 'تهيئة القراءة بالعربية والإنجليزية',
+  load: 'تجهيز قارئ الصور على جهازك',
+  loadLanguage: 'تجهيز القراءة بالعربية والإنجليزية',
   initialize: 'تجهيز محرك القراءة البصرية',
-  recognize: 'قراءة الصفحة داخل الجهاز',
+  recognize: 'قراءة الصفحة على جهازك',
 };
 const progressStatuses: Record<Action, readonly string[]> = {
   load: ['loading tesseract core', 'initializing tesseract'],
@@ -46,9 +46,10 @@ function failure(kind: 'abort' | 'timeout' | 'protocol' | 'worker'): Error {
   const error = new Error(
     {
       abort: 'أُوقفت القراءة البصرية المحلية.',
-      timeout: 'تجاوزت القراءة البصرية المهلة؛ أُوقف العامل وأُفرغت موارده.',
-      protocol: 'استجابة القارئ البصري غير صالحة؛ لم تُعتمد بيانات الصفحة.',
-      worker: 'تعذر تشغيل القارئ البصري المحلي؛ لم تُعتمد بيانات الصفحة.',
+      timeout:
+        'استغرقت القراءة البصرية وقتًا أطول من المهلة المحددة. أُوقفت القراءة وحُررت الذاكرة المستخدمة.',
+      protocol: 'استجابة قارئ الصور غير صالحة. لم تُعتمد بيانات الصفحة.',
+      worker: 'تعذر تشغيل قارئ الصور على جهازك. لم تُعتمد بيانات الصفحة.',
     }[kind],
   );
   error.name =
@@ -223,7 +224,9 @@ export async function createVisualOcr(
     if (stopped) return Promise.reject(stopped);
     if (!worker || pending)
       return Promise.reject(
-        new Error('توجد صفحة قيد القراءة؛ انتظر انتهائها قبل بدء صفحة أخرى.'),
+        new Error(
+          'توجد صفحة قيد القراءة. انتظر اكتمال قراءتها قبل بدء صفحة أخرى.',
+        ),
       );
     return new Promise((resolve, reject) => {
       const jobId = `visual-job-${++jobSequence}`;

@@ -53,7 +53,7 @@ export function assertSourceFile(value: unknown): asserts value is SourceFile {
     )
   )
     throw new Error(
-      'لم يُرجع قارئ الملفات جدولًا صالحًا. أُعيد تجهيز القارئ؛ أعد اختيار الملف.',
+      'لم يُرجع قارئ الملفات جدولًا صالحًا، وأُعيد تجهيزه. أعد اختيار الملف.',
     );
 }
 export function validateWorkerValue(
@@ -62,14 +62,14 @@ export function validateWorkerValue(
   payload: unknown,
 ) {
   if (value === undefined || value === null)
-    throw new Error('رد المعالجة المحلية غير مكتمل؛ أعد اختيار الملف.');
+    throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
   if (
     action === 'ready' &&
     (!isRecord(value) ||
       value.ready !== true ||
       value.engine !== ENGINE_VERSION)
   )
-    throw new Error('إصدار قارئ الملفات لا يطابق الصفحة؛ أعد فتح الموقع.');
+    throw new Error('إصدار قارئ الملفات لا يطابق إصدار الصفحة. أعد فتح الموقع.');
   if (action === 'read') {
     assertSourceFile(value);
     if (
@@ -79,7 +79,7 @@ export function validateWorkerValue(
       !/^[a-f0-9]{64}$/.test(value.sha256 ?? '')
     )
       throw new Error(
-        'رد قارئ الملفات لا يطابق المصدر المرفوع؛ أعد اختيار الملف.',
+        'استجابة قارئ الملفات لا تطابق الملف المرفوع. أعد اختيار الملف.',
       );
   }
 }

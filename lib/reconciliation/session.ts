@@ -40,7 +40,7 @@ const demoBytes = (file: SourceFile) =>
 export async function saveSession(state: SessionState): Promise<ArrayBuffer> {
   state.files.forEach(assertNativeAccountingSource);
   if (state.events.length > 2000)
-    throw new Error('سجل الجلسة كبير؛ صدّر ورقة العمل');
+    throw new Error('سجل الجلسة كبير. صدّر ورقة العمل للاحتفاظ بالنتائج.');
   const verifiedMappings: Mapping[] = [];
   const files = await Promise.all(
     state.files.map(async (f, side) => {
@@ -92,7 +92,7 @@ export async function restoreSession(bytes: ArrayBuffer) {
     p.version !== 1 ||
     p.engine !== ENGINE_VERSION
   )
-    throw new Error('إصدار الجلسة غير متوافق؛ استخدم ملفات المصدر الأصلية');
+    throw new Error('إصدار ملف الجلسة غير متوافق. استخدم ملفات المصدر الأصلية.');
   if (
     !Array.isArray(p.files) ||
     p.files.length !== 2 ||

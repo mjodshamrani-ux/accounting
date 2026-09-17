@@ -487,7 +487,7 @@ export function DocumentScene() {
         </svg>
       </div>
       <figcaption className="document-scene__caption" dir="rtl">
-        <span>تصوّر توضيحي</span>
+        <span>رسم توضيحي</span>
         <span
           className="document-scene__caption-separator"
           aria-hidden="true"
@@ -499,10 +499,10 @@ export function DocumentScene() {
           aria-pressed={paused || reducedMotion}
           aria-label={
             reducedMotion
-              ? 'حركة المشهد متوقفة حسب تفضيل تقليل الحركة'
+              ? 'الحركة متوقفة حسب إعدادات تقليل الحركة'
               : paused
-                ? 'تشغيل حركة المشهد التوضيحي'
-                : 'إيقاف حركة المشهد التوضيحي'
+                ? 'تشغيل الحركة التوضيحية'
+                : 'إيقاف الحركة التوضيحية'
           }
           onClick={() => setPaused((value) => !value)}
         >

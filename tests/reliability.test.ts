@@ -91,7 +91,7 @@ test('safe sums reject invalid operands even if they cancel', () => {
 test('ambiguous CSV delimiter is rejected instead of guessed', () => {
   assert.throws(
     () => parseCSV('date,ref;amount\n2026-01-01,INV1;100'),
-    /ملتبس/,
+    /تعذر تحديد فاصل الأعمدة/,
   );
 });
 async function xlsx(change: (sheet: ExcelJS.Worksheet) => void) {

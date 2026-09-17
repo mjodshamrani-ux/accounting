@@ -74,7 +74,7 @@ export function selectImportMapping(
     return {
       mapping: inferMapping(file, sheet),
       kind: 'workpaper',
-      notice: `ملف عمل مصدَّر من تراصف؛ اخترنا ورقة ${file.sheets[sheet].name}. لم تُستعد قرارات المطابقة ولا الأرصدة ولا تأكيدات النطاق السابقة.`,
+      notice: `هذا ملف عمل مصدَّر من تراصف. اخترنا ورقة ${file.sheets[sheet].name}. لم تُستعد قرارات المطابقة ولا الأرصدة ولا تأكيدات النطاق السابقة.`,
     };
   }
   const candidates = file.sheets.flatMap((sheet, index) => {
@@ -101,8 +101,8 @@ export function selectImportMapping(
     kind: 'choose-sheet',
     notice:
       candidates.length > 1
-        ? 'عدة أوراق تحتوي جداول محتملة؛ اختر ورقة المصدر المقصودة.'
-        : 'لم نجد جدولًا واضحًا؛ اختر ورقة المصدر ثم صف العناوين.',
+        ? 'توجد جداول محتملة في أكثر من ورقة. اختر ورقة المصدر المقصودة.'
+        : 'لم نجد جدولًا واضحًا. اختر ورقة المصدر ثم صف العناوين.',
   };
 }
 

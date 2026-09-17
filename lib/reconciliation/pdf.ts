@@ -48,7 +48,7 @@ function glyphBounds(token: PdfToken): number[] {
     !Number.isFinite(descent) ||
     ascent <= descent
   )
-    throw new Error('حدود خط PDF غير موثوقة؛ اطلب نسخة Excel');
+    throw new Error('تعذر التحقق من حدود حروف PDF. اطلب نسخة Excel.');
   return [
     token.x,
     token.y + token.height * descent,
@@ -341,11 +341,11 @@ export function checkPdfOperators(
     else if (op === ops.setGState) {
       if (!Array.isArray(a[0]))
         throw new Error(
-          'حالة عرض PDF غير مفهومة؛ اطلب PDF نصيًا بسيطًا أو Excel',
+          'تعذر تفسير إعدادات عرض PDF. اطلب PDF نصيًا بسيطًا أو Excel.',
         );
       for (const entry of a[0] as unknown[]) {
         if (!Array.isArray(entry))
-          throw new Error('حالة عرض PDF غير مفهومة؛ اطلب Excel');
+          throw new Error('تعذر تفسير إعدادات عرض PDF. اطلب Excel.');
         const [key, value] = entry;
         if (key === 'ca') state.fillAlpha = Number(value);
         else if (key === 'LW') state.lineWidth = Number(value);
@@ -376,7 +376,7 @@ export function checkPdfOperators(
       seenText = true;
       if (state.mode === 3 || state.mode === 7)
         throw new Error(
-          'PDF يحتوي نصًا مخفيًا أو طبقة OCR؛ اطلب كشفًا نصيًا أصليًا أو Excel',
+          'يحتوي PDF نصًا مخفيًا أو طبقة نص مستخرجة من الصور (OCR). اطلب كشفًا نصيًا أصليًا أو Excel.',
         );
       if (
         state.clipped ||
@@ -385,7 +385,7 @@ export function checkPdfOperators(
         !Number.isInteger(state.mode)
       )
         throw new Error(
-          'PDF يحتوي نصًا مقصوصًا أو قناع قص غير مدعوم؛ اطلب نسخة نصية بسيطة أو Excel',
+          'يحتوي PDF نصًا مقصوصًا أو طريقة قص غير مدعومة. اطلب نسخة نصية بسيطة أو Excel.',
         );
       const fill = state.mode === 0 || state.mode === 2;
       const stroke = state.mode === 1 || state.mode === 2;
@@ -397,7 +397,7 @@ export function checkPdfOperators(
         (stroke && state.strokeAlpha !== 1)
       )
         throw new Error(
-          'PDF يحتوي شفافية أو قناع عرض يؤثر في النص؛ لا يمكن إثبات ظهوره، اطلب Excel',
+          'تؤثر شفافية PDF أو إعدادات إظهار محتواه في النص، ولا يمكن التحقق من ظهوره. اطلب Excel.',
         );
       const currentBoxes = paints?.get(i) ?? textBoxes;
       const visible = (color: string) =>
@@ -415,7 +415,7 @@ export function checkPdfOperators(
         (stroke && !state.strokeColor)
       )
         throw new Error(
-          'PDF يحتوي نصًا أبيض أو ضعيف التباين لا يمكن إثبات ظهوره على الخلفية؛ اطلب نسخة نصية بسيطة أو Excel',
+          'يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.',
         );
       paintedBoxes.push(...currentBoxes);
     } else if (
@@ -459,7 +459,7 @@ export function checkPdfOperators(
           : [];
       if (bounds.length !== 4 || !bounds.every(Number.isFinite))
         throw new Error(
-          'رسم PDF قد يغطي النص ولا يمكن إثبات حدوده؛ اطلب نسخة نصية بسيطة أو Excel',
+          'قد يغطي أحد رسوم PDF النص، وتعذر التحقق من حدود الرسم. اطلب نسخة نصية بسيطة أو Excel.',
         );
       const [x0, y0, x1, y1] = bounds;
       const [ma, mb, mc, md, me, mf] = state.matrix;
@@ -492,7 +492,7 @@ export function checkPdfOperators(
         state.miterLimit < 1
       )
         throw new Error(
-          'إعدادات حدود رسم PDF غير صالحة؛ اطلب نسخة نصية بسيطة أو Excel',
+          'إعدادات حدود أحد رسوم PDF غير صالحة. اطلب نسخة نصية بسيطة أو Excel.',
         );
       const rectangles =
         paints &&
@@ -511,7 +511,9 @@ export function checkPdfOperators(
             paintedBoxes.some((text) => boxOverlaps(box, text)),
           )
         )
-          throw new Error('رسم PDF لاحق يغطي نصًا مرسومًا؛ لا يمكن اعتماد القراءة');
+          throw new Error(
+            'يغطي أحد رسوم PDF نصًا تحته، لذلك لا يمكن اعتماد القراءة.',
+          );
         for (const box of rectangles)
           backgrounds.push({ box, color: state.fillColor });
         continue;
@@ -535,7 +537,7 @@ export function checkPdfOperators(
         if (overlaps === false) continue;
         if (overlaps === true)
           throw new Error(
-            'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel',
+            'يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.',
           );
       }
       const box = [
@@ -550,11 +552,11 @@ export function checkPdfOperators(
         textBoxes.some((t) => boxOverlaps(box, t))
       )
         throw new Error(
-          'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel',
+          'يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.',
         );
     } else if (isImagePaint(ops, op))
       throw new PdfImageContentError(
-        'PDF يحتوي صورة قد تحمل بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة؛ أرقام OCR لا تدخل التسوية حاليًا، اطلب PDF نصيًا أو Excel',
+        'يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب PDF نصيًا أو Excel.',
       );
   }
 }
@@ -571,7 +573,7 @@ export function validateCuts(cuts: number[]): void {
     )
   )
     throw new Error(
-      'حدود أعمدة PDF يجب أن تكون نسبًا متزايدة بين 0 و100، بحد أقصى 19 حدًا',
+      'أدخل حدود أعمدة PDF بترتيب تصاعدي كنسب بين 0 و100، وبحد أقصى 19 حدًا.',
     );
 }
 // Geometry only: never infer dates, signs, amounts, headers or missing cells.
@@ -591,7 +593,7 @@ export function layoutPdfPage(
       t.height <= 0 ||
       t.text.includes('\uFFFD')
     )
-      throw new Error('ترميز أو موضع نص PDF غير موثوق؛ اطلب نسخة Excel');
+      throw new Error('تعذر التحقق من ترميز نص PDF أو موضعه. اطلب نسخة Excel.');
     if (!t.text.trim()) continue;
     const previous = lines.at(-1);
     if (previous && Math.abs(previous.y - t.y) <= Math.min(1, t.height / 8))
@@ -621,7 +623,7 @@ export function layoutPdfPage(
       while (left < bounds[i].length && right < bounds[j].length) {
         if (++comparisons > 1_000_000)
           throw new Error(
-            'كثافة تراكب نص PDF تتجاوز حدود التحقق؛ اطلب نسخة أبسط أو Excel',
+            'تداخل نصوص PDF كثيف ويتجاوز حدود التحقق. اطلب نسخة أبسط أو Excel.',
           );
         const a = bounds[i][left],
           b = bounds[j][right];
@@ -646,7 +648,9 @@ export function layoutPdfPage(
     );
     const issues: string[] = [];
     if (overlapRows.has(lineIndex))
-      issues.push('نصوص من صفوف متجاورة متراكبة؛ لا يمكن إثبات القراءة');
+      issues.push(
+        'تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.',
+      );
     for (const t of line.tokens.sort((a, b) => a.x - b.x)) {
       const left = (t.x / width) * 100,
         right = ((t.x + t.width) / width) * 100;
@@ -661,7 +665,7 @@ export function layoutPdfPage(
     const row = cells.map((cell) => {
       for (let i = 1; i < cell.length; i++)
         if (cell[i].x < cell[i - 1].x + cell[i - 1].width - 0.2)
-          issues.push('نصوص متراكبة؛ لا يمكن إثبات القراءة');
+          issues.push('توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.');
       return cell.map((t) => t.text).join(' ');
     });
     return { row, issues: [...new Set(issues)] };
@@ -691,12 +695,18 @@ export async function readPdf(
     const doc = await loading.promise;
     streamGuard = guardPdfOperatorStreams(doc, version);
     if (doc.numPages < 1 || doc.numPages > 20)
-      throw new Error('الحد الحالي 20 صفحة PDF؛ اطلب كشفًا أقصر أو Excel');
+      throw new Error(
+        'الحد الحالي لملف PDF هو 20 صفحة. اطلب كشفًا أقصر أو Excel.',
+      );
     if ((await doc.getPermissions()) !== null)
-      throw new Error('PDF المحمي غير مدعوم؛ اطلب نسخة غير محمية من المورد');
+      throw new Error(
+        'ملف PDF المحمي غير مدعوم. اطلب من المورد نسخة غير محمية.',
+      );
     const layers = await doc.getOptionalContentConfig();
     if (layers.getOrder()?.length)
-      throw new Error('PDF يحتوي طبقات عرض؛ اطلب نسخة مسطحة أو Excel');
+      throw new Error(
+        'يحتوي PDF طبقات عرض. اطلب نسخة مسطحة تظهر كل البيانات أو Excel.',
+      );
     const sheet: SheetData = {
       name: 'PDF',
       rows: [],
@@ -712,10 +722,12 @@ export async function readPdf(
       const page = await doc.getPage(pageNo);
       if (page.rotate !== 0)
         throw new Error(
-          `الصفحة ${pageNo} مدورة؛ اطلب PDF باتجاه صحيح أو Excel`,
+          `الصفحة ${pageNo} مدوّرة. اطلب PDF باتجاه صحيح أو Excel.`,
         );
       if ((await page.getAnnotations()).some((a) => a.subtype === 'Widget'))
-        throw new Error('نماذج PDF التفاعلية غير مدعومة؛ اطلب نسخة مسطحة');
+        throw new Error(
+          'نماذج PDF التفاعلية غير مدعومة. اطلب نسخة مسطحة تظهر كل البيانات.',
+        );
       const text = await page.getTextContent({ disableNormalization: true });
       const tokens: PdfToken[] = [];
       for (const item of text.items) {
@@ -729,7 +741,7 @@ export async function readPdf(
             item.transform[0] <= 0 ||
             item.transform[3] <= 0)
         )
-          throw new Error(`نص مائل أو معكوس في الصفحة ${pageNo}؛ اطلب Excel`);
+          throw new Error(`نص مائل أو معكوس في الصفحة ${pageNo}. اطلب Excel.`);
         if (item.str.trim()) {
           const style = text.styles[item.fontName];
           const token: PdfToken = {
@@ -748,7 +760,7 @@ export async function readPdf(
           const box = glyphBounds(token);
           if (box[1] < page.view[1] - 0.2 || box[3] > page.view[3] + 0.2)
             throw new Error(
-              `نص مقصوص عند حافة الصفحة ${pageNo}؛ لا يمكن إثبات القراءة، اطلب نسخة كاملة أو Excel`,
+              `نص مقصوص عند حافة الصفحة ${pageNo}. لا يمكن التحقق من القراءة. اطلب نسخة كاملة أو Excel.`,
             );
           tokens.push(token);
         }
@@ -791,7 +803,7 @@ export async function readPdf(
       };
       if (!tokens.length)
         throw diagnosticFailure(
-          `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية؛ القراءة البصرية OCR مسودة غير متحققة`,
+          `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية. القراءة البصرية (OCR) تنتج مسودة غير متحققة.`,
           'PDF_NO_EXTRACTABLE_TEXT',
         );
       try {

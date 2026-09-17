@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 
 const workflowHeadings = {
-  confirm: 'راجع الملخص، ثم قارن.',
-  review: 'الفروق أمامك. القرار لك.',
-  export: 'ورقة عمل تحكي التفاصيل.',
+  confirm: 'راجع البيانات قبل المقارنة',
+  review: 'راجع الفروق بين السجلين',
+  export: 'ورقة العمل جاهزة للمراجعة',
 };
 
 const displayFont = 'Thmanyah Serif Display';
@@ -465,7 +465,10 @@ async function verifyUploadInteractions(page) {
     await card.dispatchEvent('drop', { dataTransfer: transfer });
     await uploadPage
       .getByRole('alert')
-      .filter({ hasText: 'أضف ملفًا واحدًا لكل جهة. لم تُستبدل الملفات الحالية.' })
+      .filter({
+        hasText:
+          'أرفقت أكثر من ملف. أضف ملفًا واحدًا في كل خانة. ملفاتك الحالية لم تتغير.',
+      })
       .waitFor();
     assert.equal(await card.getAttribute('data-drag-active'), 'false');
     assert.equal(
@@ -672,7 +675,7 @@ export async function verifyBrandLanding(page) {
     /[\u0640\u064b-\u065f\u0670]/g,
     '',
   );
-  assert.match(plainTitle, /^تراصف — بين السجلات نجد الوضوح$/);
+  assert.match(plainTitle, /^تراصف — تسوية حسابات الموردين$/);
   assert.equal(await page.locator('h1').count(), 1);
   assert.equal(
     await page.locator('.brand-wordmark-latin').count(),
@@ -806,7 +809,7 @@ export async function verifyBrandLanding(page) {
     () => document.querySelector('.document-scene')?.dataset.running === 'true',
   );
   const pause = scene.getByRole('button', {
-    name: 'إيقاف حركة المشهد التوضيحي',
+    name: 'إيقاف الحركة التوضيحية',
     exact: true,
   });
   assert.equal(await pause.getAttribute('aria-pressed'), 'false');
@@ -837,7 +840,7 @@ export async function verifyBrandLanding(page) {
     'scrolling back never overrides the user pause',
   );
   await scene
-    .getByRole('button', { name: 'تشغيل حركة المشهد التوضيحي', exact: true })
+    .getByRole('button', { name: 'تشغيل الحركة التوضيحية', exact: true })
     .click();
   await page.waitForFunction(
     () => document.querySelector('.document-scene')?.dataset.running === 'true',

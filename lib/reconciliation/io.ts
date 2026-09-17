@@ -132,7 +132,7 @@ export function validateCellText(text: string): void {
     !text.isWellFormed()
   )
     throw new Error(
-      'النص يحتوي محارف تحكم أو Unicode غير صالح لملف Excel؛ صحح المصدر دون حذف صامت',
+      'النص يحتوي محارف تحكم أو ترميز Unicode غير صالح لملف Excel. صحح المصدر؛ لن تُحذف هذه المحارف تلقائيًا.',
     );
 }
 export function parseCSV(text: string): string[][] {
@@ -147,7 +147,8 @@ export function parseCSV(text: string): string[][] {
       quoted = false,
       afterQuote = false;
     const endCell = () => {
-      if (cell.length > 4096) throw new Error('خلية أطول من الحد المسموح');
+      if (cell.length > 4096)
+        throw new Error('نص إحدى الخلايا يتجاوز الحد المسموح');
       row.push(cell);
       cell = '';
       afterQuote = false;
@@ -205,11 +206,11 @@ export function parseCSV(text: string): string[][] {
     .sort((a, b) => b.score - a.score);
   if (candidates[0].score <= 0)
     throw new Error(
-      'لم يُقرأ CSV بأعمدة متعددة؛ استخدم فاصلة أو فاصلة منقوطة أو Tab وترميز UTF-8',
+      'لم نتمكن من فصل CSV إلى أعمدة. استخدم فاصلة أو فاصلة منقوطة أو Tab بين الأعمدة، مع ترميز UTF-8.',
     );
   if (candidates[1].score === candidates[0].score)
     throw new Error(
-      'فاصل CSV ملتبس؛ أعد حفظ الملف بفاصل واضح واقتبس القيم التي تحتوي فواصل',
+      'تعذر تحديد فاصل الأعمدة في CSV. أعد حفظ الملف بفاصل واضح، وضع القيم التي تحتوي فواصل بين علامتي اقتباس.',
     );
   return candidates[0].rows;
 }
@@ -245,7 +246,7 @@ export function checkZip(buffer: ArrayBuffer): void {
       new Uint8Array(buffer, pos + 46, nameLen),
     );
     if (/vbaProject|externalLinks/i.test(name))
-      throw new Error('الماكرو والروابط الخارجية غير مدعومة');
+      throw new Error('وحدات الماكرو والروابط الخارجية غير مدعومة');
     pos += 46 + nameLen + extra + comment;
   }
 }
@@ -285,13 +286,13 @@ export async function readFile(
           validateCellText(cell);
           if (cell.length > 4096)
             throw new Error(
-              'خلية PDF أطول من الحد المسموح؛ تحقق من حدود الأعمدة',
+              'نص إحدى خلايا PDF يتجاوز الحد المسموح. تحقق من حدود الأعمدة.',
             );
         }
     return { name, original: buffer.slice(0), sha256, ...extracted };
   }
   if (!/\.xlsx$/i.test(name))
-    throw new Error('الصيغ المدعومة XLSX وCSV وPDF النصي');
+    throw new Error('اختر ملف XLSX أو CSV أو PDF نصيًا.');
   checkZip(buffer);
   await validateZipContents(buffer);
   const workbook = new ExcelJS.Workbook();
@@ -331,7 +332,7 @@ export async function readFile(
       issue(
         Number(coordinate[2]),
         column,
-        `دقة القيمة الأصلية في ${raw.cell} تتغير عند قراءتها رقمياً؛ راجع المصدر وثبّت المبلغ بدقة العملة قبل اعتماده`,
+        `دقة القيمة الأصلية في ${raw.cell} تتغير عند قراءتها رقميًا. راجع المصدر وثبّت المبلغ وفق المنازل العشرية للعملة قبل اعتماده.`,
       );
     }
     // ExcelJS 4.4 exposes this parsed model field but omits it from Worksheet's declarations.
@@ -385,7 +386,7 @@ export async function readFile(
           issue(
             r,
             c,
-            `تنسيق النص في ${cell.address} قد يخفي محتوى الخلية أو يغيّره؛ استخدم نصًا ظاهرًا بتنسيق عام`,
+            `تنسيق النص في ${cell.address} قد يخفي محتوى الخلية أو يغيّر عرضه. استخدم نصًا ظاهرًا بتنسيق عام.`,
           );
         if (cell.isMerged)
           issue(
@@ -402,7 +403,7 @@ export async function readFile(
           issue(
             r,
             c,
-            `تنسيق أرقام شرطي في ${cell.address} قد يغيّر عرض القيمة؛ استخدم تنسيق أرقام ثابتًا موثوقًا لهذه الخلية`,
+            `تنسيق أرقام شرطي في ${cell.address} قد يغيّر عرض القيمة. استخدم تنسيق أرقام ثابتًا وموثوقًا لهذه الخلية.`,
           );
         if (typeof value === 'number')
           numericCells[`${r}:${c}`] = { value, format: cell.numFmt ?? '' };
@@ -415,7 +416,7 @@ export async function readFile(
             )
           )
             referenceIssues[`${r}:${c}`] = [
-              `تنسيق المرجع الرقمي في ${cell.address} قد يغيّر نص المعرف؛ احفظ المرجع الظاهر كنص صريح قبل المطابقة`,
+              `تنسيق المرجع الرقمي في ${cell.address} قد يغيّر كتابة المعرّف. احفظ المرجع كما يظهر في المصدر كنص صريح قبل المطابقة.`,
             ];
         }
         if (
@@ -425,7 +426,7 @@ export async function readFile(
           issue(
             r,
             c,
-            `تنسيق Excel في ${cell.address} قد يغيّر عرض الإشارة أو القيمة أو المرجع؛ استخدم قيمة صريحة بتنسيق موثوق`,
+            `تنسيق Excel في ${cell.address} قد يغيّر عرض الإشارة أو القيمة أو المرجع. استخدم قيمة صريحة بتنسيق موثوق.`,
           );
         if (
           typeof value === 'number' &&
@@ -486,7 +487,8 @@ export async function readFile(
           text = String(value).padStart(cell.numFmt.length, '0');
         else text = value === null || value === undefined ? '' : String(value);
         validateCellText(text);
-        if (text.length > 4096) throw new Error('خلية أطول من الحد المسموح');
+        if (text.length > 4096)
+          throw new Error('نص إحدى الخلايا يتجاوز الحد المسموح');
         values.push(text);
       }
       rows.push(values);
@@ -527,7 +529,7 @@ export function verifyDirectionEvidence(
     claimed.checkedRows !== proven.checkedRows
   )
     throw new Error(
-      'دليل اتجاه المدين والدائن لا يطابق المصدر؛ أعد التحقق من اتجاه المبالغ',
+      'دليل اتجاه المدين والدائن لا يطابق المصدر. أعد التحقق من اتجاه المبالغ.',
     );
   return { ...mapping, directionEvidence: proven };
 }
@@ -598,7 +600,7 @@ export async function exportWorkbook(
   );
   if (JSON.stringify(recomputed) !== JSON.stringify(result))
     throw new Error(
-      'النتيجة لا تطابق إعادة الحساب من المصدر؛ أعد المقارنة قبل التصدير',
+      'النتيجة لا تطابق إعادة الحساب من المصدر. أعد المقارنة قبل التصدير.',
     );
   const book = new ExcelJS.Workbook();
   book.creator = 'Tarasuf Local';
@@ -839,7 +841,7 @@ export async function exportWorkbook(
       ['تحذيرات الدفتر', result.ledger.warnings.join(' | ')],
       [
         'حفظ البيانات',
-        'هذه النسخة تحفظ بيانات داخل ملف Excel المصدر الذي يختاره المستخدم؛ لا تحفظها على خادم',
+        'تُحفظ البيانات في ملف Excel الذي يختار المستخدم تصديره، ولا تُحفظ على خادم.',
       ],
     ],
   );

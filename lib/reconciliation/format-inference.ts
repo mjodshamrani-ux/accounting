@@ -61,13 +61,13 @@ function inspect<T extends string, V>(
   if (!candidates.length)
     return assessment(
       'invalid',
-      `توجد قيم غير صالحة أو صيغ متعارضة في ${label}؛ راجع المصدر.`,
+      `توجد قيم غير صالحة أو صيغ متعارضة في ${label}. راجع المصدر.`,
       values.length,
     );
   if (!identical)
     return assessment(
       'ambiguous',
-      `قيم ${label} تقبل أكثر من تفسير؛ يلزم اختيار الصيغة.`,
+      `يمكن قراءة قيم ${label} بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.`,
       values.length,
       candidates,
     );
@@ -221,7 +221,8 @@ export function suggestFormats(
   if (hasAmounts) {
     for (const text of [mapping.opening, mapping.closing])
       if (text.trim()) amounts.push({ text });
-    if (![0, 2, 3].includes(decimals)) amountProblem = 'دقة العملة غير مدعومة.';
+    if (![0, 2, 3].includes(decimals))
+      amountProblem = 'عدد المنازل العشرية للعملة غير مدعوم.';
     result.numberFormat = inspect(
       numberFormats,
       amounts,
@@ -241,7 +242,7 @@ export function suggestFormats(
       amounts.length &&
       amounts.every((value) => value.native)
     )
-      result.numberFormat.reason = `قيم Excel الرقمية مستقلة عن تنسيق الفواصل (${amounts.length} قيمة).`;
+      result.numberFormat.reason = `قيم Excel الرقمية الأصلية لا تعتمد على شكل الفواصل المعروض (${amounts.length} قيمة).`;
   }
   if (result.dateFormat.status === 'proven')
     result.patch.dateFormat = result.dateFormat.candidates.includes(

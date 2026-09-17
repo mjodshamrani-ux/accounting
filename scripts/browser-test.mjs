@@ -161,9 +161,9 @@ try {
   });
   const page = await context.newPage();
   await page.goto(`${origin}/mizan-test/`);
-  await page.getByRole('button', { name: 'تجربة مثال', exact: true }).waitFor();
+  await page.getByRole('button', { name: 'جرّب المثال', exact: true }).waitFor();
   await page.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   assert.equal(
     await page
@@ -177,7 +177,7 @@ try {
   await page.screenshot({ path: 'work/qa/home.png', fullPage: true });
   // Everything after initial preload must work without a network connection, including first comparison and export.
   await context.setOffline(true);
-  await page.getByRole('button', { name: 'تجربة مثال', exact: true }).click();
+  await page.getByRole('button', { name: 'جرّب المثال', exact: true }).click();
   await verifyWorkflowBrand(page, 'confirm');
   // Balance reconciliation is opt-in and lives behind the scope card's edit
   // action, so nothing about it is on the default path.
@@ -185,9 +185,7 @@ try {
     .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
     .click();
   await page.getByRole('checkbox', { name: /أريد تسوية الأرصدة/ }).check();
-  await page
-    .getByRole('checkbox', { name: /أؤكد أن التقريرين يغطيان/ })
-    .check();
+  await page.getByRole('checkbox', { name: /راجعت تغطية التقريرين/ }).check();
   await page.getByRole('button', { name: 'تحقق وقارن', exact: true }).click();
   await page
     .getByRole('heading', { name: 'مساحة المراجعة' })
@@ -205,7 +203,7 @@ try {
     .getByRole('tab', { name: 'يحتاج مراجعة (2)', exact: true })
     .waitFor();
   await page
-    .getByRole('button', { name: 'اسأل عن النتيجة — مساعد محلي', exact: true })
+    .getByRole('button', { name: 'مساعد فهم النتيجة', exact: true })
     .click();
   await page
     .getByRole('button', { name: 'لماذا يوجد فرق في الأرصدة؟', exact: true })
@@ -217,11 +215,14 @@ try {
     ),
   );
   await page
-    .getByRole('button', { name: 'اسأل عن النتيجة — مساعد محلي', exact: true })
+    .getByRole('button', { name: 'مساعد فهم النتيجة', exact: true })
     .click();
   await page.screenshot({ path: 'work/qa/review.png', fullPage: true });
   await page.getByRole('tab', { name: 'المطابقات', exact: true }).click();
-  await page.getByRole('button', { name: 'فحص', exact: true }).first().click();
+  await page
+    .getByRole('button', { name: 'تفاصيل الحالة', exact: true })
+    .first()
+    .click();
   await page
     .getByRole('textbox', { name: 'سبب القرار', exact: true })
     .fill('إعادة مراجعة المصدر — اختبار اصطناعي');
@@ -295,7 +296,7 @@ try {
   const uploadPage = await context.newPage();
   await uploadPage.goto(`${origin}/mizan-test/`);
   await uploadPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   const csv =
@@ -316,7 +317,7 @@ try {
   await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
-    .getByLabel('تاريخ القطع', { exact: true })
+    .getByLabel('تاريخ المقارنة', { exact: true })
     .fill('2026-08-31');
   await uploadPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
@@ -332,7 +333,7 @@ try {
     'without a verified balance no balance figure may be presented',
   );
   await uploadPage
-    .getByRole('button', { name: 'عملية جديدة', exact: true })
+    .getByRole('button', { name: 'تسوية جديدة', exact: true })
     .click();
   await uploadPage.getByRole('alertdialog').waitFor();
   await uploadPage
@@ -340,10 +341,10 @@ try {
     .click();
   await uploadPage.getByRole('heading', { name: 'مساحة المراجعة' }).waitFor();
   await uploadPage
-    .getByRole('button', { name: 'عملية جديدة', exact: true })
+    .getByRole('button', { name: 'تسوية جديدة', exact: true })
     .click();
   await uploadPage
-    .getByRole('button', { name: 'حذف الجلسة والبدء', exact: true })
+    .getByRole('button', { name: 'مسح الجلسة والبدء من جديد', exact: true })
     .click();
   assert.equal(
     await uploadPage.getByRole('heading', { name: 'مساحة المراجعة' }).count(),
@@ -401,7 +402,7 @@ try {
   await waitForScopeInputs(uploadPage);
   await uploadPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await uploadPage
-    .getByLabel('تاريخ القطع', { exact: true })
+    .getByLabel('تاريخ المقارنة', { exact: true })
     .fill('2026-08-31');
   await uploadPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
@@ -418,7 +419,7 @@ try {
   const workpaperPage = await context.newPage();
   await workpaperPage.goto(`${origin}/mizan-test/`);
   await workpaperPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
@@ -480,7 +481,7 @@ try {
   await waitForScopeInputs(workpaperPage);
   await workpaperPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await workpaperPage
-    .getByLabel('تاريخ القطع', { exact: true })
+    .getByLabel('تاريخ المقارنة', { exact: true })
     .fill('2026-08-31');
   await workpaperPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
@@ -501,7 +502,7 @@ try {
   const pdfPage = await context.newPage();
   await pdfPage.goto(`${origin}/mizan-test/`);
   await pdfPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   await pdfPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
@@ -542,15 +543,19 @@ try {
     .click();
   await pdfPage.getByLabel('حدود أعمدة PDF', { exact: true }).fill('25,45,65');
   await pdfPage
-    .getByRole('button', { name: 'تطبيق وإعادة القراءة', exact: true })
+    .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
     .click();
   await pdfPage.waitForFunction(
-    () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
+    () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF على جهازك'),
   );
   await waitForScopeInputs(pdfPage);
   await pdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
-  await pdfPage.getByLabel('تاريخ القطع', { exact: true }).fill('2026-08-31');
-  await pdfPage.getByRole('checkbox', { name: /راجعت الجدول أعلاه/ }).check();
+  await pdfPage
+    .getByLabel('تاريخ المقارنة', { exact: true })
+    .fill('2026-08-31');
+  await pdfPage
+    .getByRole('checkbox', { name: /راجعت الجدول في جميع الصفحات/ })
+    .check();
   await pdfPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
     .click();
@@ -580,7 +585,7 @@ try {
   const recoveryPage = await context.newPage();
   await recoveryPage.goto(`${origin}/mizan-test/`);
   await recoveryPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   await recoveryPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
@@ -619,13 +624,13 @@ try {
         'q 30 0 0 30 0 0 cm\nBI /W 1 /H 1 /CS /G /BPC 8 ID\nX\nEI\nQ',
       ),
       page: /توقفت القراءة عند الصفحة 1 من 1/,
-      kind: /صور دون نص قابل للاستخراج/,
+      kind: /تحتوي الصفحة صورًا ولا يظهر فيها نص يمكن قراءته مباشرة/,
     },
     {
       name: 'synthetic-incomplete-text.pdf',
       bytes: syntheticPdf([diagnosisRows, [], diagnosisRows]),
       page: /توقفت القراءة عند الصفحة 2 من 3/,
-      kind: /لا نص قابل للاستخراج؛ لا يمكن الجزم بأنها صورة/,
+      kind: /لم نجد نصًا يمكن قراءته، ولا نستطيع التأكد من محتوى الصفحة/,
     },
   ]) {
     await recoveryPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
@@ -636,10 +641,13 @@ try {
     const diagnosisAlert = recoveryPage.getByRole('alert');
     await diagnosisAlert.filter({ hasText: diagnostic.page }).waitFor();
     assert.match(await diagnosisAlert.innerText(), diagnostic.kind);
-    assert.match(await diagnosisAlert.innerText(), /لم تُعتمد قراءة جزئية/);
     assert.match(
       await diagnosisAlert.innerText(),
-      /يمكنك تجربة مساعد قراءة الصور أدناه لعرض مسودة غير متحققة/,
+      /توقفت قراءة الملف حتى لا تدخل بيانات ناقصة في المقارنة/,
+    );
+    assert.match(
+      await diagnosisAlert.innerText(),
+      /مساعد الصور أدناه يتيح تجربة القراءة، لكن مخرجاته مسودة لا تدخل في التسوية/,
     );
     const retainedSource = recoveryPage
       .locator('.dropzone')
@@ -687,18 +695,18 @@ try {
     .getByLabel('حدود أعمدة PDF', { exact: true })
     .fill('25,45');
   await recoveryPage
-    .getByRole('button', { name: 'تطبيق وإعادة القراءة', exact: true })
+    .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
     .click();
   await recoveryPage.waitForFunction(
-    () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF محليًا'),
+    () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF على جهازك'),
   );
   await waitForScopeInputs(recoveryPage);
   await recoveryPage.getByLabel('العملة', { exact: true }).fill('SAR');
   await recoveryPage
-    .getByLabel('تاريخ القطع', { exact: true })
+    .getByLabel('تاريخ المقارنة', { exact: true })
     .fill('2026-07-31');
   await recoveryPage
-    .getByRole('checkbox', { name: /راجعت الجدول أعلاه/ })
+    .getByRole('checkbox', { name: /راجعت الجدول في جميع الصفحات/ })
     .check();
   await recoveryPage
     .getByRole('button', { name: 'تحقق وقارن', exact: true })
@@ -811,7 +819,7 @@ try {
     }, providerState);
     await importAiPage.goto(`${origin}/mizan-test/`);
     await importAiPage.waitForFunction(
-      () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+      () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
     );
     await context.setOffline(true);
     for (const [side, label] of [
@@ -863,7 +871,7 @@ try {
     });
     assert.equal(await importAiCompare.isDisabled(), true);
     const helperButton = importAiPage.getByRole('button', {
-      name: 'اقتراح الأعمدة بمساعد الجهاز',
+      name: 'اقتراح الأعمدة',
       exact: true,
     });
     if (providerState !== 'absent')
@@ -896,14 +904,14 @@ try {
       );
       await helperButton.click();
       const pendingProposal = importAiPage.locator(
-        '[aria-label="اقتراح أعمدة يحتاج مراجعة"]',
+        '[aria-label="أعمدة مقترحة للمراجعة"]',
       );
       await pendingProposal.waitFor();
       assert.match(await pendingProposal.innerText(), /Settlement face value/);
       assert.match(await pendingProposal.innerText(), /250\.00/);
       assert.match(
         await pendingProposal.innerText(),
-        /لم تُعتمد أرقام أو مطابقات/,
+        /لم تُعتمد أي أرقام أو مطابقات/,
       );
       assert.match(await missingAmount.innerText(), /غير محدد/);
       assert.equal(await importAiCompare.isDisabled(), true);
@@ -925,7 +933,7 @@ try {
       assert.deepEqual(modelState.proposedFields, ['amount']);
       await pendingProposal
         .getByRole('button', {
-          name: 'استخدام الأعمدة بعد مراجعتها',
+          name: 'تطبيق الأعمدة بعد مراجعتها',
           exact: true,
         })
         .click();
@@ -976,7 +984,7 @@ try {
   const quickPage = await context.newPage();
   await quickPage.goto(`${origin}/mizan-test/`);
   await quickPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   const quickBook = new ExcelJS.Workbook();
@@ -1037,7 +1045,7 @@ try {
     .getByRole('button', { name: 'تعديل نطاق المقارنة', exact: true })
     .click();
   assert.equal(
-    await quickPage.getByLabel('تاريخ القطع', { exact: true }).inputValue(),
+    await quickPage.getByLabel('تاريخ المقارنة', { exact: true }).inputValue(),
     '2026-06-30',
   );
   assert.equal(
@@ -1110,7 +1118,7 @@ try {
   const ambiguityPage = await context.newPage();
   await ambiguityPage.goto(`${origin}/mizan-test/`);
   await ambiguityPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
@@ -1130,7 +1138,7 @@ try {
     .click();
   await waitForScopeInputs(ambiguityPage);
   await ambiguityPage
-    .getByLabel('تاريخ القطع', { exact: true })
+    .getByLabel('تاريخ المقارنة', { exact: true })
     .fill('2026-12-31');
   assert.equal(
     await ambiguityPage.getByLabel('العملة', { exact: true }).inputValue(),
@@ -1144,13 +1152,19 @@ try {
   );
   for (const side of [0, 1]) {
     await ambiguityPage
-      .getByRole('combobox', { name: `حسم صيغة التاريخ ${side}`, exact: true })
+      .getByRole('combobox', {
+        name: `صيغة التاريخ في ${side === 0 ? 'كشف المورد' : 'تقرير الحسابات الدائنة'}`,
+        exact: true,
+      })
       .click();
     await ambiguityPage
       .getByRole('option', { name: 'يوم / شهر / سنة', exact: true })
       .click();
     await ambiguityPage
-      .getByRole('combobox', { name: `حسم صيغة المبالغ ${side}`, exact: true })
+      .getByRole('combobox', {
+        name: `صيغة المبالغ في ${side === 0 ? 'كشف المورد' : 'تقرير الحسابات الدائنة'}`,
+        exact: true,
+      })
       .click();
     await ambiguityPage
       .getByRole('option', { name: '1,234.56', exact: true })
@@ -1159,7 +1173,7 @@ try {
       (
         await ambiguityPage
           .getByRole('combobox', {
-            name: `حسم صيغة التاريخ ${side}`,
+            name: `صيغة التاريخ في ${side === 0 ? 'كشف المورد' : 'تقرير الحسابات الدائنة'}`,
             exact: true,
           })
           .innerText()
@@ -1180,7 +1194,7 @@ try {
   const precisionPage = await context.newPage();
   await precisionPage.goto(`${origin}/mizan-test/`);
   await precisionPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
@@ -1200,7 +1214,7 @@ try {
     .click();
   await waitForScopeInputs(precisionPage);
   await precisionPage
-    .getByLabel('تاريخ القطع', { exact: true })
+    .getByLabel('تاريخ المقارنة', { exact: true })
     .fill('2026-06-30');
   assert.equal(
     await precisionPage
@@ -1209,7 +1223,7 @@ try {
     true,
   );
   await precisionPage
-    .getByRole('combobox', { name: 'دقة العملة', exact: true })
+    .getByRole('combobox', { name: 'المنازل العشرية للعملة', exact: true })
     .click();
   await precisionPage
     .getByRole('option', { name: 'منزلتان — مثل SAR', exact: true })
@@ -1227,7 +1241,7 @@ try {
   const autoPdfPage = await context.newPage();
   await autoPdfPage.goto(`${origin}/mizan-test/`);
   await autoPdfPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   const autoRows = [
@@ -1262,7 +1276,7 @@ try {
   // The review box must be reachable without applying a boundary by hand: this
   // is the dead end that used to block the whole flow.
   const autoReview = autoPdfPage.getByRole('checkbox', {
-    name: /راجعت الجدول أعلاه/,
+    name: /راجعت الجدول في جميع الصفحات/,
   });
   assert.equal(
     await autoReview.isDisabled(),
@@ -1281,7 +1295,7 @@ try {
   await autoCuts.fill('oops');
   assert.equal(
     await autoPdfPage
-      .getByRole('button', { name: 'تطبيق وإعادة القراءة', exact: true })
+      .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
       .isDisabled(),
     true,
   );
@@ -1328,7 +1342,7 @@ try {
   assert.equal(await skipped.locator('strong').innerText(), '0');
   assert.equal(
     (await autoPdfPage.locator('body').innerText()).includes(
-      'اتساق الرصيد أو التغطية غير متحقق',
+      'لم يؤكد المستخدم بعد اكتمال تغطية الفترة',
     ),
     false,
     'balance notes must not appear when balances were never requested',
@@ -1346,7 +1360,7 @@ try {
     const directionPage = await context.newPage();
     await directionPage.goto(`${origin}/mizan-test/`);
     await directionPage.waitForFunction(
-      () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+      () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
     );
     await context.setOffline(true);
     for (const [side, label] of [
@@ -1573,7 +1587,7 @@ try {
   const bothPdfPage = await context.newPage();
   await bothPdfPage.goto(`${origin}/mizan-test/`);
   await bothPdfPage.waitForFunction(
-    () => !document.body.innerText.includes('تحميل المحرك إلى جهازك'),
+    () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
   const pairHeader = ['Date', 'Reference', 'Amount (SAR)'];
@@ -1623,10 +1637,10 @@ try {
     }),
   });
   const supplierReview = supplierPdfCard.getByRole('checkbox', {
-    name: /راجعت الجدول أعلاه/,
+    name: /راجعت الجدول في جميع الصفحات/,
   });
   const ledgerReview = ledgerPdfCard.getByRole('checkbox', {
-    name: /راجعت الجدول أعلاه/,
+    name: /راجعت الجدول في جميع الصفحات/,
   });
   const bothCompare = bothPdfPage.getByRole('button', {
     name: 'تحقق وقارن',
@@ -1634,7 +1648,7 @@ try {
   });
   assert.equal(
     await bothPdfPage
-      .getByRole('checkbox', { name: /راجعت الجدول أعلاه/ })
+      .getByRole('checkbox', { name: /راجعت الجدول في جميع الصفحات/ })
       .count(),
     2,
   );
