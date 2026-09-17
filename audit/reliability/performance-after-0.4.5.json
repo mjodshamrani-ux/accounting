@@ -1,0 +1,234 @@
+{
+  "runAt": "2026-09-17T20:22:39.882Z",
+  "runtime": "v24.19.0",
+  "machine": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpuModel": "Apple M5",
+    "logicalCpus": 10,
+    "totalMemoryBytes": 17179869184
+  },
+  "method": "Isolated Node process per size/format, two actual input files; explicit visible mapping; no running balance; invoice/payment/credit entries; no network; no browser responsiveness claim. Export is reopened with ExcelJS, the same library used by production; this is a roundtrip check, not an independent export implementation.",
+  "limits": {
+    "maxRows": 20000,
+    "maxFileBytes": 8388608,
+    "maxSheets": 40,
+    "maxAutomaticGroupMembers": 100,
+    "pdfPages": 20,
+    "pdfLimitEvidence": "lib/reconciliation/pdf.ts readPdf doc.numPages guard; existing tests/pdf.test.ts rejects 21 pages"
+  },
+  "timeoutMsPerCase": 60000,
+  "maxExportRows": 5000,
+  "records": [
+    {
+      "rowsPerSource": 100,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 6835,
+      "exportBytes": 80765,
+      "stages": {
+        "inputGenerationMs": 0.122,
+        "readPairMs": 2.029,
+        "normalizePairMs": 7.269,
+        "compareMs": 2.696,
+        "exportMs": 67.906,
+        "roundtripExportReadMs": 44.471
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 108806144,
+        "readPairMs": 110575616,
+        "normalizePairMs": 117276672,
+        "compareMs": 118669312,
+        "exportMs": 155729920,
+        "roundtripExportReadMs": 158072832
+      },
+      "peakRssBytes": 158564352,
+      "totalMs": 124.684,
+      "verifiedMatches": 100,
+      "exportRoundtripChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 100,
+      "inputFormat": "xlsx",
+      "inputBytesPerFile": 10131,
+      "exportBytes": 80997,
+      "stages": {
+        "inputGenerationMs": 15.125,
+        "readPairMs": 42.738,
+        "normalizePairMs": 6.909,
+        "compareMs": 2.221,
+        "exportMs": 76.429,
+        "roundtripExportReadMs": 51.596
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 115146752,
+        "readPairMs": 126255104,
+        "normalizePairMs": 127057920,
+        "compareMs": 127369216,
+        "exportMs": 162725888,
+        "roundtripExportReadMs": 164773888
+      },
+      "peakRssBytes": 164773888,
+      "totalMs": 195.21,
+      "verifiedMatches": 100,
+      "exportRoundtripChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 1000,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 67896,
+      "exportBytes": 536923,
+      "stages": {
+        "inputGenerationMs": 0.472,
+        "readPairMs": 8.216,
+        "normalizePairMs": 34.751,
+        "compareMs": 9.623,
+        "exportMs": 445.373,
+        "roundtripExportReadMs": 188.538
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 109281280,
+        "readPairMs": 118243328,
+        "normalizePairMs": 139362304,
+        "compareMs": 140034048,
+        "exportMs": 381337600,
+        "roundtripExportReadMs": 393396224
+      },
+      "peakRssBytes": 393396224,
+      "totalMs": 687.367,
+      "verifiedMatches": 1000,
+      "exportRoundtripChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 1000,
+      "inputFormat": "xlsx",
+      "inputBytesPerFile": 40148,
+      "exportBytes": 539057,
+      "stages": {
+        "inputGenerationMs": 34.101,
+        "readPairMs": 163.832,
+        "normalizePairMs": 36.059,
+        "compareMs": 8.626,
+        "exportMs": 548.758,
+        "roundtripExportReadMs": 302.629
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 132055040,
+        "readPairMs": 156483584,
+        "normalizePairMs": 196673536,
+        "compareMs": 197066752,
+        "exportMs": 332808192,
+        "roundtripExportReadMs": 367411200
+      },
+      "peakRssBytes": 388366336,
+      "totalMs": 1094.397,
+      "verifiedMatches": 1000,
+      "exportRoundtripChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 5000,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 342964,
+      "exportBytes": 2546577,
+      "stages": {
+        "inputGenerationMs": 1.838,
+        "readPairMs": 28.816,
+        "normalizePairMs": 132.756,
+        "compareMs": 33.28,
+        "exportMs": 3582.324,
+        "roundtripExportReadMs": 948.881
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 112427008,
+        "readPairMs": 187908096,
+        "normalizePairMs": 274841600,
+        "compareMs": 280100864,
+        "exportMs": 631373824,
+        "roundtripExportReadMs": 654934016
+      },
+      "peakRssBytes": 816365568,
+      "totalMs": 4729.029,
+      "verifiedMatches": 5000,
+      "exportRoundtripChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 5000,
+      "inputFormat": "xlsx",
+      "inputBytesPerFile": 177142,
+      "exportBytes": 2559416,
+      "stages": {
+        "inputGenerationMs": 112.925,
+        "readPairMs": 1429.241,
+        "normalizePairMs": 507.284,
+        "compareMs": 67.087,
+        "exportMs": 3101.762,
+        "roundtripExportReadMs": 1435.829
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 190414848,
+        "readPairMs": 274202624,
+        "normalizePairMs": 327499776,
+        "compareMs": 332906496,
+        "exportMs": 657293312,
+        "roundtripExportReadMs": 850067456
+      },
+      "peakRssBytes": 890552320,
+      "totalMs": 6655.314,
+      "verifiedMatches": 5000,
+      "exportRoundtripChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 20000,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 1373636,
+      "exportBytes": null,
+      "stages": {
+        "inputGenerationMs": 8.382,
+        "readPairMs": 147.5,
+        "normalizePairMs": 639.896,
+        "compareMs": 132.551
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 124043264,
+        "readPairMs": 419102720,
+        "normalizePairMs": 538017792,
+        "compareMs": 527351808
+      },
+      "peakRssBytes": 551747584,
+      "totalMs": 931.563,
+      "verifiedMatches": 20000,
+      "exportRoundtripChecked": false,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 20000,
+      "inputFormat": "xlsx",
+      "inputBytesPerFile": 694170,
+      "exportBytes": null,
+      "stages": {
+        "inputGenerationMs": 337.885,
+        "readPairMs": 2394.614,
+        "normalizePairMs": 703.467,
+        "compareMs": 135.516
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 438435840,
+        "readPairMs": 480083968,
+        "normalizePairMs": 542670848,
+        "compareMs": 509034496
+      },
+      "peakRssBytes": 599965696,
+      "totalMs": 3574.845,
+      "verifiedMatches": 20000,
+      "exportRoundtripChecked": false,
+      "pass": true
+    }
+  ],
+  "pass": true
+}

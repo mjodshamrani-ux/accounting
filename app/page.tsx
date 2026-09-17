@@ -203,6 +203,7 @@ function localTemplate(mapping: Mapping) {
     periodStart: '',
     excluded: {},
     pdfReviewed: false,
+    directionEvidence: undefined,
   };
 }
 function getTemplate(side: number): Mapping | null {

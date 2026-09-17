@@ -3,6 +3,7 @@ import {
   parseMoney,
   safeSum,
   structuralSummaryLabel,
+  inlineBalanceSummary,
 } from './core.ts';
 import type { Mapping, Scope, SourceFile } from './types.ts';
 
@@ -73,6 +74,16 @@ const labels: Record<string, keyof StatementMetadata | 'period'> = {
   'statement period': 'period',
   'فترة الكشف': 'period',
   الفترة: 'period',
+  'as of': 'periodEnd',
+  'statement as of': 'periodEnd',
+  'cut-off': 'periodEnd',
+  cutoff: 'periodEnd',
+  'cut-off date': 'periodEnd',
+  'cutoff date': 'periodEnd',
+  'period end': 'periodEnd',
+  'تاريخ القطع': 'periodEnd',
+  'حتى تاريخ': 'periodEnd',
+  'نهاية الفترة': 'periodEnd',
 };
 const otherLabels =
   /^(?:statement no\.?|supplier vat no\.?|payment terms|prepared date|ledger|erp source)$/i;
@@ -144,6 +155,39 @@ export function extractStatementMetadata(
     !(!sheet.cellIssues && formulaRows.has(row + 1));
   const unique = new Map<string, Map<string, string>>();
   const blockedFields = new Set<string>();
+  const balances: Record<
+    'opening' | 'closing',
+    { value: number; reference: BalanceRowReference }[]
+  > = { opening: [], closing: [] };
+  const invalidBalances = new Set<'opening' | 'closing'>();
+  const readInlineBalance = (row: number): boolean => {
+    const inline = inlineBalanceSummary(sheet.rows[row], mapping);
+    if (!inline) return false;
+    const kind = openingLabel.test(inline.label) ? 'opening' : 'closing';
+    try {
+      if (!cellSafe(row, inline.column, { metadata: true, merged: true }))
+        throw new Error('خلية رصيد غير موثوقة');
+      if (inline.currency && inline.currency !== scope.currency) {
+        result.warnings.push(
+          `BALANCE_CURRENCY_MISMATCH: ${sheet.name}، صف ${row + 1}: ${inline.currency} / ${scope.currency}`,
+        );
+        throw new Error('عملة الرصيد لا تطابق النطاق');
+      }
+      balances[kind].push({
+        value: parseMoney(inline.amount, mapping.numberFormat, scope.decimals),
+        reference: {
+          ...ref(row, inline.column, inline.original),
+          method: 'literal',
+        },
+      });
+    } catch (error) {
+      invalidBalances.add(kind);
+      result.warnings.push(
+        `BALANCE_VALUE_UNVERIFIED: ${sheet.name}، صف ${row + 1}: ${error instanceof Error ? error.message : 'تعذر التحقق'}`,
+      );
+    }
+    return true;
+  };
   const addText = (
     field: string,
     value: string,
@@ -191,6 +235,13 @@ export function extractStatementMetadata(
         blockedFields.add('periodEnd');
         result.warnings.push(`PERIOD_INVALID: ${sheet.name}، صف ${source.row}`);
       }
+    } else if (field === 'periodEnd') {
+      try {
+        addText(field, readDate(value), source);
+      } catch {
+        blockedFields.add(field);
+        result.warnings.push(`PERIOD_INVALID: ${sheet.name}، صف ${source.row}`);
+      }
     } else if (field === 'currency') {
       if (/^[A-Z]{3}$/i.test(value))
         addText(field, value.toUpperCase(), source);
@@ -204,6 +255,58 @@ export function extractStatementMetadata(
   };
   for (let row = 0; row < mapping.header; row++) {
     if (!rowSafe(row, true)) continue;
+    if (readInlineBalance(row)) continue;
+    // A PDF's pre-table line is not governed by its table column boundaries.
+    // Rejoin intact cell strings with spaces; never concatenate amount fragments.
+    const fullLine = sheet.rows[row]
+      .map((value) => value.trim())
+      .filter(Boolean)
+      .join(' ');
+    const inlineNames = [
+      ...Object.keys(labels),
+      'account',
+      'statement no',
+      'supplier vat no',
+      'payment terms',
+      'prepared date',
+      'ledger',
+      'erp source',
+    ];
+    const escaped = inlineNames
+      .map((label) => label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+      .sort((a, b) => b.length - a.length)
+      .join('|');
+    const labeled = [
+      ...fullLine.matchAll(
+        new RegExp(`(?:^|\\s+)(${escaped})\\s*[:：]\\s*`, 'giu'),
+      ),
+    ];
+    if (
+      file.pdf &&
+      labeled.length &&
+      labeled[0].index === 0 &&
+      sheet.rows[row].every((_, col) =>
+        cellSafe(row, col, { metadata: true, merged: true }),
+      )
+    ) {
+      for (const [index, part] of labeled.entries()) {
+        const value = fullLine
+          .slice(
+            part.index! + part[0].length,
+            labeled[index + 1]?.index ?? fullLine.length,
+          )
+          .trim();
+        if (!labels[normalizeLabel(part[1])]) continue;
+        const column = sheet.rows[row].findIndex((cell) =>
+          cell.toLowerCase().includes(part[1].toLowerCase()),
+        );
+        readLabel(part[1], value, {
+          ...ref(row, Math.max(0, column), fullLine),
+          ...(column < 0 ? { column: undefined } : {}),
+        });
+      }
+      continue;
+    }
     for (let col = 0; col < sheet.rows[row].length; col++) {
       const text = sheet.rows[row][col].trim();
       if (!cellSafe(row, col, { metadata: true, merged: true })) continue;
@@ -251,6 +354,16 @@ export function extractStatementMetadata(
   }
 
   const memo = new Map<string, { amount: number; references: string[] }>();
+  const verifyBalanceCurrency = (row: number, column: number) => {
+    const codes = [...(headers[column] ?? '').matchAll(/\(([A-Z]{3})\)/gi)].map(
+      (match) => match[1].toUpperCase(),
+    );
+    if (codes.some((code) => code !== scope.currency.toUpperCase())) {
+      const warning = `BALANCE_CURRENCY_MISMATCH: ${sheet.name}، صف ${row + 1}، عمود ${column + 1}: ${codes.join(' / ')} / ${scope.currency}`;
+      if (!result.warnings.includes(warning)) result.warnings.push(warning);
+      throw new Error('عملة عمود الرصيد لا تطابق العملة المؤكدة');
+    }
+  };
   let visited = 0;
   const evaluate = (
     row: number,
@@ -268,6 +381,7 @@ export function extractStatementMetadata(
       column >= headers.length
     )
       throw new Error('مرجع صيغة خارج الجدول');
+    verifyBalanceCurrency(row, column);
     const expression = sheet.formulaCells?.[key]?.formula;
     if (!cellSafe(row, column, { formula: !!expression }))
       throw new Error('خلية مبلغ غير موثوقة');
@@ -310,8 +424,9 @@ export function extractStatementMetadata(
     const displayed = sheet.rows[row][column]?.trim();
     if (
       displayed &&
-      parseMoney(displayed, mapping.numberFormat, scope.decimals) !==
-        computed.amount
+      // Cached numeric formula results are serialized by ExcelJS as native
+      // decimal strings, independently of the text-column locale selected.
+      parseMoney(displayed, 'dot', scope.decimals) !== computed.amount
     )
       throw new Error(
         'FORMULA_CACHE_MISMATCH: نتيجة الصيغة المخزنة تخالف إعادة الحساب',
@@ -324,6 +439,7 @@ export function extractStatementMetadata(
     column: number,
     allowBoundary = false,
   ): { value: number; reference: BalanceRowReference } => {
+    verifyBalanceCurrency(row, column);
     const original = sheet.rows[row]?.[column] ?? '';
     const formula = sheet.formulaCells?.[`${row + 1}:${column + 1}`]?.formula;
     if (formula) {
@@ -352,15 +468,11 @@ export function extractStatementMetadata(
       reference: { ...ref(row, column, original), method: 'literal' },
     };
   };
-  const balances: Record<
-    'opening' | 'closing',
-    { value: number; reference: BalanceRowReference }[]
-  > = { opening: [], closing: [] };
-  const invalidBalances = new Set<'opening' | 'closing'>();
   let leading = true;
   for (let row = mapping.header + 1; row < sheet.rows.length; row++) {
     const cells = sheet.rows[row];
     if (!cells.some((value) => value.trim())) continue;
+    if (readInlineBalance(row)) continue;
     const identity = structuralSummaryLabel(cells, mapping, headers, leading);
     const kind =
       identity && openingLabel.test(identity)
@@ -370,6 +482,19 @@ export function extractStatementMetadata(
           : undefined;
     if (!kind) {
       leading = false;
+      continue;
+    }
+    const currencies = cells
+      .map((value) => value.trim())
+      .filter((value) => /^[A-Z]{3}$/i.test(value))
+      .map((value) => value.toUpperCase());
+    if (
+      currencies.some((currency) => currency !== scope.currency.toUpperCase())
+    ) {
+      invalidBalances.add(kind);
+      result.warnings.push(
+        `BALANCE_CURRENCY_MISMATCH: ${sheet.name}، صف ${row + 1}: ${currencies.join(' / ')} / ${scope.currency}`,
+      );
       continue;
     }
     try {

@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -17,7 +17,11 @@
     "test:browser": "node scripts/browser-test.mjs",
     "test:mutations": "node scripts/test-mutations.mjs",
     "check": "pnpm typecheck && pnpm test && pnpm test:mutations && pnpm build && pnpm test:browser",
-    "prepare:ocr": "node scripts/prepare-ocr-assets.mjs"
+    "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
+    "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
+    "test:reliability": "node --experimental-strip-types audit/reliability/run.mjs --split development,validation,final --frozen",
+    "test:reliability:development": "node --experimental-strip-types audit/reliability/run.mjs",
+    "test:reliability:performance": "node --experimental-strip-types audit/reliability/performance.mjs --sizes=100,1000,5000,20000"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

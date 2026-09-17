@@ -70,11 +70,18 @@ function headerWords(tokens: PdfLine, fragments = false): PdfLine | null {
   const choices = visit(0);
   return choices.length === 1 ? choices[0] : null;
 }
-function bodyWords(tokens: PdfLine): PdfLine {
+function bodyWords(tokens: PdfLine, headers: PdfLine): PdfLine {
   const groups: PdfToken[][] = [];
   for (const token of tokens) {
     const previous = groups.at(-1);
-    if (previous && wordGap(previous.at(-1)!, token)) previous.push(token);
+    const crossesHeaderStart =
+      previous &&
+      headers.some(
+        (header) =>
+          header.x > previous.at(-1)!.x + 0.2 && header.x <= token.x + 0.2,
+      );
+    if (previous && !crossesHeaderStart && wordGap(previous.at(-1)!, token))
+      previous.push(token);
     else groups.push([token]);
   }
   return groups.map(joinedToken);
@@ -87,7 +94,7 @@ function headerBands(lines: PdfLine[]): HeaderBand[] {
     if (
       row.length < 3 ||
       row.length > 20 ||
-      !dateHeader.test(label(row[0].text)) ||
+      !row.some((token) => dateHeader.test(label(token.text))) ||
       !row.some((token) => referenceHeader.test(label(token.text))) ||
       !row.some((token) => amountHeader.test(label(token.text))) ||
       !row.every((token) => knownHeader.test(label(token.text)))
@@ -138,7 +145,7 @@ function headerBands(lines: PdfLine[]): HeaderBand[] {
     if (
       columns.length < 3 ||
       columns.length > 20 ||
-      !dateHeader.test(columns[0].text)
+      !columns.some((token) => dateHeader.test(token.text))
     )
       return [];
     return [{ lineIndexes, columns }];
@@ -171,11 +178,18 @@ export function suggestPdfColumnLayout(
     });
     const body = ordered
       .slice(lineIndexes.at(-1)! + 1)
-      .filter((row) => dateCell.test(row[0]?.text.trim() ?? ''));
+      .filter((row) => row.some((token) => dateCell.test(token.text.trim())));
     datedRows.push({ width: page.width, rows: body });
     const complete = body
-      .map(bodyWords)
-      .filter((row) => row.length === header.length);
+      .map((row) => bodyWords(row, header))
+      .filter(
+        (row) =>
+          row.length === header.length &&
+          header.some(
+            (token, index) =>
+              dateHeader.test(token.text) && dateCell.test(row[index].text),
+          ),
+      );
     if (!complete.length) return null;
     const rows = [header, ...complete];
     const left = header

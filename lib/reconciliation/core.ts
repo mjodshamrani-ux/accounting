@@ -4,6 +4,11 @@ import { transactionReferences } from './transaction-references.ts';
 import { buildReconciliationCases, identityConflicts } from './cases.ts';
 import { extractStatementMetadata } from './statement-metadata.ts';
 import { headerMatches } from './header-labels.ts';
+import {
+  enforceDeclaredReport,
+  collectGenericAccounts,
+  assertGenericAccountsCompatible,
+} from './report-scope.ts';
 import type {
   Mapping,
   Scope,
@@ -268,6 +273,29 @@ export function inferMapping(
 // mentions a balance from being excluded.
 export const summaryLabel =
   /^(?:total|subtotal|grand total|opening balance|balance b\/f|balance c\/f|closing (?:ap )?balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
+export function inlineBalanceSummary(row: string[], mapping: Mapping) {
+  const nonempty = row.flatMap((value, column) =>
+    value.trim() ? [{ value: value.trim(), column }] : [],
+  );
+  if (nonempty.length !== 1) return;
+  const match =
+    /^(opening balance|closing (?:ap )?balance|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]\s*([^\s]+)(?:\s+([A-Za-z]{3}))?$/i.exec(
+      nonempty[0].value,
+    );
+  if (!match) return;
+  try {
+    parseMoney(match[2], mapping.numberFormat, 3);
+  } catch {
+    return;
+  }
+  return {
+    label: match[1],
+    amount: match[2],
+    currency: match[3]?.toUpperCase(),
+    column: nonempty[0].column,
+    original: nonempty[0].value,
+  };
+}
 // A label in a description/helper cell cannot erase a dated invoice. Only
 // an isolated structural label, or the leading B/F opening record, qualifies.
 export function structuralSummaryLabel(
@@ -276,6 +304,8 @@ export function structuralSummaryLabel(
   headers: string[],
   leading = false,
 ): string | undefined {
+  const inline = inlineBalanceSummary(row, mapping);
+  if (inline) return inline.label;
   const cells = row
     .map((value, column) => ({ value: value.trim(), column }))
     .filter((x) => x.value);
@@ -352,6 +382,13 @@ export function structuralSummaryLabel(
 }
 export function nonFinancialFooter(row: string[]): boolean {
   const nonempty = [...new Set(row.map((v) => v.trim()).filter(Boolean))];
+  if (
+    row.filter((value) => value.trim()).length === 1 &&
+    /^(?:Page|صفحة|الصفحة)\s+[1-9]\d*(?:\s+(?:of|من)\s+[1-9]\d*)?$/i.test(
+      latinDigits(nonempty[0] ?? ''),
+    )
+  )
+    return true;
   return (
     nonempty.length === 1 &&
     !/[0-9٠-٩۰-۹]/.test(nonempty[0]) &&
@@ -359,6 +396,136 @@ export function nonFinancialFooter(row: string[]): boolean {
       nonempty[0],
     )
   );
+}
+const scopeColumnPatterns = {
+  supplierName:
+    /^(?:supplier|supplier name|vendor|vendor name|المورد|اسم المورد)$/i,
+  entityName:
+    /^(?:entity|legal entity|customer name|buyer name|الجهة القانونية|الكيان القانوني|اسم العميل)$/i,
+  supplierCode: /^(?:supplier code|vendor code|رمز المورد)$/i,
+  supplierStatementAccount:
+    /^(?:customer account|customer a\/c|supplier statement account|حساب العميل)$/i,
+  apControlAccount:
+    /^(?:ap control account|control account|حساب مراقبة الموردين)$/i,
+  currency: /^(?:currency|ccy|transaction currency|العملة|عملة الحركة)$/i,
+};
+const identityKey = (value: string) =>
+  value.trim().replace(/\s+/g, ' ').toUpperCase();
+
+// Explicit financial labels constrain the user's mapping. Equal numbers cannot
+// make invoice principal, open remaining, payments, and running balances equal
+// accounting concepts. Unlabelled/generic Amount remains governed by report type.
+function incompatibleAmountMeaning(
+  header: string,
+  reportType: Mapping['reportType'],
+): boolean {
+  const parts = header
+    .trim()
+    .replace(/\([A-Za-z]{3}\)/g, '')
+    .split(/\s+\/\s+|\s*\|\s*/)
+    .map((part) => part.trim());
+  const nonMovement =
+    /^(?:running(?: ap)? balance|cumulative balance|paid(?: amount)?|amount paid|الرصيد الجاري|الرصيد المتحرك|الرصيد التراكمي|المبلغ المدفوع|المدفوع|\d+\s*[-–—]\s*\d+(?:\s*days?)?|\d+\s*\+\s*(?:days?)?)$/i;
+  const original =
+    /^(?:original(?: document| invoice)? amount|invoice amount|document amount|gross amount|أصل مبلغ المستند|اصل مبلغ المستند|مبلغ الفاتورة|أصل الفاتورة|اصل الفاتورة)$/i;
+  const remaining =
+    /^(?:outstanding(?: amount| balance)?|remaining(?: amount| balance)?|balance(?: due)?|open amount|unpaid(?: amount)?|المتبقي|المبلغ المتبقي|الرصيد|الرصيد المتبقي|المبلغ غير المسدد)$/i;
+  return parts.some(
+    (part) =>
+      nonMovement.test(part) ||
+      (reportType === 'open-items'
+        ? original.test(part)
+        : remaining.test(part)),
+  );
+}
+
+function enforceSourceScope(
+  file: SourceFile,
+  mapping: Mapping,
+  scope: Scope,
+  result: SourceResult,
+) {
+  const sheet = file.sheets[mapping.sheet];
+  const metadata = result.metadata!;
+  for (const [field, pattern] of Object.entries(scopeColumnPatterns)) {
+    const key = field as keyof typeof scopeColumnPatterns;
+    const columns = sheet.rows[mapping.header].flatMap((header, column) =>
+      headerMatches(pattern, header) ? [column] : [],
+    );
+    if (!columns.length) continue;
+    const values = new Map<string, string>();
+    if (metadata[key]) values.set(identityKey(metadata[key]), metadata[key]);
+    let invalid = columns.some(
+      (column) =>
+        sheet.cellIssues?.[`${mapping.header + 1}:${column + 1}`]?.length ||
+        sheet.referenceIssues?.[`${mapping.header + 1}:${column + 1}`]?.length,
+    );
+    for (const transaction of result.transactions)
+      for (const column of columns) {
+        const rn = transaction.row;
+        const rawValue = sheet.rows[rn - 1][column]?.trim() ?? '';
+        if (
+          !rawValue ||
+          sheet.cellIssues?.[`${rn}:${column + 1}`]?.length ||
+          sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length ||
+          (!sheet.cellIssues && sheet.formulaRows.includes(rn))
+        ) {
+          invalid = true;
+          continue;
+        }
+        const value = key === 'currency' ? rawValue.toUpperCase() : rawValue;
+        if (!values.has(identityKey(value)))
+          metadata.evidence.push({
+            field: key,
+            value,
+            sheet: sheet.name,
+            row: rn,
+            column: column + 1,
+            originalValue: rawValue,
+            method: 'literal',
+            ...(transaction.sourcePage ? { page: transaction.sourcePage } : {}),
+          });
+        values.set(identityKey(value), value);
+      }
+    if (
+      invalid ||
+      values.size !== 1 ||
+      (key === 'currency' && [...values.values()][0] !== scope.currency)
+    ) {
+      result.errors.push({
+        row: 0,
+        message: `نطاق غير متحقق في عمود ${sheet.rows[mapping.header][columns[0]]}: توجد قيم ناقصة أو متعارضة أو أكثر من نطاق. افصل نطاق المورد والجهة والحساب والعملة قبل المطابقة.`,
+      });
+    } else metadata[key] = [...values.values()][0];
+  }
+  if (
+    metadata.warnings.some((warning) =>
+      /^METADATA_CONFLICT: (?:supplierName|entityName|supplierCode|supplierStatementAccount|apControlAccount)$/.test(
+        warning,
+      ),
+    )
+  )
+    result.errors.push({
+      row: 0,
+      message:
+        'هوية المورد أو الجهة أو الحساب متعارضة داخل المصدر. لا يمكن اعتماد نطاق موحد.',
+    });
+  if (metadata.warnings.some((warning) => /^CURRENCY_INVALID:/.test(warning)))
+    result.errors.push({
+      row: 0,
+      message:
+        'عملة المصدر المعلنة غير صالحة؛ لا يجوز استبدالها بعملة النطاق دون تحقق.',
+    });
+  if (
+    metadata.warnings.some((warning) =>
+      /^BALANCE_CURRENCY_MISMATCH:/.test(warning),
+    )
+  )
+    result.errors.push({
+      row: 0,
+      message:
+        'عملة رصيد المصدر لا تطابق نطاق المقارنة؛ إدخال رصيد يدوي لا يلغي هذا التعارض.',
+    });
 }
 export function normalizeSource(
   file: SourceFile,
@@ -428,6 +595,18 @@ export function normalizeSource(
     sourceName: file.name,
     sourceHash: file.sha256,
   };
+  if (
+    mapping.mode === 'signed' &&
+    incompatibleAmountMeaning(
+      sheet.rows[mapping.header][mapping.amount] ?? '',
+      mapping.reportType,
+    )
+  )
+    result.errors.push({
+      row: 0,
+      message:
+        'معنى عمود المبلغ لا يوافق نوع التقرير: أصل المستند والمتبقي والمدفوع والرصيد الجاري حقول مختلفة. حدد حقل المبلغ الموافق لنوع التقرير.',
+    });
   if (file.pdf && mapping.pdfReviewed !== true)
     throw new Error(
       'راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة.',
@@ -463,8 +642,15 @@ export function normalizeSource(
       throw new Error('عملة عنوان المبلغ لا تطابق العملة المؤكدة');
   }
   const cutoff = parseDate(scope.cutoff, 'ymd');
+  result.metadata = extractStatementMetadata(file, mapping, scope);
+  enforceDeclaredReport(file, mapping, result);
+  result.warnings.push(...result.metadata.warnings);
+  const periodEvidenceValid = !result.metadata.warnings.some((warning) =>
+    /^PERIOD_INVALID:|^METADATA_CONFLICT: period(?:Start|End)$/.test(warning),
+  );
   let start = '';
   if (mapping.periodStart) start = parseDate(mapping.periodStart, 'ymd');
+  else if (periodEvidenceValid) start = result.metadata.periodStart;
   if (start && start > cutoff)
     throw new Error('بداية الفترة تأتي بعد تاريخ المقارنة');
   const get = (row: string[], col: number) =>
@@ -474,6 +660,44 @@ export function normalizeSource(
     row.length === headerRow.length &&
     headerRow.some((value) => value.trim()) &&
     row.every((value, i) => value.trim() === headerRow[i].trim());
+  const repeatedPageMetadata = new Set<number>();
+  if (file.pdf && sheet.rowPages) {
+    const signature = (row: string[]) =>
+      JSON.stringify(row.map((value) => value.trim()));
+    const prefix = new Set(sheet.rows.slice(0, mapping.header).map(signature));
+    const pages = new Map<number, number[]>();
+    sheet.rows.forEach((_, index) => {
+      const page = sheet.rowPages![String(index + 1)];
+      if (page !== undefined) {
+        const indexes = pages.get(page);
+        if (indexes) indexes.push(index);
+        else pages.set(page, [index]);
+      }
+    });
+    for (const [page, rows] of pages) {
+      if (page === sheet.rowPages[String(mapping.header + 1)]) continue;
+      const headerIndex = rows.find((index) =>
+        repeatedHeader(sheet.rows[index]),
+      );
+      if (headerIndex === undefined) continue;
+      for (const index of rows) {
+        if (index >= headerIndex) break;
+        const row = sheet.rows[index];
+        const amountPresent = (
+          mapping.mode === 'signed'
+            ? [mapping.amount]
+            : [mapping.debit, mapping.credit]
+        ).some((column) => (row[column] ?? '').trim());
+        const identityPresent = [mapping.date, mapping.reference].some(
+          (column) => column >= 0 && (row[column] ?? '').trim(),
+        );
+        // A page prefix is structural only when it repeats the original prefix,
+        // precedes an identical table header, and contains no amount/identity pair.
+        if (prefix.has(signature(row)) && !(amountPresent && identityPresent))
+          repeatedPageMetadata.add(index + 1);
+      }
+    }
+  }
   const formulaRows = new Set(sheet.formulaRows);
   const hiddenRows = new Set(sheet.hiddenRows);
   for (let i = 0; i < sheet.rows.length; i++) {
@@ -518,7 +742,8 @@ export function normalizeSource(
         label &&
         row.some(
           (value, column) =>
-            value.trim() === label &&
+            (value.trim() === label ||
+              inlineBalanceSummary(row, mapping)?.column === column) &&
             ((sheet.cellIssues?.[`${rn}:${column + 1}`] ?? []).some(
               (issue) => !issue.startsWith('خلية مدمجة في '),
             ) ||
@@ -543,6 +768,15 @@ export function normalizeSource(
                 !(allowTextLayout && issue.startsWith('خلية مدمجة في ')),
             ) && !sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length,
         );
+      if (repeatedPageMetadata.has(rn) && wholeTextRowSafe(true)) {
+        result.excluded.push({
+          row: rn,
+          reason:
+            'بيانات رأس صفحة متكررة حرفيًا قبل عنوان الجدول المطابق — محفوظة في المصدر',
+          values: row,
+        });
+        continue;
+      }
       if (label && structuralReadingSafe) {
         result.excluded.push({
           row: rn,
@@ -554,7 +788,8 @@ export function normalizeSource(
       if (nonFinancialFooter(row) && wholeTextRowSafe(true)) {
         result.excluded.push({
           row: rn,
-          reason: 'تذييل نصي بلا مبلغ أو مرجع رقمي — استُبعد تلقائيًا',
+          reason:
+            'تذييل نصي أو ترقيم صفحة مستقل بلا بيانات حركة — استُبعد تلقائيًا',
           values: row,
         });
         continue;
@@ -608,6 +843,13 @@ export function normalizeSource(
           scope.currency.toUpperCase()
       )
         throw new Error('عملة الصف لا تطابق العملة المؤكدة');
+      if (
+        result.metadata.currency &&
+        result.metadata.currency !== scope.currency
+      )
+        throw new Error(
+          'عملة المصدر المعلنة لا تطابق العملة المؤكدة. لم تُحوّل مبالغ المصدر إلى عملة أخرى.',
+        );
       const original =
         mapping.mode === 'signed'
           ? get(row, mapping.amount)
@@ -666,8 +908,18 @@ export function normalizeSource(
     }
   }
   result.total = safeSum(result.transactions.map((t) => t.amount));
-  result.metadata = extractStatementMetadata(file, mapping, scope);
-  result.warnings.push(...result.metadata.warnings);
+  enforceSourceScope(file, mapping, scope, result);
+  collectGenericAccounts(file, mapping, scope, result);
+  if (
+    mapping.reportType === 'open-items' &&
+    (!periodEvidenceValid ||
+      (result.metadata.periodEnd && result.metadata.periodEnd !== cutoff))
+  )
+    result.errors.push({
+      row: 0,
+      message:
+        'تاريخ لقطة البنود المفتوحة لا يطابق تاريخ القطع أو لم يُقرأ بثقة. لا يمكن إعادة بناء المتبقي التاريخي بحذف المستندات الأحدث.',
+    });
   if (
     (result.metadata.currency && result.metadata.currency !== scope.currency) ||
     result.metadata.warnings.includes('METADATA_CONFLICT: currency')
@@ -691,9 +943,27 @@ export function normalizeSource(
       message: `الأرصدة: ${(error as Error).message}`,
     });
   }
-  const hasData = result.transactions.length > 0 && result.errors.length === 0;
+  const explicitEmptyPeriod =
+    result.transactions.length === 0 &&
+    result.metadata.periodEnd === cutoff &&
+    !!result.metadata.balanceRowReference.closing &&
+    (mapping.reportType === 'open-items'
+      ? result.metadata.closingBalance === 0
+      : !!result.metadata.periodStart &&
+        !!result.metadata.balanceRowReference.opening &&
+        result.metadata.openingBalance === result.metadata.closingBalance);
+  const hasData =
+    (result.transactions.length > 0 || explicitEmptyPeriod) &&
+    result.errors.length === 0;
   const arithmeticValid =
     hasData &&
+    periodEvidenceValid &&
+    !result.metadata.warnings.some((warning) =>
+      /^BALANCE_VALUE_(?:CONFLICT|UNVERIFIED):/.test(warning),
+    ) &&
+    (!mapping.periodStart ||
+      !result.metadata.periodStart ||
+      mapping.periodStart === result.metadata.periodStart) &&
     result.closing !== null &&
     (mapping.reportType === 'open-items'
       ? result.total === result.closing
@@ -730,6 +1000,16 @@ export function normalizeSource(
   return result;
 }
 const key = (t: Transaction) => `${t.normalizedReference}\u0000${t.amount}`;
+const explicitNumericDocument = (t: Transaction) =>
+  (t.documentType === 'Invoice' || t.documentType === 'Credit Note') &&
+  t.documentReference === t.reference &&
+  /^\d{4,}$/.test(latinDigits(t.reference)) &&
+  !t.referenceEvidenceIssues?.length;
+const strongAutomaticReference = (t: Transaction) =>
+  t.normalizedReference.length >= 4 &&
+  ((/\p{L}/u.test(t.normalizedReference) &&
+    /[0-9]/.test(t.normalizedReference)) ||
+    explicitNumericDocument(t));
 function indexBy(items: Transaction[], by: (t: Transaction) => string) {
   const map = new Map<string, Transaction[]>();
   for (const t of items) {
@@ -769,7 +1049,41 @@ export function compare(
     throw new Error(
       'لا يمكن مقارنة نوعين مختلفين من التقارير. اختر تقريرين من النوع نفسه.',
     );
-  if (!supplier.transactions.length || !ledger.transactions.length)
+  assertGenericAccountsCompatible(supplier, ledger);
+  // Compare only identities with the same explicit role. A supplier's customer
+  // account is not the AP system's vendor code, even when both are account IDs.
+  for (const field of Object.keys(
+    scopeColumnPatterns,
+  ) as (keyof typeof scopeColumnPatterns)[]) {
+    const a = supplier.metadata?.[field];
+    const b = ledger.metadata?.[field];
+    if (field !== 'currency' && a && b && identityKey(a) !== identityKey(b))
+      throw new Error(
+        `تعارض هوية نطاق الملفين (${field}). تحقق من المورد والجهة والحساب والعملة قبل المطابقة.`,
+      );
+  }
+  if (
+    decisions.length &&
+    [...supplier.errors, ...ledger.errors].some((error) => error.row === 0)
+  )
+    throw new Error(
+      'لا يمكن تجاوز خطأ منهجي في القراءة أو النطاق بقرار مطابقة يدوي. صحح معنى المبلغ أو نطاق المصدر أولًا.',
+    );
+  const evidencedEmpty = (source: SourceResult) =>
+    source.transactions.length === 0 &&
+    source.errors.length === 0 &&
+    source.balanceArithmeticStatus === 'BALANCE_ARITHMETIC_VERIFIED' &&
+    source.metadata?.periodEnd === scope.cutoff &&
+    (source.mapping.reportType === 'open-items'
+      ? source.closing === 0
+      : !!source.metadata?.periodStart &&
+        source.opening !== null &&
+        source.opening === source.closing);
+  if (
+    [supplier, ledger].some(
+      (source) => !source.transactions.length && !evidencedEmpty(source),
+    )
+  )
     throw new Error('لا توجد حركات كافية في أحد الطرفين');
   if (
     [...supplier.transactions, ...ledger.transactions].some(
@@ -830,9 +1144,7 @@ export function compare(
       s.referenceEvidenceIssues?.length ||
       usedA.has(s.id) ||
       !s.normalizedReference ||
-      s.normalizedReference.length < 4 ||
-      !/[\p{L}]/u.test(s.normalizedReference) ||
-      !/[0-9]/.test(s.normalizedReference) ||
+      !strongAutomaticReference(s) ||
       s.amount === 0
     )
       continue;
@@ -847,6 +1159,13 @@ export function compare(
       continue;
     const l = bc[0];
     if (l.referenceEvidenceIssues?.length) continue;
+    // Numeric document IDs need explicit document-role evidence on BOTH sides.
+    if (!strongAutomaticReference(l)) continue;
+    if (
+      explicitNumericDocument(s) &&
+      (!explicitNumericDocument(l) || s.documentType !== l.documentType)
+    )
+      continue;
     if (identityConflicts(s, l).length) continue;
     if (s.reference.trim() !== l.reference.trim()) continue;
     if (usedB.has(l.id) || rejectedSet.has(`${s.id}|${l.id}`)) continue;

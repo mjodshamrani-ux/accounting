@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.9-experimental';
+export const ENGINE_VERSION = '0.3.10-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;

@@ -11,10 +11,30 @@ import type {
 const gap = (a: Transaction, b: Transaction) =>
   Math.abs(Date.parse(a.date) - Date.parse(b.date)) / 86400000;
 const strong = (r: string) => r.length >= 4 && /\p{L}/u.test(r) && /\d/.test(r);
+export const MAX_AUTOMATIC_GROUP_MEMBERS = 100;
 const exactRef = (a: Transaction, b: Transaction) =>
   strong(a.normalizedReference) &&
   a.normalizedReference === b.normalizedReference &&
   a.reference.trim() === b.reference.trim();
+// Description text is never positive matching evidence. An explicit leading
+// document label can nevertheless contradict another document's declared role.
+const descriptionTypeHint = (value: string): Transaction['documentType'] => {
+  const text = value.trim();
+  if (
+    /^(?:credit note|credit memo|إشعار دائن|اشعار دائن)(?=\s|[:：-]|$)/i.test(
+      text,
+    )
+  )
+    return 'Credit Note';
+  if (/^(?:(?:ap )?invoice|فاتورة|فاتوره)(?=\s|[:：-]|$)/i.test(text))
+    return 'Invoice';
+  if (
+    /^(?:supplier payment|payment|receipt|دفعة|سداد|دفع|قبض)(?=\s|[:：-]|$)/i.test(
+      text,
+    )
+  )
+    return 'Payment';
+};
 export function identityConflicts(a: Transaction, b: Transaction): string[] {
   const conflicts: string[] = [];
   if (
@@ -29,6 +49,20 @@ export function identityConflicts(a: Transaction, b: Transaction): string[] {
     );
   if (a.poReference && b.poReference && a.poReference !== b.poReference)
     conflicts.push(`أمرا الشراء مختلفان: ${a.poReference} / ${b.poReference}`);
+  const hintedA = descriptionTypeHint(a.description),
+    hintedB = descriptionTypeHint(b.description);
+  const declared = (t: Transaction) =>
+    t.documentType === 'Unknown' ? undefined : t.documentType;
+  if (
+    (hintedA && declared(a) && hintedA !== declared(a)) ||
+    (hintedB && declared(b) && hintedB !== declared(b)) ||
+    ((hintedA || declared(a)) &&
+      (hintedB || declared(b)) &&
+      (hintedA || declared(a)) !== (hintedB || declared(b)))
+  )
+    conflicts.push(
+      'توجد تسميات صريحة متعارضة لنوع المستند في الحقول أو بداية الوصف. الوصف لا يثبت المطابقة، لكن التعارض يمنع اعتمادها آليًا.',
+    );
   return conflicts;
 }
 const compatible = (a: Transaction, b: Transaction, scope: Scope) =>
@@ -189,6 +223,7 @@ export function buildReconciliationCases(
     if (!oneToMany && !manyToOne) continue;
     const single = oneToMany ? a[0] : b[0],
       group = oneToMany ? b : a;
+    if (group.length > MAX_AUTOMATIC_GROUP_MEMBERS) continue;
     const sameType =
       single.documentType &&
       single.documentType !== 'Unknown' &&
@@ -213,6 +248,7 @@ export function buildReconciliationCases(
     if (
       ![...a, ...b].some((t) => t.referenceEvidenceIssues?.length) &&
       group.every((t) => exactRef(single, t) && compatible(single, t, scope)) &&
+      group.every((t) => identityConflicts(single, t).length === 0) &&
       sameType &&
       sameGroupDate &&
       !conflictingPO &&
@@ -348,6 +384,11 @@ export function buildReconciliationCases(
         b,
         'REFERENCE_GROUP_NOT_PROVEN',
         [
+          ...(Math.max(a0.length, b0.length) > MAX_AUTOMATIC_GROUP_MEMBERS
+            ? [
+                `حجم المجموعة يتجاوز حد الاعتماد الآلي (${MAX_AUTOMATIC_GROUP_MEMBERS} حركة في الطرف المجمع). لم يكتمل تقييم اعتماد هذه المجموعة؛ بقيت كل صفوفها للمراجعة.`,
+              ]
+            : []),
           'المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.',
           safeSum(a.map((t) => t.amount)) === safeSum(b.map((t) => t.amount))
             ? 'المجموع متساوٍ، لكنه لا يثبت هوية الحركات ضمن المجموعة.'

@@ -449,12 +449,37 @@ test('currency from another normalized scope cannot be compared, including manua
       scope,
       'supplier',
     );
+    assert.ok(source.errors.some((e) => /عملة/.test(e.message)));
+    if (source.metadata?.currency === 'USD') {
+      assert.equal(
+        source.transactions.length,
+        0,
+        'A foreign-currency amount is not relabelled with the confirmed currency',
+      );
+      assert.ok(source.errors.some((e) => e.row === declarations.length + 2));
+      assert.ok(
+        f.sheets[0].rows.at(-1)?.includes('INV-FX-01'),
+        'The original source remains available for review',
+      );
+      assert.throws(
+        () =>
+          compare(
+            source,
+            sources(
+              [{ ref: 'INV-FX-01', amount: '100' }],
+              [{ ref: 'INV-FX-01', amount: '100' }],
+            )[1],
+            scope,
+          ),
+        /حركات كافية/,
+      );
+      continue;
+    }
     assert.equal(
       source.transactions.length,
       1,
-      'readable movements and their evidence are retained',
+      'A conflicting declaration remains flagged and cannot authorize a match',
     );
-    assert.ok(source.errors.some((e) => /عملة/.test(e.message)));
     const result = compare(
       source,
       sources(

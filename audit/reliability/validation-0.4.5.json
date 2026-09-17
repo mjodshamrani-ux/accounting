@@ -1,0 +1,82 @@
+{
+  "version": "0.4.5",
+  "engineVersion": "0.3.10-experimental",
+  "baselineUnitTests": {
+    "passed": 463,
+    "failed": 0,
+    "skipped": 0
+  },
+  "finalUnitTests": {
+    "passed": 547,
+    "failed": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "productionMutations": {
+    "detected": 34,
+    "total": 34
+  },
+  "independentCorpus": {
+    "cases": 5000,
+    "passed": 5000,
+    "knownFalseMatches": 0,
+    "requiredOneToOneMatches": 46717,
+    "requiredOneToOneAccepted": 46717,
+    "exportsIndependentlyChecked": 4519,
+    "balanceBridgesChecked": 4271,
+    "heldOutCases": 494,
+    "heldOutPassed": 494,
+    "engineFilesFrozenAndUnchanged": 37
+  },
+  "browser": {
+    "passed": true,
+    "checks": [
+      "GitHub subpath assets",
+      "production CSP",
+      "Arabic-only TARASUF identity, authentic local native fonts, keyboard-accessible uploads and atomic multi-file-drop rejection",
+      "true A4 vector paper proportions, unique local clips and per-paper scans across 17 animation samples at six widths; all scene motion pauses offscreen or on request",
+      "320/390/768/820/1024/1280px layouts without overflow; four grounded features, readable workflow labels, anchor/keyboard reveals and reduced-motion privacy navigation",
+      "offline native confirm/review/export headings retain correct font and focus; longest title wraps at 320px without shrinking",
+      "offline first comparison",
+      "engine/io cases run separately",
+      "grounded assistant offline",
+      "cancel and confirm session reset",
+      "reject auto match",
+      "Excel download roundtrip",
+      "invalid export text rejected and correction retried",
+      "mapping invalidation",
+      "390px layout",
+      "actual CSV upload offline",
+      "XLSX upload with helper formulas, percentages and multiple sheets offline",
+      "case workpaper reimport chooses parsed sources without restoring approvals",
+      "bordered PDF upload, review, comparison and Excel export offline",
+      "covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline",
+      "typed image-only and first-failing-page PDF diagnoses retain the existing XLSX and recover on the next readable PDF",
+      "synthetic ready local-model advice requires explicit Apply before comparison; absent/downloadable providers never create sessions and retain manual mapping",
+      "clear files show no mandatory input fields; explicit metadata and unambiguous formats filled and numeric export verified",
+      "both ambiguous date and 3-decimal amount formats require independent choices",
+      "unknown currency precision requires an explicit choice including the existing two-decimal value",
+      "PDF columns detected from geometry with a reachable review box",
+      "namespaced XLSX source pairs: zero mandatory fields with proven opposite directions and exact numeric Excel export",
+      "formula running balances require separate essential supplier/AP sign choices before comparison",
+      "header selection preserves proven AP direction; failed XLSX replacement preserves the retained file manual sign choice",
+      "two PDF review approvals remain independent; replacing a multi-page PDF resets its preview and approval",
+      "real local PNG/raster-PDF OCR, source hash, word coordinates, cancel/clear, native-source isolation and static-assets-only network",
+      "no observed external or POST requests"
+    ],
+    "screenshots": "work/qa"
+  },
+  "arabicOcrObservation": {
+    "exactAmountTokens": 0,
+    "expectedAmountTokens": 3,
+    "financialAccuracy": "not-established",
+    "draftOnly": true
+  },
+  "build": "passed",
+  "notes": [
+    "pnpm check initially stopped because the pinned Playwright browser executable was absent; after installing the test browser, pnpm test:browser passed.",
+    "The evaluator was strengthened using a development-case mutation after the first frozen run; before/after corpus evaluations were repeated with the same evaluator and unchanged engine/generator.",
+    "No production network or financial-storage feature was added.",
+    "Public CI omits private-original file tests when those local files are unavailable."
+  ]
+}

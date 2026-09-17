@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import { SaxesParser } from 'saxes';
 import type { SaxesTagNS } from 'saxes';
+import { MAX_ROWS } from './types.ts';
 
 const SPREADSHEET = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
 const RELATIONSHIP =
@@ -10,6 +11,27 @@ const PACKAGE_RELATIONSHIP =
 const XML = 'http://www.w3.org/XML/1998/namespace';
 const XMLNS = 'http://www.w3.org/2000/xmlns/';
 const MAX_XML_CHARS = 32 * 1024 * 1024;
+const worksheetParents: Record<string, string> = {
+  sheetData: 'worksheet',
+  row: 'sheetData',
+  c: 'row',
+  v: 'c',
+  f: 'c',
+  is: 'c',
+};
+const singletonParts: Record<string, ReadonlySet<string>> = {
+  workbook: new Set(['sheets', 'workbookPr']),
+  styleSheet: new Set([
+    'numFmts',
+    'fonts',
+    'fills',
+    'borders',
+    'cellStyleXfs',
+    'cellXfs',
+    'cellStyles',
+    'dxfs',
+  ]),
+};
 
 const criticalNames = new Set([
   'workbook',
@@ -107,10 +129,23 @@ function compatibleXml(
     outputChars = 0;
   const seenRows = new Set<string>();
   const seenCells = new Set<string>();
+  const singletonContainers = new Set<string>();
+  const sheetIds = new Set<string>();
+  const sheetNames = new Set<string>();
+  const relationshipIds = new Set<string>();
+  const formatIds = new Set<string>();
+  let sheetDataSeen = false;
   let rowAddress = '';
   let previousColumn = 0;
   let cell:
-    | { address: string; type: string; value: string; hasValue: boolean }
+    | {
+        address: string;
+        type: string;
+        value: string;
+        hasValue: boolean;
+        hasInline: boolean;
+        hasFormula: boolean;
+      }
     | undefined;
   let inValue = false;
   const append = (value: string) => {
@@ -173,15 +208,90 @@ function compatibleXml(
         'وسم بيانات Excel يستخدم مساحة أسماء غير صحيحة؛ لا يمكن الوثوق بقراءته',
       );
     const canonical = name(tag.local, tag.uri, false);
+    if (singletonParts[part.root]?.has(canonical)) {
+      if (
+        stack.at(-1)?.name !== part.root ||
+        singletonContainers.has(canonical)
+      )
+        throw new Error(
+          'بنية Excel متعارضة أو مكررة؛ لا يمكن إسقاط ورقة أو تغيير تفسير قيمة',
+        );
+      singletonContainers.add(canonical);
+    }
+    // ExcelJS is intentionally permissive about malformed XML structure: a
+    // second sheetData replaces the first, and mixed v/is payloads concatenate.
+    // Reject those ambiguities before any values can disappear or change.
+    if (part.root === 'worksheet') {
+      const parent = stack.at(-1)?.name;
+      if (worksheetParents[canonical] && parent !== worksheetParents[canonical])
+        throw new Error(
+          'بنية جدول Excel غير صالحة؛ لا يمكن إسقاط بيانات خارج موضعها',
+        );
+      if (canonical === 'sheetData') {
+        if (sheetDataSeen)
+          throw new Error(
+            'جدول sheetData مكرر في ورقة Excel؛ لا يمكن اختيار جدول وإسقاط الآخر',
+          );
+        sheetDataSeen = true;
+      }
+    }
     const attribute = (local: string, uri = '') =>
       Object.values(tag.attributes).find(
         (value) => value.local === local && value.uri === uri,
       )?.value ?? '';
-    if (part.root === 'workbook' && canonical === 'sheet')
+    if (
+      part.root === 'styleSheet' &&
+      canonical === 'numFmt' &&
+      stack.at(-1)?.name === 'numFmts'
+    ) {
+      const rawId = attribute('numFmtId');
+      const id = String(Number(rawId));
+      if (
+        !/^\d+$/.test(rawId) ||
+        !Number.isSafeInteger(Number(rawId)) ||
+        formatIds.has(id)
+      )
+        throw new Error(
+          'معرّف تنسيق Excel مكرر أو غير صالح؛ لا يمكن تغيير معنى الرقم أو التاريخ',
+        );
+      formatIds.add(id);
+    }
+    if (part.root === 'workbook' && canonical === 'sheet') {
+      const rawId = attribute('sheetId');
+      const id = String(Number(rawId));
+      const sheetName = attribute('name');
+      if (
+        stack.at(-1)?.name !== 'sheets' ||
+        !/^\d+$/.test(rawId) ||
+        !Number.isSafeInteger(Number(rawId)) ||
+        Number(rawId) < 1 ||
+        !sheetName.trim() ||
+        !attribute('id', RELATIONSHIP) ||
+        sheetIds.has(id) ||
+        sheetNames.has(sheetName.toLowerCase())
+      )
+        throw new Error(
+          'معرّف أو اسم ورقة Excel مكرر أو غير صالح؛ لا يمكن إسقاط إحدى الأوراق',
+        );
+      sheetIds.add(id);
+      sheetNames.add(sheetName.toLowerCase());
       inspection?.sheets.push({
-        name: attribute('name'),
+        name: sheetName,
         relationship: attribute('id', RELATIONSHIP),
       });
+    }
+    if (part.root === 'Relationships' && canonical === 'Relationship') {
+      const id = attribute('Id');
+      if (
+        stack.at(-1)?.name !== 'Relationships' ||
+        !id ||
+        relationshipIds.has(id)
+      )
+        throw new Error(
+          'رابط جزء Excel مكرر أو غير صالح؛ لا يمكن اختيار مصدر ضمني',
+        );
+      relationshipIds.add(id);
+    }
     if (
       part.root === 'Relationships' &&
       canonical === 'Relationship' &&
@@ -197,7 +307,14 @@ function compatibleXml(
       stack.at(-1)?.name === 'sheetData'
     ) {
       const rawRow = attribute('r');
-      rowAddress = /^\d+$/.test(rawRow) ? String(Number(rawRow)) : rawRow;
+      if (
+        !/^\d+$/.test(rawRow) ||
+        !Number.isSafeInteger(Number(rawRow)) ||
+        Number(rawRow) < 1 ||
+        Number(rawRow) > MAX_ROWS + 30
+      )
+        throw new Error('إحداثيات صف Excel غير صالحة أو تتجاوز حد الصفوف');
+      rowAddress = String(Number(rawRow));
       previousColumn = 0;
       if (rowAddress && seenRows.has(rowAddress))
         throw new Error(
@@ -212,6 +329,13 @@ function compatibleXml(
     ) {
       const rawAddress = attribute('r');
       const coordinate = /^([A-Z]+)(\d+)$/.exec(rawAddress);
+      if (
+        rawAddress &&
+        (!coordinate ||
+          Number(coordinate[2]) < 1 ||
+          !Number.isSafeInteger(Number(coordinate[2])))
+      )
+        throw new Error('موضع خلية Excel غير صالح؛ لا يمكن إسقاط الخلية');
       let address = coordinate
         ? `${coordinate[1]}${Number(coordinate[2])}`
         : rawAddress;
@@ -232,6 +356,8 @@ function compatibleXml(
         }
         address = `${letters}${rowAddress}`;
       }
+      if (!address || previousColumn < 1 || previousColumn > 100)
+        throw new Error('موضع خلية Excel غير محدد أو يتجاوز حد الأعمدة');
       if (address && seenCells.has(address))
         throw new Error(
           `خلية Excel مكررة داخل XML (${address})؛ لا يمكن اختيار إحدى القيمتين`,
@@ -246,6 +372,8 @@ function compatibleXml(
         type: attribute('t') || 'n',
         value: '',
         hasValue: false,
+        hasInline: false,
+        hasFormula: false,
       };
       if (!['n', 's', 'str', 'inlineStr', 'b', 'e', 'd'].includes(cell.type))
         throw new Error(
@@ -256,13 +384,36 @@ function compatibleXml(
       // values are supported by the date parser, other forms require review.
       if (cell.type === 'd') changed = true;
     }
+    if (part.root === 'worksheet' && canonical === 'is' && cell) {
+      if (
+        cell.hasInline ||
+        cell.hasValue ||
+        cell.hasFormula ||
+        cell.type !== 'inlineStr'
+      )
+        throw new Error(
+          `خلية Excel ${cell.address} تحتوي بنية نص/قيمة متعارضة`,
+        );
+      cell.hasInline = true;
+    }
+    if (part.root === 'worksheet' && canonical === 'f' && cell) {
+      if (
+        cell.hasFormula ||
+        cell.hasInline ||
+        ['s', 'inlineStr'].includes(cell.type)
+      )
+        throw new Error(
+          `خلية Excel ${cell.address} تحتوي أكثر من صيغة أو بنية متعارضة`,
+        );
+      cell.hasFormula = true;
+    }
     if (
       part.root === 'worksheet' &&
       canonical === 'v' &&
       stack.at(-1)?.name === 'c' &&
       cell
     ) {
-      if (cell.hasValue)
+      if (cell.hasValue || cell.hasInline || cell.type === 'inlineStr')
         throw new Error(`خلية Excel ${cell.address} تحتوي أكثر من قيمة XML`);
       cell.hasValue = true;
       inValue = true;
@@ -378,25 +529,42 @@ export async function prepareXlsxForExcelJs(
       changed = true;
     }
   }
-  if (numericIssuesBySheet) {
+  {
     const sheets = inspections.get('xl/workbook.xml')?.sheets ?? [];
     const relationships =
       inspections.get('xl/_rels/workbook.xml.rels')?.relationships ?? [];
+    const usedPaths = new Set<string>();
     for (const sheet of sheets) {
       const target = relationships.find(
         (rel) => rel.id === sheet.relationship,
       )?.target;
-      if (!target) continue;
+      if (!target)
+        throw new Error(
+          'رابط ورقة Excel ناقص أو غير مدعوم؛ لا يمكن إسقاط الورقة',
+        );
       const path: string[] = [];
       for (const segment of (target.startsWith('/')
         ? target.slice(1)
         : `xl/${target}`
       ).split('/')) {
-        if (segment === '..') path.pop();
-        else if (segment !== '.') path.push(segment);
+        if (segment === '..') {
+          if (!path.length) throw new Error('رابط ورقة Excel خارج المصنف');
+          path.pop();
+        } else if (segment !== '.') path.push(segment);
       }
-      const issues = inspections.get(path.join('/'))?.numericIssues;
-      if (issues?.length) numericIssuesBySheet.set(sheet.name, issues);
+      const resolved = path.join('/');
+      if (usedPaths.has(resolved))
+        throw new Error(
+          'رابط ورقة Excel مكرر؛ لا يمكن إعادة تسمية المصدر أو إسقاط ورقة',
+        );
+      usedPaths.add(resolved);
+      const inspected = inspections.get(resolved);
+      if (!inspected || supportedPart(resolved)?.root !== 'worksheet')
+        throw new Error(
+          'جزء ورقة Excel ناقص أو غير مدعوم؛ لا يمكن قبول مصنف جزئي',
+        );
+      if (inspected.numericIssues.length)
+        numericIssuesBySheet?.set(sheet.name, inspected.numericIssues);
     }
   }
   if (!changed) return original;

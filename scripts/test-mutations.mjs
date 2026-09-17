@@ -35,8 +35,41 @@ const tests = [
   'tests/ai-evidence-boundary.test.ts',
   'tests/import-proposals.test.ts',
   'tests/local-ai-context.test.ts',
+  'tests/reliability-import-045.test.ts',
+  'tests/reliability-core-045.test.ts',
+  'tests/reliability-scope-045.test.ts',
 ];
 const mutations = [
+  {
+    name: '045-ignore-declared-aging-report',
+    file: 'lib/reconciliation/report-scope.ts',
+    changes: [[/if\s*\(title\)/, 'if (false)']],
+  },
+  {
+    name: '045-skip-generic-account-scope-evidence',
+    file: 'lib/reconciliation/report-scope.ts',
+    changes: [
+      [
+        /export function collectGenericAccounts\([\s\S]*?\)\s*\{/,
+        '$&\n  return; // deliberate loss of source account evidence',
+      ],
+    ],
+  },
+  {
+    name: '045-allow-a-second-sheetdata-to-drop-earlier-rows',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [['if (sheetDataSeen)', 'if (false)']],
+  },
+  {
+    name: '045-concatenate-conflicting-xlsx-cell-payloads',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [
+      [
+        /if\s*\(\s*cell\.hasInline\s*\|\|\s*cell\.hasValue\s*\|\|\s*cell\.hasFormula\s*\|\|\s*cell\.type !== 'inlineStr'\s*\)/,
+        'if (false)',
+      ],
+    ],
+  },
   {
     name: 'accept-a-partial-pdf-operator-stream',
     file: 'lib/reconciliation/pdf.ts',
@@ -99,12 +132,7 @@ const mutations = [
   {
     name: 'silently-round-original-xlsx-numeric-lexemes',
     file: 'lib/reconciliation/xlsx-namespaces.ts',
-    changes: [
-      [
-        'if (issues?.length) numericIssuesBySheet.set(sheet.name, issues);',
-        'if (false) numericIssuesBySheet.set(sheet.name, issues);',
-      ],
-    ],
+    changes: [[/if\s*\(inspected\.numericIssues\.length\)/, 'if (false)']],
   },
   {
     name: 'ignore-pdf-overlap-between-separate-baselines',
@@ -249,6 +277,23 @@ const mutations = [
   },
 ];
 
+const args = process.argv.slice(2);
+let filter = '';
+if (args.length) {
+  if (args.length === 2 && args[0] === '--filter') filter = args[1];
+  else if (args.length === 1 && args[0].startsWith('--filter='))
+    filter = args[0].slice('--filter='.length);
+  else
+    throw Error(
+      'Usage: node scripts/test-mutations.mjs [--filter name-substring]',
+    );
+  if (!filter) throw Error('Mutation filter must not be empty');
+}
+const selectedMutations = mutations.filter((mutation) =>
+  mutation.name.includes(filter),
+);
+if (!selectedMutations.length) throw Error(`No mutation matches: ${filter}`);
+
 function execute(cwd) {
   return spawnSync(
     process.execPath,
@@ -268,7 +313,7 @@ if (baseline.status !== 0) {
 }
 
 const report = [];
-for (const mutation of mutations) {
+for (const mutation of selectedMutations) {
   const scratch = await mkdtemp(join(tmpdir(), 'mizan-mutant-'));
   try {
     await Promise.all(
@@ -295,11 +340,29 @@ for (const mutation of mutations) {
       source = source.replace(before, after);
     }
     await writeFile(file, source);
+    // A parser error is an invalid mutant, not evidence that an accounting
+    // assertion detected the intended fault. Check syntax before the test run.
+    const syntax = spawnSync(
+      process.execPath,
+      ['--experimental-strip-types', '--check', file],
+      {
+        cwd: scratch,
+        encoding: 'utf8',
+        timeout: 10000,
+      },
+    );
+    if (syntax.status !== 0)
+      throw Error(
+        `Invalid mutation syntax: ${mutation.name}\n${syntax.stdout}${syntax.stderr}`,
+      );
     const result = execute(scratch);
     const assertionFailure =
       result.status !== 0 &&
       result.status !== null &&
-      result.stdout.includes('ERR_ASSERTION');
+      result.stdout.includes('ERR_ASSERTION') &&
+      !/SyntaxError|ERR_MODULE_NOT_FOUND|ERR_UNKNOWN_FILE_EXTENSION/.test(
+        result.stdout + result.stderr,
+      );
     report.push({ mutation: mutation.name, detected: assertionFailure });
     if (!assertionFailure) {
       process.stderr.write(result.stdout + result.stderr);
@@ -317,7 +380,9 @@ console.log(
     {
       baselinePassed: true,
       detected: report.length,
-      total: mutations.length,
+      total: selectedMutations.length,
+      available: mutations.length,
+      ...(filter ? { filter } : {}),
       mutations: report,
     },
     null,

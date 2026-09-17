@@ -1,0 +1,220 @@
+{
+  "runAt": "2026-09-17T20:19:13.892Z",
+  "runtime": "v24.19.0",
+  "machine": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpuModel": "Apple M5",
+    "logicalCpus": 10,
+    "totalMemoryBytes": 17179869184
+  },
+  "method": "Isolated Node process per size/format, two actual input files; explicit visible mapping; no running balance; invoice/payment/credit entries; no network; no browser responsiveness claim.",
+  "limits": {
+    "maxRows": 20000,
+    "maxFileBytes": 8388608,
+    "maxSheets": 40,
+    "maxAutomaticGroupMembers": 100,
+    "pdfPages": 20,
+    "pdfLimitEvidence": "lib/reconciliation/pdf.ts readPdf doc.numPages guard; existing tests/pdf.test.ts rejects 21 pages"
+  },
+  "timeoutMsPerCase": 60000,
+  "maxExportRows": 5000,
+  "records": [
+    {
+      "rowsPerSource": 100,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 6835,
+      "exportBytes": 80766,
+      "stages": {
+        "inputGenerationMs": 0.102,
+        "readPairMs": 1.789,
+        "normalizePairMs": 6.402,
+        "compareMs": 2.002,
+        "exportMs": 58.097,
+        "independentExportReadMs": 38.369
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 109641728,
+        "readPairMs": 111460352,
+        "normalizePairMs": 119881728,
+        "compareMs": 120160256,
+        "exportMs": 150716416,
+        "independentExportReadMs": 158826496
+      },
+      "peakRssBytes": 159006720,
+      "totalMs": 106.922,
+      "verifiedMatches": 100,
+      "independentExportChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 100,
+      "inputFormat": "xlsx",
+      "inputBytesPerFile": 10132,
+      "exportBytes": 80996,
+      "stages": {
+        "inputGenerationMs": 13.435,
+        "readPairMs": 39.488,
+        "normalizePairMs": 5.839,
+        "compareMs": 1.932,
+        "exportMs": 69.201,
+        "independentExportReadMs": 43.83
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 115310592,
+        "readPairMs": 127123456,
+        "normalizePairMs": 128155648,
+        "compareMs": 128417792,
+        "exportMs": 163823616,
+        "independentExportReadMs": 164986880
+      },
+      "peakRssBytes": 164986880,
+      "totalMs": 173.891,
+      "verifiedMatches": 100,
+      "independentExportChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 1000,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 67896,
+      "exportBytes": 536923,
+      "stages": {
+        "inputGenerationMs": 0.459,
+        "readPairMs": 7.393,
+        "normalizePairMs": 27.24,
+        "compareMs": 7.703,
+        "exportMs": 382.247,
+        "independentExportReadMs": 164.664
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 110542848,
+        "readPairMs": 118652928,
+        "normalizePairMs": 124911616,
+        "compareMs": 132317184,
+        "exportMs": 384942080,
+        "independentExportReadMs": 396935168
+      },
+      "peakRssBytes": 396935168,
+      "totalMs": 590.051,
+      "verifiedMatches": 1000,
+      "independentExportChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 1000,
+      "inputFormat": "xlsx",
+      "inputBytesPerFile": 40148,
+      "exportBytes": 539053,
+      "stages": {
+        "inputGenerationMs": 29.338,
+        "readPairMs": 295.628,
+        "normalizePairMs": 29.659,
+        "compareMs": 7.763,
+        "exportMs": 638.648,
+        "independentExportReadMs": 257.376
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 130859008,
+        "readPairMs": 160858112,
+        "normalizePairMs": 180469760,
+        "compareMs": 181354496,
+        "exportMs": 332873728,
+        "independentExportReadMs": 366837760
+      },
+      "peakRssBytes": 388759552,
+      "totalMs": 1258.762,
+      "verifiedMatches": 1000,
+      "independentExportChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 5000,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 342964,
+      "exportBytes": 2546578,
+      "stages": {
+        "inputGenerationMs": 2.016,
+        "readPairMs": 25.323,
+        "normalizePairMs": 120.854,
+        "compareMs": 27.664,
+        "exportMs": 2177.873,
+        "independentExportReadMs": 698.886
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 113557504,
+        "readPairMs": 188301312,
+        "normalizePairMs": 275038208,
+        "compareMs": 281083904,
+        "exportMs": 1086603264,
+        "independentExportReadMs": 1152090112
+      },
+      "peakRssBytes": 1325006848,
+      "totalMs": 3053.552,
+      "verifiedMatches": 5000,
+      "independentExportChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 5000,
+      "inputFormat": "xlsx",
+      "inputBytesPerFile": 177143,
+      "exportBytes": 2559416,
+      "stages": {
+        "inputGenerationMs": 87.173,
+        "readPairMs": 4619.149,
+        "normalizePairMs": 119.34,
+        "compareMs": 26.557,
+        "exportMs": 6995.359,
+        "independentExportReadMs": 1246.64
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 189857792,
+        "readPairMs": 321159168,
+        "normalizePairMs": 329416704,
+        "compareMs": 334888960,
+        "exportMs": 666697728,
+        "independentExportReadMs": 827817984
+      },
+      "peakRssBytes": 894271488,
+      "totalMs": 13097.346,
+      "verifiedMatches": 5000,
+      "independentExportChecked": true,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 20000,
+      "inputFormat": "csv",
+      "inputBytesPerFile": 1373636,
+      "exportBytes": null,
+      "stages": {
+        "inputGenerationMs": 6.627,
+        "readPairMs": 114.88,
+        "normalizePairMs": 550.01,
+        "compareMs": 102.942
+      },
+      "rssBytesAfterStage": {
+        "inputGenerationMs": 123207680,
+        "readPairMs": 395575296,
+        "normalizePairMs": 528842752,
+        "compareMs": 518815744
+      },
+      "peakRssBytes": 542588928,
+      "totalMs": 777.249,
+      "verifiedMatches": 20000,
+      "independentExportChecked": false,
+      "pass": true
+    },
+    {
+      "rowsPerSource": 20000,
+      "inputFormat": "xlsx",
+      "pass": false,
+      "timedOut": true,
+      "exitCode": null,
+      "error": "",
+      "stdout": ""
+    }
+  ],
+  "pass": false
+}

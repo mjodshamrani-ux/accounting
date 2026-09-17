@@ -136,6 +136,8 @@ export function validateCellText(text: string): void {
     );
 }
 export function parseCSV(text: string): string[][] {
+  class CsvLimitError extends Error {}
+  const limitErrors: Error[] = [];
   text = text.replace(/^\uFEFF/, '');
   if (text.includes('\u0000'))
     throw new Error('ترميز CSV غير مدعوم. استخدم UTF-8');
@@ -148,18 +150,20 @@ export function parseCSV(text: string): string[][] {
       afterQuote = false;
     const endCell = () => {
       if (cell.length > 4096)
-        throw new Error('نص إحدى الخلايا يتجاوز الحد المسموح');
+        throw new CsvLimitError('نص إحدى الخلايا يتجاوز الحد المسموح');
       row.push(cell);
       cell = '';
       afterQuote = false;
-      if (row.length > 100) throw new Error('الحد 100 عمود');
+      if (row.length > 100) throw new CsvLimitError('الحد 100 عمود');
     };
     const endRow = () => {
       endCell();
       rows.push(row);
       row = [];
       if (rows.length > MAX_ROWS + 30)
-        throw new Error(`الحد ${MAX_ROWS} حركة تقريبًا مع صفوف العناوين`);
+        throw new CsvLimitError(
+          `الحد ${MAX_ROWS} حركة تقريبًا مع صفوف العناوين`,
+        );
     };
     for (let i = 0; i < text.length; i++) {
       const c = text[i];
@@ -199,11 +203,13 @@ export function parseCSV(text: string): string[][] {
           .map((r) => r.length);
         const score = widths.filter((w) => w > 1).length;
         return { rows, score };
-      } catch {
+      } catch (error) {
+        if (error instanceof CsvLimitError) limitErrors.push(error);
         return { rows: [] as string[][], score: -1 };
       }
     })
     .sort((a, b) => b.score - a.score);
+  if (candidates[0].score <= 0 && limitErrors.length) throw limitErrors[0];
   if (candidates[0].score <= 0)
     throw new Error(
       'لم نتمكن من فصل CSV إلى أعمدة. استخدم فاصلة أو فاصلة منقوطة أو Tab بين الأعمدة، مع ترميز UTF-8.',
@@ -311,6 +317,10 @@ export async function readFile(
   )
     throw new Error('إجمالي خلايا المصنف يتجاوز مليون خلية');
   const sheets: SheetData[] = workbook.worksheets.map((sheet) => {
+    // ExcelJS computes columnCount by scanning every row. Read immutable sheet
+    // dimensions once; calling it for every cell makes large imports quadratic.
+    const rowCount = sheet.rowCount;
+    const columnCount = sheet.columnCount;
     const numericCells: NonNullable<SheetData['numericCells']> = {};
     const cellIssues: Record<string, string[]> = {};
     const cellNotes: Record<string, string[]> = {};
@@ -345,20 +355,20 @@ export async function readFile(
       format.rules.some((rule) => !!rule.style?.numFmt),
     );
     if (
-      sheet.rowCount > MAX_ROWS + 30 ||
-      sheet.columnCount > 100 ||
-      sheet.rowCount * sheet.columnCount > 1000000
+      rowCount > MAX_ROWS + 30 ||
+      columnCount > 100 ||
+      rowCount * columnCount > 1000000
     )
       throw new Error('الورقة تتجاوز حدود الصفوف أو الأعمدة');
     const formulaCells: NonNullable<SheetData['formulaCells']> = {};
     const rows: string[][] = [],
       formulaRows: number[] = [],
       hiddenRows: number[] = [];
-    for (let r = 1; r <= sheet.rowCount; r++) {
+    for (let r = 1; r <= rowCount; r++) {
       const row = sheet.getRow(r),
         values: string[] = [];
       if (row.hidden) hiddenRows.push(r);
-      for (let c = 1; c <= sheet.columnCount; c++) {
+      for (let c = 1; c <= columnCount; c++) {
         const cell = row.getCell(c);
         let text = '';
         const value = cell.value;
