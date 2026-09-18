@@ -19,10 +19,20 @@ export type SheetData = {
   referenceIssues?: Record<string, string[]>;
   rowPages?: Record<string, number>;
   pdfHeaderFragments?: Record<string, string[][]>;
-  pdfTextTransforms?: Record<string, {
-    column: number; page: number; extractedText: string; glyphText: string;
-    usedText: string; rule: 'verified-numeric-glyph-order' | 'verified-adjacent-numeric-fragments' | 'verified-rtl-word-order';
-  }[]>;
+  pdfTextTransforms?: Record<
+    string,
+    {
+      column: number;
+      page: number;
+      extractedText: string;
+      glyphText: string;
+      usedText: string;
+      rule:
+        | 'verified-numeric-glyph-order'
+        | 'verified-adjacent-numeric-fragments'
+        | 'verified-rtl-word-order';
+    }[]
+  >;
 };
 export type SourceFile = {
   name: string;
@@ -32,6 +42,17 @@ export type SourceFile = {
   pdf?: { cuts: number[]; pages: number; autoColumns?: boolean };
 };
 export type ReportType = 'transactions' | 'open-items';
+/** Context that made a format choice meaningful. Any change to the source, the
+ * mapped column, the header row or the currency precision invalidates it. */
+export type FormatChoice = {
+  value: string;
+  sourceHash: string;
+  sheet: number;
+  header: number;
+  columns: number[];
+  decimals: number;
+  candidates: string[];
+};
 export type Mapping = {
   pdfReviewed?: boolean;
   sheet: number;
@@ -53,6 +74,15 @@ export type Mapping = {
   };
   numberFormat: 'dot' | 'comma';
   dateFormat: 'ymd' | 'dmy' | 'mdy';
+  // The accountant's explicit answer to an ambiguity the document cannot settle,
+  // bound to the document and the reading it was made under. It records that a
+  // choice was made, never that a source was reviewed or approved: the engine
+  // re-derives from the document whether a choice is still needed and whether
+  // this value is still one the document allows.
+  formatChoice?: {
+    dateFormat?: FormatChoice;
+    numberFormat?: FormatChoice;
+  };
   reportType: ReportType;
   opening: string;
   closing: string;

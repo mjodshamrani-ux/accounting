@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { assertInputFormats } from '../lib/reconciliation/input-readiness.ts';
+import {
+  assertInputFormats,
+  formatChoice,
+} from '../lib/reconciliation/input-readiness.ts';
 import {
   compare,
   inferMapping,
@@ -143,14 +146,39 @@ test('046 an explicit choice for ambiguous valid formats remains valid but impos
     ['Date', 'Reference', 'Amount'],
     ['01/02/2026', 'INV-046', '1,234'],
   ]);
-  const mapping = {
+  const bare = {
     ...inferMapping(file),
     dateFormat: 'dmy' as const,
     numberFormat: 'comma' as const,
   };
-  const format = suggestFormats(file, mapping, 3);
+  const format = suggestFormats(file, bare, 3);
   assert.equal(format.dateFormat.status, 'ambiguous');
   assert.equal(format.numberFormat.status, 'ambiguous');
+  // 0.4.7: a value sitting in the mapping is not evidence that anyone chose it.
+  // The guard now needs the choice the accountant made for this source, so the
+  // worker, a restored session and the export cannot be reached past the card.
+  assert.throws(() => assertInputFormats([file, file], [bare, bare], scope));
+  const mapping = {
+    ...bare,
+    formatChoice: {
+      dateFormat: formatChoice(
+        file,
+        bare,
+        'dateFormat',
+        'dmy',
+        format.dateFormat.candidates,
+        3,
+      ),
+      numberFormat: formatChoice(
+        file,
+        bare,
+        'numberFormat',
+        'comma',
+        format.numberFormat.candidates,
+        3,
+      ),
+    },
+  };
   assert.doesNotThrow(() =>
     assertInputFormats([file, file], [mapping, mapping], scope),
   );

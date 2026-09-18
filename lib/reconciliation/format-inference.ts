@@ -2,6 +2,7 @@ import {
   parseDate,
   parseMoney,
   structuralSummaryLabel,
+  mayCarrySummaryLabel,
   nonFinancialFooter,
   repeatedPageMetadataRows,
   repeatsHeaderRow,
@@ -146,18 +147,17 @@ export function suggestFormats(
   // ("Closing balance: -3,57" under a dot reading) and then let that same line
   // invalidate the column it belongs to. Accept the label under any supported
   // reading here; normalizeSource still classifies with the confirmed format only.
-  const readings = [
-    mapping,
-    ...numberFormats.flatMap((numberFormat) =>
-      dateFormats.flatMap((dateFormat) =>
-        numberFormat === mapping.numberFormat &&
-        dateFormat === mapping.dateFormat
-          ? []
-          : [{ ...mapping, numberFormat, dateFormat }],
-      ),
+  // The mapping's own reading is tried first and separately; these are the rest.
+  const readings = numberFormats.flatMap((numberFormat) =>
+    dateFormats.flatMap((dateFormat) =>
+      numberFormat === mapping.numberFormat && dateFormat === mapping.dateFormat
+        ? []
+        : [{ ...mapping, numberFormat, dateFormat }],
     ),
-  ];
+  );
   const anyReadingLabel = (row: string[], leading: boolean) => {
+    const direct = structuralSummaryLabel(row, mapping, header, leading);
+    if (direct || !mayCarrySummaryLabel(row)) return direct;
     for (const reading of readings) {
       const found = structuralSummaryLabel(row, reading, header, leading);
       if (found) return found;

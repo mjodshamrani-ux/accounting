@@ -422,6 +422,22 @@ export function structuralSummaryLabel(
       }
     }
 }
+/** Cheap pre-filter for structuralSummaryLabel, and deliberately permissive:
+ * it must never reject a row that the full check would classify. Only rows
+ * carrying the total/balance vocabulary can ever produce a label, so an ordinary
+ * movement row is spared the repeated per-reading checks in format inference. */
+export function mayCarrySummaryLabel(row: string[]): boolean {
+  return row.some((value) => {
+    const label = normalizeHeaderLabel(value);
+    if (!label) return false;
+    if (summaryLabel.test(label) || balanceIdentityLabel.test(label))
+      return true;
+    const colon = label.search(/[:：]/);
+    return colon > 0 && summaryLabel.test(label.slice(0, colon).trim());
+  });
+}
+const balanceIdentityLabel =
+  /^(opening balance|balance b\/f|balance brought forward|closing (?:ap )?balance|balance c\/f|balance carried forward|الرصيد الافتتاحي|رصيد افتتاحي|الرصيد الختامي|رصيد ختامي)$/i;
 export function nonFinancialFooter(row: string[]): boolean {
   const nonempty = [...new Set(row.map((v) => v.trim()).filter(Boolean))];
   if (

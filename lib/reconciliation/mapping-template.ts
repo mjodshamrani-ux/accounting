@@ -81,6 +81,9 @@ export function templatePatch(template: MappingTemplate): Partial<Mapping> {
     periodStart: '',
     excluded: {},
     pdfReviewed: false,
+    // A choice answers one document's ambiguity. A template carries positions
+    // between documents, so it must never carry that answer with them.
+    formatChoice: undefined,
   };
 }
 

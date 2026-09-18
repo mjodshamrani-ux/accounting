@@ -76,6 +76,7 @@ import {
   templatePatch,
   migrateMappingTemplates,
 } from '@/lib/reconciliation/mapping-template';
+import { formatChoice } from '@/lib/reconciliation/input-readiness';
 import type {
   SourceFile,
   Mapping,
@@ -576,7 +577,15 @@ export default function App() {
     ].some((key) => Object.hasOwn(p, key));
     if (readingChanged) {
       directionEdited.current[i] = false;
-      p = { ...p, directionEvidence: undefined };
+      // A choice belongs to the reading it was made under. Changing the reading
+      // drops it here as well as in formatChoices, so no later path can use it.
+      p = {
+        ...p,
+        directionEvidence: undefined,
+        ...(Object.hasOwn(p, 'formatChoice')
+          ? {}
+          : { formatChoice: undefined }),
+      };
     } else if ('multiplier' in p) {
       directionEdited.current[i] = true;
       p = { ...p, directionEvidence: undefined };
@@ -602,7 +611,28 @@ export default function App() {
   ) {
     if (!value) return;
     const retained = formatChoices[i];
-    updateMapping(i, { [field]: value });
+    const file = files[i];
+    const assessment = formatSuggestions[i]?.[field];
+    // Record the choice with the document and reading it answers, so the worker,
+    // a restored session and the export all see the same evidence this card did.
+    const chosen =
+      file && assessment
+        ? {
+            ...mappings[i].formatChoice,
+            [field]: formatChoice(
+              file,
+              { ...mappings[i], [field]: value },
+              field,
+              value,
+              assessment.candidates,
+              scope.decimals,
+            ),
+          }
+        : undefined;
+    updateMapping(i, {
+      [field]: value,
+      ...(chosen ? { formatChoice: chosen } : {}),
+    });
     setFormatChoices(
       (previous) =>
         previous.map((choice, j) =>

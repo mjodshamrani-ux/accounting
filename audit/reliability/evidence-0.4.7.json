@@ -1,0 +1,523 @@
+{
+  "candidate": {
+    "branch": "integration/0.4.7-unified",
+    "application": "0.4.7",
+    "engine": "0.3.14-experimental",
+    "published": false,
+    "mergedFrom": {
+      "work/reliability-046": "5588417643c355c0a508573a7e9915212c1cdaae",
+      "claude/lucid-mendel-kjff9c": "9d047d8cf89c04f954e5725946dc6d424fb59c96",
+      "commonAncestor": "5fecb15ed28c744181fc4c21be2048a53f08e928"
+    }
+  },
+  "deliveryVerification": {
+    "manifest": "audit/reliability/delivery-0.4.6/manifest.json",
+    "archiveDigestsMatchManifest": true,
+    "sourceZipCommit": "05cc95943694f9cacd47caef79f0d8363a293961",
+    "publishedCommit": "5588417643c355c0a508573a7e9915212c1cdaae",
+    "sourceZipEqualsPublishedTree": "identical except audit/reliability/delivery-0.4.6/, which holds the archives themselves",
+    "astraBaselineCommit": "26dc06b",
+    "astraBaselineEqualsRepositoryBaseline": "byte-identical to 5fecb15 across lib, app, components, hooks, scripts, tests, examples, public, .github, audit/reliability and every root config file; differs only by untracked audit/*.txt logs"
+  },
+  "toolVersions": {
+    "known/v045": {
+      "engine": "0.3.10-experimental",
+      "evaluator": "tarasuf-evaluator-2.1.0",
+      "generator": "tarasuf-independent-2.1.0",
+      "verifier": "tarasuf-workbook-verifier-2.0.0",
+      "focusedGenerator": "tarasuf-focused-groups-1.1.0",
+      "inputEvidence": "tarasuf-visible-inputs-1.0.0",
+      "seed": 4564764,
+      "split": "development,validation,final",
+      "node": "v22.22.2",
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045"
+    },
+    "known/astra": {
+      "engine": "0.3.13-experimental",
+      "evaluator": "tarasuf-evaluator-2.1.0",
+      "generator": "tarasuf-independent-2.1.0",
+      "verifier": "tarasuf-workbook-verifier-2.0.0",
+      "focusedGenerator": "tarasuf-focused-groups-1.1.0",
+      "inputEvidence": "tarasuf-visible-inputs-1.0.0",
+      "seed": 4564764,
+      "split": "development,validation,final",
+      "node": "v22.22.2",
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra"
+    },
+    "known/unified": {
+      "engine": "0.3.14-experimental",
+      "evaluator": "tarasuf-evaluator-2.1.0",
+      "generator": "tarasuf-independent-2.1.0",
+      "verifier": "tarasuf-workbook-verifier-2.0.0",
+      "focusedGenerator": "tarasuf-focused-groups-1.1.0",
+      "inputEvidence": "tarasuf-visible-inputs-1.0.0",
+      "seed": 4564764,
+      "split": "development,validation,final",
+      "node": "v22.22.2",
+      "engineRoot": "/home/user/accounting"
+    },
+    "focused/v045": {
+      "engine": "0.3.10-experimental",
+      "evaluator": "tarasuf-evaluator-2.1.0",
+      "generator": "tarasuf-independent-2.1.0",
+      "verifier": "tarasuf-workbook-verifier-2.0.0",
+      "focusedGenerator": "tarasuf-focused-groups-1.1.0",
+      "inputEvidence": "tarasuf-visible-inputs-1.0.0",
+      "seed": 4564764,
+      "split": "development-046,final-046",
+      "node": "v22.22.2",
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045"
+    },
+    "focused/astra": {
+      "engine": "0.3.13-experimental",
+      "evaluator": "tarasuf-evaluator-2.1.0",
+      "generator": "tarasuf-independent-2.1.0",
+      "verifier": "tarasuf-workbook-verifier-2.0.0",
+      "focusedGenerator": "tarasuf-focused-groups-1.1.0",
+      "inputEvidence": "tarasuf-visible-inputs-1.0.0",
+      "seed": 4564764,
+      "split": "development-046,final-046",
+      "node": "v22.22.2",
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra"
+    },
+    "focused/unified": {
+      "engine": "0.3.14-experimental",
+      "evaluator": "tarasuf-evaluator-2.1.0",
+      "generator": "tarasuf-independent-2.1.0",
+      "verifier": "tarasuf-workbook-verifier-2.0.0",
+      "focusedGenerator": "tarasuf-focused-groups-1.1.0",
+      "inputEvidence": "tarasuf-visible-inputs-1.0.0",
+      "seed": 4564764,
+      "split": "development-046,final-046",
+      "node": "v22.22.2",
+      "engineRoot": "/home/user/accounting"
+    }
+  },
+  "knownSuite": {
+    "suite": "known",
+    "engines": {
+      "v045": {
+        "engineVersion": "0.3.10-experimental",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045",
+        "evaluatorVersion": "tarasuf-evaluator-2.1.0",
+        "generatorVersion": "tarasuf-independent-2.1.0",
+        "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
+      },
+      "astra": {
+        "engineVersion": "0.3.13-experimental",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra",
+        "evaluatorVersion": "tarasuf-evaluator-2.1.0",
+        "generatorVersion": "tarasuf-independent-2.1.0",
+        "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
+      },
+      "unified": {
+        "engineVersion": "0.3.14-experimental",
+        "engineRoot": "/home/user/accounting",
+        "evaluatorVersion": "tarasuf-evaluator-2.1.0",
+        "generatorVersion": "tarasuf-independent-2.1.0",
+        "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
+      }
+    },
+    "perEngine": {
+      "v045": {
+        "cases": 5000,
+        "passed": 4712,
+        "safetyPassed": 4994,
+        "completedComparisons": 3758,
+        "completedAutomatically": 0,
+        "casesWithUnprovenFormatDefaults": 705,
+        "unprovenFormatDefaultFields": 1274,
+        "stopped": 1089,
+        "outcomes": {
+          "external-information-required": 177,
+          "completed-comparison": 3758,
+          "controlled-stop": 752,
+          "partial-or-unverified-result": 313
+        },
+        "requiredInterventionLevels": {
+          "human-external": 177,
+          "manual-correction": 4772,
+          "limited-confirmation": 51
+        },
+        "ambiguityGate": {
+          "absent": 191
+        },
+        "formatFieldStatuses": {
+          "ambiguous": 191,
+          "proven": 18141,
+          "invalid": 1125,
+          "unavailable": 149
+        },
+        "expectedMatches": 46717,
+        "correctRequiredMatches": 39964,
+        "missedRequiredMatches": 6753,
+        "falseMatches": 0,
+        "requiredGroups": 0,
+        "acceptedRequiredGroups": 0,
+        "missedRequiredGroups": 0,
+        "extractedRows": 98227,
+        "exportsChecked": 4065,
+        "bridgesChecked": 3860,
+        "unresolvedInputs": {
+          "supplier.numberFormat": 69,
+          "ledger.numberFormat": 70,
+          "supplier.dateFormat": 39,
+          "ledger.dateFormat": 13
+        }
+      },
+      "astra": {
+        "cases": 5000,
+        "passed": 4565,
+        "safetyPassed": 5000,
+        "completedComparisons": 3758,
+        "completedAutomatically": 0,
+        "casesWithUnprovenFormatDefaults": 705,
+        "unprovenFormatDefaultFields": 1274,
+        "stopped": 1242,
+        "outcomes": {
+          "external-information-required": 177,
+          "completed-comparison": 3758,
+          "controlled-stop": 1017,
+          "partial-or-unverified-result": 48
+        },
+        "requiredInterventionLevels": {
+          "human-external": 177,
+          "manual-correction": 4772,
+          "limited-confirmation": 51
+        },
+        "ambiguityGate": {
+          "accepted-without-choice": 190,
+          "refused": 1
+        },
+        "formatFieldStatuses": {
+          "ambiguous": 191,
+          "proven": 18141,
+          "invalid": 1125,
+          "unavailable": 149
+        },
+        "expectedMatches": 46717,
+        "correctRequiredMatches": 36800,
+        "missedRequiredMatches": 9917,
+        "falseMatches": 0,
+        "requiredGroups": 0,
+        "acceptedRequiredGroups": 0,
+        "missedRequiredGroups": 0,
+        "extractedRows": 82586,
+        "exportsChecked": 3806,
+        "bridgesChecked": 3713,
+        "unresolvedInputs": {
+          "supplier.numberFormat": 69,
+          "ledger.numberFormat": 70,
+          "supplier.dateFormat": 39,
+          "ledger.dateFormat": 13
+        }
+      },
+      "unified": {
+        "cases": 5000,
+        "passed": 5000,
+        "safetyPassed": 5000,
+        "completedComparisons": 4196,
+        "completedAutomatically": 0,
+        "casesWithUnprovenFormatDefaults": 251,
+        "unprovenFormatDefaultFields": 303,
+        "stopped": 804,
+        "outcomes": {
+          "external-information-required": 177,
+          "completed-comparison": 4196,
+          "controlled-stop": 578,
+          "partial-or-unverified-result": 49
+        },
+        "requiredInterventionLevels": {
+          "human-external": 177,
+          "manual-correction": 4772,
+          "limited-confirmation": 51
+        },
+        "ambiguityGate": {
+          "refused": 191
+        },
+        "formatFieldStatuses": {
+          "ambiguous": 191,
+          "proven": 19112,
+          "invalid": 154,
+          "unavailable": 149
+        },
+        "expectedMatches": 46717,
+        "correctRequiredMatches": 46083,
+        "missedRequiredMatches": 634,
+        "falseMatches": 0,
+        "requiredGroups": 0,
+        "acceptedRequiredGroups": 0,
+        "missedRequiredGroups": 0,
+        "extractedRows": 101936,
+        "exportsChecked": 4245,
+        "bridgesChecked": 4148,
+        "unresolvedInputs": {
+          "supplier.numberFormat": 69,
+          "ledger.numberFormat": 70,
+          "supplier.dateFormat": 39,
+          "ledger.dateFormat": 13
+        }
+      }
+    },
+    "movement": {
+      "v045 -> astra": {
+        "formatFieldsProvedNow": 0,
+        "formatFieldsLostProof": 0,
+        "formatFieldsInvalidToAmbiguous": 0,
+        "formatFieldsStillUnproven": 1465,
+        "casesNewlyCompleted": 0,
+        "casesNoLongerCompleted": 0,
+        "newSafetyFailures": [],
+        "newFalseMatches": [],
+        "sampleProvedNow": [],
+        "sampleNoLongerCompleted": []
+      },
+      "astra -> unified": {
+        "formatFieldsProvedNow": 971,
+        "formatFieldsLostProof": 0,
+        "formatFieldsInvalidToAmbiguous": 0,
+        "formatFieldsStillUnproven": 494,
+        "casesNewlyCompleted": 438,
+        "casesNoLongerCompleted": 0,
+        "newSafetyFailures": [],
+        "newFalseMatches": [],
+        "sampleProvedNow": [
+          "C01436:supplier.numberFormat",
+          "C01436:supplier.dateFormat",
+          "C01441:ledger.numberFormat",
+          "C01441:ledger.dateFormat",
+          "C01448:supplier.numberFormat",
+          "C01448:supplier.dateFormat",
+          "C01450:ledger.numberFormat",
+          "C01450:ledger.dateFormat",
+          "C01452:supplier.numberFormat",
+          "C01452:supplier.dateFormat"
+        ],
+        "sampleNoLongerCompleted": []
+      }
+    }
+  },
+  "focusedSuite": {
+    "suite": "focused",
+    "engines": {
+      "v045": {
+        "engineVersion": "0.3.10-experimental",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045",
+        "evaluatorVersion": "tarasuf-evaluator-2.1.0",
+        "generatorVersion": "tarasuf-independent-2.1.0",
+        "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
+      },
+      "astra": {
+        "engineVersion": "0.3.13-experimental",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra",
+        "evaluatorVersion": "tarasuf-evaluator-2.1.0",
+        "generatorVersion": "tarasuf-independent-2.1.0",
+        "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
+      },
+      "unified": {
+        "engineVersion": "0.3.14-experimental",
+        "engineRoot": "/home/user/accounting",
+        "evaluatorVersion": "tarasuf-evaluator-2.1.0",
+        "generatorVersion": "tarasuf-independent-2.1.0",
+        "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
+      }
+    },
+    "perEngine": {
+      "v045": {
+        "cases": 28,
+        "passed": 17,
+        "safetyPassed": 17,
+        "completedComparisons": 19,
+        "completedAutomatically": 0,
+        "casesWithUnprovenFormatDefaults": 8,
+        "unprovenFormatDefaultFields": 16,
+        "stopped": 1,
+        "outcomes": {
+          "completed-comparison": 19,
+          "controlled-stop": 1,
+          "partial-or-unverified-result": 8
+        },
+        "requiredInterventionLevels": {
+          "manual-correction": 28
+        },
+        "ambiguityGate": {},
+        "formatFieldStatuses": {
+          "proven": 96,
+          "invalid": 16
+        },
+        "expectedMatches": 14,
+        "correctRequiredMatches": 4,
+        "missedRequiredMatches": 10,
+        "falseMatches": 0,
+        "requiredGroups": 13,
+        "acceptedRequiredGroups": 3,
+        "missedRequiredGroups": 10,
+        "extractedRows": 114,
+        "exportsChecked": 17,
+        "bridgesChecked": 19,
+        "unresolvedInputs": {}
+      },
+      "astra": {
+        "cases": 28,
+        "passed": 28,
+        "safetyPassed": 28,
+        "completedComparisons": 25,
+        "completedAutomatically": 0,
+        "casesWithUnprovenFormatDefaults": 0,
+        "unprovenFormatDefaultFields": 0,
+        "stopped": 1,
+        "outcomes": {
+          "completed-comparison": 25,
+          "controlled-stop": 1,
+          "partial-or-unverified-result": 2
+        },
+        "requiredInterventionLevels": {
+          "manual-correction": 28
+        },
+        "ambiguityGate": {},
+        "formatFieldStatuses": {
+          "proven": 112
+        },
+        "expectedMatches": 14,
+        "correctRequiredMatches": 14,
+        "missedRequiredMatches": 0,
+        "falseMatches": 0,
+        "requiredGroups": 13,
+        "acceptedRequiredGroups": 13,
+        "missedRequiredGroups": 0,
+        "extractedRows": 112,
+        "exportsChecked": 27,
+        "bridgesChecked": 25,
+        "unresolvedInputs": {}
+      },
+      "unified": {
+        "cases": 28,
+        "passed": 28,
+        "safetyPassed": 28,
+        "completedComparisons": 25,
+        "completedAutomatically": 0,
+        "casesWithUnprovenFormatDefaults": 0,
+        "unprovenFormatDefaultFields": 0,
+        "stopped": 1,
+        "outcomes": {
+          "completed-comparison": 25,
+          "controlled-stop": 1,
+          "partial-or-unverified-result": 2
+        },
+        "requiredInterventionLevels": {
+          "manual-correction": 28
+        },
+        "ambiguityGate": {},
+        "formatFieldStatuses": {
+          "proven": 112
+        },
+        "expectedMatches": 14,
+        "correctRequiredMatches": 14,
+        "missedRequiredMatches": 0,
+        "falseMatches": 0,
+        "requiredGroups": 13,
+        "acceptedRequiredGroups": 13,
+        "missedRequiredGroups": 0,
+        "extractedRows": 112,
+        "exportsChecked": 27,
+        "bridgesChecked": 25,
+        "unresolvedInputs": {}
+      }
+    },
+    "movement": {
+      "v045 -> astra": {
+        "formatFieldsProvedNow": 16,
+        "formatFieldsLostProof": 0,
+        "formatFieldsInvalidToAmbiguous": 0,
+        "formatFieldsStillUnproven": 0,
+        "casesNewlyCompleted": 7,
+        "casesNoLongerCompleted": 1,
+        "newSafetyFailures": [],
+        "newFalseMatches": [],
+        "sampleProvedNow": [
+          "H046-001:supplier.dateFormat",
+          "H046-001:ledger.dateFormat",
+          "H046-002:supplier.dateFormat",
+          "H046-002:ledger.dateFormat",
+          "H046-003:supplier.dateFormat",
+          "H046-003:ledger.dateFormat",
+          "H046-004:supplier.dateFormat",
+          "H046-004:ledger.dateFormat",
+          "H046-005:supplier.dateFormat",
+          "H046-005:ledger.dateFormat"
+        ],
+        "sampleNoLongerCompleted": [
+          "G046-014"
+        ]
+      },
+      "astra -> unified": {
+        "formatFieldsProvedNow": 0,
+        "formatFieldsLostProof": 0,
+        "formatFieldsInvalidToAmbiguous": 0,
+        "formatFieldsStillUnproven": 0,
+        "casesNewlyCompleted": 0,
+        "casesNoLongerCompleted": 0,
+        "newSafetyFailures": [],
+        "newFalseMatches": [],
+        "sampleProvedNow": [],
+        "sampleNoLongerCompleted": []
+      }
+    }
+  },
+  "remainingGaps": {
+    "unprovenFormatFields": {
+      "cases": 251,
+      "fields": 303,
+      "byCategory": {
+        "invalid": 251
+      },
+      "byScenario": {
+        "manual-foundation": 2,
+        "formula-without-cache": 50,
+        "invalid-amount": 50,
+        "invalid-date": 50,
+        "empty-file": 50,
+        "missing-amount-column": 49
+      },
+      "note": "Every one is a deliberately damaged source; refusing to prove a format there is the correct outcome."
+    },
+    "missedRequiredMatches": {
+      "total": 634,
+      "cases": 119,
+      "byOutcome": {
+        "external-information-required": 119
+      },
+      "byScenario": {
+        "manual-foundation": 9,
+        "same-amount-distinct-references": 82,
+        "opening-balanced": 2,
+        "long-references": 2,
+        "opposite-errors": 2,
+        "supplier-only": 2,
+        "cutoff-movement": 2,
+        "ledger-only": 2,
+        "offset-table": 1,
+        "text-formula-reference": 1,
+        "repeated-headers": 2,
+        "comma-decimals": 1,
+        "multiple-sheets": 1,
+        "parenthesized-credits": 1,
+        "same-reference-conflicting-types": 1,
+        "same-reference-date-conflict": 3,
+        "normalization-collision": 1,
+        "near-equal-amount": 2,
+        "missing-reference": 1,
+        "duplicate-reference": 1
+      },
+      "conditionalRequiredMatches": 634,
+      "resolvedInputRequiredMatches": 46083,
+      "note": "Every missed match is in a case whose outcome is external-information-required: the document admits two readings with different values and no answer was supplied. None is an engine reading failure."
+    }
+  },
+  "notVerifiedHere": [
+    "July acceptance suite (12 tests) stays skipped: the private originals are deliberately absent from the delivery package and were not uploaded. The 6,750 = 2,500 + 2,250 + 2,000 case is therefore not re-verified on this branch; Astra reports it passing on their machine.",
+    "In-product browser performance figures from the 0.4.6 report were measured on other hardware and were not re-measured here.",
+    "The final holdout is not blind for this cycle: cases C01436, C01831 and C03087 were read during diagnosis.",
+    "The second code review was done by the same author, not an independent human review."
+  ]
+}

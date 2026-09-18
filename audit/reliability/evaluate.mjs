@@ -67,6 +67,7 @@ export async function evaluateCase(
     completedComparison: false,
     sourceReadErrors: 0,
     unprovenFormatDefaults: [],
+    ambiguityGate: [],
     formatAssessments: [],
     groupAssessments: spec.oracle.groupAssessments ?? [],
     category: spec.category,
@@ -289,6 +290,21 @@ export async function evaluateCase(
             supplied.source
           ) {
             mapping[field] = supplied.value;
+            // Simulating the accountant answering the card means producing the
+            // same evidence the card produces; the engine gate then judges it.
+            // This is recorded as human-external below, never as automatic.
+            if (typeof engine.formatChoice === 'function')
+              mapping.formatChoice = {
+                ...mapping.formatChoice,
+                [field]: engine.formatChoice(
+                  file,
+                  mapping,
+                  field,
+                  supplied.value,
+                  assessment.candidates,
+                  scope.decimals,
+                ),
+              };
             action(
               `${source.side}.${field}`,
               supplied.value,
@@ -298,6 +314,24 @@ export async function evaluateCase(
               supplied,
             );
           } else {
+            // Observation only, never a pass/fail: does the engine's own guard
+            // refuse this mapping while the ambiguity is unanswered, or would it
+            // let the worker, a restored session or an export through? The
+            // evaluator routes the case either way, so counts cannot move.
+            record.ambiguityGate.push({
+              field: `${source.side}.${field}`,
+              engine:
+                typeof engine.assertInputFormats !== 'function'
+                  ? 'absent'
+                  : (() => {
+                      try {
+                        engine.assertInputFormats([file], [mapping], scope);
+                        return 'accepted-without-choice';
+                      } catch {
+                        return 'refused';
+                      }
+                    })(),
+            });
             record.stopped = true;
             record.unresolvedInputs.push({
               field: `${source.side}.${field}`,

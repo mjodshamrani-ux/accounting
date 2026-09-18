@@ -78,6 +78,11 @@ export function aggregate(records) {
         },
       ]),
     ),
+    // Whether the engine's own guard refuses an unanswered ambiguity, per field.
+    // Observation of the product's behaviour; it never decides pass or fail.
+    ambiguityGate: distribution(
+      records.flatMap((r) => (r.ambiguityGate ?? []).map((v) => v.engine)),
+    ),
     unresolvedInputs: distribution(
       records.flatMap((r) => (r.unresolvedInputs ?? []).map((v) => v.field)),
     ),
