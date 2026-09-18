@@ -552,7 +552,14 @@ export async function exportWorkbook(
     notes: string;
     events?: AuditEvent[];
   },
+  observeStage?: (stage: string, milliseconds: number) => void,
 ): Promise<ArrayBuffer> {
+  let stageStarted = performance.now();
+  const measured = (stage: string) => {
+    const now = performance.now();
+    observeStage?.(stage, now - stageStarted);
+    stageStarted = now;
+  };
   files.forEach(assertNativeAccountingSource);
   const verifiedFiles = await Promise.all(
     files.map((f) =>
@@ -564,6 +571,7 @@ export async function exportWorkbook(
   for (let i = 0; i < files.length; i++)
     if (files[i].sha256 !== verifiedFiles[i].sha256)
       throw new Error('بصمة الملف لا تطابق الأصل');
+  measured('exportOriginalReadMs');
   // Re-prove annotations from the original source; never export a stale claim
   // or treat caller-provided explanation text as verified accounting evidence.
   result = {
@@ -612,6 +620,7 @@ export async function exportWorkbook(
     throw new Error(
       'النتيجة لا تطابق إعادة الحساب من المصدر. أعد المقارنة قبل التصدير.',
     );
+  measured('exportRevalidationMs');
   const book = new ExcelJS.Workbook();
   book.creator = 'Tarasuf Local';
   book.created = new Date();
@@ -882,6 +891,36 @@ export async function exportWorkbook(
         : [],
     ),
   );
+  const textTransforms = verifiedFiles.flatMap((file, side) =>
+    Object.entries(file.sheets[0]?.pdfTextTransforms ?? {}).flatMap(
+      ([row, entries]) =>
+        entries.map((entry) => [
+          side === 0 ? 'المورد' : 'الدفتر',
+          Number(row),
+          entry.page,
+          entry.column,
+          entry.extractedText,
+          entry.glyphText,
+          entry.usedText,
+          entry.rule,
+        ]),
+    ),
+  );
+  if (textTransforms.length)
+    add(
+      'PDF Text Provenance',
+      [
+        'الطرف',
+        'صف الاستخراج',
+        'صفحة PDF',
+        'عمود المصدر',
+        'نص القارئ',
+        'ترتيب الحروف في المصدر',
+        'القيمة المستخدمة',
+        'قاعدة التحقق',
+      ],
+      textTransforms,
+    );
   const headerFragments = verifiedFiles.flatMap((file, side) =>
     file.pdf
       ? Object.entries(file.sheets[0].pdfHeaderFragments ?? {}).flatMap(
@@ -930,6 +969,8 @@ export async function exportWorkbook(
       ],
     ],
   );
+  measured('exportWorkbookConstructionMs');
   const data = await book.xlsx.writeBuffer();
+  measured('exportSerializationMs');
   return new Uint8Array(data).slice().buffer;
 }

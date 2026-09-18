@@ -1,0 +1,15 @@
+✔ 3000 seeded bilingual generated reconciliations agree with independent brute-force oracle (253.739666ms)
+✔ 10000 decimal format/sign/Arabic digit cases preserve exact integer units (25.389458ms)
+✔ 1000 quoted multilingual CSV roundtrips preserve commas, newlines and quotes (7.031875ms)
+✔ 20000 repeated references remain unpaired and bounded in time (136.700584ms)
+✔ bilingual workbook export preserves source text, numbers and formula-looking content across all transaction sheets (34.588625ms)
+✔ XML-incompatible control characters cannot silently change during CSV to Excel export (0.756208ms)
+✔ 2000 prefix reference questions and model routing attacks never select existing shorter document (6.494ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 628.316083

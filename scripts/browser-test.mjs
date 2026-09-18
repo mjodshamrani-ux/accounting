@@ -1,5 +1,6 @@
 import { chromium } from 'playwright';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
+import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import {
   verifyBrandLanding,
   verifyNarrowLayouts,
@@ -13,6 +14,18 @@ import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
 import { syntheticPdf } from '../tests/helpers/pdf-fixture.ts';
 import { syntheticStyledPdf } from '../tests/helpers/styled-pdf-fixture.ts';
+
+// These scenarios are sequential, not a multi-tab product test. Retaining every
+// finished renderer leaves animated/offscreen pages competing for frame budget
+// and makes Playwright's normal two-frame stability check depend on background
+// throttling. Keep the active scenario foreground, and release completed pages.
+async function activeScenarioPage(context, label) {
+  for (const finished of context.pages()) await finished.close();
+  const next = await context.newPage();
+  await next.bringToFront();
+  console.log(`[browser] ${label}`);
+  return next;
+}
 
 async function waitForScopeInputs(page) {
   // These paths are missing an essential value, so the app opens this panel in
@@ -159,7 +172,7 @@ try {
       external.push(r.url());
     if (r.method() !== 'GET') post.push(r.url());
   });
-  const page = await context.newPage();
+  const page = await activeScenarioPage(context, 'page');
   await page.goto(`${origin}/mizan-test/`);
   await page.getByRole('button', { name: 'جرّب المثال', exact: true }).waitFor();
   await page.waitForFunction(
@@ -174,6 +187,7 @@ try {
   );
   await mkdir('work/qa', { recursive: true });
   await verifyBrandLanding(page);
+  await page.bringToFront();
   await page.screenshot({ path: 'work/qa/home.png', fullPage: true });
   // Everything after initial preload must work without a network connection, including first comparison and export.
   await context.setOffline(true);
@@ -293,7 +307,7 @@ try {
   await verifyNarrowLayouts(page, 'confirmation');
   // Re-open independently and exercise an actual CSV file selection, not only in-memory demo data.
   await context.setOffline(false);
-  const uploadPage = await context.newPage();
+  const uploadPage = await activeScenarioPage(context, 'uploadPage');
   await uploadPage.goto(`${origin}/mizan-test/`);
   await uploadPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -416,7 +430,7 @@ try {
   // Upload the synthetic case workpaper actually downloaded above. Neither
   // its Summary sheet nor its old review decision may be restored.
   await context.setOffline(false);
-  const workpaperPage = await context.newPage();
+  const workpaperPage = await activeScenarioPage(context, 'workpaperPage');
   await workpaperPage.goto(`${origin}/mizan-test/`);
   await workpaperPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -499,7 +513,7 @@ try {
     'without a verified balance no balance figure may be presented',
   );
   await context.setOffline(false);
-  const pdfPage = await context.newPage();
+  const pdfPage = await activeScenarioPage(context, 'pdfPage');
   await pdfPage.goto(`${origin}/mizan-test/`);
   await pdfPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -582,7 +596,7 @@ try {
   // Import recovery is a user workflow: a rejected PDF must not poison the
   // next XLSX or PDF request. Keep the entire sequence offline.
   await context.setOffline(false);
-  const recoveryPage = await context.newPage();
+  const recoveryPage = await activeScenarioPage(context, 'recoveryPage');
   await recoveryPage.goto(`${origin}/mizan-test/`);
   await recoveryPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -750,7 +764,7 @@ try {
   ].join('\n');
   for (const providerState of ['absent', 'downloadable', 'available']) {
     await context.setOffline(false);
-    const importAiPage = await context.newPage();
+    const importAiPage = await activeScenarioPage(context, 'importAiPage');
     await importAiPage.addInitScript((availability) => {
       const state = {
         syntheticTestProvider: true,
@@ -981,7 +995,7 @@ try {
   }
   // Metadata + strict format prefill: no names, currency or cutoff are typed.
   await context.setOffline(false);
-  const quickPage = await context.newPage();
+  const quickPage = await activeScenarioPage(context, 'quickPage');
   await quickPage.goto(`${origin}/mizan-test/`);
   await quickPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -1115,7 +1129,7 @@ try {
   assert.equal(exportedDate.numFmt, 'yyyy-mm-dd');
   // Two independent ambiguous formats must both remain unresolved until chosen.
   await context.setOffline(false);
-  const ambiguityPage = await context.newPage();
+  const ambiguityPage = await activeScenarioPage(context, 'ambiguityPage');
   await ambiguityPage.goto(`${origin}/mizan-test/`);
   await ambiguityPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -1191,7 +1205,7 @@ try {
     '1',
   );
   await context.setOffline(false);
-  const precisionPage = await context.newPage();
+  const precisionPage = await activeScenarioPage(context, 'precisionPage');
   await precisionPage.goto(`${origin}/mizan-test/`);
   await precisionPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -1238,7 +1252,7 @@ try {
   // the columns must come from the page geometry, so the accountant never has to
   // type a percentage to get past this step.
   await context.setOffline(false);
-  const autoPdfPage = await context.newPage();
+  const autoPdfPage = await activeScenarioPage(context, 'autoPdfPage');
   await autoPdfPage.goto(`${origin}/mizan-test/`);
   await autoPdfPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -1357,7 +1371,7 @@ try {
   for (const formulas of [false, true]) {
     const directionPhase = formulas ? 'formula balances' : 'fixed balances';
     await context.setOffline(false);
-    const directionPage = await context.newPage();
+    const directionPage = await activeScenarioPage(context, 'directionPage');
     await directionPage.goto(`${origin}/mizan-test/`);
     await directionPage.waitForFunction(
       () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -1428,15 +1442,23 @@ try {
             exact: true,
           }),
         });
-        await card
-          .getByRole('combobox', { name: directionQuestion, exact: true })
-          .click();
+        const chooser = card.getByRole('combobox', {
+          name: directionQuestion,
+          exact: true,
+        });
+        // Bring each trigger fully into view before BaseUI positions its
+        // portal; a partly visible lower card can move while the menu opens.
+        await chooser.scrollIntoViewIfNeeded();
+        await chooser.click();
+        const chosenLabel =
+          side === 0 ? 'المدين يزيد المستحق' : 'الدائن يزيد المستحق';
         await directionPage
           .getByRole('option', {
-            name: side === 0 ? 'المدين يزيد المستحق' : 'الدائن يزيد المستحق',
+            name: chosenLabel,
             exact: true,
           })
           .click();
+        await chooser.filter({ hasText: chosenLabel }).waitFor();
         if (side === 0)
           assert.equal(
             await directionCompare.isDisabled(),
@@ -1584,7 +1606,7 @@ try {
   // Each PDF carries its own review approval. A second checkbox must never
   // toggle the first file, and replacing a multi-page file must reset its view.
   await context.setOffline(false);
-  const bothPdfPage = await context.newPage();
+  const bothPdfPage = await activeScenarioPage(context, 'bothPdfPage');
   await bothPdfPage.goto(`${origin}/mizan-test/`);
   await bothPdfPage.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
@@ -1733,7 +1755,14 @@ try {
   // Prior cases deliberately leave the context offline. OCR's first use needs
   // only same-origin static program assets; its own case audits every request.
   await context.setOffline(false);
-  await verifyVisualReader(await context.newPage(), `${origin}/mizan-test/`);
+  for (const completed of context.pages()) await completed.close();
+  console.log('[browser] template lifecycle');
+  await verifyTemplateLifecycle(context, `${origin}/mizan-test/`);
+  await context.setOffline(false);
+  await verifyVisualReader(
+    await activeScenarioPage(context, 'visual reader'),
+    `${origin}/mizan-test/`,
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -1743,6 +1772,7 @@ try {
         passed: true,
         checks: [
           'GitHub subpath assets',
+          'legacy templates migrate to positions only; three offline compare/export/reset sessions retain fresh amounts and references',
           'production CSP',
           'Arabic-only TARASUF identity, authentic local native fonts, keyboard-accessible uploads and atomic multi-file-drop rejection',
           'true A4 vector paper proportions, unique local clips and per-paper scans across 17 animation samples at six widths; all scene motion pauses offscreen or on request',

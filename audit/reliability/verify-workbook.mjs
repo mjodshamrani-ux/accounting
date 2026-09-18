@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import JSZip from 'jszip';
 import { SaxesParser } from 'saxes';
+export const VERIFIER_VERSION = 'tarasuf-workbook-verifier-2.0.0';
 
 function xml(text) {
   const root = { name: '#document', children: [], text: '', attrs: {} };
@@ -405,6 +406,25 @@ export async function verifyWorkbook(bytes, expected) {
           ['s', 'str', 'inlineStr'].includes(row.get('E')?.type),
           'Reference must remain text',
         );
+      if (oracle.sourceReference?.column >= 0) {
+        const rawSheet = sheets.get(
+          side === 'supplier'
+            ? 'Parsed Supplier Source'
+            : 'Parsed Ledger Source',
+        );
+        let n = oracle.sourceReference.column + 2,
+          column = '';
+        while (n) {
+          n--;
+          column = String.fromCharCode(65 + (n % 26)) + column;
+          n = Math.floor(n / 26);
+        }
+        assert.equal(
+          get(rawSheet?.rows.get(oracle.row + 1), column),
+          oracle.sourceReference.value,
+          'Original visible reference preserved in source sheet',
+        );
+      }
       assert.equal(get(row, 'G'), oracle.description);
       assert.equal(get(row, 'I'), oracle.originalAmount);
       numeric(row, 'H', oracle.minor);
@@ -417,6 +437,36 @@ export async function verifyWorkbook(bytes, expected) {
       found.size,
       expected.rows.filter((r) => r.side === side).length,
     );
+  }
+  if (expected.pdfTextTransforms) {
+    const transforms = sheets.get('PDF Text Provenance');
+    assert.equal(
+      (transforms?.rows.size ?? 1) - 1,
+      expected.pdfTextTransforms.length,
+      'Every PDF text transformation must be exported',
+    );
+    if (transforms) {
+      assert.equal(transforms.state, 'hidden');
+      assert.equal(transforms.rtl, true);
+      for (const [index, entry] of expected.pdfTextTransforms.entries()) {
+        const row = transforms.rows.get(index + 2);
+        for (const [column, field] of Object.entries({
+          A: 'side',
+          B: 'row',
+          C: 'page',
+          D: 'column',
+          E: 'extractedText',
+          F: 'glyphText',
+          G: 'usedText',
+          H: 'rule',
+        }))
+          assert.equal(
+            String(get(row, column)),
+            String(entry[field]),
+            `PDF provenance ${field}`,
+          );
+      }
+    }
   }
   const evidence = sheets.get('Match Evidence');
   assert.ok(evidence);
@@ -469,6 +519,38 @@ export async function verifyWorkbook(bytes, expected) {
     if (c.classification) assert.equal(actual.classification, c.classification);
   }
   assert.equal(caseMembers.size, expected.cases.length);
+  // Unlike expected.cases (an interface-consistency check), these memberships
+  // originate in the independent visible-evidence oracle before engine execution.
+  const membershipKey = (a, b) =>
+    JSON.stringify([[...a].sort(), [...b].sort()]);
+  const acceptedMemberships = [...caseMembers.values()]
+    .filter((c) => c.status === 'Matched')
+    .map((c) =>
+      membershipKey(
+        c.members.filter((id) => rowsById.get(id).side === 'supplier'),
+        c.members.filter((id) => rowsById.get(id).side === 'ledger'),
+      ),
+    );
+  if (expected.permittedAcceptedGroups) {
+    const permitted = new Set(
+      expected.permittedAcceptedGroups.map((g) =>
+        membershipKey(g.supplierIds, g.ledgerIds),
+      ),
+    );
+    for (const key of acceptedMemberships)
+      assert.ok(
+        permitted.has(key),
+        'Exported accepted group has no independent visible-evidence permission',
+      );
+  }
+  if (expected.requiredAcceptedGroups)
+    for (const group of expected.requiredAcceptedGroups)
+      assert.ok(
+        acceptedMemberships.includes(
+          membershipKey(group.supplierIds, group.ledgerIds),
+        ),
+        'Mandatory independent group omitted from workbook',
+      );
   const tracked = new Set();
   const counts = {
     auto: 0,

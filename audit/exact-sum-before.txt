@@ -1,0 +1,23 @@
+✖ exact summation does not depend on ordering of large offsetting entries (0.285958ms)
+✔ truthy non-boolean confirmations cannot create verified balance evidence (0.292208ms)
+✔ unknown and out-of-range exclusions cannot silently masquerade as reviewed rows (0.132834ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56.987083
+
+✖ failing tests:
+
+test at tests/core-adversarial.test.ts:10:1
+✖ exact summation does not depend on ordering of large offsetting entries (0.285958ms)
+  Error: الإجمالي يتجاوز الحد الآمن
+      at safeSum (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/lib/reconciliation/core.ts:76:13)
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/core-adversarial.test.ts:12:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)

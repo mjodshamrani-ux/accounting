@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.10-experimental';
+export const ENGINE_VERSION = '0.3.13-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -19,6 +19,10 @@ export type SheetData = {
   referenceIssues?: Record<string, string[]>;
   rowPages?: Record<string, number>;
   pdfHeaderFragments?: Record<string, string[][]>;
+  pdfTextTransforms?: Record<string, {
+    column: number; page: number; extractedText: string; glyphText: string;
+    usedText: string; rule: 'verified-numeric-glyph-order' | 'verified-adjacent-numeric-fragments' | 'verified-rtl-word-order';
+  }[]>;
 };
 export type SourceFile = {
   name: string;
@@ -75,6 +79,9 @@ export type Transaction = {
   poReference?: string;
   bankReference?: string;
   receiptReference?: string;
+  // Only identities read from explicitly labelled bank/receipt columns. A PAY
+  // prefix or a mixed PO/bank column is not positive evidence for grouping.
+  paymentIdentityFields?: ('bankReference' | 'receiptReference')[];
   documentType?: 'Invoice' | 'Credit Note' | 'Payment' | 'Journal' | 'Unknown';
   currency?: string;
   sourcePage?: number;

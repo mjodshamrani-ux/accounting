@@ -1,0 +1,67 @@
+✔ PDF cannot read covered amount text through an opaque vector rectangle (41.6465ms)
+✖ PDF black background cannot silently conceal black transaction text (1.823167ms)
+✔ ordinary white backgrounds and disjoint table lines preserve actual text (3.75025ms)
+✔ bordered supplier tables paint edges, not a solid rectangle over every amount (11.781708ms)
+✔ separate underlines do not connect into an imaginary painted area (0.8035ms)
+✔ stroke width and actual crossing lines still reject covered transaction text (3.91175ms)
+✔ thin filled rectangles used as supplier table borders stay separate (2.347041ms)
+✔ implicit close strokes and curved paths cannot conceal an amount (1.522833ms)
+✔ native visible PDF transaction text retains signs and exact cells (40.313334ms)
+✔ actual PDF rejects transparent and partially transparent fill/stroke text (9.564916ms)
+✔ actual PDF rejects white text in RGB, gray and CMYK color spaces (4.46625ms)
+✔ restoring or explicitly resetting color and alpha permits subsequent visible text (4.26725ms)
+✔ actual PDF rejects clipped transaction text and text clipping modes (4.949083ms)
+✔ clipping restored before transaction text does not reject visible data (0.952833ms)
+✔ actual PDF soft masks reject text rather than trusting an invisible text layer (1.312125ms)
+✔ a disabled soft mask no longer marks later plain text as masked (1.807833ms)
+✔ unsupported blending rejects active text but a restored blend does not leak (1.661292ms)
+✔ actual inline raster images reject regardless of area or neighboring native text (4.911584ms)
+✔ actual image XObjects and solid image masks cannot bypass the raster guard (2.149917ms)
+✔ unsupported Form XObject clipping rejects extracted text with an explicit error (0.917542ms)
+Warning: Indexing all PDF objects
+✔ oversized PDF cells reject before reaching Excel and malformed PDFs do not poison later reads (46.072625ms)
+✔ OCR invisible text and large raster backgrounds cannot pass as native PDF text (0.193792ms)
+✔ PDF actual bytes preserve columns, signs, row provenance and original bytes (2.741333ms)
+✔ PDF cannot reconcile without explicit extraction review or configured columns (2.062ms)
+✔ multi-page PDF keeps repeated headers and page lineage instead of silently deleting rows (1.999333ms)
+✔ blank/scanned page rejects the entire PDF including text/image mixed documents (1.971458ms)
+✔ fake PDF and more than 20 pages fail closed (1.076458ms)
+✔ column boundary crossings and duplicate overlay glyphs produce blocking row issues (0.094833ms)
+✔ invalid column cuts, coordinates and replacement characters fail closed (0.102875ms)
+✔ Arabic glyph text is preserved without reversing references or guessing numbers (0.062208ms)
+✔ PDF export re-extracts original bytes and session restoration keeps the same result (45.507542ms)
+ℹ tests 31
+ℹ suites 0
+ℹ pass 30
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 326.836917
+
+✖ failing tests:
+
+test at tests/pdf-adversarial.test.ts:34:1
+✖ PDF black background cannot silently conceal black transaction text (1.823167ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /رسم|تغط/. Input:
+  
+  'Error: PDF يحتوي نصًا أبيض أو ضعيف التباين لا يمكن إثبات ظهوره على الخلفية؛ اطلب نسخة نصية بسيطة أو Excel'
+  
+      at async TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/pdf-adversarial.test.ts:35:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: PDF يحتوي نصًا أبيض أو ضعيف التباين لا يمكن إثبات ظهوره على الخلفية؛ اطلب نسخة نصية بسيطة أو Excel
+        at checkPdfOperators (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/lib/reconciliation/pdf.ts:374:15)
+        at readPdf (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/lib/reconciliation/pdf.ts:666:7)
+        at async readFile (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/lib/reconciliation/io.ts:270:23)
+        at async waitForActual (node:assert:646:5)
+        at async strict.rejects (node:assert:769:25)
+        at async TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/pdf-adversarial.test.ts:35:3)
+        at async Test.run (node:internal/test_runner/test:1389:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    expected: /رسم|تغط/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

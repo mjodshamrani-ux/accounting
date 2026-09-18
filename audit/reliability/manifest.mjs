@@ -1,5 +1,5 @@
 /** Synthetic test inventory only. No production parser or matcher is imported. */
-export const GENERATOR_VERSION = 'tarasuf-independent-1.0.1';
+export const GENERATOR_VERSION = 'tarasuf-independent-2.1.0';
 export const DEFAULT_SEED = 0x45a71c;
 export const CATEGORY_COUNTS = Object.freeze({
   clear: 2000,

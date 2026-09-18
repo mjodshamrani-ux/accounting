@@ -1,5 +1,6 @@
 import { getResolvedPDFJS } from 'unpdf';
 import type { SheetData } from './types.ts';
+import { normalizeHeaderLabel } from './header-labels.ts';
 import { bindTextPaints, visibleOnBackground } from './pdf-paint-order.ts';
 import type { PdfBackground } from './pdf-paint-order.ts';
 import {
@@ -21,6 +22,9 @@ export type PdfToken = {
   height: number;
   ascent?: number;
   descent?: number;
+  direction?: string;
+  extractionText?: string;
+  glyphText?: string;
 };
 type PdfPoint = [number, number];
 const boxOverlaps = (a: number[], b: number[]) =>
@@ -264,9 +268,10 @@ export function checkPdfOperators(
   _area: number,
   textBoxes: number[][] = [],
   textRuns?: string[],
+  rawRuns?: Map<number, string>,
 ) {
   const paints = textRuns
-    ? bindTextPaints(ops, fn, args, textRuns, textBoxes)
+    ? bindTextPaints(ops, fn, args, textRuns, textBoxes, rawRuns)
     : null;
   const paintedBoxes: number[][] = [];
   const backgrounds: PdfBackground[] = [];
@@ -280,6 +285,7 @@ export function checkPdfOperators(
     blended: false,
     transferred: false,
     clipped: false,
+    clipBox: undefined as number[] | undefined,
     matrix: [1, 0, 0, 1, 0, 0],
     lineWidth: 1,
     lineJoin: 0,
@@ -287,6 +293,7 @@ export function checkPdfOperators(
     maskResource: false,
   };
   let seenText = false;
+  let pendingClip: { clipped: boolean; box?: number[] } | undefined;
   const transform = (m: number[]) => {
     if (m.length !== 6 || !m.every(Number.isFinite))
       throw new Error('تحويل رسم PDF غير صالح');
@@ -310,6 +317,10 @@ export function checkPdfOperators(
   for (let i = 0; i < fn.length; i++) {
     const op = fn[i],
       a = args[i] ?? [];
+    // PDF.js emits clip/eoClip immediately before its packed path. Unknown
+    // paths keep the prior conservative rejection. A single exact rectangle
+    // can instead prove that every glyph remains inside the visible region.
+    if (pendingClip && op !== ops.constructPath) pendingClip = undefined;
     if (
       op === ops.save ||
       op === ops.paintFormXObjectBegin ||
@@ -364,8 +375,10 @@ export function checkPdfOperators(
       state.fillColor = '';
     else if ([ops.setStrokeColorN, ops.setStrokeTransparent].includes(op))
       state.strokeColor = '';
-    else if (op === ops.clip || op === ops.eoClip) state.clipped = true;
-    else if (
+    else if (op === ops.clip || op === ops.eoClip) {
+      pendingClip = { clipped: state.clipped, box: state.clipBox };
+      state.clipped = true;
+    } else if (
       [
         ops.showText,
         ops.showSpacedText,
@@ -378,8 +391,18 @@ export function checkPdfOperators(
         throw new Error(
           'يحتوي PDF نصًا مخفيًا أو طبقة نص مستخرجة من الصور (OCR). اطلب كشفًا نصيًا أصليًا أو Excel.',
         );
+      const currentBoxes = paints?.get(i) ?? textBoxes;
       if (
         state.clipped ||
+        (state.clipBox &&
+          ((!paints && !currentBoxes.length) ||
+            currentBoxes.some(
+              (box) =>
+                box[0] < state.clipBox![0] - 0.01 ||
+                box[1] < state.clipBox![1] - 0.01 ||
+                box[2] > state.clipBox![2] + 0.01 ||
+                box[3] > state.clipBox![3] + 0.01,
+            ))) ||
         state.mode >= 4 ||
         state.mode < 0 ||
         !Number.isInteger(state.mode)
@@ -399,7 +422,6 @@ export function checkPdfOperators(
         throw new Error(
           'تؤثر شفافية PDF أو إعدادات إظهار محتواه في النص، ولا يمكن التحقق من ظهوره. اطلب Excel.',
         );
-      const currentBoxes = paints?.get(i) ?? textBoxes;
       const visible = (color: string) =>
         paints
           ? currentBoxes.every((box) =>
@@ -437,6 +459,23 @@ export function checkPdfOperators(
       // active mask is checked separately when any transaction text is painted.
       if (state.maskResource) continue;
       const kind = op === ops.constructPath ? a[0] : op;
+      if (pendingClip) {
+        const clip = filledRectangles(a[1], state.matrix);
+        if (kind === ops.endPath && clip?.length === 1) {
+          const box = clip[0],
+            prior = pendingClip.box;
+          state.clipBox = prior
+            ? [
+                Math.max(prior[0], box[0]),
+                Math.max(prior[1], box[1]),
+                Math.min(prior[2], box[2]),
+                Math.min(prior[3], box[3]),
+              ]
+            : box;
+          state.clipped = pendingClip.clipped;
+        }
+        pendingClip = undefined;
+      }
       if (kind === ops.endPath) continue;
       const fillOnly = kind === ops.fill || kind === ops.eoFill;
       // A plain white background painted before text cannot cover later glyphs.
@@ -514,8 +553,19 @@ export function checkPdfOperators(
           throw new Error(
             'يغطي أحد رسوم PDF نصًا تحته، لذلك لا يمكن اعتماد القراءة.',
           );
-        for (const box of rectangles)
-          backgrounds.push({ box, color: state.fillColor });
+        for (const originalBox of rectangles) {
+          const clip = state.clipBox;
+          const box = clip
+            ? [
+                Math.max(clip[0], originalBox[0]),
+                Math.max(clip[1], originalBox[1]),
+                Math.min(clip[2], originalBox[2]),
+                Math.min(clip[3], originalBox[3]),
+              ]
+            : originalBox;
+          if (box[0] < box[2] && box[1] < box[3])
+            backgrounds.push({ box, color: state.fillColor });
+        }
         continue;
       }
       const strokeOnly = kind === ops.stroke || kind === ops.closeStroke;
@@ -662,13 +712,76 @@ export function layoutPdfPage(
       const col = cuts.findIndex((c) => left < c);
       cells[col < 0 ? cuts.length : col].push(t);
     }
-    const row = cells.map((cell) => {
+    const cellTransforms: Omit<
+      NonNullable<SheetData['pdfTextTransforms']>[string][number],
+      'page'
+    >[] = [];
+    const row = cells.map((cell, column) => {
       for (let i = 1; i < cell.length; i++)
         if (cell[i].x < cell[i - 1].x + cell[i - 1].width - 0.2)
           issues.push('توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.');
-      return cell.map((t) => t.text).join(' ');
+      const extractedText = cell.map((token) => token.text).join(' ');
+      const rtlWords =
+        cell.length > 1 &&
+        cell.every(
+          (token) =>
+            token.direction === 'rtl' &&
+            /^[\p{Script=Arabic}\p{M}\s]+$/u.test(token.text) &&
+            !/\p{N}/u.test(token.text),
+        );
+      const ordered = rtlWords ? [...cell].reverse() : cell;
+      const value = ordered
+        .map((token, i) => {
+          if (!i) return token.text;
+          const previous = ordered[i - 1];
+          const gap = token.x - previous.x - previous.width;
+          const adjacent =
+            gap >= -0.2 &&
+            gap <= Math.min(token.height, previous.height) * 0.08;
+          const signBefore =
+            /^[+(−-]$/.test(previous.text) &&
+            /^[0-9٠-٩۰-۹.,٬٫]+$/u.test(token.text);
+          const closeAfter =
+            /^[0-9٠-٩۰-۹.,٬٫]+$/u.test(previous.text) && token.text === ')';
+          // Preserve contiguous sign/parenthesis glyph fragments. Never join two
+          // digit groups, repair a missing digit, or cross a column boundary.
+          return (
+            (adjacent && (signBefore || closeAfter) ? '' : ' ') + token.text
+          );
+        })
+        .join('');
+      if (value !== extractedText)
+        cellTransforms.push({
+          column: column + 1,
+          extractedText,
+          glyphText: cell
+            .map((token) => token.glyphText ?? token.text)
+            .join(''),
+          usedText: value,
+          rule: rtlWords
+            ? 'verified-rtl-word-order'
+            : 'verified-adjacent-numeric-fragments',
+        });
+      return value;
     });
-    return { row, issues: [...new Set(issues)] };
+    const textTransforms = line.tokens.flatMap((token) => {
+      if (token.extractionText === undefined) return [];
+      const cut = cuts.findIndex((c) => (token.x / width) * 100 < c);
+      return [
+        {
+          column: (cut < 0 ? cuts.length : cut) + 1,
+          extractedText: token.extractionText,
+          glyphText: token.glyphText ?? token.text,
+          usedText: token.text,
+          rule: 'verified-numeric-glyph-order' as const,
+        },
+      ];
+    });
+    return {
+      row,
+      issues: [...new Set(issues)],
+      textTransforms: [...textTransforms, ...cellTransforms],
+    };
   });
 }
 export async function readPdf(
@@ -746,6 +859,7 @@ export async function readPdf(
           const style = text.styles[item.fontName];
           const token: PdfToken = {
             text: item.str,
+            direction: item.dir,
             x: item.transform[4] - page.view[0],
             y: item.transform[5],
             width: item.width,
@@ -806,19 +920,24 @@ export async function readPdf(
           `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية. القراءة البصرية (OCR) تنتج مسودة غير متحققة.`,
           'PDF_NO_EXTRACTABLE_TEXT',
         );
+      const rawRuns = new Map<number, string>();
       try {
         checkPdfOperators(
           OPS,
           operators.fnArray,
           operators.argsArray,
           (page.view[2] - page.view[0]) * (page.view[3] - page.view[1]),
-          tokens.map((t) => [
-            t.x + page.view[0],
-            t.y - t.height * 0.3,
-            t.x + page.view[0] + t.width,
-            t.y + t.height,
-          ]),
+          tokens.map((t) => {
+            const glyph = glyphBounds(t);
+            return [
+              t.x + page.view[0],
+              Math.min(glyph[1], t.y - t.height * 0.3),
+              t.x + page.view[0] + t.width,
+              Math.max(glyph[3], t.y + t.height),
+            ];
+          }),
           tokens.map((token) => token.text),
+          rawRuns,
         );
       } catch (error) {
         // Only annotate the existing image guard. Earlier clipping, hidden text,
@@ -826,6 +945,20 @@ export async function readPdf(
         if (error instanceof PdfImageContentError)
           throw diagnosticFailure(error.message, 'PDF_IMAGE_CONTENT');
         throw error;
+      }
+      // Preserve the glyph order for purely numeric/date/sign runs when the
+      // reader's bidi presentation reorders their separators. Exact glyph
+      // provenance was checked above; no financial character is substituted.
+      for (const [index, raw] of rawRuns) {
+        const token = tokens[index];
+        token.glyphText = raw;
+        if (
+          /^[0-9٠-٩۰-۹.,٬٫()+−\-\/\s]+$/u.test(raw) &&
+          raw.trim() !== token.text
+        ) {
+          token.extractionText = token.text;
+          token.text = raw.trim();
+        }
       }
       pages.push({ tokens, width: page.view[2] - page.view[0] });
       page.cleanup();
@@ -858,7 +991,9 @@ export async function readPdf(
         !!pieces &&
         pieces.every((piece) => piece && piece.issues.length === 0) &&
         merged?.length === band.columns.length &&
-        merged.every((value, col) => value === band.columns[col]);
+        merged.every(
+          (value, col) => normalizeHeaderLabel(value) === band.columns[col],
+        );
       for (const [lineIndex, line] of lines.entries()) {
         if (
           joinHeader &&
@@ -875,6 +1010,10 @@ export async function readPdf(
             (piece) => piece.row,
           );
         if (line.issues.length) sheet.rowIssues![rn] = line.issues;
+        if (line.textTransforms.length)
+          (sheet.pdfTextTransforms ??= {})[rn] = line.textTransforms.map(
+            (t) => ({ ...t, page: index + 1 }),
+          );
         if (sheet.rows.length > 20000) throw new Error('الحد 20,000 صف مستخرج');
       }
     }

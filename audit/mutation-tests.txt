@@ -1,0 +1,42 @@
+Detected deliberate fault: reverse-source-sign
+Detected deliberate fault: fuzzy-reference-auto-match
+Detected deliberate fault: ignore-date-window
+Detected deliberate fault: ignore-reference-duplicates
+Detected deliberate fault: allow-unconfirmed-coverage
+Detected deliberate fault: promote-ai-hypothesis
+Detected deliberate fault: corrupt-exported-amount
+{
+  "baselinePassed": true,
+  "detected": 7,
+  "total": 7,
+  "mutations": [
+    {
+      "mutation": "reverse-source-sign",
+      "detected": true
+    },
+    {
+      "mutation": "fuzzy-reference-auto-match",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-window",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-reference-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "allow-unconfirmed-coverage",
+      "detected": true
+    },
+    {
+      "mutation": "promote-ai-hypothesis",
+      "detected": true
+    },
+    {
+      "mutation": "corrupt-exported-amount",
+      "detected": true
+    }
+  ]
+}

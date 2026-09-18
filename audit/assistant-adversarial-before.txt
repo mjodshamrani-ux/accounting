@@ -1,0 +1,126 @@
+✖ AI cannot pick one row from a reference shared by several documents (3.543083ms)
+✖ explicit row ID can disambiguate AI routing, but contradictory references cannot (0.507666ms)
+✖ AI routing rejects irrelevant transaction fields and blank or oversized questions (9.896459ms)
+✖ out-of-range hypothesis differences fail closed without crashing the assistant (0.24425ms)
+✔ hostile model proposals never acquire authority or alter any source evidence (0.428916ms)
+✔ Arabic and aborted requests do not even query a model provider (0.291959ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 2
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 85.629042
+
+✖ failing tests:
+
+test at tests/assistant-adversarial.test.ts:14:1
+✖ AI cannot pick one row from a reference shared by several documents (3.543083ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   kind: 'transaction',
+  +   sourceIds: [
+  +     'supplier:0:8',
+  +     'ledger:0:7'
+  +   ],
+  +   text: 'فهم السؤال بمساعدة نموذج محلي؛ الشرح التالي من أدلة المحرك.\n' +
+  +     'المورد: CSV، صف 8، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR\n' +
+  +     'باقية للمراجعة؛ لا توجد مطابقة معتمدة لهذه الحركة.\n' +
+  +     'المرجع متكرر؛ لا يُحسم التكرار بالمبلغ أو ترتيب الصفوف.\n' +
+  +     'مرشح للمراجعة: الدفتر: CSV، صف 7، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR. تحقق تساوي المجموع الموقّع فقط. لا يثبت علاقة المستندات؛ الاقتراح لا ينشئ مطابقة. الفرق (المورد ناقص الدفتر): 0.00 SAR.'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/assistant-adversarial.test.ts:17:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'transaction', text: 'فهم السؤال بمساعدة نموذج محلي؛ الشرح التالي من أدلة المحرك.\nالمورد: CSV، صف 8، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR\nباقية للمراجعة؛ لا توجد مطابقة معتمدة لهذه الحركة.\nالمرجع متكرر؛ لا يُحسم التكرار بالمبلغ أو ترتيب الصفوف.\nمرشح للمراجعة: الدفتر: CSV، صف 7، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR. تحقق تساوي المجموع الموقّع فقط. لا يثبت علاقة المستندات؛ الاقتراح لا ينشئ مطابقة. الفرق (المورد ناقص الدفتر): 0.00 SAR.', sourceIds: [ 'supplier:0:8', 'ledger:0:7' ] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/assistant-adversarial.test.ts:23:1
+✖ explicit row ID can disambiguate AI routing, but contradictory references cannot (0.507666ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   kind: 'transaction',
+  +   sourceIds: [
+  +     'supplier:0:8',
+  +     'ledger:0:7'
+  +   ],
+  +   text: 'فهم السؤال بمساعدة نموذج محلي؛ الشرح التالي من أدلة المحرك.\n' +
+  +     'المورد: CSV، صف 8، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR\n' +
+  +     'باقية للمراجعة؛ لا توجد مطابقة معتمدة لهذه الحركة.\n' +
+  +     'المرجع متكرر؛ لا يُحسم التكرار بالمبلغ أو ترتيب الصفوف.\n' +
+  +     'مرشح للمراجعة: الدفتر: CSV، صف 7، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR. تحقق تساوي المجموع الموقّع فقط. لا يثبت علاقة المستندات؛ الاقتراح لا ينشئ مطابقة. الفرق (المورد ناقص الدفتر): 0.00 SAR.'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/assistant-adversarial.test.ts:27:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'transaction', text: 'فهم السؤال بمساعدة نموذج محلي؛ الشرح التالي من أدلة المحرك.\nالمورد: CSV، صف 8، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR\nباقية للمراجعة؛ لا توجد مطابقة معتمدة لهذه الحركة.\nالمرجع متكرر؛ لا يُحسم التكرار بالمبلغ أو ترتيب الصفوف.\nمرشح للمراجعة: الدفتر: CSV، صف 7، مرجع «INV-005»، 2026-08-24، 2,000.00 SAR. تحقق تساوي المجموع الموقّع فقط. لا يثبت علاقة المستندات؛ الاقتراح لا ينشئ مطابقة. الفرق (المورد ناقص الدفتر): 0.00 SAR.', sourceIds: [ 'supplier:0:8', 'ledger:0:7' ] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/assistant-adversarial.test.ts:30:1
+✖ AI routing rejects irrelevant transaction fields and blank or oversized questions (9.896459ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + {
+  +   kind: 'checks',
+  +   sourceIds: [],
+  +   text: 'فهم السؤال بمساعدة نموذج محلي؛ الشرح التالي من أدلة المحرك.\n' +
+  +     'استُخدمت 8 حركة مورد و6 حركة دفتر؛ استُبعد 2 صف مع سبب (يشمل العناوين والفراغات).\n' +
+  +     '2 مطابقة آلية بمرجع أصلي مطابق غير مكرر ومبلغ موقّع متساوٍ وتاريخ ضمن 2 أيام.\n' +
+  +     '0 قرار يدوي؛ تأكيد المستخدم ليس إثباتًا من المحرك.\n' +
+  +     'لم يتحقق النظام من أصالة المستندات أو شمول الملفين للنظام المحاسبي أو السبب الاقتصادي للفروق. تأكيد النطاق والتغطية مصدره المستخدم.'
+  + }
+  - null
+  
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/assistant-adversarial.test.ts:32:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'checks', text: 'فهم السؤال بمساعدة نموذج محلي؛ الشرح التالي من أدلة المحرك.\nاستُخدمت 8 حركة مورد و6 حركة دفتر؛ استُبعد 2 صف مع سبب (يشمل العناوين والفراغات).\n2 مطابقة آلية بمرجع أصلي مطابق غير مكرر ومبلغ موقّع متساوٍ وتاريخ ضمن 2 أيام.\n0 قرار يدوي؛ تأكيد المستخدم ليس إثباتًا من المحرك.\nلم يتحقق النظام من أصالة المستندات أو شمول الملفين للنظام المحاسبي أو السبب الاقتصادي للفروق. تأكيد النطاق والتغطية مصدره المستخدم.', sourceIds: [] },
+    expected: null,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/assistant-adversarial.test.ts:37:1
+✖ out-of-range hypothesis differences fail closed without crashing the assistant (0.24425ms)
+  Error: الإجمالي يتجاوز الحد الآمن
+      at safeSum (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/lib/reconciliation/core.ts:76:13)
+      at verifyHypothesis (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/lib/reconciliation/assistant.ts:53:22)
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/assistant-adversarial.test.ts:43:17)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)

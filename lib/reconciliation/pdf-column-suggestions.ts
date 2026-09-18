@@ -1,4 +1,5 @@
 import type { PdfToken } from './pdf.ts';
+import { normalizeHeaderLabel } from './header-labels.ts';
 
 export type PdfColumnLayout = {
   cuts: number[];
@@ -20,16 +21,26 @@ const amountHeader =
 const knownHeader =
   /^(date|transaction date|posting date|invoice date|type|doc type|document type|document no\.?|invoice no\.?|reference|ap voucher|supplier ref|supplier reference|vendor ref|po\s*\/\s*bank ref|customer ref\s*\/\s*po|description|details|amount|signed amount|debit|credit|running balance|running ap balance|due date|currency|التاريخ|تاريخ الحركة|تاريخ الفاتورة|النوع|نوع المستند|المرجع|رقم المستند|رقم الفاتورة|الوصف|البيان|المبلغ|مدين|دائن|الرصيد|العملة)(?:\s*\([a-z]{3}\))?$/i;
 const dateCell =
-  /^(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.](?:\d{1,2}|[a-z]+)[-/.]\d{4})$/i;
-const label = (text: string) => text.trim().replace(/\s+/g, ' ');
+  /^(?:[0-9٠-٩۰-۹]{4}[-/.][0-9٠-٩۰-۹]{1,2}[-/.][0-9٠-٩۰-۹]{1,2}|[0-9٠-٩۰-۹]{1,2}[-/.](?:[0-9٠-٩۰-۹]{1,2}|[a-z]+)[-/.][0-9٠-٩۰-۹]{4})$/i;
+const label = normalizeHeaderLabel;
 
 // PDF.js may split one header cell into several text items. Join only a
 // unique sequence of exact supported phrases, across an ordinary word space.
 // This builds geometry evidence; layoutPdfPage still receives the original tokens.
 function joinedToken(parts: PdfToken[]): PdfToken {
   const x = parts[0].x;
+  const ordered =
+    parts.length > 1 &&
+    parts.every(
+      (part) =>
+        part.direction === 'rtl' &&
+        /^[\p{Script=Arabic}\p{M}\s]+$/u.test(part.text) &&
+        !/\p{N}/u.test(part.text),
+    )
+      ? [...parts].reverse()
+      : parts;
   return {
-    text: parts.map((part) => label(part.text)).join(' '),
+    text: ordered.map((part) => label(part.text)).join(' '),
     x,
     width: Math.max(...parts.map((part) => part.x + part.width)) - x,
     y: parts[0].y,
@@ -42,7 +53,8 @@ function wordGap(left: PdfToken, right: PdfToken): boolean {
 }
 function headerWords(tokens: PdfLine, fragments = false): PdfLine | null {
   if (tokens.length > 100) return null;
-  const fragment = /^(running|running ap|balance)$/i;
+  const fragment =
+    /^(running|running ap|balance|رقم|الفاتورة|المستند|تاريخ|الحركة|نوع|التاريخ|المبلغ)$/i;
   const memo = new Map<number, PdfLine[]>();
   const visit = (index: number): PdfLine[] => {
     if (index === tokens.length) return [[]];
@@ -88,68 +100,81 @@ function bodyWords(tokens: PdfLine, headers: PdfLine): PdfLine {
 }
 
 function headerBands(lines: PdfLine[]): HeaderBand[] {
-  return lines.flatMap((originalRow) => {
-    const row = headerWords(originalRow);
-    if (!row) return [];
-    if (
-      row.length < 3 ||
-      row.length > 20 ||
-      !row.some((token) => dateHeader.test(label(token.text))) ||
-      !row.some((token) => referenceHeader.test(label(token.text))) ||
-      !row.some((token) => amountHeader.test(label(token.text))) ||
-      !row.every((token) => knownHeader.test(label(token.text)))
-    )
-      return [];
-    const height = Math.max(...row.map((token) => token.height));
-    const baseline = row[0].y;
-    const lineIndexes = lines.flatMap((line, i) =>
-      Math.abs(line[0].y - baseline) <= height * 1.3 ? [i] : [],
-    );
-    if (lineIndexes.length > 3) return [];
-    const lineWords = lineIndexes.map((i) => headerWords(lines[i], true));
-    if (lineWords.some((line) => line === null)) return [];
-    const tokens = lineWords
-      .flatMap((line) => line!)
-      .sort((a, b) => a.x - b.x || b.y - a.y);
-    const groups: PdfToken[][] = [];
-    for (const token of tokens) {
-      const previous = groups.at(-1);
+  const candidates: HeaderBand[] = [];
+  for (let start = 0; start < lines.length; start++) {
+    for (let end = start; end < Math.min(start + 3, lines.length); end++) {
+      const lineIndexes = Array.from(
+        { length: end - start + 1 },
+        (_, i) => start + i,
+      );
+      const lineWords = lineIndexes.map((i) => headerWords(lines[i], true));
+      if (lineWords.some((line) => line === null)) break;
+      const tokens = lineWords
+        .flatMap((line) => line!)
+        .sort((a, b) => a.x - b.x || b.y - a.y);
+      const height = Math.max(...tokens.map((token) => token.height));
+      if (lines[start][0].y - lines[end][0].y > height * 1.8) break;
+      // A near header fragment cannot be ignored merely because the other
+      // columns already form a plausible table. Require the whole tight band.
       if (
-        previous &&
-        token.x < Math.max(...previous.map((item) => item.x + item.width))
+        (start > 0 &&
+          lines[start - 1][0].y - lines[start][0].y <= height * 1.3) ||
+        (end + 1 < lines.length &&
+          lines[end][0].y - lines[end + 1][0].y <= height * 1.3)
       )
-        previous.push(token);
-      else groups.push([token]);
-    }
-    const columns: PdfToken[] = [];
-    for (const group of groups) {
-      const ordered = [...group].sort((a, b) => b.y - a.y);
-      // Vertically wrapped labels must overlap horizontally, remain compact,
-      // and join to a supported complete label. Adjacent words/cells are never guessed.
-      if (
-        ordered.some(
-          (token, i) =>
-            i > 0 &&
-            Math.abs(token.y - ordered[i - 1].y) <=
-              Math.min(1, token.height / 8),
+        continue;
+      const groups: PdfToken[][] = [];
+      for (const token of tokens) {
+        const previous = groups.at(-1);
+        if (
+          previous &&
+          token.x < Math.max(...previous.map((item) => item.x + item.width))
         )
+          previous.push(token);
+        else groups.push([token]);
+      }
+      const columns: PdfToken[] = [];
+      let invalid = false;
+      for (const group of groups) {
+        const ordered = [...group].sort((a, b) => b.y - a.y);
+        if (
+          ordered.some(
+            (token, i) =>
+              i > 0 &&
+              Math.abs(token.y - ordered[i - 1].y) <=
+                Math.min(1, token.height / 8),
+          )
+        ) {
+          invalid = true;
+          break;
+        }
+        const text = ordered.map((token) => label(token.text)).join(' ');
+        if (!knownHeader.test(text)) {
+          invalid = true;
+          break;
+        }
+        const x = Math.min(...ordered.map((token) => token.x));
+        columns.push({
+          text,
+          x,
+          width: Math.max(...ordered.map((token) => token.x + token.width)) - x,
+          y: lines[start][0].y,
+          height,
+        });
+      }
+      if (
+        invalid ||
+        columns.length < 3 ||
+        columns.length > 20 ||
+        !columns.some((token) => dateHeader.test(token.text)) ||
+        !columns.some((token) => referenceHeader.test(token.text)) ||
+        !columns.some((token) => amountHeader.test(token.text))
       )
-        return [];
-      if (ordered[0].y - ordered.at(-1)!.y > height * 1.8) return [];
-      const text = ordered.map((token) => label(token.text)).join(' ');
-      if (!knownHeader.test(text)) return [];
-      const x = Math.min(...ordered.map((token) => token.x));
-      const end = Math.max(...ordered.map((token) => token.x + token.width));
-      columns.push({ text, x, width: end - x, y: baseline, height });
+        continue;
+      candidates.push({ lineIndexes, columns });
     }
-    if (
-      columns.length < 3 ||
-      columns.length > 20 ||
-      !columns.some((token) => dateHeader.test(token.text))
-    )
-      return [];
-    return [{ lineIndexes, columns }];
-  });
+  }
+  return candidates;
 }
 
 // Suggestions only: one supported header band per page and an observed gap
@@ -285,7 +310,7 @@ function pageLines(page: { width: number; tokens: PdfToken[] }): PdfLine[] {
 }
 
 const dateLike =
-  /^(?:\d{4}[-/.]\d{1,2}[-/.]\d{1,2}|\d{1,2}[-/.](?:\d{1,2}|[a-z]{3,9})[-/.]\d{2,4})$/i;
+  /^(?:[0-9٠-٩۰-۹]{4}[-/.][0-9٠-٩۰-۹]{1,2}[-/.][0-9٠-٩۰-۹]{1,2}|[0-9٠-٩۰-۹]{1,2}[-/.](?:[0-9٠-٩۰-۹]{1,2}|[a-z]{3,9})[-/.][0-9٠-٩۰-۹]{2,4})$/i;
 
 // Repeating table rows carry the column geometry. A title or a footer spans the
 // page and would erase every gap, so those lines are not evidence of a column.

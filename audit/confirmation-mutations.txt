@@ -1,0 +1,15 @@
+Detected deliberate fault: reject-supported-multisheet-workpapers
+Detected deliberate fault: reject-unused-helper-formulas
+Detected deliberate fault: treat-pdf-table-edges-as-filled-area
+Detected deliberate fault: reverse-source-sign
+Detected deliberate fault: fuzzy-reference-auto-match
+Detected deliberate fault: ignore-date-window
+Detected deliberate fault: ignore-reference-duplicates
+file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/scripts/test-mutations.mjs:133
+        throw Error(`Stale or non-unique mutation anchor: ${mutation.name}`);
+              ^
+
+Error: Stale or non-unique mutation anchor: allow-unconfirmed-coverage
+    at file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/scripts/test-mutations.mjs:133:15
+
+Node.js v24.19.0

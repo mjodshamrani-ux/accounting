@@ -3,7 +3,7 @@ import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
 import { buildReconciliationCases, identityConflicts } from './cases.ts';
 import { extractStatementMetadata } from './statement-metadata.ts';
-import { headerMatches } from './header-labels.ts';
+import { headerMatches, normalizeHeaderLabel } from './header-labels.ts';
 import {
   enforceDeclaredReport,
   collectGenericAccounts,
@@ -278,18 +278,24 @@ export function inlineBalanceSummary(row: string[], mapping: Mapping) {
     value.trim() ? [{ value: value.trim(), column }] : [],
   );
   if (nonempty.length !== 1) return;
-  const match =
-    /^(opening balance|closing (?:ap )?balance|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]\s*([^\s]+)(?:\s+([A-Za-z]{3}))?$/i.exec(
-      nonempty[0].value,
-    );
+  const match = /^([^:：]+)[:：]\s*([^\s]+)(?:\s+([A-Za-z]{3}))?$/i.exec(
+    nonempty[0].value,
+  );
   if (!match) return;
+  const label = normalizeHeaderLabel(match[1]);
+  if (
+    !/^(opening balance|closing (?:ap )?balance|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)$/i.test(
+      label,
+    )
+  )
+    return;
   try {
     parseMoney(match[2], mapping.numberFormat, 3);
   } catch {
     return;
   }
   return {
-    label: match[1],
+    label,
     amount: match[2],
     currency: match[3]?.toUpperCase(),
     column: nonempty[0].column,
@@ -320,7 +326,7 @@ export function structuralSummaryLabel(
       mapping.reference,
       ...headers.flatMap((header, column) =>
         /^(?:reference|ref\.?|our ref\.?|your ref\.?|invoice|invoice no\.?|invoice number|document reference|document no\.?|doc\.? ref\.?|doc\.? no\.?|voucher|voucher no\.?|supplier ref(?:erence)?|supplier invoice(?: no\.?)?|customer ref\s*\/\s*po|المرجع|رقم الفاتورة|رقم المستند|رقم السند|السند|مرجع المورد|رقم فاتورة المورد)$/i.test(
-          header.trim(),
+          normalizeHeaderLabel(header),
         )
           ? [column]
           : [],
@@ -331,7 +337,9 @@ export function structuralSummaryLabel(
     .map((column) => row[column]?.trim() ?? '')
     .filter(Boolean);
   const typeColumns = headers.flatMap((header, column) =>
-    /^(type|doc type|document type|النوع|نوع المستند)$/i.test(header.trim())
+    /^(type|doc type|document type|النوع|نوع المستند)$/i.test(
+      normalizeHeaderLabel(header),
+    )
       ? [column]
       : [],
   );
@@ -344,14 +352,19 @@ export function structuralSummaryLabel(
   const openingReference = /^(B\/F|B-F|BF|OPENING|افتتاحي)$/i;
   const closingReference = /^(C\/F|C-F|CF|CLOSING|ختامي)$/i;
   const balanceIdentity =
-    leading && openingType.test(type) && openingReference.test(reference)
+    leading &&
+    openingType.test(normalizeHeaderLabel(type)) &&
+    openingReference.test(normalizeHeaderLabel(reference))
       ? openingReference
-      : closingType.test(type) && closingReference.test(reference)
+      : closingType.test(normalizeHeaderLabel(type)) &&
+          closingReference.test(normalizeHeaderLabel(reference))
         ? closingReference
         : undefined;
   if (
     balanceIdentity &&
-    references.every((value) => balanceIdentity.test(value))
+    references.every((value) =>
+      balanceIdentity.test(normalizeHeaderLabel(value)),
+    )
   ) {
     // An explicit balance identity can have an as-of date, but a malformed date
     // must remain a parsing issue rather than being erased by classification.
@@ -364,21 +377,49 @@ export function structuralSummaryLabel(
     }
     return type;
   }
+  // A statement may put Amount before Description. Only an explicitly mapped
+  // description label can qualify in that position; arbitrary helper text cannot.
+  const labelCell = summaryLabel.test(normalizeHeaderLabel(first.value))
+    ? first
+    : cells.find(
+        (cell) =>
+          cell.column === mapping.description &&
+          headerMatches(
+            /^(description|details|narration|particulars|memo|remarks|البيان|الوصف|التفاصيل|الشرح|ملاحظات)$/i,
+            headers[cell.column] ?? '',
+          ) &&
+          summaryLabel.test(normalizeHeaderLabel(cell.value)),
+      );
+  if (!labelCell) return;
   // Date-like punctuation is also accepted by simpleValue below. Check mapped
   // identities first, so changing column order cannot erase a dated transaction.
   // Nonempty malformed dates are retained for normal parsing for the same reason.
   if (
-    (date && date !== first.value) ||
-    references.some((value) => value !== first.value)
+    (date && date !== labelCell.value) ||
+    references.some((value) => value !== labelCell.value)
   )
     return;
   const simpleValue = (value: string) =>
     /^[A-Z]{3}$/.test(value) || /^[()\s+−\-0-9٠-٩۰-۹.,٬٫]+$/.test(value);
   if (
-    summaryLabel.test(first.value) &&
-    cells.slice(1).every((x) => x.value === first.value || simpleValue(x.value))
+    cells.every(
+      (cell) => cell.value === labelCell.value || simpleValue(cell.value),
+    )
   )
-    return first.value;
+    if (labelCell === first) return labelCell.value;
+    else {
+      // The new column-order path must not turn malformed amounts into excluded
+      // rows. Check untouched numeric tokens; never normalize their characters.
+      try {
+        for (const cell of cells) {
+          if (cell === labelCell || /^[A-Z]{3}$/.test(cell.value)) continue;
+          parseMoney(cell.value, mapping.numberFormat, 3);
+        }
+        return labelCell.value;
+      } catch {
+        return;
+      }
+    }
 }
 export function nonFinancialFooter(row: string[]): boolean {
   const nonempty = [...new Set(row.map((v) => v.trim()).filter(Boolean))];
@@ -656,6 +697,20 @@ export function normalizeSource(
   const get = (row: string[], col: number) =>
     col < 0 ? '' : (row[col] ?? '').trim();
   const headerRow = sheet.rows[mapping.header];
+  const amountBasisColumns = headerRow.flatMap((value, index) =>
+    headerMatches(
+      /^(?:amount basis|value basis|أساس المبلغ|اساس المبلغ)$/i,
+      value,
+    )
+      ? [index]
+      : [],
+  );
+  if (amountBasisColumns.length > 1)
+    result.errors.push({
+      row: 0,
+      message:
+        'أكثر من عمود يحدد أساس المبلغ. يلزم توضيح معنى المبالغ قبل المقارنة.',
+    });
   const repeatedHeader = (row: string[]) =>
     row.length === headerRow.length &&
     headerRow.some((value) => value.trim()) &&
@@ -850,6 +905,42 @@ export function normalizeSource(
         throw new Error(
           'عملة المصدر المعلنة لا تطابق العملة المؤكدة. لم تُحوّل مبالغ المصدر إلى عملة أخرى.',
         );
+      if (amountBasisColumns.length === 1) {
+        const column = amountBasisColumns[0];
+        const cellKey = `${rn}:${column + 1}`;
+        const headerKey = `${mapping.header + 1}:${column + 1}`;
+        if (
+          [cellKey, headerKey].some(
+            (key) =>
+              sheet.cellIssues?.[key]?.length ||
+              sheet.referenceIssues?.[key]?.length,
+          )
+        )
+          throw new Error('تعذر التحقق من أساس مبلغ الصف من المصدر');
+        const value = get(row, column);
+        const basis = /^(?:original|أصل المستند|اصل المستند)$/i.test(value)
+          ? 'Original Amount'
+          : /^(?:remaining|متبقي)$/i.test(value)
+            ? 'Remaining Amount'
+            : value;
+        const knownBasis =
+          /^(?:movement(?: amount)?|transaction(?: amount)?|original(?: document| invoice)? amount|invoice amount|document amount|gross amount|outstanding(?: amount| balance)?|remaining(?: amount| balance)?|balance due|open amount|unpaid(?: amount)?|مبلغ الحركة|أصل مبلغ المستند|اصل مبلغ المستند|مبلغ الفاتورة|أصل الفاتورة|اصل الفاتورة|المتبقي|المبلغ المتبقي|الرصيد المتبقي|المبلغ غير المسدد)$/i.test(
+            basis,
+          );
+        const movementInOpenItems =
+          mapping.reportType === 'open-items' &&
+          /^(?:movement(?: amount)?|transaction(?: amount)?|مبلغ الحركة)$/i.test(
+            basis,
+          );
+        if (
+          !knownBasis ||
+          movementInOpenItems ||
+          incompatibleAmountMeaning(basis, mapping.reportType)
+        )
+          throw new Error(
+            `أساس مبلغ الصف لا يوافق نوع التقرير أو لم يُفهم: ${value || 'فارغ'}`,
+          );
+      }
       const original =
         mapping.mode === 'signed'
           ? get(row, mapping.amount)
@@ -1117,6 +1208,10 @@ export function compare(
     )
       throw new Error(
         'تعذر اعتماد المطابقة اليدوية. يجب أن تتساوى المبالغ، وأن تكون الحركات غير مستخدمة، مع كتابة سبب القرار.',
+      );
+    if (identityConflicts(s, l).length)
+      throw new Error(
+        'تعارض صريح في أدلة المستند يمنع اعتماد هذا الربط يدويًا. صحح المصدر أو تفسيره وأعد القراءة قبل اتخاذ القرار.',
       );
     matches.push({
       ...d,

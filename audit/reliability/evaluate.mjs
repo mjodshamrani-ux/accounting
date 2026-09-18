@@ -4,6 +4,8 @@ import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { verifyWorkbook } from './verify-workbook.mjs';
+import { currencyDecimals, interventionLevel } from './input-evidence.mjs';
+export const EVALUATOR_VERSION = 'tarasuf-evaluator-2.1.0';
 
 export async function loadEngine(root) {
   const load = (name) =>
@@ -20,7 +22,25 @@ export async function loadEngine(root) {
       'scope-inference',
     ].map(load),
   );
-  return { ...io, ...core, ...selection, ...formats, ...types, ...scope };
+  let readiness = {};
+  const readinessUrl = pathToFileURL(
+    resolve(root, 'lib/reconciliation/input-readiness.ts'),
+  ).href;
+  try {
+    readiness = await import(readinessUrl);
+  } catch (error) {
+    if (error.code !== 'ERR_MODULE_NOT_FOUND' || error.url !== readinessUrl)
+      throw error;
+  }
+  return {
+    ...io,
+    ...core,
+    ...selection,
+    ...formats,
+    ...types,
+    ...scope,
+    ...readiness,
+  };
 }
 const groupKey = (a, b) => JSON.stringify([[...a].sort(), [...b].sort()]);
 const sum = (values) => Number(values.reduce((a, b) => a + BigInt(b), 0n));
@@ -32,14 +52,27 @@ export async function evaluateCase(
   spec,
   rendered,
   engine,
-  { exports = true } = {},
+  { exports = true, externalInputs = {} } = {},
 ) {
   const start = performance.now();
+  /** @type {Record<string,any>} */
   const record = {
     id: spec.id,
+    evaluatorVersion: EVALUATOR_VERSION,
+    interventionActions: [],
+    unresolvedInputs: [],
+    inputTrace: [],
+    resultProduced: false,
+    completeSourceRead: false,
+    completedComparison: false,
+    sourceReadErrors: 0,
+    unprovenFormatDefaults: [],
+    formatAssessments: [],
+    groupAssessments: spec.oracle.groupAssessments ?? [],
     category: spec.category,
     split: spec.split,
     scenario: spec.scenario,
+    novelty: spec.novelty ?? 'known-regression',
     fingerprint: spec.economicFingerprint,
     families: spec.sources.map((s) => s.layout.family),
     formats: rendered.files.map((f) => f.format),
@@ -49,15 +82,18 @@ export async function evaluateCase(
     permittedMatches: spec.oracle.permittedAutoMatches.length,
     expectedMatches: spec.oracle.invalid
       ? 0
-      : spec.oracle.permittedAutoMatches.filter(
-          (g) => g.aKeys.length === 1 && g.bKeys.length === 1,
-        ).length,
+      : spec.oracle.permittedAutoMatches.filter((g) => g.required !== false)
+          .length,
     correctMatches: 0,
     correctRequiredMatches: 0,
     permittedGroups: spec.oracle.permittedAutoMatches.filter(
       (g) => g.aKeys.length + g.bKeys.length > 2,
     ).length,
     acceptedGroups: 0,
+    requiredGroups: spec.oracle.permittedAutoMatches.filter(
+      (g) => g.required !== false && g.aKeys.length + g.bKeys.length > 2,
+    ).length,
+    acceptedRequiredGroups: 0,
     falseMatches: 0,
     falseMatchValueMinor: '0',
     expectedRows: spec.oracle.rows.length,
@@ -96,22 +132,62 @@ export async function evaluateCase(
     )
       fail('UNCONTROLLED_FAILURE', compactError(e));
   };
-  const m = spec.sources[0].metadata;
-  // These settings represent an accountant confirming facts printed in both sources.
-  // They are NOT reported as automatic inference; hidden economic IDs never enter engine calls.
-  const scope = {
-    supplier: m.supplier,
-    entity: m.entity,
-    account: m.account,
-    currency: m.currency,
-    decimals: m.decimals,
-    cutoff: m.cutoff,
-    dateWindow: m.dateWindow,
-    confirmed: true,
-    coverageConfirmed: true,
+  const action = (field, value, level, origin, ui, evidence) => {
+    record.interventionActions.push({
+      field,
+      value,
+      level,
+      origin,
+      ui,
+      evidence,
+    });
+    record.inputTrace.push({ field, value, origin, ui, evidence });
   };
-  record.confirmations.push(
-    'scope and sign explicitly confirmed from printed source',
+  const visible = rendered.files.map(
+    (file) => file.confirmationEvidence ?? { facts: {}, proof: {} },
+  );
+  const first = visible[0].facts;
+  const scope = {
+    supplier: first.supplier ?? '',
+    entity: first.entity ?? '',
+    account: first.account ?? '',
+    currency: first.currency ?? '',
+    decimals: currencyDecimals(first.currency) ?? 2,
+    cutoff: first.cutoff ?? '',
+    dateWindow: 2,
+    confirmed: true,
+    coverageConfirmed: visible.every((v) => v.facts.periodDeclared === true),
+  };
+  // The two-day window is the product's general default (app/page.tsx), not case data.
+  action(
+    'dateWindow',
+    2,
+    'automatic',
+    'product-default',
+    'فرق الأيام المسموح للمطابقة',
+  );
+  action(
+    'decimals',
+    scope.decimals,
+    'automatic',
+    'currency-minor-unit-table',
+    'المنازل العشرية للعملة',
+    visible[0].proof.currency,
+  );
+  action(
+    'confirmed',
+    true,
+    'automatic',
+    'ordinary-reconcile-action',
+    'تأكيد نطاق المقارنة',
+  );
+  action(
+    'coverageConfirmed',
+    scope.coverageConfirmed,
+    'limited-confirmation',
+    'review-of-printed-period',
+    'تأكيد تغطية التقريرين للفترة',
+    visible.map((v) => v.proof.periodDeclared).filter(Boolean),
   );
   let result;
   const files = [],
@@ -151,7 +227,7 @@ export async function evaluateCase(
       if (!selected || !required) {
         record.mappingAutomatic = false;
         record.warnings.push(`${source.side}: manual mapping required`);
-        if (!source.invalid) {
+        {
           // Simulate the documented manual column-selection path, using visible writer bindings.
           mapping = {
             ...engine.defaultMapping(),
@@ -167,6 +243,17 @@ export async function evaluateCase(
             mode: output.bindings.mode,
           };
           record.confirmations.push(`${source.side}: manual columns`);
+          action(
+            `${source.side}.mapping`,
+            {
+              ...output.bindings,
+              header: output.headerRow,
+              sheet: output.sheetIndex ?? 0,
+            },
+            'manual-correction',
+            'visible-column-positions',
+            'تعيين الأعمدة من معاينة الملف',
+          );
         }
       }
       const formats = engine.suggestFormats(file, mapping, scope.decimals);
@@ -176,46 +263,178 @@ export async function evaluateCase(
             'AMBIGUITY_NOT_RECOGNIZED',
             'A source with two valid monetary interpretations was treated as proven',
           );
-        record.stopped = true;
-        record.confirmations.push(
-          `${source.side}: unresolved monetary ambiguity, no default supplied`,
-        );
-        record.warnings.push(formats.numberFormat.reason);
-        break;
       }
       mapping = { ...mapping, ...formats.patch };
-      if (formats.numberFormat.status !== 'proven') {
-        mapping.numberFormat = source.metadata.numberFormat;
-        record.confirmations.push(
-          `${source.side}: number format ${formats.numberFormat.status}`,
-        );
+      for (const field of ['numberFormat', 'dateFormat']) {
+        const assessment = formats[field];
+        record.formatAssessments.push({
+          source: source.side,
+          field,
+          ...assessment,
+        });
+        if (assessment.status === 'proven')
+          action(
+            `${source.side}.${field}`,
+            mapping[field],
+            'automatic',
+            'engine-format-proof',
+            'صيغة القيم',
+            assessment,
+          );
+        else if (assessment.status === 'ambiguous') {
+          const supplied = externalInputs[`${source.side}.${field}`];
+          if (
+            supplied &&
+            assessment.candidates.includes(supplied.value) &&
+            supplied.source
+          ) {
+            mapping[field] = supplied.value;
+            action(
+              `${source.side}.${field}`,
+              supplied.value,
+              'human-external',
+              'explicit-external-input',
+              'اختيار الصيغة بناء على معلومة خارج الملف',
+              supplied,
+            );
+          } else {
+            record.stopped = true;
+            record.unresolvedInputs.push({
+              field: `${source.side}.${field}`,
+              reason: assessment.reason,
+              candidates: assessment.candidates,
+            });
+            record.confirmations.push(
+              `${source.side}: ${field} needs outside-document information; no oracle default supplied`,
+            );
+          }
+        } else {
+          // Exercise the real engine's default on malformed/unavailable input
+          // for safety diagnostics; never report this as a proven convention.
+          const entry = {
+            field: `${source.side}.${field}`,
+            value: mapping[field],
+            status: assessment.status,
+            reason: assessment.reason,
+          };
+          record.unprovenFormatDefaults.push(entry);
+          action(
+            entry.field,
+            entry.value,
+            'automatic',
+            'unproven-engine-default',
+            'صيغة افتراضية غير مثبتة في مسار تشخيص الأخطاء',
+            assessment,
+          );
+        }
       }
-      if (formats.dateFormat.status !== 'proven') {
-        mapping.dateFormat = source.metadata.dateFormat;
-        record.confirmations.push(
-          `${source.side}: date format ${formats.dateFormat.status}`,
+      if (record.unresolvedInputs.length) break;
+      const printedReport = visible[i].facts.reportType;
+      if (printedReport === 'open-items') mapping.reportType = 'open-items';
+      action(
+        `${source.side}.reportType`,
+        mapping.reportType,
+        'limited-confirmation',
+        'visible-report-title',
+        'نوع التقرير',
+        visible[i].proof.reportType,
+      );
+      if (visible[i].facts.multiplier !== undefined) {
+        mapping.multiplier = visible[i].facts.multiplier;
+        action(
+          `${source.side}.multiplier`,
+          mapping.multiplier,
+          'limited-confirmation',
+          'visible-sign-convention',
+          'اتجاه المبالغ',
+          visible[i].proof.multiplier,
         );
-      }
-      // Explicit report classification is visible in the source title. Aging has no supported choice.
-      if (source.metadata.reportType === 'open-items') {
-        mapping.reportType = 'open-items';
-        record.confirmations.push(`${source.side}: open-items report`);
       }
       if (file.pdf) {
         mapping.pdfReviewed = true;
         record.confirmations.push(`${source.side}: PDF visual review required`);
+        action(
+          `${source.side}.pdfReviewed`,
+          true,
+          'limited-confirmation',
+          'simulated-visual-review',
+          'مراجعة صفحات PDF مع الأصل',
+        );
       }
       mappings.push(mapping);
-      try {
-        sources.push(engine.normalizeSource(file, mapping, scope, source.side));
-      } catch (e) {
-        checkControlled(e);
-        record.stopped = true;
-        record.warnings.push(`normalize ${source.side}: ${compactError(e)}`);
-        if (!spec.oracle.invalid && !spec.oracle.requiresScopeStop)
-          fail('NORMALIZE_VALID_SOURCE', compactError(e), false);
-        break;
+    }
+    if (files.length === 2 && mappings.length === 2 && !record.stopped) {
+      const suggestions = engine.inferScopeSuggestions(files, mappings);
+      for (const field of [
+        'supplier',
+        'entity',
+        'account',
+        'currency',
+        'cutoff',
+      ]) {
+        const value = scope[field],
+          suggestion = suggestions.fields[field];
+        if (!value) {
+          record.stopped = true;
+          record.unresolvedInputs.push({
+            field,
+            reason:
+              'No value printed in source; explicit external input required',
+          });
+          continue;
+        }
+        action(
+          field,
+          value,
+          suggestion.status === 'suggested' && suggestion.value === value
+            ? 'limited-confirmation'
+            : 'manual-correction',
+          suggestion.status === 'suggested' && suggestion.value === value
+            ? 'engine-visible-scope-proposal'
+            : 'manual-reading-of-visible-text',
+          'تأكيد أو إدخال النطاق من المستند',
+          visible[0].proof[field],
+        );
       }
+      record.inputFormatGate =
+        typeof engine.assertInputFormats === 'function'
+          ? 'available'
+          : 'legacy-absent';
+      if (!record.stopped && typeof engine.assertInputFormats === 'function') {
+        try {
+          engine.assertInputFormats(files, mappings, scope);
+          record.inputFormatGate = 'passed';
+        } catch (e) {
+          checkControlled(e);
+          record.stopped = true;
+          record.inputFormatGate = 'blocked';
+          record.warnings.push(`input formats: ${compactError(e)}`);
+          if (!spec.oracle.invalid && !spec.oracle.requiresScopeStop)
+            fail('INPUT_FORMAT_CAPACITY_GAP', compactError(e), false);
+        }
+      }
+      if (!record.stopped)
+        for (let i = 0; i < 2; i++) {
+          try {
+            sources.push(
+              engine.normalizeSource(
+                files[i],
+                mappings[i],
+                scope,
+                rendered.files[i].side,
+              ),
+            );
+          } catch (e) {
+            checkControlled(e);
+            record.stopped = true;
+            record.warnings.push(
+              `normalize ${rendered.files[i].side}: ${compactError(e)}`,
+            );
+            if (!spec.oracle.invalid && !spec.oracle.requiresScopeStop)
+              fail('NORMALIZE_VALID_SOURCE', compactError(e), false);
+            break;
+          }
+        }
     }
     if (sources.length === 2) {
       try {
@@ -242,10 +461,14 @@ export async function evaluateCase(
       const used = new Set();
       for (const tx of actual.transactions) {
         // Match canonical source tuples as a multiset; duplicate references are not row identifiers.
+        const primaryReference = (r) =>
+          r.kind === 'Payment' && source.layout.fields
+            ? r.bankReference || r.receiptReference || r.reference
+            : r.reference;
         const candidates = source.rows.filter(
           (r) =>
             !used.has(r.key) &&
-            r.reference === tx.reference &&
+            primaryReference(r) === tx.reference &&
             r.date === tx.date &&
             r.minor === tx.amount,
         );
@@ -263,6 +486,21 @@ export async function evaluateCase(
           );
           continue;
         }
+        if (
+          source.layout.fields &&
+          tx.primaryReference !== primaryReference(row)
+        )
+          fail('PRIMARY_REFERENCE_CHANGED', tx.id);
+        for (const field of [
+          'bankReference',
+          'receiptReference',
+          'poReference',
+        ])
+          if (
+            source.layout.fields?.includes(field) &&
+            (tx[field] ?? '') !== (row[field] ?? '')
+          )
+            fail('TYPED_REFERENCE_CHANGED', `${tx.id}:${field}`);
         used.add(row.key);
         byId.set(tx.id, row);
         byKey.set(row.key, tx);
@@ -299,8 +537,8 @@ export async function evaluateCase(
         if (tx.originalAmount !== rawAmount)
           fail('ORIGINAL_AMOUNT_CHANGED', tx.id);
         if (
-          actual.mapping.reference >= 0 &&
-          tx.reference !== rawRow?.[actual.mapping.reference]?.trim()
+          output.bindings.reference >= 0 &&
+          row.reference !== rawRow?.[output.bindings.reference]?.trim()
         )
           fail('SOURCE_REFERENCE_PROVENANCE', tx.id);
         expectedExport.push({
@@ -315,11 +553,16 @@ export async function evaluateCase(
             output.format === 'pdf'
               ? output.expectedRows.find((e) => e.key === row.key)?.page
               : undefined,
-          reference: row.reference,
+          reference: primaryReference(row),
+          primaryReference: primaryReference(row),
           description,
           date: row.date,
           minor: row.minor,
           originalAmount: rawAmount,
+          sourceReference: {
+            column: output.bindings.reference,
+            value: row.reference,
+          },
         });
       }
       for (const row of source.rows) {
@@ -382,6 +625,27 @@ export async function evaluateCase(
         );
     }
     if (result) {
+      record.resultProduced = true;
+      record.sourceReadErrors = sources.reduce(
+        (n, s) => n + s.errors.length,
+        0,
+      );
+      record.completeSourceRead =
+        sources.length === 2 &&
+        record.sourceReadErrors === 0 &&
+        !record.failures.some((f) =>
+          [
+            'EXTRACTED_ROW_MISMATCH',
+            'LOST_SOURCE_ROW',
+            'UNACCOUNTED_PARSED_ROW',
+            'EXTRACTION_INCOMPLETE',
+            'DESCRIPTION_CHANGED',
+            'CURRENCY_CHANGED',
+            'SOURCE_TOTAL_CHANGED',
+          ].includes(f.code),
+        );
+      record.completedComparison =
+        record.completeSourceRead && record.unprovenFormatDefaults.length === 0;
       const permitted = new Set(
           spec.oracle.permittedAutoMatches.map((g) =>
             groupKey(g.aKeys, g.bKeys),
@@ -419,9 +683,16 @@ export async function evaluateCase(
           for (const key of [...a, ...b]) matchedKeys.add(key);
           if (permitted.has(groupKey(a, b))) {
             record.correctMatches++;
-            if (a.length === 1 && b.length === 1 && !spec.oracle.invalid)
+            const oracleMatch = spec.oracle.permittedAutoMatches.find(
+              (g) => groupKey(g.aKeys, g.bKeys) === groupKey(a, b),
+            );
+            if (oracleMatch?.required !== false && !spec.oracle.invalid)
               record.correctRequiredMatches++;
-            else if (a.length + b.length > 2) record.acceptedGroups++;
+            if (a.length + b.length > 2) {
+              record.acceptedGroups++;
+              if (oracleMatch?.required !== false)
+                record.acceptedRequiredGroups++;
+            }
           } else {
             record.falseMatches++;
             record.falseMatchValueMinor = String(
@@ -554,7 +825,33 @@ export async function evaluateCase(
           await verifyWorkbook(bytes, {
             decimals: scope.decimals,
             currency: scope.currency,
+            pdfTextTransforms: files.flatMap((f, i) =>
+              Object.entries(f.sheets[0]?.pdfTextTransforms ?? {}).flatMap(
+                ([row, entries]) =>
+                  entries.map((entry) => ({
+                    side: i === 0 ? 'المورد' : 'الدفتر',
+                    row: Number(row),
+                    ...entry,
+                  })),
+              ),
+            ),
             rows: expectedExport,
+            permittedAcceptedGroups: spec.oracle.permittedAutoMatches.map(
+              (g) => ({
+                supplierIds: g.aKeys
+                  .map((k) => byKey.get(k)?.id)
+                  .filter(Boolean),
+                ledgerIds: g.bKeys.map((k) => byKey.get(k)?.id).filter(Boolean),
+              }),
+            ),
+            requiredAcceptedGroups: spec.oracle.permittedAutoMatches
+              .filter((g) => g.required !== false && !spec.oracle.invalid)
+              .map((g) => ({
+                supplierIds: g.aKeys
+                  .map((k) => byKey.get(k)?.id)
+                  .filter(Boolean),
+                ledgerIds: g.bKeys.map((k) => byKey.get(k)?.id).filter(Boolean),
+              })),
             cases: result.cases.map((c) => ({
               id: c.caseId,
               status: c.status,
@@ -583,7 +880,11 @@ export async function evaluateCase(
           fail('EXPORT_VALIDATION', compactError(e));
         }
       }
-    } else if (!spec.oracle.invalid && !spec.oracle.requiresScopeStop)
+    } else if (
+      !spec.oracle.invalid &&
+      !spec.oracle.requiresScopeStop &&
+      !record.unresolvedInputs.length
+    )
       fail('NO_COMPARISON', 'No result for valid supported source', false);
     if (
       spec.oracle.invalid &&
@@ -598,6 +899,56 @@ export async function evaluateCase(
   }
   if (record.stopped && record.falseMatches === 0)
     record.handledExceptionRows = record.exceptionRows;
+  record.automaticInputDerivation =
+    record.unprovenFormatDefaults.length === 0 &&
+    !record.interventionActions.some((a) =>
+      ['manual-correction', 'human-external'].includes(a.level),
+    );
+  record.explicitAttestations = record.interventionActions.filter(
+    (a) => a.level === 'limited-confirmation',
+  );
+  record.needsChosenInterpretation =
+    record.unprovenFormatDefaults.length > 0 ||
+    record.unresolvedInputs.some((a) => /Format$/.test(a.field)) ||
+    record.interventionActions.some(
+      (a) => a.origin === 'explicit-external-input' && /Format$/.test(a.field),
+    );
+  record.externalFacts = record.interventionActions.filter(
+    (a) => a.level === 'human-external',
+  );
+  record.interventionLevel = interventionLevel(record.interventionActions);
+  record.outcome = record.failures.some(
+    (f) => f.code === 'UNCONTROLLED_FAILURE',
+  )
+    ? 'uncontrolled-failure'
+    : record.unresolvedInputs.length
+      ? 'external-information-required'
+      : record.completedComparison
+        ? 'completed-comparison'
+        : record.resultProduced
+          ? 'partial-or-unverified-result'
+          : record.stopped
+            ? 'controlled-stop'
+            : 'not-completed';
+  record.requiredInterventionLevel = record.unresolvedInputs.length
+    ? 'human-external'
+    : record.unprovenFormatDefaults.length
+      ? 'manual-correction'
+      : record.interventionLevel;
+  record.conditionalRequiredMatches = record.unresolvedInputs.length
+    ? record.expectedMatches
+    : 0;
+  record.resolvedInputRequiredMatches = record.unresolvedInputs.length
+    ? 0
+    : record.expectedMatches;
+  record.missedRequiredGroups = Math.max(
+    0,
+    record.requiredGroups - record.acceptedRequiredGroups,
+  );
+  record.missedRequiredMatches = Math.max(
+    0,
+    record.expectedMatches - record.correctRequiredMatches,
+  );
   record.ms = Number((performance.now() - start).toFixed(2));
   record.safetyPass = !record.failures.some((f) => f.safety);
   record.pass = record.failures.length === 0;

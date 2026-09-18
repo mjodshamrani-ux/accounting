@@ -1,3 +1,4 @@
+import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
 import { readFile, exportWorkbook } from './io.ts';
 import { normalizeSource, compare } from './core.ts';
@@ -9,6 +10,14 @@ self.onmessage = async (event: MessageEvent) => {
   if (!isRequest(input)) return;
   const { id, action, payload } = event.data;
   const reply = { channel: WORKER_CHANNEL, id, action };
+  // Durations only: no source content, persistence, or network telemetry.
+  const timings: Record<string, number> = {};
+  let started = performance.now();
+  const measured = (stage: string) => {
+    const now = performance.now();
+    timings[stage] = now - started;
+    started = now;
+  };
   try {
     let value: unknown;
     if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
@@ -23,6 +32,7 @@ self.onmessage = async (event: MessageEvent) => {
         payload.autoPdfColumns === true,
       );
     else if (action === 'reconcile') {
+      assertInputFormats(payload.files, payload.mappings, payload.scope);
       const a = normalizeSource(
         payload.files[0],
         payload.mappings[0],
@@ -35,18 +45,22 @@ self.onmessage = async (event: MessageEvent) => {
         payload.scope,
         'ledger',
       );
+      measured('normalizePairMs');
+      const result = compare(
+        a,
+        b,
+        payload.scope,
+        payload.decisions,
+        payload.rejected,
+      );
+      measured('matchingMs');
       value = {
         a,
         b,
-        result: compare(
-          a,
-          b,
-          payload.scope,
-          payload.decisions,
-          payload.rejected,
-        ),
+        result,
       };
     } else if (action === 'compare') {
+      assertInputFormats(payload.files, payload.mappings, payload.scope);
       const [a, b] = payload.files;
       const [am, bm] = payload.mappings;
       value = compare(
@@ -63,16 +77,27 @@ self.onmessage = async (event: MessageEvent) => {
         payload.scope,
         payload.side,
       );
-    else if (action === 'export')
+    else if (action === 'export') {
+      assertInputFormats(
+        payload.files,
+        [payload.result.supplier.mapping, payload.result.ledger.mapping],
+        payload.result.scope,
+      );
       value = await exportWorkbook(
         payload.result,
         payload.files,
         payload.review,
+        (stage, milliseconds) => {
+          timings[stage] = milliseconds;
+        },
       );
-    else throw new Error('عملية غير معروفة');
+    } else throw new Error('عملية غير معروفة');
     if (value instanceof ArrayBuffer)
-      self.postMessage({ ...reply, ok: true, value }, { transfer: [value] });
-    else self.postMessage({ ...reply, ok: true, value });
+      self.postMessage(
+        { ...reply, ok: true, value, timings },
+        { transfer: [value] },
+      );
+    else self.postMessage({ ...reply, ok: true, value, timings });
   } catch (error) {
     self.postMessage({
       ...reply,

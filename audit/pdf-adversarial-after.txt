@@ -1,0 +1,35 @@
+✔ PDF cannot read covered amount text through an opaque vector rectangle (36.164792ms)
+✔ PDF black background cannot silently conceal black transaction text (1.532375ms)
+✔ ordinary white backgrounds and disjoint table lines preserve actual text (2.890292ms)
+✔ native visible PDF transaction text retains signs and exact cells (35.250041ms)
+✔ actual PDF rejects transparent and partially transparent fill/stroke text (11.459875ms)
+✔ actual PDF rejects white text in RGB, gray and CMYK color spaces (4.100042ms)
+✔ restoring or explicitly resetting color and alpha permits subsequent visible text (3.855792ms)
+✔ actual PDF rejects clipped transaction text and text clipping modes (4.764875ms)
+✔ clipping restored before transaction text does not reject visible data (1.350208ms)
+✔ actual PDF soft masks reject text rather than trusting an invisible text layer (1.329833ms)
+✔ a disabled soft mask no longer marks later plain text as masked (0.831083ms)
+✔ unsupported blending rejects active text but a restored blend does not leak (2.439375ms)
+✔ actual inline raster images reject regardless of area or neighboring native text (4.296333ms)
+✔ actual image XObjects and solid image masks cannot bypass the raster guard (1.863ms)
+✔ unsupported Form XObject clipping rejects extracted text with an explicit error (0.814375ms)
+Warning: Indexing all PDF objects
+✔ oversized PDF cells reject before reaching Excel and malformed PDFs do not poison later reads (40.123833ms)
+✔ OCR invisible text and large raster backgrounds cannot pass as native PDF text (0.172875ms)
+✔ PDF actual bytes preserve columns, signs, row provenance and original bytes (2.767417ms)
+✔ PDF cannot reconcile without explicit extraction review or configured columns (2.084625ms)
+✔ multi-page PDF keeps repeated headers and page lineage instead of silently deleting rows (2.826041ms)
+✔ blank/scanned page rejects the entire PDF including text/image mixed documents (1.714792ms)
+✔ fake PDF and more than 20 pages fail closed (0.750334ms)
+✔ column boundary crossings and duplicate overlay glyphs produce blocking row issues (0.067209ms)
+✔ invalid column cuts, coordinates and replacement characters fail closed (0.100625ms)
+✔ Arabic glyph text is preserved without reversing references or guessing numbers (0.071042ms)
+✔ PDF export re-extracts original bytes and session restoration keeps the same result (44.086291ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 230.241708

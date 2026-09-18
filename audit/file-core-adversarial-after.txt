@@ -1,0 +1,12 @@
+✔ truthy non-boolean confirmations cannot create verified balance evidence (1.176792ms)
+✔ unknown and out-of-range exclusions cannot silently masquerade as reviewed rows (0.184ms)
+✔ Excel formats that conceal or alter displayed values block the row (63.281709ms)
+✔ ordinary numeric, negative and accounting formats retain native exact amounts (53.619875ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 307.975625

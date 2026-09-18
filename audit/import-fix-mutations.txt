@@ -1,0 +1,57 @@
+Detected deliberate fault: reject-supported-multisheet-workpapers
+Detected deliberate fault: reject-unused-helper-formulas
+Detected deliberate fault: treat-pdf-table-edges-as-filled-area
+Detected deliberate fault: reverse-source-sign
+Detected deliberate fault: fuzzy-reference-auto-match
+Detected deliberate fault: ignore-date-window
+Detected deliberate fault: ignore-reference-duplicates
+Detected deliberate fault: allow-unconfirmed-coverage
+Detected deliberate fault: promote-ai-hypothesis
+Detected deliberate fault: corrupt-exported-amount
+{
+  "baselinePassed": true,
+  "detected": 10,
+  "total": 10,
+  "mutations": [
+    {
+      "mutation": "reject-supported-multisheet-workpapers",
+      "detected": true
+    },
+    {
+      "mutation": "reject-unused-helper-formulas",
+      "detected": true
+    },
+    {
+      "mutation": "treat-pdf-table-edges-as-filled-area",
+      "detected": true
+    },
+    {
+      "mutation": "reverse-source-sign",
+      "detected": true
+    },
+    {
+      "mutation": "fuzzy-reference-auto-match",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-window",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-reference-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "allow-unconfirmed-coverage",
+      "detected": true
+    },
+    {
+      "mutation": "promote-ai-hypothesis",
+      "detected": true
+    },
+    {
+      "mutation": "corrupt-exported-amount",
+      "detected": true
+    }
+  ]
+}

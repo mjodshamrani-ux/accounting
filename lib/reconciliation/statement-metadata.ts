@@ -44,6 +44,7 @@ const balanceHeader =
   /^(?:running(?: ap)? balance|الرصيد الجاري|الرصيد المتحرك|الرصيد التراكمي)(?:\s*\([a-z]{3}\))?$/i;
 const normalizeLabel = (text: string) =>
   text
+    .normalize('NFKC')
     .trim()
     .replace(/\s+/g, ' ')
     .replace(/[:：]$/, '')
@@ -475,9 +476,9 @@ export function extractStatementMetadata(
     if (readInlineBalance(row)) continue;
     const identity = structuralSummaryLabel(cells, mapping, headers, leading);
     const kind =
-      identity && openingLabel.test(identity)
+      identity && openingLabel.test(normalizeLabel(identity))
         ? 'opening'
-        : identity && closingLabel.test(identity)
+        : identity && closingLabel.test(normalizeLabel(identity))
           ? 'closing'
           : undefined;
     if (!kind) {
@@ -500,7 +501,7 @@ export function extractStatementMetadata(
     try {
       if (kind === 'opening') {
         const balanceColumns = headers.flatMap((header, col) =>
-          balanceHeader.test(header.trim()) ? [col] : [],
+          balanceHeader.test(normalizeLabel(header)) ? [col] : [],
         );
         if (balanceColumns.length === 1 && cells[balanceColumns[0]]?.trim()) {
           balances.opening.push(amount(row, balanceColumns[0]));
@@ -522,7 +523,7 @@ export function extractStatementMetadata(
       } else {
         const candidates = cells.flatMap((value, col) =>
           value.trim() &&
-          !closingLabel.test(value.trim()) &&
+          !closingLabel.test(normalizeLabel(value)) &&
           !/^[A-Z]{3}$/.test(value.trim())
             ? [col]
             : [],
