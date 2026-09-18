@@ -83,6 +83,11 @@ export function aggregate(records) {
     ambiguityGate: distribution(
       records.flatMap((r) => (r.ambiguityGate ?? []).map((v) => v.engine)),
     ),
+    // The opposite direction: with the answer recorded, the same guard must let
+    // the field through. A guard that refuses either way is a blanket block.
+    ambiguityGateAnswered: distribution(
+      records.flatMap((r) => (r.ambiguityGate ?? []).map((v) => v.answered)),
+    ),
     unresolvedInputs: distribution(
       records.flatMap((r) => (r.unresolvedInputs ?? []).map((v) => v.field)),
     ),

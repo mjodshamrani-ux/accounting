@@ -42,6 +42,79 @@ export async function loadEngine(root) {
     ...readiness,
   };
 }
+/** Does the engine's own guard refuse this mapping while the ambiguity is
+ * unanswered? Only the guard's declared refusal counts. A TypeError, a plain
+ * Error or a missing guard is never protection, and each is reported as its own
+ * outcome so an acceptance gate can reject it instead of reading it as a stop.
+ */
+function probeAmbiguityGate(engine, file, mapping, scope) {
+  if (typeof engine.assertInputFormats !== 'function') return 'absent';
+  try {
+    engine.assertInputFormats([file], [mapping], scope);
+    return 'accepted-without-choice';
+  } catch (error) {
+    if (typeof engine.isInputReadinessRejection !== 'function')
+      // An older engine cannot state a code. Its refusal is recorded as
+      // untyped rather than credited as a verified refusal.
+      return error instanceof Error ? 'refused-untyped' : 'crashed';
+    if (engine.isInputReadinessRejection(error, 'FORMAT_AMBIGUOUS_UNRESOLVED'))
+      return 'refused';
+    if (engine.isInputReadinessRejection(error)) return 'refused-wrong-code';
+    return 'crashed';
+  }
+}
+/** The other direction: once the accountant's answer is recorded for this exact
+ * source and reading, the guard must let the case through. A guard that refuses
+ * either way is not protection, it is a blanket block that costs real work.
+ * The value used is one the document itself allows; this tests the gate, not the
+ * accounting answer, so no oracle fact is consulted. */
+function probeAnsweredAmbiguity(
+  engine,
+  file,
+  mapping,
+  scope,
+  field,
+  candidates,
+) {
+  if (
+    typeof engine.assertInputFormats !== 'function' ||
+    typeof engine.formatChoice !== 'function' ||
+    !candidates.length
+  )
+    return 'not-applicable';
+  const value = candidates[0];
+  const answered = {
+    ...mapping,
+    [field]: value,
+    formatChoice: {
+      ...mapping.formatChoice,
+      [field]: engine.formatChoice(
+        file,
+        { ...mapping, [field]: value },
+        field,
+        value,
+        candidates,
+        scope.decimals,
+      ),
+    },
+  };
+  try {
+    engine.assertInputFormats([file], [answered], scope);
+    return 'accepted-with-choice';
+  } catch (error) {
+    if (
+      typeof engine.isInputReadinessRejection !== 'function' ||
+      !engine.isInputReadinessRejection(error)
+    )
+      return 'crashed';
+    // The same source can also carry an unreadable second field. Refusing for
+    // that reason is correct and is not this field's answer being ignored.
+    return error.readiness.field === field &&
+      error.readiness.code === 'FORMAT_AMBIGUOUS_UNRESOLVED'
+      ? 'refused-despite-choice'
+      : 'blocked-by-other-field';
+  }
+}
 const groupKey = (a, b) => JSON.stringify([[...a].sort(), [...b].sort()]);
 const sum = (values) => Number(values.reduce((a, b) => a + BigInt(b), 0n));
 const arrayBuffer = (b) =>
@@ -320,17 +393,15 @@ export async function evaluateCase(
             // evaluator routes the case either way, so counts cannot move.
             record.ambiguityGate.push({
               field: `${source.side}.${field}`,
-              engine:
-                typeof engine.assertInputFormats !== 'function'
-                  ? 'absent'
-                  : (() => {
-                      try {
-                        engine.assertInputFormats([file], [mapping], scope);
-                        return 'accepted-without-choice';
-                      } catch {
-                        return 'refused';
-                      }
-                    })(),
+              engine: probeAmbiguityGate(engine, file, mapping, scope),
+              answered: probeAnsweredAmbiguity(
+                engine,
+                file,
+                mapping,
+                scope,
+                field,
+                assessment.candidates,
+              ),
             });
             record.stopped = true;
             record.unresolvedInputs.push({

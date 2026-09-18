@@ -40,8 +40,45 @@ const tests = [
   'tests/reliability-scope-045.test.ts',
   'tests/reliability-groups-046.test.ts',
   'tests/template-session-046.test.ts',
+  'tests/input-readiness-046.test.ts',
+  'tests/format-choice-provenance-047.test.ts',
+  'tests/ambiguity-gate-acceptance-047.test.ts',
 ];
 const mutations = [
+  {
+    // Removing the guard must not look like a passing candidate.
+    name: '047-accept-unanswered-format-ambiguity',
+    file: 'lib/reconciliation/input-readiness.ts',
+    changes: [
+      [
+        "      if (\n        assessment.status === 'ambiguous' &&",
+        "      if (\n        false &&\n        assessment.status === 'ambiguous' &&",
+      ],
+    ],
+  },
+  {
+    // Nor must a guard that throws something other than its own refusal: an
+    // unrelated fault is a defect, and must never be credited as protection.
+    name: '047-ambiguity-guard-throws-unrelated-error',
+    file: 'lib/reconciliation/input-readiness.ts',
+    changes: [
+      [
+        '        throw new InputReadinessError(\n          `${file.name}: صيغة ${fieldLabel(field)} تحتمل',
+        '        throw new TypeError(\n          `${file.name}: صيغة ${fieldLabel(field)} تحتمل',
+      ],
+    ],
+  },
+  {
+    // A choice must stay bound to the reading it was given for.
+    name: '047-reuse-format-choice-across-context',
+    file: 'lib/reconciliation/input-readiness.ts',
+    changes: [
+      [
+        "  if (!choice || typeof choice !== 'object') return false;",
+        '  return true;',
+      ],
+    ],
+  },
   {
     name: '046-disable-all-supported-groups',
     file: 'lib/reconciliation/cases.ts',

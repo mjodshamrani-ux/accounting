@@ -52,6 +52,12 @@ export type FormatChoice = {
   columns: number[];
   decimals: number;
   candidates: string[];
+  // Settings that change which values reach the interpretation even though the
+  // file and its columns are unchanged: the PDF extraction boundaries, the rows
+  // excluded from reading, and any balance typed in beside the table.
+  cuts: number[];
+  excludedRows: number[];
+  balanceInputs: string[];
 };
 export type Mapping = {
   pdfReviewed?: boolean;

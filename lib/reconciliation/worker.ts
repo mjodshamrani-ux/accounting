@@ -5,6 +5,7 @@ import { normalizeSource, compare } from './core.ts';
 import { ENGINE_VERSION } from './types.ts';
 import { WORKER_CHANNEL, isRequest } from './protocol.ts';
 import { ImportDiagnosticError } from './import-diagnostics.ts';
+import { isInputReadinessRejection } from './input-readiness.ts';
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
@@ -108,6 +109,11 @@ self.onmessage = async (event: MessageEvent) => {
           : 'تعذر إكمال العملية محليًا',
       ...(error instanceof ImportDiagnosticError
         ? { diagnosis: error.diagnosis }
+        : {}),
+      // The refusal reason crosses the boundary, so a caller can tell a guarded
+      // stop from a crash without parsing a message.
+      ...(isInputReadinessRejection(error)
+        ? { readiness: error.readiness }
         : {}),
     });
   }

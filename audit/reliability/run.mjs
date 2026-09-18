@@ -224,6 +224,47 @@ for (const descriptor of manifest) {
       }),
     );
 }
+/** Binding release condition for the candidate engine, evaluated over what the
+ * engine itself did during the run. Two directions must both hold, or the
+ * candidate is not acceptable:
+ *   - an unanswered ambiguity is refused by the guard's own declared refusal,
+ *     not by an absent guard, a crash, or an error of another kind; and
+ *   - the same field, once answered for this exact source and reading, is let
+ *     through, so the guard is protection and not a blanket block.
+ * Anything other than those two outcomes is a violation, listed with the case
+ * ids needed to reproduce it.
+ */
+function acceptanceGate(records, enabled) {
+  const violations = {};
+  const examples = {};
+  const note = (kind, id, field) => {
+    violations[kind] = (violations[kind] ?? 0) + 1;
+    (examples[kind] ??= []).length < 10 &&
+      examples[kind].push(`${id}:${field}`);
+  };
+  let checkedFields = 0;
+  for (const record of records)
+    for (const entry of record.ambiguityGate ?? []) {
+      checkedFields++;
+      if (entry.engine !== 'refused')
+        note(`unanswered-${entry.engine}`, record.id, entry.field);
+      if (
+        entry.answered !== 'accepted-with-choice' &&
+        entry.answered !== 'blocked-by-other-field' &&
+        entry.answered !== 'not-applicable'
+      )
+        note(`answered-${entry.answered}`, record.id, entry.field);
+    }
+  return {
+    enabled,
+    checkedAmbiguousFields: checkedFields,
+    passed: Object.keys(violations).length === 0,
+    violations,
+    examples,
+    definition:
+      "Unanswered ambiguity must be refused with the guard's own FORMAT_AMBIGUOUS_UNRESOLVED rejection, and the same field must be accepted once the choice is recorded for this source and reading. Only the candidate run enables this gate; historical engine roots keep their metrics ungated.",
+  };
+}
 const grouped = (field) =>
   Object.fromEntries(
     [
@@ -261,6 +302,7 @@ const summary = {
   byFamily: grouped('families'),
   byScenario: grouped('scenario'),
   byNovelty: grouped('novelty'),
+  acceptance: acceptanceGate(records, args.includes('--acceptance-gate')),
   warning:
     'Synthetic internal assessment, not market validation. The old 5000 are known regression cases. Scope/sign are entered only from printed source evidence and classified by actual intervention. Unproven locales stay unresolved unless separately declared as external user information. PDF review is simulated and counted. Safe stops are not completed comparisons.',
 };
@@ -276,3 +318,12 @@ console.log(
   }),
 );
 if (records.some((r) => !r.pass)) process.exitCode = 1;
+// The acceptance gate is the candidate's own release condition. It is separate
+// from the historical comparison metrics: a run over an older engine root keeps
+// its numbers and is simply not gated, so past results are never rewritten.
+if (summary.acceptance.enabled && !summary.acceptance.passed) {
+  process.exitCode = 1;
+  console.error(
+    JSON.stringify({ acceptanceGateFailed: summary.acceptance.violations }),
+  );
+}

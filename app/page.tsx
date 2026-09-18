@@ -574,6 +574,11 @@ export default function App() {
       'numberFormat',
       'dateFormat',
       'reportType',
+      // These change which values reach the interpretation even though the file
+      // and its columns do not, so a format already chosen must be asked again.
+      'excluded',
+      'opening',
+      'closing',
     ].some((key) => Object.hasOwn(p, key));
     if (readingChanged) {
       directionEdited.current[i] = false;

@@ -11,9 +11,10 @@ const value = (n, d) => {
   return i < 0 ? d : args[i + 1];
 };
 const suite = value('--suite', 'known');
+const matrixDir = value('--matrix', 'work/matrix');
 const names = value('--engines', 'v045,astra,unified').split(',');
 const load = (name) => {
-  const dir = resolve(root, 'work/matrix', `${suite}-${name}`);
+  const dir = resolve(root, matrixDir, `${suite}-${name}`);
   return {
     name,
     summary: JSON.parse(readFileSync(resolve(dir, 'summary.json'), 'utf8')),
@@ -130,6 +131,6 @@ for (let i = 1; i < runs.length; i++) {
     sampleNoLongerCompleted: caseMoves.noLongerCompleted.slice(0, 10),
   };
 }
-const out = value('--out', `work/matrix/comparison-${suite}.json`);
+const out = value('--out', `${matrixDir}/comparison-${suite}.json`);
 writeFileSync(resolve(root, out), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 1));

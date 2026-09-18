@@ -4,6 +4,7 @@ import {
   assertInputFormats,
   formatChoice,
   formatChoiceColumns,
+  isInputReadinessRejection,
 } from '../lib/reconciliation/input-readiness.ts';
 import { inferMapping } from '../lib/reconciliation/core.ts';
 import { suggestFormats } from '../lib/reconciliation/format-inference.ts';
@@ -11,6 +12,7 @@ import { templatePatch } from '../lib/reconciliation/mapping-template.ts';
 import { saveSession, restoreSession } from '../lib/reconciliation/session.ts';
 import { readFile } from '../lib/reconciliation/io.ts';
 import { defaultMapping } from '../lib/reconciliation/types.ts';
+import { syntheticPdf } from './helpers/pdf-fixture.ts';
 import type {
   Mapping,
   Scope,
@@ -284,4 +286,138 @@ test('047 a saved session is re-checked on restore and cannot assert its own app
       ),
     /تحتمل أكثر من قراءة/,
   );
+});
+
+// A change can leave the file hash and every column number untouched and still
+// change which values reach the interpretation. Those are the cases below.
+test('047 changing PDF extraction boundaries does not change the file hash', async () => {
+  const bytes = syntheticPdf([
+    [
+      ['Date', 'Reference', 'Amount'],
+      ['2026-07-01', 'INV-1', '54.321'],
+      ['2026-07-02', 'INV-2', '12.500'],
+    ],
+  ]);
+  const narrow = await readFile('boundaries.pdf', bytes, [22, 47]);
+  const wide = await readFile('boundaries.pdf', bytes.slice(0), [30, 60]);
+  assert.equal(narrow.sha256, wide.sha256);
+  assert.notDeepEqual(narrow.pdf!.cuts, wide.pdf!.cuts);
+  // Same bytes, same hash, different cells: the hash cannot police this alone.
+  assert.notDeepEqual(narrow.sheets[0].rows, wide.sheets[0].rows);
+});
+
+test('047 a choice made under one set of extraction boundaries is not reused under another', () => {
+  const rowsFor = (amount: string) => [
+    ['Date', 'Reference', 'Amount'],
+    ['2026-07-01', 'INV-1', amount],
+    ['2026-07-02', 'INV-2', '12.500'],
+  ];
+  const pdf = (cuts: number[], amount: string): SourceFile => ({
+    name: 'cuts.pdf',
+    sha256: 'd'.repeat(64),
+    pdf: { cuts, pages: 1 },
+    sheets: [
+      {
+        name: 'PDF',
+        rows: rowsFor(amount),
+        formulaRows: [],
+        hiddenRows: [],
+        rowPages: { '1': 1, '2': 1, '3': 1 },
+      },
+    ],
+  });
+  const before = pdf([22, 47], '54.321');
+  const mapping: Mapping = { ...inferMapping(before), pdfReviewed: true };
+  const assessment = suggestFormats(
+    before,
+    mapping,
+    scope.decimals,
+  ).numberFormat;
+  assert.equal(assessment.status, 'ambiguous');
+  const chosen: Mapping = {
+    ...mapping,
+    formatChoice: {
+      numberFormat: formatChoice(
+        before,
+        mapping,
+        'numberFormat',
+        'dot',
+        assessment.candidates,
+        scope.decimals,
+      ),
+    },
+  };
+  assert.doesNotThrow(() => assertInputFormats([before], [chosen], scope));
+  // Re-read with different boundaries: same file, same columns, other values.
+  const after = pdf([26, 51], '7.250');
+  assert.equal(after.sha256, before.sha256);
+  assert.deepEqual(inferMapping(after).amount, mapping.amount);
+  assert.throws(
+    () => assertInputFormats([after], [chosen], scope),
+    (error: unknown) =>
+      isInputReadinessRejection(error, 'FORMAT_AMBIGUOUS_UNRESOLVED'),
+  );
+});
+
+test('047 excluding a row, or typing a balance, asks the format question again', () => {
+  const file = fixture();
+  const { bare, assessment } = prepared(file);
+  const chosen: Mapping = {
+    ...bare,
+    formatChoice: {
+      numberFormat: formatChoice(
+        file,
+        bare,
+        'numberFormat',
+        'dot',
+        assessment.numberFormat.candidates,
+        scope.decimals,
+      ),
+    },
+  };
+  assert.doesNotThrow(() => assertInputFormats([file], [chosen], scope));
+  const guarded = (mapping: Mapping, why: string) =>
+    assert.throws(
+      () => assertInputFormats([file], [mapping], scope),
+      (error: unknown) =>
+        isInputReadinessRejection(error, 'FORMAT_AMBIGUOUS_UNRESOLVED'),
+      why,
+    );
+  // Each of these removes or adds a value behind the very ambiguity answered.
+  guarded({ ...chosen, excluded: { '2': 'راجعها المحاسب' } }, 'row excluded');
+  guarded({ ...chosen, opening: '1,000' }, 'opening balance typed in');
+  guarded({ ...chosen, closing: '2,000' }, 'closing balance typed in');
+});
+
+test('047 a change that does not touch the values keeps the answer', () => {
+  const file = fixture();
+  const { bare, assessment } = prepared(file);
+  const chosen: Mapping = {
+    ...bare,
+    formatChoice: {
+      numberFormat: formatChoice(
+        file,
+        bare,
+        'numberFormat',
+        'dot',
+        assessment.numberFormat.candidates,
+        scope.decimals,
+      ),
+    },
+  };
+  // Asking again for any of these would be noise: none of them changes a value
+  // in the amount column, so none of them changes the question that was asked.
+  for (const [why, patch] of [
+    ['report type', { reportType: 'open-items' as const }],
+    ['sign direction', { multiplier: -1 as const }],
+    ['currency column', { currencyColumn: 5 }],
+    ['description column', { description: 1 }],
+    ['PDF review confirmed', { pdfReviewed: true }],
+    ['a blank exclusion reason', { excluded: { '2': '   ' } }],
+    ['balances left empty', { opening: '', closing: '' }],
+  ] as const)
+    assert.doesNotThrow(
+      () => assertInputFormats([file], [{ ...chosen, ...patch }], scope),
+      why,
+    );
 });

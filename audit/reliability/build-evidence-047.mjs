@@ -6,6 +6,12 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const args = process.argv.slice(2);
+const option = (name, fallback) => {
+  const i = args.indexOf(name);
+  return i < 0 ? fallback : args[i + 1];
+};
+const matrixDir = option('--matrix', 'work/matrix');
 const read = (p) => JSON.parse(readFileSync(resolve(root, p), 'utf8'));
 const lines = (p) =>
   readFileSync(resolve(root, p), 'utf8').trim().split('\n').map(JSON.parse);
@@ -14,17 +20,17 @@ const runs = {};
 for (const suite of ['known', 'focused'])
   for (const name of engines)
     runs[`${suite}/${name}`] = {
-      config: read(`work/matrix/${suite}-${name}/config.json`),
-      summary: read(`work/matrix/${suite}-${name}/summary.json`),
+      config: read(`${matrixDir}/${suite}-${name}/config.json`),
+      summary: read(`${matrixDir}/${suite}-${name}/summary.json`),
     };
-const unified = lines('work/matrix/known-unified/cases.jsonl');
+const unified = lines(`${matrixDir}/known-unified/cases.jsonl`);
 const tally = (list, key) =>
   list.reduce((o, r) => ((o[r[key]] = (o[r[key]] ?? 0) + 1), o), {});
 const unproven = unified.filter((r) => (r.unprovenFormatDefaults ?? []).length);
 const missed = unified.filter((r) => (r.missedRequiredMatches ?? 0) > 0);
 const { known, focused } = {
-  known: read('work/matrix/comparison-known.json'),
-  focused: read('work/matrix/comparison-focused.json'),
+  known: read(`${matrixDir}/comparison-known.json`),
+  focused: read(`${matrixDir}/comparison-focused.json`),
 };
 const evidence = {
   candidate: {
@@ -96,7 +102,7 @@ const evidence = {
   ],
 };
 writeFileSync(
-  resolve(root, 'audit/reliability/evidence-0.4.7.json'),
+  resolve(root, option('--out', 'audit/reliability/evidence-0.4.7.json')),
   JSON.stringify(evidence, null, 2) + '\n',
 );
 console.log(
