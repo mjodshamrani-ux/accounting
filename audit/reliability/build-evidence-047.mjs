@@ -94,6 +94,25 @@ const evidence = {
       note: 'Every missed match is in a case whose outcome is external-information-required: the document admits two readings with different values and no answer was supplied. None is an engine reading failure.',
     },
   },
+  acceptanceGate: {
+    definition: runs['known/unified'].summary.acceptance.definition,
+    known: runs['known/unified'].summary.acceptance,
+    focused: runs['focused/unified'].summary.acceptance,
+    unansweredOutcomes: runs['known/unified'].summary.overall.ambiguityGate,
+    answeredOutcomes:
+      runs['known/unified'].summary.overall.ambiguityGateAnswered,
+    provedByConstruction: {
+      note: 'Deliberately broken copies of the engine, run through the same gate.',
+      'ambiguity branch removed':
+        'accepted-without-choice, gate failed, exit 1',
+      'guard throws TypeError instead of its own refusal':
+        'crashed, gate failed, exit 1',
+      candidate: 'refused, gate passed, exit 0',
+    },
+  },
+  interfaceAcceptance: option('--acceptance', '')
+    ? read(option('--acceptance', ''))
+    : null,
   notVerifiedHere: [
     'July acceptance suite (12 tests) stays skipped: the private originals are deliberately absent from the delivery package and were not uploaded. The 6,750 = 2,500 + 2,250 + 2,000 case is therefore not re-verified on this branch; Astra reports it passing on their machine.',
     'In-product browser performance figures from the 0.4.6 report were measured on other hardware and were not re-measured here.',

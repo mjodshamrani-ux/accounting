@@ -30,7 +30,7 @@
       "seed": 4564764,
       "split": "development,validation,final",
       "node": "v22.22.2",
-      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045"
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/v045"
     },
     "known/astra": {
       "engine": "0.3.13-experimental",
@@ -42,7 +42,7 @@
       "seed": 4564764,
       "split": "development,validation,final",
       "node": "v22.22.2",
-      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra"
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/astra"
     },
     "known/unified": {
       "engine": "0.3.14-experimental",
@@ -54,7 +54,7 @@
       "seed": 4564764,
       "split": "development,validation,final",
       "node": "v22.22.2",
-      "engineRoot": "/home/user/accounting"
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean"
     },
     "focused/v045": {
       "engine": "0.3.10-experimental",
@@ -66,7 +66,7 @@
       "seed": 4564764,
       "split": "development-046,final-046",
       "node": "v22.22.2",
-      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045"
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/v045"
     },
     "focused/astra": {
       "engine": "0.3.13-experimental",
@@ -78,7 +78,7 @@
       "seed": 4564764,
       "split": "development-046,final-046",
       "node": "v22.22.2",
-      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra"
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/astra"
     },
     "focused/unified": {
       "engine": "0.3.14-experimental",
@@ -90,7 +90,7 @@
       "seed": 4564764,
       "split": "development-046,final-046",
       "node": "v22.22.2",
-      "engineRoot": "/home/user/accounting"
+      "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean"
     }
   },
   "knownSuite": {
@@ -98,21 +98,21 @@
     "engines": {
       "v045": {
         "engineVersion": "0.3.10-experimental",
-        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/v045",
         "evaluatorVersion": "tarasuf-evaluator-2.1.0",
         "generatorVersion": "tarasuf-independent-2.1.0",
         "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
       },
       "astra": {
         "engineVersion": "0.3.13-experimental",
-        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/astra",
         "evaluatorVersion": "tarasuf-evaluator-2.1.0",
         "generatorVersion": "tarasuf-independent-2.1.0",
         "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
       },
       "unified": {
         "engineVersion": "0.3.14-experimental",
-        "engineRoot": "/home/user/accounting",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean",
         "evaluatorVersion": "tarasuf-evaluator-2.1.0",
         "generatorVersion": "tarasuf-independent-2.1.0",
         "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
@@ -187,7 +187,7 @@
         },
         "ambiguityGate": {
           "accepted-without-choice": 190,
-          "refused": 1
+          "refused-untyped": 1
         },
         "formatFieldStatuses": {
           "ambiguous": 191,
@@ -302,21 +302,21 @@
     "engines": {
       "v045": {
         "engineVersion": "0.3.10-experimental",
-        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-045",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/v045",
         "evaluatorVersion": "tarasuf-evaluator-2.1.0",
         "generatorVersion": "tarasuf-independent-2.1.0",
         "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
       },
       "astra": {
         "engineVersion": "0.3.13-experimental",
-        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/wt-astra",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean/work/engine-roots/astra",
         "evaluatorVersion": "tarasuf-evaluator-2.1.0",
         "generatorVersion": "tarasuf-independent-2.1.0",
         "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
       },
       "unified": {
         "engineVersion": "0.3.14-experimental",
-        "engineRoot": "/home/user/accounting",
+        "engineRoot": "/tmp/claude-0/-home-user-accounting/77411fb6-430f-5c95-be41-076472bd192d/scratchpad/clean",
         "evaluatorVersion": "tarasuf-evaluator-2.1.0",
         "generatorVersion": "tarasuf-independent-2.1.0",
         "verifierVersion": "tarasuf-workbook-verifier-2.0.0"
@@ -513,6 +513,483 @@
       "resolvedInputRequiredMatches": 46083,
       "note": "Every missed match is in a case whose outcome is external-information-required: the document admits two readings with different values and no answer was supplied. None is an engine reading failure."
     }
+  },
+  "acceptanceGate": {
+    "definition": "Unanswered ambiguity must be refused with the guard's own FORMAT_AMBIGUOUS_UNRESOLVED rejection, and the same field must be accepted once the choice is recorded for this source and reading. Only the candidate run enables this gate; historical engine roots keep their metrics ungated.",
+    "known": {
+      "enabled": true,
+      "checkedAmbiguousFields": 191,
+      "passed": true,
+      "violations": {},
+      "examples": {},
+      "definition": "Unanswered ambiguity must be refused with the guard's own FORMAT_AMBIGUOUS_UNRESOLVED rejection, and the same field must be accepted once the choice is recorded for this source and reading. Only the candidate run enables this gate; historical engine roots keep their metrics ungated."
+    },
+    "focused": {
+      "enabled": true,
+      "checkedAmbiguousFields": 0,
+      "passed": true,
+      "violations": {},
+      "examples": {},
+      "definition": "Unanswered ambiguity must be refused with the guard's own FORMAT_AMBIGUOUS_UNRESOLVED rejection, and the same field must be accepted once the choice is recorded for this source and reading. Only the candidate run enables this gate; historical engine roots keep their metrics ungated."
+    },
+    "unansweredOutcomes": {
+      "refused": 191
+    },
+    "answeredOutcomes": {
+      "accepted-with-choice": 162,
+      "blocked-by-other-field": 29
+    },
+    "provedByConstruction": {
+      "note": "Deliberately broken copies of the engine, run through the same gate.",
+      "ambiguity branch removed": "accepted-without-choice, gate failed, exit 1",
+      "guard throws TypeError instead of its own refusal": "crashed, gate failed, exit 1",
+      "candidate": "refused, gate passed, exit 0"
+    }
+  },
+  "interfaceAcceptance": {
+    "actor": "simulated-user",
+    "declaration": "Twenty-four pairs composed for this round from layout combinations that did not guide the 0.4.7 fixes. Same writer families the project already uses, so these are new arrangements, not new producers, and not a market sample. Nothing here was relaxed to raise completion.",
+    "cases": 24,
+    "outcomes": {
+      "completed-without-correction": 14,
+      "completed-after-limited-confirmation": 6,
+      "correct-stop": 4
+    },
+    "expectationsMet": 24,
+    "exportsIndependentlyVerified": 19,
+    "exportsWithMismatch": [],
+    "unmet": [],
+    "elapsedMs": {
+      "median": 2651,
+      "min": 988,
+      "max": 6622,
+      "total": 74243
+    },
+    "results": [
+      {
+        "id": "A01",
+        "novelty": "plain CSV both sides, English header order",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2651,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A02",
+        "novelty": "CSV with a UTF-8 BOM against a quoted CSV",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2493,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A03",
+        "novelty": "semicolon-delimited CSV against a comma CSV",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2466,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A04",
+        "novelty": "reordered columns on the supplier side only",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2561,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A05",
+        "novelty": "Arabic headers against English headers",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2496,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A06",
+        "novelty": "debit/credit pair against a signed amount column",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff",
+          "confirm:debit-credit-direction"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-after-limited-confirmation",
+        "elapsedMs": 2467,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A07",
+        "novelty": "a banner above the table on the supplier side",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 6622,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A08",
+        "novelty": "a total line below the table on both sides",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2480,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A09",
+        "novelty": "XLSX against CSV",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2603,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A10",
+        "novelty": "XLSX both sides, different sheet names",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2700,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A11",
+        "novelty": "XLSX with a banner and a trailing note",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 4022,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A12",
+        "novelty": "XLSX debit/credit against XLSX signed",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff",
+          "confirm:debit-credit-direction"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-after-limited-confirmation",
+        "elapsedMs": 2666,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A13",
+        "novelty": "single-page PDF against CSV",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff",
+          "confirm:pdf-review"
+        ],
+        "actor": "simulated-user",
+        "matched": 3,
+        "exportRows": 3,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-after-limited-confirmation",
+        "elapsedMs": 3940,
+        "matchesExpectation": true,
+        "expectedMatches": 3
+      },
+      {
+        "id": "A14",
+        "novelty": "two-page PDF with the header repeated on page two",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff",
+          "confirm:pdf-review"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-after-limited-confirmation",
+        "elapsedMs": 3853,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A15",
+        "novelty": "PDF against XLSX",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff",
+          "confirm:pdf-review"
+        ],
+        "actor": "simulated-user",
+        "matched": 3,
+        "exportRows": 3,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-after-limited-confirmation",
+        "elapsedMs": 3952,
+        "matchesExpectation": true,
+        "expectedMatches": 3
+      },
+      {
+        "id": "A16",
+        "novelty": "PDF with reordered columns",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff",
+          "confirm:pdf-review"
+        ],
+        "actor": "simulated-user",
+        "matched": 3,
+        "exportRows": 3,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-after-limited-confirmation",
+        "elapsedMs": 3861,
+        "matchesExpectation": true,
+        "expectedMatches": 3
+      },
+      {
+        "id": "A17",
+        "novelty": "one movement missing from the ledger side",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 4,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2841,
+        "matchesExpectation": true,
+        "expectedMatches": 4
+      },
+      {
+        "id": "A18",
+        "novelty": "one amount differs between the two sides",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 4,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2509,
+        "matchesExpectation": true,
+        "expectedMatches": 4
+      },
+      {
+        "id": "A19",
+        "novelty": "a duplicate reference on both sides",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 4,
+        "exportRows": 6,
+        "exportSheetCount": 17,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2470,
+        "matchesExpectation": true
+      },
+      {
+        "id": "A20",
+        "novelty": "three-decimal currency, unambiguous amounts",
+        "expected": "completed",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "matched": 5,
+        "exportRows": 5,
+        "exportSheetCount": 17,
+        "exportVerified": true,
+        "outcome": "completed-without-correction",
+        "elapsedMs": 2527,
+        "matchesExpectation": true,
+        "expectedMatches": 5
+      },
+      {
+        "id": "A21",
+        "novelty": "three-decimal currency where every amount reads two ways",
+        "expected": "blocked-needs-format-choice",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "blockedBefore": "بعض التواريخ أو المبالغ تحتمل أكثر من قراءة. اختر الصيغة الصحيحة في بطاقة الملف.",
+        "outcome": "correct-stop",
+        "reason": "بعض التواريخ أو المبالغ تحتمل أكثر من قراءة. اختر الصيغة الصحيحة في بطاقة الملف.",
+        "stage": "readiness",
+        "elapsedMs": 6005,
+        "matchesExpectation": true
+      },
+      {
+        "id": "A22",
+        "novelty": "a calendar-impossible date on the supplier side",
+        "expected": "blocked-unreadable",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "blockedBefore": "تعذر التحقق من صيغة التواريخ أو المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة.",
+        "outcome": "correct-stop",
+        "reason": "تعذر التحقق من صيغة التواريخ أو المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة.",
+        "stage": "readiness",
+        "elapsedMs": 988,
+        "matchesExpectation": true
+      },
+      {
+        "id": "A23",
+        "novelty": "a supplier file with no movement rows at all",
+        "expected": "blocked-unreadable",
+        "interventions": [
+          "scope:currency",
+          "scope:cutoff"
+        ],
+        "actor": "simulated-user",
+        "outcome": "correct-stop",
+        "reason": "لا توجد حركات كافية في أحد الطرفين",
+        "stage": "compare",
+        "elapsedMs": 1939,
+        "matchesExpectation": true
+      },
+      {
+        "id": "A24",
+        "novelty": "a PDF page carrying no extractable text",
+        "expected": "blocked-unreadable",
+        "interventions": [],
+        "actor": "simulated-user",
+        "outcome": "correct-stop",
+        "stage": "read",
+        "reason": "confirm step disabled after reading the sources",
+        "elapsedMs": 3131,
+        "matchesExpectation": true
+      }
+    ]
   },
   "notVerifiedHere": [
     "July acceptance suite (12 tests) stays skipped: the private originals are deliberately absent from the delivery package and were not uploaded. The 6,750 = 2,500 + 2,250 + 2,000 case is therefore not re-verified on this branch; Astra reports it passing on their machine.",
