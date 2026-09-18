@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "05cc95943694f9cacd47caef79f0d8363a293961",
+  "baselineCommit": "26dc06b",
+  "candidateVersion": "0.4.6",
+  "engineVersion": "0.3.13-experimental",
+  "productionDeployment": false,
+  "artifacts": [
+    {
+      "file": "tarasuf-source-0.4.6-candidate.zip",
+      "bytes": 2305511,
+      "sha256": "1b9ac6e3dfce359e0050303b4bf0bd937981dfc0edff5d6528602f4b5f7be920"
+    },
+    {
+      "file": "tarasuf-evidence-0.4.6-public.zip",
+      "bytes": 16894525,
+      "sha256": "9d637f5e6b928063a596237255c4af57f7c817d1467a35ce550ab23c8e4337cc"
+    }
+  ]
+}

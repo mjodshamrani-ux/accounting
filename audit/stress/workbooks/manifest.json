@@ -1,0 +1,1586 @@
+[
+  {
+    "name": "0-ar-signed.xlsx",
+    "decimals": 0,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "0-ar-split.xlsx",
+    "decimals": 0,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "0-en-signed.xlsx",
+    "decimals": 0,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "0-en-split.xlsx",
+    "decimals": 0,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "0-mixed-signed.xlsx",
+    "decimals": 0,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "0-mixed-split.xlsx",
+    "decimals": 0,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "2-ar-signed.xlsx",
+    "decimals": 2,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "2-ar-split.xlsx",
+    "decimals": 2,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "2-en-signed.xlsx",
+    "decimals": 2,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "2-en-split.xlsx",
+    "decimals": 2,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "2-mixed-signed.xlsx",
+    "decimals": 2,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "2-mixed-split.xlsx",
+    "decimals": 2,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "3-ar-signed.xlsx",
+    "decimals": 3,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "3-ar-split.xlsx",
+    "decimals": 3,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "3-en-signed.xlsx",
+    "decimals": 3,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "3-en-split.xlsx",
+    "decimals": 3,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "3-mixed-signed.xlsx",
+    "decimals": 3,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  },
+  {
+    "name": "3-mixed-split.xlsx",
+    "decimals": 3,
+    "expected": {
+      "Supplier transactions": [
+        {
+          "id": "supplier:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "supplier:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "supplier:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "supplier:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Ledger transactions": [
+        {
+          "id": "ledger:0:2",
+          "minor": "1"
+        },
+        {
+          "id": "ledger:0:3",
+          "minor": "-1"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:6",
+          "minor": "-987654"
+        },
+        {
+          "id": "ledger:0:7",
+          "minor": "99999999999999"
+        }
+      ],
+      "Unmatched": [
+        {
+          "id": "supplier:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "supplier:0:5",
+          "minor": "123456"
+        },
+        {
+          "id": "ledger:0:4",
+          "minor": "0"
+        },
+        {
+          "id": "ledger:0:5",
+          "minor": "123456"
+        }
+      ]
+    },
+    "date": "2026-08-01",
+    "counts": {
+      "autoMatchedCases": 4,
+      "matchedSourceRows": 8,
+      "needsReviewCases": 0,
+      "needsReviewSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4,
+      "manualMatches": 0,
+      "rejectedCandidates": 0
+    },
+    "description": "العربية English 0 =SUM(A1:A2)"
+  }
+]

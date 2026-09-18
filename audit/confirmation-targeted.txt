@@ -1,0 +1,28 @@
+✔ only one explicit complete header and consistent gaps produce PDF suggestions (1.395708ms)
+✔ overlapping, incompatible multi-page or floating tokens cancel automatic suggestions (0.124167ms)
+✔ partial rows tighten a gap without splitting an extended reference (0.08675ms)
+✔ transaction comparison needs verified scope but not optional descriptive names (19.739833ms)
+✔ known currency precision is explicit and unknown currencies are not assigned two decimals (0.103667ms)
+✔ currency precision changes the ambiguity assessment, not the transaction value (0.721541ms)
+✔ PDF automatic column suggestions retain required human review and original row provenance (33.983459ms)
+✔ transaction column spans do not invalidate intact labeled PDF metadata; other parsing issues do (1.100042ms)
+✔ explicit metadata from a nine-column supplier layout retains source evidence and uses period end (2.962125ms)
+✔ Arabic labels and explicit inline metadata work before a PDF table without column cuts (1.55025ms)
+✔ PDF inline labels separated only by spaces remain anchored and preserve role across both sides (0.222875ms)
+✔ different explicit dates, entities, accounts and currencies remain conflicts without a chosen value (0.23825ms)
+✔ nothing comes from filename, company title, generic account, statement date, transaction extrema or other sheets (0.169417ms)
+✔ a complete mapped currency column provides one currency with auditable rows; unmapped helpers do not (0.076042ms)
+✔ incomplete currency columns block prefill and mixed currencies are exposed even when a row is blank (0.131292ms)
+✔ only selected amount headers are currency evidence and their contradictions prevent prefill (0.07925ms)
+✔ invalid explicit metadata cannot be overridden by another valid label or a header (0.240125ms)
+✔ ambiguous numeric metadata is not filled even when transaction date order is configured (0.234791ms)
+✔ hidden, formula, and parser-flagged metadata cannot become suggestions (0.144166ms)
+✔ suggestions are deterministic, do not mutate source/mappings and never supply approvals or balance evidence (0.173ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 225.157291

@@ -1,0 +1,14 @@
+✔ worker wire protocol ignores library messages and stale ids instead of resolving undefined (0.5255ms)
+✔ empty error messages always reject, and the next import gets a clean worker (0.290666ms)
+✔ missing value, malformed sheets, wrong source and wrong action cannot reach the UI (0.527917ms)
+✔ abort, worker errors, message errors and timeout recover without poisoning subsequent requests (10.936875ms)
+✔ readiness checks engine version and concurrent calls cannot steal another response (0.219541ms)
+✔ worker dispatcher only accepts explicitly namespaced accounting requests (0.075791ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 64.283375

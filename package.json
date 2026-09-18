@@ -15,6 +15,7 @@
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "preview": "vite preview --host 127.0.0.1",
     "test:browser": "node scripts/browser-test.mjs",
+    "test:browser:performance": "node --experimental-strip-types scripts/browser-performance.mjs",
     "test:mutations": "node scripts/test-mutations.mjs",
     "check": "pnpm typecheck && pnpm test && pnpm test:mutations && pnpm build && pnpm test:browser",
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",

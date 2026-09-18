@@ -3,10 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
-import {
-  foundationManifest,
-  buildManifest,
-} from '../audit/reliability/manifest.mjs';
+import { foundationManifest } from '../audit/reliability/manifest.mjs';
 import { generateCase } from '../audit/reliability/generator.mjs';
 import { renderCase } from '../audit/reliability/renderers.mjs';
 import { evaluateCase, loadEngine } from '../audit/reliability/evaluate.mjs';
@@ -29,11 +26,11 @@ type AuditRecord = {
 const enginePromise = loadEngine(
   fileURLToPath(new URL('../', import.meta.url)),
 );
-test('a completed-balance flag cannot replace missing source evidence or a missing bridge', async () => {
+test('a completed-balance flag cannot replace a missing verified bridge', async () => {
   const engine = await enginePromise;
-  const descriptor = buildManifest().find(
-    (d) => d.split === 'development' && d.scenario === 'invalid-amount',
-  )!;
+  // Use valid source files so the mutation exercises the result invariant.
+  // Invalid monetary files now stop earlier at the product entry gate.
+  const descriptor = foundationManifest()[0];
   const spec = generateCase(descriptor),
     rendered = await renderCase(spec);
   let mutations = 0;
@@ -44,12 +41,26 @@ test('a completed-balance flag cannot replace missing source evidence or a missi
       ...engine,
       compare: (...args: Parameters<Compare>) => {
         const result = engine.compare(...args);
-        assert.equal(result.bridge, null);
+        assert.ok(result.bridge);
         mutations++;
-        return { ...result, balanceComparable: true };
+        return { ...result, bridge: null, balanceComparable: true };
       },
     },
-    { exports: false },
+    {
+      exports: false,
+      externalInputs: {
+        'supplier.numberFormat': {
+          value: 'dot',
+          source:
+            'Explicit test reviewer declares dot decimal convention outside document',
+        },
+        'ledger.numberFormat': {
+          value: 'dot',
+          source:
+            'Explicit test reviewer declares dot decimal convention outside document',
+        },
+      },
+    },
   )) as unknown as AuditRecord;
   assert.ok(mutations > 0, 'The mutation must actually execute');
   assert.ok(
@@ -67,7 +78,21 @@ async function run(anchor: 1 | 7 | 37, override: Record<string, unknown> = {}) {
     spec,
     rendered,
     { ...engine, ...override },
-    { exports: false },
+    {
+      exports: false,
+      externalInputs: {
+        'supplier.numberFormat': {
+          value: 'dot',
+          source:
+            'Explicit test reviewer declares dot decimal convention outside document',
+        },
+        'ledger.numberFormat': {
+          value: 'dot',
+          source:
+            'Explicit test reviewer declares dot decimal convention outside document',
+        },
+      },
+    },
   )) as unknown as AuditRecord;
 }
 async function wrappedComparison(mutate: (result: Comparison) => void) {

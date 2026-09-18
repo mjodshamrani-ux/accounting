@@ -272,7 +272,9 @@ test('revision 1.0.1 keeps allocation lineage shared while physical row identiti
     assert.equal(group.bKeys.length, index === 18 ? 1 : 2);
     const keys = [...group.aKeys, ...group.bKeys];
     assert.equal(new Set(keys).size, keys.length);
-    assert.equal(c.oracle.permittedAutoMatches.length, index === 18 ? 1 : 0);
+    assert.equal(c.oracle.permittedAutoMatches.length, 0);
+    if (index === 18)
+      assert.equal(c.oracle.groupAssessments[0].classification, 'review');
   }
 });
 

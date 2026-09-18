@@ -1,0 +1,19 @@
+✔ AI cannot pick one row from a reference shared by several documents (10.461584ms)
+✔ explicit row ID can disambiguate AI routing, but contradictory references cannot (0.291916ms)
+✔ AI routing rejects irrelevant transaction fields and blank or oversized questions (0.171917ms)
+✔ out-of-range hypothesis differences fail closed without crashing the assistant (0.174416ms)
+✔ hostile model proposals never acquire authority or alter any source evidence (0.252542ms)
+✔ Arabic and aborted requests do not even query a model provider (0.287667ms)
+✔ unavailable or downloadable models never create a session or start download (0.415125ms)
+✔ ready model uses same languages, structured output and destroys session (12.207542ms)
+✔ model cannot supply financial facts, approval, prose or nonexistent IDs (0.060209ms)
+✔ model-generated proposal is rechecked without becoming a match (2.417584ms)
+✔ abort and model errors fall back without output or retained session (0.091208ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 72.605875

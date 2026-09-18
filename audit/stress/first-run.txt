@@ -1,0 +1,54 @@
+✔ 3000 seeded bilingual generated reconciliations agree with independent brute-force oracle (236.021459ms)
+✔ 10000 decimal format/sign/Arabic digit cases preserve exact integer units (25.462667ms)
+✔ 1000 quoted multilingual CSV roundtrips preserve commas, newlines and quotes (6.567542ms)
+✔ 20000 repeated references remain unpaired and bounded in time (140.49675ms)
+✖ bilingual workbook export preserves source text, numbers and formula-looking content across all transaction sheets (36.4905ms)
+✖ XML-incompatible control characters cannot silently change during CSV to Excel export (6.087583ms)
+✔ 2000 prefix reference questions and model routing attacks never select existing shorter document (6.756834ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 5
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 635.44325
+
+✖ failing tests:
+
+test at tests/stress.test.ts:61:1
+✖ bilingual workbook export preserves source text, numbers and formula-looking content across all transaction sheets (36.4905ms)
+  AssertionError [ERR_ASSERTION]: Supplier only
+  + actual - expected
+  
+  + undefined
+  - '#,##0.00'
+  
+      at file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/stress.test.ts:68:128
+      at /Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/node_modules/.pnpm/exceljs@4.4.0/node_modules/exceljs/lib/doc/worksheet.js:564:11
+      at Array.forEach (<anonymous>)
+      at Worksheet.eachRow (/Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/node_modules/.pnpm/exceljs@4.4.0/node_modules/exceljs/lib/doc/worksheet.js:562:18)
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/stress.test.ts:68:44)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '#,##0.00',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/stress.test.ts:71:1
+✖ XML-incompatible control characters cannot silently change during CSV to Excel export (6.087583ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/stress.test.ts:72:2)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'rejects',
+    diff: 'simple'
+  }

@@ -1,18 +1,25 @@
-// Bind PDF.js text items to the painting operators by exact Unicode sequence.
-// Whitespace is ignored only for this provenance binding, never in source cells.
+import { bidi } from './pdf-bidi.js';
+
+// PDF.js applies its Unicode bidi algorithm between the glyph stream and text
+// extraction. Verify that same transformation per text run. The original text
+// cells remain untouched: this is provenance binding, never value repair.
 export function bindTextPaints(
   ops: Record<string, number>,
   fn: number[],
   args: unknown[][],
   texts: string[],
   boxes: number[][],
+  rawRuns?: Map<number, string>,
 ): Map<number, number[][]> {
+  const compact = (text: string) => text.replace(/\s/gu, '');
   const runs = texts
-    .map((text, i) => ({ text: text.replace(/\s/gu, ''), box: boxes[i] }))
+    .map((text, i) => ({ text: compact(text), box: boxes[i], index: i }))
     .filter((run) => run.text);
-  let run = 0,
-    offset = 0;
   const bindings = new Map<number, number[][]>();
+  let run = 0,
+    raw = '',
+    length = 0;
+  let operators = new Set<number>();
   for (let i = 0; i < fn.length; i++) {
     if (
       ![
@@ -26,42 +33,52 @@ export function bindTextPaints(
     const glyphs = args[i]?.[0];
     if (!Array.isArray(glyphs))
       throw new Error('تعذر التحقق من ترتيب رسم نص PDF');
-    let text = '';
+    bindings.set(i, []);
     for (const glyph of glyphs) {
-      if (typeof glyph === 'number') continue; // Kerning only.
+      if (typeof glyph === 'number') continue;
       if (
         !glyph ||
         typeof glyph !== 'object' ||
         typeof glyph.unicode !== 'string'
       )
         throw new Error('ترميز رسم PDF غير قابل للتحقق');
-      text += glyph.unicode.replace(/\s/gu, '');
-    }
-    const used: number[][] = [];
-    let consumed = 0;
-    while (consumed < text.length) {
-      const current = runs[run];
-      if (!current?.box) throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
-      const length = Math.min(
-        current.text.length - offset,
-        text.length - consumed,
-      );
-      if (
-        current.text.slice(offset, offset + length) !==
-        text.slice(consumed, consumed + length)
-      )
-        throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
-      if (!used.includes(current.box)) used.push(current.box);
-      consumed += length;
-      offset += length;
-      if (offset === current.text.length) {
+      for (const char of glyph.unicode) {
+        if (/\s/u.test(char)) {
+          // Spaces may be inserted geometrically by PDF.js. Keep real internal
+          // spaces for its bidi direction threshold, without counting them.
+          if (length) raw += char;
+          continue;
+        }
+        const current = runs[run];
+        if (!current?.box)
+          throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
+        raw += char;
+        length += char.length;
+        operators.add(i);
+        if (length > current.text.length)
+          throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
+        if (length !== current.text.length) continue;
+        // Exact match remains sufficient for LTR. Bidi is accepted only when
+        // the pinned reader algorithm reproduces every character, including
+        // amounts, signs, decimal separators and Latin reference digits.
+        if (
+          compact(raw) !== current.text &&
+          compact(bidi(raw).str) !== current.text
+        )
+          throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
+        rawRuns?.set(current.index, raw);
+        for (const op of operators) {
+          const used = bindings.get(op)!;
+          if (!used.includes(current.box)) used.push(current.box);
+        }
         run++;
-        offset = 0;
+        raw = '';
+        length = 0;
+        operators = new Set<number>();
       }
     }
-    bindings.set(i, used);
   }
-  if (run !== runs.length || offset)
+  if (run !== runs.length || length)
     throw new Error('نص PDF لم يُربط بالكامل بمصدره المرئي');
   return bindings;
 }

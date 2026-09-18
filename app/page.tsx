@@ -70,6 +70,12 @@ import { ImportAssistant } from '@/components/import-assistant';
 import { ImportDiagnosticError } from '@/lib/reconciliation/import-diagnostics';
 import type { ImportDiagnosis } from '@/lib/reconciliation/import-diagnostics';
 import { defaultMapping, MAX_FILE_BYTES } from '@/lib/reconciliation/types';
+import {
+  mappingTemplate,
+  readMappingTemplate,
+  templatePatch,
+  migrateMappingTemplates,
+} from '@/lib/reconciliation/mapping-template';
 import type {
   SourceFile,
   Mapping,
@@ -195,55 +201,13 @@ function Tick({
     </label>
   );
 }
-function localTemplate(mapping: Mapping) {
-  return {
-    ...mapping,
-    opening: '',
-    closing: '',
-    periodStart: '',
-    excluded: {},
-    pdfReviewed: false,
-    directionEvidence: undefined,
-  };
-}
-function getTemplate(side: number): Mapping | null {
+function getTemplate(side: number): Partial<Mapping> | null {
   try {
-    const value = JSON.parse(
-      localStorage.getItem(`mizan.mapping.${side}.v1`) ?? 'null',
+    migrateMappingTemplates(localStorage);
+    const value = readMappingTemplate(
+      localStorage.getItem(`mizan.mapping.${side}.v1`),
     );
-    if (!value) return null;
-    const d = defaultMapping();
-    for (const k of [
-      'sheet',
-      'header',
-      'date',
-      'reference',
-      'description',
-      'amount',
-      'debit',
-      'credit',
-      'currencyColumn',
-    ] as const) {
-      if (!Number.isInteger(value[k]) || value[k] < -1 || value[k] > 100)
-        return null;
-      d[k] = value[k];
-    }
-    if (
-      !['signed', 'split'].includes(value.mode) ||
-      ![1, -1].includes(value.multiplier) ||
-      !['dot', 'comma'].includes(value.numberFormat) ||
-      !['ymd', 'dmy', 'mdy'].includes(value.dateFormat) ||
-      !['transactions', 'open-items'].includes(value.reportType)
-    )
-      return null;
-    return {
-      ...d,
-      mode: value.mode,
-      multiplier: value.multiplier,
-      numberFormat: value.numberFormat,
-      dateFormat: value.dateFormat,
-      reportType: value.reportType,
-    };
+    return value ? templatePatch(value) : null;
   } catch {
     return null;
   }
@@ -420,6 +384,13 @@ export default function App() {
           suggestion[field].status === 'ambiguous' && !formatChoices[i][field],
       ),
   );
+  const invalidFormats = formatSuggestions.some(
+    (suggestion) =>
+      suggestion &&
+      [suggestion.numberFormat, suggestion.dateFormat].some(
+        (assessment) => assessment.status === 'invalid',
+      ),
+  );
   const unresolvedScope = (
     Object.keys(scopeLabels) as ScopeSuggestionField[]
   ).filter(
@@ -457,21 +428,23 @@ export default function App() {
                 ? 'حدد المنازل العشرية للعملة من «خيارات متقدمة» في نطاق المقارنة.'
                 : unresolvedScope.length
                   ? 'اختر القيمة الصحيحة للحقول المتعارضة من «خيارات متقدمة».'
-                  : unresolvedDirection
-                    ? 'لم تكفِ الأرصدة لتحديد اتجاه المدين والدائن. اختر الاتجاه في بطاقة الملف.'
-                    : unresolvedFormats
-                      ? 'بعض التواريخ أو المبالغ تحتمل أكثر من قراءة. اختر الصيغة الصحيحة في بطاقة الملف.'
-                      : pdfReviewPending
-                        ? 'راجع البيانات المستخرجة من PDF ثم أكد المراجعة في بطاقة الملف.'
-                        : balanceMode &&
-                            (!scope.coverageConfirmed ||
-                              !scope.supplier.trim() ||
-                              !scope.entity.trim() ||
-                              !scope.account.trim())
-                          ? 'لتسوية الأرصدة، أضف أسماء الأطراف وأكد أن التقريرين يغطيان الفترة نفسها.'
-                          : preparationPending
-                            ? 'جارٍ تحديث إعدادات القراءة…'
-                            : '';
+                  : invalidFormats
+                    ? 'تعذر التحقق من صيغة التواريخ أو المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة.'
+                    : unresolvedDirection
+                      ? 'لم تكفِ الأرصدة لتحديد اتجاه المدين والدائن. اختر الاتجاه في بطاقة الملف.'
+                      : unresolvedFormats
+                        ? 'بعض التواريخ أو المبالغ تحتمل أكثر من قراءة. اختر الصيغة الصحيحة في بطاقة الملف.'
+                        : pdfReviewPending
+                          ? 'راجع البيانات المستخرجة من PDF ثم أكد المراجعة في بطاقة الملف.'
+                          : balanceMode &&
+                              (!scope.coverageConfirmed ||
+                                !scope.supplier.trim() ||
+                                !scope.entity.trim() ||
+                                !scope.account.trim())
+                            ? 'لتسوية الأرصدة، أضف أسماء الأطراف وأكد أن التقريرين يغطيان الفترة نفسها.'
+                            : preparationPending
+                              ? 'جارٍ تحديث إعدادات القراءة…'
+                              : '';
   const [step, setStep] = useState(0);
   const workflowHeading = useRef<HTMLHeadingElement>(null);
   const previousStep = useRef(step);
@@ -509,6 +482,11 @@ export default function App() {
   const job = useRef<{ id: number; controller: AbortController } | null>(null);
   const seq = useRef(0);
   useEffect(() => {
+    try {
+      migrateMappingTemplates(localStorage);
+    } catch {
+      /* Storage may be unavailable; templates remain optional. */
+    }
     void prepareWorker()
       .then(() => setEngineReady(true))
       .catch(() => setError('تعذر تحميل المحرك المحلي. أعد المحاولة.'));
@@ -787,6 +765,9 @@ export default function App() {
     event?: Omit<AuditEvent, 'time'>,
   ) {
     await task('فحص البيانات ومطابقة الحركات', async (signal, alive) => {
+      // Enforce every preparation prerequisite at the executable entry point,
+      // including PDF drafts and an unchosen split-column sign convention.
+      if (blocked) throw new Error(blocked);
       if (!files[0] || !files[1])
         throw new Error('أضف كشف المورد وتقرير الحسابات قبل المقارنة.');
       if (preparationPending)
@@ -2732,7 +2713,7 @@ function SourceConfiguration({
                   try {
                     localStorage.setItem(
                       `mizan.mapping.${side}.v1`,
-                      JSON.stringify(localTemplate(mapping)),
+                      JSON.stringify(mappingTemplate(mapping)),
                     );
                     onNotice('حُفظت إعدادات الأعمدة على جهازك دون بيانات مالية.');
                   } catch {
@@ -2749,6 +2730,8 @@ function SourceConfiguration({
                   const t = getTemplate(side);
                   if (
                     !t ||
+                    t.sheet === undefined ||
+                    t.header === undefined ||
                     !file.sheets[t.sheet] ||
                     t.header >= file.sheets[t.sheet].rows.length
                   ) {
@@ -2756,7 +2739,9 @@ function SourceConfiguration({
                     return;
                   }
                   onChange(t);
-                  onNotice('استعدنا إعدادات القالب. راجع الأعمدة قبل المقارنة.');
+                  onNotice(
+                    'استعدنا مواضع الأعمدة فقط. يُفحص اتجاه المبالغ وصيغتها من الملف الحالي.',
+                  );
                 }}
               >
                 استعادة القالب

@@ -1,0 +1,791 @@
+Detected deliberate fault: reject-supported-multisheet-workpapers
+Detected deliberate fault: reject-unused-helper-formulas
+TAP version 13
+# Subtest: AI cannot pick one row from a reference shared by several documents
+ok 1 - AI cannot pick one row from a reference shared by several documents
+  ---
+  duration_ms: 10.265333
+  type: 'test'
+  ...
+# Subtest: explicit row ID can disambiguate AI routing, but contradictory references cannot
+ok 2 - explicit row ID can disambiguate AI routing, but contradictory references cannot
+  ---
+  duration_ms: 0.299167
+  type: 'test'
+  ...
+# Subtest: AI routing rejects irrelevant transaction fields and blank or oversized questions
+ok 3 - AI routing rejects irrelevant transaction fields and blank or oversized questions
+  ---
+  duration_ms: 0.185334
+  type: 'test'
+  ...
+# Subtest: out-of-range hypothesis differences fail closed without crashing the assistant
+ok 4 - out-of-range hypothesis differences fail closed without crashing the assistant
+  ---
+  duration_ms: 0.200584
+  type: 'test'
+  ...
+# Subtest: hostile model proposals never acquire authority or alter any source evidence
+ok 5 - hostile model proposals never acquire authority or alter any source evidence
+  ---
+  duration_ms: 0.265084
+  type: 'test'
+  ...
+# Subtest: Arabic and aborted requests do not even query a model provider
+ok 6 - Arabic and aborted requests do not even query a model provider
+  ---
+  duration_ms: 0.319875
+  type: 'test'
+  ...
+# Subtest: decimal money: no floating arithmetic, Arabic digits and parentheses
+ok 7 - decimal money: no floating arithmetic, Arabic digits and parentheses
+  ---
+  duration_ms: 1.558417
+  type: 'test'
+  ...
+# Subtest: reject ambiguous grouping, excessive precision, missing and exponent amounts
+ok 8 - reject ambiguous grouping, excessive precision, missing and exponent amounts
+  ---
+  duration_ms: 0.416333
+  type: 'test'
+  ...
+# Subtest: dates require explicit format and real calendar dates
+ok 9 - dates require explicit format and real calendar dates
+  ---
+  duration_ms: 0.412917
+  type: 'test'
+  ...
+# Subtest: reference normalization preserves year and leading zero distinctions
+ok 10 - reference normalization preserves year and leading zero distinctions
+  ---
+  duration_ms: 0.193833
+  type: 'test'
+  ...
+# Subtest: demo retains duplicate ambiguity and produces 2 strict automatic pairs
+ok 11 - demo retains duplicate ambiguity and produces 2 strict automatic pairs
+  ---
+  duration_ms: 4.0515
+  type: 'test'
+  ...
+# Subtest: zero bridge residual never deletes opposite exceptions
+ok 12 - zero bridge residual never deletes opposite exceptions
+  ---
+  duration_ms: 0.189625
+  type: 'test'
+  ...
+# Subtest: duplicate equality is not resolved by order or date
+ok 13 - duplicate equality is not resolved by order or date
+  ---
+  duration_ms: 0.35025
+  type: 'test'
+  ...
+# Subtest: numeric-only weak reference does not auto match
+ok 14 - numeric-only weak reference does not auto match
+  ---
+  duration_ms: 0.069209
+  type: 'test'
+  ...
+# Subtest: direction must be explicit and sign disagreement cannot auto match
+ok 15 - direction must be explicit and sign disagreement cannot auto match
+  ---
+  duration_ms: 0.08925
+  type: 'test'
+  ...
+# Subtest: cutoff exclusions retained and blank/header rows accounted for
+ok 16 - cutoff exclusions retained and blank/header rows accounted for
+  ---
+  duration_ms: 0.097542
+  type: 'test'
+  ...
+# Subtest: formula rows and totals block matching, no silent skip
+ok 17 - formula rows and totals block matching, no silent skip
+  ---
+  duration_ms: 2.453333
+  type: 'test'
+  ...
+# Subtest: manual exclusions require reason and preserve source contents
+ok 18 - manual exclusions require reason and preserve source contents
+  ---
+  duration_ms: 2.297625
+  type: 'test'
+  ...
+# Subtest: currency mismatch blocks source
+ok 19 - currency mismatch blocks source
+  ---
+  duration_ms: 0.295708
+  type: 'test'
+  ...
+# Subtest: reused column mapping is rejected
+ok 20 - reused column mapping is rejected
+  ---
+  duration_ms: 0.161958
+  type: 'test'
+  ...
+# Subtest: incomplete balances and unmatched opening periods do not generate bridge
+ok 21 - incomplete balances and unmatched opening periods do not generate bridge
+  ---
+  duration_ms: 0.599292
+  type: 'test'
+  ...
+# Subtest: opening adjustment remains separate and unexplained
+ok 22 - opening adjustment remains separate and unexplained
+  ---
+  duration_ms: 8.998708
+  type: 'test'
+  ...
+# Subtest: open items include old unpaid documents; sum must match closing
+ok 23 - open items include old unpaid documents; sum must match closing
+  ---
+  duration_ms: 0.131041
+  type: 'test'
+  ...
+# Subtest: mixed report types rejected
+ok 24 - mixed report types rejected
+  ---
+  duration_ms: 0.129875
+  type: 'test'
+  ...
+# Subtest: manual pair cannot consume a transaction twice or conceal amount discrepancy
+ok 25 - manual pair cannot consume a transaction twice or conceal amount discrepancy
+  ---
+  duration_ms: 0.70875
+  type: 'test'
+  ...
+# Subtest: rejected automatic match stays unmatched until a new explicit decision
+ok 26 - rejected automatic match stays unmatched until a new explicit decision
+  ---
+  duration_ms: 0.211125
+  type: 'test'
+  ...
+# Subtest: inference suggests only column indices, no invented scope or balance
+ok 27 - inference suggests only column indices, no invented scope or balance
+  ---
+  duration_ms: 0.913083
+  type: 'test'
+  ...
+# Subtest: 20k rows compare without quadratic candidate search
+ok 28 - 20k rows compare without quadratic candidate search
+  ---
+  duration_ms: 136.146458
+  type: 'test'
+  ...
+# Subtest: generic word reference does not auto match
+ok 29 - generic word reference does not auto match
+  ---
+  duration_ms: 0.169291
+  type: 'test'
+  ...
+# Subtest: extra CSV fields cannot silently shift or truncate amount
+ok 30 - extra CSV fields cannot silently shift or truncate amount
+  ---
+  duration_ms: 0.075375
+  type: 'test'
+  ...
+# Subtest: unused percentage, hidden-sign format, formulas, errors and merged notes do not invalidate mapped transactions
+ok 31 - unused percentage, hidden-sign format, formulas, errors and merged notes do not invalidate mapped transactions
+  ---
+  duration_ms: 107.920417
+  type: 'test'
+  ...
+# Subtest: formula in mapped amount still blocks cached values and names its exact cell
+ok 32 - formula in mapped amount still blocks cached values and names its exact cell
+  ---
+  duration_ms: 8.932208
+  type: 'test'
+  ...
+# Subtest: uncached formulas cannot disappear as an empty data row
+ok 33 - uncached formulas cannot disappear as an empty data row
+  ---
+  duration_ms: 7.653
+  type: 'test'
+  ...
+# Subtest: displayed numeric references cannot silently collapse to a different raw identifier
+ok 34 - displayed numeric references cannot silently collapse to a different raw identifier
+  ---
+  duration_ms: 33.805125
+  type: 'test'
+  ...
+# Subtest: text formats hiding a mapped reference require review; unrelated text formats remain usable
+ok 35 - text formats hiding a mapped reference require review; unrelated text formats remain usable
+  ---
+  duration_ms: 14.14875
+  type: 'test'
+  ...
+# Subtest: conditional numeric formats are checked only in their affected ranges and selected columns
+ok 36 - conditional numeric formats are checked only in their affected ranges and selected columns
+  ---
+  duration_ms: 37.71025
+  type: 'test'
+  ...
+# Subtest: ordinary conditional accounting formats retain values without evaluating Excel expressions
+ok 37 - ordinary conditional accounting formats retain values without evaluating Excel expressions
+  ---
+  duration_ms: 5.100333
+  type: 'test'
+  ...
+# Subtest: multisheet workbooks are admitted through the declared sheet limit and fail beyond it
+ok 38 - multisheet workbooks are admitted through the declared sheet limit and fail beyond it
+  ---
+  duration_ms: 35.777958
+  type: 'test'
+  ...
+# Subtest: upload chooses the only recognizable table after an instructions sheet and normalization preserves exact totals
+ok 39 - upload chooses the only recognizable table after an instructions sheet and normalization preserves exact totals
+  ---
+  duration_ms: 49.20225
+  type: 'test'
+  ...
+# Subtest: two plausible source tables require explicit sheet selection instead of defaulting to either
+ok 40 - two plausible source tables require explicit sheet selection instead of defaulting to either
+  ---
+  duration_ms: 19.149791
+  type: 'test'
+  ...
+# Subtest: unknown multisheet layouts require sheet choice while unknown single-sheet files remain configurable
+ok 41 - unknown multisheet layouts require sheet choice while unknown single-sheet files remain configurable
+  ---
+  duration_ms: 17.677541
+  type: 'test'
+  ...
+# Subtest: a unique debit-credit table is suggested without inferring the debt direction or confirmed balances
+ok 42 - a unique debit-credit table is suggested without inferring the debt direction or confirmed balances
+  ---
+  duration_ms: 9.156917
+  type: 'test'
+  ...
+# Subtest: a PDF awaiting column boundaries remains accessible without gaining extraction approval
+ok 43 - a PDF awaiting column boundaries remains accessible without gaining extraction approval
+  ---
+  duration_ms: 0.126417
+  type: 'test'
+  ...
+# Subtest: a real synthetic export reimports the appropriate source copy and does not restore old approvals or decisions
+ok 44 - a real synthetic export reimports the appropriate source copy and does not restore old approvals or decisions
+  ---
+  duration_ms: 27.393083
+  type: 'test'
+  ...
+# Subtest: familiar workpaper sheet names without the export signatures do not auto-select a side
+ok 45 - familiar workpaper sheet names without the export signatures do not auto-select a side
+  ---
+  duration_ms: 7.739292
+  type: 'test'
+  ...
+# Subtest: early review lists only selected cells on included data rows, retaining row-level geometry issues
+ok 46 - early review lists only selected cells on included data rows, retaining row-level geometry issues
+  ---
+  duration_ms: 0.290125
+  type: 'test'
+  ...
+# Subtest: PDF cannot read covered amount text through an opaque vector rectangle
+ok 47 - PDF cannot read covered amount text through an opaque vector rectangle
+  ---
+  duration_ms: 49.663791
+  type: 'test'
+  ...
+# Subtest: PDF black background cannot silently conceal black transaction text
+ok 48 - PDF black background cannot silently conceal black transaction text
+  ---
+  duration_ms: 3.063292
+  type: 'test'
+  ...
+# Subtest: ordinary white backgrounds and disjoint table lines preserve actual text
+ok 49 - ordinary white backgrounds and disjoint table lines preserve actual text
+  ---
+  duration_ms: 5.169042
+  type: 'test'
+  ...
+# Subtest: bordered supplier tables paint edges, not a solid rectangle over every amount
+not ok 50 - bordered supplier tables paint edges, not a solid rectangle over every amount
+  ---
+  duration_ms: 1.4085
+  type: 'test'
+  location: '/private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/tests/pdf-adversarial.test.ts:49:1'
+  failureType: 'testCodeFailure'
+  error: 'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    checkPdfOperators (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/pdf.ts:426:15)
+    readPdf (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/pdf.ts:583:7)
+    async readFile (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/io.ts:270:23)
+    async TestContext.<anonymous> (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/tests/pdf-adversarial.test.ts:62:22)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: separate underlines do not connect into an imaginary painted area
+not ok 51 - separate underlines do not connect into an imaginary painted area
+  ---
+  duration_ms: 1.386458
+  type: 'test'
+  location: '/private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/tests/pdf-adversarial.test.ts:71:1'
+  failureType: 'testCodeFailure'
+  error: 'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    checkPdfOperators (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/pdf.ts:426:15)
+    readPdf (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/pdf.ts:583:7)
+    async readFile (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/io.ts:270:23)
+    async TestContext.<anonymous> (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/tests/pdf-adversarial.test.ts:72:18)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: stroke width and actual crossing lines still reject covered transaction text
+ok 52 - stroke width and actual crossing lines still reject covered transaction text
+  ---
+  duration_ms: 9.8595
+  type: 'test'
+  ...
+# Subtest: thin filled rectangles used as supplier table borders stay separate
+not ok 53 - thin filled rectangles used as supplier table borders stay separate
+  ---
+  duration_ms: 1.235875
+  type: 'test'
+  location: '/private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/tests/pdf-adversarial.test.ts:92:1'
+  failureType: 'testCodeFailure'
+  error: 'رسم PDF يتداخل مع النص وقد يغطي رقمًا؛ راجع الأصل واطلب نسخة نصية بسيطة أو Excel'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    checkPdfOperators (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/pdf.ts:426:15)
+    readPdf (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/pdf.ts:583:7)
+    async readFile (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/lib/reconciliation/io.ts:270:23)
+    async TestContext.<anonymous> (file:///private/var/folders/8p/psh4rb256blf9x7hmwlf_1tm0000gn/T/mizan-mutant-Rw1m26/tests/pdf-adversarial.test.ts:99:23)
+    async Test.run (node:internal/test_runner/test:1389:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+  ...
+# Subtest: implicit close strokes and curved paths cannot conceal an amount
+ok 54 - implicit close strokes and curved paths cannot conceal an amount
+  ---
+  duration_ms: 2.169458
+  type: 'test'
+  ...
+# Subtest: same input yields byte-identical engine evidence across 20 runs
+ok 55 - same input yields byte-identical engine evidence across 20 runs
+  ---
+  duration_ms: 3.431042
+  type: 'test'
+  ...
+# Subtest: punctuation normalization is suggestion-only; never proves reference equality
+ok 56 - punctuation normalization is suggestion-only; never proves reference equality
+  ---
+  duration_ms: 0.146
+  type: 'test'
+  ...
+# Subtest: reference reused with different amounts prevents both automatic matches
+ok 57 - reference reused with different amounts prevents both automatic matches
+  ---
+  duration_ms: 0.121667
+  type: 'test'
+  ...
+# Subtest: sign conflict is explicit and does not change balances or signed values
+ok 58 - sign conflict is explicit and does not change balances or signed values
+  ---
+  duration_ms: 0.168333
+  type: 'test'
+  ...
+# Subtest: invalid mappings and multipliers fail at engine boundary
+ok 59 - invalid mappings and multipliers fail at engine boundary
+  ---
+  duration_ms: 0.153042
+  type: 'test'
+  ...
+# Subtest: safe sums reject invalid operands even if they cancel
+ok 60 - safe sums reject invalid operands even if they cancel
+  ---
+  duration_ms: 0.0685
+  type: 'test'
+  ...
+# Subtest: ambiguous CSV delimiter is rejected instead of guessed
+ok 61 - ambiguous CSV delimiter is rejected instead of guessed
+  ---
+  duration_ms: 0.228875
+  type: 'test'
+  ...
+# Subtest: Excel merged data rows block normalization without rejecting unrelated sheets
+ok 62 - Excel merged data rows block normalization without rejecting unrelated sheets
+  ---
+  duration_ms: 51.46125
+  type: 'test'
+  ...
+# Subtest: Excel cell errors and overprecision numeric references block selected data rows
+ok 63 - Excel cell errors and overprecision numeric references block selected data rows
+  ---
+  duration_ms: 31.983625
+  type: 'test'
+  ...
+# Subtest: Excel timestamps are not silently accepted as dates
+ok 64 - Excel timestamps are not silently accepted as dates
+  ---
+  duration_ms: 16.676917
+  type: 'test'
+  ...
+# Subtest: all matched transactions have exact amounts, original reference equality, uniqueness and evidence
+ok 65 - all matched transactions have exact amounts, original reference equality, uniqueness and evidence
+  ---
+  duration_ms: 0.281208
+  type: 'test'
+  ...
+# Subtest: 500 seeded exact money roundtrips and signed sums
+ok 66 - 500 seeded exact money roundtrips and signed sums
+  ---
+  duration_ms: 1.043333
+  type: 'test'
+  ...
+# Subtest: assistant reports actual delta and never adopts number or instructions in question
+ok 67 - assistant reports actual delta and never adopts number or instructions in question
+  ---
+  duration_ms: 13.136583
+  type: 'test'
+  ...
+# Subtest: assistant declines unknown question, missing transaction and unsupported balance
+ok 68 - assistant declines unknown question, missing transaction and unsupported balance
+  ---
+  duration_ms: 4.850459
+  type: 'test'
+  ...
+# Subtest: transaction explanations cite existing rows and expose reference variant
+ok 69 - transaction explanations cite existing rows and expose reference variant
+  ---
+  duration_ms: 0.443209
+  type: 'test'
+  ...
+# Subtest: assistant and hypotheses cannot mutate engine state
+ok 70 - assistant and hypotheses cannot mutate engine state
+  ---
+  duration_ms: 0.228042
+  type: 'test'
+  ...
+# Subtest: hypothesis rejects invented amounts, unknown IDs, duplicates, used rows and rejected pairs
+ok 71 - hypothesis rejects invented amounts, unknown IDs, duplicates, used rows and rejected pairs
+  ---
+  duration_ms: 0.139667
+  type: 'test'
+  ...
+# Subtest: equal totals and different totals both stay unconfirmed hypotheses
+ok 72 - equal totals and different totals both stay unconfirmed hypotheses
+  ---
+  duration_ms: 0.106542
+  type: 'test'
+  ...
+# Subtest: export includes structured match evidence and diagnostics
+ok 73 - export includes structured match evidence and diagnostics
+  ---
+  duration_ms: 24.760292
+  type: 'test'
+  ...
+# Subtest: export rechecks sources and refuses altered balance, match and source
+ok 74 - export rechecks sources and refuses altered balance, match and source
+  ---
+  duration_ms: 0.744167
+  type: 'test'
+  ...
+# Subtest: date-window boundaries hold across leap days, year changes and either source order
+ok 75 - date-window boundaries hold across leap days, year changes and either source order
+  ---
+  duration_ms: 9.822584
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/signed/dot/English
+ok 76 - supplier layout end-to-end oracle: csv/0/signed/dot/English
+  ---
+  duration_ms: 63.967667
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/signed/dot/Arabic-reversed
+ok 77 - supplier layout end-to-end oracle: csv/0/signed/dot/Arabic-reversed
+  ---
+  duration_ms: 21.53475
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/signed/comma/English
+ok 78 - supplier layout end-to-end oracle: csv/0/signed/comma/English
+  ---
+  duration_ms: 19.12025
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/signed/comma/Arabic-reversed
+ok 79 - supplier layout end-to-end oracle: csv/0/signed/comma/Arabic-reversed
+  ---
+  duration_ms: 15.50525
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/split/dot/English
+ok 80 - supplier layout end-to-end oracle: csv/0/split/dot/English
+  ---
+  duration_ms: 13.75525
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/split/dot/Arabic-reversed
+ok 81 - supplier layout end-to-end oracle: csv/0/split/dot/Arabic-reversed
+  ---
+  duration_ms: 11.396625
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/split/comma/English
+ok 82 - supplier layout end-to-end oracle: csv/0/split/comma/English
+  ---
+  duration_ms: 11.275959
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/0/split/comma/Arabic-reversed
+ok 83 - supplier layout end-to-end oracle: csv/0/split/comma/Arabic-reversed
+  ---
+  duration_ms: 10.653583
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/signed/dot/English
+ok 84 - supplier layout end-to-end oracle: csv/2/signed/dot/English
+  ---
+  duration_ms: 11.135833
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/signed/dot/Arabic-reversed
+ok 85 - supplier layout end-to-end oracle: csv/2/signed/dot/Arabic-reversed
+  ---
+  duration_ms: 11.102
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/signed/comma/English
+ok 86 - supplier layout end-to-end oracle: csv/2/signed/comma/English
+  ---
+  duration_ms: 10.563708
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/signed/comma/Arabic-reversed
+ok 87 - supplier layout end-to-end oracle: csv/2/signed/comma/Arabic-reversed
+  ---
+  duration_ms: 10.145875
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/split/dot/English
+ok 88 - supplier layout end-to-end oracle: csv/2/split/dot/English
+  ---
+  duration_ms: 11.16475
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/split/dot/Arabic-reversed
+ok 89 - supplier layout end-to-end oracle: csv/2/split/dot/Arabic-reversed
+  ---
+  duration_ms: 9.793791
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/split/comma/English
+ok 90 - supplier layout end-to-end oracle: csv/2/split/comma/English
+  ---
+  duration_ms: 9.133584
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/2/split/comma/Arabic-reversed
+ok 91 - supplier layout end-to-end oracle: csv/2/split/comma/Arabic-reversed
+  ---
+  duration_ms: 9.651709
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/signed/dot/English
+ok 92 - supplier layout end-to-end oracle: csv/3/signed/dot/English
+  ---
+  duration_ms: 8.693916
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/signed/dot/Arabic-reversed
+ok 93 - supplier layout end-to-end oracle: csv/3/signed/dot/Arabic-reversed
+  ---
+  duration_ms: 8.950958
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/signed/comma/English
+ok 94 - supplier layout end-to-end oracle: csv/3/signed/comma/English
+  ---
+  duration_ms: 9.071167
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/signed/comma/Arabic-reversed
+ok 95 - supplier layout end-to-end oracle: csv/3/signed/comma/Arabic-reversed
+  ---
+  duration_ms: 9.450125
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/split/dot/English
+ok 96 - supplier layout end-to-end oracle: csv/3/split/dot/English
+  ---
+  duration_ms: 8.718042
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/split/dot/Arabic-reversed
+ok 97 - supplier layout end-to-end oracle: csv/3/split/dot/Arabic-reversed
+  ---
+  duration_ms: 9.170459
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/split/comma/English
+ok 98 - supplier layout end-to-end oracle: csv/3/split/comma/English
+  ---
+  duration_ms: 8.388458
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: csv/3/split/comma/Arabic-reversed
+ok 99 - supplier layout end-to-end oracle: csv/3/split/comma/Arabic-reversed
+  ---
+  duration_ms: 11.431833
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/signed/dot/English
+ok 100 - supplier layout end-to-end oracle: xlsx/0/signed/dot/English
+  ---
+  duration_ms: 27.4735
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/signed/dot/Arabic-reversed
+ok 101 - supplier layout end-to-end oracle: xlsx/0/signed/dot/Arabic-reversed
+  ---
+  duration_ms: 20.6955
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/signed/comma/English
+ok 102 - supplier layout end-to-end oracle: xlsx/0/signed/comma/English
+  ---
+  duration_ms: 21.14275
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/signed/comma/Arabic-reversed
+ok 103 - supplier layout end-to-end oracle: xlsx/0/signed/comma/Arabic-reversed
+  ---
+  duration_ms: 19.884958
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/split/dot/English
+ok 104 - supplier layout end-to-end oracle: xlsx/0/split/dot/English
+  ---
+  duration_ms: 20.94475
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/split/dot/Arabic-reversed
+ok 105 - supplier layout end-to-end oracle: xlsx/0/split/dot/Arabic-reversed
+  ---
+  duration_ms: 22.340667
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/split/comma/English
+ok 106 - supplier layout end-to-end oracle: xlsx/0/split/comma/English
+  ---
+  duration_ms: 19.758375
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/0/split/comma/Arabic-reversed
+ok 107 - supplier layout end-to-end oracle: xlsx/0/split/comma/Arabic-reversed
+  ---
+  duration_ms: 21.49725
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/signed/dot/English
+ok 108 - supplier layout end-to-end oracle: xlsx/2/signed/dot/English
+  ---
+  duration_ms: 21.29075
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/signed/dot/Arabic-reversed
+ok 109 - supplier layout end-to-end oracle: xlsx/2/signed/dot/Arabic-reversed
+  ---
+  duration_ms: 18.719125
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/signed/comma/English
+ok 110 - supplier layout end-to-end oracle: xlsx/2/signed/comma/English
+  ---
+  duration_ms: 20.017917
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/signed/comma/Arabic-reversed
+ok 111 - supplier layout end-to-end oracle: xlsx/2/signed/comma/Arabic-reversed
+  ---
+  duration_ms: 19.713584
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/split/dot/English
+ok 112 - supplier layout end-to-end oracle: xlsx/2/split/dot/English
+  ---
+  duration_ms: 17.798791
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/split/dot/Arabic-reversed
+ok 113 - supplier layout end-to-end oracle: xlsx/2/split/dot/Arabic-reversed
+  ---
+  duration_ms: 18.582458
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/split/comma/English
+ok 114 - supplier layout end-to-end oracle: xlsx/2/split/comma/English
+  ---
+  duration_ms: 18.634792
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/2/split/comma/Arabic-reversed
+ok 115 - supplier layout end-to-end oracle: xlsx/2/split/comma/Arabic-reversed
+  ---
+  duration_ms: 17.307
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/signed/dot/English
+ok 116 - supplier layout end-to-end oracle: xlsx/3/signed/dot/English
+  ---
+  duration_ms: 18.724417
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/signed/dot/Arabic-reversed
+ok 117 - supplier layout end-to-end oracle: xlsx/3/signed/dot/Arabic-reversed
+  ---
+  duration_ms: 18.350417
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/signed/comma/English
+ok 118 - supplier layout end-to-end oracle: xlsx/3/signed/comma/English
+  ---
+  duration_ms: 17.344875
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/signed/comma/Arabic-reversed
+ok 119 - supplier layout end-to-end oracle: xlsx/3/signed/comma/Arabic-reversed
+  ---
+  duration_ms: 18.966333
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/split/dot/English
+ok 120 - supplier layout end-to-end oracle: xlsx/3/split/dot/English
+  ---
+  duration_ms: 18.479292
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/split/dot/Arabic-reversed
+ok 121 - supplier layout end-to-end oracle: xlsx/3/split/dot/Arabic-reversed
+  ---
+  duration_ms: 17.053167
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/split/comma/English
+ok 122 - supplier layout end-to-end oracle: xlsx/3/split/comma/English
+  ---
+  duration_ms: 21.906375
+  type: 'test'
+  ...
+# Subtest: supplier layout end-to-end oracle: xlsx/3/split/comma/Arabic-reversed
+ok 123 - supplier layout end-to-end oracle: xlsx/3/split/comma/Arabic-reversed
+  ---
+  duration_ms: 18.824209
+  type: 'test'
+  ...
+1..123
+# tests 123
+# suites 0
+# pass 120
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1002.663875
+file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/scripts/test-mutations.mjs:145
+      throw Error(
+            ^
+
+Error: Fault survived or failed without an assertion: treat-pdf-table-edges-as-filled-area
+    at file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/scripts/test-mutations.mjs:145:13
+
+Node.js v24.19.0

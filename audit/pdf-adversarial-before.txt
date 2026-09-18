@@ -1,0 +1,41 @@
+✖ PDF cannot read covered amount text through an opaque vector rectangle (62.520917ms)
+✖ PDF black background cannot silently conceal black transaction text (2.22275ms)
+✔ ordinary white backgrounds and disjoint table lines preserve actual text (2.68075ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 1
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 180.284666
+
+✖ failing tests:
+
+test at tests/pdf-adversarial.test.ts:22:1
+✖ PDF cannot read covered amount text through an opaque vector rectangle (62.520917ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/pdf-adversarial.test.ts:23:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /رسم|تغط/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tests/pdf-adversarial.test.ts:26:1
+✖ PDF black background cannot silently conceal black transaction text (2.22275ms)
+  AssertionError [ERR_ASSERTION]: Missing expected rejection.
+      at async TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/pdf-adversarial.test.ts:27:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /رسم|تغط/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

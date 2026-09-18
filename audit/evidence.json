@@ -1,0 +1,41 @@
+[
+  {
+    "id": "A01",
+    "issue": "Nonexistent invoice question resolves to prefix invoice",
+    "question": "INV-001999",
+    "sourceIds": [
+      "supplier:0:2",
+      "ledger:0:2"
+    ]
+  },
+  {
+    "id": "A02",
+    "falseAutoMatches": 1,
+    "issue": "XLSX native numeric value reparsed as locale-dependent text",
+    "actualExcelValue": 1.234,
+    "actualMinorUnits": 1234,
+    "engineMinorUnits": 1234000
+  },
+  {
+    "id": "A03",
+    "issue": "Model routing validates ID existence, not association to user question",
+    "acceptedIds": [
+      "supplier:0:3",
+      "ledger:0:3"
+    ]
+  },
+  {
+    "id": "A04",
+    "issue": "ZIP precheck accepts falsified uncompressed lengths",
+    "modifiedEntries": 16,
+    "note": "Proves metadata trust only; not a memory exhaustion exploit"
+  },
+  {
+    "id": "A05",
+    "issue": "Number formatting discarded on amount cells",
+    "displayFormat": "0.00",
+    "storedValue": 12.345,
+    "parsed": "12.345",
+    "note": "Here strict money parser rejects excess decimals; format evidence is lost"
+  }
+]

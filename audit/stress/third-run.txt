@@ -1,0 +1,42 @@
+✔ 3000 seeded bilingual generated reconciliations agree with independent brute-force oracle (278.336125ms)
+✔ 10000 decimal format/sign/Arabic digit cases preserve exact integer units (25.938125ms)
+✔ 1000 quoted multilingual CSV roundtrips preserve commas, newlines and quotes (6.714083ms)
+✔ 20000 repeated references remain unpaired and bounded in time (137.702792ms)
+✔ bilingual workbook export preserves source text, numbers and formula-looking content across all transaction sheets (35.223208ms)
+✔ XML-incompatible control characters cannot silently change during CSV to Excel export (0.78325ms)
+✔ 2000 prefix reference questions and model routing attacks never select existing shorter document (6.5505ms)
+✔ 200 input permutations preserve economic matches and totals without relying on row position (28.285417ms)
+✖ 5000-row XLSX import, reconciliation and export preserve every original numeric amount (6046.914333ms)
+✔ invalid XML controls and unpaired surrogates are rejected while legitimate multilingual text survives (0.520458ms)
+✔ malformed UTF-8 bytes cannot become replacement characters in imported references (0.389709ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6698.35625
+
+✖ failing tests:
+
+test at tests/stress.test.ts:95:1
+✖ 5000-row XLSX import, reconciliation and export preserve every original numeric amount (6046.914333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== undefined
+  
+      at file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/stress.test.ts:106:173
+      at /Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/node_modules/.pnpm/exceljs@4.4.0/node_modules/exceljs/lib/doc/worksheet.js:564:11
+      at Array.forEach (<anonymous>)
+      at Worksheet.eachRow (/Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/node_modules/.pnpm/exceljs@4.4.0/node_modules/exceljs/lib/doc/worksheet.js:562:18)
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/stress.test.ts:106:141)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

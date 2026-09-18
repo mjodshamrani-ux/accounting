@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { classifyVisibleGroup } from './group-evidence.mjs';
 import { GENERATOR_VERSION, layoutFamilies } from './manifest.mjs';
 
 function rng(seed) {
@@ -765,7 +766,7 @@ export function generateCase(descriptor) {
     rows,
     invalid: side === 'supplier' ? invalid : null,
   });
-  return {
+  const spec = {
     id: descriptor.id,
     category: descriptor.category,
     split: descriptor.split,
@@ -785,6 +786,7 @@ export function generateCase(descriptor) {
       rows: [...a, ...b],
       activeRows: [...activeA, ...activeB],
       permittedAutoMatches,
+      groupAssessments: /** @type {Array<Record<string,any>>} */ ([]),
       economicLinks: economicLinks(a, b),
       expectedExceptions,
       expectedExclusions,
@@ -829,7 +831,38 @@ export function generateCase(descriptor) {
       invalid,
       requiresScopeStop: !eligibleSource,
       groupPolicy:
-        'Only explicit shared payment-reference groups are permitted; many-to-many and sums without a shared business reference require review.',
+        'Only explicit bank/receipt identities or document-line evidence permit groups; generic payment references and many-to-many allocation remain review.',
     },
   };
+  const candidates = spec.oracle.permittedAutoMatches.filter(
+    (g) => g.aKeys.length + g.bKeys.length > 2,
+  );
+  spec.oracle.groupAssessments = candidates.map((group) =>
+    classifyVisibleGroup(spec, group),
+  );
+  spec.oracle.permittedAutoMatches = spec.oracle.permittedAutoMatches.filter(
+    (g) => g.aKeys.length + g.bKeys.length === 2,
+  );
+  for (const assessment of spec.oracle.groupAssessments)
+    if (assessment.classification === 'required')
+      spec.oracle.permittedAutoMatches.push({ ...assessment, required: true });
+  const accepted = new Set(
+    spec.oracle.permittedAutoMatches.flatMap((g) => [...g.aKeys, ...g.bKeys]),
+  );
+  for (const group of spec.oracle.groupAssessments)
+    for (const key of [...group.aKeys, ...group.bKeys])
+      if (
+        !accepted.has(key) &&
+        !spec.oracle.expectedExceptions.some((e) => e.key === key)
+      )
+        spec.oracle.expectedExceptions.push({
+          key,
+          code: 'group-relationship-unproven',
+        });
+  if (spec.oracle.manualAnchor) {
+    spec.oracle.manualAnchor.candidateGroups =
+      spec.oracle.manualAnchor.permittedGroups;
+    spec.oracle.manualAnchor.permittedGroups = [];
+  }
+  return spec;
 }

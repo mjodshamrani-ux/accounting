@@ -49,6 +49,18 @@ export function identityConflicts(a: Transaction, b: Transaction): string[] {
     );
   if (a.poReference && b.poReference && a.poReference !== b.poReference)
     conflicts.push(`أمرا الشراء مختلفان: ${a.poReference} / ${b.poReference}`);
+  if (a.documentType === 'Payment' && b.documentType === 'Payment')
+    for (const field of ['bankReference', 'receiptReference'] as const)
+      if (
+        a.paymentIdentityFields?.includes(field) &&
+        b.paymentIdentityFields?.includes(field) &&
+        a[field] &&
+        b[field] &&
+        a[field] !== b[field]
+      )
+        conflicts.push(
+          `تعارض هوية الدفعة (${field}): ${a[field]} / ${b[field]}`,
+        );
   const hintedA = descriptionTypeHint(a.description),
     hintedB = descriptionTypeHint(b.description);
   const declared = (t: Transaction) =>
@@ -85,7 +97,7 @@ const postingIdentity = (t: Transaction) =>
     t.date,
     t.reference,
     t.amount,
-    t.description.trim(),
+    // Different free-text descriptions never establish distinct posting lines.
     t.documentType,
     t.voucherReference,
     t.poReference,
@@ -206,6 +218,22 @@ export function buildReconciliationCases(
   const free = (rows: Transaction[]) => rows.every((t) => !used.has(t.id));
   const rejectedGroup = (a: Transaction[], b: Transaction[]) =>
     a.some((s) => b.some((l) => rejected.has(`${s.id}|${l.id}`)));
+  const paymentIdentityIndex = new Map<string, Transaction[]>();
+  const groupReviewEvidence = new Map<string, string[]>();
+  for (const t of [...supplier.transactions, ...ledger.transactions])
+    for (const field of ['bankReference', 'receiptReference'] as const) {
+      const value = t[field];
+      if (!value) continue;
+      const key = `${field}\u0000${value}`;
+      const bucket = paymentIdentityIndex.get(key) ?? [];
+      bucket.push(t);
+      paymentIdentityIndex.set(key, bucket);
+    }
+  const excludedIdentities = new Set(
+    [...supplier.excluded, ...ledger.excluded].flatMap((row) =>
+      row.values.map((value) => value.trim()).filter(Boolean),
+    ),
+  );
   for (const [ref, a] of refA) {
     const b = refB.get(ref) ?? [];
     if (
@@ -227,8 +255,36 @@ export function buildReconciliationCases(
     const sameType =
       single.documentType &&
       single.documentType !== 'Unknown' &&
-      single.documentType !== 'Payment' &&
       group.every((t) => t.documentType === single.documentType);
+    const members = [...a, ...b];
+    const paymentIdentity =
+      single.documentType === 'Payment'
+        ? (['bankReference', 'receiptReference'] as const).find((field) => {
+            const value = single[field];
+            return (
+              !!value &&
+              strong(value) &&
+              members.every(
+                (t) =>
+                  t.paymentIdentityFields?.includes(field) &&
+                  t[field] === value,
+              ) &&
+              paymentIdentityIndex.get(`${field}\u0000${value}`)?.length ===
+                members.length
+            );
+          })
+        : undefined;
+    const paymentIdentityConflict =
+      single.documentType === 'Payment' &&
+      (['bankReference', 'receiptReference'] as const).some(
+        (field) =>
+          new Set(
+            members
+              .filter((t) => t.paymentIdentityFields?.includes(field))
+              .map((t) => t[field])
+              .filter(Boolean),
+          ).size > 1,
+      );
     const voucher = group[0].voucherReference;
     const sharedVoucher =
       !!voucher && group.every((t) => t.voucherReference === voucher);
@@ -245,16 +301,43 @@ export function buildReconciliationCases(
       new Set(group.map(postingIdentity)).size !== group.length;
     const equal =
       safeSum(a.map((t) => t.amount)) === safeSum(b.map((t) => t.amount));
+    groupReviewEvidence.set(ref, [
+      ...(single.documentType === 'Payment' && !paymentIdentity
+        ? [
+            'لم تثبت هوية دفعة واحدة من عمود مرجع بنكي أو رقم إيصال صريح ومشترك في جميع الحركات. المرجع العام وتساوي المجموع لا يثبتان أن الصفوف أجزاء دفعة واحدة.',
+          ]
+        : []),
+      ...(paymentIdentityConflict
+        ? ['توجد مراجع بنكية أو أرقام إيصالات صريحة متعارضة داخل المجموعة.']
+        : []),
+      ...(duplicatePosting
+        ? [
+            'توجد أسطر متساوية في المبلغ والتاريخ وهوية القيد؛ اختلاف الوصف وحده لا يثبت أنها أسطر مستقلة.',
+          ]
+        : []),
+      ...(!sameGroupDate
+        ? ['حركات الطرف المجمع ليست في تاريخ واحد؛ لم تثبت وحدة المجموعة.']
+        : []),
+      ...(members.some((t) => excludedIdentities.has(t.reference))
+        ? [
+            'يوجد صف مستبعد يحمل هوية المجموعة نفسها؛ يلزم التحقق من اكتمال أجزائها.',
+          ]
+        : []),
+    ]);
     if (
       ![...a, ...b].some((t) => t.referenceEvidenceIssues?.length) &&
       group.every((t) => exactRef(single, t) && compatible(single, t, scope)) &&
       group.every((t) => identityConflicts(single, t).length === 0) &&
       sameType &&
+      !paymentIdentityConflict &&
       sameGroupDate &&
       !conflictingPO &&
-      !conflictingVoucher &&
+      (single.documentType === 'Payment' || !conflictingVoucher) &&
       !duplicatePosting &&
-      (sharedPO || sharedVoucher) &&
+      !members.some((t) => excludedIdentities.has(t.reference)) &&
+      (single.documentType === 'Payment'
+        ? !!paymentIdentity
+        : sharedPO || sharedVoucher) &&
       equal &&
       !rejectedGroup(a, b)
     ) {
@@ -263,10 +346,14 @@ export function buildReconciliationCases(
         'Matched',
         a,
         b,
-        'EXACT_REFERENCE_GROUP_TOTAL_V1',
+        paymentIdentity
+          ? 'EXPLICIT_PAYMENT_IDENTITY_GROUP_TOTAL_V1'
+          : 'EXACT_REFERENCE_GROUP_TOTAL_V1',
         [
           `مطابقة تجميعية مثبتة: المرجع ${single.reference} مطابق؛ ${a.length} حركة مورد و${b.length} حركة دفتر؛ إجمالي كل طرف ${money(safeSum(a.map((t) => t.amount)), scope.decimals)} ${scope.currency}.`,
-          `نوع المستند ${single.documentType} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.`,
+          paymentIdentity
+            ? `مطابقة دفعة بين الكشفين وليست تخصيصًا لفواتير. هوية ${paymentIdentity === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[paymentIdentity]} واردة في عمود صريح لكل عضو. نوع المستند دفعة في الطرفين، وحركات الطرف المجمع في تاريخ واحد ضمن فرق الأيام المسموح، والإشارة والعملة متسقتان. شملت المقارنة كامل مجموعة الهوية دون صف مستبعد أو هوية منافسة؛ لم يُبحث عن مجموعات جزئية.`
+            : `نوع المستند ${single.documentType} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.`,
         ],
       );
     }
@@ -390,6 +477,7 @@ export function buildReconciliationCases(
               ]
             : []),
           'المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.',
+          ...(groupReviewEvidence.get(ref) ?? []),
           safeSum(a.map((t) => t.amount)) === safeSum(b.map((t) => t.amount))
             ? 'المجموع متساوٍ، لكنه لا يثبت هوية الحركات ضمن المجموعة.'
             : 'مجموع الطرفين مختلف. راجع حركات المجموعة ومبالغها.',

@@ -1,10 +1,15 @@
 /** Independent file producers. They never call production extraction/normalization. */
 import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
+import { visibleInputEvidence } from './input-evidence.mjs';
 const enc = new TextEncoder();
 const headers = {
   en: {
     kind: 'Document Type',
+    bankReference: 'Bank Reference',
+    receiptReference: 'Receipt No',
+    poReference: 'PO Reference',
+    amountBasis: 'Amount Basis',
     date: 'Date',
     reference: 'Reference',
     description: 'Description',
@@ -16,6 +21,10 @@ const headers = {
   },
   ar: {
     kind: 'نوع المستند',
+    bankReference: 'Bank Reference',
+    receiptReference: 'Receipt No',
+    poReference: 'PO Reference',
+    amountBasis: 'Amount Basis',
     date: 'التاريخ',
     reference: 'المرجع',
     description: 'الوصف',
@@ -43,6 +52,7 @@ export function displayMinor(minor, decimals, style = 'dot') {
   return value;
 }
 function columns(source) {
+  if (source.layout.fields) return [...source.layout.fields];
   if (source.layout.columns === 'split')
     return [
       'reference',
@@ -405,7 +415,8 @@ function pdfStatement(source) {
   const positions = [35, 190, 345, 440, 710],
     pageSize = source.layout.pageRows ?? 18;
   const pages = [],
-    expectedRows = [];
+    expectedRows = [],
+    visibleText = [];
   const data = source.invalid === 'empty-file' ? [] : source.rows;
   for (let start = 0; start < Math.max(data.length, 1); start += pageSize) {
     const page = pages.length + 1;
@@ -506,6 +517,13 @@ function pdfStatement(source) {
       },
       { y: 23, values: [`Page ${page}`] },
     );
+    visibleText.push(
+      ...visible.map((line, index) => ({
+        text: line.values.join(' | '),
+        page,
+        row: index + 1,
+      })),
+    );
     let operations = [];
     for (const line of visible)
       for (let ci = 0; ci < line.values.length; ci++) {
@@ -533,6 +551,7 @@ function pdfStatement(source) {
   }
   return {
     bytes: writePdf(pages),
+    confirmationEvidence: visibleInputEvidence(visibleText, source.name),
     expectedRows,
     headerRow: 5,
     bindings: {
@@ -570,7 +589,6 @@ export async function renderSource(source) {
       format: 'pdf',
       sheetName: 'PDF',
       ...pdfStatement(source),
-      evidence: source.metadata,
     };
   const table = sourceTable(source);
   let bytes;
@@ -601,7 +619,14 @@ export async function renderSource(source) {
     headerRow: table.headerRow,
     bindings: table.bindings,
     expectedRows: table.expectedRows,
-    evidence: source.metadata,
+    confirmationEvidence: visibleInputEvidence(
+      table.rows.map((row, index) => ({
+        text: row.join(' | '),
+        row: index + 1,
+        page: 1,
+      })),
+      source.name,
+    ),
   };
 }
 export async function renderCase(spec) {

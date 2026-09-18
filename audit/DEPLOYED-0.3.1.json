@@ -1,0 +1,18 @@
+{
+  "engine": "0.3.1-experimental",
+  "commit": "e279cfb25f0fe02fc013cac668123f9fb3480db2",
+  "workflow": "https://github.com/mjodshamrani-ux/accounting/actions/runs/34400513332",
+  "site": "https://mjodshamrani-ux.github.io/accounting/",
+  "tests": 167,
+  "deliberate_faults_detected": 7,
+  "independent_excel_workbooks": 18,
+  "independent_numeric_cells": 288,
+  "ci_browser": "passed",
+  "build": "passed",
+  "deploy": "passed",
+  "source_blob_integrity": "125 of 125 local files match remote",
+  "live_smoke": { "engine_version_visible": true, "auto_pairs": 2, "unmatched_transactions": 10, "balance_difference_SAR": "3500.00", "duplicate_reference_answer_source_ids": 3, "console_errors": 0 },
+  "field_holdout": "not performed",
+  "real_local_ai_model": "not tested",
+  "data": "synthetic only"
+}

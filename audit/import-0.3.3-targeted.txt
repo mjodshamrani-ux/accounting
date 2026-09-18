@@ -1,0 +1,53 @@
+✔ PDF cannot read covered amount text through an opaque vector rectangle (36.79925ms)
+✔ PDF black background cannot silently conceal black transaction text (1.672833ms)
+✔ ordinary white backgrounds and disjoint table lines preserve actual text (3.267167ms)
+✔ bordered supplier tables paint edges, not a solid rectangle over every amount (9.421041ms)
+✔ separate underlines do not connect into an imaginary painted area (0.639458ms)
+✔ stroke width and actual crossing lines still reject covered transaction text (2.941541ms)
+✔ thin filled rectangles used as supplier table borders stay separate (1.994292ms)
+✔ implicit close strokes and curved paths cannot conceal an amount (1.265542ms)
+✔ exact glyph binding records when text was painted, including split and merged runs (0.684292ms)
+✔ white text requires an opaque dark background covering its entire box (0.146083ms)
+✔ colored statement headers and pale backgrounds drawn after a title load without hiding data (34.946084ms)
+✔ a later opaque rectangle covering transaction text still prevents import (2.637583ms)
+✔ explicit English month names are calendar-checked independently of numeric date order (0.669666ms)
+✖ currency-tagged debit/credit headers select transaction values and preserve signs (1.874958ms)
+✔ a header currency mismatch or duplicate debit column is never guessed away (0.266417ms)
+✔ styled PDF flows through strict normalization with exact source rows and amounts (34.665167ms)
+✔ worker wire protocol ignores library messages and stale ids instead of resolving undefined (0.5725ms)
+✔ empty error messages always reject, and the next import gets a clean worker (0.267708ms)
+✔ missing value, malformed sheets, wrong source and wrong action cannot reach the UI (0.175709ms)
+✔ abort, worker errors, message errors and timeout recover without poisoning subsequent requests (15.638541ms)
+✔ readiness checks engine version and concurrent calls cannot steal another response (0.440917ms)
+✔ worker dispatcher only accepts explicitly namespaced accounting requests (0.161416ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 21
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 257.27375
+
+✖ failing tests:
+
+test at tests/statement-import.test.ts:57:1
+✖ currency-tagged debit/credit headers select transaction values and preserve signs (1.874958ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/statement-import.test.ts:78:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -38,8 +38,25 @@ const tests = [
   'tests/reliability-import-045.test.ts',
   'tests/reliability-core-045.test.ts',
   'tests/reliability-scope-045.test.ts',
+  'tests/reliability-groups-046.test.ts',
+  'tests/template-session-046.test.ts',
 ];
 const mutations = [
+  {
+    name: '046-disable-all-supported-groups',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        'const complete = !supplier.errors.length && !ledger.errors.length;',
+        'const complete = false;',
+      ],
+    ],
+  },
+  {
+    name: '046-accept-payment-groups-without-explicit-identity',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['? !!paymentIdentity', '? true']],
+  },
   {
     name: '045-ignore-declared-aging-report',
     file: 'lib/reconciliation/report-scope.ts',
@@ -164,7 +181,12 @@ const mutations = [
   {
     name: 'count-total-rows-as-transactions',
     file: 'lib/reconciliation/core.ts',
-    changes: [['return first.value;', 'return undefined;']],
+    changes: [
+      [
+        'if (labelCell === first) return labelCell.value;',
+        'if (labelCell === first) return undefined;',
+      ],
+    ],
   },
   {
     name: 'drop-classified-rows-without-a-reason',
@@ -206,7 +228,7 @@ const mutations = [
     file: 'lib/reconciliation/core.ts',
     changes: [
       [
-        /if\s*\(\s*\(date && date !== first\.value\)\s*\|\|\s*references\.some\(\(?value\)?\s*=>\s*value !== first\.value\)\s*\)\s*return;/,
+        /if\s*\(\s*\(date && date !== labelCell\.value\)\s*\|\|\s*references\.some\(\(?value\)?\s*=>\s*value !== labelCell\.value\)\s*\)\s*return;/,
         'if (false) return;',
       ],
     ],

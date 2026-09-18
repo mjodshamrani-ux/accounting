@@ -26,10 +26,13 @@ export function transactionReferences(
       return '';
     }
     const col = columns[0],
-      key = `${rn}:${col + 1}`;
+      key = `${rn}:${col + 1}`,
+      headerKey = `${mapping.header + 1}:${col + 1}`;
     if (
       sheet.cellIssues?.[key]?.length ||
       sheet.referenceIssues?.[key]?.length ||
+      sheet.cellIssues?.[headerKey]?.length ||
+      sheet.referenceIssues?.[headerKey]?.length ||
       sheet.hiddenRows.includes(rn)
     ) {
       referenceEvidenceIssues.push(
@@ -42,18 +45,23 @@ export function transactionReferences(
   const rawType = field(
     /^(?:type|doc type|document type|transaction type|نوع المستند|نوع الحركة|النوع)$/i,
   );
+  // PDF fonts may emit Arabic presentation forms. Normalize the category label
+  // only; never rewrite references, source cells or financial tokens.
+  const categoryType = rawType.normalize('NFKC');
   const documentType: NonNullable<Transaction['documentType']> =
-    /^(?:(?:ap )?(?:invoice|invoice line)|فاتورة|فاتوره)$/i.test(rawType)
+    /^(?:(?:ap )?(?:invoice|invoice line)|فاتورة|فاتوره)$/i.test(categoryType)
       ? 'Invoice'
       : /^(?:(?:ap )?(?:credit note|credit memo)|إشعار دائن|اشعار دائن)$/i.test(
-            rawType,
+            categoryType,
           )
         ? 'Credit Note'
         : /^(?:payment|receipt|supplier payment|دفعة|سداد|دفع|قبض)$/i.test(
-              rawType,
+              categoryType,
             )
           ? 'Payment'
-          : /^(?:journal|adjustment|journal entry|قيد|تسوية)$/i.test(rawType)
+          : /^(?:journal|adjustment|journal entry|قيد|تسوية)$/i.test(
+                categoryType,
+              )
             ? 'Journal'
             : 'Unknown';
   if (rawType && documentType === 'Unknown')
@@ -70,13 +78,17 @@ export function transactionReferences(
     field(
       /^(?:po|po (?:no|number|ref(?:erence)?)|purchase order|أمر الشراء|امر الشراء)$/i,
     ) || (documentType !== 'Payment' ? combined || customerReference : '');
+  const explicitBankReference = field(
+    /^(?:bank ref(?:erence)?|مرجع البنك|المرجع البنكي)$/i,
+  );
   const bankReference =
-    field(/^(?:bank ref(?:erence)?|مرجع البنك|المرجع البنكي)$/i) ||
+    explicitBankReference ||
     (documentType === 'Payment' ? combined || customerReference : '');
+  const explicitReceiptReference = field(
+    /^(?:receipt(?: (?:no|number|ref(?:erence)?))?|رقم الإيصال|رقم الايصال)$/i,
+  );
   const receiptReference =
-    field(
-      /^(?:receipt(?: (?:no|number|ref(?:erence)?))?|رقم الإيصال|رقم الايصال)$/i,
-    ) ||
+    explicitReceiptReference ||
     (documentType === 'Payment' &&
     /(?:^|[- /])(?:RCPT|RECEIPT|PAY|PYM)(?:[- /]|$)/i.test(documentReference)
       ? documentReference
@@ -113,6 +125,10 @@ export function transactionReferences(
     poReference,
     bankReference,
     receiptReference,
+    paymentIdentityFields: [
+      ...(explicitBankReference ? ['bankReference' as const] : []),
+      ...(explicitReceiptReference ? ['receiptReference' as const] : []),
+    ],
     documentType,
     referenceEvidenceIssues: [...new Set(referenceEvidenceIssues)],
   };

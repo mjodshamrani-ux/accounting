@@ -5,6 +5,7 @@ import {
   structuralSummaryLabel,
 } from './core.ts';
 import { MAX_ROWS } from './types.ts';
+import { normalizeHeaderLabel } from './header-labels.ts';
 import type { Mapping, SourceFile } from './types.ts';
 
 export type StatementDirection = {
@@ -50,7 +51,7 @@ export function inferStatementDirection(
     return;
   const headers = sheet.rows[mapping.header];
   const candidates = headers.flatMap((header, column) =>
-    balanceHeader.test(header.trim().replace(/\s+/g, ' ')) ? [column] : [],
+    balanceHeader.test(normalizeHeaderLabel(header)) ? [column] : [],
   );
   if (candidates.length !== 1) return;
   const balanceColumn = candidates[0];
@@ -135,7 +136,7 @@ export function inferStatementDirection(
       const repeatedHeader =
         row.length === headers.length &&
         row.every((value, column) => value.trim() === headers[column].trim());
-      if (label && openingLabel.test(label)) {
+      if (label && openingLabel.test(normalizeHeaderLabel(label))) {
         if (
           !isLeading ||
           previousBalance !== undefined ||
@@ -145,7 +146,7 @@ export function inferStatementDirection(
           return;
         const typeColumn = headers.findIndex((header) =>
           /^(type|doc type|document type|النوع|نوع المستند)$/i.test(
-            header.trim(),
+            normalizeHeaderLabel(header),
           ),
         );
         if (
@@ -162,7 +163,7 @@ export function inferStatementDirection(
         if (values(row, mapping.debit) || values(row, mapping.credit))
           openingSplit = split(row, rn);
         const dateText = values(row, mapping.date);
-        if (dateText && !openingLabel.test(dateText))
+        if (dateText && !openingLabel.test(normalizeHeaderLabel(dateText)))
           previousDate = parseDate(dateText, mapping.dateFormat);
         continue;
       }
@@ -196,7 +197,7 @@ export function inferStatementDirection(
           )
         )
           return;
-        if (label && closingLabel.test(label)) {
+        if (label && closingLabel.test(normalizeHeaderLabel(label))) {
           if (previousBalance === undefined) return;
           const closingText = values(row, balanceColumn);
           if (closingText) {

@@ -16,8 +16,15 @@ import {
   GENERATOR_VERSION,
 } from './manifest.mjs';
 import { generateCase } from './generator.mjs';
+import {
+  focusedManifest,
+  generateFocusedCase,
+  FOCUSED_VERSION,
+} from './focused-generator.mjs';
+import { VERIFIER_VERSION } from './verify-workbook.mjs';
+import { INPUT_EVIDENCE_VERSION } from './input-evidence.mjs';
 import { renderCase } from './renderers.mjs';
-import { loadEngine, evaluateCase } from './evaluate.mjs';
+import { loadEngine, evaluateCase, EVALUATOR_VERSION } from './evaluate.mjs';
 import { aggregate } from './report.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url)),
@@ -27,6 +34,11 @@ const value = (name, fallback) => {
   const i = args.indexOf(name);
   return i < 0 ? fallback : args[i + 1];
 };
+const suite = value('--suite', 'known');
+if (!['known', 'focused', 'all'].includes(suite)) throw Error('Unknown suite');
+const externalInputs = value('--external-inputs', '')
+  ? JSON.parse(await readFile(resolve(value('--external-inputs', '')), 'utf8'))
+  : {};
 const engineRoot = resolve(value('--engine-root', root));
 const engine = await loadEngine(engineRoot);
 const count = Number(
@@ -35,17 +47,34 @@ const count = Number(
 const seed = Number(value('--seed', String(DEFAULT_SEED)));
 const split = value(
   '--split',
-  args.includes('--quick') ? 'development' : 'development,validation',
+  suite === 'focused'
+    ? 'development-046'
+    : suite === 'all'
+      ? 'development,validation,final,development-046'
+      : args.includes('--quick')
+        ? 'development'
+        : 'development,validation',
 );
-let manifest = buildManifest({ seed, count });
+const allKnown = buildManifest({ seed, count: 5000 });
+let manifest = [
+  ...(suite === 'focused' ? [] : buildManifest({ seed, count })),
+  ...(suite === 'known' ? [] : focusedManifest()),
+];
 if (value('--case', ''))
-  manifest = buildManifest({ seed, count: 5000 }).filter(
+  manifest = [...allKnown, ...focusedManifest()].filter(
     (c) => c.id === value('--case', ''),
   );
 else manifest = manifest.filter((c) => split.split(',').includes(c.split));
 if (!manifest.length) throw Error('No selected cases');
-if (manifest.some((c) => c.split === 'final') && !args.includes('--frozen'))
-  throw Error('Final holdout requires --frozen after the engine is frozen');
+const selectsReserved = manifest.some((c) => c.split === 'final-046-b');
+if (
+  selectsReserved &&
+  !args.includes('--freeze-only') &&
+  (!args.includes('--frozen') || !value('--freeze-file', ''))
+)
+  throw Error(
+    'New reserved combinations require --frozen --freeze-file after freezing engine, generator, verifier and configuration',
+  );
 const output = resolve(
   value(
     '--output',
@@ -58,7 +87,22 @@ const output = resolve(
 );
 await mkdir(output, { recursive: true });
 const runConfig = {
+  schemaVersion: 'tarasuf-evaluation-run-2.1.0',
   generatorVersion: GENERATOR_VERSION,
+  evaluatorVersion: EVALUATOR_VERSION,
+  verifierVersion: VERIFIER_VERSION,
+  focusedVersion: FOCUSED_VERSION,
+  inputEvidenceVersion: INPUT_EVIDENCE_VERSION,
+  suite,
+  externalInputs,
+  caseIds: manifest.map((d) => d.id),
+  datasetStatus: selectsReserved
+    ? 'reserved-unopened-before-freeze'
+    : suite === 'known'
+      ? 'known-regression'
+      : manifest.every((d) => d.split === 'final-046')
+        ? 'previously-opened-reserved-now-regression'
+        : 'new-development-plus-known-if-selected',
   seed,
   count,
   split,
@@ -75,7 +119,7 @@ const runConfig = {
   hashes: {},
 };
 for (const path of (await readdir(resolve(engineRoot, 'lib/reconciliation')))
-  .filter((p) => p.endsWith('.ts'))
+  .filter((p) => /\.(?:ts|js)$/.test(p))
   .sort()
   .map((p) => 'lib/reconciliation/' + p))
   runConfig.hashes[path] = createHash('sha256')
@@ -83,6 +127,9 @@ for (const path of (await readdir(resolve(engineRoot, 'lib/reconciliation')))
     .digest('hex');
 for (const path of [
   'generator.mjs',
+  'focused-generator.mjs',
+  'group-evidence.mjs',
+  'input-evidence.mjs',
   'manifest.mjs',
   'renderers.mjs',
   'evaluate.mjs',
@@ -97,6 +144,21 @@ if (value('--freeze-file', '')) {
   const freeze = JSON.parse(
     await readFile(resolve(value('--freeze-file', '')), 'utf8'),
   );
+  for (const field of [
+    'seed',
+    'suite',
+    'exports',
+    'generatorVersion',
+    'evaluatorVersion',
+    'verifierVersion',
+    'focusedVersion',
+    'inputEvidenceVersion',
+    'externalInputs',
+  ])
+    if (JSON.stringify(freeze[field]) !== JSON.stringify(runConfig[field]))
+      throw Error(`Frozen evaluation configuration changed: ${field}`);
+  if (!manifest.every((d) => freeze.caseIds.includes(d.id)))
+    throw Error('Case selection exceeds frozen manifest');
   if (JSON.stringify(freeze.hashes) !== JSON.stringify(runConfig.hashes))
     throw Error(
       'Frozen engine/evaluator hashes changed; do not describe this as the same holdout evaluation',
@@ -126,10 +188,13 @@ const records = [],
 let peakRss = process.memoryUsage().rss,
   started = performance.now();
 for (const descriptor of manifest) {
-  const spec = generateCase(descriptor),
+  const spec = /^(?:G046|H046|J046)-/.test(descriptor.id)
+      ? generateFocusedCase(descriptor)
+      : generateCase(descriptor),
     rendered = await renderCase(spec);
   const record = await evaluateCase(spec, rendered, engine, {
     exports: runConfig.exports,
+    externalInputs,
   });
   records.push(record);
   fingerprints.add(spec.economicFingerprint);
@@ -138,7 +203,7 @@ for (const descriptor of manifest) {
     resolve(output, 'cases.jsonl'),
     JSON.stringify(record) + '\n',
   );
-  if (args.includes('--save-files') || value('--case', '')) {
+  if (args.includes('--save-files') || value('--case', '') || !record.pass) {
     const folder = resolve(output, descriptor.id);
     await mkdir(folder, { recursive: true });
     await writeFile(
@@ -195,8 +260,9 @@ const summary = {
   bySplit: grouped('split'),
   byFamily: grouped('families'),
   byScenario: grouped('scenario'),
+  byNovelty: grouped('novelty'),
   warning:
-    'Synthetic internal assessment, not market validation. Source scope/sign and ambiguous formats are explicit simulated user confirmations. PDF visual review remains required.',
+    'Synthetic internal assessment, not market validation. The old 5000 are known regression cases. Scope/sign are entered only from printed source evidence and classified by actual intervention. Unproven locales stay unresolved unless separately declared as external user information. PDF review is simulated and counted. Safe stops are not completed comparisons.',
 };
 await writeFile(
   resolve(output, 'summary.json'),

@@ -1,0 +1,23 @@
+{
+  "synthetic": true,
+  "producers": {
+    "openpyxl": "3.1.5",
+    "xlsxwriter": "3.2.9"
+  },
+  "expectedMinor": [
+    12345,
+    -2500,
+    1000
+  ],
+  "expectedReferences": [
+    "000123",
+    "12345678901234567890",
+    "INV-HIDDEN"
+  ],
+  "expectedDates": [
+    "2026-07-15",
+    "2026-07-16",
+    "2026-07-17"
+  ],
+  "hiddenSourceRow": 6
+}
