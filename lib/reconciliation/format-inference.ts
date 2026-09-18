@@ -3,6 +3,8 @@ import {
   parseMoney,
   structuralSummaryLabel,
   nonFinancialFooter,
+  repeatedPageMetadataRows,
+  repeatsHeaderRow,
 } from './core.ts';
 import { MAX_ROWS } from './types.ts';
 import type { Mapping, Scope, SourceFile } from './types.ts';
@@ -134,6 +136,33 @@ export function suggestFormats(
   const formulaRows = new Set(sheet.formulaRows);
   const hiddenRows = new Set(sheet.hiddenRows);
   const header = sheet.rows[mapping.header];
+  // normalizeSource excludes a verbatim repeated PDF page banner; inference must
+  // use the same set, or the banner it reads into the date/amount column turns a
+  // provable statement into an unprovable one and pushes a default format on it.
+  const pageMetadata = repeatedPageMetadataRows(file, sheet, mapping);
+  // A total or balance line is recognised by its structure, and structuralSummaryLabel
+  // has to parse its printed amount and date to do that. Those formats are exactly
+  // what this pass is establishing, so an unproven default would hide a balance line
+  // ("Closing balance: -3,57" under a dot reading) and then let that same line
+  // invalidate the column it belongs to. Accept the label under any supported
+  // reading here; normalizeSource still classifies with the confirmed format only.
+  const readings = [
+    mapping,
+    ...numberFormats.flatMap((numberFormat) =>
+      dateFormats.flatMap((dateFormat) =>
+        numberFormat === mapping.numberFormat &&
+        dateFormat === mapping.dateFormat
+          ? []
+          : [{ ...mapping, numberFormat, dateFormat }],
+      ),
+    ),
+  ];
+  const anyReadingLabel = (row: string[], leading: boolean) => {
+    for (const reading of readings) {
+      const found = structuralSummaryLabel(row, reading, header, leading);
+      if (found) return found;
+    }
+  };
   let precedingEmpty = true;
   const cellProblem = (row: number, column: number) =>
     Boolean(sheet.cellIssues?.[`${row}:${column + 1}`]?.length);
@@ -144,7 +173,7 @@ export function suggestFormats(
     const leading = precedingEmpty;
     precedingEmpty &&= row.every((value) => !value.trim());
     if (mapping.excluded[String(rn)]?.trim()) continue;
-    const label = structuralSummaryLabel(row, mapping, header, leading);
+    const label = anyReadingLabel(row, leading);
     const structuralReadingSafe =
       !hiddenRows.has(rn) &&
       !(sheet.rowIssues?.[String(rn)] ?? []).some(
@@ -161,10 +190,7 @@ export function suggestFormats(
               sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length),
         )
       );
-    const repeatedHeader =
-      row.length === header.length &&
-      header.some((value) => value.trim()) &&
-      row.every((value, column) => value.trim() === header[column].trim());
+    const repeatedHeader = repeatsHeaderRow(row, header);
     const headerReadingSafe =
       (!formulaRows.has(rn) || !!sheet.cellIssues) &&
       row.every(
@@ -172,6 +198,21 @@ export function suggestFormats(
           !cellProblem(rn, column) &&
           !sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length,
       );
+    // Mirrors normalizeSource's wholeTextRowSafe(true): a banner may straddle a
+    // table column boundary, but any other reading problem keeps the row in view.
+    const textRowSafe =
+      structuralReadingSafe &&
+      !formulaRows.has(rn) &&
+      !(sheet.rowIssues?.[String(rn)] ?? []).some(
+        (issue) => !issue.startsWith('نص يعبر حد عمود؛'),
+      ) &&
+      row.every(
+        (_, column) =>
+          !(sheet.cellIssues?.[`${rn}:${column + 1}`] ?? []).some(
+            (issue) => !issue.startsWith('خلية مدمجة في '),
+          ) && !sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length,
+      );
+    if (pageMetadata.has(rn) && textRowSafe) continue;
     if (
       structuralReadingSafe &&
       (label ||

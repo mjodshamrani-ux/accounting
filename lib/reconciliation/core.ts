@@ -12,6 +12,7 @@ import {
 import type {
   Mapping,
   Scope,
+  SheetData,
   SourceFile,
   SourceResult,
   Transaction,
@@ -527,6 +528,76 @@ function enforceSourceScope(
         'عملة رصيد المصدر لا تطابق نطاق المقارنة؛ إدخال رصيد يدوي لا يلغي هذا التعارض.',
     });
 }
+export function repeatsHeaderRow(
+  row: string[],
+  headerRow: string[] | undefined,
+): boolean {
+  return (
+    !!headerRow &&
+    row.length === headerRow.length &&
+    headerRow.some((value) => value.trim()) &&
+    row.every((value, i) => value.trim() === headerRow[i].trim())
+  );
+}
+/** Rows of a PDF page banner that is repeated verbatim above the table header.
+ * A statement reprints its title, currency, period and sign note on every page.
+ * They are structural, never transactions, and both the normalizer and format
+ * inference must agree on them: one banner fragment read into the date column
+ * is enough to make an otherwise readable statement look unprovable.
+ * Structural only when the row repeats the original pre-header prefix exactly,
+ * precedes an identical table header on that page, and carries no
+ * amount/identity pair. It marks rows; it never removes or rewrites one.
+ */
+export function repeatedPageMetadataRows(
+  file: SourceFile,
+  sheet: SheetData,
+  mapping: Mapping,
+): Set<number> {
+  const rowNumbers = new Set<number>();
+  if (
+    !file.pdf ||
+    !sheet.rowPages ||
+    !Number.isInteger(mapping.header) ||
+    mapping.header < 0 ||
+    mapping.header >= sheet.rows.length
+  )
+    return rowNumbers;
+  const headerRow = sheet.rows[mapping.header];
+  const signature = (row: string[]) =>
+    JSON.stringify(row.map((value) => value.trim()));
+  const prefix = new Set(sheet.rows.slice(0, mapping.header).map(signature));
+  const pages = new Map<number, number[]>();
+  sheet.rows.forEach((_, index) => {
+    const page = sheet.rowPages![String(index + 1)];
+    if (page !== undefined) {
+      const indexes = pages.get(page);
+      if (indexes) indexes.push(index);
+      else pages.set(page, [index]);
+    }
+  });
+  for (const [page, rows] of pages) {
+    if (page === sheet.rowPages[String(mapping.header + 1)]) continue;
+    const headerIndex = rows.find((index) =>
+      repeatsHeaderRow(sheet.rows[index], headerRow),
+    );
+    if (headerIndex === undefined) continue;
+    for (const index of rows) {
+      if (index >= headerIndex) break;
+      const row = sheet.rows[index];
+      const amountPresent = (
+        mapping.mode === 'signed'
+          ? [mapping.amount]
+          : [mapping.debit, mapping.credit]
+      ).some((column) => column >= 0 && (row[column] ?? '').trim());
+      const identityPresent = [mapping.date, mapping.reference].some(
+        (column) => column >= 0 && (row[column] ?? '').trim(),
+      );
+      if (prefix.has(signature(row)) && !(amountPresent && identityPresent))
+        rowNumbers.add(index + 1);
+    }
+  }
+  return rowNumbers;
+}
 export function normalizeSource(
   file: SourceFile,
   mapping: Mapping,
@@ -656,48 +727,8 @@ export function normalizeSource(
   const get = (row: string[], col: number) =>
     col < 0 ? '' : (row[col] ?? '').trim();
   const headerRow = sheet.rows[mapping.header];
-  const repeatedHeader = (row: string[]) =>
-    row.length === headerRow.length &&
-    headerRow.some((value) => value.trim()) &&
-    row.every((value, i) => value.trim() === headerRow[i].trim());
-  const repeatedPageMetadata = new Set<number>();
-  if (file.pdf && sheet.rowPages) {
-    const signature = (row: string[]) =>
-      JSON.stringify(row.map((value) => value.trim()));
-    const prefix = new Set(sheet.rows.slice(0, mapping.header).map(signature));
-    const pages = new Map<number, number[]>();
-    sheet.rows.forEach((_, index) => {
-      const page = sheet.rowPages![String(index + 1)];
-      if (page !== undefined) {
-        const indexes = pages.get(page);
-        if (indexes) indexes.push(index);
-        else pages.set(page, [index]);
-      }
-    });
-    for (const [page, rows] of pages) {
-      if (page === sheet.rowPages[String(mapping.header + 1)]) continue;
-      const headerIndex = rows.find((index) =>
-        repeatedHeader(sheet.rows[index]),
-      );
-      if (headerIndex === undefined) continue;
-      for (const index of rows) {
-        if (index >= headerIndex) break;
-        const row = sheet.rows[index];
-        const amountPresent = (
-          mapping.mode === 'signed'
-            ? [mapping.amount]
-            : [mapping.debit, mapping.credit]
-        ).some((column) => (row[column] ?? '').trim());
-        const identityPresent = [mapping.date, mapping.reference].some(
-          (column) => column >= 0 && (row[column] ?? '').trim(),
-        );
-        // A page prefix is structural only when it repeats the original prefix,
-        // precedes an identical table header, and contains no amount/identity pair.
-        if (prefix.has(signature(row)) && !(amountPresent && identityPresent))
-          repeatedPageMetadata.add(index + 1);
-      }
-    }
-  }
+  const repeatedHeader = (row: string[]) => repeatsHeaderRow(row, headerRow);
+  const repeatedPageMetadata = repeatedPageMetadataRows(file, sheet, mapping);
   const formulaRows = new Set(sheet.formulaRows);
   const hiddenRows = new Set(sheet.hiddenRows);
   for (let i = 0; i < sheet.rows.length; i++) {
