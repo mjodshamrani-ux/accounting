@@ -69,45 +69,105 @@
 
 ## 4. قبول من الواجهة على حالات جديدة
 
-24 زوجًا مؤلفة لهذه الجولة من تركيبات تخطيط **لم تُستخدم لتوجيه إصلاحات 0.4.7** (التي شُخّصت على `C01436` و`C01831` و`C03087` وسيناريو `comma-decimals`). هذه **ليست عينة سوق** وليست مُنتِجات جديدة: الكاتبون هم من يستعملهم المشروع أصلًا، فالجديد هو الترتيب لا المُنتِج. ولم يُستخدم تغيير البذرة دليلًا على اختلاف تنسيق: كل حالة تختلف في التخطيط نفسه.
+24 زوجًا مؤلفة لهذه الجولة من تركيبات تخطيط **لم تُستخدم لتوجيه إصلاحات 0.4.7** (التي شُخّصت على `C01436` و`C01831` و`C03087` وسيناريو `comma-decimals`). هذه **ليست عينة سوق** وليست مُنتِجات جديدة: الكاتبون هم من يستعملهم المشروع أصلًا. ولم يُستخدم تغيير البذرة دليلًا على اختلاف تنسيق.
 
 **كل الأفعال آلية: محاكاة مستخدم، لا محاسب حقيقي.**
 
-| الفئة | العدد | ما يعنيه |
-|---|---:|---|
-| إنجاز دون تصحيح للاستخراج | **14** | لم يُعدَّل عمود ولا حد ولا صيغة؛ أُدخل النطاق المطبوع على المصدر فقط |
-| إنجاز بعد تأكيد محدود | **6** | 4 مراجعات PDF بصرية + اختيارا اتجاه مدين/دائن في مصدر بعمودين بلا سلسلة أرصدة |
-| إنجاز بعد تصحيح للأعمدة أو القراءة | **0** | — |
-| توقف صحيح | **4** | — |
+### تصحيح شرط النجاح (الجولة الثانية)
 
-التدخلات المسجلة: `scope:currency` ×23، `scope:cutoff` ×23، `confirm:pdf-review` ×4، `confirm:debit-credit-direction` ×2. لم يُخفَّف أي حاجز، ولم يُدخل تأكيد على ملف لم يطلبه.
+التشغيل الأول كان يقبل الحالة بشروط ناقصة، وصُحّحت ثلاثة عيوب في **الاختبار** لا في المحرك:
 
-**التوقفات الأربعة، كل منها للسبب المعلن له** (توقف لسبب آخر يُفشل الحالة):
+1. **العدد المتوقع كان يُسجَّل ولا يُقارن.** `record.expectedMatches` كان يُكتب في السجل ولا يدخل في شرط النجاح إطلاقًا.
+2. **غياب الفحص كان يُقبل نجاحًا.** الشرط كان `exportVerified !== false`، فتمر الحالة التي لم يُنفَّذ فحصها أصلًا (`undefined`).
+3. **قيمة غير رقمية كانت تمر.** المقارنة كانت `Math.abs(Number(cell) - expected) > 1e-9`؛ و`Number('—')` يساوي `NaN`، وكل مقارنة عددية مع `NaN` تعطي `false`، فيُقبل الصف كأنه مطابق.
 
-| الحالة | المرحلة | السبب |
-|---|---|---|
-| A21 عملة بثلاث منازل وكل مبلغ يقرأ بطريقتين | الجاهزية | «بعض التواريخ أو المبالغ تحتمل أكثر من قراءة» — الحارس محل الاختبار، مرئيًا من الواجهة |
-| A22 تاريخ غير موجود في التقويم | الجاهزية | «تعذر التحقق من صيغة التواريخ أو المبالغ» |
-| A23 مصدر بلا حركات | المقارنة | «لا توجد حركات كافية في أحد الطرفين» |
-| A24 PDF بلا نص قابل للقراءة | القراءة | رُفض الملف وعُطّلت خطوة التأكيد |
+وصار الفحص يستخدم **قارئ المخرجات المستقل الموجود** `readOutputWorkbook` (ZIP + SAX + BigInt، بلا ExcelJS وبلا استيراد من المحرك) بدل إعادة القراءة بالمكتبة التي أنشأت الملف — فقراءة الملف بالمكتبة نفسها ليست استقلالًا. والمبالغ تُقرأ بـ`decimalMinor` التي ترمي خطأ على أي قيمة غير صالحة بدل أن تنتج `NaN`.
 
-**صحة المخرجات:** 19 ملف تصدير أُعيدت قراءته وقورنت تواريخه ومراجعه ومبالغه الموقّعة بالحساب الذي تفرضه المدخلات — **صفر اختلاف**. الفحص من قراءة الملف، لا من سؤال التطبيق.
+### النتائج المرجعية لكل حالة
 
-**الزمن الفعلي على هذا الجهاز:** الوسيط 2.65 ثانية للزوج، والأقصى 6.6 ثانية، والمجموع نحو 66 ثانية للجولة. لقطة واحدة على جهاز واحد، لا دراسة أداء.
+لكل حالة مكتملة تُشتق النتيجة المرجعية من **قاعدة المنتج الموثقة** في `core.ts` (`EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2`): المرجع متطابق، والمبلغ الموقّع متساوٍ، والتاريخ داخل النافذة، **والمرجع غير مكرر في أي من الطرفين**. ولا تُشتق من مخرجات المحرك.
 
-**ثلاث حالات لم تطابق التوقع في التشغيل الأول، وكلها كانت أخطاء في إعلاني أو في السكربت لا في التطبيق:** A06 وA12 (توقّعتُ إنجازًا دون تدخل، والتطبيق يسأل سؤال اتجاه المدين/الدائن وهو سؤال مشروع لا يعرفه إلا صاحب التقرير — صُنِّفتا تأكيدًا محدودًا)، وA24 (السكربت انتظر زرًا عطّله التطبيق عمدًا). صُحِّح الإعلان والسكربت، لا الحواجز.
+وتشمل النتيجة المرجعية: صفوف المورد، وصفوف الدفتر، والروابط المطلوبة، **والروابط غير المسموح بها**، والبنود التي يجب أن تبقى للمراجعة أو دون مقابل. العدد وحده لا يكفي: تبديل رابطين يُبقي العدد كما هو ويغيّر أي مستند سُوّي مقابل أيّ.
+
+- **A17** (حركة ناقصة من الدفتر): 4 روابط مطلوبة، و`INV-7005` يبقى دون مقابل على جانب المورد.
+- **A18** (مبلغ مختلف): 4 روابط، و`INV-7003` **ممنوع** ربطه — فرق مبلغ يبقى للمراجعة.
+- **A19** (مرجع مكرر): `INV-7001` مكرر على الطرفين، فالقاعدة ترفض ربطه آليًا. المطلوب **4 روابط لا 5**، و6 صفوف على كل جانب دون إسقاط، ودون دمج الحركتين المستقلتين، ودون اعتماد ارتباط غير مثبت.
+
+### النتيجة
+
+| الفئة | العدد |
+|---|---:|
+| إنجاز دون تصحيح للاستخراج | **14** |
+| إنجاز بعد تأكيد محدود | **6** |
+| إنجاز بعد تصحيح للأعمدة أو القراءة | **0** |
+| توقف صحيح | **4** |
+
+**20 ملف تصدير فُحصت كلها مقابل نتيجتها المرجعية المعلنة، وصفر لم يُفحص.** الحالات الأربع المتوقفة لا تنتج ملفًا، وتُعرض `no-export` صراحةً ولا تُحسب ضمن نجاح محاسبي.
+
+| الحالة | ما الجديد فيها | المتوقع | المرصود | روابط مقبولة / مطلوبة | فحص التصدير | تدخل المستخدم | زمن (ms) |
+|---|---|---|---|---:|---|---|---:|
+| A01 | plain CSV both sides, English header order | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2551 |
+| A02 | CSV with a UTF-8 BOM against a quoted CSV | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2440 |
+| A03 | semicolon-delimited CSV against a comma CSV | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2450 |
+| A04 | reordered columns on the supplier side only | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2547 |
+| A05 | Arabic headers against English headers | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2442 |
+| A06 | debit/credit pair against a signed amount column | completed | completed-after-limited-confirmation | 5 / 5 | verified | scope:currency، scope:cutoff، confirm:debit-credit-direction | 2486 |
+| A07 | a banner above the table on the supplier side | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 6772 |
+| A08 | a total line below the table on both sides | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2556 |
+| A09 | XLSX against CSV | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2674 |
+| A10 | XLSX both sides, different sheet names | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2757 |
+| A11 | XLSX with a banner and a trailing note | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2625 |
+| A12 | XLSX debit/credit against XLSX signed | completed | completed-after-limited-confirmation | 5 / 5 | verified | scope:currency، scope:cutoff، confirm:debit-credit-direction | 2701 |
+| A13 | single-page PDF against CSV | completed | completed-after-limited-confirmation | 3 / 3 | verified | scope:currency، scope:cutoff، confirm:pdf-review | 3861 |
+| A14 | two-page PDF with the header repeated on page two | completed | completed-after-limited-confirmation | 5 / 5 | verified | scope:currency، scope:cutoff، confirm:pdf-review | 3872 |
+| A15 | PDF against XLSX | completed | completed-after-limited-confirmation | 3 / 3 | verified | scope:currency، scope:cutoff، confirm:pdf-review | 3888 |
+| A16 | PDF with reordered columns | completed | completed-after-limited-confirmation | 3 / 3 | verified | scope:currency، scope:cutoff، confirm:pdf-review | 3860 |
+| A17 | one movement missing from the ledger side | completed | completed-without-correction | 4 / 4 | verified | scope:currency، scope:cutoff | 2790 |
+| A18 | one amount differs between the two sides | completed | completed-without-correction | 4 / 4 | verified | scope:currency، scope:cutoff | 3887 |
+| A19 | a duplicate reference on both sides | completed | completed-without-correction | 4 / 4 | verified | scope:currency، scope:cutoff | 2468 |
+| A20 | three-decimal currency, unambiguous amounts | completed | completed-without-correction | 5 / 5 | verified | scope:currency، scope:cutoff | 2517 |
+| A21 | three-decimal currency where every amount reads two ways | blocked-needs-format-choice | correct-stop | — / — | لا تصدير | scope:currency، scope:cutoff | 6025 |
+| A22 | a calendar-impossible date on the supplier side | blocked-unreadable | correct-stop | — / — | لا تصدير | scope:currency، scope:cutoff | 1007 |
+| A23 | a supplier file with no movement rows at all | blocked-unreadable | correct-stop | — / — | لا تصدير | scope:currency، scope:cutoff | 1983 |
+| A24 | a PDF page carrying no extractable text | blocked-unreadable | correct-stop | — / — | لا تصدير | لا شيء | 3182 |
+
+التدخلات: `scope:currency` و`scope:cutoff` (حقائق مطبوعة على المصدر، ليست تصحيحًا للاستخراج)، و`confirm:pdf-review` ×4، و`confirm:debit-credit-direction` ×2. لم يُخفَّف أي حاجز، ولم يُدخل تأكيد على ملف لم يطلبه.
+
+**التوقفات الأربعة، كل منها للسبب المعلن له** (توقف لسبب آخر يُفشل الحالة): A21 سؤال الالتباس نفسه مرئيًا من الواجهة، وA22 تاريخ غير موجود في التقويم، وA23 مصدر بلا حركات، وA24 ملف PDF رُفض عند القراءة.
+
+### ما تكشفه الجولة الآن ولم تكن تكشفه
+
+`tests/acceptance-verifier-047.test.ts` — تسعة اختبارات على مخرجات معطوبة عمدًا، **دون إفساد كود الإنتاج**:
+
+| الاختبار | ما يثبته |
+|---|---|
+| تبديل رابطين | يفشل رغم بقاء العدد 3 كما هو |
+| رابط ممنوع اعتُمد | يفشل |
+| إسقاط صف من أي من الطرفين | يفشل على الجانبين |
+| مبلغ تغيّر | يفشل |
+| مبلغ `—` أو فارغ أو `n/a` | يرمي خطأ بدل أن يمر عبر `NaN` |
+| بند كان يجب بقاؤه دون مقابل | يفشل |
+| تصدير لم يُفحص (`not-declared` أو `verifier-error`) | ليس نجاحًا |
+| عدد الروابط يخالف المعلن | ليس نجاحًا |
+| بلوغ شاشة النتائج في حالة توقف | ليس نجاحًا |
+
+### علاقة هذه الجولة بسابقتها
+
+نتيجة التشغيل السابق (24/24 مع فحص أضيق) **تحقق أضيق**، لا نتيجة معادلة: كان يقارن صفوف المورد وحدها، ولا يفحص عضوية المطابقات ولا صفوف الدفتر ولا البنود المفتوحة، ويقبل حالة بلا فحص. توسيع الاختبار **ليس تحسنًا في المحرك**: لم يتغير المحرك في هذه المهمة، ولم تُعَد المصفوفة التاريخية، وأرقام 0.4.7 في القسم 5 من تشغيل المحرك السابق نفسه بلا تغيير.
+
+عيب واحد ظهر عند أول تشغيل بالفحص الموسّع (A17) وكان **خطأ في توقع الاختبار لا في المحرك**: كتبتُ اسم الجانب بالعربية بينما يكتب التصدير قيمة `side` نفسها (`supplier`/`ledger`). صُحّح التوقع إلى مفردات المنتج. المحرك كان قد ترك `INV-7005` دون مقابل بالفعل وهو السلوك الصحيح.
 
 ## 5. نتائج التشغيل
 
 | الأمر | النتيجة |
 |---|---|
 | `pnpm typecheck` | نجح |
-| `pnpm test` | 639 اختبارًا: 627 ناجحًا، 0 فاشلًا، 12 متخطيًا |
+| `pnpm test` | 648 اختبارًا: 636 ناجحًا، 0 فاشلًا، 12 متخطيًا |
 | `pnpm test:mutations` | خط الأساس ناجح، **39/39** طفرة كُشفت، 0 ناجية |
 | `pnpm build` | نجح |
 | `pnpm test:browser` | اجتاز، بما فيه «لا طلبات خارجية ولا POST» |
 | `pnpm test:reliability` (كاملة، مع البوابة) | 5,000/5,000، البوابة نجحت، الرمز 0 |
-| جولة الواجهة | 24/24، و19 تصديرًا متحققًا مستقلًا |
+| جولة الواجهة | 24/24، و20 تصديرًا من 20 مفحوصًا مقابل نتيجته المرجعية |
 
 الاثنا عشر المتخطاة هي حزمة قبول يوليو التي تحتاج الملفات الأصلية الخاصة؛ استُبعدت عمدًا ولم تُرفع. **لم يُعَد التحقق من حالة 6,750 = 2,500 + 2,250 + 2,000 هنا** ولا ندّعي ذلك.
 
@@ -145,6 +205,9 @@ node --experimental-strip-types audit/reliability/run-matrix.mjs \
 node audit/reliability/compare-matrix-047.mjs --suite known --matrix work/matrix
 node audit/reliability/compare-matrix-047.mjs --suite focused --matrix work/matrix
 
+# اختبارات مدقق الجولة على مخرجات معطوبة عمدًا
+node --experimental-strip-types --test tests/acceptance-verifier-047.test.ts
+
 # جولة الواجهة
 pnpm build
 MIZAN_CHROMIUM=/opt/pw-browsers/chromium-1194/chrome-linux/chrome \
@@ -154,6 +217,9 @@ MIZAN_CHROMIUM=/opt/pw-browsers/chromium-1194/chrome-linux/chrome \
 # الأدلة المجمعة
 node audit/reliability/build-evidence-047.mjs \
   --matrix work/matrix --acceptance work/acceptance-047.json
+# أو، إذا لم يتغير المحرك وأُعيدت جولة الواجهة وحدها:
+node audit/reliability/build-evidence-047.mjs \
+  --only-acceptance --acceptance work/acceptance-047.json
 ```
 
 الأدلة في [`audit/reliability/evidence-0.4.7.json`](../audit/reliability/evidence-0.4.7.json): إصدارات الأدوات لكل تشغيل، ونتائج الحزمتين، وحالة بوابة القبول واتجاهيها، وجولة الواجهة كاملة بحالاتها وأزمنتها، وتصنيف الفجوات الباقية، وما لم يُتحقق منه.

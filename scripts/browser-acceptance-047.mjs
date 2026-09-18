@@ -10,8 +10,11 @@ import { chromium } from 'playwright';
 import { createServer } from 'node:http';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import ExcelJS from 'exceljs';
 import { acceptanceCases } from './acceptance-cases-047.mjs';
+import {
+  verifyAcceptanceExport,
+  caseAccepted,
+} from './acceptance-verify-047.mjs';
 
 /** Leaves the per-case flow once the outcome is already decided. */
 class Skip extends Error {}
@@ -240,45 +243,36 @@ for (const entry of await acceptanceCases()) {
             .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
             .click();
           const saved = await (await download).path();
-          const book = new ExcelJS.Workbook();
-          await book.xlsx.readFile(saved);
-          // Independent check: read the workbook back and compare its dates,
-          // references and signed amounts against the arithmetic the inputs
-          // imply, rather than trusting the screen that produced it.
-          const sheet = book.getWorksheet('Supplier transactions');
-          record.exportRows = sheet ? sheet.rowCount - 1 : 0;
-          record.exportSheetCount = book.worksheets.length;
-          if (entry.expectedSupplierRows) {
-            const seen = [];
-            sheet.eachRow((row, number) => {
-              if (number === 1) return;
-              const date = row.getCell(4).value;
-              seen.push({
-                date:
-                  date instanceof Date
-                    ? date.toISOString().slice(0, 10)
-                    : String(date),
-                reference: String(row.getCell(5).value ?? ''),
-                amount: Number(row.getCell(8).value),
-              });
-            });
-            const want = entry.expectedSupplierRows;
-            const mismatches = [];
-            if (seen.length !== want.length)
-              mismatches.push(`row count ${seen.length} vs ${want.length}`);
-            for (const [i, expected] of want.entries()) {
-              const actual = seen[i];
-              if (!actual) continue;
-              if (actual.reference !== expected.reference)
-                mismatches.push(`row ${i + 1} reference ${actual.reference}`);
-              if (actual.date !== expected.date)
-                mismatches.push(`row ${i + 1} date ${actual.date}`);
-              if (Math.abs(actual.amount - expected.amount) > 1e-9)
-                mismatches.push(`row ${i + 1} amount ${actual.amount}`);
+          const bytes = await readFile(saved);
+          record.exportBytes = bytes.byteLength;
+          if (!entry.expected) {
+            // No declared reference result, so this file is NOT checked. Say so;
+            // an unchecked export is never counted as accounting success.
+            record.verification = { status: 'not-declared' };
+          } else {
+            try {
+              const checked = await verifyAcceptanceExport(
+                bytes,
+                entry.expected,
+                entry.decimals ?? 2,
+              );
+              record.verification = {
+                status: checked.verified ? 'verified' : 'mismatch',
+                reader: checked.reader,
+                acceptedLinks: checked.acceptedLinks,
+                unmatchedRows: checked.unmatchedRows,
+                requiredLinks: entry.expected.requiredLinks.length,
+                ...(checked.problems.length
+                  ? { problems: checked.problems.slice(0, 8) }
+                  : {}),
+              };
+            } catch (error) {
+              // A verifier that cannot read the file has not verified it.
+              record.verification = {
+                status: 'verifier-error',
+                problems: [String(error?.message ?? error).slice(0, 300)],
+              };
             }
-            record.exportVerified = mismatches.length === 0;
-            if (mismatches.length)
-              record.exportMismatches = mismatches.slice(0, 6);
           }
           record.outcome = record.interventions.some((i) =>
             i.startsWith('fix:'),
@@ -299,14 +293,16 @@ for (const entry of await acceptanceCases()) {
   record.elapsedMs = Date.now() - started;
   // A stop for the wrong reason is not the stop the case was written for, so
   // the declared reason is part of the expectation.
-  record.matchesExpectation =
-    entry.expect === 'completed'
-      ? String(record.outcome).startsWith('completed') &&
-        record.exportVerified !== false
-      : String(record.outcome) === 'correct-stop' &&
-        (!entry.expectReason || entry.expectReason.test(String(record.reason)));
-  if (entry.matches !== undefined && record.matched !== undefined)
-    record.expectedMatches = entry.matches;
+  // A completed case counts only when its declared accounting result was checked
+  // and held. A missing check is not a pass, and neither is reaching the results
+  // screen. The declared links are compared by membership, so two swapped links
+  // fail even though the count is unchanged.
+  if (entry.expect === 'completed') {
+    record.expectedLinks = entry.expected?.requiredLinks.length;
+    record.matchesExpectation = caseAccepted(entry, record);
+    if (record.verification && record.verification.status !== 'verified')
+      record.outcome = `completed-unverified (${record.verification.status})`;
+  } else record.matchesExpectation = caseAccepted(entry, record);
   results.push(record);
   console.log(
     JSON.stringify({
@@ -333,11 +329,20 @@ const summary = {
   cases: results.length,
   outcomes: tally('outcome'),
   expectationsMet: results.filter((r) => r.matchesExpectation).length,
-  exportsIndependentlyVerified: results.filter((r) => r.exportVerified === true)
-    .length,
-  exportsWithMismatch: results
-    .filter((r) => r.exportVerified === false)
-    .map((r) => r.id),
+  exportVerification: results.reduce(
+    (o, r) => (
+      (o[r.verification?.status ?? 'no-export'] =
+        (o[r.verification?.status ?? 'no-export'] ?? 0) + 1),
+      o
+    ),
+    {},
+  ),
+  exportsCheckedAgainstDeclaredResult: results.filter(
+    (r) => r.verification?.status === 'verified',
+  ).length,
+  exportsNotChecked: results
+    .filter((r) => r.verification && r.verification.status !== 'verified')
+    .map((r) => `${r.id}:${r.verification.status}`),
   unmet: results.filter((r) => !r.matchesExpectation).map((r) => r.id),
   elapsedMs: {
     median: times[Math.floor(times.length / 2)],

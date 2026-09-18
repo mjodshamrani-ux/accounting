@@ -15,6 +15,29 @@ const matrixDir = option('--matrix', 'work/matrix');
 const read = (p) => JSON.parse(readFileSync(resolve(root, p), 'utf8'));
 const lines = (p) =>
   readFileSync(resolve(root, p), 'utf8').trim().split('\n').map(JSON.parse);
+/** The engine matrix is expensive and only changes when the engine does. When
+ * only the interface round was re-run, update that section in place and leave
+ * the matrix figures exactly as the engine run produced them. */
+if (args.includes('--only-acceptance')) {
+  const target = resolve(
+    root,
+    option('--out', 'audit/reliability/evidence-0.4.7.json'),
+  );
+  const evidence = JSON.parse(readFileSync(target, 'utf8'));
+  evidence.interfaceAcceptance = read(
+    option('--acceptance', 'work/acceptance-047.json'),
+  );
+  writeFileSync(target, JSON.stringify(evidence, null, 2) + '\n');
+  console.log(
+    JSON.stringify({
+      updated: 'interfaceAcceptance only',
+      cases: evidence.interfaceAcceptance.cases,
+      met: evidence.interfaceAcceptance.expectationsMet,
+      verification: evidence.interfaceAcceptance.exportVerification,
+    }),
+  );
+  process.exit(0);
+}
 const engines = ['v045', 'astra', 'unified'];
 const runs = {};
 for (const suite of ['known', 'focused'])

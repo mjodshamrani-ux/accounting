@@ -556,14 +556,18 @@
       "correct-stop": 4
     },
     "expectationsMet": 24,
-    "exportsIndependentlyVerified": 19,
-    "exportsWithMismatch": [],
+    "exportVerification": {
+      "verified": 20,
+      "no-export": 4
+    },
+    "exportsCheckedAgainstDeclaredResult": 20,
+    "exportsNotChecked": [],
     "unmet": [],
     "elapsedMs": {
-      "median": 2651,
-      "min": 988,
-      "max": 6622,
-      "total": 74243
+      "median": 2636,
+      "min": 1009,
+      "max": 6707,
+      "total": 74693
     },
     "results": [
       {
@@ -576,13 +580,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30187,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2651,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2636,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A02",
@@ -594,13 +603,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30243,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2493,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2515,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A03",
@@ -612,13 +626,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30240,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2466,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2506,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A04",
@@ -630,13 +649,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30274,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2561,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2581,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A05",
@@ -648,13 +672,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30292,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2496,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2505,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A06",
@@ -667,13 +696,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30402,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-after-limited-confirmation",
-        "elapsedMs": 2467,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2519,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A07",
@@ -685,13 +719,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30550,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 6622,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 6707,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A08",
@@ -703,13 +742,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30352,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2480,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2570,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A09",
@@ -721,13 +765,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30269,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2603,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2627,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A10",
@@ -739,13 +788,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30252,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2700,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 3072,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A11",
@@ -757,13 +811,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30652,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 4022,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2682,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A12",
@@ -776,13 +835,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30394,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-after-limited-confirmation",
-        "elapsedMs": 2666,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2723,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A13",
@@ -795,13 +859,18 @@
         ],
         "actor": "simulated-user",
         "matched": 3,
-        "exportRows": 3,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 29255,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 3,
+          "unmatchedRows": 0,
+          "requiredLinks": 3
+        },
         "outcome": "completed-after-limited-confirmation",
-        "elapsedMs": 3940,
-        "matchesExpectation": true,
-        "expectedMatches": 3
+        "elapsedMs": 3918,
+        "expectedLinks": 3,
+        "matchesExpectation": true
       },
       {
         "id": "A14",
@@ -814,13 +883,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30655,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-after-limited-confirmation",
-        "elapsedMs": 3853,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 4017,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A15",
@@ -833,13 +907,18 @@
         ],
         "actor": "simulated-user",
         "matched": 3,
-        "exportRows": 3,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 29269,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 3,
+          "unmatchedRows": 0,
+          "requiredLinks": 3
+        },
         "outcome": "completed-after-limited-confirmation",
-        "elapsedMs": 3952,
-        "matchesExpectation": true,
-        "expectedMatches": 3
+        "elapsedMs": 4067,
+        "expectedLinks": 3,
+        "matchesExpectation": true
       },
       {
         "id": "A16",
@@ -852,13 +931,18 @@
         ],
         "actor": "simulated-user",
         "matched": 3,
-        "exportRows": 3,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 29273,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 3,
+          "unmatchedRows": 0,
+          "requiredLinks": 3
+        },
         "outcome": "completed-after-limited-confirmation",
-        "elapsedMs": 3861,
-        "matchesExpectation": true,
-        "expectedMatches": 3
+        "elapsedMs": 4012,
+        "expectedLinks": 3,
+        "matchesExpectation": true
       },
       {
         "id": "A17",
@@ -870,13 +954,18 @@
         ],
         "actor": "simulated-user",
         "matched": 4,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 31179,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 4,
+          "unmatchedRows": 1,
+          "requiredLinks": 4
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2841,
-        "matchesExpectation": true,
-        "expectedMatches": 4
+        "elapsedMs": 2966,
+        "expectedLinks": 4,
+        "matchesExpectation": true
       },
       {
         "id": "A18",
@@ -888,13 +977,18 @@
         ],
         "actor": "simulated-user",
         "matched": 4,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 31469,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 4,
+          "unmatchedRows": 0,
+          "requiredLinks": 4
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2509,
-        "matchesExpectation": true,
-        "expectedMatches": 4
+        "elapsedMs": 2522,
+        "expectedLinks": 4,
+        "matchesExpectation": true
       },
       {
         "id": "A19",
@@ -906,10 +1000,17 @@
         ],
         "actor": "simulated-user",
         "matched": 4,
-        "exportRows": 6,
-        "exportSheetCount": 17,
+        "exportBytes": 31956,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 4,
+          "unmatchedRows": 0,
+          "requiredLinks": 4
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2470,
+        "elapsedMs": 2543,
+        "expectedLinks": 4,
         "matchesExpectation": true
       },
       {
@@ -922,13 +1023,18 @@
         ],
         "actor": "simulated-user",
         "matched": 5,
-        "exportRows": 5,
-        "exportSheetCount": 17,
-        "exportVerified": true,
+        "exportBytes": 30223,
+        "verification": {
+          "status": "verified",
+          "reader": "audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)",
+          "acceptedLinks": 5,
+          "unmatchedRows": 0,
+          "requiredLinks": 5
+        },
         "outcome": "completed-without-correction",
-        "elapsedMs": 2527,
-        "matchesExpectation": true,
-        "expectedMatches": 5
+        "elapsedMs": 2613,
+        "expectedLinks": 5,
+        "matchesExpectation": true
       },
       {
         "id": "A21",
@@ -943,7 +1049,7 @@
         "outcome": "correct-stop",
         "reason": "بعض التواريخ أو المبالغ تحتمل أكثر من قراءة. اختر الصيغة الصحيحة في بطاقة الملف.",
         "stage": "readiness",
-        "elapsedMs": 6005,
+        "elapsedMs": 6093,
         "matchesExpectation": true
       },
       {
@@ -959,7 +1065,7 @@
         "outcome": "correct-stop",
         "reason": "تعذر التحقق من صيغة التواريخ أو المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة.",
         "stage": "readiness",
-        "elapsedMs": 988,
+        "elapsedMs": 1009,
         "matchesExpectation": true
       },
       {
@@ -974,7 +1080,7 @@
         "outcome": "correct-stop",
         "reason": "لا توجد حركات كافية في أحد الطرفين",
         "stage": "compare",
-        "elapsedMs": 1939,
+        "elapsedMs": 1962,
         "matchesExpectation": true
       },
       {
@@ -986,7 +1092,7 @@
         "outcome": "correct-stop",
         "stage": "read",
         "reason": "confirm step disabled after reading the sources",
-        "elapsedMs": 3131,
+        "elapsedMs": 3328,
         "matchesExpectation": true
       }
     ]

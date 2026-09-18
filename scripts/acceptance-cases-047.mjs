@@ -46,6 +46,13 @@ const base = movements([
   ['INV-7005', '2026-07-27', 203400, 'Invoice'],
 ]);
 const shortSet = base.slice(0, 3);
+/** The same reference twice on a side, with different dates and equal amounts.
+ * The product's rule refuses an automatic link for a reference that is not
+ * unique on both sides, so these two copies must stay open on each side while
+ * the four unique references still match. */
+const duplicated = [...base, { ...base[0], date: '2026-07-05' }];
+/** A three-decimal currency whose amounts read only one way. */
+const kwd = base.map((m) => ({ ...m, minor: m.minor * 10 }));
 
 const plainCsv = (
   rows,
@@ -57,14 +64,57 @@ const plainCsv = (
   return withBom ? bom(text) : utf8(text);
 };
 const table = (set, { header, row }) => [header, ...set.map(row)];
-/** What the supplier sheet of the export must contain, in source order, derived
- * from the movements the case was built from rather than from the app. */
-const expectedRows = (set, decimals = 2) =>
-  set.map((m) => ({
-    reference: m.reference,
-    date: m.date,
-    amount: m.minor / 10 ** decimals,
-  }));
+/** Rows the export must carry for one side, in source order, derived from the
+ * movements the case was built from rather than from the app. */
+const expectedRows = (set) =>
+  set.map((m) => ({ reference: m.reference, date: m.date, minor: m.minor }));
+
+/** The reference result for a pair, derived from the product's own rule for an
+ * automatic 1:1 link (core.ts, EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2): the
+ * reference must be identical, the signed amount equal, the dates within the
+ * window, and the reference UNIQUE on both sides. Anything else must stay for
+ * review or without a counterpart -- never be linked to keep a count.
+ *
+ * It returns the links that must exist, links that must not, and the items that
+ * must remain open, so swapping two links cannot pass on the count alone.
+ */
+function referenceResult(supplierSet, ledgerSet) {
+  const count = (set, reference) =>
+    set.filter((m) => m.reference === reference).length;
+  const requiredLinks = [];
+  const forbiddenLinks = [];
+  const unmatched = [];
+  for (const supplier of supplierSet) {
+    const counterparts = ledgerSet.filter(
+      (l) => l.reference === supplier.reference,
+    );
+    const unique =
+      count(supplierSet, supplier.reference) === 1 && counterparts.length === 1;
+    const equal = unique && counterparts[0].minor === supplier.minor;
+    if (equal) requiredLinks.push([[supplier.reference], [supplier.reference]]);
+    else if (unique && counterparts.length === 1)
+      // Same reference, different signed amount: a counterpart exists, so this
+      // is a variance to review, and linking it automatically is not allowed.
+      forbiddenLinks.push([[supplier.reference], [supplier.reference]]);
+    else if (!counterparts.length)
+      // The export writes the transaction's own side value, not a display label.
+      unmatched.push({ side: 'supplier', reference: supplier.reference });
+    else
+      // Duplicated on one side or both: the rule refuses it, so no link between
+      // these copies may be accepted.
+      forbiddenLinks.push([[supplier.reference], [supplier.reference]]);
+  }
+  for (const ledger of ledgerSet)
+    if (!supplierSet.some((m) => m.reference === ledger.reference))
+      unmatched.push({ side: 'ledger', reference: ledger.reference });
+  return {
+    supplierRows: expectedRows(supplierSet),
+    ledgerRows: expectedRows(ledgerSet),
+    requiredLinks,
+    forbiddenLinks,
+    unmatched,
+  };
+}
 
 const english = {
   header: ['Date', 'Reference', 'Description', 'Amount'],
@@ -143,8 +193,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a01-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A02',
@@ -159,8 +208,7 @@ export async function acceptanceCases() {
     }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A03',
@@ -172,8 +220,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a03-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A04',
@@ -182,8 +229,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a04-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A05',
@@ -192,8 +238,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a05-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A06',
@@ -204,9 +249,8 @@ export async function acceptanceCases() {
     // side increases the payable, so the app asks and the answer is recorded.
     scope,
     expect: 'completed',
-    matches: base.length,
     debitIncreases: true,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A07',
@@ -218,8 +262,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a07-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A08',
@@ -238,8 +281,7 @@ export async function acceptanceCases() {
     }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A09',
@@ -248,8 +290,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a09-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A10',
@@ -264,8 +305,7 @@ export async function acceptanceCases() {
     }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A11',
@@ -278,8 +318,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a11-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A12',
@@ -290,9 +329,8 @@ export async function acceptanceCases() {
     ledger: await sheetFile(base, english, { name: 'a12-ledger.xlsx' }),
     scope,
     expect: 'completed',
-    matches: base.length,
     debitIncreases: true,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A13',
@@ -301,9 +339,8 @@ export async function acceptanceCases() {
     ledger: csvFile(shortSet, english, { name: 'a13-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: shortSet.length,
     pdfReview: true,
-    expectedSupplierRows: expectedRows(shortSet),
+    expected: referenceResult(shortSet, shortSet),
   });
   add({
     id: 'A14',
@@ -312,9 +349,8 @@ export async function acceptanceCases() {
     ledger: csvFile(base, english, { name: 'a14-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length,
     pdfReview: true,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base),
   });
   add({
     id: 'A15',
@@ -323,9 +359,8 @@ export async function acceptanceCases() {
     ledger: await sheetFile(shortSet, english, { name: 'a15-ledger.xlsx' }),
     scope,
     expect: 'completed',
-    matches: shortSet.length,
     pdfReview: true,
-    expectedSupplierRows: expectedRows(shortSet),
+    expected: referenceResult(shortSet, shortSet),
   });
   add({
     id: 'A16',
@@ -334,9 +369,8 @@ export async function acceptanceCases() {
     ledger: csvFile(shortSet, english, { name: 'a16-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: shortSet.length,
     pdfReview: true,
-    expectedSupplierRows: expectedRows(shortSet),
+    expected: referenceResult(shortSet, shortSet),
   });
   add({
     id: 'A17',
@@ -345,8 +379,7 @@ export async function acceptanceCases() {
     ledger: csvFile(base.slice(0, -1), english, { name: 'a17-ledger.csv' }),
     scope,
     expect: 'completed',
-    matches: base.length - 1,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(base, base.slice(0, -1)),
   });
   add({
     id: 'A18',
@@ -359,8 +392,10 @@ export async function acceptanceCases() {
     ),
     scope,
     expect: 'completed',
-    matches: base.length - 1,
-    expectedSupplierRows: expectedRows(base),
+    expected: referenceResult(
+      base,
+      base.map((m, i) => (i === 2 ? { ...m, minor: m.minor + 500 } : m)),
+    ),
   });
   add({
     id: 'A19',
@@ -373,6 +408,7 @@ export async function acceptanceCases() {
     }),
     scope,
     expect: 'completed',
+    expected: referenceResult(duplicated, duplicated),
   });
   add({
     id: 'A20',
@@ -395,11 +431,8 @@ export async function acceptanceCases() {
     ),
     scope: { currency: 'KWD', cutoff: '2026-08-31' },
     expect: 'completed',
-    matches: base.length,
-    expectedSupplierRows: expectedRows(
-      base.map((m) => ({ ...m, minor: m.minor * 10 })),
-      3,
-    ),
+    decimals: 3,
+    expected: referenceResult(kwd, kwd),
   });
   add({
     id: 'A21',
