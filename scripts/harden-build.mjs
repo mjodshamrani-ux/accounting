@@ -1,5 +1,6 @@
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
+import { SITE_URL, verifySocialMetadata } from './verify-social-metadata.mjs';
 const root = 'dist';
 const p = path.join(root, 'index.html');
 let html = await readFile(p, 'utf8');
@@ -12,8 +13,13 @@ html = html.replace(
 );
 if (/<script(?![^>]*\bsrc=)[^>]*>[\s\S]*?<\/script>/i.test(html))
   throw new Error('Unexpected inline script');
-if (/(?:src|href)=["']https?:\/\//i.test(html))
+// A canonical URL is inert crawler metadata, not an external resource request.
+// Exempt exactly our own canonical link; active resource URLs remain forbidden.
+const canonical = `<link rel="canonical" href="${SITE_URL}" />`;
+if (html.split(canonical).length !== 2) throw new Error('Missing or duplicate canonical URL');
+if (/(?:src|href)=["']https?:\/\//i.test(html.replace(canonical, '')))
   throw new Error('External resource in HTML');
+await verifySocialMetadata(html, root);
 await writeFile(p, html);
 await writeFile(path.join(root, '.nojekyll'), '');
 const assets = await readdir(path.join(root, 'assets'));

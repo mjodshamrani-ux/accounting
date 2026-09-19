@@ -1,0 +1,51 @@
+{
+  "purpose": "Pre-publication validation of the latest unified engine and social sharing assets",
+  "date": "2026-09-19",
+  "appVersion": "0.4.8",
+  "engineVersion": "0.3.14-experimental",
+  "unifiedSourceCommit": "bb70d89a37f68418908526298ffc814312644afe",
+  "engineChangedForSharingRelease": false,
+  "checks": {
+    "pnpm check": {
+      "exitCode": 0,
+      "testsPassed": 648,
+      "failed": 0,
+      "skipped": 0,
+      "mutationsDetected": 39,
+      "mutationsTotal": 39,
+      "buildAndBrowserPassed": true
+    },
+    "pnpm audit --prod --audit-level=moderate": {
+      "exitCode": 0,
+      "knownVulnerabilities": 0
+    },
+    "knownFinalAcceptanceGate": {
+      "casesPassed": 494,
+      "casesTotal": 494,
+      "ambiguitiesChecked": 17,
+      "violations": 0,
+      "exportChecks": 420,
+      "evaluationKind": "Previously opened regression cases"
+    },
+    "browserAcceptance": {
+      "casesPassed": 24,
+      "casesTotal": 24,
+      "outcomes": {
+        "completed-without-correction": 14,
+        "completed-after-limited-confirmation": 6,
+        "correct-stop": 4
+      },
+      "independentExportsVerified": 20,
+      "evaluationKind": "Re-run of known 0.4.7 acceptance fixtures"
+    }
+  },
+  "socialImage": {
+    "path": "public/brand/tarasuf-share-v048.png",
+    "width": 1200,
+    "height": 630,
+    "bytes": 38861,
+    "sha256": "204c00759ae6dd5d1f7c10f20c9cca496ff61453633dc4a6c3a28507eb6bc33c",
+    "visuallyInspected": true
+  },
+  "scope": "Limited trial under accountant supervision; sharing and deployment do not expand the documented accounting support scope."
+}

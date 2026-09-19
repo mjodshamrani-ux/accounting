@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -19,6 +19,7 @@
     "test:mutations": "node scripts/test-mutations.mjs",
     "check": "pnpm typecheck && pnpm test && pnpm test:mutations && pnpm build && pnpm test:browser",
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
+    "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
     "test:reliability": "node --experimental-strip-types audit/reliability/run.mjs --split development,validation,final --frozen",
     "test:reliability:development": "node --experimental-strip-types audit/reliability/run.mjs",
