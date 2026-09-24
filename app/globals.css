@@ -396,7 +396,7 @@ th,
 td {
   padding: 12px 14px;
   border-bottom: 1px solid #e6edf1;
-  text-align: start;
+  text-align: right;
   max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -431,9 +431,11 @@ th {
   direction: ltr;
   text-align: right;
 }
-/* The figure itself is always written left to right; it sits at the start of
-   the card in either language. */
-:root[dir='ltr'] .metric strong {
+/* Figures, dates and table cells are written left to right; they sit at the
+   start of their card or cell in either language. */
+:root[dir='ltr'] .metric strong,
+:root[dir='ltr'] th,
+:root[dir='ltr'] td {
   text-align: left;
 }
 .metric small {
@@ -2194,6 +2196,27 @@ td {
   .language-switch button {
     min-width: 28px;
     padding-inline: 2px;
+  }
+}
+/* In the workspace the privacy pill shares the header with the switcher; on
+   phones the switcher gives up its spacing so the pill keeps one line. */
+@media (max-width: 420px) {
+  .in-session .topbar-actions {
+    gap: 6px;
+  }
+  .in-session .language-switch button {
+    min-width: 24px;
+  }
+  .in-session .language-switch__divider {
+    padding-inline: 0;
+  }
+}
+/* At 320px there is room for one language button: the switcher offers the
+   other language only, and the pill keeps its single line. */
+@media (max-width: 360px) {
+  .in-session .language-switch button[aria-pressed='true'],
+  .in-session .language-switch__divider {
+    display: none;
   }
 }
 /* At the narrowest widths the switcher gives up spacing, never the header's

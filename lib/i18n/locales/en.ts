@@ -472,7 +472,7 @@ export const en: Messages = {
       nativeText: 'The page contains readable text.',
       unknown: 'No readable text was found, and the page content could not be determined.',
       advice:
-        'Reading stopped so that incomplete data does not enter the comparison. Try an Excel version or a text-based PDF. The image assistant below lets you try reading the file, but its output is a draft that is not used in the reconciliation.',
+        'This prevents incomplete data from entering the comparison. Try an Excel version or a text-based PDF. The image assistant below lets you try reading the file, but its output is a draft that is not used in the reconciliation.',
     },
     upload: {
       heading: 'Add the two reconciliation files',
@@ -543,8 +543,8 @@ export const en: Messages = {
       accountLabel: 'Account scope',
       sources: 'Sources of the suggested values',
       conflictMark: ' — conflict',
-      evidenceFrom: (side: number) => ` — ${sides[side]}, `,
-      evidenceRow: (row: number) => `, row ${row}`,
+      evidenceSeparator: ', ',
+      evidenceRow: ', row ',
     },
     compare: {
       pdfPending:
@@ -587,8 +587,7 @@ export const en: Messages = {
       searchPlaceholder: 'Ref., description, row',
       columns: ['Source / Row', 'Date', 'Reference', 'Amount', 'Status', 'Review'],
       noReference: 'No reference',
-      caseMembers: (supplier: number, ledger: number) =>
-        `${supplier}:${ledger} transactions in this case`,
+      caseMembers: ' transactions in this case',
       status: {
         auto: 'Automatic match',
         manual: 'Manual confirmation',
@@ -623,8 +622,10 @@ export const en: Messages = {
       itemAdjustment: 'Net effect of reconciling items',
       adjusted: 'Arithmetically adjusted balance',
       residual: 'Remaining arithmetic difference',
-      bridgeNote: (open: number) =>
-        `A remaining difference of zero does not establish the causes of the differences or the validity of the documents. Transactions still unmatched: ${open}, all documented in the workpaper. This view shows the effect of the transactions on the balances and does not propose journal entries.`,
+      bridgeLead:
+        'A remaining difference of zero does not establish the causes of the differences or the validity of the documents. Transactions still unmatched:',
+      bridgeTrail:
+        '— all documented in the workpaper. This view shows the effect of the transactions on the balances and does not propose journal entries.',
       noBalances:
         'The workpaper includes the transaction comparison and the cases that need follow-up. You did not choose to reconcile balances in this session.',
       notesHeading: 'Review notes and download',

@@ -1,0 +1,471 @@
+{
+  "subject": "integration/0.4.7-unified after 47e0562 (bilingual interface) with the fixes of this acceptance pass",
+  "baseline": "bb70d89 (Arabic-only limited-trial candidate)",
+  "engineChanged": false,
+  "engineDiff": "git diff bb70d89 -- lib/reconciliation audit tests/fixtures scripts/harden-build.mjs vite.config.ts package.json pnpm-lock.yaml index.html is empty",
+  "suites": {
+    "typecheck": "pass",
+    "unit": {
+      "tests": 660,
+      "pass": 648,
+      "fail": 0,
+      "skipped": 12,
+      "skippedReason": "July acceptance pack needs the private original files"
+    },
+    "mutations": {
+      "detected": 39,
+      "of": 39
+    },
+    "build": "pass",
+    "browser": "pass (includes the Arabic/English case)",
+    "i18nUnit": {
+      "tests": 12,
+      "fail": 0
+    }
+  },
+  "bilingualRound": {
+    "runs": [
+      {
+        "name": "arabic",
+        "plan": {
+          "upload": "ar",
+          "between-files": "ar",
+          "confirm": "ar",
+          "mapped": "ar",
+          "choices": "ar",
+          "review": "ar",
+          "decisions": "ar",
+          "export": "ar",
+          "restore": "ar"
+        },
+        "firstMetrics": [
+          "3",
+          "0",
+          "2",
+          "0"
+        ],
+        "reviewMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "restoredMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "workbookCells": 848,
+        "workbookDiffersFromArabic": [],
+        "restoredWorkbookDiffers": [],
+        "sessionMatchesArabic": true,
+        "strayArabicInEnglish": {},
+        "blockedBeforeChoices": true,
+        "pageErrors": []
+      },
+      {
+        "name": "english",
+        "plan": {
+          "upload": "en",
+          "between-files": "en",
+          "confirm": "en",
+          "mapped": "en",
+          "choices": "en",
+          "review": "en",
+          "decisions": "en",
+          "export": "en",
+          "restore": "en"
+        },
+        "firstMetrics": [
+          "3",
+          "0",
+          "2",
+          "0"
+        ],
+        "reviewMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "restoredMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "workbookCells": 848,
+        "workbookDiffersFromArabic": [],
+        "restoredWorkbookDiffers": [],
+        "sessionMatchesArabic": true,
+        "strayArabicInEnglish": {},
+        "blockedBeforeChoices": true,
+        "pageErrors": []
+      },
+      {
+        "name": "switch-ar-first",
+        "plan": {
+          "upload": "ar",
+          "between-files": "en",
+          "confirm": "ar",
+          "mapped": "en",
+          "choices": "ar",
+          "review": "en",
+          "decisions": "ar",
+          "export": "en",
+          "restore": "ar"
+        },
+        "firstMetrics": [
+          "3",
+          "0",
+          "2",
+          "0"
+        ],
+        "reviewMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "restoredMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "workbookCells": 848,
+        "workbookDiffersFromArabic": [],
+        "restoredWorkbookDiffers": [],
+        "sessionMatchesArabic": true,
+        "strayArabicInEnglish": {},
+        "blockedBeforeChoices": true,
+        "pageErrors": []
+      },
+      {
+        "name": "switch-en-first",
+        "plan": {
+          "upload": "en",
+          "between-files": "ar",
+          "confirm": "en",
+          "mapped": "ar",
+          "choices": "en",
+          "review": "ar",
+          "decisions": "en",
+          "export": "ar",
+          "restore": "en"
+        },
+        "firstMetrics": [
+          "3",
+          "0",
+          "2",
+          "0"
+        ],
+        "reviewMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "restoredMetrics": [
+          "2",
+          "0",
+          "2",
+          "0"
+        ],
+        "workbookCells": 848,
+        "workbookDiffersFromArabic": [],
+        "restoredWorkbookDiffers": [],
+        "sessionMatchesArabic": true,
+        "strayArabicInEnglish": {},
+        "blockedBeforeChoices": true,
+        "pageErrors": []
+      }
+    ],
+    "screens": [
+      {
+        "lang": "ar",
+        "errors": [],
+        "findings": {},
+        "overflow": {},
+        "unsupported": "اختر ملف XLSX أو CSV أو PDF نصيًا.",
+        "diagnosis": "الصفحة 1 مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية. القراءة البصرية (OCR) تنتج مسودة غير متحققة.\n\nتوقفت القراءة عند الصفحة 1 من 1: تحتوي الصفحة صورًا ولا يظهر فيها نص يمكن قراءته مباشرة. توقفت قراءة الملف حتى لا تدخل بيانات ناقصة في المقارنة. جرّب نسخة Excel أو PDF نصية. مساعد الصور أدناه يتيح تجربة القراءة، لكن مخرجاته مسودة لا تدخل في التسوية."
+      },
+      {
+        "lang": "en",
+        "errors": [],
+        "findings": {},
+        "overflow": {},
+        "unsupported": "Choose an XLSX, CSV, or text-based PDF file.",
+        "diagnosis": "Page 1 is a scanned image or has no verifiable text. Use a text-based PDF or Excel for the reconciliation. Image reading (OCR) produces an unverified draft.\n\nReading stopped at page 1 of 1: The page contains images and no text that can be read directly. This prevents incomplete data from entering the comparison. Try an Excel version or a text-based PDF. The image assistant below lets you try reading the file, but its output is a draft that is not used in the reconciliation."
+      }
+    ],
+    "externalRequests": []
+  },
+  "arabicPixelParity": [
+    {
+      "width": 390,
+      "screen": "landing",
+      "size": [
+        390,
+        7646
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "confirm",
+      "size": [
+        390,
+        1680
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "review",
+      "size": [
+        390,
+        2028
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "export",
+      "size": [
+        390,
+        2375
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "options",
+      "size": [
+        390,
+        3398
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "assistant",
+      "size": [
+        390,
+        2853
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "case",
+      "size": [
+        390,
+        2991
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "privacy",
+      "size": [
+        390,
+        2079
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "diagnosis",
+      "size": [
+        390,
+        8311
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "pdf",
+      "size": [
+        390,
+        3525
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 390,
+      "screen": "ambiguity",
+      "size": [
+        390,
+        3016
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "landing",
+      "size": [
+        1440,
+        5175
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "confirm",
+      "size": [
+        1440,
+        1379
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "review",
+      "size": [
+        1440,
+        1716
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "export",
+      "size": [
+        1440,
+        1987
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "options",
+      "size": [
+        1440,
+        2528
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "assistant",
+      "size": [
+        1440,
+        2364
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "case",
+      "size": [
+        1440,
+        2370
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "privacy",
+      "size": [
+        1440,
+        1641
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "diagnosis",
+      "size": [
+        1440,
+        5507
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "pdf",
+      "size": [
+        1440,
+        2698
+      ],
+      "differingPixels": 0,
+      "rows": null
+    },
+    {
+      "width": 1440,
+      "screen": "ambiguity",
+      "size": [
+        1440,
+        2435
+      ],
+      "differingPixels": 0,
+      "rows": null
+    }
+  ],
+  "exportParity": {
+    "cells": 1083,
+    "sheetsEqual": true,
+    "arabicVsBaseline": [],
+    "englishVsBaseline": [],
+    "sessionArabicVsBaseline": true,
+    "sessionEnglishVsBaseline": true,
+    "sessionBytes": 3158
+  },
+  "acceptance047Rerun": {
+    "outcomes": {
+      "completed-without-correction": 14,
+      "completed-after-limited-confirmation": 6,
+      "correct-stop": 4
+    },
+    "expectationsMet": 24,
+    "exportsCheckedAgainstDeclaredResult": 20,
+    "identicalToBaselineRunApartFromTimingsAndBytes": true
+  },
+  "workspaceHeader": {
+    "note": "height of the privacy pill (px); 44 = one line",
+    "baselineArabic": {
+      "320": 44,
+      "390": 44,
+      "768": 44,
+      "1024": 44,
+      "1440": 44
+    },
+    "arabic": {
+      "320": 44,
+      "390": 44,
+      "768": 44,
+      "1024": 44,
+      "1440": 44
+    },
+    "english": {
+      "320": 50,
+      "390": 44,
+      "768": 44,
+      "1024": 44,
+      "1440": 44
+    },
+    "topbarUnchanged": true
+  }
+}

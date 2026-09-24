@@ -1198,7 +1198,8 @@ export default function App() {
             </div>
             <div className="stack">
               <span className="version-badge">
-                {t.app.shell.beta} <bdi>{APP_VERSION}</bdi>
+                {`${t.app.shell.beta} `}
+                <bdi>{APP_VERSION}</bdi>
               </span>
               {files.some(Boolean) && (
                 <Button
@@ -1606,11 +1607,17 @@ export default function App() {
                                     (item, i) => (
                                       <p className="muted" key={i}>
                                         <bdi>{item.value}</bdi>
-                                        {t.app.scope.evidenceFrom(
-                                          item.side === 'supplier' ? 0 : 1,
-                                        )}
+                                        {' —'}
+                                        {' '}
+                                        {
+                                          t.app.sides[
+                                            item.side === 'supplier' ? 0 : 1
+                                          ]
+                                        }
+                                        {t.app.scope.evidenceSeparator}
                                         <bdi>{item.sheet}</bdi>
-                                        {t.app.scope.evidenceRow(item.row)}
+                                        {t.app.scope.evidenceRow}
+                                        {item.row}
                                       </p>
                                     ),
                                   )}
@@ -1898,10 +1905,9 @@ export default function App() {
                                     scope.decimals,
                                   )}
                                   <div className="muted">
-                                    {t.app.results.caseMembers(
-                                      activeCase.supplierMembers.length,
-                                      activeCase.ledgerMembers.length,
-                                    )}
+                                    {activeCase.supplierMembers.length}:
+                                    {activeCase.ledgerMembers.length}
+                                    {t.app.results.caseMembers}
                                   </div>
                                 </TableCell>
                                 <TableCell>
@@ -2114,9 +2120,9 @@ export default function App() {
                         )}
                       </div>
                       <div className="notice">
-                        {t.app.finish.bridgeNote(
-                          result.supplierOnly.length + result.ledgerOnly.length,
-                        )}
+                        {t.app.finish.bridgeLead}{' '}
+                        {result.supplierOnly.length + result.ledgerOnly.length}{' '}
+                        {t.app.finish.bridgeTrail}
                       </div>
                     </section>
                   ) : (

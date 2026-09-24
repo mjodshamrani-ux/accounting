@@ -521,8 +521,9 @@ export const ar = {
       accountLabel: 'نطاق الحساب',
       sources: 'مصادر القيم المقترحة',
       conflictMark: ' — تعارض',
-      evidenceFrom: (side: number) => ` — ${sides[side]}، `,
-      evidenceRow: (row: number) => `، صف ${row}`,
+      // "value — source, sheet, row n", in the pieces the line is built from.
+      evidenceSeparator: '، ',
+      evidenceRow: '، صف ',
     },
     compare: {
       pdfPending:
@@ -565,8 +566,8 @@ export const ar = {
       searchPlaceholder: 'مرجع أو وصف أو صف',
       columns: ['المصدر / الصف', 'التاريخ', 'المرجع', 'المبلغ', 'الحالة', 'المراجعة'],
       noReference: 'بلا مرجع',
-      caseMembers: (supplier: number, ledger: number) =>
-        `${supplier}:${ledger} حركات مرتبطة بالحالة`,
+      // After "supplier count:ledger count".
+      caseMembers: ' حركات مرتبطة بالحالة',
       status: {
         auto: 'مطابقة آلية',
         manual: 'تأكيد يدوي',
@@ -599,8 +600,11 @@ export const ar = {
       itemAdjustment: 'صافي أثر حركات التسوية',
       adjusted: 'الرصيد المعدل حسابيًا',
       residual: 'الفرق المتبقي حسابيًا',
-      bridgeNote: (open: number) =>
-        `وصول الفرق المتبقي إلى صفر لا يثبت أسباب الفروق أو صحة المستندات. عدد الحركات التي ما زالت دون مقابل: ${open} وهي موثقة في ورقة العمل. هذا العرض يوضح أثر الحركات على الأرصدة ولا يقترح قيودًا للترحيل.`,
+      // Around the count of transactions still without a counterpart.
+      bridgeLead:
+        'وصول الفرق المتبقي إلى صفر لا يثبت أسباب الفروق أو صحة المستندات. عدد الحركات التي ما زالت دون مقابل:',
+      bridgeTrail:
+        'وهي موثقة في ورقة العمل. هذا العرض يوضح أثر الحركات على الأرصدة ولا يقترح قيودًا للترحيل.',
       noBalances:
         'ورقة العمل تشمل مقارنة الحركات والحالات التي تحتاج متابعة. لم تختر تسوية الأرصدة في هذه الجلسة.',
       notesHeading: 'ملاحظات المراجعة وتنزيل الملف',

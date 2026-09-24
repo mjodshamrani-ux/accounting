@@ -150,6 +150,31 @@ test('each engine message is recognised and presented with its own values', () =
   }
 });
 
+test('every user-data slot keeps Arabic data verbatim, even engine words', () => {
+  // Data that is itself an engine word is the hardest case: it must still
+  // be shown exactly as written wherever the slot holds user data.
+  const words = ['المورد', 'بلا مرجع', 'فارغ', 'التاريخ'];
+  for (const [arabic, english] of Object.entries(engineCatalog)) {
+    const parts = arabic.split(SLOT);
+    if (parts.length === 1) continue;
+    const modes = new Map(
+      [...english.matchAll(/\{([et]?)(\d+)\}/g)].map((m) => [Number(m[2]), m[1]]),
+    );
+    // Only slots that stand alone can be checked value by value.
+    if (parts.slice(1, -1).some((part) => part === '')) continue;
+    const values = parts.slice(1).map((_, i) =>
+      modes.get(i) === '' ? words[i % words.length] : `V${i}`,
+    );
+    let text = parts[0];
+    values.forEach((value, i) => (text += value + parts[i + 1]));
+    const expected = english.replace(
+      /\{[et]?(\d+)\}/g,
+      (_, i) => values[Number(i)],
+    );
+    assert.equal(localizeEngineText(text, 'en'), expected, arabic);
+  }
+});
+
 test('user data inside an engine message is never translated', () => {
   // A column heading that happens to be an engine word stays as written.
   assert.equal(
