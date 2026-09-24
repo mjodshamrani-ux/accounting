@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { readFile, exportWorkbook } from '../lib/reconciliation/io.ts';
 import { normalizeSource, compare } from '../lib/reconciliation/core.ts';
+import { suggestFormats } from '../lib/reconciliation/format-inference.ts';
+import { formatChoice } from '../lib/reconciliation/input-readiness.ts';
 import { defaultMapping } from '../lib/reconciliation/types.ts';
 import type { Mapping, Scope } from '../lib/reconciliation/types.ts';
 
@@ -130,6 +132,7 @@ for (const extension of ['csv', 'xlsx'] as const)
                   ? '08/13/2026'
                   : '2026/08/13';
             const position = (index: number) => order.indexOf(index);
+            const answered = new Set<string>();
             const make = async (
               amounts: number[],
               side: 'supplier' | 'ledger',
@@ -212,6 +215,25 @@ for (const extension of ['csv', 'xlsx'] as const)
                   '6': 'Repeated page heading verified against original',
                 },
               };
+              // exportWorkbook refuses a reading that is still ambiguous, so
+              // the oracle's own format is recorded as the accountant's answer
+              // wherever the source allows two readings, as the interface does.
+              const formats = suggestFormats(file, mapping, scope.decimals);
+              for (const field of ['numberFormat', 'dateFormat'] as const)
+                if (formats[field].status === 'ambiguous') {
+                  answered.add(field);
+                  mapping.formatChoice = {
+                    ...mapping.formatChoice,
+                    [field]: formatChoice(
+                      file,
+                      mapping,
+                      field,
+                      mapping[field],
+                      formats[field].candidates,
+                      scope.decimals,
+                    ),
+                  };
+                }
               return {
                 file,
                 mapping,
@@ -257,6 +279,12 @@ for (const extension of ['csv', 'xlsx'] as const)
             });
             assert.ok(
               result.diagnostics.some((d) => d.code === 'AMOUNT_VARIANCE'),
+            );
+            // Three-place amounts such as 1.234 read as thousands or as fils,
+            // and every three-place layout here allows both readings.
+            assert.deepEqual(
+              [...answered],
+              places === 3 ? ['numberFormat'] : [],
             );
             const output = await exportWorkbook(result, [a.file, b.file], {
               name: '',

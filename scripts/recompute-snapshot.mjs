@@ -164,6 +164,20 @@ for (const c of await recomputeCases()) {
         await send('export', { result: unrejected, files: c.files, review }),
       );
     }
+    // A malformed result, alone and with a second fault that stops the
+    // reading. Only which refusal comes first can differ between engines.
+    for (const [name, scope] of [
+      ['malformedMatches', result.scope],
+      ['malformedMatches.invalidScope', { ...result.scope, currency: 7 }],
+    ]) {
+      const malformed = { ...structuredClone(result), matches: null, scope };
+      record.tampered[`${name}.workerExport`] = await outcome(
+        await send('export', { result: malformed, files: c.files, review }),
+      );
+      record.tampered[`${name}.directExport`] = await direct(() =>
+        io.exportWorkbook(malformed, c.files, review),
+      );
+    }
     const manual = result.matches.find((m) => m.kind === 'manual');
     if (manual) {
       const dropped = structuredClone(result);
@@ -198,6 +212,14 @@ for (const c of await recomputeCases()) {
       record.tampered[`formatChoice.${name}.compare`] = await outcome(
         other.compare,
       );
+      // A result computed under the stale choice, sent straight to export.
+      const stale = coreResult({ ...c, mappings });
+      record.tampered[`formatChoice.${name}.workerExport`] = await outcome(
+        await send('export', { result: stale, files: c.files, review }),
+      );
+      record.tampered[`formatChoice.${name}.directExport`] = await direct(() =>
+        io.exportWorkbook(stale, c.files, review),
+      );
     }
   }
   const evidence = c.mappings[1].directionEvidence;
@@ -210,6 +232,17 @@ for (const c of await recomputeCases()) {
           directionEvidence: {
             ...evidence,
             checkedRows: evidence.checkedRows + 1,
+          },
+        },
+      ],
+      [
+        // The checked facts still hold; only the explanation was edited.
+        'staleReason',
+        {
+          ...c.mappings[1],
+          directionEvidence: {
+            ...evidence,
+            reason: `${evidence.reason} (edited)`,
           },
         },
       ],
@@ -255,6 +288,27 @@ for (const c of await recomputeCases()) {
           await outcome(
             await send('export', { result: claimed, files: c.files, review }),
           );
+        record.tampered[`direction.${name}.directExport`] = await direct(() =>
+          io.exportWorkbook(claimed, c.files, review),
+        );
+      }
+      // Two faults at once: which refusal is reported first.
+      const badScope = { ...c.scope, currency: 7 };
+      for (const [label, ledger] of [
+        ['provenClaim', c.mappings[1]],
+        [name, mapping],
+      ]) {
+        const doubled = {
+          files: c.files,
+          mappings: [c.mappings[0], ledger],
+          scope: badScope,
+          decisions: c.decisions,
+          rejected: c.rejected,
+        };
+        record.tampered[`direction.${label}.invalidScope.reconcile`] =
+          await outcome(await send('reconcile', doubled));
+        record.tampered[`direction.${label}.invalidScope.compare`] =
+          await outcome(await send('compare', doubled));
       }
     }
   }

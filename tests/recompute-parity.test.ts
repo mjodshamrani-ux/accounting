@@ -4,7 +4,15 @@ import fs from 'node:fs';
 import { normalizeSource } from '../lib/reconciliation/core.ts';
 import { exportWorkbook } from '../lib/reconciliation/io.ts';
 import { reconcileSupplierStatement } from '../lib/reconciliation/supplier-reconciliation.ts';
-import type { Comparison, Mapping } from '../lib/reconciliation/types.ts';
+import type {
+  Comparison,
+  Mapping,
+  Scope,
+} from '../lib/reconciliation/types.ts';
+import {
+  isInputReadinessRejection,
+  type InputReadinessCode,
+} from '../lib/reconciliation/input-readiness.ts';
 import {
   decimalMinor,
   readOutputWorkbook,
@@ -25,7 +33,7 @@ import {
 // Each gate stays where it was; the refusals below are what each path refused
 // before the paths were joined, including the differences between them.
 const cases = await recomputeCases();
-const resolved = cases.filter((c) => !c.unresolved);
+const resolved = cases.filter((c) => !c.formatRefusal);
 const named = (name: string) => cases.find((c) => c.name.startsWith(name))!;
 let worker: Awaited<ReturnType<typeof productionWorker>>;
 before(async () => {
@@ -205,17 +213,44 @@ test('the cases hold what they are named for', () => {
   );
 });
 
-test('an unanswered ambiguity is refused on every worker path', async () => {
+/** A refusal from the format guard, identified by its structured code. */
+const refusedByFormatGuard = (error: unknown, code: InputReadinessCode) => {
+  assert.ok(isInputReadinessRejection(error, code), String(error));
+  return true;
+};
+
+for (const c of cases.filter((c) => c.formatRefusal))
+  test(`every path refuses ${c.formatRefusal}: ${c.name}`, async () => {
+    const code = c.formatRefusal!;
+    refused(await worker.send('reconcile', payload(c)), /صيغة/, code);
+    refused(await worker.send('compare', payload(c)), /صيغة/, code);
+    refused(
+      await worker.send('save-session', { ...payload(c), events: [], review }),
+      /صيغة/,
+      code,
+    );
+    refused(await exported(coreResult(c), c.files), /صيغة/, code);
+    await assert.rejects(
+      exportWorkbook(coreResult(c), c.files, review),
+      (error) => refusedByFormatGuard(error, code),
+    );
+  });
+
+test('exportWorkbook itself refuses an unanswered format ambiguity', async () => {
+  // Called directly, not through the worker: the export holds the invariant.
   const c = named('unresolved');
-  const code = 'FORMAT_AMBIGUOUS_UNRESOLVED';
-  refused(await worker.send('reconcile', payload(c)), /صيغة المبالغ/, code);
-  refused(await worker.send('compare', payload(c)), /صيغة المبالغ/, code);
-  refused(
-    await worker.send('save-session', { ...payload(c), events: [], review }),
-    /صيغة المبالغ/,
-    code,
+  await assert.rejects(
+    exportWorkbook(coreResult(c), c.files, review),
+    (error) => refusedByFormatGuard(error, 'FORMAT_AMBIGUOUS_UNRESOLVED'),
   );
-  refused(await exported(coreResult(c), c.files), /صيغة المبالغ/, code);
+  // The same source with its answer recorded for this reading is exported.
+  const answered = named('the same ambiguity');
+  const bytes = await exportWorkbook(
+    coreResult(answered),
+    answered.files,
+    review,
+  );
+  await assertWorkbookRows(bytes, coreResult(answered));
 });
 
 test('a result changed after comparing is not exported', async () => {
@@ -266,6 +301,12 @@ test('a saved format choice that no longer fits is refused', async () => {
       /صيغة المبالغ/,
       code,
     );
+    // A result computed under the stale choice is not exported either.
+    const stale = coreResult({ ...c, mappings });
+    refused(await exported(stale, c.files), /صيغة المبالغ/, code);
+    await assert.rejects(exportWorkbook(stale, c.files, review), (error) =>
+      refusedByFormatGuard(error, code),
+    );
   }
 });
 
@@ -314,46 +355,84 @@ test('a debit/credit direction claim the source does not prove', async () => {
     const claimed = structuredClone(honest);
     claimed.ledger.mapping = ledger;
     refused(await exported(claimed, c.files), DIRECTION);
-    // Compare does not re-prove it: the entry gates are unchanged here, and
-    // the result cannot leave through a session or a workbook.
-    const reconciled = await worker.send('reconcile', payload(c, mappings));
-    const { result } = value<{ result: Comparison }>(reconciled);
-    value(await worker.send('compare', payload(c, mappings)));
-    refused(await exported(result, c.files), DIRECTION);
-    if (name === 'flippedSign')
-      assert.notDeepEqual(
-        result.ledger.transactions.map((t) => t.amount),
-        honest.ledger.transactions.map((t) => t.amount),
-      );
+    await assert.rejects(exportWorkbook(claimed, c.files, review), {
+      message: DIRECTION,
+    });
   }
 });
 
-// Known gaps, recorded and not fixed in this change: each one states what
-// should happen and currently fails, so it reports as a to-do.
-test(
-  'compare re-proves a claimed debit/credit direction before showing a result',
-  {
-    todo: 'compare shows a result under a false direction claim; save and export refuse it',
-  },
-  async () => {
-    const c = named('split columns');
-    const ledger = conflictingDirection(c).flippedSign;
-    refused(
-      await worker.send('reconcile', payload(c, [c.mappings[0], ledger])),
-      DIRECTION,
-    );
-  },
-);
-test(
-  'exportWorkbook itself refuses an unanswered format ambiguity',
-  {
-    todo: 'the worker refuses before exporting; a direct caller of exportWorkbook is not refused',
-  },
-  async () => {
-    const c = named('unresolved');
-    await assert.rejects(exportWorkbook(coreResult(c), c.files, review));
-  },
-);
+test('compare re-proves a claimed debit/credit direction before showing a result', async () => {
+  const c = named('split columns');
+  // The direction proof has no structured code: its own message identifies it.
+  for (const ledger of Object.values(conflictingDirection(c))) {
+    const mappings: [Mapping, Mapping] = [c.mappings[0], ledger];
+    const reconciled = await worker.send('reconcile', payload(c, mappings));
+    refused(reconciled, DIRECTION);
+    assert.equal(reconciled.value, undefined, 'no result is shown');
+    refused(await worker.send('compare', payload(c, mappings)), DIRECTION);
+  }
+  // A claim proven by the source still passes, with the same result as before.
+  const honest = coreResult(c);
+  assert.deepEqual(
+    value<{ result: Comparison }>(await worker.send('reconcile', payload(c)))
+      .result,
+    honest,
+  );
+  assert.deepEqual(value(await worker.send('compare', payload(c))), honest);
+});
+
+test('a direction claim whose facts hold but whose explanation was edited', async () => {
+  // verifyDirectionEvidence accepts it and returns the proven evidence. The
+  // session and the export already used that; compare now shows it as well.
+  const c = named('split columns');
+  const evidence = c.mappings[1].directionEvidence!;
+  const edited: Mapping = {
+    ...c.mappings[1],
+    directionEvidence: { ...evidence, reason: `${evidence.reason} (edited)` },
+  };
+  const mappings: [Mapping, Mapping] = [c.mappings[0], edited];
+  const honest = coreResult(c);
+  const reconciled = value<{ result: Comparison }>(
+    await worker.send('reconcile', payload(c, mappings)),
+  );
+  assert.deepEqual(reconciled.result, honest);
+  assert.deepEqual(
+    value(await worker.send('compare', payload(c, mappings))),
+    honest,
+  );
+  value(await exported(reconciled.result, c.files));
+});
+
+test('two faults at once: the format guard, then the direction proof', async () => {
+  const c = named('split columns');
+  const forged = conflictingDirection(c).flippedSign;
+  // A scope the reading refuses. At 8c01b54 the reading reported it; the
+  // direction proof now runs before the reading, so it is reported first.
+  const badScope = { ...c.scope, currency: 7 } as unknown as Scope;
+  const doubled = { ...payload(c, [c.mappings[0], forged]), scope: badScope };
+  refused(await worker.send('reconcile', doubled), DIRECTION);
+  refused(await worker.send('compare', doubled), DIRECTION);
+  // With a proven claim the reading still reports the scope, as before.
+  const proven = { ...payload(c), scope: badScope };
+  refused(await worker.send('reconcile', proven), /نطاق التسوية/);
+  // The format guard still runs first: its refusal wins over a forged claim.
+  const ambiguous = named('unresolved');
+  const direction = named('split columns');
+  refused(
+    await worker.send('reconcile', {
+      ...payload(ambiguous),
+      mappings: [
+        ambiguous.mappings[0],
+        {
+          ...ambiguous.mappings[1],
+          directionEvidence: direction.mappings[1].directionEvidence,
+        },
+      ],
+    }),
+    /صيغة المبالغ/,
+    'FORMAT_AMBIGUOUS_UNRESOLVED',
+  );
+});
 
 test('the shared recompute reports its stages in order', () => {
   const c = resolved[0];

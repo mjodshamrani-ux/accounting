@@ -33,8 +33,8 @@ export type RecomputeCase = {
   scope: Scope;
   decisions: Decision[];
   rejected: string[];
-  /** The ambiguity gate must refuse this case on every path. */
-  unresolved?: boolean;
+  /** The format guard must refuse this case on every path, with this code. */
+  formatRefusal?: 'FORMAT_AMBIGUOUS_UNRESOLVED' | 'FORMAT_INVALID';
 };
 
 const csv = (rows: string[][]) =>
@@ -203,7 +203,7 @@ async function ambiguityCases(): Promise<RecomputeCase[]> {
       scope: ambiguityScope,
       decisions: [],
       rejected: [],
-      unresolved: true,
+      formatRefusal: 'FORMAT_AMBIGUOUS_UNRESOLVED',
     },
     {
       name: 'the same ambiguity, answered',
@@ -216,6 +216,28 @@ async function ambiguityCases(): Promise<RecomputeCase[]> {
       rejected: [],
     },
   ];
+}
+
+/** No date reading accepts 30 February, so the date format cannot be proven. */
+async function invalidDateCase(): Promise<RecomputeCase> {
+  const rows = [
+    ['Date', 'Reference', 'Amount'],
+    ['2026-07-01', 'INV-1', '100.00'],
+    ['2026-02-30', 'INV-2', '50.00'],
+  ];
+  const files: [SourceFile, SourceFile] = [
+    await upload('invalid-date-supplier.csv', rows),
+    await upload('invalid-date-ledger.csv', rows),
+  ];
+  return {
+    name: 'invalid date format',
+    files,
+    mappings: files.map((f) => inferMapping(f)) as [Mapping, Mapping],
+    scope: { ...ambiguityScope, currency: 'SAR', decimals: 2 },
+    decisions: [],
+    rejected: [],
+    formatRefusal: 'FORMAT_INVALID',
+  };
 }
 
 /** Split debit/credit statements whose sign is proven by a running balance. */
@@ -301,6 +323,7 @@ export async function recomputeCases(): Promise<RecomputeCase[]> {
     await groupingCase(),
     ...(await ambiguityCases()),
     await directionCase(),
+    await invalidDateCase(),
   ];
 }
 

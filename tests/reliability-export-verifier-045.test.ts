@@ -11,6 +11,8 @@ import {
   verifyWorkbook,
   decimalMinor,
 } from '../audit/reliability/verify-workbook.mjs';
+import { suggestFormats } from '../lib/reconciliation/format-inference.ts';
+import { formatChoice } from '../lib/reconciliation/input-readiness.ts';
 import type { SourceFile } from '../lib/reconciliation/types.ts';
 
 const scope = {
@@ -241,6 +243,34 @@ test('R045 independent decimal oracle rejects lost minor precision rather than r
 });
 
 test('R045 independent verifier covers transaction-only, zero-effect rejected cases, manual decisions and currency precision', async () => {
+  // exportWorkbook refuses a reading that is still ambiguous, so where the
+  // amounts allow two readings the accountant's answer is recorded first, as
+  // the interface does. The expected workbook is unchanged.
+  const answeredRuns: number[] = [];
+  const reading = (file: SourceFile, decimals: 0 | 2 | 3) => {
+    const mapping = inferMapping(file);
+    const { status, candidates } = suggestFormats(
+      file,
+      mapping,
+      decimals,
+    ).numberFormat;
+    if (status !== 'ambiguous') return mapping;
+    answeredRuns.push(decimals);
+    const dot = { ...mapping, numberFormat: 'dot' as const };
+    return {
+      ...dot,
+      formatChoice: {
+        numberFormat: formatChoice(
+          file,
+          dot,
+          'numberFormat',
+          'dot',
+          candidates,
+          decimals,
+        ),
+      },
+    };
+  };
   for (const [decimals, amount, minor, decision] of [
     [0, '12', 12, 'auto'],
     [3, '12.345', 12345, 'auto'],
@@ -267,13 +297,13 @@ test('R045 independent verifier covers transaction-only, zero-effect rejected ca
     };
     const a = normalizeSource(
       files[0],
-      inferMapping(files[0]),
+      reading(files[0], decimals),
       runScope,
       'supplier',
     );
     const b = normalizeSource(
       files[1],
-      inferMapping(files[1]),
+      reading(files[1], decimals),
       runScope,
       'ledger',
     );
@@ -334,4 +364,6 @@ test('R045 independent verifier covers transaction-only, zero-effect rejected ca
     );
     assert.equal(report.sourceRows, 2);
   }
+  // Only 12.345 at three decimals reads two ways (12.345 or 12,345).
+  assert.deepEqual(answeredRuns, [3, 3]);
 });

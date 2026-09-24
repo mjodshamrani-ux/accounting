@@ -17,6 +17,7 @@ import type {
   Mapping,
 } from './types.ts';
 import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
+import { assertInputFormats } from './input-readiness.ts';
 import { addCaseWorksheets, parsedSourceLink } from './case-workbook.ts';
 import { inferStatementDirection } from './statement-direction.ts';
 // Admit only formats whose visible numeric meaning is understood. Native values
@@ -593,6 +594,13 @@ export async function exportWorkbook(
       ),
     },
   };
+  // The export holds the format invariant itself, on the sources it just
+  // re-read and the readings it just proved, whoever calls it.
+  assertInputFormats(
+    verifiedFiles,
+    [result.supplier.mapping, result.ledger.mapping],
+    result.scope,
+  );
   const { result: recomputed } = reconcileSupplierStatement({
     files: [verifiedFiles[0], verifiedFiles[1]],
     mappings: [result.supplier.mapping, result.ledger.mapping],
