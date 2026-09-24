@@ -12,13 +12,22 @@ import { TransactionReview } from '@/components/transaction-review';
 import { PdfReview } from '@/components/pdf-review';
 import type { AuditEvent } from '@/lib/reconciliation/types';
 import { AccountingAssistant } from '@/components/accounting-assistant';
+import { LanguageSwitcher } from '@/components/language-switcher';
+import { BackArrow, ForwardArrow } from '@/components/direction';
+import { useI18n } from '@/lib/i18n/context';
+import type { Messages } from '@/lib/i18n/messages';
+import {
+  engineText,
+  errorText,
+  fail,
+  uiText,
+  type UiText,
+} from '@/lib/i18n/text';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
   ShieldCheck,
   FileSpreadsheet,
-  ArrowLeft,
-  ArrowRight,
   FlaskConical,
   LockKeyhole,
   Check,
@@ -111,19 +120,13 @@ const initialScope: Scope = {
   confirmed: false,
   coverageConfirmed: false,
 };
-const sideNames = ['كشف المورد', 'تقرير الحسابات الدائنة'];
-const scopeLabels: Record<ScopeSuggestionField, string> = {
-  supplier: 'المورد',
-  entity: 'الجهة القانونية',
-  account: 'الحساب',
-  currency: 'العملة',
-  cutoff: 'تاريخ المقارنة',
-};
-const dateLabels = {
-  ymd: 'سنة / شهر / يوم',
-  dmy: 'يوم / شهر / سنة',
-  mdy: 'شهر / يوم / سنة',
-};
+const scopeFields: ScopeSuggestionField[] = [
+  'supplier',
+  'entity',
+  'account',
+  'currency',
+  'cutoff',
+];
 const numberLabels = { dot: '1,234.56', comma: '1.234,56' };
 type FormatChoices = { dateFormat: boolean; numberFormat: boolean };
 const freshFormatChoices = (): [FormatChoices, FormatChoices] => [
@@ -214,6 +217,7 @@ function getTemplate(side: number): Partial<Mapping> | null {
   }
 }
 export default function App() {
+  const { t, dir, say } = useI18n();
   const [auditEvents, setAuditEvents] = useState<AuditEvent[]>([]);
   const [engineReady, setEngineReady] = useState(false);
   const [files, setFiles] = useState<[SourceFile | null, SourceFile | null]>([
@@ -289,7 +293,7 @@ export default function App() {
   useEffect(() => {
     setScope((previous) => {
       const next = { ...previous };
-      for (const field of Object.keys(scopeLabels) as ScopeSuggestionField[]) {
+      for (const field of scopeFields) {
         if (!scopeEdited.current[field])
           next[field] = scopeSuggestions.values[field] ?? initialScope[field];
       }
@@ -297,7 +301,7 @@ export default function App() {
       // the sources excludes nothing and still lets the accountant narrow it.
       if (!scopeEdited.current.cutoff && !next.cutoff && !balanceMode)
         next.cutoff = latestDate;
-      const changed = (Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
+      const changed = scopeFields.some(
         (field) => previous[field] !== next[field],
       );
       return changed
@@ -341,9 +345,7 @@ export default function App() {
           },
     );
   }, [scope.currency]);
-  const scopeAutofillPending = (
-    Object.keys(scopeLabels) as ScopeSuggestionField[]
-  ).some((field) => {
+  const scopeAutofillPending = scopeFields.some((field) => {
     if (scopeEdited.current[field]) return false;
     let expected = scopeSuggestions.values[field] ?? initialScope[field];
     if (field === 'cutoff' && !expected && !balanceMode) expected = latestDate;
@@ -392,9 +394,7 @@ export default function App() {
         (assessment) => assessment.status === 'invalid',
       ),
   );
-  const unresolvedScope = (
-    Object.keys(scopeLabels) as ScopeSuggestionField[]
-  ).filter(
+  const unresolvedScope = scopeFields.filter(
     (field) =>
       scopeSuggestions.fields[field].status === 'conflict' &&
       !scopeEdited.current[field],
@@ -413,39 +413,43 @@ export default function App() {
       (m.date < 0 ||
         (m.mode === 'signed' ? m.amount < 0 : m.debit < 0 || m.credit < 0)),
   );
-  const blocked = !files.every(Boolean)
-    ? 'أضف الملفين أولًا.'
+  // What is blocking, not how it reads: the message follows the language.
+  const blockedBy: keyof Messages['app']['blocked'] | null = !files.every(
+    Boolean,
+  )
+    ? 'addFiles'
     : pdfDrafts.some(Boolean)
-      ? 'احفظ تعديل أعمدة PDF أو تراجع عنه قبل المقارنة.'
+      ? 'pdfDraft'
       : mappings.some((m) => m.sheet < 0)
-        ? 'اختر ورقة Excel التي تحتوي الحركات من بطاقة الملف.'
+        ? 'sheet'
         : columnsMissing
-          ? 'حدد عمود التاريخ وعمود المبلغ في بطاقة الملف أعلاه.'
+          ? 'columns'
           : !scope.cutoff
-            ? 'حدد تاريخ المقارنة من «خيارات متقدمة» في بطاقة النطاق.'
+            ? 'cutoff'
             : !scope.currency
-              ? 'حدد عملة الملفين من «خيارات متقدمة» في بطاقة النطاق.'
+              ? 'currency'
               : precisionMissing
-                ? 'حدد المنازل العشرية للعملة من «خيارات متقدمة» في نطاق المقارنة.'
+                ? 'precision'
                 : unresolvedScope.length
-                  ? 'اختر القيمة الصحيحة للحقول المتعارضة من «خيارات متقدمة».'
+                  ? 'conflicts'
                   : invalidFormats
-                    ? 'تعذر التحقق من صيغة التواريخ أو المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة.'
+                    ? 'invalidFormats'
                     : unresolvedDirection
-                      ? 'لم تكفِ الأرصدة لتحديد اتجاه المدين والدائن. اختر الاتجاه في بطاقة الملف.'
+                      ? 'direction'
                       : unresolvedFormats
-                        ? 'بعض التواريخ أو المبالغ تحتمل أكثر من قراءة. اختر الصيغة الصحيحة في بطاقة الملف.'
+                        ? 'formats'
                         : pdfReviewPending
-                          ? 'راجع البيانات المستخرجة من PDF ثم أكد المراجعة في بطاقة الملف.'
+                          ? 'pdfReview'
                           : balanceMode &&
                               (!scope.coverageConfirmed ||
                                 !scope.supplier.trim() ||
                                 !scope.entity.trim() ||
                                 !scope.account.trim())
-                            ? 'لتسوية الأرصدة، أضف أسماء الأطراف وأكد أن التقريرين يغطيان الفترة نفسها.'
+                            ? 'balances'
                             : preparationPending
-                              ? 'جارٍ تحديث إعدادات القراءة…'
-                              : '';
+                              ? 'preparing'
+                              : null;
+  const blocked = blockedBy ? t.app.blocked[blockedBy] : '';
   const [step, setStep] = useState(0);
   const workflowHeading = useRef<HTMLHeadingElement>(null);
   const previousStep = useRef(step);
@@ -460,13 +464,14 @@ export default function App() {
       setScopeOpen(true);
   }, [step, scopeNeedsInput, scopeConflict, preparationPending]);
   const [demo, setDemo] = useState(false);
-  const [busy, setBusy] = useState('');
-  const [error, setError] = useState('');
+  // Messages are kept as what to say, so they follow a change of language.
+  const [busy, setBusy] = useState<UiText | null>(null);
+  const [error, setError] = useState<UiText | null>(null);
   const [visualCandidate, setVisualCandidate] = useState<File | null>(null);
   const [visualRevision, setVisualRevision] = useState(0);
   const [importDiagnosis, setImportDiagnosis] =
     useState<ImportDiagnosis | null>(null);
-  const [notice, setNotice] = useState('');
+  const [notice, setNotice] = useState<UiText | null>(null);
   const [validated, setValidated] = useState<
     [SourceResult, SourceResult] | null
   >(null);
@@ -490,7 +495,7 @@ export default function App() {
     }
     void prepareWorker()
       .then(() => setEngineReady(true))
-      .catch(() => setError('تعذر تحميل المحرك المحلي. أعد المحاولة.'));
+      .catch(() => setError(uiText((m) => m.app.errors.engineLoad)));
     return () => job.current?.controller.abort();
   }, []);
   useEffect(() => {
@@ -535,12 +540,12 @@ export default function App() {
     setDecisions([]);
     setRejected([]);
     setReview({ checked: false, name: '', notes: '' });
-    setError('');
+    setError(null);
     setSelected('');
     setPage(0);
   }
   function updateScope(p: Partial<Scope>) {
-    for (const field of Object.keys(scopeLabels) as ScopeSuggestionField[])
+    for (const field of scopeFields)
       if (field in p) scopeEdited.current[field] = true;
     if ('currency' in p) {
       scopeEdited.current.decimals = false;
@@ -646,7 +651,7 @@ export default function App() {
     );
   }
   async function task(
-    label: string,
+    label: UiText,
     fn: (signal: AbortSignal, alive: () => boolean) => Promise<void>,
   ) {
     job.current?.controller.abort();
@@ -655,8 +660,8 @@ export default function App() {
     job.current = { id, controller };
     setBusy(label);
     setImportDiagnosis(null);
-    setError('');
-    setNotice('');
+    setError(null);
+    setNotice(null);
     const alive = () => job.current?.id === id && !controller.signal.aborted;
     try {
       await fn(controller.signal, alive);
@@ -665,11 +670,11 @@ export default function App() {
         setImportDiagnosis(
           e instanceof ImportDiagnosticError ? e.diagnosis : null,
         );
-        setError(e instanceof Error ? e.message : 'تعذر إكمال العملية');
+        setError(errorText(e, (m) => m.app.errors.operationFailed));
       }
     } finally {
       if (job.current?.id === id) {
-        setBusy('');
+        setBusy(null);
         job.current = null;
       }
     }
@@ -677,8 +682,8 @@ export default function App() {
   function cancel() {
     job.current?.controller.abort();
     job.current = null;
-    setBusy('');
-    setNotice('أُلغيت العملية.');
+    setBusy(null);
+    setNotice(uiText((m) => m.app.notices.cancelled));
   }
   function loadDemo() {
     if (busy) return;
@@ -700,17 +705,14 @@ export default function App() {
     setMappings(structuredClone(demoMappings));
     setScope({ ...demoScope });
     setStep(1);
-    setNotice(
-      'هذا مثال للتجربة. راجع اتجاه المبالغ وإعدادات المقارنة قبل البدء.',
-    );
+    setNotice(uiText((m) => m.app.notices.demo));
   }
   async function loadFile(file: File | undefined, i: number) {
     if (!file || busy || !engineReady) return;
     setVisualCandidate(null);
     setVisualRevision((v) => v + 1);
-    await task('قراءة الملف على جهازك', async (signal, alive) => {
-      if (file.size > MAX_FILE_BYTES)
-        throw new Error('حجم الملف أكبر من 8 MB. اختر ملفًا أصغر.');
+    await task(uiText((m) => m.app.tasks.read), async (signal, alive) => {
+      if (file.size > MAX_FILE_BYTES) fail((m) => m.app.errors.fileTooLarge);
       const buffer = await file.arrayBuffer();
       if (!alive()) return;
       let parsed: SourceFile;
@@ -757,13 +759,13 @@ export default function App() {
           ) as [Mapping, Mapping],
       );
       setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
-      setNotice(selection.notice);
+      setNotice(selection.notice ? engineText(selection.notice) : null);
     });
   }
   async function configurePdf(i: number, cuts: number[]) {
     const file = files[i];
     if (!file?.pdf || !file.original || busy) return;
-    await task('إعادة قراءة أعمدة PDF على جهازك', async (signal, alive) => {
+    await task(uiText((m) => m.app.tasks.rereadPdf), async (signal, alive) => {
       const parsed = await workerTask<SourceFile>(
         'read',
         { name: file.name, buffer: file.original, pdfCuts: cuts },
@@ -799,28 +801,15 @@ export default function App() {
     nextRejected = rejected,
     event?: Omit<AuditEvent, 'time'>,
   ) {
-    await task('فحص البيانات ومطابقة الحركات', async (signal, alive) => {
+    await task(uiText((m) => m.app.tasks.reconcile), async (signal, alive) => {
       // Enforce every preparation prerequisite at the executable entry point,
       // including PDF drafts and an unchosen split-column sign convention.
-      if (blocked) throw new Error(blocked);
-      if (!files[0] || !files[1])
-        throw new Error('أضف كشف المورد وتقرير الحسابات قبل المقارنة.');
-      if (preparationPending)
-        throw new Error(
-          'يجري تحديث إعدادات القراءة. انتظر اكتمالها ثم أعد المحاولة.',
-        );
-      if (precisionMissing)
-        throw new Error(
-          'هذه العملة غير مدرجة. حدد عدد منازلها العشرية قبل المقارنة.',
-        );
-      if (unresolvedFormats)
-        throw new Error(
-          'اختر الصيغة الصحيحة للتواريخ أو المبالغ التي تحتمل أكثر من قراءة.',
-        );
-      if (unresolvedScope.length)
-        throw new Error(
-          'تختلف بعض بيانات المقارنة بين الملفين. اختر القيم الصحيحة أولًا.',
-        );
+      if (blockedBy) fail((m) => m.app.blocked[blockedBy]);
+      if (!files[0] || !files[1]) fail((m) => m.app.errors.filesMissing);
+      if (preparationPending) fail((m) => m.app.errors.preparing);
+      if (precisionMissing) fail((m) => m.app.errors.precision);
+      if (unresolvedFormats) fail((m) => m.app.errors.formats);
+      if (unresolvedScope.length) fail((m) => m.app.errors.conflicts);
       // Pressing compare is the confirmation itself: it is an explicit act on the
       // settings shown above, and any later edit clears it again through
       // updateScope/updateMapping. No separate attestation box repeats it.
@@ -841,7 +830,7 @@ export default function App() {
       setValidated([computed.a, computed.b]);
       if (!computed.result) {
         setStep(1);
-        throw new Error('توجد صفوف تحتاج تصحيحًا. راجع تفاصيل القراءة أدناه.');
+        fail((m) => m.app.errors.rowsNeedCorrection);
       }
       const r = computed.result;
       if (!alive()) return;
@@ -868,7 +857,7 @@ export default function App() {
   }
   async function storeSession() {
     if (!files[0] || !files[1] || !result) return;
-    await task('تجهيز ملف الجلسة', async (signal, alive) => {
+    await task(uiText((m) => m.app.tasks.saveSession), async (signal, alive) => {
       const buffer = await workerTask<ArrayBuffer>(
         'save-session',
         {
@@ -891,18 +880,16 @@ export default function App() {
       a.download = `tarasuf-${scope.cutoff}.session.json`;
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 30000);
-      setNotice(
-        'ملف الجلسة يتضمن المصادر والملاحظات دون تشفير. احفظه في مكان خاص على جهازك.',
-      );
+      setNotice(uiText((m) => m.app.notices.sessionSaved));
     });
   }
   async function loadSession(file?: File) {
     if (!file || busy || files.some(Boolean)) return;
     setVisualCandidate(null);
     setVisualRevision((v) => v + 1);
-    await task('التحقق من الجلسة وإعادة حسابها', async (signal, alive) => {
+    await task(uiText((m) => m.app.tasks.restoreSession), async (signal, alive) => {
       if (file.size > 30 * 1024 * 1024)
-        throw new Error('حجم ملف الجلسة أكبر من 30 MB. اختر ملف جلسة أصغر.');
+        fail((m) => m.app.errors.sessionTooLarge);
       const saved = await workerTask<
         Awaited<ReturnType<typeof restoreSession>>
       >('restore-session', { buffer: await file.arrayBuffer() }, signal);
@@ -933,14 +920,12 @@ export default function App() {
       setReview(saved.review);
       setDemo(false);
       setStep(2);
-      setNotice(
-        'استعدنا الجلسة وأعدنا حساب النتائج من مصادرها. راجع النتيجة قبل تأكيدها.',
-      );
+      setNotice(uiText((m) => m.app.notices.sessionRestored));
     });
   }
   async function download() {
     if (!result) return;
-    await task('إعداد ورقة العمل على جهازك', async (signal, alive) => {
+    await task(uiText((m) => m.app.tasks.export), async (signal, alive) => {
       const buffer = await workerTask<ArrayBuffer>(
         'export',
         { result, files, review: { ...review, events: auditEvents } },
@@ -959,9 +944,7 @@ export default function App() {
       a.click();
       a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 30000);
-      setNotice(
-        'ورقة العمل جاهزة. احفظها على جهازك وتأكد من ظهورها في التنزيلات.',
-      );
+      setNotice(uiText((m) => m.app.notices.workpaperReady));
     });
   }
   const skippedRows = result
@@ -1059,7 +1042,7 @@ export default function App() {
     return () => lifecycle.abort();
   }, [files, busy]);
   function reset() {
-    setError('');
+    setError(null);
     setImportDiagnosis(null);
     setVisualCandidate(null);
     setVisualRevision((v) => v + 1);
@@ -1076,24 +1059,23 @@ export default function App() {
     setScope(initialScope);
     setDemo(false);
     setStep(0);
-    setNotice('');
+    setNotice(null);
   }
   return (
     <div className={`app-shell ${showLanding ? 'has-landing' : 'in-session'}`}>
       <a className="skip-link" href="#reconciliation">
-        الانتقال إلى مساحة العمل
+        {t.app.shell.skipLink}
       </a>
       <AlertDialog open={resetOpen} onOpenChange={setResetOpen}>
-        <AlertDialogContent dir="rtl">
-          <AlertDialogTitle>بدء تسوية جديدة</AlertDialogTitle>
+        <AlertDialogContent dir={dir}>
+          <AlertDialogTitle>{t.app.shell.resetTitle}</AlertDialogTitle>
           <AlertDialogDescription>
-            سيُمسح عمل الجلسة الحالية من المتصفح. نزّل ورقة العمل قبل البدء إذا
-            أردت الاحتفاظ بالنتائج. الملفات التي سبق تنزيلها ستبقى على جهازك.
+            {t.app.shell.resetDescription}
           </AlertDialogDescription>
           <AlertDialogFooter>
-            <AlertDialogCancel>متابعة الجلسة</AlertDialogCancel>
+            <AlertDialogCancel>{t.app.shell.resetCancel}</AlertDialogCancel>
             <AlertDialogAction onClick={reset}>
-              مسح الجلسة والبدء من جديد
+              {t.app.shell.resetConfirm}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -1102,29 +1084,30 @@ export default function App() {
         <a
           className="brand"
           href={showLanding ? '#top' : '#reconciliation'}
-          aria-label="تراصف — مساحة تسوية الموردين"
+          aria-label={t.app.shell.brandHome}
         >
           <BrandMark />
           <BrandWordmark />
         </a>
         {showLanding && (
-          <nav className="site-nav" aria-label="التنقل الرئيسي">
-            <a href="#how-it-works">كيف تعمل</a>
-            <a href="#privacy">الخصوصية</a>
+          <nav className="site-nav" aria-label={t.app.shell.mainNav}>
+            <a href="#how-it-works">{t.app.shell.navHow}</a>
+            <a href="#privacy">{t.app.shell.navPrivacy}</a>
           </nav>
         )}
         <div className="topbar-actions">
+          <LanguageSwitcher />
           <button
             className="local-pill"
             aria-expanded={privacy}
             aria-controls={privacy ? 'privacy-info' : undefined}
             onClick={togglePrivacy}
           >
-            <ShieldCheck size={16} /> <span>المعالجة على جهازك</span>
+            <ShieldCheck size={16} /> <span>{t.app.shell.localPill}</span>
           </button>
           {showLanding && (
             <a className="nav-start" href="#reconciliation">
-              ابدأ الآن <ArrowLeft size={15} />
+              {t.app.shell.navStart} <ForwardArrow size={15} />
             </a>
           )}
         </div>
@@ -1149,50 +1132,40 @@ export default function App() {
                   tabIndex={-1}
                   id="privacy-detail-title"
                 >
-                  حدود الخصوصية
+                  {t.app.shell.privacyTitle}
                 </h2>
                 <Button
-                  aria-label="إغلاق الخصوصية"
+                  aria-label={t.app.shell.privacyClose}
                   variant="ghost"
                   onClick={() => setPrivacy(false)}
                 >
                   <X />
                 </Button>
               </div>
-              <p className="muted">
-                تتم قراءة ملفاتك ومقارنة حركاتها وتصدير النتائج داخل متصفحك. لا
-                نرسل الملفات أو أسماءها أو بياناتها إلى خادم معالجة، ولا نستخدم
-                أدوات تتبع داخل التطبيق. قد تسجل شركة الاستضافة زيارة الموقع وفق
-                سياستها. حماية جهازك وإضافات متصفحك خارج نطاق التطبيق.
-              </p>
-              <p className="muted">
-                لا نحفظ معاملاتك تلقائيًا بين الجلسات. يمكنك حفظ قوالب للأعمدة
-                وإعدادات القراءة دون بيانات مالية. بعد تحميل أدوات العمل، يمكنك
-                إكمال الخطوات المحمّلة دون اتصال. تحتاج إلى الإنترنت لفتح الموقع
-                من جديد.
-              </p>
+              <p className="muted">{t.app.shell.privacyProcessing}</p>
+              <p className="muted">{t.app.shell.privacyStorage}</p>
               <Button
                 variant="outline"
                 onClick={() => {
                   try {
                     localStorage.removeItem('mizan.mapping.0.v1');
                     localStorage.removeItem('mizan.mapping.1.v1');
-                    setNotice('مُسحت قوالب الأعمدة من هذا المتصفح.');
+                    setNotice(uiText((m) => m.app.notices.templatesCleared));
                   } catch {
                     setError(
-                      'تعذر الوصول إلى القوالب المحفوظة. تحقق من سماح المتصفح بالتخزين المحلي.',
+                      uiText((m) => m.app.errors.templatesUnavailable),
                     );
                   }
                 }}
               >
-                مسح القوالب المحفوظة
+                {t.app.shell.clearTemplates}
               </Button>
             </section>
           )}
           <div className="page-heading">
             <div>
               <div className="eyebrow">
-                <span className="eyebrow-line" /> مساحة العمل / تسوية الموردين
+                <span className="eyebrow-line" /> {t.app.shell.eyebrow}
               </div>
               {showLanding ? (
                 <h2
@@ -1221,19 +1194,11 @@ export default function App() {
                   />
                 </h1>
               )}
-              <p>
-                {step === 0
-                  ? 'أضف كشف المورد وتقرير حساباتك لمقارنة الحركات ومراجعة الفروق.'
-                  : step === 1
-                    ? 'راجع البيانات المستخرجة من الملفين وأكمل ما يحتاج تأكيدك.'
-                    : step === 2
-                      ? 'راجع الحركات ومصادرها وتأكد من سبب كل مطابقة.'
-                      : 'نزّل ملف Excel يجمع النتائج ومصادرها وملاحظات المراجعة.'}
-              </p>
+              <p>{t.app.shell.stepIntro[Math.min(step, 3)]}</p>
             </div>
             <div className="stack">
               <span className="version-badge">
-                نسخة تجريبية <bdi>{APP_VERSION}</bdi>
+                {t.app.shell.beta} <bdi>{APP_VERSION}</bdi>
               </span>
               {files.some(Boolean) && (
                 <Button
@@ -1242,21 +1207,16 @@ export default function App() {
                   disabled={!!busy}
                 >
                   <RotateCcw size={15} />
-                  تسوية جديدة
+                  {t.app.shell.newReconciliation}
                 </Button>
               )}
             </div>
           </div>
-          <nav className="steps" aria-label="خطوات التسوية">
+          <nav className="steps" aria-label={t.app.shell.stepsNav}>
             <ol>
-              {[
-                'إضافة الملفات',
-                'تأكيد البيانات',
-                'مراجعة الفروق',
-                'ورقة العمل',
-              ].map((label, index) => (
+              {t.app.shell.steps.map((label, index) => (
                 <li
-                  key={label}
+                  key={index}
                   className={
                     index === step ? 'active' : index < step ? 'complete' : ''
                   }
@@ -1269,10 +1229,10 @@ export default function App() {
                     {label}
                     <span className="sr-only">
                       {index < step
-                        ? ' — مكتملة'
+                        ? t.app.shell.stepDone
                         : index === step
-                          ? ' — المرحلة الحالية'
-                          : ' — لاحقًا'}
+                          ? t.app.shell.stepCurrent
+                          : t.app.shell.stepLater}
                     </span>
                   </span>
                 </li>
@@ -1283,52 +1243,50 @@ export default function App() {
             <div className="notice">
               <FlaskConical
                 size={17}
-                style={{ display: 'inline', marginLeft: 8 }}
+                style={{ display: 'inline', marginInlineEnd: 8 }}
               />
-              أنت تستخدم مثالًا للتجربة، وليس بيانات شركة أو معاملات حقيقية.
+              {t.app.shell.demoBanner}
             </div>
           )}
           {!engineReady && !!error && (
             <Button
               variant="outline"
               onClick={() => {
-                setError('');
+                setError(null);
                 void prepareWorker()
                   .then(() => setEngineReady(true))
                   .catch(() =>
-                    setError(
-                      'تعذر تشغيل أداة المقارنة. حدّث المتصفح ثم أعد المحاولة.',
-                    ),
+                    setError(uiText((m) => m.app.errors.engineRestart)),
                   );
               }}
             >
-              إعادة تشغيل المحرك
+              {t.app.shell.restartEngine}
             </Button>
           )}
           {!engineReady && !error && (
             <div className="notice loading" role="status">
               <LoaderCircle className="spin" size={17} />
-              جارٍ تجهيز أداة المقارنة…
+              {t.app.shell.engineLoading}
             </div>
           )}
           {error && (
             <div className="notice error" role="alert">
               <div>
-                <p>{error}</p>
+                <p>{say(error)}</p>
                 {importDiagnosis && (
                   <p className="hint" style={{ marginTop: 8 }}>
-                    توقفت القراءة عند الصفحة {importDiagnosis.page} من{' '}
-                    {importDiagnosis.totalPages}:{' '}
+                    {t.app.importStop.at(
+                      importDiagnosis.page,
+                      importDiagnosis.totalPages,
+                    )}
                     {importDiagnosis.contentKind === 'mixed'
-                      ? 'تحتوي الصفحة نصوصًا وصورًا.'
+                      ? t.app.importStop.mixed
                       : importDiagnosis.contentKind === 'image-only'
-                        ? 'تحتوي الصفحة صورًا ولا يظهر فيها نص يمكن قراءته مباشرة.'
+                        ? t.app.importStop.imageOnly
                         : importDiagnosis.contentKind === 'native-text'
-                          ? 'تحتوي الصفحة نصًا يمكن قراءته.'
-                          : 'لم نجد نصًا يمكن قراءته، ولا نستطيع التأكد من محتوى الصفحة.'}{' '}
-                    توقفت قراءة الملف حتى لا تدخل بيانات ناقصة في المقارنة. جرّب
-                    نسخة Excel أو PDF نصية. مساعد الصور أدناه يتيح تجربة
-                    القراءة، لكن مخرجاته مسودة لا تدخل في التسوية.
+                          ? t.app.importStop.nativeText
+                          : t.app.importStop.unknown}{' '}
+                    {t.app.importStop.advice}
                   </p>
                 )}
               </div>
@@ -1336,15 +1294,15 @@ export default function App() {
           )}
           {notice && (
             <div className="notice success" role="status">
-              {notice}
+              {say(notice)}
             </div>
           )}
           {busy && (
             <div className="notice loading" role="status">
               <LoaderCircle className="spin" size={20} />
-              {busy}
+              {say(busy)}
               <Button variant="ghost" onClick={cancel}>
-                إلغاء
+                {t.common.cancel}
               </Button>
             </div>
           )}
@@ -1353,15 +1311,15 @@ export default function App() {
               <section className="surface upload-surface">
                 <div className="section-heading">
                   <div>
-                    <h2>أضف ملفي التسوية</h2>
-                    <p>مورد واحد · جهة واحدة · عملة واحدة</p>
+                    <h2>{t.app.upload.heading}</h2>
+                    <p>{t.app.upload.constraints}</p>
                   </div>
                   <FileSpreadsheet size={23} />
                 </div>
                 <div className="file-grid">
-                  {sideNames.map((label, side) => (
+                  {t.app.sides.map((label, side) => (
                     <SourceUpload
-                      key={label}
+                      key={side}
                       side={side}
                       label={label}
                       filename={files[side]?.name}
@@ -1379,28 +1337,31 @@ export default function App() {
                 </div>
                 <p className="source-file-limits" id="source-file-limits">
                   <span>
-                    <bdi>XLSX</bdi> · <bdi>CSV</bdi> · <bdi>PDF</bdi> نصي بلا صور
+                    <bdi>XLSX</bdi> · <bdi>CSV</bdi> · {t.app.upload.pdfBefore}
+                    <bdi>PDF</bdi>
+                    {t.app.upload.pdfAfter}
                   </span>
                   <span>
-                    حتى <bdi>8 MB</bdi> للملف · <bdi>20</bdi> صفحة لـ
+                    {t.app.upload.upTo}
+                    <bdi>8 MB</bdi>
+                    {t.app.upload.perFile}
+                    <bdi>20</bdi>
+                    {t.app.upload.pagesPer}
                     <bdi>PDF</bdi>
                   </span>
-                  <span>
-                    إذا كان الملف صورة، جرّب مساعد الصور أدناه. نتائجه مسودة غير
-                    متحققة.
-                  </span>
+                  <span>{t.app.upload.imageHint}</span>
                 </p>
                 <div className="surface-footer">
                   <span>
                     <LockKeyhole size={16} />
-                    لا تُرسل الملفات إلى خادم.
+                    {t.app.upload.noServer}
                   </span>
                   <Button
                     disabled={!files.every(Boolean) || !!busy}
                     onClick={() => setStep(1)}
                   >
-                    تأكيد البيانات
-                    <ArrowLeft size={17} />
+                    {t.app.upload.next}
+                    <ForwardArrow size={17} />
                   </Button>
                 </div>
               </section>
@@ -1412,11 +1373,8 @@ export default function App() {
                 <div>
                   <FlaskConical size={23} />
                   <div>
-                    <strong>جرّب بمثال جاهز</strong>
-                    <p>
-                      تعرّف على الخطوات باستخدام فواتير ومدفوعات وفروق جاهزة
-                      للمراجعة.
-                    </p>
+                    <strong>{t.app.upload.demoTitle}</strong>
+                    <p>{t.app.upload.demoText}</p>
                   </div>
                 </div>
                 <Button
@@ -1424,7 +1382,7 @@ export default function App() {
                   onClick={loadDemo}
                   disabled={!!busy || !engineReady}
                 >
-                  جرّب المثال
+                  {t.app.upload.demoButton}
                 </Button>
               </div>
             </>
@@ -1438,15 +1396,15 @@ export default function App() {
               <section className="surface pad stack">
                 <div className="summary-head">
                   <div>
-                    <h2>نطاق المقارنة</h2>
+                    <h2>{t.app.scope.heading}</h2>
                     <p className="summary-line">
-                      حتى{' '}
+                      {t.app.scope.until}{' '}
                       {scope.cutoff ? (
                         <strong>
                           <bdi dir="ltr">{scope.cutoff}</bdi>
                         </strong>
                       ) : (
-                        <span className="gap">حدد التاريخ</span>
+                        <span className="gap">{t.app.scope.setDate}</span>
                       )}{' '}
                       ·{' '}
                       {scope.currency ? (
@@ -1454,57 +1412,63 @@ export default function App() {
                           <bdi dir="ltr">{scope.currency}</bdi>
                         </strong>
                       ) : (
-                        <span className="gap">حدد العملة</span>
+                        <span className="gap">{t.app.scope.setCurrency}</span>
                       )}{' '}
-                      · فرق الأيام المسموح {scope.dateWindow}
+                      {t.app.scope.dateWindow(scope.dateWindow)}
                     </p>
                   </div>
                   <Button
                     variant="ghost"
                     onClick={() => setScopeOpen(!scopeOpen)}
                     aria-expanded={scopeOpen}
-                    aria-label="تعديل نطاق المقارنة"
+                    aria-label={t.app.scope.edit}
                   >
                     <Pencil size={14} />
-                    {scopeOpen ? 'إغلاق' : 'خيارات متقدمة'}
+                    {scopeOpen ? t.app.scope.close : t.app.scope.advanced}
                   </Button>
                 </div>
                 {scopeNeedsInput && !scopeOpen && (
                   <p className="hint">
                     {!scope.cutoff && !scope.currency
-                      ? 'لم نتمكن من تحديد تاريخ المقارنة والعملة. أضفهما من «خيارات متقدمة».'
+                      ? t.app.scope.needBoth
                       : !scope.cutoff
-                        ? 'لم نتمكن من تحديد تاريخ المقارنة. أضفه من «خيارات متقدمة».'
+                        ? t.app.scope.needCutoff
                         : !scope.currency
-                          ? 'لم نتمكن من تحديد العملة. اخترها من «خيارات متقدمة».'
-                          : 'حدد المنازل العشرية للعملة من «خيارات متقدمة» حتى تُقرأ المبالغ بدقة.'}
+                          ? t.app.scope.needCurrency
+                          : t.app.scope.needPrecision}
                   </p>
                 )}
                 {scopeConflict && !scopeOpen && (
                   <p className="hint warn" role="status">
-                    قيمتان مختلفتان لـ
-                    {unresolvedScope
-                      .map((field) => scopeLabels[field])
-                      .join('، ')}{' '}
-                    بين الملفين. اختر القيمة الصحيحة من «خيارات متقدمة».
+                    {t.app.scope.conflict(
+                      unresolvedScope.map(
+                        (field) => t.app.scopeFields[field],
+                      ),
+                    )}
                   </p>
                 )}
                 {scopeOpen && (
                   <div className="panel stack">
                     <div className="form-grid">
                       <Field
-                        label="المقارنة حتى تاريخ"
+                        label={t.app.scope.cutoffField}
                         hint={
                           scopeSuggestions.fields.cutoff.status === 'suggested'
-                            ? `مأخوذ من ${sideNames[scopeSuggestions.fields.cutoff.evidence[0].side === 'supplier' ? 0 : 1]}، صف ${scopeSuggestions.fields.cutoff.evidence[0].row}.`
+                            ? t.app.scope.cutoffFrom(
+                                scopeSuggestions.fields.cutoff.evidence[0]
+                                  .side === 'supplier'
+                                  ? 0
+                                  : 1,
+                                scopeSuggestions.fields.cutoff.evidence[0].row,
+                              )
                             : scope.cutoff && scope.cutoff === latestDate
-                              ? 'استخدمنا آخر تاريخ في الملفين. الحركات بعد التاريخ المحدد لا تدخل في المقارنة.'
-                              : 'الحركات بعد التاريخ المحدد لا تدخل في المقارنة.'
+                              ? t.app.scope.cutoffLatest
+                              : t.app.scope.cutoffNote
                         }
                       >
                         <Input
                           type="date"
-                          aria-label="تاريخ المقارنة"
+                          aria-label={t.app.scope.cutoffLabel}
                           value={scope.cutoff}
                           onChange={(e) =>
                             updateScope({ cutoff: e.target.value })
@@ -1512,16 +1476,16 @@ export default function App() {
                         />
                       </Field>
                       <Field
-                        label="عملة الملفين"
+                        label={t.app.scope.currencyField}
                         hint={
                           scopeSuggestions.fields.currency.status ===
                           'suggested'
-                            ? 'قرأنا العملة من عنوان واضح أو من عمود العملة.'
-                            : 'أدخل رمزها بثلاثة أحرف، مثل SAR.'
+                            ? t.app.scope.currencyRead
+                            : t.app.scope.currencyHint
                         }
                       >
                         <Input
-                          aria-label="العملة"
+                          aria-label={t.app.scope.currencyLabel}
                           maxLength={3}
                           dir="ltr"
                           placeholder="SAR"
@@ -1534,30 +1498,31 @@ export default function App() {
                         />
                       </Field>
                       <Choice
-                        label="المنازل العشرية للعملة"
+                        label={t.app.scope.decimals}
                         value={precisionMissing ? '' : String(scope.decimals)}
                         onChange={(v) => {
                           if (v) updateScope({ decimals: Number(v) });
                         }}
                         options={[
                           ...(precisionMissing
-                            ? ([['', 'اختر المنازل العشرية للعملة']] as [
+                            ? ([['', t.app.scope.decimalsChoose]] as [
                                 string,
                                 string,
                               ][])
                             : []),
-                          ['0', 'دون منازل عشرية'],
-                          ['2', 'منزلتان — مثل SAR'],
-                          ['3', 'ثلاث منازل — مثل KWD'],
+                          ['0', t.app.scope.decimalsZero],
+                          ['2', t.app.scope.decimalsTwo],
+                          ['3', t.app.scope.decimalsThree],
                         ]}
                       />
                       <Choice
-                        label="فرق الأيام المسموح للمطابقة"
+                        label={t.app.scope.dateWindowField}
                         value={String(scope.dateWindow)}
                         onChange={(v) => updateScope({ dateWindow: Number(v) })}
                         options={Array.from(
                           { length: 8 },
-                          (_, i) => [String(i), `${i} يوم`] as [string, string],
+                          (_, i) =>
+                            [String(i), t.app.scope.days(i)] as [string, string],
                         )}
                       />
                     </div>
@@ -1583,34 +1548,34 @@ export default function App() {
                         }
                       }}
                     >
-                      أريد تسوية الأرصدة أيضًا
+                      {t.app.scope.balanceMode}
                     </Tick>
                     {(balanceMode ||
                       unresolvedScope.some((field) =>
                         ['supplier', 'entity', 'account'].includes(field),
                       )) && (
                       <div className="form-grid">
-                        <Field label="اسم المورد">
+                        <Field label={t.app.scope.supplierField}>
                           <Input
-                            aria-label="المورد"
+                            aria-label={t.app.scope.supplierLabel}
                             value={scope.supplier}
                             onChange={(e) =>
                               updateScope({ supplier: e.target.value })
                             }
                           />
                         </Field>
-                        <Field label="الجهة القانونية">
+                        <Field label={t.app.scope.entityField}>
                           <Input
-                            aria-label="الجهة القانونية"
+                            aria-label={t.app.scope.entityLabel}
                             value={scope.entity}
                             onChange={(e) =>
                               updateScope({ entity: e.target.value })
                             }
                           />
                         </Field>
-                        <Field label="الحساب أو الفروع المشمولة">
+                        <Field label={t.app.scope.accountField}>
                           <Input
-                            aria-label="نطاق الحساب"
+                            aria-label={t.app.scope.accountLabel}
                             value={scope.account}
                             onChange={(e) =>
                               updateScope({ account: e.target.value })
@@ -1619,36 +1584,33 @@ export default function App() {
                         </Field>
                       </div>
                     )}
-                    {(Object.keys(scopeLabels) as ScopeSuggestionField[]).some(
+                    {scopeFields.some(
                       (field) => scopeSuggestions.fields[field].evidence.length,
                     ) && (
                       <details>
-                        <summary>مصادر القيم المقترحة</summary>
+                        <summary>{t.app.scope.sources}</summary>
                         <div className="stack" style={{ marginTop: 12 }}>
-                          {(
-                            Object.keys(scopeLabels) as ScopeSuggestionField[]
-                          ).map(
+                          {scopeFields.map(
                             (field) =>
                               scopeSuggestions.fields[field].evidence.length >
                                 0 && (
                                 <div key={field}>
                                   <strong>
-                                    {scopeLabels[field]}
+                                    {t.app.scopeFields[field]}
                                     {scopeSuggestions.fields[field].status ===
                                     'conflict'
-                                      ? ' — تعارض'
+                                      ? t.app.scope.conflictMark
                                       : ''}
                                   </strong>
                                   {scopeSuggestions.fields[field].evidence.map(
                                     (item, i) => (
                                       <p className="muted" key={i}>
-                                        <bdi>{item.value}</bdi> —{' '}
-                                        {
-                                          sideNames[
-                                            item.side === 'supplier' ? 0 : 1
-                                          ]
-                                        }
-                                        ، <bdi>{item.sheet}</bdi>، صف {item.row}
+                                        <bdi>{item.value}</bdi>
+                                        {t.app.scope.evidenceFrom(
+                                          item.side === 'supplier' ? 0 : 1,
+                                        )}
+                                        <bdi>{item.sheet}</bdi>
+                                        {t.app.scope.evidenceRow(item.row)}
                                       </p>
                                     ),
                                   )}
@@ -1699,8 +1661,7 @@ export default function App() {
               <section className="surface pad stack">
                 {pdfReviewPending && (
                   <p className="hint warn">
-                    راجع البيانات المستخرجة من PDF ثم أكد المراجعة في بطاقة
-                    الملف أعلاه.
+                    {t.app.compare.pdfPending}
                   </p>
                 )}
                 {balanceMode && (
@@ -1708,14 +1669,13 @@ export default function App() {
                     checked={scope.coverageConfirmed}
                     onChange={(v) => updateScope({ coverageConfirmed: v })}
                   >
-                    راجعت تغطية التقريرين للفترة نفسها وتحققت من الأرصدة التي
-                    أدخلتها. هذا التأكيد مطلوب عند تسوية الأرصدة فقط.
+                    {t.app.compare.coverage}
                   </Tick>
                 )}
                 <div className="actions">
                   <Button onClick={() => void reconcile()} disabled={!!blocked}>
-                    تحقق وقارن
-                    <ArrowLeft size={16} />
+                    {t.app.compare.run}
+                    <ForwardArrow size={16} />
                   </Button>
                   <Button
                     variant="outline"
@@ -1724,23 +1684,20 @@ export default function App() {
                       setStep(0);
                     }}
                   >
-                    العودة للملفات
+                    {t.app.compare.backToFiles}
                   </Button>
                 </div>
-                <p className="hint">
-                  {blocked ||
-                    'ببدء المقارنة، تؤكد أن الملفين يخصان المورد والجهة والحساب والعملة نفسها، وأن اتجاه المبالغ المعروض صحيح.'}
-                </p>
+                <p className="hint">{blocked || t.app.compare.attestation}</p>
               </section>
             </fieldset>
           )}
           {step === 0 && !files.some(Boolean) && (
             <section className="surface pad">
               <label>
-                استئناف جلسة محفوظة على جهازك{' '}
+                {t.app.upload.resume}{' '}
                 <input
                   type="file"
-                  aria-label="استئناف جلسة محلية"
+                  aria-label={t.app.upload.resumeLabel}
                   accept=".json"
                   disabled={!!busy || !engineReady}
                   onChange={(e) => {
@@ -1749,10 +1706,7 @@ export default function App() {
                   }}
                 />
               </label>
-              <p className="muted">
-                نقرأ ملف الجلسة على جهازك ونعيد المقارنة من مصادره قبل استعادة
-                العمل.
-              </p>
+              <p className="muted">{t.app.upload.resumeNote}</p>
             </section>
           )}
           {result && step >= 2 && (
@@ -1763,53 +1717,56 @@ export default function App() {
                   disabled={!!busy}
                   onClick={() => void storeSession()}
                 >
-                  حفظ الجلسة للمتابعة لاحقًا
+                  {t.app.results.saveSession}
                 </Button>
-                <span className="muted">
-                  يتضمن ملف الجلسة بياناتك دون تشفير. احفظه في مكان خاص على
-                  جهازك.
-                </span>
+                <span className="muted">{t.app.results.sessionWarning}</span>
               </div>
               <div className="metric-grid">
                 <Metric
-                  label="مطابقات آلية"
+                  label={t.app.results.autoMatches}
                   value={String(
                     result.matches.filter((m) => m.kind === 'auto').length,
                   )}
-                  hint="حالات طابقها المحرك تلقائيًا"
+                  hint={t.app.results.autoMatchesHint}
                 />
                 <Metric
-                  label="تأكيدات يدوية"
+                  label={t.app.results.manualMatches}
                   value={String(
                     result.matches.filter((m) => m.kind === 'manual').length,
                   )}
-                  hint="مطابقات أكدها المراجع"
+                  hint={t.app.results.manualMatchesHint}
                 />
                 <Metric
-                  label="حالات غير مطابقة"
+                  label={t.app.results.unmatchedCases}
                   value={String(result.caseCounts.unmatchedCases)}
-                  hint={`عدد الحركات من الملفين: ${result.caseCounts.unmatchedSourceRows}`}
+                  hint={t.app.results.unmatchedRows(
+                    result.caseCounts.unmatchedSourceRows,
+                  )}
                 />
                 {result.scope.coverageConfirmed || result.bridge ? (
                   <Metric
-                    label="فرق الأرصدة"
+                    label={t.app.results.balanceDifference}
                     value={
                       result.bridge
                         ? money(result.bridge.delta, scope.decimals)
                         : '—'
                     }
-                    hint={result.bridge ? scope.currency : 'لم نتحقق من الأرصدة'}
+                    hint={
+                      result.bridge
+                        ? scope.currency
+                        : t.app.results.balancesUnverified
+                    }
                   />
                 ) : (
                   // With balances not requested, the number that matters is how
                   // much of the source never made it into the comparison.
                   <Metric
-                    label="صفوف لم تُقرأ"
+                    label={t.app.results.skippedRows}
                     value={String(skippedRows)}
                     hint={
                       skippedRows
-                        ? 'المقارنة غير مكتملة حتى تُراجع هذه الصفوف'
-                        : 'لا توجد أخطاء قراءة متبقية والصفوف المستبعدة موثقة'
+                        ? t.app.results.skippedRowsHint
+                        : t.app.results.noSkippedRows
                     }
                   />
                 )}
@@ -1819,25 +1776,18 @@ export default function App() {
                   {result.diagnostics
                     .filter((d) => d.code === 'SKIPPED_ROWS')
                     .map((d, i) => (
-                      <p key={i}>{d.message}</p>
+                      <p key={i}>{say(engineText(d.message))}</p>
                     ))}
-                  <p>
-                    من «تعديل الإعدادات»، صحح بيانات المصدر أو استبعد الصف مع
-                    توضيح السبب. تفاصيل أخطاء القراءة موجودة في ورقة Diagnostics
-                    عند التصدير.
-                  </p>
+                  <p>{t.app.results.skippedAdvice}</p>
                 </div>
               )}
               {result.scope.coverageConfirmed && !result.balanceComparable && (
-                <div className="notice">
-                  هذه مقارنة للحركات فقط. لم نتحقق من الأرصدة وتغطية الفترة
-                  المشتركة، لذلك لا تمثل النتيجة تسوية أرصدة مكتملة.
-                </div>
+                <div className="notice">{t.app.results.transactionsOnly}</div>
               )}
               {!!onScreenDiagnostics.length && (
                 <div className="notice" role="status">
                   {onScreenDiagnostics.map((d, i) => (
-                    <p key={i}>{d.message}</p>
+                    <p key={i}>{say(engineText(d.message))}</p>
                   ))}
                 </div>
               )}
@@ -1850,11 +1800,8 @@ export default function App() {
                   <section className="surface">
                     <div className="section-heading">
                       <div>
-                        <h2>مساحة المراجعة</h2>
-                        <p>
-                          «دون مقابل» تعني أننا لم نجد الحركة في الملف الآخر. قد
-                          تكون موجودة في النظام لكنها غير مشمولة في التقرير.
-                        </p>
+                        <h2>{t.app.results.workspace}</h2>
+                        <p>{t.app.results.workspaceIntro}</p>
                       </div>
                       <Button
                         variant="outline"
@@ -1864,7 +1811,7 @@ export default function App() {
                           setStep(1);
                         }}
                       >
-                        تعديل الإعدادات
+                        {t.app.results.editSettings}
                       </Button>
                     </div>
                     <div className="pad" style={{ paddingTop: 0 }}>
@@ -1880,14 +1827,17 @@ export default function App() {
                             setSelected('');
                           }}
                         >
-                          <TabsList aria-label="تصفية النتائج">
+                          <TabsList aria-label={t.app.results.filter}>
                             <TabsTrigger value="exceptions">
-                              دون مقابل
+                              {t.app.results.tabUnmatched}
                             </TabsTrigger>
-                            <TabsTrigger value="matches">المطابقات</TabsTrigger>
+                            <TabsTrigger value="matches">
+                              {t.app.results.tabMatched}
+                            </TabsTrigger>
                             <TabsTrigger value="ambiguities">
-                              يحتاج مراجعة ({result.caseCounts.needsReviewCases}
-                              )
+                              {t.app.results.tabReview(
+                                result.caseCounts.needsReviewCases,
+                              )}
                             </TabsTrigger>
                           </TabsList>
                         </Tabs>
@@ -1895,8 +1845,8 @@ export default function App() {
                           <Search size={16} />
                           <Input
                             style={{ width: 190 }}
-                            aria-label="البحث في النتائج"
-                            placeholder="مرجع أو وصف أو صف"
+                            aria-label={t.app.results.search}
+                            placeholder={t.app.results.searchPlaceholder}
                             value={query}
                             onChange={(e) => {
                               setQuery(e.target.value);
@@ -1910,40 +1860,34 @@ export default function App() {
                       <Table>
                         <TableHeader>
                           <TableRow>
-                            {[
-                              'المصدر / الصف',
-                              'التاريخ',
-                              'المرجع',
-                              'المبلغ',
-                              'الحالة',
-                              'المراجعة',
-                            ].map((h) => (
-                              <TableHead key={h}>{h}</TableHead>
+                            {t.app.results.columns.map((h, i) => (
+                              <TableHead key={i}>{h}</TableHead>
                             ))}
                           </TableRow>
                         </TableHeader>
                         <TableBody>
-                          {rows.slice(page * 30, (page + 1) * 30).map((t) => {
+                          {rows.slice(page * 30, (page + 1) * 30).map((tx) => {
                             const activeCase = result.cases.find((c) =>
                               c.sourceTrace.some(
-                                (trace) => trace.sourceRowId === t.id,
+                                (trace) => trace.sourceRowId === tx.id,
                               ),
                             )!;
                             const match =
-                              t.side === 'supplier'
-                                ? matchedBySupplier.get(t.id)
+                              tx.side === 'supplier'
+                                ? matchedBySupplier.get(tx.id)
                                 : undefined;
                             return (
-                              <TableRow key={t.id}>
+                              <TableRow key={tx.id}>
                                 <TableCell>
-                                  {t.side === 'supplier' ? 'المورد' : 'الدفتر'}{' '}
-                                  · {t.row}
+                                  {t.app.sideShort[tx.side]}{' '}· {tx.row}
                                 </TableCell>
-                                <TableCell className="mono">{t.date}</TableCell>
+                                <TableCell className="mono">{tx.date}</TableCell>
                                 <TableCell>
-                                  <bdi>{t.reference || 'بلا مرجع'}</bdi>
+                                  <bdi>
+                                    {tx.reference || t.app.results.noReference}
+                                  </bdi>
                                   <div className="muted">
-                                    {t.description.slice(0, 55)}
+                                    {tx.description.slice(0, 55)}
                                   </div>
                                 </TableCell>
                                 <TableCell className="mono">
@@ -1954,31 +1898,36 @@ export default function App() {
                                     scope.decimals,
                                   )}
                                   <div className="muted">
-                                    {activeCase.supplierMembers.length}:
-                                    {activeCase.ledgerMembers.length} حركات
-                                    مرتبطة بالحالة
+                                    {t.app.results.caseMembers(
+                                      activeCase.supplierMembers.length,
+                                      activeCase.ledgerMembers.length,
+                                    )}
                                   </div>
                                 </TableCell>
                                 <TableCell>
                                   <span
                                     className={`status ${match ? 'good' : 'warn'}`}
                                   >
-                                    {match
-                                      ? match.kind === 'auto'
-                                        ? 'مطابقة آلية'
-                                        : 'تأكيد يدوي'
-                                      : activeCase.classification ===
-                                          'AMOUNT_VARIANCE'
-                                        ? 'فرق مبلغ'
-                                        : activeCase.classification ===
-                                            'PAYMENT_CANDIDATE'
-                                          ? 'مجموعة مقترحة للمطابقة'
-                                          : activeCase.status === 'Rejected'
-                                            ? 'اقتراح مرفوض'
-                                            : activeCase.status ===
-                                                'Needs Review'
-                                              ? 'يحتاج مراجعة'
-                                              : 'غير مطابق'}
+                                    {
+                                      t.app.results.status[
+                                        match
+                                          ? match.kind === 'auto'
+                                            ? 'auto'
+                                            : 'manual'
+                                          : activeCase.classification ===
+                                              'AMOUNT_VARIANCE'
+                                            ? 'amountVariance'
+                                            : activeCase.classification ===
+                                                'PAYMENT_CANDIDATE'
+                                              ? 'paymentCandidate'
+                                              : activeCase.status === 'Rejected'
+                                                ? 'rejected'
+                                                : activeCase.status ===
+                                                    'Needs Review'
+                                                  ? 'needsReview'
+                                                  : 'unmatched'
+                                      ]
+                                    }
                                   </span>
                                 </TableCell>
                                 <TableCell>
@@ -1986,16 +1935,18 @@ export default function App() {
                                     size="sm"
                                     variant="outline"
                                     disabled={!!busy}
-                                    onClick={() => setSelected(t.id)}
+                                    onClick={() => setSelected(tx.id)}
                                   >
-                                    تفاصيل الحالة
+                                    {t.app.results.caseDetails}
                                   </Button>
                                   {auditEvents.some(
                                     (e) =>
                                       e.action === 'review' &&
-                                      e.ids.includes(t.id),
+                                      e.ids.includes(tx.id),
                                   ) && (
-                                    <small>تمت مراجعته وما زال غير مطابق</small>
+                                    <small>
+                                      {t.app.results.reviewedStillOpen}
+                                    </small>
                                   )}
                                 </TableCell>
                               </TableRow>
@@ -2005,33 +1956,39 @@ export default function App() {
                       </Table>
                     </div>
                     {!rows.length && (
-                      <div className="empty">لا توجد حركات في هذه القائمة.</div>
+                      <div className="empty">{t.app.results.empty}</div>
                     )}
                     <div className="surface-footer">
                       <span>
-                        عدد الحالات {rows.length} · الصفحة {page + 1} من{' '}
-                        {Math.max(1, Math.ceil(rows.length / 30))}
+                        {t.app.results.pageSummary(
+                          rows.length,
+                          page + 1,
+                          Math.max(1, Math.ceil(rows.length / 30)),
+                        )}
                       </span>
-                      <Pagination style={{ width: 'auto', margin: 0 }}>
+                      <Pagination
+                        aria-label={t.app.results.pagination}
+                        style={{ width: 'auto', margin: 0 }}
+                      >
                         <PaginationContent>
                           <PaginationItem>
                             <Button
                               variant="ghost"
-                              aria-label="الصفحة السابقة"
+                              aria-label={t.app.results.previousPage}
                               disabled={page === 0}
                               onClick={() => setPage((p) => p - 1)}
                             >
-                              <ArrowRight size={16} />
+                              <BackArrow size={16} />
                             </Button>
                           </PaginationItem>
                           <PaginationItem>
                             <Button
                               variant="ghost"
-                              aria-label="الصفحة التالية"
+                              aria-label={t.app.results.nextPage}
                               disabled={(page + 1) * 30 >= rows.length}
                               onClick={() => setPage((p) => p + 1)}
                             >
-                              <ArrowLeft size={16} />
+                              <ForwardArrow size={16} />
                             </Button>
                           </PaginationItem>
                         </PaginationContent>
@@ -2070,9 +2027,7 @@ export default function App() {
                           },
                         ]);
                         setReview((r) => ({ ...r, checked: false }));
-                        setNotice(
-                          'سجلنا مراجعتك للحالة. بقيت المطابقات والفروق كما هي.',
-                        );
+                        setNotice(uiText((m) => m.app.notices.reviewRecorded));
                       }}
                     />
                   )}
@@ -2081,8 +2036,8 @@ export default function App() {
                     style={{ justifyContent: 'flex-end', marginTop: 20 }}
                   >
                     <Button disabled={!!busy} onClick={() => setStep(3)}>
-                      إعداد ورقة العمل
-                      <ArrowLeft size={16} />
+                      {t.app.results.prepareWorkpaper}
+                      <ForwardArrow size={16} />
                     </Button>
                   </div>
                 </>
@@ -2092,41 +2047,41 @@ export default function App() {
                   {result.scope.coverageConfirmed || result.bridge ? (
                     <section className="surface pad stack">
                       <div className="section-heading" style={{ padding: 0 }}>
-                        <h2>الأرصدة وحالة التسوية</h2>
+                        <h2>{t.app.finish.balancesHeading}</h2>
                         <FileCheck2 size={23} />
                       </div>
                       <div className="balance-lines">
                         <div>
-                          <span>رصيد المورد</span>
+                          <span>{t.app.finish.supplierBalance}</span>
                           <bdi>
                             {result.supplier.closing === null
-                              ? 'غير متاح'
+                              ? t.app.finish.notAvailable
                               : money(result.supplier.closing, scope.decimals)}
                           </bdi>
                         </div>
                         <div>
-                          <span>رصيد الدفتر</span>
+                          <span>{t.app.finish.ledgerBalance}</span>
                           <bdi>
                             {result.ledger.closing === null
-                              ? 'غير متاح'
+                              ? t.app.finish.notAvailable
                               : money(result.ledger.closing, scope.decimals)}
                           </bdi>
                         </div>
                         <div>
-                          <span>التحقق من الأرصدة</span>
+                          <span>{t.app.finish.balanceCheck}</span>
                           <span>
                             {result.bridge
                               ? result.balanceComparable
-                                ? 'الأرصدة متسقة حسابيًا وتغطية الفترة مؤكدة'
-                                : 'الأرصدة متسقة حسابيًا وتغطية الفترة تحتاج تأكيدك'
-                              : 'لم نتمكن من إثبات اتساق الأرصدة'}
+                                ? t.app.finish.consistentConfirmed
+                                : t.app.finish.consistentUnconfirmed
+                              : t.app.finish.notProven}
                           </span>
                         </div>
                         {result.bridge && (
                           <>
                             <hr className="divider" />
                             <div>
-                              <span>فرق افتتاحي لم يُثبت سببه</span>
+                              <span>{t.app.finish.openingAdjustment}</span>
                               <bdi>
                                 {money(
                                   result.bridge.openingAdjustment,
@@ -2135,7 +2090,7 @@ export default function App() {
                               </bdi>
                             </div>
                             <div>
-                              <span>صافي أثر حركات التسوية</span>
+                              <span>{t.app.finish.itemAdjustment}</span>
                               <bdi>
                                 {money(
                                   result.bridge.itemAdjustment,
@@ -2144,13 +2099,13 @@ export default function App() {
                               </bdi>
                             </div>
                             <div>
-                              <span>الرصيد المعدل حسابيًا</span>
+                              <span>{t.app.finish.adjusted}</span>
                               <bdi>
                                 {money(result.bridge.adjusted, scope.decimals)}
                               </bdi>
                             </div>
                             <div>
-                              <span>الفرق المتبقي حسابيًا</span>
+                              <span>{t.app.finish.residual}</span>
                               <bdi>
                                 {money(result.bridge.residual, scope.decimals)}
                               </bdi>
@@ -2159,24 +2114,19 @@ export default function App() {
                         )}
                       </div>
                       <div className="notice">
-                        وصول الفرق المتبقي إلى صفر لا يثبت أسباب الفروق أو صحة
-                        المستندات. عدد الحركات التي ما زالت دون مقابل:{' '}
-                        {result.supplierOnly.length + result.ledgerOnly.length}{' '}
-                        وهي موثقة في ورقة العمل. هذا العرض يوضح أثر الحركات على
-                        الأرصدة ولا يقترح قيودًا للترحيل.
+                        {t.app.finish.bridgeNote(
+                          result.supplierOnly.length + result.ledgerOnly.length,
+                        )}
                       </div>
                     </section>
                   ) : (
-                    <p className="hint">
-                      ورقة العمل تشمل مقارنة الحركات والحالات التي تحتاج متابعة.
-                      لم تختر تسوية الأرصدة في هذه الجلسة.
-                    </p>
+                    <p className="hint">{t.app.finish.noBalances}</p>
                   )}
                   <section className="surface pad stack">
-                    <h2>ملاحظات المراجعة وتنزيل الملف</h2>
-                    <Field label="اسم المراجع (اختياري للمسودة)">
+                    <h2>{t.app.finish.notesHeading}</h2>
+                    <Field label={t.app.finish.reviewerField}>
                       <Input
-                        aria-label="اسم المراجع"
+                        aria-label={t.app.finish.reviewerLabel}
                         value={review.name}
                         onChange={(e) =>
                           setReview((r) => ({
@@ -2187,9 +2137,9 @@ export default function App() {
                         }
                       />
                     </Field>
-                    <Field label="ملاحظاتك وما يحتاج متابعة">
+                    <Field label={t.app.finish.notesField}>
                       <Textarea
-                        aria-label="ملاحظات المراجعة"
+                        aria-label={t.app.finish.notesLabel}
                         value={review.notes}
                         maxLength={3000}
                         onChange={(e) =>
@@ -2205,33 +2155,30 @@ export default function App() {
                       checked={review.checked}
                       onChange={(v) => {
                         if (v && !review.name.trim()) {
-                          setError('أدخل اسم المراجع قبل تأكيد المراجعة.');
+                          setError(
+                            uiText((m) => m.app.errors.reviewerRequired),
+                          );
                           return;
                         }
                         setReview((r) => ({ ...r, checked: v }));
                       }}
                     >
-                      راجعت ورقة العمل والحالات المتبقية. أسجل هنا تأكيدي الشخصي
-                      للمراجعة، ولا يعني ذلك اعتمادًا من الموقع.
+                      {t.app.finish.attestation}
                     </Tick>
-                    <p className="muted">
-                      يشمل ملف Excel النتائج والمصادر وقرارات المراجعة والحالات
-                      المفتوحة والصفوف المستبعدة، مع قواعد المطابقة وإصدار
-                      المحرك. يمكنك تنزيل مسودة قبل تأكيد المراجعة.
-                    </p>
+                    <p className="muted">{t.app.finish.contents}</p>
                     <div className="actions">
                       <Button onClick={() => void download()} disabled={!!busy}>
                         <Download size={17} />
                         {review.checked
-                          ? 'تنزيل ورقة العمل'
-                          : 'تنزيل مسودة Excel'}
+                          ? t.app.finish.download
+                          : t.app.finish.downloadDraft}
                       </Button>
                       <Button
                         variant="outline"
                         onClick={() => setStep(2)}
                         disabled={!!busy}
                       >
-                        العودة للمراجعة
+                        {t.app.finish.backToReview}
                       </Button>
                     </div>
                   </section>
@@ -2240,8 +2187,7 @@ export default function App() {
             </>
           )}
           <footer className="footnote">
-            النتائج تساعدك على المراجعة ولا تمثل اعتمادًا محاسبيًا. احفظ الجلسة أو
-            نزّل ورقة العمل قبل الإغلاق إذا أردت الاحتفاظ بها.
+            {t.app.shell.footnote}
             <br />
             <button
               onClick={togglePrivacy}
@@ -2250,9 +2196,9 @@ export default function App() {
             >
               <CircleHelp
                 size={13}
-                style={{ display: 'inline', marginLeft: 5 }}
+                style={{ display: 'inline', marginInlineEnd: 5 }}
               />
-              الخصوصية وحدود النسخة
+              {t.app.shell.footnotePrivacy}
             </button>{' '}
             · {APP_VERSION}
           </footer>
@@ -2263,19 +2209,19 @@ export default function App() {
         <a
           className="brand footer-brand"
           href={showLanding ? '#top' : '#reconciliation'}
-          aria-label="تراصف"
+          aria-label={t.brand.name}
         >
           <BrandMark />
           <BrandWordmark />
         </a>
-        <p>وضوح يساعدك في المراجعة</p>
+        <p>{t.app.shell.tagline}</p>
         {showLanding ? (
           <a className="footer-privacy-link" href="#privacy-details">
-            حدود الخصوصية
+            {t.app.shell.footerPrivacy}
           </a>
         ) : (
           <button className="footer-privacy-link" onClick={togglePrivacy}>
-            حدود الخصوصية
+            {t.app.shell.footerPrivacy}
           </button>
         )}
       </footer>
@@ -2322,8 +2268,8 @@ function SourceConfiguration({
   side: number;
   onChange: (p: Partial<Mapping>) => void;
   validation?: SourceResult;
-  onNotice: (s: string) => void;
-  onError: (s: string) => void;
+  onNotice: (message: UiText) => void;
+  onError: (message: UiText) => void;
   onPdfApply: (cuts: number[]) => void;
   onPdfDraftChange: (pending: boolean) => void;
   formats?: FormatSuggestions;
@@ -2332,13 +2278,14 @@ function SourceConfiguration({
   balanceMode: boolean;
   directionConfirmed: boolean;
 }) {
+  const { t, say } = useI18n();
+  const c = t.app.source;
   const sheet = file.sheets[mapping.sheet];
   const header = sheet?.rows[mapping.header] ?? [];
   const columns: [string, string][] = [
-    ['-1', 'غير محدد'],
+    ['-1', c.unset],
     ...header.map(
-      (h, i) =>
-        [String(i), `${i + 1} · ${h || 'بلا عنوان'}`] as [string, string],
+      (h, i) => [String(i), `${i + 1} · ${h || c.untitled}`] as [string, string],
     ),
   ];
   const [open, setOpen] = useState(false);
@@ -2389,20 +2336,20 @@ function SourceConfiguration({
       <section className="surface pad stack">
         <div className="summary-head">
           <div>
-            <h2>{sideNames[side]}</h2>
+            <h2>{t.app.sides[side]}</h2>
             <p className="summary-line">
               <bdi>{file.name}</bdi>
             </p>
           </div>
         </div>
         <p className="hint warn" role="status">
-          {initialSelection.notice}
+          {say(engineText(initialSelection.notice))}
         </p>
         <Choice
-          label="الورقة التي تحتوي الحركات"
+          label={c.sheetField}
           value="-1"
           options={[
-            ['-1', 'اختر ورقة العمل'],
+            ['-1', c.sheetChoose],
             ...file.sheets.map(
               (s, i) => [String(i), s.name] as [string, string],
             ),
@@ -2417,7 +2364,7 @@ function SourceConfiguration({
   // "التاريخ date" reads well; "التاريخ التاريخ" does not. When a column's own
   // heading already is the label, name it once.
   const columnName = (index: number) =>
-    index >= 0 ? header[index] || `عمود ${index + 1}` : 'غير محدد';
+    index >= 0 ? header[index] || c.column(index + 1) : c.unset;
   const named = (label: string, index: number) => {
     const name = columnName(index);
     return name.trim() === label ? (
@@ -2432,7 +2379,7 @@ function SourceConfiguration({
     <section className="surface pad stack">
       <div className="summary-head">
         <div>
-          <h2>{sideNames[side]}</h2>
+          <h2>{t.app.sides[side]}</h2>
           <p className="summary-line">
             <bdi>{file.name}</bdi>
             {file.sheets.length > 1 && (
@@ -2442,31 +2389,33 @@ function SourceConfiguration({
               </>
             )}
             {' · '}
-            {named('التاريخ', mapping.date)}
+            {named(c.date, mapping.date)}
             {' · '}
             {mapping.mode === 'signed' ? (
-              <>{named('المبلغ', mapping.amount)}</>
+              <>{named(c.amount, mapping.amount)}</>
             ) : (
               <>
-                {named('مدين', mapping.debit)} / {named('دائن', mapping.credit)}
+                {named(c.debit, mapping.debit)} / {named(c.credit, mapping.credit)}
               </>
             )}
             {mapping.reference >= 0 && (
               <>
                 {' · '}
-                {named('المرجع', mapping.reference)}
+                {named(c.reference, mapping.reference)}
               </>
             )}
           </p>
           {(mapping.mode === 'signed' || directionConfirmed) && (
             <p className="hint">
-              {mapping.mode === 'signed'
-                ? mapping.multiplier === 1
-                  ? 'المبلغ الموجب يزيد المستحق للمورد.'
-                  : 'المبلغ السالب يزيد المستحق للمورد.'
-                : mapping.multiplier === 1
-                  ? 'المدين يزيد المستحق للمورد والدائن يخفضه.'
-                  : 'الدائن يزيد المستحق للمورد والمدين يخفضه.'}{' '}
+              {c.sentence(
+                mapping.mode === 'signed'
+                  ? mapping.multiplier === 1
+                    ? c.positiveIncreases
+                    : c.negativeIncreases
+                  : mapping.multiplier === 1
+                    ? c.debitIncreases
+                    : c.creditIncreases,
+              )}{' '}
               <button
                 type="button"
                 className="inline-link"
@@ -2474,7 +2423,7 @@ function SourceConfiguration({
                   onChange({ multiplier: (mapping.multiplier * -1) as 1 | -1 })
                 }
               >
-                عكس اتجاه المبالغ
+                {c.flipDirection}
               </button>
             </p>
           )}
@@ -2483,20 +2432,20 @@ function SourceConfiguration({
           variant="ghost"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
-          aria-label={`تعديل ${sideNames[side]}`}
+          aria-label={c.edit(side)}
         >
           <Pencil size={14} />
-          {open ? 'إغلاق' : 'خيارات متقدمة'}
+          {open ? t.app.scope.close : t.app.scope.advanced}
         </Button>
       </div>
       {mapping.mode === 'split' && !mapping.directionEvidence && (
         <Choice
-          label="أي عمود يزيد المبلغ المستحق للمورد؟"
+          label={c.directionField}
           value={directionConfirmed ? String(mapping.multiplier) : ''}
           options={[
-            ['', 'اختر الاتجاه في هذا التقرير'],
-            ['1', 'المدين يزيد المستحق'],
-            ['-1', 'الدائن يزيد المستحق'],
+            ['', c.directionChoose],
+            ['1', c.directionDebit],
+            ['-1', c.directionCredit],
           ]}
           onChange={(value) => {
             if (value) onChange({ multiplier: Number(value) as 1 | -1 });
@@ -2504,10 +2453,7 @@ function SourceConfiguration({
         />
       )}
       {mapping.reference < 0 && (
-        <p className="hint">
-          لم نحدد عمود المرجع، لذلك لن تُعتمد مطابقات آلية. إذا كان موجودًا، اختره
-          من «خيارات متقدمة».
-        </p>
+        <p className="hint">{c.noReferenceColumn}</p>
       )}
       {(missingColumns || mapping.reference < 0) && (
         <ImportAssistant
@@ -2525,7 +2471,7 @@ function SourceConfiguration({
       )}
       {initialSelection.kind === 'workpaper' && (
         <p className="hint" role="status">
-          {initialSelection.notice}
+          {say(engineText(initialSelection.notice))}
         </p>
       )}
       {file.pdf && (
@@ -2541,25 +2487,25 @@ function SourceConfiguration({
       {ambiguous.map((field) => (
         <div className="panel stack" key={field}>
           <p className={formatChoices[field] ? 'hint' : 'hint warn'}>
-            {formatChoices[field] ? 'الصيغة التي اخترتها. ' : ''}
-            {formats![field].reason}
+            {formatChoices[field] ? c.chosenFormat : ''}
+            {say(engineText(formats![field].reason))}
           </p>
           <Choice
             label={
               field === 'dateFormat'
-                ? `صيغة التاريخ في ${sideNames[side]}`
-                : `صيغة المبالغ في ${sideNames[side]}`
+                ? c.dateFormatIn(side)
+                : c.numberFormatIn(side)
             }
             value={formatChoices[field] ? mapping[field] : ''}
             onChange={(value) => onFormatChange(field, value)}
             options={[
-              ['', 'اختر التفسير الصحيح'],
+              ['', c.interpretationChoose],
               ...formats![field].candidates.map(
                 (value) =>
                   [
                     value,
                     field === 'dateFormat'
-                      ? dateLabels[value as Mapping['dateFormat']]
+                      ? t.app.dateFormats[value as Mapping['dateFormat']]
                       : numberLabels[value as Mapping['numberFormat']],
                   ] as [string, string],
               ),
@@ -2570,35 +2516,30 @@ function SourceConfiguration({
       {!!validation?.errors.length && (
         <div className="panel stack">
           <p className="hint warn" role="status">
-            تعذرت قراءة {validation.errors.length} من الصفوف ولم تدخل في
-            المقارنة. صحح بياناتها أو استبعدها مع توضيح السبب.
+            {c.unreadRows(validation.errors.length)}
           </p>
           {validation.errors.slice(0, 8).map((e) => (
             <p className="muted" key={`${e.row}-${e.message}`}>
-              صف {e.row}: {e.message}
+              {c.row(e.row)}
+              {say(engineText(e.message))}
             </p>
           ))}
           {validation.errors.length > 8 && (
-            <p className="muted">
-              تفاصيل بقية الصفوف تظهر في ورقة Diagnostics عند تنزيل ملف Excel.
-            </p>
+            <p className="muted">{c.moreInDiagnostics}</p>
           )}
         </div>
       )}
       {missingColumns && !open && (
         <div className="panel stack">
-          <p className="hint warn">
-            نحتاج مساعدتك في تحديد بعض الأعمدة. اختر الأعمدة الناقصة أدناه، وافتح
-            «خيارات متقدمة» إذا أردت تعديل بقية الإعدادات.
-          </p>
+          <p className="hint warn">{c.missingColumns}</p>
           <div className="form-grid">
-            {mapping.date < 0 && col('date', 'عمود التاريخ')}
+            {mapping.date < 0 && col('date', c.dateColumn)}
             {mapping.mode === 'signed' ? (
-              mapping.amount < 0 && col('amount', 'عمود المبلغ')
+              mapping.amount < 0 && col('amount', c.amountColumn)
             ) : (
               <>
-                {mapping.debit < 0 && col('debit', 'عمود المدين')}
-                {mapping.credit < 0 && col('credit', 'عمود الدائن')}
+                {mapping.debit < 0 && col('debit', c.debitColumn)}
+                {mapping.credit < 0 && col('credit', c.creditColumn)}
               </>
             )}
           </div>
@@ -2607,28 +2548,26 @@ function SourceConfiguration({
       {open && (
         <div className="panel stack">
           {mapping.directionEvidence && (
-            <p className="hint">{mapping.directionEvidence.reason}</p>
-          )}
-          {missingColumns && (
-            <p className="hint warn">
-              حدد عمود التاريخ وعمود المبلغ (أو المدين والدائن) لتتم القراءة.
+            <p className="hint">
+              {say(engineText(mapping.directionEvidence.reason))}
             </p>
           )}
+          {missingColumns && <p className="hint warn">{c.missingHint}</p>}
           <div className="form-grid">
             {file.sheets.length > 1 && (
               <Choice
-                label="ورقة العمل"
+                label={c.sheet}
                 value={String(mapping.sheet)}
                 options={file.sheets.map((s, i) => [String(i), s.name])}
                 onChange={(v) => onChange(inferMapping(file, Number(v)))}
               />
             )}
-            <Field label="رقم صف العناوين">
+            <Field label={c.headerRow}>
               <Input
                 type="number"
                 min={1}
                 max={sheet.rows.length}
-                aria-label={`صف العناوين ${side}`}
+                aria-label={c.headerRowLabel(side)}
                 value={mapping.header + 1}
                 onChange={(e) => {
                   const n = Number(e.target.value);
@@ -2638,37 +2577,37 @@ function SourceConfiguration({
               />
             </Field>
             <Choice
-              label="طريقة عرض المبالغ"
+              label={c.amountMode}
               value={mapping.mode}
               options={[
-                ['signed', 'عمود مبلغ موجب أو سالب'],
-                ['split', 'عمود مدين وعمود دائن'],
+                ['signed', c.signed],
+                ['split', c.split],
               ]}
               onChange={(v) => onChange({ mode: v as Mapping['mode'] })}
             />
-            {col('date', 'عمود التاريخ')}
-            {col('reference', 'عمود المرجع')}
+            {col('date', c.dateColumn)}
+            {col('reference', c.referenceColumn)}
             {mapping.mode === 'signed' ? (
-              col('amount', 'عمود المبلغ')
+              col('amount', c.amountColumn)
             ) : (
               <>
-                {col('debit', 'عمود المدين')}
-                {col('credit', 'عمود الدائن')}
+                {col('debit', c.debitColumn)}
+                {col('credit', c.creditColumn)}
               </>
             )}
-            {col('description', 'عمود الوصف (اختياري)')}
-            {col('currencyColumn', 'عمود العملة (إن وجد)')}
+            {col('description', c.descriptionColumn)}
+            {col('currencyColumn', c.currencyColumn)}
           </div>
           <details>
-            <summary>معاينة بداية الجدول</summary>
+            <summary>{c.preview}</summary>
             <div className="preview">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>الصف</TableHead>
+                    <TableHead>{c.previewRow}</TableHead>
                     {header.map((h, i) => (
                       <TableHead key={i}>
-                        {i + 1} · {h || 'بلا عنوان'}
+                        {i + 1} · {h || c.untitled}
                       </TableHead>
                     ))}
                   </TableRow>
@@ -2691,51 +2630,51 @@ function SourceConfiguration({
             </div>
           </details>
           <details>
-            <summary>إعدادات القراءة ونوع التقرير</summary>
+            <summary>{c.readingSettings}</summary>
             <div className="form-grid" style={{ marginTop: 12 }}>
               <Choice
-                label="نوع التقرير"
+                label={c.reportType}
                 value={mapping.reportType}
                 options={[
-                  ['transactions', 'حركات خلال فترة'],
-                  ['open-items', 'بنود مفتوحة حتى تاريخ المقارنة'],
+                  ['transactions', c.transactions],
+                  ['open-items', c.openItems],
                 ]}
                 onChange={(v) =>
                   onChange({ reportType: v as Mapping['reportType'] })
                 }
               />
               <Choice
-                label="اتجاه المبالغ"
+                label={c.direction}
                 value={String(mapping.multiplier)}
                 options={
                   mapping.mode === 'signed'
                     ? [
-                        ['1', 'المبلغ الموجب يزيد المستحق للمورد'],
-                        ['-1', 'المبلغ السالب يزيد المستحق للمورد'],
+                        ['1', c.positiveIncreases],
+                        ['-1', c.negativeIncreases],
                       ]
                     : [
-                        ['1', 'المدين يزيد المستحق للمورد والدائن يخفضه'],
-                        ['-1', 'الدائن يزيد المستحق للمورد والمدين يخفضه'],
+                        ['1', c.debitIncreases],
+                        ['-1', c.creditIncreases],
                       ]
                 }
                 onChange={(v) => onChange({ multiplier: Number(v) as 1 | -1 })}
               />
               <Choice
-                label="صيغة الأرقام في المصدر"
+                label={c.numberFormat}
                 value={mapping.numberFormat}
                 options={[
-                  ['dot', '1,234.56 — النقطة عشرية'],
-                  ['comma', '1.234,56 — الفاصلة عشرية'],
+                  ['dot', c.decimalPoint],
+                  ['comma', c.decimalComma],
                 ]}
                 onChange={(v) => onFormatChange('numberFormat', v)}
               />
               <Choice
-                label="صيغة التاريخ النصي"
+                label={c.dateFormat}
                 value={mapping.dateFormat}
                 options={[
-                  ['ymd', 'سنة / شهر / يوم'],
-                  ['dmy', 'يوم / شهر / سنة'],
-                  ['mdy', 'شهر / يوم / سنة'],
+                  ['ymd', t.app.dateFormats.ymd],
+                  ['dmy', t.app.dateFormats.dmy],
+                  ['mdy', t.app.dateFormats.mdy],
                 ]}
                 onChange={(v) => onFormatChange('dateFormat', v)}
               />
@@ -2750,45 +2689,41 @@ function SourceConfiguration({
                       `mizan.mapping.${side}.v1`,
                       JSON.stringify(mappingTemplate(mapping)),
                     );
-                    onNotice('حُفظت إعدادات الأعمدة على جهازك دون بيانات مالية.');
+                    onNotice(uiText((m) => m.app.notices.templateSaved));
                   } catch {
-                    onError('تعذر حفظ القالب في هذا المتصفح.');
+                    onError(uiText((m) => m.app.errors.templateSave));
                   }
                 }}
               >
-                حفظ كقالب
+                {c.saveTemplate}
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => {
-                  const t = getTemplate(side);
+                  const template = getTemplate(side);
                   if (
-                    !t ||
-                    t.sheet === undefined ||
-                    t.header === undefined ||
-                    !file.sheets[t.sheet] ||
-                    t.header >= file.sheets[t.sheet].rows.length
+                    !template ||
+                    template.sheet === undefined ||
+                    template.header === undefined ||
+                    !file.sheets[template.sheet] ||
+                    template.header >= file.sheets[template.sheet].rows.length
                   ) {
-                    onError('لا يوجد قالب صالح لهذا الملف.');
+                    onError(uiText((m) => m.app.errors.noTemplate));
                     return;
                   }
-                  onChange(t);
-                  onNotice(
-                    'استعدنا مواضع الأعمدة فقط. يُفحص اتجاه المبالغ وصيغتها من الملف الحالي.',
-                  );
+                  onChange(template);
+                  onNotice(uiText((m) => m.app.notices.templateRestored));
                 }}
               >
-                استعادة القالب
+                {c.restoreTemplate}
               </Button>
             </div>
           </details>
           <details open={importIssues.length > 0}>
             <summary>
-              استبعاد صف مع توضيح السبب
-              {importIssues.length > 0
-                ? ` — ${importIssues.length} ملاحظة قراءة`
-                : ''}
+              {c.exclude}
+              {importIssues.length > 0 ? c.readingNotes(importIssues.length) : ''}
             </summary>
             <div className="stack" style={{ marginTop: 12 }}>
               {importIssues.slice(0, 5).map((issue, index) => (
@@ -2796,32 +2731,35 @@ function SourceConfiguration({
                   className="muted"
                   key={`${issue.row}:${issue.column ?? 0}:${index}`}
                 >
-                  صف {issue.row}
-                  {issue.column ? `، عمود ${issue.column}` : ''}:{' '}
-                  {issue.messages.join('؛ ')}
+                  {c.issueAt(issue.row, issue.column)}
+                  {issue.messages
+                    .map((message) => say(engineText(message)))
+                    .join(t.common.listSeparator)}
                 </p>
               ))}
               {validation && (
                 <p className="muted">
-                  الحركات المقروءة: {validation.transactions.length} · الصفوف
-                  المستبعدة: {validation.excluded.length} · الصفوف التي لم تُقرأ:{' '}
-                  {validation.errors.length}
+                  {c.counts(
+                    validation.transactions.length,
+                    validation.excluded.length,
+                    validation.errors.length,
+                  )}
                 </p>
               )}
               <div className="form-grid">
-                <Field label="رقم الصف">
+                <Field label={c.rowNumber}>
                   <Input
                     type="number"
                     min={mapping.header + 2}
                     max={sheet.rows.length}
-                    aria-label={`صف الاستبعاد ${side}`}
+                    aria-label={c.rowNumberLabel(side)}
                     value={excludeRow}
                     onChange={(e) => setExcludeRow(e.target.value)}
                   />
                 </Field>
-                <Field label="سبب الاستبعاد">
+                <Field label={c.reason}>
                   <Input
-                    aria-label={`سبب الاستبعاد ${side}`}
+                    aria-label={c.reasonLabel(side)}
                     value={excludeReason}
                     onChange={(e) => setExcludeReason(e.target.value)}
                     maxLength={200}
@@ -2839,7 +2777,7 @@ function SourceConfiguration({
                     n > sheet.rows.length ||
                     !excludeReason.trim()
                   ) {
-                    onError('حدد صف بيانات صحيحًا وسبب استبعاده.');
+                    onError(uiText((m) => m.app.errors.excludeInvalid));
                     return;
                   }
                   onChange({
@@ -2852,12 +2790,13 @@ function SourceConfiguration({
                   setExcludeReason('');
                 }}
               >
-                استبعاد الصف
+                {c.excludeRow}
               </Button>
               {Object.entries(mapping.excluded).map(([row, reason]) => (
                 <div className="actions" key={row}>
                   <span className="muted">
-                    صف {row}: {reason}
+                    {c.row(Number(row))}
+                    {reason}
                   </span>
                   <Button
                     variant="ghost"
@@ -2868,7 +2807,7 @@ function SourceConfiguration({
                       onChange({ excluded: e });
                     }}
                   >
-                    إعادة إدراج
+                    {c.reinclude}
                   </Button>
                 </div>
               ))}
@@ -2876,43 +2815,40 @@ function SourceConfiguration({
           </details>
           {balanceMode && (
             <div className="stack">
-              <strong>الأرصدة وتغطية الفترة</strong>
+              <strong>{c.balances}</strong>
               <div className="form-grid">
                 {mapping.reportType === 'transactions' && (
                   <>
-                    <Field label="بداية فترة الحركات">
+                    <Field label={c.periodStart}>
                       <Input
                         type="date"
-                        aria-label={`بداية الفترة ${side}`}
+                        aria-label={c.periodStartLabel(side)}
                         value={mapping.periodStart}
                         onChange={(e) =>
                           onChange({ periodStart: e.target.value })
                         }
                       />
                     </Field>
-                    <Field label="الرصيد الافتتاحي (موجب إذا كان مستحقًا للمورد)">
+                    <Field label={c.opening}>
                       <Input
                         dir="ltr"
-                        aria-label={`الرصيد الافتتاحي ${side}`}
+                        aria-label={c.openingLabel(side)}
                         value={mapping.opening}
                         onChange={(e) => onChange({ opening: e.target.value })}
                       />
                     </Field>
                   </>
                 )}
-                <Field label="الرصيد الختامي في تاريخ المقارنة">
+                <Field label={c.closing}>
                   <Input
                     dir="ltr"
-                    aria-label={`الرصيد الختامي ${side}`}
+                    aria-label={c.closingLabel(side)}
                     value={mapping.closing}
                     onChange={(e) => onChange({ closing: e.target.value })}
                   />
                 </Field>
               </div>
-              <p className="hint">
-                أنت أدخلت هذه الأرصدة يدويًا. اتساقها حسابيًا لا يثبت أن الملف يشمل
-                كل الحركات.
-              </p>
+              <p className="hint">{c.manualBalances}</p>
             </div>
           )}
         </div>

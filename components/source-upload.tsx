@@ -1,5 +1,7 @@
 import { useEffect, useId, useRef, useState, type DragEvent } from 'react';
 import { Check, Upload, FileCheck2 } from 'lucide-react';
+import { useI18n } from '@/lib/i18n/context';
+import { uiText, type UiText } from '@/lib/i18n/text';
 
 /** A visual affordance only; it never represents parsed or matched values. */
 function UploadIllustration() {
@@ -184,10 +186,12 @@ export function SourceUpload({
   busy: boolean;
   ready: boolean;
   onFile: (file: File) => void;
-  onError: (message: string) => void;
+  onError: (message: UiText) => void;
 }) {
+  const { t } = useI18n();
   const [dragging, setDragging] = useState(false);
-  const [blocked, setBlocked] = useState('');
+  // What is blocking, not how it reads: the notice follows the language.
+  const [blocked, setBlocked] = useState<'' | 'busy' | 'loading'>('');
   useEffect(() => {
     setBlocked('');
   }, [busy, ready]);
@@ -200,17 +204,11 @@ export function SourceUpload({
   function select(files: FileList | null) {
     if (!files?.length) return;
     if (disabled) {
-      setBlocked(
-        busy
-          ? 'انتظر انتهاء القراءة أو ألغها قبل إضافة ملف آخر.'
-          : 'نجهّز أداة القراءة. انتظر قليلًا ثم أضف الملف.',
-      );
+      setBlocked(busy ? 'busy' : 'loading');
       return;
     }
     if (files.length !== 1) {
-      onError(
-        'أرفقت أكثر من ملف. أضف ملفًا واحدًا في كل خانة. ملفاتك الحالية لم تتغير.',
-      );
+      onError(uiText((m) => m.upload.multipleFiles));
       return;
     }
     onFile(files[0]);
@@ -245,7 +243,7 @@ export function SourceUpload({
       }}
     >
       <div className="source-card__top" aria-hidden="true">
-        <span>{side === 0 ? 'من المورد' : 'من نظامك'}</span>
+        <span>{t.upload.origin[side]}</span>
         <bdi>{side === 0 ? '01' : '02'}</bdi>
       </div>
       <div className="source-card__art">
@@ -263,10 +261,8 @@ export function SourceUpload({
       <p className="source-card__description">
         {filename ? (
           <bdi>{filename}</bdi>
-        ) : side === 0 ? (
-          'الكشف الذي استلمته من المورد'
         ) : (
-          'التقرير المستخرج من نظامك المحاسبي'
+          t.upload.description[side]
         )}
       </p>
       <span
@@ -275,25 +271,28 @@ export function SourceUpload({
         role={blocked ? 'alert' : undefined}
       >
         {blocked ? (
-          blocked
+          blocked === 'busy' ? (
+            t.upload.waitForRead
+          ) : (
+            t.upload.readerLoading
+          )
         ) : busy ? (
-          'المعالجة جارية على جهازك'
+          t.upload.processing
         ) : !ready ? (
-          'نجهّز أداة القراءة'
+          t.upload.preparing
         ) : filename ? (
           <>
-            <Check size={15} aria-hidden="true" /> قرأنا الملف. راجع بياناته في
-            الخطوة التالية.
+            <Check size={15} aria-hidden="true" /> {t.upload.readDone}
           </>
         ) : dragging ? (
-          'أفلت الملف هنا'
+          t.upload.dropHere
         ) : (
-          'اسحب الملف هنا أو اختره من جهازك'
+          t.upload.dragOrChoose
         )}
       </span>
       <label className="file-button source-card__choose">
         <Upload size={16} aria-hidden="true" />
-        {filename ? 'استبدال الملف' : 'اختيار ملف'}
+        {filename ? t.upload.replace : t.upload.choose}
         <input
           type="file"
           accept=".xlsx,.csv,.pdf"

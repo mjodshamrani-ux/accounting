@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import '../app/document-scene.css';
+import { useI18n } from '@/lib/i18n/context';
 
 // A4 proportions are preserved in the drawing and at every responsive size.
 const PAPER_WIDTH = 196;
@@ -14,6 +15,7 @@ function StatementSheet({
   kind: 'supplier' | 'ledger';
   prefix: string;
 }) {
+  const { t, lang, dir } = useI18n();
   const supplier = kind === 'supplier';
   const clip = `${prefix}-${kind}-paper`;
   const beam = `${prefix}-${kind}-scan-beam`;
@@ -109,11 +111,12 @@ function StatementSheet({
             className="document-scene__paper-title"
             x="176"
             y="72"
-            direction="rtl"
-            lang="ar"
-            textAnchor="start"
+            direction={dir}
+            lang={lang}
+            // Ends at the same edge in either direction.
+            textAnchor={dir === 'rtl' ? 'start' : 'end'}
           >
-            {supplier ? 'كشف المورد' : 'دفتر الحسابات'}
+            {supplier ? t.scene.supplierPaper : t.scene.ledgerPaper}
           </text>
           <path
             d="M115 85H176M138 94H176"
@@ -223,6 +226,7 @@ function StatementSheet({
 /** Decorative illustration only. Its motion has no connection to import,
  * progress, accounting results, source values or matching decisions. */
 export function DocumentScene() {
+  const { t, dir } = useI18n();
   const prefix = `tarasuf-scene-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   const element = useRef<HTMLElement | null>(null);
   const [paused, setPaused] = useState(false);
@@ -486,8 +490,8 @@ export function DocumentScene() {
           </g>
         </svg>
       </div>
-      <figcaption className="document-scene__caption" dir="rtl">
-        <span>رسم توضيحي</span>
+      <figcaption className="document-scene__caption" dir={dir}>
+        <span>{t.scene.caption}</span>
         <span
           className="document-scene__caption-separator"
           aria-hidden="true"
@@ -499,10 +503,10 @@ export function DocumentScene() {
           aria-pressed={paused || reducedMotion}
           aria-label={
             reducedMotion
-              ? 'الحركة متوقفة حسب إعدادات تقليل الحركة'
+              ? t.scene.motionReducedLabel
               : paused
-                ? 'تشغيل الحركة التوضيحية'
-                : 'إيقاف الحركة التوضيحية'
+                ? t.scene.playLabel
+                : t.scene.pauseLabel
           }
           onClick={() => setPaused((value) => !value)}
         >
@@ -514,10 +518,10 @@ export function DocumentScene() {
             )}
           </svg>
           {reducedMotion
-            ? 'الحركة متوقفة'
+            ? t.scene.motionReduced
             : paused
-              ? 'تشغيل الحركة'
-              : 'إيقاف الحركة'}
+              ? t.scene.play
+              : t.scene.pause}
         </button>
       </figcaption>
     </figure>

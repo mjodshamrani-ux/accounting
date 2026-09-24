@@ -109,9 +109,9 @@ textarea:focus-visible {
 .brand-caption {
   font-size: 14px;
   color: #647084;
-  border-right: 1px solid var(--border);
-  padding-right: 17px;
-  margin-right: 8px;
+  border-inline-start: 1px solid var(--border);
+  padding-inline-start: 17px;
+  margin-inline-start: 8px;
 }
 .local-pill {
   display: flex;
@@ -339,7 +339,7 @@ h3 {
   font-size: 14px;
 }
 .field [data-slot='select-value'] {
-  text-align: right;
+  text-align: start;
 }
 .pad {
   padding: 24px 30px;
@@ -396,7 +396,7 @@ th,
 td {
   padding: 12px 14px;
   border-bottom: 1px solid #e6edf1;
-  text-align: right;
+  text-align: start;
   max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -430,6 +430,11 @@ th {
   font-family: Arial;
   direction: ltr;
   text-align: right;
+}
+/* The figure itself is always written left to right; it sits at the start of
+   the card in either language. */
+:root[dir='ltr'] .metric strong {
+  text-align: left;
 }
 .metric small {
   font-size: 12px;
@@ -733,7 +738,7 @@ body {
 .skip-link {
   position: fixed;
   top: -90px;
-  right: 20px;
+  inset-inline-start: 20px;
   z-index: 100;
   padding: 12px 20px;
   background: #0a1b2e;
@@ -2106,7 +2111,7 @@ td {
   .source-file-limits {
     padding: 18px 18px 22px;
     font-size: 12px;
-    text-align: right;
+    text-align: start;
     justify-content: flex-start;
   }
   .upload-surface .surface-footer > span {
@@ -2138,5 +2143,72 @@ td {
   .source-card[data-drag-active='true'] .source-card__paper {
     transition: none;
     transform: none;
+  }
+}
+
+/* Interface language: sized and coloured like the privacy pill beside it, so it
+   joins the top bar without changing its layout. */
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  color: #566278;
+  font-size: 12px;
+  line-height: 1;
+}
+.language-switch__item {
+  display: inline-flex;
+  align-items: center;
+}
+.language-switch__divider {
+  color: #c5ccd8;
+  padding-inline: 2px;
+}
+.language-switch button {
+  min-height: 44px;
+  min-width: 32px;
+  padding: 8px 4px;
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.language-switch button[aria-pressed='true'] {
+  color: #0a1b2e;
+  font-weight: 700;
+  cursor: default;
+}
+.language-switch button:hover:not([aria-pressed='true']) {
+  color: #0a1b2e;
+}
+.language-switch button:focus-visible {
+  outline: 2px solid #2d8cff;
+  outline-offset: 2px;
+}
+@media (max-width: 640px) {
+  .language-switch {
+    font-size: 11px;
+  }
+  .language-switch button {
+    min-width: 28px;
+    padding-inline: 2px;
+  }
+}
+/* At the narrowest widths the switcher gives up spacing, never the header's
+   one-line "start" action. */
+@media (max-width: 360px) {
+  .has-landing .topbar-actions {
+    gap: 6px;
+  }
+  .language-switch button {
+    min-width: 24px;
+  }
+  .language-switch__divider {
+    padding-inline: 0;
+  }
+  .nav-start {
+    white-space: nowrap;
   }
 }

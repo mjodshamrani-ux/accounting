@@ -11,6 +11,9 @@ import { Input } from '@/components/ui/input';
 import { explainResult } from '@/lib/reconciliation/assistant';
 import type { EvidenceAnswer } from '@/lib/reconciliation/assistant';
 import type { Comparison } from '@/lib/reconciliation/types';
+import { useI18n } from '@/lib/i18n/context';
+
+type Preset = 'balances' | 'unverified' | 'next' | 'explain';
 
 export function AccountingAssistant({
   result,
@@ -19,6 +22,7 @@ export function AccountingAssistant({
   result: Comparison;
   selectedId?: string;
 }) {
+  const { t, engineText } = useI18n();
   const [busy, setBusy] = useState(false);
   const active = useRef<AbortController | null>(null);
   const currentResult = useRef(result);
@@ -32,8 +36,10 @@ export function AccountingAssistant({
     };
   }, [result]);
   const [question, setQuestion] = useState('');
+  // A preset is kept by name, so the question reads in the current language;
+  // a typed question is the accountant's own words and is kept as typed.
   const [history, setHistory] = useState<
-    { question: string; answer: EvidenceAnswer }[]
+    { question: string; preset?: Preset; answer: EvidenceAnswer }[]
   >([]);
   const [snapshot, setSnapshot] = useState(result);
   // Clear previous explanations synchronously when a reviewed decision changes the result.
@@ -41,7 +47,7 @@ export function AccountingAssistant({
     setSnapshot(result);
     setHistory([]);
   }
-  const ask = async (q: string, id?: string) => {
+  const ask = async (q: string, id?: string, preset?: Preset) => {
     if (!q.trim() || active.current) return;
     const controller = new AbortController();
     active.current = controller;
@@ -69,7 +75,7 @@ export function AccountingAssistant({
       if (mounted.current && currentResult.current === result) {
         setHistory((h) => [
           ...h.slice(-9),
-          { question: q, answer: enhanced ?? local },
+          { question: q, preset, answer: enhanced ?? local },
         ]);
         setQuestion('');
       }
@@ -86,32 +92,25 @@ export function AccountingAssistant({
           <Button variant="ghost" style={{ justifyContent: 'space-between' }} />
         }
       >
-        مساعد فهم النتيجة
+        {t.assistant.trigger}
       </CollapsibleTrigger>
-      <CollapsibleContent className="stack" aria-label="شرح نتيجة التسوية">
+      <CollapsibleContent className="stack" aria-label={t.assistant.region}>
         <div>
-          <h2>اسأل عن النتيجة</h2>
-          <p className="muted">
-            يشرح المساعد النتيجة من أرقام المحرك وأدلته، ولا يغيّر المطابقات أو
-            يرسل بياناتك. إذا لم يفهم صياغة السؤال، يمكنه الاستعانة بنموذج على
-            جهازك إذا كان جاهزًا ويدعم لغة السؤال. لا ينزّل نموذجًا ولا يتصل بخدمة
-            خارجية.
-          </p>
+          <h2>{t.assistant.heading}</h2>
+          <p className="muted">{t.assistant.intro}</p>
         </div>
         <div className="actions">
-          {[
-            'لماذا يوجد فرق في الأرصدة؟',
-            'ما الذي لم يتم التأكد منه؟',
-            'ماذا أراجع الآن؟',
-          ].map((q) => (
+          {(['balances', 'unverified', 'next'] as const).map((preset) => (
             <Button
-              key={q}
+              key={preset}
               variant="outline"
               size="sm"
               disabled={busy}
-              onClick={() => void ask(q)}
+              onClick={() =>
+                void ask(t.assistant.presets[preset], undefined, preset)
+              }
             >
-              {q}
+              {t.assistant.presets[preset]}
             </Button>
           ))}
           {selectedId && (
@@ -119,9 +118,11 @@ export function AccountingAssistant({
               variant="outline"
               size="sm"
               disabled={busy}
-              onClick={() => void ask('اشرح هذه الحركة', selectedId)}
+              onClick={() =>
+                void ask(t.assistant.presets.explain, selectedId, 'explain')
+              }
             >
-              اشرح هذه الحركة
+              {t.assistant.presets.explain}
             </Button>
           )}
         </div>
@@ -139,15 +140,16 @@ export function AccountingAssistant({
                 borderBottom: '1px solid var(--border)',
               }}
             >
-              <strong>{entry.question}</strong>
+              <strong>
+                {entry.preset ? t.assistant.presets[entry.preset] : entry.question}
+              </strong>
               <p style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
-                {entry.answer.text}
+                {engineText(entry.answer.text)}
               </p>
               {!!entry.answer.sourceIds.length && (
                 <details>
                   <summary>
-                    معرّفات الصفوف التي استند إليها الشرح (
-                    {entry.answer.sourceIds.length})
+                    {t.assistant.sources(entry.answer.sourceIds.length)}
                   </summary>
                   <p className="mono" style={{ overflowWrap: 'anywhere' }}>
                     {entry.answer.sourceIds.join(' · ')}
@@ -165,15 +167,15 @@ export function AccountingAssistant({
           }}
         >
           <Input
-            aria-label="سؤالك عن التسوية"
-            placeholder="اكتب سؤالك عن الفرق أو مرجع الفاتورة"
+            aria-label={t.assistant.inputLabel}
+            placeholder={t.assistant.placeholder}
             maxLength={500}
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
             style={{ flex: '1 1 220px' }}
           />
           <Button type="submit" disabled={busy || !question.trim()}>
-            {busy ? 'نجهّز الإجابة على جهازك' : 'اسأل'}
+            {busy ? t.assistant.thinking : t.assistant.ask}
           </Button>
           {!!history.length && (
             <Button
@@ -182,7 +184,7 @@ export function AccountingAssistant({
               disabled={busy}
               onClick={() => setHistory([])}
             >
-              مسح المحادثة
+              {t.assistant.clear}
             </Button>
           )}
         </form>

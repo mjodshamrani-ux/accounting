@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
+import { verifyLanguages } from './language-browser-cases.mjs';
 import {
   verifyBrandLanding,
   verifyNarrowLayouts,
@@ -1763,6 +1764,11 @@ try {
     await activeScenarioPage(context, 'visual reader'),
     `${origin}/mizan-test/`,
   );
+  console.log('[browser] Arabic and English');
+  await verifyLanguages(
+    await activeScenarioPage(context, 'languages'),
+    `${origin}/mizan-test/`,
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -1803,6 +1809,7 @@ try {
           'header selection preserves proven AP direction; failed XLSX replacement preserves the retained file manual sign choice',
           'two PDF review approvals remain independent; replacing a multi-page PDF resets its preview and approval',
           'real local PNG/raster-PDF OCR, source hash, word coordinates, cancel/clear, native-source isolation and static-assets-only network',
+          'Arabic RTL by default; switching to English LTR mid-review keeps files, results, tab, assistant answers and notes; identical figures and workpaper; no stray Arabic in English or English in Arabic; choice persists',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

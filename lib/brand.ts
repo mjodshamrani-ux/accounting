@@ -1,4 +1,5 @@
-export const BRAND_NAME = 'تراصف';
+// The wordmark is Arabic in every interface language: it is the brand's identity,
+// not interface copy. Its accessible name comes from the catalogue (brand.name).
 export const BRAND_DISPLAY_NAME = 'تَـراصُـف';
 export const BRAND_LATIN_NAME = 'TARASUF';
 // The interface version is independent of saved accounting-engine evidence.
@@ -10,16 +11,17 @@ export const BRAND_COLORS = {
   purple: '#7C3AED',
 } as const;
 
-export const DISPLAY_HEADINGS = {
-  heroLine1: { text: 'بين السجلات' },
-  heroLine2: { text: 'نجد الوضوح' },
-  upload: { text: 'ابدأ بملفي التسوية' },
-  confirm: { text: 'راجع البيانات قبل المقارنة' },
-  review: { text: 'راجع الفروق بين السجلين' },
-  export: { text: 'ورقة العمل جاهزة للمراجعة' },
-  process: { text: 'من الملفات إلى ورقة العمل' },
-  privacy: { text: 'ملفاتك تبقى على جهازك' },
-  cta: { text: 'ابدأ تسوية جديدة' },
-} as const;
-
-export type DisplayHeadingId = keyof typeof DISPLAY_HEADINGS;
+// Display heading text lives in the interface catalogues (lib/i18n/locales),
+// under brand.headings; these are the ids.
+export const DISPLAY_HEADING_IDS = [
+  'heroLine1',
+  'heroLine2',
+  'upload',
+  'confirm',
+  'review',
+  'export',
+  'process',
+  'privacy',
+  'cta',
+] as const;
+export type DisplayHeadingId = (typeof DISPLAY_HEADING_IDS)[number];

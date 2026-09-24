@@ -1,11 +1,6 @@
 import { useId, type SVGProps } from 'react';
-import {
-  BRAND_COLORS,
-  BRAND_DISPLAY_NAME,
-  BRAND_NAME,
-  DISPLAY_HEADINGS,
-  type DisplayHeadingId,
-} from '@/lib/brand';
+import { BRAND_COLORS, BRAND_DISPLAY_NAME, type DisplayHeadingId } from '@/lib/brand';
+import { useI18n } from '@/lib/i18n/context';
 import { cn } from '@/lib/utils';
 
 const ribbonPaths = [
@@ -23,17 +18,18 @@ export function BrandMark({
   monochrome?: boolean;
 }) {
   const gradientId = `tarasuf-gradient-${useId().replace(/:/g, '')}`;
+  const { t } = useI18n();
   return (
     <svg
       {...props}
       viewBox="0 0 82 116"
       className={cn('brand-mark', className)}
       aria-hidden={decorative ? true : undefined}
-      aria-label={decorative ? undefined : BRAND_NAME}
+      aria-label={decorative ? undefined : t.brand.name}
       role={decorative ? undefined : 'img'}
       focusable="false"
     >
-      {!decorative && <title>{BRAND_NAME}</title>}
+      {!decorative && <title>{t.brand.name}</title>}
       {!monochrome && (
         <defs>
           <linearGradient
@@ -61,11 +57,12 @@ export function BrandMark({
 }
 
 export function BrandWordmark({ className }: { className?: string }) {
+  const { t } = useI18n();
   return (
     <span
       className={cn('brand-wordmark', className)}
       role="img"
-      aria-label={BRAND_NAME}
+      aria-label={t.brand.name}
     >
       <span
         className="brand-wordmark-arabic"
@@ -79,7 +76,7 @@ export function BrandWordmark({ className }: { className?: string }) {
   );
 }
 
-/** Native Arabic text: the font and browser own joining, marks and line wrapping. */
+/** Native text: the font and browser own joining, marks and line wrapping. */
 export function DisplayHeading({
   id,
   className,
@@ -87,15 +84,15 @@ export function DisplayHeading({
   id: DisplayHeadingId;
   className?: string;
 }) {
-  const heading = DISPLAY_HEADINGS[id];
+  const { t, lang, dir } = useI18n();
   return (
     <span
       className={cn('display-heading', className)}
       data-display-heading={id}
-      dir="rtl"
-      lang="ar"
+      dir={dir}
+      lang={lang}
     >
-      {heading.text}
+      {t.brand.headings[id]}
     </span>
   );
 }
