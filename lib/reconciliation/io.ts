@@ -16,7 +16,7 @@ import type {
   AuditEvent,
   Mapping,
 } from './types.ts';
-import { compare, normalizeSource } from './core.ts';
+import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 import { addCaseWorksheets, parsedSourceLink } from './case-workbook.ts';
 import { inferStatementDirection } from './statement-direction.ts';
 // Admit only formats whose visible numeric meaning is understood. Native values
@@ -593,29 +593,19 @@ export async function exportWorkbook(
       ),
     },
   };
-  const recomputed = compare(
-    normalizeSource(
-      verifiedFiles[0],
-      result.supplier.mapping,
-      result.scope,
-      'supplier',
-    ),
-    normalizeSource(
-      verifiedFiles[1],
-      result.ledger.mapping,
-      result.scope,
-      'ledger',
-    ),
-    result.scope,
-    result.matches
+  const { result: recomputed } = reconcileSupplierStatement({
+    files: [verifiedFiles[0], verifiedFiles[1]],
+    mappings: [result.supplier.mapping, result.ledger.mapping],
+    scope: result.scope,
+    decisions: result.matches
       .filter((m) => m.kind === 'manual')
       .map((m) => ({
         supplierId: m.supplierId,
         ledgerId: m.ledgerId,
         note: m.note ?? '',
       })),
-    result.rejectedPairs,
-  );
+    rejected: result.rejectedPairs,
+  });
   if (JSON.stringify(recomputed) !== JSON.stringify(result))
     throw new Error(
       'النتيجة لا تطابق إعادة الحساب من المصدر. أعد المقارنة قبل التصدير.',

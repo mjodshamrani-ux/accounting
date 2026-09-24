@@ -1,7 +1,8 @@
 import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
 import { readFile, exportWorkbook } from './io.ts';
-import { normalizeSource, compare } from './core.ts';
+import { normalizeSource } from './core.ts';
+import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 import { ENGINE_VERSION } from './types.ts';
 import { WORKER_CHANNEL, isRequest } from './protocol.ts';
 import { ImportDiagnosticError } from './import-diagnostics.ts';
@@ -34,43 +35,10 @@ self.onmessage = async (event: MessageEvent) => {
       );
     else if (action === 'reconcile') {
       assertInputFormats(payload.files, payload.mappings, payload.scope);
-      const a = normalizeSource(
-        payload.files[0],
-        payload.mappings[0],
-        payload.scope,
-        'supplier',
-      );
-      const b = normalizeSource(
-        payload.files[1],
-        payload.mappings[1],
-        payload.scope,
-        'ledger',
-      );
-      measured('normalizePairMs');
-      const result = compare(
-        a,
-        b,
-        payload.scope,
-        payload.decisions,
-        payload.rejected,
-      );
-      measured('matchingMs');
-      value = {
-        a,
-        b,
-        result,
-      };
+      value = reconcileSupplierStatement(payload, measured);
     } else if (action === 'compare') {
       assertInputFormats(payload.files, payload.mappings, payload.scope);
-      const [a, b] = payload.files;
-      const [am, bm] = payload.mappings;
-      value = compare(
-        normalizeSource(a, am, payload.scope, 'supplier'),
-        normalizeSource(b, bm, payload.scope, 'ledger'),
-        payload.scope,
-        payload.decisions,
-        payload.rejected,
-      );
+      value = reconcileSupplierStatement(payload).result;
     } else if (action === 'normalize')
       value = normalizeSource(
         payload.file,

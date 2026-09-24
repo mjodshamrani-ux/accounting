@@ -8,7 +8,7 @@ import type {
   AuditEvent,
 } from './types.ts';
 import { readFile, verifyDirectionEvidence } from './io.ts';
-import { compare, normalizeSource } from './core.ts';
+import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 import { assertInputFormats } from './input-readiness.ts';
 export type SessionState = {
   files: [SourceFile, SourceFile];
@@ -147,13 +147,13 @@ export async function restoreSession(bytes: ArrayBuffer) {
   // approval: the document decides whether a choice is still needed, and the
   // stored one must still match this source, this reading and this precision.
   assertInputFormats(files, mappings, p.scope as Scope);
-  const result = compare(
-    normalizeSource(files[0], mappings[0], p.scope, 'supplier'),
-    normalizeSource(files[1], mappings[1], p.scope, 'ledger'),
-    p.scope,
-    p.decisions,
-    p.rejected,
-  );
+  const { result } = reconcileSupplierStatement({
+    files,
+    mappings,
+    scope: p.scope,
+    decisions: p.decisions,
+    rejected: p.rejected,
+  });
   const ids = new Set(
     [...result.supplier.transactions, ...result.ledger.transactions].map(
       (t) => t.id,
