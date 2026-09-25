@@ -1,0 +1,609 @@
+[
+  {
+    "failure": "G08-two-dates|identity|fail-missed",
+    "id": "HC-DEV-00012",
+    "seed": 31853229132,
+    "rowsBefore": 8,
+    "rowsAfter": 4,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: b:1 mapped reference",
+      "evidence lost: b:2 mapped reference",
+      "evidence lost: b:3 mapped reference"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-records",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "group",
+            "reference": "PAY-500012",
+            "date": "2026-07-14",
+            "minor": -5132100,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-400012",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "group",
+            "reference": "PAY-500012",
+            "date": "2026-07-14",
+            "minor": -1708200,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-400012",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:2",
+            "tag": "group",
+            "reference": "PAY-500012",
+            "date": "2026-07-14",
+            "minor": -1711650,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-400012",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:3",
+            "tag": "group",
+            "reference": "PAY-500012",
+            "date": "2026-07-15",
+            "minor": -1712250,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-400012",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1",
+            "b:2",
+            "b:3"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1",
+        "b:2",
+        "b:3"
+      ]
+    }
+  },
+  {
+    "failure": "R01-voucher-and-reference|voucher-differs|fail-missed",
+    "id": "HC-DEV-00019",
+    "seed": 50434279459,
+    "rowsBefore": 6,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: b:1 mapped reference"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-records",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-30019",
+            "date": "2026-07-09",
+            "minor": 670735,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "SJ-19-235",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-30019",
+            "date": "2026-07-09",
+            "minor": 670735,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "JV-19-702",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "R01-voucher-and-reference|voucher-shared-reference-differs|fail-unsafe",
+    "id": "HC-DEV-00020",
+    "seed": 53088715220,
+    "rowsBefore": 6,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-unsafe",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: b:1 mapped reference",
+      "unexpected approval a:1 | b:1"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-records",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-30020",
+            "date": "2026-07-09",
+            "minor": 668021,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "JV-20-594",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-30520",
+            "date": "2026-07-09",
+            "minor": 668021,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "JV-20-594",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "review",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "T01-type-synonyms|tax-invoice|fail-missed",
+    "id": "HC-DEV-00028",
+    "seed": 74324201308,
+    "rowsBefore": 7,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-records",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-34028",
+            "date": "2026-07-09",
+            "minor": 71045,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-34028",
+            "date": "2026-07-09",
+            "minor": 71045,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "T01-type-synonyms|arabic-tax-invoice|fail-missed",
+    "id": "HC-DEV-00029",
+    "seed": 76978637069,
+    "rowsBefore": 11,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-records",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-34029",
+            "date": "2026-07-09",
+            "minor": 512869,
+            "kind": "فاتورة ضريبية",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-34029",
+            "date": "2026-07-09",
+            "minor": 512869,
+            "kind": "فاتورة ضريبية",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "T01-type-synonyms|vendor-invoice|fail-missed",
+    "id": "HC-DEV-00031",
+    "seed": 82287508591,
+    "rowsBefore": 8,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-records",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-34031",
+            "date": "2026-07-09",
+            "minor": 497516,
+            "kind": "Vendor Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-34031",
+            "date": "2026-07-09",
+            "minor": 497516,
+            "kind": "Vendor Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  }
+]
