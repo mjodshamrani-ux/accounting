@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { renderSource, sourceTable } from '../reliability/renderers.mjs';
-export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-1.0.0';
+export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-1.0.1';
 
 export async function loadHardEngine(root) {
   const load = (name) =>
@@ -273,6 +273,13 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
         used.add(row.key);
         keyOf.set(t.id, row.key);
         c.rowsRead++;
+        // A value counts as kept when any field of the engine's row holds it,
+        // directly or as an entry of a list of {value} records.
+        const keeps = (value) =>
+          Object.values(t).includes(value) ||
+          Object.values(t).some(
+            (v) => Array.isArray(v) && v.some((e) => e?.value === value),
+          );
         for (const field of [
           'batch',
           'voucherReference',
@@ -282,19 +289,12 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
           if (
             row[field] &&
             spec_.layout.fields.includes(field) &&
-            !Object.values(t).includes(row[field])
+            !keeps(row[field])
           ) {
             c.evidenceLost++;
             record.findings.push(`evidence lost: ${row.key} ${field}`);
           }
-        if (
-          row.reference &&
-          !Object.values(t).includes(row.reference) &&
-          !Object.values(t).some(
-            (v) =>
-              Array.isArray(v) && v.some((e) => e?.value === row.reference),
-          )
-        ) {
+        if (row.reference && !keeps(row.reference)) {
           c.evidenceLost++;
           record.findings.push(`evidence lost: ${row.key} mapped reference`);
         }

@@ -5,7 +5,7 @@
 // reveals the answer (hidden ids, the expected outcome, the variant name) is
 // written into a rendered file; files carry only the columns an accountant's
 // report would show.
-export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.0.1';
+export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.1.0';
 
 function rng(seed) {
   let state = seed >>> 0 || 1;
@@ -46,7 +46,10 @@ export const TEMPLATES = {
   'G10-excluded-member': ['identity'],
   'G11-invoice-lines': ['shared-po', 'no-po', 'conflicting-po'],
   // ---- references (R)
-  'R01-voucher-and-reference': ['voucher-differs'],
+  'R01-voucher-and-reference': [
+    'voucher-differs',
+    'voucher-shared-reference-differs',
+  ],
   'R02-batch-kept': ['batch'],
   'R03-reference-types': ['same-invoice', 'po-only'],
   'R04-leading-zeros': ['zeros'],
@@ -60,6 +63,8 @@ export const TEMPLATES = {
     'arabic-tax-invoice',
     'ap-invoice',
     'vendor-invoice',
+    'proforma',
+    'reversal',
   ],
   'T05-unknown-code': ['tx-code'],
   'T06-type-conflict': ['payment-labelled-invoice'],
@@ -340,20 +345,27 @@ export function buildHardCase(d) {
     case 'R01-voucher-and-reference':
     case 'C03-voucher-with-group': {
       extraFields.add('voucherReference');
+      // The shared-voucher variant: both books show one voucher number, but
+      // the chosen references name two different invoices. The explicit
+      // document identities disagree, so nothing proves one document.
+      const shared = d.variant === 'voucher-shared-reference-differs';
+      const voucher = `JV-${n}-${random(100, 999)}`;
       const inv = (side, minor) => ({
-        reference: `INV-${30000 + n}`,
+        reference: `INV-${30000 + n + (shared && side === 'b' ? 500 : 0)}`,
         date: day(9),
         minor,
         kind: 'Invoice',
         description: 'Goods supplied',
         // Each book numbers its own journal vouchers.
-        voucherReference: `${side === 'a' ? 'SJ' : 'JV'}-${n}-${random(100, 999)}`,
+        voucherReference: shared
+          ? voucher
+          : `${side === 'a' ? 'SJ' : 'JV'}-${n}-${random(100, 999)}`,
       });
       const m = random(1000, 900000);
-      group(
-        put('a', [inv('a', m)], 'target'),
-        put('b', [inv('b', m)], 'target'),
-      );
+      const ka = put('a', [inv('a', m)], 'target'),
+        kb = put('b', [inv('b', m)], 'target');
+      if (shared) expect = 'review';
+      else group(ka, kb);
       break;
     }
     case 'R02-batch-kept': {
@@ -524,6 +536,9 @@ export function buildHardCase(d) {
         'arabic-tax-invoice': 'فاتورة ضريبية',
         'ap-invoice': 'AP Invoice',
         'vendor-invoice': 'Vendor Invoice',
+        // Labels that name another role: never read as an invoice.
+        proforma: 'Proforma Invoice',
+        reversal: 'Invoice Reversal',
       }[d.variant];
       const m = random(1000, 900000);
       const row = {
@@ -533,7 +548,10 @@ export function buildHardCase(d) {
         kind: label,
         description: 'Goods supplied',
       };
-      group(put('a', [row], 'target'), put('b', [row], 'target'));
+      const ka = put('a', [row], 'target'),
+        kb = put('b', [row], 'target');
+      if (['proforma', 'reversal'].includes(d.variant)) expect = 'review';
+      else group(ka, kb);
       break;
     }
     case 'T05-unknown-code': {
