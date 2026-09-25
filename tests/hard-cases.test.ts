@@ -367,6 +367,162 @@ const rowOf = (result: Awaited<ReturnType<typeof reconcile>>, ref: string) =>
       t.reference === ref || t.retainedEvidence?.some((e) => e.value === ref),
   );
 
+test('R01: each book numbers its own vouchers; the chosen reference still names the invoice', async () => {
+  const result = await reconcile(
+    [
+      VOUCHERED,
+      [
+        '2026-07-09',
+        'INV-30017',
+        'Invoice',
+        'SJ-17-402',
+        '',
+        'Goods',
+        '812.40',
+      ],
+      ['2026-07-10', 'INV-34900', 'Invoice', '', '', 'Goods', '300.00'],
+    ],
+    [
+      VOUCHERED,
+      [
+        '2026-07-09',
+        'INV-30017',
+        'Invoice',
+        'JV-17-118',
+        '',
+        'Goods',
+        '812.40',
+      ],
+      ['2026-07-10', 'INV-34900', 'Invoice', '', '', 'Goods', '300.00'],
+    ],
+    'Reference',
+  );
+  assert.equal(statusOf(result, 'INV-30017'), 'Matched');
+  // Both vouchers are kept on their rows, with the chosen reference primary.
+  const [s, l] = rowOf(result, 'INV-30017');
+  assert.equal(s.voucherReference, 'SJ-17-402');
+  assert.equal(l.voucherReference, 'JV-17-118');
+  assert.equal(s.primaryReference, 'INV-30017');
+});
+
+test('R01 reverse: the chosen reference must itself prove the document', async () => {
+  const cases: [string, string[], string[]][] = [
+    [
+      'chosen references differ even though vouchers agree',
+      [
+        '2026-07-09',
+        'INV-30017',
+        'Invoice',
+        'JV-17-118',
+        '',
+        'Goods',
+        '812.40',
+      ],
+      [
+        '2026-07-09',
+        'INV-30018',
+        'Invoice',
+        'JV-17-118',
+        '',
+        'Goods',
+        '812.40',
+      ],
+    ],
+    [
+      'the chosen reference is repeated on the ledger',
+      [
+        '2026-07-09',
+        'INV-30017',
+        'Invoice',
+        'SJ-17-402',
+        '',
+        'Goods',
+        '812.40',
+      ],
+      [
+        '2026-07-09',
+        'INV-30017',
+        'Invoice',
+        'JV-17-118',
+        '',
+        'Goods',
+        '812.40',
+      ],
+    ],
+    [
+      'amounts differ',
+      [
+        '2026-07-09',
+        'INV-30017',
+        'Invoice',
+        'SJ-17-402',
+        '',
+        'Goods',
+        '812.40',
+      ],
+      [
+        '2026-07-09',
+        'INV-30017',
+        'Invoice',
+        'JV-17-118',
+        '',
+        'Goods',
+        '812.04',
+      ],
+    ],
+  ];
+  for (const [name, s, l] of cases) {
+    const ledger = [VOUCHERED, l];
+    if (name.includes('repeated'))
+      ledger.push([
+        '2026-07-11',
+        'INV-30017',
+        'Invoice',
+        'JV-17-119',
+        '',
+        'Goods',
+        '812.40',
+      ]);
+    const result = await reconcile(
+      [
+        VOUCHERED,
+        s,
+        ['2026-07-10', 'INV-34900', 'Invoice', '', '', 'Goods', '300.00'],
+      ],
+      [
+        ...ledger,
+        ['2026-07-10', 'INV-34900', 'Invoice', '', '', 'Goods', '300.00'],
+      ],
+      'Reference',
+    );
+    assert.ok(
+      result.cases
+        .filter((c) => c.status === 'Matched')
+        .every((c) =>
+          c.supplierMembers.every((t) => t.reference === 'INV-34900'),
+        ),
+      name,
+    );
+    assert.equal(statusOf(result, 'INV-34900'), 'Matched', name);
+  }
+  // A PO chosen as the reference is flagged as not proving the invoice, even
+  // when a voucher is present.
+  const head = ['Date', 'PO', 'Type', 'Voucher No', 'Description', 'Amount'];
+  const po = await reconcile(
+    [head, ['2026-07-09', 'PO-5521', 'Invoice', 'SJ-1', 'Goods', '812.40']],
+    [head, ['2026-07-09', 'PO-5521', 'Invoice', 'JV-9', 'Goods', '812.40']],
+    'PO',
+  );
+  const row = po.supplier.transactions[0];
+  assert.ok(
+    row.referenceEvidenceIssues?.includes(
+      'أمر الشراء وحده لا يثبت هوية الفاتورة',
+    ),
+    JSON.stringify(row),
+  );
+  assert.equal(po.cases.filter((c) => c.status === 'Matched').length, 0);
+});
+
 test('R02: batch, chosen reference and type label are kept with their headers, never as proof', async () => {
   const head = [
     'Date',

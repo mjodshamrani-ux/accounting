@@ -106,6 +106,26 @@ const mutations = [
     ],
   },
   {
+    name: 'hard-r01-rank-own-voucher-before-chosen-reference',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        'documentReference || mapped || voucherReference || poReference;',
+        'documentReference || voucherReference || mapped || poReference;',
+      ],
+    ],
+  },
+  {
+    name: 'hard-r01-let-a-voucher-hide-a-po-only-identity',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        '!documentReference &&\n    (!mapped || mapped === poReference)',
+        '!documentReference &&\n    !voucherReference &&\n    (!mapped || mapped === poReference)',
+      ],
+    ],
+  },
+  {
     name: 'hard-g08-accept-payment-parts-beyond-the-date-window',
     file: 'lib/reconciliation/cases.ts',
     changes: [['groupSpan <= scope.dateWindow', 'true']],

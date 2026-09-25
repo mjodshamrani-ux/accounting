@@ -112,14 +112,16 @@ export function transactionReferences(
         mapped
       : documentType === 'Journal'
         ? voucherReference || batch || documentReference || mapped
-        : documentReference || voucherReference || mapped || poReference;
+        : // A voucher is numbered by each book for itself. For a document, the
+          // explicit document number, then the reference the accountant chose,
+          // name it across both books; the voucher only when neither exists.
+          documentReference || mapped || voucherReference || poReference;
   // An order can legitimately have several invoices of the same amount. Keep
   // an order-only identity visible, but never present it as proof of a document.
   if (
     poReference &&
     primaryReference === poReference &&
     !documentReference &&
-    !voucherReference &&
     (!mapped || mapped === poReference)
   )
     referenceEvidenceIssues.push('أمر الشراء وحده لا يثبت هوية الفاتورة');
