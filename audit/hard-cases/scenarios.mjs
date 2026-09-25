@@ -5,7 +5,7 @@
 // reveals the answer (hidden ids, the expected outcome, the variant name) is
 // written into a rendered file; files carry only the columns an accountant's
 // report would show.
-export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.1.1';
+export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.1.2';
 
 function rng(seed) {
   let state = seed >>> 0 || 1;
@@ -891,9 +891,11 @@ const LAYOUTS = {
     ],
   ],
   // Final: kept apart until the fixes are frozen; PDF and mixed layouts.
+  // PDF pages hold four rows (1.1.2), so every PDF statement breaks across
+  // pages (P02); with the writer's default of 18 no generated PDF did.
   final: [
     [
-      { format: 'pdf', language: 'en', style: 'dot' },
+      { format: 'pdf', language: 'en', style: 'dot', pageRows: 4 },
       {
         format: 'xlsx',
         writer: 'exceljs',
@@ -910,7 +912,7 @@ const LAYOUTS = {
         style: 'dot',
         order: [4, 3, 2, 1, 0, 5, 6, 7, 8, 9],
       },
-      { format: 'pdf', language: 'en', style: 'dot' },
+      { format: 'pdf', language: 'en', style: 'dot', pageRows: 4 },
     ],
     [
       {
