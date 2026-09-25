@@ -47,15 +47,19 @@ export function transactionReferences(
   );
   // PDF fonts may emit Arabic presentation forms. Normalize the category label
   // only; never rewrite references, source cells or financial tokens.
-  const categoryType = rawType.normalize('NFKC');
+  // Whole-label vocabularies only. A qualifier names who issued the document
+  // or its tax status, never a different role; anything else stays Unknown.
+  const categoryType = rawType.normalize('NFKC').replace(/\s+/g, ' ');
   const documentType: NonNullable<Transaction['documentType']> =
-    /^(?:(?:ap )?(?:invoice|invoice line)|فاتورة|فاتوره)$/i.test(categoryType)
+    /^(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)|ap tax invoice|فاتور[ةه](?: (?:ضريبي[ةه]|مشتريات|شراء|مورد))?)$/i.test(
+      categoryType,
+    )
       ? 'Invoice'
-      : /^(?:(?:ap )?(?:credit note|credit memo)|إشعار دائن|اشعار دائن)$/i.test(
+      : /^(?:(?:ap |tax |vendor |supplier )?(?:credit note|credit memo)|إشعار دائن|اشعار دائن)$/i.test(
             categoryType,
           )
         ? 'Credit Note'
-        : /^(?:payment|receipt|supplier payment|دفعة|سداد|دفع|قبض)$/i.test(
+        : /^(?:payment|receipt|supplier payment|vendor payment|دفعة|سداد|دفع|قبض)$/i.test(
               categoryType,
             )
           ? 'Payment'
