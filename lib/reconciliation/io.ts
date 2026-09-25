@@ -673,6 +673,7 @@ export async function exportWorkbook(
       'Source Link',
       'Reviewer Decision',
       'Reviewer Reason',
+      'Retained Evidence',
     ],
     result.cases.flatMap((c) =>
       [...c.supplierMembers, ...c.ledgerMembers].map((t) => [
@@ -698,6 +699,9 @@ export async function exportWorkbook(
         parsedSourceLink(t),
         c.reviewerDecision ?? '',
         c.reviewerReason ?? '',
+        (t.retainedEvidence ?? [])
+          .map((e) => `${e.field} (${e.header}): ${e.value}`)
+          .join(' | '),
       ]),
     ),
   );

@@ -9,7 +9,8 @@ export function transactionReferences(
   row: string[],
   rn: number,
 ) {
-  const headers = sheet.rows[mapping.header].map((h) =>
+  const rawHeaders = sheet.rows[mapping.header];
+  const headers = rawHeaders.map((h) =>
     h.trim().toLowerCase().replace(/[._]/g, '').replace(/\s+/g, ' '),
   );
   const referenceEvidenceIssues: string[] = [];
@@ -42,9 +43,9 @@ export function transactionReferences(
     }
     return (row[col] ?? '').trim();
   };
-  const rawType = field(
-    /^(?:type|doc type|document type|transaction type|نوع المستند|نوع الحركة|النوع)$/i,
-  );
+  const typePattern =
+    /^(?:type|doc type|document type|transaction type|نوع المستند|نوع الحركة|النوع)$/i;
+  const rawType = field(typePattern);
   // PDF fonts may emit Arabic presentation forms. Normalize the category label
   // only; never rewrite references, source cells or financial tokens.
   // Whole-label vocabularies only. A qualifier names who issued the document
@@ -97,9 +98,9 @@ export function transactionReferences(
     /(?:^|[- /])(?:RCPT|RECEIPT|PAY|PYM)(?:[- /]|$)/i.test(documentReference)
       ? documentReference
       : '');
-  const batch = field(
-    /^(?:batch(?: ref(?:erence)?| number| no)?|مرجع الدفعة)$/i,
-  );
+  const batchPattern =
+    /^(?:batch(?: ref(?:erence)?| number| no)?|مرجع الدفعة)$/i;
+  const batch = field(batchPattern);
   const mapped =
     mapping.reference < 0 ? '' : (row[mapping.reference] ?? '').trim();
   const primaryReference =
@@ -122,7 +123,52 @@ export function transactionReferences(
     (!mapped || mapped === poReference)
   )
     referenceEvidenceIssues.push('أمر الشراء وحده لا يثبت هوية الفاتورة');
+  // Evidence the row states but no other field keeps: the chosen reference
+  // when another identity takes precedence, the batch, and the type label as
+  // written. It is shown and exported, and never used to accept a match.
+  const headerOf = (pattern: RegExp) =>
+    (rawHeaders[headers.findIndex((h) => headerMatches(pattern, h))] ?? '')
+      .toString()
+      .trim();
+  const kept = [
+    documentReference,
+    voucherReference,
+    poReference,
+    bankReference,
+    receiptReference,
+    primaryReference,
+  ];
+  const retainedEvidence: NonNullable<Transaction['retainedEvidence']> = [
+    ...(mapped && !kept.includes(mapped)
+      ? [
+          {
+            field: 'mappedReference' as const,
+            header: String(rawHeaders[mapping.reference] ?? '').trim(),
+            value: mapped,
+          },
+        ]
+      : []),
+    ...(batch && !kept.includes(batch)
+      ? [
+          {
+            field: 'batch' as const,
+            header: headerOf(batchPattern),
+            value: batch,
+          },
+        ]
+      : []),
+    ...(rawType && rawType !== documentType
+      ? [
+          {
+            field: 'documentTypeLabel' as const,
+            header: headerOf(typePattern),
+            value: rawType,
+          },
+        ]
+      : []),
+  ];
   return {
+    ...(retainedEvidence.length ? { retainedEvidence } : {}),
     primaryReference,
     documentReference,
     voucherReference,

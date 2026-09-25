@@ -1,9 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from '../lib/reconciliation/io.ts';
+import ExcelJS from 'exceljs';
+import { exportWorkbook, readFile } from '../lib/reconciliation/io.ts';
+import { restoreSession, saveSession } from '../lib/reconciliation/session.ts';
 import { selectImportMapping } from '../lib/reconciliation/import-selection.ts';
 import { reconcileSupplierStatement } from '../lib/reconciliation/supplier-reconciliation.ts';
-import type { Scope } from '../lib/reconciliation/types.ts';
+import type {
+  Mapping,
+  Scope,
+  SourceFile,
+} from '../lib/reconciliation/types.ts';
 
 // Fixed cases from the hard-case campaign (audit/hard-cases). Each engine
 // change is held by a case that failed before it and by reverse cases that
@@ -24,16 +30,29 @@ const csv = (rows: string[][]) =>
   new TextEncoder().encode(rows.map((r) => r.join(',')).join('\n')).buffer;
 
 /** Runs a supplier statement and a ledger through the production path:
- * read, select the columns, then the shared recompute. */
-async function reconcile(supplier: string[][], ledger: string[][]) {
+ * read, select the columns, then the shared recompute. Where the selection
+ * leaves the reference column open, `referenceHeader` is the column the
+ * accountant chooses. */
+async function reconcile(
+  supplier: string[][],
+  ledger: string[][],
+  referenceHeader?: string,
+) {
   const a = await readFile('supplier.csv', csv(supplier), undefined, true);
   const b = await readFile('ledger.csv', csv(ledger), undefined, true);
+  const select = (file: typeof a, side: 'supplier' | 'ledger') => {
+    const { mapping } = selectImportMapping(file, side);
+    return referenceHeader
+      ? {
+          ...mapping,
+          reference:
+            file.sheets[0].rows[mapping.header].indexOf(referenceHeader),
+        }
+      : mapping;
+  };
   return reconcileSupplierStatement({
     files: [a, b],
-    mappings: [
-      selectImportMapping(a, 'supplier').mapping,
-      selectImportMapping(b, 'ledger').mapping,
-    ],
+    mappings: [select(a, 'supplier'), select(b, 'ledger')],
     scope,
   }).result;
 }
@@ -331,4 +350,150 @@ test('G08 reverse: invoice groups still need one date', async () => {
   );
   assert.notEqual(statusOf(result, 'INV-90017'), 'Matched');
   assert.equal(statusOf(result, 'INV-34900'), 'Matched');
+});
+
+const VOUCHERED = [
+  'Date',
+  'Reference',
+  'Type',
+  'Voucher No',
+  'Batch',
+  'Description',
+  'Amount',
+];
+const rowOf = (result: Awaited<ReturnType<typeof reconcile>>, ref: string) =>
+  [...result.supplier.transactions, ...result.ledger.transactions].filter(
+    (t) =>
+      t.reference === ref || t.retainedEvidence?.some((e) => e.value === ref),
+  );
+
+test('R02: batch, chosen reference and type label are kept with their headers, never as proof', async () => {
+  const head = [
+    'Date',
+    'Reference',
+    'Type',
+    'Bank Ref',
+    'Batch',
+    'Description',
+    'Amount',
+  ];
+  const result = await reconcile(
+    [
+      head,
+      [
+        '2026-07-14',
+        'PAY-4410',
+        'Vendor Payment',
+        'TRF-88120',
+        'B-77',
+        'Transfer',
+        '-1000.00',
+      ],
+      ['2026-07-10', 'INV-34900', 'Tax Invoice', '', 'B-78', 'Goods', '300.00'],
+    ],
+    [
+      head,
+      [
+        '2026-07-14',
+        'PAY-4410',
+        'Payment',
+        'TRF-88120',
+        'B-77',
+        'Transfer',
+        '-1000.00',
+      ],
+      ['2026-07-10', 'INV-34900', 'Invoice', '', 'B-78', 'Goods', '300.00'],
+    ],
+    'Reference',
+  );
+  const pay = result.supplier.transactions.find((t) => t.amount < 0)!;
+  assert.equal(pay.primaryReference, 'TRF-88120');
+  assert.deepEqual(pay.retainedEvidence, [
+    { field: 'mappedReference', header: 'Reference', value: 'PAY-4410' },
+    { field: 'batch', header: 'Batch', value: 'B-77' },
+    { field: 'documentTypeLabel', header: 'Type', value: 'Vendor Payment' },
+  ]);
+  const inv = result.supplier.transactions.find((t) => t.amount > 0)!;
+  assert.deepEqual(inv.retainedEvidence, [
+    { field: 'batch', header: 'Batch', value: 'B-78' },
+    { field: 'documentTypeLabel', header: 'Type', value: 'Tax Invoice' },
+  ]);
+  // A label already equal to the classified type adds nothing.
+  const ledgerInvoice = result.ledger.transactions.find((t) => t.amount > 0)!;
+  assert.deepEqual(ledgerInvoice.retainedEvidence, [
+    { field: 'batch', header: 'Batch', value: 'B-78' },
+  ]);
+
+  // Shared batches never join rows: two invoices on one batch with different
+  // references and the other book's total stay apart.
+  const batchOnly = await reconcile(
+    [
+      VOUCHERED,
+      ['2026-07-09', 'INV-51001', 'Invoice', '', 'B-9', 'Goods', '500.00'],
+      ['2026-07-09', 'INV-51002', 'Invoice', '', 'B-9', 'Goods', '250.00'],
+    ],
+    [
+      VOUCHERED,
+      ['2026-07-09', 'INV-51000', 'Invoice', '', 'B-9', 'Goods', '750.00'],
+    ],
+    'Reference',
+  );
+  assert.equal(batchOnly.cases.filter((c) => c.status === 'Matched').length, 0);
+});
+
+test('R02: retained evidence survives session restore and is exported beside the row', async () => {
+  const head = ['Date', 'Reference', 'Type', 'Bank Ref', 'Batch', 'Amount'];
+  const rows = [
+    head,
+    ['2026-07-14', 'PAY-4410', 'Payment', 'TRF-88120', 'B-77', '-1000.00'],
+    ['2026-07-10', 'INV-34900', 'Tax Invoice', '', 'B-78', '300.00'],
+  ];
+  const files = [
+    await readFile('supplier.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', csv(rows), undefined, true),
+  ] as [SourceFile, SourceFile];
+  const mappings = files.map((file, i) => {
+    const { mapping } = selectImportMapping(file, i ? 'ledger' : 'supplier');
+    return { ...mapping, reference: 1 };
+  }) as [Mapping, Mapping];
+  const { result } = reconcileSupplierStatement({ files, mappings, scope });
+  assert.equal(result.caseCounts.autoMatchedCases, 2);
+  const review = { checked: false, name: '', notes: '' };
+  const restored = await restoreSession(
+    await saveSession({
+      files,
+      mappings,
+      scope,
+      decisions: [],
+      rejected: [],
+      events: [],
+      review,
+    }),
+  );
+  assert.deepEqual(
+    restored.result.supplier.transactions.map((t) => t.retainedEvidence),
+    result.supplier.transactions.map((t) => t.retainedEvidence),
+  );
+  const book = new ExcelJS.Workbook();
+  await book.xlsx.load(await exportWorkbook(result, files, review));
+  const sheet = book.getWorksheet('Match Evidence')!;
+  const headers = sheet.getRow(1).values as string[];
+  const column = headers.indexOf('Retained Evidence');
+  assert.ok(column > 0);
+  const cells = sheet
+    .getColumn(column)
+    .values.slice(2)
+    .map((v) => String(v ?? ''));
+  assert.ok(
+    cells.includes(
+      'mappedReference (Reference): PAY-4410 | batch (Batch): B-77',
+    ),
+    cells.join('\n'),
+  );
+  assert.ok(
+    cells.includes(
+      'batch (Batch): B-78 | documentTypeLabel (Type): Tax Invoice',
+    ),
+    cells.join('\n'),
+  );
 });
