@@ -1,0 +1,19 @@
+# Fault-injection tests of tests/hard-cases-evaluator.test.ts run against the V1 evaluator (tarasuf-hard-evaluator-1.0.1, c19035c)
+ok 1 - evaluator: the untouched engine passes the cases used below
+not ok 2 - evaluator: losing a required piece of evidence fails the case
+  actual: 'pass'
+not ok 3 - evaluator: the value in a field of another role does not count as kept
+  actual: 'pass'
+not ok 4 - evaluator: an unexpected internal error is not a successful refusal
+  actual: 'pass'
+not ok 5 - evaluator: every invalid case names its own rejection, and another reason fails
+  actual: 'pass'
+not ok 6 - evaluator: Needs Review passes as Unmatched only where the contract allows both
+  actual: 'pass'
+not ok 7 - evaluator: a required diagnostic is part of the verdict
+  actual: 'pass'
+not ok 8 - evaluator: a reference warning does not hide a wrong amount or date
+  actual: false
+not ok 9 - evaluator: unaided and declared runs record assistance separately
+# pass 1
+# fail 8

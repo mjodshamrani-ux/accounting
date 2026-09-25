@@ -1,8 +1,16 @@
 // Hard-case campaign runner.
 //   node --experimental-strip-types audit/hard-cases/run.mjs --split development --count 12000 --mode logical --out work/hard/dev
 //   ... --engine-root work/base-888415f   (measure another engine tree)
-import { mkdirSync, writeFileSync, appendFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  mkdirSync,
+  writeFileSync,
+  appendFileSync,
+  readFileSync,
+} from 'node:fs';
+import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import os from 'node:os';
 import {
@@ -26,21 +34,67 @@ const { values: args } = parseArgs({
     template: { type: 'string', default: '' },
   },
 });
+// Every run names exactly what it measured: the engine tree's full commit
+// and whether its engine files differ from that commit, and the harness
+// commit with content hashes of the generator, evaluator and renderer.
+const here = dirname(fileURLToPath(import.meta.url));
+const git = (cwd, ...cmd) =>
+  spawnSync('git', cmd, { cwd, encoding: 'utf8' }).stdout.trim();
+const sha256 = (path) =>
+  createHash('sha256').update(readFileSync(path)).digest('hex');
+const engineRootPath = resolve(args['engine-root']);
+const provenance = {
+  engine: {
+    root: args['engine-root'],
+    commit: git(engineRootPath, 'rev-parse', 'HEAD'),
+    engineFilesModified: !!git(
+      engineRootPath,
+      'status',
+      '--porcelain',
+      '--',
+      'lib',
+    ),
+  },
+  harness: {
+    commit: git(here, 'rev-parse', 'HEAD'),
+    modified: !!git(
+      here,
+      'status',
+      '--porcelain',
+      '--',
+      '.',
+      '../reliability/renderers.mjs',
+    ),
+    generatorSha256: sha256(resolve(here, 'scenarios.mjs')),
+    evaluatorSha256: sha256(resolve(here, 'evaluate.mjs')),
+    rendererSha256: sha256(resolve(here, '../reliability/renderers.mjs')),
+  },
+};
 const engine = await loadHardEngine(resolve(args['engine-root']));
 const manifest = hardManifest(args.split, Number(args.count), {
   fileRuns: args.mode === 'file',
 }).filter((d) => !args.template || d.template.startsWith(args.template));
 mkdirSync(args.out, { recursive: true });
-const casesFile = resolve(args.out, 'cases.jsonl');
-writeFileSync(casesFile, '');
-const records = [];
+// Each scenario is judged twice: as the product reads it with no help, and
+// after the declared assistance a person would give (each step recorded).
+const files = {
+  none: resolve(args.out, 'cases-unaided.jsonl'),
+  declared: resolve(args.out, 'cases.jsonl'),
+};
+for (const f of Object.values(files)) writeFileSync(f, '');
+const runs = { none: [], declared: [] };
 const started = Date.now();
 for (const d of manifest) {
   const spec = buildHardCase(d);
-  const record = await evaluateHardCase(spec, engine, args.mode);
-  records.push(record);
-  appendFileSync(casesFile, JSON.stringify(record) + '\n');
+  for (const assist of ['none', 'declared']) {
+    const record = await evaluateHardCase(spec, engine, args.mode, {
+      assist,
+    });
+    runs[assist].push(record);
+    appendFileSync(files[assist], JSON.stringify(record) + '\n');
+  }
 }
+const records = runs.declared;
 const sum = (rs, k) => rs.reduce((t, r) => t + r.counts[k], 0);
 const aggregate = (rs) => ({
   scenarios: rs.length,
@@ -57,14 +111,33 @@ const aggregate = (rs) => ({
   ...Object.fromEntries(
     Object.keys(rs[0]?.counts ?? {}).map((k) => [k, sum(rs, k)]),
   ),
-  confirmations: rs.reduce((t, r) => t + r.confirmations.length, 0),
-  crashes: rs.filter((r) => r.stopped?.kind === 'crash').length,
-});
-const by = (key) =>
-  Object.fromEntries(
-    [...new Set(records.map((r) => r[key]))]
+  contracts: Object.fromEntries(
+    [...new Set(rs.map((r) => r.contract))].sort().map((k) => [
+      k,
+      {
+        scenarios: rs.filter((r) => r.contract === k).length,
+        pass: rs.filter((r) => r.contract === k && r.verdict === 'pass').length,
+      },
+    ]),
+  ),
+  assistance: Object.fromEntries(
+    [...new Set(rs.flatMap((r) => r.assistance.map((a) => a.kind)))]
       .sort()
-      .map((k) => [k, aggregate(records.filter((r) => r[key] === k))]),
+      .map((k) => [
+        k,
+        rs.filter((r) => r.assistance.some((a) => a.kind === k)).length,
+      ]),
+  ),
+  scenariosNeedingAssistance: rs.filter((r) => r.assistance.length).length,
+  crashes: rs.filter((r) =>
+    ['crash', 'internal-error'].includes(r.stopped?.kind),
+  ).length,
+});
+const by = (key, rs = records) =>
+  Object.fromEntries(
+    [...new Set(rs.map((r) => r[key]))]
+      .sort()
+      .map((k) => [k, aggregate(rs.filter((r) => r[key] === k))]),
   );
 const times = records.map((r) => r.ms).sort((x, y) => x - y);
 const summary = {
@@ -78,6 +151,7 @@ const summary = {
     cpu: os.cpus()[0]?.model,
     cpus: os.cpus().length,
   },
+  provenance,
   engineRoot: args['engine-root'],
   split: args.split,
   mode: args.mode,
@@ -91,6 +165,10 @@ const summary = {
   overall: aggregate(records),
   byFamily: by('family'),
   byTemplate: by('template'),
+  unaided: {
+    overall: aggregate(runs.none),
+    byTemplate: by('template', runs.none),
+  },
 };
 writeFileSync(
   resolve(args.out, 'summary.json'),
@@ -101,7 +179,8 @@ console.log(
     {
       split: summary.split,
       mode: summary.mode,
-      overall: summary.overall,
+      overall: summary.overall.verdicts,
+      unaided: summary.unaided.overall.verdicts,
       timingMs: summary.timingMs,
     },
     null,

@@ -3,7 +3,9 @@ import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
 import { visibleInputEvidence } from './input-evidence.mjs';
 const enc = new TextEncoder();
-const headers = {
+// Exported for the hard-case evaluator, which checks that kept evidence
+// names the header it came from.
+export const headers = {
   en: {
     kind: 'Document Type',
     bankReference: 'Bank Reference',
@@ -573,6 +575,7 @@ function pdfStatement(source) {
       header: 5,
     },
     pages: pages.length,
+    fields,
   };
 }
 export async function renderSource(source) {
@@ -586,6 +589,7 @@ export async function renderSource(source) {
       headerRow: 0,
       bindings: {},
       expectedRows: [],
+      fields: [],
       expectedRejection: 'corrupt-file',
     };
   if (source.format === 'pdf')
@@ -625,6 +629,7 @@ export async function renderSource(source) {
     headerRow: table.headerRow,
     bindings: table.bindings,
     expectedRows: table.expectedRows,
+    fields: table.fields,
     confirmationEvidence: visibleInputEvidence(
       table.rows.map((row, index) => ({
         text: row.join(' | '),

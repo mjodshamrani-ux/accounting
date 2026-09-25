@@ -1,38 +1,69 @@
 // Runs one hard-case scenario through the production supplier path of a given
-// engine tree and scores it against the generator's own facts. The engine is
-// only observed: expected groups, amounts and outcomes come from the scenario.
+// engine tree and judges it against the contract the generator wrote before
+// any engine ran. The engine is only observed: expected groups, amounts,
+// outcomes, signals and rejection reasons come from the scenario.
+//
+// Two independences, kept apart (2.0.0):
+// - the expected values are computed by the generator from its own integer
+//   facts, never by engine functions (no compare, parseMoney or classifier);
+// - the test source is not independent: the files are written by this
+//   repository's own renderers (audit/reliability/renderers.mjs). A result
+//   here is a synthetic, repository-held check, not an outside one.
 import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { renderSource, sourceTable } from '../reliability/renderers.mjs';
-export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-1.0.1';
+import {
+  headers as HEADER_LABELS,
+  renderSource,
+  sourceTable,
+} from '../reliability/renderers.mjs';
+export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-2.0.0';
+
+/** Escape a catalogue key for a regular expression, with each `${…}`
+ * placeholder standing for any text. */
+const catalogPattern = (key) =>
+  new RegExp(
+    '^' +
+      key
+        .split('${…}')
+        .map((part) => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+        .join('[\\s\\S]*?') +
+      '$',
+  );
 
 export async function loadHardEngine(root) {
-  const load = (name) =>
-    import(
-      pathToFileURL(resolve(root, 'lib/reconciliation', `${name}.ts`)).href
-    );
-  const [io, core, selection, formats, readiness, supplier, types] =
-    await Promise.all(
-      [
-        'io',
-        'core',
-        'import-selection',
-        'format-inference',
-        'input-readiness',
-        'supplier-reconciliation',
-        'types',
-      ].map(load),
-    );
-  return {
-    ...io,
-    ...core,
-    ...selection,
-    ...formats,
-    ...readiness,
-    ...supplier,
-    ...types,
-  };
+  const load = (path) => import(pathToFileURL(resolve(root, path)).href);
+  const names = [
+    'io',
+    'core',
+    'import-selection',
+    'format-inference',
+    'input-readiness',
+    'supplier-reconciliation',
+    'types',
+  ];
+  const modules = await Promise.all(
+    names.map((name) => load(`lib/reconciliation/${name}.ts`)),
+  );
+  // The product's own list of the messages it can show. A stop whose message
+  // is not in it is an internal error, not an accounting refusal.
+  const { engineCatalog } = await load('lib/i18n/engine-catalog.ts');
+  const known = Object.keys(engineCatalog).map(catalogPattern);
+  return Object.assign({}, ...modules, {
+    knownMessage: (message) => {
+      // Messages may carry a source-name prefix ("file.csv: ...") and join
+      // several catalogue sentences; each sentence must be known.
+      const text = String(message)
+        .replace(/^[^:\n]{1,120}\.(?:csv|xlsx|pdf):\s*/i, '')
+        .trim();
+      if (known.some((p) => p.test(text))) return true;
+      const parts = text.split(/(?<=[.。])\s+/).filter(Boolean);
+      return (
+        parts.length > 1 &&
+        parts.every((part) => known.some((p) => p.test(part.trim())))
+      );
+    },
+  });
 }
 
 const toArrayBuffer = (bytes) =>
@@ -47,11 +78,7 @@ const inPeriod = (row, meta) =>
 /** A source as the engine will see it: file bytes through the real reader,
  * or (logical mode) the rendered table handed over as a sheet. */
 async function prepareSource(engine, source, mode) {
-  if (
-    source.invalid === 'corrupt-file' ||
-    mode === 'file' ||
-    (source.format === 'pdf' && mode === 'file')
-  ) {
+  if (source.invalid === 'corrupt-file' || mode === 'file') {
     const rendered = await renderSource(source);
     const file = await engine.readFile(
       rendered.name,
@@ -81,18 +108,21 @@ async function prepareSource(engine, source, mode) {
       headerRow: table.headerRow,
       bindings: table.bindings,
       expectedRows: table.expectedRows,
+      fields: table.fields,
       sheetIndex: 0,
       format: 'csv',
     },
   };
 }
 
-/** The accountant's reading: the product's own column selection, corrected
- * from the known layout only where it chose wrongly (counted as a correction). */
-function reading(engine, file, source, rendered, confirmations) {
-  const selected = engine.selectImportMapping(file, source.side).mapping;
+/** The reading the comparison runs with. Unaided: exactly what the product
+ * proposes. Declared: the product's proposal, with every change a person
+ * would have to make recorded as assistance. */
+function reading(engine, file, source, rendered, assist, record) {
+  const proposal = engine.selectImportMapping(file, source.side);
+  const selected = proposal.mapping;
   const b = rendered.bindings;
-  const expected = {
+  const truth = {
     sheet: rendered.sheetIndex ?? 0,
     header: rendered.headerRow,
     date: b.date,
@@ -101,29 +131,94 @@ function reading(engine, file, source, rendered, confirmations) {
     amount: b.amount,
     debit: b.debit,
     credit: b.credit,
-    currencyColumn: b.currency ?? -1,
     mode: b.mode,
   };
-  let mapping = { ...selected };
-  const differs = Object.entries(expected).some(
-    ([k, v]) => k !== 'currencyColumn' && selected[k] !== v,
-  );
-  if (differs) {
-    confirmations.push(`${source.side}: columns set by the accountant`);
-    mapping = { ...selected, ...expected };
-  }
-  mapping.dateFormat = source.metadata.dateFormat;
-  mapping.numberFormat =
+  const wrong = Object.keys(truth).filter((k) => selected[k] !== truth[k]);
+  const dateFormat = source.metadata.dateFormat;
+  const numberFormat =
     source.layout.style === 'comma-decimals' ? 'comma' : 'dot';
+  record.productReading.push({
+    side: source.side,
+    kind: proposal.kind ?? null,
+    wrongColumns: wrong,
+    dateFormat: selected.dateFormat,
+    numberFormat: selected.numberFormat,
+  });
+  if (assist === 'none') return { ...selected };
+  const mapping = { ...selected };
+  if (wrong.length) {
+    Object.assign(mapping, truth);
+    record.assistance.push({
+      side: source.side,
+      kind: 'columns',
+      fields: wrong,
+    });
+  }
+  for (const [field, value] of [
+    ['dateFormat', dateFormat],
+    ['numberFormat', numberFormat],
+  ])
+    if (mapping[field] !== value) {
+      record.assistance.push({
+        side: source.side,
+        kind: field,
+        from: mapping[field] ?? null,
+        to: value,
+      });
+      mapping[field] = value;
+    }
   if (file.pdf) {
+    // A simulated decision of the accountant. It does not show that anyone
+    // looked at the rendered page.
     mapping.pdfReviewed = true;
-    confirmations.push(`${source.side}: PDF reviewed against the original`);
+    record.assistance.push({
+      side: source.side,
+      kind: 'pdfReviewed',
+      simulated: true,
+    });
   }
   return mapping;
 }
 
-export async function evaluateHardCase(spec, engine, mode = 'logical') {
+/** The header a role is written under in this source. */
+const headerOf = (source, role) =>
+  role === 'reference' && source.metadata.referenceHeader === 'Invoice No'
+    ? 'Invoice No'
+    : (HEADER_LABELS[source.layout.language] ?? HEADER_LABELS.en)[role];
+
+/** Whether the engine row keeps a written value in its own role. A value
+ * sitting in a field of another role does not count. */
+function keepsInRole(t, role, value, header) {
+  const retained = (field) =>
+    (t.retainedEvidence ?? []).some(
+      (e) =>
+        e.field === field &&
+        e.value === value &&
+        String(e.header).trim() === header,
+    );
+  switch (role) {
+    case 'reference':
+      return (
+        t.reference === value ||
+        t.primaryReference === value ||
+        t.documentReference === value ||
+        retained('mappedReference')
+      );
+    case 'batch':
+      return retained('batch');
+    default:
+      return t[role] === value;
+  }
+}
+
+export async function evaluateHardCase(
+  spec,
+  engine,
+  mode = 'logical',
+  { assist = 'declared' } = {},
+) {
   const started = performance.now();
+  const contract = spec.oracle.contract;
   const record = {
     id: spec.id,
     template: spec.template,
@@ -132,17 +227,22 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
     split: spec.split,
     seed: spec.seed,
     mode,
+    assist,
+    contract: contract.kind,
     formats: spec.sources.map((s) => s.format),
     expect: spec.oracle.expect,
     outcome: null,
     stopped: null,
-    confirmations: [],
+    productReading: [],
+    assistance: [],
     counts: {
       rowsExpected: 0,
       rowsRead: 0,
       rowsErrored: 0,
       rowsLost: 0,
       silentMisreads: 0,
+      declaredReferenceIssues: 0,
+      evidenceRequired: 0,
       evidenceLost: 0,
       approvedExpected: 0,
       approvedAchieved: 0,
@@ -179,33 +279,37 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
         prepared.file,
         source,
         prepared.rendered,
-        record.confirmations,
+        assist,
+        record,
       );
       // An ambiguous format is answered as the accountant would, unless the
-      // scenario withholds the answer to test the stop.
-      const formats = engine.suggestFormats(
-        prepared.file,
-        mapping,
-        scope.decimals,
-      );
-      for (const field of ['numberFormat', 'dateFormat'])
-        if (
-          formats[field].status === 'ambiguous' &&
-          !spec.oracle.withholdFormat
-        ) {
-          mapping.formatChoice = {
-            ...mapping.formatChoice,
-            [field]: engine.formatChoice(
-              prepared.file,
-              mapping,
+      // run is unaided or the scenario withholds the answer to test the stop.
+      if (assist !== 'none' && !spec.oracle.withholdFormat) {
+        const formats = engine.suggestFormats(
+          prepared.file,
+          mapping,
+          scope.decimals,
+        );
+        for (const field of ['numberFormat', 'dateFormat'])
+          if (formats[field].status === 'ambiguous') {
+            mapping.formatChoice = {
+              ...mapping.formatChoice,
+              [field]: engine.formatChoice(
+                prepared.file,
+                mapping,
+                field,
+                mapping[field],
+                formats[field].candidates,
+                scope.decimals,
+              ),
+            };
+            record.assistance.push({
+              side: source.side,
+              kind: 'formatChoice',
               field,
-              mapping[field],
-              formats[field].candidates,
-              scope.decimals,
-            ),
-          };
-          record.confirmations.push(`${source.side}: ${field} answered`);
-        }
+            });
+          }
+      }
       mappings.push(mapping);
     }
     result = engine.reconcileSupplierStatement({
@@ -214,90 +318,104 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
       scope,
     }).result;
   } catch (error) {
+    const message = String(error?.message ?? error);
+    const code = error?.readiness?.code ?? null;
     record.stopped = {
-      message: String(error?.message ?? error).slice(0, 300),
-      code: error?.readiness?.code ?? null,
+      message: message.slice(0, 300),
+      code,
+      field: error?.readiness?.field ?? null,
       kind:
-        error instanceof TypeError || error instanceof RangeError
+        error instanceof TypeError ||
+        error instanceof RangeError ||
+        error instanceof ReferenceError ||
+        error instanceof SyntaxError
           ? 'crash'
-          : 'refusal',
+          : code || engine.knownMessage(message)
+            ? 'refusal'
+            : 'internal-error',
     };
   }
-  // Map the engine's rows back to the generator's keys by content, preferring
-  // the rendered row position.
+  // Map the engine's rows back to the generator's keys. Where the row's
+  // position in the file is known (tables), the row at that position is the
+  // one the engine read, and its amount and date must be the file's: a
+  // reference warning does not excuse a wrong amount or date.
   const keyOf = new Map();
+  const txOfKey = new Map();
   if (result)
     for (const [i, side] of [
       [0, result.supplier],
       [1, result.ledger],
     ]) {
-      const spec_ = spec.sources[i];
+      const source = spec.sources[i];
+      const positional = source.format !== 'pdf' || mode === 'logical';
       const positions = new Map(
-        (rendered[i].expectedRows ?? []).map((e) => [e.key, e.row]),
+        (rendered[i].expectedRows ?? []).map((e) => [e.row, e.key]),
       );
-      const oracleRows = spec_.rows.filter((r) => inPeriod(r, spec_.metadata));
+      const oracleRows = source.rows.filter((r) =>
+        inPeriod(r, source.metadata),
+      );
+      const byKey = new Map(oracleRows.map((r) => [r.key, r]));
       c.rowsExpected += oracleRows.length;
       c.rowsErrored += side.errors.filter((e) => e.row > 0).length;
       const used = new Set();
+      const identities = (r) =>
+        [
+          r.reference,
+          r.bankReference,
+          r.receiptReference,
+          r.voucherReference,
+          r.poReference,
+        ]
+          .filter(Boolean)
+          .map((v) => String(v).trim());
+      const accept = (t, row) => {
+        used.add(row.key);
+        keyOf.set(t.id, row.key);
+        txOfKey.set(row.key, t);
+        c.rowsRead++;
+        if (!identities(row).includes(t.reference.trim()) && t.reference) {
+          if (t.referenceEvidenceIssues?.length) c.declaredReferenceIssues++;
+          else {
+            c.silentMisreads++;
+            record.findings.push(
+              `misread reference ${row.key}: ${t.reference}`,
+            );
+          }
+        }
+      };
       for (const t of side.transactions) {
-        // The engine's reference is one of the row's written identities (for a
-        // payment its bank reference, for example); any other value is a misread.
-        const identities = (r) =>
-          [
-            r.reference,
-            r.bankReference,
-            r.receiptReference,
-            r.voucherReference,
-            r.poReference,
-          ]
-            .filter(Boolean)
-            .map((v) => String(v).trim());
-        const same = oracleRows.filter(
-          (r) =>
-            !used.has(r.key) &&
-            r.minor === t.amount &&
-            r.date === t.date &&
-            (t.reference.trim() === ''
-              ? !identities(r).length || !r.reference
-              : identities(r).includes(t.reference.trim())),
+        const atPosition = positional
+          ? byKey.get(positions.get(t.row))
+          : undefined;
+        if (atPosition && !used.has(atPosition.key)) {
+          if (t.amount !== atPosition.minor || t.date !== atPosition.date) {
+            c.silentMisreads++;
+            record.findings.push(
+              `misread ${atPosition.key}: ${t.date} ${t.amount} for ${atPosition.date} ${atPosition.minor}` +
+                (t.referenceEvidenceIssues?.length
+                  ? ' (a reference warning does not excuse it)'
+                  : ''),
+            );
+            used.add(atPosition.key);
+            continue;
+          }
+          accept(t, atPosition);
+          continue;
+        }
+        const candidates = oracleRows.filter(
+          (r) => !used.has(r.key) && r.minor === t.amount && r.date === t.date,
         );
-        const row = same.find((r) => positions.get(r.key) === t.row) ?? same[0];
+        const row =
+          candidates.find((r) => identities(r).includes(t.reference.trim())) ??
+          candidates[0];
         if (!row) {
-          // Read differently from what the file says, with no issue raised.
-          if (!t.referenceEvidenceIssues?.length) c.silentMisreads++;
+          c.silentMisreads++;
           record.findings.push(
             `unmapped ${t.id} ${t.reference} ${t.date} ${t.amount}`,
           );
           continue;
         }
-        used.add(row.key);
-        keyOf.set(t.id, row.key);
-        c.rowsRead++;
-        // A value counts as kept when any field of the engine's row holds it,
-        // directly or as an entry of a list of {value} records.
-        const keeps = (value) =>
-          Object.values(t).includes(value) ||
-          Object.values(t).some(
-            (v) => Array.isArray(v) && v.some((e) => e?.value === value),
-          );
-        for (const field of [
-          'batch',
-          'voucherReference',
-          'bankReference',
-          'poReference',
-        ])
-          if (
-            row[field] &&
-            spec_.layout.fields.includes(field) &&
-            !keeps(row[field])
-          ) {
-            c.evidenceLost++;
-            record.findings.push(`evidence lost: ${row.key} ${field}`);
-          }
-        if (row.reference && !keeps(row.reference)) {
-          c.evidenceLost++;
-          record.findings.push(`evidence lost: ${row.key} mapped reference`);
-        }
+        accept(t, row);
       }
       c.rowsLost += Math.max(
         0,
@@ -305,6 +423,22 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
           used.size -
           side.errors.filter((e) => e.row > 0).length,
       );
+      // Required evidence: every evidence column this source writes comes
+      // back in its own role, with its header where it is kept aside.
+      const written = rendered[i].fields ?? source.layout.fields ?? [];
+      for (const row of oracleRows) {
+        const t = txOfKey.get(row.key);
+        if (!t) continue;
+        for (const role of spec.oracle.requiredEvidence ?? []) {
+          const value = role === 'reference' ? row.reference : row[role];
+          if (!value || !written.includes(role)) continue;
+          c.evidenceRequired++;
+          if (!keepsInRole(t, role, String(value), headerOf(source, role))) {
+            c.evidenceLost++;
+            record.findings.push(`evidence lost: ${row.key} ${role}`);
+          }
+        }
+      }
     }
   // Approved groups against the engine's matched cases.
   const matched = result
@@ -335,15 +469,20 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
         `unexpected approval ${m.a.join('+')} | ${m.b.join('+')}`,
       );
     }
-  // Where the rows under test ended up.
+  // Where the rows under test ended up, and what their cases say.
   const targets = new Set(spec.oracle.targetKeys);
   const statusOf = new Map();
+  const targetCases = [];
   if (result)
-    for (const x of result.cases)
-      for (const t of [...x.supplierMembers, ...x.ledgerMembers]) {
+    for (const x of result.cases) {
+      const members = [...x.supplierMembers, ...x.ledgerMembers];
+      if (members.some((t) => targets.has(keyOf.get(t.id))))
+        targetCases.push(x);
+      for (const t of members) {
         const key = keyOf.get(t.id);
         if (key && targets.has(key)) statusOf.set(key, x.status);
       }
+    }
   record.outcome = record.stopped
     ? 'stopped'
     : !targets.size
@@ -353,44 +492,76 @@ export async function evaluateHardCase(spec, engine, mode = 'logical') {
         : [...targets].some((k) => statusOf.get(k) === 'Needs Review')
           ? 'review'
           : 'unmatched';
-  // Verdict against the expectation fixed by the generator.
+  // Required signals: the text of the cases holding the rows under test
+  // (their evidence and their members' reading issues), or the stop.
+  const caseText = targetCases
+    .flatMap((x) => [
+      ...x.evidence,
+      ...[...x.supplierMembers, ...x.ledgerMembers].flatMap(
+        (t) => t.referenceEvidenceIssues ?? [],
+      ),
+    ])
+    .join('\n');
+  const missingSignals = (contract.signals ?? []).filter((signal) => {
+    const pattern = new RegExp(signal.pattern);
+    if (signal.scope === 'stop')
+      return !pattern.test(record.stopped?.message ?? '');
+    return !pattern.test(caseText);
+  });
+  for (const s of missingSignals)
+    record.findings.push(`required signal missing: /${s.pattern}/`);
+  // The declared reason of an expected rejection.
+  const rejectionMatches = (reason) => {
+    if (!reason) return false;
+    const stop = record.stopped;
+    if (reason.code)
+      return (
+        stop?.code === reason.code &&
+        (!reason.field || stop.field === reason.field)
+      );
+    const pattern = new RegExp(reason.pattern);
+    return (
+      (stop && pattern.test(stop.message)) ||
+      !!result?.supplier.errors.some((e) => pattern.test(e.message)) ||
+      !!result?.ledger.errors.some((e) => pattern.test(e.message))
+    );
+  };
+  // Verdict against the contract fixed by the generator.
   const safe =
     !c.falseApprovals &&
     !c.wrongMemberGroups &&
     !c.silentMisreads &&
     !c.rowsLost;
-  const expect = spec.oracle.expect;
-  const everyApproved =
-    c.approvedAchieved === c.approvedExpected &&
-    c.controlsAchieved === c.controlsExpected;
+  const controlsMet = c.controlsAchieved === c.controlsExpected;
+  const stoppedForHelp =
+    record.stopped?.kind === 'refusal' && assist === 'none';
   let verdict;
-  if (record.stopped?.kind === 'crash') verdict = 'fail-crash';
+  if (['crash', 'internal-error'].includes(record.stopped?.kind))
+    verdict = 'fail-crash';
   else if (!safe) verdict = 'fail-unsafe';
-  else if (expect === 'auto')
-    verdict = everyApproved
+  else if (contract.kind === 'external' || contract.kind === 'invalid')
+    verdict = rejectionMatches(contract.rejection)
       ? 'pass'
-      : record.stopped
-        ? 'fail-unnecessary-stop'
+      : record.stopped ||
+          result?.supplier.errors.length ||
+          result?.ledger.errors.length
+        ? 'fail-wrong-reason'
+        : contract.kind === 'external'
+          ? 'fail-no-stop'
+          : 'fail-invalid-accepted';
+  else if (record.stopped)
+    verdict = stoppedForHelp ? 'needs-assistance' : 'fail-unnecessary-stop';
+  else if (c.evidenceLost) verdict = 'fail-evidence-lost';
+  else if (contract.kind === 'solve' || contract.kind === 'read')
+    verdict =
+      c.approvedAchieved === c.approvedExpected && controlsMet
+        ? 'pass'
         : 'fail-missed';
-  else if (expect === 'external')
-    verdict =
-      record.stopped?.code === 'FORMAT_AMBIGUOUS_UNRESOLVED'
-        ? 'pass'
-        : 'fail-no-stop';
-  else if (expect === 'invalid')
-    verdict =
-      record.stopped ||
-      c.rowsErrored > 0 ||
-      result?.supplier.errors.length ||
-      result?.ledger.errors.length
-        ? 'pass'
-        : 'fail-invalid-accepted';
-  else
-    verdict = record.stopped
-      ? 'fail-unnecessary-stop'
-      : c.controlsAchieved === c.controlsExpected
-        ? 'pass'
-        : 'fail-controls-missed';
+  else if (!controlsMet) verdict = 'fail-controls-missed';
+  else if (!contract.outcomes.includes(record.outcome))
+    verdict = 'fail-outcome';
+  else if (missingSignals.length) verdict = 'fail-signal-missing';
+  else verdict = 'pass';
   record.verdict = verdict;
   record.ms = Math.round(performance.now() - started);
   return record;

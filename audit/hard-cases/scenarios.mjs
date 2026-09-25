@@ -5,7 +5,7 @@
 // reveals the answer (hidden ids, the expected outcome, the variant name) is
 // written into a rendered file; files carry only the columns an accountant's
 // report would show.
-export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.1.2';
+export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.2.0';
 
 function rng(seed) {
   let state = seed >>> 0 || 1;
@@ -112,6 +112,176 @@ function noise(n, random, count) {
     kind: 'Invoice',
     description: 'Services',
   }));
+}
+
+// ------------------------------------------------------------- contracts
+// What each case must show, fixed here before any engine runs (1.2.0). The
+// evaluator judges the rows under test against this, not against whatever
+// the engine happens to do.
+//   kind: solve (automatic approval of the named groups), read (every row
+//     read exactly; controls matched), surface (a Needs Review case that
+//     names the reason), refuse (no link is proven; the rows must not be
+//     approved), unsupported (no product path; safe refusal only, never
+//     counted as the capability), external (a declared stop for outside
+//     information), invalid (a declared rejection with its own reason).
+//   outcomes: the target-row outcomes allowed. More than one outcome is
+//     allowed only where it is written here, with the reason in `note`.
+//   signals: product text that must appear, as a regular expression over the
+//     evidence of the case holding the rows under test (scope case), over the
+//     rows' own reading issues (scope row), or over the stop (scope stop).
+// Signals quote the product's documented messages (lib/i18n/engine-catalog).
+const SURFACE = (pattern, why) => ({
+  kind: 'surface',
+  outcomes: ['review'],
+  signals: [{ scope: 'case', pattern, why }],
+});
+const REFUSE_EITHER = (note) => ({
+  kind: 'refuse',
+  outcomes: ['unmatched', 'review'],
+  signals: [],
+  note,
+});
+const CONTRACTS = {
+  'G01-payment-1n|missing-identity': SURFACE(
+    'لم تثبت هوية دفعة واحدة',
+    'same general reference and equal totals, but no shared payment identity: the candidate must be shown with that reason',
+  ),
+  'G02-payment-n1|missing-identity': SURFACE(
+    'لم تثبت هوية دفعة واحدة',
+    'mirror of G01',
+  ),
+  'G08-two-dates|missing-identity': SURFACE(
+    'لم تثبت هوية دفعة واحدة',
+    'two-day parts without identity: shown with the missing-identity reason',
+  ),
+  'G01-payment-1n|conflicting-identity': SURFACE(
+    'متعارضة|مجموع الطرفين مختلف',
+    'one part carries another bank reference: the conflict, or the part it removes from the group, must be visible',
+  ),
+  'G02-payment-n1|conflicting-identity': SURFACE(
+    'متعارضة|مجموع الطرفين مختلف',
+    'mirror of G01',
+  ),
+  'G03-payment-nm|identity': {
+    kind: 'unsupported',
+    outcomes: ['review', 'unmatched'],
+    signals: [],
+    note: 'N:M has no product path. Either outcome is a safe refusal; neither is support for N:M.',
+  },
+  'G04-sum-no-identity|plain': REFUSE_EITHER(
+    'only an amount coincidence links the rows; a suggestion is acceptable, not required',
+  ),
+  'G05-competing-sums|plain': REFUSE_EITHER(
+    'two subsets balance; a suggestion is acceptable, not required',
+  ),
+  'G06-missing-part|identity': SURFACE(
+    'مجموع الطرفين مختلف',
+    'the missing part must show as a difference in the group',
+  ),
+  'G07-extra-member|identity': SURFACE(
+    'مجموع الطرفين مختلف',
+    'the extra member must show as a difference in the group',
+  ),
+  'G08-two-dates|outside-window': SURFACE(
+    'ليست في تاريخ واحد',
+    'parts beyond the date window: the date reason must be named',
+  ),
+  'G09-equal-parts|duplicate-line': SURFACE(
+    'أسطر متساوية في المبلغ والتاريخ',
+    'a possibly duplicated line must be named',
+  ),
+  'G10-excluded-member|identity': SURFACE(
+    'صف مستبعد',
+    'an excluded row with the group identity must be named',
+  ),
+  'G11-invoice-lines|no-po': SURFACE(
+    'لا يثبت هوية الحركات',
+    'equal totals without a shared order or voucher: shown as unproven',
+  ),
+  'G11-invoice-lines|conflicting-po': SURFACE(
+    'أوامر الشراء|أمرا الشراء',
+    'the lines name different purchase orders: the conflict must be named',
+  ),
+  'R01-voucher-and-reference|voucher-shared-reference-differs': REFUSE_EITHER(
+    'the chosen references name two invoices; a shared voucher may be flagged but must not link them',
+  ),
+  'R03-reference-types|po-only': REFUSE_EITHER(
+    'the invoice references differ and only the order is shared',
+  ),
+  'R04-leading-zeros|zeros': REFUSE_EITHER(
+    'no rule proves that leading zeros are insignificant; equivalence is not solved',
+  ),
+  'R06-lookalike|dash': REFUSE_EITHER('look-alike references are not equal'),
+  'R06-lookalike|case': REFUSE_EITHER('look-alike references are not equal'),
+  'R07-reference-in-text|description-only': REFUSE_EITHER(
+    'a reference in free text is not reading evidence',
+  ),
+  'R10-placeholders|na': {
+    kind: 'refuse',
+    outcomes: ['unmatched'],
+    signals: [],
+    note: 'placeholders never link rows, not even for review',
+  },
+  'T01-type-synonyms|proforma': {
+    ...SURFACE(
+      'نوع مستند غير متحقق',
+      'same reference and amount, but the label names another role: the pair must be shown with the unverified type',
+    ),
+  },
+  'T01-type-synonyms|reversal': {
+    ...SURFACE('نوع مستند غير متحقق', 'as proforma'),
+  },
+  'T05-unknown-code|tx-code': {
+    ...SURFACE(
+      'نوع مستند غير متحقق',
+      'an unknown code stays unknown; the pair is shown with that reason, never guessed',
+    ),
+  },
+  'T06-type-conflict|payment-labelled-invoice': SURFACE(
+    'نوعا المستند مختلفان|متعارضة',
+    'the conflicting roles must be named',
+  ),
+  'T08-description-only|bank-transfer': SURFACE(
+    'يشير الوصف في الطرفين',
+    'a description-only hint may be suggested for review, never approved',
+  ),
+};
+/** The contract of one scenario, from the table above or its expectation. */
+function contractFor(d, expect, targetCount, sources) {
+  const written = CONTRACTS[`${d.template}|${d.variant}`];
+  if (written) return written;
+  if (expect === 'auto')
+    return targetCount
+      ? { kind: 'solve', outcomes: ['auto'], signals: [] }
+      : { kind: 'read', outcomes: ['no-target-rows'], signals: [] };
+  if (expect === 'external')
+    return {
+      kind: 'external',
+      outcomes: ['stopped'],
+      signals: [],
+      rejection: {
+        code: 'FORMAT_AMBIGUOUS_UNRESOLVED',
+        field: d.template.startsWith('N07') ? 'dateFormat' : 'numberFormat',
+      },
+    };
+  if (expect === 'invalid') {
+    const rejection = d.template.startsWith('N08')
+      ? { code: 'FORMAT_INVALID', field: 'dateFormat' }
+      : d.template.startsWith('F09')
+        ? { pattern: 'حدد أعمدة التاريخ والمبلغ' }
+        : d.template.startsWith('F10')
+          ? {
+              pattern:
+                sources.find((s) => s.invalid === 'corrupt-file').format ===
+                'xlsx'
+                  ? 'ملف XLSX غير صالح'
+                  : 'ترميز CSV غير مدعوم',
+            }
+          : null;
+    if (!rejection) throw new Error(`${d.id}: invalid case without a reason`);
+    return { kind: 'invalid', outcomes: ['stopped'], signals: [], rejection };
+  }
+  throw new Error(`${d.id}: no contract for ${d.template}|${d.variant}`);
 }
 
 /**
@@ -829,6 +999,9 @@ export function buildHardCase(d) {
         );
     }
   }
+  const targetKeys = [...a, ...b]
+    .filter((r) => r.tag === 'group' || r.tag === 'target')
+    .map((r) => r.key);
   return {
     id: d.id,
     template: d.template,
@@ -842,9 +1015,18 @@ export function buildHardCase(d) {
       externalNeed,
       withholdFormat,
       approved,
-      targetKeys: [...a, ...b]
-        .filter((r) => r.tag === 'group' || r.tag === 'target')
-        .map((r) => r.key),
+      targetKeys,
+      contract: contractFor(d, expect, targetKeys.length, sources),
+      // Every evidence column a source writes must come back with its role
+      // and the header it came from.
+      requiredEvidence: [
+        'reference',
+        'batch',
+        'voucherReference',
+        'bankReference',
+        'poReference',
+        'receiptReference',
+      ],
     },
   };
 }
