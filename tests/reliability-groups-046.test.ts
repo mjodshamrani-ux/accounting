@@ -162,7 +162,10 @@ test('046 payment identity cannot allocate invoices or override document, amount
     { type: 'Invoice' },
     { amount: '-59.99' },
     { amount: '60' },
-    { date: '2026-07-16' },
+    // A part one day later, with the full shared identity, is now proven by
+    // EXPLICIT_PAYMENT_IDENTITY_GROUP_DATE_SPAN_V1 (tests/hard-cases.test.ts).
+    // A part beyond the allowed date difference still is not.
+    { date: '2026-07-18' },
     { bank: 'BANK-OTHER-99' },
     { receipt: 'RCPT-OTHER-99' },
   ]) {

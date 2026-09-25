@@ -43,6 +43,7 @@ const tests = [
   'tests/input-readiness-046.test.ts',
   'tests/format-choice-provenance-047.test.ts',
   'tests/ambiguity-gate-acceptance-047.test.ts',
+  'tests/hard-cases.test.ts',
 ];
 const mutations = [
   {
@@ -93,6 +94,26 @@ const mutations = [
     name: '046-accept-payment-groups-without-explicit-identity',
     file: 'lib/reconciliation/cases.ts',
     changes: [['? !!paymentIdentity', '? true']],
+  },
+  {
+    name: 'hard-t01-read-any-label-ending-in-invoice',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        '/^(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)',
+        '/(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)',
+      ],
+    ],
+  },
+  {
+    name: 'hard-g08-accept-payment-parts-beyond-the-date-window',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['groupSpan <= scope.dateWindow', 'true']],
+  },
+  {
+    name: 'hard-g08-accept-any-group-across-dates',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['sameGroupDate ||', 'true ||']],
   },
   {
     name: '045-ignore-declared-aging-report',

@@ -131,3 +131,204 @@ test('T01 reverse: a recognised synonym still conflicts with another role', asyn
     assert.equal(statusOf(result, 'INV-34900'), 'Matched', `${a}/${b}`);
   }
 });
+
+const PAID = ['Date', 'Reference', 'Type', 'Bank Ref', 'Description', 'Amount'];
+type Part = [date: string, bank: string, amount: string, reference?: string];
+/** One payment on the supplier statement against its parts in the ledger,
+ * with a control invoice on both sides. */
+const split = (single: Part, parts: Part[], window = 2) => {
+  const row = ([date, bank, amount, reference]: Part) => [
+    date,
+    reference ?? 'PAY-4410',
+    'Payment',
+    bank,
+    'Transfer',
+    amount,
+  ];
+  const control = ['2026-07-10', 'INV-34900', 'Invoice', '', 'Goods', '300.00'];
+  return reconcileWindow(
+    [PAID, row(single), control],
+    [PAID, ...parts.map(row), control],
+    window,
+  );
+};
+async function reconcileWindow(
+  supplier: string[][],
+  ledger: string[][],
+  dateWindow: number,
+) {
+  const a = await readFile('supplier.csv', csv(supplier), undefined, true);
+  const b = await readFile('ledger.csv', csv(ledger), undefined, true);
+  return reconcileSupplierStatement({
+    files: [a, b],
+    mappings: [
+      selectImportMapping(a, 'supplier').mapping,
+      selectImportMapping(b, 'ledger').mapping,
+    ],
+    scope: { ...scope, dateWindow },
+  }).result;
+}
+const paymentCase = (result: Awaited<ReturnType<typeof reconcile>>) =>
+  result.cases.find((c) =>
+    c.supplierMembers.some((t) => t.documentType === 'Payment'),
+  );
+const controlMatched = (result: Awaited<ReturnType<typeof reconcile>>) =>
+  statusOf(result, 'INV-34900') === 'Matched';
+
+test('G08: parts of one payment on neighbouring days match through an explicit bank identity', async () => {
+  const bank = 'TRF-88120';
+  for (const [single, parts] of [
+    [
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-14', bank, '-400.00'],
+        ['2026-07-14', bank, '-350.00'],
+        ['2026-07-15', bank, '-250.00'],
+      ],
+    ],
+    [
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-13', bank, '-600.00'],
+        ['2026-07-15', bank, '-400.00'],
+      ],
+    ],
+  ] as [Part, Part[]][]) {
+    const result = await split(single, parts);
+    const c = paymentCase(result);
+    assert.equal(c?.status, 'Matched');
+    assert.equal(
+      c?.matchingRule,
+      'EXPLICIT_PAYMENT_IDENTITY_GROUP_DATE_SPAN_V1',
+    );
+    assert.equal(c?.ledgerMembers.length, parts.length);
+    assert.ok(controlMatched(result));
+  }
+  // The same group on one date keeps its existing rule and wording.
+  const sameDay = paymentCase(
+    await split(
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-14', bank, '-600.00'],
+        ['2026-07-14', bank, '-400.00'],
+      ],
+    ),
+  );
+  assert.equal(
+    sameDay?.matchingRule,
+    'EXPLICIT_PAYMENT_IDENTITY_GROUP_TOTAL_V1',
+  );
+});
+
+test('G08 reverse: a spread group without full, unique, in-window identity stays for review', async () => {
+  const bank = 'TRF-88120';
+  const cases: [string, Part, Part[], number?][] = [
+    [
+      'no bank identity',
+      ['2026-07-14', '', '-1000.00'],
+      [
+        ['2026-07-14', '', '-600.00'],
+        ['2026-07-15', '', '-400.00'],
+      ],
+    ],
+    [
+      'identity on only some parts',
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-14', bank, '-600.00'],
+        ['2026-07-15', '', '-400.00'],
+      ],
+    ],
+    [
+      'span beyond the window',
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-14', bank, '-600.00'],
+        ['2026-07-19', bank, '-400.00'],
+      ],
+    ],
+    [
+      'each part in window of the payment but the parts span more',
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-12', bank, '-600.00'],
+        ['2026-07-16', bank, '-400.00'],
+      ],
+    ],
+    [
+      'window of zero days',
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-14', bank, '-600.00'],
+        ['2026-07-15', bank, '-400.00'],
+      ],
+      0,
+    ],
+    [
+      'conflicting bank identity',
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-14', bank, '-600.00'],
+        ['2026-07-15', 'TRF-88121', '-400.00'],
+      ],
+    ],
+    [
+      'the totals differ',
+      ['2026-07-14', bank, '-1000.00'],
+      [
+        ['2026-07-14', bank, '-600.00'],
+        ['2026-07-15', bank, '-390.00'],
+      ],
+    ],
+  ];
+  for (const [name, single, parts, window] of cases) {
+    const result = await split(single, parts, window);
+    assert.notEqual(paymentCase(result)?.status, 'Matched', name);
+    assert.ok(controlMatched(result), name);
+  }
+  // A further ledger row carries the same bank identity. A payment's bank
+  // identity is its reference, so the row joins the whole identity group and
+  // the engine does not look for the subset that would balance.
+  const competing = await reconcileWindow(
+    [
+      PAID,
+      ['2026-07-14', 'PAY-4410', 'Payment', bank, 'Transfer', '-1000.00'],
+      ['2026-07-10', 'INV-34900', 'Invoice', '', 'Goods', '300.00'],
+    ],
+    [
+      PAID,
+      ['2026-07-14', 'PAY-4410', 'Payment', bank, 'Transfer', '-600.00'],
+      ['2026-07-15', 'PAY-4410', 'Payment', bank, 'Transfer', '-400.00'],
+      ['2026-07-15', 'PAY-4499', 'Payment', bank, 'Transfer', '-75.00'],
+      ['2026-07-10', 'INV-34900', 'Invoice', '', 'Goods', '300.00'],
+    ],
+    2,
+  );
+  assert.ok(
+    competing.cases
+      .filter((c) => c.status === 'Matched')
+      .every((c) =>
+        c.supplierMembers.every((t) => t.documentType !== 'Payment'),
+      ),
+  );
+  assert.ok(controlMatched(competing));
+});
+
+test('G08 reverse: invoice groups still need one date', async () => {
+  const head = ['Date', 'Reference', 'Type', 'PO', 'Description', 'Amount'];
+  const result = await reconcile(
+    [
+      head,
+      ['2026-07-12', 'INV-90017', 'Invoice', 'PO-7781', 'Goods', '900.00'],
+      ['2026-07-10', 'INV-34900', 'Invoice', '', 'Goods', '300.00'],
+    ],
+    [
+      head,
+      ['2026-07-12', 'INV-90017', 'Invoice', 'PO-7781', 'Goods', '500.00'],
+      ['2026-07-13', 'INV-90017', 'Invoice', 'PO-7781', 'Goods', '400.00'],
+      ['2026-07-10', 'INV-34900', 'Invoice', '', 'Goods', '300.00'],
+    ],
+  );
+  assert.notEqual(statusOf(result, 'INV-90017'), 'Matched');
+  assert.equal(statusOf(result, 'INV-34900'), 'Matched');
+});

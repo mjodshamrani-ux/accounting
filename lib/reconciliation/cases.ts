@@ -292,6 +292,19 @@ export function buildReconciliationCases(
       !!single.poReference &&
       group.every((t) => t.poReference === single.poReference);
     const sameGroupDate = group.every((t) => t.date === group[0].date);
+    // Parts of one payment may post on neighbouring days. That is accepted
+    // only when an explicit bank or receipt identity, held by every member and
+    // by no other row, ties them together, and the grouped side spans no more
+    // than the allowed date difference. Invoice groups keep one date.
+    const groupSpan =
+      (Math.max(...group.map((t) => Date.parse(t.date))) -
+        Math.min(...group.map((t) => Date.parse(t.date)))) /
+      86400000;
+    const groupDatesProven =
+      sameGroupDate ||
+      (single.documentType === 'Payment' &&
+        !!paymentIdentity &&
+        groupSpan <= scope.dateWindow);
     const conflictingPO =
       new Set([single, ...group].map((t) => t.poReference).filter(Boolean))
         .size > 1;
@@ -315,7 +328,7 @@ export function buildReconciliationCases(
             'توجد أسطر متساوية في المبلغ والتاريخ وهوية القيد؛ اختلاف الوصف وحده لا يثبت أنها أسطر مستقلة.',
           ]
         : []),
-      ...(!sameGroupDate
+      ...(!groupDatesProven
         ? ['حركات الطرف المجمع ليست في تاريخ واحد؛ لم تثبت وحدة المجموعة.']
         : []),
       ...(members.some((t) => excludedIdentities.has(t.reference))
@@ -330,7 +343,7 @@ export function buildReconciliationCases(
       group.every((t) => identityConflicts(single, t).length === 0) &&
       sameType &&
       !paymentIdentityConflict &&
-      sameGroupDate &&
+      groupDatesProven &&
       !conflictingPO &&
       (single.documentType === 'Payment' || !conflictingVoucher) &&
       !duplicatePosting &&
@@ -346,14 +359,18 @@ export function buildReconciliationCases(
         'Matched',
         a,
         b,
-        paymentIdentity
-          ? 'EXPLICIT_PAYMENT_IDENTITY_GROUP_TOTAL_V1'
-          : 'EXACT_REFERENCE_GROUP_TOTAL_V1',
+        paymentIdentity && !sameGroupDate
+          ? 'EXPLICIT_PAYMENT_IDENTITY_GROUP_DATE_SPAN_V1'
+          : paymentIdentity
+            ? 'EXPLICIT_PAYMENT_IDENTITY_GROUP_TOTAL_V1'
+            : 'EXACT_REFERENCE_GROUP_TOTAL_V1',
         [
           `مطابقة تجميعية مثبتة: المرجع ${single.reference} مطابق؛ ${a.length} حركة مورد و${b.length} حركة دفتر؛ إجمالي كل طرف ${money(safeSum(a.map((t) => t.amount)), scope.decimals)} ${scope.currency}.`,
-          paymentIdentity
-            ? `مطابقة دفعة بين الكشفين وليست تخصيصًا لفواتير. هوية ${paymentIdentity === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[paymentIdentity]} واردة في عمود صريح لكل عضو. نوع المستند دفعة في الطرفين، وحركات الطرف المجمع في تاريخ واحد ضمن فرق الأيام المسموح، والإشارة والعملة متسقتان. شملت المقارنة كامل مجموعة الهوية دون صف مستبعد أو هوية منافسة؛ لم يُبحث عن مجموعات جزئية.`
-            : `نوع المستند ${single.documentType} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.`,
+          paymentIdentity && !sameGroupDate
+            ? `مطابقة دفعة بين الكشفين وليست تخصيصًا لفواتير. هوية ${paymentIdentity === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[paymentIdentity]} واردة في عمود صريح لكل عضو ولا يحملها أي صف آخر. نوع المستند دفعة في الطرفين، وحركات الطرف المجمع موزعة على تواريخ لا يتجاوز مداها ${groupSpan} يوم ضمن فرق الأيام المسموح، والإشارة والعملة متسقتان. شملت المقارنة كامل مجموعة الهوية دون صف مستبعد أو هوية منافسة؛ لم يُبحث عن مجموعات جزئية.`
+            : paymentIdentity
+              ? `مطابقة دفعة بين الكشفين وليست تخصيصًا لفواتير. هوية ${paymentIdentity === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[paymentIdentity]} واردة في عمود صريح لكل عضو. نوع المستند دفعة في الطرفين، وحركات الطرف المجمع في تاريخ واحد ضمن فرق الأيام المسموح، والإشارة والعملة متسقتان. شملت المقارنة كامل مجموعة الهوية دون صف مستبعد أو هوية منافسة؛ لم يُبحث عن مجموعات جزئية.`
+              : `نوع المستند ${single.documentType} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.`,
         ],
       );
     }
