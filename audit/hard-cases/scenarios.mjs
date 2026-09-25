@@ -5,7 +5,7 @@
 // reveals the answer (hidden ids, the expected outcome, the variant name) is
 // written into a rendered file; files carry only the columns an accountant's
 // report would show.
-export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.0.0';
+export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.0.1';
 
 function rng(seed) {
   let state = seed >>> 0 || 1;
@@ -150,6 +150,12 @@ export function buildHardCase(d) {
       left -= v;
     }
     values.push(left);
+    // Parts that repeat the same amount, date and identity cannot be told
+    // apart from a duplicated entry in the file, so a scenario that claims
+    // proven parts never generates them (1.0.1: this happened by chance in
+    // 1.0.0 and wrongly expected approval).
+    if (new Set(values).size !== values.length || values.some((v) => v <= 0))
+      return parts(total, count);
     return values;
   };
   const total = random(3000, 90000) * 100;
@@ -785,6 +791,19 @@ export function buildHardCase(d) {
       invalid: invalid[i],
     };
   });
+  // The generator checks its own facts: an approved group balances, and its
+  // members can be told apart in the file (no repeated amount, date and
+  // identity on one side).
+  for (const g of approved) {
+    const rows = (side, keys) => keys.map((k) => (side === 'a' ? a : b).find((r) => r.key === k));
+    const total = (rs) => rs.reduce((t, r) => t + r.minor, 0);
+    if (total(rows('a', g.a)) !== total(rows('b', g.b)))
+      throw new Error(`${d.id}: approved group does not balance`);
+    for (const side of ['a', 'b']) {
+      const ids = rows(side, g[side]).map((r) => `${r.date}|${r.minor}|${r.bankReference ?? ''}|${r.voucherReference ?? ''}|${r.poReference ?? ''}`);
+      if (new Set(ids).size !== ids.length) throw new Error(`${d.id}: approved group has indistinguishable members`);
+    }
+  }
   return {
     id: d.id,
     template: d.template,

@@ -1,0 +1,1690 @@
+{
+  "versions": {
+    "scenarios": "tarasuf-hard-cases-1.0.1",
+    "evaluator": "tarasuf-hard-evaluator-1.0.0",
+    "node": "v22.22.2"
+  },
+  "environment": {
+    "platform": "linux x64",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "cpus": 4
+  },
+  "engineRoot": "work/base-888415f",
+  "split": "validation",
+  "mode": "file",
+  "elapsedSeconds": 11.895,
+  "timingMs": {
+    "p50": 11,
+    "p95": 32,
+    "max": 116,
+    "samples": 800
+  },
+  "overall": {
+    "scenarios": 800,
+    "verdicts": {
+      "fail-missed": 75,
+      "pass": 725
+    },
+    "outcomes": {
+      "auto": 122,
+      "no-target-rows": 165,
+      "review": 196,
+      "stopped": 75,
+      "unmatched": 242
+    },
+    "rowsExpected": 6803,
+    "rowsRead": 6803,
+    "rowsErrored": 0,
+    "rowsLost": 0,
+    "silentMisreads": 0,
+    "evidenceLost": 839,
+    "approvedExpected": 197,
+    "approvedAchieved": 122,
+    "controlsExpected": 1600,
+    "controlsAchieved": 1450,
+    "falseApprovals": 0,
+    "wrongMemberGroups": 0,
+    "confirmations": 165,
+    "crashes": 0
+  },
+  "byFamily": {
+    "F01": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 100,
+      "rowsRead": 100,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F03": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 116,
+      "rowsRead": 116,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F06": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 93,
+      "rowsRead": 93,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F07": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 30
+      },
+      "rowsExpected": 228,
+      "rowsRead": 228,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F09": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "stopped": 15
+      },
+      "rowsExpected": 0,
+      "rowsRead": 0,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 0,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F10": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "stopped": 15
+      },
+      "rowsExpected": 0,
+      "rowsRead": 0,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 0,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G01": {
+      "scenarios": 48,
+      "verdicts": {
+        "pass": 48
+      },
+      "outcomes": {
+        "auto": 16,
+        "review": 16,
+        "unmatched": 16
+      },
+      "rowsExpected": 477,
+      "rowsRead": 477,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 144,
+      "approvedExpected": 16,
+      "approvedAchieved": 16,
+      "controlsExpected": 96,
+      "controlsAchieved": 96,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G02": {
+      "scenarios": 47,
+      "verdicts": {
+        "pass": 47
+      },
+      "outcomes": {
+        "auto": 16,
+        "review": 15,
+        "unmatched": 16
+      },
+      "rowsExpected": 561,
+      "rowsRead": 561,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 140,
+      "approvedExpected": 16,
+      "approvedAchieved": 16,
+      "controlsExpected": 94,
+      "controlsAchieved": 94,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G03": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 184,
+      "rowsRead": 184,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 75,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G04": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 154,
+      "rowsRead": 154,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G05": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 170,
+      "rowsRead": 170,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G06": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 141,
+      "rowsRead": 141,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 45,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G07": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 183,
+      "rowsRead": 183,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 75,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G08": {
+      "scenarios": 45,
+      "verdicts": {
+        "fail-missed": 15,
+        "pass": 30
+      },
+      "outcomes": {
+        "review": 30,
+        "unmatched": 15
+      },
+      "rowsExpected": 505,
+      "rowsRead": 505,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 135,
+      "approvedExpected": 15,
+      "approvedAchieved": 0,
+      "controlsExpected": 90,
+      "controlsAchieved": 90,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G09": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "auto": 15,
+        "review": 15
+      },
+      "rowsExpected": 323,
+      "rowsRead": 323,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 120,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "G10": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 152,
+      "rowsRead": 152,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 45,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G11": {
+      "scenarios": 45,
+      "verdicts": {
+        "pass": 45
+      },
+      "outcomes": {
+        "auto": 15,
+        "review": 30
+      },
+      "rowsExpected": 458,
+      "rowsRead": 458,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 90,
+      "controlsAchieved": 90,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "N01": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 110,
+      "rowsRead": 110,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "N02": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 15,
+        "stopped": 15
+      },
+      "rowsExpected": 106,
+      "rowsRead": 106,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "N04": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 118,
+      "rowsRead": 118,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "N05": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 30
+      },
+      "rowsExpected": 196,
+      "rowsRead": 196,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "N07": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 15,
+        "stopped": 15
+      },
+      "rowsExpected": 107,
+      "rowsRead": 107,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "N08": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "stopped": 15
+      },
+      "rowsExpected": 0,
+      "rowsRead": 0,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 0,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R01": {
+      "scenarios": 15,
+      "verdicts": {
+        "fail-missed": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 134,
+      "rowsRead": 134,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 30,
+      "approvedExpected": 15,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 15,
+      "crashes": 0
+    },
+    "R02": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "auto": 15
+      },
+      "rowsExpected": 137,
+      "rowsRead": 137,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 30,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R03": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "auto": 15,
+        "unmatched": 15
+      },
+      "rowsExpected": 262,
+      "rowsRead": 262,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "R04": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 131,
+      "rowsRead": 131,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R05": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "auto": 15
+      },
+      "rowsExpected": 136,
+      "rowsRead": 136,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R06": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "unmatched": 30
+      },
+      "rowsExpected": 268,
+      "rowsRead": 268,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R07": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 133,
+      "rowsRead": 133,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R10": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 163,
+      "rowsRead": 163,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T01": {
+      "scenarios": 60,
+      "verdicts": {
+        "fail-missed": 45,
+        "pass": 15
+      },
+      "outcomes": {
+        "auto": 15,
+        "unmatched": 45
+      },
+      "rowsExpected": 544,
+      "rowsRead": 544,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 60,
+      "approvedAchieved": 15,
+      "controlsExpected": 120,
+      "controlsAchieved": 120,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T05": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 138,
+      "rowsRead": 138,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T06": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 139,
+      "rowsRead": 139,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T08": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 136,
+      "rowsRead": 136,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    }
+  },
+  "byTemplate": {
+    "F01-column-order": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 100,
+      "rowsRead": 100,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F03-structure-rows": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 116,
+      "rowsRead": 116,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F06-extra-sheet": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 93,
+      "rowsRead": 93,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F07-delimiters": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 30
+      },
+      "rowsExpected": 228,
+      "rowsRead": 228,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F09-missing-amount": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "stopped": 15
+      },
+      "rowsExpected": 0,
+      "rowsRead": 0,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 0,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "F10-corrupt": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "stopped": 15
+      },
+      "rowsExpected": 0,
+      "rowsRead": 0,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 0,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G01-payment-1n": {
+      "scenarios": 48,
+      "verdicts": {
+        "pass": 48
+      },
+      "outcomes": {
+        "auto": 16,
+        "review": 16,
+        "unmatched": 16
+      },
+      "rowsExpected": 477,
+      "rowsRead": 477,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 144,
+      "approvedExpected": 16,
+      "approvedAchieved": 16,
+      "controlsExpected": 96,
+      "controlsAchieved": 96,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G02-payment-n1": {
+      "scenarios": 47,
+      "verdicts": {
+        "pass": 47
+      },
+      "outcomes": {
+        "auto": 16,
+        "review": 15,
+        "unmatched": 16
+      },
+      "rowsExpected": 561,
+      "rowsRead": 561,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 140,
+      "approvedExpected": 16,
+      "approvedAchieved": 16,
+      "controlsExpected": 94,
+      "controlsAchieved": 94,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G03-payment-nm": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 184,
+      "rowsRead": 184,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 75,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G04-sum-no-identity": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 154,
+      "rowsRead": 154,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G05-competing-sums": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 170,
+      "rowsRead": 170,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G06-missing-part": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 141,
+      "rowsRead": 141,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 45,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G07-extra-member": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 183,
+      "rowsRead": 183,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 75,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G08-two-dates": {
+      "scenarios": 45,
+      "verdicts": {
+        "fail-missed": 15,
+        "pass": 30
+      },
+      "outcomes": {
+        "review": 30,
+        "unmatched": 15
+      },
+      "rowsExpected": 505,
+      "rowsRead": 505,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 135,
+      "approvedExpected": 15,
+      "approvedAchieved": 0,
+      "controlsExpected": 90,
+      "controlsAchieved": 90,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G09-equal-parts": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "auto": 15,
+        "review": 15
+      },
+      "rowsExpected": 323,
+      "rowsRead": 323,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 120,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "G10-excluded-member": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 152,
+      "rowsRead": 152,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 45,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "G11-invoice-lines": {
+      "scenarios": 45,
+      "verdicts": {
+        "pass": 45
+      },
+      "outcomes": {
+        "auto": 15,
+        "review": 30
+      },
+      "rowsExpected": 458,
+      "rowsRead": 458,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 90,
+      "controlsAchieved": 90,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "N01-arabic-digits": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 110,
+      "rowsRead": 110,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "N02-ambiguous-number": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 15,
+        "stopped": 15
+      },
+      "rowsExpected": 106,
+      "rowsRead": 106,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "N04-parentheses": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "no-target-rows": 15
+      },
+      "rowsExpected": 118,
+      "rowsRead": 118,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "N05-precision": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 30
+      },
+      "rowsExpected": 196,
+      "rowsRead": 196,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "N07-ambiguous-date": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "no-target-rows": 15,
+        "stopped": 15
+      },
+      "rowsExpected": 107,
+      "rowsRead": 107,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "N08-invalid-date": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "stopped": 15
+      },
+      "rowsExpected": 0,
+      "rowsRead": 0,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 0,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R01-voucher-and-reference": {
+      "scenarios": 15,
+      "verdicts": {
+        "fail-missed": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 134,
+      "rowsRead": 134,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 30,
+      "approvedExpected": 15,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 15,
+      "crashes": 0
+    },
+    "R02-batch-kept": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "auto": 15
+      },
+      "rowsExpected": 137,
+      "rowsRead": 137,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 30,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R03-reference-types": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "auto": 15,
+        "unmatched": 15
+      },
+      "rowsExpected": 262,
+      "rowsRead": 262,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 30,
+      "crashes": 0
+    },
+    "R04-leading-zeros": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 131,
+      "rowsRead": 131,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R05-long-numeric": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "auto": 15
+      },
+      "rowsExpected": 136,
+      "rowsRead": 136,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 15,
+      "approvedAchieved": 15,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R06-lookalike": {
+      "scenarios": 30,
+      "verdicts": {
+        "pass": 30
+      },
+      "outcomes": {
+        "unmatched": 30
+      },
+      "rowsExpected": 268,
+      "rowsRead": 268,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 60,
+      "controlsAchieved": 60,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R07-reference-in-text": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 133,
+      "rowsRead": 133,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "R10-placeholders": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 163,
+      "rowsRead": 163,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T01-type-synonyms": {
+      "scenarios": 60,
+      "verdicts": {
+        "fail-missed": 45,
+        "pass": 15
+      },
+      "outcomes": {
+        "auto": 15,
+        "unmatched": 45
+      },
+      "rowsExpected": 544,
+      "rowsRead": 544,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 60,
+      "approvedAchieved": 15,
+      "controlsExpected": 120,
+      "controlsAchieved": 120,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T05-unknown-code": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "unmatched": 15
+      },
+      "rowsExpected": 138,
+      "rowsRead": 138,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T06-type-conflict": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 139,
+      "rowsRead": 139,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    },
+    "T08-description-only": {
+      "scenarios": 15,
+      "verdicts": {
+        "pass": 15
+      },
+      "outcomes": {
+        "review": 15
+      },
+      "rowsExpected": 136,
+      "rowsRead": 136,
+      "rowsErrored": 0,
+      "rowsLost": 0,
+      "silentMisreads": 0,
+      "evidenceLost": 0,
+      "approvedExpected": 0,
+      "approvedAchieved": 0,
+      "controlsExpected": 30,
+      "controlsAchieved": 30,
+      "falseApprovals": 0,
+      "wrongMemberGroups": 0,
+      "confirmations": 0,
+      "crashes": 0
+    }
+  }
+}
