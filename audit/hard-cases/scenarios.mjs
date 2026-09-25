@@ -5,7 +5,7 @@
 // reveals the answer (hidden ids, the expected outcome, the variant name) is
 // written into a rendered file; files carry only the columns an accountant's
 // report would show.
-export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.1.0';
+export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.1.1';
 
 function rng(seed) {
   let state = seed >>> 0 || 1;
@@ -813,13 +813,20 @@ export function buildHardCase(d) {
   // members can be told apart in the file (no repeated amount, date and
   // identity on one side).
   for (const g of approved) {
-    const rows = (side, keys) => keys.map((k) => (side === 'a' ? a : b).find((r) => r.key === k));
+    const rows = (side, keys) =>
+      keys.map((k) => (side === 'a' ? a : b).find((r) => r.key === k));
     const total = (rs) => rs.reduce((t, r) => t + r.minor, 0);
     if (total(rows('a', g.a)) !== total(rows('b', g.b)))
       throw new Error(`${d.id}: approved group does not balance`);
     for (const side of ['a', 'b']) {
-      const ids = rows(side, g[side]).map((r) => `${r.date}|${r.minor}|${r.bankReference ?? ''}|${r.voucherReference ?? ''}|${r.poReference ?? ''}`);
-      if (new Set(ids).size !== ids.length) throw new Error(`${d.id}: approved group has indistinguishable members`);
+      const ids = rows(side, g[side]).map(
+        (r) =>
+          `${r.date}|${r.minor}|${r.bankReference ?? ''}|${r.voucherReference ?? ''}|${r.poReference ?? ''}`,
+      );
+      if (new Set(ids).size !== ids.length)
+        throw new Error(
+          `${d.id}: approved group has indistinguishable members`,
+        );
     }
   }
   return {
@@ -918,7 +925,12 @@ const LAYOUTS = {
   ],
 };
 // Templates whose fields a PDF can carry (the PDF writer has five fixed columns).
-const PDF_SAFE = /^(T01|T05|T06|R04|R06|R10|N01|N04|N05|R05|N08)/;
+// The PDF writer is ASCII only: it writes Arabic as "?" and Arabic-Indic
+// digits as Latin ones. 1.1.1 keeps N01 and every Arabic-text variant out of
+// PDF, so no oracle claims what the document cannot show (in 1.1.0 the
+// Arabic tax-invoice label reached a PDF as "?????? ??????").
+const PDF_SAFE = /^(T01|T05|T06|R04|R06|R10|N04|N05|R05|N08)/;
+const PDF_UNSAFE_VARIANT = /arabic/;
 // Splits separate templates and variants, not only seeds.
 const SPLIT_TEMPLATES = {
   development: (t) =>
@@ -927,6 +939,11 @@ const SPLIT_TEMPLATES = {
   validation: (t) => !t.startsWith('C0'),
   final: () => true,
 };
+// A second final set, drawn after the first was opened to diagnose failures
+// (an opened final set counts as development). Same layouts and templates,
+// unseen seeds.
+LAYOUTS['final-b'] = LAYOUTS.final;
+SPLIT_TEMPLATES['final-b'] = SPLIT_TEMPLATES.final;
 
 export function hardManifest(split, count, { fileRuns = false } = {}) {
   const templates = Object.entries(TEMPLATES).filter(([t]) =>
@@ -936,15 +953,23 @@ export function hardManifest(split, count, { fileRuns = false } = {}) {
     variants.map((variant) => ({ template, variant })),
   );
   const layouts = LAYOUTS[split];
-  const base = { development: 1, validation: 200000, final: 400000 }[split];
+  const base = {
+    development: 1,
+    validation: 200000,
+    final: 400000,
+    'final-b': 600000,
+  }[split];
   const out = [];
   for (let i = 0; out.length < count; i++) {
     const combo = combos[i % combos.length];
     let pair = layouts[Math.floor(i / combos.length) % layouts.length];
-    if (pair.some((l) => l.format === 'pdf') && !PDF_SAFE.test(combo.template))
+    if (
+      pair.some((l) => l.format === 'pdf') &&
+      (!PDF_SAFE.test(combo.template) || PDF_UNSAFE_VARIANT.test(combo.variant))
+    )
       pair = layouts.find((p) => !p.some((l) => l.format === 'pdf')) ?? pair;
     out.push({
-      id: `HC-${split.slice(0, 3).toUpperCase()}-${pad(i + 1, 5)}`,
+      id: `HC-${split === 'final-b' ? 'FNB' : split.slice(0, 3).toUpperCase()}-${pad(i + 1, 5)}`,
       split,
       index: base + i,
       seed: (base + i) * 2654435761,
