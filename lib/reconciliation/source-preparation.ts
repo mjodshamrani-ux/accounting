@@ -57,6 +57,25 @@ export function prepareVerifiedSources(
   scope: Scope,
   roles: readonly SourceRole[],
 ): { mappings: Mapping[]; sources: SourceResult[] } {
+  // One file, one reading and one role per source, and at least one source:
+  // a source without its counterpart is refused, never dropped, and no
+  // sources at all is refused rather than returned as an empty success.
+  if (
+    !Array.isArray(files) ||
+    !Array.isArray(mappings) ||
+    !Array.isArray(roles) ||
+    !roles.length ||
+    files.length !== roles.length ||
+    mappings.length !== roles.length ||
+    !roles.every((role) => role === 'supplier' || role === 'ledger') ||
+    !files.every(
+      (file) =>
+        !!file && typeof file === 'object' && Array.isArray(file.sheets),
+    )
+  )
+    throw new Error(
+      'مصادر المقارنة وإعدادات قراءتها وأدوارها غير متطابقة في العدد أو غير صالحة.',
+    );
   roles.forEach((_, i) => assertReading(mappings[i]));
   assertInputFormats(files, mappings, scope);
   const proven = roles.map((_, i) =>

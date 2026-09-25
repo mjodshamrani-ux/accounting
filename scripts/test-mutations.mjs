@@ -106,6 +106,11 @@ const mutations = [
     ],
   },
   {
+    name: 'hard-s01-drop-a-source-without-a-role',
+    file: 'lib/reconciliation/source-preparation.ts',
+    changes: [['files.length !== roles.length ||', '']],
+  },
+  {
     name: 'hard-r01-rank-own-voucher-before-chosen-reference',
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [

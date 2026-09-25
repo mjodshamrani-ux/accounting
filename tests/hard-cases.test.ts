@@ -5,6 +5,7 @@ import { exportWorkbook, readFile } from '../lib/reconciliation/io.ts';
 import { restoreSession, saveSession } from '../lib/reconciliation/session.ts';
 import { selectImportMapping } from '../lib/reconciliation/import-selection.ts';
 import { reconcileSupplierStatement } from '../lib/reconciliation/supplier-reconciliation.ts';
+import { prepareVerifiedSources } from '../lib/reconciliation/source-preparation.ts';
 import type {
   Mapping,
   Scope,
@@ -652,4 +653,161 @@ test('R02: retained evidence survives session restore and is exported beside the
     ),
     cells.join('\n'),
   );
+});
+
+const MISMATCH =
+  'مصادر المقارنة وإعدادات قراءتها وأدوارها غير متطابقة في العدد أو غير صالحة.';
+
+test('S01: sources, readings and roles that do not correspond are refused, never dropped', async () => {
+  const rows = [
+    ['Date', 'Reference', 'Amount'],
+    ['2026-07-09', 'INV-1001', '1250.00'],
+  ];
+  const a = await readFile('supplier.csv', csv(rows), undefined, true);
+  const b = await readFile('ledger.csv', csv(rows), undefined, true);
+  const m = selectImportMapping(a, 'supplier').mapping;
+  const loose = reconcileSupplierStatement as unknown as (
+    input: unknown,
+  ) => unknown;
+  const loosePrepare = prepareVerifiedSources as unknown as (
+    ...args: unknown[]
+  ) => unknown;
+  for (const [name, run] of [
+    [
+      'one file, two readings',
+      () => loose({ files: [a], mappings: [m, m], scope }),
+    ],
+    [
+      'three files',
+      () => loose({ files: [a, b, a], mappings: [m, m, m], scope }),
+    ],
+    ['no files', () => loose({ files: [], mappings: [], scope })],
+    [
+      'a file that is not a reading',
+      () => loose({ files: [a, {}], mappings: [m, m], scope }),
+    ],
+    [
+      'fewer roles than sources',
+      () => loosePrepare([a, b], [m, m], scope, ['supplier']),
+    ],
+    ['no roles', () => loosePrepare([a, b], [m, m], scope, [])],
+    ['nothing at all', () => loosePrepare([], [], scope, [])],
+    ['an unknown role', () => loosePrepare([a], [m], scope, ['bank'])],
+  ] as [string, () => unknown][])
+    assert.throws(run, (error: Error) => error.message === MISMATCH, name);
+  // The shared boundary still takes one source with its own reading and role.
+  assert.equal(
+    (
+      prepareVerifiedSources([a], [m], scope, ['ledger']) as {
+        sources: unknown[];
+      }
+    ).sources.length,
+    1,
+  );
+});
+
+test('S06: formula-like and long references are exported as the text they are', async () => {
+  const long = 'INV-' + '7'.repeat(180);
+  const tricky = ['=HYPERLINK("x")', '+SUM(1)', '@INV-2001', '-INV-2002', long];
+  const head = ['Date', 'Reference', 'Batch', 'Amount'];
+  const rows = [
+    head,
+    ...tricky.map((ref, i) => [
+      `2026-07-${String(10 + i).padStart(2, '0')}`,
+      `"${ref.replaceAll('"', '""')}"`,
+      `=B-${i}`,
+      `${100 + i}.00`,
+    ]),
+  ];
+  const files = [
+    await readFile('supplier.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', csv(rows), undefined, true),
+  ] as [SourceFile, SourceFile];
+  const mappings = files.map((file, i) => ({
+    ...selectImportMapping(file, i ? 'ledger' : 'supplier').mapping,
+    reference: 1,
+  })) as [Mapping, Mapping];
+  const { result } = reconcileSupplierStatement({ files, mappings, scope });
+  const read = result.supplier.transactions.map((t) => t.reference);
+  assert.deepEqual(read, tricky);
+  const book = new ExcelJS.Workbook();
+  await book.xlsx.load(
+    await exportWorkbook(result, files, {
+      checked: false,
+      name: '',
+      notes: '',
+    }),
+  );
+  const sheet = book.getWorksheet('Match Evidence')!;
+  const headers = sheet.getRow(1).values as string[];
+  const refColumn = headers.indexOf('Primary Reference');
+  const retained = headers.indexOf('Retained Evidence');
+  const exported: string[] = [];
+  sheet.eachRow((row, n) => {
+    if (n === 1) return;
+    const cell = row.getCell(refColumn);
+    // A stored text value, never a formula the spreadsheet would run.
+    assert.equal(cell.type, ExcelJS.ValueType.String, String(cell.value));
+    assert.equal(row.getCell(retained).type, ExcelJS.ValueType.String);
+    exported.push(String(cell.value));
+  });
+  for (const ref of tricky)
+    assert.equal(exported.filter((v) => v === ref).length, 2, ref);
+});
+
+test('S06: an export whose retained evidence was changed after comparing is refused', async () => {
+  const head = ['Date', 'Reference', 'Batch', 'Amount'];
+  const rows = [head, ['2026-07-10', 'INV-2001', 'B-1', '100.00']];
+  const files = [
+    await readFile('supplier.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', csv(rows), undefined, true),
+  ] as [SourceFile, SourceFile];
+  const mappings = files.map((file, i) => ({
+    ...selectImportMapping(file, i ? 'ledger' : 'supplier').mapping,
+    reference: 1,
+  })) as [Mapping, Mapping];
+  const { result } = reconcileSupplierStatement({ files, mappings, scope });
+  result.supplier.transactions[0].retainedEvidence![0].value = 'B-9';
+  await assert.rejects(
+    exportWorkbook(result, files, { checked: false, name: '', notes: '' }),
+    /إعادة الحساب/,
+  );
+});
+
+test('S08: the same file under another name, or overlapping exports, are not consumed twice', async () => {
+  const head = ['Date', 'Reference', 'Type', 'Amount'];
+  const one = ['2026-07-09', 'INV-8001', 'Invoice', '410.00'];
+  const two = ['2026-07-10', 'INV-8002', 'Invoice', '220.00'];
+  // Renaming the file changes nothing about what is read or matched.
+  const bytes = csv([head, one, two]);
+  const [x, y] = await Promise.all([
+    readFile('july.csv', bytes, undefined, true),
+    readFile('july (1).csv', bytes, undefined, true),
+  ]);
+  const shape = (r: Awaited<ReturnType<typeof reconcile>>) =>
+    r.cases.map((c) => [c.status, c.matchingRule, c.supplierTotal]);
+  const ledger = await readFile('ledger.csv', bytes, undefined, true);
+  const run = (file: SourceFile) =>
+    reconcileSupplierStatement({
+      files: [file, ledger],
+      mappings: [
+        selectImportMapping(file, 'supplier').mapping,
+        selectImportMapping(ledger, 'ledger').mapping,
+      ],
+      scope,
+    }).result;
+  assert.deepEqual(shape(run(x)), shape(run(y)));
+  // Two overlapping exports pasted into one statement repeat INV-8001. The
+  // repeated line is neither dropped as a duplicate nor matched twice.
+  const overlapped = await reconcile([head, one, two, one], [head, one, two]);
+  const repeated = overlapped.cases.filter((c) =>
+    c.supplierMembers.some((t) => t.reference === 'INV-8001'),
+  );
+  assert.equal(
+    repeated.flatMap((c) => c.supplierMembers).length,
+    2,
+    'both lines stay visible',
+  );
+  assert.ok(repeated.every((c) => c.status !== 'Matched'));
+  assert.equal(statusOf(overlapped, 'INV-8002'), 'Matched');
 });
