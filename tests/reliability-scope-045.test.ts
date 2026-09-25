@@ -30,9 +30,10 @@ async function source(
   } = {},
 ) {
   const csv = `${title}\nCurrency: ${currency}\nDate,Reference,Description,Amount,${accountLabel}\n2026-07-10,INV-778,${description},125.00,${account}\n`;
+  // Each side is its own file; the ledger's export ends with a line break.
   const file = await readFile(
     `${side}.csv`,
-    new TextEncoder().encode(csv).buffer,
+    new TextEncoder().encode(side === 'ledger' ? csv + '\n' : csv).buffer,
   );
   return normalizeSource(file, inferMapping(file), scope, side);
 }

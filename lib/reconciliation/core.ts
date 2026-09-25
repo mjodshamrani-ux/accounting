@@ -655,6 +655,25 @@ export function repeatedPageMetadataRows(
   }
   return rowNumbers;
 }
+/** A fingerprint of a sheet's cells, for files read without a SHA-256. It
+ * only tells two sides apart; nothing is approved or rejected on it alone. */
+function sheetFingerprint(sheet: SourceFile['sheets'][number] | undefined) {
+  const text = JSON.stringify(sheet?.rows ?? []);
+  let h1 = 0xdeadbeef,
+    h2 = 0x41c6ce57;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return `${(h2 >>> 0).toString(16)}${(h1 >>> 0).toString(16)}:${text.length}`;
+}
 export function normalizeSource(
   file: SourceFile,
   mapping: Mapping,
@@ -722,6 +741,7 @@ export function normalizeSource(
     mapping,
     sourceName: file.name,
     sourceHash: file.sha256,
+    sourceOrigin: `${file.sha256 ?? `content:${sheetFingerprint(file.sheets[mapping.sheet])}`}#${mapping.sheet}`,
   };
   if (
     mapping.mode === 'signed' &&
@@ -1160,6 +1180,8 @@ function indexBy(items: Transaction[], by: (t: Transaction) => string) {
   }
   return map;
 }
+export const SAME_SOURCE_MESSAGE =
+  'الطرفان يقرآن نطاق البيانات نفسه من المصدر نفسه (الملف والورقة والصفوف). هذه مقارنة تشخيصية للمصدر بنفسه، ولا تُعتمد منها أي مطابقة ولا تُعد تسوية مكتملة.';
 export function compare(
   supplier: SourceResult,
   ledger: SourceResult,
@@ -1333,12 +1355,21 @@ export function compare(
       usedB.add(l.id);
     }
   }
+  // One source on both sides: the same file (by content, whatever its name),
+  // the same sheet, and rows read by both. The comparison stays available as
+  // a diagnostic, but nothing in it is approved.
+  const ledgerRows = new Set(ledger.transactions.map((t) => t.row));
+  const sameSource =
+    !!supplier.sourceOrigin &&
+    supplier.sourceOrigin === ledger.sourceOrigin &&
+    supplier.transactions.some((t) => ledgerRows.has(t.row));
   const caseResult = buildReconciliationCases(
     supplier,
     ledger,
     scope,
     matches,
     rejected,
+    sameSource ? SAME_SOURCE_MESSAGE : undefined,
   );
   const cases = caseResult.cases;
   matches.splice(0, matches.length, ...caseResult.matches);
@@ -1406,6 +1437,12 @@ export function compare(
     };
   }
   const diagnostics: Comparison['diagnostics'] = [];
+  if (sameSource)
+    diagnostics.push({
+      code: 'SAME_SOURCE_BOTH_SIDES',
+      message: SAME_SOURCE_MESSAGE,
+      transactionIds: [],
+    });
   for (const t of [...supplier.transactions, ...ledger.transactions])
     if (t.referenceEvidenceIssues?.length)
       diagnostics.push({

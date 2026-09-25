@@ -11,6 +11,7 @@ import { suggestFormats } from '../lib/reconciliation/format-inference.ts';
 import { inferScopeSuggestions } from '../lib/reconciliation/scope-inference.ts';
 import { readFile } from '../lib/reconciliation/io.ts';
 import type { SourceFile, Scope } from '../lib/reconciliation/types.ts';
+import { separateSheets } from './helpers/separate-export.ts';
 
 const scope: Scope = {
   supplier: 'Audit supplier',
@@ -48,8 +49,11 @@ test('a richer later header cannot silently erase an earlier transaction table',
     'incompatible second table must need review',
   );
   assert.equal(
-    compare(normalized, normalizeSource(file, mapping, scope, 'ledger'), scope)
-      .matches.length,
+    compare(
+      normalized,
+      normalizeSource(separateSheets(file), mapping, scope, 'ledger'),
+      scope,
+    ).matches.length,
     0,
   );
   for (const unknownAmount of [

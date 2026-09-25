@@ -62,11 +62,16 @@ export async function verifyTemplateLifecycle(context, url) {
     console.log(`[browser] template cycle ${run}`);
     const amount = (120 + run).toFixed(2);
     const text = `Date,Reference,Description,Amount,Currency\n2026-07-15,TPL-${run},Synthetic invoice,${amount},SAR\n2026-07-16,PAY-${run},Synthetic payment,-20.00,SAR`;
-    for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+    // The ledger is its own export of the same entries (a final line break);
+    // one file on both sides would be a self-comparison.
+    for (const [index, label] of [
+      'كشف المورد',
+      'تقرير الحسابات الدائنة',
+    ].entries()) {
       await page.getByLabel(label, { exact: true }).setInputFiles({
         name: `synthetic-cycle-${run}.csv`,
         mimeType: 'text/csv',
-        buffer: Buffer.from(text),
+        buffer: Buffer.from(text + (index ? '\n' : '')),
       });
       await page
         .locator('.dropzone')

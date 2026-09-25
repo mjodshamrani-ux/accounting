@@ -12,6 +12,7 @@ import type {
   Scope,
   SourceFile,
 } from '../lib/reconciliation/types.ts';
+import { separateBytes } from './helpers/separate-export.ts';
 
 // Fixed cases from the hard-case campaign (audit/hard-cases). Each engine
 // change is held by a case that failed before it and by reverse cases that
@@ -41,7 +42,12 @@ async function reconcile(
   referenceHeader?: string,
 ) {
   const a = await readFile('supplier.csv', csv(supplier), undefined, true);
-  const b = await readFile('ledger.csv', csv(ledger), undefined, true);
+  const b = await readFile(
+    'ledger.csv',
+    separateBytes(csv(ledger)),
+    undefined,
+    true,
+  );
   const select = (file: typeof a, side: 'supplier' | 'ledger') => {
     const { mapping } = selectImportMapping(file, side);
     return referenceHeader
@@ -179,7 +185,12 @@ async function reconcileWindow(
   dateWindow: number,
 ) {
   const a = await readFile('supplier.csv', csv(supplier), undefined, true);
-  const b = await readFile('ledger.csv', csv(ledger), undefined, true);
+  const b = await readFile(
+    'ledger.csv',
+    separateBytes(csv(ledger)),
+    undefined,
+    true,
+  );
   return reconcileSupplierStatement({
     files: [a, b],
     mappings: [
@@ -608,7 +619,7 @@ test('R02: retained evidence survives session restore and is exported beside the
   ];
   const files = [
     await readFile('supplier.csv', csv(rows), undefined, true),
-    await readFile('ledger.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', separateBytes(csv(rows)), undefined, true),
   ] as [SourceFile, SourceFile];
   const mappings = files.map((file, i) => {
     const { mapping } = selectImportMapping(file, i ? 'ledger' : 'supplier');
@@ -665,7 +676,12 @@ test('S01: sources, readings and roles that do not correspond are refused, never
     ['2026-07-09', 'INV-1001', '1250.00'],
   ];
   const a = await readFile('supplier.csv', csv(rows), undefined, true);
-  const b = await readFile('ledger.csv', csv(rows), undefined, true);
+  const b = await readFile(
+    'ledger.csv',
+    separateBytes(csv(rows)),
+    undefined,
+    true,
+  );
   const m = selectImportMapping(a, 'supplier').mapping;
   const loose = reconcileSupplierStatement as unknown as (
     input: unknown,
@@ -722,7 +738,7 @@ test('S06: formula-like and long references are exported as the text they are', 
   ];
   const files = [
     await readFile('supplier.csv', csv(rows), undefined, true),
-    await readFile('ledger.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', separateBytes(csv(rows)), undefined, true),
   ] as [SourceFile, SourceFile];
   const mappings = files.map((file, i) => ({
     ...selectImportMapping(file, i ? 'ledger' : 'supplier').mapping,
@@ -761,7 +777,7 @@ test('S06: an export whose retained evidence was changed after comparing is refu
   const rows = [head, ['2026-07-10', 'INV-2001', 'B-1', '100.00']];
   const files = [
     await readFile('supplier.csv', csv(rows), undefined, true),
-    await readFile('ledger.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', separateBytes(csv(rows)), undefined, true),
   ] as [SourceFile, SourceFile];
   const mappings = files.map((file, i) => ({
     ...selectImportMapping(file, i ? 'ledger' : 'supplier').mapping,
@@ -787,7 +803,12 @@ test('S08: the same file under another name, or overlapping exports, are not con
   ]);
   const shape = (r: Awaited<ReturnType<typeof reconcile>>) =>
     r.cases.map((c) => [c.status, c.matchingRule, c.supplierTotal]);
-  const ledger = await readFile('ledger.csv', bytes, undefined, true);
+  const ledger = await readFile(
+    'ledger.csv',
+    separateBytes(bytes),
+    undefined,
+    true,
+  );
   const run = (file: SourceFile) =>
     reconcileSupplierStatement({
       files: [file, ledger],
@@ -824,7 +845,7 @@ test('compatibility: a session saved by the previous engine is refused, not sile
   ];
   const files = [
     await readFile('supplier.csv', csv(rows), undefined, true),
-    await readFile('ledger.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', separateBytes(csv(rows)), undefined, true),
   ] as [SourceFile, SourceFile];
   const mappings = files.map(
     (file, i) => selectImportMapping(file, i ? 'ledger' : 'supplier').mapping,

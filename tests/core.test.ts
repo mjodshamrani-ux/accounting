@@ -20,6 +20,7 @@ import type {
   SourceFile,
   Mapping,
 } from '../lib/reconciliation/types.ts';
+import { separateSheets } from './helpers/separate-export.ts';
 const scope: Scope = { ...demoScope, confirmed: true, coverageConfirmed: true };
 const run = (
   files = structuredClone(demoFiles),
@@ -135,7 +136,7 @@ test('duplicate equality is not resolved by order or date', () => {
 test('numeric-only weak reference does not auto match', () => {
   const files: [SourceFile, SourceFile] = [
     fixture([['2026-08-01', '00104', '100']]),
-    fixture([['2026-08-01', '00104', '100']]),
+    separateSheets(fixture([['2026-08-01', '00104', '100']])),
   ];
   assert.equal(run(files, [mapping, mapping]).matches.length, 0);
 });
@@ -249,7 +250,7 @@ test('opening adjustment remains separate and unexplained', () => {
 test('open items include old unpaid documents; sum must match closing', () => {
   const files: [SourceFile, SourceFile] = [
     fixture([['2026-01-01', 'INV-104', '40']]),
-    fixture([['2026-01-01', 'INV-104', '40']]),
+    separateSheets(fixture([['2026-01-01', 'INV-104', '40']])),
   ];
   const m = { ...mapping, reportType: 'open-items' as const, closing: '40' };
   const r = run(files, [m, m]);
@@ -312,14 +313,17 @@ test('20k rows compare without quadratic candidate search', () => {
   ]);
   const f = fixture(rows);
   const start = performance.now();
-  const r = run([f, f], [mapping, mapping]);
+  const r = run([f, separateSheets(f)], [mapping, mapping]);
   assert.equal(r.matches.length, 20000);
   assert.ok(performance.now() - start < 6000);
 });
 
 test('generic word reference does not auto match', () => {
   const f = fixture([['2026-08-01', 'INVOICE', '100']]);
-  assert.equal(run([f, f], [mapping, mapping]).matches.length, 0);
+  assert.equal(
+    run([f, separateSheets(f)], [mapping, mapping]).matches.length,
+    0,
+  );
 });
 
 test('extra CSV fields cannot silently shift or truncate amount', () => {

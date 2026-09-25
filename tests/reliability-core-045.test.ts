@@ -7,6 +7,7 @@ import type {
   Scope,
   SourceFile,
 } from '../lib/reconciliation/types.ts';
+import { separateSheets } from './helpers/separate-export.ts';
 
 const scope: Scope = {
   supplier: 'Vendor',
@@ -50,7 +51,13 @@ function source(
   side: 'supplier' | 'ledger',
   patch: Partial<Mapping> = {},
 ) {
-  return normalizeSource(f, { ...mapping, ...patch }, scope, side);
+  // The ledger is its own file, even where a test gives it the same cells.
+  return normalizeSource(
+    side === 'ledger' ? separateSheets(f) : f,
+    { ...mapping, ...patch },
+    scope,
+    side,
+  );
 }
 function noApproval(
   a: ReturnType<typeof source>,

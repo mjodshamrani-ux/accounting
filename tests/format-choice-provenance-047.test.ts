@@ -18,6 +18,7 @@ import type {
   Scope,
   SourceFile,
 } from '../lib/reconciliation/types.ts';
+import { separateBytes } from './helpers/separate-export.ts';
 
 // 0.4.7: an ambiguity the document cannot settle needs the accountant's answer,
 // and that answer has to travel with the document it was given for. A value
@@ -236,7 +237,7 @@ test('047 a saved session is re-checked on restore and cannot assert its own app
   const csv = new TextEncoder().encode(rows.map((r) => r.join(',')).join('\n'))
     .buffer as ArrayBuffer;
   const supplier = await readFile('supplier.csv', csv);
-  const ledger = await readFile('ledger.csv', csv.slice(0));
+  const ledger = await readFile('ledger.csv', separateBytes(csv));
   const bare = (file: SourceFile): Mapping => ({
     ...inferMapping(file),
     numberFormat: 'dot',

@@ -159,6 +159,10 @@ export type SourceResult = {
   rowCount: number;
   mapping: Mapping;
   sourceName: string;
+  // Where the rows came from: the file's SHA-256 (or, for a file read without
+  // one, a fingerprint of its sheet) and the sheet. Two sides with the same
+  // origin that read the same rows are one source compared with itself.
+  sourceOrigin?: string;
   sourceHash?: string;
 };
 export type Match = {

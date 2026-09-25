@@ -13,6 +13,7 @@ import type {
   SourceFile,
   SourceResult,
 } from '../lib/reconciliation/types.ts';
+import { separateSheets } from './helpers/separate-export.ts';
 
 const scope: Scope = {
   supplier: 'Synthetic supplier',
@@ -216,7 +217,12 @@ test('an unknown identifier column does not become an invoice reference through 
   const inferred = inferMapping(file);
   assert.equal(inferred.reference, -1);
   const supplier = normalizeSource(file, inferred, scope, 'supplier');
-  const ledger = normalizeSource(file, inferred, scope, 'ledger');
+  const ledger = normalizeSource(
+    separateSheets(file),
+    inferred,
+    scope,
+    'ledger',
+  );
   assert.equal(supplier.transactions.length, 1);
   assert.equal(compare(supplier, ledger, scope).matches.length, 0);
 });

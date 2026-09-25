@@ -35,8 +35,14 @@ const baseline = () =>
     normalizeSource(demoFiles[1], demoMappings[1], scope, 'ledger'),
     scope,
   );
-async function excel(value: string | number, format = '0.000') {
+async function excel(
+  value: string | number,
+  format = '0.000',
+  creator = 'Synthetic vendor',
+) {
   const book = new ExcelJS.Workbook();
+  // A ledger's copy of the same entries is its own export (another creator).
+  book.creator = creator;
   const s = book.addWorksheet('data');
   s.addRow(['date', 'reference', 'amount']);
   s.addRow(['2026-08-01', 'INV-100', value]);
@@ -142,13 +148,14 @@ test('original bytes and fingerprint survive import; reparsing blocks a corrupte
   const f = await excel(1.234);
   assert.ok(f.original);
   assert.match(f.sha256!, /^[a-f0-9]{64}$/);
+  const g = await excel(1.234, '0.000', 'Synthetic ledger');
   const s = { ...scope, decimals: 3 },
     a = normalizeSource(f, map, s, 'supplier'),
-    b = normalizeSource(f, map, s, 'ledger');
+    b = normalizeSource(g, map, s, 'ledger');
   const r = compare(a, b, s);
   r.supplier.transactions[0].amount = 1234000;
   await assert.rejects(
-    () => exportWorkbook(r, [f, f], { checked: false, name: '', notes: '' }),
+    () => exportWorkbook(r, [f, g], { checked: false, name: '', notes: '' }),
     /إعادة الحساب/,
   );
 });

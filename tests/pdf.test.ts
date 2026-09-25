@@ -12,6 +12,7 @@ import { defaultMapping } from '../lib/reconciliation/types.ts';
 import { saveSession, restoreSession } from '../lib/reconciliation/session.ts';
 
 import { syntheticPdf } from './helpers/pdf-fixture.ts';
+import { readSeparately } from './helpers/separate-export.ts';
 const rows = [
   ['date', 'reference', 'amount', 'description'],
   ['2026-08-01', 'INV-001', '1234.56', 'Invoice'],
@@ -188,10 +189,11 @@ test('Arabic glyph text is preserved without reversing references or guessing nu
 });
 test('PDF export re-extracts original bytes and session restoration keeps the same result', async () => {
   const f = await readFile('a.pdf', syntheticPdf([rows]), cuts);
-  const files: [typeof f, typeof f] = [f, f];
+  const ledgerFile = await readSeparately(f, cuts);
+  const files: [typeof f, typeof f] = [f, ledgerFile];
   const r = compare(
     normalizeSource(f, mapping, scope, 'supplier'),
-    normalizeSource(f, mapping, scope, 'ledger'),
+    normalizeSource(ledgerFile, mapping, scope, 'ledger'),
     scope,
   );
   assert.equal(r.matches.length, 2);
@@ -221,7 +223,7 @@ test('PDF export re-extracts original bytes and session restoration keeps the sa
   f.sheets[0].rows[1][2] = '999';
   const altered = compare(
     normalizeSource(f, mapping, scope, 'supplier'),
-    normalizeSource(f, mapping, scope, 'ledger'),
+    normalizeSource(ledgerFile, mapping, scope, 'ledger'),
     scope,
   );
   await assert.rejects(

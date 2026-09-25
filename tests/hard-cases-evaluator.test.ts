@@ -1,12 +1,40 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-// @ts-expect-error: plain ES module without type declarations
-import { hardManifest, buildHardCase } from '../audit/hard-cases/scenarios.mjs';
-// @ts-expect-error: plain ES module without type declarations
-import {
-  evaluateHardCase,
-  loadHardEngine,
-} from '../audit/hard-cases/evaluate.mjs';
+import * as scenarios from '../audit/hard-cases/scenarios.mjs';
+import * as evaluator from '../audit/hard-cases/evaluate.mjs';
+
+// The harness modules are plain JavaScript; give the calls used here types.
+type Verdict = {
+  verdict: string;
+  findings: string[];
+  counts: Record<string, number>;
+  assistance: { kind: string; fields?: string[] }[];
+  productReading: { wrongColumns: string[] }[];
+};
+const { hardManifest, buildHardCase } = scenarios as unknown as {
+  hardManifest: (split: string, count: number) => unknown[];
+  buildHardCase: (d: unknown) => {
+    oracle: {
+      contract: {
+        kind: string;
+        outcomes: string[];
+        note?: string;
+        rejection?: unknown;
+      };
+    };
+  };
+};
+const { evaluateHardCase, loadHardEngine } = evaluator as unknown as {
+  evaluateHardCase: (
+    spec: unknown,
+    engine: unknown,
+    mode: string,
+    options?: { assist: string },
+  ) => Promise<Verdict>;
+  loadHardEngine: (root: string) => Promise<{
+    reconcileSupplierStatement: (input: unknown) => { result: Result };
+  }>;
+};
 
 // The hard-case evaluator is itself under test: each case below feeds it a
 // real engine result with one deliberate fault and requires the verdict that
@@ -140,7 +168,10 @@ test('evaluator: every invalid case names its own rejection, and another reason 
     for (const d of hardManifest(sp, 400)) {
       const s = buildHardCase(d);
       if (['invalid', 'external'].includes(s.oracle.contract.kind))
-        assert.ok(s.oracle.contract.rejection, `${d.id} has no reason`);
+        assert.ok(
+          s.oracle.contract.rejection,
+          `${(d as { id: string }).id} has no reason`,
+        );
     }
   const wrong = throwing(new Error('ملف XLSX غير صالح أو مشفر'));
   assert.equal(
@@ -209,8 +240,7 @@ test('evaluator: unaided and declared runs record assistance separately', async 
   assert.deepEqual(unaided.assistance, []);
   assert.ok(
     declared.assistance.some(
-      (a: { kind: string; fields: string[] }) =>
-        a.kind === 'columns' && a.fields.includes('reference'),
+      (a) => a.kind === 'columns' && !!a.fields?.includes('reference'),
     ),
   );
   assert.deepEqual(unaided.productReading[0].wrongColumns, ['reference']);

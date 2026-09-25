@@ -44,6 +44,7 @@ const tests = [
   'tests/format-choice-provenance-047.test.ts',
   'tests/ambiguity-gate-acceptance-047.test.ts',
   'tests/hard-cases.test.ts',
+  'tests/same-source.test.ts',
 ];
 const mutations = [
   {
@@ -102,6 +103,21 @@ const mutations = [
       [
         '/^(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)',
         '/(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)',
+      ],
+    ],
+  },
+  {
+    name: 'v11-approve-a-source-compared-with-itself',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['sameSource ? SAME_SOURCE_MESSAGE : undefined', 'undefined']],
+  },
+  {
+    name: 'v11-take-a-renamed-copy-for-another-source',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        'supplier.sourceOrigin === ledger.sourceOrigin &&',
+        'supplier.sourceName === ledger.sourceName &&',
       ],
     ],
   },

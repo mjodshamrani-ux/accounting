@@ -19,6 +19,7 @@ import { formatChoice } from '../../lib/reconciliation/input-readiness.ts';
 import { inferStatementDirection } from '../../lib/reconciliation/statement-direction.ts';
 import { WORKER_CHANNEL } from '../../lib/reconciliation/protocol.ts';
 import { defaultMapping } from '../../lib/reconciliation/types.ts';
+import { separateBytes } from './separate-export.ts';
 import type {
   Decision,
   Mapping,
@@ -44,6 +45,9 @@ const csv = (rows: string[][]) =>
       .join('\n'),
   ).buffer as ArrayBuffer;
 const upload = (name: string, rows: string[][]) => readFile(name, csv(rows));
+/** The ledger's own export of the same entries (see separate-export.ts). */
+const uploadLedger = (name: string, rows: string[][]) =>
+  readFile(name, separateBytes(csv(rows)));
 /** The reference result, straight from the engine core. */
 export const coreResult = (c: RecomputeCase) =>
   compare(
@@ -192,7 +196,7 @@ export const answerNumberFormat = (
 async function ambiguityCases(): Promise<RecomputeCase[]> {
   const files: [SourceFile, SourceFile] = [
     await upload('supplier.csv', ambiguousRows),
-    await upload('ledger.csv', ambiguousRows),
+    await uploadLedger('ledger.csv', ambiguousRows),
   ];
   const bare = files.map((f) => inferMapping(f)) as [Mapping, Mapping];
   return [
@@ -227,7 +231,7 @@ async function invalidDateCase(): Promise<RecomputeCase> {
   ];
   const files: [SourceFile, SourceFile] = [
     await upload('invalid-date-supplier.csv', rows),
-    await upload('invalid-date-ledger.csv', rows),
+    await uploadLedger('invalid-date-ledger.csv', rows),
   ];
   return {
     name: 'invalid date format',

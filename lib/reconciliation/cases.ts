@@ -137,6 +137,8 @@ export function buildReconciliationCases(
   scope: Scope,
   exactMatches: Match[],
   rejectedPairs: string[],
+  // Set when both sides are one source: every case stays for review.
+  sameSource?: string,
 ) {
   const cases: ReconciliationCase[] = [],
     used = new Set<string>(),
@@ -557,6 +559,12 @@ export function buildReconciliationCases(
       );
   if (used.size !== byId.size)
     throw new Error('لم تُحفظ جميع صفوف المصدر داخل حالات التسوية');
+  if (sameSource)
+    for (const c of cases)
+      if (c.status === 'Matched') {
+        c.status = 'Needs Review';
+        c.evidence = [sameSource, ...c.evidence];
+      }
   const count = (status: ReconciliationCase['status']) =>
     cases.filter((c) => c.status === status);
   const rowCount = (items: ReconciliationCase[]) =>

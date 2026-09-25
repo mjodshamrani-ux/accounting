@@ -8,6 +8,7 @@ import type {
   Scope,
   SourceFile,
 } from '../lib/reconciliation/types.ts';
+import { separateSheets } from './helpers/separate-export.ts';
 
 const scope: Scope = {
   supplier: 'Synthetic',
@@ -62,7 +63,7 @@ const run = (
 ) =>
   compare(
     normalizeSource(file(a), mapping, scope, 'supplier'),
-    normalizeSource(file(b), mapping, scope, 'ledger'),
+    normalizeSource(separateSheets(file(b)), mapping, scope, 'ledger'),
     scope,
   );
 const proposal = { supplierIds: ['supplier:0:2'], ledgerIds: ['ledger:0:2'] };

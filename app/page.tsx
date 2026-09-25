@@ -952,10 +952,15 @@ export default function App() {
     : 0;
   // Every diagnostic stays in the export. On screen, drop the balance notes when
   // balances were never requested: repeating them three times was noise.
+  // One source on both sides: the comparison is only a diagnostic.
+  const sameSource = (result?.diagnostics ?? []).filter(
+    (d) => d.code === 'SAME_SOURCE_BOTH_SIDES',
+  );
   const onScreenDiagnostics = (result?.diagnostics ?? []).filter(
     (d) =>
       !d.transactionIds.length &&
       d.code !== 'SKIPPED_ROWS' &&
+      d.code !== 'SAME_SOURCE_BOTH_SIDES' &&
       !['BALANCE_ARITHMETIC_VERIFIED', 'PERIOD_DETECTED'].includes(d.code) &&
       (!['BALANCE_UNVERIFIED', 'PERIOD_COVERAGE_UNCONFIRMED'].includes(
         d.code,
@@ -1778,6 +1783,13 @@ export default function App() {
                   />
                 )}
               </div>
+              {!!sameSource.length && (
+                <div className="notice error" role="alert">
+                  {sameSource.map((d, i) => (
+                    <p key={i}>{say(engineText(d.message))}</p>
+                  ))}
+                </div>
+              )}
               {skippedRows > 0 && (
                 <div className="notice error" role="status">
                   {result.diagnostics

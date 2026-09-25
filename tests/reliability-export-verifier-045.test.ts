@@ -284,7 +284,8 @@ test('R045 independent verifier covers transaction-only, zero-effect rejected ca
         readFile(
           i ? 'ledger.csv' : 'supplier.csv',
           enc.encode(
-            `Date,Reference,Description,Amount\n2026-08-01,${reference},Invoice,${amount}`,
+            // The ledger is its own export: it ends with a line break.
+            `Date,Reference,Description,Amount\n2026-08-01,${reference},Invoice,${amount}${i ? '\n' : ''}`,
           ).buffer,
         ),
       ),
