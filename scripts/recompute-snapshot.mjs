@@ -20,6 +20,11 @@ import {
   recomputeCases,
   productionWorker,
 } from '../tests/helpers/recompute-cases.ts';
+import {
+  SOURCE_FAULTS,
+  gateOrderSources,
+  gateScope,
+} from '../tests/helpers/gate-order-cases.ts';
 
 const { values: args } = parseArgs({
   options: {
@@ -314,9 +319,68 @@ for (const c of await recomputeCases()) {
   }
   snapshot.cases[c.name] = record;
 }
+// Which refusal comes first when the inputs carry more than one fault, on
+// every path, for every combination across the two sources.
+{
+  const { files, proven, reading } = await gateOrderSources();
+  const base = {
+    files,
+    scope: gateScope,
+    decisions: [],
+    rejected: [],
+  };
+  const saved = await send('save-session', {
+    ...base,
+    mappings: proven,
+    events: [],
+    review,
+  });
+  if (!saved.ok) throw new Error(`gate-order session: ${saved.error}`);
+  const session = JSON.parse(new TextDecoder().decode(saved.value));
+  const restoreWith = (mappings) =>
+    send('restore-session', {
+      buffer: encode({ ...session, mappings }),
+    });
+  snapshot.gateOrder = {};
+  for (const supplierFault of SOURCE_FAULTS)
+    for (const ledgerFault of SOURCE_FAULTS) {
+      const mappings = [reading(0, supplierFault), reading(1, ledgerFault)];
+      const payload = { ...base, mappings };
+      const unchecked = coreResult({ name: '', ...payload });
+      snapshot.gateOrder[`${supplierFault} | ${ledgerFault}`] = {
+        reconcile: await outcome(await send('reconcile', payload)),
+        compare: await outcome(await send('compare', payload)),
+        restore: await outcome(await restoreWith(mappings)),
+        workerExport: await outcome(
+          await send('export', { result: unchecked, files, review }),
+        ),
+        directExport: await direct(() =>
+          io.exportWorkbook(unchecked, files, review),
+        ),
+      };
+    }
+  // A reading that is not an object at all.
+  const broken = [null, proven[1]];
+  snapshot.gateOrder['no reading | ok'] = {
+    reconcile: await outcome(
+      await send('reconcile', { ...base, mappings: broken }),
+    ),
+    restore: await outcome(await restoreWith(broken)),
+  };
+}
 worker.restore();
 fs.mkdirSync(path.dirname(args.out), { recursive: true });
 fs.writeFileSync(args.out, JSON.stringify(snapshot, null, 1));
+for (const [key, paths] of Object.entries(snapshot.gateOrder))
+  console.log(
+    key.padEnd(34),
+    Object.entries(paths)
+      .map(
+        ([k, v]) =>
+          `${k}: ${v.ok ? 'ok' : (v.readiness?.code ?? v.error.slice(0, 18))}`,
+      )
+      .join(' · '),
+  );
 const summary = Object.fromEntries(
   Object.entries(snapshot.cases).map(([name, r]) => [
     name,
@@ -327,4 +391,4 @@ const summary = Object.fromEntries(
     ),
   ]),
 );
-console.log(JSON.stringify(summary, null, 1));
+if (process.env.SNAPSHOT_SUMMARY) console.log(JSON.stringify(summary, null, 1));

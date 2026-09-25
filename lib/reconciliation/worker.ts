@@ -1,30 +1,12 @@
 import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
-import { readFile, exportWorkbook, verifyDirectionEvidence } from './io.ts';
+import { readFile, exportWorkbook } from './io.ts';
 import { normalizeSource } from './core.ts';
 import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 import { ENGINE_VERSION } from './types.ts';
-import type { Mapping, Scope, SourceFile } from './types.ts';
 import { WORKER_CHANNEL, isRequest } from './protocol.ts';
 import { ImportDiagnosticError } from './import-diagnostics.ts';
 import { isInputReadinessRejection } from './input-readiness.ts';
-/** Re-prove each claimed debit/credit direction from its own source, as the
- * session and the export do, so no result is computed from a claim the source
- * does not support. Runs after the format guard, which keeps its refusals. */
-const provenDirections = (payload: {
-  files: [SourceFile, SourceFile];
-  mappings: [Mapping, Mapping];
-  scope: Scope;
-}) => ({
-  ...payload,
-  mappings: [0, 1].map((side) =>
-    verifyDirectionEvidence(
-      payload.files[side],
-      payload.mappings[side],
-      payload.scope.decimals,
-    ),
-  ) as [Mapping, Mapping],
-});
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
@@ -52,11 +34,11 @@ self.onmessage = async (event: MessageEvent) => {
         payload.autoPdfColumns === true,
       );
     else if (action === 'reconcile') {
-      assertInputFormats(payload.files, payload.mappings, payload.scope);
-      value = reconcileSupplierStatement(provenDirections(payload), measured);
+      // The shared source boundary checks formats and directions first.
+      const { a, b, result } = reconcileSupplierStatement(payload, measured);
+      value = { a, b, result };
     } else if (action === 'compare') {
-      assertInputFormats(payload.files, payload.mappings, payload.scope);
-      value = reconcileSupplierStatement(provenDirections(payload)).result;
+      value = reconcileSupplierStatement(payload).result;
     } else if (action === 'normalize')
       value = normalizeSource(
         payload.file,
