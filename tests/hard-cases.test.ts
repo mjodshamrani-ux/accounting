@@ -6,6 +6,7 @@ import { restoreSession, saveSession } from '../lib/reconciliation/session.ts';
 import { selectImportMapping } from '../lib/reconciliation/import-selection.ts';
 import { reconcileSupplierStatement } from '../lib/reconciliation/supplier-reconciliation.ts';
 import { prepareVerifiedSources } from '../lib/reconciliation/source-preparation.ts';
+import { ENGINE_VERSION } from '../lib/reconciliation/types.ts';
 import type {
   Mapping,
   Scope,
@@ -810,4 +811,41 @@ test('S08: the same file under another name, or overlapping exports, are not con
   );
   assert.ok(repeated.every((c) => c.status !== 'Matched'));
   assert.equal(statusOf(overlapped, 'INV-8002'), 'Matched');
+});
+
+test('compatibility: a session saved by the previous engine is refused, not silently re-decided', async () => {
+  // T01, G08 and R01 change which rows match, so a 0.3.14 session restored
+  // here would recompute different results under its saved decisions. The
+  // session format is unchanged; only the engine version differs.
+  assert.equal(ENGINE_VERSION, '0.3.15-experimental');
+  const rows = [
+    ['Date', 'Reference', 'Type', 'Amount'],
+    ['2026-07-09', 'INV-34001', 'Tax Invoice', '1250.00'],
+  ];
+  const files = [
+    await readFile('supplier.csv', csv(rows), undefined, true),
+    await readFile('ledger.csv', csv(rows), undefined, true),
+  ] as [SourceFile, SourceFile];
+  const mappings = files.map(
+    (file, i) => selectImportMapping(file, i ? 'ledger' : 'supplier').mapping,
+  ) as [Mapping, Mapping];
+  const bytes = await saveSession({
+    files,
+    mappings,
+    scope,
+    decisions: [],
+    rejected: [],
+    events: [],
+    review: { checked: false, name: '', notes: '' },
+  });
+  assert.equal(
+    (await restoreSession(bytes)).result.caseCounts.autoMatchedCases,
+    1,
+  );
+  const saved = JSON.parse(new TextDecoder().decode(bytes));
+  saved.engine = '0.3.14-experimental';
+  await assert.rejects(
+    restoreSession(new TextEncoder().encode(JSON.stringify(saved)).buffer),
+    /إصدار ملف الجلسة غير متوافق/,
+  );
 });
