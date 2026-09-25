@@ -18,6 +18,8 @@ const headers = {
     credit: 'Credit',
     currency: 'Currency',
     account: 'Account',
+    voucherReference: 'Voucher No',
+    batch: 'Batch',
   },
   ar: {
     kind: 'نوع المستند',
@@ -33,6 +35,8 @@ const headers = {
     credit: 'دائن',
     currency: 'العملة',
     account: 'الحساب',
+    voucherReference: 'رقم القيد',
+    batch: 'مرجع الدفعة',
   },
 };
 export function displayMinor(minor, decimals, style = 'dot') {
@@ -109,7 +113,9 @@ function fieldValue(row, field, source) {
     return row.description.replace(' ', '\n');
   return row[field] ?? '';
 }
-function sourceTable(source) {
+/** The table a renderer writes, before any file format. Exported so the hard-case
+ * harness can run the same table as a logical source without file bytes. */
+export function sourceTable(source) {
   let fields = columns(source);
   if (source.invalid === 'missing-amount-column')
     fields = fields.filter(
