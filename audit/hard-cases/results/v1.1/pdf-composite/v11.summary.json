@@ -1,0 +1,5561 @@
+{
+ "version": "tarasuf-pdf-composite-1.1.0",
+ "provenance": {
+  "engine": {
+   "root": ".",
+   "commit": "320c04211573f955869b1368273583e64086a12e",
+   "engineFilesModified": true
+  },
+  "harness": {
+   "commit": "320c04211573f955869b1368273583e64086a12e",
+   "generatorSha256": "8fcf82f42650ec23eede4faa7ae8e16973eaa735f5c66dcc4b6eec5b117c3aa2",
+   "runnerSha256": "d10557508c5de0f16abf20c70fa7fdd2399c7a5e027349c10b6e5b953bf996a3"
+  },
+  "producer": "Chromium 141.0.7390.37 page.pdf, DejaVu Sans",
+  "independentReader": "pdfminer.six (Python), not the product reader"
+ },
+ "seeds": "1-6",
+ "cases": 144,
+ "independentOk": 144,
+ "unaided": {
+  "stopped-flagged": 144
+ },
+ "declared": {
+  "pass": 84,
+  "stopped-flagged": 60
+ },
+ "results": [
+  {
+   "id": "PDFC-EVIDENCE-resolvable-1",
+   "pattern": "EVIDENCE",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-insufficient-1",
+   "pattern": "EVIDENCE",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-conflicting-1",
+   "pattern": "EVIDENCE",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-resolvable-1",
+   "pattern": "SPLIT2D",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-insufficient-1",
+   "pattern": "SPLIT2D",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-conflicting-1",
+   "pattern": "SPLIT2D",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-resolvable-1",
+   "pattern": "ARABIC",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-insufficient-1",
+   "pattern": "ARABIC",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-conflicting-1",
+   "pattern": "ARABIC",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-resolvable-1",
+   "pattern": "SPLITREF",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-resolvable-1.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-resolvable-1.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-insufficient-1",
+   "pattern": "SPLITREF",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-insufficient-1.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-insufficient-1.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-conflicting-1",
+   "pattern": "SPLITREF",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-conflicting-1.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-conflicting-1.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-resolvable-1",
+   "pattern": "CROSSPAGE",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-insufficient-1",
+   "pattern": "CROSSPAGE",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-conflicting-1",
+   "pattern": "CROSSPAGE",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-resolvable-1",
+   "pattern": "REPEAT",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-insufficient-1",
+   "pattern": "REPEAT",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-REPEAT-insufficient-1.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-REPEAT-insufficient-1.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-conflicting-1",
+   "pattern": "REPEAT",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-resolvable-1",
+   "pattern": "TWOREF",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-insufficient-1",
+   "pattern": "TWOREF",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-conflicting-1",
+   "pattern": "TWOREF",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-resolvable-1",
+   "pattern": "MISSINGPAGE",
+   "variant": "resolvable",
+   "seed": 1,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-insufficient-1",
+   "pattern": "MISSINGPAGE",
+   "variant": "insufficient",
+   "seed": 1,
+   "independent": {
+    "pages": 2,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-conflicting-1",
+   "pattern": "MISSINGPAGE",
+   "variant": "conflicting",
+   "seed": 1,
+   "independent": {
+    "pages": 4,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-resolvable-2",
+   "pattern": "EVIDENCE",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-insufficient-2",
+   "pattern": "EVIDENCE",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-conflicting-2",
+   "pattern": "EVIDENCE",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-resolvable-2",
+   "pattern": "SPLIT2D",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-insufficient-2",
+   "pattern": "SPLIT2D",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-conflicting-2",
+   "pattern": "SPLIT2D",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-resolvable-2",
+   "pattern": "ARABIC",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-insufficient-2",
+   "pattern": "ARABIC",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-conflicting-2",
+   "pattern": "ARABIC",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-resolvable-2",
+   "pattern": "SPLITREF",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-resolvable-2.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-resolvable-2.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-insufficient-2",
+   "pattern": "SPLITREF",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-insufficient-2.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-insufficient-2.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-conflicting-2",
+   "pattern": "SPLITREF",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-conflicting-2.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-conflicting-2.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-resolvable-2",
+   "pattern": "CROSSPAGE",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-insufficient-2",
+   "pattern": "CROSSPAGE",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-conflicting-2",
+   "pattern": "CROSSPAGE",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-resolvable-2",
+   "pattern": "REPEAT",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-insufficient-2",
+   "pattern": "REPEAT",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-REPEAT-insufficient-2.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-REPEAT-insufficient-2.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-conflicting-2",
+   "pattern": "REPEAT",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-resolvable-2",
+   "pattern": "TWOREF",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-insufficient-2",
+   "pattern": "TWOREF",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-conflicting-2",
+   "pattern": "TWOREF",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-resolvable-2",
+   "pattern": "MISSINGPAGE",
+   "variant": "resolvable",
+   "seed": 2,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-insufficient-2",
+   "pattern": "MISSINGPAGE",
+   "variant": "insufficient",
+   "seed": 2,
+   "independent": {
+    "pages": 2,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-conflicting-2",
+   "pattern": "MISSINGPAGE",
+   "variant": "conflicting",
+   "seed": 2,
+   "independent": {
+    "pages": 4,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-resolvable-3",
+   "pattern": "EVIDENCE",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-insufficient-3",
+   "pattern": "EVIDENCE",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-conflicting-3",
+   "pattern": "EVIDENCE",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-resolvable-3",
+   "pattern": "SPLIT2D",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-insufficient-3",
+   "pattern": "SPLIT2D",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-conflicting-3",
+   "pattern": "SPLIT2D",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-resolvable-3",
+   "pattern": "ARABIC",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-insufficient-3",
+   "pattern": "ARABIC",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-conflicting-3",
+   "pattern": "ARABIC",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-resolvable-3",
+   "pattern": "SPLITREF",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-resolvable-3.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-resolvable-3.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-insufficient-3",
+   "pattern": "SPLITREF",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-insufficient-3.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-insufficient-3.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-conflicting-3",
+   "pattern": "SPLITREF",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-conflicting-3.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-conflicting-3.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-resolvable-3",
+   "pattern": "CROSSPAGE",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-insufficient-3",
+   "pattern": "CROSSPAGE",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-conflicting-3",
+   "pattern": "CROSSPAGE",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-resolvable-3",
+   "pattern": "REPEAT",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-insufficient-3",
+   "pattern": "REPEAT",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-REPEAT-insufficient-3.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-REPEAT-insufficient-3.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-conflicting-3",
+   "pattern": "REPEAT",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-resolvable-3",
+   "pattern": "TWOREF",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-insufficient-3",
+   "pattern": "TWOREF",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-conflicting-3",
+   "pattern": "TWOREF",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-resolvable-3",
+   "pattern": "MISSINGPAGE",
+   "variant": "resolvable",
+   "seed": 3,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-insufficient-3",
+   "pattern": "MISSINGPAGE",
+   "variant": "insufficient",
+   "seed": 3,
+   "independent": {
+    "pages": 2,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-conflicting-3",
+   "pattern": "MISSINGPAGE",
+   "variant": "conflicting",
+   "seed": 3,
+   "independent": {
+    "pages": 4,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-resolvable-4",
+   "pattern": "EVIDENCE",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-insufficient-4",
+   "pattern": "EVIDENCE",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-conflicting-4",
+   "pattern": "EVIDENCE",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-resolvable-4",
+   "pattern": "SPLIT2D",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-insufficient-4",
+   "pattern": "SPLIT2D",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-conflicting-4",
+   "pattern": "SPLIT2D",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-resolvable-4",
+   "pattern": "ARABIC",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-insufficient-4",
+   "pattern": "ARABIC",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-conflicting-4",
+   "pattern": "ARABIC",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-resolvable-4",
+   "pattern": "SPLITREF",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-resolvable-4.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-resolvable-4.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-insufficient-4",
+   "pattern": "SPLITREF",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-insufficient-4.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-insufficient-4.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-conflicting-4",
+   "pattern": "SPLITREF",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-conflicting-4.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-conflicting-4.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-resolvable-4",
+   "pattern": "CROSSPAGE",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-insufficient-4",
+   "pattern": "CROSSPAGE",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-conflicting-4",
+   "pattern": "CROSSPAGE",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-resolvable-4",
+   "pattern": "REPEAT",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-insufficient-4",
+   "pattern": "REPEAT",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-REPEAT-insufficient-4.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-REPEAT-insufficient-4.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-conflicting-4",
+   "pattern": "REPEAT",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-resolvable-4",
+   "pattern": "TWOREF",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-insufficient-4",
+   "pattern": "TWOREF",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-conflicting-4",
+   "pattern": "TWOREF",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-resolvable-4",
+   "pattern": "MISSINGPAGE",
+   "variant": "resolvable",
+   "seed": 4,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-insufficient-4",
+   "pattern": "MISSINGPAGE",
+   "variant": "insufficient",
+   "seed": 4,
+   "independent": {
+    "pages": 2,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-conflicting-4",
+   "pattern": "MISSINGPAGE",
+   "variant": "conflicting",
+   "seed": 4,
+   "independent": {
+    "pages": 4,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-resolvable-5",
+   "pattern": "EVIDENCE",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-insufficient-5",
+   "pattern": "EVIDENCE",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-conflicting-5",
+   "pattern": "EVIDENCE",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-resolvable-5",
+   "pattern": "SPLIT2D",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-insufficient-5",
+   "pattern": "SPLIT2D",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-conflicting-5",
+   "pattern": "SPLIT2D",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-resolvable-5",
+   "pattern": "ARABIC",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-insufficient-5",
+   "pattern": "ARABIC",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-conflicting-5",
+   "pattern": "ARABIC",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-resolvable-5",
+   "pattern": "SPLITREF",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-resolvable-5.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-resolvable-5.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-insufficient-5",
+   "pattern": "SPLITREF",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-insufficient-5.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-insufficient-5.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-conflicting-5",
+   "pattern": "SPLITREF",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-conflicting-5.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-conflicting-5.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-resolvable-5",
+   "pattern": "CROSSPAGE",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-insufficient-5",
+   "pattern": "CROSSPAGE",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-conflicting-5",
+   "pattern": "CROSSPAGE",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-resolvable-5",
+   "pattern": "REPEAT",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-insufficient-5",
+   "pattern": "REPEAT",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-REPEAT-insufficient-5.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-REPEAT-insufficient-5.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-conflicting-5",
+   "pattern": "REPEAT",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-resolvable-5",
+   "pattern": "TWOREF",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-insufficient-5",
+   "pattern": "TWOREF",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-conflicting-5",
+   "pattern": "TWOREF",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-resolvable-5",
+   "pattern": "MISSINGPAGE",
+   "variant": "resolvable",
+   "seed": 5,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-insufficient-5",
+   "pattern": "MISSINGPAGE",
+   "variant": "insufficient",
+   "seed": 5,
+   "independent": {
+    "pages": 2,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-conflicting-5",
+   "pattern": "MISSINGPAGE",
+   "variant": "conflicting",
+   "seed": 5,
+   "independent": {
+    "pages": 4,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-resolvable-6",
+   "pattern": "EVIDENCE",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-insufficient-6",
+   "pattern": "EVIDENCE",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-EVIDENCE-conflicting-6",
+   "pattern": "EVIDENCE",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-resolvable-6",
+   "pattern": "SPLIT2D",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-insufficient-6",
+   "pattern": "SPLIT2D",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLIT2D-conflicting-6",
+   "pattern": "SPLIT2D",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-resolvable-6",
+   "pattern": "ARABIC",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-insufficient-6",
+   "pattern": "ARABIC",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-ARABIC-conflicting-6",
+   "pattern": "ARABIC",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": true,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-resolvable-6",
+   "pattern": "SPLITREF",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-resolvable-6.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-resolvable-6.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-insufficient-6",
+   "pattern": "SPLITREF",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-insufficient-6.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-insufficient-6.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-SPLITREF-conflicting-6",
+   "pattern": "SPLITREF",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-SPLITREF-conflicting-6.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-SPLITREF-conflicting-6.pdf: تعذر التحقق من صيغة المبالغ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في المبالغ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-resolvable-6",
+   "pattern": "CROSSPAGE",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-insufficient-6",
+   "pattern": "CROSSPAGE",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-CROSSPAGE-conflicting-6",
+   "pattern": "CROSSPAGE",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": true,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-resolvable-6",
+   "pattern": "REPEAT",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-insufficient-6",
+   "pattern": "REPEAT",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "PDFC-REPEAT-insufficient-6.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر."
+   },
+   "declared": {
+    "verdict": "stopped-flagged",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "stopped": "PDFC-REPEAT-insufficient-6.pdf: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر.",
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-REPEAT-conflicting-6",
+   "pattern": "REPEAT",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-resolvable-6",
+   "pattern": "TWOREF",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-insufficient-6",
+   "pattern": "TWOREF",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-TWOREF-conflicting-6",
+   "pattern": "TWOREF",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 1,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     },
+     {
+      "side": "supplier",
+      "kind": "columns",
+      "fields": [
+       "reference"
+      ],
+      "header": "Invoice No"
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-resolvable-6",
+   "pattern": "MISSINGPAGE",
+   "variant": "resolvable",
+   "seed": 6,
+   "independent": {
+    "pages": 3,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-insufficient-6",
+   "pattern": "MISSINGPAGE",
+   "variant": "insufficient",
+   "seed": 6,
+   "independent": {
+    "pages": 2,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  },
+  {
+   "id": "PDFC-MISSINGPAGE-conflicting-6",
+   "pattern": "MISSINGPAGE",
+   "variant": "conflicting",
+   "seed": 6,
+   "independent": {
+    "pages": 4,
+    "arabicShown": false,
+    "missingValues": [],
+    "pageCountOk": true,
+    "splitAcrossPages": null,
+    "ok": true
+   },
+   "unaided": {
+    "verdict": "stopped-flagged",
+    "stopped": "راجع الصفوف المستخرجة من PDF مع الملف الأصلي، ثم أكد اكتمال المراجعة."
+   },
+   "declared": {
+    "verdict": "pass",
+    "assistance": [
+     {
+      "side": "supplier",
+      "kind": "pdfReviewed",
+      "simulated": true
+     }
+    ],
+    "findings": [],
+    "counts": {
+     "misreads": 0,
+     "lost": 0,
+     "falseApprovals": 0,
+     "wrongMembers": 0,
+     "missed": 0
+    }
+   }
+  }
+ ]
+}

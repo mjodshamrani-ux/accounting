@@ -46,6 +46,8 @@ const tests = [
   'tests/hard-cases.test.ts',
   'tests/same-source.test.ts',
   'tests/reference-interactions.test.ts',
+  'tests/pdf-composite.test.ts',
+  'tests/pdf-paint-order.test.ts',
 ];
 const mutations = [
   {
@@ -106,6 +108,21 @@ const mutations = [
         'new RegExp(`${v}$`, \'i\')',
       ],
     ],
+  },
+  {
+    name: 'v11-read-carried-forward-as-a-transaction',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['balance carried forward|carried forward|brought forward|', 'balance carried forward|']],
+  },
+  {
+    name: 'v11-refuse-black-text-grazed-by-a-table-rule',
+    file: 'lib/reconciliation/pdf-paint-order.ts',
+    changes: [['if (thin && share <= 0.1 && (rules += share) <= 0.2) continue;', '']],
+  },
+  {
+    name: 'v11-let-stripes-hide-text',
+    file: 'lib/reconciliation/pdf-paint-order.ts',
+    changes: [['(rules += share) <= 0.2', '(rules += share) <= 1']],
   },
   {
     name: 'v11-approve-a-source-compared-with-itself',
@@ -484,7 +501,8 @@ for (const mutation of selectedMutations) {
   const scratch = await mkdtemp(join(tmpdir(), 'mizan-mutant-'));
   try {
     await Promise.all(
-      ['lib', 'tests', 'package.json'].map((name) =>
+      // audit/ holds the hard-case generators some regression tests build on.
+      ['lib', 'tests', 'audit', 'package.json'].map((name) =>
         cp(join(root, name), join(scratch, name), { recursive: true }),
       ),
     );

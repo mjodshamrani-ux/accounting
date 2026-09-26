@@ -67,3 +67,34 @@ test('a later opaque rectangle covering transaction text still prevents import',
     /يغطي|تغط/,
   );
 });
+
+test('a hairline table rule grazing black text is not a background, but covers and stripes still are', () => {
+  // A glyph box 11.7pt tall; a printed row border 0.75pt thick across its
+  // lower edge, as Chromium draws where a page break cuts a table row.
+  const glyph = [488.8, 527.2, 643.2, 538.9];
+  const rule = (y: number, color = '#555555', thick = 0.75) => ({
+    box: [46.5, y, 1000, y + thick],
+    color,
+  });
+  assert.equal(visibleOnBackground('#000000', glyph, [rule(538.17)]), true);
+  // The same rule colour as a real background under the text: refused.
+  assert.equal(
+    visibleOnBackground('#000000', glyph, [
+      { box: [480, 520, 650, 545], color: '#555555' },
+    ]),
+    false,
+  );
+  // A band 2pt thick is not a rule.
+  assert.equal(
+    visibleOnBackground('#000000', glyph, [rule(530, '#555555', 2)]),
+    false,
+  );
+  // Stripes: several hairlines together over more than a fifth of the box.
+  const stripes = [528, 530.5, 533, 535.5].map((y) => rule(y, '#555555', 1));
+  assert.equal(visibleOnBackground('#000000', glyph, stripes), false);
+  // White text is never rescued by the allowance.
+  assert.equal(
+    visibleOnBackground('#ffffff', glyph, [rule(538.17, '#ffffff')]),
+    false,
+  );
+});
