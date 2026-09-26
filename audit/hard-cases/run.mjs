@@ -57,10 +57,13 @@ const provenance = {
   },
   harness: {
     commit: git(here, 'rev-parse', 'HEAD'),
+    // Tracked sources only: result folders written beside the harness are
+    // not changes to it; the three hashes below pin the files themselves.
     modified: !!git(
       here,
       'status',
       '--porcelain',
+      '--untracked-files=no',
       '--',
       '.',
       '../reliability/renderers.mjs',

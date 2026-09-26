@@ -317,7 +317,7 @@ const summary = {
   version: PDF_COMPOSITE_VERSION,
   provenance: {
     engine: { root: args['engine-root'], commit: git(root, 'rev-parse', 'HEAD'), engineFilesModified: !!git(root, 'status', '--porcelain', '--', 'lib') },
-    harness: { commit: git(here, 'rev-parse', 'HEAD'), generatorSha256: sha(resolve(here, 'pdf-composite.mjs')), runnerSha256: sha(resolve(here, 'pdf-composite-run.mjs')) },
+    harness: { commit: git(here, 'rev-parse', 'HEAD'), modified: !!git(here, 'status', '--porcelain', '--untracked-files=no', '--', '.'), generatorSha256: sha(resolve(here, 'pdf-composite.mjs')), runnerSha256: sha(resolve(here, 'pdf-composite-run.mjs')) },
     producer: `Chromium ${browser.version?.() ?? ''} page.pdf, DejaVu Sans`,
     independentReader: 'pdfminer.six (Python), not the product reader',
   },
