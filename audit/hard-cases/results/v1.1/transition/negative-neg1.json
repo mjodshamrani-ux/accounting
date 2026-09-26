@@ -1,0 +1,66 @@
+{
+  "baseline": "work/base-888415f/dist",
+  "from": "0.3.14-experimental",
+  "to": "0.3.16-experimental",
+  "appended": [],
+  "scenarios": {
+    "demo": {
+      "cells": 1098,
+      "problems": [
+        "demo: Match Evidence unexpected new column Retained Evidence",
+        "demo: Match Evidence!1:23 undefined → \"Retained Evidence\"",
+        "demo: Match Evidence!2:23 undefined → \"\"",
+        "demo: Match Evidence!3:23 undefined → \"\"",
+        "demo: Match Evidence!4:23 undefined → \"\"",
+        "demo: Match Evidence!5:23 undefined → \"\"",
+        "demo: Match Evidence!6:23 undefined → \"\"",
+        "demo: Match Evidence!7:23 undefined → \"\"",
+        "demo: Match Evidence!8:23 undefined → \"\"",
+        "demo: Match Evidence!9:23 undefined → \"\"",
+        "demo: Match Evidence!10:23 undefined → \"\"",
+        "demo: Match Evidence!11:23 undefined → \"\"",
+        "demo: Match Evidence!12:23 undefined → \"\"",
+        "demo: Match Evidence!13:23 undefined → \"\"",
+        "demo: Match Evidence!14:23 undefined → \"\"",
+        "demo: Match Evidence!15:23 undefined → \"\""
+      ],
+      "allowed": [
+        "Export Metadata!2:2: engine version 0.3.14-experimental → 0.3.16-experimental",
+        "session engine version"
+      ],
+      "evidenceChecked": 0,
+      "evidenceNonEmpty": 0,
+      "arabicEqualsEnglish": true
+    },
+    "evidence": {
+      "cells": 639,
+      "problems": [
+        "evidence: Match Evidence unexpected new column Retained Evidence",
+        "evidence: Match Evidence!1:23 undefined → \"Retained Evidence\"",
+        "evidence: Match Evidence!2:23 undefined → \"batch (Batch): B-31\"",
+        "evidence: Match Evidence!3:23 undefined → \"batch (Batch): G-7001\"",
+        "evidence: Match Evidence!4:23 undefined → \"batch (Batch): B-31\"",
+        "evidence: Match Evidence!5:23 undefined → \"batch (Batch): G-7001\"",
+        "evidence: Match Evidence!6:23 undefined → \"batch (Batch): B-32\"",
+        "evidence: Match Evidence!7:23 undefined → \"batch (Batch): G-7002\""
+      ],
+      "allowed": [
+        "Export Metadata!2:2: engine version 0.3.14-experimental → 0.3.16-experimental",
+        "session engine version"
+      ],
+      "evidenceChecked": 0,
+      "evidenceNonEmpty": 0,
+      "arabicEqualsEnglish": true
+    }
+  },
+  "oldSession": {
+    "ar": {
+      "messageShown": true,
+      "workspaceOpened": false
+    },
+    "en": {
+      "messageShown": true,
+      "workspaceOpened": false
+    }
+  }
+}

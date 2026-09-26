@@ -835,10 +835,12 @@ test('S08: the same file under another name, or overlapping exports, are not con
 });
 
 test('compatibility: a session saved by the previous engine is refused, not silently re-decided', async () => {
-  // T01, G08 and R01 change which rows match, so a 0.3.14 session restored
-  // here would recompute different results under its saved decisions. The
-  // session format is unchanged; only the engine version differs.
-  assert.equal(ENGINE_VERSION, '0.3.15-experimental');
+  // T01, G08 and R01 (0.3.15), then the V1.1 self-comparison, reference and
+  // review changes (0.3.16), change which rows match, so an older session
+  // restored here would recompute different results under its saved
+  // decisions. The session format is unchanged; only the engine version
+  // differs. Its decisions are not restored from the original files either.
+  assert.equal(ENGINE_VERSION, '0.3.16-experimental');
   const rows = [
     ['Date', 'Reference', 'Type', 'Amount'],
     ['2026-07-09', 'INV-34001', 'Tax Invoice', '1250.00'],
@@ -864,9 +866,11 @@ test('compatibility: a session saved by the previous engine is refused, not sile
     1,
   );
   const saved = JSON.parse(new TextDecoder().decode(bytes));
-  saved.engine = '0.3.14-experimental';
-  await assert.rejects(
-    restoreSession(new TextEncoder().encode(JSON.stringify(saved)).buffer),
-    /إصدار ملف الجلسة غير متوافق/,
-  );
+  for (const previous of ['0.3.14-experimental', '0.3.15-experimental']) {
+    saved.engine = previous;
+    await assert.rejects(
+      restoreSession(new TextEncoder().encode(JSON.stringify(saved)).buffer),
+      /إصدار ملف الجلسة غير متوافق/,
+    );
+  }
 });

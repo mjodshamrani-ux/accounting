@@ -1,0 +1,48 @@
+{
+  "baseline": "work/base-888415f/dist",
+  "from": "0.3.14-experimental",
+  "to": "0.3.16-experimental",
+  "appended": [
+    {
+      "sheet": "Match Evidence",
+      "header": "Retained Evidence"
+    }
+  ],
+  "scenarios": {
+    "demo": {
+      "cells": 1098,
+      "problems": [],
+      "allowed": [
+        "Match Evidence: column 23 \"Retained Evidence\" appended",
+        "Export Metadata!2:2: engine version 0.3.14-experimental → 0.3.16-experimental",
+        "session engine version"
+      ],
+      "evidenceChecked": 14,
+      "evidenceNonEmpty": 0,
+      "arabicEqualsEnglish": true
+    },
+    "evidence": {
+      "cells": 639,
+      "problems": [],
+      "allowed": [
+        "Match Evidence: column 23 \"Retained Evidence\" appended",
+        "Export Metadata!2:2: engine version 0.3.14-experimental → 0.3.16-experimental",
+        "session engine version"
+      ],
+      "evidenceChecked": 6,
+      "evidenceNonEmpty": 6,
+      "arabicEqualsEnglish": true
+    }
+  },
+  "oldSession": {
+    "ar": {
+      "messageShown": true,
+      "workspaceOpened": false
+    },
+    "en": {
+      "messageShown": true,
+      "workspaceOpened": false
+    }
+  },
+  "passed": true
+}
