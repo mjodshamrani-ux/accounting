@@ -21,6 +21,7 @@ export const headers = {
     currency: 'Currency',
     account: 'Account',
     voucherReference: 'Voucher No',
+    documentReference: 'Document No',
     batch: 'Batch',
   },
   ar: {
@@ -38,6 +39,7 @@ export const headers = {
     currency: 'العملة',
     account: 'الحساب',
     voucherReference: 'رقم القيد',
+    documentReference: 'رقم المستند',
     batch: 'مرجع الدفعة',
   },
 };
