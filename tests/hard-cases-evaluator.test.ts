@@ -43,6 +43,7 @@ const engine = await loadHardEngine(new URL('..', import.meta.url).pathname);
 const manifests: Record<string, unknown[]> = {
   validation: hardManifest('validation', 4000),
   development: hardManifest('development', 1200),
+  holdout: hardManifest('holdout', 800),
 };
 const spec = (template: string, variant: string, split = 'validation') =>
   buildHardCase(
@@ -225,6 +226,21 @@ test('evaluator: a reference warning does not hide a wrong amount or date', asyn
     assert.ok(record.counts.silentMisreads > 0);
     assert.ok(record.findings.some((f: string) => /does not excuse/.test(f)));
   }
+});
+
+test('evaluator: a row read under its own document number is not a misread, any other value is', async () => {
+  const s = spec('H03-document-no-vs-chosen-reference', 'agree', 'holdout');
+  assert.equal(await verdict(s), 'pass');
+  const record = await evaluateHardCase(
+    s,
+    tampered((r) => {
+      const t = r.supplier.transactions[0];
+      t.reference = `${t.reference}7`;
+    }),
+    'logical',
+  );
+  assert.equal(record.verdict, 'fail-unsafe');
+  assert.ok(record.counts.silentMisreads > 0);
 });
 
 test('evaluator: unaided and declared runs record assistance separately', async () => {

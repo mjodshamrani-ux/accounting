@@ -17,7 +17,7 @@ import {
   renderSource,
   sourceTable,
 } from '../reliability/renderers.mjs';
-export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-2.0.0';
+export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-2.0.1';
 
 /** Escape a catalogue key for a regular expression, with each `${…}`
  * placeholder standing for any text. */
@@ -358,9 +358,13 @@ export async function evaluateHardCase(
       c.rowsExpected += oracleRows.length;
       c.rowsErrored += side.errors.filter((e) => e.row > 0).length;
       const used = new Set();
+      // Every identity the generator writes into its own column. 2.0.1: the
+      // explicit document number (generator 1.3.0) was missing, so a row read
+      // under its document number counted as misread.
       const identities = (r) =>
         [
           r.reference,
+          r.documentReference,
           r.bankReference,
           r.receiptReference,
           r.voucherReference,
