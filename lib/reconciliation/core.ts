@@ -1,7 +1,11 @@
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
-import { buildReconciliationCases, identityConflicts } from './cases.ts';
+import {
+  automaticConflicts,
+  buildReconciliationCases,
+  identityConflicts,
+} from './cases.ts';
 import { extractStatementMetadata } from './statement-metadata.ts';
 import { headerMatches, normalizeHeaderLabel } from './header-labels.ts';
 import {
@@ -1332,7 +1336,7 @@ export function compare(
       (!explicitNumericDocument(l) || s.documentType !== l.documentType)
     )
       continue;
-    if (identityConflicts(s, l).length) continue;
+    if (automaticConflicts(s, l).length) continue;
     if (s.reference.trim() !== l.reference.trim()) continue;
     if (usedB.has(l.id) || rejectedSet.has(`${s.id}|${l.id}`)) continue;
     const days = Math.abs(Date.parse(s.date) - Date.parse(l.date)) / 86400000;

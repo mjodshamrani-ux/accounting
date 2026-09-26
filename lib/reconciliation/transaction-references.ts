@@ -1,6 +1,30 @@
 import type { Mapping, SheetData, Transaction } from './types.ts';
 import { headerMatches } from './header-labels.ts';
 
+// Document-type labels the product understands. This is a closed, general
+// vocabulary: whole labels whose qualifier names the issuer or the tax status,
+// never another role. It is not a dictionary of any party's own codes; a code
+// such as "RV" or "TX-07" stays Unknown and is never guessed. The same words
+// open a description only as a conflict check, never as evidence for a match.
+export const DOCUMENT_LABELS = {
+  Invoice:
+    /(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)|ap tax invoice|فاتور[ةه](?: (?:ضريبي[ةه]|مشتريات|شراء|مورد))?)/
+      .source,
+  'Credit Note':
+    /(?:(?:ap |tax |vendor |supplier )?(?:credit note|credit memo)|إشعار دائن|اشعار دائن)/
+      .source,
+  Payment:
+    /(?:payment|receipt|supplier payment|vendor payment|دفعة|سداد|دفع|قبض)/
+      .source,
+  Journal: /(?:journal|adjustment|journal entry|قيد|تسوية)/.source,
+} as const;
+const wholeLabel = Object.fromEntries(
+  Object.entries(DOCUMENT_LABELS).map(([k, v]) => [
+    k,
+    new RegExp(`^${v}$`, 'i'),
+  ]),
+) as Record<keyof typeof DOCUMENT_LABELS, RegExp>;
+
 // Secondary evidence is read only from explicit, unique headers and safe cells.
 // The original parsed row remains available even when a field is not usable.
 export function transactionReferences(
@@ -52,23 +76,9 @@ export function transactionReferences(
   // or its tax status, never a different role; anything else stays Unknown.
   const categoryType = rawType.normalize('NFKC').replace(/\s+/g, ' ');
   const documentType: NonNullable<Transaction['documentType']> =
-    /^(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)|ap tax invoice|فاتور[ةه](?: (?:ضريبي[ةه]|مشتريات|شراء|مورد))?)$/i.test(
-      categoryType,
-    )
-      ? 'Invoice'
-      : /^(?:(?:ap |tax |vendor |supplier )?(?:credit note|credit memo)|إشعار دائن|اشعار دائن)$/i.test(
-            categoryType,
-          )
-        ? 'Credit Note'
-        : /^(?:payment|receipt|supplier payment|vendor payment|دفعة|سداد|دفع|قبض)$/i.test(
-              categoryType,
-            )
-          ? 'Payment'
-          : /^(?:journal|adjustment|journal entry|قيد|تسوية)$/i.test(
-                categoryType,
-              )
-            ? 'Journal'
-            : 'Unknown';
+    (Object.keys(wholeLabel) as (keyof typeof DOCUMENT_LABELS)[]).find((role) =>
+      wholeLabel[role].test(categoryType),
+    ) ?? 'Unknown';
   if (rawType && documentType === 'Unknown')
     referenceEvidenceIssues.push(`نوع مستند غير متحقق: ${rawType}`);
   const documentReference = field(
@@ -103,6 +113,24 @@ export function transactionReferences(
   const batch = field(batchPattern);
   const mapped =
     mapping.reference < 0 ? '' : (row[mapping.reference] ?? '').trim();
+  // Without a chosen reference column only an explicit document number, bank
+  // reference or receipt number identifies a row across the two books. A
+  // voucher, batch or order number is kept by each book for itself, so a row
+  // identified by one of them alone is never approved automatically.
+  if (
+    mapping.reference < 0 &&
+    !documentReference &&
+    !explicitBankReference &&
+    !explicitReceiptReference
+  )
+    referenceEvidenceIssues.push(
+      'لم يُختر عمود المرجع، ولا يحمل الصف رقم مستند أو مرجعًا بنكيًا أو رقم إيصال صريحًا؛ لا تُعتمد مطابقة آلية.',
+    );
+  // A batch groups postings; it does not name a document.
+  if (mapped && batch && mapped === batch)
+    referenceEvidenceIssues.push(
+      'العمود المختار مرجعًا هو رقم دفعة (Batch)، ولا يثبت هوية المستند.',
+    );
   const primaryReference =
     documentType === 'Payment'
       ? bankReference ||
@@ -118,10 +146,10 @@ export function transactionReferences(
           documentReference || mapped || voucherReference || poReference;
   // An order can legitimately have several invoices of the same amount. Keep
   // an order-only identity visible, but never present it as proof of a document.
+  // A document number that is the order number itself is the order again.
   if (
     poReference &&
     primaryReference === poReference &&
-    !documentReference &&
     (!mapped || mapped === poReference)
   )
     referenceEvidenceIssues.push('أمر الشراء وحده لا يثبت هوية الفاتورة');
@@ -171,6 +199,9 @@ export function transactionReferences(
   ];
   return {
     ...(retainedEvidence.length ? { retainedEvidence } : {}),
+    // The value in the column the accountant chose, kept to check that two
+    // rows matched on another identity do not name different documents there.
+    ...(mapped ? { chosenReference: mapped } : {}),
     primaryReference,
     documentReference,
     voucherReference,

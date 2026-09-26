@@ -119,6 +119,7 @@ export type Transaction = {
   // prefix or a mixed PO/bank column is not positive evidence for grouping.
   paymentIdentityFields?: ('bankReference' | 'receiptReference')[];
   documentType?: 'Invoice' | 'Credit Note' | 'Payment' | 'Journal' | 'Unknown';
+  chosenReference?: string;
   // Values read from the row that no other field carries, with the header
   // they came from. Kept for the audit trail only; never matching evidence.
   retainedEvidence?: {

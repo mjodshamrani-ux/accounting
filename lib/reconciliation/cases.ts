@@ -1,4 +1,5 @@
 import { money, safeSum } from './core.ts';
+import { DOCUMENT_LABELS } from './transaction-references.ts';
 import type {
   CaseCounts,
   Match,
@@ -18,22 +19,17 @@ const exactRef = (a: Transaction, b: Transaction) =>
   a.reference.trim() === b.reference.trim();
 // Description text is never positive matching evidence. An explicit leading
 // document label can nevertheless contradict another document's declared role.
+// The same documented vocabulary as the Type column, as a leading label.
+const descriptionLabels = (['Credit Note', 'Invoice', 'Payment'] as const).map(
+  (role) =>
+    [
+      role,
+      new RegExp(`^${DOCUMENT_LABELS[role]}(?=\\s|[:：-]|$)`, 'i'),
+    ] as const,
+);
 const descriptionTypeHint = (value: string): Transaction['documentType'] => {
-  const text = value.trim();
-  if (
-    /^(?:credit note|credit memo|إشعار دائن|اشعار دائن)(?=\s|[:：-]|$)/i.test(
-      text,
-    )
-  )
-    return 'Credit Note';
-  if (/^(?:(?:ap )?invoice|فاتورة|فاتوره)(?=\s|[:：-]|$)/i.test(text))
-    return 'Invoice';
-  if (
-    /^(?:supplier payment|payment|receipt|دفعة|سداد|دفع|قبض)(?=\s|[:：-]|$)/i.test(
-      text,
-    )
-  )
-    return 'Payment';
+  const text = value.trim().normalize('NFKC').replace(/\s+/g, ' ');
+  return descriptionLabels.find(([, label]) => label.test(text))?.[0];
 };
 export function identityConflicts(a: Transaction, b: Transaction): string[] {
   const conflicts: string[] = [];
@@ -74,6 +70,28 @@ export function identityConflicts(a: Transaction, b: Transaction): string[] {
   )
     conflicts.push(
       'توجد تسميات صريحة متعارضة لنوع المستند في الحقول أو بداية الوصف. الوصف لا يثبت المطابقة، لكن التعارض يمنع اعتمادها آليًا.',
+    );
+  return conflicts;
+}
+/** Conflicts that stop an automatic match but leave the accountant free to
+ * confirm the rows by hand: documents matched on another identity must not
+ * name different documents in the column the accountant chose as the
+ * reference. Payments and journals are exempt: their parts carry their own
+ * voucher-like references, and a payment is proven by its bank or receipt
+ * identity instead. */
+export function automaticConflicts(a: Transaction, b: Transaction): string[] {
+  const conflicts = identityConflicts(a, b);
+  const document = (t: Transaction) =>
+    t.documentType !== 'Payment' && t.documentType !== 'Journal';
+  if (
+    document(a) &&
+    document(b) &&
+    a.chosenReference &&
+    b.chosenReference &&
+    a.chosenReference.trim() !== b.chosenReference.trim()
+  )
+    conflicts.push(
+      `المرجعان المختاران مختلفان: ${a.chosenReference} / ${b.chosenReference}`,
     );
   return conflicts;
 }
@@ -333,6 +351,11 @@ export function buildReconciliationCases(
       ...(!groupDatesProven
         ? ['حركات الطرف المجمع ليست في تاريخ واحد؛ لم تثبت وحدة المجموعة.']
         : []),
+      ...(conflictingPO
+        ? [
+            'تذكر حركات المجموعة أوامر شراء مختلفة؛ لا يثبت ذلك أنها مستند واحد.',
+          ]
+        : []),
       ...(members.some((t) => excludedIdentities.has(t.reference))
         ? [
             'يوجد صف مستبعد يحمل هوية المجموعة نفسها؛ يلزم التحقق من اكتمال أجزائها.',
@@ -342,7 +365,7 @@ export function buildReconciliationCases(
     if (
       ![...a, ...b].some((t) => t.referenceEvidenceIssues?.length) &&
       group.every((t) => exactRef(single, t) && compatible(single, t, scope)) &&
-      group.every((t) => identityConflicts(single, t).length === 0) &&
+      group.every((t) => automaticConflicts(single, t).length === 0) &&
       sameType &&
       !paymentIdentityConflict &&
       groupDatesProven &&
@@ -382,7 +405,7 @@ export function buildReconciliationCases(
     if (a.length !== 1 || b.length !== 1 || !free(a) || !free(b)) continue;
     const s = a[0],
       l = b[0];
-    const conflicts = identityConflicts(s, l);
+    const conflicts = automaticConflicts(s, l);
     if (
       exactRef(s, l) &&
       compatible(s, l, scope) &&
@@ -398,6 +421,36 @@ export function buildReconciliationCases(
         [
           'المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.',
           ...conflicts,
+        ],
+      );
+      continue;
+    }
+    // The same reference, amount and date, held back only by what the rows
+    // do not prove (an unverified type, an order-only identity, no chosen
+    // reference column): shown together for review with the reasons, never
+    // left as two unrelated rows and never approved.
+    const unverified = [
+      ...new Set([
+        ...(s.referenceEvidenceIssues ?? []),
+        ...(l.referenceEvidenceIssues ?? []),
+      ]),
+    ];
+    if (
+      exactRef(s, l) &&
+      compatible(s, l, scope) &&
+      s.amount === l.amount &&
+      unverified.length &&
+      !rejectedGroup(a, b)
+    ) {
+      add(
+        'AMBIGUOUS_CANDIDATE',
+        'Needs Review',
+        a,
+        b,
+        'EXACT_REFERENCE_EVIDENCE_UNVERIFIED_V1',
+        [
+          'المرجع والمبلغ والتاريخ متطابقة، لكن دليل المستند غير متحقق. لم تُعتمد المطابقة.',
+          ...unverified,
         ],
       );
       continue;

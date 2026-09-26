@@ -666,7 +666,7 @@ export const en: Messages = {
       directionDebit: 'Debit increases the amount owed',
       directionCredit: 'Credit increases the amount owed',
       noReferenceColumn:
-        'No reference column was identified, so no automatic matches will be accepted. If there is one, select it under “Advanced options”.',
+        'No reference column was identified. Only transactions with a document number, bank reference or receipt number in an explicit column can be matched automatically. If there is a reference column, select it under “Advanced options”.',
       chosenFormat: 'The format you chose. ',
       dateFormatIn: (side: number) => `Date format in ${inSentence[side]}`,
       numberFormatIn: (side: number) => `Amount format in ${inSentence[side]}`,

@@ -45,6 +45,7 @@ const tests = [
   'tests/ambiguity-gate-acceptance-047.test.ts',
   'tests/hard-cases.test.ts',
   'tests/same-source.test.ts',
+  'tests/reference-interactions.test.ts',
 ];
 const mutations = [
   {
@@ -101,8 +102,8 @@ const mutations = [
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [
       [
-        '/^(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)',
-        '/(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)',
+        'new RegExp(`^${v}$`, \'i\')',
+        'new RegExp(`${v}$`, \'i\')',
       ],
     ],
   },
@@ -141,10 +142,55 @@ const mutations = [
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [
       [
-        '!documentReference &&\n    (!mapped || mapped === poReference)',
-        '!documentReference &&\n    !voucherReference &&\n    (!mapped || mapped === poReference)',
+        'primaryReference === poReference &&\n    (!mapped || mapped === poReference)',
+        'primaryReference === poReference &&\n    !voucherReference &&\n    (!mapped || mapped === poReference)',
       ],
     ],
+  },
+  {
+    name: 'v11-take-a-document-number-equal-to-the-order-as-proof',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        'primaryReference === poReference &&\n    (!mapped || mapped === poReference)',
+        'primaryReference === poReference &&\n    !documentReference &&\n    (!mapped || mapped === poReference)',
+      ],
+    ],
+  },
+  {
+    name: 'v11-approve-on-a-voucher-with-no-chosen-reference',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['mapping.reference < 0 &&\n    !documentReference &&', 'false &&']],
+  },
+  {
+    name: 'v11-take-a-batch-for-a-document',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['if (mapped && batch && mapped === batch)', 'if (false)']],
+  },
+  {
+    name: 'v11-let-a-document-number-outvote-the-chosen-references',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        'a.chosenReference.trim() !== b.chosenReference.trim()',
+        'false',
+      ],
+    ],
+  },
+  {
+    name: 'v11-read-only-bare-labels-in-descriptions',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        'new RegExp(`^${DOCUMENT_LABELS[role]}(?=\\\\s|[:：-]|$)`, \'i\')',
+        'new RegExp(`^${DOCUMENT_LABELS[role].replace(/\\(\\?:\\(\\?:[^)]*\\)\\?/, \'(?:\')}(?=\\\\s|[:：-]|$)`, \'i\')',
+      ],
+    ],
+  },
+  {
+    name: 'v11-leave-blocked-exact-pairs-as-unrelated-rows',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['unverified.length &&', 'false &&']],
   },
   {
     name: 'hard-g08-accept-payment-parts-beyond-the-date-window',
@@ -458,7 +504,9 @@ for (const mutation of selectedMutations) {
           : source.split(before).length - 1;
       if (count !== 1)
         throw Error(`Stale or non-unique mutation anchor: ${mutation.name}`);
-      source = source.replace(before, after);
+      // A function inserts the replacement literally: "$`" or "$'" in a
+      // mutant's text must not act as a replacement pattern.
+      source = source.replace(before, () => after);
     }
     await writeFile(file, source);
     // A parser error is an invalid mutant, not evidence that an accounting
