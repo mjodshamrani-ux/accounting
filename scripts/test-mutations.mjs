@@ -102,22 +102,24 @@ const mutations = [
   {
     name: 'hard-t01-read-any-label-ending-in-invoice',
     file: 'lib/reconciliation/transaction-references.ts',
-    changes: [
-      [
-        'new RegExp(`^${v}$`, \'i\')',
-        'new RegExp(`${v}$`, \'i\')',
-      ],
-    ],
+    changes: [["new RegExp(`^${v}$`, 'i')", "new RegExp(`${v}$`, 'i')"]],
   },
   {
     name: 'v11-read-carried-forward-as-a-transaction',
     file: 'lib/reconciliation/core.ts',
-    changes: [['balance carried forward|carried forward|brought forward|', 'balance carried forward|']],
+    changes: [
+      [
+        'balance carried forward|carried forward|brought forward|',
+        'balance carried forward|',
+      ],
+    ],
   },
   {
     name: 'v11-refuse-black-text-grazed-by-a-table-rule',
     file: 'lib/reconciliation/pdf-paint-order.ts',
-    changes: [['if (thin && share <= 0.1 && (rules += share) <= 0.2) continue;', '']],
+    changes: [
+      ['if (thin && share <= 0.1 && (rules += share) <= 0.2) continue;', ''],
+    ],
   },
   {
     name: 'v11-let-stripes-hide-text',
@@ -177,7 +179,9 @@ const mutations = [
   {
     name: 'v11-approve-on-a-voucher-with-no-chosen-reference',
     file: 'lib/reconciliation/transaction-references.ts',
-    changes: [['mapping.reference < 0 &&\n    !documentReference &&', 'false &&']],
+    changes: [
+      ['mapping.reference < 0 &&\n    !documentReference &&', 'false &&'],
+    ],
   },
   {
     name: 'v11-take-a-batch-for-a-document',
@@ -188,10 +192,7 @@ const mutations = [
     name: 'v11-let-a-document-number-outvote-the-chosen-references',
     file: 'lib/reconciliation/cases.ts',
     changes: [
-      [
-        'a.chosenReference.trim() !== b.chosenReference.trim()',
-        'false',
-      ],
+      ['a.chosenReference.trim() !== b.chosenReference.trim()', 'false'],
     ],
   },
   {
@@ -199,8 +200,8 @@ const mutations = [
     file: 'lib/reconciliation/cases.ts',
     changes: [
       [
-        'new RegExp(`^${DOCUMENT_LABELS[role]}(?=\\\\s|[:：-]|$)`, \'i\')',
-        'new RegExp(`^${DOCUMENT_LABELS[role].replace(/\\(\\?:\\(\\?:[^)]*\\)\\?/, \'(?:\')}(?=\\\\s|[:：-]|$)`, \'i\')',
+        "new RegExp(`^${DOCUMENT_LABELS[role]}(?=\\\\s|[:：-]|$)`, 'i')",
+        "new RegExp(`^${DOCUMENT_LABELS[role].replace(/\\(\\?:\\(\\?:[^)]*\\)\\?/, '(?:')}(?=\\\\s|[:：-]|$)`, 'i')",
       ],
     ],
   },
@@ -230,7 +231,8 @@ const mutations = [
     changes: [
       [
         /export function collectGenericAccounts\([\s\S]*?\)\s*\{/,
-        '$&\n  return; // deliberate loss of source account evidence',
+        (match) =>
+          `${match}\n  return; // deliberate loss of source account evidence`,
       ],
     ],
   },
@@ -522,9 +524,13 @@ for (const mutation of selectedMutations) {
           : source.split(before).length - 1;
       if (count !== 1)
         throw Error(`Stale or non-unique mutation anchor: ${mutation.name}`);
-      // A function inserts the replacement literally: "$`" or "$'" in a
-      // mutant's text must not act as a replacement pattern.
-      source = source.replace(before, () => after);
+      // Text is inserted literally: "$`" or "$'" in a mutant's text must not
+      // act as a replacement pattern. A mutant that keeps the matched text
+      // says so with a function of the match.
+      source = source.replace(
+        before,
+        typeof after === 'function' ? after : () => after,
+      );
     }
     await writeFile(file, source);
     // A parser error is an invalid mutant, not evidence that an accounting
