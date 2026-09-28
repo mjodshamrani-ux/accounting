@@ -63,6 +63,7 @@ const label = {
     production: 'إنتاجي',
     experimental: 'تجريبي',
     unimplemented: 'غير منفذ',
+    unverified: 'غير متحقق منه',
   },
   scope: { full: 'كاملة', partial: 'جزئية', none: 'لا' },
 };

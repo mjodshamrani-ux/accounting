@@ -12,7 +12,8 @@
 //                           required refusal, e.g. G04 "no approval")
 //            safe-refusal   only that an unbuilt capability does no harm
 //            not-measured   nothing measured in this round
-//   product  production | experimental (spike only) | unimplemented
+//   product  production | experimental (spike only) | unimplemented |
+//            unverified (untested: whether the product handles it is unknown)
 //   scope    full | partial | none — against the original input and judgement
 //   gap      the parts of the original specification left untested
 // Unaided versus assisted is not written here: coverage-report.mjs reads it
@@ -388,7 +389,7 @@ export const COVERAGE = [
     'N10',
     'none',
     'not-measured',
-    'production',
+    'unverified',
     'none',
     'محارف خفية واتجاه نص في المراجع غير مولَّدة.',
   ),
@@ -400,7 +401,7 @@ export const COVERAGE = [
     'F02',
     'none',
     'not-measured',
-    'production',
+    'unverified',
     'none',
     'العارض لا يكتب عناوين مدمجة متعددة الصفوف.',
   ),
@@ -431,7 +432,7 @@ export const COVERAGE = [
     'F08',
     'none',
     'not-measured',
-    'production',
+    'unverified',
     'none',
     'BOM والترميز غير المدعوم غير مولَّدين.',
   ),
@@ -514,7 +515,7 @@ export const COVERAGE = [
     'P08',
     'none',
     'not-measured',
-    'production',
+    'unverified',
     'none',
     'جدولان في صفحة غير مولَّدين؛ TWOREF عمودا مرجع لا جدولان.',
   ),
@@ -569,7 +570,7 @@ export const COVERAGE = [
     'S10',
     'none',
     'not-measured',
-    'production',
+    'unverified',
     'none',
     'إلغاء العامل غير ممارس في اختبارات Node.',
   ),
