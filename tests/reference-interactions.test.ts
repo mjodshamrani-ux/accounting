@@ -111,6 +111,47 @@ test('an explicit document number cannot outvote the references the accountant c
   assert.deepEqual(approved(agreeing), ['2']);
 });
 
+test('identities equal only after normalisation are never approved where no chosen reference can differ', async () => {
+  // The chosen-reference conflict applies to documents only. A payment is
+  // identified by its bank reference, and a document by its explicit number
+  // even when the chosen references agree: both still need the text exactly.
+  const cases: [string[], string[][], string[][]][] = [
+    [
+      ['Date', 'Bank Ref', 'Reference', 'Type', 'Description', 'Amount'],
+      [['2026-07-09', 'BNK-7781', 'PAY-1', 'Payment', 'Transfer', '-100.00']],
+      [['2026-07-09', 'bnk7781', 'PAY-1', 'Payment', 'Transfer', '-100.00']],
+    ],
+    [
+      ['Date', 'Document No', 'Reference', 'Type', 'Description', 'Amount'],
+      [['2026-07-09', 'INV-5501', 'R-5501', 'Invoice', 'Goods', '100.00']],
+      [['2026-07-09', 'inv 5501', 'R-5501', 'Invoice', 'Goods', '100.00']],
+    ],
+  ];
+  for (const [H, supplier, ledger] of cases) {
+    const control = H.map((h) =>
+      h === 'Date'
+        ? '2026-07-03'
+        : h === 'Type'
+          ? 'Invoice'
+          : h === 'Description'
+            ? 'Goods'
+            : h === 'Amount'
+              ? '300.00'
+              : 'INV-9001',
+    );
+    const r = await reconcile(
+      H,
+      [...supplier, control],
+      [...ledger, control],
+      'Reference',
+    );
+    assert.deepEqual(approved(r), ['3'], H[1]);
+    // Written identically, the same rows match.
+    const same = await reconcile(H, supplier, supplier, 'Reference');
+    assert.deepEqual(approved(same), ['2'], H[1]);
+  }
+});
+
 test('a batch, an account or an order chosen as the reference does not prove a document', async () => {
   for (const [header, value] of [
     ['Batch', 'B-7701'],
