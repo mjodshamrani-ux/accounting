@@ -297,7 +297,10 @@ const mutations = [
     name: 'ignore-known-document-evidence-conflicts',
     file: 'lib/reconciliation/core.ts',
     changes: [
-      ['if (identityConflicts(s, l).length) continue;', 'if (false) continue;'],
+      [
+        'if (automaticConflicts(s, l).length) continue;',
+        'if (false) continue;',
+      ],
     ],
   },
   {
