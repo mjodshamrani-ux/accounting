@@ -6,6 +6,7 @@ import {
 import {
   certifiedDocumentPartitions,
   DOCUMENT_PAIR_RULE,
+  usableDiscriminator,
 } from './document-pairs.ts';
 import { paymentIdentityComponents } from './payment-components.ts';
 import type {
@@ -360,6 +361,7 @@ export function buildReconciliationCases(
       continue;
     const legacyBucket =
       (a.length === 1 || b.length === 1) &&
+      strong(a[0].normalizedReference) &&
       members.every(
         (t) => t.normalizedReference === a[0].normalizedReference,
       ) &&
@@ -368,7 +370,7 @@ export function buildReconciliationCases(
     if (legacyBucket) continue;
     const identity = component.completeClaims.find(
       (claim) =>
-        strong(claim.value) &&
+        usableDiscriminator(claim.value) &&
         members.every(
           (t) =>
             t.paymentIdentityFields?.includes(claim.field) &&
@@ -494,6 +496,9 @@ export function buildReconciliationCases(
     b: refB.get(ref) ?? [],
     partition: false,
   }));
+  const wholeCandidates = new Map(
+    groupCandidates.map((candidate) => [candidate.ref, candidate]),
+  );
   // All partitions are certified from the original document bucket, before
   // exact siblings are consumed. A manual/rejected row cannot create one.
   for (const [a, b] of certifiedDocumentPartitions(supplier, ledger)) {
@@ -501,8 +506,10 @@ export function buildReconciliationCases(
     if (
       refA.get(a[0].normalizedReference)?.length === a.length &&
       refB.get(b[0].normalizedReference)?.length === b.length
-    )
+    ) {
+      wholeCandidates.get(a[0].normalizedReference)!.partition = true;
       continue;
+    }
     groupCandidates.push({
       ref: a[0].normalizedReference,
       a,
@@ -624,7 +631,9 @@ export function buildReconciliationCases(
       !paymentIdentityConflict &&
       groupDatesProven &&
       !conflictingPO &&
-      (single.documentType === 'Payment' || !conflictingVoucher) &&
+      (single.documentType === 'Payment' ||
+        !conflictingVoucher ||
+        (partition && sharedPO)) &&
       !duplicatePosting &&
       !members.some((t) => excludedIdentities.has(t.reference)) &&
       (single.documentType === 'Payment'
@@ -907,9 +916,10 @@ export function buildReconciliationCases(
   const matches = cases
     .filter((c) => c.status === 'Matched')
     .map((c) => {
-      const prior = c.classification === 'EXACT_1_TO_1'
-        ? originalMatchesBySupplier.get(c.supplierMembers[0].id)
-        : undefined;
+      const prior =
+        c.classification === 'EXACT_1_TO_1'
+          ? originalMatchesBySupplier.get(c.supplierMembers[0].id)
+          : undefined;
       return {
         ...(prior ?? {
           supplierId: c.supplierMembers[0].id,

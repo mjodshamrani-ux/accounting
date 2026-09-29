@@ -6,8 +6,8 @@ field validation, or a measure of unaided import or UI completion.
 
 **Timing correction:** the contracts were authored without observing the P2
 implementation, but engine edits were already in progress when their manifest
-was frozen. The statement in the original frozen README that this preceded
-engine edits is inaccurate. This correction supersedes that statement; the
+was frozen. The statements in the original frozen README and contract authorship
+that this preceded engine edits are inaccurate. This correction supersedes them; the
 original frozen bytes and their hash remain intact.
 
 The oracle requires 11 automatic member sets across nine positive cases, and
@@ -44,6 +44,30 @@ The baseline result SHA256 is
 `f83ca947e40799700a0a24f8045a315829d7dc1d33faa6b7844ffe5fd278cb92`.
 `baseline-302c834.provenance.json` contains the full library digest map and
 additional frozen artifact hashes.
+
+## First P2 candidate
+
+`candidate-9bf8775.json` records one run against immutable commit
+`9bf8775416852cd4a691023647d06473c094eb69`, engine `0.3.19-experimental`.
+All 56 library files matched that commit and stayed unchanged.
+
+| Measure | Candidate |
+| --- | ---: |
+| Complete contracts passed | 17 / 19 |
+| Required automatic member sets satisfied | 9 / 11 |
+| Forbidden automatic member sets approved | 0 |
+| Production operation exceptions | 0 |
+
+P2D06 still misses supplier row 2 against ledger rows 3 and 4, the invoice
+1000 = 400 + 600 with selected Reference INV-A and shared PO-A. P2D07 misses
+the inverse relation. Their separate INV-B 500 pairs pass, and the INV-C 500
+decoys remain unapproved. These are unmet positive contracts, not passing
+conservative outcomes. The original baseline failures remain preserved.
+
+Candidate result SHA256:
+`ab9e5b75e032694c8de750832f4e8eabb594729a0b072fed46c9b84a6cc47189`.
+Full hashes and timing clarification are in
+`candidate-9bf8775.provenance.json`.
 
 ## Reproduction
 

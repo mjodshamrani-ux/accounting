@@ -1,0 +1,43 @@
+{
+  "revision": "9bf8775416852cd4a691023647d06473c094eb69",
+  "engine": "0.3.19-experimental",
+  "runAt": "2026-09-29T10:06:39.461Z",
+  "runtime": "v24.19.0",
+  "cpu": "Apple M5",
+  "platform": "darwin",
+  "scope": "Synthetic CSV read and engine comparison only; UI/export excluded; no field accuracy claim",
+  "scenarios": [
+    {
+      "mode": "ten-thousand-complete-groups",
+      "sourceRowsPerSide": 20000,
+      "readMs": 341.768958,
+      "normalizePairMs": 2378.50225,
+      "matchingMs": 337.24533399999973,
+      "elapsedMs": 3062.618708,
+      "maxRssMiB": 502.078125,
+      "rssMiB": 379.0625,
+      "approvedGroups": 10000,
+      "accountedSourceRows": 40000,
+      "sourceHashes": [
+        "ead5ae5fac4b0f36fd78fef9ce1ab0d8ab706a219a9023f49b3aecc219545a93",
+        "bf34e295f9bbe2085a3239ee7ba470301704cdebba5000eefe5625f5368a4cda"
+      ]
+    },
+    {
+      "mode": "twenty-thousand-normalized-collisions",
+      "sourceRowsPerSide": 20000,
+      "readMs": 197.46658399999978,
+      "normalizePairMs": 2895.769417,
+      "matchingMs": 190.49695799999972,
+      "elapsedMs": 3286.342917,
+      "maxRssMiB": 731.25,
+      "rssMiB": 591.9375,
+      "approvedGroups": 0,
+      "accountedSourceRows": 40000,
+      "sourceHashes": [
+        "94ef4559d30846ff4d72d0f6bb21b6d9696aba0f5c874c2dbf4401469deed72f",
+        "ff13b42c427bd27ea47f407aac22c3357f294bb047664d6465d63303183a4964"
+      ]
+    }
+  ]
+}

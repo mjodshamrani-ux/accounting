@@ -371,3 +371,114 @@ test('P2 invalid calendar dates and direct same-source comparisons cannot become
   assert.equal(r.cases[0].status, 'Needs Review');
   assert.equal(r.cases[0].reviewRequired, true);
 });
+
+test('P2 explicit numeric receipt identities retain leading zeros across separate N:M and N:1 groups', () => {
+  const row = (amount: string, receipt: string): Row => ({ amount, receipt });
+  const r = run(
+    [
+      row('-30', '000840'),
+      row('-70', '000840'),
+      row('-11', '00840'),
+      row('-19', '00840'),
+    ],
+    [
+      row('-20', '000840'),
+      row('-35', '000840'),
+      row('-45', '000840'),
+      row('-30', '00840'),
+    ],
+  );
+  assert.equal(auto(r).length, 2);
+  assert.deepEqual(
+    r.cases.map((c) => [c.supplierTotal, c.ledgerTotal]).sort(),
+    [
+      [-10000, -10000],
+      [-3000, -3000],
+    ].sort(),
+  );
+  for (const c of r.cases)
+    assert.equal(
+      new Set(
+        [...c.supplierMembers, ...c.ledgerMembers].map(
+          (t) => t.receiptReference,
+        ),
+      ).size,
+      1,
+    );
+  conserved(r);
+});
+
+test('P2 numeric support never promotes zero, placeholder or formula-like payment identities', () => {
+  for (const receipt of [
+    '0',
+    '0000',
+    '٠٠٠',
+    'N/A',
+    'TOTAL',
+    'Payment',
+    '=1+1',
+    '#REF!',
+  ]) {
+    const a = [
+      { amount: '-40', receipt },
+      { amount: '-60', receipt },
+    ];
+    const b = [
+      { amount: '-25', receipt },
+      { amount: '-75', receipt },
+    ];
+    const r = run(a, b);
+    assert.equal(auto(r).length, 0, receipt);
+    conserved(r);
+  }
+});
+
+test('P2 certified document identity and shared PO permit different local voucher numbers without weakening whole-document proof', () => {
+  const inv = (amount: string, chosen: string, voucher: string): Row => ({
+    amount,
+    chosen,
+    voucher,
+    type: 'Invoice',
+    reference: 'INV-9911',
+    po: 'PO-9911',
+  });
+  for (const siblings of [false, true]) {
+    for (const reverse of [false, true]) {
+      const a = [inv('1000', 'شرق', 'S-001')];
+      const b = [inv('400', 'شرق', 'L-002'), inv('600', 'شرق', 'L-003')];
+      if (siblings) {
+        a.push(inv('500', 'غرب', 'S-004'));
+        b.push(inv('500', 'غرب', 'L-005'));
+      }
+      const r = reverse ? run(b, a) : run(a, b);
+      assert.equal(auto(r).length, siblings ? 2 : 1);
+      const c = r.cases.find(
+        (c) => c.matchingRule === 'EXACT_DOCUMENT_REFERENCE_SUBGROUP_TOTAL_V1',
+      );
+      assert.ok(c);
+      assert.equal(c.supplierTotal, 100000);
+      assert.equal(c.ledgerTotal, 100000);
+      conserved(r);
+    }
+  }
+  const a = [inv('1000', 'شرق', 'S-001')];
+  const b = [inv('400', 'شرق', 'L-002'), inv('600', 'شرق', 'L-003')];
+  for (const change of [
+    'missing-po',
+    'different-po',
+    'unproven-chosen',
+    'duplicate',
+  ]) {
+    const x = structuredClone(a),
+      y = structuredClone(b);
+    if (change === 'missing-po') [...x, ...y].forEach((t) => (t.po = ''));
+    if (change === 'different-po') y[1].po = 'PO-OTHER';
+    if (change === 'unproven-chosen')
+      [...x, ...y].forEach((t) => (t.chosen = t.reference));
+    if (change === 'duplicate') {
+      y[0].amount = '500';
+      y[1] = { ...y[0] };
+    }
+    assert.equal(auto(run(x, y)).length, 0, change);
+  }
+});

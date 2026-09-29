@@ -1,0 +1,1534 @@
+{
+  "schema": "p2-independent-whole-group-contract/1",
+  "purpose": "Fresh second synthetic P2 holdout; literal expectations, explicit mappings, no field or unaided accuracy claim.",
+  "authorship": "Authored independently during candidate-2 implementation without reading that implementation or its new unit fixtures. Frozen before any execution; individual details withheld until candidate freeze.",
+  "scope": {
+    "supplier": "Synthetic P2 v2 holdout supplier",
+    "entity": "Synthetic P2 v2 holdout entity",
+    "account": "P2-V2-HOLDOUT-AP",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-09-30",
+    "dateWindow": 3,
+    "confirmed": true,
+    "coverageConfirmed": false
+  },
+  "bounds": {
+    "paymentMembersPerSide": 100,
+    "invoiceRelations": [
+      "1:N",
+      "N:1"
+    ],
+    "paymentRelations": [
+      "1:N",
+      "N:1",
+      "N:M"
+    ],
+    "subsetSearch": false
+  },
+  "cases": [
+    {
+      "id": "P2V2H01",
+      "title": "A balanced numeric receipt survives a near-identical unbalanced receipt decoy",
+      "rationale": "Receipt 0017 has a complete N:M relation. Separate literal 017 is unbalanced and must not be merged or used as an amount-based substitute; leading zeros are identity evidence.",
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "supplierTotalMinor": -14000,
+          "ledgerTotalMinor": -14000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H01-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-A1",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-100.00",
+              "PAYMENT",
+              "0017",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "S-A2",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-40.00",
+              "PAYMENT",
+              "0017",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "S-A3",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-60.00",
+              "PAYMENT",
+              "017",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H01-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-A1",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-70.00",
+              "PAYMENT",
+              "0017",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -7000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-A2",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-70.00",
+              "PAYMENT",
+              "0017",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -7000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "L-A3",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-40.00",
+              "PAYMENT",
+              "017",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    },
+    {
+      "id": "P2V2H02",
+      "title": "Large numeric receipt strings remain exact identities across opposite group directions",
+      "rationale": "The explicit receipt values 9007199254740993 and 9007199254740992 are literal strings, not numeric quantities. Require distinct N:1 and 1:N groups despite local document/reference differences and adjacent values beyond the integer precision boundary.",
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": -6000,
+          "ledgerTotalMinor": -6000
+        },
+        {
+          "supplierRows": [
+            4
+          ],
+          "ledgerRows": [
+            3,
+            4
+          ],
+          "supplierTotalMinor": -8000,
+          "ledgerTotalMinor": -8000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H02-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-B1",
+              "SAR",
+              "Payment",
+              "",
+              "SP-11",
+              "-18.00",
+              "SUP-11",
+              "9007199254740993",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -1800,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "SUP-11",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "S-B2",
+              "SAR",
+              "Payment",
+              "",
+              "SP-12",
+              "-42.00",
+              "SUP-12",
+              "9007199254740993",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -4200,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "SUP-12",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "S-B3",
+              "SAR",
+              "Payment",
+              "",
+              "SP-13",
+              "-80.00",
+              "SUP-13",
+              "9007199254740992",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -8000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "SUP-13",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H02-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-B1",
+              "SAR",
+              "Payment",
+              "",
+              "LD-51",
+              "-60.00",
+              "LED-51",
+              "9007199254740993",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "LED-51",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-B2",
+              "SAR",
+              "Payment",
+              "",
+              "LD-52",
+              "-15.00",
+              "LED-52",
+              "9007199254740992",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -1500,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "LED-52",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "L-B3",
+              "SAR",
+              "Payment",
+              "",
+              "LD-53",
+              "-65.00",
+              "LED-53",
+              "9007199254740992",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -6500,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "LED-53",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    },
+    {
+      "id": "P2V2H03",
+      "title": "Shared PO supports two opposing invoice subgroups but does not merge their chosen references",
+      "rationale": "One Document No and one PO cover two distinct chosen references. Book-local AP Voucher IDs differ for every row. Require X1 N:1 and Y2 1:N; shared PO cannot justify an invoice N:M across both identities.",
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "supplierTotalMinor": 60000,
+          "ledgerTotalMinor": 60000
+        },
+        {
+          "supplierRows": [
+            4
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "supplierTotalMinor": 40000,
+          "ledgerTotalMinor": 40000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H03-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-C1",
+              "SAR",
+              "Invoice",
+              "PO-MULTI",
+              "INV-902",
+              "270.00",
+              "X1",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 27000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "X1",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "S-C2",
+              "SAR",
+              "Invoice",
+              "PO-MULTI",
+              "INV-902",
+              "330.00",
+              "X1",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 33000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "X1",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "S-C3",
+              "SAR",
+              "Invoice",
+              "PO-MULTI",
+              "INV-902",
+              "400.00",
+              "Y2",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 40000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "Y2",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H03-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-C1",
+              "SAR",
+              "Invoice",
+              "PO-MULTI",
+              "INV-902",
+              "190.00",
+              "Y2",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 19000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "Y2",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-C2",
+              "SAR",
+              "Invoice",
+              "PO-MULTI",
+              "INV-902",
+              "210.00",
+              "Y2",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 21000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "Y2",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "L-C3",
+              "SAR",
+              "Invoice",
+              "PO-MULTI",
+              "INV-902",
+              "600.00",
+              "X1",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 60000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "X1",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    },
+    {
+      "id": "P2V2H04",
+      "title": "An unrelated complete bank group passes while numeric receipt overlap stays unresolved",
+      "rationale": "Numeric receipts 250/251 cross-link bank identities A/B in an overlapping component, which forbids every auto relation there. Separate bank SAFE names a complete group and must still be approved; blanket review does not satisfy this contract.",
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            5
+          ],
+          "ledgerRows": [
+            5,
+            6
+          ],
+          "supplierTotalMinor": -12000,
+          "ledgerTotalMinor": -12000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H04-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-D1",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-40.00",
+              "PAYMENT",
+              "250",
+              "2026-09-24",
+              "BANK-A",
+              "Recorded movement"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "S-D2",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-60.00",
+              "PAYMENT",
+              "251",
+              "2026-09-24",
+              "BANK-A",
+              "Recorded movement"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "S-D3",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-30.00",
+              "PAYMENT",
+              "250",
+              "2026-09-24",
+              "BANK-B",
+              "Recorded movement"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 5,
+            "values": [
+              "S-D4",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-120.00",
+              "PAYMENT",
+              "",
+              "2026-09-24",
+              "BANK-SAFE",
+              "Recorded movement"
+            ],
+            "amountMinor": -12000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H04-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-D1",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-40.00",
+              "PAYMENT",
+              "250",
+              "2026-09-24",
+              "BANK-A",
+              "Recorded movement"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-D2",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-60.00",
+              "PAYMENT",
+              "251",
+              "2026-09-24",
+              "BANK-A",
+              "Recorded movement"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "L-D3",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-30.00",
+              "PAYMENT",
+              "250",
+              "2026-09-24",
+              "BANK-B",
+              "Recorded movement"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 5,
+            "values": [
+              "L-D4",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-30.00",
+              "PAYMENT",
+              "",
+              "2026-09-24",
+              "BANK-SAFE",
+              "Recorded movement"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 6,
+            "values": [
+              "L-D5",
+              "SAR",
+              "Payment",
+              "",
+              "PAYMENT-BOOK",
+              "-90.00",
+              "PAYMENT",
+              "",
+              "2026-09-24",
+              "BANK-SAFE",
+              "Recorded movement"
+            ],
+            "amountMinor": -9000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "PAYMENT",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    },
+    {
+      "id": "P2V2H05",
+      "title": "A literal numeric receipt cannot override conflicting known document types",
+      "rationale": "Exact receipt and total agree, but one proposed ledger member explicitly says Invoice while the group is a Payment. Local primary fields differ, so no generic primary match can bypass the type conflict.",
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H05-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-E1",
+              "SAR",
+              "Payment",
+              "",
+              "PAY-E1",
+              "-90.00",
+              "SUP-E1",
+              "00250",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -9000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "SUP-E1",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H05-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-E1",
+              "SAR",
+              "Payment",
+              "",
+              "PAY-E2",
+              "-30.00",
+              "LED-E1",
+              "00250",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "LED-E1",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Payment"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-E2",
+              "SAR",
+              "Invoice",
+              "",
+              "INV-E3",
+              "-60.00",
+              "LED-E2",
+              "00250",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "LED-E2",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    },
+    {
+      "id": "P2V2H06",
+      "title": "Shared PO cannot import a part from a different selected reference or Document No",
+      "rationale": "The target invoice 1000 has only a 400 part under its exact Document No and chosen reference 0007. Both potential 600 complements are wrong: one has chosen reference 007 and the other a different Document No. Shared PO and equal sums must not authorize either.",
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H06-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-F1",
+              "SAR",
+              "Invoice",
+              "PO-SAME",
+              "INV-930",
+              "1000.00",
+              "0007",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 100000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "0007",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H06-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-F1",
+              "SAR",
+              "Invoice",
+              "PO-SAME",
+              "INV-930",
+              "400.00",
+              "0007",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 40000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "0007",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-F2",
+              "SAR",
+              "Invoice",
+              "PO-SAME",
+              "INV-930",
+              "600.00",
+              "007",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 60000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "007",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 4,
+            "values": [
+              "L-F3",
+              "SAR",
+              "Invoice",
+              "PO-SAME",
+              "INV-931",
+              "600.00",
+              "0007",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 60000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "0007",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    },
+    {
+      "id": "P2V2H07",
+      "title": "PO agreement cannot override a literal duplicate posting",
+      "rationale": "The 800 invoice seems to equal two 400 parts, but both parts are exactly the same posting including local voucher. Document identity and PO are necessary evidence, not permission to accept duplicated source rows.",
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H07-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-G1",
+              "SAR",
+              "Invoice",
+              "PO-DUP",
+              "INV-940",
+              "800.00",
+              "REF-G",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 80000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "REF-G",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H07-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-REPEATED",
+              "SAR",
+              "Invoice",
+              "PO-DUP",
+              "INV-940",
+              "400.00",
+              "REF-G",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 40000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "REF-G",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-REPEATED",
+              "SAR",
+              "Invoice",
+              "PO-DUP",
+              "INV-940",
+              "400.00",
+              "REF-G",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 40000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "REF-G",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    },
+    {
+      "id": "P2V2H08",
+      "title": "Invoice parts still require one group date even inside the general date window",
+      "rationale": "The date window permits a one-day difference for ordinary candidates, but invoice grouping retains its stronger one-date guard. These otherwise matching PO-backed parts have different dates and must remain review.",
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "supplier": {
+        "file": "fixtures/P2V2H08-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "S-H1",
+              "SAR",
+              "Invoice",
+              "PO-DATE",
+              "INV-950",
+              "900.00",
+              "REF-H",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 90000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "REF-H",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2V2H08-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "L-H1",
+              "SAR",
+              "Invoice",
+              "PO-DATE",
+              "INV-950",
+              "300.00",
+              "REF-H",
+              "",
+              "2026-09-24",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 30000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "REF-H",
+              "date": "2026-09-24",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          },
+          {
+            "row": 3,
+            "values": [
+              "L-H2",
+              "SAR",
+              "Invoice",
+              "PO-DATE",
+              "INV-950",
+              "600.00",
+              "REF-H",
+              "",
+              "2026-09-25",
+              "",
+              "Recorded movement"
+            ],
+            "amountMinor": 60000,
+            "disposition": "transaction",
+            "normalized": {
+              "chosenReference": "REF-H",
+              "date": "2026-09-25",
+              "currency": "SAR",
+              "documentType": "Invoice"
+            }
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 8,
+          "reference": 6,
+          "description": 10,
+          "amount": 5,
+          "currencyColumn": 1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      }
+    }
+  ]
+}

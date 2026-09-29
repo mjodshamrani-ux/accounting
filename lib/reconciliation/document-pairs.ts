@@ -12,10 +12,11 @@ const categoryLabels = Object.values(DOCUMENT_LABELS).map(
 );
 const nonIdentityLabel =
   /^(?:n[/.]?a\.?|not (?:available|applicable|provided)|none|null|unknown|undefined|missing|tbd|pending|no ref(?:erence)?|total|sub ?total|grand total|summary|balance|(?:opening|closing|running|brought forward|carried forward) balance|balance (?:brought forward|carried forward)|debit|credit|dr|cr|بدون(?: مرجع)?|غير (?:متوفر|متاح|معروف)|لا يوجد|[إا]جمالي(?: الحساب)?|(?:ال)?مجموع|(?:ال)?رصيد(?: (?:الافتتاحي|الختامي|افتتاحي|ختامي|مرحل))?|مدين|دائن)$/iu;
-const usableDiscriminator = (value: string) => {
+export const usableDiscriminator = (value: string) => {
   // This spelling check rejects known non-identities only. Identity equality
-  // below ALWAYS uses the original literal text. A digit, alphabetic or Arabic
-  // code needs no Latin letter+digit shape inside an already proven document.
+  // below ALWAYS uses the original literal text. A numeric, alphabetic or
+  // Arabic code needs no Latin letter+digit shape once the caller proves its
+  // document/explicit-payment role. This label check alone proves no identity.
   const label = value.normalize('NFKC').trim().replace(/\s+/g, ' ');
   return (
     /[\p{L}\p{Nd}]/u.test(label) &&

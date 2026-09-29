@@ -55,6 +55,23 @@ const tests = [
 ];
 const mutations = [
   {
+    name: 'p2-reject-explicit-numeric-payment-identities',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      ['usableDiscriminator(claim.value) &&', 'strong(claim.value) &&'],
+    ],
+  },
+  {
+    name: 'p2-promote-placeholder-payment-identities',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['usableDiscriminator(claim.value) &&', 'true &&']],
+  },
+  {
+    name: 'p2-waive-voucher-conflicts-without-a-certified-document-partition',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [[/\(partition && sharedPO\)/, 'sharedPO']],
+  },
+  {
     name: 'p2-ignore-overlapping-payment-identity-memberships',
     file: 'lib/reconciliation/payment-components.ts',
     changes: [

@@ -1,0 +1,87 @@
+Skip to the workspace
+تَـراصُـف
+AR
+العربية
+|
+EN
+English
+Processed on your device
+Workspace / Supplier reconciliation
+Review the differences between the two records
+
+Review the transactions and their sources, and check the reason for each match.
+
+Beta 0.4.11
+New reconciliation
+Add files
+— completed
+Confirm data
+— completed
+3
+Review differences
+— current step
+4
+Workpaper
+— upcoming
+The session was restored and its results were recalculated from the sources. Review the result before confirming it.
+Save session to continue later
+The session file contains your data without encryption. Save it in a private location on your device.
+Automatic matches
+0
+Cases the engine matched automatically
+Manual confirmations
+0
+Matches confirmed by the reviewer
+Unmatched cases
+0
+Transactions from both files: 0
+Rows not read
+0
+No reading errors remain, and excluded rows are documented
+
+Supplier: Not enough balance information was extracted to test the equation.
+
+AP ledger: Not enough balance information was extracted to test the equation.
+
+Result assistant
+Review workspace
+
+“Unmatched” means we did not find the transaction in the other file. It may exist in the system but not be included in the report.
+
+Edit settings
+Unmatched
+Matched
+Needs Review (1)
+Source / Row	Date	Reference	Amount	Status	Review
+Supplier · 2	2026-07-15	BANK-P2-441
+supplier payment part 1
+	-100.00
+2:2 transactions in this case
+	Needs Review	Case details
+Cases: 1 · Page 1 of 1
+Review transaction BANK-P2-441
+Close review
+
+Supplier: CSV, row 2, reference “BANK-P2-441”, 2026-07-15, -40.00 SAR
+Case CASE-0CA37458: AMBIGUOUS_CANDIDATE — Needs Review.
+The reviewer rejected a link within the group; approval of the whole group was stopped.
+Supplier total -100.00 SAR; AP ledger total -100.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.
+Case member: Supplier: CSV, row 3, reference “BANK-P2-441”, 2026-07-15, -60.00 SAR
+Case member: AP ledger: CSV, row 2, reference “BANK-P2-441”, 2026-07-15, -25.00 SAR
+Case member: AP ledger: CSV, row 3, reference “BANK-P2-441”, 2026-07-15, -75.00 SAR
+
+Amount in the source file: -40.00 · Row ID: supplier:0:2
+
+Up to 50 results from the other file are shown. A transaction listed here is not a match, and a link cannot be confirmed when the amounts differ.
+
+Choose a transaction from the other file
+Confirm link manually
+Record review without a match
+Prepare the workpaper
+The results support your review and are not an accounting approval. Save the session or download the workpaper before closing if you want to keep them.
+Privacy and version limits · 0.4.11
+تَـراصُـف
+
+Clarity that supports your review
+
+Privacy limits
