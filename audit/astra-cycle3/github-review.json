@@ -1,0 +1,57 @@
+{
+  "schema": "tarasuf-astra-cycle3-github-review-1",
+  "date": "2026-09-30",
+  "repository": "mjodshamrani-ux/accounting",
+  "pullRequest": "https://github.com/mjodshamrani-ux/accounting/pull/2",
+  "reviewedHead": "0f698e973ab3a080510dfcb4319b00c241f72714",
+  "mergedCommit": "506b096572b8aefe9b2d05d456b9d24db7635662",
+  "reviewedAndMergedTree": "20f81fd1360ac7c5b211f1bacd3e15ae00b863fc",
+  "workflow": {
+    "id": 36633148304,
+    "url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/36633148304",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "unitTests": {
+    "total": 851,
+    "passed": 839,
+    "skipped": 12,
+    "failed": 0,
+    "skipReason": "Private July files are absent in public CI; skipped tests are not counted as passed."
+  },
+  "independentPythonTests": 45,
+  "memoryMeasurementTests": 4,
+  "mutationJobs": [
+    {
+      "jobId": 109627098610,
+      "detected": 28,
+      "total": 28
+    },
+    {
+      "jobId": 109627098672,
+      "detected": 29,
+      "total": 29
+    },
+    {
+      "jobId": 109627098872,
+      "detected": 28,
+      "total": 28
+    }
+  ],
+  "product": {
+    "version": "0.4.14",
+    "engine": "0.3.21-experimental",
+    "readerOrMatcherChanged": false
+  },
+  "f02": {
+    "readingContract": "audit/layered-statement/reading-contract.json",
+    "specifiedMatrixCases": 16,
+    "implementationStatus": "pending Sol cycle 4; this contract is not a set of passed product tests",
+    "frozenBaselineRetained": true
+  },
+  "limits": [
+    "No new performance comparison was run.",
+    "The merge approves measurement tools and the next implementation contract, not universal reconciliation accuracy.",
+    "This record confirms the reviewed PR CI and source merge; it does not claim a new deployed product behavior."
+  ]
+}
