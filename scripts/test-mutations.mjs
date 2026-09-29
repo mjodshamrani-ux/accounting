@@ -796,7 +796,15 @@ if (listOnly) {
 function execute(cwd) {
   return spawnSync(
     process.execPath,
-    ['--experimental-strip-types', '--test', '--test-reporter=tap', ...tests],
+    [
+      '--experimental-strip-types',
+      '--test',
+      '--test-reporter=tap',
+      // A wall-clock budget cannot prove that an accounting fault was caught.
+      // This unchanged performance test still runs in the full unit gate.
+      '--test-skip-pattern=^20k rows compare without quadratic candidate search$',
+      ...tests,
+    ],
     {
       cwd,
       encoding: 'utf8',
@@ -808,7 +816,9 @@ function execute(cwd) {
 const baseline = execute(root);
 if (baseline.status !== 0) {
   process.stderr.write(baseline.stdout + baseline.stderr);
-  throw Error('Mutation gate requires a passing unmodified baseline');
+  throw Error(
+    `Mutation gate requires a passing unmodified baseline (status=${baseline.status}, signal=${baseline.signal}, error=${baseline.error?.message ?? 'none'})`,
+  );
 }
 
 const report = [];

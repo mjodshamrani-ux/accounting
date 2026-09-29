@@ -31,7 +31,6 @@ import type {
   SheetData,
   SourceFile,
   SourceResult,
-  SourceReadError,
   Transaction,
   Comparison,
   Decision,
@@ -859,7 +858,7 @@ export function normalizeSource(
       });
       continue;
     }
-    let isolation: SourceReadError['isolation'];
+    let references: ReturnType<typeof transactionReferences> | undefined;
     try {
       if (
         row.slice(sheet.rows[mapping.header]?.length ?? 0).some((v) => v.trim())
@@ -942,8 +941,7 @@ export function normalizeSource(
         });
         continue;
       }
-      const references = transactionReferences(sheet, mapping, row, rn);
-      isolation = safeReferenceEnvelope(sheet, mapping, row, rn, references);
+      references = transactionReferences(sheet, mapping, row, rn);
       if (sheet.rowIssues?.[rn]?.length)
         throw new Error(sheet.rowIssues[rn].join('؛ '));
       const mappedIssues = selected.flatMap(
@@ -1081,6 +1079,12 @@ export function normalizeSource(
         ...(sheet.rowPages ? { sourcePage: sheet.rowPages[String(rn)] } : {}),
       });
     } catch (error) {
+      // References were captured before financial parsing. Build their negative
+      // collision envelope only for a failed row; successful rows discard it.
+      // An earlier structural failure has no trusted references to isolate.
+      const isolation = references
+        ? safeReferenceEnvelope(sheet, mapping, row, rn, references)
+        : undefined;
       result.errors.push({
         row: rn,
         message: (error as Error).message,
