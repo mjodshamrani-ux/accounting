@@ -943,14 +943,7 @@ export function normalizeSource(
         continue;
       }
       const references = transactionReferences(sheet, mapping, row, rn);
-      isolation = safeReferenceEnvelope(
-        sheet,
-        mapping,
-        row,
-        rn,
-        references,
-        scope.decimals,
-      );
+      isolation = safeReferenceEnvelope(sheet, mapping, row, rn, references);
       if (sheet.rowIssues?.[rn]?.length)
         throw new Error(sheet.rowIssues[rn].join('؛ '));
       const mappedIssues = selected.flatMap(

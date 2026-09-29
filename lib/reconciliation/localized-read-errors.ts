@@ -1,11 +1,10 @@
-import { normalizeReference, parseDate, parseMoney } from './core.ts';
+import { normalizeReference } from './core.ts';
 import { usableDiscriminator } from './document-pairs.ts';
 import { summaryLabel } from './row-labels.ts';
 import type { transactionReferences } from './transaction-references.ts';
 import type {
   Mapping,
   SheetData,
-  Scope,
   SourceReadError,
   SourceResult,
   Transaction,
@@ -51,7 +50,6 @@ export function safeReferenceEnvelope(
   row: string[],
   rn: number,
   references: References,
-  decimals: Scope['decimals'],
 ): SourceReadError['isolation'] {
   const header = sheet.rows[mapping.header];
   if (
@@ -83,38 +81,10 @@ export function safeReferenceEnvelope(
     )
       return;
   }
-  // A date/amount token shaped like an identifier can be a displaced reference.
-  // No supported financial reading makes it trustworthy column evidence.
-  const referenceLike = (value: string) =>
-    /\p{L}/u.test(value) && /\p{Nd}/u.test(value);
-  const parses = (value: string, field: 'date' | 'amount') =>
-    (field === 'date'
-      ? (['ymd', 'dmy', 'mdy'] as const)
-      : (['dot', 'comma'] as const)
-    ).some((format) => {
-      try {
-        if (field === 'date') parseDate(value, format as Mapping['dateFormat']);
-        else parseMoney(value, format as Mapping['numberFormat'], decimals);
-        return true;
-      } catch {
-        return false;
-      }
-    });
-  for (const column of [
-    mapping.date,
-    ...(mapping.mode === 'signed'
-      ? [mapping.amount]
-      : [mapping.debit, mapping.credit]),
-  ]) {
-    const value = row[column] ?? '';
-    if (
-      referenceLike(value) &&
-      !parses(value, column === mapping.date ? 'date' : 'amount')
-    )
-      return;
-  }
   // A manually selected helper is retained as conflict evidence, but it cannot
   // make an otherwise unidentified failed row safe to isolate.
+  const referenceLike = (value: string) =>
+    /\p{L}/u.test(value) && /\p{Nd}/u.test(value);
   const roleProven =
     !!references.documentReference ||
     (!!references.chosenReferenceEvidence &&
@@ -133,8 +103,9 @@ export function safeReferenceEnvelope(
       )
         return;
   }
-  // Preserve displaced literal cells as potential competitors too. These are
-  // negative keys only, never a repaired reference, amount, date or type.
+  // Preserve EVERY literal cell as a potential competitor. The spelling of a
+  // failed amount/date cannot distinguish corruption from a displaced ID.
+  // These are negative keys only, never repaired financial or identity facts.
   const keys = [
     ...new Set([
       ...referenceEnvelopeKeys(references),
