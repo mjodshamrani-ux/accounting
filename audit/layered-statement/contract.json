@@ -1,0 +1,70 @@
+{
+  "schema": "tarasuf-layered-statement-contract-1",
+  "status": "development fixture, frozen before product diagnosis; not an independent holdout",
+  "family": "F02 multi-row merged Excel headings with a movement column split into Debit and Credit",
+  "scope": {
+    "supplierAccount": "AP-714",
+    "currency": "SAR",
+    "cutoff": "2026-07-31",
+    "supplierSheet": "Statement",
+    "ledgerSheet": "CSV",
+    "balanceClaim": "transaction comparison only; the ledger has no opening or closing balance"
+  },
+  "files": {
+    "supplier-layered-proven.xlsx": "ed920ea60d9c302e2d319f76920f048227366fc5b01fdbb5229bab584fc93e8a",
+    "supplier-layered-conflict.xlsx": "9d4133c437598504fc8284d61f993e6977cf9bf699c44e3bb6fb499f85f859b4",
+    "ledger-plain.csv": "1d5c9e3e405c92718cc5c30e94b28f9cc405ff866ca6437ba0e152a6a0f43c0b"
+  },
+  "supplierMovements": [
+    {"sourceRow": 6, "reference": "INV-932", "secondaryReference": "PO-41", "amountMinor": 78000},
+    {"sourceRow": 7, "reference": "INV-932", "secondaryReference": "PO-41", "amountMinor": 22000},
+    {"sourceRow": 8, "reference": "PAY-44", "secondaryReference": "BANK-44", "amountMinor": -35000},
+    {"sourceRow": 9, "reference": "CN-3", "secondaryReference": "", "amountMinor": -5000}
+  ],
+  "supplierBalance": {
+    "openingMinor": 100000,
+    "afterSourceRowsMinor": {"6": 178000, "7": 200000, "8": 165000, "9": 160000},
+    "closingMinor": 160000,
+    "openingAndClosingAreNotMovements": true
+  },
+  "ledgerMovements": [
+    {"sourceRow": 2, "reference": "INV-932", "secondaryReference": "PO-41", "amountMinor": 100000},
+    {"sourceRow": 3, "reference": "PAY-44", "secondaryReference": "BANK-44", "amountMinor": -35000},
+    {"sourceRow": 4, "reference": "CN-3", "secondaryReference": "", "amountMinor": -5000}
+  ],
+  "positive": {
+    "supplierFile": "supplier-layered-proven.xlsx",
+    "requiredApprovedMemberSets": [
+      {"supplierRows": [6, 7], "ledgerRows": [2], "type": "M:1", "amountMinorEachSide": 100000},
+      {"supplierRows": [8], "ledgerRows": [3], "type": "1:1", "amountMinorEachSide": -35000},
+      {"supplierRows": [9], "ledgerRows": [4], "type": "1:1", "amountMinorEachSide": -5000}
+    ],
+    "requiredSourceMembers": 7,
+    "requiredSupplierMovementTotalMinor": 60000,
+    "requiredLedgerMovementTotalMinor": 60000
+  },
+  "conflict": {
+    "supplierFile": "supplier-layered-conflict.xlsx",
+    "changedObservation": "Supplier source row 7 says INV-934 and PO-99, while its amount remains 220.00; 780.00 plus 220.00 still equals the ledger invoice 1000.00",
+    "forbiddenApprovedMemberSets": [
+      {"supplierRows": [6, 7], "ledgerRows": [2]},
+      {"supplierRows": [6], "ledgerRows": [2]},
+      {"supplierRows": [7], "ledgerRows": [2]}
+    ],
+    "mustRetainSupplierRowsForReview": [6, 7],
+    "mustRetainLedgerRowsForReview": [2],
+    "independentApprovedMemberSetsRemainRequired": [
+      {"supplierRows": [8], "ledgerRows": [3], "type": "1:1", "amountMinorEachSide": -35000},
+      {"supplierRows": [9], "ledgerRows": [4], "type": "1:1", "amountMinorEachSide": -5000}
+    ]
+  },
+  "rowFates": {
+    "coverSheet": "metadata only",
+    "statementRows1To4": "title/account/headings, not movements",
+    "statementRow5": "opening balance, not a movement",
+    "statementRows6To9": "four movements, each exactly once",
+    "statementRow10": "closing balance, not a movement"
+  },
+  "manualQuestionBudget": "No per-row confirmation; if a single group-header question is unavoidable, record it as assisted rather than automatic",
+  "independenceLimit": "Small synthetic accounting example authored for this gap; do not use it as a generalization rate or count XLSX and CSV as separate economic cases"
+}

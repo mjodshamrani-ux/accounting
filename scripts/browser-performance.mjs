@@ -219,6 +219,9 @@ try {
       networkViolations: [],
       errors: [],
       peakChromiumRssBytes: 0,
+      memorySamplesSuccessful: 0,
+      memorySamplesDuringExport: 0,
+      memorySamplingErrors: 0,
       downloadCompleted: false,
       browserChecksPassed: false,
       lifecycleRequired:
@@ -232,6 +235,7 @@ try {
       page,
       sampleTimer,
       sampling = false,
+      exportActive = false,
       downloadPath;
     try {
       browser = await chromium.launch({ headless: true });
@@ -242,17 +246,31 @@ try {
         sampling = true;
         try {
           const { processInfo } = await cdp.send('SystemInfo.getProcessInfo');
-          const ids = processInfo.map((p) => p.id).join(',');
-          const { stdout } = await shell('ps', ['-o', 'rss=', '-p', ids]);
-          const rss = stdout
-            .trim()
-            .split(/\s+/)
-            .reduce((a, x) => a + Number(x) * 1024, 0);
+          const ids = processInfo.map((p) => p.id);
+          if (!ids.length) throw new Error('No Chromium processes to measure');
+          const { stdout } = await shell('ps', [
+            '-o',
+            'rss=',
+            '-p',
+            ids.join(','),
+          ]);
+          const samples = stdout.trim().split(/\s+/).map(Number);
+          if (
+            !samples.length ||
+            samples.some((x) => !Number.isSafeInteger(x) || x <= 0)
+          )
+            throw new Error('Invalid Chromium RSS sample');
+          const rss = samples.reduce((a, x) => a + x * 1024, 0);
+          if (!Number.isSafeInteger(rss) || rss <= 0)
+            throw new Error('Invalid summed Chromium RSS');
+          entry.memorySamplesSuccessful += 1;
+          if (exportActive) entry.memorySamplesDuringExport += 1;
           entry.peakChromiumRssBytes = Math.max(
             entry.peakChromiumRssBytes,
             rss,
           );
         } catch {
+          entry.memorySamplingErrors += 1;
         } finally {
           sampling = false;
         }
@@ -412,6 +430,7 @@ try {
         .waitFor();
       entry.stages.prepareExportScreenMs = performance.now() - prepareStart;
       const exportStart = performance.now();
+      exportActive = true;
       const download = page.waitForEvent('download', { timeout: 55000 });
       await page
         .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
@@ -420,6 +439,7 @@ try {
       downloadPath = path.join(output, `export-${run.size}-${run.format}.xlsx`);
       await saved.saveAs(downloadPath);
       entry.stages.exportToDownloadMs = performance.now() - exportStart;
+      exportActive = false;
       entry.stages.totalUiMs = performance.now() - t;
       const telemetry = await page.evaluate(() => window.__bench);
       entry.workerActions = telemetry.actions;
@@ -551,6 +571,8 @@ try {
       entry.browserChecksPassed &&
       entry.independentExportSourceCheck === true &&
       entry.independentExportMembershipCheck === true &&
+      entry.memorySamplesSuccessful > 0 &&
+      entry.peakChromiumRssBytes > 0 &&
       (!entry.lifecycleRequired ||
         (entry.cancelAndExportRecovery === true &&
           entry.independentRecoveryExportCheck === true &&
