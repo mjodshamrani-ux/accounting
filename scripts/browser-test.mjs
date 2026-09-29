@@ -20,6 +20,8 @@ import { syntheticStyledPdf } from '../tests/helpers/styled-pdf-fixture.ts';
 // finished renderer leaves animated/offscreen pages competing for frame budget
 // and makes Playwright's normal two-frame stability check depend on background
 // throttling. Keep the active scenario foreground, and release completed pages.
+// File-reading waits use the loading region, because verified PDF progress
+// replaces the generic task label before the source is ready for another upload.
 async function activeScenarioPage(context, label) {
   for (const finished of context.pages()) await finished.close();
   const next = await context.newPage();
@@ -328,7 +330,7 @@ try {
       buffer: Buffer.from(body),
     });
     await uploadPage.waitForFunction(
-      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      () => !document.querySelector('.notice.loading'),
     );
   }
   await uploadPage
@@ -419,7 +421,7 @@ try {
       buffer,
     });
     await uploadPage.waitForFunction(
-      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      () => !document.querySelector('.notice.loading'),
     );
   }
   await uploadPage
@@ -456,7 +458,7 @@ try {
       buffer: await readFile(downloaded),
     });
     await workpaperPage.waitForFunction(
-      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      () => !document.querySelector('.notice.loading'),
     );
     assert.deepEqual(
       await workpaperPage.getByRole('alert').allTextContents(),
@@ -549,7 +551,7 @@ try {
     ),
   });
   await pdfPage.waitForFunction(
-    () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    () => !document.querySelector('.notice.loading'),
   );
   await pdfPage
     .getByLabel('تقرير الحسابات الدائنة', { exact: true })
@@ -559,7 +561,7 @@ try {
       buffer: Buffer.from(csv),
     });
   await pdfPage.waitForFunction(
-    () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    () => !document.querySelector('.notice.loading'),
   );
   await pdfPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
@@ -572,7 +574,7 @@ try {
     .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
     .click();
   await pdfPage.waitForFunction(
-    () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF على جهازك'),
+    () => !document.querySelector('.notice.loading'),
   );
   await waitForScopeInputs(pdfPage);
   await pdfPage.getByLabel('العملة', { exact: true }).fill('SAR');
@@ -632,7 +634,7 @@ try {
   await recoveryPage.waitForFunction(
     () =>
       document.body.innerText.includes('synthetic-recovered.xlsx') &&
-      !document.body.innerText.includes('قراءة الملف على جهازك'),
+      !document.querySelector('.notice.loading'),
   );
   assert.equal(await recoveryPage.getByRole('alert').count(), 0);
   // Typed worker diagnoses describe only the first failing page. They must not
@@ -695,7 +697,7 @@ try {
   await recoveryPage.waitForFunction(
     () =>
       document.body.innerText.includes('synthetic-styled.pdf') &&
-      !document.body.innerText.includes('قراءة الملف على جهازك'),
+      !document.querySelector('.notice.loading'),
   );
   assert.equal(
     await recoveryPage.getByRole('alert').count(),
@@ -724,7 +726,7 @@ try {
     .getByRole('button', { name: 'تطبيق الحدود وإعادة القراءة', exact: true })
     .click();
   await recoveryPage.waitForFunction(
-    () => !document.body.innerText.includes('إعادة قراءة أعمدة PDF على جهازك'),
+    () => !document.querySelector('.notice.loading'),
   );
   await waitForScopeInputs(recoveryPage);
   await recoveryPage.getByLabel('العملة', { exact: true }).fill('SAR');
@@ -868,7 +870,7 @@ try {
         .getByText(filename, { exact: true })
         .waitFor();
       await importAiPage.waitForFunction(
-        () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+        () => !document.querySelector('.notice.loading'),
       );
     }
     await importAiPage
@@ -1038,7 +1040,7 @@ try {
       buffer,
     });
     await quickPage.waitForFunction(
-      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      () => !document.querySelector('.notice.loading'),
     );
   }
   await quickPage
@@ -1166,7 +1168,7 @@ try {
       ),
     });
     await ambiguityPage.waitForFunction(
-      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      () => !document.querySelector('.notice.loading'),
     );
   }
   await ambiguityPage
@@ -1246,7 +1248,7 @@ try {
       ),
     });
     await precisionPage.waitForFunction(
-      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      () => !document.querySelector('.notice.loading'),
     );
   }
   await precisionPage
@@ -1296,7 +1298,7 @@ try {
     buffer: Buffer.from(syntheticPdf([autoRows])),
   });
   await autoPdfPage.waitForFunction(
-    () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    () => !document.querySelector('.notice.loading'),
   );
   await autoPdfPage
     .getByLabel('تقرير الحسابات الدائنة', { exact: true })
@@ -1308,7 +1310,7 @@ try {
       ),
     });
   await autoPdfPage.waitForFunction(
-    () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+    () => !document.querySelector('.notice.loading'),
   );
   await autoPdfPage
     .getByRole('button', { name: 'تأكيد البيانات', exact: true })
@@ -1420,7 +1422,7 @@ try {
         .getByText(name, { exact: true })
         .waitFor();
       await directionPage.waitForFunction(
-        () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+        () => !document.querySelector('.notice.loading'),
       );
       assert.deepEqual(
         await directionPage.getByRole('alert').allTextContents(),
@@ -1666,7 +1668,7 @@ try {
       .getByText(name, { exact: true })
       .waitFor();
     await bothPdfPage.waitForFunction(
-      () => !document.body.innerText.includes('قراءة الملف على جهازك'),
+      () => !document.querySelector('.notice.loading'),
     );
   }
   await bothPdfPage

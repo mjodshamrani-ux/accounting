@@ -79,7 +79,7 @@ import type { ProcessingProgress } from '@/lib/reconciliation/processing-progres
 import { ImportAssistant } from '@/components/import-assistant';
 import { ImportDiagnosticError } from '@/lib/reconciliation/import-diagnostics';
 import type { ImportDiagnosis } from '@/lib/reconciliation/import-diagnostics';
-import { defaultMapping, MAX_FILE_BYTES } from '@/lib/reconciliation/types';
+import { defaultMapping, MAX_FILE_BYTES, MAX_PDF_PAGES } from '@/lib/reconciliation/types';
 import {
   mappingTemplate,
   readMappingTemplate,
@@ -1393,7 +1393,7 @@ export default function App() {
                     {t.app.upload.upTo}
                     <bdi>8 MB</bdi>
                     {t.app.upload.perFile}
-                    <bdi>20</bdi>
+                    <bdi>{MAX_PDF_PAGES}</bdi>
                     {t.app.upload.pagesPer}
                     <bdi>PDF</bdi>
                   </span>
