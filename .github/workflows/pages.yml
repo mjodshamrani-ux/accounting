@@ -37,6 +37,18 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Verify large PDFs through the browser and independently check the exported workbook
+        run: |
+          node audit/large-statements/browser/run.mjs ci-large-native
+          python3 audit/large-statements/check_openxml.py --browser-dir audit/large-statements/browser/ci-large-native --out audit/large-statements/browser/ci-large-native/openxml.json
+      - name: Preserve large statement browser evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: large-statement-browser-evidence
+          path: audit/large-statements/browser/ci-large-native
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Preserve synthetic browser failure screenshots
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

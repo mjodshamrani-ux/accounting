@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "920ace2b2dbf337e75700554606eadaa1a01162e",
+  "sourceTree": "7d30f99e6a3580a237b7d962ac76a2f32fc36c21",
+  "command": "env -u MUTATION_SHARD pnpm test:mutations",
+  "exitCode": 1,
+  "baselinePassed": false,
+  "baseline": {
+    "tests": 424,
+    "passed": 423,
+    "failed": 1,
+    "failure": {
+      "name": "compatibility: a session saved by the previous engine is refused, not silently re-decided",
+      "location": "tests/hard-cases.test.ts:845",
+      "code": "ERR_ASSERTION",
+      "actual": "0.3.20-experimental",
+      "expected": "0.3.19-experimental"
+    }
+  },
+  "selectedMutations": 79,
+  "completedMutations": 0,
+  "detectedMutations": 0,
+  "fullGatePassed": false,
+  "logPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/large-statements/mutations-920ace2.log",
+  "logSha256": "dcfce85387cd680203201e0883692fc2a80bc5bfeaa46ed18d0397c90b4b64ff",
+  "integrity": {
+    "before": {
+      "sourceCommit": "920ace2b2dbf337e75700554606eadaa1a01162e",
+      "sourceTree": "7d30f99e6a3580a237b7d962ac76a2f32fc36c21",
+      "sourceIntegrityBefore": true,
+      "checkedPaths": [
+        "lib",
+        "tests",
+        "audit",
+        "scripts/test-mutations.mjs",
+        "package.json",
+        "pnpm-lock.yaml"
+      ],
+      "mutationScriptSha256": "ffba4393331f79a12adb3e8cc95152dedd2d7d45069b05e9492589f824768a6f"
+    },
+    "afterObservationCommit": "28b780194972f0fb79b1e661a56ddd1d7a16d868",
+    "changedTrackedPathsSinceCandidate": [
+      "audit/large-statements/README.md",
+      "tests/hard-cases.test.ts"
+    ],
+    "engineAndAppUnchanged": true,
+    "note": "The run exited after its baseline failure. Before the post-run audit, the parent committed the session compatibility test metadata correction as 28b7801. No mutants were run and no source was modified by this gate."
+  },
+  "observedAtUtc": "2026-09-29T11:32:04.901621+00:00"
+}
