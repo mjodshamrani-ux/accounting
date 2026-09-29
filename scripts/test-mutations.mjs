@@ -53,6 +53,16 @@ const tests = [
 ];
 const mutations = [
   {
+    name: 'p1-accept-formula-or-spreadsheet-error-reference-text',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        'export function isUnsafeReferenceText(value: string): boolean {',
+        'export function isUnsafeReferenceText(value: string): boolean {\n  return false;',
+      ],
+    ],
+  },
+  {
     name: 'p1-accept-placeholder-category-or-zero-as-a-discriminator',
     file: 'lib/reconciliation/document-pairs.ts',
     changes: [['    usableDiscriminator(value) &&', '']],
@@ -71,8 +81,10 @@ const mutations = [
     name: 'p1-disable-document-pair-resolution',
     file: 'lib/reconciliation/core.ts',
     changes: [
-      ['const documentPairs = certifiedDocumentPairs(supplier, ledger);',
-        'const documentPairs = [];'],
+      [
+        'const documentPairs = certifiedDocumentPairs(supplier, ledger);',
+        'const documentPairs = [];',
+      ],
     ],
   },
   {
@@ -195,7 +207,7 @@ const mutations = [
   },
   {
     name: 'v11-read-carried-forward-as-a-transaction',
-    file: 'lib/reconciliation/core.ts',
+    file: 'lib/reconciliation/row-labels.ts',
     changes: [
       [
         'balance carried forward|carried forward|brought forward|',
@@ -288,7 +300,10 @@ const mutations = [
     name: 'h03-let-a-document-number-outvote-unselected-references',
     file: 'lib/reconciliation/cases.ts',
     changes: [
-      ['    a.statedReference.trim() !== b.statedReference.trim() &&', '    false &&'],
+      [
+        '    a.statedReference.trim() !== b.statedReference.trim() &&',
+        '    false &&',
+      ],
     ],
   },
   {
@@ -474,7 +489,12 @@ const mutations = [
   {
     name: 'automatically-match-with-unread-potential-duplicates',
     file: 'lib/reconciliation/core.ts',
-    changes: [['!completeReading ||', 'false ||']],
+    changes: [
+      [
+        '!completeReading ||\n      s.referenceEvidenceIssues?.length ||',
+        'false ||\n      s.referenceEvidenceIssues?.length ||',
+      ],
+    ],
   },
   {
     name: 'classify-any-summary-word-as-a-nontransaction',
@@ -608,7 +628,9 @@ const selectedMutations = mutations.filter(
     mutation.name.includes(filter),
 );
 if (!selectedMutations.length)
-  throw Error(`No mutation matches: ${filter}${shard ? ` in ${shardValue}` : ''}`);
+  throw Error(
+    `No mutation matches: ${filter}${shard ? ` in ${shardValue}` : ''}`,
+  );
 const selection = {
   total: selectedMutations.length,
   available: mutations.length,

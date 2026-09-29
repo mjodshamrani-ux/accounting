@@ -13,6 +13,8 @@
 // has no English, when an entry no longer exists in the engine, or when the
 // slots do not correspond.
 export const engineCatalog: Record<string, string> = {
+  'قيمة مرجعية تحتاج مراجعة: ${…}، صف ${…}. تشبه صيغة أو خطأ جدول بيانات؛ احتُفظ بنصها ولم تُعتمد دليلًا للمطابقة.': 'Reference needs review: {0}, row {1}. It resembles a spreadsheet formula or error; its literal text was retained and not accepted as matching evidence.',
+  'توجد قيمة مرجعية تشبه صيغة أو خطأ جدول بيانات. يلزم الرجوع إلى المصدر قبل اعتماد المطابقة آليًا.': 'A reference resembles a spreadsheet formula or error. Check the source before accepting an automatic match.',
   'رقم المستند ${…} متكرر، لكن المرجع المختار ${…} يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ ${…} يوم.': 'Document number {0} is repeated, but chosen reference {1} identifies this row uniquely within that document on each side. Both references match their original text, the signed amounts agree, and the dates are {2} days apart.',
   // Words the engine puts inside other messages.
   'المورد': 'Supplier',

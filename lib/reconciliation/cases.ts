@@ -1,5 +1,5 @@
 import { money, safeSum } from './core.ts';
-import { DOCUMENT_LABELS } from './transaction-references.ts';
+import { DOCUMENT_LABELS, hasUnsafeReferenceText } from './transaction-references.ts';
 import { DOCUMENT_PAIR_RULE } from './document-pairs.ts';
 import type {
   CaseCounts,
@@ -82,6 +82,8 @@ export function identityConflicts(a: Transaction, b: Transaction): string[] {
  * identity instead. */
 export function automaticConflicts(a: Transaction, b: Transaction): string[] {
   const conflicts = identityConflicts(a, b);
+  if (hasUnsafeReferenceText(a) || hasUnsafeReferenceText(b))
+    conflicts.push('توجد قيمة مرجعية تشبه صيغة أو خطأ جدول بيانات. يلزم الرجوع إلى المصدر قبل اعتماد المطابقة آليًا.');
   const document = (t: Transaction) =>
     t.documentType !== 'Payment' && t.documentType !== 'Journal';
   if (

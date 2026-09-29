@@ -277,6 +277,81 @@ test('P1 contextual references are unique within a document, not across unrelate
   verifyPartition(r);
 });
 
+test('P1 formula-like and error references remain literal, visible and unapproved in every automatic path', async () => {
+  for (const value of [
+    '=1+1',
+    '=SUM(A1)',
+    '#REF!',
+    '#DIV/0!',
+    '#N/A',
+    '#SPILL!',
+    '+42',
+    '-42',
+    '−42',
+    '@SUM(A1)',
+    '＝1＋1',
+  ]) {
+    for (const rows of [[row(value)], [row(value), row('SAFE-002')]]) {
+      const r = run(await input(rows, rows));
+      assert.equal(auto(r).length, 0, value);
+      assert.equal(r.supplier.transactions[0].chosenReference, value);
+      assert.ok(r.supplier.transactions[0].referenceEvidenceIssues?.length);
+      verifyPartition(r);
+    }
+  }
+  // Mapped fallback columns and an unselected unsafe Reference cannot bypass
+  // the source check just because a safe Document No supplies primary identity.
+  for (const [header, selected] of [
+    ['Other ID', 2],
+    ['Reference', 1],
+  ] as const) {
+    const h = [...headers];
+    h[2] = header;
+    assert.equal(
+      auto(run(await input([row('=A1')], [row('=A1')], h, selected))).length,
+      0,
+    );
+  }
+});
+
+test('P1 direct-source comparisons cannot omit issue flags to bypass unsafe-reference checks', async () => {
+  for (const field of [
+    'chosenReference',
+    'documentReference',
+    'reference',
+    'voucherReference',
+    'poReference',
+  ] as const) {
+    const r = run(await input());
+    for (const source of [r.supplier, r.ledger]) {
+      source.transactions[0][field] = '=DOC1';
+      source.transactions[0].referenceEvidenceIssues = [];
+    }
+    assert.equal(auto(compare(r.supplier, r.ledger, scope)).length, 0, field);
+  }
+  const r = run(await input([row('SAFE-001')], [row('SAFE-001')]));
+  r.supplier.transactions[0].chosenReference =
+    r.ledger.transactions[0].chosenReference = '#REF!';
+  assert.equal(
+    auto(compare(r.supplier, r.ledger, scope)).length,
+    0,
+    'unique primary',
+  );
+  const a = [[...row('LINE-A', '300.00'), 'PO-9001']];
+  const b = [
+    [...row('LINE-A', '100.00'), 'PO-9001'],
+    [...row('LINE-A', '200.00'), 'PO-9001'],
+  ];
+  const group = run(await input(a, b, [...headers, 'PO']));
+  assert.equal(group.caseCounts.autoMatchedCases, 1);
+  group.ledger.transactions[0].voucherReference = '#REF!';
+  assert.equal(
+    auto(compare(group.supplier, group.ledger, scope)).length,
+    0,
+    'whole group',
+  );
+});
+
 test('P1 assistant proposal verification rejects a case copy with altered discriminator evidence', async () => {
   for (const value of [
     { chosenReference: 'ALTERED-1' },

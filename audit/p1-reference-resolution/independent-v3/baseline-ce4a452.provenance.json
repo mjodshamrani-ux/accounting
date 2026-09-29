@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "ce4a452cfd9d9c96b759fcdefc5599963386b6c4",
+  "archiveLibMatchesGitCommit": true,
+  "libFiles": 55,
+  "libDigest": "f8778467f590c7e89bc46f3f0729c35d3f0b85e8e6b5e086c9b59f94fde02ae4",
+  "libUnchangedDuringExecution": true,
+  "fixtureManifestSha256": "e46505fd57d0a7d5266e6d2d9ce2c5b65ff62c750930bceba8ddd0459f65bf18",
+  "resultSha256": "4ef94fc715bd5e1b41c781e0389fca1a7e4956e9e504d960283c77da94bd3203",
+  "note": "Archive has no .git directory. Null runner commit fields are supplemented by exact immutable git-object hash comparison. No candidate-3 execution."
+}

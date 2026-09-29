@@ -1,0 +1,544 @@
+{
+  "kind": "static-mutation-anchor-check",
+  "sourceCommit": "ce4a452cfd9d9c96b759fcdefc5599963386b6c4",
+  "workingTreeChanges": [
+    "v11-read-carried-forward-as-a-transaction target moved from core.ts to row-labels.ts; mutation intent and replacement unchanged",
+    "automatically-match-with-unread-potential-duplicates anchor qualified by adjacent referenceEvidenceIssues guard; original unique-primary-path fault intent unchanged"
+  ],
+  "scriptSha256": "ad16bc36e4b1a1a84b9f7c2b017b37dbdff8bb7da9dfee9ff6152958ebe1c033",
+  "available": 66,
+  "passed": 66,
+  "failed": 0,
+  "mutations": [
+    {
+      "mutation": "p1-accept-placeholder-category-or-zero-as-a-discriminator",
+      "file": "lib/reconciliation/document-pairs.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-reject-valid-contextual-numeric-or-alphabetic-discriminators",
+      "file": "lib/reconciliation/document-pairs.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-disable-document-pair-resolution",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-grant-document-role-to-another-selected-column",
+      "file": "lib/reconciliation/transaction-references.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-choose-first-repeated-discriminator",
+      "file": "lib/reconciliation/document-pairs.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-ignore-unsafe-discriminator-competitors",
+      "file": "lib/reconciliation/document-pairs.ts",
+      "anchorCounts": [
+        1,
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-use-normalized-document-identity",
+      "file": "lib/reconciliation/document-pairs.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-ignore-document-pair-amount-difference",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "p1-restore-a-rejected-document-pair",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "047-accept-unanswered-format-ambiguity",
+      "file": "lib/reconciliation/input-readiness.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "047-ambiguity-guard-throws-unrelated-error",
+      "file": "lib/reconciliation/input-readiness.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "047-reuse-format-choice-across-context",
+      "file": "lib/reconciliation/input-readiness.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "046-disable-all-supported-groups",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "046-accept-payment-groups-without-explicit-identity",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "hard-t01-read-any-label-ending-in-invoice",
+      "file": "lib/reconciliation/transaction-references.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-read-carried-forward-as-a-transaction",
+      "file": "lib/reconciliation/row-labels.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-refuse-black-text-grazed-by-a-table-rule",
+      "file": "lib/reconciliation/pdf-paint-order.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-let-stripes-hide-text",
+      "file": "lib/reconciliation/pdf-paint-order.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-approve-a-source-compared-with-itself",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-take-a-renamed-copy-for-another-source",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "hard-s01-drop-a-source-without-a-role",
+      "file": "lib/reconciliation/source-preparation.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "hard-r01-rank-own-voucher-before-chosen-reference",
+      "file": "lib/reconciliation/transaction-references.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "hard-r01-let-a-voucher-hide-a-po-only-identity",
+      "file": "lib/reconciliation/transaction-references.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-take-a-document-number-equal-to-the-order-as-proof",
+      "file": "lib/reconciliation/transaction-references.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-approve-on-a-voucher-with-no-chosen-reference",
+      "file": "lib/reconciliation/transaction-references.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-take-a-batch-for-a-document",
+      "file": "lib/reconciliation/transaction-references.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-let-a-document-number-outvote-the-chosen-references",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "h03-let-a-document-number-outvote-unselected-references",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-read-only-bare-labels-in-descriptions",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "v11-leave-blocked-exact-pairs-as-unrelated-rows",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "hard-g08-accept-payment-parts-beyond-the-date-window",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "hard-g08-accept-any-group-across-dates",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "045-ignore-declared-aging-report",
+      "file": "lib/reconciliation/report-scope.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "045-skip-generic-account-scope-evidence",
+      "file": "lib/reconciliation/report-scope.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "045-allow-a-second-sheetdata-to-drop-earlier-rows",
+      "file": "lib/reconciliation/xlsx-namespaces.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "045-concatenate-conflicting-xlsx-cell-payloads",
+      "file": "lib/reconciliation/xlsx-namespaces.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "accept-a-partial-pdf-operator-stream",
+      "file": "lib/reconciliation/pdf.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "allow-visual-drafts-into-accounting",
+      "file": "lib/reconciliation/source-boundary.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "reuse-an-ai-column-proposal-after-settings-change",
+      "file": "lib/reconciliation/import-proposals.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "trust-stale-case-member-evidence",
+      "file": "lib/reconciliation/assistant.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "allow-ai-proposals-outside-the-evidence-window",
+      "file": "lib/reconciliation/local-ai.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "skip-an-earlier-table-for-a-richer-later-header",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "ignore-known-document-evidence-conflicts",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "accept-duplicate-posting-lines-as-a-group",
+      "file": "lib/reconciliation/cases.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "ignore-xlsx-overwritten-cell-addresses",
+      "file": "lib/reconciliation/xlsx-namespaces.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "silently-round-original-xlsx-numeric-lexemes",
+      "file": "lib/reconciliation/xlsx-namespaces.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "ignore-pdf-overlap-between-separate-baselines",
+      "file": "lib/reconciliation/pdf.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "reject-supported-multisheet-workpapers",
+      "file": "lib/reconciliation/types.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "reject-unused-helper-formulas",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "treat-pdf-table-edges-as-filled-area",
+      "file": "lib/reconciliation/pdf.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "count-total-rows-as-transactions",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "drop-classified-rows-without-a-reason",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "accept-a-timestamp-as-a-read-issue",
+      "file": "lib/reconciliation/io.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "automatically-match-with-unread-potential-duplicates",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "classify-any-summary-word-as-a-nontransaction",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "ignore-date-and-reference-in-reordered-summary-rows",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "prove-direction-from-a-single-movement",
+      "file": "lib/reconciliation/statement-direction.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "reverse-proven-ap-direction",
+      "file": "lib/reconciliation/statement-direction.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "ignore-contradictory-closing-footer-in-direction-proof",
+      "file": "lib/reconciliation/statement-direction.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "reverse-source-sign",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "fuzzy-reference-auto-match",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "ignore-date-window",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "ignore-reference-duplicates",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1,
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "allow-unconfirmed-coverage",
+      "file": "lib/reconciliation/core.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "promote-ai-hypothesis",
+      "file": "lib/reconciliation/assistant.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    },
+    {
+      "mutation": "corrupt-exported-amount",
+      "file": "lib/reconciliation/io.ts",
+      "anchorCounts": [
+        1
+      ],
+      "pass": true
+    }
+  ]
+}

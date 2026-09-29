@@ -1,5 +1,8 @@
 import type { SourceResult, Transaction } from './types.ts';
-import { DOCUMENT_LABELS } from './transaction-references.ts';
+import {
+  DOCUMENT_LABELS,
+  hasUnsafeReferenceText,
+} from './transaction-references.ts';
 import { summaryLabel } from './row-labels.ts';
 
 export const DOCUMENT_PAIR_RULE = 'EXACT_DOCUMENT_CHOSEN_REFERENCE_UNIQUE_V1';
@@ -27,6 +30,7 @@ const strongDiscriminator = (t: Transaction) => {
   return (
     t.chosenReferenceEvidence?.role === 'document-reference' &&
     usableDiscriminator(value) &&
+    !hasUnsafeReferenceText(t) &&
     value !== t.reference &&
     !t.referenceEvidenceIssues?.length
   );

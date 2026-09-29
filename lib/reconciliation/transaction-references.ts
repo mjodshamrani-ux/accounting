@@ -1,6 +1,37 @@
 import type { Mapping, SheetData, Transaction } from './types.ts';
 import { headerMatches } from './header-labels.ts';
 
+// Text that resembles executable spreadsheet syntax or a whole-cell error is
+// untrusted identity evidence, even in CSV. Keep the literal value for review;
+// never evaluate it or silently turn it into an identifier. Prefixes can be
+// legitimate issuer text, so this is a review gate, not a claim of corruption.
+export function isUnsafeReferenceText(value: string): boolean {
+  const label = value
+    .normalize('NFKC')
+    .trim()
+    .replace(/^[\u200e\u200f\u061c]+/u, '')
+    .trim();
+  return (
+    /^[=+\-−@]/u.test(label) ||
+    /^#(?:NULL!|DIV\/0!|VALUE!|REF!|NAME\?|NUM!|N\/A|GETTING_DATA|SPILL!|CALC!|BLOCKED!|UNKNOWN!|FIELD!|CONNECT!|BUSY!)$/i.test(
+      label,
+    )
+  );
+}
+export function hasUnsafeReferenceText(t: Transaction): boolean {
+  return [
+    t.reference,
+    t.primaryReference,
+    t.documentReference,
+    t.chosenReference,
+    t.statedReference,
+    t.voucherReference,
+    t.poReference,
+    t.bankReference,
+    t.receiptReference,
+  ].some((value) => typeof value === 'string' && isUnsafeReferenceText(value));
+}
+
 // Document-type labels the product understands. This is a closed, general
 // vocabulary: whole labels whose qualifier names the issuer or the tax status,
 // never another role. It is not a dictionary of any party's own codes; a code
@@ -65,7 +96,12 @@ export function transactionReferences(
       );
       return '';
     }
-    return (row[col] ?? '').trim();
+    const value = (row[col] ?? '').trim();
+    if (isUnsafeReferenceText(value))
+      referenceEvidenceIssues.push(
+        `قيمة مرجعية تحتاج مراجعة: ${rawHeaders[col]}، صف ${rn}. تشبه صيغة أو خطأ جدول بيانات؛ احتُفظ بنصها ولم تُعتمد دليلًا للمطابقة.`,
+      );
+    return value;
   };
   const typePattern =
     /^(?:type|doc type|document type|transaction type|نوع المستند|نوع الحركة|النوع)$/i;
@@ -113,6 +149,10 @@ export function transactionReferences(
   const batch = field(batchPattern);
   const mapped =
     mapping.reference < 0 ? '' : (row[mapping.reference] ?? '').trim();
+  if (isUnsafeReferenceText(mapped))
+    referenceEvidenceIssues.push(
+      `قيمة مرجعية تحتاج مراجعة: ${rawHeaders[mapping.reference]}، صف ${rn}. تشبه صيغة أو خطأ جدول بيانات؛ احتُفظ بنصها ولم تُعتمد دليلًا للمطابقة.`,
+    );
   // A document number may leave Reference unselected in an ambiguous reading.
   // Its values are still explicit source evidence: preserve them, and let a
   // conflict stop an automatic document match. They never become an identity
