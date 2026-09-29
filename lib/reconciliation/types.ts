@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.21-experimental';
+export const ENGINE_VERSION = '0.3.22-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -171,7 +171,15 @@ export type Transaction = {
   amount: number;
   originalAmount: string;
 };
-export type Excluded = { row: number; reason: string; values: string[] };
+export type Excluded = {
+  row: number;
+  reason: string;
+  values: string[];
+  // Assigned by normalization, never inferred from the free-text reason.
+  kind?: 'non-movement' | 'manual' | 'outside-period';
+  // Negative membership only. Excluding a movement cannot manufacture uniqueness.
+  isolation?: SourceReadError['isolation'];
+};
 export type SourceReadError = {
   row: number;
   message: string;

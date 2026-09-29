@@ -100,9 +100,9 @@ export function paymentIdentityComponents(
   for (const claim of claims.values())
     components.get(find(claim.members[0].id))!.claims.push(claim);
   const excluded = new Set(
-    [...supplier.excluded, ...ledger.excluded].flatMap((r) =>
-      r.values.map((v) => v.trim()).filter(Boolean),
-    ),
+    [...supplier.excluded, ...ledger.excluded]
+      .filter((row) => row.kind !== 'non-movement')
+      .flatMap((r) => r.values.map((v) => v.trim()).filter(Boolean)),
   );
   return [...components.values()]
     .filter(

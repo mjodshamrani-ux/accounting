@@ -1,0 +1,56 @@
+{
+  "schema": "tarasuf-f02-r13-blocker-1",
+  "sourceHash": "a085499d9e6ae2d165cd6716034f0945ecbb7151ad561bca70a4926a94250958",
+  "mapping": {
+    "sheet": 1,
+    "header": 3,
+    "date": 0,
+    "reference": 1,
+    "description": -1,
+    "amount": -1,
+    "debit": 2,
+    "credit": 3,
+    "currencyColumn": -1,
+    "mode": "split",
+    "multiplier": 1,
+    "numberFormat": "dot",
+    "dateFormat": "ymd",
+    "reportType": "transactions",
+    "opening": "",
+    "closing": "",
+    "periodStart": "",
+    "excluded": {
+      "11": "External reviewer excluded competing source row"
+    }
+  },
+  "expectedAffectedAutomaticMatch": false,
+  "observedMatches": [],
+  "excluded": [
+    {
+      "row": 11,
+      "reason": "External reviewer excluded competing source row",
+      "kind": "manual",
+      "isolation": {
+        "rule": "SAFE_REFERENCE_ENVELOPE_V1",
+        "keys": [
+          "identity:1300",
+          "identity:20260716",
+          "identity:350",
+          "identity:BANK44",
+          "identity:LINE5",
+          "identity:PAY44"
+        ]
+      },
+      "values": [
+        "2026-07-16",
+        "PAY-44",
+        "",
+        "350",
+        "1300",
+        "LINE-5",
+        "BANK-44"
+      ]
+    }
+  ],
+  "note": "Current-engine regression; original failing observation remains in audit/sol-cycle4"
+}

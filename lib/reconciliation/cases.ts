@@ -264,6 +264,9 @@ export function buildReconciliationCases(
   // No decision, amount or date filter may erase a competing membership.
   const paymentComponents = paymentIdentityComponents(supplier, ledger);
   const readErrors = localizedReadErrors(supplier, ledger);
+  const hasExcludedMovement = [...supplier.excluded, ...ledger.excluded].some(
+    (row) => row.kind !== 'non-movement',
+  );
   const blockedPaymentRows = new Set(
     paymentComponents
       .filter((c) => c.competing || c.excluded)
@@ -516,9 +519,11 @@ export function buildReconciliationCases(
       paymentIdentityIndex.set(key, bucket);
     }
   const excludedIdentities = new Set(
-    [...supplier.excluded, ...ledger.excluded].flatMap((row) =>
-      row.values.map((value) => value.trim()).filter(Boolean),
-    ),
+    [...supplier.excluded, ...ledger.excluded]
+      .filter((row) => row.kind !== 'non-movement')
+      .flatMap((row) =>
+        row.values.map((value) => value.trim()).filter(Boolean),
+      ),
   );
   const groupCandidates = [...refA].map(([ref, a]) => ({
     ref,
@@ -705,6 +710,19 @@ export function buildReconciliationCases(
     if (a.length !== 1 || b.length !== 1 || !free(a) || !free(b)) continue;
     const s = a[0],
       l = b[0];
+    if (hasExcludedMovement && !readErrors.canMatch([s, l])) {
+      add(
+        'AMBIGUOUS_CANDIDATE',
+        'Needs Review',
+        a,
+        b,
+        'SOURCE_MEMBERSHIP_UNVERIFIED_V1',
+        [
+          'لم تكتمل قراءة هوية المجموعة في المصدر؛ راجع الصفوف المستبعدة وملاحظات القراءة قبل اعتماد الربط.',
+        ],
+      );
+      continue;
+    }
     const conflicts = automaticConflicts(s, l);
     if (
       exactRef(s, l) &&

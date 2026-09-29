@@ -61,9 +61,9 @@ export function certifiedDocumentPartitions(
   const a = index(supplier.transactions, (t) => t.normalizedReference);
   const b = index(ledger.transactions, (t) => t.normalizedReference);
   const excludedValues = new Set(
-    [...supplier.excluded, ...ledger.excluded].flatMap((e) =>
-      e.values.map((v) => v.trim()).filter(Boolean),
-    ),
+    [...supplier.excluded, ...ledger.excluded]
+      .filter((row) => row.kind !== 'non-movement')
+      .flatMap((e) => e.values.map((v) => v.trim()).filter(Boolean)),
   );
   const partitions: [Transaction[], Transaction[]][] = [];
   for (const [primary, left] of a) {

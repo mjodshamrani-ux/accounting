@@ -190,6 +190,48 @@ test('F02-R03: explicit bilingual labels and consistent parent currency', async 
   assert.equal(headerLabels(file.sheets[1], 3)[2], 'Debit (SAR) / مدين (SAR)');
   assert.equal((await reconcile(file)).a.transactions.length, 4);
 });
+test('F02-R09: NFKC currency tags cannot hide a parent/child conflict', async () => {
+  const file = await variant((s) => {
+    s.getCell('C3').value = 'Movement (ＵＳＤ)';
+    s.getCell('C4').value = 'Debit (SAR)';
+  });
+  assert.equal(layeredHeaderView(file.sheets[1], 3), undefined);
+  assert.notEqual(selectImportMapping(file, 'supplier').kind, 'unique-table');
+  assert.equal(file.sheets[1].rows[2][2], 'Movement (ＵＳＤ)');
+});
+test('F02-R03/R14: NFKC parent currency is inherited and checked against scope', async () => {
+  const compatible = await variant((s) => {
+    s.getCell('C3').value = 'Movement (ＳＡＲ)';
+  });
+  const view = layeredHeaderView(compatible.sheets[1], 3)!;
+  assert.deepEqual(view.labels.slice(2, 4), ['Debit (SAR)', 'Credit (SAR)']);
+  assert.equal(view.origins[2].parent!.label, 'Movement (ＳＡＲ)');
+  assert.equal(
+    selectImportMapping(compatible, 'supplier').kind,
+    'unique-table',
+  );
+  assert.equal((await reconcile(compatible)).a.transactions.length, 4);
+  const incompatible = await variant((s) => {
+    s.getCell('C3').value = 'Movement (ＵＳＤ)';
+  });
+  assert.deepEqual(headerLabels(incompatible.sheets[1], 3).slice(2, 4), [
+    'Debit (USD)',
+    'Credit (USD)',
+  ]);
+  await assert.rejects(() => reconcile(incompatible), /عملة عنوان المبلغ/);
+});
+test('F02-R14: explicit NFKC child currencies remain visible to scope checks', async () => {
+  const file = await variant((s) => {
+    s.getCell('C3').value = 'Movement (ＵＳＤ)';
+    s.getCell('C4').value = 'Debit (ＵＳＤ)';
+    s.getCell('D4').value = 'Credit (ＵＳＤ)';
+  });
+  const view = layeredHeaderView(file.sheets[1], 3)!;
+  assert.deepEqual(view.labels.slice(2, 4), ['Debit (USD)', 'Credit (USD)']);
+  assert.equal(view.origins[2].label, 'Debit (ＵＳＤ)');
+  assert.equal(file.sheets[1].rows[3][2], 'Debit (ＵＳＤ)');
+  await assert.rejects(() => reconcile(file), /عملة عنوان المبلغ/);
+});
 const refused: [string, (s: ExcelJS.Worksheet) => void][] = [
   [
     'R04 extends into opening/data',
@@ -383,8 +425,15 @@ test('F02-R04: header exception never exempts merged transaction cells', async (
   );
 });
 test('F02-R13 excluded competitor: excluding a rival must not manufacture uniqueness', async () => {
-  const rival = await variant((s) =>
-    s.addRow(['2026-07-16', 'PAY-44', '', 350, 1300, 'LINE-5', 'BANK-44']),
+  // Replay the exact original failing package, not a newly generated lookalike.
+  const rival = await readFile(
+    'r13-excluded-competitor.xlsx',
+    new Uint8Array(await bytes('audit/sol-cycle4/r13-excluded-competitor.xlsx'))
+      .buffer,
+  );
+  assert.equal(
+    rival.sha256,
+    'a085499d9e6ae2d165cd6716034f0945ecbb7151ad561bca70a4926a94250958',
   );
   const ledger = await native('ledger-plain.csv');
   const mapping = selectImportMapping(rival, 'supplier').mapping;
@@ -417,7 +466,7 @@ test('F02-R13 excluded competitor: excluding a rival must not manufacture unique
             ledgerRows: c.ledgerMembers.map((t) => t.row),
           })),
         excluded: result.a.excluded.filter((e) => e.row === 11),
-        note: 'Failing development case retained; requires Astra decision; not a release pass',
+        note: 'Current-engine regression; original failing observation remains in audit/sol-cycle4',
       },
       null,
       2,
@@ -431,6 +480,41 @@ test('F02-R13 excluded competitor: excluding a rival must not manufacture unique
     false,
   );
   assertRowFates(rival, result.a);
+  const saved = await saveSession({
+    files: [rival, ledger],
+    mappings: result.mappings,
+    scope,
+    decisions: [],
+    rejected: [],
+    events: [],
+    review: { name: '', notes: '', checked: false },
+  });
+  const restored = await restoreSession(saved);
+  assert.equal(restored.result.matches.length, 0);
+  assert.equal(restored.result.balanceComparable, false);
+  assert.ok(
+    restored.result.diagnostics.some(
+      (d) => d.code === 'EXCLUDED_MOVEMENT_MEMBERSHIP',
+    ),
+  );
+  const exported = await exportWorkbook(restored.result, restored.files, {
+    name: '',
+    notes: '',
+    checked: false,
+  });
+  const book = new ExcelJS.Workbook();
+  await book.xlsx.load(exported);
+  assert.equal(book.getWorksheet('Matches')!.rowCount, 1);
+  assert.ok(
+    book
+      .getWorksheet('Diagnostics')!
+      .getColumn(1)
+      .values.includes('EXCLUDED_MOVEMENT_MEMBERSHIP'),
+  );
+  await writeFile(
+    'work/layered-headers/r13-fixed-workpaper.xlsx',
+    new Uint8Array(exported),
+  );
 });
 test('native layered-header reading preserves 5,004 movements without reparsing per row', async () => {
   const started = performance.now();

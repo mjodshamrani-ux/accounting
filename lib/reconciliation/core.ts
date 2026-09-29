@@ -10,6 +10,7 @@ import { transactionReferences } from './transaction-references.ts';
 import {
   balanceOnlyError,
   localizedReadErrors,
+  unverifiedExclusions,
   safeReferenceEnvelope,
   sourceRowsForScope,
 } from './localized-read-errors.ts';
@@ -663,9 +664,27 @@ export function repeatedPageMetadataRows(
   )
     return rowNumbers;
   const headerRow = headerLabels(sheet, mapping.header);
-  const signature = (row: string[]) =>
-    JSON.stringify(row.map((value) => value.trim()));
-  const prefix = new Set(sheet.rows.slice(0, mapping.header).map(signature));
+  const signature = (row: string[], page?: number) => {
+    const values = row.map((value) => value.trim());
+    // A manually excluded page title may print the actual page counter. Only
+    // that counter can vary; every other literal, column and table header stays
+    // identical to the original preamble. No amount/identity pair is waived.
+    if (page && values.filter(Boolean).length === 1) {
+      const column = values.findIndex(Boolean);
+      const match = /^(.*\p{L}[^\p{Nd}]*\s)([0-9]+)$/u.exec(values[column]);
+      if (match && Number(match[2]) === page)
+        values[column] = `${match[1]}<page-counter>`;
+    }
+    return JSON.stringify(values);
+  };
+  const prefix = new Set(
+    sheet.rows.slice(0, mapping.header).map((row) => signature(row)),
+  );
+  const numberedPrefix = new Set(
+    sheet.rows
+      .slice(0, mapping.header)
+      .map((row, index) => signature(row, sheet.rowPages![String(index + 1)])),
+  );
   const pages = new Map<number, number[]>();
   sheet.rows.forEach((_, index) => {
     const page = sheet.rowPages![String(index + 1)];
@@ -692,7 +711,12 @@ export function repeatedPageMetadataRows(
       const identityPresent = [mapping.date, mapping.reference].some(
         (column) => column >= 0 && (row[column] ?? '').trim(),
       );
-      if (prefix.has(signature(row)) && !(amountPresent && identityPresent))
+      if (
+        (prefix.has(signature(row)) ||
+          (mapping.excluded[String(index + 1)]?.trim() &&
+            numberedPrefix.has(signature(row, page)))) &&
+        !(amountPresent && identityPresent)
+      )
         rowNumbers.add(index + 1);
     }
   }
@@ -825,9 +849,9 @@ export function normalizeSource(
     ? [mapping.amount]
     : [mapping.debit, mapping.credit]) {
     const codes = [
-      ...(headerLabels(sheet, mapping.header)?.[column] ?? '').matchAll(
-        /\(([A-Za-z]{3})\)/g,
-      ),
+      ...normalizeHeaderLabel(
+        headerLabels(sheet, mapping.header)?.[column] ?? '',
+      ).matchAll(/\(([A-Za-z]{3})\)/g),
     ].map((match) => match[1].toUpperCase());
     if (codes.some((code) => code !== scope.currency.toUpperCase()))
       throw new Error('عملة عنوان المبلغ لا تطابق العملة المؤكدة');
@@ -874,29 +898,14 @@ export function normalizeSource(
       result.excluded.push({
         row: rn,
         reason: i === mapping.header ? 'صف العناوين المؤكد' : 'قبل صف العناوين',
+        kind: 'non-movement',
         values: row,
       });
       continue;
     }
     result.rowCount++;
-    if (mapping.excluded[String(rn)]?.trim()) {
-      result.excluded.push({
-        row: rn,
-        reason: mapping.excluded[String(rn)],
-        values: row,
-      });
-      continue;
-    }
     let references: ReturnType<typeof transactionReferences> | undefined;
     try {
-      if (
-        row
-          .slice(headerLabels(sheet, mapping.header)?.length ?? 0)
-          .some((v) => v.trim())
-      )
-        throw new Error(
-          'توجد قيم إضافية خارج أعمدة العناوين. تحقق من فاصل CSV وترتيب بيانات الصف.',
-        );
       // A statement's own totals and its headers repeated on each page are not
       // transactions. Exclude them with a recorded reason instead of demanding a
       // typed justification per row; they stay listed, counted and exported.
@@ -920,6 +929,7 @@ export function normalizeSource(
               sheet.referenceIssues?.[`${rn}:${column + 1}`]?.length),
         );
       const structuralReadingSafe =
+        !row.slice(headerRow.length).some((value) => value.trim()) &&
         !hiddenRows.has(rn) &&
         !unsafeLabel &&
         !(sheet.rowIssues?.[rn] ?? []).some(
@@ -943,6 +953,7 @@ export function normalizeSource(
           row: rn,
           reason:
             'بيانات رأس صفحة متكررة حرفيًا قبل عنوان الجدول المطابق — محفوظة في المصدر',
+          kind: 'non-movement',
           values: row,
         });
         continue;
@@ -951,6 +962,7 @@ export function normalizeSource(
         result.excluded.push({
           row: rn,
           reason: `صف إجمالي أو رصيد — استُبعد تلقائيًا («${label.trim()}»)`,
+          kind: 'non-movement',
           values: row,
         });
         continue;
@@ -960,6 +972,7 @@ export function normalizeSource(
           row: rn,
           reason:
             'تذييل نصي أو ترقيم صفحة مستقل بلا بيانات حركة — استُبعد تلقائيًا',
+          kind: 'non-movement',
           values: row,
         });
         continue;
@@ -968,10 +981,38 @@ export function normalizeSource(
         result.excluded.push({
           row: rn,
           reason: 'صف عناوين مُكرر — استُبعد تلقائيًا',
+          kind: 'non-movement',
           values: row,
         });
         continue;
       }
+      if (mapping.excluded[String(rn)]?.trim()) {
+        result.excluded.push({
+          row: rn,
+          reason: mapping.excluded[String(rn)],
+          kind:
+            row.every((value) => !value.trim()) && wholeTextRowSafe()
+              ? 'non-movement'
+              : 'manual',
+          isolation: safeReferenceEnvelope(
+            sheet,
+            mapping,
+            row,
+            rn,
+            transactionReferences(sheet, mapping, row, rn),
+          ),
+          values: row,
+        });
+        continue;
+      }
+      if (
+        row
+          .slice(headerLabels(sheet, mapping.header)?.length ?? 0)
+          .some((v) => v.trim())
+      )
+        throw new Error(
+          'توجد قيم إضافية خارج أعمدة العناوين. تحقق من فاصل CSV وترتيب بيانات الصف.',
+        );
       references = transactionReferences(sheet, mapping, row, rn);
       if (sheet.rowIssues?.[rn]?.length)
         throw new Error(sheet.rowIssues[rn].join('؛ '));
@@ -990,7 +1031,12 @@ export function normalizeSource(
           'الصف يحتوي معادلة. استخدم نسخة موثوقة بقيم ثابتة، أو استبعد الصف مع توضيح السبب.',
         );
       if (row.every((v) => !v.trim())) {
-        result.excluded.push({ row: rn, reason: 'صف فارغ', values: row });
+        result.excluded.push({
+          row: rn,
+          reason: 'صف فارغ',
+          kind: 'non-movement',
+          values: row,
+        });
         continue;
       }
       if (hiddenRows.has(rn))
@@ -1004,6 +1050,8 @@ export function normalizeSource(
           row: rn,
           reason:
             date > cutoff ? 'بعد تاريخ المقارنة' : 'قبل بداية الفترة المؤكدة',
+          kind: 'outside-period',
+          isolation: safeReferenceEnvelope(sheet, mapping, row, rn, references),
           values: row,
         });
         continue;
@@ -1124,6 +1172,12 @@ export function normalizeSource(
     }
   }
   result.total = safeSum(result.transactions.map((t) => t.amount));
+  for (const excluded of result.excluded)
+    if (
+      excluded.row > mapping.header + 1 &&
+      mapping.excluded[String(excluded.row)]?.trim()
+    )
+      excluded.reason = mapping.excluded[String(excluded.row)];
   enforceSourceScope(file, mapping, scope, result);
   collectGenericAccounts(file, mapping, scope, result);
   if (
@@ -1201,7 +1255,10 @@ export function normalizeSource(
   result.coverageStatus = scope.coverageConfirmed
     ? 'PERIOD_COVERAGE_CONFIRMED'
     : 'PERIOD_COVERAGE_UNCONFIRMED';
-  result.balanceValid = arithmeticValid && scope.coverageConfirmed;
+  result.balanceValid =
+    arithmeticValid &&
+    scope.coverageConfirmed &&
+    !unverifiedExclusions(result).length;
   if (result.closing !== null) {
     const expected =
       mapping.reportType === 'open-items'
@@ -1362,7 +1419,10 @@ export function compare(
   // Row errors keep arithmetic incomplete. Automatic identity proofs can only
   // survive when every erroneous row has a safe, disjoint reference envelope.
   const completeReading =
-    supplier.errors.length === 0 && ledger.errors.length === 0;
+    supplier.errors.length === 0 &&
+    ledger.errors.length === 0 &&
+    !unverifiedExclusions(supplier).length &&
+    !unverifiedExclusions(ledger).length;
   const readErrors = localizedReadErrors(supplier, ledger);
   for (const s of supplier.transactions) {
     if (
@@ -1568,6 +1628,25 @@ export function compare(
       diagnostics.push({
         code: 'SKIPPED_ROWS',
         message: `${label}: توجد ${source.errors.length} مشكلة قراءة محفوظة للمراجعة. المصالحة الكاملة للأرصدة غير متحققة. ${readErrors.wildcard ? 'أُوقفت المطابقات الآلية لأن نطاق تأثير أحد الأخطاء غير معلوم.' : 'يمكن اعتماد الحركات المثبتة خارج المراجع المتأثرة فقط؛ بقيت الحركات المتأثرة للمراجعة.'}`,
+        transactionIds: [...readErrors.taintedIds],
+      });
+    if (unverifiedExclusions(source).length)
+      diagnostics.push({
+        code: 'EXCLUDED_MOVEMENT_MEMBERSHIP',
+        message: `${label}: ${
+          readErrors.wildcard
+            ? 'يوجد صف مستبعد لم تتضح هويته؛ أُوقف الاعتماد الآلي حتى تتضح القراءة.'
+            : 'الصفوف المستبعدة محفوظة كدليل منافسة؛ لا تُعتمد آليًا الحركات التي تتداخل هويتها معها.'
+        } لم يُثبت اكتمال تسوية الأرصدة.`,
+        transactionIds: [...readErrors.taintedIds],
+      });
+    else if (
+      source.excluded.some((row) => row.kind === 'outside-period') &&
+      readErrors.taintedIds.size
+    )
+      diagnostics.push({
+        code: 'EXCLUDED_MOVEMENT_MEMBERSHIP',
+        message: `${label}: توجد هوية متداخلة مع صف خارج الفترة؛ يلزم مراجعتها قبل اعتماد المطابقة.`,
         transactionIds: [...readErrors.taintedIds],
       });
     for (const warning of source.warnings)

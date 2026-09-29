@@ -56,8 +56,29 @@ const tests = [
   'tests/partial-format.test.ts',
   'tests/localized-read-errors.test.ts',
   'tests/partial-result-lifecycle.test.ts',
+  'tests/excluded-source-integrity.test.ts',
+  'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+  {
+    name: 'f02-discard-excluded-movement-membership',
+    file: 'lib/reconciliation/localized-read-errors.ts',
+    changes: [['...excludedKeys,', '/* Fault: drop excluded competitors. */']],
+  },
+  {
+    name: 'f02-ignore-unknown-excluded-identity',
+    file: 'lib/reconciliation/localized-read-errors.ts',
+    changes: [
+      ["row.kind === 'manual' && !validIsolation(row.isolation)", 'false'],
+    ],
+  },
+  {
+    name: 'f02-hide-compatible-currency-glyphs',
+    file: 'lib/reconciliation/header-view.ts',
+    changes: [
+      ['...normalizeHeaderLabel(label).matchAll(', '...label.matchAll('],
+    ],
+  },
   {
     name: 'partial-drop-reading-issue-details-from-export',
     file: 'lib/reconciliation/io.ts',
@@ -709,7 +730,10 @@ const mutations = [
     name: 'allow-unconfirmed-coverage',
     file: 'lib/reconciliation/core.ts',
     changes: [
-      ['arithmeticValid && scope.coverageConfirmed', 'arithmeticValid && true'],
+      [
+        'scope.coverageConfirmed &&\n    !unverifiedExclusions(result).length',
+        'true &&\n    !unverifiedExclusions(result).length',
+      ],
     ],
   },
   {

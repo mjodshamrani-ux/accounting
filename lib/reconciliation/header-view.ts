@@ -117,7 +117,9 @@ export function registerNativeHeaderSource(file: SourceFile): void {
   }
 }
 const currencies = (label: string) =>
-  [...label.matchAll(/\(([A-Z]{3})\)/gi)].map((m) => m[1].toUpperCase());
+  [...normalizeHeaderLabel(label).matchAll(/\(([A-Z]{3})\)/gi)].map((m) =>
+    m[1].toUpperCase(),
+  );
 const parentPattern = /^(?:Movement|الحركة)(?:\s*\([a-z]{3}\))?$/i;
 const debitPattern = /^(?:Debit|Dr\.?|مدين)(?:\s*\([a-z]{3}\))?$/i;
 const creditPattern = /^(?:Credit|Cr\.?|دائن)(?:\s*\([a-z]{3}\))?$/i;
@@ -229,6 +231,9 @@ function derive(
   if (codes.size > 1) return;
   const parentCurrency = currencies(parent.text)[0];
   for (const c of [parent.left, parent.right]) {
+    // Consumers must see the same canonical currency token that made this
+    // label eligible. Literal source labels remain in the origins below.
+    labels[c - 1] = normalizeHeaderLabel(labels[c - 1]);
     origins[c - 1].parent = {
       row: top,
       column: parent.left,
@@ -236,7 +241,7 @@ function derive(
       range: range(parent),
     };
     if (parentCurrency && !currencies(labels[c - 1]).length)
-      labels[c - 1] = normalizeHeaderLabel(labels[c - 1])
+      labels[c - 1] = labels[c - 1]
         .split(/\s+\/\s+|\s*\|\s*/)
         .map((p) => `${p} (${parentCurrency})`)
         .join(' / ');

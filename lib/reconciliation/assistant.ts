@@ -8,6 +8,7 @@ import {
 } from './core.ts';
 import type { Comparison, Transaction } from './types.ts';
 import { readingStatus } from './reading-issues.ts';
+import { localizedReadErrors } from './localized-read-errors.ts';
 
 export type EvidenceAnswer = {
   kind: 'difference' | 'transaction' | 'checks' | 'next' | 'unsupported';
@@ -239,8 +240,10 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
   if (new Set(ids).size !== ids.length)
     return rejected('حركة مكررة في الاقتراح');
   let evidence: ReturnType<typeof proposalEvidence>;
+  let integrity: ReturnType<typeof localizedReadErrors>;
   try {
     evidence = proposalEvidence(result);
+    integrity = localizedReadErrors(result.supplier, result.ledger);
   } catch (error) {
     return rejected(
       error instanceof Error && !(error instanceof TypeError)
@@ -270,6 +273,10 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
   )
     return rejected('الرابط مرفوض من المراجع');
   const proposed = ids.map((id) => evidence.canonical.get(id)!);
+  if (!integrity.canMatch(proposed))
+    return rejected(
+      'تتداخل هوية الاقتراح مع صف مستبعد أو غير مقروء؛ راجع اكتمال المجموعة أولًا.',
+    );
   if (proposed.some((t) => t.referenceEvidenceIssues?.length))
     return rejected(
       'دليل المرجع أو نوع المستند غير متحقق. راجع صفوف المصدر قبل فحص الاقتراح.',
