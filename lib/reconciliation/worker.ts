@@ -32,6 +32,8 @@ self.onmessage = async (event: MessageEvent) => {
         payload.buffer,
         payload.pdfCuts,
         payload.autoPdfColumns === true,
+        (progress) =>
+          self.postMessage({ ...reply, kind: 'progress', progress }),
       );
     else if (action === 'reconcile') {
       // The shared source boundary checks formats and directions first.

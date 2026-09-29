@@ -141,6 +141,8 @@ export const ar = {
     headerRow: 'صف العناوين',
     previousPage: 'الصفحة السابقة',
     nextPage: 'الصفحة التالية',
+    jumpPage: 'رقم الصفحة',
+    goToPage: 'انتقال إلى الصفحة',
     pageOf: (page: number, pages: number) => `صفحة ${page} من ${pages}`,
     previousRows: 'الصفوف السابقة',
     nextRows: 'الصفوف التالية',
@@ -357,6 +359,12 @@ export const ar = {
       balances:
         'لتسوية الأرصدة، أضف أسماء الأطراف وأكد أن التقريرين يغطيان الفترة نفسها.',
       preparing: 'جارٍ تحديث إعدادات القراءة…',
+    },
+    processing: {
+      preparingRead: 'تجهيز قراءة صفحات PDF على جهازك',
+      preparingLayout: 'تجهيز فحص ترتيب صفحات PDF',
+      readingPage: (page: number, total: number) => `قراءة الصفحة ${page} من ${total}`,
+      layoutPage: (page: number, total: number) => `فحص ترتيب الصفحة ${page} من ${total}`,
     },
     tasks: {
       read: 'قراءة الملف على جهازك',

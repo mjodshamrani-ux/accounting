@@ -2,6 +2,7 @@ import { validateZipContents } from './zip.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
 import { readPdf } from './pdf.ts';
+import type { ProcessingProgress } from './processing-progress.ts';
 import ExcelJS from 'exceljs';
 import {
   ENGINE_VERSION,
@@ -262,6 +263,7 @@ export async function readFile(
   buffer: ArrayBuffer,
   pdfCuts?: number[],
   autoPdfColumns = false,
+  onProgress?: (progress: ProcessingProgress) => void,
 ): Promise<SourceFile> {
   if (buffer.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
@@ -286,7 +288,12 @@ export async function readFile(
     };
   }
   if (/\.pdf$/i.test(name)) {
-    const extracted = await readPdf(buffer, pdfCuts, autoPdfColumns);
+    const extracted = await readPdf(
+      buffer,
+      pdfCuts,
+      autoPdfColumns,
+      onProgress,
+    );
     for (const s of extracted.sheets)
       for (const row of s.rows)
         for (const cell of row) {
@@ -537,13 +544,13 @@ export async function exportWorkbook(
     stageStarted = now;
   };
   files.forEach(assertNativeAccountingSource);
-  const verifiedFiles = await Promise.all(
-    files.map((f) =>
-      f.original
-        ? readFile(f.name, f.original, f.pdf?.cuts)
-        : Promise.resolve(f),
-    ),
-  );
+  // Re-read both complete originals, one at a time. Concurrent PDF/XLSX
+  // parsers multiply peak memory while preserving no additional evidence.
+  const verifiedFiles: SourceFile[] = [];
+  for (const f of files)
+    verifiedFiles.push(
+      f.original ? await readFile(f.name, f.original, f.pdf?.cuts) : f,
+    );
   for (let i = 0; i < files.length; i++)
     if (files[i].sha256 !== verifiedFiles[i].sha256)
       throw new Error('بصمة الملف لا تطابق الأصل');

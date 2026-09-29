@@ -1,5 +1,7 @@
 import { getResolvedPDFJS } from 'unpdf';
 import type { SheetData } from './types.ts';
+import { MAX_FILE_BYTES, MAX_PDF_PAGES, MAX_ROWS } from './types.ts';
+import type { ProcessingProgress } from './processing-progress.ts';
 import { normalizeHeaderLabel } from './header-labels.ts';
 import { bindTextPaints, visibleOnBackground } from './pdf-paint-order.ts';
 import type { PdfBackground } from './pdf-paint-order.ts';
@@ -788,11 +790,14 @@ export async function readPdf(
   buffer: ArrayBuffer,
   cuts: number[] = [],
   autoColumns = false,
+  onProgress?: (progress: ProcessingProgress) => void,
 ) {
   validateCuts(cuts);
+  if (buffer.byteLength > MAX_FILE_BYTES)
+    throw new Error('حجم الملف يتجاوز 8 MB');
   if (new TextDecoder().decode(buffer.slice(0, 5)) !== '%PDF-')
     throw new Error('محتوى الملف ليس PDF صالحًا');
-  const { getDocument, version } = await getResolvedPDFJS();
+  const { getDocument, version, OPS } = await getResolvedPDFJS();
   const loading = getDocument({
     data: new Uint8Array(buffer.slice(0)),
     useWorkerFetch: false,
@@ -807,9 +812,9 @@ export async function readPdf(
   try {
     const doc = await loading.promise;
     streamGuard = guardPdfOperatorStreams(doc, version);
-    if (doc.numPages < 1 || doc.numPages > 20)
+    if (doc.numPages < 1 || doc.numPages > MAX_PDF_PAGES)
       throw new Error(
-        'الحد الحالي لملف PDF هو 20 صفحة. اطلب كشفًا أقصر أو Excel.',
+        'الحد الحالي لملف PDF النصي هو 100 صفحة. استخدم Excel للملفات الأكبر؛ لن تُقرأ نسخة جزئية.',
       );
     if ((await doc.getPermissions()) !== null)
       throw new Error(
@@ -831,137 +836,162 @@ export async function readPdf(
     const pages: { width: number; tokens: PdfToken[] }[] = [];
     let count = 0,
       chars = 0;
+    onProgress?.({ stage: 'pdf-read', completed: 0, total: doc.numPages });
     for (let pageNo = 1; pageNo <= doc.numPages; pageNo++) {
       const page = await doc.getPage(pageNo);
-      if (page.rotate !== 0)
-        throw new Error(
-          `الصفحة ${pageNo} مدوّرة. اطلب PDF باتجاه صحيح أو Excel.`,
-        );
-      if ((await page.getAnnotations()).some((a) => a.subtype === 'Widget'))
-        throw new Error(
-          'نماذج PDF التفاعلية غير مدعومة. اطلب نسخة مسطحة تظهر كل البيانات.',
-        );
-      const text = await page.getTextContent({ disableNormalization: true });
-      const tokens: PdfToken[] = [];
-      for (const item of text.items) {
-        if (!('str' in item)) continue;
-        if (++count > 100000 || (chars += item.str.length) > 2000000)
-          throw new Error('نص PDF يتجاوز حدود المعالجة الآمنة');
-        if (
-          item.str.trim() &&
-          (Math.abs(item.transform[1]) > 0.01 ||
-            Math.abs(item.transform[2]) > 0.01 ||
-            item.transform[0] <= 0 ||
-            item.transform[3] <= 0)
-        )
-          throw new Error(`نص مائل أو معكوس في الصفحة ${pageNo}. اطلب Excel.`);
-        if (item.str.trim()) {
-          const style = text.styles[item.fontName];
-          const token: PdfToken = {
-            text: item.str,
-            direction: item.dir,
-            x: item.transform[4] - page.view[0],
-            y: item.transform[5],
-            width: item.width,
-            height: item.height,
-            ...(typeof style?.ascent === 'number'
-              ? { ascent: style.ascent }
-              : {}),
-            ...(typeof style?.descent === 'number'
-              ? { descent: style.descent }
-              : {}),
-          };
-          const box = glyphBounds(token);
-          if (box[1] < page.view[1] - 0.2 || box[3] > page.view[3] + 0.2)
-            throw new Error(
-              `نص مقصوص عند حافة الصفحة ${pageNo}. لا يمكن التحقق من القراءة. اطلب نسخة كاملة أو Excel.`,
-            );
-          tokens.push(token);
-        }
-      }
-      const operators = await page.getOperatorList();
-      await streamGuard.assertComplete();
-      const { OPS } = await getResolvedPDFJS();
-      const imagePaints = operators.fnArray.reduce(
-        (count, op) => count + Number(isImagePaint(OPS, op)),
-        0,
-      );
-      const diagnosticFailure = (
-        message: string,
-        code: ImportDiagnosis['code'],
-      ) => {
-        const diagnosis: ImportDiagnosis = {
-          schemaVersion: 1,
-          format: 'pdf',
-          totalPages: doc.numPages,
-          page: pageNo,
-          contentKind: tokens.length
-            ? imagePaints
-              ? 'mixed'
-              : 'native-text'
-            : imagePaints
-              ? 'image-only'
-              : 'no-extractable-text',
-          textItems: tokens.length,
-          textChars: tokens.reduce((sum, token) => sum + token.text.length, 0),
-          imagePaints,
-          code,
-          route: 'visual-extraction-required',
-          inspectedAllPages: false,
-        };
-        // An excessive diagnostic count cannot make the rejected source usable.
-        // Keep the original rejection message even when its facts exceed schema limits.
-        return isImportDiagnosis(diagnosis)
-          ? new ImportDiagnosticError(message, diagnosis)
-          : new Error(message);
-      };
-      if (!tokens.length)
-        throw diagnosticFailure(
-          `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية. القراءة البصرية (OCR) تنتج مسودة غير متحققة.`,
-          'PDF_NO_EXTRACTABLE_TEXT',
-        );
-      const rawRuns = new Map<number, string>();
       try {
-        checkPdfOperators(
-          OPS,
-          operators.fnArray,
-          operators.argsArray,
-          (page.view[2] - page.view[0]) * (page.view[3] - page.view[1]),
-          tokens.map((t) => {
-            const glyph = glyphBounds(t);
-            return [
-              t.x + page.view[0],
-              Math.min(glyph[1], t.y - t.height * 0.3),
-              t.x + page.view[0] + t.width,
-              Math.max(glyph[3], t.y + t.height),
-            ];
-          }),
-          tokens.map((token) => token.text),
-          rawRuns,
-        );
-      } catch (error) {
-        // Only annotate the existing image guard. Earlier clipping, hidden text,
-        // occlusion and contrast failures keep their precedence and remain fatal.
-        if (error instanceof PdfImageContentError)
-          throw diagnosticFailure(error.message, 'PDF_IMAGE_CONTENT');
-        throw error;
-      }
-      // Preserve the glyph order for purely numeric/date/sign runs when the
-      // reader's bidi presentation reorders their separators. Exact glyph
-      // provenance was checked above; no financial character is substituted.
-      for (const [index, raw] of rawRuns) {
-        const token = tokens[index];
-        token.glyphText = raw;
-        if (
-          /^[0-9٠-٩۰-۹.,٬٫()+−\-\/\s]+$/u.test(raw) &&
-          raw.trim() !== token.text
-        ) {
-          token.extractionText = token.text;
-          token.text = raw.trim();
+        if (page.rotate !== 0)
+          throw new Error(
+            `الصفحة ${pageNo} مدوّرة. اطلب PDF باتجاه صحيح أو Excel.`,
+          );
+        if ((await page.getAnnotations()).some((a) => a.subtype === 'Widget'))
+          throw new Error(
+            'نماذج PDF التفاعلية غير مدعومة. اطلب نسخة مسطحة تظهر كل البيانات.',
+          );
+        const text = await page.getTextContent({ disableNormalization: true });
+        const tokens: PdfToken[] = [];
+        for (const item of text.items) {
+          if (!('str' in item)) continue;
+          if (++count > 100000 || (chars += item.str.length) > 2000000)
+            throw new Error('نص PDF يتجاوز حدود المعالجة الآمنة');
+          if (
+            item.str.trim() &&
+            (Math.abs(item.transform[1]) > 0.01 ||
+              Math.abs(item.transform[2]) > 0.01 ||
+              item.transform[0] <= 0 ||
+              item.transform[3] <= 0)
+          )
+            throw new Error(
+              `نص مائل أو معكوس في الصفحة ${pageNo}. اطلب Excel.`,
+            );
+          if (item.str.trim()) {
+            const style = text.styles[item.fontName];
+            const token: PdfToken = {
+              text: item.str,
+              direction: item.dir,
+              x: item.transform[4] - page.view[0],
+              y: item.transform[5],
+              width: item.width,
+              height: item.height,
+              ...(typeof style?.ascent === 'number'
+                ? { ascent: style.ascent }
+                : {}),
+              ...(typeof style?.descent === 'number'
+                ? { descent: style.descent }
+                : {}),
+            };
+            const box = glyphBounds(token);
+            if (box[1] < page.view[1] - 0.2 || box[3] > page.view[3] + 0.2)
+              throw new Error(
+                `نص مقصوص عند حافة الصفحة ${pageNo}. لا يمكن التحقق من القراءة. اطلب نسخة كاملة أو Excel.`,
+              );
+            tokens.push(token);
+          }
         }
+        const operators = await page.getOperatorList();
+        await streamGuard.assertComplete();
+        const imagePaints = operators.fnArray.reduce(
+          (count, op) => count + Number(isImagePaint(OPS, op)),
+          0,
+        );
+        const diagnosticFailure = (
+          message: string,
+          code: ImportDiagnosis['code'],
+        ) => {
+          const diagnosis: ImportDiagnosis = {
+            schemaVersion: 1,
+            format: 'pdf',
+            totalPages: doc.numPages,
+            page: pageNo,
+            contentKind: tokens.length
+              ? imagePaints
+                ? 'mixed'
+                : 'native-text'
+              : imagePaints
+                ? 'image-only'
+                : 'no-extractable-text',
+            textItems: tokens.length,
+            textChars: tokens.reduce(
+              (sum, token) => sum + token.text.length,
+              0,
+            ),
+            imagePaints,
+            code,
+            route: 'visual-extraction-required',
+            inspectedAllPages: false,
+          };
+          // An excessive diagnostic count cannot make the rejected source usable.
+          // Keep the original rejection message even when its facts exceed schema limits.
+          return isImportDiagnosis(diagnosis)
+            ? new ImportDiagnosticError(message, diagnosis)
+            : new Error(message);
+        };
+        if (!tokens.length)
+          throw diagnosticFailure(
+            `الصفحة ${pageNo} مصورة أو بلا نص قابل للتحقق. استخدم PDF نصيًا أو Excel للتسوية. القراءة البصرية (OCR) تنتج مسودة غير متحققة.`,
+            'PDF_NO_EXTRACTABLE_TEXT',
+          );
+        const rawRuns = new Map<number, string>();
+        try {
+          checkPdfOperators(
+            OPS,
+            operators.fnArray,
+            operators.argsArray,
+            (page.view[2] - page.view[0]) * (page.view[3] - page.view[1]),
+            tokens.map((t) => {
+              const glyph = glyphBounds(t);
+              return [
+                t.x + page.view[0],
+                Math.min(glyph[1], t.y - t.height * 0.3),
+                t.x + page.view[0] + t.width,
+                Math.max(glyph[3], t.y + t.height),
+              ];
+            }),
+            tokens.map((token) => token.text),
+            rawRuns,
+          );
+        } catch (error) {
+          // Only annotate the existing image guard. Earlier clipping, hidden text,
+          // occlusion and contrast failures keep their precedence and remain fatal.
+          if (error instanceof PdfImageContentError)
+            throw diagnosticFailure(error.message, 'PDF_IMAGE_CONTENT');
+          throw error;
+        }
+        // Preserve the glyph order for purely numeric/date/sign runs when the
+        // reader's bidi presentation reorders their separators. Exact glyph
+        // provenance was checked above; no financial character is substituted.
+        for (const [index, raw] of rawRuns) {
+          const token = tokens[index];
+          token.glyphText = raw;
+          if (
+            /^[0-9٠-٩۰-۹.,٬٫()+−\-\/\s]+$/u.test(raw) &&
+            raw.trim() !== token.text
+          ) {
+            token.extractionText = token.text;
+            token.text = raw.trim();
+          }
+        }
+        pages.push({ tokens, width: page.view[2] - page.view[0] });
+      } catch (error) {
+        if (error instanceof ImportDiagnosticError) throw error;
+        const reason =
+          error instanceof Error ? error.message : 'تعذر قراءة الصفحة';
+        const message = `تعذرت قراءة صفحة PDF ${pageNo}: ${reason}`;
+        if (error instanceof Error) {
+          // Keep typed integrity failures distinguishable from ordinary parse
+          // errors while adding the failing page to the worker-visible text.
+          error.message = message;
+          throw error;
+        }
+        throw new Error(message, { cause: error });
+      } finally {
+        page.cleanup();
       }
-      pages.push({ tokens, width: page.view[2] - page.view[0] });
-      page.cleanup();
+      onProgress?.({
+        stage: 'pdf-read',
+        completed: pageNo,
+        total: doc.numPages,
+      });
     }
     // Prefer the header-signature reading; fall back to column geometry so an
     // ordinary statement is not stranded by unfamiliar header wording.
@@ -971,6 +1001,7 @@ export async function readPdf(
         ? (proposedLayout?.cuts ?? projectPdfColumns(pages))
         : null;
     const effectiveCuts = suggested ?? cuts;
+    onProgress?.({ stage: 'pdf-layout', completed: 0, total: doc.numPages });
     for (const [index, page] of pages.entries()) {
       const lines = layoutPdfPage(page.tokens, effectiveCuts, page.width);
       const band = proposedLayout?.headers[index];
@@ -1014,8 +1045,17 @@ export async function readPdf(
           (sheet.pdfTextTransforms ??= {})[rn] = line.textTransforms.map(
             (t) => ({ ...t, page: index + 1 }),
           );
-        if (sheet.rows.length > 20000) throw new Error('الحد 20,000 صف مستخرج');
+        if (sheet.rows.length > MAX_ROWS)
+          throw new Error('الحد 20,000 صف مستخرج');
       }
+      // Column inference checked every page before extraction. Release page
+      // geometry as rows take its place; never retain PDF.js page caches too.
+      page.tokens.length = 0;
+      onProgress?.({
+        stage: 'pdf-layout',
+        completed: index + 1,
+        total: doc.numPages,
+      });
     }
     return {
       sheets: [sheet],

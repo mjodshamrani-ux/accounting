@@ -1,4 +1,6 @@
 import { WORKER_CHANNEL, isRecord, validateWorkerValue } from './protocol.ts';
+import { isNextProcessingProgress } from './processing-progress.ts';
+import type { ProcessingProgress } from './processing-progress.ts';
 import {
   ImportDiagnosticError,
   isImportDiagnosis,
@@ -7,9 +9,33 @@ export type WorkerPort = Pick<
   Worker,
   'postMessage' | 'terminate' | 'onmessage' | 'onerror' | 'onmessageerror'
 >;
+const isPdfRead = (action: string, payload: unknown) =>
+  action === 'read' &&
+  isRecord(payload) &&
+  typeof payload.name === 'string' &&
+  /\.pdf$/i.test(payload.name);
+
+/** The deadline covers the entire request, including sequential source re-reads. */
+export function workerRequestTimeout(action: string, payload: unknown) {
+  const rereadsPdf =
+    (action === 'save-session' || action === 'export') &&
+    isRecord(payload) &&
+    Array.isArray(payload.files) &&
+    payload.files.some(
+      (file) =>
+        isRecord(file) &&
+        typeof file.name === 'string' &&
+        /\.pdf$/i.test(file.name),
+    );
+  return isPdfRead(action, payload) ||
+    action === 'restore-session' ||
+    rereadsPdf
+    ? 180000
+    : 45000;
+}
 export function createWorkerClient(
   create: () => WorkerPort,
-  timeoutMs = 45000,
+  timeoutMs?: number,
 ) {
   let serial = 0,
     cached: WorkerPort | null = null,
@@ -19,6 +45,7 @@ export function createWorkerClient(
     action: string,
     payload: unknown,
     signal?: AbortSignal,
+    onProgress?: (progress: ProcessingProgress) => void,
   ): Promise<T> {
     return new Promise((resolve, reject) => {
       if (signal?.aborted) return reject(new Error('أُلغيت العملية'));
@@ -28,6 +55,7 @@ export function createWorkerClient(
         id = ++serial;
       inUse = true;
       let settled = false;
+      let progress: ProcessingProgress | undefined;
       const finish = (terminate: boolean) => {
         if (settled) return false;
         settled = true;
@@ -53,12 +81,15 @@ export function createWorkerClient(
           );
       };
       const abort = () => fail(new Error('أُلغيت العملية'));
+      const deadlineMs = timeoutMs ?? workerRequestTimeout(action, payload);
       const timeout = setTimeout(
         () =>
           fail(
-            new Error('تجاوزت العملية 45 ثانية. قلل حجم الملف أو راجع بنيته.'),
+            new Error(
+              `تجاوزت العملية مهلة ${deadlineMs / 1000} ثانية. قلل حجم الملف أو راجع بنيته.`,
+            ),
           ),
-        timeoutMs,
+        deadlineMs,
       );
       signal?.addEventListener('abort', abort, { once: true });
       if (signal?.aborted) {
@@ -74,7 +105,37 @@ export function createWorkerClient(
           response.id !== id
         )
           return;
-        if (response.action !== action || typeof response.ok !== 'boolean')
+        const invalidResponse = () =>
+          fail(
+            new Error(
+              'استجابة قارئ الملفات غير صالحة. أُعيد تجهيز القارئ لتتمكن من المحاولة مجددًا.',
+            ),
+          );
+        if (response.action !== action) return invalidResponse();
+        if (
+          Object.hasOwn(response, 'kind') ||
+          Object.hasOwn(response, 'progress')
+        ) {
+          if (
+            response.kind !== 'progress' ||
+            !isPdfRead(action, payload) ||
+            Object.keys(response).length !== 5 ||
+            Object.keys(response).some(
+              (key) =>
+                !['channel', 'id', 'action', 'kind', 'progress'].includes(key),
+            ) ||
+            !isNextProcessingProgress(progress, response.progress)
+          )
+            return invalidResponse();
+          progress = { ...response.progress };
+          try {
+            onProgress?.({ ...progress });
+          } catch (error) {
+            fail(error);
+          }
+          return;
+        }
+        if (typeof response.ok !== 'boolean')
           return fail(
             new Error(
               'استجابة قارئ الملفات غير صالحة. أُعيد تجهيز القارئ لتتمكن من المحاولة مجددًا.',

@@ -301,8 +301,36 @@ export function buildReconciliationCases(
     refB = groupBy(ledger.transactions, (t) => t.normalizedReference);
   const complete = !supplier.errors.length && !ledger.errors.length;
   const free = (rows: Transaction[]) => rows.every((t) => !used.has(t.id));
-  const rejectedGroup = (a: Transaction[], b: Transaction[]) =>
-    a.some((s) => b.some((l) => rejected.has(`${s.id}|${l.id}`)));
+  const supplierIds = new Set(supplier.transactions.map((t) => t.id));
+  const ledgerIds = new Set(ledger.transactions.map((t) => t.id));
+  const rejectedBySupplier = new Map<string, Set<string>>();
+  for (const token of rejected) {
+    // Normal source IDs contain no pipe, but direct-source callers can supply
+    // one. Keep every valid split so indexing preserves the old literal
+    // `${supplierId}|${ledgerId}` membership semantics, including collisions.
+    for (
+      let separator = token.indexOf('|');
+      separator >= 0;
+      separator = token.indexOf('|', separator + 1)
+    ) {
+      const supplierId = token.slice(0, separator);
+      const ledgerId = token.slice(separator + 1);
+      if (!supplierIds.has(supplierId) || !ledgerIds.has(ledgerId)) continue;
+      const targets = rejectedBySupplier.get(supplierId) ?? new Set<string>();
+      targets.add(ledgerId);
+      rejectedBySupplier.set(supplierId, targets);
+    }
+  }
+  const rejectedGroup = (a: Transaction[], b: Transaction[]) => {
+    if (!rejectedBySupplier.size) return false;
+    const members = new Set(b.map((t) => t.id));
+    return a.some((s) => {
+      const targets = rejectedBySupplier.get(s.id);
+      if (!targets) return false;
+      for (const id of targets) if (members.has(id)) return true;
+      return false;
+    });
+  };
   for (const component of paymentComponents) {
     const all = [...component.supplier, ...component.ledger];
     if (

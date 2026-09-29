@@ -145,6 +145,8 @@ export const en: Messages = {
     headerRow: 'Header row',
     previousPage: 'Previous page',
     nextPage: 'Next page',
+    jumpPage: 'Page number',
+    goToPage: 'Go to page',
     pageOf: (page: number, pages: number) => `Page ${page} of ${pages}`,
     previousRows: 'Previous rows',
     nextRows: 'Next rows',
@@ -367,6 +369,12 @@ export const en: Messages = {
       balances:
         'To reconcile balances, add the party names and confirm that both reports cover the same period.',
       preparing: 'Updating the reading settings…',
+    },
+    processing: {
+      preparingRead: 'Preparing to read the PDF pages on your device',
+      preparingLayout: 'Preparing to check the PDF page layout',
+      readingPage: (page: number, total: number) => `Reading page ${page} of ${total}`,
+      layoutPage: (page: number, total: number) => `Checking page layout ${page} of ${total}`,
     },
     tasks: {
       read: 'Reading the file on your device',

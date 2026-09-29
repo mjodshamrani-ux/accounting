@@ -1,0 +1,68 @@
+{
+  "baseCommit": "dec739e5a039bb810cf51c083eefc62906de29a5",
+  "sourceState": "P4 working tree before release freeze",
+  "scope": "Synthetic engine normalization and comparison only; no native PDF parsing, browser, export, session, OCR or bank accuracy claim",
+  "measurementPolicy": "Observational local timings, not an SLA; scenarios run in separate Node processes",
+  "sourceSha256": {
+    "lib/reconciliation/core.ts": "950b5478a890eb1230cab3b61bcf961f3081c17e7d8c610d19c600f158378e75",
+    "lib/reconciliation/cases.ts": "727bb49a3aef37dd95355074e0a249497965015d38e3b8864bc7f646bb67619f",
+    "tests/large-reconciliation.test.ts": "79efcd43c5f54c52a036e8c0f6736c5c7e695965aa7a61605de6afd3f178420b",
+    "audit/large-statements/performance-engine.mjs": "e43d6f11793a9b50236142a70f855bbafc58622fe18e637d59856473e9404a42"
+  },
+  "scenarios": [
+    {
+      "engine": "0.3.20-experimental",
+      "runAt": "2026-09-29T11:27:07.372Z",
+      "mode": "oversized",
+      "sourceRowsPerSide": 20000,
+      "scope": "Synthetic normalization and comparison only; parsing, UI, session and export excluded; observational timings, not an SLA",
+      "hardware": {
+        "cpu": "Apple M5",
+        "platform": "darwin",
+        "arch": "arm64",
+        "runtime": "v24.19.0"
+      },
+      "normalizePairMs": 904.339042,
+      "matchingMs": 243.77437500000008,
+      "elapsedMs": 1148.113417,
+      "maxRssMiB": 290.40625,
+      "rssMiB": 281.75,
+      "approvedCases": 0,
+      "reviewCases": 1,
+      "accountedSourceRows": 40000,
+      "ambiguousRows": 40000,
+      "rejectedEdges": 1,
+      "sourceErrors": 0
+    },
+    {
+      "engine": "0.3.20-experimental",
+      "runAt": "2026-09-29T11:27:08.568Z",
+      "mode": "mixed",
+      "sourceRowsPerSide": 20000,
+      "scope": "Synthetic normalization and comparison only; parsing, UI, session and export excluded; observational timings, not an SLA",
+      "hardware": {
+        "cpu": "Apple M5",
+        "platform": "darwin",
+        "arch": "arm64",
+        "runtime": "v24.19.0"
+      },
+      "normalizePairMs": 917.882334,
+      "matchingMs": 214.17804100000012,
+      "elapsedMs": 1132.060375,
+      "maxRssMiB": 331.21875,
+      "rssMiB": 331.21875,
+      "approvedCases": 5000,
+      "reviewCases": 5000,
+      "accountedSourceRows": 40000,
+      "ambiguousRows": 30000,
+      "rejectedEdges": 0,
+      "sourceErrors": 0
+    }
+  ],
+  "targetedTests": {
+    "passed": 37,
+    "failed": 0,
+    "log": "/Users/togomori/Documents/Codex/2026-09-07/l/work/large-reconciliation-targeted.log",
+    "logSha256": "ff28759afe098ec4f161a8c34719c0f5f5bda9692bf3f98f22b9e5cdc33a8943"
+  }
+}

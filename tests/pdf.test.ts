@@ -131,7 +131,7 @@ test('blank/scanned page rejects the entire PDF including text/image mixed docum
       /OCR/,
     );
 });
-test('fake PDF and more than 20 pages fail closed', async () => {
+test('fake PDF and more than 100 pages fail closed', async () => {
   await assert.rejects(
     readFile('fake.pdf', new TextEncoder().encode('not a PDF').buffer),
     /PDF/,
@@ -139,10 +139,10 @@ test('fake PDF and more than 20 pages fail closed', async () => {
   await assert.rejects(
     readFile(
       'long.pdf',
-      syntheticPdf(Array.from({ length: 21 }, () => rows)),
+      syntheticPdf(Array.from({ length: 101 }, () => rows)),
       cuts,
     ),
-    /20/,
+    /100/,
   );
 });
 test('column boundary crossings and duplicate overlay glyphs produce blocking row issues', () => {

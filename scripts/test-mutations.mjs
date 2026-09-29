@@ -52,8 +52,16 @@ const tests = [
   'tests/unmapped-reference.test.ts',
   'tests/pdf-composite.test.ts',
   'tests/pdf-paint-order.test.ts',
+  'tests/pdf-capacity-guards.test.ts',
 ];
 const mutations = [
+  {
+    name: 'p4-silently-stop-after-twenty-pages',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [
+      ['pageNo <= doc.numPages', 'pageNo <= Math.min(20, doc.numPages)'],
+    ],
+  },
   {
     name: 'p2-reject-explicit-numeric-payment-identities',
     file: 'lib/reconciliation/cases.ts',

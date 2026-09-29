@@ -1,3 +1,5 @@
+import { MAX_PDF_PAGES } from './types.ts';
+
 export type ImportDiagnosis = {
   schemaVersion: 1;
   format: 'pdf';
@@ -62,7 +64,7 @@ export function isImportDiagnosis(value: unknown): value is ImportDiagnosis {
     )
       return false;
     if (
-      !integer(d.totalPages, 1, 20) ||
+      !integer(d.totalPages, 1, MAX_PDF_PAGES) ||
       !integer(d.page, 1, d.totalPages as number) ||
       !integer(d.textItems, 0, 100000) ||
       !integer(d.textChars, 0, 2000000) ||

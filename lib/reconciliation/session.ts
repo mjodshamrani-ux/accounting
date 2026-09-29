@@ -43,26 +43,29 @@ export async function saveSession(state: SessionState): Promise<ArrayBuffer> {
   if (state.events.length > 2000)
     throw new Error('سجل الجلسة كبير. صدّر ورقة العمل للاحتفاظ بالنتائج.');
   const verifiedMappings: Mapping[] = [];
-  const files = await Promise.all(
-    state.files.map(async (f, side) => {
-      const original = f.original ?? demoBytes(f);
-      const name = f.original
-        ? f.name
-        : f.name.replace(/\.[^.]+$/, '') + '.csv';
-      const checked = await readFile(name, original, f.pdf?.cuts);
-      verifiedMappings[side] = verifyDirectionEvidence(
-        checked,
-        state.mappings[side],
-        state.scope.decimals,
-      );
-      return {
-        name,
-        sha256: checked.sha256,
-        data: encode(original),
-        ...(f.pdf ? { pdfCuts: f.pdf.cuts } : {}),
-      };
-    }),
-  );
+  // Only one original parser is live at a time, including for large PDFs.
+  const files: {
+    name: string;
+    sha256: string | undefined;
+    data: string;
+    pdfCuts?: number[];
+  }[] = [];
+  for (const [side, f] of state.files.entries()) {
+    const original = f.original ?? demoBytes(f);
+    const name = f.original ? f.name : f.name.replace(/\.[^.]+$/, '') + '.csv';
+    const checked = await readFile(name, original, f.pdf?.cuts);
+    verifiedMappings[side] = verifyDirectionEvidence(
+      checked,
+      state.mappings[side],
+      state.scope.decimals,
+    );
+    files.push({
+      name,
+      sha256: checked.sha256,
+      data: encode(original),
+      ...(f.pdf ? { pdfCuts: f.pdf.cuts } : {}),
+    });
+  }
   const bytes = new TextEncoder().encode(
     JSON.stringify({
       format: 'mizan-session',
@@ -108,29 +111,22 @@ export async function restoreSession(bytes: ArrayBuffer) {
     p.events.length > 2000
   )
     throw new Error('بنية الجلسة غير صالحة');
-  const files = (await Promise.all(
-    p.files.map(
-      async (f: {
-        name: unknown;
-        data: unknown;
-        sha256: unknown;
-        pdfCuts?: number[];
-      }) => {
-        assertNativeAccountingSource(f);
-        if (
-          typeof f.name !== 'string' ||
-          f.name.length > 255 ||
-          typeof f.data !== 'string' ||
-          typeof f.sha256 !== 'string'
-        )
-          throw new Error('مصدر الجلسة غير صالح');
-        const read = await readFile(f.name, decode(f.data), f.pdfCuts);
-        if (read.sha256 !== f.sha256)
-          throw new Error('بصمة مصدر الجلسة غير مطابقة');
-        return read;
-      },
-    ),
-  )) as [SourceFile, SourceFile];
+  const restoredFiles: SourceFile[] = [];
+  for (const f of p.files) {
+    assertNativeAccountingSource(f);
+    if (
+      typeof f.name !== 'string' ||
+      f.name.length > 255 ||
+      typeof f.data !== 'string' ||
+      typeof f.sha256 !== 'string'
+    )
+      throw new Error('مصدر الجلسة غير صالح');
+    const read = await readFile(f.name, decode(f.data), f.pdfCuts);
+    if (read.sha256 !== f.sha256)
+      throw new Error('بصمة مصدر الجلسة غير مطابقة');
+    restoredFiles.push(read);
+  }
+  const files = restoredFiles as [SourceFile, SourceFile];
   if (
     !p.review ||
     typeof p.review.name !== 'string' ||

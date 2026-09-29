@@ -1,6 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createWorkerClient } from '../lib/reconciliation/worker-client.ts';
+import {
+  createWorkerClient,
+  workerRequestTimeout,
+} from '../lib/reconciliation/worker-client.ts';
+import { isProcessingProgress } from '../lib/reconciliation/processing-progress.ts';
+import type { ProcessingProgress } from '../lib/reconciliation/processing-progress.ts';
 import type { WorkerPort } from '../lib/reconciliation/worker-client.ts';
 import {
   WORKER_CHANNEL,
@@ -26,6 +31,17 @@ class FakeWorker {
   }
   respond(data: Record<string, unknown>) {
     this.emit({ ...this.sent, ...data });
+  }
+  progress(progress: unknown, overrides: Record<string, unknown> = {}) {
+    const { channel, id, action } = this.sent;
+    this.emit({
+      channel,
+      id,
+      action,
+      kind: 'progress',
+      progress,
+      ...overrides,
+    });
   }
 }
 const valid = () => ({
@@ -213,4 +229,250 @@ test('worker dispatcher only accepts explicitly namespaced accounting requests',
     isRequest({ channel: WORKER_CHANNEL, id: 1, action: 'read' }),
     false,
   );
+});
+
+test('verified PDF progress is bounded metadata and never resolves the source request', async () => {
+  const { client, workers } = setup();
+  const seen: ProcessingProgress[] = [];
+  let resolved = false;
+  const p = client
+    .request('read', { name: 'statement.PDF' }, undefined, (progress) => {
+      seen.push({ ...progress });
+      // An observer cannot rewrite the sequence used to validate later messages.
+      progress.total = 99;
+      progress.completed = 99;
+    })
+    .then((value) => {
+      resolved = true;
+      return value;
+    });
+  const w = workers[0];
+  const expected = [
+    { stage: 'pdf-read', completed: 0, total: 70 },
+    { stage: 'pdf-read', completed: 1, total: 70 },
+    { stage: 'pdf-read', completed: 1, total: 70 },
+    { stage: 'pdf-read', completed: 70, total: 70 },
+    { stage: 'pdf-layout', completed: 0, total: 70 },
+    { stage: 'pdf-layout', completed: 70, total: 70 },
+  ];
+  for (const progress of expected) w.progress(progress);
+  await Promise.resolve();
+  assert.equal(
+    resolved,
+    false,
+    '100% layout is not a source or accounting success',
+  );
+  assert.deepEqual(seen, expected);
+  const source = { ...valid(), name: 'statement.PDF' };
+  w.respond({ ok: true, value: source });
+  assert.equal(await p, source);
+  assert.equal(w.stopped, false);
+});
+
+test('progress cannot bypass final source validation or typed late-page failure', async () => {
+  for (const response of [
+    { ok: true, value: { ...valid(), name: 'wrong.pdf' } },
+    { ok: true },
+    {
+      ok: false,
+      error: 'Late page failed',
+      diagnosis: {
+        schemaVersion: 1,
+        format: 'pdf',
+        totalPages: 70,
+        page: 70,
+        contentKind: 'mixed',
+        textItems: 4,
+        textChars: 28,
+        imagePaints: 1,
+        code: 'PDF_IMAGE_CONTENT',
+        route: 'visual-extraction-required',
+        inspectedAllPages: false,
+      },
+    },
+  ]) {
+    const { client, workers } = setup();
+    const p = client.request('read', { name: 'statement.pdf' });
+    workers[0].progress({ stage: 'pdf-read', completed: 69, total: 70 });
+    workers[0].respond(response);
+    await assert.rejects(p, (error: unknown) => {
+      if (!response.ok) {
+        assert.ok(error instanceof ImportDiagnosticError);
+        assert.equal(error.diagnosis.page, 70);
+      }
+      return true;
+    });
+    assert.equal(workers[0].stopped, true);
+  }
+});
+
+test('malformed or misplaced current-request progress fails closed', async () => {
+  const sample = { stage: 'pdf-read', completed: 1, total: 70 };
+  const malformed = [
+    null,
+    [],
+    {},
+    { ...sample, stage: 'reconcile' },
+    { ...sample, completed: -1 },
+    { ...sample, completed: 1.5 },
+    { ...sample, completed: 71 },
+    { ...sample, completed: NaN },
+    { ...sample, total: 0 },
+    { ...sample, total: 101 },
+    { ...sample, total: Infinity },
+    { ...sample, total: '70' },
+    { ...sample, rawText: 'private source text' },
+  ];
+  for (const progress of malformed) {
+    assert.equal(isProcessingProgress(progress), false);
+    const { client, workers } = setup();
+    const p = client.request('read', { name: 'statement.pdf' });
+    workers[0].progress(progress);
+    await assert.rejects(p, /غير صالحة/);
+    assert.equal(workers[0].stopped, true);
+  }
+  for (const [action, payload, overrides] of [
+    ['read', { name: 'statement.csv' }, {}],
+    ['normalize', { name: 'statement.pdf' }, {}],
+    ['read', { name: 'statement.pdf' }, { action: 'ready' }],
+    ['read', { name: 'statement.pdf' }, { kind: 'done' }],
+    [
+      'read',
+      { name: 'statement.pdf' },
+      { kind: undefined, ok: true, value: valid() },
+    ],
+    ['read', { name: 'statement.pdf' }, { ok: true, value: valid() }],
+    ['read', { name: 'statement.pdf' }, { rawText: 'private source text' }],
+  ] as const) {
+    const { client, workers } = setup();
+    const p = client.request(action, payload);
+    workers[0].progress(sample, overrides);
+    await assert.rejects(p, /غير صالحة/);
+    assert.equal(workers[0].stopped, true);
+  }
+});
+
+test('PDF progress rejects regressions, changed totals and premature or reversed stages', async () => {
+  const read = (completed: number, total = 70) => ({
+    stage: 'pdf-read',
+    completed,
+    total,
+  });
+  const layout = (completed: number, total = 70) => ({
+    stage: 'pdf-layout',
+    completed,
+    total,
+  });
+  for (const sequence of [
+    [layout(0)],
+    [read(2), read(1)],
+    [read(2), read(2, 71)],
+    [read(69), layout(0)],
+    [read(70), layout(0, 71)],
+    [read(70), layout(2), layout(1)],
+    [read(70), layout(0), read(70)],
+  ]) {
+    const { client, workers } = setup();
+    const p = client.request('read', { name: 'statement.pdf' });
+    for (const progress of sequence) workers[0].progress(progress);
+    await assert.rejects(p, /غير صالحة/);
+    assert.equal(workers[0].stopped, true);
+  }
+});
+
+test('library and stale progress are ignored; abort clears the sequence for the next worker', async () => {
+  const { client, workers } = setup();
+  const controller = new AbortController();
+  const seen: ProcessingProgress[] = [];
+  const p = client.request(
+    'read',
+    { name: 'statement.pdf' },
+    controller.signal,
+    (progress) => seen.push(progress),
+  );
+  const progress = { stage: 'pdf-read', completed: 10, total: 70 };
+  const w = workers[0];
+  w.progress(progress, { channel: 'pdfjs' });
+  w.progress(progress, { id: w.sent.id + 1 });
+  w.emit({ kind: 'progress', progress });
+  assert.equal(seen.length, 0);
+  w.progress(progress);
+  assert.equal(seen.length, 1);
+  controller.abort();
+  await assert.rejects(p, /أُلغيت/);
+  w.progress({ ...progress, completed: 70 });
+  assert.equal(seen.length, 1);
+  assert.equal(w.stopped, true);
+  const next = client.request(
+    'read',
+    { name: 'next.pdf' },
+    undefined,
+    (progress) => seen.push(progress),
+  );
+  workers[1].progress({ stage: 'pdf-read', completed: 0, total: 2 });
+  workers[1].respond({ ok: true, value: { ...valid(), name: 'next.pdf' } });
+  await next;
+  assert.deepEqual(seen.at(-1), { stage: 'pdf-read', completed: 0, total: 2 });
+});
+
+test('PDF deadlines cover the request; progress never extends the fixed deadline', async (t) => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const workers: FakeWorker[] = [];
+  const client = createWorkerClient(() => {
+    const worker = new FakeWorker();
+    workers.push(worker);
+    return worker as unknown as WorkerPort;
+  });
+  const p = client.request('read', { name: 'statement.pdf' });
+  const rejected = assert.rejects(p, /180/);
+  const w = workers[0];
+  t.mock.timers.tick(45000);
+  assert.equal(w.stopped, false);
+  w.progress({ stage: 'pdf-read', completed: 1, total: 70 });
+  t.mock.timers.tick(134999);
+  assert.equal(w.stopped, false);
+  w.progress({ stage: 'pdf-read', completed: 69, total: 70 });
+  t.mock.timers.tick(1);
+  await rejected;
+  assert.equal(w.stopped, true);
+  const overridden = setup(50);
+  const q = overridden.client.request('read', { name: 'statement.pdf' });
+  const overrideRejected = assert.rejects(q, /0\.05/);
+  t.mock.timers.tick(49);
+  overridden.workers[0].progress({
+    stage: 'pdf-read',
+    completed: 0,
+    total: 70,
+  });
+  t.mock.timers.tick(1);
+  await overrideRejected;
+  assert.equal(overridden.workers[0].stopped, true);
+});
+
+test('longer deadlines apply only to PDF import or original-source session/export checks', () => {
+  for (const action of ['ready', 'normalize', 'reconcile', 'compare'])
+    assert.equal(
+      workerRequestTimeout(action, { name: 'statement.pdf' }),
+      45000,
+    );
+  assert.equal(workerRequestTimeout('read', { name: 'statement.xlsx' }), 45000);
+  assert.equal(workerRequestTimeout('read', { name: 'statement.PDF' }), 180000);
+  assert.equal(
+    workerRequestTimeout('restore-session', { buffer: new ArrayBuffer(1) }),
+    180000,
+  );
+  for (const action of ['save-session', 'export']) {
+    assert.equal(
+      workerRequestTimeout(action, {
+        files: [{ name: 'a.csv' }, { name: 'b.xlsx' }],
+      }),
+      45000,
+    );
+    assert.equal(
+      workerRequestTimeout(action, {
+        files: [{ name: 'a.csv' }, { name: 'b.PDF' }],
+      }),
+      180000,
+    );
+  }
 });

@@ -1,7 +1,9 @@
-export const ENGINE_VERSION = '0.3.19-experimental';
+export const ENGINE_VERSION = '0.3.20-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
+// Native-text PDF capacity, independent of row/text/byte and OCR limits.
+export const MAX_PDF_PAGES = 100;
 export type SheetData = {
   name: string;
   rows: string[][];

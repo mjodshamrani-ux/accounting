@@ -1,0 +1,98 @@
+{
+  "purpose": "Independent synthetic long native-PDF contracts; literal frozen source facts and required positive pairs, not field evidence or bank-fee semantics.",
+  "authorship": "Authored without observing P4 implementation. Source transactions/oracles frozen before any candidate run.",
+  "scope": {
+    "supplier": "Synthetic long statement supplier",
+    "entity": "Synthetic long statement buyer",
+    "account": "LONG-AP",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-08-31",
+    "dateWindow": 0,
+    "confirmed": true,
+    "coverageConfirmed": false
+  },
+  "mapping": {
+    "sheet": 0,
+    "header": 0,
+    "date": 0,
+    "reference": 1,
+    "description": 3,
+    "amount": 2,
+    "currencyColumn": -1,
+    "debit": -1,
+    "credit": -1,
+    "mode": "signed",
+    "multiplier": 1,
+    "numberFormat": "dot",
+    "dateFormat": "ymd",
+    "reportType": "transactions",
+    "opening": "",
+    "closing": "",
+    "periodStart": "",
+    "excluded": {},
+    "pdfReviewed": true
+  },
+  "pdfCuts": [
+    25,
+    49,
+    68
+  ],
+  "unchangedBudgets": {
+    "maxBytes": 8388608,
+    "maxRows": 20000,
+    "maxTextItems": 100000,
+    "maxTextChars": 2000000
+  },
+  "cases": [
+    {
+      "id": "L01",
+      "file": "native-70.pdf",
+      "kind": "positive",
+      "oracle": "oracle-70.json",
+      "ledger": "ledger-70.csv",
+      "roundtrip": false
+    },
+    {
+      "id": "L02",
+      "file": "native-100.pdf",
+      "kind": "positive",
+      "oracle": "oracle-100.json",
+      "ledger": "ledger-100.csv",
+      "roundtrip": true
+    },
+    {
+      "id": "L03",
+      "file": "over-limit-101.pdf",
+      "kind": "limit-rejection",
+      "expectedPageLimit": 100
+    },
+    {
+      "id": "L04",
+      "file": "empty-page-70.pdf",
+      "kind": "empty-page",
+      "failurePage": 70,
+      "totalPages": 70
+    },
+    {
+      "id": "L05",
+      "file": "covered-page-70.pdf",
+      "kind": "covered-page",
+      "failurePage": 70
+    },
+    {
+      "id": "L06",
+      "file": "drift-page-100.pdf",
+      "kind": "geometry-drift",
+      "failurePage": 100,
+      "oracle": "oracle-100.json",
+      "ledger": "ledger-100.csv"
+    },
+    {
+      "id": "L07",
+      "file": "broken-stream-page-100.pdf",
+      "kind": "stream-rejection",
+      "failurePage": 100
+    }
+  ]
+}

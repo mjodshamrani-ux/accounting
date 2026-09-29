@@ -75,6 +75,7 @@ import {
   PaginationItem,
 } from '@/components/ui/pagination';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
+import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
 import { ImportAssistant } from '@/components/import-assistant';
 import { ImportDiagnosticError } from '@/lib/reconciliation/import-diagnostics';
 import type { ImportDiagnosis } from '@/lib/reconciliation/import-diagnostics';
@@ -466,6 +467,8 @@ export default function App() {
   const [demo, setDemo] = useState(false);
   // Messages are kept as what to say, so they follow a change of language.
   const [busy, setBusy] = useState<UiText | null>(null);
+  const [processingProgress, setProcessingProgress] =
+    useState<ProcessingProgress | null>(null);
   const [error, setError] = useState<UiText | null>(null);
   const [visualCandidate, setVisualCandidate] = useState<File | null>(null);
   const [visualRevision, setVisualRevision] = useState(0);
@@ -659,6 +662,7 @@ export default function App() {
       controller = new AbortController();
     job.current = { id, controller };
     setBusy(label);
+    setProcessingProgress(null);
     setImportDiagnosis(null);
     setError(null);
     setNotice(null);
@@ -675,6 +679,7 @@ export default function App() {
     } finally {
       if (job.current?.id === id) {
         setBusy(null);
+        setProcessingProgress(null);
         job.current = null;
       }
     }
@@ -683,6 +688,7 @@ export default function App() {
     job.current?.controller.abort();
     job.current = null;
     setBusy(null);
+    setProcessingProgress(null);
     setNotice(uiText((m) => m.app.notices.cancelled));
   }
   function loadDemo() {
@@ -711,241 +717,265 @@ export default function App() {
     if (!file || busy || !engineReady) return;
     setVisualCandidate(null);
     setVisualRevision((v) => v + 1);
-    await task(uiText((m) => m.app.tasks.read), async (signal, alive) => {
-      if (file.size > MAX_FILE_BYTES) fail((m) => m.app.errors.fileTooLarge);
-      const buffer = await file.arrayBuffer();
-      if (!alive()) return;
-      let parsed: SourceFile;
-      try {
-        parsed = await workerTask<SourceFile>(
-          'read',
-          { name: file.name, buffer, autoPdfColumns: true },
-          signal,
+    await task(
+      uiText((m) => m.app.tasks.read),
+      async (signal, alive) => {
+        if (file.size > MAX_FILE_BYTES) fail((m) => m.app.errors.fileTooLarge);
+        const buffer = await file.arrayBuffer();
+        if (!alive()) return;
+        let parsed: SourceFile;
+        try {
+          parsed = await workerTask<SourceFile>(
+            'read',
+            { name: file.name, buffer, autoPdfColumns: true },
+            signal,
+            (progress) => {
+              if (alive()) setProcessingProgress(progress);
+            },
+          );
+        } catch (failure) {
+          if (alive() && failure instanceof ImportDiagnosticError)
+            setVisualCandidate(file);
+          throw failure;
+        }
+        if (!alive()) return;
+        const selection = selectImportMapping(
+          parsed,
+          i === 0 ? 'supplier' : 'ledger',
         );
-      } catch (failure) {
-        if (alive() && failure instanceof ImportDiagnosticError)
-          setVisualCandidate(file);
-        throw failure;
-      }
-      if (!alive()) return;
-      const selection = selectImportMapping(
-        parsed,
-        i === 0 ? 'supplier' : 'ledger',
-      );
-      directionEdited.current[i] = false;
-      setPdfDrafts(
-        (previous) =>
-          previous.map((v, j) => (j === i ? false : v)) as [boolean, boolean],
-      );
-      invalidate();
-      setDemo(false);
-      setFormatChoices(
-        (previous) =>
-          previous.map((choice, j) =>
-            j === i ? { dateFormat: false, numberFormat: false } : choice,
-          ) as [FormatChoices, FormatChoices],
-      );
-      setFiles(
-        (fs) =>
-          fs.map((f, j) => (j === i ? parsed : f)) as [
-            SourceFile | null,
-            SourceFile | null,
-          ],
-      );
-      setMappings(
-        (ms) =>
-          ms.map((m, j) =>
-            j === i ? { ...selection.mapping, pdfReviewed: false } : m,
-          ) as [Mapping, Mapping],
-      );
-      setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
-      setNotice(selection.notice ? engineText(selection.notice) : null);
-    });
+        directionEdited.current[i] = false;
+        setPdfDrafts(
+          (previous) =>
+            previous.map((v, j) => (j === i ? false : v)) as [boolean, boolean],
+        );
+        invalidate();
+        setDemo(false);
+        setFormatChoices(
+          (previous) =>
+            previous.map((choice, j) =>
+              j === i ? { dateFormat: false, numberFormat: false } : choice,
+            ) as [FormatChoices, FormatChoices],
+        );
+        setFiles(
+          (fs) =>
+            fs.map((f, j) => (j === i ? parsed : f)) as [
+              SourceFile | null,
+              SourceFile | null,
+            ],
+        );
+        setMappings(
+          (ms) =>
+            ms.map((m, j) =>
+              j === i ? { ...selection.mapping, pdfReviewed: false } : m,
+            ) as [Mapping, Mapping],
+        );
+        setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
+        setNotice(selection.notice ? engineText(selection.notice) : null);
+      },
+    );
   }
   async function configurePdf(i: number, cuts: number[]) {
     const file = files[i];
     if (!file?.pdf || !file.original || busy) return;
-    await task(uiText((m) => m.app.tasks.rereadPdf), async (signal, alive) => {
-      const parsed = await workerTask<SourceFile>(
-        'read',
-        { name: file.name, buffer: file.original, pdfCuts: cuts },
-        signal,
-      );
-      if (!alive()) return;
-      invalidate();
-      directionEdited.current[i] = false;
-      setFormatChoices(
-        (previous) =>
-          previous.map((choice, j) =>
-            j === i ? { dateFormat: false, numberFormat: false } : choice,
-          ) as [FormatChoices, FormatChoices],
-      );
-      setFiles(
-        (fs) =>
-          fs.map((f, j) => (j === i ? parsed : f)) as [
-            SourceFile | null,
-            SourceFile | null,
-          ],
-      );
-      setMappings(
-        (ms) =>
-          ms.map((m, j) =>
-            j === i ? { ...inferMapping(parsed), pdfReviewed: false } : m,
-          ) as [Mapping, Mapping],
-      );
-      setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
-    });
+    await task(
+      uiText((m) => m.app.tasks.rereadPdf),
+      async (signal, alive) => {
+        const parsed = await workerTask<SourceFile>(
+          'read',
+          { name: file.name, buffer: file.original, pdfCuts: cuts },
+          signal,
+          (progress) => {
+            if (alive()) setProcessingProgress(progress);
+          },
+        );
+        if (!alive()) return;
+        invalidate();
+        directionEdited.current[i] = false;
+        setFormatChoices(
+          (previous) =>
+            previous.map((choice, j) =>
+              j === i ? { dateFormat: false, numberFormat: false } : choice,
+            ) as [FormatChoices, FormatChoices],
+        );
+        setFiles(
+          (fs) =>
+            fs.map((f, j) => (j === i ? parsed : f)) as [
+              SourceFile | null,
+              SourceFile | null,
+            ],
+        );
+        setMappings(
+          (ms) =>
+            ms.map((m, j) =>
+              j === i ? { ...inferMapping(parsed), pdfReviewed: false } : m,
+            ) as [Mapping, Mapping],
+        );
+        setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
+      },
+    );
   }
   async function reconcile(
     nextDecisions = decisions,
     nextRejected = rejected,
     event?: Omit<AuditEvent, 'time'>,
   ) {
-    await task(uiText((m) => m.app.tasks.reconcile), async (signal, alive) => {
-      // Enforce every preparation prerequisite at the executable entry point,
-      // including PDF drafts and an unchosen split-column sign convention.
-      if (blockedBy) fail((m) => m.app.blocked[blockedBy]);
-      if (!files[0] || !files[1]) fail((m) => m.app.errors.filesMissing);
-      if (preparationPending) fail((m) => m.app.errors.preparing);
-      if (precisionMissing) fail((m) => m.app.errors.precision);
-      if (unresolvedFormats) fail((m) => m.app.errors.formats);
-      if (unresolvedScope.length) fail((m) => m.app.errors.conflicts);
-      // Pressing compare is the confirmation itself: it is an explicit act on the
-      // settings shown above, and any later edit clears it again through
-      // updateScope/updateMapping. No separate attestation box repeats it.
-      const confirmed: Scope = { ...scope, confirmed: true };
-      const payload = {
-        files,
-        mappings,
-        scope: confirmed,
-        decisions: nextDecisions,
-        rejected: nextRejected,
-      };
-      const computed = await workerTask<{
-        a: SourceResult;
-        b: SourceResult;
-        result: Comparison | null;
-      }>('reconcile', payload, signal);
-      if (!alive()) return;
-      setValidated([computed.a, computed.b]);
-      if (!computed.result) {
-        setStep(1);
-        fail((m) => m.app.errors.rowsNeedCorrection);
-      }
-      const r = computed.result;
-      if (!alive()) return;
-      setScope(confirmed);
-      setResult(r);
-      setAuditEvents((events) => [
-        ...events,
-        {
-          time: new Date().toISOString(),
-          ...(event ?? {
-            action: 'compare' as const,
-            ids: [],
-            note: `تأكيد الإعدادات وتشغيل المقارنة: حتى ${confirmed.cutoff}، ${confirmed.currency}، فرق الأيام المسموح ${confirmed.dateWindow}`,
-          }),
-        },
-      ]);
-      setDecisions(nextDecisions);
-      setRejected(nextRejected);
-      setReview((v) => ({ ...v, checked: false }));
-      setStep(2);
-      setSelected('');
-      setPage(0);
-    });
+    await task(
+      uiText((m) => m.app.tasks.reconcile),
+      async (signal, alive) => {
+        // Enforce every preparation prerequisite at the executable entry point,
+        // including PDF drafts and an unchosen split-column sign convention.
+        if (blockedBy) fail((m) => m.app.blocked[blockedBy]);
+        if (!files[0] || !files[1]) fail((m) => m.app.errors.filesMissing);
+        if (preparationPending) fail((m) => m.app.errors.preparing);
+        if (precisionMissing) fail((m) => m.app.errors.precision);
+        if (unresolvedFormats) fail((m) => m.app.errors.formats);
+        if (unresolvedScope.length) fail((m) => m.app.errors.conflicts);
+        // Pressing compare is the confirmation itself: it is an explicit act on the
+        // settings shown above, and any later edit clears it again through
+        // updateScope/updateMapping. No separate attestation box repeats it.
+        const confirmed: Scope = { ...scope, confirmed: true };
+        const payload = {
+          files,
+          mappings,
+          scope: confirmed,
+          decisions: nextDecisions,
+          rejected: nextRejected,
+        };
+        const computed = await workerTask<{
+          a: SourceResult;
+          b: SourceResult;
+          result: Comparison | null;
+        }>('reconcile', payload, signal);
+        if (!alive()) return;
+        setValidated([computed.a, computed.b]);
+        if (!computed.result) {
+          setStep(1);
+          fail((m) => m.app.errors.rowsNeedCorrection);
+        }
+        const r = computed.result;
+        if (!alive()) return;
+        setScope(confirmed);
+        setResult(r);
+        setAuditEvents((events) => [
+          ...events,
+          {
+            time: new Date().toISOString(),
+            ...(event ?? {
+              action: 'compare' as const,
+              ids: [],
+              note: `تأكيد الإعدادات وتشغيل المقارنة: حتى ${confirmed.cutoff}، ${confirmed.currency}، فرق الأيام المسموح ${confirmed.dateWindow}`,
+            }),
+          },
+        ]);
+        setDecisions(nextDecisions);
+        setRejected(nextRejected);
+        setReview((v) => ({ ...v, checked: false }));
+        setStep(2);
+        setSelected('');
+        setPage(0);
+      },
+    );
   }
   async function storeSession() {
     if (!files[0] || !files[1] || !result) return;
-    await task(uiText((m) => m.app.tasks.saveSession), async (signal, alive) => {
-      const buffer = await workerTask<ArrayBuffer>(
-        'save-session',
-        {
-          files,
-          mappings,
-          scope,
-          decisions,
-          rejected,
-          events: auditEvents,
-          review,
-        },
-        signal,
-      );
-      if (!alive()) return;
-      const url = URL.createObjectURL(
-        new Blob([buffer], { type: 'application/json' }),
-      );
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `tarasuf-${scope.cutoff}.session.json`;
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 30000);
-      setNotice(uiText((m) => m.app.notices.sessionSaved));
-    });
+    await task(
+      uiText((m) => m.app.tasks.saveSession),
+      async (signal, alive) => {
+        const buffer = await workerTask<ArrayBuffer>(
+          'save-session',
+          {
+            files,
+            mappings,
+            scope,
+            decisions,
+            rejected,
+            events: auditEvents,
+            review,
+          },
+          signal,
+        );
+        if (!alive()) return;
+        const url = URL.createObjectURL(
+          new Blob([buffer], { type: 'application/json' }),
+        );
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tarasuf-${scope.cutoff}.session.json`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 30000);
+        setNotice(uiText((m) => m.app.notices.sessionSaved));
+      },
+    );
   }
   async function loadSession(file?: File) {
     if (!file || busy || files.some(Boolean)) return;
     setVisualCandidate(null);
     setVisualRevision((v) => v + 1);
-    await task(uiText((m) => m.app.tasks.restoreSession), async (signal, alive) => {
-      if (file.size > 30 * 1024 * 1024)
-        fail((m) => m.app.errors.sessionTooLarge);
-      const saved = await workerTask<
-        Awaited<ReturnType<typeof restoreSession>>
-      >('restore-session', { buffer: await file.arrayBuffer() }, signal);
-      if (!alive()) return;
-      invalidate();
-      directionEdited.current = [true, true];
-      setPdfDrafts([false, false]);
-      setFiles(saved.files);
-      setMappings(saved.mappings);
-      scopeEdited.current = {
-        supplier: true,
-        entity: true,
-        account: true,
-        currency: true,
-        cutoff: true,
-        decimals: true,
-      };
-      setFormatChoices([
-        { dateFormat: true, numberFormat: true },
-        { dateFormat: true, numberFormat: true },
-      ]);
-      setBalanceMode(saved.scope.coverageConfirmed);
-      setScope(saved.scope);
-      setDecisions(saved.decisions);
-      setRejected(saved.rejected);
-      setResult(saved.result);
-      setAuditEvents(saved.events);
-      setReview(saved.review);
-      setDemo(false);
-      setStep(2);
-      setNotice(uiText((m) => m.app.notices.sessionRestored));
-    });
+    await task(
+      uiText((m) => m.app.tasks.restoreSession),
+      async (signal, alive) => {
+        if (file.size > 30 * 1024 * 1024)
+          fail((m) => m.app.errors.sessionTooLarge);
+        const saved = await workerTask<
+          Awaited<ReturnType<typeof restoreSession>>
+        >('restore-session', { buffer: await file.arrayBuffer() }, signal);
+        if (!alive()) return;
+        invalidate();
+        directionEdited.current = [true, true];
+        setPdfDrafts([false, false]);
+        setFiles(saved.files);
+        setMappings(saved.mappings);
+        scopeEdited.current = {
+          supplier: true,
+          entity: true,
+          account: true,
+          currency: true,
+          cutoff: true,
+          decimals: true,
+        };
+        setFormatChoices([
+          { dateFormat: true, numberFormat: true },
+          { dateFormat: true, numberFormat: true },
+        ]);
+        setBalanceMode(saved.scope.coverageConfirmed);
+        setScope(saved.scope);
+        setDecisions(saved.decisions);
+        setRejected(saved.rejected);
+        setResult(saved.result);
+        setAuditEvents(saved.events);
+        setReview(saved.review);
+        setDemo(false);
+        setStep(2);
+        setNotice(uiText((m) => m.app.notices.sessionRestored));
+      },
+    );
   }
   async function download() {
     if (!result) return;
-    await task(uiText((m) => m.app.tasks.export), async (signal, alive) => {
-      const buffer = await workerTask<ArrayBuffer>(
-        'export',
-        { result, files, review: { ...review, events: auditEvents } },
-        signal,
-      );
-      if (!alive()) return;
-      const url = URL.createObjectURL(
-        new Blob([buffer], {
-          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        }),
-      );
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `tarasuf-workpaper-${scope.cutoff}.xlsx`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 30000);
-      setNotice(uiText((m) => m.app.notices.workpaperReady));
-    });
+    await task(
+      uiText((m) => m.app.tasks.export),
+      async (signal, alive) => {
+        const buffer = await workerTask<ArrayBuffer>(
+          'export',
+          { result, files, review: { ...review, events: auditEvents } },
+          signal,
+        );
+        if (!alive()) return;
+        const url = URL.createObjectURL(
+          new Blob([buffer], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          }),
+        );
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `tarasuf-workpaper-${scope.cutoff}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 30000);
+        setNotice(uiText((m) => m.app.notices.workpaperReady));
+      },
+    );
   }
   const skippedRows = result
     ? result.supplier.errors.length + result.ledger.errors.length
@@ -1157,9 +1187,7 @@ export default function App() {
                     localStorage.removeItem('mizan.mapping.1.v1');
                     setNotice(uiText((m) => m.app.notices.templatesCleared));
                   } catch {
-                    setError(
-                      uiText((m) => m.app.errors.templatesUnavailable),
-                    );
+                    setError(uiText((m) => m.app.errors.templatesUnavailable));
                   }
                 }}
               >
@@ -1306,7 +1334,21 @@ export default function App() {
           {busy && (
             <div className="notice loading" role="status">
               <LoaderCircle className="spin" size={20} />
-              {say(busy)}
+              {processingProgress
+                ? processingProgress.completed === 0
+                  ? processingProgress.stage === 'pdf-read'
+                    ? t.app.processing.preparingRead
+                    : t.app.processing.preparingLayout
+                  : processingProgress.stage === 'pdf-read'
+                    ? t.app.processing.readingPage(
+                        processingProgress.completed,
+                        processingProgress.total,
+                      )
+                    : t.app.processing.layoutPage(
+                        processingProgress.completed,
+                        processingProgress.total,
+                      )
+                : say(busy)}
               <Button variant="ghost" onClick={cancel}>
                 {t.common.cancel}
               </Button>
@@ -1447,9 +1489,7 @@ export default function App() {
                 {scopeConflict && !scopeOpen && (
                   <p className="hint warn" role="status">
                     {t.app.scope.conflict(
-                      unresolvedScope.map(
-                        (field) => t.app.scopeFields[field],
-                      ),
+                      unresolvedScope.map((field) => t.app.scopeFields[field]),
                     )}
                   </p>
                 )}
@@ -1528,7 +1568,10 @@ export default function App() {
                         options={Array.from(
                           { length: 8 },
                           (_, i) =>
-                            [String(i), t.app.scope.days(i)] as [string, string],
+                            [String(i), t.app.scope.days(i)] as [
+                              string,
+                              string,
+                            ],
                         )}
                       />
                     </div>
@@ -1612,8 +1655,7 @@ export default function App() {
                                     (item, i) => (
                                       <p className="muted" key={i}>
                                         <bdi>{item.value}</bdi>
-                                        {' —'}
-                                        {' '}
+                                        {' —'}{' '}
                                         {
                                           t.app.sides[
                                             item.side === 'supplier' ? 0 : 1
@@ -1672,9 +1714,7 @@ export default function App() {
               )}
               <section className="surface pad stack">
                 {pdfReviewPending && (
-                  <p className="hint warn">
-                    {t.app.compare.pdfPending}
-                  </p>
+                  <p className="hint warn">{t.app.compare.pdfPending}</p>
                 )}
                 {balanceMode && (
                   <Tick
@@ -1898,9 +1938,11 @@ export default function App() {
                             return (
                               <TableRow key={tx.id}>
                                 <TableCell>
-                                  {t.app.sideShort[tx.side]}{' '}· {tx.row}
+                                  {t.app.sideShort[tx.side]} · {tx.row}
                                 </TableCell>
-                                <TableCell className="mono">{tx.date}</TableCell>
+                                <TableCell className="mono">
+                                  {tx.date}
+                                </TableCell>
                                 <TableCell>
                                   <bdi>
                                     {tx.reference || t.app.results.noReference}
@@ -2312,7 +2354,8 @@ function SourceConfiguration({
   const columns: [string, string][] = [
     ['-1', c.unset],
     ...header.map(
-      (h, i) => [String(i), `${i + 1} · ${h || c.untitled}`] as [string, string],
+      (h, i) =>
+        [String(i), `${i + 1} · ${h || c.untitled}`] as [string, string],
     ),
   ];
   const [open, setOpen] = useState(false);
@@ -2422,7 +2465,8 @@ function SourceConfiguration({
               <>{named(c.amount, mapping.amount)}</>
             ) : (
               <>
-                {named(c.debit, mapping.debit)} / {named(c.credit, mapping.credit)}
+                {named(c.debit, mapping.debit)} /{' '}
+                {named(c.credit, mapping.credit)}
               </>
             )}
             {mapping.reference >= 0 && (
@@ -2479,9 +2523,7 @@ function SourceConfiguration({
           }}
         />
       )}
-      {mapping.reference < 0 && (
-        <p className="hint">{c.noReferenceColumn}</p>
-      )}
+      {mapping.reference < 0 && <p className="hint">{c.noReferenceColumn}</p>}
       {(missingColumns || mapping.reference < 0) && (
         <ImportAssistant
           key={JSON.stringify([
@@ -2750,7 +2792,9 @@ function SourceConfiguration({
           <details open={importIssues.length > 0}>
             <summary>
               {c.exclude}
-              {importIssues.length > 0 ? c.readingNotes(importIssues.length) : ''}
+              {importIssues.length > 0
+                ? c.readingNotes(importIssues.length)
+                : ''}
             </summary>
             <div className="stack" style={{ marginTop: 12 }}>
               {importIssues.slice(0, 5).map((issue, index) => (

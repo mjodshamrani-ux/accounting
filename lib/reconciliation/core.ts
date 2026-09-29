@@ -3,7 +3,10 @@ import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
 import { summaryLabel } from './row-labels.ts';
 export { summaryLabel } from './row-labels.ts';
-import { certifiedDocumentPairs, DOCUMENT_PAIR_RULE } from './document-pairs.ts';
+import {
+  certifiedDocumentPairs,
+  DOCUMENT_PAIR_RULE,
+} from './document-pairs.ts';
 import {
   automaticConflicts,
   buildReconciliationCases,
@@ -1434,8 +1437,12 @@ export function compare(
       .filter((c) => c.status === 'Matched')
       .flatMap((c) => c.sourceTrace.map((t) => t.sourceRowId)),
   );
-  for (let i = ambiguousIds.length - 1; i >= 0; i--)
-    if (matchedRows.has(ambiguousIds[i])) ambiguousIds.splice(i, 1);
+  // Stable in-place compaction: interleaved approved/review rows must not
+  // repeatedly shift a large suffix while removing approved identities.
+  let remainingAmbiguous = 0;
+  for (const id of ambiguousIds)
+    if (!matchedRows.has(id)) ambiguousIds[remainingAmbiguous++] = id;
+  ambiguousIds.length = remainingAmbiguous;
   const suggestions: Record<string, string[]> = {};
   const unmatchedReferences = indexBy(ledgerOnly, (t) => t.normalizedReference);
   for (const s of supplierOnly) {
@@ -1594,7 +1601,7 @@ export function compare(
         'لم يُعثر في الملفات المقدمة على حركة مورد تصلح مقابلًا لهذه الحركة.',
       transactionIds: [l.id],
     });
-    if (ambiguousIds.includes(l.id))
+    if (ambiguousSet.has(l.id))
       diagnostics.push({
         code: 'DUPLICATE_REFERENCE',
         message: 'مرجع الدفتر متكرر ولم تثبت مجموعة مطابقة فريدة.',

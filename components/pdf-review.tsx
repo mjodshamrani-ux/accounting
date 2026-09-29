@@ -37,6 +37,7 @@ export function PdfReview({
   const applied = file.pdf!.cuts;
   const [cuts, setCuts] = useState(format(applied));
   const [page, setPage] = useState(1);
+  const [pageDraft, setPageDraft] = useState('1');
   const [offset, setOffset] = useState(0);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -44,6 +45,7 @@ export function PdfReview({
     setOpen(false);
   }, [file]);
   useEffect(() => setOffset(0), [page, file, header]);
+  useEffect(() => setPageDraft(String(page)), [page, file]);
   useEffect(() => setCuts(format(file.pdf!.cuts)), [file]);
   const [url, setUrl] = useState('');
   useEffect(() => {
@@ -54,15 +56,28 @@ export function PdfReview({
     return () => URL.revokeObjectURL(u);
   }, [file.original]);
   const sheet = file.sheets[0];
-  const rows = useMemo(
-    () =>
-      sheet.rows
-        .map((row, i) => ({ row, rn: i + 1 }))
-        .filter(
-          (x) => sheet.rowPages?.[String(x.rn)] === page && x.rn > header + 1,
-        ),
-    [sheet, page, header],
-  );
+  const rowsByPage = useMemo(() => {
+    const pages = new Map<number, { row: string[]; rn: number }[]>();
+    sheet.rows.forEach((row, i) => {
+      const rn = i + 1;
+      const rowPage = sheet.rowPages?.[String(rn)];
+      if (rowPage === undefined || rn <= header + 1) return;
+      const rows = pages.get(rowPage) ?? [];
+      rows.push({ row, rn });
+      pages.set(rowPage, rows);
+    });
+    return pages;
+  }, [sheet, header]);
+  const rows = rowsByPage.get(page) ?? [];
+  const requestedPage = Number(pageDraft);
+  const validPage =
+    /^\d+$/.test(pageDraft) &&
+    Number.isSafeInteger(requestedPage) &&
+    requestedPage >= 1 &&
+    requestedPage <= file.pdf!.pages;
+  const jumpToPage = () => {
+    if (validPage) setPage(requestedPage);
+  };
   // Derived from the text in the field, never from a flag that only a reload
   // clears: retyping the applied value leaves nothing pending.
   const parsed = parseCuts(cuts);
@@ -89,7 +104,9 @@ export function PdfReview({
               : file.pdf?.autoColumns
                 ? r.autoColumns(applied.length + 1)
                 : r.chosenColumns(applied.length + 1)}
-            {flagged.length > 0 ? r.flaggedRows(flagged.length) : r.noFlaggedRows}
+            {flagged.length > 0
+              ? r.flaggedRows(flagged.length)
+              : r.noFlaggedRows}
           </p>
         </div>
         <a
@@ -156,6 +173,35 @@ export function PdfReview({
                 onClick={() => setPage((p) => p + 1)}
               >
                 {r.nextPage}
+              </Button>
+              <label className="field">
+                <span>{r.jumpPage}</span>
+                <Input
+                  type="number"
+                  min={1}
+                  max={file.pdf!.pages}
+                  step={1}
+                  dir="ltr"
+                  aria-label={r.jumpPage}
+                  aria-invalid={!!pageDraft && !validPage}
+                  value={pageDraft}
+                  style={{ width: 90 }}
+                  onChange={(event) => setPageDraft(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                      event.preventDefault();
+                      jumpToPage();
+                    }
+                  }}
+                />
+              </label>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={!validPage || requestedPage === page}
+                onClick={jumpToPage}
+              >
+                {r.goToPage}
               </Button>
             </>
           )}
@@ -226,9 +272,7 @@ export function PdfReview({
                   {r.undoCuts}
                 </Button>
               )}
-              {!parsed && (
-                <span className="hint warn">{r.cutsInvalid}</span>
-              )}
+              {!parsed && <span className="hint warn">{r.cutsInvalid}</span>}
               {parsed && pending && (
                 <span className="hint">{r.cutsPending}</span>
               )}
