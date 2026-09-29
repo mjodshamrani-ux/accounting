@@ -1,6 +1,7 @@
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
+import { certifiedDocumentPairs, DOCUMENT_PAIR_RULE } from './document-pairs.ts';
 import {
   automaticConflicts,
   buildReconciliationCases,
@@ -1358,6 +1359,51 @@ export function compare(
       usedA.add(s.id);
       usedB.add(l.id);
     }
+  }
+  // The complete certificate batch uses original source membership, not the
+  // rows left after manual or automatic consumption. Financial equality alone
+  // cannot resolve a repeated document number.
+  const documentPairs = certifiedDocumentPairs(supplier, ledger);
+  for (const [s, l] of documentPairs) {
+    if (
+      !completeReading ||
+      !strongAutomaticReference(s) ||
+      !strongAutomaticReference(l) ||
+      s.amount === 0 ||
+      s.amount !== l.amount ||
+      (explicitNumericDocument(s) &&
+        (!explicitNumericDocument(l) || s.documentType !== l.documentType)) ||
+      automaticConflicts(s, l).length ||
+      usedA.has(s.id) ||
+      usedB.has(l.id) ||
+      rejectedSet.has(`${s.id}|${l.id}`)
+    )
+      continue;
+    const days = Math.abs(Date.parse(s.date) - Date.parse(l.date)) / 86400000;
+    if (!(days <= scope.dateWindow)) continue;
+    matches.push({
+      supplierId: s.id,
+      ledgerId: l.id,
+      kind: 'auto',
+      reason: `رقم المستند ${s.reference} متكرر، لكن المرجع المختار ${s.chosenReference} يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ ${days} يوم.`,
+      evidence: {
+        rule: DOCUMENT_PAIR_RULE,
+        supplierRow: s.row,
+        ledgerRow: l.row,
+        amount: s.amount,
+        dateGap: days,
+        reference: s.reference,
+        discriminator: {
+          value: s.chosenReference!,
+          supplierHeader: s.chosenReferenceEvidence!.header,
+          supplierColumn: s.chosenReferenceEvidence!.column,
+          ledgerHeader: l.chosenReferenceEvidence!.header,
+          ledgerColumn: l.chosenReferenceEvidence!.column,
+        },
+      },
+    });
+    usedA.add(s.id);
+    usedB.add(l.id);
   }
   // One source on both sides: the same file (by content, whatever its name),
   // the same sheet, and rows read by both. The comparison stays available as

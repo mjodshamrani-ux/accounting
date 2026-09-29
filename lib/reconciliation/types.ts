@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.17-experimental';
+export const ENGINE_VERSION = '0.3.18-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -120,6 +120,14 @@ export type Transaction = {
   paymentIdentityFields?: ('bankReference' | 'receiptReference')[];
   documentType?: 'Invoice' | 'Credit Note' | 'Payment' | 'Journal' | 'Unknown';
   chosenReference?: string;
+  // Positive role provenance only for an explicitly selected, unique and safe
+  // generic reference column. Local vouchers/orders and audit-only retention
+  // must never acquire this authority merely by having the same cell value.
+  chosenReferenceEvidence?: {
+    role: 'document-reference';
+    header: string;
+    column: number;
+  };
   // A unique, safe column explicitly labelled Reference, even when the
   // reading chose another identity. This is conflict evidence only.
   statedReference?: string;
@@ -189,6 +197,13 @@ export type Match = {
     amount: number;
     dateGap: number;
     reference: string;
+    discriminator?: {
+      value: string;
+      supplierHeader: string;
+      supplierColumn: number;
+      ledgerHeader: string;
+      ledgerColumn: number;
+    };
   };
 };
 export type Decision = { supplierId: string; ledgerId: string; note: string };

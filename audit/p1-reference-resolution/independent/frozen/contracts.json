@@ -1,0 +1,1251 @@
+{
+  "schema": "p1-independent-reference-contract/1",
+  "purpose": "Narrow independently authored synthetic P1 acceptance; not field evidence or a general accuracy estimate.",
+  "authorship": "Written from literal visible source facts before candidate execution and without inspection of the upcoming P1 fix. Prior frozen harness supplied public API shape only.",
+  "baselineApiReference": "main 28b00f6 / engine 0.3.17-experimental (API reference; no engine execution used to derive expectations).",
+  "oracle": "Explicit listed source-row pairs; exact reference/document/amount facts are authored independently of engine functions. No automatic groups are requested. Unlisted pairs are forbidden.",
+  "scope": {
+    "supplier": "Synthetic P1 supplier",
+    "entity": "Synthetic P1 entity",
+    "account": "P1-AP-726",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-09-30",
+    "dateWindow": 3,
+    "confirmed": true,
+    "coverageConfirmed": false
+  },
+  "cases": [
+    {
+      "id": "P1I01",
+      "title": "Three equal-amount references within one repeated document",
+      "sourceEvidenceRationale": "Document D-610 is reused, but A-61, B-61 and C-61 each occur once per side. Pair identities are explicit; row order and local vouchers supply no cross-book identity.",
+      "supplier": {
+        "file": "fixtures/P1I01-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-610",
+            "chosenReference": "A-61",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-610",
+            "chosenReference": "B-61",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-610",
+            "chosenReference": "C-61",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I01-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-610",
+            "chosenReference": "C-61",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-610",
+            "chosenReference": "A-61",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-610",
+            "chosenReference": "B-61",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I02",
+      "title": "Three literal numeric references distinguished by leading zeros",
+      "sourceEvidenceRationale": "References 000084, 0084 and 84 are different literal identities. Each has one exact counterpart under D-620. Preserve zeros rather than collapsing all three.",
+      "supplier": {
+        "file": "fixtures/P1I02-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-620",
+            "chosenReference": "000084",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-620",
+            "chosenReference": "0084",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-620",
+            "chosenReference": "84",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I02-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-620",
+            "chosenReference": "0084",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-620",
+            "chosenReference": "84",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-620",
+            "chosenReference": "000084",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I03",
+      "title": "Different-reference leftovers on both sides do not hide the exact pair",
+      "sourceEvidenceRationale": "Only RC-440 is written on both sides. RC-441 and RC-442 disagree even though D-630 and amount agree. Require one positive pair and forbid linking the two leftovers.",
+      "supplier": {
+        "file": "fixtures/P1I03-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-630",
+            "chosenReference": "RC-440",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-630",
+            "chosenReference": "RC-441",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I03-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-630",
+            "chosenReference": "RC-442",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-630",
+            "chosenReference": "RC-440",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [
+        [
+          2,
+          3
+        ]
+      ],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I04",
+      "title": "A unique pair alongside a genuinely duplicated identity cluster",
+      "sourceEvidenceRationale": "SOLO-64 has one counterpart per side. DUP-64 occurs twice per side with equal amount/date/document; different local vouchers do not identify corresponding physical rows. Keep the duplicated cluster unresolved while completing SOLO-64.",
+      "supplier": {
+        "file": "fixtures/P1I04-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-640",
+            "chosenReference": "DUP-64",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-640",
+            "chosenReference": "DUP-64",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-640",
+            "chosenReference": "SOLO-64",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I04-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-640",
+            "chosenReference": "SOLO-64",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-640",
+            "chosenReference": "DUP-64",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-640",
+            "chosenReference": "DUP-64",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [
+        [
+          4,
+          2
+        ]
+      ],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I05",
+      "title": "Reference reuse across different documents requires both fields",
+      "sourceEvidenceRationale": "KEY-X is reused under documents D-651 and D-652. Each document/reference combination is unique and must pair with its exact counterpart; KEY-Y adds a second identity inside D-651.",
+      "supplier": {
+        "file": "fixtures/P1I05-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-651",
+            "chosenReference": "KEY-X",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-652",
+            "chosenReference": "KEY-X",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-651",
+            "chosenReference": "KEY-Y",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I05-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-651",
+            "chosenReference": "KEY-Y",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-651",
+            "chosenReference": "KEY-X",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-652",
+            "chosenReference": "KEY-X",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I06",
+      "title": "Arabic and English layouts with two exact pairs and a conflicting leftover",
+      "sourceEvidenceRationale": "The explicit mappings select the reference cells on both layouts. Two Arabic references agree with D-660; the third reference differs. Descriptions are neutral and layout positions have no accounting meaning.",
+      "supplier": {
+        "file": "fixtures/P1I06-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-660",
+            "chosenReference": "مرجع-أ",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-660",
+            "chosenReference": "مرجع-ب",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-660",
+            "chosenReference": "مرجع-ج",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I06-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 2,
+          "reference": 1,
+          "description": 6,
+          "amount": 0,
+          "currencyColumn": 4,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-660",
+            "chosenReference": "مرجع-د",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-660",
+            "chosenReference": "مرجع-ب",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-660",
+            "chosenReference": "مرجع-أ",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 5
+      },
+      "requiredAutoPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I07",
+      "title": "An exact but later counterpart defeats a closer different-reference decoy",
+      "sourceEvidenceRationale": "R-671 and R-672 each have one exact counterpart within the declared three-day window. A same-day R-679 row is a conflicting decoy, not a reason to steal or suppress an exact match. Different neutral descriptions are not identity evidence.",
+      "supplier": {
+        "file": "fixtures/P1I07-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-670",
+            "chosenReference": "R-671",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-670",
+            "chosenReference": "R-672",
+            "amountMinor": 28640,
+            "date": "2026-09-22",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I07-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-670",
+            "chosenReference": "R-679",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-670",
+            "chosenReference": "R-672",
+            "amountMinor": 28640,
+            "date": "2026-09-22",
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "document": "D-670",
+            "chosenReference": "R-671",
+            "amountMinor": 28640,
+            "date": "2026-09-23",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I08",
+      "title": "Unique local vouchers do not resolve duplicate cross-book identities",
+      "sourceEvidenceRationale": "Each side repeats D-680 plus REPEAT-68 twice at the same date and amount. Local voucher values are all distinct across books, so no pair has a unique cross-book proof. No automatic pair or arbitrary whole-group approval.",
+      "supplier": {
+        "file": "fixtures/P1I08-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-680",
+            "chosenReference": "REPEAT-68",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-680",
+            "chosenReference": "REPEAT-68",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I08-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-680",
+            "chosenReference": "REPEAT-68",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-680",
+            "chosenReference": "REPEAT-68",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I09",
+      "title": "A shared document with only conflicting selected references",
+      "sourceEvidenceRationale": "R-691 has no exact counterpart. R-692 and R-693 cannot represent it just because date, amount and D-690 agree.",
+      "supplier": {
+        "file": "fixtures/P1I09-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-690",
+            "chosenReference": "R-691",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I09-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-690",
+            "chosenReference": "R-692",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-690",
+            "chosenReference": "R-693",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I10",
+      "title": "A shared chosen reference cannot erase explicit document conflict",
+      "sourceEvidenceRationale": "The selected reference COLLIDE-70 agrees, but the source documents D-701 and D-702 differ. There is no evidence these identify the same document.",
+      "supplier": {
+        "file": "fixtures/P1I10-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-701",
+            "chosenReference": "COLLIDE-70",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I10-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-702",
+            "chosenReference": "COLLIDE-70",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I11",
+      "title": "Differing zero-padded references have no proven equivalence",
+      "sourceEvidenceRationale": "INV-00092 and INV-0092 are different selected identities. D-710 and equal amounts do not authorize removing a zero.",
+      "supplier": {
+        "file": "fixtures/P1I11-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-710",
+            "chosenReference": "INV-00092",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I11-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-710",
+            "chosenReference": "INV-0092",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    },
+    {
+      "id": "P1I12",
+      "title": "A crossed collision cycle has no agreeing document/reference pair",
+      "sourceEvidenceRationale": "Every document and every chosen reference occurs once on each side, but never in the same combination. Matching by either column alone would manufacture two false pairs.",
+      "supplier": {
+        "file": "fixtures/P1I12-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-721",
+            "chosenReference": "REF-A72",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-722",
+            "chosenReference": "REF-B72",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "ledger": {
+        "file": "fixtures/P1I12-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "document": "D-721",
+            "chosenReference": "REF-B72",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "document": "D-722",
+            "chosenReference": "REF-A72",
+            "amountMinor": 28640,
+            "date": "2026-09-21",
+            "currency": "SAR"
+          }
+        ],
+        "documentColumn": 1
+      },
+      "requiredAutoPairs": [],
+      "forbidOtherAutoPairs": true,
+      "forbidAutoGroups": true,
+      "decisions": []
+    }
+  ]
+}

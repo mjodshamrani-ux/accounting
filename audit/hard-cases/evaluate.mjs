@@ -17,7 +17,7 @@ import {
   renderSource,
   sourceTable,
 } from '../reliability/renderers.mjs';
-export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-2.0.1';
+export const HARD_EVALUATOR_VERSION = 'tarasuf-hard-evaluator-2.0.2';
 
 /** Escape a catalogue key for a regular expression, with each `${…}`
  * placeholder standing for any text. */
@@ -202,7 +202,13 @@ function keepsInRole(t, role, value, header) {
         t.reference === value ||
         t.primaryReference === value ||
         t.documentReference === value ||
-        retained('mappedReference')
+        retained('mappedReference') ||
+        // 2.0.2: an unselected generic Reference column can be kept aside
+        // as statedReference. Its exact text and source header must survive
+        // on this source row; the bare property is not enough. This records
+        // retention only and supplies no matching identity or approval.
+        (/^(?:reference|ref|المرجع)$/i.test(header) &&
+          retained('statedReference'))
       );
     case 'batch':
       return retained('batch');

@@ -145,6 +145,150 @@ test('evaluator: the value in a field of another role does not count as kept', a
   }
 });
 
+// Fixed facts written independently of engine fields: each document number
+// agrees across the sources, but the written generic references conflict.
+// Every value must be retained; no pair may be approved. Two rows per source
+// let the negative controls distinguish both the source and the source row.
+const statedReferenceCase = () => ({
+  id: 'evaluator-stated-reference-retention',
+  template: 'evaluator-stated-reference-retention',
+  family: 'reference',
+  variant: 'conflicting-generic-references',
+  split: 'evaluator-control',
+  seed: 0,
+  sources: ['supplier', 'ledger'].map((side, i) => ({
+    side,
+    name: `${side}-retention.csv`,
+    format: 'csv',
+    layout: {
+      format: 'csv',
+      language: i ? 'en' : 'ar',
+      style: 'dot',
+      fields: [
+        'date',
+        'reference',
+        'documentReference',
+        'kind',
+        'description',
+        'amount',
+        'currency',
+        'account',
+      ],
+    },
+    metadata: {
+      supplier: 'Retention Supplier',
+      entity: 'Retention Buyer',
+      account: 'AP-482',
+      currency: 'SAR',
+      decimals: 2,
+      cutoff: '2026-07-31',
+      periodStart: '2026-07-01',
+      reportType: 'transactions',
+      dateFormat: 'ymd',
+      numberFormat: 'dot',
+      opening: 0,
+      closing: 30000,
+      signEvidence: 'Positive amount increases the payable to the supplier',
+    },
+    rows: [1, 2].map((n) => ({
+      key: `${i ? 'b' : 'a'}:${n}`,
+      reference: `${i ? 'LR' : 'SR'}-100${n}`,
+      documentReference: `INV-900${n}`,
+      date: `2026-07-${12 + n}`,
+      minor: n * 10000,
+      kind: 'Invoice',
+      description: 'Goods supplied',
+      currency: 'SAR',
+      account: 'AP-482',
+    })),
+  })),
+  oracle: {
+    expect: 'review',
+    approved: [],
+    targetKeys: ['a:1', 'a:2', 'b:1', 'b:2'],
+    contract: { kind: 'refuse', outcomes: ['review'], signals: [] },
+    requiredEvidence: ['reference'],
+  },
+});
+
+test('evaluator: exact generic reference text and header count as retained under either supported representation', async () => {
+  for (const assist of ['none', 'declared']) {
+    const observed = tampered((r) => {
+      for (const t of rows(r))
+        assert.equal(
+          t.retainedEvidence?.[0].field,
+          assist === 'none' ? 'statedReference' : 'mappedReference',
+        );
+    });
+    const record = await evaluateHardCase(
+      statedReferenceCase(), observed, 'logical', { assist },
+    );
+    assert.equal(record.verdict, 'pass', assist);
+    assert.equal(record.counts.evidenceRequired, 4);
+    assert.equal(record.counts.evidenceLost, 0);
+    assert.equal(record.counts.falseApprovals, 0);
+  }
+});
+
+test('evaluator: an unselected reference needs its exact retained role, header and value', async () => {
+  for (const [label, change] of [
+    ['missing tuple', (t: Tx) => { delete t.retainedEvidence; }],
+    ['wrong role', (t: Tx) => { t.retainedEvidence![0].field = 'batch'; }],
+    ['wrong header', (t: Tx) => {
+      t.retainedEvidence![0].header = 'Document No';
+    }],
+    ['changed text', (t: Tx) => { t.retainedEvidence![0].value += '0'; }],
+  ] as const) {
+    const record = await evaluateHardCase(
+      statedReferenceCase(),
+      tampered((r) => change(r.supplier.transactions[0])),
+      'logical',
+      { assist: 'none' },
+    );
+    assert.equal(record.verdict, 'fail-evidence-lost', label);
+    assert.equal(record.counts.evidenceLost, 1, label);
+    assert.ok(record.findings.includes('evidence lost: a:1 reference'), label);
+  }
+});
+
+test('evaluator: retained reference evidence from another source or row does not count', async () => {
+  for (const origin of ['other source', 'other row']) {
+    const record = await evaluateHardCase(
+      statedReferenceCase(),
+      tampered((r) => {
+        const target = r.supplier.transactions[0];
+        const donor =
+          origin === 'other source'
+            ? r.ledger.transactions[0]
+            : r.supplier.transactions[1];
+        // Keep the target's header and role valid, so only the source-specific
+        // value is wrong. Even the bare property is replaced to agree with it.
+        target.retainedEvidence![0].value = donor.retainedEvidence![0].value;
+        target.statedReference = donor.statedReference;
+      }),
+      'logical',
+      { assist: 'none' },
+    );
+    assert.equal(record.verdict, 'fail-evidence-lost', origin);
+    assert.equal(record.counts.evidenceLost, 1, origin);
+    assert.ok(record.findings.includes('evidence lost: a:1 reference'), origin);
+  }
+});
+
+test('evaluator: preserving unselected references never licenses an automatic match', async () => {
+  const record = await evaluateHardCase(
+    statedReferenceCase(),
+    tampered((r) => {
+      for (const c of r.cases) c.status = 'Matched';
+    }),
+    'logical',
+    { assist: 'none' },
+  );
+  assert.equal(record.counts.evidenceLost, 0);
+  assert.ok(record.counts.falseApprovals > 0);
+  assert.equal(record.verdict, 'fail-unsafe');
+});
+
 test('evaluator: an unexpected internal error is not a successful refusal', async () => {
   const invalid = spec('F09-missing-amount', 'no-amount-column');
   for (const error of [

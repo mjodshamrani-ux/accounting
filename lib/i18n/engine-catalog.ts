@@ -13,6 +13,7 @@
 // has no English, when an entry no longer exists in the engine, or when the
 // slots do not correspond.
 export const engineCatalog: Record<string, string> = {
+  'رقم المستند ${…} متكرر، لكن المرجع المختار ${…} يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ ${…} يوم.': 'Document number {0} is repeated, but chosen reference {1} identifies this row uniquely within that document on each side. Both references match their original text, the signed amounts agree, and the dates are {2} days apart.',
   // Words the engine puts inside other messages.
   'المورد': 'Supplier',
   'التاريخ': 'date',

@@ -1,5 +1,6 @@
 import { money, safeSum } from './core.ts';
 import { DOCUMENT_LABELS } from './transaction-references.ts';
+import { DOCUMENT_PAIR_RULE } from './document-pairs.ts';
 import type {
   CaseCounts,
   Match,
@@ -145,6 +146,7 @@ function identifier(
   classification: string,
   a: Transaction[],
   b: Transaction[],
+  rule: string,
 ) {
   const identity = (rows: Transaction[]) =>
     rows
@@ -156,6 +158,7 @@ function identifier(
           t.voucherReference ?? '',
           t.poReference ?? '',
           t.bankReference ?? '',
+          ...(rule === DOCUMENT_PAIR_RULE ? [t.chosenReference ?? ''] : []),
         ].join('|'),
       )
       .sort();
@@ -198,7 +201,7 @@ export function buildReconciliationCases(
       throw new Error('صف المصدر مستخدم في أكثر من حالة');
     const supplierTotal = safeSum(a.map((t) => t.amount)),
       ledgerTotal = safeSum(b.map((t) => t.amount));
-    const baseId = identifier(classification, a, b);
+    const baseId = identifier(classification, a, b, rule);
     let caseId = baseId,
       suffix = 1;
     while (caseIds.has(caseId)) caseId = `${baseId}-${++suffix}`;

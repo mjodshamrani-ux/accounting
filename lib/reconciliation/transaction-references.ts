@@ -120,6 +120,17 @@ export function transactionReferences(
   // checks apply even though this column was not selected.
   const statedReferencePattern = /^(?:reference|ref|المرجع)$/i;
   const statedReference = field(statedReferencePattern);
+  const chosenReferenceEvidence: Transaction['chosenReferenceEvidence'] =
+    mapped &&
+    statedReference === mapped &&
+    headerMatches(statedReferencePattern, headers[mapping.reference] ?? '') &&
+    !referenceEvidenceIssues.length
+      ? {
+          role: 'document-reference',
+          header: String(rawHeaders[mapping.reference]).trim(),
+          column: mapping.reference + 1,
+        }
+      : undefined;
   // Without a chosen reference column only an explicit document number, bank
   // reference or receipt number identifies a row across the two books. A
   // voucher, batch or order number is kept by each book for itself, so a row
@@ -220,6 +231,7 @@ export function transactionReferences(
     // The value in the column the accountant chose, kept to check that two
     // rows matched on another identity do not name different documents there.
     ...(mapped ? { chosenReference: mapped } : {}),
+    ...(chosenReferenceEvidence ? { chosenReferenceEvidence } : {}),
     ...(statedReference ? { statedReference } : {}),
     primaryReference,
     documentReference,

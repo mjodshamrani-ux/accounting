@@ -1,0 +1,10 @@
+{
+  "sourceCommit": "28b00f603018a99d5fbf31e77bfbbab0ff8cacb6",
+  "archiveLibMatchesGitCommit": true,
+  "libFiles": 53,
+  "libDigest": "146d5b63ddf80b82870e9806e05b23e6edff6c68355daea6d2926ddcbc0db5aa",
+  "libUnchangedDuringExecution": true,
+  "fixtureManifestSha256": "17f6e95eff3b34c99230c9d12c08280ca6b7980d0742dbb513213deee9168f3e",
+  "resultSha256": "f9dfcb479160b3a33bb2520346695a77d11ae9adcb5ef6fba6e61774054eba75",
+  "note": "The archived baseline has no .git directory, so the runner records null commit fields. This separate byte comparison verifies every lib file against the named immutable commit. No candidate run was performed."
+}

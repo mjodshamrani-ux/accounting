@@ -46,11 +46,84 @@ const tests = [
   'tests/hard-cases.test.ts',
   'tests/same-source.test.ts',
   'tests/reference-interactions.test.ts',
+  'tests/reference-resolution.test.ts',
   'tests/unmapped-reference.test.ts',
   'tests/pdf-composite.test.ts',
   'tests/pdf-paint-order.test.ts',
 ];
 const mutations = [
+  {
+    name: 'p1-disable-document-pair-resolution',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      ['const documentPairs = certifiedDocumentPairs(supplier, ledger);',
+        'const documentPairs = [];'],
+    ],
+  },
+  {
+    name: 'p1-grant-document-role-to-another-selected-column',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        "    headerMatches(statedReferencePattern, headers[mapping.reference] ?? '') &&\n",
+        '',
+      ],
+    ],
+  },
+  {
+    name: 'p1-choose-first-repeated-discriminator',
+    file: 'lib/reconciliation/document-pairs.ts',
+    changes: [
+      [
+        'if (candidates.length === 1 && counterparts?.length === 1)',
+        'if (candidates.length && counterparts?.length)',
+      ],
+    ],
+  },
+  {
+    name: 'p1-ignore-unsafe-discriminator-competitors',
+    file: 'lib/reconciliation/document-pairs.ts',
+    changes: [
+      [
+        'const a = index(supplier.transactions,',
+        'const a = index(supplier.transactions.filter(strongDiscriminator),',
+      ],
+      [
+        'const b = index(ledger.transactions,',
+        'const b = index(ledger.transactions.filter(strongDiscriminator),',
+      ],
+    ],
+  },
+  {
+    name: 'p1-use-normalized-document-identity',
+    file: 'lib/reconciliation/document-pairs.ts',
+    changes: [
+      [
+        '          t.documentReference === document &&\n          t.reference === document &&',
+        '          true &&',
+      ],
+    ],
+  },
+  {
+    name: 'p1-ignore-document-pair-amount-difference',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        '      s.amount === 0 ||\n      s.amount !== l.amount ||',
+        '      s.amount === 0 ||\n      false ||',
+      ],
+    ],
+  },
+  {
+    name: 'p1-restore-a-rejected-document-pair',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        '      usedB.has(l.id) ||\n      rejectedSet.has(`${s.id}|${l.id}`)',
+        '      usedB.has(l.id) ||\n      false',
+      ],
+    ],
+  },
   {
     // Removing the guard must not look like a passing candidate.
     name: '047-accept-unanswered-format-ambiguity',
