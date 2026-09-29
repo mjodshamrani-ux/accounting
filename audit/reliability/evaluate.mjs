@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { verifyWorkbook } from './verify-workbook.mjs';
 import { currencyDecimals, interventionLevel } from './input-evidence.mjs';
-export const EVALUATOR_VERSION = 'tarasuf-evaluator-2.1.0';
+export const EVALUATOR_VERSION = 'tarasuf-evaluator-2.2.0';
 
 export async function loadEngine(root) {
   const load = (name) =>
@@ -940,6 +940,39 @@ export async function evaluateCase(
                   })),
               ),
             ),
+            // Presentation preservation only, independently bound to the original
+            // selected sheet and retained error. These are never financial rows.
+            readingIssues: sources.flatMap((source, index) => {
+              const sheet = files[index].sheets[source.mapping.sheet];
+              return source.errors.map((error) => ({
+                side: index === 0 ? 'supplier' : 'ledger',
+                file: files[index].name,
+                sheet: sheet?.name ?? '',
+                row: error.row > 0 ? error.row : null,
+                page:
+                  error.row > 0
+                    ? (error.sourcePage ??
+                      sheet?.rowPages?.[String(error.row)] ??
+                      null)
+                    : null,
+                kind:
+                  error.row > 0
+                    ? 'row'
+                    : error.scope === 'balance'
+                      ? 'balance'
+                      : 'source',
+                reason: error.message,
+                values:
+                  error.row > 0
+                    ? [...(sheet?.rows[error.row - 1] ?? [])]
+                    : error.scope === 'balance'
+                      ? [
+                          source.mapping.opening ?? '',
+                          source.mapping.closing ?? '',
+                        ]
+                      : [],
+              }));
+            }),
             rows: expectedExport,
             permittedAcceptedGroups: spec.oracle.permittedAutoMatches.map(
               (g) => ({

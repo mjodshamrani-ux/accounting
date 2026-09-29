@@ -273,7 +273,7 @@ def verify(workbook_path, pages):
     metadata = {value(r, "Field"): value(r, "Value") for r in book.records("Export Metadata")}
     require(metadata["Supplier SHA-256"] == digest(pdf_path), "Export not bound to frozen PDF")
     require(metadata["Ledger SHA-256"] == digest(csv_path), "Export not bound to frozen CSV")
-    require(metadata["Engine version"] == "0.3.20-experimental", "Unexpected export engine")
+    require(metadata["Engine version"] == "0.3.21-experimental", "Unexpected export engine")
     settings = {value(r, "الحقل"): value(r, "القيمة") for r in book.records("Run Settings")}
     scope = json.loads(settings["Scope"])
     require(scope["currency"] == "SAR" and scope["decimals"] == 2 and scope["coverageConfirmed"] is False,

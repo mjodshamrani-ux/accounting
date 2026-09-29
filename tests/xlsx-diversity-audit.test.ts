@@ -169,9 +169,13 @@ test('precision lost by Number conversion becomes a cell issue, never an apparen
     );
     assert.equal(result.errors.length, 1, raw);
     assert.match(result.errors[0].message, /دقة القيمة الأصلية في C2/, raw);
+    const format = suggestFormats(file, mapping, 2).numberFormat;
+    assert.equal(format.status, 'proven');
+    assert.deepEqual(format.unreadRows, [2]);
     assert.equal(
-      suggestFormats(file, mapping, 2).numberFormat.status,
-      'invalid',
+      format.checkedValues,
+      1,
+      'the imprecise cell never proves a convention',
     );
   }
 });
@@ -380,11 +384,16 @@ test('untrusted or hidden repeated headers cannot be used to prove input formats
       file.sheets[0].referenceIssues!['3:2'] = [
         'Ambiguous displayed reference',
       ];
-    assert.equal(
-      suggestFormats(file, mapping, 2).numberFormat.status,
-      'invalid',
+    const format = suggestFormats(file, mapping, 2).numberFormat;
+    assert.equal(format.status, 'proven', mode);
+    assert.deepEqual(format.unreadRows, [3], mode);
+    assert.equal(format.checkedValues, 2, mode);
+    const source = normalize(file);
+    assert.ok(
+      source.errors.some((e) => e.row === 3),
       mode,
     );
+    assert.ok(!source.excluded.some((e) => e.row === 3), mode);
   }
 });
 

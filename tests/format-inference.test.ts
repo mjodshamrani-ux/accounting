@@ -63,7 +63,6 @@ test('impossible dates, short years and mutually incompatible date orders are in
     ['14-Mystery-2026'],
     ['01/02/26'],
     ['13/02/2026', '02/13/2026'],
-    ['2026-07-01', ''],
   ]) {
     const result = suggestFormats(
       fixture(dates.map((date) => [date, 'A', '10'])),
@@ -73,6 +72,17 @@ test('impossible dates, short years and mutually incompatible date orders are in
     assert.equal(result.dateFormat.status, 'invalid', dates.join(','));
     assert.equal(result.patch.dateFormat, undefined);
   }
+  const partial = suggestFormats(
+    fixture([
+      ['2026-07-01', 'A', '10'],
+      ['', 'B', '20'],
+    ]),
+    mapping,
+    2,
+  );
+  assert.equal(partial.dateFormat.status, 'proven');
+  assert.deepEqual(partial.dateFormat.unreadRows, [3]);
+  assert.equal(partial.dateFormat.checkedValues, 1);
 });
 
 test('number format inference obeys grouping, decimal precision and Arabic separators', () => {
@@ -142,7 +152,10 @@ test('native Excel numeric cells are locale independent, while text cells still 
   assert.match(result.numberFormat.reason, /Excel/);
   file.sheets[0].rows.push(['2026-07-03', 'C', '12.34']);
   assert.equal(suggestFormats(file, mapping, 3).patch.numberFormat, 'dot');
-  assert.equal(suggestFormats(file, mapping, 2).numberFormat.status, 'invalid');
+  const lowerPrecision = suggestFormats(file, mapping, 2).numberFormat;
+  assert.equal(lowerPrecision.status, 'proven');
+  assert.deepEqual(lowerPrecision.unreadRows, [2]);
+  assert.equal(lowerPrecision.checkedValues, 2);
 });
 
 test('mapped parser defects and percentage cells cannot become format proof', () => {
@@ -209,7 +222,10 @@ test('split amounts allow a blank side but not an entirely missing movement valu
   ]);
   assert.equal(suggestFormats(file, split, 2).patch.numberFormat, 'comma');
   file.sheets[0].rows.push(['2026-07-03', 'C', '', '']);
-  assert.equal(suggestFormats(file, split, 2).numberFormat.status, 'invalid');
+  const partial = suggestFormats(file, split, 2).numberFormat;
+  assert.equal(partial.status, 'proven');
+  assert.deepEqual(partial.unreadRows, [4]);
+  assert.equal(partial.checkedValues, 2);
 });
 
 test('no sample cutoff hides a late incompatible value or an oversized source', () => {

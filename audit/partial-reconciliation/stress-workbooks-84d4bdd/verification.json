@@ -1,0 +1,106 @@
+{
+  "workbooks": 18,
+  "numeric_cells_verified_exactly": 288,
+  "native_dates_verified": 504,
+  "decimal_formats": "pass",
+  "engine_formula_cells_verified": 180,
+  "untrusted_formula_cells": 0,
+  "zip_crc": "pass",
+  "xml_parse": "pass",
+  "bilingual_text": "pass",
+  "verifier": "Python stdlib ZIP/XML/Decimal; independent of ExcelJS",
+  "engineCommit": "84d4bdd9514df15b40c12dd269a1438ad3bcd110",
+  "workbookFiles": [
+    {
+      "name": "0-ar-signed.xlsx",
+      "sha256": "b73359a878a895bd9dc0281ac193f3e6066b8413babe0e1c836a799e67b639e6",
+      "bytes": 32279
+    },
+    {
+      "name": "0-ar-split.xlsx",
+      "sha256": "4a63c44d5e6bc7c9933a883a86d61e32cf9f71544c0c7fb5088623f62321361e",
+      "bytes": 32329
+    },
+    {
+      "name": "0-en-signed.xlsx",
+      "sha256": "3f1ac4437d6f1773949a80c83377e5b2b31fdb743d8ad7a7b4aeb6a2765e861a",
+      "bytes": 32271
+    },
+    {
+      "name": "0-en-split.xlsx",
+      "sha256": "3dcd3128248de03566640f36a7806b00706dc7ed0ef9208233593c6a2e08c860",
+      "bytes": 32321
+    },
+    {
+      "name": "0-mixed-signed.xlsx",
+      "sha256": "3b2dfe9dbe851b082b6e8bee672c1db1e98db0ff547aabf718a8dc7d86623f01",
+      "bytes": 32274
+    },
+    {
+      "name": "0-mixed-split.xlsx",
+      "sha256": "757461cabca32acc71ba8cbb3c5fdbd6803ad4d9537eda1e7fe2493110a42b18",
+      "bytes": 32322
+    },
+    {
+      "name": "2-ar-signed.xlsx",
+      "sha256": "1895b599dee89ddfe899b1f982d262597246c4f63301be843539801d2e5d9f06",
+      "bytes": 32343
+    },
+    {
+      "name": "2-ar-split.xlsx",
+      "sha256": "e7661b2039ab422d95dccb7bd2da9e19a1018d704037dbffa56dc52381036f98",
+      "bytes": 32370
+    },
+    {
+      "name": "2-en-signed.xlsx",
+      "sha256": "2eb5a5ab7d51c969d60547b213e666c4e926d8fa87ad402cb0e66a9fc67b1387",
+      "bytes": 32337
+    },
+    {
+      "name": "2-en-split.xlsx",
+      "sha256": "9157f8433c341f28e4a2fc6dc19143f7425b072c168f0d05e247cbdb931ca457",
+      "bytes": 32365
+    },
+    {
+      "name": "2-mixed-signed.xlsx",
+      "sha256": "4f1efe5bb6ca88d5dfadd6d3e7b1c448b0035923f963e94c33489a6e59966134",
+      "bytes": 32339
+    },
+    {
+      "name": "2-mixed-split.xlsx",
+      "sha256": "e2ebeb686ae9954be0a0fb09c2d27eed3eda90850d169edab14538594dfbcbcb",
+      "bytes": 32365
+    },
+    {
+      "name": "3-ar-signed.xlsx",
+      "sha256": "29fa11b48e93de5bf4193882da65d65462ae6a59dea45d0c6e8cad6a80c22bac",
+      "bytes": 32377
+    },
+    {
+      "name": "3-ar-split.xlsx",
+      "sha256": "986965eedd82e8cdd140d533b533e20f742583180a1cdc61055f7dcaafc7427c",
+      "bytes": 32406
+    },
+    {
+      "name": "3-en-signed.xlsx",
+      "sha256": "033a9a2039ff72ba71104438ddfa8267ae429d388f5ad6ed117c15d0f8edc35c",
+      "bytes": 32371
+    },
+    {
+      "name": "3-en-split.xlsx",
+      "sha256": "bfb9ef22127371045f496b1041d89ae6d3d5da9d46afe4e39693d525f7899ddd",
+      "bytes": 32400
+    },
+    {
+      "name": "3-mixed-signed.xlsx",
+      "sha256": "357041e0b76d403b16faa79f092c3853a96914bdb7d3f59b0d64a6861c838275",
+      "bytes": 32374
+    },
+    {
+      "name": "3-mixed-split.xlsx",
+      "sha256": "137c35a86618681aeba9fb2e3ccd75ce338f01bbff32e0e7ac2bb59260a8c520",
+      "bytes": 32399
+    }
+  ],
+  "note": "Checked after generating into audit/stress/workbooks. The exact verified output bytes are preserved here; historical tracked workbooks restored unchanged."
+}

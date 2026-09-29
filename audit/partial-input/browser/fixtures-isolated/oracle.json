@@ -1,0 +1,176 @@
+{
+  "purpose": "Literal isolated-row UI/export contract authored before browser execution. Plain invalid amount text avoids displaced-reference ambiguity. Prior fixtures/oracle.json remains unchanged as a global-stop control; no engine output used.",
+  "requiredPairs": [
+    [
+      "supplier:0:2",
+      "ledger:0:2"
+    ],
+    [
+      "supplier:0:16",
+      "ledger:0:3"
+    ]
+  ],
+  "validTotalMinorPerSide": 35000,
+  "readingIssues": [
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 3,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-1",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 4,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-2",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 5,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-3",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 6,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-4",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 7,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-5",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 8,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-6",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 9,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-7",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 10,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-8",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 11,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-9",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 12,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-10",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 13,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-11",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 14,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-12",
+        "unread",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 15,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-13",
+        "unread",
+        "Invoice"
+      ]
+    }
+  ],
+  "fileSha256": {
+    "supplier": "66db9ee7c99881d80cf0818553d8c01e4407c1e810de562e0b8095a4354ebe01",
+    "ledger": "3298df6aa51c4b1ea3f34f0bd197f90ef458eb5c956f830eced1100d39db9007"
+  }
+}

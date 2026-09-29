@@ -46,7 +46,10 @@ test('046 invalid PDF layout cannot use a default locale to emit a silently scal
   const mapping = { ...inferMapping(file), pdfReviewed: true };
   assert.ok(file.sheets[0].rowIssues?.['2']?.length);
   const format = suggestFormats(file, mapping, scope.decimals);
-  assert.equal(format.numberFormat.status, 'invalid');
+  // The unsafe row cannot establish comma convention. The readable cell still
+  // has two valid interpretations and must never fall back to dot silently.
+  assert.equal(format.numberFormat.status, 'ambiguous');
+  assert.deepEqual(format.numberFormat.unreadRows, [2]);
   assert.equal(format.patch.numberFormat, undefined);
   // Demonstrate the pre-guard failure mechanism without claiming this partial,
   // erroneous source is a legitimate completed reconciliation.
@@ -262,7 +265,7 @@ test('046 real worker entry rejects invalid formats for reconcile, compare and e
       assert.equal(messages.length, index + 1);
       assert.equal(messages[index].action, action);
       assert.equal(messages[index].ok, false);
-      assert.match(String(messages[index].error), /تعذر التحقق من صيغة/);
+      assert.match(String(messages[index].error), /تحتمل أكثر من قراءة/);
       assert.equal(Object.hasOwn(messages[index], 'value'), false);
     }
     // Confirm that the real worker was invoked and the guard is selective.

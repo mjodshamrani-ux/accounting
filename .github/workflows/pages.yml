@@ -28,6 +28,8 @@ jobs:
       - run: pnpm test
       - name: Preserve proved groups and reject competing identity memberships
         run: pnpm test:reliability:p2
+      - name: Preserve useful partial results and independently check unresolved errors in Excel
+        run: pnpm test:reliability:partial
       - name: Verify independent end-to-end foundation cases
         run: pnpm test:reliability:quick
       - name: Independently verify bilingual Excel outputs
@@ -37,6 +39,23 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Verify partial results through the Arabic and English interface
+        run: |
+          node audit/partial-input/browser/run.mjs ci-partial isolated
+          python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial/partial.xlsx --out audit/partial-input/browser/ci-partial/openxml.json --browser-oracle audit/partial-input/browser/fixtures-isolated/oracle.json --require-reviewed
+          node audit/partial-input/browser/run.mjs ci-partial-original original
+          python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial-original/partial.xlsx --out audit/partial-input/browser/ci-partial-original/openxml.json --browser-oracle audit/partial-input/browser/fixtures/oracle.json --require-reviewed
+      - name: Preserve partial reconciliation evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: partial-reconciliation-evidence
+          path: |
+            audit/partial-input/browser/ci-partial
+            audit/partial-input/browser/ci-partial-original
+            work/partial-regression
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Verify large PDFs through the browser and independently check the exported workbook
         run: |
           node audit/large-statements/browser/run.mjs ci-large-native

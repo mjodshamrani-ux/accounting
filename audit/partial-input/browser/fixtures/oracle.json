@@ -1,0 +1,176 @@
+{
+  "purpose": "Literal synthetic UI/export contract authored before browser execution; no engine output used.",
+  "requiredPairs": [
+    [
+      "supplier:0:2",
+      "ledger:0:2"
+    ],
+    [
+      "supplier:0:16",
+      "ledger:0:3"
+    ]
+  ],
+  "validTotalMinorPerSide": 35000,
+  "readingIssues": [
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 3,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-1",
+        "unread-1",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 4,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-2",
+        "unread-2",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 5,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-3",
+        "unread-3",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 6,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-4",
+        "unread-4",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 7,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-5",
+        "unread-5",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 8,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-6",
+        "unread-6",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 9,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-7",
+        "unread-7",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 10,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-8",
+        "unread-8",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 11,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-9",
+        "unread-9",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 12,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-10",
+        "unread-10",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 13,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-11",
+        "unread-11",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 14,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-12",
+        "unread-12",
+        "Invoice"
+      ]
+    },
+    {
+      "side": "supplier",
+      "sheet": "CSV",
+      "row": 15,
+      "page": null,
+      "rawValues": [
+        "2026-07-15",
+        "INV-PART-ERR-13",
+        "unread-13",
+        "Invoice"
+      ]
+    }
+  ],
+  "fileSha256": {
+    "supplier": "e8f5e8d6f28f3ab613302cf6e28ef466f04cc49713f6281cce0ebc87d6b59b82",
+    "ledger": "3298df6aa51c4b1ea3f34f0bd197f90ef458eb5c956f830eced1100d39db9007"
+  }
+}

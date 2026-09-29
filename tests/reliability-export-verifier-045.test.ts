@@ -11,6 +11,7 @@ import {
   verifyWorkbook,
   decimalMinor,
 } from '../audit/reliability/verify-workbook.mjs';
+import { selectImportMapping } from '../lib/reconciliation/import-selection.ts';
 import { suggestFormats } from '../lib/reconciliation/format-inference.ts';
 import { formatChoice } from '../lib/reconciliation/input-readiness.ts';
 import type { SourceFile } from '../lib/reconciliation/types.ts';
@@ -367,4 +368,244 @@ test('R045 independent verifier covers transaction-only, zero-effect rejected ca
   }
   // Only 12.345 at three decimals reads two ways (12.345 or 12,345).
   assert.deepEqual(answeredRuns, [3, 3]);
+});
+
+test('R045 versioned partial output contract preserves every reading issue and rejects corrupted disclosure', async () => {
+  const row = ['2026-08-01', 'INV-PART-001', 'Invoice', '100.00', 'SAR'];
+  const invalid = [
+    '2026-08-01',
+    'INV-PART-ERR-001',
+    'Invoice',
+    'unread-amount',
+    'SAR',
+  ];
+  const files = (await Promise.all(
+    [[row, invalid], [row]].map((rows, i) =>
+      readFile(
+        i ? 'partial-ledger.csv' : 'partial-supplier.csv',
+        enc.encode(
+          [
+            'Date,Reference,Description,Amount,Currency',
+            ...rows.map((r) => r.join(',')),
+          ].join('\n'),
+        ).buffer,
+      ),
+    ),
+  )) as [SourceFile, SourceFile];
+  const result = compare(
+    ...(files.map((file, i) =>
+      normalizeSource(
+        file,
+        selectImportMapping(file, i ? 'ledger' : 'supplier').mapping,
+        scope,
+        i ? 'ledger' : 'supplier',
+      ),
+    ) as [
+      ReturnType<typeof normalizeSource>,
+      ReturnType<typeof normalizeSource>,
+    ]),
+    scope,
+  );
+  const reason = 'المبلغ غير صالح أو يتجاوز عدد المنازل العشرية للعملة';
+  assert.equal(result.supplier.errors.length, 1);
+  assert.equal(result.supplier.errors[0].message, reason);
+  assert.deepEqual(
+    result.matches.map((m) => [m.supplierId, m.ledgerId]),
+    [['supplier:0:2', 'ledger:0:2']],
+  );
+  const expected = {
+    decimals: 2,
+    currency: 'SAR',
+    bridge: null,
+    rows: ['supplier', 'ledger'].map((side) => ({
+      id: `${side}:0:2`,
+      side,
+      sheet: 'CSV',
+      row: 2,
+      date: row[0],
+      reference: row[1],
+      description: row[2],
+      originalAmount: row[3],
+      minor: 10000,
+    })),
+    cases: [
+      {
+        id: result.cases[0].caseId,
+        status: 'Matched',
+        ids: ['supplier:0:2', 'ledger:0:2'],
+      },
+    ],
+    readingIssues: [
+      {
+        side: 'supplier',
+        file: 'partial-supplier.csv',
+        sheet: 'CSV',
+        page: null,
+        row: 3,
+        kind: 'row',
+        reason,
+        values: invalid,
+      },
+    ],
+  };
+  const bytes = await exportWorkbook(result, files, {
+    checked: true,
+    name: 'Synthetic reviewer',
+    notes: '',
+  });
+  await verifyWorkbook(bytes, expected);
+  const mutations: [string, (book: ExcelJS.Workbook) => void][] = [
+    ['missing issue sheet', (book) => book.removeWorksheet('Reading Issues')],
+    [
+      'hidden issue sheet',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.state = 'hidden';
+      },
+    ],
+    [
+      'wrong source',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('A2').value = 'ledger';
+      },
+    ],
+    [
+      'wrong file',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('B2').value =
+          'different.csv';
+      },
+    ],
+    [
+      'wrong sheet',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('C2').value = 'Other';
+      },
+    ],
+    [
+      'invented page',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('D2').value = 1;
+      },
+    ],
+    [
+      'wrong row',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('E2').value = 2;
+      },
+    ],
+    [
+      'wrong scope',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('F2').value = 'Balance';
+      },
+    ],
+    [
+      'wrong reason',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('G2').value = 'Accepted';
+      },
+    ],
+    [
+      'altered original amount',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('H2').value =
+          JSON.stringify([...invalid.slice(0, 3), '0.00', 'SAR']);
+      },
+    ],
+    [
+      'missing original values',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('H2').value = null;
+      },
+    ],
+    [
+      'extra issue',
+      (book) => {
+        book
+          .getWorksheet('Reading Issues')!
+          .addRow([
+            'supplier',
+            'partial-supplier.csv',
+            'CSV',
+            null,
+            4,
+            'Row',
+            reason,
+            JSON.stringify(invalid),
+          ]);
+      },
+    ],
+    [
+      'fake transaction field',
+      (book) => {
+        book.getWorksheet('Reading Issues')!.getCell('I2').value =
+          'supplier:0:3';
+      },
+    ],
+    [
+      'arbitrary visible sheet',
+      (book) => {
+        book.addWorksheet('Unexpected');
+      },
+    ],
+    [
+      'omitted row diagnostic',
+      (book) => {
+        book.getWorksheet('Diagnostics')!.eachRow((r) => {
+          if (r.getCell(1).value === 'SOURCE_ROW_READING_ERROR')
+            r.getCell(1).value = 'OMITTED';
+        });
+      },
+    ],
+    [
+      'invented diagnostic ID',
+      (book) => {
+        book.getWorksheet('Diagnostics')!.eachRow((r) => {
+          if (r.getCell(1).value === 'SOURCE_ROW_READING_ERROR')
+            r.getCell(3).value = 'supplier:0:3';
+        });
+      },
+    ],
+    [
+      'false complete summary',
+      (book) => {
+        book.getWorksheet('Summary')!.eachRow((r) => {
+          if (r.getCell(1).value === 'Reading Status')
+            r.getCell(2).value = 'Complete';
+        });
+      },
+    ],
+    [
+      'wrong processed subtotal',
+      (book) => {
+        book.getWorksheet('Summary')!.eachRow((r) => {
+          if (r.getCell(1).value === 'Supplier Processed Transaction Total')
+            r.getCell(2).value = 101;
+        });
+      },
+    ],
+  ];
+  for (const [label, edit] of mutations) {
+    const book = new ExcelJS.Workbook();
+    await book.xlsx.load(bytes);
+    edit(book);
+    await assert.rejects(
+      verifyWorkbook(
+        new Uint8Array(await book.xlsx.writeBuffer()).buffer,
+        expected,
+      ),
+      label,
+    );
+  }
+  const clean = await fixture();
+  const unexpectedHidden = new ExcelJS.Workbook();
+  await unexpectedHidden.xlsx.load(clean.bytes);
+  unexpectedHidden.addWorksheet('Reading Issues', { state: 'hidden' });
+  await assert.rejects(
+    verifyWorkbook(
+      new Uint8Array(await unexpectedHidden.xlsx.writeBuffer()).buffer,
+      clean.expected,
+    ),
+    /if and only if/,
+  );
 });

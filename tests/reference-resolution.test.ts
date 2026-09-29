@@ -393,7 +393,18 @@ test('P1 keeps amount, sign, date, type, PO conflict and source-reading guards',
   assert.equal(auto(run(await input(a, b, [...headers, 'PO']))).length, 0);
   const invalid = [...data(), row('LINE-0999', 'broken')];
   const invalidInput = await input(invalid, data());
-  assert.throws(() => run(invalidInput), /تعذر التحقق من صيغة المبالغ/);
+  const partial = run(invalidInput);
+  assert.equal(partial.supplier.errors.length, 1);
+  assert.equal(partial.supplier.errors[0].row, 4);
+  assert.equal(partial.supplier.transactions.length, 2);
+  assert.equal(
+    auto(partial).length,
+    0,
+    'an unread member still taints INV-8170',
+  );
+  assert.equal(partial.bridge, null);
+  assert.equal(partial.balanceComparable, false);
+  verifyPartition(partial);
   const r = run(await input());
   r.supplier.errors.push({ row: 99, message: 'Unread source row' });
   assert.equal(auto(compare(r.supplier, r.ledger, scope)).length, 0);

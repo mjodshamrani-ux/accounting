@@ -53,8 +53,56 @@ const tests = [
   'tests/pdf-composite.test.ts',
   'tests/pdf-paint-order.test.ts',
   'tests/pdf-capacity-guards.test.ts',
+  'tests/partial-format.test.ts',
+  'tests/localized-read-errors.test.ts',
+  'tests/partial-result-lifecycle.test.ts',
 ];
 const mutations = [
+  {
+    name: 'partial-drop-reading-issue-details-from-export',
+    file: 'lib/reconciliation/io.ts',
+    changes: [['if (readingIssues.length) {', 'if (false) {']],
+  },
+  {
+    name: 'partial-treat-untrusted-cells-as-format-proof',
+    file: 'lib/reconciliation/format-inference.ts',
+    changes: [['if (!evidence.unsafe)', 'if (true)']],
+  },
+  {
+    name: 'partial-accept-stale-format-selection',
+    file: 'lib/reconciliation/input-readiness.ts',
+    changes: [
+      [
+        "assessment.status === 'proven' &&",
+        "false && assessment.status === 'proven' &&",
+      ],
+    ],
+  },
+  {
+    name: 'partial-ignore-isolated-error-membership',
+    file: 'lib/reconciliation/localized-read-errors.ts',
+    changes: [['members.every((row) => !taintedIds.has(row.id))', 'true']],
+  },
+  {
+    name: 'partial-drop-transitive-error-impact',
+    file: 'lib/reconciliation/localized-read-errors.ts',
+    changes: [
+      [
+        'queue.push(member);',
+        '/* Fault: do not propagate the discovered identity edge. */',
+      ],
+    ],
+  },
+  {
+    name: 'partial-drop-displaced-literal-identities',
+    file: 'lib/reconciliation/localized-read-errors.ts',
+    changes: [
+      [
+        '...row.flatMap((value) => referenceEnvelopeKeys({ reference: value })),',
+        '/* Fault: discard identities displaced into non-reference cells. */',
+      ],
+    ],
+  },
   {
     name: 'p4-silently-stop-after-twenty-pages',
     file: 'lib/reconciliation/pdf.ts',
@@ -286,8 +334,8 @@ const mutations = [
     file: 'lib/reconciliation/cases.ts',
     changes: [
       [
-        'const complete = !supplier.errors.length && !ledger.errors.length;',
-        'const complete = false;',
+        'const readErrors = localizedReadErrors(supplier, ledger);',
+        'const readErrors = { ...localizedReadErrors(supplier, ledger), canMatch: () => false };',
       ],
     ],
   },
@@ -584,11 +632,11 @@ const mutations = [
   },
   {
     name: 'automatically-match-with-unread-potential-duplicates',
-    file: 'lib/reconciliation/core.ts',
+    file: 'lib/reconciliation/localized-read-errors.ts',
     changes: [
       [
-        '!completeReading ||\n      s.referenceEvidenceIssues?.length ||',
-        'false ||\n      s.referenceEvidenceIssues?.length ||',
+        'canMatch: (_rows: readonly Transaction[]) => false',
+        'canMatch: (_rows: readonly Transaction[]) => true',
       ],
     ],
   },

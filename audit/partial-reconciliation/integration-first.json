@@ -1,0 +1,23 @@
+{
+  "phase": "Mutable integration run before candidate freeze",
+  "tests": 840,
+  "passed": 829,
+  "failed": 11,
+  "skipped": 0,
+  "logSha256": "8695d4bbc35c47645a68555422e44ac2e112594aa8f2bdda1fc417c5a0a6f72e",
+  "failures": [
+    "✖ one unreadable row reports itself instead of rejecting both files (3.623375ms)",
+    "✖ PDF diversity requires review: a second-page column reorder cannot silently reuse the first mapping (6.83675ms)",
+    "✖ 046 without a repeated table header the page prefix is not structural (0.970167ms)",
+    "✖ 046 a damaged banner row still stops the format proof (0.537375ms)",
+    "✖ 046 an amount landing in the neighbouring reference keeps the source in review (0.842125ms)",
+    "✖ 046 a malformed balance amount is not excused by trying other readings (0.62975ms)",
+    "✖ every path refuses FORMAT_INVALID: invalid date format (1.320875ms)",
+    "✖ P2 capability requires nine proved groups across the 20 existing focused files with independent workbook verification (1709.204542ms)",
+    "✖ after the gates, scope, currency and cutoff stay with normalisation (1.999958ms)",
+    "✖ precision lost by Number conversion becomes a cell issue, never an apparently exact financial amount (15.899ms)",
+    "✖ untrusted or hidden repeated headers cannot be used to prove input formats (13.864583ms)",
+    "✖ failing tests:"
+  ],
+  "interpretation": "This run exposed obsolete blanket-refusal expectations, the new explicit issue-sheet contract, and a real column-shift isolation hazard. Failures remain recorded; only evidence-backed, bounded partial-result expectations are migrated. Displaced-column hazards still require zero automatic matches."
+}

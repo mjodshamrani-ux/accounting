@@ -1,0 +1,89 @@
+Skip to the workspace
+تَـراصُـف
+AR
+العربية
+|
+EN
+English
+Processed on your device
+Workspace / Supplier reconciliation
+Review the differences between the two records
+
+Review the transactions and their sources, and check the reason for each match.
+
+Beta 0.4.13
+New reconciliation
+Add files
+— completed
+Confirm data
+— completed
+3
+Review differences
+— current step
+4
+Workpaper
+— upcoming
+Save session to continue later
+The session file contains your data without encryption. Save it in a private location on your device.
+Automatic matches
+2
+Cases the engine matched automatically
+Manual confirmations
+0
+Matches confirmed by the reviewer
+Unmatched cases
+0
+Transactions from both files: 0
+Balance difference
+—
+Balances not verified
+Partial result — some issues need review
+
+Processed transactions: 4 · Rows needing reading review: 13
+
+Readable transactions were processed. Affected data remains for review; the figures cover processed transactions only and do not establish a complete reconciliation.
+
+Supplier: 13 reading issues are retained for review. A complete balance reconciliation has not been established. Only proven transactions outside the affected references can be matched; affected transactions remain for review.
+
+You can continue with the partial result for verified transactions outside the affected scope. Review the affected rows below; their details and original values are preserved in Reading Issues and Diagnostics when you export. Correcting the source rechecks its reading.
+
+Show all reading issues (13)
+Source	Location	Reason	Original values
+Supplier statement
+partial-supplier.csv
+CSV	Row 13	The amount is invalid or exceeds the currency’s number of decimal places	["2026-07-15","INV-PART-ERR-11","unread","Invoice"]
+Supplier statement
+partial-supplier.csv
+CSV	Row 14	The amount is invalid or exceeds the currency’s number of decimal places	["2026-07-15","INV-PART-ERR-12","unread","Invoice"]
+Supplier statement
+partial-supplier.csv
+CSV	Row 15	The amount is invalid or exceeds the currency’s number of decimal places	["2026-07-15","INV-PART-ERR-13","unread","Invoice"]
+Previous issues
+11–13 of 13
+Next issues
+This is a comparison of transactions only. We did not verify the balances or the shared period coverage, so the result is not a complete balance reconciliation.
+
+Supplier: Not enough balance information was extracted to test the equation.
+
+AP ledger: Not enough balance information was extracted to test the equation.
+
+Result assistant
+Review workspace
+
+“Unmatched” means we did not find the transaction in the other file. It may exist in the system but not be included in the report.
+
+Edit settings
+Unmatched
+Matched
+Needs Review (0)
+Source / Row	Date	Reference	Amount	Status	Review
+There are no transactions in this list.
+Cases: 0 · Page 1 of 1
+Prepare the workpaper
+The results support your review and are not an accounting approval. Save the session or download the workpaper before closing if you want to keep them.
+Privacy and version limits · 0.4.13
+تَـراصُـف
+
+Clarity that supports your review
+
+Privacy limits

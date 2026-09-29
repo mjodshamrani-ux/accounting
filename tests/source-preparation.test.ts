@@ -286,9 +286,18 @@ test('after the gates, scope, currency and cutoff stay with normalisation', asyn
     sources[0].transactions.map((t) => t.row),
     [2],
   );
-  assert.deepEqual(sources[0].errors, [
-    { row: 3, message: 'عملة الصف لا تطابق العملة المؤكدة' },
-  ]);
+  assert.deepEqual(
+    sources[0].errors
+      .filter((e) => e.row > 0)
+      .map(({ row, message }) => ({ row, message })),
+    [{ row: 3, message: 'عملة الصف لا تطابق العملة المؤكدة' }],
+  );
+  assert.ok(
+    sources[0].errors.some(
+      (e) => e.row === 0 && /نطاق غير متحقق/.test(e.message),
+    ),
+    'the invalid row currency remains part of source-wide scope checking',
+  );
 });
 
 test('an export of a proven direction with an edited explanation still succeeds', async () => {

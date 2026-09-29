@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import JSZip from 'jszip';
 import { SaxesParser } from 'saxes';
-export const VERIFIER_VERSION = 'tarasuf-workbook-verifier-2.0.0';
+export const VERIFIER_VERSION = 'tarasuf-workbook-verifier-2.1.0';
 
 function xml(text) {
   const root = { name: '#document', children: [], text: '', attrs: {} };
@@ -334,6 +334,7 @@ function formulaEvaluator(sheets, decimals) {
 // generator's independent visible-evidence oracle, never copied as new truth.
 export async function verifyWorkbook(bytes, expected) {
   const { sheets, date1904 } = await readOutputWorkbook(bytes);
+  const readingIssues = expected.readingIssues ?? [];
   const visible = [
     'Summary',
     'Matches',
@@ -341,6 +342,7 @@ export async function verifyWorkbook(bytes, expected) {
     'Unmatched',
     'Reconciliation Bridge',
     'Review Sign-off',
+    ...(readingIssues.length ? ['Reading Issues'] : []),
   ];
   assert.deepEqual(
     [...sheets.values()]
@@ -356,6 +358,100 @@ export async function verifyWorkbook(bytes, expected) {
     assert.ok(row, 'Missing required output row');
     return row.get(col)?.value ?? '';
   };
+  assert.equal(
+    sheets.has('Reading Issues'),
+    readingIssues.length > 0,
+    'Reading Issues exists if and only if source reading errors exist',
+  );
+  if (readingIssues.length) {
+    const issues = sheets.get('Reading Issues');
+    assert.deepEqual(
+      [...issues.rows.keys()],
+      Array.from({ length: readingIssues.length + 1 }, (_, i) => i + 1),
+      'Every reading issue is exported exactly once',
+    );
+    const headers = [
+      'Side',
+      'Source File',
+      'Source Sheet',
+      'PDF Page',
+      'Source Row',
+      'Issue Scope',
+      'Reason',
+      'Original Values',
+    ];
+    const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    assert.deepEqual(
+      columns.map((c) => get(issues.rows.get(1), c)),
+      headers,
+    );
+    for (const [index, issue] of readingIssues.entries()) {
+      const row = issues.rows.get(index + 2);
+      const values = [
+        issue.side,
+        issue.file,
+        issue.sheet,
+        issue.page ?? '',
+        issue.row ?? '',
+        issue.kind === 'row'
+          ? 'Row'
+          : issue.kind === 'balance'
+            ? 'Balance'
+            : 'Source',
+        issue.reason,
+        issue.values.length ? JSON.stringify(issue.values) : '',
+      ];
+      assert.ok(
+        ![...row.keys()].some((c) => !columns.includes(c)),
+        'No invented transaction fields on reading issues',
+      );
+      for (const [i, col] of columns.entries()) {
+        assert.equal(
+          get(row, col),
+          String(values[i]),
+          `Reading issue ${index + 1} ${headers[i]}`,
+        );
+        if (values[i] !== '' && !['D', 'E'].includes(col))
+          assert.ok(
+            ['s', 'str', 'inlineStr'].includes(row.get(col)?.type),
+            'Original source text and reasons remain text',
+          );
+      }
+    }
+    const diagnostics = [...sheets.get('Diagnostics').rows.values()].filter(
+      (row) =>
+        [
+          'SOURCE_ROW_READING_ERROR',
+          'BALANCE_READING_ERROR',
+          'SOURCE_READING_ERROR',
+        ].includes(get(row, 'A')),
+    );
+    assert.equal(
+      diagnostics.length,
+      readingIssues.length,
+      'Every issue also appears in diagnostics',
+    );
+    readingIssues.forEach((issue, index) => {
+      const row = diagnostics[index];
+      assert.equal(
+        get(row, 'A'),
+        issue.kind === 'row'
+          ? 'SOURCE_ROW_READING_ERROR'
+          : issue.kind === 'balance'
+            ? 'BALANCE_READING_ERROR'
+            : 'SOURCE_READING_ERROR',
+      );
+      assert.equal(
+        get(row, 'B'),
+        `${issue.side} | ${issue.file} | ${issue.sheet}${issue.row === null ? '' : ` | row ${issue.row}`}${issue.page === null ? '' : ` | PDF page ${issue.page}`} | ${issue.reason}`,
+      );
+      assert.equal(
+        get(row, 'C'),
+        '',
+        'Reading issues have no invented transaction IDs',
+      );
+    });
+  }
   const numeric = (row, col, minor) => {
     const c = row.get(col);
     assert.ok(c, `Missing numeric ${col}`);
@@ -647,6 +743,65 @@ export async function verifyWorkbook(bytes, expected) {
       r.get('B'),
     ]),
   );
+  if (readingIssues.length) {
+    assert.equal(
+      summaryValues.get('Reading Status')?.value,
+      'Partial — reading issues remain open',
+    );
+    assert.match(summaryValues.get('Workbook Mode')?.value ?? '', /Partial/);
+    assert.equal(
+      summaryValues.get('Processed Transactions')?.value,
+      String(expected.rows.length),
+    );
+    assert.equal(
+      summaryValues.get('Rows Needing Reading Review')?.value,
+      String(
+        new Set(
+          readingIssues
+            .filter((r) => r.row !== null)
+            .map((r) => `${r.side}:${r.row}`),
+        ).size,
+      ),
+    );
+    assert.equal(
+      summaryValues.get('Balance Reading Issues')?.value,
+      String(readingIssues.filter((r) => r.kind === 'balance').length),
+    );
+    assert.equal(
+      summaryValues.get('Source-wide Reading Issues')?.value,
+      String(readingIssues.filter((r) => r.kind === 'source').length),
+    );
+    assert.equal(
+      summaryValues.get('Totals Basis')?.value,
+      'Processed transactions only. Unread values are unknown, not zero. Original balances are not proof of completeness.',
+    );
+    for (const side of ['supplier', 'ledger'])
+      numeric(
+        new Map([
+          [
+            'B',
+            summaryValues.get(
+              `${side === 'supplier' ? 'Supplier' : 'Ledger'} Processed Transaction Total`,
+            ),
+          ],
+        ]),
+        'B',
+        sum(expected.rows.filter((r) => r.side === side).map((r) => r.minor)),
+      );
+    assert.equal(
+      expected.bridge,
+      null,
+      'Unread source data cannot prove complete balance reconciliation',
+    );
+    assert.doesNotMatch(
+      summaryValues.get('Reviewer Status')?.value ?? '',
+      /Review completed/,
+    );
+  } else
+    assert.ok(
+      !summaryValues.has('Reading Status'),
+      'Clean export has no partial reading status',
+    );
   if (expected.currency)
     assert.equal(summaryValues.get('Currency')?.value, expected.currency);
   if (expected.balances) {

@@ -35,6 +35,23 @@ import {
 const cases = await recomputeCases();
 const resolved = cases.filter((c) => !c.formatRefusal);
 const named = (name: string) => cases.find((c) => c.name.startsWith(name))!;
+test('partial date case must preserve its one independently valid pair and both invalid rows', () => {
+  const result = coreResult(named('partial result'));
+  assert.deepEqual(
+    result.matches.map((m) => [m.supplierId, m.ledgerId]),
+    [['supplier:0:2', 'ledger:0:2']],
+  );
+  assert.deepEqual(
+    result.supplier.errors.map((e) => e.row),
+    [3],
+  );
+  assert.deepEqual(
+    result.ledger.errors.map((e) => e.row),
+    [3],
+  );
+  assert.equal(result.bridge, null);
+  assert.equal(result.balanceComparable, false);
+});
 let worker: Awaited<ReturnType<typeof productionWorker>>;
 before(async () => {
   worker = await productionWorker(

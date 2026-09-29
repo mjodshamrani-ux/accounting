@@ -1,0 +1,26 @@
+{
+  "checkerSha256": "0b7a30aa125d068bb1c9ec434c2b2490d6b17a0d2d161b948f464bbf0fa5bce0",
+  "observedAtUtc": "2026-09-29T13:03:45.239560+00:00",
+  "passed": false,
+  "frozenBefore": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e",
+  "workbookSha256": "e86f9af1b0444c17502dd78d486ec5844c3f8d97ece1c273e4c758145456fb74",
+  "observations": {
+    "originalSourcePreservation": {
+      "passed": true,
+      "readableRows": 5,
+      "readingIssues": [
+        {
+          "sourceRowId": "supplier:0:3",
+          "reason": "المبلغ غير صالح أو يتجاوز عدد المنازل العشرية للعملة",
+          "originalAmount": "12x.34"
+        }
+      ],
+      "issueTraceEncoding": "Source File + Side + Source Sheet CSV + Source Row; contract IDs reconstructed for selected sheet 0"
+    }
+  },
+  "error": {
+    "type": "AssertionError",
+    "message": "Unexpected formula in original/evidence cell"
+  },
+  "frozenAfter": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e"
+}

@@ -1,0 +1,79 @@
+{
+  "scope": "Non-frozen OpenXML reader schema adapters and diagnostic ordering only; no frozen financial contracts or CSV/PDF inputs changed",
+  "originalChecker": "check_openxml.schema-draft.py",
+  "originalCheckerSha256": "95ee6ca08f83f3c65ec1094e930cff304a47f5ff5877a81b63a7623e6a4a69ef",
+  "finalChecker": "check_openxml.py",
+  "finalCheckerSha256": "b59abcab21e5ec97489d9844c2216691450a6bf8d5fe5f55331c0f9a8ae6e98f",
+  "changes": [
+    "Reading Issues exposes Side/Source File/Source Sheet/Source Row rather than Source Row ID; derive the contract ID only after validating single CSV sheet0 trace. Original raw cells and financial IDs/expected pairs stay literal.",
+    "Review Completed is Review recorded; reading issues remain open for a checked partial review. Accept this recorded review without implying approval or balance completeness.",
+    "Summary counters are generated formulas with numeric caches. Compare cached counters to direct XML worksheet membership; continue forbidding formulas in original/invalid source and evidence cells. No formula evaluation.",
+    "Only named Reading Status/Workbook Mode qualify as partial-status evidence; supplier/entity names containing partial cannot satisfy the check. Require explicit processed-only totals basis and exact readable/invalid row counts.",
+    "Record source preservation and partial-summary checks before required-positive membership, so a financial failure does not hide successful preservation. Overall pass still requires every original positive pair."
+  ],
+  "attempts": [
+    {
+      "report": "openxml-b4e8467-reviewed-initial.json",
+      "reportSha256": "096704ff500323e142b75418d48779f73393ceb9ec25c39884e2cab34e0a7113",
+      "checkerSha256": "95ee6ca08f83f3c65ec1094e930cff304a47f5ff5877a81b63a7623e6a4a69ef",
+      "workbookSha256": "e86f9af1b0444c17502dd78d486ec5844c3f8d97ece1c273e4c758145456fb74",
+      "passed": false,
+      "error": {
+        "type": "AssertionError",
+        "message": "Missing/ambiguous schema field: Source Row ID/Source row ID/معرف صف المصدر/المعرف"
+      }
+    },
+    {
+      "report": "openxml-b4e8467-reviewed.json",
+      "reportSha256": "abd1545b14ff85015ac53c3c8471672c18368ead3efe5389aaaa35529c290c9f",
+      "checkerSha256": "0b7a30aa125d068bb1c9ec434c2b2490d6b17a0d2d161b948f464bbf0fa5bce0",
+      "workbookSha256": "e86f9af1b0444c17502dd78d486ec5844c3f8d97ece1c273e4c758145456fb74",
+      "passed": false,
+      "error": {
+        "type": "AssertionError",
+        "message": "Unexpected formula in original/evidence cell"
+      }
+    },
+    {
+      "report": "openxml-b4e8467-reviewed-schema2.json",
+      "reportSha256": "0d64b8453d251a40cd34fa1368d2ba159ebf74abfeb768f7c38e89f5e9effbb0",
+      "checkerSha256": "f076eab178d3a4a965776b0b5fa6380265b23454d1b415161f15703c8920a21a",
+      "workbookSha256": "e86f9af1b0444c17502dd78d486ec5844c3f8d97ece1c273e4c758145456fb74",
+      "passed": false,
+      "error": {
+        "type": "AssertionError",
+        "message": "Unexpected formula in original/evidence cell"
+      }
+    },
+    {
+      "report": "openxml-b4e8467-reviewed-final.json",
+      "reportSha256": "1e533645313e46eb7f941ac70cc0238f61d2777a52f5e15cda5a170502315591",
+      "checkerSha256": "6402e91a5a0eef9194955eaed12669895faa9aeaf90ffec6c3194cbd24258f6e",
+      "workbookSha256": "e86f9af1b0444c17502dd78d486ec5844c3f8d97ece1c273e4c758145456fb74",
+      "passed": false,
+      "error": {
+        "type": "AssertionError",
+        "message": "Required pair not matched"
+      }
+    },
+    {
+      "report": "openxml-b4e8467-reviewed-v2.json",
+      "reportSha256": "2d20564a67465b33aad247808d3ed6d89f5553121cafb0177997748c47facab1",
+      "checkerSha256": "b59abcab21e5ec97489d9844c2216691450a6bf8d5fe5f55331c0f9a8ae6e98f",
+      "workbookSha256": "e86f9af1b0444c17502dd78d486ec5844c3f8d97ece1c273e4c758145456fb74",
+      "passed": false,
+      "error": {
+        "type": "AssertionError",
+        "message": "Required pair not matched"
+      }
+    },
+    {
+      "report": "openxml-84d4bdd-reviewed.json",
+      "reportSha256": "52a25719751f11ca71233b5c2151662a05b13e1bfba9ba240d1bf958ec0487c0",
+      "checkerSha256": "b59abcab21e5ec97489d9844c2216691450a6bf8d5fe5f55331c0f9a8ae6e98f",
+      "workbookSha256": "bf7984f7af8ec93f51999589be96d12f46c0e9e819b14de64678b0dd2cce998b",
+      "passed": true,
+      "error": null
+    }
+  ]
+}

@@ -199,6 +199,24 @@ test('PDF diversity requires review: a second-page column reorder cannot silentl
     'ledger',
   );
   assert.ok(supplier.errors.length > 0);
+  assert.ok(supplier.errors.every((error) => error.isolation === undefined));
+  assert.deepEqual(
+    supplier.transactions.map((row) => [row.reference, row.amount]),
+    [
+      ['FIRST-1', 10000],
+      ['FIRST-2', 20000],
+    ],
+  );
+  assert.ok(
+    [4, 5, 6].every((row) =>
+      supplier.errors.some((error) => error.row === row),
+    ),
+  );
+  assert.ok(
+    [4, 5, 6].every(
+      (row) => !supplier.excluded.some((error) => error.row === row),
+    ),
+  );
   assert.equal(compare(supplier, ledger, scope).matches.length, 0);
   assert.equal(
     supplier.transactions.length +
@@ -206,6 +224,66 @@ test('PDF diversity requires review: a second-page column reorder cannot silentl
       supplier.errors.length,
     file.sheets[0].rows.length,
   );
+});
+
+test('PDF diversity: a reference displaced into an amount cell cannot hide a competing original row', async () => {
+  for (const repeatedHeader of [true, false]) {
+    const bytes = syntheticPdf([
+      [
+        ['Date', 'Document No', 'Amount', 'Type'],
+        ['2026-07-01', 'FIRST-1', '100.00', 'Invoice'],
+        ['2026-07-02', 'FIRST-2', '200.00', 'Invoice'],
+      ],
+      [
+        ...(repeatedHeader ? [['Date', 'Amount', 'Document No', 'Type']] : []),
+        ['2026-07-03', '1234', 'FIRST-1', 'Invoice'],
+      ],
+    ]);
+    const cuts = [25, 45, 65];
+    const file = await readFile('displaced-identity.pdf', bytes, cuts);
+    const mapping = { ...inferMapping(file), pdfReviewed: true };
+    const supplier = normalizeSource(file, mapping, scope, 'supplier');
+    const ledger = normalizeSource(
+      await readSeparately(file, cuts),
+      mapping,
+      scope,
+      'ledger',
+    );
+    const damagedRow = file.sheets[0].rows.length;
+    assert.equal(file.sheets[0].rows[damagedRow - 1][2], 'FIRST-1');
+    assert.ok(
+      supplier.errors.some(
+        (error) =>
+          error.row === damagedRow &&
+          error.isolation?.keys.includes('identity:FIRST1'),
+      ),
+    );
+    assert.equal(
+      supplier.transactions.some((row) => row.row === damagedRow),
+      false,
+    );
+    assert.equal(
+      supplier.excluded.some((row) => row.row === damagedRow),
+      false,
+    );
+    const result = compare(supplier, ledger, scope);
+    assert.deepEqual(
+      result.matches.map((m) => m.supplierId),
+      repeatedHeader ? [] : ['supplier:0:3'],
+      `repeated header: ${repeatedHeader}`,
+    );
+    if (repeatedHeader)
+      assert.ok(
+        supplier.errors.some((error) => error.row === 4 && !error.isolation),
+      );
+    assert.equal(result.bridge, null);
+    assert.equal(
+      supplier.transactions.length +
+        supplier.excluded.length +
+        supplier.errors.filter((e) => e.row > 0).length,
+      file.sheets[0].rows.length,
+    );
+  }
 });
 
 test('PDF diversity requires review: wrapped transaction descriptions remain separate source rows, never invented joins', async () => {

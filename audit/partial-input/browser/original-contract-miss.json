@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-09-29T12:36:01.118587+00:00",
+  "stage": "pre-freeze unit integration; no browser attempt was run",
+  "originalOracle": "audit/partial-input/browser/fixtures/oracle.json",
+  "originalOracleSha256": "892a5d52634752a1b976cfb25836381ae054c4c72fb706d9e6df8234f983cbc6",
+  "originalExpectationsUnchanged": true,
+  "observedOriginalContractResult": {
+    "pass": false,
+    "expectedAutoMatchedCases": 2,
+    "actualAutoMatchedCases": 0,
+    "retainedSupplierReadingIssues": 13,
+    "observation": "tests/partial-result-lifecycle.test.ts failed its 2-auto-pairs assertion during targeted integration. The conservative displaced-reference rule intentionally withholds all automatic pairs for malformed amount values containing letters and digits."
+  },
+  "replacementOracle": "audit/partial-input/browser/fixtures-isolated/oracle.json",
+  "replacementOracleSha256": "c2d5a00ade4e27354e3e9a24bc8136b371ef1728c2516253dc55630a1adf2ac3",
+  "replacementChange": "Plain invalid amount text unread, with the same row addresses and distinct references. This is a newly authored isolated-row positive, not a pass of the original contract.",
+  "negativeControl": "The original CSV files remain unchanged and are additionally checked for zero automatic matches in the browser. This negative-policy check does not erase the original completion miss."
+}

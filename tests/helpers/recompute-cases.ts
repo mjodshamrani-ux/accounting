@@ -222,7 +222,7 @@ async function ambiguityCases(): Promise<RecomputeCase[]> {
   ];
 }
 
-/** No date reading accepts 30 February, so the date format cannot be proven. */
+/** 30 February is a row error; it cannot invalidate the independent valid pair. */
 async function invalidDateCase(): Promise<RecomputeCase> {
   const rows = [
     ['Date', 'Reference', 'Amount'],
@@ -234,13 +234,12 @@ async function invalidDateCase(): Promise<RecomputeCase> {
     await uploadLedger('invalid-date-ledger.csv', rows),
   ];
   return {
-    name: 'invalid date format',
+    name: 'partial result with an impossible companion date',
     files,
     mappings: files.map((f) => inferMapping(f)) as [Mapping, Mapping],
     scope: { ...ambiguityScope, currency: 'SAR', decimals: 2 },
     decisions: [],
     rejected: [],
-    formatRefusal: 'FORMAT_INVALID',
   };
 }
 

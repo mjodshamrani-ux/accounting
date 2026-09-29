@@ -152,19 +152,35 @@ test('one unreadable row reports itself instead of rejecting both files', () => 
   });
   const mapping = { ...defaultMapping(), date: 0, reference: 1, amount: 2 };
   const good = normalizeSource(build('50.00'), mapping, scope, 'ledger');
-  const broken = normalizeSource(build('12,3,4'), mapping, scope, 'supplier');
+  const brokenFile = build('12,3,4');
+  const broken = normalizeSource(brokenFile, mapping, scope, 'supplier');
   assert.equal(broken.errors.length, 1);
   assert.equal(broken.transactions.length, 1);
   const result = compare(broken, good, scope);
   assert.equal(
     result.matches.length,
-    0,
-    'an unread row may conceal a duplicate; readable rows remain for review',
+    1,
+    'INV-1 is independently proved; the failed INV-2 remains a competitor',
   );
+  assert.equal(result.matches[0].supplierId, 'supplier:0:2');
+  assert.equal(result.matches[0].ledgerId, 'ledger:0:2');
+  assert.equal(broken.errors[0].row, 3);
+  assert.equal(broken.errors[0].isolation?.rule, 'SAFE_REFERENCE_ENVELOPE_V1');
+  assert.ok(broken.errors[0].isolation?.keys.includes('identity:INV2'));
+  assert.equal(
+    broken.excluded.some((row) => row.row === 3),
+    false,
+  );
+  assert.equal(brokenFile.sheets[0].rows[2][2], '12,3,4');
+  assert.deepEqual(
+    broken.transactions.map((row) => row.amount),
+    [10000],
+  );
+  assert.equal(result.bridge, null);
   // The incompleteness is stated in the result, not hidden by proceeding.
   const skipped = result.diagnostics.filter((d) => d.code === 'SKIPPED_ROWS');
   assert.equal(skipped.length, 1);
-  assert.match(skipped[0].message, /لم تُقرأ/);
+  assert.match(skipped[0].message, /مشكلة قراءة|غير متحققة/);
   assert.equal(
     broken.balanceValid,
     false,

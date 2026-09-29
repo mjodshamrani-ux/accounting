@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   normalizeSource,
+  compare,
   parseMoney,
   repeatedPageMetadataRows,
 } from '../lib/reconciliation/core.ts';
@@ -119,6 +120,66 @@ function statement(
   };
 }
 
+function assertUnresolvedRows(file: SourceFile, rows: number[]) {
+  const result = read(file);
+  for (const row of rows) {
+    assert.ok(
+      result.errors.some((error) => error.row === row),
+      `row ${row} remains an error`,
+    );
+    assert.equal(
+      result.excluded.some((error) => error.row === row),
+      false,
+      `row ${row} is not an exclusion`,
+    );
+    assert.equal(
+      result.transactions.some((tx) => tx.row === row),
+      false,
+      `row ${row} has no invented amount or date`,
+    );
+  }
+  assert.deepEqual(
+    result.transactions.map((tx) => [tx.reference, tx.amount]),
+    [
+      ['INV-1', 83947],
+      ['PAY-2', -58130],
+      ['INV-3', 90651],
+    ],
+  );
+  const accounted = [
+    ...result.transactions,
+    ...result.excluded,
+    ...result.errors.filter((error) => error.row > 0),
+  ].map((row) => row.row);
+  assert.equal(accounted.length, file.sheets[0].rows.length);
+  assert.equal(new Set(accounted).size, file.sheets[0].rows.length);
+  assert.equal(result.balanceValid, false);
+  return result;
+}
+
+function assertWildcardReview(file: SourceFile, rows: number[]) {
+  const result = assertUnresolvedRows(file, rows);
+  assert.ok(
+    rows.every((row) =>
+      result.errors.some((error) => error.row === row && !error.isolation),
+    ),
+  );
+  const counterpart = statement();
+  counterpart.sha256 = 'b'.repeat(64);
+  const ledger = normalizeSource(
+    counterpart,
+    {
+      ...mapping,
+      ...suggestFormats(counterpart, mapping, scope.decimals).patch,
+    },
+    scope,
+    'ledger',
+  );
+  const comparison = compare(result, ledger, scope);
+  assert.equal(comparison.matches.length, 0);
+  assert.equal(comparison.bridge, null);
+}
+
 test('046 a repeated page banner no longer blocks the format proof (C01436)', () => {
   const file = statement();
   // The defect it reproduces: "statement" from the page-2 title in the date column.
@@ -209,14 +270,13 @@ test('046 a banner that is not repeated verbatim is not treated as one', () => {
 test('046 without a repeated table header the page prefix is not structural', () => {
   const file = statement({ repeatHeaderOnPage2: false });
   assert.equal(repeatedPageMetadataRows(file, file.sheets[0], mapping).size, 0);
-  assert.equal(
-    suggestFormats(file, mapping, scope.decimals).dateFormat.status,
-    'invalid',
-    'an unexplained page prefix must keep the source in review',
-  );
+  const formats = suggestFormats(file, mapping, scope.decimals);
+  assert.equal(formats.dateFormat.status, 'proven');
+  assert.deepEqual(formats.dateFormat.unreadRows, [9, 10, 11, 12]);
+  assertWildcardReview(file, [9, 10, 11, 12]);
 });
 
-test('046 a damaged banner row still stops the format proof', () => {
+test('046 a damaged banner row remains visible and blocks matching despite readable format evidence', () => {
   // Only the boundary-crossing note is expected furniture. Overlapping text is
   // real damage, so the proof must not quietly step over the row.
   const file = statement({
@@ -227,13 +287,11 @@ test('046 a damaged banner row still stops the format proof', () => {
   });
   assert.ok(repeatedPageMetadataRows(file, file.sheets[0], mapping).has(9));
   const formats = suggestFormats(file, mapping, scope.decimals);
-  assert.equal(formats.dateFormat.status, 'invalid');
-  assert.equal(formats.numberFormat.status, 'invalid');
-  const result = read(file);
-  assert.ok(
-    result.errors.some((e) => e.row === 9),
-    'the damaged row must be reported rather than excluded as a banner',
-  );
+  assert.equal(formats.dateFormat.status, 'proven');
+  assert.equal(formats.numberFormat.status, 'proven');
+  assert.deepEqual(formats.dateFormat.unreadRows, [9, 10, 11, 12]);
+  assert.deepEqual(formats.numberFormat.unreadRows, [9, 10, 11, 12]);
+  assertWildcardReview(file, [9, 10, 11, 12]);
 });
 
 test('046 an amount landing in the neighbouring reference keeps the source in review', () => {
@@ -250,8 +308,9 @@ test('046 an amount landing in the neighbouring reference keeps the source in re
     'توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.',
   ];
   const formats = suggestFormats(file, mapping, scope.decimals);
-  assert.equal(formats.numberFormat.status, 'invalid');
-  assert.match(formats.numberFormat.reason, new RegExp(String(row)));
+  assert.equal(formats.numberFormat.status, 'proven');
+  assert.deepEqual(formats.numberFormat.unreadRows, [row]);
+  assertWildcardReview(file, [row]);
 });
 
 test('046 a thousand-fold separator reading is never proven silently', () => {
@@ -314,11 +373,10 @@ test('046 a malformed balance amount is not excused by trying other readings', (
   sheet.rowPages!['15'] = 2;
   sheet.rowPages!['16'] = 2;
   const formats = suggestFormats(file, mapping, scope.decimals);
-  assert.equal(formats.numberFormat.status, 'invalid');
-  assert.match(
-    formats.numberFormat.reason,
-    /1\.2\.3|صيغ متعارضة|قيم غير صالحة/,
-  );
+  assert.equal(formats.numberFormat.status, 'proven');
+  assert.deepEqual(formats.numberFormat.unreadRows, [15]);
+  assert.equal(sheet.rows[14][0], 'Closing balance: 1.2.3');
+  assertWildcardReview(file, [15]);
 });
 
 test('046 a dated, referenced movement is never taken for a balance line', () => {

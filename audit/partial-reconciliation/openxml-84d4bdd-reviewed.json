@@ -1,0 +1,105 @@
+{
+  "checkerSha256": "b59abcab21e5ec97489d9844c2216691450a6bf8d5fe5f55331c0f9a8ae6e98f",
+  "observedAtUtc": "2026-09-29T13:06:23.465455+00:00",
+  "passed": true,
+  "frozenBefore": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e",
+  "workbookSha256": "bf7984f7af8ec93f51999589be96d12f46c0e9e819b14de64678b0dd2cce998b",
+  "observations": {
+    "originalSourcePreservation": {
+      "passed": true,
+      "readableRows": 5,
+      "readingIssues": [
+        {
+          "sourceRowId": "supplier:0:3",
+          "reason": "المبلغ غير صالح أو يتجاوز عدد المنازل العشرية للعملة",
+          "originalAmount": "12x.34"
+        }
+      ],
+      "issueTraceEncoding": "Source File + Side + Source Sheet CSV + Source Row; contract IDs reconstructed for selected sheet 0"
+    },
+    "partialSummaryAndReview": {
+      "passed": true,
+      "processedTotalsMinor": {
+        "supplier": 8550,
+        "ledger": 9784
+      },
+      "processedTotalFields": {
+        "supplier": "Supplier Processed Transaction Total",
+        "ledger": "Ledger Processed Transaction Total"
+      },
+      "partialSummaryFields": {
+        "Reading Status": "Partial — reading issues remain open",
+        "Workbook Mode": "Partial transaction snapshot for review. Reading issues remain open; totals cover processed transactions only. Not a complete reconciliation."
+      },
+      "bridgeStatus": "Balance bridge prerequisites incomplete",
+      "reviewCompleted": "Review recorded; reading issues remain open",
+      "reviewApproval": "Not approved — review completion is not an approval declaration"
+    },
+    "originalSourceHashBinding": {
+      "passed": true,
+      "sourceProvenance": {
+        "manifestSha256": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e"
+      }
+    },
+    "requiredCompletion": {
+      "requiredPairs": 2,
+      "actualMatchedCases": 2,
+      "requiredMemberSets": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 12575,
+          "ledgerTotalMinor": 12575
+        },
+        {
+          "supplierRows": [
+            4
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "supplierTotalMinor": -4025,
+          "ledgerTotalMinor": -4025
+        }
+      ]
+    }
+  },
+  "contract": "PR01",
+  "requiredPairs": 2,
+  "requiredPairsSatisfied": 2,
+  "falseApprovedPairs": 0,
+  "matchedSourceRows": 4,
+  "readableSourceRows": 5,
+  "invalidRowsRetained": [
+    {
+      "sourceRowId": "supplier:0:3",
+      "reason": "المبلغ غير صالح أو يتجاوز عدد المنازل العشرية للعملة",
+      "originalAmount": "12x.34"
+    }
+  ],
+  "processedTotalsMinor": {
+    "supplier": 8550,
+    "ledger": 9784
+  },
+  "processedTotalFields": {
+    "supplier": "Supplier Processed Transaction Total",
+    "ledger": "Ledger Processed Transaction Total"
+  },
+  "partialSummaryFields": {
+    "Reading Status": "Partial — reading issues remain open",
+    "Workbook Mode": "Partial transaction snapshot for review. Reading issues remain open; totals cover processed transactions only. Not a complete reconciliation."
+  },
+  "bridgeStatus": "Balance bridge prerequisites incomplete",
+  "reviewCompleted": "Review recorded; reading issues remain open",
+  "reviewApproval": "Not approved — review completion is not an approval declaration",
+  "xmlPartsParsed": 33,
+  "sourceProvenance": {
+    "manifestSha256": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e"
+  },
+  "scope": "Independent synthetic literal sources, error preservation and financial member sets. No engine/ExcelJS imports or formula recalculation.",
+  "frozenAfter": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e"
+}
