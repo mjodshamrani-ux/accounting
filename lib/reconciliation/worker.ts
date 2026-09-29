@@ -1,6 +1,6 @@
 import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
-import { readFile, exportWorkbook } from './io.ts';
+import { readFile, exportWorkbook, replayNativeHeaderSource } from './io.ts';
 import { normalizeSource } from './core.ts';
 import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 import { ENGINE_VERSION } from './types.ts';
@@ -36,14 +36,22 @@ self.onmessage = async (event: MessageEvent) => {
           self.postMessage({ ...reply, kind: 'progress', progress }),
       );
     else if (action === 'reconcile') {
+      payload.files = [
+        await replayNativeHeaderSource(payload.files[0]),
+        await replayNativeHeaderSource(payload.files[1]),
+      ];
       // The shared source boundary checks formats and directions first.
       const { a, b, result } = reconcileSupplierStatement(payload, measured);
       value = { a, b, result };
     } else if (action === 'compare') {
+      payload.files = [
+        await replayNativeHeaderSource(payload.files[0]),
+        await replayNativeHeaderSource(payload.files[1]),
+      ];
       value = reconcileSupplierStatement(payload).result;
     } else if (action === 'normalize')
       value = normalizeSource(
-        payload.file,
+        await replayNativeHeaderSource(payload.file),
         payload.mapping,
         payload.scope,
         payload.side,

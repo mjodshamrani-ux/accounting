@@ -1,3 +1,4 @@
+import { headerLabels } from '@/lib/reconciliation/header-view';
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
 import { BrandMark, BrandWordmark, DisplayHeading } from '@/components/brand';
@@ -2507,7 +2508,7 @@ function SourceConfiguration({
   const { t, say } = useI18n();
   const c = t.app.source;
   const sheet = file.sheets[mapping.sheet];
-  const header = sheet?.rows[mapping.header] ?? [];
+  const header = sheet ? headerLabels(sheet, mapping.header) : [];
   const columns: [string, string][] = [
     ['-1', c.unset],
     ...header.map(

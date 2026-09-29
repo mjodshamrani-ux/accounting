@@ -1,3 +1,4 @@
+import { headerLabels, headerCellIssues } from './header-view.ts';
 import {
   nonFinancialFooter,
   parseDate,
@@ -49,7 +50,7 @@ export function inferStatementDirection(
     sheet.rows.length > MAX_ROWS + 30
   )
     return;
-  const headers = sheet.rows[mapping.header];
+  const headers = headerLabels(sheet, mapping.header);
   const candidates = headers.flatMap((header, column) =>
     balanceHeader.test(normalizeHeaderLabel(header)) ? [column] : [],
   );
@@ -105,7 +106,9 @@ export function inferStatementDirection(
   if (
     hidden.has(mapping.header + 1) ||
     rowIssue(mapping.header + 1) ||
-    selected.some((column) => cellIssue(mapping.header + 1, column))
+    selected.some(
+      (column) => headerCellIssues(sheet, mapping.header, column).length,
+    )
   )
     return;
 

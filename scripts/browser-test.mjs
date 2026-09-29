@@ -2,6 +2,7 @@ import { chromium } from 'playwright';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import { verifyLanguages } from './language-browser-cases.mjs';
+import { verifyLayeredHeaders } from './layered-header-browser-cases.mjs';
 import {
   verifyBrandLanding,
   verifyNarrowLayouts,
@@ -1164,7 +1165,8 @@ try {
       name: 'synthetic-ambiguous.csv',
       mimeType: 'text/csv',
       buffer: Buffer.from(
-        'date,reference,amount,currency\n03/04/2026,Q-AMB-0001,1.234,KWD' + (index ? '\n' : ''),
+        'date,reference,amount,currency\n03/04/2026,Q-AMB-0001,1.234,KWD' +
+          (index ? '\n' : ''),
       ),
     });
     await ambiguityPage.waitForFunction(
@@ -1244,7 +1246,8 @@ try {
       name: 'synthetic-precision.csv',
       mimeType: 'text/csv',
       buffer: Buffer.from(
-        'date,reference,amount,currency\n2026-06-01,Q-PREC,100,ZZZ' + (index ? '\n' : ''),
+        'date,reference,amount,currency\n2026-06-01,Q-PREC,100,ZZZ' +
+          (index ? '\n' : ''),
       ),
     });
     await precisionPage.waitForFunction(
@@ -1785,6 +1788,10 @@ try {
   // Prior cases deliberately leave the context offline. OCR's first use needs
   // only same-origin static program assets; its own case audits every request.
   await context.setOffline(false);
+  await verifyLayeredHeaders(
+    await activeScenarioPage(context, 'native layered XLSX headers'),
+    `${origin}/mizan-test/`,
+  );
   for (const completed of context.pages()) await completed.close();
   console.log('[browser] template lifecycle');
   await verifyTemplateLifecycle(context, `${origin}/mizan-test/`);

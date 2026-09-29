@@ -673,6 +673,9 @@ export const engineCatalog: Record<string, string> = {
     'The value labeled “{0}” could not be interpreted in {1}, {2}, row {3}.',
   'عمود العملة غير مكتمل أو يتضمن قيمة غير موثوقة في ${…}، ${…}.':
     'The currency column is incomplete or includes an unreliable value in {0}, {1}.',
+  'نطاق دمج Excel غير صالح': 'Invalid Excel merge range',
+  'دليل عناوين Excel يحتاج الملف الأصلي لإعادة التحقق':
+    'The original Excel file is needed to verify its header evidence',
   // session.ts
   'حجم أو ترميز مصدر الجلسة غير صالح':
     'Invalid size or encoding of the session source',

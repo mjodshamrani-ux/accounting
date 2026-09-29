@@ -2,6 +2,11 @@ import { validateZipContents } from './zip.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
 import { readPdf } from './pdf.ts';
+import {
+  registerNativeHeaderSource,
+  layeredHeaderView,
+} from './header-view.ts';
+import { inferMapping } from './core.ts';
 import type { ProcessingProgress } from './processing-progress.ts';
 import ExcelJS from 'exceljs';
 import {
@@ -325,7 +330,7 @@ export async function readFile(
     1000000
   )
     throw new Error('إجمالي خلايا المصنف يتجاوز مليون خلية');
-  const sheets: SheetData[] = workbook.worksheets.map((sheet) => {
+  const sheets: SheetData[] = workbook.worksheets.map((sheet, sheetIndex) => {
     // ExcelJS computes columnCount by scanning every row. Read immutable sheet
     // dimensions once; calling it for every cell makes large imports quadratic.
     const rowCount = sheet.rowCount;
@@ -520,12 +525,58 @@ export async function readFile(
       cellNotes,
       referenceIssues,
       rows,
+      xlsxHeaders: {
+        sourceHash: sha256,
+        sheetName: sheet.name,
+        sheetIndex,
+        hiddenColumns: Array.from(
+          { length: columnCount },
+          (_, i) => i + 1,
+        ).filter((c) => sheet.getColumn(c).hidden),
+        merges: sheet.model.merges.map((address) => {
+          const parts = /^([A-Z]+)([1-9]\d*):([A-Z]+)([1-9]\d*)$/.exec(address);
+          if (!parts) throw new Error('نطاق دمج Excel غير صالح');
+          const column = (letters: string) =>
+            [...letters].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0);
+          const bounds = {
+            top: Number(parts[2]),
+            left: column(parts[1]),
+            bottom: Number(parts[4]),
+            right: column(parts[3]),
+          };
+          return {
+            top: bounds.top,
+            left: bounds.left,
+            bottom: bounds.bottom,
+            right: bounds.right,
+            text: rows[bounds.top - 1][bounds.left - 1],
+          };
+        }),
+      },
       formulaRows: [...new Set(formulaRows)],
       hiddenRows,
     };
   });
   if (!sheets.length) throw new Error('الملف لا يحتوي أوراقًا');
-  return { name, sheets, original: buffer.slice(0), sha256 };
+  const file = { name, sheets, original: buffer.slice(0), sha256 };
+  registerNativeHeaderSource(file);
+  return file;
+}
+/** Re-derive native XLSX labels from bytes at an untrusted payload boundary.
+ * A serialized merge certificate can never register itself as source proof. */
+export async function replayNativeHeaderSource(
+  file: SourceFile,
+): Promise<SourceFile> {
+  assertNativeAccountingSource(file);
+  if (!/\.xlsx$/i.test(file.name)) return file;
+  if (!(file.original instanceof ArrayBuffer)) {
+    if (file.sheets.some((sheet) => sheet.xlsxHeaders))
+      throw new Error('دليل عناوين Excel يحتاج الملف الأصلي لإعادة التحقق');
+    return file;
+  }
+  const fresh = await readFile(file.name, file.original);
+  if (fresh.sha256 !== file.sha256) throw new Error('بصمة الملف لا تطابق الأصل');
+  return fresh;
 }
 export async function exportWorkbook(
   result: Comparison,
@@ -950,6 +1001,85 @@ export async function exportWorkbook(
         )
       : [],
   );
+  const xlsxHeaderRows = verifiedFiles.flatMap((file, side) => {
+    const mapping =
+      side === 0 ? result.supplier.mapping : result.ledger.mapping;
+    const sheet = file.sheets[mapping.sheet];
+    const view = layeredHeaderView(sheet, mapping.header);
+    if (!view) return [];
+    const automatic = inferMapping(file, mapping.sheet);
+    const readingMode = [
+      'header',
+      'date',
+      'reference',
+      'description',
+      'amount',
+      'debit',
+      'credit',
+      'currencyColumn',
+      'mode',
+    ].every(
+      (key) =>
+        automatic[key as keyof Mapping] === mapping[key as keyof Mapping],
+    )
+      ? 'Automatic source rule'
+      : 'Assisted mapping; native source rule';
+    return view.origins.map((origin, c) => [
+      side === 0 ? 'Supplier' : 'Ledger',
+      file.sha256 ?? '',
+      sheet.name,
+      view.band[0],
+      view.band[1],
+      c + 1,
+      origin.row,
+      origin.column,
+      origin.label,
+      origin.range ?? '',
+      origin.parent?.label ?? '',
+      origin.parent?.range ?? '',
+      view.labels[c],
+      Object.entries(mapping)
+        .filter(
+          ([key, value]) =>
+            [
+              'date',
+              'reference',
+              'description',
+              'amount',
+              'debit',
+              'credit',
+              'currencyColumn',
+            ].includes(key) && value === c,
+        )
+        .map(([key]) => key)
+        .join(', '),
+      view.rule,
+      readingMode,
+    ]);
+  });
+  if (xlsxHeaderRows.length)
+    add(
+      'XLSX Header Provenance',
+      [
+        'Side',
+        'Source SHA-256',
+        'Sheet',
+        'Header start row',
+        'Header end row',
+        'Output column',
+        'Origin row',
+        'Origin column',
+        'Original label',
+        'Vertical merge range',
+        'Parent label',
+        'Parent merge range',
+        'Derived label',
+        'Mapped fields',
+        'Rule',
+        'Reading basis',
+      ],
+      xlsxHeaderRows,
+    );
   if (headerFragments.length)
     add(
       'PDF Header Fragments',

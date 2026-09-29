@@ -1,3 +1,4 @@
+import { headerLabels } from './header-view.ts';
 import type { Mapping, Scope, SourceFile, SourceResult } from './types.ts';
 import { sourceRowsForScope } from './localized-read-errors.ts';
 
@@ -37,7 +38,7 @@ export function collectGenericAccounts(
   result: SourceResult,
 ) {
   const sheet = file.sheets[mapping.sheet];
-  const columns = sheet.rows[mapping.header].flatMap((label, i) =>
+  const columns = headerLabels(sheet, mapping.header).flatMap((label, i) =>
     genericAccount.test(label.trim()) ? [i] : [],
   );
   const observations: { value: string; row: number; column?: number }[] = [];

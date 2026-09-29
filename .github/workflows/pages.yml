@@ -28,8 +28,10 @@ jobs:
       - run: pnpm test
       - name: Detect false matches and changed workbook evidence
         run: python3 -m unittest discover -s audit/export-design -p 'test_*.py' -v
-      - name: Verify frozen layered-statement source facts (product gap remains open)
-        run: python3 audit/layered-statement/check_contract.py
+      - name: Verify frozen layered-statement source facts and independent export oracle
+        run: |
+          python3 audit/layered-statement/check_contract.py
+          python3 -m unittest discover -s audit/layered-statement -p 'test_*.py' -v
       - name: Preserve proved groups and reject competing identity memberships
         run: pnpm test:reliability:p2
       - name: Preserve useful partial results and independently check unresolved errors in Excel
@@ -43,6 +45,8 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Independently verify layered XLSX headers after browser upload and session replay
+        run: python3 audit/layered-statement/check_export.py work/qa/layered-0-direct.xlsx work/qa/layered-0-restored.xlsx work/qa/layered-1-direct.xlsx work/qa/layered-1-restored.xlsx
       - name: Verify partial results through the Arabic and English interface
         run: |
           node audit/partial-input/browser/run.mjs ci-partial isolated

@@ -1,3 +1,4 @@
+import { headerLabels, headerCellIssues } from './header-view.ts';
 import { normalizeReference } from './core.ts';
 import { usableDiscriminator } from './document-pairs.ts';
 import { summaryLabel } from './row-labels.ts';
@@ -51,7 +52,7 @@ export function safeReferenceEnvelope(
   rn: number,
   references: References,
 ): SourceReadError['isolation'] {
-  const header = sheet.rows[mapping.header];
+  const header = headerLabels(sheet, mapping.header);
   if (
     !header ||
     sheet.rowIssues?.[rn]?.length ||
@@ -93,10 +94,9 @@ export function safeReferenceEnvelope(
     !!references.paymentIdentityFields.length;
   if (!roleProven) return;
   if (mapping.reference >= 0) {
-    for (const key of [
-      `${rn}:${mapping.reference + 1}`,
-      `${mapping.header + 1}:${mapping.reference + 1}`,
-    ])
+    if (headerCellIssues(sheet, mapping.header, mapping.reference).length)
+      return;
+    for (const key of [`${rn}:${mapping.reference + 1}`])
       if (
         sheet.cellIssues?.[key]?.length ||
         sheet.referenceIssues?.[key]?.length

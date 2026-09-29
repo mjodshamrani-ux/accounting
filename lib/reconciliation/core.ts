@@ -1,3 +1,9 @@
+import {
+  headerLabels,
+  headerCellIssues,
+  layeredHeaderView,
+  hasLayeredHeaderCandidate,
+} from './header-view.ts';
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
@@ -247,8 +253,18 @@ export function inferMapping(
             ).length;
           return score(row) > score(rows[best] ?? []) ? i : best;
         }, 0));
+  // Compose only at the first plausible table, never skip an unresolved one.
+  const sourceSheet = file.sheets[sheet];
+  if (
+    header === undefined &&
+    firstTable >= 0 &&
+    sourceSheet &&
+    layeredHeaderView(sourceSheet, firstTable + 1)
+  )
+    m.header = firstTable + 1;
+  const derivedNames = sourceSheet ? headerLabels(sourceSheet, m.header) : [];
   for (const [key, regex] of Object.entries(patterns)) {
-    const candidates = (rows[m.header] ?? []).flatMap((c, index) =>
+    const candidates = derivedNames.flatMap((c, index) =>
       headerMatches(regex, c) ? [index] : [],
     );
     m[key as keyof typeof patterns] =
@@ -257,7 +273,7 @@ export function inferMapping(
   if (m.amount < 0 && m.debit >= 0 && m.credit >= 0) m.mode = 'split';
   // Meaning comes from explicit labels, never from the shape or uniqueness of
   // values: a decimal quantity is not evidence of a monetary amount.
-  const names = rows[m.header] ?? [];
+  const names = derivedNames;
   const posting = names.flatMap((name, i) =>
     headerMatches(/^(posting date|تاريخ القيد)$/i, name) ? [i] : [],
   );
@@ -282,6 +298,21 @@ export function inferMapping(
       : [],
   );
   if (supplierRefs.length === 1) m.reference = supplierRefs[0];
+  // A label in a formula, hidden cell or unproved merge cannot auto-select a
+  // column. Manual selection remains available and does not erase the issue.
+  if (sourceSheet?.xlsxHeaders)
+    for (const key of Object.keys(patterns) as (keyof typeof patterns)[])
+      if (m[key] >= 0 && headerCellIssues(sourceSheet, m.header, m[key]).length)
+        m[key] = -1;
+  if (
+    header === undefined &&
+    sourceSheet &&
+    firstTable >= 0 &&
+    m.header === firstTable &&
+    hasLayeredHeaderCandidate(sourceSheet, firstTable)
+  ) {
+    m.amount = m.debit = m.credit = -1;
+  }
   if (m.amount < 0 && m.debit >= 0 && m.credit >= 0) m.mode = 'split';
   return m;
 }
@@ -322,7 +353,7 @@ export function inlineBalanceSummary(row: string[], mapping: Mapping) {
 export function structuralSummaryLabel(
   row: string[],
   mapping: Mapping,
-  headers: string[],
+  headers: readonly string[],
   leading = false,
 ): string | undefined {
   const inline = inlineBalanceSummary(row, mapping);
@@ -521,16 +552,14 @@ function enforceSourceScope(
   const metadata = result.metadata!;
   for (const [field, pattern] of Object.entries(scopeColumnPatterns)) {
     const key = field as keyof typeof scopeColumnPatterns;
-    const columns = sheet.rows[mapping.header].flatMap((header, column) =>
-      headerMatches(pattern, header) ? [column] : [],
+    const columns = headerLabels(sheet, mapping.header).flatMap(
+      (header, column) => (headerMatches(pattern, header) ? [column] : []),
     );
     if (!columns.length) continue;
     const values = new Map<string, string>();
     if (metadata[key]) values.set(identityKey(metadata[key]), metadata[key]);
     let invalid = columns.some(
-      (column) =>
-        sheet.cellIssues?.[`${mapping.header + 1}:${column + 1}`]?.length ||
-        sheet.referenceIssues?.[`${mapping.header + 1}:${column + 1}`]?.length,
+      (column) => headerCellIssues(sheet, mapping.header, column).length,
     );
     for (const transaction of sourceRowsForScope(result))
       for (const column of columns) {
@@ -566,7 +595,7 @@ function enforceSourceScope(
     ) {
       result.errors.push({
         row: 0,
-        message: `نطاق غير متحقق في عمود ${sheet.rows[mapping.header][columns[0]]}: توجد قيم ناقصة أو متعارضة أو أكثر من نطاق. افصل نطاق المورد والجهة والحساب والعملة قبل المطابقة.`,
+        message: `نطاق غير متحقق في عمود ${headerLabels(sheet, mapping.header)[columns[0]]}: توجد قيم ناقصة أو متعارضة أو أكثر من نطاق. افصل نطاق المورد والجهة والحساب والعملة قبل المطابقة.`,
       });
     } else metadata[key] = [...values.values()][0];
   }
@@ -601,7 +630,7 @@ function enforceSourceScope(
 }
 export function repeatsHeaderRow(
   row: string[],
-  headerRow: string[] | undefined,
+  headerRow: readonly string[] | undefined,
 ): boolean {
   return (
     !!headerRow &&
@@ -633,7 +662,7 @@ export function repeatedPageMetadataRows(
     mapping.header >= sheet.rows.length
   )
     return rowNumbers;
-  const headerRow = sheet.rows[mapping.header];
+  const headerRow = headerLabels(sheet, mapping.header);
   const signature = (row: string[]) =>
     JSON.stringify(row.map((value) => value.trim()));
   const prefix = new Set(sheet.rows.slice(0, mapping.header).map(signature));
@@ -730,7 +759,7 @@ export function normalizeSource(
     mapping.header >= sheet.rows.length
   )
     throw new Error('صف العناوين غير صالح');
-  const width = sheet.rows[mapping.header].length;
+  const width = headerLabels(sheet, mapping.header).length;
   for (const col of [
     mapping.date,
     mapping.reference,
@@ -760,7 +789,7 @@ export function normalizeSource(
   if (
     mapping.mode === 'signed' &&
     incompatibleAmountMeaning(
-      sheet.rows[mapping.header][mapping.amount] ?? '',
+      headerLabels(sheet, mapping.header)[mapping.amount] ?? '',
       mapping.reportType,
     )
   )
@@ -796,7 +825,7 @@ export function normalizeSource(
     ? [mapping.amount]
     : [mapping.debit, mapping.credit]) {
     const codes = [
-      ...(sheet.rows[mapping.header]?.[column] ?? '').matchAll(
+      ...(headerLabels(sheet, mapping.header)?.[column] ?? '').matchAll(
         /\(([A-Za-z]{3})\)/g,
       ),
     ].map((match) => match[1].toUpperCase());
@@ -817,7 +846,7 @@ export function normalizeSource(
     throw new Error('بداية الفترة تأتي بعد تاريخ المقارنة');
   const get = (row: string[], col: number) =>
     col < 0 ? '' : (row[col] ?? '').trim();
-  const headerRow = sheet.rows[mapping.header];
+  const headerRow = headerLabels(sheet, mapping.header);
   // Astra 0.4.6: the amount-basis column keeps a movement amount from being read
   // as an original or remaining balance that the report type does not support.
   const amountBasisColumns = headerRow.flatMap((value, index) =>
@@ -861,7 +890,9 @@ export function normalizeSource(
     let references: ReturnType<typeof transactionReferences> | undefined;
     try {
       if (
-        row.slice(sheet.rows[mapping.header]?.length ?? 0).some((v) => v.trim())
+        row
+          .slice(headerLabels(sheet, mapping.header)?.length ?? 0)
+          .some((v) => v.trim())
       )
         throw new Error(
           'توجد قيم إضافية خارج أعمدة العناوين. تحقق من فاصل CSV وترتيب بيانات الصف.',
@@ -993,13 +1024,10 @@ export function normalizeSource(
       if (amountBasisColumns.length === 1) {
         const column = amountBasisColumns[0];
         const cellKey = `${rn}:${column + 1}`;
-        const headerKey = `${mapping.header + 1}:${column + 1}`;
         if (
-          [cellKey, headerKey].some(
-            (key) =>
-              sheet.cellIssues?.[key]?.length ||
-              sheet.referenceIssues?.[key]?.length,
-          )
+          sheet.cellIssues?.[cellKey]?.length ||
+          sheet.referenceIssues?.[cellKey]?.length ||
+          headerCellIssues(sheet, mapping.header, column).length
         )
           throw new Error('تعذر التحقق من أساس مبلغ الصف من المصدر');
         const value = get(row, column);

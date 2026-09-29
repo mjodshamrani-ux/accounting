@@ -1,5 +1,9 @@
 import { ENGINE_VERSION, MAX_ROWS, MAX_SHEETS } from './types.ts';
 import type { SourceFile } from './types.ts';
+import {
+  registerNativeHeaderSource,
+  validHeaderGeometry,
+} from './header-view.ts';
 export const WORKER_CHANNEL = 'mizan-accounting-v1';
 export const WORKER_ACTIONS = [
   'ready',
@@ -49,7 +53,8 @@ export function assertSourceFile(value: unknown): asserts value is SourceFile {
             row.some((cell) => typeof cell !== 'string'),
         ) ||
         !Array.isArray(sheet.formulaRows) ||
-        !Array.isArray(sheet.hiddenRows),
+        !Array.isArray(sheet.hiddenRows) ||
+        !validHeaderGeometry(sheet as SourceFile['sheets'][number]),
     )
   )
     throw new Error(
@@ -81,5 +86,16 @@ export function validateWorkerValue(
       throw new Error(
         'استجابة قارئ الملفات لا تطابق الملف المرفوع. أعد اختيار الملف.',
       );
+    registerNativeHeaderSource(value);
+  }
+  if (
+    action === 'restore-session' &&
+    isRecord(value) &&
+    Array.isArray(value.files)
+  ) {
+    for (const file of value.files) {
+      assertSourceFile(file);
+      registerNativeHeaderSource(file);
+    }
   }
 }

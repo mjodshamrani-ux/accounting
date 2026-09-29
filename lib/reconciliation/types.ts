@@ -9,6 +9,20 @@ export type SheetData = {
   rows: string[][];
   formulaRows: number[];
   hiddenRows: number[];
+  // Native XLSX geometry, not an inferred role or an accounting approval.
+  xlsxHeaders?: {
+    sourceHash: string;
+    sheetName: string;
+    sheetIndex: number;
+    hiddenColumns: number[];
+    merges: {
+      top: number;
+      left: number;
+      bottom: number;
+      right: number;
+      text: string;
+    }[];
+  };
   numericCells?: Record<string, { value: number; format: string }>;
   formulaCells?: Record<string, { formula: string }>;
   rowIssues?: Record<string, string[]>;
