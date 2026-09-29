@@ -1,0 +1,40 @@
+{
+  "baselinePassed": true,
+  "detected": 7,
+  "total": 7,
+  "available": 85,
+  "filter": "partial-",
+  "mutations": [
+    {
+      "mutation": "partial-drop-reading-issue-details-from-export",
+      "detected": true
+    },
+    {
+      "mutation": "partial-treat-untrusted-cells-as-format-proof",
+      "detected": true
+    },
+    {
+      "mutation": "partial-accept-stale-format-selection",
+      "detected": true
+    },
+    {
+      "mutation": "partial-ignore-isolated-error-membership",
+      "detected": true
+    },
+    {
+      "mutation": "partial-drop-transitive-error-impact",
+      "detected": true
+    },
+    {
+      "mutation": "partial-drop-displaced-literal-identities",
+      "detected": true
+    },
+    {
+      "mutation": "accept-a-partial-pdf-operator-stream",
+      "detected": true
+    }
+  ],
+  "logSha256": "533786b1ba83cb25dc746022bae5c7703f920040df50bc540f6a2e260ad3af1b",
+  "engineCommit": "e609c0dee92e0abb76c1d3e8d185818edaeddc0d",
+  "timingPolicy": "Only the named20k-row wall-clock test is excluded from accounting mutation runs. The full unit gate retains it unchanged."
+}
