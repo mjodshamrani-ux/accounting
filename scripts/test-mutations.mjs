@@ -53,6 +53,21 @@ const tests = [
 ];
 const mutations = [
   {
+    name: 'p1-accept-placeholder-category-or-zero-as-a-discriminator',
+    file: 'lib/reconciliation/document-pairs.ts',
+    changes: [['    usableDiscriminator(value) &&', '']],
+  },
+  {
+    name: 'p1-reject-valid-contextual-numeric-or-alphabetic-discriminators',
+    file: 'lib/reconciliation/document-pairs.ts',
+    changes: [
+      [
+        '    usableDiscriminator(value) &&',
+        '    value.length >= 4 && /\\p{L}/u.test(value) && /\\p{Nd}/u.test(value) &&',
+      ],
+    ],
+  },
+  {
     name: 'p1-disable-document-pair-resolution',
     file: 'lib/reconciliation/core.ts',
     changes: [

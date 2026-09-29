@@ -1,0 +1,105 @@
+{
+  "runName": "candidate-02f4f33",
+  "startedAt": "2026-09-29T08:58:44.709Z",
+  "sourceRevisionAtStart": "02f4f33fa8ac97ebd582883b61577412acda9bf8",
+  "buildRoot": "/Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/dist",
+  "buildAssets": [
+    {
+      "path": "assets/index-BTGVrVsx.css",
+      "bytes": 232716,
+      "sha256": "19fb764af1cf4d9b6ff422272dc3a5e3dd4d1f3d34ca843547ed163751ee62c6"
+    },
+    {
+      "path": "assets/index-yvrFxnuw.js",
+      "bytes": 3546757,
+      "sha256": "ba70f1d5f0a369074c9bad428d45c3f1c2ad33442bbc94614934643118e18ad0"
+    },
+    {
+      "path": "assets/pdfjs-BvlvQ5M7.js",
+      "bytes": 1601958,
+      "sha256": "69a83db7b2eade657043398d8eb786527eb4ba2a35a6f42e6e123c2d3b61b9b0"
+    },
+    {
+      "path": "assets/visual-assets-DOV9gcYZ.js",
+      "bytes": 561,
+      "sha256": "97b1afd16921ff47f95234c48d7c9e3f908ce8b6b35d68b4e3b76bc157a2c2a9"
+    },
+    {
+      "path": "assets/visual-draft-riOjJH1U.js",
+      "bytes": 5650,
+      "sha256": "e990d0faa473075bf58f9dd6f0bd13d04cb4ef1bfadb2619f7063aeab85fc7d4"
+    },
+    {
+      "path": "assets/visual-image-CaZsk65l.js",
+      "bytes": 3067,
+      "sha256": "89baabb69a9137223699f3bfbb7f73fb527fb0d9181ddcc901e53963063d6841"
+    },
+    {
+      "path": "assets/visual-ocr-client-BhVKcJsu.js",
+      "bytes": 5056,
+      "sha256": "ff81999766956d23dd9191402a6f404086ca7f46ccd1b2cf6da80e9d77c19e23"
+    },
+    {
+      "path": "assets/visual-renderer-DNiylIeA.js",
+      "bytes": 8810,
+      "sha256": "39eccde94796f4cb36511f6f23bd27b5bef6d3c33e3e2629876ccb6f157a8f30"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3584,
+      "sha256": "6ed944f1a26c0f205491d913186b9513bae06ed430464de1a9ccfb884a5de000"
+    },
+    {
+      "path": "ocr/tesseract-core-lstm.wasm.js",
+      "bytes": 3896484,
+      "sha256": "eef5f8b2f8e20e150680b20adaec4a60babafee3adbe8a94583c81fee46e8680"
+    },
+    {
+      "path": "ocr/worker-vendor.js",
+      "bytes": 111307,
+      "sha256": "576b7df7e3393e137e51849357c9adb53fe7ac1bb69bfa06cf3d61520f182c6d"
+    },
+    {
+      "path": "ocr/worker.js",
+      "bytes": 6154223,
+      "sha256": "4faaf3bf0aabdd360f3a8a280f37050fa7307799d30cb9f4ab2dbd9807383f38"
+    }
+  ],
+  "scope": "Synthetic CSV browser acceptance; two repeated document rows, explicitly selected Reference, reversed ledger order. No financial approval or publication.",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:51022/mizan-test/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:51022/mizan-test/fonts/noto-sans-arabic-variable.woff2"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:51022/mizan-test/fonts/thmanyah-serif-display-bold.woff2"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:51022/mizan-test/assets/index-yvrFxnuw.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:51022/mizan-test/assets/index-BTGVrVsx.css"
+    },
+    {
+      "method": "GET",
+      "url": "blob:http://127.0.0.1:51022/4d81b5ff-de98-478a-857c-3a7ecdb9e414"
+    }
+  ],
+  "externalRequests": [],
+  "nonGetRequests": [],
+  "pageErrors": [],
+  "checks": [],
+  "passed": false,
+  "error": {
+    "message": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('رقم المستند INV-8170 متكرر، لكن المرجع المختار LINE-0011 يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ 0 يوم.', { exact: true }).first() to be visible\u001b[22m\n",
+    "stack": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('رقم المستند INV-8170 متكرر، لكن المرجع المختار LINE-0011 يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ 0 يوم.', { exact: true }).first() to be visible\u001b[22m\n\n    at verifyReview (/Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/audit/p1-reference-resolution/browser/run.mjs:106:61)\n    at async file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/audit/p1-reference-resolution/browser/run.mjs:160:3"
+  },
+  "finishedAt": "2026-09-29T08:59:16.570Z"
+}

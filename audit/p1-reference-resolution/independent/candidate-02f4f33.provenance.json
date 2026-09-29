@@ -1,0 +1,268 @@
+{
+  "sourceCommit": "02f4f33fa8ac97ebd582883b61577412acda9bf8",
+  "engineVersion": "0.3.18-experimental",
+  "libMatchesCommitAndUnchangedDuringExecution": true,
+  "libFiles": 54,
+  "libDigest": "43de4aade1912b7427d7fd1982718d828fe051e38ad730ec3b02b68ab6dda5f2",
+  "fixtureManifestSha256": "17f6e95eff3b34c99230c9d12c08280ca6b7980d0742dbb513213deee9168f3e",
+  "resultSha256": "2ab656a3251eb46351891de2a8d6263e962c0352b4140f0c047785fb91735dc6",
+  "baseline": {
+    "cases": 12,
+    "passed": 5,
+    "failed": 7,
+    "requiredPositivePairs": 15,
+    "satisfiedPositivePairs": 1,
+    "falseApprovedPairs": 0,
+    "unexpectedAutoGroups": 0,
+    "operationExceptions": 0
+  },
+  "candidate": {
+    "cases": 12,
+    "passed": 9,
+    "failed": 3,
+    "requiredPositivePairs": 15,
+    "satisfiedPositivePairs": 8,
+    "falseApprovedPairs": 0,
+    "unexpectedAutoGroups": 0,
+    "operationExceptions": 0
+  },
+  "caseOutcomes": [
+    {
+      "id": "P1I01",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I02",
+      "pass": false,
+      "requiredPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "observedPairs": [],
+      "missingPairs": [
+        "2:4",
+        "3:2",
+        "4:3"
+      ],
+      "failures": [
+        {
+          "label": "All and only the manually specified positive pairs",
+          "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   '2:4',\n-   '3:2',\n-   '4:3'\n- ]\n"
+        },
+        {
+          "label": "Matched case count agrees with explicit positive pairs",
+          "message": "Expected values to be strictly equal:\n\n0 !== 3\n"
+        }
+      ]
+    },
+    {
+      "id": "P1I03",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          3
+        ]
+      ],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I04",
+      "pass": true,
+      "requiredPairs": [
+        [
+          4,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          4,
+          2
+        ]
+      ],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I05",
+      "pass": false,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          3,
+          4
+        ]
+      ],
+      "missingPairs": [
+        "2:3",
+        "4:2"
+      ],
+      "failures": [
+        {
+          "label": "All and only the manually specified positive pairs",
+          "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n-   '2:3',\n    '3:4',\n-   '4:2'\n  ]\n"
+        },
+        {
+          "label": "Matched case count agrees with explicit positive pairs",
+          "message": "Expected values to be strictly equal:\n\n1 !== 3\n"
+        }
+      ]
+    },
+    {
+      "id": "P1I06",
+      "pass": false,
+      "requiredPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "observedPairs": [],
+      "missingPairs": [
+        "2:4",
+        "3:3"
+      ],
+      "failures": [
+        {
+          "label": "All and only the manually specified positive pairs",
+          "message": "Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   '2:4',\n-   '3:3'\n- ]\n"
+        },
+        {
+          "label": "Matched case count agrees with explicit positive pairs",
+          "message": "Expected values to be strictly equal:\n\n0 !== 2\n"
+        }
+      ]
+    },
+    {
+      "id": "P1I07",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I08",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I09",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I10",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I11",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I12",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "failures": []
+    }
+  ]
+}

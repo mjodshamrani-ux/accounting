@@ -1,14 +1,32 @@
 import type { SourceResult, Transaction } from './types.ts';
+import { DOCUMENT_LABELS } from './transaction-references.ts';
+import { summaryLabel } from './row-labels.ts';
 
 export const DOCUMENT_PAIR_RULE = 'EXACT_DOCUMENT_CHOSEN_REFERENCE_UNIQUE_V1';
 
+const categoryLabels = Object.values(DOCUMENT_LABELS).map(
+  (pattern) => new RegExp(`^(?:${pattern})$`, 'iu'),
+);
+const nonIdentityLabel =
+  /^(?:n[/.]?a\.?|not (?:available|applicable|provided)|none|null|unknown|undefined|missing|tbd|pending|no ref(?:erence)?|total|sub ?total|grand total|summary|balance|(?:opening|closing|running|brought forward|carried forward) balance|balance (?:brought forward|carried forward)|debit|credit|dr|cr|بدون(?: مرجع)?|غير (?:متوفر|متاح|معروف)|لا يوجد|[إا]جمالي(?: الحساب)?|(?:ال)?مجموع|(?:ال)?رصيد(?: (?:الافتتاحي|الختامي|افتتاحي|ختامي|مرحل))?|مدين|دائن)$/iu;
+const usableDiscriminator = (value: string) => {
+  // This spelling check rejects known non-identities only. Identity equality
+  // below ALWAYS uses the original literal text. A digit, alphabetic or Arabic
+  // code needs no Latin letter+digit shape inside an already proven document.
+  const label = value.normalize('NFKC').trim().replace(/\s+/g, ' ');
+  return (
+    /[\p{L}\p{Nd}]/u.test(label) &&
+    !/^[0٠۰\s.,٬٫+()\-]+$/u.test(label) &&
+    !nonIdentityLabel.test(label) &&
+    !summaryLabel.test(label) &&
+    !categoryLabels.some((pattern) => pattern.test(label))
+  );
+};
 const strongDiscriminator = (t: Transaction) => {
   const value = t.chosenReference ?? '';
   return (
     t.chosenReferenceEvidence?.role === 'document-reference' &&
-    value.length >= 4 &&
-    /\p{L}/u.test(value) &&
-    /\p{Nd}/u.test(value) &&
+    usableDiscriminator(value) &&
     value !== t.reference &&
     !t.referenceEvidenceIssues?.length
   );

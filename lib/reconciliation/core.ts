@@ -1,6 +1,8 @@
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
+import { summaryLabel } from './row-labels.ts';
+export { summaryLabel } from './row-labels.ts';
 import { certifiedDocumentPairs, DOCUMENT_PAIR_RULE } from './document-pairs.ts';
 import {
   automaticConflicts,
@@ -277,8 +279,6 @@ export function inferMapping(
 // A cell whose whole text is one of these names marks a total or balance line,
 // not a transaction. Matching the entire cell keeps a description that merely
 // mentions a balance from being excluded.
-export const summaryLabel =
-  /^(?:total|subtotal|grand total|opening balance|balance b\/f|balance c\/f|closing (?:ap )?balance|balance brought forward|balance carried forward|carried forward|brought forward|page total|المجموع|المرحل|رصيد مرحل|مجموع الصفحة|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
 export function inlineBalanceSummary(row: string[], mapping: Mapping) {
   const nonempty = row.flatMap((value, column) =>
     value.trim() ? [{ value: value.trim(), column }] : [],

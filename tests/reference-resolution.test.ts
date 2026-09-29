@@ -8,6 +8,7 @@ import { selectImportMapping } from '../lib/reconciliation/import-selection.ts';
 import { reconcileSupplierStatement } from '../lib/reconciliation/supplier-reconciliation.ts';
 import { saveSession, restoreSession } from '../lib/reconciliation/session.ts';
 import { localizeEngineText } from '../lib/i18n/engine.ts';
+import { verifyHypothesis } from '../lib/reconciliation/assistant.ts';
 import type {
   Mapping,
   Scope,
@@ -199,8 +200,29 @@ test('P1 counts all discriminator occurrences before amount, date or consumption
   verifyPartition(rejected);
 });
 
-test('P1 missing, weak and unsafe discriminators leave the entire document bucket unresolved', async () => {
-  for (const value of ['', '0', 'N/A', 'TOTAL', '12345']) {
+test('P1 missing, placeholder and unsafe discriminators leave the entire document bucket unresolved', async () => {
+  for (const value of [
+    '',
+    '0',
+    '000.00',
+    '٠٠',
+    'N/A',
+    'TOTAL',
+    'Page Total',
+    'Total:',
+    'الإجمالي：',
+    'Carried forward',
+    'Brought forward',
+    'الإجمالي',
+    'مجموع الصفحة',
+    'المرحل',
+    'Opening balance',
+    'غير متوفر',
+    'Invoice',
+    'دفعة',
+    'Credit',
+    '—',
+  ]) {
     const a = data();
     a[1][2] = value;
     assert.equal(auto(run(await input(a, data()))).length, 0, value);
@@ -218,6 +240,60 @@ test('P1 missing, weak and unsafe discriminators leave the entire document bucke
     [...headers, 'Ref'],
   );
   assert.equal(auto(run(p)).length, 0, 'duplicate generic reference headers');
+});
+
+test('P1 contextual discriminator accepts literal numeric and alphabetic references in either language', async () => {
+  for (const refs of [
+    ['000084', '0084', '84'],
+    ['KEY-X', 'KEY-Y'],
+    ['مرجع-أ', 'مرجع-ب'],
+    ['1', '2'],
+    ['أ', 'ب'],
+    ['١٢', '12'],
+  ]) {
+    const rows = refs.map((reference) => row(reference));
+    const r = run(await input(rows, rows.toReversed()));
+    assert.equal(auto(r).length, refs.length, refs.join(' / '));
+    for (const c of r.cases)
+      assert.equal(
+        c.supplierMembers[0].chosenReference,
+        c.ledgerMembers[0].chosenReference,
+      );
+    verifyPartition(r);
+  }
+});
+
+test('P1 contextual references are unique within a document, not across unrelated documents', async () => {
+  const a = [row('KEY-X'), row('KEY-Y'), row('KEY-X', '100.00', 'INV-8171')];
+  const r = run(await input(a, a.toReversed()));
+  assert.equal(auto(r).length, 3);
+  for (const c of r.cases) {
+    assert.equal(c.supplierMembers[0].reference, c.ledgerMembers[0].reference);
+    assert.equal(
+      c.supplierMembers[0].chosenReference,
+      c.ledgerMembers[0].chosenReference,
+    );
+  }
+  verifyPartition(r);
+});
+
+test('P1 assistant proposal verification rejects a case copy with altered discriminator evidence', async () => {
+  for (const value of [
+    { chosenReference: 'ALTERED-1' },
+    { chosenReferenceEvidence: undefined },
+    { statedReference: 'ALTERED-1' },
+    { retainedEvidence: [] },
+  ]) {
+    const r = run(await input());
+    const c = r.cases[0];
+    c.supplierMembers[0] = { ...c.supplierMembers[0], ...value };
+    const check = verifyHypothesis(r, {
+      supplierIds: [c.supplierMembers[0].id],
+      ledgerIds: [c.ledgerMembers[0].id],
+    });
+    assert.equal(check.status, 'rejected');
+    assert.match(check.reason, /لا تطابق المصدر الحالي/);
+  }
 });
 
 test('P1 keeps amount, sign, date, type, PO conflict and source-reading guards', async () => {
