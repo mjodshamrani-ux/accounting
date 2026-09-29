@@ -35,7 +35,8 @@ def positive_number(value, label):
 
 
 def positive_integer(value, label):
-    require(type(value) is int and value > 0, f"{label}: missing or invalid count")
+    require(type(value) is int and 0 < value <= 2 ** 53 - 1,
+            f"{label}: missing or invalid browser integer")
     return value
 
 
@@ -47,6 +48,44 @@ def sha256(value, label):
 def median(values):
     ordered = sorted(values)
     return ordered[len(ordered) // 2]
+
+
+def package_identity(value, outputs, name):
+    """Validate the recorded checker's complete verdict, not its boolean alone.
+
+    This checks internal report consistency; it does not reopen or authenticate
+    either workbook. The runner is responsible for checking the actual bytes.
+    """
+    expected = {"identical", "baseline", "candidate", "missingFromCandidate",
+                "extraInCandidate", "changed", "duplicateNames", "errors"}
+    require(isinstance(value, dict) and set(value) == expected,
+            "incomplete package identity verdict")
+    require(value["identical"] is True, "workbook parts differ")
+    for key in ("missingFromCandidate", "extraInCandidate", "changed", "errors"):
+        require(type(value[key]) is list and not value[key],
+                f"package identity contains {key}")
+    duplicates = value["duplicateNames"]
+    require(isinstance(duplicates, dict) and set(duplicates) == {"baseline", "candidate"},
+            "incomplete duplicate-member verdict")
+    for variant in ("baseline", "candidate"):
+        require(type(duplicates[variant]) is list and not duplicates[variant],
+                "package identity contains duplicate members")
+        output = outputs[variant]["output"]
+        require(isinstance(output, str) and bool(output), "missing run output path")
+        require(value[variant] == str(Path(output) / name),
+                f"{variant} package verdict belongs to a different output")
+    require(value["baseline"] != value["candidate"], "package compared against itself")
+
+
+def build_fingerprints(value):
+    require(isinstance(value, dict) and set(value) == {"baseline", "candidate"},
+            "incomplete build fingerprints")
+    for variant in ("baseline", "candidate"):
+        require(isinstance(value[variant], dict) and
+                set(value[variant]) == {"sha256", "fileCount"},
+                f"incomplete {variant} build fingerprint")
+        sha256(value[variant]["sha256"], f"{variant} build")
+        positive_integer(value[variant]["fileCount"], f"{variant} file count")
 
 
 def bundle_sha256(path):
@@ -77,6 +116,8 @@ def evaluate(report, *, require_build_hashes=True):
     policy_bytes = POLICY.read_bytes()
     policy = json.loads(policy_bytes)
     try:
+        require(isinstance(report, dict), "report must be an object")
+        require("failure" not in report, "runner recorded a failure")
         require(hashlib.sha256(policy_bytes).hexdigest() == PINNED_POLICY_SHA256,
                 "declared performance policy changed")
         schema = report["schema"]
@@ -88,12 +129,16 @@ def evaluate(report, *, require_build_hashes=True):
         builds = report.get("distributionSha256")
         if require_build_hashes:
             require(schema == "tarasuf-paired-export-2", "build fingerprints absent")
-            require(isinstance(builds, dict), "build fingerprints absent")
-            for variant in ("baseline", "candidate"):
-                sha256(builds[variant]["sha256"], f"{variant} build")
-                positive_integer(builds[variant]["fileCount"], f"{variant} file count")
+            build_fingerprints(builds)
             require(builds["baseline"]["sha256"] != builds["candidate"]["sha256"],
                     "baseline and candidate builds are identical")
+            # Schema 2 is still an unpublished PR contract. A complete last pair
+            # is only a checkpoint until the runner verifies both builds again.
+            require(report.get("measurementCompleted") is True,
+                    "measurement did not complete final build verification")
+            build_fingerprints(report.get("distributionSha256After"))
+            require(report.get("distributionSha256After") == builds,
+                    "build fingerprints changed or final fingerprints are absent")
         rounds = report["rounds"]
         require(isinstance(rounds, list) and len(rounds) == 6, "expected exactly three pairs per format")
         seen = set()
@@ -109,16 +154,20 @@ def evaluate(report, *, require_build_hashes=True):
             seen.add((number, fmt))
             require(list(pair["order"]) == (["baseline", "candidate"] if number % 2 else
                                             ["candidate", "baseline"]), "pair order changed")
-            require(pair["packageIdentity"]["identical"] is True, "workbook parts differ")
+            package_identity(pair["packageIdentity"], pair, f"export-20000-{fmt}.xlsx")
             if number == 2 and fmt == "xlsx":
-                require(pair["recoveryPackageIdentity"]["identical"] is True,
-                        "cancel/retry workbook parts differ")
+                package_identity(pair["recoveryPackageIdentity"], pair, "cancel-recovery-20000.xlsx")
             else:
                 require(pair["recoveryPackageIdentity"] is None,
                         "unexpected recovery result")
             pair_sources = None
             for variant in ("baseline", "candidate"):
                 item = pair[variant]
+                if number == 2 and fmt == "xlsx":
+                    for flag in ("cancelAndExportRecovery", "independentRecoveryExportCheck",
+                                 "independentRecoveryMembershipCheck"):
+                        require(item.get(flag) is True,
+                                f"{number}/{fmt}/{variant}: missing or failed {flag}")
                 require(item["console"]["completed"] is True and
                         item["console"]["exportVerified"] is True and
                         item["console"]["rows"] == 20000 and
@@ -139,8 +188,13 @@ def evaluate(report, *, require_build_hashes=True):
                 require(worker["action"] == "export" and worker["ok"] is True,
                         f"{number}/{fmt}/{variant}: worker export failed")
                 if schema == "tarasuf-paired-export-2":
+                    for flag in ("independentExportSourceCheck", "independentExportMembershipCheck"):
+                        require(item.get(flag) is True,
+                                f"{number}/{fmt}/{variant}: missing or failed {flag}")
                     positive_integer(item["memorySamplesSuccessful"], "memory samples")
                     positive_integer(item["memorySamplesDuringExport"], "memory samples during export")
+                    require(item["memorySamplesDuringExport"] <= item["memorySamplesSuccessful"],
+                            "export memory samples exceed total samples")
                     require(type(item["memorySamplingErrors"]) is int and
                             item["memorySamplingErrors"] == 0, "missing or invalid memory samples")
                 for metric, raw in (
@@ -170,6 +224,8 @@ def evaluate(report, *, require_build_hashes=True):
             baseline = {key: median(values) for key, values in measurements[fmt]["baseline"].items()}
             candidate = {key: median(values) for key, values in measurements[fmt]["candidate"].items()}
             changes = {key: 100 * (candidate[key] / baseline[key] - 1) for key in METRICS}
+            require(all(math.isfinite(value) for value in changes.values()),
+                    "metric ratio is not finite")
             failed = [key for key, limit in limits.items() if changes[key] > limit]
             if failed:
                 result["reasons"].extend(f"{fmt}: {key} exceeded declared limit" for key in failed)
@@ -177,7 +233,7 @@ def evaluate(report, *, require_build_hashes=True):
                                         "changePct": changes, "passed": not failed}
         result["accepted"] = not result["reasons"]
         return result
-    except (KeyError, IndexError, TypeError, ValueError) as error:
+    except (KeyError, IndexError, TypeError, ValueError, OverflowError) as error:
         return {"accepted": False, "policySha256": hashlib.sha256(policy_bytes).hexdigest(),
                 "reasons": [f"invalid paired report: {error}"]}
 

@@ -63,6 +63,7 @@ def main():
             "candidate": bundle_sha256(args.candidate_dist),
         },
         "fixturesDir": str(args.fixtures_dir.resolve()),
+        "measurementCompleted": False,
         "rounds": [],
     }
     report_path = args.output / "results.json"
@@ -103,6 +104,8 @@ def main():
                         "memorySamplesDuringExport": run["memorySamplesDuringExport"],
                         "memorySamplingErrors": run["memorySamplingErrors"],
                         "workerExport": next(action for action in run["workerActions"] if action["action"] == "export"),
+                        "independentExportSourceCheck": run["independentExportSourceCheck"],
+                        "independentExportMembershipCheck": run["independentExportMembershipCheck"],
                         "cancelAndExportRecovery": run.get("cancelAndExportRecovery", False),
                         "independentRecoveryExportCheck": run.get("independentRecoveryExportCheck", False),
                         "independentRecoveryMembershipCheck": run.get("independentRecoveryMembershipCheck", False),
@@ -131,9 +134,14 @@ def main():
                                          "baseline": reports["baseline"], "candidate": reports["candidate"],
                                          "packageIdentity": package, "recoveryPackageIdentity": recovery})
                 report_path.write_text(json.dumps(result, indent=2) + "\n")
+        result["distributionSha256After"] = {
+            variant: bundle_sha256(result["distributions"][variant])
+            for variant in ("baseline", "candidate")
+        }
         for variant in ("baseline", "candidate"):
-            require(bundle_sha256(result["distributions"][variant]) == result["distributionSha256"][variant],
+            require(result["distributionSha256After"][variant] == result["distributionSha256"][variant],
                     f"{variant} build changed during measurement")
+        result["measurementCompleted"] = True
         result["acceptance"] = evaluate(result)
         report_path.write_text(json.dumps(result, indent=2) + "\n")
         require(result["acceptance"]["accepted"],

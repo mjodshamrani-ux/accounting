@@ -12,6 +12,7 @@ import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { createHash } from 'node:crypto';
 import { verifyPerformanceExport } from './verify-performance-export.mjs';
+import { processRssBytes } from './process-memory.mjs';
 const membershipChecker = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../audit/export-design/check_membership.py',
@@ -230,50 +231,48 @@ try {
         run.format === 'xlsx',
       completed: false,
     };
+    /** @type {Promise<void> | undefined} */
+    let pendingSample;
     let browser,
       context,
       page,
       sampleTimer,
-      sampling = false,
       exportActive = false,
       downloadPath;
     try {
       browser = await chromium.launch({ headless: true });
       report.browser = browser.version();
       const cdp = await browser.newBrowserCDPSession();
-      const sample = async () => {
-        if (sampling) return;
-        sampling = true;
+      const measureSample = async () => {
+        const beganDuringExport = exportActive;
         try {
           const { processInfo } = await cdp.send('SystemInfo.getProcessInfo');
           const ids = processInfo.map((p) => p.id);
           if (!ids.length) throw new Error('No Chromium processes to measure');
           const { stdout } = await shell('ps', [
             '-o',
-            'rss=',
+            'pid=,rss=',
             '-p',
             ids.join(','),
           ]);
-          const samples = stdout.trim().split(/\s+/).map(Number);
-          if (
-            !samples.length ||
-            samples.some((x) => !Number.isSafeInteger(x) || x <= 0)
-          )
-            throw new Error('Invalid Chromium RSS sample');
-          const rss = samples.reduce((a, x) => a + x * 1024, 0);
-          if (!Number.isSafeInteger(rss) || rss <= 0)
-            throw new Error('Invalid summed Chromium RSS');
+          const rss = processRssBytes(ids, stdout);
           entry.memorySamplesSuccessful += 1;
-          if (exportActive) entry.memorySamplesDuringExport += 1;
+          if (beganDuringExport && exportActive)
+            entry.memorySamplesDuringExport += 1;
           entry.peakChromiumRssBytes = Math.max(
             entry.peakChromiumRssBytes,
             rss,
           );
         } catch {
           entry.memorySamplingErrors += 1;
-        } finally {
-          sampling = false;
         }
+      };
+      const sample = () => {
+        if (pendingSample) return pendingSample;
+        pendingSample = measureSample().finally(() => {
+          pendingSample = undefined;
+        });
+        return pendingSample;
       };
       sampleTimer = setInterval(sample, 500);
       await sample();
@@ -496,8 +495,6 @@ try {
           await retry
         ).saveAs(path.join(output, 'cancel-recovery-20000.xlsx'));
         entry.cancelAndExportRecovery = true;
-        entry.peakIncludingLifecycleRssBytes = entry.peakChromiumRssBytes;
-        entry.peakChromiumRssBytes = entry.peakBeforeLifecycleRssBytes;
       }
       // Include errors and requests produced by cancellation/recovery too.
       assert.equal(entry.networkViolations.length, 0);
@@ -518,6 +515,11 @@ try {
       }
     } finally {
       clearInterval(sampleTimer);
+      await pendingSample;
+      if (entry.peakBeforeLifecycleRssBytes !== undefined) {
+        entry.peakIncludingLifecycleRssBytes = entry.peakChromiumRssBytes;
+        entry.peakChromiumRssBytes = entry.peakBeforeLifecycleRssBytes;
+      }
       await browser?.close().catch(() => {});
     }
     if (downloadPath) {
@@ -572,6 +574,7 @@ try {
       entry.independentExportSourceCheck === true &&
       entry.independentExportMembershipCheck === true &&
       entry.memorySamplesSuccessful > 0 &&
+      entry.memorySamplingErrors === 0 &&
       entry.peakChromiumRssBytes > 0 &&
       (!entry.lifecycleRequired ||
         (entry.cancelAndExportRecovery === true &&
