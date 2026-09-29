@@ -14,6 +14,8 @@ import platform
 import subprocess
 import sys
 
+from accept_paired import bundle_sha256, evaluate
+
 
 ROOT = Path(__file__).resolve().parents[2]
 CHECK_PACKAGE = ROOT / "audit/export-design/check_package_identity.py"
@@ -47,7 +49,7 @@ def main():
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     result = {
-        "schema": "tarasuf-paired-export-1",
+        "schema": "tarasuf-paired-export-2",
         "platform": platform.platform(),
         "machine": platform.machine(),
         "node": command([args.node, "--version"]).strip(),
@@ -56,7 +58,12 @@ def main():
             "baseline": str(args.baseline_dist.resolve()),
             "candidate": str(args.candidate_dist.resolve()),
         },
+        "distributionSha256": {
+            "baseline": bundle_sha256(args.baseline_dist),
+            "candidate": bundle_sha256(args.candidate_dist),
+        },
         "fixturesDir": str(args.fixtures_dir.resolve()),
+        "measurementCompleted": False,
         "rounds": [],
     }
     report_path = args.output / "results.json"
@@ -79,6 +86,11 @@ def main():
                     run = json.loads((output / "results.json").read_text())["runs"][0]
                     require(run["completed"] and run["independentExportMembershipCheck"]
                             and run["independentExportSourceCheck"], f"failed browser gate: {output}")
+                    require(run["memorySamplesSuccessful"] > 0 and
+                            run["memorySamplesDuringExport"] > 0 and
+                            run["memorySamplingErrors"] == 0 and
+                            run["peakChromiumRssBytes"] > 0,
+                            f"missing Chromium memory measurement: {output}")
                     reports[variant] = {
                         "output": str(output),
                         "console": json.loads(summary),
@@ -88,7 +100,12 @@ def main():
                         "exportToDownloadMs": run["stages"]["exportToDownloadMs"],
                         "totalUiMs": run["stages"]["totalUiMs"],
                         "peakChromiumRssBytes": run["peakChromiumRssBytes"],
+                        "memorySamplesSuccessful": run["memorySamplesSuccessful"],
+                        "memorySamplesDuringExport": run["memorySamplesDuringExport"],
+                        "memorySamplingErrors": run["memorySamplingErrors"],
                         "workerExport": next(action for action in run["workerActions"] if action["action"] == "export"),
+                        "independentExportSourceCheck": run["independentExportSourceCheck"],
+                        "independentExportMembershipCheck": run["independentExportMembershipCheck"],
                         "cancelAndExportRecovery": run.get("cancelAndExportRecovery", False),
                         "independentRecoveryExportCheck": run.get("independentRecoveryExportCheck", False),
                         "independentRecoveryMembershipCheck": run.get("independentRecoveryMembershipCheck", False),
@@ -117,6 +134,18 @@ def main():
                                          "baseline": reports["baseline"], "candidate": reports["candidate"],
                                          "packageIdentity": package, "recoveryPackageIdentity": recovery})
                 report_path.write_text(json.dumps(result, indent=2) + "\n")
+        result["distributionSha256After"] = {
+            variant: bundle_sha256(result["distributions"][variant])
+            for variant in ("baseline", "candidate")
+        }
+        for variant in ("baseline", "candidate"):
+            require(result["distributionSha256After"][variant] == result["distributionSha256"][variant],
+                    f"{variant} build changed during measurement")
+        result["measurementCompleted"] = True
+        result["acceptance"] = evaluate(result)
+        report_path.write_text(json.dumps(result, indent=2) + "\n")
+        require(result["acceptance"]["accepted"],
+                f"performance acceptance failed: {result['acceptance']['reasons']}")
         return 0
     except (AssertionError, OSError, KeyError, ValueError, IndexError) as error:
         result["failure"] = str(error)

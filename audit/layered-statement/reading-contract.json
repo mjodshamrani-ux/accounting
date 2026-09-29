@@ -1,0 +1,206 @@
+{
+  "schema": "tarasuf-f02-reading-contract-1",
+  "id": "F02-R1",
+  "status": "implementation contract after Astra source review; not a passed test or independent holdout",
+  "date": "2026-09-29",
+  "frozenParent": {
+    "path": "audit/layered-statement/contract.json",
+    "sha256": "88c68039bc4b6f38e2e7ca36471b278047e22fec77a5eb0f305c84a4b77938c2",
+    "baselinePath": "audit/layered-statement/baseline-0414.json",
+    "mustRemainUnchanged": true,
+    "interpretation": "The parent's source facts and historical observation remain frozen. This supplement defines reading acceptance only; it does not turn the parent's requested approved member sets into proven accounting outcomes."
+  },
+  "purpose": {
+    "statementType": "transactions",
+    "comparisonClaim": "transaction-comparison-only",
+    "fullBalanceReconciliationPermitted": false,
+    "scopeOrigin": "explicit operator/test scope confirmation, not inferred from both frozen files",
+    "scopeAccount": "AP-714",
+    "currency": "SAR",
+    "currencyDecimals": 2,
+    "cutoff": "2026-07-31",
+    "dateWindowDays": 3,
+    "coverageConfirmed": false
+  },
+  "coordinates": {
+    "mappingSheetAndHeader": "zero-based",
+    "mappingColumns": "zero-based; -1 means unmapped",
+    "sourceEvidenceRowsAndColumns": "one-based physical coordinates",
+    "excelAddresses": "A1 notation; original sheet, never renumbered after exclusion",
+    "sourceIdentity": "file SHA-256 plus sheet index plus physical row; source order and row numbers are preserved"
+  },
+  "files": [
+    {
+      "name": "supplier-layered-proven.xlsx",
+      "sha256": "ed920ea60d9c302e2d319f76920f048227366fc5b01fdbb5229bab584fc93e8a",
+      "role": "supplier",
+      "sheetIndex": 1,
+      "sheetName": "Statement"
+    },
+    {
+      "name": "supplier-layered-conflict.xlsx",
+      "sha256": "9d4133c437598504fc8284d61f993e6977cf9bf699c44e3bb6fb499f85f859b4",
+      "role": "supplier",
+      "sheetIndex": 1,
+      "sheetName": "Statement"
+    },
+    {
+      "name": "ledger-plain.csv",
+      "sha256": "1d5c9e3e405c92718cc5c30e94b28f9cc405ff866ca6437ba0e152a6a0f43c0b",
+      "role": "ledger",
+      "sheetIndex": 0,
+      "sheetName": "CSV"
+    }
+  ],
+  "readingAcceptance": {
+    "supplierSelection": "unique-table",
+    "manualReadingQuestions": 0,
+    "supplierMapping": {
+      "sheet": 1,
+      "header": 3,
+      "date": 0,
+      "reference": 1,
+      "description": -1,
+      "amount": -1,
+      "debit": 2,
+      "credit": 3,
+      "currencyColumn": -1,
+      "mode": "split",
+      "reportType": "transactions"
+    },
+    "headerBand": {
+      "firstSourceRow": 3,
+      "lastSourceRow": 4,
+      "amountParent": { "address": "C3", "value": "Movement", "mergeRange": "C3:D3" },
+      "fields": [
+        { "field": "date", "mappingColumn": 0, "sourceColumn": 1, "label": "Date", "anchorAddress": "A3", "effectiveAddress": "A4", "mergeRange": "A3:A4" },
+        { "field": "reference", "mappingColumn": 1, "sourceColumn": 2, "label": "Document No", "anchorAddress": "B3", "effectiveAddress": "B4", "mergeRange": "B3:B4" },
+        { "field": "debit", "mappingColumn": 2, "sourceColumn": 3, "label": "Debit", "anchorAddress": "C4", "effectiveAddress": "C4", "parentAddress": "C3" },
+        { "field": "credit", "mappingColumn": 3, "sourceColumn": 4, "label": "Credit", "anchorAddress": "D4", "effectiveAddress": "D4", "parentAddress": "C3" },
+        { "field": "runningBalance", "mappingColumn": 4, "sourceColumn": 5, "label": "Running balance", "anchorAddress": "E3", "effectiveAddress": "E4", "mergeRange": "E3:E4", "notMovementAmount": true },
+        { "field": "unclassified", "sourceColumn": 6, "label": "Line ID", "anchorAddress": "F3", "effectiveAddress": "F4", "mergeRange": "F3:F4", "positiveMatchEvidence": false },
+        { "field": "unclassified", "sourceColumn": 7, "label": "PO / Bank reference", "anchorAddress": "G3", "effectiveAddress": "G4", "mergeRange": "G3:G4", "positiveMatchEvidence": false }
+      ]
+    },
+    "supplierMovementRows": [6, 7, 8, 9],
+    "supplierAmountMinorByRow": { "6": 78000, "7": 22000, "8": -35000, "9": -5000 },
+    "ledgerMovementRows": [2, 3, 4],
+    "ledgerAmountMinorByRow": { "2": 100000, "3": -35000, "4": -5000 },
+    "sourceMemberCount": 7,
+    "supplierMovementTotalMinor": 60000,
+    "ledgerMovementTotalMinor": 60000,
+    "supplierOpening": { "sourceAddress": "E5", "amountMinor": 100000, "isMovement": false },
+    "supplierClosing": { "sourceAddress": "E10", "amountMinor": 160000, "isMovement": false },
+    "allSourceRowsRetainedWithFate": true,
+    "coverSheetIsMetadataOnly": true,
+    "firstMovementMayNotBeSwallowedAsHeader": true
+  },
+  "matchingBoundary": {
+    "existingRulesOnly": true,
+    "matcherChangesAuthorized": false,
+    "positiveInvoiceGroup": {
+      "supplierRows": [6, 7],
+      "ledgerRows": [2],
+      "automaticApprovalPermittedInThisCycle": false,
+      "expectedDisposition": "Needs Review",
+      "reasonCodes": ["SUPPLIER_TYPE_UNSTATED", "SECONDARY_HEADER_ROLE_MIXED"]
+    },
+    "paymentPair": {
+      "supplierRows": [8],
+      "ledgerRows": [3],
+      "automaticApproval": "permitted only if the unchanged unique exact-reference signed-amount date and conflict checks pass after header provenance is proved",
+      "permittedClaim": "unique document comparison",
+      "forbiddenClaims": ["bank-transfer-identity-proved", "invoice-allocation-proved"],
+      "unchangedReference": "PAY-44"
+    },
+    "creditNotePair": {
+      "supplierRows": [9],
+      "ledgerRows": [4],
+      "unchangedReference": "CN-3",
+      "normalizedReference": "CN3",
+      "currentDisposition": "Unmatched",
+      "knownGap": "Current strong-reference guards require at least four normalized characters. Any change to short-reference approval is a separate Astra decision.",
+      "changingFixtureReferenceToMakeItPassPermitted": false
+    },
+    "conflictingInvoice": {
+      "supplierChangedRow": 7,
+      "reference": "INV-934",
+      "secondaryReference": "PO-99",
+      "forbiddenApprovedMemberSets": [
+        { "supplierRows": [6, 7], "ledgerRows": [2] },
+        { "supplierRows": [6], "ledgerRows": [2] },
+        { "supplierRows": [7], "ledgerRows": [2] }
+      ],
+      "allAffectedRowsRemainVisible": true,
+      "independentRowsMustNotBeDiscarded": true
+    },
+    "noPrefixToTypeInference": true,
+    "noMixedHeaderToExplicitBankEvidence": true,
+    "noAmountSubsetSearch": true,
+    "lineIdDoesNotByItselfProveCrossFileIdentity": true
+  },
+  "provenanceContract": {
+    "firstVersionVocabulary": {
+      "amountParentLabels": ["Movement", "الحركة"],
+      "childLabels": "Existing unambiguous Debit/Dr/مدين and Credit/Cr/دائن header vocabulary, including only consistent bilingual parts and compatible explicit currency tags",
+      "otherParentLabels": "Remain unavailable to this two-row inference rule until separately specified; never guessed from numerical values"
+    },
+    "nativeSource": "XLSX merge geometry recorded by io from the original workbook",
+    "requiredBinding": ["fileSha256", "sheetIndex", "sheetName", "headerBand", "anchorCoordinates", "mergeRanges", "literalAnchorLabels"],
+    "requiredValidation": [
+      "bounded integer coordinates within source dimensions",
+      "anchor at the top-left of each declared merge",
+      "no intersecting or contradictory ranges",
+      "header merges end within the two-row band",
+      "vertical inherited labels stay in a single column",
+      "both header rows and all anchors are visible and safe",
+      "formulas, unsafe formatting and non-merge issues remain disqualifying",
+      "amount child labels have a single compatible monetary parent",
+      "no contradictory or duplicate candidate role is resolved using data values"
+    ],
+    "authority": "Evidence is re-derived and checked from the native source. A saved mapping, client payload, AI proposal or exported workbook cannot grant itself this authority.",
+    "replay": "Carry and validate native geometry through worker, source replay and session restoration; re-read original bytes when provenance is missing or inconsistent, or leave inference unavailable.",
+    "derivedView": "One shared immutable derived header view with labels and origin coordinates; do not replace or patch source rows.",
+    "reuse": "Derive geometry and validate it once per native read/replay, then reuse the immutable view bound to source hash, sheet and header selection. Do not parse the workbook again per row or per consumer. Invalidate when any binding changes.",
+    "consumers": ["inferMapping", "import-selection", "format-inference", "scope-inference", "statement-direction", "statement-metadata", "report-scope", "transaction-references", "core-normalization", "UI-column-labels", "export-evidence"],
+    "issuePolicy": "Preserve every original cellIssue. A proven header view may distinguish an expected header merge from a disqualifying issue for that label only; it may not clear issues on source rows or on transaction cells.",
+    "fallback": "Unavailable or ambiguous header inference keeps the file available for manual column review and partial useful processing under existing safety rules. It is not a blanket file rejection and it is not approval of the ambiguous data."
+  },
+  "testMatrix": [
+    { "id": "R01", "mutation": "Original positive F02 workbook with native merges and safe literal anchors", "expectedInference": "accept", "expectedDecision": "unique Statement table with mapping and source facts specified above", "requires": ["zero reading questions", "member conservation", "matchingBoundary"] },
+    { "id": "R02", "mutation": "Reorder columns and rename sheets while preserving roles, native merge geometry, amounts and original physical identities", "expectedInference": "accept", "expectedDecision": "derive mapping from labels and geometry, not sheet name or fixed column positions", "requires": ["evidence coordinates reflect mutation", "source rows retained"] },
+    { "id": "R03", "mutation": "Replace safe labels with explicit Arabic equivalents or bilingual labels whose every part names the same field", "expectedInference": "accept-only-for-declared-supported-labels", "expectedDecision": "equivalent role mapping; an unsupported label remains manual review rather than guessed", "requires": ["literal labels retained", "no reference normalization used as role proof"] },
+    { "id": "R04", "mutation": "Extend a header merge into the first movement row", "expectedInference": "unavailable", "expectedDecision": "manual review; first movement remains visible and may not be excluded as a header", "requires": ["no source row dropped", "no global file refusal solely for inference"] },
+    { "id": "R05", "mutation": "Merge horizontally across Date and Document No, or declare intersecting/contradictory header ranges", "expectedInference": "unavailable", "expectedDecision": "no assignment of one shared label to distinct roles; re-read malformed provenance or request manual mapping", "requires": ["no fabricated reference identity"] },
+    { "id": "R06", "mutation": "Remove native merge evidence while leaving adjacent partial header-looking rows", "expectedInference": "unavailable-for-F02-rule", "expectedDecision": "do not compose the two rows without provenance; a separately complete ordinary header may still use existing rules", "requires": ["no inferred geometry from empty cells"] },
+    { "id": "R07", "mutation": "Hide either header row or a required anchor/column", "expectedInference": "unavailable", "expectedDecision": "keep source and visibility issue available for manual review; hidden labels cannot grant automatic header evidence", "requires": ["hidden-state provenance retained"] },
+    { "id": "R08", "mutation": "Use a formula, error, unsafe text format or another non-merge issue in a required anchor", "expectedInference": "unavailable", "expectedDecision": "retain the issue; no merge exemption for the unsafe label", "requires": ["no cellIssues deletion", "safe unrelated data retained"] },
+    { "id": "R09", "mutation": "Use Quantity/Count as parent, or conflicting currencies/roles across a parent and child label", "expectedInference": "unavailable", "expectedDecision": "do not treat numeric-looking values as proof of monetary meaning", "requires": ["manual clarification", "no amount or currency guess"] },
+    { "id": "R10", "mutation": "Duplicate Debit or Credit children, omit a child, or place an additional competing amount role in the same band", "expectedInference": "unavailable", "expectedDecision": "keep the competing roles visible; no first-column or amount-value tie-break", "requires": ["no silent column selection"] },
+    { "id": "R11", "mutation": "Place a plausible unresolved transaction table before a later valid F02 band, or add a second plausible source sheet", "expectedInference": "unavailable-for-automatic-source-choice", "expectedDecision": "preserve the first-table barrier and request sheet/table choice; never skip earlier movements", "requires": ["all tables remain visible", "no row loss"] },
+    { "id": "R12", "mutation": "Apply the frozen negative variant with INV-934 and PO-99 but unchanged 780+220 total", "expectedInference": "accept", "expectedDecision": "read all four supplier rows; prohibit every conflictingInvoice member set", "requires": ["correct totals do not prove identity", "independent payment retained"] },
+    { "id": "R13", "mutation": "Add an excluded, erroneous or repeated source row carrying a candidate document/payment identity", "expectedInference": "accept-if-header-unchanged", "expectedDecision": "existing completeness and competing-identity guards govern matching; no apparent uniqueness obtained by dropping the row", "requires": ["all row fates exported", "affected automatic matches blocked when evidence is incomplete"] },
+    { "id": "R14", "mutation": "Change a movement sign or explicit currency, or introduce a balance arithmetic disagreement", "expectedInference": "accept-if-header-unchanged", "expectedDecision": "existing sign/currency/balance checks surface the issue and limit affected claims; header proof never repairs the numbers", "requires": ["original amount preserved", "no Full Reconciliation", "unaffected usable data retained where permitted"] },
+    { "id": "R15", "mutation": "Keep original CN-3, absent supplier Type, Line ID, and mixed PO / Bank reference header", "expectedInference": "accept", "expectedDecision": "do not infer Invoice/Payment/Credit Note from prefixes, assign mixed reference a bank role, or bypass short-reference policy", "requires": ["positive invoice remains Needs Review", "short-code gap retained", "payment obeys existing 1:1 rule only"] },
+    { "id": "R16", "mutation": "Change claimed file hash, sheet, merge range, anchor label, header index or native provenance during worker/session/export replay", "expectedInference": "rederive-or-unavailable", "expectedDecision": "reject the stale/forged header claim, re-read available original bytes and recompute; otherwise keep manual review available", "requires": ["restored certificate is not authority", "header evidence displayed and exported matches the recomputation", "no automatic match from an unverified claim"] }
+  ],
+  "solCycle4Acceptance": [
+    "Parent contract, frozen sources and historical baseline are byte-identical.",
+    "Native provenance is typed, runtime-validated and re-derived across direct, worker and restored-session paths.",
+    "All header-dependent consumers use the same derived view; original rows and issues remain untouched.",
+    "R01 and R12 pass readingAcceptance and matchingBoundary; applicable matrix cases have explicit expected-outcome tests.",
+    "Independent source-fact checking verifies signed minor units, row membership and opening/closing exclusion before product result checking.",
+    "A browser upload/reconcile/review/export run verifies source coordinates, row fates and evidence in the actual downloadable workbook.",
+    "Existing required type, test, mutation, build and browser checks pass; no general accuracy percentage is inferred from F02.",
+    "Observed failures and unsupported cases are reported separately; no amount of safe refusal counts as successful reading.",
+    "Astra reviews the exact implementation diff and evidence before merging a product release."
+  ],
+  "astraReviewTriggers": [
+    "Any new automatic match or altered identity/group/type/short-reference policy beyond unchanged rules consuming valid header evidence.",
+    "Any new acceptance of mixed-role reference headers, inferred document types, bank claims or amount subsets.",
+    "Any exception to formula, hidden-cell, unsafe-format, malformed-provenance or source-completeness guards.",
+    "Any design that rewrites original rows, deletes issues, trusts replayed certificates, or reads derived labels differently between consumers.",
+    "Any expansion beyond the bounded two-row native XLSX header family or any changed scope/full-reconciliation claim.",
+    "Final review before production merge, even when no other trigger occurred."
+  ]
+}

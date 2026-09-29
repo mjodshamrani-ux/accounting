@@ -12,6 +12,7 @@ import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { createHash } from 'node:crypto';
 import { verifyPerformanceExport } from './verify-performance-export.mjs';
+import { processRssBytes, withinMemoryDeadline } from './process-memory.mjs';
 const membershipChecker = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../audit/export-design/check_membership.py',
@@ -219,6 +220,9 @@ try {
       networkViolations: [],
       errors: [],
       peakChromiumRssBytes: 0,
+      memorySamplesSuccessful: 0,
+      memorySamplesDuringExport: 0,
+      memorySamplingErrors: 0,
       downloadCompleted: false,
       browserChecksPassed: false,
       lifecycleRequired:
@@ -227,35 +231,50 @@ try {
         run.format === 'xlsx',
       completed: false,
     };
+    /** @type {Promise<void> | undefined} */
+    let pendingSample;
     let browser,
       context,
       page,
       sampleTimer,
-      sampling = false,
+      exportActive = false,
       downloadPath;
     try {
       browser = await chromium.launch({ headless: true });
       report.browser = browser.version();
       const cdp = await browser.newBrowserCDPSession();
-      const sample = async () => {
-        if (sampling) return;
-        sampling = true;
+      const measureSample = async () => {
+        const beganDuringExport = exportActive;
         try {
-          const { processInfo } = await cdp.send('SystemInfo.getProcessInfo');
-          const ids = processInfo.map((p) => p.id).join(',');
-          const { stdout } = await shell('ps', ['-o', 'rss=', '-p', ids]);
-          const rss = stdout
-            .trim()
-            .split(/\s+/)
-            .reduce((a, x) => a + Number(x) * 1024, 0);
+          const rss = await withinMemoryDeadline(async () => {
+            const { processInfo } = await cdp.send('SystemInfo.getProcessInfo');
+            const ids = processInfo.map((p) => p.id);
+            if (!ids.length)
+              throw new Error('No Chromium processes to measure');
+            const { stdout } = await shell(
+              'ps',
+              ['-o', 'pid=,rss=', '-p', ids.join(',')],
+              { timeout: 5000 },
+            );
+            return processRssBytes(ids, stdout);
+          });
+          entry.memorySamplesSuccessful += 1;
+          if (beganDuringExport && exportActive)
+            entry.memorySamplesDuringExport += 1;
           entry.peakChromiumRssBytes = Math.max(
             entry.peakChromiumRssBytes,
             rss,
           );
         } catch {
-        } finally {
-          sampling = false;
+          entry.memorySamplingErrors += 1;
         }
+      };
+      const sample = () => {
+        if (pendingSample) return pendingSample;
+        pendingSample = measureSample().finally(() => {
+          pendingSample = undefined;
+        });
+        return pendingSample;
       };
       sampleTimer = setInterval(sample, 500);
       await sample();
@@ -412,6 +431,7 @@ try {
         .waitFor();
       entry.stages.prepareExportScreenMs = performance.now() - prepareStart;
       const exportStart = performance.now();
+      exportActive = true;
       const download = page.waitForEvent('download', { timeout: 55000 });
       await page
         .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
@@ -420,6 +440,7 @@ try {
       downloadPath = path.join(output, `export-${run.size}-${run.format}.xlsx`);
       await saved.saveAs(downloadPath);
       entry.stages.exportToDownloadMs = performance.now() - exportStart;
+      exportActive = false;
       entry.stages.totalUiMs = performance.now() - t;
       const telemetry = await page.evaluate(() => window.__bench);
       entry.workerActions = telemetry.actions;
@@ -476,8 +497,6 @@ try {
           await retry
         ).saveAs(path.join(output, 'cancel-recovery-20000.xlsx'));
         entry.cancelAndExportRecovery = true;
-        entry.peakIncludingLifecycleRssBytes = entry.peakChromiumRssBytes;
-        entry.peakChromiumRssBytes = entry.peakBeforeLifecycleRssBytes;
       }
       // Include errors and requests produced by cancellation/recovery too.
       assert.equal(entry.networkViolations.length, 0);
@@ -498,6 +517,11 @@ try {
       }
     } finally {
       clearInterval(sampleTimer);
+      await pendingSample;
+      if (entry.peakBeforeLifecycleRssBytes !== undefined) {
+        entry.peakIncludingLifecycleRssBytes = entry.peakChromiumRssBytes;
+        entry.peakChromiumRssBytes = entry.peakBeforeLifecycleRssBytes;
+      }
       await browser?.close().catch(() => {});
     }
     if (downloadPath) {
@@ -551,6 +575,9 @@ try {
       entry.browserChecksPassed &&
       entry.independentExportSourceCheck === true &&
       entry.independentExportMembershipCheck === true &&
+      entry.memorySamplesSuccessful > 0 &&
+      entry.memorySamplingErrors === 0 &&
+      entry.peakChromiumRssBytes > 0 &&
       (!entry.lifecycleRequired ||
         (entry.cancelAndExportRecovery === true &&
           entry.independentRecoveryExportCheck === true &&

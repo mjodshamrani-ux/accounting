@@ -1,0 +1,8 @@
+{
+  "schema": "tarasuf-large-export-thresholds-0414",
+  "minimumSerializationImprovementPct": 10,
+  "minimumWorkerExportImprovementPct": 5,
+  "maximumWorkbookGrowthPct": 20,
+  "maximumPeakRssGrowthPct": 10,
+  "maximumExportDownloadRegressionPct": 5
+}

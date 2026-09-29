@@ -1,0 +1,401 @@
+{
+  "schema": "tarasuf-F02-baseline-observation-1",
+  "engineVersion": "0.3.21-experimental",
+  "contractSha256": "88c68039bc4b6f38e2e7ca36471b278047e22fec77a5eb0f305c84a4b77938c2",
+  "note": "Diagnostic run after freezing the contract; failure is retained, not reclassified as a pass.",
+  "cases": [
+    {
+      "variant": "supplier-layered-proven.xlsx",
+      "supplier": {
+        "name": "supplier-layered-proven.xlsx",
+        "sha256": "ed920ea60d9c302e2d319f76920f048227366fc5b01fdbb5229bab584fc93e8a",
+        "sheets": [
+          {
+            "name": "Cover",
+            "rows": 3
+          },
+          {
+            "name": "Statement",
+            "rows": 10
+          }
+        ],
+        "selectionKind": "choose-sheet",
+        "assistedSheetChoice": "Statement",
+        "selectedSheet": "Statement",
+        "selectedHeader": 2,
+        "inferredMapping": {
+          "mode": "signed",
+          "date": 0,
+          "reference": 1,
+          "amount": -1,
+          "debit": -1,
+          "credit": -1
+        }
+      },
+      "ledger": {
+        "name": "ledger-plain.csv",
+        "sha256": "1d5c9e3e405c92718cc5c30e94b28f9cc405ff866ca6437ba0e152a6a0f43c0b",
+        "sheets": [
+          {
+            "name": "CSV",
+            "rows": 4
+          }
+        ],
+        "selectionKind": "unique-table",
+        "selectedSheet": "CSV",
+        "selectedHeader": 0,
+        "inferredMapping": {
+          "mode": "signed",
+          "date": 0,
+          "reference": 1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1
+        },
+        "transactions": [
+          {
+            "row": 2,
+            "reference": "INV-932",
+            "amountMinor": 100000
+          },
+          {
+            "row": 3,
+            "reference": "PAY-44",
+            "amountMinor": -35000
+          },
+          {
+            "row": 4,
+            "reference": "CN-3",
+            "amountMinor": -5000
+          }
+        ],
+        "excluded": [
+          {
+            "row": 1,
+            "reason": "صف العناوين المؤكد"
+          }
+        ],
+        "errors": []
+      },
+      "error": "Error: حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+      "assistedAttempt": {
+        "supplier": {
+          "name": "supplier-layered-proven.xlsx",
+          "sha256": "ed920ea60d9c302e2d319f76920f048227366fc5b01fdbb5229bab584fc93e8a",
+          "sheets": [
+            {
+              "name": "Cover",
+              "rows": 3
+            },
+            {
+              "name": "Statement",
+              "rows": 10
+            }
+          ],
+          "selectionKind": "choose-sheet",
+          "assistedSheetChoice": "Statement",
+          "assistedColumnChoice": "Date=A, Document No=B, Debit=C, Credit=D; header row=4",
+          "selectedSheet": "Statement",
+          "selectedHeader": 3,
+          "inferredMapping": {
+            "mode": "split",
+            "date": 0,
+            "reference": 1,
+            "amount": -1,
+            "debit": 2,
+            "credit": 3
+          },
+          "transactions": [
+            {
+              "row": 6,
+              "reference": "INV-932",
+              "amountMinor": 78000
+            },
+            {
+              "row": 7,
+              "reference": "INV-932",
+              "amountMinor": 22000
+            },
+            {
+              "row": 8,
+              "reference": "PAY-44",
+              "amountMinor": -35000
+            },
+            {
+              "row": 9,
+              "reference": "CN-3",
+              "amountMinor": -5000
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "قبل صف العناوين"
+            },
+            {
+              "row": 2,
+              "reason": "قبل صف العناوين"
+            },
+            {
+              "row": 3,
+              "reason": "قبل صف العناوين"
+            },
+            {
+              "row": 4,
+              "reason": "صف العناوين المؤكد"
+            },
+            {
+              "row": 5,
+              "reason": "صف إجمالي أو رصيد — استُبعد تلقائيًا («Opening balance»)"
+            },
+            {
+              "row": 10,
+              "reason": "صف إجمالي أو رصيد — استُبعد تلقائيًا («Closing balance»)"
+            }
+          ],
+          "errors": []
+        },
+        "error": null,
+        "cases": [
+          {
+            "status": "Needs Review",
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ]
+          },
+          {
+            "status": "Needs Review",
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "supplierRows": [
+              6,
+              7
+            ],
+            "ledgerRows": [
+              2
+            ]
+          },
+          {
+            "status": "Unmatched",
+            "classification": "SUPPLIER_ONLY",
+            "supplierRows": [
+              9
+            ],
+            "ledgerRows": []
+          },
+          {
+            "status": "Unmatched",
+            "classification": "LEDGER_ONLY",
+            "supplierRows": [],
+            "ledgerRows": [
+              4
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "variant": "supplier-layered-conflict.xlsx",
+      "supplier": {
+        "name": "supplier-layered-conflict.xlsx",
+        "sha256": "9d4133c437598504fc8284d61f993e6977cf9bf699c44e3bb6fb499f85f859b4",
+        "sheets": [
+          {
+            "name": "Cover",
+            "rows": 3
+          },
+          {
+            "name": "Statement",
+            "rows": 10
+          }
+        ],
+        "selectionKind": "choose-sheet",
+        "assistedSheetChoice": "Statement",
+        "selectedSheet": "Statement",
+        "selectedHeader": 2,
+        "inferredMapping": {
+          "mode": "signed",
+          "date": 0,
+          "reference": 1,
+          "amount": -1,
+          "debit": -1,
+          "credit": -1
+        }
+      },
+      "ledger": {
+        "name": "ledger-plain.csv",
+        "sha256": "1d5c9e3e405c92718cc5c30e94b28f9cc405ff866ca6437ba0e152a6a0f43c0b",
+        "sheets": [
+          {
+            "name": "CSV",
+            "rows": 4
+          }
+        ],
+        "selectionKind": "unique-table",
+        "selectedSheet": "CSV",
+        "selectedHeader": 0,
+        "inferredMapping": {
+          "mode": "signed",
+          "date": 0,
+          "reference": 1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1
+        },
+        "transactions": [
+          {
+            "row": 2,
+            "reference": "INV-932",
+            "amountMinor": 100000
+          },
+          {
+            "row": 3,
+            "reference": "PAY-44",
+            "amountMinor": -35000
+          },
+          {
+            "row": 4,
+            "reference": "CN-3",
+            "amountMinor": -5000
+          }
+        ],
+        "excluded": [
+          {
+            "row": 1,
+            "reason": "صف العناوين المؤكد"
+          }
+        ],
+        "errors": []
+      },
+      "error": "Error: حدد أعمدة التاريخ والمبلغ أو المدين والدائن",
+      "assistedAttempt": {
+        "supplier": {
+          "name": "supplier-layered-conflict.xlsx",
+          "sha256": "9d4133c437598504fc8284d61f993e6977cf9bf699c44e3bb6fb499f85f859b4",
+          "sheets": [
+            {
+              "name": "Cover",
+              "rows": 3
+            },
+            {
+              "name": "Statement",
+              "rows": 10
+            }
+          ],
+          "selectionKind": "choose-sheet",
+          "assistedSheetChoice": "Statement",
+          "assistedColumnChoice": "Date=A, Document No=B, Debit=C, Credit=D; header row=4",
+          "selectedSheet": "Statement",
+          "selectedHeader": 3,
+          "inferredMapping": {
+            "mode": "split",
+            "date": 0,
+            "reference": 1,
+            "amount": -1,
+            "debit": 2,
+            "credit": 3
+          },
+          "transactions": [
+            {
+              "row": 6,
+              "reference": "INV-932",
+              "amountMinor": 78000
+            },
+            {
+              "row": 7,
+              "reference": "INV-934",
+              "amountMinor": 22000
+            },
+            {
+              "row": 8,
+              "reference": "PAY-44",
+              "amountMinor": -35000
+            },
+            {
+              "row": 9,
+              "reference": "CN-3",
+              "amountMinor": -5000
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "قبل صف العناوين"
+            },
+            {
+              "row": 2,
+              "reason": "قبل صف العناوين"
+            },
+            {
+              "row": 3,
+              "reason": "قبل صف العناوين"
+            },
+            {
+              "row": 4,
+              "reason": "صف العناوين المؤكد"
+            },
+            {
+              "row": 5,
+              "reason": "صف إجمالي أو رصيد — استُبعد تلقائيًا («Opening balance»)"
+            },
+            {
+              "row": 10,
+              "reason": "صف إجمالي أو رصيد — استُبعد تلقائيًا («Closing balance»)"
+            }
+          ],
+          "errors": []
+        },
+        "error": null,
+        "cases": [
+          {
+            "status": "Needs Review",
+            "classification": "AMOUNT_VARIANCE",
+            "supplierRows": [
+              6
+            ],
+            "ledgerRows": [
+              2
+            ]
+          },
+          {
+            "status": "Needs Review",
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ]
+          },
+          {
+            "status": "Unmatched",
+            "classification": "SUPPLIER_ONLY",
+            "supplierRows": [
+              7
+            ],
+            "ledgerRows": []
+          },
+          {
+            "status": "Unmatched",
+            "classification": "SUPPLIER_ONLY",
+            "supplierRows": [
+              9
+            ],
+            "ledgerRows": []
+          },
+          {
+            "status": "Unmatched",
+            "classification": "LEDGER_ONLY",
+            "supplierRows": [],
+            "ledgerRows": [
+              4
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

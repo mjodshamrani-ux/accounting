@@ -28,6 +28,8 @@ jobs:
       - run: pnpm test
       - name: Detect false matches and changed workbook evidence
         run: python3 -m unittest discover -s audit/export-design -p 'test_*.py' -v
+      - name: Verify frozen layered-statement source facts (product gap remains open)
+        run: python3 audit/layered-statement/check_contract.py
       - name: Preserve proved groups and reject competing identity memberships
         run: pnpm test:reliability:p2
       - name: Preserve useful partial results and independently check unresolved errors in Excel

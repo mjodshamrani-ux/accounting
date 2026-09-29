@@ -1,0 +1,35 @@
+{
+  "kind": "browser measurement instrumentation smoke with bounded sampling; not a new performance comparison",
+  "rowsPerSide": 100,
+  "sourceReportSha256": "27ce626243ba07e29651741db913303889830bb44e92e37c43467c0bef8bdc13",
+  "runs": [
+    {
+      "format": "csv",
+      "completed": true,
+      "memorySamplesSuccessful": 5,
+      "memorySamplesDuringExport": 3,
+      "memorySamplingErrors": 0,
+      "peakChromiumRssBytes": 507428864,
+      "independentExportSourceCheck": true,
+      "independentExportMembershipCheck": true,
+      "networkViolations": [],
+      "errors": []
+    },
+    {
+      "format": "xlsx",
+      "completed": true,
+      "memorySamplesSuccessful": 6,
+      "memorySamplesDuringExport": 4,
+      "memorySamplingErrors": 0,
+      "peakChromiumRssBytes": 524353536,
+      "independentExportSourceCheck": true,
+      "independentExportMembershipCheck": true,
+      "networkViolations": [],
+      "errors": []
+    }
+  ],
+  "harnessSha256": {
+    "scripts/browser-performance.mjs": "59d56e92cf5894ed4d559cebc2dc1417f2a18a7cf5bc35f1d3fc07f988d60a29",
+    "scripts/process-memory.mjs": "bfa46f09dc87c5fd28cf6bd206043e167ee68fffcf4d1f6c630700911fccd7b6"
+  }
+}
