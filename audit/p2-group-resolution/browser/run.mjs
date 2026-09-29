@@ -125,7 +125,31 @@ const fixtures = {
       invoiceRow('ledger', '500.00', 'C'),
     ],
   },
+  numericReceipts: {
+    supplier: [
+      paymentRow('supplier', 1, '-30.00', '', '000840'),
+      paymentRow('supplier', 2, '-70.00', '', '000840'),
+      paymentRow('supplier', 3, '-11.00', '', '00840'),
+      paymentRow('supplier', 4, '-19.00', '', '00840'),
+    ],
+    ledger: [
+      paymentRow('ledger', 1, '-20.00', '', '000840'),
+      paymentRow('ledger', 2, '-35.00', '', '000840'),
+      paymentRow('ledger', 3, '-45.00', '', '000840'),
+      paymentRow('ledger', 4, '-30.00', '', '00840'),
+    ],
+  },
 };
+fixtures['invoice-vouchers'] = Object.fromEntries(
+  Object.entries(fixtures.invoice).map(([side, rows]) => [
+    side,
+    rows.map((row, index) => {
+      const copy = [...row];
+      copy[7] = `${side === 'supplier' ? 'SUP' : 'LED'}-AP-VOUCHER-${index + 1}`;
+      return copy;
+    }),
+  ]),
+);
 for (const [scenario, sources] of Object.entries(fixtures))
   for (const [side, rows] of Object.entries(sources))
     await writeFile(
@@ -333,7 +357,7 @@ async function upload(page, lang, scenario) {
       page,
       side,
       L,
-      scenario === 'invoice' ? '3 · Reference' : '2 · Document No',
+      scenario.startsWith('invoice') ? '3 · Reference' : '2 · Document No',
     );
   const scopeEdit = page.getByRole('button', { name: L.scope, exact: true });
   if ((await scopeEdit.getAttribute('aria-expanded')) !== 'true')
@@ -599,6 +623,82 @@ async function restoredSession(path, lang) {
     .waitFor();
   return active;
 }
+async function verifyNumericReceipts(page, lang, tag) {
+  const L = labels[lang];
+  await page.getByRole('heading', { name: L.ws, exact: true }).waitFor();
+  assert.deepEqual(await page.locator('.metric strong').allInnerTexts(), [
+    '2',
+    '0',
+    '0',
+    '0',
+  ]);
+  await page.getByRole('tab', { name: L.matched, exact: true }).click();
+  const buttons = page.getByRole('button', { name: L.details, exact: true });
+  assert.equal(await buttons.count(), 2);
+  const descriptions = [];
+  for (let i = 0; i < 2; i++) {
+    await buttons.nth(i).click();
+    descriptions.push(await page.locator('.review-detail').innerText());
+  }
+  for (const receipt of ['000840', '00840'])
+    assert.ok(
+      descriptions.some((text) =>
+        text.includes(
+          `receiptReference: ${receipt}${lang === 'ar' ? '؛' : ';'}`,
+        ),
+      ),
+      `literal receipt ${receipt}`,
+    );
+  assert.ok(descriptions.some((text) => text.includes('EXACT_MANY_TO_MANY')));
+  assert.ok(descriptions.some((text) => text.includes('EXACT_MANY_TO_1')));
+  if (lang === 'en')
+    assert.ok(descriptions.every((text) => !/[؀-ۿ]/.test(text)));
+  await snapshot(page, tag);
+  report.checks.push({
+    check: 'numeric-receipt-review',
+    tag,
+    lang,
+    descriptions,
+  });
+}
+function verifyNumericExport({ book, matches, evidence, session }) {
+  assert.equal(matches.length, 2);
+  assert.deepEqual(matches.map((m) => m['Match Type']).sort(), ['M:1', 'N:M']);
+  assert.equal(summaryValue(book, 'Auto Matched Cases'), 2);
+  assert.equal(summaryValue(book, 'Matched Source Rows'), 8);
+  assert.ok(
+    matches.every(
+      (m) =>
+        m.Rule === 'EXPLICIT_PAYMENT_COMPLETE_GROUP_TOTAL_V2' &&
+        m['Match Decision'] === 'Auto',
+    ),
+  );
+  assert.equal(evidence.length, 8);
+  const groups = {};
+  for (const receipt of ['000840', '00840']) {
+    const members = evidence.filter((r) => r['Receipt Reference'] === receipt);
+    assert.equal(new Set(members.map((r) => r['Case ID'])).size, 1);
+    assert.ok(members.every((r) => r.Status === 'Matched'));
+    groups[receipt] = members.map((r) => r['Source Row ID']).sort();
+  }
+  assert.deepEqual(groups, {
+    '000840': [
+      'ledger:0:2',
+      'ledger:0:3',
+      'ledger:0:4',
+      'supplier:0:2',
+      'supplier:0:3',
+    ],
+    '00840': ['ledger:0:5', 'supplier:0:4', 'supplier:0:5'],
+  });
+  assert.equal(
+    new Set(evidence.map((r) => r['Case ID'])).size,
+    2,
+    'leading-zero receipt identities must remain separate',
+  );
+  assert.deepEqual(session.rejected, []);
+  report.checks.push({ check: 'numeric-receipt-export', sourceGroups: groups });
+}
 try {
   report.stage = 'whole-group';
   const original = await open('ar');
@@ -667,73 +767,122 @@ try {
   );
   await competing.context.close();
 
-  report.stage = 'invoice-subgroups';
-  const invoice = await open('en');
-  await upload(invoice.page, 'en', 'invoice');
-  assert.deepEqual(
-    await invoice.page.locator('.metric strong').allInnerTexts(),
-    ['2', '0', '1', '0'],
-  );
-  await invoice.page
-    .getByRole('tab', { name: labels.en.matched, exact: true })
-    .click();
-  const detailButtons = invoice.page.getByRole('button', {
-    name: labels.en.details,
-    exact: true,
-  });
-  assert.equal(await detailButtons.count(), 2);
-  const descriptions = [];
-  for (let i = 0; i < 2; i++) {
-    await detailButtons.nth(i).click();
-    descriptions.push(await invoice.page.locator('.review-detail').innerText());
+  for (const scenario of ['invoice', 'invoice-vouchers']) {
+    report.stage = `${scenario}-subgroups`;
+    const invoice = await open('en');
+    await upload(invoice.page, 'en', scenario);
+    assert.deepEqual(
+      await invoice.page.locator('.metric strong').allInnerTexts(),
+      ['2', '0', '1', '0'],
+    );
+    await invoice.page
+      .getByRole('tab', { name: labels.en.matched, exact: true })
+      .click();
+    const detailButtons = invoice.page.getByRole('button', {
+      name: labels.en.details,
+      exact: true,
+    });
+    assert.equal(await detailButtons.count(), 2);
+    const descriptions = [];
+    for (let i = 0; i < 2; i++) {
+      await detailButtons.nth(i).click();
+      descriptions.push(
+        await invoice.page.locator('.review-detail').innerText(),
+      );
+    }
+    assert.ok(
+      descriptions.some(
+        (text) =>
+          text.includes('chosen reference A') &&
+          text.includes('EXACT_1_TO_MANY'),
+      ),
+    );
+    assert.ok(descriptions.every((text) => !/[؀-ۿ]/.test(text)));
+    await snapshot(invoice.page, `${scenario}-en`);
+    const invoiceExport = await exportAndSave(invoice.page, 'en', scenario);
+    assert.equal(invoiceExport.matches.length, 2);
+    assert.equal(summaryValue(invoiceExport.book, 'Matched Source Rows'), 5);
+    assert.equal(summaryValue(invoiceExport.book, 'Unmatched Source Rows'), 1);
+    const byRule = new Map(invoiceExport.matches.map((m) => [m.Rule, m]));
+    assert.equal(
+      byRule.get('EXACT_DOCUMENT_REFERENCE_SUBGROUP_TOTAL_V1')?.['Match Type'],
+      '1:M',
+    );
+    assert.equal(
+      byRule.get('EXACT_DOCUMENT_CHOSEN_REFERENCE_UNIQUE_V1')?.['Match Type'],
+      '1:1',
+    );
+    const groups = new Map();
+    for (const row of invoiceExport.evidence) {
+      const key = row.Rule;
+      groups.set(
+        key,
+        [...(groups.get(key) ?? []), row['Source Row ID']].sort(),
+      );
+    }
+    assert.deepEqual(groups.get('EXACT_DOCUMENT_REFERENCE_SUBGROUP_TOTAL_V1'), [
+      'ledger:0:3',
+      'ledger:0:4',
+      'supplier:0:2',
+    ]);
+    assert.deepEqual(groups.get('EXACT_DOCUMENT_CHOSEN_REFERENCE_UNIQUE_V1'), [
+      'ledger:0:2',
+      'supplier:0:3',
+    ]);
+    assert.deepEqual(
+      invoiceExport.evidence
+        .filter((r) => r.Status === 'Unmatched')
+        .map((r) => r['Source Row ID']),
+      ['ledger:0:5'],
+    );
+    report.checks.push({
+      check: 'invoice-subgroups',
+      scenario,
+      descriptions,
+      sourceGroups: Object.fromEntries(groups),
+    });
+    if (scenario === 'invoice-vouchers') {
+      assert.equal(
+        new Set(invoiceExport.evidence.map((r) => r['Voucher Reference'])).size,
+        6,
+      );
+      assert.ok(
+        invoiceExport.evidence.every((r) =>
+          /^(SUP|LED)-AP-VOUCHER-\d+$/.test(r['Voucher Reference']),
+        ),
+      );
+    }
+    await invoice.context.close();
   }
-  assert.ok(
-    descriptions.some(
-      (text) =>
-        text.includes('chosen reference A') && text.includes('EXACT_1_TO_MANY'),
-    ),
+
+  report.stage = 'numeric-receipts';
+  const numeric = await open('ar');
+  await upload(numeric.page, 'ar', 'numericReceipts');
+  await verifyNumericReceipts(numeric.page, 'ar', 'numeric-receipts-ar');
+  await switchLanguage(numeric.page, 'en');
+  await verifyNumericReceipts(numeric.page, 'en', 'numeric-receipts-en');
+  const numericExport = await exportAndSave(
+    numeric.page,
+    'en',
+    'numeric-receipts',
   );
-  assert.ok(descriptions.every((text) => !/[؀-ۿ]/.test(text)));
-  await snapshot(invoice.page, 'invoice-en');
-  const invoiceExport = await exportAndSave(invoice.page, 'en', 'invoice');
-  assert.equal(invoiceExport.matches.length, 2);
-  assert.equal(summaryValue(invoiceExport.book, 'Matched Source Rows'), 5);
-  assert.equal(summaryValue(invoiceExport.book, 'Unmatched Source Rows'), 1);
-  const byRule = new Map(invoiceExport.matches.map((m) => [m.Rule, m]));
-  assert.equal(
-    byRule.get('EXACT_DOCUMENT_REFERENCE_SUBGROUP_TOTAL_V1')?.['Match Type'],
-    '1:M',
+  verifyNumericExport(numericExport);
+  await numeric.context.close();
+  report.stage = 'restore-numeric-receipts';
+  const numericRestore = await restoredSession(numericExport.sessionPath, 'en');
+  await verifyNumericReceipts(
+    numericRestore.page,
+    'en',
+    'restored-numeric-receipts-en',
   );
-  assert.equal(
-    byRule.get('EXACT_DOCUMENT_CHOSEN_REFERENCE_UNIQUE_V1')?.['Match Type'],
-    '1:1',
+  const restoredNumericExport = await exportAndSave(
+    numericRestore.page,
+    'en',
+    'restored-numeric-receipts',
   );
-  const groups = new Map();
-  for (const row of invoiceExport.evidence) {
-    const key = row.Rule;
-    groups.set(key, [...(groups.get(key) ?? []), row['Source Row ID']].sort());
-  }
-  assert.deepEqual(groups.get('EXACT_DOCUMENT_REFERENCE_SUBGROUP_TOTAL_V1'), [
-    'ledger:0:3',
-    'ledger:0:4',
-    'supplier:0:2',
-  ]);
-  assert.deepEqual(groups.get('EXACT_DOCUMENT_CHOSEN_REFERENCE_UNIQUE_V1'), [
-    'ledger:0:2',
-    'supplier:0:3',
-  ]);
-  assert.deepEqual(
-    invoiceExport.evidence
-      .filter((r) => r.Status === 'Unmatched')
-      .map((r) => r['Source Row ID']),
-    ['ledger:0:5'],
-  );
-  report.checks.push({
-    check: 'invoice-subgroups',
-    descriptions,
-    sourceGroups: Object.fromEntries(groups),
-  });
-  await invoice.context.close();
+  verifyNumericExport(restoredNumericExport);
+  assert.deepEqual(restoredNumericExport.evidence, numericExport.evidence);
+  await numericRestore.context.close();
 
   report.stage = 'final-integrity';
   await Promise.all(responseChecks);

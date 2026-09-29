@@ -1,0 +1,87 @@
+Skip to the workspace
+تَـراصُـف
+AR
+العربية
+|
+EN
+English
+Processed on your device
+Workspace / Supplier reconciliation
+Review the differences between the two records
+
+Review the transactions and their sources, and check the reason for each match.
+
+Beta 0.4.11
+New reconciliation
+Add files
+— completed
+Confirm data
+— completed
+3
+Review differences
+— current step
+4
+Workpaper
+— upcoming
+Save session to continue later
+The session file contains your data without encryption. Save it in a private location on your device.
+Automatic matches
+2
+Cases the engine matched automatically
+Manual confirmations
+0
+Matches confirmed by the reviewer
+Unmatched cases
+0
+Transactions from both files: 0
+Rows not read
+0
+No reading errors remain, and excluded rows are documented
+
+Supplier: Not enough balance information was extracted to test the equation.
+
+AP ledger: Not enough balance information was extracted to test the equation.
+
+Result assistant
+Review workspace
+
+“Unmatched” means we did not find the transaction in the other file. It may exist in the system but not be included in the report.
+
+Edit settings
+Unmatched
+Matched
+Needs Review (0)
+Source / Row	Date	Reference	Amount	Status	Review
+Supplier · 2	2026-07-15	000840
+supplier payment part 1
+	-100.00
+2:3 transactions in this case
+	Automatic match	Case details
+Supplier · 4	2026-07-15	00840
+supplier payment part 3
+	-30.00
+2:1 transactions in this case
+	Automatic match	Case details
+Cases: 2 · Page 1 of 1
+Review transaction 00840
+Close review
+
+Supplier: CSV, row 4, reference “00840”, 2026-07-15, -11.00 SAR
+Case CASE-DA07D667: EXACT_MANY_TO_1 — Matched.
+Two complete groups matched by identity receiptReference: 00840; supplier transactions: 2; AP ledger transactions: 1; each side totals -30.00 SAR.
+This result proves that the two payment groups are equivalent. It does not establish individual row-to-row pairings or allocate the payment to invoices. Every member of the identity in both sources was included, and overlapping identities were checked before approval, without searching for partial groups.
+Supplier total -30.00 SAR; AP ledger total -30.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.
+Case member: Supplier: CSV, row 5, reference “00840”, 2026-07-15, -19.00 SAR
+Case member: AP ledger: CSV, row 5, reference “00840”, 2026-07-15, -30.00 SAR
+
+Amount in the source file: -11.00 · Row ID: supplier:0:4
+
+Unlink and return to review
+Prepare the workpaper
+The results support your review and are not an accounting approval. Save the session or download the workpaper before closing if you want to keep them.
+Privacy and version limits · 0.4.11
+تَـراصُـف
+
+Clarity that supports your review
+
+Privacy limits

@@ -69,6 +69,21 @@ Candidate result SHA256:
 Full hashes and timing clarification are in
 `candidate-9bf8775.provenance.json`.
 
+## Second P2 candidate regression
+
+`candidate-42d47ec.json` records one regression run against immutable commit
+`42d47ece8a962aa4449b65677b148eb75adeb0c2`, engine `0.3.19-experimental`:
+**19/19 contracts and 11/11 required member sets passed**, with zero false
+approved groups, zero falsely automatically consumed source rows and zero
+operation exceptions. All 56 library files exactly matched the commit and
+remained unchanged. The previously missed P2D06/P2D07 invoice groups now pass.
+This is development regression evidence; earlier failures are still preserved.
+
+Result SHA256:
+`c2e15eee2789d79fb250a62550c0cd3c26ce7f1e7b2dc47a79e01476dff41806`.
+Full library and frozen input digests are recorded in
+`candidate-42d47ec.provenance.json`.
+
 ## Reproduction
 
 From the repository root, with the desired immutable engine snapshot at

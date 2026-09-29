@@ -41,3 +41,17 @@ Original result SHA256:
 `candidate-9bf8775.provenance.json` contains the remaining frozen hashes and
 complete library digest map. Reproduction instructions are in `frozen/README.md`.
 Use a new output path and preserve all original bytes and outcomes.
+
+## Second P2 candidate regression
+
+`candidate-42d47ec.json` records one regression run against immutable commit
+`42d47ece8a962aa4449b65677b148eb75adeb0c2`: **10/10 contracts and 7/7 required
+member sets passed**, with zero false approved groups, zero falsely automatically
+consumed source rows and zero operation exceptions. All 56 library files matched
+the commit before and after. The original P2H02/P2H04 misses now pass; their first
+failed results remain unchanged. This execution is regression evidence from the
+consumed set, not a second fresh holdout result.
+
+Result SHA256:
+`201d3bca30ec8030677399eb00c50d40c299c87283402ade33670141765bd83e`.
+Full provenance is in `candidate-42d47ec.provenance.json`.

@@ -16,7 +16,8 @@ The audit covers:
 - Whole-group unlink through the UI, all four IDs in its audit event and Excel history, zero remaining automatic matches, and restoration of that rejected session.
 - A fresh browser context restoring the original automatically matched session, independently of the rejected session.
 - Four rows with competing bank/receipt memberships, retained together for review with zero automatic matches.
-- Invoice subgroup A: 1000 = 400 + 600; sibling B: 500 = 500; and an unrelated C: 500 that must remain unmatched. These invoice rows have blank local voucher fields; differing local vouchers are covered by the independent campaign, not this fixture.
+- Invoice subgroup A: 1000 = 400 + 600; sibling B: 500 = 500; and an unrelated C: 500 that must remain unmatched. The baseline uses blank local vouchers; candidate 2 adds the same scenario with six distinct local voucher values and verifies their preservation in Excel evidence.
+- Candidate 2 also adds numeric receipt identities `000840` and `00840`: separate N:M and M:1 groups with eight total source rows, Arabic/English explanations, exact leading zeros in Excel, and a saved-session restore that must preserve both memberships.
 
 Each run preserves CSV inputs, screenshots, visible text, Excel files, sessions, and `result.json`. The report includes observed requests, loaded code hashes, blob-worker creation, source revision, session engine version, and all-file `dist` hashes verified before and after the flow. Requests must stay on the served application's origin, all requests must be GET, and no JavaScript page errors are allowed.
 
@@ -32,4 +33,12 @@ All scenarios above completed, including original/rejected session restoration a
 
 The first attempt is preserved in `candidate-9bf8775/`; it stopped on the ExcelJS cached-zero reading issue documented above. The second is preserved in `candidate-9bf8775-attempt2/`; all required group flows passed, then the optional invoice upload stopped because the audit used the wrong English edit-button label. Correcting it to the observed catalog label allowed the full third run to finish. Neither attempt established an application failure.
 
-This browser fixture does not include numeric-only receipts or differing local vouchers within the invoice subgroup. Candidate 1's independently found completion misses for those inputs remain separate findings; this passing browser audit does not clear them.
+Candidate 1's browser fixture did not include numeric-only receipts or differing local vouchers within the invoice subgroup. Its independently found completion misses for those inputs remained separate findings; the passing candidate 1 browser audit did not clear them.
+
+## Candidate 2 observed result
+
+`candidate-42d47ec/result.json` passed the expanded audit against revision `42d47ece8a962aa4449b65677b148eb75adeb0c2`, app 0.4.11 / session engine `0.3.19-experimental`, on 2026-09-29 at 10:20:23 UTC. Candidate 1's directories remain unchanged.
+
+All original scenarios passed again. The added invoice scenario retained six distinct local voucher values while matching A's 1000 with 400 + 600 and B's 500 with its own counterpart; C's unrelated 500 remained unmatched. The numeric receipt scenario retained separate `000840` and `00840` identities as 2:3 and 2:1 groups with eight total source rows, in Arabic/English review, Excel evidence, and restored sessions.
+
+The run observed 48 requests, all GETs to the local application origin, zero page errors, eight blob workers, and sixteen loaded JavaScript/CSS responses matching the frozen build. Every hash for the 27 files in `dist` (16,127,724 bytes) was unchanged at completion. Raw workbooks and sessions are preserved alongside the report for independent inspection.

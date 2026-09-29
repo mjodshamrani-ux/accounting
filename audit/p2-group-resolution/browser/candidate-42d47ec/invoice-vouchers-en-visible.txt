@@ -1,0 +1,88 @@
+Skip to the workspace
+تَـراصُـف
+AR
+العربية
+|
+EN
+English
+Processed on your device
+Workspace / Supplier reconciliation
+Review the differences between the two records
+
+Review the transactions and their sources, and check the reason for each match.
+
+Beta 0.4.11
+New reconciliation
+Add files
+— completed
+Confirm data
+— completed
+3
+Review differences
+— current step
+4
+Workpaper
+— upcoming
+Save session to continue later
+The session file contains your data without encryption. Save it in a private location on your device.
+Automatic matches
+2
+Cases the engine matched automatically
+Manual confirmations
+0
+Matches confirmed by the reviewer
+Unmatched cases
+1
+Transactions from both files: 1
+Rows not read
+0
+No reading errors remain, and excluded rows are documented
+
+Supplier: Not enough balance information was extracted to test the equation.
+
+AP ledger: Not enough balance information was extracted to test the equation.
+
+Result assistant
+Review workspace
+
+“Unmatched” means we did not find the transaction in the other file. It may exist in the system but not be included in the report.
+
+Edit settings
+Unmatched
+Matched
+Needs Review (0)
+Source / Row	Date	Reference	Amount	Status	Review
+Supplier · 3	2026-07-15	INV-7441
+supplier goods
+	500.00
+1:1 transactions in this case
+	Automatic match	Case details
+Supplier · 2	2026-07-15	INV-7441
+supplier goods
+	1,000.00
+1:2 transactions in this case
+	Automatic match	Case details
+Cases: 2 · Page 1 of 1
+Review transaction INV-7441
+Close review
+
+Supplier: CSV, row 2, reference “INV-7441”, 2026-07-15, 1,000.00 SAR
+Case CASE-BA136553: EXACT_1_TO_MANY — Matched.
+Document identity INV-7441 and chosen reference A identify every member of this group within the document. The original references were checked before any row was used; equality of amounts alone did not determine membership.
+Proven group match: reference INV-7441 matches; supplier transactions: 1; AP ledger transactions: 2; each side totals 1,000.00 SAR.
+Document type Invoice is consistent, and all the group’s transactions share one date within the allowed date difference for matching; shared purchase order PO-4491. The group is complete and unique, and no partial groups were searched for.
+Supplier total 1,000.00 SAR; AP ledger total 1,000.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.
+Case member: AP ledger: CSV, row 3, reference “INV-7441”, 2026-07-15, 400.00 SAR
+Case member: AP ledger: CSV, row 4, reference “INV-7441”, 2026-07-15, 600.00 SAR
+
+Amount in the source file: 1000.00 · Row ID: supplier:0:2
+
+Unlink and return to review
+Prepare the workpaper
+The results support your review and are not an accounting approval. Save the session or download the workpaper before closing if you want to keep them.
+Privacy and version limits · 0.4.11
+تَـراصُـف
+
+Clarity that supports your review
+
+Privacy limits

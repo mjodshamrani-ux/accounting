@@ -1,0 +1,72 @@
+{
+  "verifier": "Python stdlib ZIP/XML/CSV/Decimal, independent of engine and ExcelJS",
+  "auditFieldNote": "Blank Receipt No in PAY-document fixtures retains the original Document No as a normalized display fallback, not positive explicit receipt proof. Initial verifier incorrectly expected that normalized field to stay blank; only this expectation changed, not the engine or workbooks.",
+  "workbooks": 9,
+  "sourceRowsVerified": 48,
+  "allPassed": true,
+  "results": [
+    {
+      "file": "matched.xlsx",
+      "sha256": "169daae2b00b9bd11ece04f1d7652d46f5a245c98c5df359ad0d7210c7359820",
+      "sourceRows": 4,
+      "approvedGroups": 1,
+      "passed": true
+    },
+    {
+      "file": "restored-matched.xlsx",
+      "sha256": "b47aa76c5d28ddd198d7e9094fb7928fdf3b3a39ae7a0e3f69feeb8ce4b7c3db",
+      "sourceRows": 4,
+      "approvedGroups": 1,
+      "passed": true
+    },
+    {
+      "file": "unlinked.xlsx",
+      "sha256": "4beeccfdb8c7019fa9596a61eaf71cf12dfaba5b6a737fa3066955fc3d914dfa",
+      "sourceRows": 4,
+      "approvedGroups": 0,
+      "passed": true
+    },
+    {
+      "file": "restored-rejection.xlsx",
+      "sha256": "9489bc63c563aba64910a5c532486751d6eef162e7020d95e33f5abdcac62172",
+      "sourceRows": 4,
+      "approvedGroups": 0,
+      "passed": true
+    },
+    {
+      "file": "competing.xlsx",
+      "sha256": "fabb88cf35af660fa3da799f2aca9c322035879f6e8cd2bb58e6f8641c4fed1c",
+      "sourceRows": 4,
+      "approvedGroups": 0,
+      "passed": true
+    },
+    {
+      "file": "invoice.xlsx",
+      "sha256": "b3981e7629e6062ebb3c47aa899f6e5621318b44cc3fec71bee7c430aa006d00",
+      "sourceRows": 6,
+      "approvedGroups": 2,
+      "passed": true
+    },
+    {
+      "file": "invoice-vouchers.xlsx",
+      "sha256": "6e877b3ed7c12dd06ca65691e2449c6ab4fe80abe254715d6d25723ed9097f69",
+      "sourceRows": 6,
+      "approvedGroups": 2,
+      "passed": true
+    },
+    {
+      "file": "numeric-receipts.xlsx",
+      "sha256": "fbdbf1a1d4b287879ce42afef5620008ae9c8dca34a52cc425112f97b1421d34",
+      "sourceRows": 8,
+      "approvedGroups": 2,
+      "passed": true
+    },
+    {
+      "file": "restored-numeric-receipts.xlsx",
+      "sha256": "b0f11ce67469e2b5586b9de79815e014c800e115a7f6c55fdd1b885f2ae5dd18",
+      "sourceRows": 8,
+      "approvedGroups": 2,
+      "passed": true
+    }
+  ]
+}
