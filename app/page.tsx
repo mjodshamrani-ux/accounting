@@ -260,7 +260,14 @@ function ReadingIssueList({
     <details className="panel stack">
       <summary>{r.show(issues.length)}</summary>
       <div className="preview" style={{ maxHeight: 440 }}>
-        <table aria-label={r.table}>
+        <table
+          aria-label={r.table}
+          style={{
+            whiteSpace: 'normal',
+            tableLayout: 'fixed',
+            overflowWrap: 'anywhere',
+          }}
+        >
           <thead>
             <tr>
               <th>{r.source}</th>
