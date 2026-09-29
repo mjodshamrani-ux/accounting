@@ -1,0 +1,39 @@
+{
+  "schema": "tarasuf-performance-membership-contract-1",
+  "purpose": "Literal accounting oracle for the existing performance fixture, not inferred from engine output",
+  "sourceScript": "scripts/browser-performance.mjs",
+  "blockSizePerSide": 10,
+  "firstTransactionSourceRowOneBased": 7,
+  "offsetDefinition": "Zero-based transaction offset within each 10-row block; source row = 7 + blockStart + offset",
+  "date": "2026-07-15",
+  "currency": "SAR",
+  "amountsMinor": {
+    "supplier": [675000, 250000, 225000, 200000, -30000, -12300, -17700, 8100, 8100, 12700],
+    "ledger": [250000, 225000, 200000, 675000, -12300, -17700, -30000, 8100, 8100, 12700]
+  },
+  "requiredMatchedCases": [
+    {"supplierOffsets": [0], "ledgerOffsets": [0, 1, 2], "amountMinorEachSide": 675000, "type": "1:M"},
+    {"supplierOffsets": [1, 2, 3], "ledgerOffsets": [3], "amountMinorEachSide": 675000, "type": "M:1"},
+    {"supplierOffsets": [4], "ledgerOffsets": [4, 5], "amountMinorEachSide": -30000, "type": "1:M"},
+    {"supplierOffsets": [5, 6], "ledgerOffsets": [6], "amountMinorEachSide": -30000, "type": "M:1"},
+    {"supplierOffsets": [9], "ledgerOffsets": [9], "amountMinorEachSide": 12700, "type": "1:1"}
+  ],
+  "mustRemainUnapprovedOffsets": {"supplier": [7, 8], "ledger": [7, 8]},
+  "expectedPerBlock": {
+    "matchedCases": 5,
+    "matchedGroups": 4,
+    "matchedEvidenceMembers": 16,
+    "allCaseMembers": 20,
+    "sourceTotalMinorEachSide": 1318900
+  },
+  "invariants": [
+    "Treat Case ID as an opaque association, never as the expected oracle",
+    "Compare the exact side/sheet/source-row member set for every approved case, never only its amount or reference",
+    "No member may appear in two approved cases or in an extra fabricated case",
+    "Matches and Match Evidence must agree on case identity, status, type, totals and exact source destinations",
+    "Each original source row occurs exactly once across all Match Evidence cases, including unresolved rows",
+    "Unresolved duplicate rows must not acquire an approved status or approved source link",
+    "Required cases cannot be replaced by Needs Review to make the safety check pass",
+    "Cross-block or equal-total member swaps must fail the independent checker"
+  ]
+}

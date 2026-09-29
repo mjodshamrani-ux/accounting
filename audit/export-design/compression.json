@@ -1,0 +1,234 @@
+{
+  "schema": "tarasuf-isolated-compression-1",
+  "createdAt": "2026-09-29T14:44:32.139Z",
+  "node": "v24.19.0",
+  "jszip": "3.10.1",
+  "machine": {
+    "cpu": "Apple M5",
+    "memoryBytes": 17179869184,
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "input": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+  "scope": "ZIP compression of already generated workbook parts only; excludes parsing, reconciliation, original revalidation, workbook construction, XML generation, UI and download. Not a browser memory or end-to-end speed claim.",
+  "trials": [
+    {
+      "round": 1,
+      "variant": "default",
+      "compressionMs": 2077.728917,
+      "outputBytes": 9633718,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "30512be91d23317066cb975b056e98360977669270d0718603053b0b39ec24d6",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-1-default.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 1,
+      "variant": "1",
+      "compressionMs": 1165.929,
+      "outputBytes": 12603548,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "4f4557ec2b1265e6b751ae8e6757e2d6a714dfec33748c33a8ffd03321cacd9e",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-1-1.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 1,
+      "variant": "3",
+      "compressionMs": 1349.4224170000002,
+      "outputBytes": 11340217,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "6ca8c685e7673b5c61881a20701fd27780aa049296704884d909fb015ca5522f",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-1-3.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 2,
+      "variant": "1",
+      "compressionMs": 1178.4019159999998,
+      "outputBytes": 12603548,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "4f4557ec2b1265e6b751ae8e6757e2d6a714dfec33748c33a8ffd03321cacd9e",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-2-1.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 2,
+      "variant": "3",
+      "compressionMs": 1361.665666,
+      "outputBytes": 11340217,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "6ca8c685e7673b5c61881a20701fd27780aa049296704884d909fb015ca5522f",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-2-3.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 2,
+      "variant": "default",
+      "compressionMs": 2112.213583,
+      "outputBytes": 9633718,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "30512be91d23317066cb975b056e98360977669270d0718603053b0b39ec24d6",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-2-default.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 3,
+      "variant": "3",
+      "compressionMs": 1359.673042,
+      "outputBytes": 11340217,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "6ca8c685e7673b5c61881a20701fd27780aa049296704884d909fb015ca5522f",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-3-3.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 3,
+      "variant": "default",
+      "compressionMs": 2117.669917,
+      "outputBytes": 9633718,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "30512be91d23317066cb975b056e98360977669270d0718603053b0b39ec24d6",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-3-default.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 3,
+      "variant": "1",
+      "compressionMs": 1192.332417,
+      "outputBytes": 12603548,
+      "uncompressedBytes": 126966785,
+      "sourceSha256": "ea923e9bb05c67053c59b41a8a2eb5db8f5523be8fb9d56522cd895488aaa972",
+      "outputSha256": "4f4557ec2b1265e6b751ae8e6757e2d6a714dfec33748c33a8ffd03321cacd9e",
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-1-browser-20000/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/export-design/compression/round-3-1.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    }
+  ],
+  "summary": [
+    {
+      "variant": "default",
+      "medianCompressionMs": 2112.213583,
+      "outputBytes": 9633718,
+      "identicalPackageTrials": 3
+    },
+    {
+      "variant": "1",
+      "medianCompressionMs": 1178.4019159999998,
+      "outputBytes": 12603548,
+      "identicalPackageTrials": 3
+    },
+    {
+      "variant": "3",
+      "medianCompressionMs": 1359.673042,
+      "outputBytes": 11340217,
+      "identicalPackageTrials": 3
+    }
+  ]
+}

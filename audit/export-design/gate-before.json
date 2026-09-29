@@ -1,0 +1,97 @@
+{
+  "schema": "tarasuf-browser-performance-1",
+  "createdAt": "2026-09-29T14:38:33.777Z",
+  "dist": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-publish/official-pages-0.4.13",
+  "node": "v24.19.0",
+  "memoryMeasurement": "Sum of RSS for this Chromium instance via SystemInfo.getProcessInfo and ps, sampled every 500ms; includes browser, renderer and worker processes, may double-count shared pages. Excludes Node fixture creation and offline export verification.",
+  "timingDefinition": "Files generated before measurement. UI upload/comparison/export wall time. Worker action timings include serialization and dispatch. Reconciliation includes normalization plus matching; export includes original re-read/recomputation, workbook construction and ZIP serialization.",
+  "runs": [
+    {
+      "rowsPerSide": 100,
+      "format": "csv",
+      "sourceBytes": [
+        10498,
+        10418
+      ],
+      "stages": {
+        "upload0Ms": 37.293542,
+        "upload1Ms": 13.021584000000075,
+        "reconcileAndReviewMs": 52.54179199999999,
+        "prepareExportScreenMs": 28.482833000000028,
+        "exportToDownloadMs": 1508.8665419999998,
+        "totalUiMs": 1679.949583
+      },
+      "workerActions": [
+        {
+          "action": "ready",
+          "ms": 85.70000000298023,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "read",
+          "ms": 2.2999999970197678,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "read",
+          "ms": 0.5,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "reconcile",
+          "ms": 16.700000002980232,
+          "ok": true,
+          "timings": {
+            "normalizePairMs": 11.599999994039536,
+            "matchingMs": 4.4000000059604645
+          }
+        },
+        {
+          "action": "export",
+          "ms": 88.09999999403954,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 0.7999999970197678,
+            "exportRevalidationMs": 20.30000001192093,
+            "exportWorkbookConstructionMs": 8.799999997019768,
+            "exportSerializationMs": 49.20000000298023
+          }
+        }
+      ],
+      "networkViolations": [],
+      "errors": [],
+      "peakChromiumRssBytes": 478593024,
+      "completed": true,
+      "results": [
+        {
+          "matches": 50,
+          "groups": 40,
+          "sourceRows": [
+            100,
+            100
+          ],
+          "totals": [
+            13189000,
+            13189000
+          ],
+          "members": 200
+        }
+      ],
+      "maxMainThreadHeartbeatGapMs": 79,
+      "error": "AssertionError [ERR_ASSERTION]: all supported complete groups must actually be matched\n\n40 !== 30\n\n    at file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/scripts/browser-performance.mjs:363:14",
+      "visibleError": [],
+      "independentExportDetails": {
+        "sourceRows": [
+          100,
+          100
+        ],
+        "amountsReferencesAndDates": true
+      },
+      "independentExportSourceCheck": true
+    }
+  ],
+  "browser": "151.0.7922.34"
+}

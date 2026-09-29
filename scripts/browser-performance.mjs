@@ -18,6 +18,13 @@ const dist = path.resolve(option('--dist', 'dist'));
 const output = path.resolve(option('--output', 'work/browser-performance-046'));
 const sizes = option('--sizes', '100,1000,5000,20000').split(',').map(Number);
 const formats = option('--formats', 'csv,xlsx').split(',');
+assert.ok(
+  sizes.every(
+    (size) => Number.isSafeInteger(size) && size > 0 && size % 10 === 0,
+  ),
+  'sizes must be positive multiples of 10',
+);
+assert.ok(formats.every((format) => ['csv', 'xlsx'].includes(format)));
 const shell = promisify(execFile);
 await mkdir(output, { recursive: true });
 const header = [
@@ -153,7 +160,7 @@ const server = createServer(async (req, res) => {
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const origin = `http://127.0.0.1:${server.address().port}`;
 const report = {
-  schema: 'tarasuf-browser-performance-1',
+  schema: 'tarasuf-browser-performance-2',
   createdAt: new Date().toISOString(),
   dist,
   node: process.version,
@@ -176,6 +183,12 @@ try {
       networkViolations: [],
       errors: [],
       peakChromiumRssBytes: 0,
+      downloadCompleted: false,
+      browserChecksPassed: false,
+      lifecycleRequired:
+        option('--lifecycle', 'no') === 'yes' &&
+        run.size === 20000 &&
+        run.format === 'xlsx',
       completed: false,
     };
     let browser,
@@ -238,6 +251,7 @@ try {
             this.addEventListener('message', (e) => {
               const d = e.data;
               if (d?.channel !== 'mizan-accounting-v1') return;
+              if (d.kind === 'progress') return;
               const start = this.requests.get(d.id);
               if (start) {
                 window.__bench.actions.push({
@@ -355,7 +369,7 @@ try {
       entry.workerActions = telemetry.actions;
       entry.results = telemetry.completed;
       entry.maxMainThreadHeartbeatGapMs = Math.max(...telemetry.gaps);
-      entry.completed = true;
+      entry.downloadCompleted = true;
       assert.equal(entry.results.at(-1).members, run.size * 2);
       assert.deepEqual(entry.results.at(-1).sourceRows, [run.size, run.size]);
       const expectedGroups =
@@ -377,11 +391,7 @@ try {
       assert.equal(entry.networkViolations.length, 0);
       assert.equal(entry.errors.length, 0);
       await sample();
-      if (
-        option('--lifecycle', 'no') === 'yes' &&
-        run.size === 20000 &&
-        run.format === 'xlsx'
-      ) {
+      if (entry.lifecycleRequired) {
         entry.peakBeforeLifecycleRssBytes = entry.peakChromiumRssBytes;
         let unexpectedDownloads = 0;
         const countDownload = () => unexpectedDownloads++;
@@ -409,6 +419,10 @@ try {
         entry.peakIncludingLifecycleRssBytes = entry.peakChromiumRssBytes;
         entry.peakChromiumRssBytes = entry.peakBeforeLifecycleRssBytes;
       }
+      // Include errors and requests produced by cancellation/recovery too.
+      assert.equal(entry.networkViolations.length, 0);
+      assert.equal(entry.errors.length, 0);
+      entry.browserChecksPassed = true;
     } catch (e) {
       entry.error = String(e.stack ?? e).slice(0, 1800);
       if (page) {
@@ -449,6 +463,19 @@ try {
         entry.exportError = String(e.stack ?? e).slice(0, 1300);
       }
     }
+    // A download and intact source sheets do not establish that result or
+    // lifecycle assertions passed. Fail closed on any recorded failure.
+    entry.completed =
+      entry.downloadCompleted &&
+      entry.browserChecksPassed &&
+      entry.independentExportSourceCheck === true &&
+      (!entry.lifecycleRequired ||
+        (entry.cancelAndExportRecovery === true &&
+          entry.independentRecoveryExportCheck === true)) &&
+      !entry.error &&
+      !entry.exportError &&
+      entry.networkViolations.length === 0 &&
+      entry.errors.length === 0;
     report.runs.push(entry);
     await writeFile(
       path.join(output, 'results.json'),
@@ -470,8 +497,7 @@ try {
   server.close();
 }
 if (
-  report.runs.some(
-    (r) => !r.completed || r.independentExportSourceCheck !== true,
-  )
+  report.runs.length !== prepared.length ||
+  report.runs.some((r) => !r.completed)
 )
   process.exitCode = 1;
