@@ -1,0 +1,515 @@
+{
+  "runId": 36577055914,
+  "head": "a14c19fdc4a245c2ba72139d6aa549a33d02355e",
+  "buildJob": 109435311524,
+  "build": "success",
+  "units": {
+    "total": 847,
+    "passed": 835,
+    "failed": 0,
+    "skipped": 12,
+    "skipReason": "Private July originals unavailable on CI; all12 pass in local847-test run."
+  },
+  "performance": {
+    "case": "20k rows compare without quadratic candidate search",
+    "durationMs": 2716.894211,
+    "unchangedLimitMs": 6000
+  },
+  "corpora": {
+    "partial": 16,
+    "p2": 37,
+    "foundation": {
+      "total": 40,
+      "comparisons": 22,
+      "stopped": 18
+    }
+  },
+  "browser": {
+    "general": true,
+    "originalPartial": true,
+    "isolatedPartial": true,
+    "largePdf": true
+  },
+  "workbookVerification": {
+    "partialOriginalAndIsolated": true,
+    "PR01": true,
+    "largePdfPairs": 2240,
+    "evidenceMembers": 4480
+  },
+  "artifact": {
+    "id": 11037333468,
+    "name": "github-pages",
+    "size_in_bytes": 8233431,
+    "url": "https://api.github.com/repos/mjodshamrani-ux/accounting/actions/artifacts/11037333468",
+    "archive_download_url": "https://api.github.com/repos/mjodshamrani-ux/accounting/actions/artifacts/11037333468/zip",
+    "expired": false,
+    "created_at": "2026-09-29T13:46:14Z",
+    "expires_at": "2026-09-30T13:46:12Z",
+    "updated_at": "2026-09-29T13:46:14Z",
+    "digest": "sha256:8696d1b622b4725956f4ac57b5112e885720598862153ac576f96fe230632e1a",
+    "workflow_run": {
+      "id": 36577055914,
+      "repository_id": 1361961522,
+      "head_repository_id": 1361961522,
+      "head_branch": "main",
+      "head_sha": "a14c19fdc4a245c2ba72139d6aa549a33d02355e"
+    }
+  },
+  "workflowUrl": "https://github.com/mjodshamrani-ux/accounting/actions/runs/36577055914",
+  "jobs": [
+    {
+      "id": 109435311256,
+      "name": "Accounting mutation gate (1/3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 109435311524,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 109435311702,
+      "name": "Accounting mutation gate (3/3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 109435311867,
+      "name": "Accounting mutation gate (2/3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 109439470685,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "mutationGate": {
+    "baselinePassed": true,
+    "total": 85,
+    "detected": 85,
+    "uniqueMutationNames": 85,
+    "shards": [
+      {
+        "baselinePassed": true,
+        "detected": 29,
+        "total": 29,
+        "available": 85,
+        "shard": {
+          "index": 1,
+          "count": 3
+        },
+        "mutations": [
+          {
+            "mutation": "partial-drop-reading-issue-details-from-export",
+            "detected": true
+          },
+          {
+            "mutation": "partial-ignore-isolated-error-membership",
+            "detected": true
+          },
+          {
+            "mutation": "p4-silently-stop-after-twenty-pages",
+            "detected": true
+          },
+          {
+            "mutation": "p2-waive-voucher-conflicts-without-a-certified-document-partition",
+            "detected": true
+          },
+          {
+            "mutation": "p2-let-an-exact-payment-consume-a-group-member-first",
+            "detected": true
+          },
+          {
+            "mutation": "p2-ignore-whole-group-date-span",
+            "detected": true
+          },
+          {
+            "mutation": "p1-accept-formula-or-spreadsheet-error-reference-text",
+            "detected": true
+          },
+          {
+            "mutation": "p1-disable-document-pair-resolution",
+            "detected": true
+          },
+          {
+            "mutation": "p1-ignore-unsafe-discriminator-competitors",
+            "detected": true
+          },
+          {
+            "mutation": "p1-restore-a-rejected-document-pair",
+            "detected": true
+          },
+          {
+            "mutation": "047-reuse-format-choice-across-context",
+            "detected": true
+          },
+          {
+            "mutation": "hard-t01-read-any-label-ending-in-invoice",
+            "detected": true
+          },
+          {
+            "mutation": "v11-let-stripes-hide-text",
+            "detected": true
+          },
+          {
+            "mutation": "hard-s01-drop-a-source-without-a-role",
+            "detected": true
+          },
+          {
+            "mutation": "v11-take-a-document-number-equal-to-the-order-as-proof",
+            "detected": true
+          },
+          {
+            "mutation": "v11-let-a-document-number-outvote-the-chosen-references",
+            "detected": true
+          },
+          {
+            "mutation": "v11-leave-blocked-exact-pairs-as-unrelated-rows",
+            "detected": true
+          },
+          {
+            "mutation": "045-ignore-declared-aging-report",
+            "detected": true
+          },
+          {
+            "mutation": "045-concatenate-conflicting-xlsx-cell-payloads",
+            "detected": true
+          },
+          {
+            "mutation": "reuse-an-ai-column-proposal-after-settings-change",
+            "detected": true
+          },
+          {
+            "mutation": "skip-an-earlier-table-for-a-richer-later-header",
+            "detected": true
+          },
+          {
+            "mutation": "ignore-xlsx-overwritten-cell-addresses",
+            "detected": true
+          },
+          {
+            "mutation": "reject-supported-multisheet-workpapers",
+            "detected": true
+          },
+          {
+            "mutation": "count-total-rows-as-transactions",
+            "detected": true
+          },
+          {
+            "mutation": "automatically-match-with-unread-potential-duplicates",
+            "detected": true
+          },
+          {
+            "mutation": "prove-direction-from-a-single-movement",
+            "detected": true
+          },
+          {
+            "mutation": "reverse-source-sign",
+            "detected": true
+          },
+          {
+            "mutation": "ignore-reference-duplicates",
+            "detected": true
+          },
+          {
+            "mutation": "corrupt-exported-amount",
+            "detected": true
+          }
+        ]
+      },
+      {
+        "baselinePassed": true,
+        "detected": 28,
+        "total": 28,
+        "available": 85,
+        "shard": {
+          "index": 2,
+          "count": 3
+        },
+        "mutations": [
+          {
+            "mutation": "partial-treat-untrusted-cells-as-format-proof",
+            "detected": true
+          },
+          {
+            "mutation": "partial-drop-transitive-error-impact",
+            "detected": true
+          },
+          {
+            "mutation": "p2-reject-explicit-numeric-payment-identities",
+            "detected": true
+          },
+          {
+            "mutation": "p2-ignore-overlapping-payment-identity-memberships",
+            "detected": true
+          },
+          {
+            "mutation": "p2-accept-inferred-payment-role-as-explicit-proof",
+            "detected": true
+          },
+          {
+            "mutation": "p2-approve-groups-beyond-the-member-limit",
+            "detected": true
+          },
+          {
+            "mutation": "p1-accept-placeholder-category-or-zero-as-a-discriminator",
+            "detected": true
+          },
+          {
+            "mutation": "p1-grant-document-role-to-another-selected-column",
+            "detected": true
+          },
+          {
+            "mutation": "p1-use-normalized-document-identity",
+            "detected": true
+          },
+          {
+            "mutation": "047-accept-unanswered-format-ambiguity",
+            "detected": true
+          },
+          {
+            "mutation": "046-disable-all-supported-groups",
+            "detected": true
+          },
+          {
+            "mutation": "v11-read-carried-forward-as-a-transaction",
+            "detected": true
+          },
+          {
+            "mutation": "v11-approve-a-source-compared-with-itself",
+            "detected": true
+          },
+          {
+            "mutation": "hard-r01-rank-own-voucher-before-chosen-reference",
+            "detected": true
+          },
+          {
+            "mutation": "v11-approve-on-a-voucher-with-no-chosen-reference",
+            "detected": true
+          },
+          {
+            "mutation": "h03-let-a-document-number-outvote-unselected-references",
+            "detected": true
+          },
+          {
+            "mutation": "hard-g08-accept-payment-parts-beyond-the-date-window",
+            "detected": true
+          },
+          {
+            "mutation": "045-skip-generic-account-scope-evidence",
+            "detected": true
+          },
+          {
+            "mutation": "accept-a-partial-pdf-operator-stream",
+            "detected": true
+          },
+          {
+            "mutation": "trust-stale-case-member-evidence",
+            "detected": true
+          },
+          {
+            "mutation": "ignore-known-document-evidence-conflicts",
+            "detected": true
+          },
+          {
+            "mutation": "silently-round-original-xlsx-numeric-lexemes",
+            "detected": true
+          },
+          {
+            "mutation": "reject-unused-helper-formulas",
+            "detected": true
+          },
+          {
+            "mutation": "drop-classified-rows-without-a-reason",
+            "detected": true
+          },
+          {
+            "mutation": "classify-any-summary-word-as-a-nontransaction",
+            "detected": true
+          },
+          {
+            "mutation": "reverse-proven-ap-direction",
+            "detected": true
+          },
+          {
+            "mutation": "fuzzy-reference-auto-match",
+            "detected": true
+          },
+          {
+            "mutation": "allow-unconfirmed-coverage",
+            "detected": true
+          }
+        ]
+      },
+      {
+        "baselinePassed": true,
+        "detected": 28,
+        "total": 28,
+        "available": 85,
+        "shard": {
+          "index": 3,
+          "count": 3
+        },
+        "mutations": [
+          {
+            "mutation": "partial-accept-stale-format-selection",
+            "detected": true
+          },
+          {
+            "mutation": "partial-drop-displaced-literal-identities",
+            "detected": true
+          },
+          {
+            "mutation": "p2-promote-placeholder-payment-identities",
+            "detected": true
+          },
+          {
+            "mutation": "p2-drop-primary-only-competing-members",
+            "detected": true
+          },
+          {
+            "mutation": "p2-accept-duplicate-postings-in-nm-groups",
+            "detected": true
+          },
+          {
+            "mutation": "p2-ignore-group-member-rejection",
+            "detected": true
+          },
+          {
+            "mutation": "p1-reject-valid-contextual-numeric-or-alphabetic-discriminators",
+            "detected": true
+          },
+          {
+            "mutation": "p1-choose-first-repeated-discriminator",
+            "detected": true
+          },
+          {
+            "mutation": "p1-ignore-document-pair-amount-difference",
+            "detected": true
+          },
+          {
+            "mutation": "047-ambiguity-guard-throws-unrelated-error",
+            "detected": true
+          },
+          {
+            "mutation": "046-accept-payment-groups-without-explicit-identity",
+            "detected": true
+          },
+          {
+            "mutation": "v11-refuse-black-text-grazed-by-a-table-rule",
+            "detected": true
+          },
+          {
+            "mutation": "v11-take-a-renamed-copy-for-another-source",
+            "detected": true
+          },
+          {
+            "mutation": "hard-r01-let-a-voucher-hide-a-po-only-identity",
+            "detected": true
+          },
+          {
+            "mutation": "v11-take-a-batch-for-a-document",
+            "detected": true
+          },
+          {
+            "mutation": "v11-read-only-bare-labels-in-descriptions",
+            "detected": true
+          },
+          {
+            "mutation": "hard-g08-accept-any-group-across-dates",
+            "detected": true
+          },
+          {
+            "mutation": "045-allow-a-second-sheetdata-to-drop-earlier-rows",
+            "detected": true
+          },
+          {
+            "mutation": "allow-visual-drafts-into-accounting",
+            "detected": true
+          },
+          {
+            "mutation": "allow-ai-proposals-outside-the-evidence-window",
+            "detected": true
+          },
+          {
+            "mutation": "accept-duplicate-posting-lines-as-a-group",
+            "detected": true
+          },
+          {
+            "mutation": "ignore-pdf-overlap-between-separate-baselines",
+            "detected": true
+          },
+          {
+            "mutation": "treat-pdf-table-edges-as-filled-area",
+            "detected": true
+          },
+          {
+            "mutation": "accept-a-timestamp-as-a-read-issue",
+            "detected": true
+          },
+          {
+            "mutation": "ignore-date-and-reference-in-reordered-summary-rows",
+            "detected": true
+          },
+          {
+            "mutation": "ignore-contradictory-closing-footer-in-direction-proof",
+            "detected": true
+          },
+          {
+            "mutation": "ignore-date-window",
+            "detected": true
+          },
+          {
+            "mutation": "promote-ai-hypothesis",
+            "detected": true
+          }
+        ]
+      }
+    ],
+    "timingPolicy": "Only the 20k wall-clock assertion is excluded from mutation runs. It remains unchanged at 6000 ms in the complete unit suite."
+  },
+  "deployment": {
+    "conclusion": "success",
+    "source": "a14c19fdc4a245c2ba72139d6aa549a33d02355e",
+    "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.13",
+    "artifactId": 11037333468
+  },
+  "scope": "Final CI source and deployment; synthetic regression evidence, not a universal correctness guarantee.",
+  "decodedJobLogFiles": [
+    {
+      "jobId": 109435311256,
+      "sha256": "4defbae455e0355508856ace4080c24c24062d320dd2fd3d99dd2eb626311faf",
+      "bytes": 28123,
+      "localPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-publish/final-job-109435311256.log"
+    },
+    {
+      "jobId": 109435311524,
+      "sha256": "3eda84de4fe60e1c40ebf1b014d84c05e49dd38e24b253fc7a6345a55f2dadcf",
+      "bytes": 209785,
+      "localPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-publish/final-job-109435311524.log"
+    },
+    {
+      "jobId": 109435311702,
+      "sha256": "1318c9bb0af3041b32531c0207cb9de58af5289ca133693ed44f85ae6f1fa0dc",
+      "bytes": 27895,
+      "localPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-publish/final-job-109435311702.log"
+    },
+    {
+      "jobId": 109435311867,
+      "sha256": "e5b0b518bcd593d41d6e551888d53d646af27bf4e8068468f7cc64afaa28ed9b",
+      "bytes": 27924,
+      "localPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-publish/final-job-109435311867.log"
+    },
+    {
+      "jobId": 109439470685,
+      "sha256": "6c4719d6efa53b7232233664929e1440911e162775a71ed88ce578ed8cfd854b",
+      "bytes": 3913,
+      "localPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-publish/final-job-109439470685.log"
+    }
+  ]
+}
