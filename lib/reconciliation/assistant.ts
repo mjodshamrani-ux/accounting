@@ -7,6 +7,7 @@ import {
   safeSum,
 } from './core.ts';
 import type { Comparison, Transaction } from './types.ts';
+import { readingStatus } from './reading-issues.ts';
 
 export type EvidenceAnswer = {
   kind: 'difference' | 'transaction' | 'checks' | 'next' | 'unsupported';
@@ -468,6 +469,20 @@ export function explainResult(
   question: string,
   selectedId?: string,
 ): EvidenceAnswer {
+  const answer = explainResultDetails(result, question, selectedId);
+  const reading = readingStatus([result.supplier, result.ledger]);
+  if (!reading.partial) return answer;
+  return {
+    ...answer,
+    text: `نتيجة جزئية: الحركات المعالجة ${reading.processedRows}؛ الصفوف التي تحتاج مراجعة القراءة ${reading.unreadRows}؛ ملاحظات الأرصدة ${reading.balanceIssues}؛ ملاحظات المصدر أو النطاق ${reading.sourceIssues}. الأرقام تخص الحركات المقروءة فقط ولا تثبت اكتمال التسوية.\n${answer.text}`,
+  };
+}
+
+function explainResultDetails(
+  result: Comparison,
+  question: string,
+  selectedId?: string,
+): EvidenceAnswer {
   if (question.length > 500)
     return {
       kind: 'unsupported',
@@ -692,6 +707,30 @@ export function explainResult(
     return {
       kind: 'next',
       text: [
+        ...(readingStatus([result.supplier, result.ledger]).partial
+          ? [
+              'راجع ملاحظات القراءة أولًا. لم تُحوّل القيم غير المقروءة إلى أصفار أو حركات مالية.',
+              ...(
+                [
+                  ['المورد', result.supplier],
+                  ['الدفتر', result.ledger],
+                ] as const
+              )
+                .flatMap(([label, source]) =>
+                  source.errors.map((error) =>
+                    error.row > 0
+                      ? error.sourcePage
+                        ? `${label}: صفحة PDF ${error.sourcePage}، صف ${error.row} — ${error.message}`
+                        : `${label}: صف ${error.row} — ${error.message}`
+                      : error.scope === 'balance'
+                        ? `${label}: الأرصدة المدخلة — ${error.message}`
+                        : `${label}: المصدر أو النطاق — ${error.message}`,
+                  ),
+                )
+                .slice(0, 10),
+              'تجد جميع الملاحظات والقيم الأصلية في تفاصيل ملاحظات القراءة وورقة العمل.',
+            ]
+          : []),
         `ابدأ بمراجعة تحذيرات المصادر ثم التكرارات المحتملة، إن وُجدت. عدد التحذيرات: ${result.supplier.warnings.length + result.ledger.warnings.length}. عدد الحركات المحتمل تكرارها: ${result.ambiguousIds.length}.`,
         `عدد الحالات التي تحتاج إلى مراجعة: ${result.caseCounts.needsReviewCases}. عدد الحالات غير المطابقة: ${result.caseCounts.unmatchedCases}.`,
         'افتح «تفاصيل الحالة» للاطلاع على صف المصدر وإشارة المبلغ والمرجع وأسباب عدم المطابقة. تحقق من المستندات الخارجية قبل اتخاذ أي قرار يدوي.',

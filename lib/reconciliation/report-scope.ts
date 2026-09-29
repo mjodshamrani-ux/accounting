@@ -1,4 +1,5 @@
 import type { Mapping, Scope, SourceFile, SourceResult } from './types.ts';
+import { sourceRowsForScope } from './localized-read-errors.ts';
 
 const key = (value: string) => value.trim().replace(/\s+/g, ' ').toUpperCase();
 const genericAccount =
@@ -40,7 +41,7 @@ export function collectGenericAccounts(
     genericAccount.test(label.trim()) ? [i] : [],
   );
   const observations: { value: string; row: number; column?: number }[] = [];
-  for (const tx of result.transactions)
+  for (const tx of sourceRowsForScope(result))
     for (const column of columns) {
       observations.push({
         value: sheet.rows[tx.row - 1][column]?.trim() ?? '',

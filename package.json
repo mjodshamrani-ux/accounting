@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -22,6 +22,7 @@
     "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
     "test:reliability:p2": "node scripts/test-p2-contracts.mjs",
+    "test:reliability:partial": "node scripts/test-partial-contracts.mjs",
     "test:reliability": "node --experimental-strip-types audit/reliability/run.mjs --split development,validation,final --frozen",
     "test:reliability:development": "node --experimental-strip-types audit/reliability/run.mjs",
     "test:reliability:performance": "node --experimental-strip-types audit/reliability/performance.mjs --sizes=100,1000,5000,20000"

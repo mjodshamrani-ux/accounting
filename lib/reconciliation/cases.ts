@@ -9,6 +9,7 @@ import {
   usableDiscriminator,
 } from './document-pairs.ts';
 import { paymentIdentityComponents } from './payment-components.ts';
+import { localizedReadErrors } from './localized-read-errors.ts';
 import type {
   CaseCounts,
   Match,
@@ -262,6 +263,7 @@ export function buildReconciliationCases(
   // Inspect every original payment identity before accepting an exact pair.
   // No decision, amount or date filter may erase a competing membership.
   const paymentComponents = paymentIdentityComponents(supplier, ledger);
+  const readErrors = localizedReadErrors(supplier, ledger);
   const blockedPaymentRows = new Set(
     paymentComponents
       .filter((c) => c.competing || c.excluded)
@@ -279,7 +281,8 @@ export function buildReconciliationCases(
   for (const m of exactMatches) {
     if (
       m.kind === 'auto' &&
-      (blockedPaymentRows.has(m.supplierId) ||
+      (!readErrors.canMatch([byId.get(m.supplierId)!, byId.get(m.ledgerId)!]) ||
+        blockedPaymentRows.has(m.supplierId) ||
         blockedPaymentRows.has(m.ledgerId) ||
         groupedPaymentRows.has(m.supplierId) ||
         groupedPaymentRows.has(m.ledgerId))
@@ -299,7 +302,6 @@ export function buildReconciliationCases(
   }
   const refA = groupBy(supplier.transactions, (t) => t.normalizedReference),
     refB = groupBy(ledger.transactions, (t) => t.normalizedReference);
-  const complete = !supplier.errors.length && !ledger.errors.length;
   const free = (rows: Transaction[]) => rows.every((t) => !used.has(t.id));
   const supplierIds = new Set(supplier.transactions.map((t) => t.id));
   const ledgerIds = new Set(ledger.transactions.map((t) => t.id));
@@ -417,7 +419,7 @@ export function buildReconciliationCases(
     });
     const span = (Math.max(...dates) - Math.min(...dates)) / 86400000;
     const failures = [
-      ...(!complete
+      ...(!readErrors.canMatch(members)
         ? ['قراءة المصدر غير مكتملة؛ لا يمكن إثبات عضوية المجموعة.']
         : []),
       ...(!identity
@@ -547,7 +549,7 @@ export function buildReconciliationCases(
   }
   for (const { ref, a, b, partition } of groupCandidates) {
     if (
-      !complete ||
+      !readErrors.canMatch([...a, ...b]) ||
       !strong(ref) ||
       !b.length ||
       !free(a) ||
@@ -796,7 +798,8 @@ export function buildReconciliationCases(
   for (const [amount, a] of paymentA) {
     const b = paymentB.get(amount) ?? [];
     if (
-      !complete ||
+      supplier.errors.length ||
+      ledger.errors.length ||
       a.length !== 1 ||
       b.length !== 1 ||
       allAmountsA.get(amount)?.length !== 1 ||

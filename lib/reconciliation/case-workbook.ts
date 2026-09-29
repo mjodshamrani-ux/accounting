@@ -1,4 +1,5 @@
 import type ExcelJS from 'exceljs';
+import { readingStatus } from './reading-issues.ts';
 import type {
   AuditEvent,
   Comparison,
@@ -59,6 +60,7 @@ export function addCaseWorksheets(
   validateText: (text: string) => void,
 ): void {
   const scale = 10 ** result.scope.decimals;
+  const reading = readingStatus([result.supplier, result.ledger]);
   const amountFormat = result.scope.decimals
     ? '#,##0.' + '0'.repeat(result.scope.decimals)
     : '#,##0';
@@ -467,7 +469,14 @@ export function addCaseWorksheets(
           ? 'Confirmed by user'
           : 'Pending user confirmation',
       ],
-      ['Review Completed', review.checked ? 'User marked complete' : 'Pending'],
+      [
+        'Review Completed',
+        review.checked
+          ? reading.partial
+            ? 'Review recorded; reading issues remain open'
+            : 'User marked complete'
+          : 'Pending',
+      ],
       [
         'Approved / Not Approved',
         'Not approved — review completion is not an approval declaration',
@@ -493,7 +502,9 @@ export function addCaseWorksheets(
   };
   field(
     'Workbook Mode',
-    'Verified accounting snapshot for review; not a declaration of full reconciliation.',
+    reading.partial
+      ? 'Partial transaction snapshot for review. Reading issues remain open; totals cover processed transactions only. Not a complete reconciliation.'
+      : 'Verified accounting snapshot for review; not a declaration of full reconciliation.',
   );
   field(
     'Supplier',
@@ -550,7 +561,9 @@ export function addCaseWorksheets(
   field(
     'Reviewer Status',
     review.checked
-      ? 'Review completed by user; no approval implied'
+      ? reading.partial
+        ? 'Review recorded with open reading issues; no approval implied'
+        : 'Review completed by user; no approval implied'
       : 'Pending review',
   );
   field('Supplier Opening Balance', major(s.opening), 'money');
@@ -695,6 +708,23 @@ export function addCaseWorksheets(
     text: 'Version, hashes and export time (hidden audit sheet)',
     hyperlink: "#'Export Metadata'!A1",
   });
+  if (reading.partial) {
+    field('Reading Status', 'Partial — reading issues remain open');
+    field('Processed Transactions', reading.processedRows);
+    field('Rows Needing Reading Review', reading.unreadRows);
+    field('Balance Reading Issues', reading.balanceIssues);
+    field('Source-wide Reading Issues', reading.sourceIssues);
+    field('Supplier Processed Transaction Total', major(s.total), 'money');
+    field('Ledger Processed Transaction Total', major(l.total), 'money');
+    field(
+      'Totals Basis',
+      'Processed transactions only. Unread values are unknown, not zero. Original balances are not proof of completeness.',
+    );
+    field('Reading Issues', {
+      text: 'Open all reading issues and original values',
+      hyperlink: "#'Reading Issues'!A1",
+    });
+  }
   summaryRows.forEach(([label, value, kind]) => {
     if (typeof value === 'string') validateText(value);
     const row = summary.addRow([label, value === '' ? null : value]);

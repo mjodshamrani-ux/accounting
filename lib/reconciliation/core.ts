@@ -1,6 +1,12 @@
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
+import {
+  balanceOnlyError,
+  localizedReadErrors,
+  safeReferenceEnvelope,
+  sourceRowsForScope,
+} from './localized-read-errors.ts';
 import { summaryLabel } from './row-labels.ts';
 export { summaryLabel } from './row-labels.ts';
 import {
@@ -25,6 +31,7 @@ import type {
   SheetData,
   SourceFile,
   SourceResult,
+  SourceReadError,
   Transaction,
   Comparison,
   Decision,
@@ -526,7 +533,7 @@ function enforceSourceScope(
         sheet.cellIssues?.[`${mapping.header + 1}:${column + 1}`]?.length ||
         sheet.referenceIssues?.[`${mapping.header + 1}:${column + 1}`]?.length,
     );
-    for (const transaction of result.transactions)
+    for (const transaction of sourceRowsForScope(result))
       for (const column of columns) {
         const rn = transaction.row;
         const rawValue = sheet.rows[rn - 1][column]?.trim() ?? '';
@@ -852,6 +859,7 @@ export function normalizeSource(
       });
       continue;
     }
+    let isolation: SourceReadError['isolation'];
     try {
       if (
         row.slice(sheet.rows[mapping.header]?.length ?? 0).some((v) => v.trim())
@@ -934,6 +942,15 @@ export function normalizeSource(
         });
         continue;
       }
+      const references = transactionReferences(sheet, mapping, row, rn);
+      isolation = safeReferenceEnvelope(
+        sheet,
+        mapping,
+        row,
+        rn,
+        references,
+        scope.decimals,
+      );
       if (sheet.rowIssues?.[rn]?.length)
         throw new Error(sheet.rowIssues[rn].join('؛ '));
       const mappedIssues = selected.flatMap(
@@ -1053,7 +1070,6 @@ export function normalizeSource(
         amount = d - c;
       }
       amount *= mapping.multiplier;
-      const references = transactionReferences(sheet, mapping, row, rn);
       const reference = references.primaryReference;
       result.transactions.push({
         id: `${side}:${mapping.sheet}:${rn}`,
@@ -1072,7 +1088,14 @@ export function normalizeSource(
         ...(sheet.rowPages ? { sourcePage: sheet.rowPages[String(rn)] } : {}),
       });
     } catch (error) {
-      result.errors.push({ row: rn, message: (error as Error).message });
+      result.errors.push({
+        row: rn,
+        message: (error as Error).message,
+        ...(sheet.rowPages?.[String(rn)]
+          ? { sourcePage: sheet.rowPages[String(rn)] }
+          : {}),
+        ...(isolation ? { isolation } : {}),
+      });
     }
   }
   result.total = safeSum(result.transactions.map((t) => t.amount));
@@ -1108,6 +1131,7 @@ export function normalizeSource(
   } catch (error) {
     result.errors.push({
       row: 0,
+      scope: 'balance',
       message: `الأرصدة: ${(error as Error).message}`,
     });
   }
@@ -1234,7 +1258,9 @@ export function compare(
   }
   if (
     decisions.length &&
-    [...supplier.errors, ...ledger.errors].some((error) => error.row === 0)
+    [...supplier.errors, ...ledger.errors].some(
+      (error) => error.row === 0 && !balanceOnlyError(error),
+    )
   )
     throw new Error(
       'لا يمكن تجاوز خطأ منهجي في القراءة أو النطاق بقرار مطابقة يدوي. صحح معنى المبلغ أو نطاق المصدر أولًا.',
@@ -1308,13 +1334,14 @@ export function compare(
     )
       ambiguousIds.push(t.id);
   }
-  // An unread row may contain another occurrence of the same reference. Without
-  // all identities, uniqueness is not proven. Keep a review result, no auto links.
+  // Row errors keep arithmetic incomplete. Automatic identity proofs can only
+  // survive when every erroneous row has a safe, disjoint reference envelope.
   const completeReading =
     supplier.errors.length === 0 && ledger.errors.length === 0;
+  const readErrors = localizedReadErrors(supplier, ledger);
   for (const s of supplier.transactions) {
     if (
-      !completeReading ||
+      !readErrors.canMatch([s]) ||
       s.referenceEvidenceIssues?.length ||
       usedA.has(s.id) ||
       !s.normalizedReference ||
@@ -1332,7 +1359,8 @@ export function compare(
     )
       continue;
     const l = bc[0];
-    if (l.referenceEvidenceIssues?.length) continue;
+    if (l.referenceEvidenceIssues?.length || !readErrors.canMatch([l]))
+      continue;
     // Numeric document IDs need explicit document-role evidence on BOTH sides.
     if (!strongAutomaticReference(l)) continue;
     if (
@@ -1369,7 +1397,7 @@ export function compare(
   const documentPairs = certifiedDocumentPairs(supplier, ledger);
   for (const [s, l] of documentPairs) {
     if (
-      !completeReading ||
+      !readErrors.canMatch([s, l]) ||
       !strongAutomaticReference(s) ||
       !strongAutomaticReference(l) ||
       s.amount === 0 ||
@@ -1514,8 +1542,8 @@ export function compare(
     if (source.errors.length)
       diagnostics.push({
         code: 'SKIPPED_ROWS',
-        message: `${label}: ${source.errors.length} صفًا لم تُقرأ ولم تدخل المقارنة. المقارنة غير مكتملة. أُوقفت المطابقات الآلية لأن الصف غير المقروء قد يحتوي مرجعًا مكررًا. صحح القراءة أو وثّق الاستبعاد.`,
-        transactionIds: [],
+        message: `${label}: توجد ${source.errors.length} مشكلة قراءة محفوظة للمراجعة. المصالحة الكاملة للأرصدة غير متحققة. ${readErrors.wildcard ? 'أُوقفت المطابقات الآلية لأن نطاق تأثير أحد الأخطاء غير معلوم.' : 'يمكن اعتماد الحركات المثبتة خارج المراجع المتأثرة فقط؛ بقيت الحركات المتأثرة للمراجعة.'}`,
+        transactionIds: [...readErrors.taintedIds],
       });
     for (const warning of source.warnings)
       diagnostics.push({

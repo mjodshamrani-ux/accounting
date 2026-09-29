@@ -144,13 +144,15 @@ function choiceMatchesContext(
 }
 
 /** Product entry guard, shared by the UI, the worker, session restore and
- * export. A failed whole-column interpretation cannot silently fall through to
- * a default format and produce plausible partial amounts. An ambiguity whose
+ * export. Unreadable cells are retained as row errors while trustworthy values
+ * establish their format. Contradictory valid readings cannot silently fall
+ * through to a default format and produce plausible partial amounts. An ambiguity whose
  * readings disagree needs the accountant's explicit answer, carried with the
  * document it was given for. Where every permitted reading yields the same
  * values, format inference reports `proven` and no choice is asked for.
- * Empty sources remain the normalizer's responsibility; invalid extraction must
- * be corrected first and no confirmation can make it valid. */
+ * Empty sources remain the normalizer's responsibility. Read errors and their
+ * identity impact remain the normalizer/matching engine's responsibility;
+ * proving the readable cells' format does not approve an unreadable cell. */
 export function assertInputFormats(
   files: readonly SourceFile[],
   mappings: readonly Mapping[],
@@ -164,6 +166,19 @@ export function assertInputFormats(
       if (assessment.status === 'invalid')
         throw new InputReadinessError(
           `${file.name}: تعذر التحقق من صيغة ${fieldLabel(field)}. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. ${assessment.reason}`,
+          {
+            code: 'FORMAT_INVALID',
+            source: file.name,
+            field,
+            candidates: [...assessment.candidates],
+          },
+        );
+      if (
+        assessment.status === 'proven' &&
+        !assessment.candidates.some((candidate) => candidate === mapping[field])
+      )
+        throw new InputReadinessError(
+          `${file.name}: الصيغة المختارة لا توافق القيم المقروءة في ${fieldLabel(field)}. استخدم الصيغة المتحققة من المصدر قبل المقارنة.`,
           {
             code: 'FORMAT_INVALID',
             source: file.name,

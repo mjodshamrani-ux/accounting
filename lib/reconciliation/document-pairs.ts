@@ -1,4 +1,5 @@
 import type { SourceResult, Transaction } from './types.ts';
+import { localizedReadErrors } from './localized-read-errors.ts';
 import {
   DOCUMENT_LABELS,
   hasUnsafeReferenceText,
@@ -56,7 +57,7 @@ export function certifiedDocumentPartitions(
   supplier: SourceResult,
   ledger: SourceResult,
 ): [Transaction[], Transaction[]][] {
-  if (supplier.errors.length || ledger.errors.length) return [];
+  const readErrors = localizedReadErrors(supplier, ledger);
   const a = index(supplier.transactions, (t) => t.normalizedReference);
   const b = index(ledger.transactions, (t) => t.normalizedReference);
   const excludedValues = new Set(
@@ -73,6 +74,7 @@ export function certifiedDocumentPartitions(
     // unresolved competitor, not evidence of a different identity. Include
     // normalized-primary collisions, but require literal identity equality.
     if (
+      !readErrors.canMatch([...left, ...right]) ||
       !document ||
       excludedValues.has(document) ||
       ![...left, ...right].every(

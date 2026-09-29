@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.20-experimental';
+export const ENGINE_VERSION = '0.3.21-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -158,6 +158,17 @@ export type Transaction = {
   originalAmount: string;
 };
 export type Excluded = { row: number; reason: string; values: string[] };
+export type SourceReadError = {
+  row: number;
+  message: string;
+  sourcePage?: number;
+  // Entered balance values affect arithmetic, never the identity of a movement.
+  // All other row-zero errors remain source-wide semantic blockers.
+  scope?: 'balance';
+  // Negative evidence only: an unread movement still occupies every safely
+  // observed identity. Absence means its possible competitors are unknown.
+  isolation?: { rule: 'SAFE_REFERENCE_ENVELOPE_V1'; keys: string[] };
+};
 export type SourceResult = {
   metadata?: import('./statement-metadata.ts').StatementMetadata;
   balanceArithmeticStatus?:
@@ -168,7 +179,7 @@ export type SourceResult = {
   coverageStatus?: 'PERIOD_COVERAGE_CONFIRMED' | 'PERIOD_COVERAGE_UNCONFIRMED';
   transactions: Transaction[];
   excluded: Excluded[];
-  errors: { row: number; message: string }[];
+  errors: SourceReadError[];
   warnings: string[];
   total: number;
   opening: number | null;

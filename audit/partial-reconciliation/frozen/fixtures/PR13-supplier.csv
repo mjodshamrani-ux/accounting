@@ -1,0 +1,5 @@
+Date,Document No,Reference,Amount,Document Type,Bank Reference,Receipt No,AP Voucher,Currency,Description,Source Record ID
+2026-08-12,S-DOC-A112,S-REF-A112,-40.00,Payment,BANK-112,,S-V-A112,SAR,Payment part,S-LOCAL-A112
+2026-08-12,S-DOC-B112,S-REF-B112,-60.00,Payment,BANK-112,,S-V-B112,SAR,Payment part,S-LOCAL-B112
+2026-08-12,S-DOC-BAD112,S-REF-BAD112,bad,Payment,BANK-112,,S-V-BAD112,SAR,Payment part,S-LOCAL-BAD112
+2026-08-12,DOC-INV-OK112,INV-OK112,15.15,Invoice,,,S-V-INV-OK112,SAR,Invoice,S-LOCAL-INV-OK112

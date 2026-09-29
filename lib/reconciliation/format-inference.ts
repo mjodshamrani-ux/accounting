@@ -16,6 +16,10 @@ export type FormatAssessment<T extends string> = {
   reason: string;
   candidates: T[];
   checkedValues: number;
+  /** Source rows withheld from format evidence. The normalizer retains each
+   * reading error; this list never authorizes exclusion or approval. Row zero
+   * denotes a separately entered balance, not a transaction. */
+  unreadRows: number[];
 };
 export type FormatSuggestions = {
   patch: Partial<Pick<Mapping, 'dateFormat' | 'numberFormat'>>;
@@ -31,15 +35,20 @@ function assessment<T extends string>(
   reason: string,
   checkedValues = 0,
   candidates: T[] = [],
+  unreadRows: number[] = [],
 ): FormatAssessment<T> {
-  return { status, reason, candidates, checkedValues };
+  return { status, reason, candidates, checkedValues, unreadRows };
 }
 
-// Consider the whole column, not a sample. A candidate must parse every value;
-// several surviving formats are safe only when their complete results agree.
+type FormatEvidence<V> = { value: V; row: number; unsafe?: boolean };
+
+// Inspect every value, not a sample. A bad cell that NO supported reading can
+// interpret is not evidence against the readable rows' convention. However a
+// value valid under ANY reading must participate in the intersection: dropping
+// inconvenient but valid values would manufacture a locale and scale money.
 function inspect<T extends string, V>(
   formats: T[],
-  values: V[],
+  values: FormatEvidence<V>[],
   parse: (value: V, format: T) => string | number,
   label: string,
   problem: string | undefined,
@@ -47,38 +56,61 @@ function inspect<T extends string, V>(
   if (problem) return assessment('invalid', problem, values.length);
   if (!values.length)
     return assessment('unavailable', `لا توجد قيم كافية للتحقق من ${label}.`);
-  const candidates: T[] = [];
-  let first: (string | number)[] | undefined;
-  let identical = true;
-  for (const format of formats) {
-    try {
-      const parsed = values.map((value) => parse(value, format));
-      candidates.push(format);
-      if (!first) first = parsed;
-      else if (parsed.some((value, i) => value !== first![i]))
-        identical = false;
-    } catch {
-      // Failure removes this format from consideration; it never removes a row.
+  const unread = new Set<number>();
+  const readings: Map<T, string | number>[] = [];
+  for (const evidence of values) {
+    const row = new Map<T, string | number>();
+    if (!evidence.unsafe) {
+      for (const format of formats) {
+        try {
+          row.set(format, parse(evidence.value, format));
+        } catch {
+          // Failed readings never become guessed values or zero amounts.
+        }
+      }
     }
+    if (row.size) readings.push(row);
+    else unread.add(evidence.row);
   }
+  const unreadRows = [...unread].sort((a, b) => a - b);
+  if (!readings.length)
+    return assessment(
+      'invalid',
+      `لا توجد قيم مقروءة للتحقق من صيغة ${label}. راجع الصفوف المشار إليها.`,
+      0,
+      [],
+      unreadRows,
+    );
+  const candidates = formats.filter((format) =>
+    readings.every((row) => row.has(format)),
+  );
   if (!candidates.length)
     return assessment(
       'invalid',
-      `توجد قيم غير صالحة أو صيغ متعارضة في ${label}. راجع المصدر.`,
-      values.length,
+      `توجد صيغ صحيحة لكنها متعارضة في ${label}. لا يمكن اختيار صيغة واحدة لهذا العمود. راجع المصدر.`,
+      readings.length,
+      [],
+      unreadRows,
     );
+  const identical = readings.every((row) =>
+    candidates.every((format) => row.get(format) === row.get(candidates[0])),
+  );
   if (!identical)
     return assessment(
       'ambiguous',
       `يمكن قراءة قيم ${label} بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.`,
-      values.length,
+      readings.length,
       candidates,
+      unreadRows,
     );
   return assessment(
     'proven',
-    `تفسير واحد لجميع قيم ${label} (${values.length} قيمة).`,
-    values.length,
+    unreadRows.length
+      ? `تفسير متفق للقيم المقروءة في ${label} (${readings.length} قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.`
+      : `تفسير واحد لجميع قيم ${label} (${readings.length} قيمة).`,
+    readings.length,
     candidates,
+    unreadRows,
   );
 }
 
@@ -130,9 +162,8 @@ export function suggestFormats(
   const hasAmounts =
     amountColumns.every(validColumn) &&
     new Set(amountColumns).size === amountColumns.length;
-  const dates: string[] = [];
-  const amounts: AmountEvidence[] = [];
-  let dateProblem: string | undefined;
+  const dates: FormatEvidence<string>[] = [];
+  const amounts: FormatEvidence<AmountEvidence>[] = [];
   let amountProblem: string | undefined;
   const formulaRows = new Set(sheet.formulaRows);
   const hiddenRows = new Set(sheet.hiddenRows);
@@ -230,25 +261,27 @@ export function suggestFormats(
     if (row.every((value) => !value.trim()) && !rowProblem && !hasMappedIssue)
       continue;
     if (hasDate) {
-      dates.push((row[mapping.date] ?? '').trim());
-      if (rowProblem || cellProblem(rn, mapping.date))
-        dateProblem ??= `تعذر الاعتماد على تاريخ الصف ${rn} بسبب مشكلة في قراءة المصدر.`;
+      dates.push({
+        value: (row[mapping.date] ?? '').trim(),
+        row: rn,
+        unsafe: rowProblem || cellProblem(rn, mapping.date),
+      });
     }
     if (hasAmounts) {
       let populated = 0;
       for (const column of amountColumns) {
         const text = (row[column] ?? '').trim();
-        if (rowProblem || cellProblem(rn, column))
-          amountProblem ??= `تعذر الاعتماد على مبلغ الصف ${rn} بسبب مشكلة في قراءة المصدر.`;
         // Blank split debit/credit cells mean zero, exactly as in normalizeSource.
         if (!text && mapping.mode === 'split') continue;
         populated++;
         amounts.push({
-          text,
-          native: sheet.numericCells?.[`${rn}:${column + 1}`],
+          value: { text, native: sheet.numericCells?.[`${rn}:${column + 1}`] },
+          row: rn,
+          unsafe: rowProblem || cellProblem(rn, column),
         });
       }
-      if (!populated) amountProblem ??= `المدين والدائن فارغان في الصف ${rn}.`;
+      if (!populated)
+        amounts.push({ value: { text: '' }, row: rn, unsafe: true });
     }
   }
   if (hasDate)
@@ -257,11 +290,11 @@ export function suggestFormats(
       dates,
       parseDate,
       'التاريخ',
-      dateProblem,
+      undefined,
     );
   if (hasAmounts) {
     for (const text of [mapping.opening, mapping.closing])
-      if (text.trim()) amounts.push({ text });
+      if (text.trim()) amounts.push({ value: { text }, row: 0 });
     if (![0, 2, 3].includes(decimals))
       amountProblem = 'عدد المنازل العشرية للعملة غير مدعوم.';
     result.numberFormat = inspect(
@@ -281,7 +314,8 @@ export function suggestFormats(
     if (
       result.numberFormat.status === 'proven' &&
       amounts.length &&
-      amounts.every((value) => value.native)
+      !result.numberFormat.unreadRows.length &&
+      amounts.every((value) => value.value.native)
     )
       result.numberFormat.reason = `قيم Excel الرقمية الأصلية لا تعتمد على شكل الفواصل المعروض (${amounts.length} قيمة).`;
   }

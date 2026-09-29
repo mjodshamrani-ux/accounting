@@ -35,7 +35,8 @@ export const en: Messages = {
   upload: {
     waitForRead:
       'Wait for the current read to finish, or cancel it, before adding another file.',
-    readerLoading: 'The reader is still loading. Wait a moment, then add the file.',
+    readerLoading:
+      'The reader is still loading. Wait a moment, then add the file.',
     multipleFiles:
       'You added more than one file. Add one file to each slot. Your current files have not changed.',
     origin: ['From the supplier', 'From your system'],
@@ -106,15 +107,19 @@ export const en: Messages = {
     candidatesNote:
       'Up to 50 results from the other file are shown. A transaction listed here is not a match, and a link cannot be confirmed when the amounts differ.',
     searchLabel: 'Search for a counterpart transaction',
-    searchPlaceholder: 'Search the other file by reference, description, or row number',
+    searchPlaceholder:
+      'Search the other file by reference, description, or row number',
     counterpartLabel: 'Counterpart transaction',
     counterpartPlaceholder: 'Choose a transaction from the other file',
     noReference: 'No reference',
     candidateRow: (n: number) => ` · row ${n}`,
-    amountsEqual: 'The amounts are equal. Confirming the link needs accounting evidence.',
-    amountsDiffer: 'The amounts differ, so the two transactions cannot be linked.',
+    amountsEqual:
+      'The amounts are equal. Confirming the link needs accounting evidence.',
+    amountsDiffer:
+      'The amounts differ, so the two transactions cannot be linked.',
     noteLabel: 'Reason for the decision',
-    notePlaceholder: 'Record the evidence for the link, or the reason for the review or unlink',
+    notePlaceholder:
+      'Record the evidence for the link, or the reason for the review or unlink',
     unlink: 'Unlink and return to review',
     link: 'Confirm link manually',
     reviewOnly: 'Record review without a match',
@@ -154,14 +159,17 @@ export const en: Messages = {
       `${from}–${to} of ${total}`,
     hideCuts: 'Hide column boundaries',
     editCuts: 'Edit column boundaries',
-    cutsField: 'Column boundary positions, as a percentage from the left edge of the page',
+    cutsField:
+      'Column boundary positions, as a percentage from the left edge of the page',
     cutsLabel: 'PDF column boundaries',
     cutsHint:
       'Measure from the left edge of the page. 25, 45, 65 splits it into four columns. Place each boundary in the gap between two columns, or leave the field empty to read the page as one column.',
     applyCuts: 'Apply boundaries and re-read',
     undoCuts: 'Undo the change',
-    cutsInvalid: 'Enter numbers separated by commas or spaces, such as 25, 45, 65.',
-    cutsPending: 'The new boundaries are not in use yet. Apply them to re-read the table.',
+    cutsInvalid:
+      'Enter numbers separated by commas or spaces, such as 25, 45, 65.',
+    cutsPending:
+      'The new boundaries are not in use yet. Apply them to re-read the table.',
     reviewed:
       'I have reviewed the table on every page and confirmed it matches the original. The review must be repeated after any re-read.',
   },
@@ -209,7 +217,8 @@ export const en: Messages = {
     supplierPaper: 'Supplier statement',
     ledgerPaper: 'AP ledger',
     caption: 'Illustration',
-    motionReducedLabel: 'Animation is off because of your reduced-motion setting',
+    motionReducedLabel:
+      'Animation is off because of your reduced-motion setting',
     playLabel: 'Play the illustration animation',
     pauseLabel: 'Pause the illustration animation',
     motionReduced: 'Animation off',
@@ -224,7 +233,10 @@ export const en: Messages = {
     start: 'Start reconciling',
     howItWorks: 'How to use Tarasuf',
     privacyNote: 'Processing happens on your device. No account needed.',
-    bottomline: ['From data to clarity', 'Designed to make accountants’ work easier'],
+    bottomline: [
+      'From data to clarity',
+      'Designed to make accountants’ work easier',
+    ],
     benefits: {
       kicker: 'What Tarasuf offers',
       title: 'Easier reconciliation, results you understand',
@@ -350,8 +362,10 @@ export const en: Messages = {
       pdfDraft: 'Apply or undo the PDF column changes before comparing.',
       sheet:
         'Choose the Excel sheet that contains the transactions in the file card.',
-      columns: 'Select the date column and the amount column in the file card above.',
-      cutoff: 'Set the cut-off date under “Advanced options” in the scope card.',
+      columns:
+        'Select the date column and the amount column in the file card above.',
+      cutoff:
+        'Set the cut-off date under “Advanced options” in the scope card.',
       currency:
         'Set the currency of both files under “Advanced options” in the scope card.',
       precision:
@@ -370,11 +384,39 @@ export const en: Messages = {
         'To reconcile balances, add the party names and confirm that both reports cover the same period.',
       preparing: 'Updating the reading settings…',
     },
+    readingIssues: {
+      partial: 'Partial result — some issues need review',
+      partialHint:
+        'Readable transactions were processed. Affected data remains for review; the figures cover processed transactions only and do not establish a complete reconciliation.',
+      counts: (processed: number, unread: number) =>
+        `Processed transactions: ${processed} · Rows needing reading review: ${unread}`,
+      balanceCount: (count: number) =>
+        `Balance reading issues: ${count}. This is not a complete balance reconciliation.`,
+      sourceCount: (count: number) =>
+        `Source reading or scope issues: ${count}. Review their reasons below.`,
+      show: (count: number) => `Show all reading issues (${count})`,
+      table: 'Reading issue details',
+      source: 'Source',
+      location: 'Location',
+      reason: 'Reason',
+      original: 'Original values',
+      sourceWide: 'Source or scope',
+      balance: 'Entered balances',
+      row: (row: number) => `Row ${row}`,
+      page: (page: number) => `PDF page ${page}`,
+      noOriginal: 'Not associated with a data row',
+      previous: 'Previous issues',
+      next: 'Next issues',
+      range: (from: number, to: number, total: number) =>
+        `${from}–${to} of ${total}`,
+    },
     processing: {
       preparingRead: 'Preparing to read the PDF pages on your device',
       preparingLayout: 'Preparing to check the PDF page layout',
-      readingPage: (page: number, total: number) => `Reading page ${page} of ${total}`,
-      layoutPage: (page: number, total: number) => `Checking page layout ${page} of ${total}`,
+      readingPage: (page: number, total: number) =>
+        `Reading page ${page} of ${total}`,
+      layoutPage: (page: number, total: number) =>
+        `Checking page layout ${page} of ${total}`,
     },
     tasks: {
       read: 'Reading the file on your device',
@@ -406,7 +448,8 @@ export const en: Messages = {
         'The comparison tool could not start. Refresh the browser, then try again.',
       templatesUnavailable:
         'Saved templates could not be accessed. Check that the browser allows local storage.',
-      reviewerRequired: 'Enter the reviewer’s name before confirming the review.',
+      reviewerRequired:
+        'Enter the reviewer’s name before confirming the review.',
       templateSave: 'The template could not be saved in this browser.',
       noTemplate: 'There is no valid template for this file.',
       excludeInvalid: 'Enter a valid data row and the reason for excluding it.',
@@ -476,9 +519,11 @@ export const en: Messages = {
       at: (page: number, total: number) =>
         `Reading stopped at page ${page} of ${total}: `,
       mixed: 'The page contains both text and images.',
-      imageOnly: 'The page contains images and no text that can be read directly.',
+      imageOnly:
+        'The page contains images and no text that can be read directly.',
       nativeText: 'The page contains readable text.',
-      unknown: 'No readable text was found, and the page content could not be determined.',
+      unknown:
+        'No readable text was found, and the page content could not be determined.',
       advice:
         'This prevents incomplete data from entering the comparison. Try an Excel version or a text-based PDF. The image assistant below lets you try reading the file, but its output is a draft that is not used in the reconciliation.',
     },
@@ -532,7 +577,8 @@ export const en: Messages = {
         'Transactions after the selected date are not included in the comparison.',
       cutoffLabel: 'Cut-off date',
       currencyField: 'Currency of both files',
-      currencyRead: 'We read the currency from a clear heading or from the currency column.',
+      currencyRead:
+        'We read the currency from a clear heading or from the currency column.',
       currencyHint: 'Enter its three-letter code, such as SAR.',
       currencyLabel: 'Currency',
       decimals: 'Currency decimal places',
@@ -577,10 +623,12 @@ export const en: Messages = {
       balanceDifference: 'Balance difference',
       balancesUnverified: 'Balances not verified',
       skippedRows: 'Rows not read',
-      skippedRowsHint: 'The comparison is incomplete until these rows are reviewed',
-      noSkippedRows: 'No reading errors remain, and excluded rows are documented',
+      skippedRowsHint:
+        'The comparison is incomplete until these rows are reviewed',
+      noSkippedRows:
+        'No reading errors remain, and excluded rows are documented',
       skippedAdvice:
-        'Under “Edit settings”, correct the source data or exclude the row with a reason. Details of the reading errors are in the Diagnostics sheet when you export.',
+        'You can continue with the partial result for verified transactions outside the affected scope. Review the affected rows below; their details and original values are preserved in Reading Issues and Diagnostics when you export. Correcting the source rechecks its reading.',
       transactionsOnly:
         'This is a comparison of transactions only. We did not verify the balances or the shared period coverage, so the result is not a complete balance reconciliation.',
       workspace: 'Review workspace',
@@ -593,7 +641,14 @@ export const en: Messages = {
       tabReview: (cases: number) => `Needs Review (${cases})`,
       search: 'Search results',
       searchPlaceholder: 'Ref., description, row',
-      columns: ['Source / Row', 'Date', 'Reference', 'Amount', 'Status', 'Review'],
+      columns: [
+        'Source / Row',
+        'Date',
+        'Reference',
+        'Amount',
+        'Status',
+        'Review',
+      ],
       noReference: 'No reference',
       caseMembers: ' transactions in this case',
       status: {
@@ -647,6 +702,7 @@ export const en: Messages = {
         'The Excel file includes the results, sources, review decisions, open cases, and excluded rows, along with the matching rules and the engine version. You can download a draft before confirming the review.',
       download: 'Download workpaper',
       downloadDraft: 'Download Excel draft',
+      downloadPartial: 'Download partial workpaper',
       backToReview: 'Back to review',
     },
     source: {
@@ -660,8 +716,10 @@ export const en: Messages = {
       debit: 'Debit',
       credit: 'Credit',
       reference: 'Reference',
-      positiveIncreases: 'A positive amount increases the amount owed to the supplier',
-      negativeIncreases: 'A negative amount increases the amount owed to the supplier',
+      positiveIncreases:
+        'A positive amount increases the amount owed to the supplier',
+      negativeIncreases:
+        'A negative amount increases the amount owed to the supplier',
       debitIncreases:
         'Debits increase the amount owed to the supplier and credits reduce it',
       creditIncreases:
@@ -680,10 +738,10 @@ export const en: Messages = {
       numberFormatIn: (side: number) => `Amount format in ${inSentence[side]}`,
       interpretationChoose: 'Choose the correct interpretation',
       unreadRows: (rows: number) =>
-        `${plural(rows, 'row', 'rows')} could not be read and ${rows === 1 ? 'was' : 'were'} not included in the comparison. Correct the data or exclude ${rows === 1 ? 'it' : 'them'} with a reason.`,
+        `${plural(rows, 'row', 'rows')} could not be read and remain for review. Verified transactions outside their affected scope can continue; the result stays partial until the reading issues are resolved.`,
       row: (row: number) => `Row ${row}: `,
       moreInDiagnostics:
-        'Details of the remaining rows appear in the Diagnostics sheet when you download the Excel file.',
+        'All reading issues and their original values are preserved when you export the Excel file.',
       missingColumns:
         'We need your help identifying some columns. Choose the missing columns below, and open “Advanced options” if you want to change the other settings.',
       dateColumn: 'Date column',

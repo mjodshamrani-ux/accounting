@@ -76,10 +76,18 @@ import {
 } from '@/components/ui/pagination';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
 import type { ProcessingProgress } from '@/lib/reconciliation/processing-progress';
+import {
+  readingStatus,
+  sourceReadingIssues,
+} from '@/lib/reconciliation/reading-issues';
 import { ImportAssistant } from '@/components/import-assistant';
 import { ImportDiagnosticError } from '@/lib/reconciliation/import-diagnostics';
 import type { ImportDiagnosis } from '@/lib/reconciliation/import-diagnostics';
-import { defaultMapping, MAX_FILE_BYTES, MAX_PDF_PAGES } from '@/lib/reconciliation/types';
+import {
+  defaultMapping,
+  MAX_FILE_BYTES,
+  MAX_PDF_PAGES,
+} from '@/lib/reconciliation/types';
 import {
   mappingTemplate,
   readMappingTemplate,
@@ -217,6 +225,117 @@ function getTemplate(side: number): Partial<Mapping> | null {
     return null;
   }
 }
+function ReadingIssueList({
+  entries,
+}: {
+  entries: {
+    source: SourceResult;
+    file: SourceFile;
+    side: 'supplier' | 'ledger';
+  }[];
+}) {
+  const { t, engineText } = useI18n();
+  const r = t.app.readingIssues;
+  const [page, setPage] = useState(0);
+  const issues = useMemo(
+    () =>
+      entries.flatMap(({ source, file, side }) =>
+        sourceReadingIssues(source, file, side),
+      ),
+    [
+      entries[0]?.source,
+      entries[0]?.file,
+      entries[1]?.source,
+      entries[1]?.file,
+    ],
+  );
+  useEffect(() => setPage(0), [issues]);
+  const current = Math.min(
+    page,
+    Math.max(0, Math.ceil(issues.length / 10) - 1),
+  );
+  const offset = current * 10;
+  if (!issues.length) return null;
+  return (
+    <details className="panel stack">
+      <summary>{r.show(issues.length)}</summary>
+      <div className="preview" style={{ maxHeight: 440 }}>
+        <table aria-label={r.table}>
+          <thead>
+            <tr>
+              <th>{r.source}</th>
+              <th>{r.location}</th>
+              <th>{r.reason}</th>
+              <th>{r.original}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {issues.slice(offset, offset + 10).map((issue, index) => (
+              <tr key={`${issue.side}:${issue.row}:${offset + index}`}>
+                <td>
+                  {t.app.sides[issue.side === 'supplier' ? 0 : 1]}
+                  <br />
+                  <bdi>{issue.file}</bdi>
+                  <br />
+                  <bdi>{issue.sheet}</bdi>
+                </td>
+                <td>
+                  {issue.kind === 'source'
+                    ? r.sourceWide
+                    : issue.kind === 'balance'
+                      ? r.balance
+                      : r.row(issue.row!)}
+                  {issue.page !== null && (
+                    <>
+                      <br />
+                      {r.page(issue.page)}
+                    </>
+                  )}
+                </td>
+                <td>{engineText(issue.reason)}</td>
+                <td>
+                  <bdi
+                    style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}
+                  >
+                    {issue.values.length
+                      ? JSON.stringify(issue.values)
+                      : r.noOriginal}
+                  </bdi>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="actions">
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={current === 0}
+          onClick={() => setPage(current - 1)}
+        >
+          {r.previous}
+        </Button>
+        <span>
+          {r.range(
+            offset + 1,
+            Math.min(offset + 10, issues.length),
+            issues.length,
+          )}
+        </span>
+        <Button
+          variant="outline"
+          size="sm"
+          disabled={offset + 10 >= issues.length}
+          onClick={() => setPage(current + 1)}
+        >
+          {r.next}
+        </Button>
+      </div>
+    </details>
+  );
+}
+
 export default function App() {
   const { t, dir, say } = useI18n();
   const [auditEvents, setAuditEvents] = useState<AuditEvent[]>([]);
@@ -977,9 +1096,8 @@ export default function App() {
       },
     );
   }
-  const skippedRows = result
-    ? result.supplier.errors.length + result.ledger.errors.length
-    : 0;
+  const reading = readingStatus(result ? [result.supplier, result.ledger] : []);
+  const skippedRows = reading.unreadRows;
   // Every diagnostic stays in the export. On screen, drop the balance notes when
   // balances were never requested: repeating them three times was noise.
   // One source on both sides: the comparison is only a diagnostic.
@@ -1816,8 +1934,8 @@ export default function App() {
                     label={t.app.results.skippedRows}
                     value={String(skippedRows)}
                     hint={
-                      skippedRows
-                        ? t.app.results.skippedRowsHint
+                      reading.partial
+                        ? t.app.readingIssues.partialHint
                         : t.app.results.noSkippedRows
                     }
                   />
@@ -1830,8 +1948,26 @@ export default function App() {
                   ))}
                 </div>
               )}
-              {skippedRows > 0 && (
-                <div className="notice error" role="status">
+              {reading.partial && (
+                <div className="notice" role="status">
+                  <strong>{t.app.readingIssues.partial}</strong>
+                  <p>
+                    {t.app.readingIssues.counts(
+                      reading.processedRows,
+                      reading.unreadRows,
+                    )}
+                  </p>
+                  {reading.balanceIssues > 0 && (
+                    <p>
+                      {t.app.readingIssues.balanceCount(reading.balanceIssues)}
+                    </p>
+                  )}
+                  {reading.sourceIssues > 0 && (
+                    <p>
+                      {t.app.readingIssues.sourceCount(reading.sourceIssues)}
+                    </p>
+                  )}
+                  <p>{t.app.readingIssues.partialHint}</p>
                   {result.diagnostics
                     .filter((d) => d.code === 'SKIPPED_ROWS')
                     .map((d, i) => (
@@ -1839,6 +1975,18 @@ export default function App() {
                     ))}
                   <p>{t.app.results.skippedAdvice}</p>
                 </div>
+              )}
+              {reading.partial && files[0] && files[1] && (
+                <ReadingIssueList
+                  entries={[
+                    {
+                      source: result.supplier,
+                      file: files[0],
+                      side: 'supplier',
+                    },
+                    { source: result.ledger, file: files[1], side: 'ledger' },
+                  ]}
+                />
               )}
               {result.scope.coverageConfirmed && !result.balanceComparable && (
                 <div className="notice">{t.app.results.transactionsOnly}</div>
@@ -2238,9 +2386,11 @@ export default function App() {
                     <div className="actions">
                       <Button onClick={() => void download()} disabled={!!busy}>
                         <Download size={17} />
-                        {review.checked
-                          ? t.app.finish.download
-                          : t.app.finish.downloadDraft}
+                        {reading.partial
+                          ? t.app.finish.downloadPartial
+                          : review.checked
+                            ? t.app.finish.download
+                            : t.app.finish.downloadDraft}
                       </Button>
                       <Button
                         variant="outline"
@@ -2582,20 +2732,27 @@ function SourceConfiguration({
           />
         </div>
       ))}
+      {(['dateFormat', 'numberFormat'] as const)
+        .filter((field) => formats?.[field].status === 'invalid')
+        .map((field) => (
+          <p className="hint warn" role="status" key={field}>
+            {say(engineText(formats![field].reason))}
+          </p>
+        ))}
       {!!validation?.errors.length && (
         <div className="panel stack">
           <p className="hint warn" role="status">
-            {c.unreadRows(validation.errors.length)}
+            {t.app.readingIssues.partial}
           </p>
-          {validation.errors.slice(0, 8).map((e) => (
-            <p className="muted" key={`${e.row}-${e.message}`}>
-              {c.row(e.row)}
-              {say(engineText(e.message))}
-            </p>
-          ))}
-          {validation.errors.length > 8 && (
-            <p className="muted">{c.moreInDiagnostics}</p>
-          )}
+          <ReadingIssueList
+            entries={[
+              {
+                source: validation,
+                file,
+                side: side === 0 ? 'supplier' : 'ledger',
+              },
+            ]}
+          />
         </div>
       )}
       {missingColumns && !open && (

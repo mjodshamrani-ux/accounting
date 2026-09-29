@@ -1,0 +1,3171 @@
+{
+  "schema": 1,
+  "purpose": "Independent synthetic partial-reconciliation development contracts; not field evidence or a fresh holdout after execution",
+  "authoredAgainst": "b9917ce16040d082ef4e437cfb3689bab5074978",
+  "scope": {
+    "supplier": "Synthetic partial vendor",
+    "entity": "Synthetic partial buyer",
+    "account": "AP-PARTIAL",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-08-31",
+    "dateWindow": 0,
+    "confirmed": true,
+    "coverageConfirmed": false
+  },
+  "policy": "Only trusted complete-source identity-isolated rows may match; invalid and excluded competitors retain transitive influence; unknown reach blocks automatic proof; source-level ambiguity/completeness stays a refusal",
+  "cases": [
+    {
+      "id": "PR01",
+      "title": "Distinct known amount error allows two exact pairs",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR01-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A101",
+              "INV-A101",
+              "125.75",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-A101",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-A101"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A101",
+            "date": "2026-08-12",
+            "amountMinor": 12575,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-BAD101",
+              "INV-BAD101",
+              "12x.34",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-BAD101",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-BAD101"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-C101",
+              "INV-C101",
+              "-40.25",
+              "Credit Note",
+              "",
+              "",
+              "S-V-INV-C101",
+              "SAR",
+              "Credit Note",
+              "S-LOCAL-INV-C101"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-C101",
+            "date": "2026-08-12",
+            "amountMinor": -4025,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR01-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A101",
+              "INV-A101",
+              "125.75",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-A101",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-A101"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A101",
+            "date": "2026-08-12",
+            "amountMinor": 12575,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-BAD101",
+              "INV-BAD101",
+              "12.34",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-BAD101",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-BAD101"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-BAD101",
+            "date": "2026-08-12",
+            "amountMinor": 1234,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-C101",
+              "INV-C101",
+              "-40.25",
+              "Credit Note",
+              "",
+              "",
+              "L-V-INV-C101",
+              "SAR",
+              "Credit Note",
+              "L-LOCAL-INV-C101"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-C101",
+            "date": "2026-08-12",
+            "amountMinor": -4025,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 12575,
+          "ledgerTotalMinor": 12575
+        },
+        {
+          "supplierRows": [
+            4
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "supplierTotalMinor": -4025,
+          "ledgerTotalMinor": -4025
+        }
+      ],
+      "roundtrip": true
+    },
+    {
+      "id": "PR02",
+      "title": "Distinct known impossible ledger date allows two pairs",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR02-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A102",
+              "INV-A102",
+              "71.07",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-A102",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-A102"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A102",
+            "date": "2026-08-12",
+            "amountMinor": 7107,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-BAD102",
+              "INV-BAD102",
+              "20.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-BAD102",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-BAD102"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-BAD102",
+            "date": "2026-08-12",
+            "amountMinor": 2000,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-C102",
+              "INV-C102",
+              "0.99",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-C102",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-C102"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-C102",
+            "date": "2026-08-12",
+            "amountMinor": 99,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR02-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A102",
+              "INV-A102",
+              "71.07",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-A102",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-A102"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A102",
+            "date": "2026-08-12",
+            "amountMinor": 7107,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-02-30",
+              "DOC-INV-BAD102",
+              "INV-BAD102",
+              "20.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-BAD102",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-BAD102"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-C102",
+              "INV-C102",
+              "0.99",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-C102",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-C102"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-C102",
+            "date": "2026-08-12",
+            "amountMinor": 99,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 7107,
+          "ledgerTotalMinor": 7107
+        },
+        {
+          "supplierRows": [
+            4
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "supplierTotalMinor": 99,
+          "ledgerTotalMinor": 99
+        }
+      ]
+    },
+    {
+      "id": "PR03",
+      "title": "Independent supplier amount and ledger date failures",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR03-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A103",
+              "INV-A103",
+              "10.01",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-A103",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-A103"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A103",
+            "date": "2026-08-12",
+            "amountMinor": 1001,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B103",
+              "INV-B103",
+              "?",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-B103",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-B103"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-C103",
+              "INV-C103",
+              "9.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-C103",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-C103"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-C103",
+            "date": "2026-08-12",
+            "amountMinor": 900,
+            "currency": "SAR"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-D103",
+              "INV-D103",
+              "-5.05",
+              "Credit Note",
+              "",
+              "",
+              "S-V-INV-D103",
+              "SAR",
+              "Credit Note",
+              "S-LOCAL-INV-D103"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-D103",
+            "date": "2026-08-12",
+            "amountMinor": -505,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR03-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A103",
+              "INV-A103",
+              "10.01",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-A103",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-A103"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A103",
+            "date": "2026-08-12",
+            "amountMinor": 1001,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B103",
+              "INV-B103",
+              "8.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-B103",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-B103"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-B103",
+            "date": "2026-08-12",
+            "amountMinor": 800,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-04-31",
+              "DOC-INV-C103",
+              "INV-C103",
+              "9.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-C103",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-C103"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-D103",
+              "INV-D103",
+              "-5.05",
+              "Credit Note",
+              "",
+              "",
+              "L-V-INV-D103",
+              "SAR",
+              "Credit Note",
+              "L-LOCAL-INV-D103"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-D103",
+            "date": "2026-08-12",
+            "amountMinor": -505,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 1001,
+          "ledgerTotalMinor": 1001
+        },
+        {
+          "supplierRows": [
+            5
+          ],
+          "ledgerRows": [
+            5
+          ],
+          "supplierTotalMinor": -505,
+          "ledgerTotalMinor": -505
+        }
+      ]
+    },
+    {
+      "id": "PR04",
+      "title": "Invalid duplicate competes with a valid exact pair",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR04-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-DUP104",
+              "INV-DUP104",
+              "100.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-DUP104",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-DUP104"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-DUP104",
+            "date": "2026-08-12",
+            "amountMinor": 10000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-DUP104",
+              "INV-DUP104",
+              "unknown",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-DUP104",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-DUP104"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK104",
+              "INV-OK104",
+              "7.25",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-OK104",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-OK104"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK104",
+            "date": "2026-08-12",
+            "amountMinor": 725,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR04-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-DUP104",
+              "INV-DUP104",
+              "100.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-DUP104",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-DUP104"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-DUP104",
+            "date": "2026-08-12",
+            "amountMinor": 10000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK104",
+              "INV-OK104",
+              "7.25",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-OK104",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-OK104"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK104",
+            "date": "2026-08-12",
+            "amountMinor": 725,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            4
+          ],
+          "ledgerRows": [
+            3
+          ],
+          "supplierTotalMinor": 725,
+          "ledgerTotalMinor": 725
+        }
+      ]
+    },
+    {
+      "id": "PR05",
+      "title": "Normalized collision retains taint despite different literals",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR05-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV/105",
+              "INV/105",
+              "100.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV/105",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV/105"
+            ],
+            "disposition": "transaction",
+            "reference": "INV/105",
+            "date": "2026-08-12",
+            "amountMinor": 10000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK105",
+              "INV-OK105",
+              "8.25",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-OK105",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-OK105"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK105",
+            "date": "2026-08-12",
+            "amountMinor": 825,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR05-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV/105",
+              "INV/105",
+              "100.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV/105",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV/105"
+            ],
+            "disposition": "transaction",
+            "reference": "INV/105",
+            "date": "2026-08-12",
+            "amountMinor": 10000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-OTHER-105",
+              "INV-105",
+              "bad",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-105",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-105"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK105",
+              "INV-OK105",
+              "8.25",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-OK105",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-OK105"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK105",
+            "date": "2026-08-12",
+            "amountMinor": 825,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            3
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "supplierTotalMinor": 825,
+          "ledgerTotalMinor": 825
+        }
+      ]
+    },
+    {
+      "id": "PR06",
+      "title": "Unknown identity keeps readable analysis but blocks auto proof",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR06-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A106",
+              "INV-A106",
+              "21.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-A106",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-A106"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A106",
+            "date": "2026-08-12",
+            "amountMinor": 2100,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B106",
+              "INV-B106",
+              "22.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-B106",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-B106"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-B106",
+            "date": "2026-08-12",
+            "amountMinor": 2200,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "",
+              "",
+              "bad",
+              "Invoice",
+              "",
+              "",
+              "S-V-",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-"
+            ],
+            "disposition": "error"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR06-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A106",
+              "INV-A106",
+              "21.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-A106",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-A106"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A106",
+            "date": "2026-08-12",
+            "amountMinor": 2100,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B106",
+              "INV-B106",
+              "22.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-B106",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-B106"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-B106",
+            "date": "2026-08-12",
+            "amountMinor": 2200,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": []
+    },
+    {
+      "id": "PR07",
+      "title": "Unsafe identity is not a safe isolation boundary",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR07-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A107",
+              "INV-A107",
+              "23.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-A107",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-A107"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A107",
+            "date": "2026-08-12",
+            "amountMinor": 2300,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B107",
+              "INV-B107",
+              "24.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-B107",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-B107"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-B107",
+            "date": "2026-08-12",
+            "amountMinor": 2400,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR07-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A107",
+              "INV-A107",
+              "23.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-A107",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-A107"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A107",
+            "date": "2026-08-12",
+            "amountMinor": 2300,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B107",
+              "INV-B107",
+              "24.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-B107",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-B107"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-B107",
+            "date": "2026-08-12",
+            "amountMinor": 2400,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "",
+              "=A1",
+              "bad",
+              "Invoice",
+              "",
+              "",
+              "L-V-=A1",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-=A1"
+            ],
+            "disposition": "error"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": []
+    },
+    {
+      "id": "PR08",
+      "title": "Known KWD damaged geometry must not force dot/default scaling",
+      "kind": "operation-refusal",
+      "provenance": "Regression interaction from existing input-readiness-046 test, not a fresh holdout",
+      "supplier": {
+        "file": "fixtures/PR08-supplier.pdf",
+        "cuts": [
+          22,
+          47
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "amount": 2,
+          "description": -1,
+          "currencyColumn": -1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {},
+          "pdfReviewed": true
+        }
+      },
+      "ledger": {
+        "file": "fixtures/PR08-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "amount": 2,
+          "description": -1,
+          "currencyColumn": -1,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "comma",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "scope": {
+        "supplier": "Synthetic partial vendor",
+        "entity": "Synthetic partial buyer",
+        "account": "AP-PARTIAL",
+        "currency": "KWD",
+        "decimals": 3,
+        "cutoff": "2026-08-31",
+        "dateWindow": 0,
+        "confirmed": true,
+        "coverageConfirmed": false
+      },
+      "errorPattern": "صيغة|قراءة|FORMAT|layout|ambig",
+      "requiredAutoGroups": [],
+      "literalPdfRows": [
+        [
+          "Date",
+          "Reference",
+          "Amount"
+        ],
+        [
+          "2026-07-01",
+          "INV-REFERENCE-00046",
+          "100,50"
+        ],
+        [
+          "2026-07-02",
+          "INV-2",
+          "1,234"
+        ]
+      ]
+    },
+    {
+      "id": "PR09",
+      "title": "Late-page unread source cannot produce partial financial input",
+      "kind": "read-refusal",
+      "provenance": "Existing immutable large-PDF source completeness control",
+      "supplier": {
+        "file": "fixtures/PR09-broken-page-100.pdf",
+        "cuts": [
+          25,
+          49,
+          68
+        ]
+      },
+      "errorPattern": "100",
+      "requiredAutoGroups": []
+    },
+    {
+      "id": "PR10",
+      "title": "Disjoint complete bank group still completes beside an invalid invoice",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR10-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "S-DOC-A109",
+              "S-REF-A109",
+              "-40.00",
+              "Payment",
+              "BANK-109",
+              "",
+              "S-V-A109",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-A109"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-A109",
+            "date": "2026-08-12",
+            "amountMinor": -4000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "S-DOC-B109",
+              "S-REF-B109",
+              "-60.00",
+              "Payment",
+              "BANK-109",
+              "",
+              "S-V-B109",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-B109"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-B109",
+            "date": "2026-08-12",
+            "amountMinor": -6000,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-BAD109",
+              "INV-BAD109",
+              "bad",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-BAD109",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-BAD109"
+            ],
+            "disposition": "error"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR10-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "L-DOC-A109",
+              "L-REF-A109",
+              "-25.00",
+              "Payment",
+              "BANK-109",
+              "",
+              "L-V-A109",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-A109"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-A109",
+            "date": "2026-08-12",
+            "amountMinor": -2500,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "L-DOC-B109",
+              "L-REF-B109",
+              "-75.00",
+              "Payment",
+              "BANK-109",
+              "",
+              "L-V-B109",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-B109"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-B109",
+            "date": "2026-08-12",
+            "amountMinor": -7500,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-BAD109",
+              "INV-BAD109",
+              "37.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-BAD109",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-BAD109"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-BAD109",
+            "date": "2026-08-12",
+            "amountMinor": 3700,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "supplierTotalMinor": -10000,
+          "ledgerTotalMinor": -10000
+        }
+      ]
+    },
+    {
+      "id": "PR11",
+      "title": "Same-bank invalid member prevents an equal-sum subset",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR11-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "S-DOC-A110",
+              "S-REF-A110",
+              "-40.00",
+              "Payment",
+              "BANK-110",
+              "",
+              "S-V-A110",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-A110"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-A110",
+            "date": "2026-08-12",
+            "amountMinor": -4000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "S-DOC-B110",
+              "S-REF-B110",
+              "-60.00",
+              "Payment",
+              "BANK-110",
+              "",
+              "S-V-B110",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-B110"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-B110",
+            "date": "2026-08-12",
+            "amountMinor": -6000,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "S-DOC-BAD110",
+              "S-REF-BAD110",
+              "bad",
+              "Payment",
+              "BANK-110",
+              "",
+              "S-V-BAD110",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-BAD110"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK110",
+              "INV-OK110",
+              "13.13",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-OK110",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-OK110"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK110",
+            "date": "2026-08-12",
+            "amountMinor": 1313,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR11-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "L-DOC-A110",
+              "L-REF-A110",
+              "-25.00",
+              "Payment",
+              "BANK-110",
+              "",
+              "L-V-A110",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-A110"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-A110",
+            "date": "2026-08-12",
+            "amountMinor": -2500,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "L-DOC-B110",
+              "L-REF-B110",
+              "-75.00",
+              "Payment",
+              "BANK-110",
+              "",
+              "L-V-B110",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-B110"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-B110",
+            "date": "2026-08-12",
+            "amountMinor": -7500,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK110",
+              "INV-OK110",
+              "13.13",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-OK110",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-OK110"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK110",
+            "date": "2026-08-12",
+            "amountMinor": 1313,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            5
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "supplierTotalMinor": 1313,
+          "ledgerTotalMinor": 1313
+        }
+      ]
+    },
+    {
+      "id": "PR12",
+      "title": "Invalid cross-role connector taints both complete payment groups",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR12-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "S-DOC-A111",
+              "S-REF-A111",
+              "-40.00",
+              "Payment",
+              "BANK-A111",
+              "",
+              "S-V-A111",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-A111"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-A111",
+            "date": "2026-08-12",
+            "amountMinor": -4000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "S-DOC-B111",
+              "S-REF-B111",
+              "-60.00",
+              "Payment",
+              "BANK-A111",
+              "",
+              "S-V-B111",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-B111"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-B111",
+            "date": "2026-08-12",
+            "amountMinor": -6000,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "S-DOC-C111",
+              "S-REF-C111",
+              "-30.00",
+              "Payment",
+              "",
+              "RECEIPT-B111",
+              "S-V-C111",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-C111"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-C111",
+            "date": "2026-08-12",
+            "amountMinor": -3000,
+            "currency": "SAR"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-08-12",
+              "S-DOC-D111",
+              "S-REF-D111",
+              "-70.00",
+              "Payment",
+              "",
+              "RECEIPT-B111",
+              "S-V-D111",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-D111"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-D111",
+            "date": "2026-08-12",
+            "amountMinor": -7000,
+            "currency": "SAR"
+          },
+          {
+            "row": 6,
+            "values": [
+              "2026-08-12",
+              "S-DOC-BAD111",
+              "S-REF-BAD111",
+              "bad",
+              "Payment",
+              "BANK-A111",
+              "RECEIPT-B111",
+              "S-V-BAD111",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-BAD111"
+            ],
+            "disposition": "error"
+          },
+          {
+            "row": 7,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK111",
+              "INV-OK111",
+              "14.14",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-OK111",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-OK111"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK111",
+            "date": "2026-08-12",
+            "amountMinor": 1414,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR12-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "L-DOC-A111",
+              "L-REF-A111",
+              "-25.00",
+              "Payment",
+              "BANK-A111",
+              "",
+              "L-V-A111",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-A111"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-A111",
+            "date": "2026-08-12",
+            "amountMinor": -2500,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "L-DOC-B111",
+              "L-REF-B111",
+              "-75.00",
+              "Payment",
+              "BANK-A111",
+              "",
+              "L-V-B111",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-B111"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-B111",
+            "date": "2026-08-12",
+            "amountMinor": -7500,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "L-DOC-C111",
+              "L-REF-C111",
+              "-45.00",
+              "Payment",
+              "",
+              "RECEIPT-B111",
+              "L-V-C111",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-C111"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-C111",
+            "date": "2026-08-12",
+            "amountMinor": -4500,
+            "currency": "SAR"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-08-12",
+              "L-DOC-D111",
+              "L-REF-D111",
+              "-55.00",
+              "Payment",
+              "",
+              "RECEIPT-B111",
+              "L-V-D111",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-D111"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-D111",
+            "date": "2026-08-12",
+            "amountMinor": -5500,
+            "currency": "SAR"
+          },
+          {
+            "row": 6,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK111",
+              "INV-OK111",
+              "14.14",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-OK111",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-OK111"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK111",
+            "date": "2026-08-12",
+            "amountMinor": 1414,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            7
+          ],
+          "ledgerRows": [
+            6
+          ],
+          "supplierTotalMinor": 1414,
+          "ledgerTotalMinor": 1414
+        }
+      ]
+    },
+    {
+      "id": "PR13",
+      "title": "Manual exclusion cannot hide same-bank competitor",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR13-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {
+            "4": "Known unreadable row retained for investigation; not a nontransaction proof"
+          }
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "S-DOC-A112",
+              "S-REF-A112",
+              "-40.00",
+              "Payment",
+              "BANK-112",
+              "",
+              "S-V-A112",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-A112"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-A112",
+            "date": "2026-08-12",
+            "amountMinor": -4000,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "S-DOC-B112",
+              "S-REF-B112",
+              "-60.00",
+              "Payment",
+              "BANK-112",
+              "",
+              "S-V-B112",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-B112"
+            ],
+            "disposition": "transaction",
+            "reference": "S-REF-B112",
+            "date": "2026-08-12",
+            "amountMinor": -6000,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "S-DOC-BAD112",
+              "S-REF-BAD112",
+              "bad",
+              "Payment",
+              "BANK-112",
+              "",
+              "S-V-BAD112",
+              "SAR",
+              "Payment part",
+              "S-LOCAL-BAD112"
+            ],
+            "disposition": "excluded"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK112",
+              "INV-OK112",
+              "15.15",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-OK112",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-OK112"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK112",
+            "date": "2026-08-12",
+            "amountMinor": 1515,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR13-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "L-DOC-A112",
+              "L-REF-A112",
+              "-25.00",
+              "Payment",
+              "BANK-112",
+              "",
+              "L-V-A112",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-A112"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-A112",
+            "date": "2026-08-12",
+            "amountMinor": -2500,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "L-DOC-B112",
+              "L-REF-B112",
+              "-75.00",
+              "Payment",
+              "BANK-112",
+              "",
+              "L-V-B112",
+              "SAR",
+              "Payment part",
+              "L-LOCAL-B112"
+            ],
+            "disposition": "transaction",
+            "reference": "L-REF-B112",
+            "date": "2026-08-12",
+            "amountMinor": -7500,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-OK112",
+              "INV-OK112",
+              "15.15",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-OK112",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-OK112"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-OK112",
+            "date": "2026-08-12",
+            "amountMinor": 1515,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            5
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "supplierTotalMinor": 1515,
+          "ledgerTotalMinor": 1515
+        }
+      ]
+    },
+    {
+      "id": "PR14",
+      "title": "Leading-zero distinct identities survive repeated local record IDs",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR14-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-00113",
+              "INV-00113",
+              "16.16",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-00113",
+              "SAR",
+              "Invoice",
+              "ROW-7"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-00113",
+            "date": "2026-08-12",
+            "amountMinor": 1616,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-0113",
+              "INV-0113",
+              "17.17",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-0113",
+              "SAR",
+              "Invoice",
+              "ROW-7"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-0113",
+            "date": "2026-08-12",
+            "amountMinor": 1717,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-02-30",
+              "DOC-INV-BAD113",
+              "INV-BAD113",
+              "3.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-BAD113",
+              "SAR",
+              "Invoice",
+              "ROW-7"
+            ],
+            "disposition": "error"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR14-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-00113",
+              "INV-00113",
+              "16.16",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-00113",
+              "SAR",
+              "Invoice",
+              "ROW-7"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-00113",
+            "date": "2026-08-12",
+            "amountMinor": 1616,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-0113",
+              "INV-0113",
+              "17.17",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-0113",
+              "SAR",
+              "Invoice",
+              "ROW-7"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-0113",
+            "date": "2026-08-12",
+            "amountMinor": 1717,
+            "currency": "SAR"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-BAD113",
+              "INV-BAD113",
+              "3.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-BAD113",
+              "SAR",
+              "Invoice",
+              "ROW-7"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-BAD113",
+            "date": "2026-08-12",
+            "amountMinor": 300,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 1616,
+          "ledgerTotalMinor": 1616
+        },
+        {
+          "supplierRows": [
+            3
+          ],
+          "ledgerRows": [
+            3
+          ],
+          "supplierTotalMinor": 1717,
+          "ledgerTotalMinor": 1717
+        }
+      ]
+    },
+    {
+      "id": "PR15",
+      "title": "Bound DMY answer permits unaffected pair beside impossible date",
+      "kind": "partial",
+      "supplier": {
+        "file": "fixtures/PR15-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "03/04/2026",
+              "DOC-INV-A115",
+              "INV-A115",
+              "18.18",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-A115",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-A115"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A115",
+            "date": "2026-04-03",
+            "amountMinor": 1818,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "31/02/2026",
+              "DOC-INV-B115",
+              "INV-B115",
+              "9.00",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-B115",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-B115"
+            ],
+            "disposition": "error"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR15-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-04-03",
+              "DOC-INV-A115",
+              "INV-A115",
+              "18.18",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-A115",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-A115"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A115",
+            "date": "2026-04-03",
+            "amountMinor": 1818,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-02-28",
+              "DOC-INV-B115",
+              "INV-B115",
+              "9.00",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-B115",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-B115"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-B115",
+            "date": "2026-02-28",
+            "amountMinor": 900,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 1818,
+          "ledgerTotalMinor": 1818
+        }
+      ],
+      "dateChoice": {
+        "side": 0,
+        "value": "dmy",
+        "candidates": [
+          "dmy",
+          "mdy"
+        ]
+      },
+      "initialRefusalPattern": "صيغة|FORMAT|ambig"
+    },
+    {
+      "id": "PR16",
+      "title": "Contradictory valid locales cannot be reduced to local bad rows",
+      "kind": "operation-refusal",
+      "supplier": {
+        "file": "fixtures/PR16-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A116",
+              "INV-A116",
+              "10.50",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-A116",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-A116"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A116",
+            "date": "2026-08-12",
+            "amountMinor": 1050,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B116",
+              "INV-B116",
+              "20,50",
+              "Invoice",
+              "",
+              "",
+              "S-V-INV-B116",
+              "SAR",
+              "Invoice",
+              "S-LOCAL-INV-B116"
+            ],
+            "disposition": "unresolved-format"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/PR16-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "amount": 3,
+          "description": 9,
+          "currencyColumn": 8,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-A116",
+              "INV-A116",
+              "10.50",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-A116",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-A116"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-A116",
+            "date": "2026-08-12",
+            "amountMinor": 1050,
+            "currency": "SAR"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-08-12",
+              "DOC-INV-B116",
+              "INV-B116",
+              "20.50",
+              "Invoice",
+              "",
+              "",
+              "L-V-INV-B116",
+              "SAR",
+              "Invoice",
+              "L-LOCAL-INV-B116"
+            ],
+            "disposition": "transaction",
+            "reference": "INV-B116",
+            "date": "2026-08-12",
+            "amountMinor": 2050,
+            "currency": "SAR"
+          }
+        ],
+        "header": [
+          "Date",
+          "Document No",
+          "Reference",
+          "Amount",
+          "Document Type",
+          "Bank Reference",
+          "Receipt No",
+          "AP Voucher",
+          "Currency",
+          "Description",
+          "Source Record ID"
+        ]
+      },
+      "requiredAutoGroups": [],
+      "errorPattern": "صيغة|FORMAT|ambig"
+    }
+  ]
+}

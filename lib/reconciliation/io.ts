@@ -21,6 +21,7 @@ import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 // Kept for existing importers; the proof itself lives with the source boundary.
 export { verifyDirectionEvidence } from './source-preparation.ts';
 import { addCaseWorksheets, parsedSourceLink } from './case-workbook.ts';
+import { sourceReadingIssues } from './reading-issues.ts';
 // Admit only formats whose visible numeric meaning is understood. Native values
 // stay exact; unsupported display semantics require source review, never guessing.
 function transparentNumericFormat(format: string, value: number): boolean {
@@ -646,15 +647,60 @@ export async function exportWorkbook(
     });
     return sheet;
   };
+  const readingIssues = [
+    ...sourceReadingIssues(result.supplier, verifiedFiles[0], 'supplier'),
+    ...sourceReadingIssues(result.ledger, verifiedFiles[1], 'ledger'),
+  ];
   add(
     'Diagnostics',
     ['الرمز', 'التفسير', 'حركات المصدر'],
-    result.diagnostics.map((d) => [
-      d.code,
-      d.message,
-      d.transactionIds.join(' | '),
-    ]),
+    [
+      ...result.diagnostics.map((d) => [
+        d.code,
+        d.message,
+        d.transactionIds.join(' | '),
+      ]),
+      ...readingIssues.map((issue) => [
+        issue.kind === 'row'
+          ? 'SOURCE_ROW_READING_ERROR'
+          : issue.kind === 'balance'
+            ? 'BALANCE_READING_ERROR'
+            : 'SOURCE_READING_ERROR',
+        `${issue.side} | ${issue.file} | ${issue.sheet}${issue.row === null ? '' : ` | row ${issue.row}`}${issue.page === null ? '' : ` | PDF page ${issue.page}`} | ${issue.reason}`,
+        '',
+      ]),
+    ],
   );
+  if (readingIssues.length) {
+    const issues = add(
+      'Reading Issues',
+      [
+        'Side',
+        'Source File',
+        'Source Sheet',
+        'PDF Page',
+        'Source Row',
+        'Issue Scope',
+        'Reason',
+        'Original Values',
+      ],
+      readingIssues.map((issue) => [
+        issue.side,
+        issue.file,
+        issue.sheet,
+        issue.page,
+        issue.row,
+        issue.kind === 'row'
+          ? 'Row'
+          : issue.kind === 'balance'
+            ? 'Balance'
+            : 'Source',
+        issue.reason,
+        issue.values.length ? JSON.stringify(issue.values) : null,
+      ]),
+    );
+    issues.state = 'visible';
+  }
   const evidenceSheet = add(
     'Match Evidence',
     [
