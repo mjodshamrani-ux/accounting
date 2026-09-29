@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "appVersion": "0.4.12",
+  "engine": "0.3.20-experimental",
+  "liveUrl": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.12",
+  "workflowRunId": 36563695576,
+  "deploymentHead": "7f1278a27dbd90c8c84b6f13e49df9fd447f4e0d",
+  "officialArtifact": {
+    "artifactId": 11031665421,
+    "archiveDigest": "sha256:7bb0cca629073aa43947333e7e0da56f65577f3bdade1955e122cc27efdea08f",
+    "officialDigestVerified": true
+  },
+  "browserReport": {
+    "path": "audit/large-statements/browser/live-0_4_12/result.json",
+    "sha256": "9fc177b9e818f19ca6886ce2ce8bdb3dc78a56130586a53685b94d606183ea51",
+    "startedAt": "2026-09-29T11:56:32.327Z",
+    "finishedAt": "2026-09-29T11:56:48.863Z",
+    "checks": 12
+  },
+  "independentXmlReport": {
+    "path": "audit/large-statements/openxml-live-0_4_12.json",
+    "sha256": "3dea3108f725f30c91e956fb8577c4814116168fc5e90fd93e49592484c1e889",
+    "counts": {
+      "supplierTransactions": 2240,
+      "ledgerTransactions": 2240,
+      "requiredPairs": 2240,
+      "requiredPairsSatisfied": 2240,
+      "falseApprovedPairs": 0,
+      "missingPairs": 0,
+      "exactEvidenceMembers": 4480,
+      "parsedSupplierRows": 2450,
+      "parsedLedgerRows": 2241,
+      "pdfOrigins": 2450,
+      "excludedSupplierRows": 210,
+      "excludedLedgerRows": 1,
+      "totalMinorEachSide": 40779520,
+      "xmlPartsParsed": 30
+    }
+  },
+  "loadedCode": [
+    {
+      "url": "https://mjodshamrani-ux.github.io/accounting/assets/index-DVOU_KzH.css",
+      "path": "assets/index-DVOU_KzH.css",
+      "sha256": "48cef0d0a3f6a3d0728f240ff20ab81c83df81ffb62638fe69f51ab44303d623",
+      "matchesDist": true
+    },
+    {
+      "url": "https://mjodshamrani-ux.github.io/accounting/assets/index-CpSrr1xn.js",
+      "path": "assets/index-CpSrr1xn.js",
+      "sha256": "83aa8234ebef4f9ced5752a4d5ebeb5b7a233e0e6a9182ad83e3e3072864cd56",
+      "matchesDist": true
+    }
+  ],
+  "network": {
+    "observedRequests": 20,
+    "externalRequests": 0,
+    "nonGetRequests": 0,
+    "pageErrors": 0
+  },
+  "artifactFilesUnchanged": 27,
+  "manualChoices": [
+    {
+      "choice": "PDF column boundaries",
+      "inferredCuts": "21.5, 43.9667, 62.4",
+      "applied": [
+        25,
+        49,
+        68
+      ]
+    },
+    {
+      "choice": "Scope and PDF review",
+      "currency": "SAR",
+      "cutoff": "2026-08-31",
+      "pdfReviewed": true,
+      "note": "Explicit synthetic audit input; source IDs and totals are independently checked against the frozen oracle in exported output."
+    }
+  ],
+  "limitations": [
+    "Synthetic known-layout transaction checks; no field-data accuracy claim.",
+    "Closing-balance conflict remains disclosed; no balance completeness claim.",
+    "All JavaScript/CSS responses actually loaded in this run were verified; unrequested production assets were not fetched.",
+    "Artifact download and archive-digest verification were performed by the coordinating release task; this run independently compared its complete extracted manifest and every loaded code response."
+  ]
+}

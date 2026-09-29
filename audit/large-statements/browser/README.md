@@ -24,6 +24,14 @@ The independent Python standard-library verifier also passed against this run's 
 
 The added CI steps run the same browser script and independent verifier after the general browser suite, and preserve synthetic evidence even on failure. No extra service, API credential, system spreadsheet application, or Python package is required. The existing Playwright Chromium installation, Node dependencies and Python standard library suffice. The local focused run plus XML verification took approximately 14 seconds; the first CI run will establish Linux timing. Release-specific engine, frozen-source and layout assertions intentionally require maintenance when those contracts change.
 
+## Published 0.4.12
+
+`live-0_4_12/result.json` passed all 12 unchanged checks against `https://mjodshamrani-ux.github.io/accounting/?v=0.4.12` after successful deployment of `7f1278a27dbd90c8c84b6f13e49df9fd447f4e0d`. Its SHA-256 is `9fc177b9e818f19ca6886ce2ce8bdb3dc78a56130586a53685b94d606183ea51`. The authoritative comparison directory came from official Pages artifact `11031665421`, workflow run `36563695576`; its archive SHA-256 was verified as `7bb0cca629073aa43947333e7e0da56f65577f3bdade1955e122cc27efdea08f` by the coordinating release task.
+
+The live run independently matched the extracted artifact's complete manifest and every JavaScript/CSS response actually loaded. Production served `assets/index-CpSrr1xn.js` with SHA-256 `83aa8234ebef4f9ced5752a4d5ebeb5b7a233e0e6a9182ad83e3e3072864cd56` and `assets/index-DVOU_KzH.css` with SHA-256 `48cef0d0a3f6a3d0728f240ff20ab81c83df81ffb62638fe69f51ab44303d623`. All 20 requests were same-origin GET requests; there were no page errors. Unrequested production assets were not fetched.
+
+`../openxml-live-0_4_12.json` independently passed the live workbook's exact 2,240 pairs, 4,480 source evidence members, 2,450 PDF row origins, original cells, source hashes and exclusions. The 100-page recovery and navigation checks also passed. `live-0_4_12/provenance.json` links the official artifact, loaded hashes, browser report and XML report. The same manual boundaries, scope and PDF review choices described above apply.
+
 The first focused attempt, `candidate-920ace2/result.json`, is preserved. Its immediate assertion read the page-number draft before React's effect synchronized it after Previous; the captured screenshot already shows page 69 in both the table label and input. The harness now waits for the input to synchronize before asserting its value. No application changes were made for that harness correction.
 
 ## General browser harness regression
