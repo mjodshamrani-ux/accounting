@@ -7,15 +7,28 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
+import { createHash } from 'node:crypto';
 import { verifyPerformanceExport } from './verify-performance-export.mjs';
+const membershipChecker = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '../audit/export-design/check_membership.py',
+);
 const args = process.argv.slice(2),
   option = (key, fallback) =>
     args.find((x) => x.startsWith(key + '='))?.slice(key.length + 1) ??
     fallback;
 const dist = path.resolve(option('--dist', 'dist'));
 const output = path.resolve(option('--output', 'work/browser-performance-046'));
+const fixturesDir = path.resolve(option('--fixtures-dir', output));
+const prepareOnly = option('--prepare-only', 'no') === 'yes';
+const fixedClock = option('--fixed-clock', '');
+assert.ok(
+  !fixedClock || Number.isFinite(Date.parse(fixedClock)),
+  'invalid fixed clock',
+);
 const sizes = option('--sizes', '100,1000,5000,20000').split(',').map(Number);
 const formats = option('--formats', 'csv,xlsx').split(',');
 assert.ok(
@@ -27,6 +40,7 @@ assert.ok(
 assert.ok(formats.every((format) => ['csv', 'xlsx'].includes(format)));
 const shell = promisify(execFile);
 await mkdir(output, { recursive: true });
+if (prepareOnly) await mkdir(fixturesDir, { recursive: true });
 const header = [
   'Date',
   'Document No',
@@ -120,11 +134,18 @@ const prepared = [];
 for (const size of sizes)
   for (const format of formats) {
     const sources = fixtures(size),
-      paths = [];
+      paths = [],
+      sourceSha256 = [];
     for (const [side, source] of sources.entries()) {
-      const file = path.join(output, `synthetic-${size}-${side}.${format}`);
-      const bytes = await encode(source.table, format);
-      await writeFile(file, bytes);
+      const file = path.join(
+        fixturesDir,
+        `synthetic-${size}-${side}.${format}`,
+      );
+      if (prepareOnly || fixturesDir === output)
+        await writeFile(file, await encode(source.table, format));
+      const bytes = await readFile(file);
+      assert.ok(bytes.length > 0, `empty fixture ${file}`);
+      sourceSha256.push(createHash('sha256').update(bytes).digest('hex'));
       paths.push(file);
     }
     const totals = sources.map((source) =>
@@ -132,8 +153,20 @@ for (const size of sizes)
         .reduce((sum, row) => sum + BigInt(row[7].replace('.', '')), 0n)
         .toString(),
     );
-    prepared.push({ size, format, sources, paths, totals });
+    prepared.push({ size, format, sources, paths, totals, sourceSha256 });
   }
+if (prepareOnly) {
+  console.log(
+    JSON.stringify(
+      prepared.map(({ size, format, sourceSha256 }) => ({
+        size,
+        format,
+        sourceSha256,
+      })),
+    ),
+  );
+  process.exit(0);
+}
 const server = createServer(async (req, res) => {
   try {
     let rel = decodeURIComponent(
@@ -163,6 +196,8 @@ const report = {
   schema: 'tarasuf-browser-performance-2',
   createdAt: new Date().toISOString(),
   dist,
+  fixturesDir,
+  fixedClock: fixedClock || null,
   node: process.version,
   memoryMeasurement:
     'Sum of RSS for this Chromium instance via SystemInfo.getProcessInfo and ps, sampled every 500ms; includes browser, renderer and worker processes, may double-count shared pages. Excludes Node fixture creation and offline export verification.',
@@ -175,6 +210,7 @@ try {
     const entry = {
       rowsPerSide: run.size,
       format: run.format,
+      sourceSha256: run.sourceSha256,
       sourceBytes: await Promise.all(
         run.paths.map(async (p) => (await readFile(p)).length),
       ),
@@ -228,6 +264,19 @@ try {
         acceptDownloads: true,
       });
       context.setDefaultTimeout(55000);
+      if (fixedClock)
+        await context.addInitScript((iso) => {
+          const NativeDate = Date;
+          class FrozenDate extends NativeDate {
+            constructor(...values) {
+              super(...(values.length ? values : [iso]));
+            }
+            static now() {
+              return NativeDate.parse(iso);
+            }
+          }
+          window.Date = FrozenDate;
+        }, fixedClock);
       context.on('request', (r) => {
         const u = new URL(r.url());
         if (
@@ -276,11 +325,18 @@ try {
                     r.ledger.transactions.length,
                   ],
                   totals: [r.supplier.total, r.ledger.total],
-                  members: r.cases.reduce(
+                  allCaseMembers: r.cases.reduce(
                     (a, c) =>
                       a + c.supplierMembers.length + c.ledgerMembers.length,
                     0,
                   ),
+                  matchedEvidenceMembers: r.cases
+                    .filter((c) => c.status === 'Matched')
+                    .reduce(
+                      (a, c) =>
+                        a + c.supplierMembers.length + c.ledgerMembers.length,
+                      0,
+                    ),
                 });
               }
             });
@@ -370,7 +426,11 @@ try {
       entry.results = telemetry.completed;
       entry.maxMainThreadHeartbeatGapMs = Math.max(...telemetry.gaps);
       entry.downloadCompleted = true;
-      assert.equal(entry.results.at(-1).members, run.size * 2);
+      assert.equal(entry.results.at(-1).allCaseMembers, run.size * 2);
+      assert.equal(
+        entry.results.at(-1).matchedEvidenceMembers,
+        (run.size * 16) / 10,
+      );
       assert.deepEqual(entry.results.at(-1).sourceRows, [run.size, run.size]);
       const expectedGroups =
         (Number(option('--expected-groups-per-block', '4')) * run.size) / 10;
@@ -450,6 +510,23 @@ try {
           run.totals,
         );
         entry.independentExportSourceCheck = true;
+        const membership = async (file) => {
+          const { stdout } = await shell(
+            'python3',
+            [
+              membershipChecker,
+              file,
+              `--rows=${run.size}`,
+              `--format=${run.format}`,
+            ],
+            { maxBuffer: 1024 * 1024 },
+          );
+          const result = JSON.parse(stdout);
+          assert.equal(result.verified, true);
+          return result;
+        };
+        entry.independentMembershipDetails = await membership(downloadPath);
+        entry.independentExportMembershipCheck = true;
         if (entry.cancelAndExportRecovery) {
           await verifyPerformanceExport(
             await readFile(path.join(output, 'cancel-recovery-20000.xlsx')),
@@ -457,6 +534,10 @@ try {
             run.totals,
           );
           entry.independentRecoveryExportCheck = true;
+          entry.independentRecoveryMembershipDetails = await membership(
+            path.join(output, 'cancel-recovery-20000.xlsx'),
+          );
+          entry.independentRecoveryMembershipCheck = true;
         }
       } catch (e) {
         entry.independentExportSourceCheck = false;
@@ -469,9 +550,11 @@ try {
       entry.downloadCompleted &&
       entry.browserChecksPassed &&
       entry.independentExportSourceCheck === true &&
+      entry.independentExportMembershipCheck === true &&
       (!entry.lifecycleRequired ||
         (entry.cancelAndExportRecovery === true &&
-          entry.independentRecoveryExportCheck === true)) &&
+          entry.independentRecoveryExportCheck === true &&
+          entry.independentRecoveryMembershipCheck === true)) &&
       !entry.error &&
       !entry.exportError &&
       entry.networkViolations.length === 0 &&

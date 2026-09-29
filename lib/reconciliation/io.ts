@@ -982,7 +982,9 @@ export async function exportWorkbook(
     ],
   );
   measured('exportWorkbookConstructionMs');
-  const data = await book.xlsx.writeBuffer();
+  const data = await book.xlsx.writeBuffer({
+    zip: { compression: 'DEFLATE', compressionOptions: { level: 3 } },
+  });
   measured('exportSerializationMs');
   return new Uint8Array(data).slice().buffer;
 }

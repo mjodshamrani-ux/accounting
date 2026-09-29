@@ -1,0 +1,131 @@
+{
+  "schema": "tarasuf-browser-performance-2",
+  "createdAt": "2026-09-29T15:15:22.073Z",
+  "dist": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/source-baseline/dist",
+  "fixturesDir": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-inputs",
+  "fixedClock": "2026-07-31T12:00:00.000Z",
+  "node": "v24.19.0",
+  "memoryMeasurement": "Sum of RSS for this Chromium instance via SystemInfo.getProcessInfo and ps, sampled every 500ms; includes browser, renderer and worker processes, may double-count shared pages. Excludes Node fixture creation and offline export verification.",
+  "timingDefinition": "Files generated before measurement. UI upload/comparison/export wall time. Worker action timings include serialization and dispatch. Reconciliation includes normalization plus matching; export includes original re-read/recomputation, workbook construction and ZIP serialization.",
+  "runs": [
+    {
+      "rowsPerSide": 20000,
+      "format": "xlsx",
+      "sourceSha256": [
+        "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+        "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+      ],
+      "sourceBytes": [
+        671475,
+        667895
+      ],
+      "stages": {
+        "upload0Ms": 1311.747375,
+        "upload1Ms": 1507.6637090000002,
+        "reconcileAndReviewMs": 2187.288375,
+        "prepareExportScreenMs": 911.9276659999996,
+        "exportToDownloadMs": 10526.061040999999,
+        "totalUiMs": 16532.253959
+      },
+      "workerActions": [
+        {
+          "action": "ready",
+          "ms": 88.69999998807907,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "read",
+          "ms": 964.7000000029802,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "read",
+          "ms": 900.5999999940395,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "reconcile",
+          "ms": 1507,
+          "ok": true,
+          "timings": {
+            "normalizePairMs": 1183.4000000059605,
+            "matchingMs": 189.09999999403954
+          }
+        },
+        {
+          "action": "export",
+          "ms": 9085.5,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1708.0999999940395,
+            "exportRevalidationMs": 1498.5,
+            "exportWorkbookConstructionMs": 452.80000001192093,
+            "exportSerializationMs": 4848.79999999702
+          }
+        }
+      ],
+      "networkViolations": [],
+      "errors": [],
+      "peakChromiumRssBytes": 2096971776,
+      "downloadCompleted": true,
+      "browserChecksPassed": true,
+      "lifecycleRequired": true,
+      "completed": true,
+      "results": [
+        {
+          "matches": 10000,
+          "groups": 8000,
+          "sourceRows": [
+            20000,
+            20000
+          ],
+          "totals": [
+            2637800000,
+            2637800000
+          ],
+          "allCaseMembers": 40000,
+          "matchedEvidenceMembers": 32000
+        }
+      ],
+      "maxMainThreadHeartbeatGapMs": 625.5,
+      "peakBeforeLifecycleRssBytes": 2096971776,
+      "cancelAndExportRecovery": true,
+      "peakIncludingLifecycleRssBytes": 2213478400,
+      "independentExportDetails": {
+        "sourceRows": [
+          20000,
+          20000
+        ],
+        "amountsReferencesAndDates": true
+      },
+      "independentExportSourceCheck": true,
+      "independentMembershipDetails": {
+        "allCaseMembers": 40000,
+        "format": "xlsx",
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "needsReviewMembers": 8000,
+        "rowsPerSide": 20000,
+        "verified": true
+      },
+      "independentExportMembershipCheck": true,
+      "independentRecoveryExportCheck": true,
+      "independentRecoveryMembershipDetails": {
+        "allCaseMembers": 40000,
+        "format": "xlsx",
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "needsReviewMembers": 8000,
+        "rowsPerSide": 20000,
+        "verified": true
+      },
+      "independentRecoveryMembershipCheck": true
+    }
+  ],
+  "browser": "151.0.7922.34"
+}
