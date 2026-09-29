@@ -398,3 +398,48 @@ for (const font of ['Helvetica', 'Courier'] as const) {
     );
   });
 }
+
+test('manual PDF page-title exclusion cannot disguise an unproved page counter', async () => {
+  const original = wrappedHeaderPdf([
+    movements.slice(0, 2),
+    movements.slice(2),
+  ]);
+  const altered = new TextEncoder().encode(
+    new TextDecoder()
+      .decode(original)
+      .replace('Synthetic AP report 2', 'Synthetic AP report 9'),
+  ).buffer;
+  const ledger = await readFile('synthetic-page-title.pdf', altered, [], true);
+  const selected = {
+    ...mapping(),
+    excluded: { '5': 'Reviewed title', '6': 'Reviewed header' },
+  };
+  const source = normalizeSource(ledger, selected, scope, 'ledger');
+  assert.equal(source.excluded.find((r) => r.row === 5)!.kind, 'manual');
+  assert.equal(source.excluded.find((r) => r.row === 5)!.isolation, undefined);
+  assert.equal(source.excluded.find((r) => r.row === 6)!.kind, 'non-movement');
+  assert.equal(
+    source.excluded.find((r) => r.row === 6)!.reason,
+    'Reviewed header',
+  );
+  const supplier = await readFile(
+    'synthetic-supplier.csv',
+    new TextEncoder().encode(
+      'Date,Reference,Amount\n03-Apr-2026,SYN-I17,125.75\n08-Apr-2026,SYN-C18,-25.50\n19-Apr-2026,SYN-I19,300.10',
+    ).buffer,
+  );
+  const result = compare(
+    normalizeSource(
+      supplier,
+      { ...defaultMapping(), date: 0, reference: 1, amount: 2 },
+      scope,
+      'supplier',
+    ),
+    source,
+    scope,
+  );
+  assert.equal(result.matches.length, 0);
+  assert.ok(
+    result.diagnostics.some((d) => d.code === 'EXCLUDED_MOVEMENT_MEMBERSHIP'),
+  );
+});

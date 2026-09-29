@@ -1,0 +1,11 @@
+import { readFile } from './lib/reconciliation/io.ts';
+import { selectImportMapping } from './lib/reconciliation/import-selection.ts';
+import { reconcileSupplierStatement } from './lib/reconciliation/supplier-reconciliation.ts';
+import { writeFile } from 'node:fs/promises';
+const enc=s=>new TextEncoder().encode(s).buffer;
+const supplier=await readFile('supplier.csv',enc('Date,Document No,Amount\n2026-07-16,PAY-44,-350\n2026-07-16,PAY-44,-350'));
+const ledger=await readFile('ledger.csv',enc('Date,Document No,Amount\n2026-07-16,PAY-44,-350'));
+const a=selectImportMapping(supplier,'supplier').mapping,b=selectImportMapping(ledger,'ledger').mapping;
+a.excluded={'3':'Reviewer excluded competing source row'};
+const {result}=reconcileSupplierStatement({files:[supplier,ledger],mappings:[a,b],scope:{supplier:'Synthetic supplier',entity:'Synthetic buyer',account:'AP-714',currency:'SAR',decimals:2,cutoff:'2026-07-31',dateWindow:3,confirmed:true,coverageConfirmed:false}});
+await writeFile('work/layered-headers/r13-baseline.json',JSON.stringify({schema:'tarasuf-f02-r13-baseline-1',revision:'4498b25254b1c1b8da4d5415cd9b3113a71f8799',note:'Original unchanged engine reproduced via native plain CSV; existing 1:1 guard gap, newly exposed by layered-header support',matches:result.cases.filter(c=>c.status==='Matched').map(c=>({rule:c.matchingRule,supplierRows:c.supplierMembers.map(t=>t.row),ledgerRows:c.ledgerMembers.map(t=>t.row)})),excludedSupplierRows:result.supplier.excluded.filter(e=>e.row===3)},null,2));

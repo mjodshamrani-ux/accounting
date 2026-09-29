@@ -1,3 +1,8 @@
+import {
+  headerLabels,
+  headerCellIssues,
+  layeredHeaderView,
+} from './header-view.ts';
 import { ENGINE_VERSION } from './types.ts';
 import { assertSourceFile } from './protocol.ts';
 import type { Mapping, SheetData, SourceFile } from './types.ts';
@@ -133,7 +138,9 @@ function columnEvidence(
     if (i > mapping.header && mapping.excluded[String(row)]?.trim()) continue;
     const messages = [
       ...(sheet.rowIssues?.[String(row)] ?? []),
-      ...cellMessages(sheet, row, index + 1, formulaRows),
+      ...(i === mapping.header && layeredHeaderView(sheet, mapping.header)
+        ? headerCellIssues(sheet, mapping.header, index)
+        : cellMessages(sheet, row, index + 1, formulaRows)),
       ...(hiddenRows.has(row) ? ['صف مخفي في المصدر.'] : []),
     ];
     if (messages.length) {
@@ -181,7 +188,7 @@ export function buildImportProposalContext(
       !record(mapping.excluded)
     )
       return null;
-    const header = sheet.rows[mapping.header];
+    const header = headerLabels(sheet, mapping.header);
     const hiddenRows = new Set(sheet.hiddenRows);
     const formulaRows = new Set(sheet.formulaRows);
     if (

@@ -1,3 +1,4 @@
+import { headerLabels, headerCellIssues } from './header-view.ts';
 import {
   parseDate,
   parseMoney,
@@ -121,7 +122,7 @@ export function extractStatementMetadata(
     mapping.header >= sheet.rows.length
   )
     return result;
-  const headers = sheet.rows[mapping.header];
+  const headers = headerLabels(sheet, mapping.header);
   const hidden = new Set(sheet.hiddenRows);
   const formulaRows = new Set(sheet.formulaRows);
   const ref = (
@@ -148,7 +149,11 @@ export function extractStatementMetadata(
     options: { metadata?: boolean; formula?: boolean; merged?: boolean } = {},
   ) =>
     rowSafe(row, options.metadata) &&
-    !(sheet.cellIssues?.[`${row + 1}:${column + 1}`] ?? []).some(
+    !(
+      row === mapping.header
+        ? headerCellIssues(sheet, mapping.header, column)
+        : (sheet.cellIssues?.[`${row + 1}:${column + 1}`] ?? [])
+    ).some(
       (issue) =>
         !(options.formula && formulaIssue(issue)) &&
         !(options.merged && mergedIssue(issue)),

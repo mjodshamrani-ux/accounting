@@ -179,7 +179,7 @@ def load_contract(case_id, browser_oracle):
     return case, provenance
 
 
-def verify(filename, case_id, require_reviewed, browser_oracle, observations):
+def verify(filename, case_id, require_reviewed, browser_oracle, observations, expected_engine="0.3.21-experimental"):
     case, source_provenance = load_contract(case_id, browser_oracle)
     book = Workbook(filename)
     facts = {}
@@ -263,7 +263,7 @@ def verify(filename, case_id, require_reviewed, browser_oracle, observations):
     summary_observation = check_summary(book, subtotal, invalid, len(facts), require_reviewed)
     observations["partialSummaryAndReview"] = summary_observation
     metadata = book.fields("Export Metadata")
-    text(metadata["Engine version"], "0.3.21-experimental")
+    text(metadata["Engine version"], expected_engine)
     for side in ("supplier", "ledger"):
         text(metadata[side.title() + " SHA-256"], sha(case[side]["sourcePath"]))
     observations["originalSourceHashBinding"] = {"passed": True, "sourceProvenance": source_provenance}
@@ -312,7 +312,7 @@ def verify(filename, case_id, require_reviewed, browser_oracle, observations):
     need(seen_cases == set(cases), "Match/evidence case sets differ")
 
     metadata = book.fields("Export Metadata")
-    text(metadata["Engine version"], "0.3.21-experimental")
+    text(metadata["Engine version"], expected_engine)
     for side in ("supplier", "ledger"):
         text(metadata[side.title() + " SHA-256"], sha(case[side]["sourcePath"]))
     return {"passed": True, "contract": case["id"], "requiredPairs": len(required), "requiredPairsSatisfied": len(actual),
@@ -375,6 +375,7 @@ def main():
     parser.add_argument("--case", default="PR01")
     parser.add_argument("--browser-oracle", type=Path, help="The separately authored 13-error browser oracle.json")
     parser.add_argument("--require-reviewed", action="store_true")
+    parser.add_argument("--expected-engine", default="0.3.21-experimental", help="Exact candidate release version; frozen financial expectations stay unchanged")
     args = parser.parse_args()
     need(not args.out.exists(), "Refusing to overwrite an existing result")
     result = {"checkerSha256": sha(__file__), "observedAtUtc": dt.datetime.now(dt.timezone.utc).isoformat(), "passed": False}
@@ -382,7 +383,7 @@ def main():
         result["frozenBefore"] = frozen()
         result["workbookSha256"] = sha(args.xlsx)
         result["observations"] = {}
-        result.update(verify(args.xlsx, args.case, args.require_reviewed, args.browser_oracle, result["observations"]))
+        result.update(verify(args.xlsx, args.case, args.require_reviewed, args.browser_oracle, result["observations"], args.expected_engine))
         load_contract(args.case, args.browser_oracle)  # Check original source hashes again.
         result["frozenAfter"] = frozen()
         need(result["workbookSha256"] == sha(args.xlsx), "Workbook changed during verification")

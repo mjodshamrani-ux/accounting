@@ -411,7 +411,7 @@ try {
   const sessionPath = path.join(out, 'partial-session.json');
   await (await saved).saveAs(sessionPath);
   const session = JSON.parse(await readFile(sessionPath, 'utf8'));
-  assert.equal(session.engine, '0.3.21-experimental');
+  assert.equal(session.engine, '0.3.22-experimental');
   report.engine = session.engine;
   await active.context.close();
   report.stage = 'restore-partial';

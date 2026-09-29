@@ -1,3 +1,4 @@
+import { headerLabels, headerCellIssues } from './header-view.ts';
 import {
   latinDigits,
   parseDate,
@@ -333,8 +334,8 @@ export function inferScopeSuggestions(
         ? [mapping.amount]
         : [mapping.debit, mapping.credit];
     for (const column of new Set(amountColumns.filter((index) => index >= 0))) {
-      if (!trustedCell(sheet, mapping.header, column)) continue;
-      const raw = sheet.rows[mapping.header]?.[column] ?? '';
+      if (headerCellIssues(sheet, mapping.header, column).length) continue;
+      const raw = headerLabels(sheet, mapping.header)?.[column] ?? '';
       const currencyLabel =
         /^(?:amount|signed amount|outstanding|remaining|debit|credit|المبلغ|المتبقي|الرصيد المتبقي|مدين|دائن)\s*\([A-Z]{3}\)$/i;
       const match = /\(([A-Z]{3})\)/i.exec(normalizeHeaderLabel(raw));
@@ -363,7 +364,7 @@ export function inferScopeSuggestions(
         mapping.excluded[String(row + 1)]?.trim()
       )
         continue;
-      const header = sheet.rows[mapping.header];
+      const header = headerLabels(sheet, mapping.header);
       const isRepeatedHeader =
         cells.length === header.length &&
         cells.every((cell, i) => cell.trim() === header[i].trim());
@@ -415,7 +416,7 @@ export function inferScopeSuggestions(
             'currency',
             code,
             raw,
-            sheet.rows[mapping.header]?.[column] ?? 'Currency',
+            headerLabels(sheet, mapping.header)?.[column] ?? 'Currency',
             row,
             column,
             'column',

@@ -1,3 +1,4 @@
+import { headerLabels, headerCellIssues } from './header-view.ts';
 import { normalizeReference } from './core.ts';
 import { usableDiscriminator } from './document-pairs.ts';
 import { summaryLabel } from './row-labels.ts';
@@ -51,7 +52,7 @@ export function safeReferenceEnvelope(
   rn: number,
   references: References,
 ): SourceReadError['isolation'] {
-  const header = sheet.rows[mapping.header];
+  const header = headerLabels(sheet, mapping.header);
   if (
     !header ||
     sheet.rowIssues?.[rn]?.length ||
@@ -93,10 +94,9 @@ export function safeReferenceEnvelope(
     !!references.paymentIdentityFields.length;
   if (!roleProven) return;
   if (mapping.reference >= 0) {
-    for (const key of [
-      `${rn}:${mapping.reference + 1}`,
-      `${mapping.header + 1}:${mapping.reference + 1}`,
-    ])
+    if (headerCellIssues(sheet, mapping.header, mapping.reference).length)
+      return;
+    for (const key of [`${rn}:${mapping.reference + 1}`])
       if (
         sheet.cellIssues?.[key]?.length ||
         sheet.referenceIssues?.[key]?.length
@@ -121,19 +121,35 @@ export function balanceOnlyError(error: SourceReadError): boolean {
 
 /** Scope observations must include failed movements: a bad amount cannot hide
  * a second vendor/account/currency. These are row addresses, not transactions. */
+export function unverifiedExclusions(source: SourceResult) {
+  return source.excluded.filter(
+    (row) =>
+      row.kind !== 'non-movement' &&
+      row.kind !== 'outside-period' &&
+      (row.kind === 'manual' || row.values.some((value) => value.trim())),
+  );
+}
+
 export function sourceRowsForScope(source: SourceResult) {
   const rows = new Map<number, { row: number; sourcePage?: number }>();
-  for (const row of [...source.transactions, ...source.errors])
+  for (const row of [
+    ...source.transactions,
+    ...source.errors,
+    ...unverifiedExclusions(source),
+  ])
     if (row.row > 0)
       rows.set(row.row, {
         row: row.row,
-        ...(row.sourcePage ? { sourcePage: row.sourcePage } : {}),
+        ...('sourcePage' in row && row.sourcePage
+          ? { sourcePage: row.sourcePage }
+          : {}),
       });
   return [...rows.values()];
 }
 
 /** Propagate taint through all original identity memberships, before manual,
- * rejected, financial or date filtering. A failed row never becomes a
+ * rejected, financial or date filtering, including excluded possible movements.
+ * A failed or excluded row never becomes a
  * Transaction, contributes money to a total, or supplies matching authority. */
 export function localizedReadErrors(
   supplier: SourceResult,
@@ -142,16 +158,42 @@ export function localizedReadErrors(
   const errors = [...supplier.errors, ...ledger.errors].filter(
     (error) => !balanceOnlyError(error),
   );
-  const wildcard = errors.some(
-    (error) =>
-      error.row <= 0 ||
-      error.isolation?.rule !== 'SAFE_REFERENCE_ENVELOPE_V1' ||
-      !Array.isArray(error.isolation.keys) ||
-      !error.isolation.keys.length ||
-      error.isolation.keys.some(
-        (key) => typeof key !== 'string' || !/^identity:.+$/u.test(key),
-      ),
+  const exclusions = [...supplier.excluded, ...ledger.excluded].filter(
+    (row) =>
+      row.kind !== 'non-movement' &&
+      (row.kind === 'manual' || row.values.some((value) => value.trim())),
   );
+  const validIsolation = (isolation: SourceReadError['isolation']) =>
+    isolation?.rule === 'SAFE_REFERENCE_ENVELOPE_V1' &&
+    Array.isArray(isolation.keys) &&
+    isolation.keys.length > 0 &&
+    isolation.keys.every(
+      (key) => typeof key === 'string' && /^identity:.+$/u.test(key),
+    );
+  // Older direct callers have no classification. Keep every literal as negative
+  // evidence; no reason string or imported certificate grants a structural exemption.
+  const excludedKeys = exclusions.map((row) => [
+    ...new Set([
+      ...(validIsolation(row.isolation) ? row.isolation!.keys : []),
+      ...row.values.flatMap((value) =>
+        referenceEnvelopeKeys({ reference: value }),
+      ),
+    ]),
+  ]);
+  const wildcard =
+    exclusions.some(
+      (row) => row.kind === 'manual' && !validIsolation(row.isolation),
+    ) ||
+    errors.some(
+      (error) =>
+        error.row <= 0 ||
+        error.isolation?.rule !== 'SAFE_REFERENCE_ENVELOPE_V1' ||
+        !Array.isArray(error.isolation.keys) ||
+        !error.isolation.keys.length ||
+        error.isolation.keys.some(
+          (key) => typeof key !== 'string' || !/^identity:.+$/u.test(key),
+        ),
+    );
   const taintedIds = new Set<string>();
   if (wildcard)
     return {
@@ -159,7 +201,7 @@ export function localizedReadErrors(
       taintedIds,
       canMatch: (_rows: readonly Transaction[]) => false,
     };
-  if (!errors.length)
+  if (!errors.length && !exclusions.length)
     return {
       wildcard,
       taintedIds,
@@ -169,6 +211,7 @@ export function localizedReadErrors(
   const nodes = [
     ...rows.map(referenceEnvelopeKeys),
     ...errors.map((error) => error.isolation!.keys),
+    ...excludedKeys,
   ];
   const byKey = new Map<string, number[]>();
   nodes.forEach((keys, node) => {
@@ -178,7 +221,10 @@ export function localizedReadErrors(
       byKey.set(key, members);
     }
   });
-  const queue = errors.map((_, i) => rows.length + i);
+  const queue = Array.from(
+    { length: errors.length + exclusions.length },
+    (_, i) => rows.length + i,
+  );
   const visited = new Set(queue);
   const expanded = new Set<string>();
   for (let i = 0; i < queue.length; i++) {

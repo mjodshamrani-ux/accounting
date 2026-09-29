@@ -1,3 +1,4 @@
+import { headerLabels } from './header-view.ts';
 import {
   parseDate,
   parseMoney,
@@ -167,7 +168,7 @@ export function suggestFormats(
   let amountProblem: string | undefined;
   const formulaRows = new Set(sheet.formulaRows);
   const hiddenRows = new Set(sheet.hiddenRows);
-  const header = sheet.rows[mapping.header];
+  const header = headerLabels(sheet, mapping.header);
   // normalizeSource excludes a verbatim repeated PDF page banner; inference must
   // use the same set, or the banner it reads into the date/amount column turns a
   // provable statement into an unprovable one and pushes a default format on it.

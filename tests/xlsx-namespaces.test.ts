@@ -56,6 +56,27 @@ async function prefixed(original: ArrayBuffer, relationshipPrefix = 'rel') {
   return zip.generateAsync({ type: 'arraybuffer', compression: 'DEFLATE' });
 }
 
+function assertEquivalentSheets(
+  a: import('../lib/reconciliation/types.ts').SourceFile,
+  b: import('../lib/reconciliation/types.ts').SourceFile,
+) {
+  const parsed = (file: typeof a) =>
+    file.sheets.map(({ xlsxHeaders, ...sheet }) => {
+      assert.equal(
+        xlsxHeaders?.sourceHash,
+        file.sha256,
+        'geometry binds this source, not the equivalent re-encoded file',
+      );
+      return {
+        ...sheet,
+        xlsxHeaders: xlsxHeaders
+          ? { ...xlsxHeaders, sourceHash: undefined }
+          : undefined,
+      };
+    });
+  assert.deepEqual(parsed(a), parsed(b));
+}
+
 test('prefixed SpreadsheetML workbook, styles, shared strings, worksheets and relationship parts are accepted without changing values', async () => {
   const original = await synthetic();
   const namespaced = await prefixed(original);
@@ -70,7 +91,7 @@ test('prefixed SpreadsheetML workbook, styles, shared strings, worksheets and re
     name: 'synthetic.xlsx',
     buffer: namespaced,
   });
-  assert.deepEqual(source.sheets, plain.sheets);
+  assertEquivalentSheets(source, plain);
   assert.deepEqual(
     new Uint8Array(source.original!),
     new Uint8Array(namespaced),
@@ -109,7 +130,7 @@ test('namespace conversion retains formulas and dangerous sign formats as review
   const plainBytes = new Uint8Array(await workbook.xlsx.writeBuffer()).buffer;
   const original = await readFile('synthetic.xlsx', plainBytes);
   const source = await readFile('synthetic.xlsx', await prefixed(plainBytes));
-  assert.deepEqual(source.sheets, original.sheets);
+  assertEquivalentSheets(source, original);
   const mapping = selectImportMapping(source, 'supplier').mapping;
   const result = normalizeSource(source, mapping, scope, 'supplier');
   assert.deepEqual(
@@ -175,5 +196,5 @@ test('namespaced and canonical Excel reads are independent in either order and a
     readFile('synthetic.xlsx', namespaced),
     readFile('synthetic.xlsx', original),
   ]);
-  assert.deepEqual(a.sheets, b.sheets);
+  assertEquivalentSheets(a, b);
 });

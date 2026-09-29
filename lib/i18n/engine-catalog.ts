@@ -25,6 +25,18 @@ export const engineCatalog: Record<string, string> = {
     'All issues and original values are available in the reading issue details and the workpaper.',
   '${…}: توجد ${…} مشكلة قراءة محفوظة للمراجعة. المصالحة الكاملة للأرصدة غير متحققة. ${…}':
     '{e0}: {1} reading issues are retained for review. A complete balance reconciliation has not been established. {t2}',
+  'يوجد صف مستبعد لم تتضح هويته؛ أُوقف الاعتماد الآلي حتى تتضح القراءة.':
+    'An excluded row has no verified identity. Automatic approval is paused until its reading is clarified.',
+  'الصفوف المستبعدة محفوظة كدليل منافسة؛ لا تُعتمد آليًا الحركات التي تتداخل هويتها معها.':
+    'Excluded rows remain competing evidence. Transactions with overlapping identities are not approved automatically.',
+  '${…}: ${…} لم يُثبت اكتمال تسوية الأرصدة.':
+    '{e0}: {t1} Full balance reconciliation has not been established.',
+  '${…}: توجد هوية متداخلة مع صف خارج الفترة؛ يلزم مراجعتها قبل اعتماد المطابقة.':
+    '{e0}: an identity overlaps a row outside the period. Review it before approving the match.',
+  'تتداخل هوية الاقتراح مع صف مستبعد أو غير مقروء؛ راجع اكتمال المجموعة أولًا.':
+    'The proposal overlaps an excluded or unread row. Review the complete group first.',
+  'لم تكتمل قراءة هوية المجموعة في المصدر؛ راجع الصفوف المستبعدة وملاحظات القراءة قبل اعتماد الربط.':
+    'Source membership has not been fully verified. Review excluded rows and reading issues before approving the link.',
   'أُوقفت المطابقات الآلية لأن نطاق تأثير أحد الأخطاء غير معلوم.':
     'Automatic matches were stopped because the scope of one error is unknown.',
   'يمكن اعتماد الحركات المثبتة خارج المراجع المتأثرة فقط؛ بقيت الحركات المتأثرة للمراجعة.':
@@ -673,6 +685,9 @@ export const engineCatalog: Record<string, string> = {
     'The value labeled “{0}” could not be interpreted in {1}, {2}, row {3}.',
   'عمود العملة غير مكتمل أو يتضمن قيمة غير موثوقة في ${…}، ${…}.':
     'The currency column is incomplete or includes an unreliable value in {0}, {1}.',
+  'نطاق دمج Excel غير صالح': 'Invalid Excel merge range',
+  'دليل عناوين Excel يحتاج الملف الأصلي لإعادة التحقق':
+    'The original Excel file is needed to verify its header evidence',
   // session.ts
   'حجم أو ترميز مصدر الجلسة غير صالح':
     'Invalid size or encoding of the session source',

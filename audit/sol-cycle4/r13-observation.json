@@ -1,0 +1,54 @@
+{
+  "schema": "tarasuf-f02-r13-blocker-1",
+  "sourceHash": "a085499d9e6ae2d165cd6716034f0945ecbb7151ad561bca70a4926a94250958",
+  "mapping": {
+    "sheet": 1,
+    "header": 3,
+    "date": 0,
+    "reference": 1,
+    "description": -1,
+    "amount": -1,
+    "debit": 2,
+    "credit": 3,
+    "currencyColumn": -1,
+    "mode": "split",
+    "multiplier": 1,
+    "numberFormat": "dot",
+    "dateFormat": "ymd",
+    "reportType": "transactions",
+    "opening": "",
+    "closing": "",
+    "periodStart": "",
+    "excluded": {
+      "11": "External reviewer excluded competing source row"
+    }
+  },
+  "expectedAffectedAutomaticMatch": false,
+  "observedMatches": [
+    {
+      "rule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+      "supplierRows": [
+        8
+      ],
+      "ledgerRows": [
+        3
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "row": 11,
+      "reason": "External reviewer excluded competing source row",
+      "values": [
+        "2026-07-16",
+        "PAY-44",
+        "",
+        "350",
+        "1300",
+        "LINE-5",
+        "BANK-44"
+      ]
+    }
+  ],
+  "note": "Failing development case retained; requires Astra decision; not a release pass"
+}

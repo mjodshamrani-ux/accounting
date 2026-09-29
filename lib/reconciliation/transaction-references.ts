@@ -1,3 +1,4 @@
+import { headerLabels, headerCellIssues } from './header-view.ts';
 import type { Mapping, SheetData, Transaction } from './types.ts';
 import { headerMatches } from './header-labels.ts';
 
@@ -64,7 +65,7 @@ export function transactionReferences(
   row: string[],
   rn: number,
 ) {
-  const rawHeaders = sheet.rows[mapping.header];
+  const rawHeaders = headerLabels(sheet, mapping.header);
   const headers = rawHeaders.map((h) =>
     h.trim().toLowerCase().replace(/[._]/g, '').replace(/\s+/g, ' '),
   );
@@ -82,13 +83,11 @@ export function transactionReferences(
       return '';
     }
     const col = columns[0],
-      key = `${rn}:${col + 1}`,
-      headerKey = `${mapping.header + 1}:${col + 1}`;
+      key = `${rn}:${col + 1}`;
     if (
       sheet.cellIssues?.[key]?.length ||
       sheet.referenceIssues?.[key]?.length ||
-      sheet.cellIssues?.[headerKey]?.length ||
-      sheet.referenceIssues?.[headerKey]?.length ||
+      headerCellIssues(sheet, mapping.header, col).length ||
       sheet.hiddenRows.includes(rn)
     ) {
       referenceEvidenceIssues.push(

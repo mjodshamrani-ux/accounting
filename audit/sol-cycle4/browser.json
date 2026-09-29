@@ -1,0 +1,19 @@
+{
+  "schema": "tarasuf-f02-browser-1",
+  "cases": [
+    {
+      "source": "supplier-layered-proven.xlsx",
+      "direct": "audit/sol-cycle4/layered-0-direct.xlsx",
+      "restored": "audit/sol-cycle4/layered-0-restored.xlsx",
+      "autoMatches": 1,
+      "manualHeaderQuestions": 0
+    },
+    {
+      "source": "supplier-layered-conflict.xlsx",
+      "direct": "audit/sol-cycle4/layered-1-direct.xlsx",
+      "restored": "audit/sol-cycle4/layered-1-restored.xlsx",
+      "autoMatches": 1,
+      "manualHeaderQuestions": 0
+    }
+  ]
+}

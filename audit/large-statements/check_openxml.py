@@ -129,7 +129,7 @@ def money(row, key, minor):
     require(row[key]["format"] in (2, 4, "0.00", "#,##0.00"), f"Missing 2-decimal money format: {key}")
 
 
-def verify(workbook_path, pages):
+def verify(workbook_path, pages, expected_engine="0.3.21-experimental"):
     oracle_path = BASE / f"frozen/fixtures/oracle-{pages}.json"
     csv_path = BASE / f"frozen/fixtures/ledger-{pages}.csv"
     pdf_path = BASE / f"frozen/fixtures/native-{pages}.pdf"
@@ -273,7 +273,7 @@ def verify(workbook_path, pages):
     metadata = {value(r, "Field"): value(r, "Value") for r in book.records("Export Metadata")}
     require(metadata["Supplier SHA-256"] == digest(pdf_path), "Export not bound to frozen PDF")
     require(metadata["Ledger SHA-256"] == digest(csv_path), "Export not bound to frozen CSV")
-    require(metadata["Engine version"] == "0.3.21-experimental", "Unexpected export engine")
+    require(metadata["Engine version"] == expected_engine, "Unexpected export engine")
     settings = {value(r, "الحقل"): value(r, "القيمة") for r in book.records("Run Settings")}
     scope = json.loads(settings["Scope"])
     require(scope["currency"] == "SAR" and scope["decimals"] == 2 and scope["coverageConfirmed"] is False,
@@ -301,6 +301,7 @@ def main():
     parser.add_argument("--browser-dir", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--pages", type=int, choices=(70, 100), default=70)
+    parser.add_argument("--expected-engine", default="0.3.21-experimental", help="Exact candidate release version; frozen financial expectations stay unchanged")
     args = parser.parse_args()
     require(not args.out.exists(), "Refusing to overwrite an existing result")
     workbook = args.browser_dir / f"native-{args.pages}.xlsx"
@@ -311,7 +312,7 @@ def main():
     try:
         report["frozenBefore"] = freeze_check()
         report["workbookSha256"] = digest(workbook)
-        report.update(verify(workbook, args.pages))
+        report.update(verify(workbook, args.pages, args.expected_engine))
         report["frozenAfter"] = freeze_check()
         require(digest(workbook) == report["workbookSha256"], "Workbook changed during verification")
     except Exception as error:
