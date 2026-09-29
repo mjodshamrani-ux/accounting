@@ -85,6 +85,73 @@ class MembershipOracleTests(unittest.TestCase):
     def test_signed_amount_mutation_fails(self):
         self.mutate_sheet("xl/worksheets/sheet8.xml", lambda root: setattr(cell(root, "S2"), "text", "-127"))
 
+    def test_fractional_cent_evidence_fails(self):
+        self.mutate_sheet("xl/worksheets/sheet8.xml", lambda root: setattr(cell(root, "S2"), "text", "127.009"))
+
+    def test_fractional_cent_match_total_fails(self):
+        self.mutate_sheet("xl/worksheets/sheet2.xml", lambda root: setattr(cell(root, "E2"), "text", "127.009"))
+
+    def test_fraction_beyond_decimal_context_precision_fails(self):
+        self.mutate_sheet("xl/worksheets/sheet8.xml", lambda root: setattr(cell(root, "S2"), "text", "127.0000000000000000000000000001"))
+
+    def test_non_finite_or_malformed_amount_returns_json_failure(self):
+        for amount in ("NaN", "Infinity", "not a number"):
+            with self.subTest(amount=amount):
+                self.mutate_sheet("xl/worksheets/sheet8.xml", lambda root: setattr(cell(root, "S2"), "text", amount))
+
+    def test_moved_parsed_row_breaks_actual_link_destination(self):
+        def mutate(root):
+            row = next(row for row in root.iter(XML + "row") if row.get("r") == "17")
+            row.set("r", "17000")
+            for item in row.findall(XML + "c"):
+                item.set("r", item.get("r")[:-2] + "17000")
+            # Preserve valid ascending OOXML row order. The destination check,
+            # rather than the ordering check, must catch this missing address.
+            data = root.find(XML + "sheetData")
+            data.remove(row)
+            data.append(row)
+        self.mutate_sheet("xl/worksheets/sheet14.xml", mutate)
+
+    def test_cell_address_must_agree_with_physical_row(self):
+        def mutate(root):
+            item = next(item for item in root.iter(XML + "c") if item.get("r") == "A17")
+            item.set("r", "A17000")
+        self.mutate_sheet("xl/worksheets/sheet14.xml", mutate)
+
+    def test_duplicate_physical_row_fails(self):
+        def mutate(root):
+            import copy
+            data = root.find(XML + "sheetData")
+            data.append(copy.deepcopy(data[16]))
+        self.mutate_sheet("xl/worksheets/sheet14.xml", mutate)
+
+    def test_match_displayed_date_fails(self):
+        self.mutate_sheet("xl/worksheets/sheet2.xml", lambda root: setattr(cell(root, "C2"), "text", "46219"))
+
+    def test_match_displayed_reference_fails(self):
+        self.mutate_sheet("xl/worksheets/sheet2.xml", lambda root: setattr(cell(root, "D2"), "text", cell(root, "D3").text))
+
+    def test_match_rule_must_agree_with_evidence(self):
+        self.mutate_sheet("xl/worksheets/sheet2.xml", lambda root: setattr(cell(root, "K2"), "text", cell(root, "D2").text))
+
+    def test_review_total_fails(self):
+        self.mutate_sheet("xl/worksheets/sheet3.xml", lambda root: setattr(cell(root, "E2"), "text", "163"))
+
+    def test_review_source_text_fails(self):
+        self.mutate_sheet("xl/worksheets/sheet3.xml", lambda root: setattr(cell(root, "P2"), "text", cell(root, "P3").text))
+
+    def test_review_source_link_fails_even_when_relationship_agrees(self):
+        def sheet(root):
+            link = next(link for link in root.iter(XML + "hyperlink") if link.get("ref") == "P2")
+            link.set("location", "#'Parsed Supplier Source'!A25")
+        def relations(root):
+            next(link for link in root if link.get("Id") == "rId1").set("Target", "#'Parsed Supplier Source'!A25")
+        change_parts(self.changed, {
+            "xl/worksheets/sheet3.xml": lambda data: rewrite_xml(data, sheet),
+            "xl/worksheets/_rels/sheet3.xml.rels": lambda data: rewrite_xml(data, relations),
+        })
+        self.check(self.changed, False)
+
     def test_duplicate_evidence_member_fails(self):
         self.mutate_sheet("xl/worksheets/sheet8.xml", lambda root: setattr(cell(root, "G4"), "text", cell(root, "G2").text))
 

@@ -1,0 +1,245 @@
+{
+  "schema": "tarasuf-astra-export-review-1",
+  "reviewedHead": "75ea99ed9b99ead9a8116760f69876b98778a3ab",
+  "checkerSha256": "7b7e36587155bd91d5b37fd7937b133d4042c70d3be1178b46a50df42185ccae",
+  "scope": "Recheck retained synthetic exports; no new performance measurement",
+  "afterFixProbes": [
+    {
+      "mutation": "subcent-evidence",
+      "verified": false,
+      "error": "Amount: fractional minor unit"
+    },
+    {
+      "mutation": "subcent-match",
+      "verified": false,
+      "error": "Supplier Amount: fractional minor unit"
+    },
+    {
+      "mutation": "missing-link-destination",
+      "verified": false,
+      "error": "duplicate or unordered row in Parsed Supplier Source"
+    },
+    {
+      "mutation": "match-date",
+      "verified": false,
+      "error": "Match date mismatch"
+    },
+    {
+      "mutation": "match-reference",
+      "verified": false,
+      "error": "Match reference mismatch"
+    }
+  ],
+  "workbooks": [
+    {
+      "run": "round-1-csv-baseline",
+      "workbook": "export-20000-csv.xlsx",
+      "sha256": "2421c61d9406528a4bea84c9961491df357ea79211b76912629a70fb8e7db727",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "csv",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-1-csv-candidate",
+      "workbook": "export-20000-csv.xlsx",
+      "sha256": "1dade1dbe926c04f6fc2eb1afa344826e9b6b0304715b09401b5f2ae392e91ed",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "csv",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-1-xlsx-baseline",
+      "workbook": "export-20000-xlsx.xlsx",
+      "sha256": "ea6a2512fe95dd23e6dac55d0da7800697f0a86191403067e6332d8778663497",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-1-xlsx-candidate",
+      "workbook": "export-20000-xlsx.xlsx",
+      "sha256": "37692a760afc38d44fe6e04ccd51be6b56fea92b2fab9ab3e447cdce13822b29",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-2-csv-baseline",
+      "workbook": "export-20000-csv.xlsx",
+      "sha256": "44af3cf758bf9afd18076c13c78b05db0544abda01a3ef3a82094570c388577e",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "csv",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-2-csv-candidate",
+      "workbook": "export-20000-csv.xlsx",
+      "sha256": "ffdfd327aa76c4aa9f5112ca486c8703f52c205b2453963318100038edca60fe",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "csv",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-2-xlsx-baseline",
+      "workbook": "export-20000-xlsx.xlsx",
+      "sha256": "4cef8bf03a3fe1ecd168f2d70baf96146904428efd2303ef84ca499cc58f0ca9",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-2-xlsx-candidate",
+      "workbook": "export-20000-xlsx.xlsx",
+      "sha256": "79f8b033af6aec189603b239e9ec8ca90d4f10390bd4181c3655bc8d9b3d7cad",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-3-csv-baseline",
+      "workbook": "export-20000-csv.xlsx",
+      "sha256": "1e389306e8cda0d0f8b2c97b7d3666b068b9fcda233b2dabe81d2e61fa460ec4",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "csv",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-3-csv-candidate",
+      "workbook": "export-20000-csv.xlsx",
+      "sha256": "6d33ba2455b02b5bdeaea591c5be013218e6cdefed5f539c778006ae1727f284",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "csv",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-3-xlsx-baseline",
+      "workbook": "export-20000-xlsx.xlsx",
+      "sha256": "56b74b835a2e1b582971c1ba568b07607f209e8f1d7114f01ce705b02b60739d",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-3-xlsx-candidate",
+      "workbook": "export-20000-xlsx.xlsx",
+      "sha256": "ba5e57b3a2815334ea142db92202eb06e6c197f49963473eee781a90d9aa5fd0",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-2-xlsx-baseline",
+      "workbook": "cancel-recovery-20000.xlsx",
+      "sha256": "c30794f44c82486d50f6407e38a01879d688fa3b775128c678f85370715aa013",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    },
+    {
+      "run": "round-2-xlsx-candidate",
+      "workbook": "cancel-recovery-20000.xlsx",
+      "sha256": "6732ceea482221f4b473bccafd615076fb64d0d5292e5f4c2cb7c16e7048d3ed",
+      "result": {
+        "verified": true,
+        "rowsPerSide": 20000,
+        "format": "xlsx",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "allCaseMembers": 40000,
+        "needsReviewMembers": 8000,
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4"
+      }
+    }
+  ]
+}
