@@ -51,10 +51,10 @@ const index = (rows: Transaction[], key: (t: Transaction) => string) => {
  * in compare. Read the entire original buckets before any row is consumed:
  * a different amount, a distant date or a manual/rejected decision must never
  * make a repeated discriminator appear unique. This is not subset summation. */
-export function certifiedDocumentPairs(
+export function certifiedDocumentPartitions(
   supplier: SourceResult,
   ledger: SourceResult,
-): [Transaction, Transaction][] {
+): [Transaction[], Transaction[]][] {
   if (supplier.errors.length || ledger.errors.length) return [];
   const a = index(supplier.transactions, (t) => t.normalizedReference);
   const b = index(ledger.transactions, (t) => t.normalizedReference);
@@ -63,7 +63,7 @@ export function certifiedDocumentPairs(
       e.values.map((v) => v.trim()).filter(Boolean),
     ),
   );
-  const pairs: [Transaction, Transaction][] = [];
+  const partitions: [Transaction[], Transaction[]][] = [];
   for (const [primary, left] of a) {
     const right = b.get(primary);
     if (!right || (left.length === 1 && right.length === 1)) continue;
@@ -89,9 +89,22 @@ export function certifiedDocumentPairs(
     const rightByReference = index(right, (t) => t.chosenReference!);
     for (const [reference, candidates] of leftByReference) {
       const counterparts = rightByReference.get(reference);
-      if (candidates.length === 1 && counterparts?.length === 1)
-        pairs.push([candidates[0], counterparts[0]]);
+      if (counterparts) partitions.push([candidates, counterparts]);
     }
   }
+  return partitions;
+}
+
+export function certifiedDocumentPairs(
+  supplier: SourceResult,
+  ledger: SourceResult,
+): [Transaction, Transaction][] {
+  const pairs: [Transaction, Transaction][] = [];
+  for (const [candidates, counterparts] of certifiedDocumentPartitions(
+    supplier,
+    ledger,
+  ))
+    if (candidates.length === 1 && counterparts?.length === 1)
+      pairs.push([candidates[0], counterparts[0]]);
   return pairs;
 }

@@ -10,6 +10,10 @@ import { foundationManifest } from '../audit/reliability/manifest.mjs';
 import { generateCase } from '../audit/reliability/generator.mjs';
 import { renderCase } from '../audit/reliability/renderers.mjs';
 import { evaluateCase, loadEngine } from '../audit/reliability/evaluate.mjs';
+import {
+  classifyVisibleGroup,
+  P2_GROUP_CAPABILITY,
+} from '../audit/reliability/group-evidence.mjs';
 import type { Comparison } from '../lib/reconciliation/types.ts';
 const enginePromise = loadEngine(
   fileURLToPath(new URL('../', import.meta.url)),
@@ -23,13 +27,15 @@ const fixture = (index: number) =>
 const codes = (r: Awaited<ReturnType<typeof evaluateCase>>) =>
   r.failures.map((f: { code: string }) => f.code);
 
-test('20 focused development files require eight proved groups and reject twelve counterexamples through independent workbook verification', async () => {
+test('P2 capability requires nine proved groups across the 20 existing focused files with independent workbook verification', async () => {
   const engine = await enginePromise;
   let groups = 0;
   for (const d of focusedManifest().filter(
     (d) => d.split === 'development-046',
   )) {
-    const spec = generateFocusedCase(d),
+    const spec = generateFocusedCase(d, {
+        groupCapability: P2_GROUP_CAPABILITY,
+      }),
       record = await evaluateCase(spec, await renderCase(spec), engine);
     assert.equal(
       record.pass,
@@ -43,12 +49,139 @@ test('20 focused development files require eight proved groups and reject twelve
     groups += record.acceptedRequiredGroups;
     assert.equal(record.falseMatches, 0);
   }
-  assert.equal(groups, 8);
+  assert.equal(groups, 9);
   assert.equal(fixture(3).sources[0].rows[0].minor, 675000);
   assert.deepEqual(
     fixture(3).sources[1].rows.map((r: { minor: number }) => r.minor),
     [250000, 225000, 200000],
   );
+});
+
+test('P2 oracle migration keeps the default 046 N:M rejection and the same visible source facts', async () => {
+  const descriptor = focusedManifest().find((d) => d.id === 'G046-016')!;
+  const legacy = generateFocusedCase(descriptor);
+  const upgraded = generateFocusedCase(descriptor, {
+    groupCapability: P2_GROUP_CAPABILITY,
+  });
+  assert.deepEqual(upgraded.sources, legacy.sources);
+  assert.equal(upgraded.economicFingerprint, legacy.economicFingerprint);
+  assert.equal(
+    legacy.oracle.groupAssessments[0].classification,
+    'out-of-scope',
+  );
+  assert.equal(legacy.oracle.permittedAutoMatches.length, 0);
+  assert.equal(upgraded.oracle.groupAssessments[0].classification, 'required');
+  assert.equal(
+    upgraded.oracle.groupAssessments[0].businessTask,
+    'payment-group-equivalence',
+  );
+  assert.equal(upgraded.repro.groupOracleCapability, P2_GROUP_CAPABILITY);
+  assert.equal(upgraded.oracle.permittedAutoMatches.length, 1);
+  const record = await evaluateCase(
+    legacy,
+    await renderCase(legacy),
+    await enginePromise,
+  );
+  assert.equal(
+    record.pass,
+    false,
+    'the unchanged historical oracle still rejects this new capability',
+  );
+  assert.ok(codes(record).includes('FALSE_MATCH'));
+  assert.ok(codes(record).includes('EXPORT_VALIDATION'));
+  assert.throws(
+    () => generateFocusedCase(descriptor, { groupCapability: 'unknown' }),
+    /Unknown group oracle capability/,
+  );
+});
+
+test('P2 N:M permission requires visible complete identity and does not reward abstention or equal totals alone', async () => {
+  const descriptor = focusedManifest().find((d) => d.id === 'G046-016')!;
+  const spec = generateFocusedCase(descriptor, {
+    groupCapability: P2_GROUP_CAPABILITY,
+  });
+  const group = spec.oracle.permittedAutoMatches[0];
+  const classify = (candidate: typeof spec) =>
+    classifyVisibleGroup(candidate, group, { capability: P2_GROUP_CAPABILITY });
+  assert.equal(classify(spec).classification, 'required');
+  for (const change of [
+    (s: typeof spec) => {
+      for (const source of s.sources)
+        source.layout.fields = source.layout.fields.filter(
+          (f: string) => f !== 'bankReference',
+        );
+    },
+    (s: typeof spec) => {
+      s.sources[1].rows[0].minor -= 1;
+    },
+    (s: typeof spec) => {
+      s.sources[0].rows[1].minor = s.sources[0].rows[0].minor;
+    },
+    (s: typeof spec) => {
+      s.sources[1].rows[0].minor *= -1;
+    },
+    (s: typeof spec) => {
+      s.sources[1].rows[0].date = 'not-a-date';
+    },
+    (s: typeof spec) => {
+      s.sources[1].rows[0].currency = 'USD';
+    },
+    (s: typeof spec) => {
+      for (const source of s.sources)
+        for (const row of source.rows) row.kind = 'Invoice';
+    },
+    (s: typeof spec) => {
+      s.sources[1].rows.push({
+        ...s.sources[1].rows[0],
+        key: 'ledger:outside',
+      });
+    },
+    (s: typeof spec) => {
+      for (const source of s.sources)
+        source.layout.fields.push('receiptReference');
+      s.sources[0].rows[0].receiptReference =
+        s.sources[1].rows[0].receiptReference = 'RCT-COMPETING-91';
+    },
+    (s: typeof spec) => {
+      s.sources[0].rows[0].reference = '=SUM(A1)';
+    },
+  ]) {
+    const changed = structuredClone(spec);
+    change(changed);
+    assert.notEqual(classify(changed).classification, 'required');
+  }
+  const hiddenOnly = structuredClone(spec);
+  for (const source of hiddenOnly.sources)
+    for (const row of source.rows)
+      row.hiddenEventId = `${row.key}-different-hidden-event`;
+  assert.equal(
+    classify(hiddenOnly).classification,
+    'required',
+    'only visible evidence proves the whole group',
+  );
+  const engine = await enginePromise;
+  const record = await evaluateCase(
+    spec,
+    await renderCase(spec),
+    {
+      ...engine,
+      compare: (...args: Parameters<Compare>) => {
+        const r = structuredClone(engine.compare(...args)) as Comparison;
+        r.matches = [];
+        for (const c of r.cases) {
+          c.status = 'Needs Review';
+          c.reviewRequired = true;
+        }
+        r.caseCounts.autoMatchedCases = 0;
+        r.caseCounts.matchedSourceRows = 0;
+        return r;
+      },
+    },
+    { exports: false },
+  );
+  assert.equal(record.requiredGroups, 1);
+  assert.equal(record.acceptedRequiredGroups, 0);
+  assert.ok(codes(record).includes('AUTO_COMPLETION_GAP'));
 });
 
 test('disabling every group fails required completion and cannot be counted as success', async () => {

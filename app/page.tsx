@@ -2027,13 +2027,22 @@ export default function App() {
                           note: d.note,
                         })
                       }
-                      onUnlink={(a, b, note) =>
+                      onUnlink={(a, b, note) => {
+                        const match = result.matches.find(
+                          (m) => m.supplierId === a && m.ledgerId === b,
+                        );
+                        const ids = match
+                          ? [
+                              ...(match.supplierIds ?? [a]),
+                              ...(match.ledgerIds ?? [b]),
+                            ]
+                          : [a, b];
                         void reconcile(
                           decisions.filter((d) => d.supplierId !== a),
                           [...rejected, `${a}|${b}`],
-                          { action: 'unlink', ids: [a, b], note },
-                        )
-                      }
+                          { action: 'unlink', ids, note },
+                        );
+                      }}
                       onReview={(id, note) => {
                         setAuditEvents((events) => [
                           ...events,

@@ -107,6 +107,41 @@ export const engineCatalog: Record<string, string> = {
   'معرف صف المصدر مكرر': 'Duplicate source row ID',
   'صف المصدر مستخدم في أكثر من حالة': 'A source row is used in more than one case',
   'رفض المراجع هذا الربط في سجل قرارات الجلسة': 'The reviewer rejected this link in the session’s decision log',
+  'تربط مراجع الدفعة مجموعات مختلفة أو تترك عضوًا محتملًا بلا دليل. لم تُعتمد أي مجموعة تلقائيًا؛ تساوي أحد المجاميع لا يحسم العلاقة.':
+    'The payment references connect different groups or leave a possible member without evidence. No group was matched automatically; equality of one set of totals does not establish the relationship.',
+  'يوجد صف مستبعد يحمل إحدى هويات الدفعة؛ لم يثبت اكتمال المجموعة.':
+    'An excluded row carries one of the payment identities; the group has not been proven complete.',
+  'هوية ${…}: ${…}؛ صفوف المورد ${…}؛ صفوف الدفتر ${…}.':
+    'Identity {0}: {1}; supplier rows {2}; AP ledger rows {3}.',
+  'فُحصت ${…} هوية في هذا المكوّن؛ يعرض الملخص أول 8 هويات، وتبقى كل الصفوف وأدلتها في التفاصيل.':
+    '{0} identities were checked in this connected group; the summary shows the first 8 identities, and all rows and their evidence remain in the details.',
+  'قرار يدوي استخدم بعض أعضاء المكوّن. بقيت عضويتهم الأصلية ضمن فحص المنافسين؛ لا يثبت استهلاكهم تفرد الباقي.':
+    'A manual decision used some members of the connected group. Their original membership remained part of the check for competing members; using them does not prove that the remainder is unique.',
+  'قراءة المصدر غير مكتملة؛ لا يمكن إثبات عضوية المجموعة.':
+    'The source reading is incomplete; group membership cannot be proven.',
+  'لم تثبت هوية بنكية أو هوية إيصال صريحة مشتركة لكل أعضاء المجموعة.':
+    'An explicit bank or receipt identity shared by every group member has not been proven.',
+  'حجم المجموعة يتجاوز حد الاعتماد الآلي (${…} حركة لكل طرف). لم يكتمل فحص اعتماد المجموعة؛ بقيت كل الصفوف للمراجعة.':
+    'The group exceeds the automatic matching limit ({0} transactions per side). The check for approving the group was not completed; all rows remain for review.',
+  'نوع الدفعة أو دليلها المرجعي غير متحقق في أحد الأعضاء.':
+    'A member’s payment type or reference evidence has not been verified.',
+  'العملة أو الإشارة أو المبلغ الصفري يمنع إثبات مجموعة دفعة واحدة.':
+    'The currency, amount sign, or a zero amount prevents proof of a single payment group.',
+  'مدى تواريخ المجموعة يتجاوز فرق الأيام المسموح أو يحتوي تاريخًا غير صالح.':
+    'The group’s date span exceeds the allowed date difference or includes an invalid date.',
+  'توجد قيود متكررة داخل أحد الطرفين؛ لم يثبت أنها حركات مستقلة.':
+    'One side contains duplicate postings; they have not been proven to be separate transactions.',
+  'مجموعا الدفعة بإشارتهما مختلفان؛ لم تُعتمد المطابقة.':
+    'The signed payment totals differ; the match was not approved.',
+  'رفض المراجع رابطًا داخل المجموعة؛ أُوقف اعتماد المجموعة كاملة.':
+    'The reviewer rejected a link within the group; approval of the whole group was stopped.',
+  'مطابقة مجموعتين كاملتين بهوية ${…}: ${…}؛ ${…} حركة مورد و${…} حركة دفتر؛ إجمالي كل طرف ${…} ${…}.':
+    'Two complete groups matched by identity {0}: {1}; supplier transactions: {2}; AP ledger transactions: {3}; each side totals {4} {5}.',
+  'هذه النتيجة تثبت تكافؤ مجموعتي الدفعة، ولا تثبت مقابلة كل صف بصف معين أو تخصيص الدفعة لفواتير. استُخدم جميع أعضاء الهوية في المصدرين، وفُحصت الهويات المتداخلة قبل الاعتماد، دون البحث عن مجموعات جزئية.':
+    'This result proves that the two payment groups are equivalent. It does not establish individual row-to-row pairings or allocate the payment to invoices. Every member of the identity in both sources was included, and overlapping identities were checked before approval, without searching for partial groups.',
+  'تحدد هوية المستند ${…} والمرجع المختار ${…} جميع أعضاء هذه المجموعة داخل المستند. فُحصت المراجع الأصلية قبل استهلاك أي صف؛ تساوي المبالغ وحده لم يحدد الأعضاء.':
+    'Document identity {0} and chosen reference {1} identify every member of this group within the document. The original references were checked before any row was used; equality of amounts alone did not determine membership.',
+  'توجد هويات بنكية أو إيصالات أو أوامر شراء متعارضة داخل المجموعة.': 'The group contains conflicting bank identities, receipts, or purchase orders.',
   'لم تثبت هوية دفعة واحدة من عمود مرجع بنكي أو رقم إيصال صريح ومشترك في جميع الحركات. المرجع العام وتساوي المجموع لا يثبتان أن الصفوف أجزاء دفعة واحدة.': 'No single payment identity is established from a bank-reference column or an explicit receipt number shared by all the transactions. A general reference and equal totals do not prove that the rows are parts of one payment.',
   'توجد مراجع بنكية أو أرقام إيصالات صريحة متعارضة داخل المجموعة.': 'There are explicit, conflicting bank references or receipt numbers within the group.',
   'توجد أسطر متساوية في المبلغ والتاريخ وهوية القيد؛ اختلاف الوصف وحده لا يثبت أنها أسطر مستقلة.': 'There are lines with the same amount, date, and entry identity; a different description alone does not prove they are separate lines.',

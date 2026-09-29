@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.18-experimental';
+export const ENGINE_VERSION = '0.3.19-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -213,6 +213,7 @@ export type ReconciliationCase = {
     | 'EXACT_1_TO_1'
     | 'EXACT_1_TO_MANY'
     | 'EXACT_MANY_TO_1'
+    | 'EXACT_MANY_TO_MANY'
     | 'AMOUNT_VARIANCE'
     | 'PAYMENT_CANDIDATE'
     | 'SUPPLIER_ONLY'

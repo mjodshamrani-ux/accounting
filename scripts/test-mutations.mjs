@@ -47,11 +47,82 @@ const tests = [
   'tests/same-source.test.ts',
   'tests/reference-interactions.test.ts',
   'tests/reference-resolution.test.ts',
+  'tests/payment-components.test.ts',
+  'tests/p2-group-lifecycle.test.ts',
   'tests/unmapped-reference.test.ts',
   'tests/pdf-composite.test.ts',
   'tests/pdf-paint-order.test.ts',
 ];
 const mutations = [
+  {
+    name: 'p2-ignore-overlapping-payment-identity-memberships',
+    file: 'lib/reconciliation/payment-components.ts',
+    changes: [
+      [
+        /competing:\s*!!\(a.length && b.length\)/,
+        'competing: false && !!(a.length && b.length)',
+      ],
+    ],
+  },
+  {
+    name: 'p2-drop-primary-only-competing-members',
+    file: 'lib/reconciliation/payment-components.ts',
+    changes: [
+      ['const related = primary.get(normalized) ?? [];', 'const related = [];'],
+    ],
+  },
+  {
+    name: 'p2-let-an-exact-payment-consume-a-group-member-first',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /groupedPaymentRows\.has\(m\.supplierId\)\s*\|\|\s*groupedPaymentRows\.has\(m\.ledgerId\)/,
+        'false',
+      ],
+    ],
+  },
+  {
+    name: 'p2-accept-inferred-payment-role-as-explicit-proof',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /t\.paymentIdentityFields\?\.includes\(claim\.field\)\s*&&\s*t\[claim\.field\] === claim\.value/,
+        't[claim.field] === claim.value',
+      ],
+    ],
+  },
+  {
+    name: 'p2-accept-duplicate-postings-in-nm-groups',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /const duplicatePosting = \[a, b\]\.some\(\s*\(rows\) => new Set\(rows\.map\(postingIdentity\)\)\.size !== rows\.length,?\s*\);/,
+        'const duplicatePosting = false;',
+      ],
+    ],
+  },
+  {
+    name: 'p2-ignore-whole-group-date-span',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['!(span <= scope.dateWindow)', 'false']],
+  },
+  {
+    name: 'p2-approve-groups-beyond-the-member-limit',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      ['Math.max(a.length, b.length) > MAX_AUTOMATIC_GROUP_MEMBERS', 'false'],
+    ],
+  },
+  {
+    name: 'p2-ignore-group-member-rejection',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        /rejectedGroup\(a, b\)\s*\? \['رفض المراجع رابطًا داخل المجموعة؛ أُوقف اعتماد المجموعة كاملة.'\]/,
+        "false ? ['رفض المراجع رابطًا داخل المجموعة؛ أُوقف اعتماد المجموعة كاملة.']",
+      ],
+    ],
+  },
   {
     name: 'p1-accept-formula-or-spreadsheet-error-reference-text',
     file: 'lib/reconciliation/transaction-references.ts',

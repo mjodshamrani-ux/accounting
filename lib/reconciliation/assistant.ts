@@ -37,6 +37,7 @@ const transactionEvidenceFields: (keyof Transaction)[] = [
   'poReference',
   'bankReference',
   'receiptReference',
+  'paymentIdentityFields',
   'referenceEvidenceIssues',
   'sourcePage',
 ];

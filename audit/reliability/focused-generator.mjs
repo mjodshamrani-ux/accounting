@@ -3,7 +3,10 @@
 import { createHash } from 'node:crypto';
 import { foundationManifest, GENERATOR_VERSION } from './manifest.mjs';
 import { generateCase } from './generator.mjs';
-import { classifyVisibleGroup } from './group-evidence.mjs';
+import {
+  classifyVisibleGroup,
+  P2_GROUP_CAPABILITY,
+} from './group-evidence.mjs';
 export const FOCUSED_VERSION = 'tarasuf-focused-groups-1.1.0';
 const development = [
   'payment-bank-1n',
@@ -79,7 +82,7 @@ export function focusedManifest() {
     })),
   ];
 }
-export function generateFocusedCase(descriptor) {
+export function generateFocusedCase(descriptor, { groupCapability } = {}) {
   const base = generateCase(foundationManifest()[10]),
     scenario = descriptor.scenario,
     n = descriptor.index,
@@ -284,14 +287,18 @@ export function generateFocusedCase(descriptor) {
       : 'explicit-bank-or-receipt-payment-components',
   };
   const shell = { sources },
-    assessment = classifyVisibleGroup(shell, candidate);
-  const clear = [
-    'payment-bank-1n',
-    'payment-bank-n1',
-    'payment-receipt-1n',
-    'invoice-po-1n',
-    'invoice-po-n1',
-  ].includes(scenario);
+    assessment = classifyVisibleGroup(shell, candidate, {
+      capability: groupCapability,
+    });
+  const clear =
+    [
+      'payment-bank-1n',
+      'payment-bank-n1',
+      'payment-receipt-1n',
+      'invoice-po-1n',
+      'invoice-po-n1',
+    ].includes(scenario) ||
+    (groupCapability === P2_GROUP_CAPABILITY && scenario === 'many-to-many');
   if (clear && assessment.classification !== 'required')
     throw Error(
       `Fixture construction contradicts explicit evidence: ${descriptor.id} ${assessment.reason}`,
@@ -328,6 +335,7 @@ export function generateFocusedCase(descriptor) {
     repro: {
       generatorVersion: GENERATOR_VERSION,
       focusedVersion: FOCUSED_VERSION,
+      ...(groupCapability ? { groupOracleCapability: groupCapability } : {}),
       descriptor,
     },
     novelty: batchB

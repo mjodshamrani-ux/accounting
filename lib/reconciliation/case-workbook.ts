@@ -195,7 +195,9 @@ export function addCaseWorksheets(
           ? '1:1'
           : c.supplierMembers.length === 1
             ? '1:M'
-            : 'M:1',
+            : c.ledgerMembers.length === 1
+              ? 'M:1'
+              : 'N:M',
         firstDate(c.supplierMembers),
         refs(c.supplierMembers),
         major(c.supplierTotal),

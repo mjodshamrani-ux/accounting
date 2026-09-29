@@ -1,0 +1,1397 @@
+{
+  "spec": {
+    "id": "G046-016",
+    "category": "group-counterexamples",
+    "split": "development-046",
+    "scenario": "many-to-many",
+    "foundation": null,
+    "repro": {
+      "generatorVersion": "tarasuf-independent-2.1.0",
+      "focusedVersion": "tarasuf-focused-groups-1.1.0",
+      "descriptor": {
+        "id": "G046-016",
+        "scenario": "many-to-many",
+        "index": 15,
+        "split": "development-046",
+        "category": "focused-development",
+        "layoutFamilyA": "046-register-csv",
+        "layoutFamilyB": "046-register-xlsx"
+      }
+    },
+    "economicFingerprint": "1c061e32782b15972af1a049233f229a6806b6ccfd1daf335becdfcba62ba834",
+    "sources": [
+      {
+        "side": "supplier",
+        "name": "supplier-statement.csv",
+        "format": "csv",
+        "layout": {
+          "family": "046-register-csv",
+          "split": "development-046",
+          "format": "csv",
+          "writer": "csv-records",
+          "language": "en",
+          "columns": "explicit",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amountBasis",
+            "amount",
+            "currency",
+            "account"
+          ],
+          "banner": true,
+          "extraSheet": false,
+          "repeatedHeader": false,
+          "style": "dot"
+        },
+        "rows": [
+          {
+            "key": "supplier:1",
+            "hiddenEventId": "economic-hidden-G046-016",
+            "reference": "PAY-76336-1",
+            "date": "2026-07-15",
+            "minor": -11101,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          },
+          {
+            "key": "supplier:2",
+            "hiddenEventId": "economic-hidden-G046-016",
+            "reference": "PAY-76336-2",
+            "date": "2026-07-15",
+            "minor": -32594,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          }
+        ],
+        "metadata": {
+          "supplier": "Cedar Trading",
+          "entity": "North Distribution",
+          "account": "AP-482",
+          "currency": "SAR",
+          "decimals": 2,
+          "cutoff": "2026-07-31",
+          "periodStart": "2026-07-01",
+          "reportType": "transactions",
+          "dateWindow": 2,
+          "referenceHeader": "Reference",
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "multiplier": 1,
+          "opening": 0,
+          "closing": -43695,
+          "signEvidence": "Positive amount increases the payable to the supplier",
+          "periodEvidence": "Statement covers 2026-07-01 through 2026-07-31"
+        },
+        "invalid": null
+      },
+      {
+        "side": "ledger",
+        "name": "ledger-statement.xlsx",
+        "format": "xlsx",
+        "layout": {
+          "family": "046-register-xlsx",
+          "split": "development-046",
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "columns": "explicit",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amountBasis",
+            "amount",
+            "currency",
+            "account"
+          ],
+          "banner": true,
+          "extraSheet": false,
+          "repeatedHeader": false,
+          "style": "dot"
+        },
+        "rows": [
+          {
+            "key": "ledger:1",
+            "hiddenEventId": "economic-hidden-G046-016",
+            "reference": "PV-76336-1",
+            "date": "2026-07-15",
+            "minor": -14695,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          },
+          {
+            "key": "ledger:2",
+            "hiddenEventId": "economic-hidden-G046-016",
+            "reference": "PV-76336-2",
+            "date": "2026-07-15",
+            "minor": -17000,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          },
+          {
+            "key": "ledger:3",
+            "hiddenEventId": "economic-hidden-G046-016",
+            "reference": "PV-76336-3",
+            "date": "2026-07-15",
+            "minor": -12000,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          }
+        ],
+        "metadata": {
+          "supplier": "Cedar Trading",
+          "entity": "North Distribution",
+          "account": "AP-482",
+          "currency": "SAR",
+          "decimals": 2,
+          "cutoff": "2026-07-31",
+          "periodStart": "2026-07-01",
+          "reportType": "transactions",
+          "dateWindow": 2,
+          "referenceHeader": "Reference",
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "multiplier": 1,
+          "opening": 0,
+          "closing": -43695,
+          "signEvidence": "Positive amount increases the payable to the supplier",
+          "periodEvidence": "Statement covers 2026-07-01 through 2026-07-31"
+        },
+        "invalid": null
+      }
+    ],
+    "oracle": {
+      "rows": [
+        {
+          "key": "supplier:1",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PAY-76336-1",
+          "date": "2026-07-15",
+          "minor": -11101,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "supplier:2",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PAY-76336-2",
+          "date": "2026-07-15",
+          "minor": -32594,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "ledger:1",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PV-76336-1",
+          "date": "2026-07-15",
+          "minor": -14695,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "ledger:2",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PV-76336-2",
+          "date": "2026-07-15",
+          "minor": -17000,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "ledger:3",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PV-76336-3",
+          "date": "2026-07-15",
+          "minor": -12000,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        }
+      ],
+      "activeRows": [
+        {
+          "key": "supplier:1",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PAY-76336-1",
+          "date": "2026-07-15",
+          "minor": -11101,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "supplier:2",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PAY-76336-2",
+          "date": "2026-07-15",
+          "minor": -32594,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "ledger:1",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PV-76336-1",
+          "date": "2026-07-15",
+          "minor": -14695,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "ledger:2",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PV-76336-2",
+          "date": "2026-07-15",
+          "minor": -17000,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        },
+        {
+          "key": "ledger:3",
+          "hiddenEventId": "economic-hidden-G046-016",
+          "reference": "PV-76336-3",
+          "date": "2026-07-15",
+          "minor": -12000,
+          "kind": "Payment",
+          "description": "Bank transfer",
+          "currency": "SAR",
+          "account": "AP-482",
+          "bankReference": "BNK-480208",
+          "receiptReference": "",
+          "poReference": "",
+          "amountBasis": "Movement"
+        }
+      ],
+      "permittedAutoMatches": [],
+      "groupAssessments": [
+        {
+          "aKeys": [
+            "supplier:1",
+            "supplier:2"
+          ],
+          "bKeys": [
+            "ledger:1",
+            "ledger:2",
+            "ledger:3"
+          ],
+          "rule": "explicit-bank-or-receipt-payment-components",
+          "classification": "out-of-scope",
+          "reason": "many-to-many",
+          "businessTask": "component-allocation",
+          "sourceProof": [
+            {
+              "side": "supplier",
+              "file": "supplier-statement.csv",
+              "format": "csv",
+              "layout": "046-register-csv",
+              "referenceHeader": "Reference",
+              "typedPaymentEvidence": [
+                "bankReference"
+              ],
+              "typeEvidence": "Document Type column"
+            },
+            {
+              "side": "ledger",
+              "file": "ledger-statement.xlsx",
+              "format": "xlsx",
+              "layout": "046-register-xlsx",
+              "referenceHeader": "Reference",
+              "typedPaymentEvidence": [
+                "bankReference"
+              ],
+              "typeEvidence": "Document Type column"
+            }
+          ],
+          "visibleEvidence": [
+            {
+              "key": "supplier:1",
+              "reference": "PAY-76336-1",
+              "kind": "Payment",
+              "date": "2026-07-15",
+              "minor": -11101,
+              "currency": "SAR",
+              "account": "AP-482",
+              "bankReference": "BNK-480208",
+              "receiptReference": "",
+              "poReference": "",
+              "amountBasis": "Movement"
+            },
+            {
+              "key": "supplier:2",
+              "reference": "PAY-76336-2",
+              "kind": "Payment",
+              "date": "2026-07-15",
+              "minor": -32594,
+              "currency": "SAR",
+              "account": "AP-482",
+              "bankReference": "BNK-480208",
+              "receiptReference": "",
+              "poReference": "",
+              "amountBasis": "Movement"
+            },
+            {
+              "key": "ledger:1",
+              "reference": "PV-76336-1",
+              "kind": "Payment",
+              "date": "2026-07-15",
+              "minor": -14695,
+              "currency": "SAR",
+              "account": "AP-482",
+              "bankReference": "BNK-480208",
+              "receiptReference": "",
+              "poReference": "",
+              "amountBasis": "Movement"
+            },
+            {
+              "key": "ledger:2",
+              "reference": "PV-76336-2",
+              "kind": "Payment",
+              "date": "2026-07-15",
+              "minor": -17000,
+              "currency": "SAR",
+              "account": "AP-482",
+              "bankReference": "BNK-480208",
+              "receiptReference": "",
+              "poReference": "",
+              "amountBasis": "Movement"
+            },
+            {
+              "key": "ledger:3",
+              "reference": "PV-76336-3",
+              "kind": "Payment",
+              "date": "2026-07-15",
+              "minor": -12000,
+              "currency": "SAR",
+              "account": "AP-482",
+              "bankReference": "BNK-480208",
+              "receiptReference": "",
+              "poReference": "",
+              "amountBasis": "Movement"
+            }
+          ]
+        }
+      ],
+      "economicLinks": [
+        {
+          "eventId": "economic-hidden-G046-016",
+          "aKeys": [
+            "supplier:1",
+            "supplier:2"
+          ],
+          "bKeys": [
+            "ledger:1",
+            "ledger:2",
+            "ledger:3"
+          ]
+        }
+      ],
+      "expectedExceptions": [
+        {
+          "key": "supplier:1",
+          "code": "many-to-many"
+        },
+        {
+          "key": "supplier:2",
+          "code": "many-to-many"
+        },
+        {
+          "key": "ledger:1",
+          "code": "many-to-many"
+        },
+        {
+          "key": "ledger:2",
+          "code": "many-to-many"
+        },
+        {
+          "key": "ledger:3",
+          "code": "many-to-many"
+        }
+      ],
+      "expectedExclusions": [],
+      "unreadableKeys": [],
+      "requiresFormatReview": [],
+      "expectedRowErrors": [],
+      "expectedBalanceValidationFailure": false,
+      "manualAnchor": null,
+      "invalid": null,
+      "requiresScopeStop": false,
+      "outcome": "compare",
+      "balances": {
+        "openingA": 0,
+        "openingB": 0,
+        "closingA": -43695,
+        "closingB": -43695,
+        "computedClosingA": -43695,
+        "computedClosingB": -43695,
+        "difference": 0,
+        "rawMovementA": -43695,
+        "rawMovementB": -43695,
+        "cutoffMovementA": -43695,
+        "cutoffMovementB": -43695,
+        "comparable": true
+      }
+    },
+    "novelty": "new-development"
+  },
+  "record": {
+    "id": "G046-016",
+    "evaluatorVersion": "tarasuf-evaluator-2.1.0",
+    "interventionActions": [
+      {
+        "field": "dateWindow",
+        "value": 2,
+        "level": "automatic",
+        "origin": "product-default",
+        "ui": "فرق الأيام المسموح للمطابقة"
+      },
+      {
+        "field": "decimals",
+        "value": 2,
+        "level": "automatic",
+        "origin": "currency-minor-unit-table",
+        "ui": "المنازل العشرية للعملة",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Currency",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "SAR"
+        }
+      },
+      {
+        "field": "confirmed",
+        "value": true,
+        "level": "automatic",
+        "origin": "ordinary-reconcile-action",
+        "ui": "تأكيد نطاق المقارنة"
+      },
+      {
+        "field": "coverageConfirmed",
+        "value": true,
+        "level": "limited-confirmation",
+        "origin": "review-of-printed-period",
+        "ui": "تأكيد تغطية التقريرين للفترة",
+        "evidence": [
+          {
+            "origin": "visible-source-text",
+            "sourceName": "supplier-statement.csv",
+            "page": 1,
+            "row": 3,
+            "label": "Period",
+            "rawText": "Period: 2026-07-01 to 2026-07-31",
+            "value": true
+          },
+          {
+            "origin": "visible-source-text",
+            "sourceName": "ledger-statement.xlsx",
+            "page": 1,
+            "row": 3,
+            "label": "Period",
+            "rawText": "Period: 2026-07-01 to 2026-07-31",
+            "value": true
+          }
+        ]
+      },
+      {
+        "field": "supplier.numberFormat",
+        "value": "dot",
+        "level": "automatic",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "تفسير واحد لجميع قيم المبالغ (2 قيمة).",
+          "candidates": [
+            "dot"
+          ],
+          "checkedValues": 2
+        }
+      },
+      {
+        "field": "supplier.dateFormat",
+        "value": "ymd",
+        "level": "automatic",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "تفسير واحد لجميع قيم التاريخ (2 قيمة).",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 2
+        }
+      },
+      {
+        "field": "supplier.reportType",
+        "value": "transactions",
+        "level": "limited-confirmation",
+        "origin": "visible-report-title",
+        "ui": "نوع التقرير",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 1,
+          "label": "report title",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "transactions"
+        }
+      },
+      {
+        "field": "supplier.multiplier",
+        "value": 1,
+        "level": "limited-confirmation",
+        "origin": "visible-sign-convention",
+        "ui": "اتجاه المبالغ",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 4,
+          "label": "declared sign convention",
+          "rawText": "Positive amount increases the payable to the supplier",
+          "value": 1
+        }
+      },
+      {
+        "field": "ledger.numberFormat",
+        "value": "dot",
+        "level": "automatic",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "قيم Excel الرقمية الأصلية لا تعتمد على شكل الفواصل المعروض (3 قيمة).",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3
+        }
+      },
+      {
+        "field": "ledger.dateFormat",
+        "value": "ymd",
+        "level": "automatic",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3
+        }
+      },
+      {
+        "field": "ledger.reportType",
+        "value": "transactions",
+        "level": "limited-confirmation",
+        "origin": "visible-report-title",
+        "ui": "نوع التقرير",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "ledger-statement.xlsx",
+          "page": 1,
+          "row": 1,
+          "label": "report title",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "transactions"
+        }
+      },
+      {
+        "field": "ledger.multiplier",
+        "value": 1,
+        "level": "limited-confirmation",
+        "origin": "visible-sign-convention",
+        "ui": "اتجاه المبالغ",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "ledger-statement.xlsx",
+          "page": 1,
+          "row": 4,
+          "label": "declared sign convention",
+          "rawText": "Positive amount increases the payable to the supplier",
+          "value": 1
+        }
+      },
+      {
+        "field": "supplier",
+        "value": "Cedar Trading",
+        "level": "manual-correction",
+        "origin": "manual-reading-of-visible-text",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 1,
+          "label": "statement issuer",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "Cedar Trading"
+        }
+      },
+      {
+        "field": "entity",
+        "value": "North Distribution",
+        "level": "manual-correction",
+        "origin": "manual-reading-of-visible-text",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Entity",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "North Distribution"
+        }
+      },
+      {
+        "field": "account",
+        "value": "AP-482",
+        "level": "manual-correction",
+        "origin": "manual-reading-of-visible-text",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Account",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "AP-482"
+        }
+      },
+      {
+        "field": "currency",
+        "value": "SAR",
+        "level": "limited-confirmation",
+        "origin": "engine-visible-scope-proposal",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Currency",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "SAR"
+        }
+      },
+      {
+        "field": "cutoff",
+        "value": "2026-07-31",
+        "level": "limited-confirmation",
+        "origin": "engine-visible-scope-proposal",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 3,
+          "label": "Period end",
+          "rawText": "Period: 2026-07-01 to 2026-07-31",
+          "value": "2026-07-31"
+        }
+      }
+    ],
+    "unresolvedInputs": [],
+    "inputTrace": [
+      {
+        "field": "dateWindow",
+        "value": 2,
+        "origin": "product-default",
+        "ui": "فرق الأيام المسموح للمطابقة"
+      },
+      {
+        "field": "decimals",
+        "value": 2,
+        "origin": "currency-minor-unit-table",
+        "ui": "المنازل العشرية للعملة",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Currency",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "SAR"
+        }
+      },
+      {
+        "field": "confirmed",
+        "value": true,
+        "origin": "ordinary-reconcile-action",
+        "ui": "تأكيد نطاق المقارنة"
+      },
+      {
+        "field": "coverageConfirmed",
+        "value": true,
+        "origin": "review-of-printed-period",
+        "ui": "تأكيد تغطية التقريرين للفترة",
+        "evidence": [
+          {
+            "origin": "visible-source-text",
+            "sourceName": "supplier-statement.csv",
+            "page": 1,
+            "row": 3,
+            "label": "Period",
+            "rawText": "Period: 2026-07-01 to 2026-07-31",
+            "value": true
+          },
+          {
+            "origin": "visible-source-text",
+            "sourceName": "ledger-statement.xlsx",
+            "page": 1,
+            "row": 3,
+            "label": "Period",
+            "rawText": "Period: 2026-07-01 to 2026-07-31",
+            "value": true
+          }
+        ]
+      },
+      {
+        "field": "supplier.numberFormat",
+        "value": "dot",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "تفسير واحد لجميع قيم المبالغ (2 قيمة).",
+          "candidates": [
+            "dot"
+          ],
+          "checkedValues": 2
+        }
+      },
+      {
+        "field": "supplier.dateFormat",
+        "value": "ymd",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "تفسير واحد لجميع قيم التاريخ (2 قيمة).",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 2
+        }
+      },
+      {
+        "field": "supplier.reportType",
+        "value": "transactions",
+        "origin": "visible-report-title",
+        "ui": "نوع التقرير",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 1,
+          "label": "report title",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "transactions"
+        }
+      },
+      {
+        "field": "supplier.multiplier",
+        "value": 1,
+        "origin": "visible-sign-convention",
+        "ui": "اتجاه المبالغ",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 4,
+          "label": "declared sign convention",
+          "rawText": "Positive amount increases the payable to the supplier",
+          "value": 1
+        }
+      },
+      {
+        "field": "ledger.numberFormat",
+        "value": "dot",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "قيم Excel الرقمية الأصلية لا تعتمد على شكل الفواصل المعروض (3 قيمة).",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3
+        }
+      },
+      {
+        "field": "ledger.dateFormat",
+        "value": "ymd",
+        "origin": "engine-format-proof",
+        "ui": "صيغة القيم",
+        "evidence": {
+          "status": "proven",
+          "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3
+        }
+      },
+      {
+        "field": "ledger.reportType",
+        "value": "transactions",
+        "origin": "visible-report-title",
+        "ui": "نوع التقرير",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "ledger-statement.xlsx",
+          "page": 1,
+          "row": 1,
+          "label": "report title",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "transactions"
+        }
+      },
+      {
+        "field": "ledger.multiplier",
+        "value": 1,
+        "origin": "visible-sign-convention",
+        "ui": "اتجاه المبالغ",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "ledger-statement.xlsx",
+          "page": 1,
+          "row": 4,
+          "label": "declared sign convention",
+          "rawText": "Positive amount increases the payable to the supplier",
+          "value": 1
+        }
+      },
+      {
+        "field": "supplier",
+        "value": "Cedar Trading",
+        "origin": "manual-reading-of-visible-text",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 1,
+          "label": "statement issuer",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "Cedar Trading"
+        }
+      },
+      {
+        "field": "entity",
+        "value": "North Distribution",
+        "origin": "manual-reading-of-visible-text",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Entity",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "North Distribution"
+        }
+      },
+      {
+        "field": "account",
+        "value": "AP-482",
+        "origin": "manual-reading-of-visible-text",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Account",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "AP-482"
+        }
+      },
+      {
+        "field": "currency",
+        "value": "SAR",
+        "origin": "engine-visible-scope-proposal",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Currency",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "SAR"
+        }
+      },
+      {
+        "field": "cutoff",
+        "value": "2026-07-31",
+        "origin": "engine-visible-scope-proposal",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 3,
+          "label": "Period end",
+          "rawText": "Period: 2026-07-01 to 2026-07-31",
+          "value": "2026-07-31"
+        }
+      }
+    ],
+    "resultProduced": true,
+    "completeSourceRead": true,
+    "completedComparison": true,
+    "sourceReadErrors": 0,
+    "unprovenFormatDefaults": [],
+    "ambiguityGate": [],
+    "formatAssessments": [
+      {
+        "source": "supplier",
+        "field": "numberFormat",
+        "status": "proven",
+        "reason": "تفسير واحد لجميع قيم المبالغ (2 قيمة).",
+        "candidates": [
+          "dot"
+        ],
+        "checkedValues": 2
+      },
+      {
+        "source": "supplier",
+        "field": "dateFormat",
+        "status": "proven",
+        "reason": "تفسير واحد لجميع قيم التاريخ (2 قيمة).",
+        "candidates": [
+          "ymd",
+          "dmy",
+          "mdy"
+        ],
+        "checkedValues": 2
+      },
+      {
+        "source": "ledger",
+        "field": "numberFormat",
+        "status": "proven",
+        "reason": "قيم Excel الرقمية الأصلية لا تعتمد على شكل الفواصل المعروض (3 قيمة).",
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "checkedValues": 3
+      },
+      {
+        "source": "ledger",
+        "field": "dateFormat",
+        "status": "proven",
+        "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+        "candidates": [
+          "ymd",
+          "dmy",
+          "mdy"
+        ],
+        "checkedValues": 3
+      }
+    ],
+    "groupAssessments": [
+      {
+        "aKeys": [
+          "supplier:1",
+          "supplier:2"
+        ],
+        "bKeys": [
+          "ledger:1",
+          "ledger:2",
+          "ledger:3"
+        ],
+        "rule": "explicit-bank-or-receipt-payment-components",
+        "classification": "out-of-scope",
+        "reason": "many-to-many",
+        "businessTask": "component-allocation",
+        "sourceProof": [
+          {
+            "side": "supplier",
+            "file": "supplier-statement.csv",
+            "format": "csv",
+            "layout": "046-register-csv",
+            "referenceHeader": "Reference",
+            "typedPaymentEvidence": [
+              "bankReference"
+            ],
+            "typeEvidence": "Document Type column"
+          },
+          {
+            "side": "ledger",
+            "file": "ledger-statement.xlsx",
+            "format": "xlsx",
+            "layout": "046-register-xlsx",
+            "referenceHeader": "Reference",
+            "typedPaymentEvidence": [
+              "bankReference"
+            ],
+            "typeEvidence": "Document Type column"
+          }
+        ],
+        "visibleEvidence": [
+          {
+            "key": "supplier:1",
+            "reference": "PAY-76336-1",
+            "kind": "Payment",
+            "date": "2026-07-15",
+            "minor": -11101,
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          },
+          {
+            "key": "supplier:2",
+            "reference": "PAY-76336-2",
+            "kind": "Payment",
+            "date": "2026-07-15",
+            "minor": -32594,
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          },
+          {
+            "key": "ledger:1",
+            "reference": "PV-76336-1",
+            "kind": "Payment",
+            "date": "2026-07-15",
+            "minor": -14695,
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          },
+          {
+            "key": "ledger:2",
+            "reference": "PV-76336-2",
+            "kind": "Payment",
+            "date": "2026-07-15",
+            "minor": -17000,
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          },
+          {
+            "key": "ledger:3",
+            "reference": "PV-76336-3",
+            "kind": "Payment",
+            "date": "2026-07-15",
+            "minor": -12000,
+            "currency": "SAR",
+            "account": "AP-482",
+            "bankReference": "BNK-480208",
+            "receiptReference": "",
+            "poReference": "",
+            "amountBasis": "Movement"
+          }
+        ]
+      }
+    ],
+    "category": "group-counterexamples",
+    "split": "development-046",
+    "scenario": "many-to-many",
+    "novelty": "new-development",
+    "fingerprint": "1c061e32782b15972af1a049233f229a6806b6ccfd1daf335becdfcba62ba834",
+    "families": [
+      "046-register-csv",
+      "046-register-xlsx"
+    ],
+    "formats": [
+      "csv",
+      "xlsx"
+    ],
+    "failures": [
+      {
+        "code": "FALSE_MATCH",
+        "detail": "CASE-2633ECA3: [[\"supplier:1\",\"supplier:2\"],[\"ledger:1\",\"ledger:2\",\"ledger:3\"]] rule EXPLICIT_PAYMENT_COMPLETE_GROUP_TOTAL_V2",
+        "safety": true
+      },
+      {
+        "code": "EXPORT_VALIDATION",
+        "detail": "Exported accepted group has no independent visible-evidence permission",
+        "safety": true
+      }
+    ],
+    "warnings": [],
+    "confirmations": [],
+    "permittedMatches": 0,
+    "expectedMatches": 0,
+    "correctMatches": 0,
+    "correctRequiredMatches": 0,
+    "permittedGroups": 0,
+    "acceptedGroups": 0,
+    "requiredGroups": 0,
+    "acceptedRequiredGroups": 0,
+    "falseMatches": 1,
+    "falseMatchValueMinor": "43695",
+    "expectedRows": 5,
+    "validExpectedRows": 5,
+    "currency": "SAR",
+    "extractedRows": 5,
+    "excludedRows": 0,
+    "exceptionRows": 5,
+    "handledExceptionRows": 0,
+    "mappingAutomatic": true,
+    "exportChecked": false,
+    "bridgeChecked": true,
+    "stopped": false,
+    "inputFormatGate": "passed",
+    "automaticInputDerivation": false,
+    "explicitAttestations": [
+      {
+        "field": "coverageConfirmed",
+        "value": true,
+        "level": "limited-confirmation",
+        "origin": "review-of-printed-period",
+        "ui": "تأكيد تغطية التقريرين للفترة",
+        "evidence": [
+          {
+            "origin": "visible-source-text",
+            "sourceName": "supplier-statement.csv",
+            "page": 1,
+            "row": 3,
+            "label": "Period",
+            "rawText": "Period: 2026-07-01 to 2026-07-31",
+            "value": true
+          },
+          {
+            "origin": "visible-source-text",
+            "sourceName": "ledger-statement.xlsx",
+            "page": 1,
+            "row": 3,
+            "label": "Period",
+            "rawText": "Period: 2026-07-01 to 2026-07-31",
+            "value": true
+          }
+        ]
+      },
+      {
+        "field": "supplier.reportType",
+        "value": "transactions",
+        "level": "limited-confirmation",
+        "origin": "visible-report-title",
+        "ui": "نوع التقرير",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 1,
+          "label": "report title",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "transactions"
+        }
+      },
+      {
+        "field": "supplier.multiplier",
+        "value": 1,
+        "level": "limited-confirmation",
+        "origin": "visible-sign-convention",
+        "ui": "اتجاه المبالغ",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 4,
+          "label": "declared sign convention",
+          "rawText": "Positive amount increases the payable to the supplier",
+          "value": 1
+        }
+      },
+      {
+        "field": "ledger.reportType",
+        "value": "transactions",
+        "level": "limited-confirmation",
+        "origin": "visible-report-title",
+        "ui": "نوع التقرير",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "ledger-statement.xlsx",
+          "page": 1,
+          "row": 1,
+          "label": "report title",
+          "rawText": "Cedar Trading - Transaction statement",
+          "value": "transactions"
+        }
+      },
+      {
+        "field": "ledger.multiplier",
+        "value": 1,
+        "level": "limited-confirmation",
+        "origin": "visible-sign-convention",
+        "ui": "اتجاه المبالغ",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "ledger-statement.xlsx",
+          "page": 1,
+          "row": 4,
+          "label": "declared sign convention",
+          "rawText": "Positive amount increases the payable to the supplier",
+          "value": 1
+        }
+      },
+      {
+        "field": "currency",
+        "value": "SAR",
+        "level": "limited-confirmation",
+        "origin": "engine-visible-scope-proposal",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 2,
+          "label": "Currency",
+          "rawText": "Entity: North Distribution | Account: AP-482 | Currency: SAR",
+          "value": "SAR"
+        }
+      },
+      {
+        "field": "cutoff",
+        "value": "2026-07-31",
+        "level": "limited-confirmation",
+        "origin": "engine-visible-scope-proposal",
+        "ui": "تأكيد أو إدخال النطاق من المستند",
+        "evidence": {
+          "origin": "visible-source-text",
+          "sourceName": "supplier-statement.csv",
+          "page": 1,
+          "row": 3,
+          "label": "Period end",
+          "rawText": "Period: 2026-07-01 to 2026-07-31",
+          "value": "2026-07-31"
+        }
+      }
+    ],
+    "needsChosenInterpretation": false,
+    "externalFacts": [],
+    "interventionLevel": "manual-correction",
+    "outcome": "completed-comparison",
+    "requiredInterventionLevel": "manual-correction",
+    "conditionalRequiredMatches": 0,
+    "resolvedInputRequiredMatches": 0,
+    "missedRequiredGroups": 0,
+    "missedRequiredMatches": 0,
+    "ms": 63.49,
+    "safetyPass": false,
+    "pass": false
+  }
+}

@@ -1,0 +1,6379 @@
+{
+  "schema": "p2-independent-whole-group-contract/1",
+  "purpose": "Independent literal synthetic development contracts for bounded whole-group P2/P3; not fresh final holdout or field evidence.",
+  "authorship": "Written before P2 engine edits using the approved scope and existing public API/test shape only. Expected memberships and signed totals are authored from literal source facts, not engine results.",
+  "scope": {
+    "supplier": "Synthetic P2 supplier",
+    "entity": "Synthetic P2 entity",
+    "account": "P2-AP",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-09-30",
+    "dateWindow": 3,
+    "confirmed": true,
+    "coverageConfirmed": false
+  },
+  "bounds": {
+    "paymentMembersPerSide": 100,
+    "invoiceRelations": [
+      "1:N",
+      "N:1"
+    ],
+    "paymentRelations": [
+      "1:N",
+      "N:1",
+      "N:M"
+    ],
+    "subsetSearch": false
+  },
+  "cases": [
+    {
+      "id": "P2D01",
+      "title": "A whole bank-identified payment in 1:N form",
+      "rationale": "One explicit bank identity names the complete -900 payment and both -250/-650 parts. Require the full group, without inventing row-level allocation.",
+      "supplier": {
+        "file": "fixtures/P2D01-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-410",
+              "",
+              "S-01",
+              "",
+              "Posting record",
+              "-900.00",
+              "SAR"
+            ],
+            "amountMinor": -90000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D01-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-410",
+              "",
+              "L-01",
+              "",
+              "Posting record",
+              "-250.00",
+              "SAR"
+            ],
+            "amountMinor": -25000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-410",
+              "",
+              "L-02",
+              "",
+              "Posting record",
+              "-650.00",
+              "SAR"
+            ],
+            "amountMinor": -65000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "supplierTotalMinor": -90000,
+          "ledgerTotalMinor": -90000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D02",
+      "title": "The same complete payment in N:1 form",
+      "rationale": "Reversing export sides preserves the same economic payment group.",
+      "supplier": {
+        "file": "fixtures/P2D02-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-420",
+              "",
+              "S-03",
+              "",
+              "Posting record",
+              "-250.00",
+              "SAR"
+            ],
+            "amountMinor": -25000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-420",
+              "",
+              "S-04",
+              "",
+              "Posting record",
+              "-650.00",
+              "SAR"
+            ],
+            "amountMinor": -65000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D02-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-420",
+              "",
+              "L-03",
+              "",
+              "Posting record",
+              "-900.00",
+              "SAR"
+            ],
+            "amountMinor": -90000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": -90000,
+          "ledgerTotalMinor": -90000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D03",
+      "title": "Whole bank-identified N:M payment equivalence",
+      "rationale": "Every row is Payment with the same explicit bank identity. Both complete sides total -900; the required relation is the two whole member sets, not arbitrary pairs.",
+      "supplier": {
+        "file": "fixtures/P2D03-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "S-05",
+              "",
+              "Posting record",
+              "-250.00",
+              "SAR"
+            ],
+            "amountMinor": -25000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "S-06",
+              "",
+              "Posting record",
+              "-650.00",
+              "SAR"
+            ],
+            "amountMinor": -65000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D03-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "L-04",
+              "",
+              "Posting record",
+              "-300.00",
+              "SAR"
+            ],
+            "amountMinor": -30000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "L-05",
+              "",
+              "Posting record",
+              "-400.00",
+              "SAR"
+            ],
+            "amountMinor": -40000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "L-06",
+              "",
+              "Posting record",
+              "-200.00",
+              "SAR"
+            ],
+            "amountMinor": -20000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3,
+            4
+          ],
+          "supplierTotalMinor": -90000,
+          "ledgerTotalMinor": -90000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D04",
+      "title": "Whole receipt-identified N:M without bank evidence",
+      "rationale": "An explicitly labelled Receipt No names the entire payment on each side; bank values are absent.",
+      "supplier": {
+        "file": "fixtures/P2D04-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "RCPT-440",
+              "S-07",
+              "",
+              "Posting record",
+              "-400.00",
+              "SAR"
+            ],
+            "amountMinor": -40000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "RCPT-440",
+              "S-08",
+              "",
+              "Posting record",
+              "-800.00",
+              "SAR"
+            ],
+            "amountMinor": -80000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D04-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "RCPT-440",
+              "L-07",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "RCPT-440",
+              "L-08",
+              "",
+              "Posting record",
+              "-500.00",
+              "SAR"
+            ],
+            "amountMinor": -50000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "RCPT-440",
+              "L-09",
+              "",
+              "Posting record",
+              "-600.00",
+              "SAR"
+            ],
+            "amountMinor": -60000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3,
+            4
+          ],
+          "supplierTotalMinor": -120000,
+          "ledgerTotalMinor": -120000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D05",
+      "title": "Two identity roles corroborate exactly the same members",
+      "rationale": "The bank and receipt buckets have identical full memberships. They support one group rather than two competing consumptions.",
+      "supplier": {
+        "file": "fixtures/P2D05-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-450",
+              "RCPT-450",
+              "S-09",
+              "",
+              "Posting record",
+              "-200.00",
+              "SAR"
+            ],
+            "amountMinor": -20000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-450",
+              "RCPT-450",
+              "S-10",
+              "",
+              "Posting record",
+              "-500.00",
+              "SAR"
+            ],
+            "amountMinor": -50000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D05-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-450",
+              "RCPT-450",
+              "L-10",
+              "",
+              "Posting record",
+              "-300.00",
+              "SAR"
+            ],
+            "amountMinor": -30000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-450",
+              "RCPT-450",
+              "L-11",
+              "",
+              "Posting record",
+              "-400.00",
+              "SAR"
+            ],
+            "amountMinor": -40000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "supplierTotalMinor": -70000,
+          "ledgerTotalMinor": -70000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D06",
+      "title": "The 1000/500 example resolves identities and rejects the equal-sum decoy",
+      "rationale": "INV-A is 1000 against its 400+600 lines with a shared PO. INV-B is the separate 500 pair. INV-C is a different reference, so B+C cannot become an A group even though their sum is 1000.",
+      "supplier": {
+        "file": "fixtures/P2D06-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-A",
+              "Invoice",
+              "",
+              "",
+              "S-11",
+              "PO-A",
+              "Posting record",
+              "1000.00",
+              "SAR"
+            ],
+            "amountMinor": 100000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-B",
+              "Invoice",
+              "",
+              "",
+              "S-12",
+              "PO-B",
+              "Posting record",
+              "500.00",
+              "SAR"
+            ],
+            "amountMinor": 50000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D06-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-B",
+              "Invoice",
+              "",
+              "",
+              "L-12",
+              "PO-B",
+              "Posting record",
+              "500.00",
+              "SAR"
+            ],
+            "amountMinor": 50000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-A",
+              "Invoice",
+              "",
+              "",
+              "L-13",
+              "PO-A",
+              "Posting record",
+              "400.00",
+              "SAR"
+            ],
+            "amountMinor": 40000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-A",
+              "Invoice",
+              "",
+              "",
+              "L-14",
+              "PO-A",
+              "Posting record",
+              "600.00",
+              "SAR"
+            ],
+            "amountMinor": 60000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-C",
+              "Invoice",
+              "",
+              "",
+              "L-15",
+              "PO-C",
+              "Posting record",
+              "500.00",
+              "SAR"
+            ],
+            "amountMinor": 50000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            3,
+            4
+          ],
+          "supplierTotalMinor": 100000,
+          "ledgerTotalMinor": 100000
+        },
+        {
+          "supplierRows": [
+            3
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 50000,
+          "ledgerTotalMinor": 50000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D07",
+      "title": "Invoice subgroup works in reverse  N:1 direction",
+      "rationale": "The same complete invoice subgroups and unmatched INV-C remain when export roles reverse; each valid invoice group retains its shared PO.",
+      "supplier": {
+        "file": "fixtures/P2D07-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-B",
+              "Invoice",
+              "",
+              "",
+              "L-12",
+              "PO-B",
+              "Posting record",
+              "500.00",
+              "SAR"
+            ],
+            "amountMinor": 50000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-A",
+              "Invoice",
+              "",
+              "",
+              "L-13",
+              "PO-A",
+              "Posting record",
+              "400.00",
+              "SAR"
+            ],
+            "amountMinor": 40000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-A",
+              "Invoice",
+              "",
+              "",
+              "L-14",
+              "PO-A",
+              "Posting record",
+              "600.00",
+              "SAR"
+            ],
+            "amountMinor": 60000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-C",
+              "Invoice",
+              "",
+              "",
+              "L-15",
+              "PO-C",
+              "Posting record",
+              "500.00",
+              "SAR"
+            ],
+            "amountMinor": 50000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D07-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-A",
+              "Invoice",
+              "",
+              "",
+              "S-11",
+              "PO-A",
+              "Posting record",
+              "1000.00",
+              "SAR"
+            ],
+            "amountMinor": 100000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "INV-206",
+              "INV-B",
+              "Invoice",
+              "",
+              "",
+              "S-12",
+              "PO-B",
+              "Posting record",
+              "500.00",
+              "SAR"
+            ],
+            "amountMinor": 50000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            3,
+            4
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "supplierTotalMinor": 100000,
+          "ledgerTotalMinor": 100000
+        },
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            3
+          ],
+          "supplierTotalMinor": 50000,
+          "ledgerTotalMinor": 50000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D08",
+      "title": "Permutation preserves complete bank-group membership",
+      "rationale": "Source row positions differ from P2D03, but all original bank identity members remain. Whole economic membership and totals must be unchanged.",
+      "supplier": {
+        "file": "fixtures/P2D08-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "S-06",
+              "",
+              "Posting record",
+              "-650.00",
+              "SAR"
+            ],
+            "amountMinor": -65000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "S-05",
+              "",
+              "Posting record",
+              "-250.00",
+              "SAR"
+            ],
+            "amountMinor": -25000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D08-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "L-06",
+              "",
+              "Posting record",
+              "-200.00",
+              "SAR"
+            ],
+            "amountMinor": -20000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "L-04",
+              "",
+              "Posting record",
+              "-300.00",
+              "SAR"
+            ],
+            "amountMinor": -30000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-430",
+              "",
+              "L-05",
+              "",
+              "Posting record",
+              "-400.00",
+              "SAR"
+            ],
+            "amountMinor": -40000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3,
+            4
+          ],
+          "supplierTotalMinor": -90000,
+          "ledgerTotalMinor": -90000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "permutationOf": "P2D03"
+    },
+    {
+      "id": "P2D09",
+      "title": "Overlapping bank and receipt memberships remain unresolved",
+      "rationale": "BANK-460 spans the first two rows; RCPT-X spans the first and third. The identity-role memberships overlap and disagree, even though each side has the same amounts. No role may greedily consume a subset.",
+      "supplier": {
+        "file": "fixtures/P2D09-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-X",
+              "S-13",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-Y",
+              "S-14",
+              "",
+              "Posting record",
+              "-60.00",
+              "SAR"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-461",
+              "RCPT-X",
+              "S-15",
+              "",
+              "Posting record",
+              "-30.00",
+              "SAR"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D09-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-X",
+              "L-16",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-Y",
+              "L-17",
+              "",
+              "Posting record",
+              "-60.00",
+              "SAR"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-461",
+              "RCPT-X",
+              "L-18",
+              "",
+              "Posting record",
+              "-30.00",
+              "SAR"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D10",
+      "title": "A manual pair does not remove an original overlapping competitor",
+      "rationale": "The accountant explicitly pairs source row 2 on each side. The remaining original bank/receipt overlap still exists for automatic eligibility; consumed rows cannot create artificial uniqueness.",
+      "supplier": {
+        "file": "fixtures/P2D10-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-X",
+              "S-13",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-Y",
+              "S-14",
+              "",
+              "Posting record",
+              "-60.00",
+              "SAR"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-461",
+              "RCPT-X",
+              "S-15",
+              "",
+              "Posting record",
+              "-30.00",
+              "SAR"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D10-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-X",
+              "L-16",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-460",
+              "RCPT-Y",
+              "L-17",
+              "",
+              "Posting record",
+              "-60.00",
+              "SAR"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-461",
+              "RCPT-X",
+              "L-18",
+              "",
+              "Posting record",
+              "-30.00",
+              "SAR"
+            ],
+            "amountMinor": -3000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [
+        {
+          "supplierRow": 2,
+          "ledgerRow": 2,
+          "note": "Explicit synthetic accountant confirmation for this pair only"
+        }
+      ],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D11",
+      "title": "A duplicated component is not proof of two distinct payment parts",
+      "rationale": "Two -50 lines in the ledger are identical, including their local voucher. They cannot be assumed distinct parts merely because their sum is -100.",
+      "supplier": {
+        "file": "fixtures/P2D11-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-470",
+              "",
+              "S-16",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D11-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-470",
+              "",
+              "L-DUP",
+              "",
+              "Posting record",
+              "-50.00",
+              "SAR"
+            ],
+            "amountMinor": -5000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-470",
+              "",
+              "L-DUP",
+              "",
+              "Posting record",
+              "-50.00",
+              "SAR"
+            ],
+            "amountMinor": -5000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D12",
+      "title": "An unknown document type blocks whole payment approval",
+      "rationale": "One purported part has a type not established as Payment. Its amount and bank identity cannot prove its accounting role.",
+      "supplier": {
+        "file": "fixtures/P2D12-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-480",
+              "",
+              "S-17",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D12-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-480",
+              "",
+              "L-19",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Unclassified",
+              "BANK-480",
+              "",
+              "L-20",
+              "",
+              "Posting record",
+              "-60.00",
+              "SAR"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D13",
+      "title": "An excluded same-identity member remains relevant to completeness",
+      "rationale": "An extra -20 ledger row shares the bank identity but lies after cutoff. Dropping it makes the remaining amounts appear equal; this cannot approve the incomplete original group.",
+      "supplier": {
+        "file": "fixtures/P2D13-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-490",
+              "",
+              "S-18",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D13-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-490",
+              "",
+              "L-21",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-490",
+              "",
+              "L-22",
+              "",
+              "Posting record",
+              "-60.00",
+              "SAR"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-10-01",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-490",
+              "",
+              "L-23",
+              "",
+              "Posting record",
+              "-20.00",
+              "SAR"
+            ],
+            "amountMinor": -2000,
+            "disposition": "excluded"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D14",
+      "title": "A different row currency cannot contribute to a SAR group",
+      "rationale": "The -60 part is explicitly USD while scope and remaining rows are SAR. It must be a visible row error, with no automatic payment group.",
+      "supplier": {
+        "file": "fixtures/P2D14-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-500",
+              "",
+              "S-19",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D14-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-500",
+              "",
+              "L-24",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-500",
+              "",
+              "L-25",
+              "",
+              "Posting record",
+              "-60.00",
+              "USD"
+            ],
+            "amountMinor": -6000,
+            "disposition": "error"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D15",
+      "title": "Offsetting signs cannot manufacture a payment split",
+      "rationale": "-150 and +50 net to -100 but do not form same-direction parts of the same payment. The balancing sum does not establish membership.",
+      "supplier": {
+        "file": "fixtures/P2D15-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-510",
+              "",
+              "S-20",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D15-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-510",
+              "",
+              "L-26",
+              "",
+              "Posting record",
+              "-150.00",
+              "SAR"
+            ],
+            "amountMinor": -15000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-510",
+              "",
+              "L-27",
+              "",
+              "Posting record",
+              "50.00",
+              "SAR"
+            ],
+            "amountMinor": 5000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D16",
+      "title": "A same-identity part outside the date window remains unresolved",
+      "rationale": "One part is five days after the payment date while the declared window is three days. Both are inside cutoff; do not confuse cutoff validity with grouping date evidence.",
+      "supplier": {
+        "file": "fixtures/P2D16-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-520",
+              "",
+              "S-21",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D16-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-520",
+              "",
+              "L-28",
+              "",
+              "Posting record",
+              "-40.00",
+              "SAR"
+            ],
+            "amountMinor": -4000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-29",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-520",
+              "",
+              "L-29",
+              "",
+              "Posting record",
+              "-60.00",
+              "SAR"
+            ],
+            "amountMinor": -6000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D17",
+      "title": "Amounts and generic references alone cannot create payment groups",
+      "rationale": "No explicitly labelled bank or receipt identity exists. Several parts and equal-sum alternatives are visible, but no automatic group is justified.",
+      "supplier": {
+        "file": "fixtures/P2D17-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "",
+              "S-22",
+              "",
+              "Posting record",
+              "-1000.00",
+              "SAR"
+            ],
+            "amountMinor": -100000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "",
+              "S-23",
+              "",
+              "Posting record",
+              "-500.00",
+              "SAR"
+            ],
+            "amountMinor": -50000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D17-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "",
+              "L-30",
+              "",
+              "Posting record",
+              "-400.00",
+              "SAR"
+            ],
+            "amountMinor": -40000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "",
+              "L-31",
+              "",
+              "Posting record",
+              "-600.00",
+              "SAR"
+            ],
+            "amountMinor": -60000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "",
+              "L-32",
+              "",
+              "Posting record",
+              "-500.00",
+              "SAR"
+            ],
+            "amountMinor": -50000,
+            "disposition": "transaction"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "",
+              "",
+              "L-33",
+              "",
+              "Posting record",
+              "-500.00",
+              "SAR"
+            ],
+            "amountMinor": -50000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    },
+    {
+      "id": "P2D18",
+      "title": "A complete group above the declared 100-member side limit is not approved",
+      "rationale": "The ledger has 101 distinct posting vouchers of -1 each. The identity and sum are otherwise valid, but this case deliberately exceeds the declared whole-group side limit. A visible limit explanation is required.",
+      "supplier": {
+        "file": "fixtures/P2D18-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "S-LIMIT",
+              "",
+              "Posting record",
+              "-101.00",
+              "SAR"
+            ],
+            "amountMinor": -10100,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D18-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-001",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-002",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-003",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-004",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 6,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-005",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 7,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-006",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 8,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-007",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 9,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-008",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 10,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-009",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 11,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-010",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 12,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-011",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 13,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-012",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 14,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-013",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 15,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-014",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 16,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-015",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 17,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-016",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 18,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-017",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 19,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-018",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 20,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-019",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 21,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-020",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 22,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-021",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 23,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-022",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 24,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-023",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 25,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-024",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 26,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-025",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 27,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-026",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 28,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-027",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 29,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-028",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 30,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-029",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 31,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-030",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 32,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-031",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 33,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-032",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 34,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-033",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 35,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-034",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 36,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-035",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 37,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-036",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 38,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-037",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 39,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-038",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 40,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-039",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 41,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-040",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 42,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-041",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 43,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-042",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 44,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-043",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 45,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-044",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 46,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-045",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 47,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-046",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 48,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-047",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 49,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-048",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 50,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-049",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 51,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-050",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 52,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-051",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 53,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-052",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 54,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-053",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 55,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-054",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 56,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-055",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 57,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-056",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 58,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-057",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 59,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-058",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 60,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-059",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 61,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-060",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 62,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-061",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 63,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-062",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 64,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-063",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 65,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-064",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 66,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-065",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 67,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-066",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 68,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-067",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 69,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-068",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 70,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-069",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 71,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-070",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 72,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-071",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 73,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-072",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 74,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-073",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 75,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-074",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 76,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-075",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 77,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-076",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 78,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-077",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 79,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-078",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 80,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-079",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 81,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-080",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 82,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-081",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 83,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-082",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 84,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-083",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 85,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-084",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 86,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-085",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 87,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-086",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 88,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-087",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 89,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-088",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 90,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-089",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 91,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-090",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 92,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-091",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 93,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-092",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 94,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-093",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 95,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-094",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 96,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-095",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 97,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-096",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 98,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-097",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 99,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-098",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 100,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-099",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 101,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-100",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 102,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-530",
+              "",
+              "L-LIMIT-101",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true,
+      "requiredReviewSignalPattern": "100|limit|حد"
+    },
+    {
+      "id": "P2D19",
+      "title": "The exact 100-member boundary remains a supported positive",
+      "rationale": "Exactly 100 ledger parts, each carrying its own distinct voucher, share one bank identity and total -100. The declared boundary is inclusive.",
+      "supplier": {
+        "file": "fixtures/P2D19-supplier.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "S-BOUND",
+              "",
+              "Posting record",
+              "-100.00",
+              "SAR"
+            ],
+            "amountMinor": -10000,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "ledger": {
+        "file": "fixtures/P2D19-ledger.csv",
+        "expectedRows": [
+          {
+            "row": 2,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-001",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 3,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-002",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 4,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-003",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 5,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-004",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 6,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-005",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 7,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-006",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 8,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-007",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 9,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-008",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 10,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-009",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 11,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-010",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 12,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-011",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 13,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-012",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 14,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-013",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 15,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-014",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 16,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-015",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 17,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-016",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 18,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-017",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 19,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-018",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 20,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-019",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 21,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-020",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 22,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-021",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 23,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-022",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 24,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-023",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 25,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-024",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 26,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-025",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 27,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-026",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 28,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-027",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 29,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-028",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 30,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-029",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 31,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-030",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 32,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-031",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 33,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-032",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 34,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-033",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 35,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-034",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 36,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-035",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 37,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-036",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 38,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-037",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 39,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-038",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 40,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-039",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 41,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-040",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 42,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-041",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 43,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-042",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 44,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-043",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 45,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-044",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 46,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-045",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 47,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-046",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 48,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-047",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 49,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-048",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 50,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-049",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 51,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-050",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 52,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-051",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 53,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-052",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 54,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-053",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 55,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-054",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 56,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-055",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 57,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-056",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 58,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-057",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 59,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-058",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 60,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-059",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 61,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-060",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 62,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-061",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 63,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-062",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 64,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-063",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 65,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-064",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 66,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-065",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 67,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-066",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 68,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-067",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 69,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-068",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 70,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-069",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 71,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-070",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 72,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-071",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 73,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-072",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 74,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-073",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 75,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-074",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 76,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-075",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 77,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-076",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 78,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-077",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 79,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-078",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 80,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-079",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 81,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-080",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 82,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-081",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 83,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-082",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 84,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-083",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 85,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-084",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 86,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-085",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 87,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-086",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 88,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-087",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 89,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-088",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 90,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-089",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 91,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-090",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 92,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-091",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 93,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-092",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 94,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-093",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 95,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-094",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 96,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-095",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 97,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-096",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 98,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-097",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 99,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-098",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 100,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-099",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          },
+          {
+            "row": 101,
+            "values": [
+              "2026-09-24",
+              "PMT-204",
+              "PAY-204",
+              "Payment",
+              "BANK-540",
+              "",
+              "L-BOUND-100",
+              "",
+              "Posting record",
+              "-1.00",
+              "SAR"
+            ],
+            "amountMinor": -100,
+            "disposition": "transaction"
+          }
+        ],
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 8,
+          "amount": 9,
+          "currencyColumn": 10,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      },
+      "requiredAutoGroups": [
+        {
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92,
+            93,
+            94,
+            95,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101
+          ],
+          "supplierTotalMinor": -10000,
+          "ledgerTotalMinor": -10000
+        }
+      ],
+      "manualPairs": [],
+      "forbidOtherAutoGroups": true,
+      "sourceRowsMustRemainAccounted": true
+    }
+  ]
+}
