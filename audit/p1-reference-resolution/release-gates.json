@@ -1,0 +1,25 @@
+{
+  "candidate": "3b52647c61aabdd0165df363cd8b310aaf14ac59",
+  "app": "0.4.10",
+  "engine": "0.3.18-experimental",
+  "typecheck": "passed",
+  "unitTests": {
+    "passed": 775,
+    "failed": 0
+  },
+  "fullBrowser": "passed",
+  "p1Browser": "passed",
+  "dependencyAudit": "No known vulnerabilities found",
+  "localBuild": "passed",
+  "logSha256": {
+    "unit-candidate3.log": "cd8969f1a2e5d69ee3ea2c6f9a3138ee7209e4c12c065b7ead33e287255f2275",
+    "browser-general.log": "005bfde5dc76bad122684ea0a0bea18cb27fa43fdd96325b5561735168924960",
+    "build-candidate3.log": "c1eb0359a207548ec332a5f1a61bf0c0868f68f158cd22e19b656792a5f1a72d",
+    "dependency-audit.log": "15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955"
+  },
+  "limits": [
+    "Synthetic fixtures and explicit reference mappings, not a field accuracy estimate",
+    "V2 P1V206 remains unmet: two required pairs withheld beside missing-reference siblings",
+    "Final main ref and Pages deployment checked separately after upload"
+  ]
+}

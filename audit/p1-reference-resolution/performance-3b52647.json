@@ -1,0 +1,30 @@
+{
+  "kind": "Synthetic local timing, explicit reference selection; excludes export and browser rendering",
+  "engine": "0.3.18-experimental",
+  "commit": "3b52647c61aabdd0165df363cd8b310aaf14ac59",
+  "cpu": "Apple M5",
+  "node": "v24.19.0",
+  "samples": [
+    {
+      "rowsPerSource": 1000,
+      "matchedPairs": 1000,
+      "readMs": 13,
+      "normalizeAndReconcileMs": 110,
+      "rssMiB": 147
+    },
+    {
+      "rowsPerSource": 5000,
+      "matchedPairs": 5000,
+      "readMs": 28,
+      "normalizeAndReconcileMs": 408,
+      "rssMiB": 217
+    },
+    {
+      "rowsPerSource": 20000,
+      "matchedPairs": 20000,
+      "readMs": 123,
+      "normalizeAndReconcileMs": 2082,
+      "rssMiB": 353
+    }
+  ]
+}

@@ -24,7 +24,7 @@ async function fingerprint(dir, prefix = '') {
     const rel = path.join(prefix, f.name);
     if (f.isDirectory())
       entries.push(...(await fingerprint(path.join(dir, f.name), rel)));
-    else if (/\.(?:html|js|css|json)$/.test(f.name)) {
+    else {
       const bytes = await readFile(path.join(dir, f.name));
       entries.push({ path: rel, bytes: bytes.length, sha256: sha256(bytes) });
     }

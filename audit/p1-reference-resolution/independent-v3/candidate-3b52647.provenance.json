@@ -1,0 +1,164 @@
+{
+  "sourceCommit": "3b52647c61aabdd0165df363cd8b310aaf14ac59",
+  "engineVersion": "0.3.18-experimental",
+  "classification": "fresh independent candidate evaluation",
+  "libMatchesCommitAndUnchangedDuringExecution": true,
+  "libFiles": 55,
+  "libDigest": "dd8dca1e6e1d9c51673bd0ce0aef8cfa65b44de2b1304db62dcb7f5e01dfc291",
+  "fixtureManifestSha256": "e46505fd57d0a7d5266e6d2d9ce2c5b65ff62c750930bceba8ddd0459f65bf18",
+  "resultSha256": "7e976367d876e587855a6847e99ba5cd9c2d9a4882e5135658f69f91fa2d9b06",
+  "totals": {
+    "cases": 8,
+    "passed": 8,
+    "failed": 0,
+    "requiredPositivePairs": 8,
+    "satisfiedPositivePairs": 8,
+    "falseApprovedPairs": 0,
+    "unexpectedAutoGroups": 0,
+    "operationExceptions": 0
+  },
+  "caseOutcomes": [
+    {
+      "id": "P1V301",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1V302",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1V303",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1V304",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1V305",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1V306",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1V307",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1V308",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    }
+  ]
+}

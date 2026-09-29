@@ -19,3 +19,12 @@ The fixture repeats `Document No = INV-8170` with `Reference = LINE-0011` and `L
 - `candidate-02f4f33/` preserves the initial harness failure: exact-text matching expected the explanation to be a standalone element. The actual review paragraph contained the expected full explanation plus source details. The selector was corrected to check the substring inside the review-detail region; the expected content was not weakened.
 
 This checks one synthetic positive scenario and its UI/export/session path. It does not replace the independent adverse-case campaign or prove general privacy behavior outside this observed flow. No approval decisions, production data, remote requests or publication were involved.
+
+## Final candidate observed result
+
+- Source revision: `3b52647c61aabdd0165df363cd8b310aaf14ac59`.
+- `candidate-3b52647/result.json`: passed at 2026-09-29 09:22:51 UTC. Built app 0.4.10; original and restored saved sessions report engine `0.3.18-experimental`.
+- Both Arabic and English review, both Excel source-pair assertions, fresh session restore and re-export passed. All review metrics remained `2, 0, 0, 0` (automatic, manual, unmatched, unread).
+- The final run hashes every file in `dist`: 27 assets, 16,114,615 bytes. Every hash matched before and after the complete flow, including OCR and media assets that this CSV flow did not use.
+- 12 requests, all local GETs; zero external requests, non-GET requests or JavaScript page errors.
+- `candidate-3b52647-code-assets-only/` preserves the earlier successful rerun that used the original code-only asset manifest. The canonical final run above strengthened the manifest to include all built files; behavioral assertions were unchanged.

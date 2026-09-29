@@ -1,0 +1,20 @@
+{
+  "note": "Local frozen candidate commits and GitHub commits have identical full Git trees. GitHub's authenticated commit tool records its own committer, so commit SHAs differ; the source bytes and audit fixtures do not. Only the final approved release will update main.",
+  "candidates": [
+    {
+      "localCommit": "02f4f33fa8ac97ebd582883b61577412acda9bf8",
+      "githubCommit": "a8cd08f2e6b9935ef899b7fd69c4544f49294306",
+      "verifiedTree": "25b68c327e6187b19b241e0f48191a828ce2796c"
+    },
+    {
+      "localCommit": "ce4a452cfd9d9c96b759fcdefc5599963386b6c4",
+      "githubCommit": "f1dfd134c4e802a89a4372f1bdccdfedb042ddf2",
+      "verifiedTree": "69593f7a5eba2ac055ccba4d47278c89653b3205"
+    },
+    {
+      "localCommit": "3b52647c61aabdd0165df363cd8b310aaf14ac59",
+      "githubCommit": "d84b509d8ef8939bb39dc5a1059b16306b016987",
+      "verifiedTree": "018f9f57a7d28484a39d5589c6c696dbf8b97af5"
+    }
+  ]
+}

@@ -1,0 +1,1833 @@
+{
+  "purpose": "Fresh synthetic release check of competing reference columns; not field evidence or general accuracy measurement.",
+  "generatedAt": "2026-09-29T09:20:10.935Z",
+  "engineRoot": "/Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan",
+  "engineVersion": "0.3.18-experimental",
+  "engineCommit": "3b52647c61aabdd0165df363cd8b310aaf14ac59",
+  "engineWorkingTree": "?? audit/p1-reference-resolution/independent-v2/candidate-3b52647.before.json\n?? audit/p1-reference-resolution/independent-v2/candidate3-3b52647.json\n?? audit/p1-reference-resolution/independent-v3/candidate-3b52647.before.json\n?? audit/p1-reference-resolution/independent-v3/candidate-3b52647.json\n?? audit/p1-reference-resolution/independent/candidate-3b52647.before.json\n?? audit/p1-reference-resolution/independent/candidate3-3b52647.json",
+  "frozenManifestSha256": "020373400ae35b07d2530aeaaac7d7435f8e838dd4f1325e6aa96175c778b1d7",
+  "cases": 18,
+  "passed": 18,
+  "failed": 0,
+  "requiredPositivePairs": 14,
+  "results": [
+    {
+      "id": "IR01",
+      "title": "A common document number cannot erase different chosen references",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-821",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-822",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-45",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.\nالمرجعان المختاران مختلفان: REF-821 / REF-822",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR02",
+      "title": "True reference survives different local voucher numbers",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-901",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-901",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-998",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR03",
+      "title": "Equal amounts and shared document require cross-order reference pairing",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-031",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-032",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-13",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-032",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-55",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-031",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-56",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              3
+            ]
+          },
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              3
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "رقم المستند DOC-817 متكرر، لكن المرجع المختار REF-031 يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:3"
+            ]
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "رقم المستند DOC-817 متكرر، لكن المرجع المختار REF-032 يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:3",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR04",
+      "title": "Duplicate indistinguishable references do not justify arbitrary pairs",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-DUP",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-DUP",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-DUP",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-DUP",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-DUP",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-DUP",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              2,
+              3
+            ],
+            "ledgerRows": [
+              2,
+              3
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.\nالمجموع متساوٍ، لكنه لا يثبت هوية الحركات ضمن المجموعة.",
+            "transactionIds": [
+              "supplier:0:2",
+              "supplier:0:3",
+              "ledger:0:2",
+              "ledger:0:3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR05",
+      "title": "One row competing with duplicate ledger rows stays unresolved",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-D51",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-D51",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-D",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-D51",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-D",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2,
+              3
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.\nتوجد أسطر متساوية في المبلغ والتاريخ وهوية القيد؛ اختلاف الوصف وحده لا يثبت أنها أسطر مستقلة.\nمجموع الطرفين مختلف. راجع حركات المجموعة ومبالغها.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2",
+              "ledger:0:3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR06",
+      "title": "Two unique references with equal amounts both match",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-61",
+              "chosenReference": "REF-U61",
+              "normalizedReference": "DOC61",
+              "documentReference": "DOC-61",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-62",
+              "chosenReference": "REF-U62",
+              "normalizedReference": "DOC62",
+              "documentReference": "DOC-62",
+              "voucherReference": "V-S-62",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-61",
+              "chosenReference": "REF-U61",
+              "normalizedReference": "DOC61",
+              "documentReference": "DOC-61",
+              "voucherReference": "V-L-61",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-62",
+              "chosenReference": "REF-U62",
+              "normalizedReference": "DOC62",
+              "documentReference": "DOC-62",
+              "voucherReference": "V-L-62",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          },
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              3
+            ],
+            "ledgerRows": [
+              3
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:3",
+              "ledger:0:3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR07",
+      "title": "Arabic headings preserve a conflicting selected reference",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "مرجع-071",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "مرجع-072",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-71",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.\nالمرجعان المختاران مختلفان: مرجع-071 / مرجع-072",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR08",
+      "title": "Arabic headings preserve a positive match across voucher changes",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "مرجع-081",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "مرجع-081",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-81",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR09",
+      "title": "Bilingual reordered columns retain the same positive identity",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-091",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-091",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-91",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR10",
+      "title": "Leading zeros in equal references survive reading",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "000731",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "000731",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-731",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR11",
+      "title": "Leading zeros distinguish conflicting visible references",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "000731",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "731",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-731",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.\nالمرجعان المختاران مختلفان: 000731 / 731",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR12",
+      "title": "Reordered columns do not suppress reference conflict",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-121",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-122",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-12",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.\nالمرجعان المختاران مختلفان: REF-121 / REF-122",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR13",
+      "title": "Reordered columns preserve a positive unique reference",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-131",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-131",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-13",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR14",
+      "title": "Identical neutral descriptions cannot overrule conflicting identities",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-141",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-142",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-14",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.\nالمرجعان المختاران مختلفان: REF-141 / REF-142",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR15",
+      "title": "Different neutral descriptions do not block an exact identity",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-151",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-151",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-15",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR16",
+      "title": "A refusal case must not suppress a nearby valid match",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-161",
+              "chosenReference": "REF-161",
+              "normalizedReference": "DOC161",
+              "documentReference": "DOC-161",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-162",
+              "chosenReference": "REF-162",
+              "normalizedReference": "DOC162",
+              "documentReference": "DOC-162",
+              "voucherReference": "V-S-162",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-161",
+              "chosenReference": "REF-161",
+              "normalizedReference": "DOC161",
+              "documentReference": "DOC-161",
+              "voucherReference": "V-L-161",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-162",
+              "chosenReference": "REF-163",
+              "normalizedReference": "DOC162",
+              "documentReference": "DOC-162",
+              "voucherReference": "V-L-162",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ]
+          },
+          {
+            "classification": "AMBIGUOUS_CANDIDATE",
+            "status": "Needs Review",
+            "supplierRows": [
+              3
+            ],
+            "ledgerRows": [
+              3
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:2"
+            ]
+          },
+          {
+            "code": "AMBIGUOUS_CANDIDATE",
+            "message": "المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.\nالمرجعان المختاران مختلفان: REF-162 / REF-163",
+            "transactionIds": [
+              "supplier:0:3",
+              "ledger:0:3"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR17",
+      "title": "A competing common-document decoy must not steal the unique positive pair",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            3
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            3
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-171",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-12",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-172",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-172",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-171",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-171",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              3
+            ]
+          },
+          {
+            "classification": "LEDGER_ONLY",
+            "status": "Unmatched",
+            "supplierRows": [],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "رقم المستند DOC-817 متكرر، لكن المرجع المختار REF-171 يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:3"
+            ]
+          },
+          {
+            "code": "NO_SUPPLIER_COUNTERPART",
+            "message": "لم يُعثر في الملفات المقدمة على حركة مورد تصلح مقابلًا لهذه الحركة.",
+            "transactionIds": [
+              "ledger:0:2"
+            ]
+          },
+          {
+            "code": "DUPLICATE_REFERENCE",
+            "message": "مرجع الدفتر متكرر ولم تثبت مجموعة مطابقة فريدة.",
+            "transactionIds": [
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "IR18",
+      "title": "Swapping export roles preserves the same exact reference relationships",
+      "pass": true,
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      },
+      "failures": [],
+      "observed": {
+        "autoPairs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "grouped": [],
+        "transactions": [
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-182",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-182",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-181",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-L-181",
+              "amount": 42700
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "reference": "DOC-817",
+              "chosenReference": "REF-181",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-181",
+              "amount": 42700
+            },
+            {
+              "row": 3,
+              "reference": "DOC-817",
+              "chosenReference": "REF-182",
+              "normalizedReference": "DOC817",
+              "documentReference": "DOC-817",
+              "voucherReference": "V-S-182",
+              "amount": 42700
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              3
+            ]
+          },
+          {
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierRows": [
+              3
+            ],
+            "ledgerRows": [
+              2
+            ]
+          }
+        ],
+        "diagnostics": [
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "BALANCE_ROW_NOT_FOUND",
+            "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+            "transactionIds": []
+          },
+          {
+            "code": "PERIOD_COVERAGE_UNCONFIRMED",
+            "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+            "transactionIds": []
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "رقم المستند DOC-817 متكرر، لكن المرجع المختار REF-182 يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:2",
+              "ledger:0:3"
+            ]
+          },
+          {
+            "code": "EXACT_1_TO_1",
+            "message": "رقم المستند DOC-817 متكرر، لكن المرجع المختار REF-181 يميز هذا الصف وحده داخل المستند في كل طرف. يتطابق المرجعان بنصهما الأصلي والمبلغ بإشارته، وفرق التاريخ 0 يوم.",
+            "transactionIds": [
+              "supplier:0:3",
+              "ledger:0:2"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

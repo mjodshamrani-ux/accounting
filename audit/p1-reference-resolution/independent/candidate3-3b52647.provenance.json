@@ -1,0 +1,264 @@
+{
+  "sourceCommit": "3b52647c61aabdd0165df363cd8b310aaf14ac59",
+  "engineVersion": "0.3.18-experimental",
+  "classification": "consumed independent set: regression",
+  "libMatchesCommitAndUnchangedDuringExecution": true,
+  "libFiles": 55,
+  "libDigest": "dd8dca1e6e1d9c51673bd0ce0aef8cfa65b44de2b1304db62dcb7f5e01dfc291",
+  "fixtureManifestSha256": "17f6e95eff3b34c99230c9d12c08280ca6b7980d0742dbb513213deee9168f3e",
+  "resultSha256": "7ce2820932442a5f32397d77825858b58469f944d76351d36c8d6088c6e3224f",
+  "totals": {
+    "cases": 12,
+    "passed": 12,
+    "failed": 0,
+    "requiredPositivePairs": 15,
+    "satisfiedPositivePairs": 15,
+    "falseApprovedPairs": 0,
+    "unexpectedAutoGroups": 0,
+    "operationExceptions": 0
+  },
+  "caseOutcomes": [
+    {
+      "id": "P1I01",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I02",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I03",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          3
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I04",
+      "pass": true,
+      "requiredPairs": [
+        [
+          4,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          4,
+          2
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I05",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "observedPairs": [
+        [
+          3,
+          4
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I06",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I07",
+      "pass": true,
+      "requiredPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "observedPairs": [
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I08",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I09",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I10",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I11",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    },
+    {
+      "id": "P1I12",
+      "pass": true,
+      "requiredPairs": [],
+      "observedPairs": [],
+      "missingPairs": [],
+      "falseApprovedPairs": [],
+      "failures": []
+    }
+  ]
+}

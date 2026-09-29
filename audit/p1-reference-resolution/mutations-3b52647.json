@@ -1,0 +1,289 @@
+{
+  "baselinePassed": true,
+  "detected": 67,
+  "total": 67,
+  "available": 67,
+  "mutations": [
+    {
+      "mutation": "p1-accept-formula-or-spreadsheet-error-reference-text",
+      "detected": true
+    },
+    {
+      "mutation": "p1-accept-placeholder-category-or-zero-as-a-discriminator",
+      "detected": true
+    },
+    {
+      "mutation": "p1-reject-valid-contextual-numeric-or-alphabetic-discriminators",
+      "detected": true
+    },
+    {
+      "mutation": "p1-disable-document-pair-resolution",
+      "detected": true
+    },
+    {
+      "mutation": "p1-grant-document-role-to-another-selected-column",
+      "detected": true
+    },
+    {
+      "mutation": "p1-choose-first-repeated-discriminator",
+      "detected": true
+    },
+    {
+      "mutation": "p1-ignore-unsafe-discriminator-competitors",
+      "detected": true
+    },
+    {
+      "mutation": "p1-use-normalized-document-identity",
+      "detected": true
+    },
+    {
+      "mutation": "p1-ignore-document-pair-amount-difference",
+      "detected": true
+    },
+    {
+      "mutation": "p1-restore-a-rejected-document-pair",
+      "detected": true
+    },
+    {
+      "mutation": "047-accept-unanswered-format-ambiguity",
+      "detected": true
+    },
+    {
+      "mutation": "047-ambiguity-guard-throws-unrelated-error",
+      "detected": true
+    },
+    {
+      "mutation": "047-reuse-format-choice-across-context",
+      "detected": true
+    },
+    {
+      "mutation": "046-disable-all-supported-groups",
+      "detected": true
+    },
+    {
+      "mutation": "046-accept-payment-groups-without-explicit-identity",
+      "detected": true
+    },
+    {
+      "mutation": "hard-t01-read-any-label-ending-in-invoice",
+      "detected": true
+    },
+    {
+      "mutation": "v11-read-carried-forward-as-a-transaction",
+      "detected": true
+    },
+    {
+      "mutation": "v11-refuse-black-text-grazed-by-a-table-rule",
+      "detected": true
+    },
+    {
+      "mutation": "v11-let-stripes-hide-text",
+      "detected": true
+    },
+    {
+      "mutation": "v11-approve-a-source-compared-with-itself",
+      "detected": true
+    },
+    {
+      "mutation": "v11-take-a-renamed-copy-for-another-source",
+      "detected": true
+    },
+    {
+      "mutation": "hard-s01-drop-a-source-without-a-role",
+      "detected": true
+    },
+    {
+      "mutation": "hard-r01-rank-own-voucher-before-chosen-reference",
+      "detected": true
+    },
+    {
+      "mutation": "hard-r01-let-a-voucher-hide-a-po-only-identity",
+      "detected": true
+    },
+    {
+      "mutation": "v11-take-a-document-number-equal-to-the-order-as-proof",
+      "detected": true
+    },
+    {
+      "mutation": "v11-approve-on-a-voucher-with-no-chosen-reference",
+      "detected": true
+    },
+    {
+      "mutation": "v11-take-a-batch-for-a-document",
+      "detected": true
+    },
+    {
+      "mutation": "v11-let-a-document-number-outvote-the-chosen-references",
+      "detected": true
+    },
+    {
+      "mutation": "h03-let-a-document-number-outvote-unselected-references",
+      "detected": true
+    },
+    {
+      "mutation": "v11-read-only-bare-labels-in-descriptions",
+      "detected": true
+    },
+    {
+      "mutation": "v11-leave-blocked-exact-pairs-as-unrelated-rows",
+      "detected": true
+    },
+    {
+      "mutation": "hard-g08-accept-payment-parts-beyond-the-date-window",
+      "detected": true
+    },
+    {
+      "mutation": "hard-g08-accept-any-group-across-dates",
+      "detected": true
+    },
+    {
+      "mutation": "045-ignore-declared-aging-report",
+      "detected": true
+    },
+    {
+      "mutation": "045-skip-generic-account-scope-evidence",
+      "detected": true
+    },
+    {
+      "mutation": "045-allow-a-second-sheetdata-to-drop-earlier-rows",
+      "detected": true
+    },
+    {
+      "mutation": "045-concatenate-conflicting-xlsx-cell-payloads",
+      "detected": true
+    },
+    {
+      "mutation": "accept-a-partial-pdf-operator-stream",
+      "detected": true
+    },
+    {
+      "mutation": "allow-visual-drafts-into-accounting",
+      "detected": true
+    },
+    {
+      "mutation": "reuse-an-ai-column-proposal-after-settings-change",
+      "detected": true
+    },
+    {
+      "mutation": "trust-stale-case-member-evidence",
+      "detected": true
+    },
+    {
+      "mutation": "allow-ai-proposals-outside-the-evidence-window",
+      "detected": true
+    },
+    {
+      "mutation": "skip-an-earlier-table-for-a-richer-later-header",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-known-document-evidence-conflicts",
+      "detected": true
+    },
+    {
+      "mutation": "accept-duplicate-posting-lines-as-a-group",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-xlsx-overwritten-cell-addresses",
+      "detected": true
+    },
+    {
+      "mutation": "silently-round-original-xlsx-numeric-lexemes",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-pdf-overlap-between-separate-baselines",
+      "detected": true
+    },
+    {
+      "mutation": "reject-supported-multisheet-workpapers",
+      "detected": true
+    },
+    {
+      "mutation": "reject-unused-helper-formulas",
+      "detected": true
+    },
+    {
+      "mutation": "treat-pdf-table-edges-as-filled-area",
+      "detected": true
+    },
+    {
+      "mutation": "count-total-rows-as-transactions",
+      "detected": true
+    },
+    {
+      "mutation": "drop-classified-rows-without-a-reason",
+      "detected": true
+    },
+    {
+      "mutation": "accept-a-timestamp-as-a-read-issue",
+      "detected": true
+    },
+    {
+      "mutation": "automatically-match-with-unread-potential-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "classify-any-summary-word-as-a-nontransaction",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-and-reference-in-reordered-summary-rows",
+      "detected": true
+    },
+    {
+      "mutation": "prove-direction-from-a-single-movement",
+      "detected": true
+    },
+    {
+      "mutation": "reverse-proven-ap-direction",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-contradictory-closing-footer-in-direction-proof",
+      "detected": true
+    },
+    {
+      "mutation": "reverse-source-sign",
+      "detected": true
+    },
+    {
+      "mutation": "fuzzy-reference-auto-match",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-window",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-reference-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "allow-unconfirmed-coverage",
+      "detected": true
+    },
+    {
+      "mutation": "promote-ai-hypothesis",
+      "detected": true
+    },
+    {
+      "mutation": "corrupt-exported-amount",
+      "detected": true
+    }
+  ],
+  "provenance": {
+    "sourceCommit": "3b52647c61aabdd0165df363cd8b310aaf14ac59",
+    "command": "pnpm test:mutations",
+    "exitCode": 0,
+    "fullGatePassed": true,
+    "trackedEngineTestsAndMutationScriptUnchangedAtCompletion": true,
+    "log": {
+      "path": "/Users/togomori/Documents/Codex/2026-09-07/l/work/p1-reference-resolution/mutations-candidate3.log",
+      "sha256": "c61466f5c3a9a3c48334235ea714f0498b05ef02d074e728bf50420853d0efc6",
+      "bytes": 11276
+    },
+    "mutationScriptSha256": "d1dbc02f5cdd43e80caa588548e362a2ee560ccb81bd181ac96e334f804ab409"
+  }
+}
