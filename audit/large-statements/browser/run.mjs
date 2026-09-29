@@ -7,6 +7,7 @@ import { createServer } from 'node:http';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import os from 'node:os';
 import { chromium } from 'playwright';
 import ExcelJS from 'exceljs';
 
@@ -51,7 +52,24 @@ const report = {
   codeErrors: [],
   loadedCode: [],
   checks: [],
+  measurements: [],
+  machine: {
+    platform: os.platform(),
+    arch: os.arch(),
+    cpuModel: os.cpus()[0]?.model,
+    logicalCpus: os.cpus().length,
+    totalMemoryBytes: os.totalmem(),
+    node: process.version,
+  },
 };
+async function measure(label, work) {
+  const started = performance.now();
+  try {
+    return await work();
+  } finally {
+    report.measurements.push({ label, wallMs: Math.round((performance.now() - started) * 1000) / 1000 });
+  }
+}
 let server;
 let url = process.env.LIVE_URL;
 if (!url) {
@@ -93,6 +111,7 @@ const browser = await chromium.launch({
     ? { executablePath: process.env.MIZAN_CHROMIUM }
     : {}),
 });
+report.machine.chromium = browser.version();
 let currentPage;
 const responseChecks = [];
 async function open(lang) {
@@ -310,7 +329,7 @@ async function verifyExport(file) {
 try {
   report.stage = 'native-70-progress-and-navigation';
   const active = await open('ar');
-  await upload(active.page, 'ar', 'supplier', 'native-70.pdf');
+  await measure('pdf70-first-upload', () => upload(active.page, 'ar', 'supplier', 'native-70.pdf'));
   assert.equal(await active.page.locator('.notice.error').count(), 0);
   const arTrace = await observations(active.page, 'native-70-ar');
   verifyProgress(arTrace, 'native-70.pdf', 70);
@@ -327,7 +346,7 @@ try {
   const inferredCuts = await cuts.inputValue();
   await cuts.fill('25,49,68');
   const apply = active.page.getByRole('button', { name: 'Apply boundaries and re-read', exact: true });
-  if (await apply.isEnabled()) { await apply.click(); await waitIdle(active.page); }
+  if (await apply.isEnabled()) await measure('pdf70-boundary-reread', async () => { await apply.click(); await waitIdle(active.page); });
   report.manualChoices.push({ choice: 'PDF column boundaries', inferredCuts, applied: [25, 49, 68] });
   const scope = active.page.getByRole('button', { name: labels.en.scope, exact: true });
   if (await scope.getAttribute('aria-expanded') !== 'true') await scope.click();
@@ -335,8 +354,10 @@ try {
   await active.page.getByLabel(labels.en.cutoff, { exact: true }).fill('2026-08-31');
   await active.page.getByRole('checkbox', { name: /I have reviewed the table on every page/ }).check();
   report.manualChoices.push({ choice: 'Scope and PDF review', currency: 'SAR', cutoff: '2026-08-31', pdfReviewed: true, note: 'Explicit synthetic audit input; source IDs and totals are independently checked against the frozen oracle in exported output.' });
-  await active.page.getByRole('button', { name: labels.en.run, exact: true }).click();
-  await active.page.getByRole('heading', { name: labels.en.workspace, exact: true }).waitFor();
+  await measure('pdf70-reconcile-and-review', async () => {
+    await active.page.getByRole('button', { name: labels.en.run, exact: true }).click();
+    await active.page.getByRole('heading', { name: labels.en.workspace, exact: true }).waitFor();
+  });
   assert.deepEqual((await active.page.locator('.metric strong').allInnerTexts()).map((s) => s.replace(/,/g, '')), [String(oracle70.requiredPairs), '0', '0', '0']);
   await snapshot(active.page, 'native-70-reconciled-en');
   report.checks.push({ check: '70-page-ui-reconciliation', matchedCases: oracle70.requiredPairs, manualMatches: 0, unmatched: 0, unread: 0 });
@@ -344,9 +365,11 @@ try {
   await active.page.getByRole('button', { name: 'Prepare the workpaper', exact: true }).click();
   await active.page.getByRole('textbox', { name: 'Reviewer name', exact: true }).fill('Synthetic large PDF reviewer');
   const exported = active.page.waitForEvent('download');
-  await active.page.getByRole('button', { name: 'Download Excel draft', exact: true }).click();
   const workbookPath = path.join(out, 'native-70.xlsx');
-  await (await exported).saveAs(workbookPath);
+  await measure('pdf70-export-to-download', async () => {
+    await active.page.getByRole('button', { name: 'Download Excel draft', exact: true }).click();
+    await (await exported).saveAs(workbookPath);
+  });
   await verifyExport(workbookPath);
   const saved = active.page.waitForEvent('download');
   await active.page.getByRole('button', { name: 'Save session to continue later', exact: true }).click();
@@ -363,8 +386,10 @@ try {
   await observations(active.page, 'completed-70');
   await active.context.close();
   const restored = await open('en');
-  await restored.page.getByLabel('Resume a local session', { exact: true }).setInputFiles(sessionPath);
-  await restored.page.getByRole('heading', { name: labels.en.workspace, exact: true }).waitFor();
+  await measure('pdf70-session-restore', async () => {
+    await restored.page.getByLabel('Resume a local session', { exact: true }).setInputFiles(sessionPath);
+    await restored.page.getByRole('heading', { name: labels.en.workspace, exact: true }).waitFor();
+  });
   assert.deepEqual((await restored.page.locator('.metric strong').allInnerTexts()).map((s) => s.replace(/,/g, '')), [String(oracle70.requiredPairs), '0', '0', '0']);
   report.checks.push({ check: 'fresh-page-session-restoration', matchedCases: oracle70.requiredPairs });
   await restored.context.close();
@@ -384,7 +409,7 @@ try {
   await snapshot(recovery.page, 'late-page-70-failure-en');
   report.checks.push({ check: 'late-page-failure-retains-source', failurePage: 70, retainedFile: 'ledger-70.csv', progressCleared: true, workerTerminated: true });
   await recovery.page.evaluate(() => { window.__largePdfAudit.cancelNextReadAt = 1; });
-  await upload(recovery.page, 'en', 'supplier', 'native-100.pdf');
+  await measure('pdf100-cancel-trigger-upload', () => upload(recovery.page, 'en', 'supplier', 'native-100.pdf'));
   await recovery.page.getByText('The operation was cancelled.', { exact: true }).waitFor();
   const canceled = await observations(recovery.page, 'native-100-canceled');
   assert.equal(canceled.cancelClicked, true);
@@ -394,7 +419,7 @@ try {
   assert.ok((await recovery.page.locator('body').innerText()).includes('ledger-70.csv'));
   report.checks.push({ check: 'cancel-after-real-page-progress', retainedFile: 'ledger-70.csv', progressCleared: true, workerTerminated: true });
   report.stage = 'native-100-recovery-and-navigation';
-  await upload(recovery.page, 'en', 'supplier', 'native-100.pdf');
+  await measure('pdf100-after-cancel-upload', () => upload(recovery.page, 'en', 'supplier', 'native-100.pdf'));
   assert.equal(await recovery.page.locator('.notice.error').count(), 0);
   const recoveredTrace = await observations(recovery.page, 'native-100-recovered');
   verifyProgress(recoveredTrace, 'native-100.pdf', 100);
