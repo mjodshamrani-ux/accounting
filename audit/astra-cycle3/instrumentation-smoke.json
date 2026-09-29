@@ -1,7 +1,7 @@
 {
-  "kind": "browser measurement instrumentation smoke; not a new performance comparison",
+  "kind": "browser measurement instrumentation smoke with bounded sampling; not a new performance comparison",
   "rowsPerSide": 100,
-  "sourceReportSha256": "283843efbc3c17cb98abce942cbde27a52a615aa8120596f9640e5e3631b81bc",
+  "sourceReportSha256": "27ce626243ba07e29651741db913303889830bb44e92e37c43467c0bef8bdc13",
   "runs": [
     {
       "format": "csv",
@@ -9,7 +9,7 @@
       "memorySamplesSuccessful": 5,
       "memorySamplesDuringExport": 3,
       "memorySamplingErrors": 0,
-      "peakChromiumRssBytes": 508362752,
+      "peakChromiumRssBytes": 507428864,
       "independentExportSourceCheck": true,
       "independentExportMembershipCheck": true,
       "networkViolations": [],
@@ -21,7 +21,7 @@
       "memorySamplesSuccessful": 6,
       "memorySamplesDuringExport": 4,
       "memorySamplingErrors": 0,
-      "peakChromiumRssBytes": 523288576,
+      "peakChromiumRssBytes": 524353536,
       "independentExportSourceCheck": true,
       "independentExportMembershipCheck": true,
       "networkViolations": [],
@@ -29,7 +29,7 @@
     }
   ],
   "harnessSha256": {
-    "scripts/browser-performance.mjs": "652d3834abc29e5026dda9a4ec22528d9b57c3525aa303ec6b1e7bf08cf3f0f8",
-    "scripts/process-memory.mjs": "3ac9300a887b80e52d5264968c0d2773a76e148e7c6eba0eca6743b57bcf7b6d"
+    "scripts/browser-performance.mjs": "59d56e92cf5894ed4d559cebc2dc1417f2a18a7cf5bc35f1d3fc07f988d60a29",
+    "scripts/process-memory.mjs": "bfa46f09dc87c5fd28cf6bd206043e167ee68fffcf4d1f6c630700911fccd7b6"
   }
 }

@@ -35,3 +35,29 @@ export function processRssBytes(expectedIds, stdout) {
     throw new Error('Missing Chromium process in RSS sample');
   return bytes;
 }
+
+/** A stuck CDP/ps sample must not prevent browser cleanup or report creation.
+ * The operation must only return data: late settlement must not mutate a report.
+ * @template T
+ * @param {() => Promise<T>} operation
+ * @param {number} timeoutMs
+ * @returns {Promise<T>}
+ */
+export async function withinMemoryDeadline(operation, timeoutMs = 5000) {
+  if (!Number.isSafeInteger(timeoutMs) || timeoutMs <= 0)
+    throw new Error('Invalid memory measurement deadline');
+  let timer;
+  try {
+    return await Promise.race([
+      Promise.resolve().then(operation),
+      new Promise((_, reject) => {
+        timer = setTimeout(
+          () => reject(new Error('Chromium memory measurement timed out')),
+          timeoutMs,
+        );
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}

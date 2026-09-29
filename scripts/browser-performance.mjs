@@ -12,7 +12,7 @@ import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { createHash } from 'node:crypto';
 import { verifyPerformanceExport } from './verify-performance-export.mjs';
-import { processRssBytes } from './process-memory.mjs';
+import { processRssBytes, withinMemoryDeadline } from './process-memory.mjs';
 const membershipChecker = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../audit/export-design/check_membership.py',
@@ -246,16 +246,18 @@ try {
       const measureSample = async () => {
         const beganDuringExport = exportActive;
         try {
-          const { processInfo } = await cdp.send('SystemInfo.getProcessInfo');
-          const ids = processInfo.map((p) => p.id);
-          if (!ids.length) throw new Error('No Chromium processes to measure');
-          const { stdout } = await shell('ps', [
-            '-o',
-            'pid=,rss=',
-            '-p',
-            ids.join(','),
-          ]);
-          const rss = processRssBytes(ids, stdout);
+          const rss = await withinMemoryDeadline(async () => {
+            const { processInfo } = await cdp.send('SystemInfo.getProcessInfo');
+            const ids = processInfo.map((p) => p.id);
+            if (!ids.length)
+              throw new Error('No Chromium processes to measure');
+            const { stdout } = await shell(
+              'ps',
+              ['-o', 'pid=,rss=', '-p', ids.join(',')],
+              { timeout: 5000 },
+            );
+            return processRssBytes(ids, stdout);
+          });
           entry.memorySamplesSuccessful += 1;
           if (beganDuringExport && exportActive)
             entry.memorySamplesDuringExport += 1;
