@@ -129,7 +129,14 @@
       "file": "partial-dependency-audit.log",
       "sha256": "15950a68a7ed99c59779717acefdceb3f69cfd31bde67d2c954f2a3cea4d7955",
       "reportedKnownVulnerabilities": 0
+    },
+    "mutations": {
+      "passed": true,
+      "detected": 85,
+      "baselineTests": 453,
+      "evidence": "mutations-84d4bdd-attempt2.json",
+      "snapshotUnchanged": true
     }
   },
-  "remaining": "Mutation gate and GitHub/Pages deployment are separately recorded; this file does not assert their completion."
+  "remaining": "GitHub/Pages deployment and live verification are separately recorded; this file does not assert their completion."
 }

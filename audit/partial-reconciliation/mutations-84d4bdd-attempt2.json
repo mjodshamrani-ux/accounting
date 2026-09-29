@@ -1,0 +1,378 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "engineCommit": "84d4bdd9514df15b40c12dd269a1438ad3bcd110",
+  "initialCommit": "c1cd9d77bbaafac1fbf19d24e8ab8b00f20c709e",
+  "finalCommit": "a83844f4c5de0ef873fef8f17acaff318e58bfdd",
+  "baselinePassed": true,
+  "total": 85,
+  "available": 85,
+  "detected": 85,
+  "mutations": [
+    {
+      "mutation": "partial-drop-reading-issue-details-from-export",
+      "detected": true
+    },
+    {
+      "mutation": "partial-treat-untrusted-cells-as-format-proof",
+      "detected": true
+    },
+    {
+      "mutation": "partial-accept-stale-format-selection",
+      "detected": true
+    },
+    {
+      "mutation": "partial-ignore-isolated-error-membership",
+      "detected": true
+    },
+    {
+      "mutation": "partial-drop-transitive-error-impact",
+      "detected": true
+    },
+    {
+      "mutation": "partial-drop-displaced-literal-identities",
+      "detected": true
+    },
+    {
+      "mutation": "p4-silently-stop-after-twenty-pages",
+      "detected": true
+    },
+    {
+      "mutation": "p2-reject-explicit-numeric-payment-identities",
+      "detected": true
+    },
+    {
+      "mutation": "p2-promote-placeholder-payment-identities",
+      "detected": true
+    },
+    {
+      "mutation": "p2-waive-voucher-conflicts-without-a-certified-document-partition",
+      "detected": true
+    },
+    {
+      "mutation": "p2-ignore-overlapping-payment-identity-memberships",
+      "detected": true
+    },
+    {
+      "mutation": "p2-drop-primary-only-competing-members",
+      "detected": true
+    },
+    {
+      "mutation": "p2-let-an-exact-payment-consume-a-group-member-first",
+      "detected": true
+    },
+    {
+      "mutation": "p2-accept-inferred-payment-role-as-explicit-proof",
+      "detected": true
+    },
+    {
+      "mutation": "p2-accept-duplicate-postings-in-nm-groups",
+      "detected": true
+    },
+    {
+      "mutation": "p2-ignore-whole-group-date-span",
+      "detected": true
+    },
+    {
+      "mutation": "p2-approve-groups-beyond-the-member-limit",
+      "detected": true
+    },
+    {
+      "mutation": "p2-ignore-group-member-rejection",
+      "detected": true
+    },
+    {
+      "mutation": "p1-accept-formula-or-spreadsheet-error-reference-text",
+      "detected": true
+    },
+    {
+      "mutation": "p1-accept-placeholder-category-or-zero-as-a-discriminator",
+      "detected": true
+    },
+    {
+      "mutation": "p1-reject-valid-contextual-numeric-or-alphabetic-discriminators",
+      "detected": true
+    },
+    {
+      "mutation": "p1-disable-document-pair-resolution",
+      "detected": true
+    },
+    {
+      "mutation": "p1-grant-document-role-to-another-selected-column",
+      "detected": true
+    },
+    {
+      "mutation": "p1-choose-first-repeated-discriminator",
+      "detected": true
+    },
+    {
+      "mutation": "p1-ignore-unsafe-discriminator-competitors",
+      "detected": true
+    },
+    {
+      "mutation": "p1-use-normalized-document-identity",
+      "detected": true
+    },
+    {
+      "mutation": "p1-ignore-document-pair-amount-difference",
+      "detected": true
+    },
+    {
+      "mutation": "p1-restore-a-rejected-document-pair",
+      "detected": true
+    },
+    {
+      "mutation": "047-accept-unanswered-format-ambiguity",
+      "detected": true
+    },
+    {
+      "mutation": "047-ambiguity-guard-throws-unrelated-error",
+      "detected": true
+    },
+    {
+      "mutation": "047-reuse-format-choice-across-context",
+      "detected": true
+    },
+    {
+      "mutation": "046-disable-all-supported-groups",
+      "detected": true
+    },
+    {
+      "mutation": "046-accept-payment-groups-without-explicit-identity",
+      "detected": true
+    },
+    {
+      "mutation": "hard-t01-read-any-label-ending-in-invoice",
+      "detected": true
+    },
+    {
+      "mutation": "v11-read-carried-forward-as-a-transaction",
+      "detected": true
+    },
+    {
+      "mutation": "v11-refuse-black-text-grazed-by-a-table-rule",
+      "detected": true
+    },
+    {
+      "mutation": "v11-let-stripes-hide-text",
+      "detected": true
+    },
+    {
+      "mutation": "v11-approve-a-source-compared-with-itself",
+      "detected": true
+    },
+    {
+      "mutation": "v11-take-a-renamed-copy-for-another-source",
+      "detected": true
+    },
+    {
+      "mutation": "hard-s01-drop-a-source-without-a-role",
+      "detected": true
+    },
+    {
+      "mutation": "hard-r01-rank-own-voucher-before-chosen-reference",
+      "detected": true
+    },
+    {
+      "mutation": "hard-r01-let-a-voucher-hide-a-po-only-identity",
+      "detected": true
+    },
+    {
+      "mutation": "v11-take-a-document-number-equal-to-the-order-as-proof",
+      "detected": true
+    },
+    {
+      "mutation": "v11-approve-on-a-voucher-with-no-chosen-reference",
+      "detected": true
+    },
+    {
+      "mutation": "v11-take-a-batch-for-a-document",
+      "detected": true
+    },
+    {
+      "mutation": "v11-let-a-document-number-outvote-the-chosen-references",
+      "detected": true
+    },
+    {
+      "mutation": "h03-let-a-document-number-outvote-unselected-references",
+      "detected": true
+    },
+    {
+      "mutation": "v11-read-only-bare-labels-in-descriptions",
+      "detected": true
+    },
+    {
+      "mutation": "v11-leave-blocked-exact-pairs-as-unrelated-rows",
+      "detected": true
+    },
+    {
+      "mutation": "hard-g08-accept-payment-parts-beyond-the-date-window",
+      "detected": true
+    },
+    {
+      "mutation": "hard-g08-accept-any-group-across-dates",
+      "detected": true
+    },
+    {
+      "mutation": "045-ignore-declared-aging-report",
+      "detected": true
+    },
+    {
+      "mutation": "045-skip-generic-account-scope-evidence",
+      "detected": true
+    },
+    {
+      "mutation": "045-allow-a-second-sheetdata-to-drop-earlier-rows",
+      "detected": true
+    },
+    {
+      "mutation": "045-concatenate-conflicting-xlsx-cell-payloads",
+      "detected": true
+    },
+    {
+      "mutation": "accept-a-partial-pdf-operator-stream",
+      "detected": true
+    },
+    {
+      "mutation": "allow-visual-drafts-into-accounting",
+      "detected": true
+    },
+    {
+      "mutation": "reuse-an-ai-column-proposal-after-settings-change",
+      "detected": true
+    },
+    {
+      "mutation": "trust-stale-case-member-evidence",
+      "detected": true
+    },
+    {
+      "mutation": "allow-ai-proposals-outside-the-evidence-window",
+      "detected": true
+    },
+    {
+      "mutation": "skip-an-earlier-table-for-a-richer-later-header",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-known-document-evidence-conflicts",
+      "detected": true
+    },
+    {
+      "mutation": "accept-duplicate-posting-lines-as-a-group",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-xlsx-overwritten-cell-addresses",
+      "detected": true
+    },
+    {
+      "mutation": "silently-round-original-xlsx-numeric-lexemes",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-pdf-overlap-between-separate-baselines",
+      "detected": true
+    },
+    {
+      "mutation": "reject-supported-multisheet-workpapers",
+      "detected": true
+    },
+    {
+      "mutation": "reject-unused-helper-formulas",
+      "detected": true
+    },
+    {
+      "mutation": "treat-pdf-table-edges-as-filled-area",
+      "detected": true
+    },
+    {
+      "mutation": "count-total-rows-as-transactions",
+      "detected": true
+    },
+    {
+      "mutation": "drop-classified-rows-without-a-reason",
+      "detected": true
+    },
+    {
+      "mutation": "accept-a-timestamp-as-a-read-issue",
+      "detected": true
+    },
+    {
+      "mutation": "automatically-match-with-unread-potential-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "classify-any-summary-word-as-a-nontransaction",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-and-reference-in-reordered-summary-rows",
+      "detected": true
+    },
+    {
+      "mutation": "prove-direction-from-a-single-movement",
+      "detected": true
+    },
+    {
+      "mutation": "reverse-proven-ap-direction",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-contradictory-closing-footer-in-direction-proof",
+      "detected": true
+    },
+    {
+      "mutation": "reverse-source-sign",
+      "detected": true
+    },
+    {
+      "mutation": "fuzzy-reference-auto-match",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-date-window",
+      "detected": true
+    },
+    {
+      "mutation": "ignore-reference-duplicates",
+      "detected": true
+    },
+    {
+      "mutation": "allow-unconfirmed-coverage",
+      "detected": true
+    },
+    {
+      "mutation": "promote-ai-hypothesis",
+      "detected": true
+    },
+    {
+      "mutation": "corrupt-exported-amount",
+      "detected": true
+    }
+  ],
+  "partialDetectedLogCount": 85,
+  "explicitBaseline": {
+    "exitCode": 0,
+    "tests": 453,
+    "passed": 453,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 3904.342791,
+    "logPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-reconciliation/mutations-84d4bdd-attempt2-baseline.log",
+    "logSha256": "f601177f8d8a049f80ae690dfbfcd6d7b627a96b36571f34c3be4fd9c48e21b6"
+  },
+  "startedAt": "2026-09-29T13:11:58.294Z",
+  "endedAt": "2026-09-29T13:18:49.236Z",
+  "elapsedMs": 410942,
+  "logPath": "/Users/togomori/Documents/Codex/2026-09-07/l/work/partial-reconciliation/mutations-84d4bdd-attempt2.log",
+  "logSha256": "2e93cf45d64a3f78568d2d8ac84800a9e7008a5c0c1d28ff5f50894cba6c38e0",
+  "snapshotSha256": "037c2d8d488d5224143031abc776d0b9d8fe2c1d0ae83b74ac7b998d4acfce6f",
+  "snapshotSha256After": "037c2d8d488d5224143031abc776d0b9d8fe2c1d0ae83b74ac7b998d4acfce6f",
+  "snapshotFiles": 1143,
+  "snapshotChangedFiles": [],
+  "originalExecutableChangedFiles": [],
+  "originalLibBeforeSha256": "7ce241814ba3f01a137573e626aff216b117836c6261fc8b8e9ba9ec4814000c",
+  "originalLibAfterSha256": "7ce241814ba3f01a137573e626aff216b117836c6261fc8b8e9ba9ec4814000c",
+  "libFileCount": 59,
+  "exitCode": 0
+}
