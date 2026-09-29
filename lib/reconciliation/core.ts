@@ -1,7 +1,11 @@
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import { transactionReferences } from './transaction-references.ts';
-import { buildReconciliationCases, identityConflicts } from './cases.ts';
+import {
+  automaticConflicts,
+  buildReconciliationCases,
+  identityConflicts,
+} from './cases.ts';
 import { extractStatementMetadata } from './statement-metadata.ts';
 import { headerMatches, normalizeHeaderLabel } from './header-labels.ts';
 import {
@@ -273,7 +277,7 @@ export function inferMapping(
 // not a transaction. Matching the entire cell keeps a description that merely
 // mentions a balance from being excluded.
 export const summaryLabel =
-  /^(?:total|subtotal|grand total|opening balance|balance b\/f|balance c\/f|closing (?:ap )?balance|balance brought forward|balance carried forward|المجموع|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
+  /^(?:total|subtotal|grand total|opening balance|balance b\/f|balance c\/f|closing (?:ap )?balance|balance brought forward|balance carried forward|carried forward|brought forward|page total|المجموع|المرحل|رصيد مرحل|مجموع الصفحة|الإجمالي|الرصيد الافتتاحي|الرصيد الختامي|رصيد افتتاحي|رصيد ختامي)\s*[:：]?$/i;
 export function inlineBalanceSummary(row: string[], mapping: Mapping) {
   const nonempty = row.flatMap((value, column) =>
     value.trim() ? [{ value: value.trim(), column }] : [],
@@ -655,6 +659,25 @@ export function repeatedPageMetadataRows(
   }
   return rowNumbers;
 }
+/** A fingerprint of a sheet's cells, for files read without a SHA-256. It
+ * only tells two sides apart; nothing is approved or rejected on it alone. */
+function sheetFingerprint(sheet: SourceFile['sheets'][number] | undefined) {
+  const text = JSON.stringify(sheet?.rows ?? []);
+  let h1 = 0xdeadbeef,
+    h2 = 0x41c6ce57;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return `${(h2 >>> 0).toString(16)}${(h1 >>> 0).toString(16)}:${text.length}`;
+}
 export function normalizeSource(
   file: SourceFile,
   mapping: Mapping,
@@ -722,6 +745,7 @@ export function normalizeSource(
     mapping,
     sourceName: file.name,
     sourceHash: file.sha256,
+    sourceOrigin: `${file.sha256 ?? `content:${sheetFingerprint(file.sheets[mapping.sheet])}`}#${mapping.sheet}`,
   };
   if (
     mapping.mode === 'signed' &&
@@ -1160,6 +1184,8 @@ function indexBy(items: Transaction[], by: (t: Transaction) => string) {
   }
   return map;
 }
+export const SAME_SOURCE_MESSAGE =
+  'الطرفان يقرآن نطاق البيانات نفسه من المصدر نفسه (الملف والورقة والصفوف). هذه مقارنة تشخيصية للمصدر بنفسه، ولا تُعتمد منها أي مطابقة ولا تُعد تسوية مكتملة.';
 export function compare(
   supplier: SourceResult,
   ledger: SourceResult,
@@ -1310,7 +1336,7 @@ export function compare(
       (!explicitNumericDocument(l) || s.documentType !== l.documentType)
     )
       continue;
-    if (identityConflicts(s, l).length) continue;
+    if (automaticConflicts(s, l).length) continue;
     if (s.reference.trim() !== l.reference.trim()) continue;
     if (usedB.has(l.id) || rejectedSet.has(`${s.id}|${l.id}`)) continue;
     const days = Math.abs(Date.parse(s.date) - Date.parse(l.date)) / 86400000;
@@ -1333,12 +1359,21 @@ export function compare(
       usedB.add(l.id);
     }
   }
+  // One source on both sides: the same file (by content, whatever its name),
+  // the same sheet, and rows read by both. The comparison stays available as
+  // a diagnostic, but nothing in it is approved.
+  const ledgerRows = new Set(ledger.transactions.map((t) => t.row));
+  const sameSource =
+    !!supplier.sourceOrigin &&
+    supplier.sourceOrigin === ledger.sourceOrigin &&
+    supplier.transactions.some((t) => ledgerRows.has(t.row));
   const caseResult = buildReconciliationCases(
     supplier,
     ledger,
     scope,
     matches,
     rejected,
+    sameSource ? SAME_SOURCE_MESSAGE : undefined,
   );
   const cases = caseResult.cases;
   matches.splice(0, matches.length, ...caseResult.matches);
@@ -1406,6 +1441,12 @@ export function compare(
     };
   }
   const diagnostics: Comparison['diagnostics'] = [];
+  if (sameSource)
+    diagnostics.push({
+      code: 'SAME_SOURCE_BOTH_SIDES',
+      message: SAME_SOURCE_MESSAGE,
+      transactionIds: [],
+    });
   for (const t of [...supplier.transactions, ...ledger.transactions])
     if (t.referenceEvidenceIssues?.length)
       diagnostics.push({

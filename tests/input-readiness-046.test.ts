@@ -14,6 +14,7 @@ import { readFile } from '../lib/reconciliation/io.ts';
 import type { Scope, SourceFile } from '../lib/reconciliation/types.ts';
 import { syntheticPdf } from './helpers/pdf-fixture.ts';
 import { WORKER_CHANNEL } from '../lib/reconciliation/protocol.ts';
+import { readSeparately, separateSheets } from './helpers/separate-export.ts';
 
 const scope: Scope = {
   supplier: 'Synthetic vendor',
@@ -213,9 +214,10 @@ test('046 real worker entry rejects invalid formats for reconcile, compare and e
     ],
   ]);
   const file = await readFile('synthetic-worker-comma.pdf', bytes, [22, 47]);
+  const ledgerFile = await readSeparately(file, [22, 47]);
   const mapping = { ...inferMapping(file), pdfReviewed: true };
   const supplier = normalizeSource(file, mapping, scope, 'supplier');
-  const ledger = normalizeSource(file, mapping, scope, 'ledger');
+  const ledger = normalizeSource(ledgerFile, mapping, scope, 'ledger');
   const partial = compare(supplier, ledger, scope);
   const messages: Record<string, unknown>[] = [];
   const worker: {
@@ -243,12 +245,12 @@ test('046 real worker entry rejects invalid formats for reconcile, compare and e
       const payload =
         action === 'export'
           ? {
-              files: [file, file],
+              files: [file, ledgerFile],
               result: partial,
               review: { checked: true, name: 'Synthetic reviewer', notes: '' },
             }
           : {
-              files: [file, file],
+              files: [file, ledgerFile],
               mappings: [mapping, mapping],
               scope,
               decisions: [],
@@ -276,7 +278,7 @@ test('046 real worker entry rejects invalid formats for reconcile, compare and e
         id: 4,
         action: 'reconcile',
         payload: {
-          files: [valid, valid],
+          files: [valid, separateSheets(valid)],
           mappings: [validMapping, validMapping],
           scope,
           decisions: [],

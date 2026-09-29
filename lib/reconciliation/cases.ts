@@ -1,4 +1,5 @@
 import { money, safeSum } from './core.ts';
+import { DOCUMENT_LABELS } from './transaction-references.ts';
 import type {
   CaseCounts,
   Match,
@@ -18,22 +19,17 @@ const exactRef = (a: Transaction, b: Transaction) =>
   a.reference.trim() === b.reference.trim();
 // Description text is never positive matching evidence. An explicit leading
 // document label can nevertheless contradict another document's declared role.
+// The same documented vocabulary as the Type column, as a leading label.
+const descriptionLabels = (['Credit Note', 'Invoice', 'Payment'] as const).map(
+  (role) =>
+    [
+      role,
+      new RegExp(`^${DOCUMENT_LABELS[role]}(?=\\s|[:：-]|$)`, 'i'),
+    ] as const,
+);
 const descriptionTypeHint = (value: string): Transaction['documentType'] => {
-  const text = value.trim();
-  if (
-    /^(?:credit note|credit memo|إشعار دائن|اشعار دائن)(?=\s|[:：-]|$)/i.test(
-      text,
-    )
-  )
-    return 'Credit Note';
-  if (/^(?:(?:ap )?invoice|فاتورة|فاتوره)(?=\s|[:：-]|$)/i.test(text))
-    return 'Invoice';
-  if (
-    /^(?:supplier payment|payment|receipt|دفعة|سداد|دفع|قبض)(?=\s|[:：-]|$)/i.test(
-      text,
-    )
-  )
-    return 'Payment';
+  const text = value.trim().normalize('NFKC').replace(/\s+/g, ' ');
+  return descriptionLabels.find(([, label]) => label.test(text))?.[0];
 };
 export function identityConflicts(a: Transaction, b: Transaction): string[] {
   const conflicts: string[] = [];
@@ -74,6 +70,45 @@ export function identityConflicts(a: Transaction, b: Transaction): string[] {
   )
     conflicts.push(
       'توجد تسميات صريحة متعارضة لنوع المستند في الحقول أو بداية الوصف. الوصف لا يثبت المطابقة، لكن التعارض يمنع اعتمادها آليًا.',
+    );
+  return conflicts;
+}
+/** Conflicts that stop an automatic match but leave the accountant free to
+ * confirm the rows by hand: documents matched on another identity must not
+ * name different documents in the column the accountant chose as the
+ * reference. Payments and journals are exempt: their parts carry their own
+ * voucher-like references, and a payment is proven by its bank or receipt
+ * identity instead. */
+export function automaticConflicts(a: Transaction, b: Transaction): string[] {
+  const conflicts = identityConflicts(a, b);
+  const document = (t: Transaction) =>
+    t.documentType !== 'Payment' && t.documentType !== 'Journal';
+  if (
+    document(a) &&
+    document(b) &&
+    a.chosenReference &&
+    b.chosenReference &&
+    a.chosenReference.trim() !== b.chosenReference.trim()
+  )
+    conflicts.push(
+      `المرجعان المختاران مختلفان: ${a.chosenReference} / ${b.chosenReference}`,
+    );
+  // An unselected Reference column is still evidence. Do not let agreement
+  // on Document No erase an explicit conflict elsewhere in the source. This
+  // guard only vetoes automatic document matches; it supplies no identity.
+  if (
+    document(a) &&
+    document(b) &&
+    a.statedReference &&
+    b.statedReference &&
+    a.statedReference.trim() !== b.statedReference.trim() &&
+    !(
+      a.statedReference === a.chosenReference &&
+      b.statedReference === b.chosenReference
+    )
+  )
+    conflicts.push(
+      `قيم عمود المرجع مختلفة: ${a.statedReference} / ${b.statedReference}`,
     );
   return conflicts;
 }
@@ -137,6 +172,8 @@ export function buildReconciliationCases(
   scope: Scope,
   exactMatches: Match[],
   rejectedPairs: string[],
+  // Set when both sides are one source: every case stays for review.
+  sameSource?: string,
 ) {
   const cases: ReconciliationCase[] = [],
     used = new Set<string>(),
@@ -292,6 +329,19 @@ export function buildReconciliationCases(
       !!single.poReference &&
       group.every((t) => t.poReference === single.poReference);
     const sameGroupDate = group.every((t) => t.date === group[0].date);
+    // Parts of one payment may post on neighbouring days. That is accepted
+    // only when an explicit bank or receipt identity, held by every member and
+    // by no other row, ties them together, and the grouped side spans no more
+    // than the allowed date difference. Invoice groups keep one date.
+    const groupSpan =
+      (Math.max(...group.map((t) => Date.parse(t.date))) -
+        Math.min(...group.map((t) => Date.parse(t.date)))) /
+      86400000;
+    const groupDatesProven =
+      sameGroupDate ||
+      (single.documentType === 'Payment' &&
+        !!paymentIdentity &&
+        groupSpan <= scope.dateWindow);
     const conflictingPO =
       new Set([single, ...group].map((t) => t.poReference).filter(Boolean))
         .size > 1;
@@ -302,6 +352,7 @@ export function buildReconciliationCases(
     const equal =
       safeSum(a.map((t) => t.amount)) === safeSum(b.map((t) => t.amount));
     groupReviewEvidence.set(ref, [
+      ...new Set(group.flatMap((t) => automaticConflicts(single, t))),
       ...(single.documentType === 'Payment' && !paymentIdentity
         ? [
             'لم تثبت هوية دفعة واحدة من عمود مرجع بنكي أو رقم إيصال صريح ومشترك في جميع الحركات. المرجع العام وتساوي المجموع لا يثبتان أن الصفوف أجزاء دفعة واحدة.',
@@ -315,8 +366,11 @@ export function buildReconciliationCases(
             'توجد أسطر متساوية في المبلغ والتاريخ وهوية القيد؛ اختلاف الوصف وحده لا يثبت أنها أسطر مستقلة.',
           ]
         : []),
-      ...(!sameGroupDate
+      ...(!groupDatesProven
         ? ['حركات الطرف المجمع ليست في تاريخ واحد؛ لم تثبت وحدة المجموعة.']
+        : []),
+      ...(conflictingPO
+        ? ['تذكر حركات المجموعة أوامر شراء مختلفة؛ لا يثبت ذلك أنها مستند واحد.']
         : []),
       ...(members.some((t) => excludedIdentities.has(t.reference))
         ? [
@@ -327,10 +381,10 @@ export function buildReconciliationCases(
     if (
       ![...a, ...b].some((t) => t.referenceEvidenceIssues?.length) &&
       group.every((t) => exactRef(single, t) && compatible(single, t, scope)) &&
-      group.every((t) => identityConflicts(single, t).length === 0) &&
+      group.every((t) => automaticConflicts(single, t).length === 0) &&
       sameType &&
       !paymentIdentityConflict &&
-      sameGroupDate &&
+      groupDatesProven &&
       !conflictingPO &&
       (single.documentType === 'Payment' || !conflictingVoucher) &&
       !duplicatePosting &&
@@ -346,14 +400,18 @@ export function buildReconciliationCases(
         'Matched',
         a,
         b,
-        paymentIdentity
-          ? 'EXPLICIT_PAYMENT_IDENTITY_GROUP_TOTAL_V1'
-          : 'EXACT_REFERENCE_GROUP_TOTAL_V1',
+        paymentIdentity && !sameGroupDate
+          ? 'EXPLICIT_PAYMENT_IDENTITY_GROUP_DATE_SPAN_V1'
+          : paymentIdentity
+            ? 'EXPLICIT_PAYMENT_IDENTITY_GROUP_TOTAL_V1'
+            : 'EXACT_REFERENCE_GROUP_TOTAL_V1',
         [
           `مطابقة تجميعية مثبتة: المرجع ${single.reference} مطابق؛ ${a.length} حركة مورد و${b.length} حركة دفتر؛ إجمالي كل طرف ${money(safeSum(a.map((t) => t.amount)), scope.decimals)} ${scope.currency}.`,
-          paymentIdentity
-            ? `مطابقة دفعة بين الكشفين وليست تخصيصًا لفواتير. هوية ${paymentIdentity === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[paymentIdentity]} واردة في عمود صريح لكل عضو. نوع المستند دفعة في الطرفين، وحركات الطرف المجمع في تاريخ واحد ضمن فرق الأيام المسموح، والإشارة والعملة متسقتان. شملت المقارنة كامل مجموعة الهوية دون صف مستبعد أو هوية منافسة؛ لم يُبحث عن مجموعات جزئية.`
-            : `نوع المستند ${single.documentType} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.`,
+          paymentIdentity && !sameGroupDate
+            ? `مطابقة دفعة بين الكشفين وليست تخصيصًا لفواتير. هوية ${paymentIdentity === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[paymentIdentity]} واردة في عمود صريح لكل عضو ولا يحملها أي صف آخر. نوع المستند دفعة في الطرفين، وحركات الطرف المجمع موزعة على تواريخ لا يتجاوز مداها ${groupSpan} يوم ضمن فرق الأيام المسموح، والإشارة والعملة متسقتان. شملت المقارنة كامل مجموعة الهوية دون صف مستبعد أو هوية منافسة؛ لم يُبحث عن مجموعات جزئية.`
+            : paymentIdentity
+              ? `مطابقة دفعة بين الكشفين وليست تخصيصًا لفواتير. هوية ${paymentIdentity === 'bankReference' ? 'التحويل البنكي' : 'الإيصال'} ${single[paymentIdentity]} واردة في عمود صريح لكل عضو. نوع المستند دفعة في الطرفين، وحركات الطرف المجمع في تاريخ واحد ضمن فرق الأيام المسموح، والإشارة والعملة متسقتان. شملت المقارنة كامل مجموعة الهوية دون صف مستبعد أو هوية منافسة؛ لم يُبحث عن مجموعات جزئية.`
+              : `نوع المستند ${single.documentType} متسق، وجميع حركات المجموعة في تاريخ واحد ضمن فرق الأيام المسموح للمطابقة؛ ${sharedPO ? `أمر شراء مشترك ${single.poReference}` : ''}${sharedPO && sharedVoucher ? '؛ ' : ''}${sharedVoucher ? `سند المجموعة ${voucher}` : ''}. المجموعة كاملة وفريدة، ولم يُبحث عن مجموعات جزئية.`,
         ],
       );
     }
@@ -363,7 +421,7 @@ export function buildReconciliationCases(
     if (a.length !== 1 || b.length !== 1 || !free(a) || !free(b)) continue;
     const s = a[0],
       l = b[0];
-    const conflicts = identityConflicts(s, l);
+    const conflicts = automaticConflicts(s, l);
     if (
       exactRef(s, l) &&
       compatible(s, l, scope) &&
@@ -379,6 +437,36 @@ export function buildReconciliationCases(
         [
           'المرجع متطابق، لكن أدلة المستند متعارضة. لم تُعتمد المطابقة.',
           ...conflicts,
+        ],
+      );
+      continue;
+    }
+    // The same reference, amount and date, held back only by what the rows
+    // do not prove (an unverified type, an order-only identity, no chosen
+    // reference column): shown together for review with the reasons, never
+    // left as two unrelated rows and never approved.
+    const unverified = [
+      ...new Set([
+        ...(s.referenceEvidenceIssues ?? []),
+        ...(l.referenceEvidenceIssues ?? []),
+      ]),
+    ];
+    if (
+      exactRef(s, l) &&
+      compatible(s, l, scope) &&
+      s.amount === l.amount &&
+      unverified.length &&
+      !rejectedGroup(a, b)
+    ) {
+      add(
+        'AMBIGUOUS_CANDIDATE',
+        'Needs Review',
+        a,
+        b,
+        'EXACT_REFERENCE_EVIDENCE_UNVERIFIED_V1',
+        [
+          'المرجع والمبلغ والتاريخ متطابقة، لكن دليل المستند غير متحقق. لم تُعتمد المطابقة.',
+          ...unverified,
         ],
       );
       continue;
@@ -540,6 +628,12 @@ export function buildReconciliationCases(
       );
   if (used.size !== byId.size)
     throw new Error('لم تُحفظ جميع صفوف المصدر داخل حالات التسوية');
+  if (sameSource)
+    for (const c of cases)
+      if (c.status === 'Matched') {
+        c.status = 'Needs Review';
+        c.evidence = [sameSource, ...c.evidence];
+      }
   const count = (status: ReconciliationCase['status']) =>
     cases.filter((c) => c.status === status);
   const rowCount = (items: ReconciliationCase[]) =>

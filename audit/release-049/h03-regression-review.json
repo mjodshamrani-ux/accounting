@@ -1,0 +1,173 @@
+{
+  "kind": "regression on previously opened synthetic holdout; not fresh validation",
+  "engine": "0.3.17-experimental",
+  "evaluatorsUnchanged": true,
+  "modes": {
+    "logical": {
+      "provenance": {
+        "engine": {
+          "root": ".",
+          "commit": "246324a8fe73c2a3602a68ee1087f29137f58adf",
+          "engineFilesModified": true
+        },
+        "harness": {
+          "commit": "246324a8fe73c2a3602a68ee1087f29137f58adf",
+          "modified": false,
+          "generatorSha256": "0622ebd45174e0cce22013c2e1d930659b37711700ad68019ea632a0cb5bb242",
+          "evaluatorSha256": "4c0e07e444619fdf01b55fea7586448750e7930253432cb0d0850d70f809b411",
+          "rendererSha256": "26e974f6b7db107fc1ea9ed0dd074880306b9761aaa64438fe0aad2e74006979"
+        }
+      },
+      "cases": 4000,
+      "after": {
+        "assisted": {
+          "verdicts": {
+            "fail-outcome": 174,
+            "pass": 3826
+          },
+          "falseApprovals": 0,
+          "evidenceLost": 0,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 1275,
+          "approvedAchieved": 1275
+        },
+        "unaided": {
+          "verdicts": {
+            "fail-evidence-lost": 520,
+            "fail-outcome": 174,
+            "needs-assistance": 174,
+            "pass": 3132
+          },
+          "falseApprovals": 0,
+          "evidenceLost": 3241,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 1275,
+          "approvedAchieved": 1102
+        }
+      },
+      "before": {
+        "assisted": {
+          "verdicts": {
+            "fail-outcome": 174,
+            "fail-signal-missing": 58,
+            "pass": 3768
+          },
+          "falseApprovals": 0,
+          "evidenceLost": 0,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 1275,
+          "approvedAchieved": 1275
+        },
+        "unaided": {
+          "verdicts": {
+            "fail-evidence-lost": 462,
+            "fail-outcome": 174,
+            "fail-signal-missing": 58,
+            "fail-unsafe": 58,
+            "needs-assistance": 174,
+            "pass": 3074
+          },
+          "falseApprovals": 58,
+          "evidenceLost": 3241,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 1275,
+          "approvedAchieved": 1102
+        }
+      }
+    },
+    "file": {
+      "provenance": {
+        "engine": {
+          "root": ".",
+          "commit": "246324a8fe73c2a3602a68ee1087f29137f58adf",
+          "engineFilesModified": true
+        },
+        "harness": {
+          "commit": "246324a8fe73c2a3602a68ee1087f29137f58adf",
+          "modified": false,
+          "generatorSha256": "0622ebd45174e0cce22013c2e1d930659b37711700ad68019ea632a0cb5bb242",
+          "evaluatorSha256": "4c0e07e444619fdf01b55fea7586448750e7930253432cb0d0850d70f809b411",
+          "rendererSha256": "26e974f6b7db107fc1ea9ed0dd074880306b9761aaa64438fe0aad2e74006979"
+        }
+      },
+      "cases": 800,
+      "after": {
+        "assisted": {
+          "verdicts": {
+            "fail-outcome": 36,
+            "pass": 764
+          },
+          "falseApprovals": 0,
+          "evidenceLost": 0,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 255,
+          "approvedAchieved": 255
+        },
+        "unaided": {
+          "verdicts": {
+            "fail-evidence-lost": 103,
+            "fail-outcome": 36,
+            "needs-assistance": 33,
+            "pass": 628
+          },
+          "falseApprovals": 0,
+          "evidenceLost": 612,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 255,
+          "approvedAchieved": 221
+        }
+      },
+      "before": {
+        "assisted": {
+          "verdicts": {
+            "fail-outcome": 36,
+            "fail-signal-missing": 12,
+            "pass": 752
+          },
+          "falseApprovals": 0,
+          "evidenceLost": 0,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 255,
+          "approvedAchieved": 255
+        },
+        "unaided": {
+          "verdicts": {
+            "fail-evidence-lost": 92,
+            "fail-outcome": 36,
+            "fail-signal-missing": 12,
+            "fail-unsafe": 11,
+            "needs-assistance": 33,
+            "pass": 616
+          },
+          "falseApprovals": 11,
+          "evidenceLost": 612,
+          "rowsLost": 0,
+          "silentMisreads": 0,
+          "crashes": 0,
+          "approvedExpected": 255,
+          "approvedAchieved": 221
+        }
+      }
+    }
+  },
+  "notes": [
+    "Unaided H03 false approvals are eliminated; positive identical document/reference cases remain matchable.",
+    "The unchanged evaluator only credits retainedEvidence mappedReference for generic references, not the new statedReference evidence role, so missing-evidence counts do not drop. Direct production-path tests verify statedReference retention, source header, session restore, export and tamper rejection.",
+    "Pass-count improvements outside H03 come from group review now displaying existing automaticConflicts reasons: G11 purchase-order conflict signal.",
+    "No ML model training or learned weights: source parsing, deterministic conflict rules and synthetic tests."
+  ]
+}

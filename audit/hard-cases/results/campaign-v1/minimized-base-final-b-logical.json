@@ -1,0 +1,1072 @@
+[
+  {
+    "failure": "G08-two-dates|identity|fail-missed",
+    "id": "HC-FNB-00012",
+    "seed": 1592690655393371,
+    "rowsBefore": 8,
+    "rowsAfter": 4,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: b:1 mapped reference",
+      "evidence lost: b:2 mapped reference",
+      "evidence lost: b:3 mapped reference"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-delimited",
+          "delimiter": ";",
+          "language": "ar",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "group",
+            "reference": "PAY-1100011",
+            "date": "2026-07-14",
+            "minor": -1824100,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000011",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "group",
+            "reference": "PAY-1100011",
+            "date": "2026-07-14",
+            "minor": -605733,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000011",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:2",
+            "tag": "group",
+            "reference": "PAY-1100011",
+            "date": "2026-07-14",
+            "minor": -613083,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000011",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:3",
+            "tag": "group",
+            "reference": "PAY-1100011",
+            "date": "2026-07-15",
+            "minor": -605284,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000011",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1",
+            "b:2",
+            "b:3"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1",
+        "b:2",
+        "b:3"
+      ]
+    }
+  },
+  {
+    "failure": "R01-voucher-and-reference|voucher-differs|fail-missed",
+    "id": "HC-FNB-00021",
+    "seed": 1592714545315220,
+    "rowsBefore": 7,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: b:1 mapped reference"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-delimited",
+          "delimiter": ";",
+          "language": "ar",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-630020",
+            "date": "2026-07-09",
+            "minor": 455504,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "SJ-600020-748",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-630020",
+            "date": "2026-07-09",
+            "minor": 455504,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "JV-600020-771",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "R01-voucher-and-reference|voucher-shared-reference-differs|fail-unsafe",
+    "id": "HC-FNB-00022",
+    "seed": 1592717199750981,
+    "rowsBefore": 9,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-unsafe",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: b:1 mapped reference",
+      "unexpected approval a:1 | b:1"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-delimited",
+          "delimiter": ";",
+          "language": "ar",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-630021",
+            "date": "2026-07-09",
+            "minor": 452790,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "JV-600021-963",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-630521",
+            "date": "2026-07-09",
+            "minor": 452790,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "JV-600021-963",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "review",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "T01-type-synonyms|tax-invoice|fail-missed",
+    "id": "HC-FNB-00032",
+    "seed": 1592743744108591,
+    "rowsBefore": 8,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "pdf",
+          "language": "en",
+          "style": "dot",
+          "pageRows": 4,
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-634031",
+            "date": "2026-07-09",
+            "minor": 75186,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "ar",
+          "style": "dot",
+          "order": [
+            2,
+            0,
+            1,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "fields": [
+            "kind",
+            "date",
+            "reference",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-634031",
+            "date": "2026-07-09",
+            "minor": 75186,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "T01-type-synonyms|arabic-tax-invoice|fail-missed",
+    "id": "HC-FNB-00033",
+    "seed": 1592746398544352,
+    "rowsBefore": 8,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-delimited",
+          "delimiter": ";",
+          "language": "ar",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-634032",
+            "date": "2026-07-09",
+            "minor": 517010,
+            "kind": "فاتورة ضريبية",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-634032",
+            "date": "2026-07-09",
+            "minor": 517010,
+            "kind": "فاتورة ضريبية",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "T01-type-synonyms|vendor-invoice|fail-missed",
+    "id": "HC-FNB-00035",
+    "seed": 1592751707415874,
+    "rowsBefore": 12,
+    "rowsAfter": 2,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "pdf",
+          "language": "en",
+          "style": "dot",
+          "pageRows": 4,
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-634034",
+            "date": "2026-07-09",
+            "minor": 501657,
+            "kind": "Vendor Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "ar",
+          "style": "dot",
+          "order": [
+            2,
+            0,
+            1,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "fields": [
+            "kind",
+            "date",
+            "reference",
+            "description",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-634034",
+            "date": "2026-07-09",
+            "minor": 501657,
+            "kind": "Vendor Invoice",
+            "description": "Goods supplied",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1"
+      ]
+    }
+  },
+  {
+    "failure": "C01-group-with-type-synonym|tax-invoice-po|fail-missed",
+    "id": "HC-FNB-00057",
+    "seed": 1592810105002616,
+    "rowsBefore": 11,
+    "rowsAfter": 4,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-delimited",
+          "delimiter": ";",
+          "language": "ar",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "poReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "group",
+            "reference": "INV-690056",
+            "date": "2026-07-12",
+            "minor": 5688000,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "poReference": "PO-660056",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "poReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "group",
+            "reference": "INV-690056",
+            "date": "2026-07-12",
+            "minor": 1893400,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "poReference": "PO-660056",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:2",
+            "tag": "group",
+            "reference": "INV-690056",
+            "date": "2026-07-12",
+            "minor": 1892500,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "poReference": "PO-660056",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:3",
+            "tag": "group",
+            "reference": "INV-690056",
+            "date": "2026-07-12",
+            "minor": 1902100,
+            "kind": "Tax Invoice",
+            "description": "Goods supplied",
+            "poReference": "PO-660056",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1",
+            "b:2",
+            "b:3"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1",
+        "b:2",
+        "b:3"
+      ]
+    }
+  },
+  {
+    "failure": "C02-two-dates-repeated-headers|identity|fail-missed",
+    "id": "HC-FNB-00058",
+    "seed": 1592812759438377,
+    "rowsBefore": 11,
+    "rowsAfter": 4,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: b:1 mapped reference",
+      "evidence lost: b:2 mapped reference",
+      "evidence lost: b:3 mapped reference"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-delimited",
+          "delimiter": ";",
+          "language": "ar",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ],
+          "repeatedHeader": true,
+          "blankRows": true,
+          "banner": true
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "group",
+            "reference": "PAY-1100057",
+            "date": "2026-07-15",
+            "minor": -3235900,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000057",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ],
+          "repeatedHeader": true,
+          "blankRows": true,
+          "banner": true
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "group",
+            "reference": "PAY-1100057",
+            "date": "2026-07-15",
+            "minor": -1081033,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000057",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:2",
+            "tag": "group",
+            "reference": "PAY-1100057",
+            "date": "2026-07-15",
+            "minor": -1073933,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000057",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:3",
+            "tag": "group",
+            "reference": "PAY-1100057",
+            "date": "2026-07-16",
+            "minor": -1080934,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000057",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1",
+            "b:2",
+            "b:3"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "b:1",
+        "b:2",
+        "b:3"
+      ]
+    }
+  },
+  {
+    "failure": "C03-voucher-with-group|identity|fail-missed",
+    "id": "HC-FNB-00059",
+    "seed": 1592815413874138,
+    "rowsBefore": 12,
+    "rowsAfter": 6,
+    "verdictAfterMinimising": "fail-missed",
+    "checkRoot": "work/after-89da93d",
+    "checkVerdict": "pass",
+    "findings": [
+      "evidence lost: a:1 mapped reference",
+      "evidence lost: a:2 mapped reference",
+      "evidence lost: b:1 mapped reference",
+      "evidence lost: b:2 mapped reference",
+      "evidence lost: b:3 mapped reference",
+      "evidence lost: b:4 mapped reference"
+    ],
+    "sources": [
+      {
+        "side": "supplier",
+        "layout": {
+          "format": "csv",
+          "writer": "csv-delimited",
+          "delimiter": ";",
+          "language": "ar",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "a:1",
+            "tag": "target",
+            "reference": "INV-630058",
+            "date": "2026-07-09",
+            "minor": 332409,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "SJ-600058-150",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "a:2",
+            "tag": "group",
+            "reference": "PAY-1100058",
+            "date": "2026-07-15",
+            "minor": -783800,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000058",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      },
+      {
+        "side": "ledger",
+        "layout": {
+          "format": "xlsx",
+          "writer": "exceljs",
+          "language": "en",
+          "style": "dot",
+          "fields": [
+            "date",
+            "reference",
+            "kind",
+            "description",
+            "voucherReference",
+            "bankReference",
+            "amount",
+            "currency",
+            "account"
+          ]
+        },
+        "rows": [
+          {
+            "key": "b:1",
+            "tag": "target",
+            "reference": "INV-630058",
+            "date": "2026-07-09",
+            "minor": 332409,
+            "kind": "Invoice",
+            "description": "Goods supplied",
+            "voucherReference": "JV-600058-881",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:2",
+            "tag": "group",
+            "reference": "PAY-1100058",
+            "date": "2026-07-15",
+            "minor": -264566,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000058",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:3",
+            "tag": "group",
+            "reference": "PAY-1100058",
+            "date": "2026-07-15",
+            "minor": -263017,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000058",
+            "currency": "SAR",
+            "account": "AP-482"
+          },
+          {
+            "key": "b:4",
+            "tag": "group",
+            "reference": "PAY-1100058",
+            "date": "2026-07-15",
+            "minor": -256217,
+            "kind": "Payment",
+            "description": "Bank transfer",
+            "bankReference": "BNK-1000058",
+            "currency": "SAR",
+            "account": "AP-482"
+          }
+        ]
+      }
+    ],
+    "oracle": {
+      "expect": "auto",
+      "externalNeed": null,
+      "withholdFormat": false,
+      "approved": [
+        {
+          "a": [
+            "a:1"
+          ],
+          "b": [
+            "b:1"
+          ]
+        },
+        {
+          "a": [
+            "a:2"
+          ],
+          "b": [
+            "b:2",
+            "b:3",
+            "b:4"
+          ]
+        }
+      ],
+      "targetKeys": [
+        "a:1",
+        "a:2",
+        "b:1",
+        "b:2",
+        "b:3",
+        "b:4"
+      ]
+    }
+  }
+]

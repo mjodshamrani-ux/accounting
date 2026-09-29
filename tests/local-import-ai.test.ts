@@ -10,6 +10,7 @@ import { defaultMapping } from '../lib/reconciliation/types.ts';
 import type { Scope } from '../lib/reconciliation/types.ts';
 import type { LocalModelAPI } from '../lib/reconciliation/local-ai.ts';
 import { compare, normalizeSource } from '../lib/reconciliation/core.ts';
+import { readSeparately } from './helpers/separate-export.ts';
 
 async function fixture() {
   const csv =
@@ -84,7 +85,7 @@ test('local import advice can complete unfamiliar mapping only after explicit ap
   const applied = { ...mapping, ...response.patch };
   const result = compare(
     normalizeSource(file, applied, scope, 'supplier'),
-    normalizeSource(file, applied, scope, 'ledger'),
+    normalizeSource(await readSeparately(file), applied, scope, 'ledger'),
     scope,
   );
   assert.equal(result.supplier.transactions.length, 4);

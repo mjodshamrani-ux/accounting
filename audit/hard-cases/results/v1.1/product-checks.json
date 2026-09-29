@@ -1,0 +1,66 @@
+{
+  "head": "final branch head (engine lib and app unchanged since a1501eb; measured engine worktree 4d9dfa0)",
+  "typecheck": {
+    "command": "pnpm typecheck",
+    "exit": 0
+  },
+  "unit": {
+    "command": "pnpm test",
+    "tests": 744,
+    "pass": 732,
+    "fail": 0,
+    "skipped": 12,
+    "skippedReason": "July acceptance tests need private originals (MIZAN_SAMPLE_DIR)"
+  },
+  "build": {
+    "command": "pnpm build",
+    "exit": 0
+  },
+  "browser": {
+    "scripts/browser-test.mjs": "exit 0",
+    "scripts/browser-same-source.mjs": "exit 0, passed (ar/en: same file 0 matched, separate files 2 matched)",
+    "scripts/browser-acceptance-bilingual.mjs": "exit 0, passed (4 runs, 2 screens)",
+    "env": "MIZAN_CHROMIUM=/opt/pw-browsers/chromium-1194/chrome-linux/chrome"
+  },
+  "knownSuite": {
+    "command": "audit/reliability/run.mjs --suite all --split development,validation,final,development-046",
+    "v1_bb529b6": {
+      "cases": 5020,
+      "passed": 5020,
+      "falseMatches": 0
+    },
+    "v11_4d9dfa0": {
+      "cases": 5020,
+      "passed": 5020,
+      "falseMatches": 0
+    },
+    "overallSummaryDiffs": 0,
+    "caseRecordDiffsAfterVersionAndTimingNormalisation": 0
+  },
+  "recomputeSnapshot": {
+    "command": "scripts/recompute-snapshot.mjs --root work/v1-bb529b6 vs this tree",
+    "differences": [
+      "new fields chosenReference and sourceOrigin on transactions",
+      "engine version 0.3.15 -> 0.3.16 in Export Metadata and sessions",
+      "export of a core result built by this tree's compare: refused by V1's re-verification (cross-tree artifact), accepted by V1.1"
+    ],
+    "statusOrOutcomeDiffs": 0
+  },
+  "lint": {
+    "command": "pnpm lint (oxlint; not part of pnpm check)",
+    "v1_findings": 724,
+    "v11_findings": 759,
+    "note": "fails on V1 already; additions are no-floating-promises in new test files, 5 sort() without compare in audit harness, 1 no-base-to-string in tests/same-source.test.ts"
+  },
+  "mutations": {
+    "command": "pnpm test:mutations",
+    "baselinePassed": true,
+    "detected": 56,
+    "total": 56,
+    "findingsDuringFinalRun": [
+      "045-skip-generic-account-scope-evidence: invalid mutant after literal replacement (fixed d847c04)",
+      "ignore-known-document-evidence-conflicts: stale anchor after automaticConflicts (fixed 7293927)",
+      "fuzzy-reference-auto-match: survived; test gap closed by 2923fff, no product change"
+    ]
+  }
+}

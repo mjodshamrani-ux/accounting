@@ -1,0 +1,459 @@
+{
+  "appVersion": "0.4.9",
+  "engineVersion": "0.3.17-experimental",
+  "date": "2026-09-29",
+  "engineLocalFreezeCommit": "246324a8fe73c2a3602a68ee1087f29137f58adf",
+  "upstreamPublishedCommit": "7ab940774e3399a8973f290c3719146bd5a988c5",
+  "upstreamCampaignCommit": "9fbe481093fb2f4d4f027c4097c5063fc0ce1df1",
+  "pnpmCheck": {
+    "exitCode": 0,
+    "typecheck": "passed",
+    "tests": 752,
+    "passed": 752,
+    "failed": 0,
+    "mutations": {
+      "baselinePassed": true,
+      "detected": 57,
+      "total": 57,
+      "available": 57,
+      "mutations": [
+        {
+          "mutation": "047-accept-unanswered-format-ambiguity",
+          "detected": true
+        },
+        {
+          "mutation": "047-ambiguity-guard-throws-unrelated-error",
+          "detected": true
+        },
+        {
+          "mutation": "047-reuse-format-choice-across-context",
+          "detected": true
+        },
+        {
+          "mutation": "046-disable-all-supported-groups",
+          "detected": true
+        },
+        {
+          "mutation": "046-accept-payment-groups-without-explicit-identity",
+          "detected": true
+        },
+        {
+          "mutation": "hard-t01-read-any-label-ending-in-invoice",
+          "detected": true
+        },
+        {
+          "mutation": "v11-read-carried-forward-as-a-transaction",
+          "detected": true
+        },
+        {
+          "mutation": "v11-refuse-black-text-grazed-by-a-table-rule",
+          "detected": true
+        },
+        {
+          "mutation": "v11-let-stripes-hide-text",
+          "detected": true
+        },
+        {
+          "mutation": "v11-approve-a-source-compared-with-itself",
+          "detected": true
+        },
+        {
+          "mutation": "v11-take-a-renamed-copy-for-another-source",
+          "detected": true
+        },
+        {
+          "mutation": "hard-s01-drop-a-source-without-a-role",
+          "detected": true
+        },
+        {
+          "mutation": "hard-r01-rank-own-voucher-before-chosen-reference",
+          "detected": true
+        },
+        {
+          "mutation": "hard-r01-let-a-voucher-hide-a-po-only-identity",
+          "detected": true
+        },
+        {
+          "mutation": "v11-take-a-document-number-equal-to-the-order-as-proof",
+          "detected": true
+        },
+        {
+          "mutation": "v11-approve-on-a-voucher-with-no-chosen-reference",
+          "detected": true
+        },
+        {
+          "mutation": "v11-take-a-batch-for-a-document",
+          "detected": true
+        },
+        {
+          "mutation": "v11-let-a-document-number-outvote-the-chosen-references",
+          "detected": true
+        },
+        {
+          "mutation": "h03-let-a-document-number-outvote-unselected-references",
+          "detected": true
+        },
+        {
+          "mutation": "v11-read-only-bare-labels-in-descriptions",
+          "detected": true
+        },
+        {
+          "mutation": "v11-leave-blocked-exact-pairs-as-unrelated-rows",
+          "detected": true
+        },
+        {
+          "mutation": "hard-g08-accept-payment-parts-beyond-the-date-window",
+          "detected": true
+        },
+        {
+          "mutation": "hard-g08-accept-any-group-across-dates",
+          "detected": true
+        },
+        {
+          "mutation": "045-ignore-declared-aging-report",
+          "detected": true
+        },
+        {
+          "mutation": "045-skip-generic-account-scope-evidence",
+          "detected": true
+        },
+        {
+          "mutation": "045-allow-a-second-sheetdata-to-drop-earlier-rows",
+          "detected": true
+        },
+        {
+          "mutation": "045-concatenate-conflicting-xlsx-cell-payloads",
+          "detected": true
+        },
+        {
+          "mutation": "accept-a-partial-pdf-operator-stream",
+          "detected": true
+        },
+        {
+          "mutation": "allow-visual-drafts-into-accounting",
+          "detected": true
+        },
+        {
+          "mutation": "reuse-an-ai-column-proposal-after-settings-change",
+          "detected": true
+        },
+        {
+          "mutation": "trust-stale-case-member-evidence",
+          "detected": true
+        },
+        {
+          "mutation": "allow-ai-proposals-outside-the-evidence-window",
+          "detected": true
+        },
+        {
+          "mutation": "skip-an-earlier-table-for-a-richer-later-header",
+          "detected": true
+        },
+        {
+          "mutation": "ignore-known-document-evidence-conflicts",
+          "detected": true
+        },
+        {
+          "mutation": "accept-duplicate-posting-lines-as-a-group",
+          "detected": true
+        },
+        {
+          "mutation": "ignore-xlsx-overwritten-cell-addresses",
+          "detected": true
+        },
+        {
+          "mutation": "silently-round-original-xlsx-numeric-lexemes",
+          "detected": true
+        },
+        {
+          "mutation": "ignore-pdf-overlap-between-separate-baselines",
+          "detected": true
+        },
+        {
+          "mutation": "reject-supported-multisheet-workpapers",
+          "detected": true
+        },
+        {
+          "mutation": "reject-unused-helper-formulas",
+          "detected": true
+        },
+        {
+          "mutation": "treat-pdf-table-edges-as-filled-area",
+          "detected": true
+        },
+        {
+          "mutation": "count-total-rows-as-transactions",
+          "detected": true
+        },
+        {
+          "mutation": "drop-classified-rows-without-a-reason",
+          "detected": true
+        },
+        {
+          "mutation": "accept-a-timestamp-as-a-read-issue",
+          "detected": true
+        },
+        {
+          "mutation": "automatically-match-with-unread-potential-duplicates",
+          "detected": true
+        },
+        {
+          "mutation": "classify-any-summary-word-as-a-nontransaction",
+          "detected": true
+        },
+        {
+          "mutation": "ignore-date-and-reference-in-reordered-summary-rows",
+          "detected": true
+        },
+        {
+          "mutation": "prove-direction-from-a-single-movement",
+          "detected": true
+        },
+        {
+          "mutation": "reverse-proven-ap-direction",
+          "detected": true
+        },
+        {
+          "mutation": "ignore-contradictory-closing-footer-in-direction-proof",
+          "detected": true
+        },
+        {
+          "mutation": "reverse-source-sign",
+          "detected": true
+        },
+        {
+          "mutation": "fuzzy-reference-auto-match",
+          "detected": true
+        },
+        {
+          "mutation": "ignore-date-window",
+          "detected": true
+        },
+        {
+          "mutation": "ignore-reference-duplicates",
+          "detected": true
+        },
+        {
+          "mutation": "allow-unconfirmed-coverage",
+          "detected": true
+        },
+        {
+          "mutation": "promote-ai-hypothesis",
+          "detected": true
+        },
+        {
+          "mutation": "corrupt-exported-amount",
+          "detected": true
+        }
+      ]
+    },
+    "browser": {
+      "passed": true,
+      "checks": [
+        "GitHub subpath assets",
+        "legacy templates migrate to positions only; three offline compare/export/reset sessions retain fresh amounts and references",
+        "production CSP",
+        "Arabic-only TARASUF identity, authentic local native fonts, keyboard-accessible uploads and atomic multi-file-drop rejection",
+        "true A4 vector paper proportions, unique local clips and per-paper scans across 17 animation samples at six widths; all scene motion pauses offscreen or on request",
+        "320/390/768/820/1024/1280px layouts without overflow; four grounded features, readable workflow labels, anchor/keyboard reveals and reduced-motion privacy navigation",
+        "offline native confirm/review/export headings retain correct font and focus; longest title wraps at 320px without shrinking",
+        "offline first comparison",
+        "engine/io cases run separately",
+        "grounded assistant offline",
+        "cancel and confirm session reset",
+        "reject auto match",
+        "Excel download roundtrip",
+        "invalid export text rejected and correction retried",
+        "mapping invalidation",
+        "390px layout",
+        "actual CSV upload offline",
+        "XLSX upload with helper formulas, percentages and multiple sheets offline",
+        "case workpaper reimport chooses parsed sources without restoring approvals",
+        "bordered PDF upload, review, comparison and Excel export offline",
+        "covered PDF rejected, XLSX retry succeeds, colored PDF comparison and numeric export succeed offline",
+        "typed image-only and first-failing-page PDF diagnoses retain the existing XLSX and recover on the next readable PDF",
+        "synthetic ready local-model advice requires explicit Apply before comparison; absent/downloadable providers never create sessions and retain manual mapping",
+        "clear files show no mandatory input fields; explicit metadata and unambiguous formats filled and numeric export verified",
+        "both ambiguous date and 3-decimal amount formats require independent choices",
+        "unknown currency precision requires an explicit choice including the existing two-decimal value",
+        "PDF columns detected from geometry with a reachable review box",
+        "namespaced XLSX source pairs: zero mandatory fields with proven opposite directions and exact numeric Excel export",
+        "formula running balances require separate essential supplier/AP sign choices before comparison",
+        "header selection preserves proven AP direction; failed XLSX replacement preserves the retained file manual sign choice",
+        "two PDF review approvals remain independent; replacing a multi-page PDF resets its preview and approval",
+        "real local PNG/raster-PDF OCR, source hash, word coordinates, cancel/clear, native-source isolation and static-assets-only network",
+        "Arabic RTL by default; switching to English LTR mid-review keeps files, results, tab, assistant answers and notes; identical figures and workpaper; no stray Arabic in English or English in Arabic; choice persists",
+        "no observed external or POST requests"
+      ],
+      "screenshots": "work/qa"
+    }
+  },
+  "libraryFilesStillEqualToFrozenIndependentRun": 53,
+  "productionDependencyAudit": "No known vulnerabilities found",
+  "bilingualAcceptance": {
+    "passed": true,
+    "plans": [
+      "arabic",
+      "english",
+      "switch-ar-first",
+      "switch-en-first"
+    ],
+    "evidence": "bilingual.json"
+  },
+  "excelIndependentCheck": {
+    "workbooks": 18,
+    "numeric_cells_verified_exactly": 288,
+    "native_dates_verified": 504,
+    "decimal_formats": "pass",
+    "engine_formula_cells_verified": 180,
+    "untrusted_formula_cells": 0,
+    "zip_crc": "pass",
+    "xml_parse": "pass",
+    "bilingual_text": "pass",
+    "verifier": "Python stdlib ZIP/XML/Decimal; independent of ExcelJS"
+  },
+  "versionTransition": {
+    "passed": true,
+    "evidence": "export-transition.json"
+  },
+  "selfComparisonBrowser": {
+    "passed": true,
+    "evidence": "same-source.json"
+  },
+  "foundationEvaluator": {
+    "cases": 40,
+    "passed": 40,
+    "safetyPassed": 40,
+    "resultsProduced": 22,
+    "completeSourceReads": 22,
+    "partialOrUnverifiedResults": 0,
+    "sourceReadErrors": 0,
+    "unprovenFormatDefaults": 2,
+    "casesWithUnprovenFormatDefaults": 2,
+    "completedComparisons": 22,
+    "completedWithoutManualCorrection": 0,
+    "automaticallyDerivedInputs": 15,
+    "explicitAttestations": 192,
+    "needsChosenInterpretation": 16,
+    "suppliedExternalFacts": 0,
+    "conditionalRequiredMatches": 13,
+    "resolvedInputRequiredMatches": 12,
+    "completedAutomatically": 0,
+    "outcomes": {
+      "external-information-required": 15,
+      "completed-comparison": 22,
+      "controlled-stop": 3
+    },
+    "interventionLevels": {
+      "limited-confirmation": 16,
+      "manual-correction": 24
+    },
+    "requiredInterventionLevels": {
+      "human-external": 15,
+      "manual-correction": 24,
+      "limited-confirmation": 1
+    },
+    "byIntervention": {
+      "automatic": {
+        "cases": 0,
+        "completedComparisons": 0
+      },
+      "limited-confirmation": {
+        "cases": 16,
+        "completedComparisons": 0
+      },
+      "manual-correction": {
+        "cases": 24,
+        "completedComparisons": 22
+      },
+      "human-external": {
+        "cases": 0,
+        "completedComparisons": 0
+      }
+    },
+    "ambiguityGate": {
+      "refused": 15
+    },
+    "ambiguityGateAnswered": {
+      "accepted-with-choice": 14,
+      "blocked-by-other-field": 1
+    },
+    "unresolvedInputs": {
+      "supplier.numberFormat": 11,
+      "ledger.numberFormat": 4
+    },
+    "permittedMatches": 25,
+    "expectedMatches": 25,
+    "correctRequiredMatches": 12,
+    "correctMatches": 12,
+    "missedRequiredMatches": 13,
+    "permittedGroups": 0,
+    "acceptedGroups": 0,
+    "requiredGroups": 0,
+    "acceptedRequiredGroups": 0,
+    "missedRequiredGroups": 0,
+    "groupAssessmentClasses": {
+      "review": 2
+    },
+    "groupBusinessTasks": {
+      "payment-matching": 2
+    },
+    "falseMatches": 0,
+    "falseMatchMinorByCurrency": {},
+    "expectedRows": 102,
+    "validExpectedRows": 97,
+    "extractedRows": 55,
+    "excludedRows": 1,
+    "exportsChecked": 22,
+    "bridgesChecked": 22,
+    "automaticColumnSelection": 40,
+    "stopped": 18,
+    "exceptionRows": 51,
+    "handledExceptionRows": 51,
+    "confirmations": {
+      "supplier: numberFormat needs outside-document information; no oracle default supplied": 11,
+      "ledger: PDF visual review required": 5,
+      "ledger: numberFormat needs outside-document information; no oracle default supplied": 4,
+      "supplier: PDF visual review required": 6
+    },
+    "failures": {},
+    "metricDefinitions": {
+      "resultProduced": "The engine returned a result object, including diagnostic partial results. This is not completed accounting work.",
+      "completedComparison": "A result was produced after both sources had no row errors or independently detected missing/changed rows and no unproven format default. Correctness and required-decision completion are separately reported.",
+      "unprovenFormatDefaults": "Diagnostic normalization used the product default after format inference returned invalid/unavailable. This is not a confirmed or automatically proved interpretation.",
+      "passed": "All evaluator assertions passed; a safe unresolved-input stop is NOT a completed reconciliation.",
+      "completedAutomatically": "Completed with no confirmation, manual mapping or external information. Ordinary Reconcile clicks do not count as interpretation. Actual scope/sign/PDF attestations do count.",
+      "expectedMatches": "Expected decisions conditional on resolving any ambiguous input convention; conditionalRequiredMatches are separated from resolvedInputRequiredMatches. Missed counts include cases stopped before comparison.",
+      "falseMatchDenominator": "Accepted decisions only; report alongside required completion and unresolved-input counts, never alone.",
+      "groupUnit": "One document-lines or whole-payment reconciliation decision, not individual source rows or payment-to-invoice allocation."
+    }
+  },
+  "prototypeTests": {
+    "passed": 45,
+    "failed": 0,
+    "productionEnabled": false,
+    "evidence": "prototype-reruns.json"
+  },
+  "independentReferenceSet": {
+    "casesPassed": 15,
+    "cases": 18,
+    "requiredPairs": 14,
+    "satisfiedPairs": 9,
+    "missedPairs": 5,
+    "falseApprovedPairs": 0,
+    "failedCases": [
+      "IR03",
+      "IR17",
+      "IR18"
+    ],
+    "evidence": "independent-reference-check/summary-246324a.json"
+  },
+  "releaseLimitations": [
+    "Experimental release: synthetic tests do not establish field accuracy.",
+    "Known positive matches within shared Document No still require review.",
+    "Interface is AR/EN; Excel workpaper remains Arabic.",
+    "OCR remains unverified draft; no cloud-model training.",
+    "Old engine sessions are intentionally incompatible; original source files are required."
+  ],
+  "deployment": "This file records pre-publication checks; GitHub Actions and live-site verification are separate."
+}

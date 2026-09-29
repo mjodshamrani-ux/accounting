@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
+import { verifyLanguages } from './language-browser-cases.mjs';
 import {
   verifyBrandLanding,
   verifyNarrowLayouts,
@@ -315,11 +316,16 @@ try {
   await context.setOffline(true);
   const csv =
     'date,reference,amount\n2026-08-01,INV-0001,100.00\n2026-08-02,PAY-0001,-20.00';
-  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+  // Two documents: the ledger is its own export of the same entries. One file
+  // on both sides is a self-comparison (scripts/browser-same-source.mjs).
+  for (const [label, body] of [
+    ['كشف المورد', csv],
+    ['تقرير الحسابات الدائنة', csv + '\n'],
+  ]) {
     await uploadPage.getByLabel(label, { exact: true }).setInputFiles({
       name: 'synthetic.csv',
       mimeType: 'text/csv',
-      buffer: Buffer.from(csv),
+      buffer: Buffer.from(body),
     });
     await uploadPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
@@ -399,12 +405,18 @@ try {
     ],
   });
   const helperBytes = Buffer.from(await helperBook.xlsx.writeBuffer());
-  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+  // The ledger's copy of the same entries is its own export.
+  helperBook.creator = 'Synthetic ledger';
+  const ledgerHelperBytes = Buffer.from(await helperBook.xlsx.writeBuffer());
+  for (const [label, buffer] of [
+    ['كشف المورد', helperBytes],
+    ['تقرير الحسابات الدائنة', ledgerHelperBytes],
+  ]) {
     await uploadPage.getByLabel(label, { exact: true }).setInputFiles({
       name: 'synthetic-helpers.xlsx',
       mimeType:
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      buffer: helperBytes,
+      buffer,
     });
     await uploadPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
@@ -1012,12 +1024,18 @@ try {
     ['15/06/2026', 'Q-0002', -20, 'SAR'],
   ]);
   const quickBytes = Buffer.from(await quickBook.xlsx.writeBuffer());
-  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+  // The ledger's copy of the same entries is its own export.
+  quickBook.creator = 'Synthetic ledger';
+  const ledgerQuickBytes = Buffer.from(await quickBook.xlsx.writeBuffer());
+  for (const [label, buffer] of [
+    ['كشف المورد', quickBytes],
+    ['تقرير الحسابات الدائنة', ledgerQuickBytes],
+  ]) {
     await quickPage.getByLabel(label, { exact: true }).setInputFiles({
       name: 'synthetic-prefill.xlsx',
       mimeType:
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      buffer: quickBytes,
+      buffer,
     });
     await quickPage.waitForFunction(
       () => !document.body.innerText.includes('قراءة الملف على جهازك'),
@@ -1135,12 +1153,16 @@ try {
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
-  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+  // The ledger is its own export of the same entries (a final line break).
+  for (const [index, label] of [
+    'كشف المورد',
+    'تقرير الحسابات الدائنة',
+  ].entries()) {
     await ambiguityPage.getByLabel(label, { exact: true }).setInputFiles({
       name: 'synthetic-ambiguous.csv',
       mimeType: 'text/csv',
       buffer: Buffer.from(
-        'date,reference,amount,currency\n03/04/2026,Q-AMB-0001,1.234,KWD',
+        'date,reference,amount,currency\n03/04/2026,Q-AMB-0001,1.234,KWD' + (index ? '\n' : ''),
       ),
     });
     await ambiguityPage.waitForFunction(
@@ -1211,12 +1233,16 @@ try {
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   await context.setOffline(true);
-  for (const label of ['كشف المورد', 'تقرير الحسابات الدائنة']) {
+  // The ledger is its own export of the same entries (a final line break).
+  for (const [index, label] of [
+    'كشف المورد',
+    'تقرير الحسابات الدائنة',
+  ].entries()) {
     await precisionPage.getByLabel(label, { exact: true }).setInputFiles({
       name: 'synthetic-precision.csv',
       mimeType: 'text/csv',
       buffer: Buffer.from(
-        'date,reference,amount,currency\n2026-06-01,Q-PREC,100,ZZZ',
+        'date,reference,amount,currency\n2026-06-01,Q-PREC,100,ZZZ' + (index ? '\n' : ''),
       ),
     });
     await precisionPage.waitForFunction(
@@ -1702,7 +1728,9 @@ try {
   await bothPdfPage.getByLabel('كشف المورد', { exact: true }).setInputFiles({
     name: 'synthetic-replacement-one-page.pdf',
     mimeType: 'application/pdf',
-    buffer: onePagePdf,
+    // The supplier's own one-page PDF: the same entries as the ledger's
+    // file, but a separate file (a final line break after its end marker).
+    buffer: Buffer.concat([onePagePdf, Buffer.from('\n')]),
   });
   await bothPdfPage
     .locator('.dropzone')
@@ -1763,6 +1791,11 @@ try {
     await activeScenarioPage(context, 'visual reader'),
     `${origin}/mizan-test/`,
   );
+  console.log('[browser] Arabic and English');
+  await verifyLanguages(
+    await activeScenarioPage(context, 'languages'),
+    `${origin}/mizan-test/`,
+  );
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);
@@ -1803,6 +1836,7 @@ try {
           'header selection preserves proven AP direction; failed XLSX replacement preserves the retained file manual sign choice',
           'two PDF review approvals remain independent; replacing a multi-page PDF resets its preview and approval',
           'real local PNG/raster-PDF OCR, source hash, word coordinates, cancel/clear, native-source isolation and static-assets-only network',
+          'Arabic RTL by default; switching to English LTR mid-review keeps files, results, tab, assistant answers and notes; identical figures and workpaper; no stray Arabic in English or English in Arabic; choice persists',
           'no observed external or POST requests',
         ],
         screenshots: 'work/qa',

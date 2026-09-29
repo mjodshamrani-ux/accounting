@@ -11,16 +11,8 @@ import {
 import type { LocalImportProposal } from '@/lib/reconciliation/local-import-ai';
 import type { LocalModelAPI } from '@/lib/reconciliation/local-ai';
 import type { Mapping, SourceFile } from '@/lib/reconciliation/types';
-
-const labels = {
-  date: 'التاريخ',
-  reference: 'المرجع',
-  description: 'الوصف',
-  amount: 'مبلغ الحركة',
-  debit: 'المدين',
-  credit: 'الدائن',
-  currencyColumn: 'العملة',
-};
+import { useI18n } from '@/lib/i18n/context';
+import { engineText, uiText, type UiText } from '@/lib/i18n/text';
 const model = () =>
   (globalThis as typeof globalThis & { LanguageModel?: LocalModelAPI })
     .LanguageModel;
@@ -34,6 +26,7 @@ export function ImportAssistant({
   mapping: Mapping;
   onApply: (patch: Partial<Mapping>) => void;
 }) {
+  const { t, say } = useI18n();
   const context = useMemo(
     () => buildImportProposalContext(file, mapping),
     [file, mapping],
@@ -43,7 +36,7 @@ export function ImportAssistant({
   const [available, setAvailable] = useState(false);
   const [busy, setBusy] = useState(false);
   const [proposal, setProposal] = useState<LocalImportProposal | null>(null);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState<UiText | null>(null);
   useEffect(() => {
     current.current = { file, mapping };
     const controller = new AbortController();
@@ -66,7 +59,7 @@ export function ImportAssistant({
     active.current = controller;
     setBusy(true);
     setProposal(null);
-    setMessage('');
+    setMessage(null);
     let timer: ReturnType<typeof setTimeout> | undefined;
     try {
       const result = await Promise.race([
@@ -85,10 +78,7 @@ export function ImportAssistant({
       )
         return;
       setProposal(result);
-      if (!result)
-        setMessage(
-          'لم يستطع المساعد تقديم اقتراح يمكن استخدامه. اختر الأعمدة يدويًا من الخيارات المتاحة. لم تتغير بياناتك.',
-        );
+      if (!result) setMessage(uiText((m) => m.importAssistant.noProposal));
     } finally {
       clearTimeout(timer);
       if (active.current === controller) {
@@ -110,7 +100,7 @@ export function ImportAssistant({
           disabled={busy}
           onClick={() => void suggest()}
         >
-          {busy ? 'نبحث عن الأعمدة المناسبة على جهازك' : 'اقتراح الأعمدة'}
+          {busy ? t.importAssistant.searching : t.importAssistant.suggest}
         </Button>
         {busy && (
           <Button
@@ -119,25 +109,27 @@ export function ImportAssistant({
             size="sm"
             onClick={() => active.current?.abort()}
           >
-            إلغاء
+            {t.importAssistant.cancel}
           </Button>
         )}
       </div>
-      {message && <output className="hint">{message}</output>}
+      {message && <output className="hint">{say(message)}</output>}
       {proposal && (
-        <div className="panel stack" aria-label="أعمدة مقترحة للمراجعة">
-          <p className="hint">
-            هذا اقتراح من مساعد الذكاء الاصطناعي على جهازك. راجع معنى كل عمود مع
-            أمثلة الملف قبل استخدامه. لم تُعتمد أي أرقام أو مطابقات.
-          </p>
+        <div
+          className="panel stack"
+          aria-label={t.importAssistant.proposalLabel}
+        >
+          <p className="hint">{t.importAssistant.proposalNote}</p>
           <ul>
             {proposal.evidence.map((e) => (
               <li key={e.field}>
-                <strong>{labels[e.field]}</strong>: العمود {e.index + 1} «
-                <bdi>{e.header.text || 'بدون عنوان'}</bdi>» —{' '}
+                <strong>{t.importAssistant.fields[e.field]}</strong>
+                {t.importAssistant.columnOf(e.index + 1)}
+                <bdi>{e.header.text || t.importAssistant.untitled}</bdi>
+                {t.importAssistant.closeQuote}{' '}
                 {e.samples.map((sample) => (
                   <span key={sample.row}>
-                    صف {sample.row}:{' '}
+                    {t.importAssistant.row(sample.row)}{' '}
                     <bdi>
                       {sample.text}
                       {sample.truncated ? '…' : ''}
@@ -146,7 +138,7 @@ export function ImportAssistant({
                   </span>
                 ))}
                 {e.issueCount > 0 && (
-                  <span> (ملاحظات تحتاج فحص المحرك: {e.issueCount})</span>
+                  <span>{t.importAssistant.engineNotes(e.issueCount)}</span>
                 )}
               </li>
             ))}
@@ -163,14 +155,14 @@ export function ImportAssistant({
               );
               if (!fresh.ok) {
                 setProposal(null);
-                setMessage(fresh.message);
+                setMessage(engineText(fresh.message));
                 return;
               }
               setProposal(null);
               onApply(fresh.patch);
             }}
           >
-            تطبيق الأعمدة بعد مراجعتها
+            {t.importAssistant.apply}
           </Button>
         </div>
       )}

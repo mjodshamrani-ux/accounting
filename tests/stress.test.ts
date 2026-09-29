@@ -18,6 +18,7 @@ import { explainResult } from '../lib/reconciliation/assistant.ts';
 import { interpretModelOutput } from '../lib/reconciliation/local-ai.ts';
 import { defaultMapping } from '../lib/reconciliation/types.ts';
 import type { SourceFile } from '../lib/reconciliation/types.ts';
+import { separateSheets } from './helpers/separate-export.ts';
 const scope = {
   supplier: 'مورد / Supplier',
   entity: 'Entity',
@@ -50,7 +51,7 @@ const file = (rows: string[][]): SourceFile => ({
 const run = (a: string[][], b: string[][]) =>
   compare(
     normalizeSource(file(a), mapping, scope, 'supplier'),
-    normalizeSource(file(b), mapping, scope, 'ledger'),
+    normalizeSource(separateSheets(file(b)), mapping, scope, 'ledger'),
     scope,
   );
 let seed = 20260908;
@@ -231,7 +232,7 @@ test('bilingual workbook export preserves source text, numbers and formula-looki
     ['2026-08-02', 'INV-003', '-12.34', 'إشعار دائن Credit Note'],
   ];
   const r = run(a, b);
-  const bytes = await exportWorkbook(r, [file(a), file(b)], {
+  const bytes = await exportWorkbook(r, [file(a), separateSheets(file(b))], {
     name: 'Reviewer مراجع',
     notes: '=1+1',
     checked: false,
@@ -359,15 +360,21 @@ test('5000-row XLSX import, reconciliation and export preserve every original nu
     'large-bilingual.xlsx',
     bytes.buffer as ArrayBuffer,
   );
+  // The ledger is its own export of the same entries.
+  wb.creator = 'Synthetic ledger';
+  const ledgerSource = await readFile(
+    'large-bilingual-ledger.xlsx',
+    new Uint8Array(await wb.xlsx.writeBuffer()).buffer as ArrayBuffer,
+  );
   const s = normalizeSource(source, mapping, scope, 'supplier'),
-    l = normalizeSource(source, mapping, scope, 'ledger');
+    l = normalizeSource(ledgerSource, mapping, scope, 'ledger');
   const r = compare(s, l, scope);
   assert.equal(r.matches.length, 5000);
   assert.equal(r.supplierOnly.length, 0);
   assert.equal(r.ledgerOnly.length, 0);
   for (const t of s.transactions)
     assert.equal(t.amount, expected.get(t.reference));
-  const output = await exportWorkbook(r, [source, source], {
+  const output = await exportWorkbook(r, [source, ledgerSource], {
     checked: false,
     name: 'مراجع Reviewer',
     notes: '',

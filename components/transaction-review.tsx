@@ -12,6 +12,7 @@ import {
 import { explainResult } from '@/lib/reconciliation/assistant';
 import { money } from '@/lib/reconciliation/core';
 import type { Comparison, Decision } from '@/lib/reconciliation/types';
+import { useI18n } from '@/lib/i18n/context';
 export function TransactionReview({
   result,
   id,
@@ -29,6 +30,7 @@ export function TransactionReview({
   onUnlink: (supplierId: string, ledgerId: string, note: string) => void;
   onReview: (id: string, note: string) => void;
 }) {
+  const { t: m, engineText } = useI18n();
   const [query, setQuery] = useState(''),
     [candidate, setCandidate] = useState(''),
     [note, setNote] = useState('');
@@ -54,34 +56,35 @@ export function TransactionReview({
     )
     .slice(0, 50);
   const chosen = candidates.find((t) => t.id === candidate);
-  const explanation = explainResult(result, 'شرح', id);
+  // With a transaction id the engine explains that transaction; the wording of
+  // the question does not change the answer.
+  const explanation = explainResult(result, m.assistant.presets.explain, id);
   return (
-    <section className="review-detail stack" aria-label="مراجعة الحركة">
+    <section className="review-detail stack" aria-label={m.transactionReview.region}>
       <div className="actions" style={{ justifyContent: 'space-between' }}>
         <h2>
-          مراجعة الحركة <bdi>{tx.reference || `صف ${tx.row}`}</bdi>
+          {m.transactionReview.heading}{' '}
+          <bdi>{tx.reference || m.transactionReview.row(tx.row)}</bdi>
         </h2>
         <Button variant="ghost" onClick={onClose}>
-          إغلاق المراجعة
+          {m.transactionReview.close}
         </Button>
       </div>
       <p style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
-        {explanation.text}
+        {engineText(explanation.text)}
       </p>
       <p>
-        المبلغ في الملف الأصلي: <bdi>{tx.originalAmount}</bdi> · معرّف الصف:{' '}
-        <bdi>{tx.id}</bdi>
-        {tx.sourcePage && <> · الصفحة في ملف PDF: {tx.sourcePage}</>}
+        {m.transactionReview.originalAmount}
+        <bdi>{tx.originalAmount}</bdi>
+        {m.transactionReview.rowId} <bdi>{tx.id}</bdi>
+        {tx.sourcePage && <>{m.transactionReview.pdfPage(tx.sourcePage)}</>}
       </p>
       {!match && (
         <>
-          <p className="muted">
-            نعرض حتى 50 نتيجة من الملف الآخر. ظهور حركة هنا لا يعني أنها مطابقة،
-            ولا يمكن تأكيد الربط إذا اختلف المبلغ.
-          </p>
+          <p className="muted">{m.transactionReview.candidatesNote}</p>
           <Input
-            aria-label="البحث عن حركة مقابلة"
-            placeholder="ابحث بالمرجع أو الوصف أو رقم الصف في الملف الآخر"
+            aria-label={m.transactionReview.searchLabel}
+            placeholder={m.transactionReview.searchPlaceholder}
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -92,14 +95,15 @@ export function TransactionReview({
             value={candidate}
             onValueChange={(v) => setCandidate(String(v))}
           >
-            <SelectTrigger aria-label="الحركة المقابلة">
-              <SelectValue placeholder="اختر حركة من الملف الآخر" />
+            <SelectTrigger aria-label={m.transactionReview.counterpartLabel}>
+              <SelectValue placeholder={m.transactionReview.counterpartPlaceholder} />
             </SelectTrigger>
             <SelectContent>
               {candidates.map((t) => (
                 <SelectItem key={t.id} value={t.id}>
-                  {t.reference || 'بدون مرجع'} ·{' '}
-                  {money(t.amount, result.scope.decimals)} · صف {t.row}
+                  {t.reference || m.transactionReview.noReference} ·{' '}
+                  {money(t.amount, result.scope.decimals)}
+                  {m.transactionReview.candidateRow(t.row)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -108,15 +112,15 @@ export function TransactionReview({
             <p className={chosen.amount === tx.amount ? 'muted' : 'notice'}>
               {chosen.date} · {chosen.description} ·{' '}
               {chosen.amount === tx.amount
-                ? 'المبلغان متساويان. تأكيد الربط يحتاج دليلًا محاسبيًا.'
-                : 'المبلغان مختلفان، لذلك لا يمكن ربط الحركتين.'}
+                ? m.transactionReview.amountsEqual
+                : m.transactionReview.amountsDiffer}
             </p>
           )}
         </>
       )}
       <Textarea
-        aria-label="سبب القرار"
-        placeholder="اكتب دليل الربط أو سبب المراجعة أو فك الربط"
+        aria-label={m.transactionReview.noteLabel}
+        placeholder={m.transactionReview.notePlaceholder}
         maxLength={1000}
         value={note}
         onChange={(e) => setNote(e.target.value)}
@@ -128,7 +132,7 @@ export function TransactionReview({
             disabled={busy || !note.trim()}
             onClick={() => onUnlink(match.supplierId, match.ledgerId, note)}
           >
-            فك الربط وإعادته للمراجعة
+            {m.transactionReview.unlink}
           </Button>
         ) : (
           <>
@@ -144,7 +148,7 @@ export function TransactionReview({
                 })
               }
             >
-              تأكيد الربط يدويًا
+              {m.transactionReview.link}
             </Button>
             <Button
               variant="outline"
@@ -154,7 +158,7 @@ export function TransactionReview({
                 setNote('');
               }}
             >
-              تسجيل مراجعة دون مطابقة
+              {m.transactionReview.reviewOnly}
             </Button>
           </>
         )}

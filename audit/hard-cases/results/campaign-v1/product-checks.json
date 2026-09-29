@@ -1,0 +1,14 @@
+{
+  "engineCommit": "bb529b6 (engine files identical at 89da93d, f1a559c and HEAD)",
+  "baseline": "888415f",
+  "environment": { "node": "v22.22.2", "os": "Linux 6.18 x64", "cpu": "Intel Xeon 2.10GHz x4", "memoryGB": 16 },
+  "typecheck": "tsc --noEmit: exit 0",
+  "unitTests": "node --test tests/*.test.ts: 715 tests, 703 pass, 0 fail, 12 skipped (skips pre-existing)",
+  "mutations": "scripts/test-mutations.mjs: baseline passed, 45/45 detected (6 new: hard-t01, hard-g08 x2, hard-r01 x2, hard-s01)",
+  "build": "pnpm build: exit 0",
+  "browser": "scripts/browser-test.mjs: passed true, exit 0",
+  "bilingual": "scripts/browser-acceptance-bilingual.mjs: passed true (arabic, english, switch-ar-first, switch-en-first)",
+  "recomputeSnapshot": "scripts/recompute-snapshot.mjs base vs after: 233 differences = 1 root path + 31 engine version + 25 'Retained Evidence' header + 176 empty cells of that column; nothing else",
+  "exportParity": "scripts/acceptance-export-parity.mjs vs build of 888415f: exit 1 by design of the script on any difference; differences are Export Metadata!2:2 (engine version) and Match Evidence column 23 (new column, empty in the demo); sessions differ only in 'engine'; Arabic and English exports and sessions identical to each other",
+  "knownSuite": "audit/reliability/run.mjs --suite all (5,000 known + 20 focused): base 5,020/5,020, after 5,020/5,020, falseMatches 0 both; summaries identical; every case record identical once the engine version string is normalised"
+}

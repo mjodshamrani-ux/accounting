@@ -3,6 +3,7 @@ import type { SourceFile } from '../lib/reconciliation/types';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Checkbox } from './ui/checkbox';
+import { useI18n } from '@/lib/i18n/context';
 
 const format = (cuts: number[]) => cuts.join(', ');
 // Accept either comma, the Arabic comma, or spaces between the boundaries.
@@ -31,6 +32,8 @@ export function PdfReview({
   onApply: (cuts: number[]) => void;
   onDraftChange: (pending: boolean) => void;
 }) {
+  const { t, engineText } = useI18n();
+  const r = t.pdfReview;
   const applied = file.pdf!.cuts;
   const [cuts, setCuts] = useState(format(applied));
   const [page, setPage] = useState(1);
@@ -78,17 +81,15 @@ export function PdfReview({
     <div className="panel stack">
       <div className="summary-head">
         <div>
-          <strong>مراجعة ملف PDF</strong>
+          <strong>{r.heading}</strong>
           <p className="hint">
-            عدد الصفحات {file.pdf!.pages}.{' '}
+            {r.pages(file.pdf!.pages)}{' '}
             {!applied.length
-              ? 'قُرئ الملف كعمود واحد. إذا كان يحتوي جدولًا، حدّد حدود الأعمدة أدناه.'
+              ? r.singleColumn
               : file.pdf?.autoColumns
-                ? `عدد الأعمدة المستنتجة من فراغات الجدول: ${applied.length + 1}. راجعها مع الأصل.`
-                : `عدد الأعمدة حسب الحدود التي اخترتها: ${applied.length + 1}.`}
-            {flagged.length > 0
-              ? ` عدد الصفوف التي تحتاج مراجعتك: ${flagged.length}.`
-              : ' لم تُرصد مشكلات في قراءة الصفوف. راجعها مع الأصل قبل المتابعة.'}
+                ? r.autoColumns(applied.length + 1)
+                : r.chosenColumns(applied.length + 1)}
+            {flagged.length > 0 ? r.flaggedRows(flagged.length) : r.noFlaggedRows}
           </p>
         </div>
         <a
@@ -97,20 +98,20 @@ export function PdfReview({
           target="_blank"
           rel="noopener noreferrer"
         >
-          فتح ملف PDF الأصلي
+          {r.openOriginal}
         </a>
       </div>
       <details open>
-        <summary>الجدول المقروء من الملف</summary>
+        <summary>{r.tableSummary}</summary>
         <div className="preview" style={{ maxHeight: 240 }}>
           <table>
             <thead>
               <tr>
-                <th>الصف</th>
+                <th>{r.rowColumn}</th>
                 {Array.from({ length: applied.length + 1 }, (_, i) => (
-                  <th key={i}>{sheet.rows[header]?.[i] || `عمود ${i + 1}`}</th>
+                  <th key={i}>{sheet.rows[header]?.[i] || r.column(i + 1)}</th>
                 ))}
-                <th>ملاحظة</th>
+                <th>{r.noteColumn}</th>
               </tr>
             </thead>
             <tbody>
@@ -124,10 +125,12 @@ export function PdfReview({
                   ))}
                   <td>
                     {rn < header + 1
-                      ? 'قبل الجدول'
+                      ? r.beforeTable
                       : rn === header + 1
-                        ? 'صف العناوين'
-                        : (sheet.rowIssues?.[String(rn)]?.join('؛ ') ?? '')}
+                        ? r.headerRow
+                        : (sheet.rowIssues?.[String(rn)]
+                            ?.map(engineText)
+                            .join(t.common.listSeparator) ?? '')}
                   </td>
                 </tr>
               ))}
@@ -143,18 +146,16 @@ export function PdfReview({
                 disabled={page <= 1}
                 onClick={() => setPage((p) => p - 1)}
               >
-                الصفحة السابقة
+                {r.previousPage}
               </Button>
-              <span className="muted">
-                صفحة {page} من {file.pdf!.pages}
-              </span>
+              <span className="muted">{r.pageOf(page, file.pdf!.pages)}</span>
               <Button
                 variant="outline"
                 size="sm"
                 disabled={page >= file.pdf!.pages}
                 onClick={() => setPage((p) => p + 1)}
               >
-                الصفحة التالية
+                {r.nextPage}
               </Button>
             </>
           )}
@@ -166,11 +167,14 @@ export function PdfReview({
                 disabled={offset === 0}
                 onClick={() => setOffset((n) => Math.max(0, n - 50))}
               >
-                الصفوف السابقة
+                {r.previousRows}
               </Button>
               <span className="muted">
-                {offset + 1}–{Math.min(offset + 50, rows.length)} من{' '}
-                {rows.length}
+                {r.rangeOf(
+                  offset + 1,
+                  Math.min(offset + 50, rows.length),
+                  rows.length,
+                )}
               </span>
               <Button
                 variant="outline"
@@ -178,7 +182,7 @@ export function PdfReview({
                 disabled={offset + 50 >= rows.length}
                 onClick={() => setOffset((n) => n + 50)}
               >
-                الصفوف التالية
+                {r.nextRows}
               </Button>
             </>
           )}
@@ -188,26 +192,22 @@ export function PdfReview({
             onClick={() => setOpen(!open)}
             aria-expanded={open}
           >
-            {open ? 'إخفاء حدود الأعمدة' : 'تعديل حدود الأعمدة'}
+            {open ? r.hideCuts : r.editCuts}
           </button>
         </div>
         {open && (
           <div className="stack">
             <label className="field">
-              <span>مواقع حدود الأعمدة بالنسبة المئوية من يسار الصفحة</span>
+              <span>{r.cutsField}</span>
               <Input
-                aria-label="حدود أعمدة PDF"
+                aria-label={r.cutsLabel}
                 dir="ltr"
                 placeholder="25, 45, 65"
                 value={cuts}
                 onChange={(e) => setCuts(e.target.value)}
               />
             </label>
-            <p className="hint">
-              ابدأ القياس من يسار الصفحة. الأرقام 25, 45, 65 تقسمها إلى أربعة
-              أعمدة. ضع كل حد في الفراغ بين عمودين، أو اترك الحقل فارغًا لقراءتها
-              كعمود واحد.
-            </p>
+            <p className="hint">{r.cutsHint}</p>
             <div className="actions">
               <Button
                 variant="outline"
@@ -215,7 +215,7 @@ export function PdfReview({
                 disabled={!pending || !parsed}
                 onClick={() => parsed && onApply(parsed)}
               >
-                تطبيق الحدود وإعادة القراءة
+                {r.applyCuts}
               </Button>
               {pending && (
                 <Button
@@ -223,18 +223,14 @@ export function PdfReview({
                   size="sm"
                   onClick={() => setCuts(format(applied))}
                 >
-                  التراجع عن التعديل
+                  {r.undoCuts}
                 </Button>
               )}
               {!parsed && (
-                <span className="hint warn">
-                  اكتب أرقامًا وافصل بينها بفاصلة أو مسافة، مثل 25, 45, 65.
-                </span>
+                <span className="hint warn">{r.cutsInvalid}</span>
               )}
               {parsed && pending && (
-                <span className="hint">
-                  لم نستخدم الحدود الجديدة بعد. طبّقها لإعادة قراءة الجدول.
-                </span>
+                <span className="hint">{r.cutsPending}</span>
               )}
             </div>
           </div>
@@ -242,10 +238,7 @@ export function PdfReview({
       </details>
       <label className="checkline">
         <Checkbox checked={reviewed} onCheckedChange={onReviewedChange} />
-        <span>
-          راجعت الجدول في جميع الصفحات وتأكدت من مطابقته للأصل. يلزم تكرار
-          المراجعة بعد إعادة القراءة.
-        </span>
+        <span>{r.reviewed}</span>
       </label>
     </div>
   );

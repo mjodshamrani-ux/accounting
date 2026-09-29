@@ -552,6 +552,10 @@
   font-size: 9px;
   direction: rtl;
 }
+/* The window bar stays in place; its label reads in the interface language. */
+:root[dir='ltr'] .tarasuf-privacy-device-top > span {
+  direction: ltr;
+}
 .tarasuf-privacy-device-content {
   display: flex;
   justify-content: center;

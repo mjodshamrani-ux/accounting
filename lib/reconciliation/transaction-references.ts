@@ -1,6 +1,30 @@
 import type { Mapping, SheetData, Transaction } from './types.ts';
 import { headerMatches } from './header-labels.ts';
 
+// Document-type labels the product understands. This is a closed, general
+// vocabulary: whole labels whose qualifier names the issuer or the tax status,
+// never another role. It is not a dictionary of any party's own codes; a code
+// such as "RV" or "TX-07" stays Unknown and is never guessed. The same words
+// open a description only as a conflict check, never as evidence for a match.
+export const DOCUMENT_LABELS = {
+  Invoice:
+    /(?:(?:ap |tax |vendor |supplier |purchase )?(?:invoice|invoice line)|ap tax invoice|فاتور[ةه](?: (?:ضريبي[ةه]|مشتريات|شراء|مورد))?)/
+      .source,
+  'Credit Note':
+    /(?:(?:ap |tax |vendor |supplier )?(?:credit note|credit memo)|إشعار دائن|اشعار دائن)/
+      .source,
+  Payment:
+    /(?:payment|receipt|supplier payment|vendor payment|دفعة|سداد|دفع|قبض)/
+      .source,
+  Journal: /(?:journal|adjustment|journal entry|قيد|تسوية)/.source,
+} as const;
+const wholeLabel = Object.fromEntries(
+  Object.entries(DOCUMENT_LABELS).map(([k, v]) => [
+    k,
+    new RegExp(`^${v}$`, 'i'),
+  ]),
+) as Record<keyof typeof DOCUMENT_LABELS, RegExp>;
+
 // Secondary evidence is read only from explicit, unique headers and safe cells.
 // The original parsed row remains available even when a field is not usable.
 export function transactionReferences(
@@ -9,7 +33,8 @@ export function transactionReferences(
   row: string[],
   rn: number,
 ) {
-  const headers = sheet.rows[mapping.header].map((h) =>
+  const rawHeaders = sheet.rows[mapping.header];
+  const headers = rawHeaders.map((h) =>
     h.trim().toLowerCase().replace(/[._]/g, '').replace(/\s+/g, ' '),
   );
   const referenceEvidenceIssues: string[] = [];
@@ -42,28 +67,18 @@ export function transactionReferences(
     }
     return (row[col] ?? '').trim();
   };
-  const rawType = field(
-    /^(?:type|doc type|document type|transaction type|نوع المستند|نوع الحركة|النوع)$/i,
-  );
+  const typePattern =
+    /^(?:type|doc type|document type|transaction type|نوع المستند|نوع الحركة|النوع)$/i;
+  const rawType = field(typePattern);
   // PDF fonts may emit Arabic presentation forms. Normalize the category label
   // only; never rewrite references, source cells or financial tokens.
-  const categoryType = rawType.normalize('NFKC');
+  // Whole-label vocabularies only. A qualifier names who issued the document
+  // or its tax status, never a different role; anything else stays Unknown.
+  const categoryType = rawType.normalize('NFKC').replace(/\s+/g, ' ');
   const documentType: NonNullable<Transaction['documentType']> =
-    /^(?:(?:ap )?(?:invoice|invoice line)|فاتورة|فاتوره)$/i.test(categoryType)
-      ? 'Invoice'
-      : /^(?:(?:ap )?(?:credit note|credit memo)|إشعار دائن|اشعار دائن)$/i.test(
-            categoryType,
-          )
-        ? 'Credit Note'
-        : /^(?:payment|receipt|supplier payment|دفعة|سداد|دفع|قبض)$/i.test(
-              categoryType,
-            )
-          ? 'Payment'
-          : /^(?:journal|adjustment|journal entry|قيد|تسوية)$/i.test(
-                categoryType,
-              )
-            ? 'Journal'
-            : 'Unknown';
+    (Object.keys(wholeLabel) as (keyof typeof DOCUMENT_LABELS)[]).find((role) =>
+      wholeLabel[role].test(categoryType),
+    ) ?? 'Unknown';
   if (rawType && documentType === 'Unknown')
     referenceEvidenceIssues.push(`نوع مستند غير متحقق: ${rawType}`);
   const documentReference = field(
@@ -93,11 +108,36 @@ export function transactionReferences(
     /(?:^|[- /])(?:RCPT|RECEIPT|PAY|PYM)(?:[- /]|$)/i.test(documentReference)
       ? documentReference
       : '');
-  const batch = field(
-    /^(?:batch(?: ref(?:erence)?| number| no)?|مرجع الدفعة)$/i,
-  );
+  const batchPattern =
+    /^(?:batch(?: ref(?:erence)?| number| no)?|مرجع الدفعة)$/i;
+  const batch = field(batchPattern);
   const mapped =
     mapping.reference < 0 ? '' : (row[mapping.reference] ?? '').trim();
+  // A document number may leave Reference unselected in an ambiguous reading.
+  // Its values are still explicit source evidence: preserve them, and let a
+  // conflict stop an automatic document match. They never become an identity
+  // or change the accountant's reading. The usual unique-header and safe-cell
+  // checks apply even though this column was not selected.
+  const statedReferencePattern = /^(?:reference|ref|المرجع)$/i;
+  const statedReference = field(statedReferencePattern);
+  // Without a chosen reference column only an explicit document number, bank
+  // reference or receipt number identifies a row across the two books. A
+  // voucher, batch or order number is kept by each book for itself, so a row
+  // identified by one of them alone is never approved automatically.
+  if (
+    mapping.reference < 0 &&
+    !documentReference &&
+    !explicitBankReference &&
+    !explicitReceiptReference
+  )
+    referenceEvidenceIssues.push(
+      'لم يُختر عمود المرجع، ولا يحمل الصف رقم مستند أو مرجعًا بنكيًا أو رقم إيصال صريحًا؛ لا تُعتمد مطابقة آلية.',
+    );
+  // A batch groups postings; it does not name a document.
+  if (mapped && batch && mapped === batch)
+    referenceEvidenceIssues.push(
+      'العمود المختار مرجعًا هو رقم دفعة (Batch)، ولا يثبت هوية المستند.',
+    );
   const primaryReference =
     documentType === 'Payment'
       ? bankReference ||
@@ -107,18 +147,80 @@ export function transactionReferences(
         mapped
       : documentType === 'Journal'
         ? voucherReference || batch || documentReference || mapped
-        : documentReference || voucherReference || mapped || poReference;
+        : // A voucher is numbered by each book for itself. For a document, the
+          // explicit document number, then the reference the accountant chose,
+          // name it across both books; the voucher only when neither exists.
+          documentReference || mapped || voucherReference || poReference;
   // An order can legitimately have several invoices of the same amount. Keep
   // an order-only identity visible, but never present it as proof of a document.
+  // A document number that is the order number itself is the order again.
   if (
     poReference &&
     primaryReference === poReference &&
-    !documentReference &&
-    !voucherReference &&
     (!mapped || mapped === poReference)
   )
     referenceEvidenceIssues.push('أمر الشراء وحده لا يثبت هوية الفاتورة');
+  // Evidence the row states but no other field keeps: the chosen reference
+  // when another identity takes precedence, the batch, and the type label as
+  // written. It is shown and exported, and never used to accept a match.
+  const headerOf = (pattern: RegExp) =>
+    (rawHeaders[headers.findIndex((h) => headerMatches(pattern, h))] ?? '')
+      .toString()
+      .trim();
+  const kept = [
+    documentReference,
+    voucherReference,
+    poReference,
+    bankReference,
+    receiptReference,
+    primaryReference,
+  ];
+  const retainedEvidence: NonNullable<Transaction['retainedEvidence']> = [
+    ...(statedReference &&
+    statedReference !== mapped &&
+    !kept.includes(statedReference)
+      ? [
+          {
+            field: 'statedReference' as const,
+            header: headerOf(statedReferencePattern),
+            value: statedReference,
+          },
+        ]
+      : []),
+    ...(mapped && !kept.includes(mapped)
+      ? [
+          {
+            field: 'mappedReference' as const,
+            header: String(rawHeaders[mapping.reference] ?? '').trim(),
+            value: mapped,
+          },
+        ]
+      : []),
+    ...(batch && !kept.includes(batch)
+      ? [
+          {
+            field: 'batch' as const,
+            header: headerOf(batchPattern),
+            value: batch,
+          },
+        ]
+      : []),
+    ...(rawType && rawType !== documentType
+      ? [
+          {
+            field: 'documentTypeLabel' as const,
+            header: headerOf(typePattern),
+            value: rawType,
+          },
+        ]
+      : []),
+  ];
   return {
+    ...(retainedEvidence.length ? { retainedEvidence } : {}),
+    // The value in the column the accountant chose, kept to check that two
+    // rows matched on another identity do not name different documents there.
+    ...(mapped ? { chosenReference: mapped } : {}),
+    ...(statedReference ? { statedReference } : {}),
     primaryReference,
     documentReference,
     voucherReference,

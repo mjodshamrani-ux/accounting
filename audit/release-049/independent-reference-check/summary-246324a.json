@@ -1,0 +1,190 @@
+{
+  "recordedAt": "2026-09-29T07:36:11.464173+00:00",
+  "engineCommit": "246324a8fe73c2a3602a68ee1087f29137f58adf",
+  "engineVersion": "0.3.17-experimental",
+  "engineFilesUnchanged": true,
+  "engineFilesDigest": "33c9c04b2ddf8bd2aa9bb33c2ae0d8145d13654d0dc2b47e9617f66b9041e454",
+  "fixtureManifestSha256": "020373400ae35b07d2530aeaaac7d7435f8e838dd4f1325e6aa96175c778b1d7",
+  "passedCases": 15,
+  "totalCases": 18,
+  "requiredPositivePairs": 14,
+  "satisfiedPositivePairs": 9,
+  "missingPositivePairs": 5,
+  "falseApprovedPairs": 0,
+  "unexpectedAutomaticGroups": 0,
+  "operationExceptions": 0,
+  "resultSha256": "ce3529be52587e6b539c28ae997d94e87991fe7299fed8311bc49f133ff813c5",
+  "missing": [
+    {
+      "id": "IR03",
+      "missingPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "cases": [
+        {
+          "classification": "AMBIGUOUS_CANDIDATE",
+          "status": "Needs Review",
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "code": "BALANCE_ROW_NOT_FOUND",
+          "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+          "transactionIds": []
+        },
+        {
+          "code": "PERIOD_COVERAGE_UNCONFIRMED",
+          "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+          "transactionIds": []
+        },
+        {
+          "code": "BALANCE_ROW_NOT_FOUND",
+          "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+          "transactionIds": []
+        },
+        {
+          "code": "PERIOD_COVERAGE_UNCONFIRMED",
+          "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+          "transactionIds": []
+        },
+        {
+          "code": "AMBIGUOUS_CANDIDATE",
+          "message": "المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.\nالمجموع متساوٍ، لكنه لا يثبت هوية الحركات ضمن المجموعة.",
+          "transactionIds": [
+            "supplier:0:2",
+            "supplier:0:3",
+            "ledger:0:2",
+            "ledger:0:3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "IR17",
+      "missingPairs": [
+        [
+          2,
+          3
+        ]
+      ],
+      "cases": [
+        {
+          "classification": "AMBIGUOUS_CANDIDATE",
+          "status": "Needs Review",
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "code": "BALANCE_ROW_NOT_FOUND",
+          "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+          "transactionIds": []
+        },
+        {
+          "code": "PERIOD_COVERAGE_UNCONFIRMED",
+          "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+          "transactionIds": []
+        },
+        {
+          "code": "BALANCE_ROW_NOT_FOUND",
+          "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+          "transactionIds": []
+        },
+        {
+          "code": "PERIOD_COVERAGE_UNCONFIRMED",
+          "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+          "transactionIds": []
+        },
+        {
+          "code": "AMBIGUOUS_CANDIDATE",
+          "message": "المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.\nالمرجعان المختاران مختلفان: REF-171 / REF-172\nمجموع الطرفين مختلف. راجع حركات المجموعة ومبالغها.",
+          "transactionIds": [
+            "supplier:0:2",
+            "ledger:0:2",
+            "ledger:0:3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "IR18",
+      "missingPairs": [
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "cases": [
+        {
+          "classification": "AMBIGUOUS_CANDIDATE",
+          "status": "Needs Review",
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ]
+        }
+      ],
+      "diagnostics": [
+        {
+          "code": "BALANCE_ROW_NOT_FOUND",
+          "message": "المورد: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+          "transactionIds": []
+        },
+        {
+          "code": "PERIOD_COVERAGE_UNCONFIRMED",
+          "message": "المورد: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+          "transactionIds": []
+        },
+        {
+          "code": "BALANCE_ROW_NOT_FOUND",
+          "message": "الدفتر: لم يُستخرج رصيد كافٍ لاختبار المعادلة.",
+          "transactionIds": []
+        },
+        {
+          "code": "PERIOD_COVERAGE_UNCONFIRMED",
+          "message": "الدفتر: لم يؤكد المستخدم بعد اكتمال تغطية الفترة. هذا لا يغيّر نتيجة اختبار معادلة الرصيد.",
+          "transactionIds": []
+        },
+        {
+          "code": "AMBIGUOUS_CANDIDATE",
+          "message": "المرجع متكرر، والمجموعة الكاملة لا تستوفي أدلة المطابقة التجميعية الفريدة. لن يختار المحرك مجموعة جزئية تلقائيًا.\nالمجموع متساوٍ، لكنه لا يثبت هوية الحركات ضمن المجموعة.",
+          "transactionIds": [
+            "supplier:0:2",
+            "supplier:0:3",
+            "ledger:0:2",
+            "ledger:0:3"
+          ]
+        }
+      ]
+    }
+  ]
+}

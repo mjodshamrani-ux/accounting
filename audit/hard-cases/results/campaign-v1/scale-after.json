@@ -1,0 +1,72 @@
+{
+  "engineRoot": "work/after-89da93d",
+  "node": "v22.22.2",
+  "platform": "linux x64",
+  "cpus": 4,
+  "results": [
+    {
+      "size": 100,
+      "supplierRows": 96,
+      "ledgerRows": 100,
+      "readMs": 6,
+      "reconcileMs": 41,
+      "heapGrowthMB": 6,
+      "invoicesMatched": 84,
+      "groupsMatched": 2,
+      "genericMatched": 0,
+      "expect": {
+        "invoices": 84,
+        "groups": 2,
+        "genericRows": 10
+      }
+    },
+    {
+      "size": 1000,
+      "supplierRows": 950,
+      "ledgerRows": 1000,
+      "readMs": 10,
+      "reconcileMs": 144,
+      "heapGrowthMB": 7,
+      "invoicesMatched": 825,
+      "groupsMatched": 25,
+      "genericMatched": 0,
+      "expect": {
+        "invoices": 825,
+        "groups": 25,
+        "genericRows": 100
+      }
+    },
+    {
+      "size": 5000,
+      "supplierRows": 4750,
+      "ledgerRows": 5000,
+      "readMs": 40,
+      "reconcileMs": 613,
+      "heapGrowthMB": 28,
+      "invoicesMatched": 4125,
+      "groupsMatched": 125,
+      "genericMatched": 0,
+      "expect": {
+        "invoices": 4125,
+        "groups": 125,
+        "genericRows": 500
+      }
+    },
+    {
+      "size": 20000,
+      "supplierRows": 19000,
+      "ledgerRows": 20000,
+      "readMs": 317,
+      "reconcileMs": 3606,
+      "heapGrowthMB": 92,
+      "invoicesMatched": 16500,
+      "groupsMatched": 500,
+      "genericMatched": 0,
+      "expect": {
+        "invoices": 16500,
+        "groups": 500,
+        "genericRows": 2000
+      }
+    }
+  ]
+}

@@ -7,9 +7,9 @@ import type {
   Decision,
   AuditEvent,
 } from './types.ts';
-import { readFile, verifyDirectionEvidence } from './io.ts';
-import { compare, normalizeSource } from './core.ts';
-import { assertInputFormats } from './input-readiness.ts';
+import { readFile } from './io.ts';
+import { verifyDirectionEvidence } from './source-preparation.ts';
+import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
 export type SessionState = {
   files: [SourceFile, SourceFile];
   mappings: [Mapping, Mapping];
@@ -139,21 +139,18 @@ export async function restoreSession(bytes: ArrayBuffer) {
     p.review.notes.length > 3000
   )
     throw new Error('مراجعة الجلسة غير صالحة');
-  const mappings = p.mappings.map((mapping: Mapping, side: number) =>
-    verifyDirectionEvidence(files[side], mapping, p.scope.decimals),
-  ) as [Mapping, Mapping];
-  // The sources are re-read and re-checked here, so the same entry guard the UI
-  // and the worker use must run again. A stored format choice is not a saved
-  // approval: the document decides whether a choice is still needed, and the
-  // stored one must still match this source, this reading and this precision.
-  assertInputFormats(files, mappings, p.scope as Scope);
-  const result = compare(
-    normalizeSource(files[0], mappings[0], p.scope, 'supplier'),
-    normalizeSource(files[1], mappings[1], p.scope, 'ledger'),
-    p.scope,
-    p.decisions,
-    p.rejected,
-  );
+  // The sources are re-read here, so they pass the same source boundary as a
+  // comparison: formats, then directions, then normalisation. A stored format
+  // choice is not a saved approval: the document decides whether a choice is
+  // still needed, and the stored one must still match this source, this
+  // reading and this precision. A stored direction claim is re-proved.
+  const { result, mappings } = reconcileSupplierStatement({
+    files,
+    mappings: p.mappings,
+    scope: p.scope,
+    decisions: p.decisions,
+    rejected: p.rejected,
+  });
   const ids = new Set(
     [...result.supplier.transactions, ...result.ledger.transactions].map(
       (t) => t.id,

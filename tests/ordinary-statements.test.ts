@@ -31,8 +31,10 @@ const scope: Scope = {
 
 // A vendor statement with a merged title, a period line, an opening balance, a
 // running-balance formula, a timestamped date and a closing total.
-async function vendorStatement() {
+async function vendorStatement(creator = 'Synthetic vendor') {
   const wb = new ExcelJS.Workbook();
+  // The ledger's copy of the same entries is its own export (another creator).
+  wb.creator = creator;
   const ws = wb.addWorksheet('Statement');
   ws.mergeCells('A1:E1');
   ws.getCell('A1').value = 'Al-Faisal Trading Co. — Statement of Account';
@@ -96,7 +98,12 @@ test('an ordinary vendor statement imports and compares without manual row surge
   assert.match(reasons[0][1], /Opening balance/);
   assert.match(reasons[1][1], /Total/);
   accounted(file, mapping, result);
-  const ledger = normalizeSource(file, mapping, scope, 'ledger');
+  const ledger = normalizeSource(
+    await vendorStatement('Synthetic ledger'),
+    mapping,
+    scope,
+    'ledger',
+  );
   assert.equal(compare(result, ledger, scope).matches.length, 4);
 });
 

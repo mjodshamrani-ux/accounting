@@ -107,12 +107,32 @@ export function visibleOnBackground(
       3
     );
   };
+  const area = (b: number[]) =>
+    Math.max(0, b[2] - b[0]) * Math.max(0, b[3] - b[1]);
+  // A table rule (at most 1pt thick) that grazes a glyph box, as a printed
+  // row border does where a page break cuts a row, is not a background: it
+  // covers a sliver of the text and hides nothing. Only small slivers are
+  // passed over, together at most a fifth of the box, so stripes that could
+  // hide text are still refused.
+  let rules = 0;
   // Conservative for partial overlapping regions: a full-cover rectangle proves
   // the background; an insufficient-contrast partial region requires review.
   for (let i = backgrounds.length - 1; i >= 0; i--) {
     const background = backgrounds[i];
     if (!overlaps(background.box, box)) continue;
-    if (!contrast(background.color)) return false;
+    if (!contrast(background.color)) {
+      const b = background.box;
+      const cut = [
+        Math.max(b[0], box[0]),
+        Math.max(b[1], box[1]),
+        Math.min(b[2], box[2]),
+        Math.min(b[3], box[3]),
+      ];
+      const share = area(box) ? area(cut) / area(box) : 1;
+      const thin = Math.min(b[2] - b[0], b[3] - b[1]) <= 1;
+      if (thin && share <= 0.1 && (rules += share) <= 0.2) continue;
+      return false;
+    }
     const b = background.box;
     if (b[0] <= box[0] && b[1] <= box[1] && b[2] >= box[2] && b[3] >= box[3])
       return true;

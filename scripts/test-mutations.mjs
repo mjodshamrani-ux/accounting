@@ -43,6 +43,12 @@ const tests = [
   'tests/input-readiness-046.test.ts',
   'tests/format-choice-provenance-047.test.ts',
   'tests/ambiguity-gate-acceptance-047.test.ts',
+  'tests/hard-cases.test.ts',
+  'tests/same-source.test.ts',
+  'tests/reference-interactions.test.ts',
+  'tests/unmapped-reference.test.ts',
+  'tests/pdf-composite.test.ts',
+  'tests/pdf-paint-order.test.ts',
 ];
 const mutations = [
   {
@@ -95,6 +101,134 @@ const mutations = [
     changes: [['? !!paymentIdentity', '? true']],
   },
   {
+    name: 'hard-t01-read-any-label-ending-in-invoice',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [["new RegExp(`^${v}$`, 'i')", "new RegExp(`${v}$`, 'i')"]],
+  },
+  {
+    name: 'v11-read-carried-forward-as-a-transaction',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        'balance carried forward|carried forward|brought forward|',
+        'balance carried forward|',
+      ],
+    ],
+  },
+  {
+    name: 'v11-refuse-black-text-grazed-by-a-table-rule',
+    file: 'lib/reconciliation/pdf-paint-order.ts',
+    changes: [
+      ['if (thin && share <= 0.1 && (rules += share) <= 0.2) continue;', ''],
+    ],
+  },
+  {
+    name: 'v11-let-stripes-hide-text',
+    file: 'lib/reconciliation/pdf-paint-order.ts',
+    changes: [['(rules += share) <= 0.2', '(rules += share) <= 1']],
+  },
+  {
+    name: 'v11-approve-a-source-compared-with-itself',
+    file: 'lib/reconciliation/core.ts',
+    changes: [['sameSource ? SAME_SOURCE_MESSAGE : undefined', 'undefined']],
+  },
+  {
+    name: 'v11-take-a-renamed-copy-for-another-source',
+    file: 'lib/reconciliation/core.ts',
+    changes: [
+      [
+        'supplier.sourceOrigin === ledger.sourceOrigin &&',
+        'supplier.sourceName === ledger.sourceName &&',
+      ],
+    ],
+  },
+  {
+    name: 'hard-s01-drop-a-source-without-a-role',
+    file: 'lib/reconciliation/source-preparation.ts',
+    changes: [['files.length !== roles.length ||', '']],
+  },
+  {
+    name: 'hard-r01-rank-own-voucher-before-chosen-reference',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        'documentReference || mapped || voucherReference || poReference;',
+        'documentReference || voucherReference || mapped || poReference;',
+      ],
+    ],
+  },
+  {
+    name: 'hard-r01-let-a-voucher-hide-a-po-only-identity',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        'primaryReference === poReference &&\n    (!mapped || mapped === poReference)',
+        'primaryReference === poReference &&\n    !voucherReference &&\n    (!mapped || mapped === poReference)',
+      ],
+    ],
+  },
+  {
+    name: 'v11-take-a-document-number-equal-to-the-order-as-proof',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        'primaryReference === poReference &&\n    (!mapped || mapped === poReference)',
+        'primaryReference === poReference &&\n    !documentReference &&\n    (!mapped || mapped === poReference)',
+      ],
+    ],
+  },
+  {
+    name: 'v11-approve-on-a-voucher-with-no-chosen-reference',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      ['mapping.reference < 0 &&\n    !documentReference &&', 'false &&'],
+    ],
+  },
+  {
+    name: 'v11-take-a-batch-for-a-document',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['if (mapped && batch && mapped === batch)', 'if (false)']],
+  },
+  {
+    name: 'v11-let-a-document-number-outvote-the-chosen-references',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      ['a.chosenReference.trim() !== b.chosenReference.trim()', 'false'],
+    ],
+  },
+  {
+    name: 'h03-let-a-document-number-outvote-unselected-references',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      ['    a.statedReference.trim() !== b.statedReference.trim() &&', '    false &&'],
+    ],
+  },
+  {
+    name: 'v11-read-only-bare-labels-in-descriptions',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        "new RegExp(`^${DOCUMENT_LABELS[role]}(?=\\\\s|[:：-]|$)`, 'i')",
+        "new RegExp(`^${DOCUMENT_LABELS[role].replace(/\\(\\?:\\(\\?:[^)]*\\)\\?/, '(?:')}(?=\\\\s|[:：-]|$)`, 'i')",
+      ],
+    ],
+  },
+  {
+    name: 'v11-leave-blocked-exact-pairs-as-unrelated-rows',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['unverified.length &&', 'false &&']],
+  },
+  {
+    name: 'hard-g08-accept-payment-parts-beyond-the-date-window',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['groupSpan <= scope.dateWindow', 'true']],
+  },
+  {
+    name: 'hard-g08-accept-any-group-across-dates',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [['sameGroupDate ||', 'true ||']],
+  },
+  {
     name: '045-ignore-declared-aging-report',
     file: 'lib/reconciliation/report-scope.ts',
     changes: [[/if\s*\(title\)/, 'if (false)']],
@@ -105,7 +239,8 @@ const mutations = [
     changes: [
       [
         /export function collectGenericAccounts\([\s\S]*?\)\s*\{/,
-        '$&\n  return; // deliberate loss of source account evidence',
+        (match) =>
+          `${match}\n  return; // deliberate loss of source account evidence`,
       ],
     ],
   },
@@ -170,7 +305,10 @@ const mutations = [
     name: 'ignore-known-document-evidence-conflicts',
     file: 'lib/reconciliation/core.ts',
     changes: [
-      ['if (identityConflicts(s, l).length) continue;', 'if (false) continue;'],
+      [
+        'if (automaticConflicts(s, l).length) continue;',
+        'if (false) continue;',
+      ],
     ],
   },
   {
@@ -338,20 +476,68 @@ const mutations = [
 
 const args = process.argv.slice(2);
 let filter = '';
-if (args.length) {
-  if (args.length === 2 && args[0] === '--filter') filter = args[1];
-  else if (args.length === 1 && args[0].startsWith('--filter='))
-    filter = args[0].slice('--filter='.length);
+let listOnly = false;
+for (let i = 0; i < args.length; i++) {
+  const arg = args[i];
+  if (arg === '--list' && !listOnly) {
+    listOnly = true;
+    continue;
+  }
+  if (arg === '--filter' && !filter) filter = args[++i] ?? '';
+  else if (arg.startsWith('--filter=') && !filter)
+    filter = arg.slice('--filter='.length);
   else
     throw Error(
-      'Usage: node scripts/test-mutations.mjs [--filter name-substring]',
+      'Usage: node scripts/test-mutations.mjs [--filter name-substring] [--list]',
     );
-  if (!filter) throw Error('Mutation filter must not be empty');
+  if (!filter || filter.startsWith('--'))
+    throw Error('Mutation filter must not be empty or another option');
 }
-const selectedMutations = mutations.filter((mutation) =>
-  mutation.name.includes(filter),
+if (new Set(mutations.map(({ name }) => name)).size !== mutations.length)
+  throw Error('Mutation names must be unique');
+
+// CI divides the complete catalogue by its original position. Filtering never
+// changes shard membership, and omitting MUTATION_SHARD still runs every fault.
+const shardValue = process.env.MUTATION_SHARD;
+let shard;
+if (shardValue !== undefined) {
+  const match = /^([1-9]\d*)\/([1-9]\d*)$/.exec(shardValue);
+  if (!match) throw Error('MUTATION_SHARD must be a one-based index/count');
+  const index = Number(match[1]);
+  const count = Number(match[2]);
+  if (
+    !Number.isSafeInteger(index) ||
+    !Number.isSafeInteger(count) ||
+    index > count ||
+    count > mutations.length
+  )
+    throw Error('MUTATION_SHARD requires 1 <= index <= count <= mutations');
+  shard = { index, count };
+}
+const selectedMutations = mutations.filter(
+  (mutation, index) =>
+    (!shard || index % shard.count === shard.index - 1) &&
+    mutation.name.includes(filter),
 );
-if (!selectedMutations.length) throw Error(`No mutation matches: ${filter}`);
+if (!selectedMutations.length)
+  throw Error(`No mutation matches: ${filter}${shard ? ` in ${shardValue}` : ''}`);
+const selection = {
+  total: selectedMutations.length,
+  available: mutations.length,
+  ...(filter ? { filter } : {}),
+  ...(shard ? { shard } : {}),
+};
+// Dry inspection does not run the baseline, copy files or modify a source.
+if (listOnly) {
+  console.log(
+    JSON.stringify(
+      { ...selection, mutations: selectedMutations.map(({ name }) => name) },
+      null,
+      2,
+    ),
+  );
+  process.exit(0);
+}
 
 function execute(cwd) {
   return spawnSync(
@@ -376,7 +562,8 @@ for (const mutation of selectedMutations) {
   const scratch = await mkdtemp(join(tmpdir(), 'mizan-mutant-'));
   try {
     await Promise.all(
-      ['lib', 'tests', 'package.json'].map((name) =>
+      // audit/ holds the hard-case generators some regression tests build on.
+      ['lib', 'tests', 'audit', 'package.json'].map((name) =>
         cp(join(root, name), join(scratch, name), { recursive: true }),
       ),
     );
@@ -396,7 +583,13 @@ for (const mutation of selectedMutations) {
           : source.split(before).length - 1;
       if (count !== 1)
         throw Error(`Stale or non-unique mutation anchor: ${mutation.name}`);
-      source = source.replace(before, after);
+      // Text is inserted literally: "$`" or "$'" in a mutant's text must not
+      // act as a replacement pattern. A mutant that keeps the matched text
+      // says so with a function of the match.
+      source = source.replace(
+        before,
+        typeof after === 'function' ? after : () => after,
+      );
     }
     await writeFile(file, source);
     // A parser error is an invalid mutant, not evidence that an accounting
@@ -439,9 +632,7 @@ console.log(
     {
       baselinePassed: true,
       detected: report.length,
-      total: selectedMutations.length,
-      available: mutations.length,
-      ...(filter ? { filter } : {}),
+      ...selection,
       mutations: report,
     },
     null,

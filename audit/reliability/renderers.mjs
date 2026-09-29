@@ -3,7 +3,9 @@ import ExcelJS from 'exceljs';
 import JSZip from 'jszip';
 import { visibleInputEvidence } from './input-evidence.mjs';
 const enc = new TextEncoder();
-const headers = {
+// Exported for the hard-case evaluator, which checks that kept evidence
+// names the header it came from.
+export const headers = {
   en: {
     kind: 'Document Type',
     bankReference: 'Bank Reference',
@@ -18,6 +20,9 @@ const headers = {
     credit: 'Credit',
     currency: 'Currency',
     account: 'Account',
+    voucherReference: 'Voucher No',
+    documentReference: 'Document No',
+    batch: 'Batch',
   },
   ar: {
     kind: 'نوع المستند',
@@ -33,6 +38,9 @@ const headers = {
     credit: 'دائن',
     currency: 'العملة',
     account: 'الحساب',
+    voucherReference: 'رقم القيد',
+    documentReference: 'رقم المستند',
+    batch: 'مرجع الدفعة',
   },
 };
 export function displayMinor(minor, decimals, style = 'dot') {
@@ -109,7 +117,9 @@ function fieldValue(row, field, source) {
     return row.description.replace(' ', '\n');
   return row[field] ?? '';
 }
-function sourceTable(source) {
+/** The table a renderer writes, before any file format. Exported so the hard-case
+ * harness can run the same table as a logical source without file bytes. */
+export function sourceTable(source) {
   let fields = columns(source);
   if (source.invalid === 'missing-amount-column')
     fields = fields.filter(
@@ -567,6 +577,7 @@ function pdfStatement(source) {
       header: 5,
     },
     pages: pages.length,
+    fields,
   };
 }
 export async function renderSource(source) {
@@ -580,6 +591,7 @@ export async function renderSource(source) {
       headerRow: 0,
       bindings: {},
       expectedRows: [],
+      fields: [],
       expectedRejection: 'corrupt-file',
     };
   if (source.format === 'pdf')
@@ -619,6 +631,7 @@ export async function renderSource(source) {
     headerRow: table.headerRow,
     bindings: table.bindings,
     expectedRows: table.expectedRows,
+    fields: table.fields,
     confirmationEvidence: visibleInputEvidence(
       table.rows.map((row, index) => ({
         text: row.join(' | '),

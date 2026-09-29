@@ -15,6 +15,7 @@ import {
 import type { Scope } from '../lib/reconciliation/types.ts';
 import { syntheticPdf } from './helpers/pdf-fixture.ts';
 import { syntheticStyledPdf } from './helpers/styled-pdf-fixture.ts';
+import { readSeparately } from './helpers/separate-export.ts';
 
 const scope: Scope = {
   supplier: 'Synthetic Supplier',
@@ -102,7 +103,12 @@ test('PDF diversity: 64 seeded valid layouts preserve independent values under c
     );
     mapping.pdfReviewed = true;
     const supplier = normalizeSource(file, mapping, scope, 'supplier');
-    const ledger = normalizeSource(file, mapping, scope, 'ledger');
+    const ledger = normalizeSource(
+      await readSeparately(file, undefined, true),
+      mapping,
+      scope,
+      'ledger',
+    );
     assert.deepEqual(supplier.errors, [], `seed ${seed}`);
     assert.deepEqual(
       supplier.transactions.map((row) => ({
@@ -186,7 +192,12 @@ test('PDF diversity requires review: a second-page column reorder cannot silentl
   );
   const mapping = { ...inferMapping(file), pdfReviewed: true };
   const supplier = normalizeSource(file, mapping, scope, 'supplier');
-  const ledger = normalizeSource(file, mapping, scope, 'ledger');
+  const ledger = normalizeSource(
+    await readSeparately(file, undefined, true),
+    mapping,
+    scope,
+    'ledger',
+  );
   assert.ok(supplier.errors.length > 0);
   assert.equal(compare(supplier, ledger, scope).matches.length, 0);
   assert.equal(
@@ -219,7 +230,12 @@ test('PDF diversity requires review: wrapped transaction descriptions remain sep
   assert.deepEqual(file.sheets[0].rows[2], ['', '', '', 'continued']);
   const mapping = { ...inferMapping(file), pdfReviewed: true };
   const supplier = normalizeSource(file, mapping, scope, 'supplier');
-  const ledger = normalizeSource(file, mapping, scope, 'ledger');
+  const ledger = normalizeSource(
+    await readSeparately(file, [24, 48, 71]),
+    mapping,
+    scope,
+    'ledger',
+  );
   assert.equal(supplier.errors.length, 1);
   assert.equal(supplier.transactions.length, 2);
   assert.equal(compare(supplier, ledger, scope).matches.length, 0);
@@ -263,7 +279,12 @@ test('PDF diversity requires review: complete rows drawn across one another are 
     assert.equal(file.sheets[0].rowIssues?.['4'], undefined);
     const mapping = { ...inferMapping(file), pdfReviewed: true };
     const supplier = normalizeSource(file, mapping, scope, 'supplier');
-    const ledger = normalizeSource(file, mapping, scope, 'ledger');
+    const ledger = normalizeSource(
+      await readSeparately(file, undefined, true),
+      mapping,
+      scope,
+      'ledger',
+    );
     assert.equal(supplier.errors.length, 2);
     assert.equal(supplier.transactions.length, 1);
     assert.equal(compare(supplier, ledger, scope).matches.length, 0);

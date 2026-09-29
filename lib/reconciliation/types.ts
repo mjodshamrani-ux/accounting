@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.14-experimental';
+export const ENGINE_VERSION = '0.3.17-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -119,6 +119,21 @@ export type Transaction = {
   // prefix or a mixed PO/bank column is not positive evidence for grouping.
   paymentIdentityFields?: ('bankReference' | 'receiptReference')[];
   documentType?: 'Invoice' | 'Credit Note' | 'Payment' | 'Journal' | 'Unknown';
+  chosenReference?: string;
+  // A unique, safe column explicitly labelled Reference, even when the
+  // reading chose another identity. This is conflict evidence only.
+  statedReference?: string;
+  // Values read from the row that no other field carries, with the header
+  // they came from. Kept for the audit trail only; never matching evidence.
+  retainedEvidence?: {
+    field:
+      | 'mappedReference'
+      | 'statedReference'
+      | 'batch'
+      | 'documentTypeLabel';
+    header: string;
+    value: string;
+  }[];
   currency?: string;
   sourcePage?: number;
   id: string;
@@ -152,6 +167,10 @@ export type SourceResult = {
   rowCount: number;
   mapping: Mapping;
   sourceName: string;
+  // Where the rows came from: the file's SHA-256 (or, for a file read without
+  // one, a fingerprint of its sheet) and the sheet. Two sides with the same
+  // origin that read the same rows are one source compared with itself.
+  sourceOrigin?: string;
   sourceHash?: string;
 };
 export type Match = {

@@ -1,0 +1,1364 @@
+// Hard-case scenarios for the supplier reconciliation path. Each scenario is
+// built from accounting facts the generator decides itself: row keys, integer
+// minor amounts, and which rows belong together. The expected outcome is set
+// here, before any engine runs, and never from engine functions. Nothing that
+// reveals the answer (hidden ids, the expected outcome, the variant name) is
+// written into a rendered file; files carry only the columns an accountant's
+// report would show.
+export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.3.0';
+
+function rng(seed) {
+  let state = seed >>> 0 || 1;
+  return (min, max) => {
+    state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+    return min + (state % (max - min + 1));
+  };
+}
+const pad = (n, w) => String(n).padStart(w, '0');
+const day = (d) => `2026-07-${pad(d, 2)}`;
+
+/** Expected outcome classes, fixed before measurement. */
+export const OUTCOMES = {
+  auto: 'automatic approval is justified by the evidence in the files',
+  review:
+    'the files do not justify approval; a reviewer or more evidence is needed',
+  external:
+    'a fact outside the files is needed (an accountant choice or confirmation)',
+  difference: 'a real difference exists and must stay visible',
+  invalid:
+    'the input is not readable as stated; the engine must stop or mark it',
+  unsupported: 'the relation has no product path; no approval may appear',
+};
+
+/** Families and the variants each can take. The last element of each list is
+ * the variant the product should resolve automatically, when one exists. */
+export const TEMPLATES = {
+  // ---- grouping (G)
+  'G01-payment-1n': ['identity', 'missing-identity', 'conflicting-identity'],
+  'G02-payment-n1': ['identity', 'missing-identity', 'conflicting-identity'],
+  'G03-payment-nm': ['identity'],
+  'G04-sum-no-identity': ['plain'],
+  'G05-competing-sums': ['plain'],
+  'G06-missing-part': ['identity'],
+  'G07-extra-member': ['identity'],
+  'G08-two-dates': ['identity', 'missing-identity', 'outside-window'],
+  'G09-equal-parts': ['distinct-entries', 'duplicate-line'],
+  'G10-excluded-member': ['identity'],
+  'G11-invoice-lines': ['shared-po', 'no-po', 'conflicting-po'],
+  // ---- references (R)
+  'R01-voucher-and-reference': [
+    'voucher-differs',
+    'voucher-shared-reference-differs',
+  ],
+  'R02-batch-kept': ['batch'],
+  'R03-reference-types': ['same-invoice', 'po-only'],
+  'R04-leading-zeros': ['zeros'],
+  'R05-long-numeric': ['text'],
+  'R06-lookalike': ['dash', 'case'],
+  'R07-reference-in-text': ['description-only'],
+  'R10-placeholders': ['na'],
+  // ---- document types (T)
+  'T01-type-synonyms': [
+    'tax-invoice',
+    'arabic-tax-invoice',
+    'ap-invoice',
+    'vendor-invoice',
+    'proforma',
+    'reversal',
+  ],
+  'T05-unknown-code': ['tx-code'],
+  'T06-type-conflict': ['payment-labelled-invoice'],
+  'T08-description-only': ['bank-transfer'],
+  // ---- numbers and dates (N)
+  'N01-arabic-digits': ['arabic'],
+  'N02-ambiguous-number': ['withheld', 'answered'],
+  'N04-parentheses': ['parenthesized'],
+  'N05-precision': ['zero-places', 'three-places'],
+  'N07-ambiguous-date': ['withheld', 'answered'],
+  'N08-invalid-date': ['feb-30'],
+  // ---- file layout (F)
+  'F01-column-order': ['permuted'],
+  'F03-structure-rows': ['repeated-headers'],
+  'F06-extra-sheet': ['summary-sheet'],
+  'F07-delimiters': ['semicolon', 'quoted-commas'],
+  'F09-missing-amount': ['no-amount-column'],
+  'F10-corrupt': ['corrupt'],
+  // ---- compound
+  'C01-group-with-type-synonym': ['tax-invoice-po'],
+  'C02-two-dates-repeated-headers': ['identity'],
+  'C03-voucher-with-group': ['identity'],
+  // ---- held out (1.3.0): interactions no fix was built on, only in the
+  // holdout split, under layouts no other split uses.
+  'H01-two-day-vendor-payments': ['identity', 'one-part-without-identity'],
+  'H02-arabic-invoice-lines': ['shared-po', 'no-po'],
+  'H03-document-no-vs-chosen-reference': ['agree', 'differ'],
+  'H04-description-role': ['same-role', 'other-role'],
+  'H05-order-number-as-document': ['order-number'],
+  'H06-kept-evidence-arabic': ['voucher-and-batch'],
+};
+
+// Background rows keep every scenario honest: they must be matched in every
+// variant that reaches a comparison, so refusing everything cannot pass.
+function controls(n, random) {
+  return [0, 1].map((i) => {
+    const minor = random(1000, 900000);
+    return {
+      reference: `INV-${7000 + n * 3 + i}`,
+      date: day(3 + i),
+      minor,
+      kind: 'Invoice',
+      description: 'Goods supplied',
+    };
+  });
+}
+/** Unrelated rows on one side only: they add noise and must stay unmatched. */
+function noise(n, random, count) {
+  return Array.from({ length: count }, (_, i) => ({
+    reference: `INV-N${8000 + n * 7 + i}`,
+    date: day(random(5, 25)),
+    minor: random(500, 400000),
+    kind: 'Invoice',
+    description: 'Services',
+  }));
+}
+
+// ------------------------------------------------------------- contracts
+// What each case must show, fixed here before any engine runs (1.2.0). The
+// evaluator judges the rows under test against this, not against whatever
+// the engine happens to do.
+//   kind: solve (automatic approval of the named groups), read (every row
+//     read exactly; controls matched), surface (a Needs Review case that
+//     names the reason), refuse (no link is proven; the rows must not be
+//     approved), unsupported (no product path; safe refusal only, never
+//     counted as the capability), external (a declared stop for outside
+//     information), invalid (a declared rejection with its own reason).
+//   outcomes: the target-row outcomes allowed. More than one outcome is
+//     allowed only where it is written here, with the reason in `note`.
+//   signals: product text that must appear, as a regular expression over the
+//     evidence of the case holding the rows under test (scope case), over the
+//     rows' own reading issues (scope row), or over the stop (scope stop).
+// Signals quote the product's documented messages (lib/i18n/engine-catalog).
+const SURFACE = (pattern, why) => ({
+  kind: 'surface',
+  outcomes: ['review'],
+  signals: [{ scope: 'case', pattern, why }],
+});
+const REFUSE_EITHER = (note) => ({
+  kind: 'refuse',
+  outcomes: ['unmatched', 'review'],
+  signals: [],
+  note,
+});
+const CONTRACTS = {
+  'G01-payment-1n|missing-identity': SURFACE(
+    'لم تثبت هوية دفعة واحدة',
+    'same general reference and equal totals, but no shared payment identity: the candidate must be shown with that reason',
+  ),
+  'G02-payment-n1|missing-identity': SURFACE(
+    'لم تثبت هوية دفعة واحدة',
+    'mirror of G01',
+  ),
+  'G08-two-dates|missing-identity': SURFACE(
+    'لم تثبت هوية دفعة واحدة',
+    'two-day parts without identity: shown with the missing-identity reason',
+  ),
+  'G01-payment-1n|conflicting-identity': SURFACE(
+    'متعارضة|مجموع الطرفين مختلف',
+    'one part carries another bank reference: the conflict, or the part it removes from the group, must be visible',
+  ),
+  'G02-payment-n1|conflicting-identity': SURFACE(
+    'متعارضة|مجموع الطرفين مختلف',
+    'mirror of G01',
+  ),
+  'G03-payment-nm|identity': {
+    kind: 'unsupported',
+    outcomes: ['review', 'unmatched'],
+    signals: [],
+    note: 'N:M has no product path. Either outcome is a safe refusal; neither is support for N:M.',
+  },
+  'G04-sum-no-identity|plain': REFUSE_EITHER(
+    'only an amount coincidence links the rows; a suggestion is acceptable, not required',
+  ),
+  'G05-competing-sums|plain': REFUSE_EITHER(
+    'two subsets balance; a suggestion is acceptable, not required',
+  ),
+  'G06-missing-part|identity': SURFACE(
+    'مجموع الطرفين مختلف',
+    'the missing part must show as a difference in the group',
+  ),
+  'G07-extra-member|identity': SURFACE(
+    'مجموع الطرفين مختلف',
+    'the extra member must show as a difference in the group',
+  ),
+  'G08-two-dates|outside-window': SURFACE(
+    'ليست في تاريخ واحد',
+    'parts beyond the date window: the date reason must be named',
+  ),
+  'G09-equal-parts|duplicate-line': SURFACE(
+    'أسطر متساوية في المبلغ والتاريخ',
+    'a possibly duplicated line must be named',
+  ),
+  'G10-excluded-member|identity': SURFACE(
+    'صف مستبعد',
+    'an excluded row with the group identity must be named',
+  ),
+  'G11-invoice-lines|no-po': SURFACE(
+    'لا يثبت هوية الحركات',
+    'equal totals without a shared order or voucher: shown as unproven',
+  ),
+  'G11-invoice-lines|conflicting-po': SURFACE(
+    'أوامر الشراء|أمرا الشراء',
+    'the lines name different purchase orders: the conflict must be named',
+  ),
+  'R01-voucher-and-reference|voucher-shared-reference-differs': REFUSE_EITHER(
+    'the chosen references name two invoices; a shared voucher may be flagged but must not link them',
+  ),
+  'R03-reference-types|po-only': REFUSE_EITHER(
+    'the invoice references differ and only the order is shared',
+  ),
+  'R04-leading-zeros|zeros': REFUSE_EITHER(
+    'no rule proves that leading zeros are insignificant; equivalence is not solved',
+  ),
+  'R06-lookalike|dash': REFUSE_EITHER('look-alike references are not equal'),
+  'R06-lookalike|case': REFUSE_EITHER('look-alike references are not equal'),
+  'R07-reference-in-text|description-only': REFUSE_EITHER(
+    'a reference in free text is not reading evidence',
+  ),
+  'R10-placeholders|na': {
+    kind: 'refuse',
+    outcomes: ['unmatched'],
+    signals: [],
+    note: 'placeholders never link rows, not even for review',
+  },
+  'T01-type-synonyms|proforma': {
+    ...SURFACE(
+      'نوع مستند غير متحقق',
+      'same reference and amount, but the label names another role: the pair must be shown with the unverified type',
+    ),
+  },
+  'T01-type-synonyms|reversal': {
+    ...SURFACE('نوع مستند غير متحقق', 'as proforma'),
+  },
+  'T05-unknown-code|tx-code': {
+    ...SURFACE(
+      'نوع مستند غير متحقق',
+      'an unknown code stays unknown; the pair is shown with that reason, never guessed',
+    ),
+  },
+  'T06-type-conflict|payment-labelled-invoice': SURFACE(
+    'نوعا المستند مختلفان|متعارضة',
+    'the conflicting roles must be named',
+  ),
+  'H01-two-day-vendor-payments|one-part-without-identity': SURFACE(
+    'لم تثبت هوية دفعة واحدة|متعارضة|مجموع الطرفين مختلف',
+    'one part lacks the bank identity: the candidate is shown with the reason',
+  ),
+  'H02-arabic-invoice-lines|no-po': SURFACE(
+    'لا يثبت هوية الحركات',
+    'equal totals without a shared order: shown as unproven',
+  ),
+  'H03-document-no-vs-chosen-reference|differ': SURFACE(
+    'المرجعان المختاران مختلفان',
+    'the document numbers agree but the chosen references name different documents',
+  ),
+  'H04-description-role|other-role': SURFACE(
+    'متعارضة',
+    'the description opens with another documented role',
+  ),
+  'H05-order-number-as-document|order-number': SURFACE(
+    'أمر الشراء وحده',
+    'the document number is the order number itself',
+  ),
+  'T08-description-only|bank-transfer': SURFACE(
+    'يشير الوصف في الطرفين',
+    'a description-only hint may be suggested for review, never approved',
+  ),
+};
+/** The contract of one scenario, from the table above or its expectation. */
+function contractFor(d, expect, targetCount, sources) {
+  const written = CONTRACTS[`${d.template}|${d.variant}`];
+  if (written) return written;
+  if (expect === 'auto')
+    return targetCount
+      ? { kind: 'solve', outcomes: ['auto'], signals: [] }
+      : { kind: 'read', outcomes: ['no-target-rows'], signals: [] };
+  if (expect === 'external')
+    return {
+      kind: 'external',
+      outcomes: ['stopped'],
+      signals: [],
+      rejection: {
+        code: 'FORMAT_AMBIGUOUS_UNRESOLVED',
+        field: d.template.startsWith('N07') ? 'dateFormat' : 'numberFormat',
+      },
+    };
+  if (expect === 'invalid') {
+    const rejection = d.template.startsWith('N08')
+      ? { code: 'FORMAT_INVALID', field: 'dateFormat' }
+      : d.template.startsWith('F09')
+        ? { pattern: 'حدد أعمدة التاريخ والمبلغ' }
+        : d.template.startsWith('F10')
+          ? {
+              pattern:
+                sources.find((s) => s.invalid === 'corrupt-file').format ===
+                'xlsx'
+                  ? 'ملف XLSX غير صالح'
+                  : 'ترميز CSV غير مدعوم',
+            }
+          : null;
+    if (!rejection) throw new Error(`${d.id}: invalid case without a reason`);
+    return { kind: 'invalid', outcomes: ['stopped'], signals: [], rejection };
+  }
+  throw new Error(`${d.id}: no contract for ${d.template}|${d.variant}`);
+}
+
+/**
+ * One scenario. `approved` lists the groups that must be matched automatically
+ * ({a: keys, b: keys}); `expect` is the class for the rows under test.
+ */
+export function buildHardCase(d) {
+  const random = rng(d.seed);
+  const n = d.index;
+  const [family] = d.template.split('-');
+  const bank = `BNK-${400000 + n}`;
+  const pay = `PAY-${500000 + n}`;
+  const po = `PO-${60000 + n}`;
+  let decimals = 2,
+    currency = 'SAR';
+  const a = [],
+    b = [];
+  const approved = [];
+  let expect = 'auto';
+  let externalNeed = null;
+  let withholdFormat = false;
+  let invalid = [null, null];
+  const extraFields = new Set();
+  let referenceHeader = 'Reference';
+  let dateFormat = 'ymd';
+  const payment = (minor, date, extra = {}) => ({
+    reference: pay,
+    date,
+    minor: -minor,
+    kind: 'Payment',
+    description: 'Bank transfer',
+    bankReference: bank,
+    ...extra,
+  });
+  const parts = (total, count) => {
+    const values = [];
+    let left = total;
+    for (let i = 0; i < count - 1; i++) {
+      const v = Math.floor(left / (count - i)) + random(-50, 50) * 100;
+      values.push(v);
+      left -= v;
+    }
+    values.push(left);
+    // Parts that repeat the same amount, date and identity cannot be told
+    // apart from a duplicated entry in the file, so a scenario that claims
+    // proven parts never generates them (1.0.1: this happened by chance in
+    // 1.0.0 and wrongly expected approval).
+    if (new Set(values).size !== values.length || values.some((v) => v <= 0))
+      return parts(total, count);
+    return values;
+  };
+  const total = random(3000, 90000) * 100;
+  const put = (side, rows, tag) =>
+    rows.map((r) => {
+      const list = side === 'a' ? a : b;
+      const row = { ...r, key: `${side}:${list.length + 1}`, tag };
+      list.push(row);
+      return row.key;
+    });
+  const group = (aKeys, bKeys) => approved.push({ a: aKeys, b: bKeys });
+
+  switch (d.template) {
+    case 'G01-payment-1n':
+    case 'G02-payment-n1':
+    case 'C02-two-dates-repeated-headers': {
+      extraFields.add('bankReference');
+      const values = parts(total, 3);
+      const single = [payment(total, day(15))];
+      const twoDates = d.template.startsWith('C02');
+      let many = values.map((v, i) =>
+        payment(v, twoDates ? day(15 + (i === 2 ? 1 : 0)) : day(15)),
+      );
+      if (d.variant === 'missing-identity')
+        many = many.map((r) => ({ ...r, bankReference: '' }));
+      if (d.variant === 'conflicting-identity')
+        many[1] = { ...many[1], bankReference: `BNK-X${n}` };
+      const reverse = d.template.startsWith('G02');
+      const ka = put('a', reverse ? many : single, 'group');
+      const kb = put('b', reverse ? single : many, 'group');
+      if (d.variant === 'identity') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'G03-payment-nm': {
+      extraFields.add('bankReference');
+      const va = parts(total, 2),
+        vb = parts(total, 3);
+      put(
+        'a',
+        va.map((v) => payment(v, day(15))),
+        'group',
+      );
+      put(
+        'b',
+        vb.map((v) => payment(v, day(15))),
+        'group',
+      );
+      expect = 'unsupported';
+      break;
+    }
+    case 'G04-sum-no-identity': {
+      extraFields.add('bankReference');
+      const [x, y] = parts(total, 2);
+      put('a', [payment(total, day(15), { bankReference: '' })], 'group');
+      put(
+        'b',
+        [
+          payment(x, day(15), { reference: `PV-${n}-1`, bankReference: '' }),
+          payment(y, day(15), { reference: `PV-${n}-2`, bankReference: '' }),
+        ],
+        'group',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'G05-competing-sums': {
+      extraFields.add('bankReference');
+      const [x, y] = parts(total, 2),
+        [u, v] = parts(total, 2);
+      put('a', [payment(total, day(15), { bankReference: '' })], 'group');
+      put(
+        'b',
+        [x, y, u, v].map((m, i) =>
+          payment(m, day(15), {
+            reference: `PV-${n}-${i + 1}`,
+            bankReference: '',
+          }),
+        ),
+        'group',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'G06-missing-part': {
+      extraFields.add('bankReference');
+      const values = parts(total, 3);
+      put('a', [payment(total, day(15))], 'group');
+      put(
+        'b',
+        values.slice(0, 2).map((v) => payment(v, day(15))),
+        'group',
+      );
+      expect = 'difference';
+      break;
+    }
+    case 'G07-extra-member': {
+      extraFields.add('bankReference');
+      const values = parts(total, 3);
+      put('a', [payment(total, day(15))], 'group');
+      put(
+        'b',
+        [...values, random(10, 90) * 100].map((v) => payment(v, day(15))),
+        'group',
+      );
+      expect = 'difference';
+      break;
+    }
+    case 'G08-two-dates': {
+      extraFields.add('bankReference');
+      const values = parts(total, 3);
+      const spread = d.variant === 'outside-window' ? 5 : 1;
+      let many = values.map((v, i) =>
+        payment(v, day(14 + (i === 2 ? spread : 0))),
+      );
+      if (d.variant === 'missing-identity')
+        many = many.map((r) => ({ ...r, bankReference: '' }));
+      const ka = put('a', [payment(total, day(14))], 'group');
+      const kb = put('b', many, 'group');
+      if (d.variant === 'identity') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'G09-equal-parts': {
+      extraFields.add('bankReference');
+      extraFields.add('voucherReference');
+      const half = random(10, 900) * 100;
+      const many = [half, half, total].map((v, i) =>
+        payment(v, day(15), {
+          voucherReference:
+            d.variant === 'duplicate-line' && i < 2
+              ? `JV-${n}-1`
+              : `JV-${n}-${i + 1}`,
+        }),
+      );
+      const ka = put(
+        'a',
+        [payment(half * 2 + total, day(15), { voucherReference: `SV-${n}` })],
+        'group',
+      );
+      const kb = put('b', many, 'group');
+      if (d.variant === 'distinct-entries') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'G10-excluded-member': {
+      extraFields.add('bankReference');
+      const values = parts(total, 3);
+      put('a', [payment(total, day(15))], 'group');
+      put(
+        'b',
+        values.map((v, i) => payment(v, i === 2 ? '2026-08-02' : day(15))),
+        'group',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'G11-invoice-lines':
+    case 'C01-group-with-type-synonym': {
+      extraFields.add('poReference');
+      const values = parts(total, 3);
+      const label = d.template.startsWith('C01') ? 'Tax Invoice' : 'Invoice';
+      const line = (minor, i) => ({
+        reference: `INV-${90000 + n}`,
+        date: day(12),
+        minor,
+        kind: label,
+        description: 'Goods supplied',
+        poReference:
+          d.variant === 'no-po'
+            ? ''
+            : d.variant === 'conflicting-po' && i === 1
+              ? `PO-X${n}`
+              : po,
+      });
+      const ka = put('a', [line(total, 0)], 'group');
+      const kb = put('b', values.map(line), 'group');
+      if (['shared-po', 'tax-invoice-po'].includes(d.variant)) group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'R01-voucher-and-reference':
+    case 'C03-voucher-with-group': {
+      extraFields.add('voucherReference');
+      // The shared-voucher variant: both books show one voucher number, but
+      // the chosen references name two different invoices. The explicit
+      // document identities disagree, so nothing proves one document.
+      const shared = d.variant === 'voucher-shared-reference-differs';
+      const voucher = `JV-${n}-${random(100, 999)}`;
+      const inv = (side, minor) => ({
+        reference: `INV-${30000 + n + (shared && side === 'b' ? 500 : 0)}`,
+        date: day(9),
+        minor,
+        kind: 'Invoice',
+        description: 'Goods supplied',
+        // Each book numbers its own journal vouchers.
+        voucherReference: shared
+          ? voucher
+          : `${side === 'a' ? 'SJ' : 'JV'}-${n}-${random(100, 999)}`,
+      });
+      const m = random(1000, 900000);
+      const ka = put('a', [inv('a', m)], 'target'),
+        kb = put('b', [inv('b', m)], 'target');
+      if (shared) expect = 'review';
+      else group(ka, kb);
+      break;
+    }
+    case 'R02-batch-kept': {
+      extraFields.add('batch');
+      const m = random(1000, 900000);
+      const row = {
+        reference: `INV-${31000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: 'Invoice',
+        description: 'Goods supplied',
+        batch: `B-${n}`,
+      };
+      group(put('a', [row], 'target'), put('b', [row], 'target'));
+      break;
+    }
+    case 'R03-reference-types': {
+      extraFields.add('poReference');
+      extraFields.add('voucherReference');
+      referenceHeader = 'Invoice No';
+      const m = random(1000, 900000);
+      const row = (side) => ({
+        reference:
+          d.variant === 'po-only'
+            ? `INV-${32000 + n}${side}`
+            : `INV-${32000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: 'Invoice',
+        description: 'Goods supplied',
+        poReference: po,
+        voucherReference: `${side === 'a' ? 'SJ' : 'JV'}-${n}`,
+      });
+      const ka = put('a', [row('A')], 'target'),
+        kb = put('b', [row('B')], 'target');
+      if (d.variant === 'same-invoice') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'R04-leading-zeros': {
+      const m = random(1000, 900000);
+      put(
+        'a',
+        [
+          {
+            reference: `000${1000 + n}`,
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      put(
+        'b',
+        [
+          {
+            reference: `${1000 + n}`,
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'R05-long-numeric': {
+      referenceHeader = 'Invoice No';
+      const m = random(1000, 900000);
+      const ref = `${pad(n, 6)}${pad(random(0, 99999999), 8)}${pad(random(0, 999999), 6)}`;
+      const row = {
+        reference: ref,
+        date: day(9),
+        minor: m,
+        kind: 'Invoice',
+        description: 'Goods supplied',
+      };
+      group(put('a', [row], 'target'), put('b', [row], 'target'));
+      break;
+    }
+    case 'R06-lookalike': {
+      const m = random(1000, 900000);
+      const [ra, rb] =
+        d.variant === 'dash'
+          ? [`INV-${n}01`, `INV${n}01`]
+          : [`Inv-${n}01`, `INV-${n}01`];
+      put(
+        'a',
+        [
+          {
+            reference: ra,
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      put(
+        'b',
+        [
+          {
+            reference: rb,
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'R07-reference-in-text': {
+      const m = random(1000, 900000);
+      put(
+        'a',
+        [
+          {
+            reference: `INV-${33000 + n}`,
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      put(
+        'b',
+        [
+          {
+            reference: '',
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: `Settles INV-${33000 + n} order 55${n} tel 0500000${pad(n % 1000, 3)}`,
+          },
+        ],
+        'target',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'R10-placeholders': {
+      const m = random(1000, 900000);
+      const row = (side, i) => ({
+        reference: 'N/A',
+        date: day(9 + i),
+        minor: m,
+        kind: 'Invoice',
+        description: 'Goods supplied',
+      });
+      put('a', [row('a', 0), row('a', 1)], 'target');
+      put('b', [row('b', 0), row('b', 1)], 'target');
+      expect = 'review';
+      break;
+    }
+    case 'T01-type-synonyms': {
+      const label = {
+        'tax-invoice': 'Tax Invoice',
+        'arabic-tax-invoice': 'فاتورة ضريبية',
+        'ap-invoice': 'AP Invoice',
+        'vendor-invoice': 'Vendor Invoice',
+        // Labels that name another role: never read as an invoice.
+        proforma: 'Proforma Invoice',
+        reversal: 'Invoice Reversal',
+      }[d.variant];
+      const m = random(1000, 900000);
+      const row = {
+        reference: `INV-${34000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: label,
+        description: 'Goods supplied',
+      };
+      const ka = put('a', [row], 'target'),
+        kb = put('b', [row], 'target');
+      if (['proforma', 'reversal'].includes(d.variant)) expect = 'review';
+      else group(ka, kb);
+      break;
+    }
+    case 'T05-unknown-code': {
+      const m = random(1000, 900000);
+      const row = {
+        reference: `INV-${35000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: 'TX-07',
+        description: 'Goods supplied',
+      };
+      put('a', [row], 'target');
+      put('b', [row], 'target');
+      expect = 'review';
+      break;
+    }
+    case 'T06-type-conflict': {
+      const m = random(1000, 900000);
+      put(
+        'a',
+        [
+          {
+            reference: `DOC-${36000 + n}`,
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      put(
+        'b',
+        [
+          {
+            reference: `DOC-${36000 + n}`,
+            date: day(9),
+            minor: m,
+            kind: 'Payment',
+            description: 'Invoice for goods supplied',
+          },
+        ],
+        'target',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'T08-description-only': {
+      const m = random(1000, 900000);
+      put(
+        'a',
+        [
+          {
+            reference: `PAY-${37000 + n}`,
+            date: day(20),
+            minor: -m,
+            kind: 'Payment',
+            description: 'Bank transfer',
+          },
+        ],
+        'target',
+      );
+      put(
+        'b',
+        [
+          {
+            reference: `PV-${37000 + n}`,
+            date: day(21),
+            minor: -m,
+            kind: 'Payment',
+            description: 'Bank transfer',
+          },
+        ],
+        'target',
+      );
+      expect = 'review';
+      break;
+    }
+    case 'N02-ambiguous-number':
+    case 'N05-precision': {
+      decimals =
+        d.template.startsWith('N02') || d.variant === 'three-places' ? 3 : 0;
+      currency = decimals === 3 ? 'KWD' : 'JPY';
+      if (d.template.startsWith('N02') && d.variant === 'withheld') {
+        withholdFormat = true;
+        expect = 'external';
+        externalNeed = 'number format (the accountant must choose)';
+      }
+      break;
+    }
+    case 'N07-ambiguous-date': {
+      dateFormat = 'dmy';
+      if (d.variant === 'withheld') {
+        withholdFormat = true;
+        expect = 'external';
+        externalNeed = 'date format (the accountant must choose)';
+      }
+      break;
+    }
+    case 'N08-invalid-date': {
+      const m = random(1000, 900000);
+      put(
+        'a',
+        [
+          {
+            reference: `INV-${38000 + n}`,
+            date: '2026-02-30',
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      put(
+        'b',
+        [
+          {
+            reference: `INV-${38000 + n}`,
+            date: day(9),
+            minor: m,
+            kind: 'Invoice',
+            description: 'Goods supplied',
+          },
+        ],
+        'target',
+      );
+      expect = 'invalid';
+      break;
+    }
+    case 'F09-missing-amount-column':
+    case 'F09-missing-amount':
+      invalid = [null, 'missing-amount-column'];
+      expect = 'invalid';
+      break;
+    case 'F10-corrupt':
+      invalid = ['corrupt-file', null];
+      expect = 'invalid';
+      break;
+    case 'H01-two-day-vendor-payments': {
+      // A payment in three parts over two days under one bank reference,
+      // labelled "Vendor Payment" on the statement and "Payment" in the
+      // ledger (T01 labels meeting G08 groups).
+      extraFields.add('bankReference');
+      const values = parts(total, 3);
+      const ka = put(
+        'a',
+        [payment(total, day(14), { kind: 'Vendor Payment' })],
+        'group',
+      );
+      const kb = put(
+        'b',
+        values.map((v, i) =>
+          payment(v, day(i === 2 ? 15 : 14), {
+            bankReference:
+              d.variant === 'one-part-without-identity' && i === 1 ? '' : bank,
+          }),
+        ),
+        'group',
+      );
+      if (d.variant === 'identity') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'H02-arabic-invoice-lines': {
+      // Invoice lines labelled with an Arabic synonym, against one invoice.
+      extraFields.add('poReference');
+      const values = parts(total, 3);
+      const line = (minor) => ({
+        reference: `INV-${95000 + n}`,
+        date: day(12),
+        minor,
+        kind: 'فاتورة مشتريات',
+        description: 'Goods supplied',
+        poReference: d.variant === 'no-po' ? '' : po,
+      });
+      const ka = put('a', [line(total)], 'group');
+      const kb = put('b', values.map(line), 'group');
+      if (d.variant === 'shared-po') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'H03-document-no-vs-chosen-reference': {
+      // Both books give the same document number; the chosen Reference
+      // column agrees or names different documents.
+      extraFields.add('documentReference');
+      const m = random(1000, 900000);
+      const row = (side) => ({
+        reference:
+          d.variant === 'differ'
+            ? `${side === 'a' ? 'SR' : 'LR'}-${n}`
+            : `SR-${n}`,
+        documentReference: `INV-${96000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: 'Invoice',
+        description: 'Goods supplied',
+      });
+      const ka = put('a', [row('a')], 'target'),
+        kb = put('b', [row('b')], 'target');
+      if (d.variant === 'agree') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'H04-description-role': {
+      // Type Invoice on both sides; the statement's description opens with
+      // the same role or another documented role.
+      const m = random(1000, 900000);
+      const row = (description) => ({
+        reference: `INV-${97000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: 'Invoice',
+        description,
+      });
+      const ka = put(
+        'a',
+        [
+          row(
+            d.variant === 'same-role'
+              ? `Tax Invoice ${n}`
+              : `Tax Credit Note ${n}`,
+          ),
+        ],
+        'target',
+      );
+      const kb = put('b', [row('Goods supplied')], 'target');
+      if (d.variant === 'same-role') group(ka, kb);
+      else expect = 'review';
+      break;
+    }
+    case 'H05-order-number-as-document': {
+      extraFields.add('documentReference');
+      extraFields.add('poReference');
+      const m = random(1000, 900000);
+      const row = {
+        reference: `PO-${98000 + n}`,
+        documentReference: `PO-${98000 + n}`,
+        poReference: `PO-${98000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: 'Invoice',
+        description: 'Goods supplied',
+      };
+      put('a', [row], 'target');
+      put('b', [{ ...row }], 'target');
+      expect = 'review';
+      break;
+    }
+    case 'H06-kept-evidence-arabic': {
+      extraFields.add('voucherReference');
+      extraFields.add('batch');
+      const m = random(1000, 900000);
+      const row = (side) => ({
+        reference: `INV-${99000 + n}`,
+        date: day(9),
+        minor: m,
+        kind: 'فاتورة ضريبية',
+        description: 'Goods supplied',
+        voucherReference: `${side === 'a' ? 'SJ' : 'JV'}-${n}`,
+        batch: `B-${n}${side}`,
+      });
+      group(put('a', [row('a')], 'target'), put('b', [row('b')], 'target'));
+      break;
+    }
+    default:
+      break;
+  }
+  if (d.template.startsWith('C03')) {
+    // Voucher-numbered rows and a proven payment group in the same files.
+    extraFields.add('bankReference');
+    const values = parts(total, 3);
+    group(
+      put('a', [payment(total, day(15))], 'group'),
+      put(
+        'b',
+        values.map((v) => payment(v, day(15))),
+        'group',
+      ),
+    );
+  }
+  // Controls on both sides, noise on one side, in a scenario-specific order.
+  const c = controls(n, random);
+  const controlKeys = [
+    put('a', [c[0]], 'control'),
+    put('a', [c[1]], 'control'),
+  ];
+  const controlKeysB = [
+    put('b', [c[1]], 'control'),
+    put('b', [c[0]], 'control'),
+  ];
+  approved.push({ a: controlKeys[0], b: controlKeysB[1], control: true });
+  approved.push({ a: controlKeys[1], b: controlKeysB[0], control: true });
+  put(random(0, 1) ? 'a' : 'b', noise(n, random, random(0, 6)), 'noise');
+  // Amounts and dates are adjusted as a function of the original value, so the
+  // two copies of one economic row stay identical.
+  for (const row of [...a, ...b]) {
+    const sign = Math.sign(row.minor) || 1,
+      abs = Math.abs(row.minor);
+    if (decimals === 0) row.minor = sign * Math.max(1, Math.round(abs / 100));
+    // Three places below 1,000.000: the dot and comma readings both parse and
+    // differ, so the format is ambiguous until someone answers.
+    if (decimals === 3) row.minor = sign * ((abs % 999) * 1000 + 1250);
+    if (d.template.startsWith('N07'))
+      row.date = `2026-07-${pad(1 + (Number(row.date.slice(8)) % 12), 2)}`;
+  }
+  for (const row of [...a, ...b]) {
+    row.currency = currency;
+    row.account = 'AP-482';
+    row.description ??= 'Goods supplied';
+  }
+  const baseFields = [
+    'date',
+    'reference',
+    'kind',
+    'description',
+    ...extraFields,
+    'amount',
+    'currency',
+    'account',
+  ];
+  const meta = (rows) => ({
+    supplier: 'Synthetic Supplier',
+    entity: 'Synthetic Buyer',
+    account: 'AP-482',
+    currency,
+    decimals,
+    cutoff: '2026-07-31',
+    periodStart: '2026-07-01',
+    reportType: 'transactions',
+    dateWindow: 2,
+    referenceHeader,
+    numberFormat: 'dot',
+    dateFormat,
+    multiplier: 1,
+    opening: 0,
+    closing: rows
+      .filter((r) => r.date <= '2026-07-31' && r.date >= '2026-07-01')
+      .reduce((s, r) => s + r.minor, 0),
+    signEvidence: 'Positive amount increases the payable to the supplier',
+    periodEvidence: 'Statement covers 2026-07-01 through 2026-07-31',
+  });
+  const sources = [a, b].map((rows, i) => {
+    const layout = { ...d.layouts[i] };
+    let fields = [...baseFields];
+    if (layout.order)
+      fields = layout.order
+        .map((k) => fields[k % fields.length])
+        .filter((f, j, all) => all.indexOf(f) === j);
+    for (const f of baseFields) if (!fields.includes(f)) fields.push(f);
+    if (d.template.startsWith('F01')) fields = [...fields].reverse();
+    layout.fields = fields;
+    if (d.template.startsWith('F03') || d.template.startsWith('C02'))
+      Object.assign(layout, {
+        repeatedHeader: true,
+        blankRows: true,
+        banner: true,
+      });
+    if (d.template.startsWith('F06') && layout.format === 'xlsx')
+      Object.assign(layout, { extraSheet: true, writer: 'exceljs' });
+    if (d.template.startsWith('F07'))
+      Object.assign(
+        layout,
+        d.variant === 'semicolon'
+          ? { format: 'csv', writer: 'csv-delimited', delimiter: ';' }
+          : { format: 'csv', writer: 'csv-quoted' },
+      );
+    if (d.template.startsWith('F07') && d.variant === 'quoted-commas')
+      for (const r of rows) r.description = 'Goods, supplied; "boxed"';
+    if (d.template.startsWith('N01')) layout.style = 'arabic-numerals';
+    if (d.template.startsWith('N04')) layout.style = 'parenthesized-credits';
+    const format =
+      invalid[i] === 'corrupt-file' ? layout.format : layout.format;
+    return {
+      side: i ? 'ledger' : 'supplier',
+      name: `${i ? 'ledger' : 'supplier'}-statement.${format}`,
+      format,
+      layout,
+      rows,
+      metadata: meta(rows),
+      invalid: invalid[i],
+    };
+  });
+  // The generator checks its own facts: an approved group balances, and its
+  // members can be told apart in the file (no repeated amount, date and
+  // identity on one side).
+  for (const g of approved) {
+    const rows = (side, keys) =>
+      keys.map((k) => (side === 'a' ? a : b).find((r) => r.key === k));
+    const total = (rs) => rs.reduce((t, r) => t + r.minor, 0);
+    if (total(rows('a', g.a)) !== total(rows('b', g.b)))
+      throw new Error(`${d.id}: approved group does not balance`);
+    for (const side of ['a', 'b']) {
+      const ids = rows(side, g[side]).map(
+        (r) =>
+          `${r.date}|${r.minor}|${r.bankReference ?? ''}|${r.voucherReference ?? ''}|${r.poReference ?? ''}`,
+      );
+      if (new Set(ids).size !== ids.length)
+        throw new Error(
+          `${d.id}: approved group has indistinguishable members`,
+        );
+    }
+  }
+  const targetKeys = [...a, ...b]
+    .filter((r) => r.tag === 'group' || r.tag === 'target')
+    .map((r) => r.key);
+  return {
+    id: d.id,
+    template: d.template,
+    family,
+    variant: d.variant,
+    split: d.split,
+    seed: d.seed,
+    sources,
+    oracle: {
+      expect,
+      externalNeed,
+      withholdFormat,
+      approved,
+      targetKeys,
+      contract: contractFor(d, expect, targetKeys.length, sources),
+      // Every evidence column a source writes must come back with its role
+      // and the header it came from.
+      requiredEvidence: [
+        'reference',
+        'batch',
+        'voucherReference',
+        'bankReference',
+        'poReference',
+        'receiptReference',
+      ],
+    },
+  };
+}
+
+// ------------------------------------------------------------- manifests
+
+const LAYOUTS = {
+  // Development: English CSV and native XLSX.
+  development: [
+    [
+      { format: 'csv', writer: 'csv-records', language: 'en', style: 'dot' },
+      { format: 'xlsx', writer: 'exceljs', language: 'en', style: 'dot' },
+    ],
+    [
+      { format: 'xlsx', writer: 'exceljs', language: 'en', style: 'dot' },
+      { format: 'csv', writer: 'csv-records', language: 'en', style: 'dot' },
+    ],
+    [
+      {
+        format: 'csv',
+        writer: 'csv-records',
+        language: 'en',
+        style: 'dot',
+        order: [1, 0, 3, 2, 5, 4, 6, 7, 8, 9],
+      },
+      { format: 'csv', writer: 'csv-records', language: 'en', style: 'dot' },
+    ],
+  ],
+  // Validation: Arabic headings, hand-written OOXML, other column orders.
+  validation: [
+    [
+      { format: 'xlsx', writer: 'ooxml-zip', language: 'ar', style: 'dot' },
+      {
+        format: 'csv',
+        writer: 'csv-records',
+        language: 'en',
+        style: 'dot',
+        order: [3, 1, 0, 2, 4, 5, 6, 7, 8, 9],
+      },
+    ],
+    [
+      { format: 'csv', writer: 'csv-quoted', language: 'ar', style: 'dot' },
+      { format: 'xlsx', writer: 'ooxml-zip', language: 'en', style: 'dot' },
+    ],
+  ],
+  // Final: kept apart until the fixes are frozen; PDF and mixed layouts.
+  // PDF pages hold four rows (1.1.2), so every PDF statement breaks across
+  // pages (P02); with the writer's default of 18 no generated PDF did.
+  final: [
+    [
+      { format: 'pdf', language: 'en', style: 'dot', pageRows: 4 },
+      {
+        format: 'xlsx',
+        writer: 'exceljs',
+        language: 'ar',
+        style: 'dot',
+        order: [2, 0, 1, 3, 4, 5, 6, 7, 8, 9],
+      },
+    ],
+    [
+      {
+        format: 'xlsx',
+        writer: 'ooxml-zip',
+        language: 'en',
+        style: 'dot',
+        order: [4, 3, 2, 1, 0, 5, 6, 7, 8, 9],
+      },
+      { format: 'pdf', language: 'en', style: 'dot', pageRows: 4 },
+    ],
+    [
+      {
+        format: 'csv',
+        writer: 'csv-delimited',
+        delimiter: ';',
+        language: 'ar',
+        style: 'dot',
+      },
+      { format: 'xlsx', writer: 'exceljs', language: 'en', style: 'dot' },
+    ],
+  ],
+};
+// Templates whose fields a PDF can carry (the PDF writer has five fixed columns).
+// The PDF writer is ASCII only: it writes Arabic as "?" and Arabic-Indic
+// digits as Latin ones. 1.1.1 keeps N01 and every Arabic-text variant out of
+// PDF, so no oracle claims what the document cannot show (in 1.1.0 the
+// Arabic tax-invoice label reached a PDF as "?????? ??????").
+const PDF_SAFE = /^(T01|T05|T06|R04|R06|R10|N04|N05|R05|N08)/;
+const PDF_UNSAFE_VARIANT = /arabic/;
+// Splits separate templates and variants, not only seeds.
+const SPLIT_TEMPLATES = {
+  development: (t) =>
+    !t.startsWith('C0') &&
+    !t.startsWith('H') &&
+    !['G09-equal-parts', 'R06-lookalike', 'N07-ambiguous-date'].includes(t),
+  validation: (t) => !t.startsWith('C0') && !t.startsWith('H'),
+  final: (t) => !t.startsWith('H'),
+  // Held out (1.3.0): every template, the held-out interactions included,
+  // under layouts no other split uses. Measured once, after the fixes.
+  holdout: () => true,
+};
+LAYOUTS.holdout = [
+  [
+    {
+      format: 'xlsx',
+      writer: 'ooxml-zip',
+      language: 'ar',
+      style: 'dot',
+      order: [3, 1, 0, 2, 5, 4, 6, 7, 8, 9],
+    },
+    {
+      format: 'csv',
+      writer: 'csv-quoted',
+      language: 'en',
+      style: 'dot',
+      order: [1, 3, 0, 2, 4, 5, 6, 7, 8, 9],
+    },
+  ],
+  [
+    {
+      format: 'csv',
+      writer: 'csv-delimited',
+      delimiter: ';',
+      language: 'en',
+      style: 'dot',
+      order: [2, 3, 1, 0, 4, 5, 6, 7, 8, 9],
+    },
+    { format: 'xlsx', writer: 'exceljs', language: 'ar', style: 'dot' },
+  ],
+  [
+    {
+      format: 'xlsx',
+      writer: 'exceljs',
+      language: 'en',
+      style: 'dot',
+      order: [0, 4, 3, 2, 1, 5, 6, 7, 8, 9],
+    },
+    { format: 'csv', writer: 'csv-records', language: 'ar', style: 'dot' },
+  ],
+];
+// A second final set, drawn after the first was opened to diagnose failures
+// (an opened final set counts as development). Same layouts and templates,
+// unseen seeds.
+LAYOUTS['final-b'] = LAYOUTS.final;
+SPLIT_TEMPLATES['final-b'] = SPLIT_TEMPLATES.final;
+
+export function hardManifest(split, count, { fileRuns = false } = {}) {
+  const templates = Object.entries(TEMPLATES).filter(([t]) =>
+    SPLIT_TEMPLATES[split](t),
+  );
+  const combos = templates.flatMap(([template, variants]) =>
+    variants.map((variant) => ({ template, variant })),
+  );
+  const layouts = LAYOUTS[split];
+  const base = {
+    development: 1,
+    validation: 200000,
+    final: 400000,
+    'final-b': 600000,
+    holdout: 800000,
+  }[split];
+  const out = [];
+  for (let i = 0; out.length < count; i++) {
+    const combo = combos[i % combos.length];
+    let pair = layouts[Math.floor(i / combos.length) % layouts.length];
+    if (
+      pair.some((l) => l.format === 'pdf') &&
+      (!PDF_SAFE.test(combo.template) || PDF_UNSAFE_VARIANT.test(combo.variant))
+    )
+      pair = layouts.find((p) => !p.some((l) => l.format === 'pdf')) ?? pair;
+    out.push({
+      id: `HC-${{ 'final-b': 'FNB', holdout: 'HLD' }[split] ?? split.slice(0, 3).toUpperCase()}-${pad(i + 1, 5)}`,
+      split,
+      index: base + i,
+      seed: (base + i) * 2654435761,
+      ...combo,
+      layouts: pair,
+      mode: fileRuns ? 'file' : 'logical',
+    });
+  }
+  return out;
+}

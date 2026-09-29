@@ -1,0 +1,702 @@
+
+## work/hard/m/base-development-logical (development, logical, engine work/base-888415f, p50 2ms p95 6ms)
+overall   10560/12000 pass · approved 1680/2880 · controls 22080/24000 · FA 240 · WM 0 · mis 0 · lost 0 · evLost 11760 · crashes 0 · confirmations 2880
+F01-column-order                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   480/480 pass · approved 0/0 · controls 960/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               240/240 pass · approved 0/0 · controls 0/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      240/240 pass · approved 0/0 · controls 0/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   720/720 pass · approved 240/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 2160
+G02-payment-n1                   720/720 pass · approved 240/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 2160
+G03-payment-nm                   240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 1200
+G04-sum-no-identity              240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 720
+G07-extra-member                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 1200
+G08-two-dates                    480/720 pass · approved 0/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 2160 · fail-missed:240
+G10-excluded-member              240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 720
+G11-invoice-lines                720/720 pass · approved 240/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             480/480 pass · approved 0/0 · controls 480/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    480/480 pass · approved 0/0 · controls 960/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 240/240 pass · approved 0/0 · controls 0/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/480 pass · approved 0/240 · controls 960/960 · FA 240 · WM 0 · mis 0 · lost 0 · evLost 960 · fail-missed:240 fail-unsafe:240
+R02-batch-kept                   240/240 pass · approved 240/240 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 480
+R03-reference-types              480/480 pass · approved 240/240 · controls 960/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 240/240 pass · approved 240/240 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                720/1440 pass · approved 240/960 · controls 2880/2880 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:720
+T05-unknown-code                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-development-logical (development, logical, engine work/after-89da93d, p50 2ms p95 6ms)
+overall   12000/12000 pass · approved 2880/2880 · controls 22080/24000 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 2880
+F01-column-order                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   480/480 pass · approved 0/0 · controls 960/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               240/240 pass · approved 0/0 · controls 0/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      240/240 pass · approved 0/0 · controls 0/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   720/720 pass · approved 240/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   720/720 pass · approved 240/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    720/720 pass · approved 240/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                720/720 pass · approved 240/240 · controls 1440/1440 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             480/480 pass · approved 0/0 · controls 480/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    480/480 pass · approved 0/0 · controls 960/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 240/240 pass · approved 0/0 · controls 0/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        480/480 pass · approved 240/240 · controls 960/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   240/240 pass · approved 240/240 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              480/480 pass · approved 240/240 · controls 960/960 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 240/240 pass · approved 240/240 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                1440/1440 pass · approved 960/960 · controls 2880/2880 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             240/240 pass · approved 0/0 · controls 480/480 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-validation-logical (validation, logical, engine work/base-888415f, p50 2ms p95 7ms)
+overall   3571/4000 pass · approved 574/931 · controls 7290/8000 · FA 72 · WM 0 · mis 0 · lost 0 · evLost 4104 · crashes 0 · confirmations 857
+F01-column-order                 71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   142/142 pass · approved 0/0 · controls 284/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               71/71 pass · approved 0/0 · controls 0/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      71/71 pass · approved 0/0 · controls 0/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   216/216 pass · approved 72/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 648
+G02-payment-n1                   216/216 pass · approved 72/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 648
+G03-payment-nm                   72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 360
+G04-sum-no-identity              72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 216
+G07-extra-member                 72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 360
+G08-two-dates                    144/216 pass · approved 0/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 648 · fail-missed:72
+G09-equal-parts                  144/144 pass · approved 72/72 · controls 288/288 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 576
+G10-excluded-member              72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 216
+G11-invoice-lines                216/216 pass · approved 72/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             142/142 pass · approved 0/0 · controls 142/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    142/142 pass · approved 0/0 · controls 284/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               142/142 pass · approved 0/0 · controls 142/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 71/71 pass · approved 0/0 · controls 0/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/144 pass · approved 0/72 · controls 288/288 · FA 72 · WM 0 · mis 0 · lost 0 · evLost 288 · fail-missed:72 fail-unsafe:72
+R02-batch-kept                   72/72 pass · approved 72/72 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 144
+R03-reference-types              143/143 pass · approved 72/72 · controls 286/286 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 71/71 pass · approved 71/71 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    142/142 pass · approved 0/0 · controls 284/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                213/426 pass · approved 71/284 · controls 852/852 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:213
+T05-unknown-code                 71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-validation-logical (validation, logical, engine work/after-89da93d, p50 2ms p95 7ms)
+overall   4000/4000 pass · approved 931/931 · controls 7290/8000 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 857
+F01-column-order                 71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   142/142 pass · approved 0/0 · controls 284/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               71/71 pass · approved 0/0 · controls 0/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      71/71 pass · approved 0/0 · controls 0/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   216/216 pass · approved 72/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   216/216 pass · approved 72/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    216/216 pass · approved 72/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G09-equal-parts                  144/144 pass · approved 72/72 · controls 288/288 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              72/72 pass · approved 0/0 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                216/216 pass · approved 72/72 · controls 432/432 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             142/142 pass · approved 0/0 · controls 142/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    142/142 pass · approved 0/0 · controls 284/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               142/142 pass · approved 0/0 · controls 142/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 71/71 pass · approved 0/0 · controls 0/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        144/144 pass · approved 72/72 · controls 288/288 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   72/72 pass · approved 72/72 · controls 144/144 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              143/143 pass · approved 72/72 · controls 286/286 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 71/71 pass · approved 71/71 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    142/142 pass · approved 0/0 · controls 284/284 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                426/426 pass · approved 284/284 · controls 852/852 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             71/71 pass · approved 0/0 · controls 142/142 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-final-logical (final, logical, engine work/base-888415f, p50 2ms p95 6ms)
+overall   3391/4000 pass · approved 611/1152 · controls 7326/8000 · FA 68 · WM 0 · mis 0 · lost 0 · evLost 4546 · crashes 0 · confirmations 881
+C01-group-with-type-synonym      0/67 pass · approved 0/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:67
+C02-two-dates-repeated-headers   0/67 pass · approved 0/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 268 · fail-missed:67
+C03-voucher-with-group           0/67 pass · approved 67/134 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 402 · fail-missed:67
+F01-column-order                 67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   134/134 pass · approved 0/0 · controls 268/268 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 612
+G02-payment-n1                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 612
+G03-payment-nm                   68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 340
+G04-sum-no-identity              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 204
+G07-extra-member                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 340
+G08-two-dates                    136/204 pass · approved 0/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 612 · fail-missed:68
+G09-equal-parts                  136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 544
+G10-excluded-member              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 204
+G11-invoice-lines                204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             136/136 pass · approved 0/0 · controls 136/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               135/135 pass · approved 0/0 · controls 134/270 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/136 pass · approved 0/68 · controls 272/272 · FA 68 · WM 0 · mis 0 · lost 0 · evLost 272 · fail-missed:68 fail-unsafe:68
+R02-batch-kept                   68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 136
+R03-reference-types              136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                204/408 pass · approved 68/272 · controls 816/816 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:204
+T05-unknown-code                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-final-logical (final, logical, engine work/after-89da93d, p50 2ms p95 6ms)
+overall   4000/4000 pass · approved 1152/1152 · controls 7326/8000 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 881
+C01-group-with-type-synonym      67/67 pass · approved 67/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C02-two-dates-repeated-headers   67/67 pass · approved 67/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C03-voucher-with-group           67/67 pass · approved 134/134 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F01-column-order                 67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   134/134 pass · approved 0/0 · controls 268/268 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G09-equal-parts                  136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             136/136 pass · approved 0/0 · controls 136/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               135/135 pass · approved 0/0 · controls 134/270 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                408/408 pass · approved 272/272 · controls 816/816 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-final-b-logical (final-b, logical, engine work/base-888415f, p50 2ms p95 7ms)
+overall   3391/4000 pass · approved 611/1152 · controls 7326/8000 · FA 68 · WM 0 · mis 0 · lost 0 · evLost 4546 · crashes 0 · confirmations 881
+C01-group-with-type-synonym      0/67 pass · approved 0/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:67
+C02-two-dates-repeated-headers   0/67 pass · approved 0/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 268 · fail-missed:67
+C03-voucher-with-group           0/67 pass · approved 67/134 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 402 · fail-missed:67
+F01-column-order                 67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   134/134 pass · approved 0/0 · controls 268/268 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 612
+G02-payment-n1                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 612
+G03-payment-nm                   68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 340
+G04-sum-no-identity              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 204
+G07-extra-member                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 340
+G08-two-dates                    136/204 pass · approved 0/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 612 · fail-missed:68
+G09-equal-parts                  136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 544
+G10-excluded-member              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 204
+G11-invoice-lines                204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             136/136 pass · approved 0/0 · controls 136/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               135/135 pass · approved 0/0 · controls 134/270 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/136 pass · approved 0/68 · controls 272/272 · FA 68 · WM 0 · mis 0 · lost 0 · evLost 272 · fail-missed:68 fail-unsafe:68
+R02-batch-kept                   68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 136
+R03-reference-types              136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                204/408 pass · approved 68/272 · controls 816/816 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:204
+T05-unknown-code                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-final-b-logical (final-b, logical, engine work/after-89da93d, p50 2ms p95 7ms)
+overall   4000/4000 pass · approved 1152/1152 · controls 7326/8000 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 881
+C01-group-with-type-synonym      67/67 pass · approved 67/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C02-two-dates-repeated-headers   67/67 pass · approved 67/67 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C03-voucher-with-group           67/67 pass · approved 134/134 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F01-column-order                 67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  67/67 pass · approved 0/0 · controls 134/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   134/134 pass · approved 0/0 · controls 268/268 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G09-equal-parts                  136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                204/204 pass · approved 68/68 · controls 408/408 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             136/136 pass · approved 0/0 · controls 136/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               135/135 pass · approved 0/0 · controls 134/270 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 67/67 pass · approved 0/0 · controls 0/134 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              136/136 pass · approved 68/68 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 68/68 pass · approved 68/68 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    136/136 pass · approved 0/0 · controls 272/272 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                408/408 pass · approved 272/272 · controls 816/816 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             68/68 pass · approved 0/0 · controls 136/136 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-development-file (development, file, engine work/base-888415f, p50 14ms p95 43ms)
+overall   704/800 pass · approved 112/192 · controls 1472/1600 · FA 16 · WM 0 · mis 0 · lost 0 · evLost 784 · crashes 0 · confirmations 170
+F01-column-order                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   32/32 pass · approved 0/0 · controls 64/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               16/16 pass · approved 0/0 · controls 0/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      16/16 pass · approved 0/0 · controls 0/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   48/48 pass · approved 16/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 144
+G02-payment-n1                   48/48 pass · approved 16/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 144
+G03-payment-nm                   16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 80
+G04-sum-no-identity              16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 48
+G07-extra-member                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 80
+G08-two-dates                    32/48 pass · approved 0/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 144 · fail-missed:16
+G10-excluded-member              16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 48
+G11-invoice-lines                48/48 pass · approved 16/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             32/32 pass · approved 0/0 · controls 32/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    32/32 pass · approved 0/0 · controls 64/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 16/16 pass · approved 0/0 · controls 0/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/32 pass · approved 0/16 · controls 64/64 · FA 16 · WM 0 · mis 0 · lost 0 · evLost 64 · fail-missed:16 fail-unsafe:16
+R02-batch-kept                   16/16 pass · approved 16/16 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 32
+R03-reference-types              32/32 pass · approved 16/16 · controls 64/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 16/16 pass · approved 16/16 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                48/96 pass · approved 16/64 · controls 192/192 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:48
+T05-unknown-code                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-development-file (development, file, engine work/after-89da93d, p50 15ms p95 41ms)
+overall   800/800 pass · approved 192/192 · controls 1472/1600 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 170
+F01-column-order                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   32/32 pass · approved 0/0 · controls 64/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               16/16 pass · approved 0/0 · controls 0/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      16/16 pass · approved 0/0 · controls 0/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   48/48 pass · approved 16/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   48/48 pass · approved 16/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    48/48 pass · approved 16/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                48/48 pass · approved 16/16 · controls 96/96 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             32/32 pass · approved 0/0 · controls 32/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    32/32 pass · approved 0/0 · controls 64/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 16/16 pass · approved 0/0 · controls 0/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        32/32 pass · approved 16/16 · controls 64/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   16/16 pass · approved 16/16 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              32/32 pass · approved 16/16 · controls 64/64 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 16/16 pass · approved 16/16 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                96/96 pass · approved 64/64 · controls 192/192 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             16/16 pass · approved 0/0 · controls 32/32 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-validation-file (validation, file, engine work/base-888415f, p50 13ms p95 32ms)
+overall   715/800 pass · approved 115/186 · controls 1460/1600 · FA 14 · WM 0 · mis 0 · lost 0 · evLost 846 · crashes 0 · confirmations 170
+F01-column-order                 14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   28/28 pass · approved 0/0 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               14/14 pass · approved 0/0 · controls 0/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      14/14 pass · approved 0/0 · controls 0/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   45/45 pass · approved 15/15 · controls 90/90 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 135
+G02-payment-n1                   45/45 pass · approved 15/15 · controls 90/90 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 135
+G03-payment-nm                   15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 75
+G04-sum-no-identity              15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 45
+G07-extra-member                 15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 75
+G08-two-dates                    30/45 pass · approved 0/15 · controls 90/90 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 135 · fail-missed:15
+G09-equal-parts                  30/30 pass · approved 15/15 · controls 60/60 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 120
+G10-excluded-member              14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 42
+G11-invoice-lines                42/42 pass · approved 14/14 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             28/28 pass · approved 0/0 · controls 28/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    28/28 pass · approved 0/0 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               28/28 pass · approved 0/0 · controls 28/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 14/14 pass · approved 0/0 · controls 0/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/28 pass · approved 0/14 · controls 56/56 · FA 14 · WM 0 · mis 0 · lost 0 · evLost 56 · fail-missed:14 fail-unsafe:14
+R02-batch-kept                   14/14 pass · approved 14/14 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 28
+R03-reference-types              28/28 pass · approved 14/14 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 14/14 pass · approved 14/14 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    28/28 pass · approved 0/0 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                42/84 pass · approved 14/56 · controls 168/168 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:42
+T05-unknown-code                 14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-validation-file (validation, file, engine work/after-89da93d, p50 12ms p95 33ms)
+overall   800/800 pass · approved 186/186 · controls 1460/1600 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 170
+F01-column-order                 14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   28/28 pass · approved 0/0 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               14/14 pass · approved 0/0 · controls 0/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      14/14 pass · approved 0/0 · controls 0/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   45/45 pass · approved 15/15 · controls 90/90 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   45/45 pass · approved 15/15 · controls 90/90 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 15/15 pass · approved 0/0 · controls 30/30 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    45/45 pass · approved 15/15 · controls 90/90 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G09-equal-parts                  30/30 pass · approved 15/15 · controls 60/60 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                42/42 pass · approved 14/14 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             28/28 pass · approved 0/0 · controls 28/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    28/28 pass · approved 0/0 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               28/28 pass · approved 0/0 · controls 28/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 14/14 pass · approved 0/0 · controls 0/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        28/28 pass · approved 14/14 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   14/14 pass · approved 14/14 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              28/28 pass · approved 14/14 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 14/14 pass · approved 14/14 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    28/28 pass · approved 0/0 · controls 56/56 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                84/84 pass · approved 56/56 · controls 168/168 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-final-file (final, file, engine work/base-888415f, p50 18ms p95 51ms)
+overall   340/400 pass · approved 62/115 · controls 738/800 · FA 7 · WM 0 · mis 0 · lost 0 · evLost 459 · crashes 0 · confirmations 165
+C01-group-with-type-synonym      0/6 pass · approved 0/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:6
+C02-two-dates-repeated-headers   0/6 pass · approved 0/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 24 · fail-missed:6
+C03-voucher-with-group           0/6 pass · approved 6/12 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 36 · fail-missed:6
+F01-column-order                 6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   12/12 pass · approved 0/0 · controls 24/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63
+G02-payment-n1                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63
+G03-payment-nm                   7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 35
+G04-sum-no-identity              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 21
+G07-extra-member                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 35
+G08-two-dates                    14/21 pass · approved 0/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63 · fail-missed:7
+G09-equal-parts                  14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 56
+G10-excluded-member              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 21
+G11-invoice-lines                21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             14/14 pass · approved 0/0 · controls 14/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               12/12 pass · approved 0/0 · controls 12/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/14 pass · approved 0/7 · controls 28/28 · FA 7 · WM 0 · mis 0 · lost 0 · evLost 28 · fail-missed:7 fail-unsafe:7
+R02-batch-kept                   7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 14
+R03-reference-types              14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                21/42 pass · approved 7/28 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:21
+T05-unknown-code                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-final-file (final, file, engine work/after-89da93d, p50 18ms p95 50ms)
+overall   395/400 pass · approved 110/115 · controls 738/800 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 165
+C01-group-with-type-synonym      6/6 pass · approved 6/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C02-two-dates-repeated-headers   6/6 pass · approved 6/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C03-voucher-with-group           6/6 pass · approved 12/12 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F01-column-order                 6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   12/12 pass · approved 0/0 · controls 24/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G09-equal-parts                  14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             14/14 pass · approved 0/0 · controls 14/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               12/12 pass · approved 0/0 · controls 12/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                37/42 pass · approved 23/28 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:5
+T05-unknown-code                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-final-b-file-111 (final-b, file, engine work/base-888415f, p50 23ms p95 59ms)
+overall   340/400 pass · approved 62/115 · controls 738/800 · FA 7 · WM 0 · mis 0 · lost 0 · evLost 459 · crashes 0 · confirmations 155
+C01-group-with-type-synonym      0/6 pass · approved 0/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:6
+C02-two-dates-repeated-headers   0/6 pass · approved 0/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 24 · fail-missed:6
+C03-voucher-with-group           0/6 pass · approved 6/12 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 36 · fail-missed:6
+F01-column-order                 6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   12/12 pass · approved 0/0 · controls 24/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63
+G02-payment-n1                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63
+G03-payment-nm                   7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 35
+G04-sum-no-identity              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 21
+G07-extra-member                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 35
+G08-two-dates                    14/21 pass · approved 0/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63 · fail-missed:7
+G09-equal-parts                  14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 56
+G10-excluded-member              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 21
+G11-invoice-lines                21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             14/14 pass · approved 0/0 · controls 14/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               12/12 pass · approved 0/0 · controls 12/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/14 pass · approved 0/7 · controls 28/28 · FA 7 · WM 0 · mis 0 · lost 0 · evLost 28 · fail-missed:7 fail-unsafe:7
+R02-batch-kept                   7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 14
+R03-reference-types              14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                21/42 pass · approved 7/28 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:21
+T05-unknown-code                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-final-b-file-111 (final-b, file, engine work/after-89da93d, p50 21ms p95 57ms)
+overall   400/400 pass · approved 115/115 · controls 738/800 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 155
+C01-group-with-type-synonym      6/6 pass · approved 6/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C02-two-dates-repeated-headers   6/6 pass · approved 6/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C03-voucher-with-group           6/6 pass · approved 12/12 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F01-column-order                 6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   12/12 pass · approved 0/0 · controls 24/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G09-equal-parts                  14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             14/14 pass · approved 0/0 · controls 14/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               12/12 pass · approved 0/0 · controls 12/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                42/42 pass · approved 28/28 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/base-final-b-file (final-b, file, engine work/base-888415f, p50 19ms p95 69ms)
+overall   340/400 pass · approved 62/115 · controls 738/800 · FA 7 · WM 0 · mis 0 · lost 0 · evLost 459 · crashes 0 · confirmations 155
+C01-group-with-type-synonym      0/6 pass · approved 0/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:6
+C02-two-dates-repeated-headers   0/6 pass · approved 0/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 24 · fail-missed:6
+C03-voucher-with-group           0/6 pass · approved 6/12 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 36 · fail-missed:6
+F01-column-order                 6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   12/12 pass · approved 0/0 · controls 24/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63
+G02-payment-n1                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63
+G03-payment-nm                   7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 35
+G04-sum-no-identity              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 21
+G07-extra-member                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 35
+G08-two-dates                    14/21 pass · approved 0/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 63 · fail-missed:7
+G09-equal-parts                  14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 56
+G10-excluded-member              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 21
+G11-invoice-lines                21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             14/14 pass · approved 0/0 · controls 14/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               12/12 pass · approved 0/0 · controls 12/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        0/14 pass · approved 0/7 · controls 28/28 · FA 7 · WM 0 · mis 0 · lost 0 · evLost 28 · fail-missed:7 fail-unsafe:7
+R02-batch-kept                   7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 14
+R03-reference-types              14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                21/42 pass · approved 7/28 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · fail-missed:21
+T05-unknown-code                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+
+## work/hard/m/after-final-b-file (final-b, file, engine work/after-89da93d, p50 18ms p95 52ms)
+overall   400/400 pass · approved 115/115 · controls 738/800 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0 · crashes 0 · confirmations 155
+C01-group-with-type-synonym      6/6 pass · approved 6/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C02-two-dates-repeated-headers   6/6 pass · approved 6/6 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+C03-voucher-with-group           6/6 pass · approved 12/12 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F01-column-order                 6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F03-structure-rows               6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F06-extra-sheet                  6/6 pass · approved 0/0 · controls 12/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F07-delimiters                   12/12 pass · approved 0/0 · controls 24/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F09-missing-amount               6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+F10-corrupt                      6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G01-payment-1n                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G02-payment-n1                   21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G03-payment-nm                   7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G04-sum-no-identity              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G05-competing-sums               7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G06-missing-part                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G07-extra-member                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G08-two-dates                    21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G09-equal-parts                  14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G10-excluded-member              7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+G11-invoice-lines                21/21 pass · approved 7/7 · controls 42/42 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N01-arabic-digits                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N02-ambiguous-number             14/14 pass · approved 0/0 · controls 14/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N04-parentheses                  7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N05-precision                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N07-ambiguous-date               12/12 pass · approved 0/0 · controls 12/24 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+N08-invalid-date                 6/6 pass · approved 0/0 · controls 0/12 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R01-voucher-and-reference        14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R02-batch-kept                   7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R03-reference-types              14/14 pass · approved 7/7 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R04-leading-zeros                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R05-long-numeric                 7/7 pass · approved 7/7 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R06-lookalike                    14/14 pass · approved 0/0 · controls 28/28 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R07-reference-in-text            7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+R10-placeholders                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T01-type-synonyms                42/42 pass · approved 28/28 · controls 84/84 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T05-unknown-code                 7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T06-type-conflict                7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0
+T08-description-only             7/7 pass · approved 0/0 · controls 14/14 · FA 0 · WM 0 · mis 0 · lost 0 · evLost 0

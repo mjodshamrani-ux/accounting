@@ -16,9 +16,10 @@ import type {
   AuditEvent,
   Mapping,
 } from './types.ts';
-import { compare, normalizeSource } from './core.ts';
+import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
+// Kept for existing importers; the proof itself lives with the source boundary.
+export { verifyDirectionEvidence } from './source-preparation.ts';
 import { addCaseWorksheets, parsedSourceLink } from './case-workbook.ts';
-import { inferStatementDirection } from './statement-direction.ts';
 // Admit only formats whose visible numeric meaning is understood. Native values
 // stay exact; unsupported display semantics require source review, never guessing.
 function transparentNumericFormat(format: string, value: number): boolean {
@@ -518,31 +519,6 @@ export async function readFile(
   if (!sheets.length) throw new Error('الملف لا يحتوي أوراقًا');
   return { name, sheets, original: buffer.slice(0), sha256 };
 }
-export function verifyDirectionEvidence(
-  file: SourceFile,
-  mapping: Mapping,
-  decimals: number,
-): Mapping {
-  if (!mapping || typeof mapping !== 'object' || Array.isArray(mapping))
-    throw new Error('إعدادات قراءة المصدر غير صالحة');
-  if (mapping.directionEvidence === undefined) return mapping;
-  const claimed = mapping.directionEvidence;
-  const proven = inferStatementDirection(file, mapping, decimals);
-  if (
-    !claimed ||
-    typeof claimed !== 'object' ||
-    Array.isArray(claimed) ||
-    !proven ||
-    claimed.multiplier !== proven.multiplier ||
-    mapping.multiplier !== proven.multiplier ||
-    claimed.balanceColumn !== proven.balanceColumn ||
-    claimed.checkedRows !== proven.checkedRows
-  )
-    throw new Error(
-      'دليل اتجاه المدين والدائن لا يطابق المصدر. أعد التحقق من اتجاه المبالغ.',
-    );
-  return { ...mapping, directionEvidence: proven };
-}
 export async function exportWorkbook(
   result: Comparison,
   files: [SourceFile, SourceFile],
@@ -572,51 +548,30 @@ export async function exportWorkbook(
     if (files[i].sha256 !== verifiedFiles[i].sha256)
       throw new Error('بصمة الملف لا تطابق الأصل');
   measured('exportOriginalReadMs');
-  // Re-prove annotations from the original source; never export a stale claim
-  // or treat caller-provided explanation text as verified accounting evidence.
-  result = {
-    ...result,
-    supplier: {
-      ...result.supplier,
-      mapping: verifyDirectionEvidence(
-        verifiedFiles[0],
-        result.supplier.mapping,
-        result.scope.decimals,
-      ),
-    },
-    ledger: {
-      ...result.ledger,
-      mapping: verifyDirectionEvidence(
-        verifiedFiles[1],
-        result.ledger.mapping,
-        result.scope.decimals,
-      ),
-    },
-  };
-  const recomputed = compare(
-    normalizeSource(
-      verifiedFiles[0],
-      result.supplier.mapping,
-      result.scope,
-      'supplier',
-    ),
-    normalizeSource(
-      verifiedFiles[1],
-      result.ledger.mapping,
-      result.scope,
-      'ledger',
-    ),
-    result.scope,
-    result.matches
+  // Recompute from the original sources through the shared source boundary:
+  // formats, then direction claims re-proved from the source, then the
+  // matching. Manual decisions come from the result itself.
+  const recomputed = reconcileSupplierStatement({
+    files: [verifiedFiles[0], verifiedFiles[1]],
+    mappings: [result.supplier.mapping, result.ledger.mapping],
+    scope: result.scope,
+    decisions: result.matches
       .filter((m) => m.kind === 'manual')
       .map((m) => ({
         supplierId: m.supplierId,
         ledgerId: m.ledgerId,
         note: m.note ?? '',
       })),
-    result.rejectedPairs,
-  );
-  if (JSON.stringify(recomputed) !== JSON.stringify(result))
+    rejected: result.rejectedPairs,
+  });
+  // Never export a stale claim or treat caller-provided explanation text as
+  // verified accounting evidence: the proven readings replace the caller's.
+  result = {
+    ...result,
+    supplier: { ...result.supplier, mapping: recomputed.mappings[0] },
+    ledger: { ...result.ledger, mapping: recomputed.mappings[1] },
+  };
+  if (JSON.stringify(recomputed.result) !== JSON.stringify(result))
     throw new Error(
       'النتيجة لا تطابق إعادة الحساب من المصدر. أعد المقارنة قبل التصدير.',
     );
@@ -718,6 +673,7 @@ export async function exportWorkbook(
       'Source Link',
       'Reviewer Decision',
       'Reviewer Reason',
+      'Retained Evidence',
     ],
     result.cases.flatMap((c) =>
       [...c.supplierMembers, ...c.ledgerMembers].map((t) => [
@@ -743,6 +699,9 @@ export async function exportWorkbook(
         parsedSourceLink(t),
         c.reviewerDecision ?? '',
         c.reviewerReason ?? '',
+        (t.retainedEvidence ?? [])
+          .map((e) => `${e.field} (${e.header}): ${e.value}`)
+          .join(' | '),
       ]),
     ),
   );

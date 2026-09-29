@@ -20,6 +20,7 @@ import type {
   Scope,
   SourceFile,
 } from '../lib/reconciliation/types.ts';
+import { separateBytes } from './helpers/separate-export.ts';
 
 // Acceptance condition for this candidate, both directions. An unanswered
 // ambiguity must not reach an accepted result through ANY entry path, and the
@@ -144,7 +145,7 @@ test('047 the answered ambiguity is accepted and produces the chosen values', ()
 
 test('047 the worker refuses an unanswered ambiguity on reconcile, compare and export, and completes once answered', async () => {
   const supplierFile = await readFile('supplier.csv', csv());
-  const ledgerFile = await readFile('ledger.csv', csv());
+  const ledgerFile = await readFile('ledger.csv', separateBytes(csv()));
   const files = [supplierFile, ledgerFile];
   const bare = files.map((f) => inferMapping(f)) as [Mapping, Mapping];
   const chosen = files.map((f, i) => answered(f, bare[i], 'dot')) as [
@@ -233,7 +234,7 @@ test('047 the worker refuses an unanswered ambiguity on reconcile, compare and e
 
 test('047 session restore refuses an unanswered ambiguity with the same code', async () => {
   const supplierFile = await readFile('supplier.csv', csv());
-  const ledgerFile = await readFile('ledger.csv', csv());
+  const ledgerFile = await readFile('ledger.csv', separateBytes(csv()));
   const bare = [inferMapping(supplierFile), inferMapping(ledgerFile)] as [
     Mapping,
     Mapping,

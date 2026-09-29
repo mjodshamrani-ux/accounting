@@ -1,0 +1,1424 @@
+{
+  "schema": "independent-reference-contract/v1",
+  "purpose": "Fresh synthetic release check of competing reference columns; not field evidence or general accuracy measurement.",
+  "engineBasisForHarness": "Public API shapes from commit 9fbe481 only; no H03 fix code inspected.",
+  "oracle": "Contracts authored from literal visible cells and explicit selected Reference mapping before candidate execution. No expected value is computed by the engine or existing evaluator.",
+  "scope": {
+    "supplier": "Synthetic independent fixture",
+    "entity": "Synthetic test entity",
+    "account": "SYNTH-049",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-09-30",
+    "dateWindow": 3,
+    "confirmed": true,
+    "coverageConfirmed": false
+  },
+  "cases": [
+    {
+      "id": "IR01",
+      "title": "A common document number cannot erase different chosen references",
+      "rationale": "Document No, amount and date agree; the explicitly selected Reference cells disagree. No positive relationship is justified.",
+      "supplier": {
+        "file": "fixtures/IR01-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-821",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR01-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-822",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR02",
+      "title": "True reference survives different local voucher numbers",
+      "rationale": "The document and selected reference agree; AP Voucher is local bookkeeping identity and differs between exports.",
+      "supplier": {
+        "file": "fixtures/IR02-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-901",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR02-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-901",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR03",
+      "title": "Equal amounts and shared document require cross-order reference pairing",
+      "rationale": "Two distinct chosen references are visible on both sides; rows are reordered and all amounts/date/document cells agree. Each unique reference must match its counterpart.",
+      "supplier": {
+        "file": "fixtures/IR03-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-031",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-032",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR03-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-032",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-031",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR04",
+      "title": "Duplicate indistinguishable references do not justify arbitrary pairs",
+      "rationale": "Both sides repeat the same complete identity and amount. No field distinguishes the individual rows; do not arbitrarily auto-pair or hide duplicates inside an auto-group.",
+      "supplier": {
+        "file": "fixtures/IR04-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-DUP",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-DUP",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR04-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-DUP",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-DUP",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR05",
+      "title": "One row competing with duplicate ledger rows stays unresolved",
+      "rationale": "Either duplicate ledger row could be the counterpart; the visible fields do not pick one.",
+      "supplier": {
+        "file": "fixtures/IR05-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-D51",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR05-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-D51",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-D51",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR06",
+      "title": "Two unique references with equal amounts both match",
+      "rationale": "Distinct document/reference pairs are unique; equality of the amounts does not create ambiguity when identity is clear.",
+      "supplier": {
+        "file": "fixtures/IR06-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-U61",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-U62",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR06-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-U61",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-U62",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR07",
+      "title": "Arabic headings preserve a conflicting selected reference",
+      "rationale": "Explicitly selected المرجع differs despite a shared رقم المستند and equal amount.",
+      "supplier": {
+        "file": "fixtures/IR07-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "مرجع-071",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR07-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "مرجع-072",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR08",
+      "title": "Arabic headings preserve a positive match across voucher changes",
+      "rationale": "The Arabic selected-reference and document cells agree; the local voucher differs.",
+      "supplier": {
+        "file": "fixtures/IR08-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "مرجع-081",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR08-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "مرجع-081",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR09",
+      "title": "Bilingual reordered columns retain the same positive identity",
+      "rationale": "Mapping points to the same visible identity despite an Arabic supplier layout and differently ordered English ledger layout.",
+      "supplier": {
+        "file": "fixtures/IR09-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-091",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR09-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 3,
+          "reference": 2,
+          "description": 5,
+          "amount": 0,
+          "currencyColumn": 4,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-091",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR10",
+      "title": "Leading zeros in equal references survive reading",
+      "rationale": "Both selected references are exactly 000731; they must retain that text and match.",
+      "supplier": {
+        "file": "fixtures/IR10-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "000731",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR10-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "000731",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR11",
+      "title": "Leading zeros distinguish conflicting visible references",
+      "rationale": "The selected references are different text identities; no source rule permits erasing the leading zeros. A shared Document No does not prove equality.",
+      "supplier": {
+        "file": "fixtures/IR11-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "000731",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR11-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "731",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR12",
+      "title": "Reordered columns do not suppress reference conflict",
+      "rationale": "The selected Reference remains contradictory when it occurs before Document No.",
+      "supplier": {
+        "file": "fixtures/IR12-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 5,
+          "reference": 1,
+          "description": 0,
+          "amount": 4,
+          "currencyColumn": 2,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-121",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR12-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 5,
+          "reference": 1,
+          "description": 0,
+          "amount": 4,
+          "currencyColumn": 2,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-122",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR13",
+      "title": "Reordered columns preserve a positive unique reference",
+      "rationale": "The same identity is explicit even when Reference precedes Document No.",
+      "supplier": {
+        "file": "fixtures/IR13-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 5,
+          "reference": 1,
+          "description": 0,
+          "amount": 4,
+          "currencyColumn": 2,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-131",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR13-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 5,
+          "reference": 1,
+          "description": 0,
+          "amount": 4,
+          "currencyColumn": 2,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-131",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR14",
+      "title": "Identical neutral descriptions cannot overrule conflicting identities",
+      "rationale": "Equal date, amount, document and neutral description are insufficient while selected references conflict.",
+      "supplier": {
+        "file": "fixtures/IR14-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-141",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR14-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-142",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR15",
+      "title": "Different neutral descriptions do not block an exact identity",
+      "rationale": "Document and selected reference agree with equal date/amount; neutral narrative wording is not a competing identity.",
+      "supplier": {
+        "file": "fixtures/IR15-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-151",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR15-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-151",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR16",
+      "title": "A refusal case must not suppress a nearby valid match",
+      "rationale": "First pair has complete matching identity. Second pair conflicts on chosen reference. The engine must keep the positive match and withhold the contradictory pair.",
+      "supplier": {
+        "file": "fixtures/IR16-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-161",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-162",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR16-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-161",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-163",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR17",
+      "title": "A competing common-document decoy must not steal the unique positive pair",
+      "rationale": "The ledger has one exact chosen-reference counterpart and one different-reference decoy, all with same amount/date/document. Only the exact counterpart may auto-match.",
+      "supplier": {
+        "file": "fixtures/IR17-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-171",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR17-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-172",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-171",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            3
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    },
+    {
+      "id": "IR18",
+      "title": "Swapping export roles preserves the same exact reference relationships",
+      "rationale": "Shared document and amount cannot reorder identity. Local voucher prefixes do not determine which side owns a true reference.",
+      "supplier": {
+        "file": "fixtures/IR18-supplier.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-182",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-181",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "ledger": {
+        "file": "fixtures/IR18-ledger.csv",
+        "mapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": 4,
+          "amount": 5,
+          "currencyColumn": 6,
+          "debit": -1,
+          "credit": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "rows": [
+          {
+            "sourceRow": 2,
+            "chosenReference": "REF-181",
+            "amountMinor": 42700
+          },
+          {
+            "sourceRow": 3,
+            "chosenReference": "REF-182",
+            "amountMinor": 42700
+          }
+        ]
+      },
+      "expected": {
+        "exactAutoPairs": [
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "noGroupedAutoMatches": true,
+        "noInputErrors": true,
+        "everyTransactionInExactlyOneCase": true
+      }
+    }
+  ]
+}

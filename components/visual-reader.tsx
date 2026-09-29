@@ -4,12 +4,22 @@ import type {
   VisualDraft,
   VisualDraftInput,
 } from '../lib/reconciliation/visual-draft';
+import { useI18n } from '@/lib/i18n/context';
+import {
+  engineText,
+  errorText,
+  fail,
+  uiText,
+  type UiText,
+} from '@/lib/i18n/text';
 
 /** Experimental extraction view: it never writes native files, mappings or matches. */
 export function VisualReader({ candidate }: { candidate?: File | null }) {
+  const { t, say } = useI18n();
+  const v = t.visualReader;
   const [draft, setDraft] = useState<VisualDraft | null>(null);
-  const [busy, setBusy] = useState('');
-  const [error, setError] = useState('');
+  const [busy, setBusy] = useState<UiText | null>(null);
+  const [error, setError] = useState<UiText | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
   const [selected, setSelected] = useState('');
   const job = useRef<AbortController | null>(null);
@@ -27,8 +37,8 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
     job.current = controller;
     const alive = () =>
       job.current === controller && !controller.signal.aborted;
-    setBusy('نجهّز قراءة الصور على جهازك');
-    setError('');
+    setBusy(uiText((m) => m.visualReader.preparing));
+    setError(null);
     setDraft(null);
     setPageIndex(0);
     setSelected('');
@@ -41,7 +51,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
       | undefined;
     try {
       if (file.size > 8 * 1024 * 1024)
-        throw new Error('حجم الملف أكبر من 8 MB. اختر ملفًا أصغر.');
+        fail((m) => m.visualReader.tooLarge);
       const buffer = await file.arrayBuffer();
       controller.signal.throwIfAborted();
       const hash = Array.from(
@@ -79,20 +89,22 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
           page.totalPages > 5 ||
           (expectedPages && expectedPages !== page.totalPages)
         )
-          throw new Error(
-            'تعذر التحقق من ترتيب الصفحات أو عددها. جرّب ملفًا آخر لا يزيد على 5 صفحات.',
-          );
+          fail((m) => m.visualReader.pageOrder);
         expectedPages = page.totalPages;
         if (!ocr)
           ocr = await createVisualOcr({
             assetBaseUrl: new URL('.', document.baseURI).href,
             signal: controller.signal,
             onProgress: (status) => {
-              if (alive()) setBusy(status);
+              if (alive()) setBusy(engineText(status));
             },
           });
         if (alive())
-          setBusy(`نقرأ الصفحة ${page.page} من ${page.totalPages} على جهازك`);
+          setBusy(
+            uiText((m) =>
+              m.visualReader.readingPage(page.page, page.totalPages),
+            ),
+          );
         const blocks = await ocr.recognize(
           new Uint8Array(await page.png.arrayBuffer()),
         );
@@ -126,9 +138,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
           retainedWords > 20_000 ||
           retainedCharacters > 2_000_000
         )
-          throw new Error(
-            'المستند أكبر من حدود القراءة التجريبية. جرّب نسخة أصغر أو صفحات أقل.',
-          );
+          fail((m) => m.visualReader.overLimits);
         pages.push({
           ...inputPage,
           blocks: [
@@ -153,43 +163,31 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
       if (alive()) setDraft(result);
     } catch (failure) {
       if (alive())
-        setError(
-          failure instanceof Error
-            ? failure.message
-            : 'تعذرت قراءة الملف. استخدم Excel أو PDF نصيًا لإكمال التسوية.',
-        );
+        setError(errorText(failure, (m) => m.visualReader.failed));
     } finally {
       ocr?.destroy();
       if (job.current === controller) {
         job.current = null;
-        setBusy('');
+        setBusy(null);
       }
     }
   }
   function clear() {
     job.current?.abort();
     job.current = null;
-    setBusy('');
+    setBusy(null);
     setDraft(null);
-    setError('');
+    setError(null);
     setSelected('');
   }
   const page = draft?.pages[pageIndex];
   const word = page?.words.find((v) => v.id === selected);
   return (
     <details className="surface pad visual-reader" id="visual-reader">
-      <summary>مساعد قراءة الصور التجريبي</summary>
+      <summary>{v.summary}</summary>
       <div className="stack" style={{ paddingTop: 16 }}>
-        <p>
-          يستخرج كلمات عربية وإنجليزية من صور PNG وJPEG وملفات PDF المصوّرة،
-          ويعرض موضعها في الأصل. تعمل القراءة على جهازك.
-        </p>
-        <p className="hint">
-          الناتج مسودة لم نتحقق من صحتها. لا تُستخدم أرقامها في المطابقات أو ملف
-          Excel، ودرجة التعرف على الكلمة لا تعني أن الرقم صحيح محاسبيًا. لإكمال
-          التسوية استخدم Excel أو PDF نصيًا. التعرف على الأرقام العربية مثل ١٢٣ ما
-          زال غير موثوق، لذا راجعها كلها مع الصورة الأصلية.
-        </p>
+        <p>{v.intro}</p>
+        <p className="hint">{v.caution}</p>
         <div
           style={{
             display: 'flex',
@@ -199,11 +197,11 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
           }}
         >
           <label className="file-button">
-            اختيار صورة أو PDF
+            {v.choose}
             <input
               type="file"
               accept=".png,.jpg,.jpeg,.pdf"
-              aria-label="صورة أو PDF للقراءة التجريبية"
+              aria-label={v.chooseLabel}
               disabled={!!busy}
               onChange={(event) => {
                 void read(event.target.files?.[0]);
@@ -217,39 +215,37 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
               disabled={!!busy}
               onClick={() => void read(candidate)}
             >
-              تجربة قراءة الملف كصورة
+              {v.tryCandidate}
             </Button>
           )}
           {(busy || draft || error) && (
             <Button variant="ghost" onClick={clear}>
-              {busy ? 'إلغاء قراءة الصور' : 'مسح مسودة الصور'}
+              {busy ? v.cancel : v.clear}
             </Button>
           )}
         </div>
-        <small className="muted">
-          الحد 8 MB للملف و5 صفحات لملف PDF. عند أول استخدام قد نحتاج وقتًا
-          لتحميل أدوات القراءة من الموقع نفسه، لكن محتوى ملفك يبقى على جهازك.
-          بعض أنواع PDF غير مدعومة بعد.
-        </small>
-        {busy && <output>{busy}</output>}
+        <small className="muted">{v.limits}</small>
+        {busy && <output>{say(busy)}</output>}
         {error && (
           <p className="notice error" role="alert">
-            {error}
+            {say(error)}
           </p>
         )}
         {draft && page && (
           <>
             <output className="notice">
-              مسودة من الصور لم يُتحقق منها: <bdi>{draft.source.name}</bdi> · عدد
-              الصفحات {draft.pageCount} · عدد الكلمات{' '}
-              {draft.pages.reduce((n, p) => n + p.words.length, 0)}. لم تُضف
-              بياناتها إلى التسوية.
+              {v.draftLead}
+              <bdi>{draft.source.name}</bdi>
+              {v.draftStats(
+                draft.pageCount,
+                draft.pages.reduce((n, p) => n + p.words.length, 0),
+              )}
             </output>
             <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
               <label>
-                الصفحة{' '}
+                {v.page}{' '}
                 <select
-                  aria-label="صفحة مسودة الصور"
+                  aria-label={v.pageLabel}
                   value={pageIndex}
                   onChange={(e) => {
                     setPageIndex(Number(e.target.value));
@@ -265,11 +261,11 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
               </label>
               {word && (
                 <small>
-                  درجة التعرف على الكلمة:{' '}
-                  {word.confidence === null
-                    ? 'غير متاح'
-                    : `${Math.round(word.confidence)}%`}{' '}
-                  ولا تؤكد هذه الدرجة صحة البيانات محاسبيًا.
+                  {v.confidence(
+                    word.confidence === null
+                      ? null
+                      : Math.round(word.confidence),
+                  )}
                 </small>
               )}
             </div>
@@ -286,7 +282,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                 {/* oxlint-disable-next-line next/no-img-element */}
                 <img
                   src={page.imageDataUrl}
-                  alt={`الصورة الأصلية للصفحة ${page.page}`}
+                  alt={v.originalImage(page.page)}
                   style={{ width: '100%', height: 'auto' }}
                 />
                 {word && (
@@ -305,13 +301,10 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                   />
                 )}
               </div>
-              <div className="visual-words" aria-label="الكلمات المستخرجة">
+              <div className="visual-words" aria-label={v.words}>
                 {page.words.length ? (
                   <>
-                    <p className="hint">
-                      اضغط على كلمة لترى موضعها في الصورة. راجع الأرقام وإشاراتها
-                      وفواصلها مع الأصل.
-                    </p>
+                    <p className="hint">{v.wordsHint}</p>
                     {page.words.slice(0, 1000).map((w) => (
                       <button
                         key={w.id}
@@ -324,22 +317,16 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                       </button>
                     ))}
                     {page.words.length > 1000 && (
-                      <p>
-                        نعرض أول 1000 كلمة من أصل {page.words.length}. هذه
-                        المعاينة لا تغطي الصفحة كاملة.
-                      </p>
+                      <p>{v.firstWords(page.words.length)}</p>
                     )}
                   </>
                 ) : (
-                  <p>
-                    لم نتمكن من قراءة كلمات في هذه الصفحة. قد تحتوي نصًا لم يتعرف
-                    عليه القارئ، فراجع الصورة الأصلية.
-                  </p>
+                  <p>{v.noWords}</p>
                 )}
               </div>
             </div>
             <details>
-              <summary>تفاصيل الملف وأداة القراءة</summary>
+              <summary>{v.details}</summary>
               <p dir="ltr" style={{ overflowWrap: 'anywhere' }}>
                 SHA-256: {draft.source.sha256}
                 <br />
