@@ -1,0 +1,566 @@
+{
+  "schema": "tarasuf-paired-export-1",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "node": "v24.19.0",
+  "clock": "2026-07-31T12:00:00.000Z",
+  "distributions": {
+    "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/source-baseline/dist",
+    "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/source-candidate/dist"
+  },
+  "fixturesDir": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-inputs",
+  "rounds": [
+    {
+      "round": 1,
+      "format": "csv",
+      "order": [
+        "baseline",
+        "candidate"
+      ],
+      "baseline": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-csv-baseline",
+        "console": {
+          "rows": 20000,
+          "format": "csv",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 11.9798315,
+          "rssMb": 2161
+        },
+        "sourceSha256": [
+          "830fdecf5cc7771f1501baf49d80dc549b656f334044d2787f34c179fa523fd3",
+          "acdcaf79595e4dafc020f7ad7960e2899d19d8dbb31242e9b89b2783ffda6f9d"
+        ],
+        "exportBytes": 9602775,
+        "exportSha256": "2421c61d9406528a4bea84c9961491df357ea79211b76912629a70fb8e7db727",
+        "exportToDownloadMs": 8802.392625,
+        "totalUiMs": 11979.8315,
+        "peakChromiumRssBytes": 2265972736,
+        "workerExport": {
+          "action": "export",
+          "ms": 7362.399999991059,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 35.79999999701977,
+            "exportRevalidationMs": 1387.2000000029802,
+            "exportWorkbookConstructionMs": 467.79999999701977,
+            "exportSerializationMs": 4952.20000000298
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "candidate": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-csv-candidate",
+        "console": {
+          "rows": 20000,
+          "format": "csv",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 11.111907,
+          "rssMb": 1830.953125
+        },
+        "sourceSha256": [
+          "830fdecf5cc7771f1501baf49d80dc549b656f334044d2787f34c179fa523fd3",
+          "acdcaf79595e4dafc020f7ad7960e2899d19d8dbb31242e9b89b2783ffda6f9d"
+        ],
+        "exportBytes": 11291573,
+        "exportSha256": "1dade1dbe926c04f6fc2eb1afa344826e9b6b0304715b09401b5f2ae392e91ed",
+        "exportToDownloadMs": 7968.52875,
+        "totalUiMs": 11111.907000000001,
+        "peakChromiumRssBytes": 1919893504,
+        "workerExport": {
+          "action": "export",
+          "ms": 6530,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 35.29999999701977,
+            "exportRevalidationMs": 1307.9000000059605,
+            "exportWorkbookConstructionMs": 458.3999999910593,
+            "exportSerializationMs": 4284.5
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-csv-baseline/export-20000-csv.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-csv-candidate/export-20000-csv.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      },
+      "recoveryPackageIdentity": null
+    },
+    {
+      "round": 1,
+      "format": "xlsx",
+      "order": [
+        "baseline",
+        "candidate"
+      ],
+      "baseline": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-xlsx-baseline",
+        "console": {
+          "rows": 20000,
+          "format": "xlsx",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 16.576264584,
+          "rssMb": 1864.765625
+        },
+        "sourceSha256": [
+          "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+          "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+        ],
+        "exportBytes": 9634374,
+        "exportSha256": "ea6a2512fe95dd23e6dac55d0da7800697f0a86191403067e6332d8778663497",
+        "exportToDownloadMs": 10571.272834,
+        "totalUiMs": 16576.264584,
+        "peakChromiumRssBytes": 1955348480,
+        "workerExport": {
+          "action": "export",
+          "ms": 9123.5,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1723.4000000059605,
+            "exportRevalidationMs": 1507.2000000029802,
+            "exportWorkbookConstructionMs": 464.8999999910593,
+            "exportSerializationMs": 4913.4000000059605
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "candidate": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-xlsx-candidate",
+        "console": {
+          "rows": 20000,
+          "format": "xlsx",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 15.860360959,
+          "rssMb": 1899.765625
+        },
+        "sourceSha256": [
+          "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+          "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+        ],
+        "exportBytes": 11340872,
+        "exportSha256": "37692a760afc38d44fe6e04ccd51be6b56fea92b2fab9ab3e447cdce13822b29",
+        "exportToDownloadMs": 9870.043083,
+        "totalUiMs": 15860.360959,
+        "peakChromiumRssBytes": 1992048640,
+        "workerExport": {
+          "action": "export",
+          "ms": 8430.60000000894,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1725.2000000029802,
+            "exportRevalidationMs": 1461.8999999910593,
+            "exportWorkbookConstructionMs": 445.80000001192093,
+            "exportSerializationMs": 4256.0999999940395
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-xlsx-baseline/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-1-xlsx-candidate/export-20000-xlsx.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      },
+      "recoveryPackageIdentity": null
+    },
+    {
+      "round": 2,
+      "format": "csv",
+      "order": [
+        "candidate",
+        "baseline"
+      ],
+      "baseline": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-csv-baseline",
+        "console": {
+          "rows": 20000,
+          "format": "csv",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 11.856513083,
+          "rssMb": 1976.453125
+        },
+        "sourceSha256": [
+          "830fdecf5cc7771f1501baf49d80dc549b656f334044d2787f34c179fa523fd3",
+          "acdcaf79595e4dafc020f7ad7960e2899d19d8dbb31242e9b89b2783ffda6f9d"
+        ],
+        "exportBytes": 9602775,
+        "exportSha256": "44af3cf758bf9afd18076c13c78b05db0544abda01a3ef3a82094570c388577e",
+        "exportToDownloadMs": 8696.486125,
+        "totalUiMs": 11856.513083,
+        "peakChromiumRssBytes": 2072461312,
+        "workerExport": {
+          "action": "export",
+          "ms": 7255,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 35.79999999701977,
+            "exportRevalidationMs": 1326.4000000059605,
+            "exportWorkbookConstructionMs": 460.09999999403954,
+            "exportSerializationMs": 4921.70000000298
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "candidate": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-csv-candidate",
+        "console": {
+          "rows": 20000,
+          "format": "csv",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 11.159018292,
+          "rssMb": 1892.046875
+        },
+        "sourceSha256": [
+          "830fdecf5cc7771f1501baf49d80dc549b656f334044d2787f34c179fa523fd3",
+          "acdcaf79595e4dafc020f7ad7960e2899d19d8dbb31242e9b89b2783ffda6f9d"
+        ],
+        "exportBytes": 11291573,
+        "exportSha256": "ffdfd327aa76c4aa9f5112ca486c8703f52c205b2453963318100038edca60fe",
+        "exportToDownloadMs": 7999.811167,
+        "totalUiMs": 11159.018292,
+        "peakChromiumRssBytes": 1983954944,
+        "workerExport": {
+          "action": "export",
+          "ms": 6556.600000008941,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 28.400000005960464,
+            "exportRevalidationMs": 1323.5999999940395,
+            "exportWorkbookConstructionMs": 461,
+            "exportSerializationMs": 4259.9000000059605
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-csv-baseline/export-20000-csv.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-csv-candidate/export-20000-csv.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      },
+      "recoveryPackageIdentity": null
+    },
+    {
+      "round": 2,
+      "format": "xlsx",
+      "order": [
+        "candidate",
+        "baseline"
+      ],
+      "baseline": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-xlsx-baseline",
+        "console": {
+          "rows": 20000,
+          "format": "xlsx",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 16.532253959000002,
+          "rssMb": 1999.828125
+        },
+        "sourceSha256": [
+          "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+          "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+        ],
+        "exportBytes": 9634374,
+        "exportSha256": "4cef8bf03a3fe1ecd168f2d70baf96146904428efd2303ef84ca499cc58f0ca9",
+        "exportToDownloadMs": 10526.061040999999,
+        "totalUiMs": 16532.253959,
+        "peakChromiumRssBytes": 2096971776,
+        "workerExport": {
+          "action": "export",
+          "ms": 9085.5,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1708.0999999940395,
+            "exportRevalidationMs": 1498.5,
+            "exportWorkbookConstructionMs": 452.80000001192093,
+            "exportSerializationMs": 4848.79999999702
+          }
+        },
+        "cancelAndExportRecovery": true,
+        "independentRecoveryExportCheck": true,
+        "independentRecoveryMembershipCheck": true
+      },
+      "candidate": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-xlsx-candidate",
+        "console": {
+          "rows": 20000,
+          "format": "xlsx",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 15.759289874999999,
+          "rssMb": 1869.125
+        },
+        "sourceSha256": [
+          "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+          "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+        ],
+        "exportBytes": 11340872,
+        "exportSha256": "79f8b033af6aec189603b239e9ec8ca90d4f10390bd4181c3655bc8d9b3d7cad",
+        "exportToDownloadMs": 9803.882667,
+        "totalUiMs": 15759.289874999999,
+        "peakChromiumRssBytes": 1959919616,
+        "workerExport": {
+          "action": "export",
+          "ms": 8355.70000000298,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1723.0999999940395,
+            "exportRevalidationMs": 1448.4000000059605,
+            "exportWorkbookConstructionMs": 446.40000000596046,
+            "exportSerializationMs": 4198
+          }
+        },
+        "cancelAndExportRecovery": true,
+        "independentRecoveryExportCheck": true,
+        "independentRecoveryMembershipCheck": true
+      },
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-xlsx-baseline/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-xlsx-candidate/export-20000-xlsx.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      },
+      "recoveryPackageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-xlsx-baseline/cancel-recovery-20000.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-2-xlsx-candidate/cancel-recovery-20000.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      }
+    },
+    {
+      "round": 3,
+      "format": "csv",
+      "order": [
+        "baseline",
+        "candidate"
+      ],
+      "baseline": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-csv-baseline",
+        "console": {
+          "rows": 20000,
+          "format": "csv",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 11.812786958999999,
+          "rssMb": 2224.453125
+        },
+        "sourceSha256": [
+          "830fdecf5cc7771f1501baf49d80dc549b656f334044d2787f34c179fa523fd3",
+          "acdcaf79595e4dafc020f7ad7960e2899d19d8dbb31242e9b89b2783ffda6f9d"
+        ],
+        "exportBytes": 9602775,
+        "exportSha256": "1e389306e8cda0d0f8b2c97b7d3666b068b9fcda233b2dabe81d2e61fa460ec4",
+        "exportToDownloadMs": 8637.360834,
+        "totalUiMs": 11812.786959,
+        "peakChromiumRssBytes": 2332508160,
+        "workerExport": {
+          "action": "export",
+          "ms": 7196.199999988079,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 35.69999998807907,
+            "exportRevalidationMs": 1325.2000000029802,
+            "exportWorkbookConstructionMs": 464.70000000298023,
+            "exportSerializationMs": 4861.9000000059605
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "candidate": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-csv-candidate",
+        "console": {
+          "rows": 20000,
+          "format": "csv",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 11.171088708,
+          "rssMb": 1990.125
+        },
+        "sourceSha256": [
+          "830fdecf5cc7771f1501baf49d80dc549b656f334044d2787f34c179fa523fd3",
+          "acdcaf79595e4dafc020f7ad7960e2899d19d8dbb31242e9b89b2783ffda6f9d"
+        ],
+        "exportBytes": 11291573,
+        "exportSha256": "6d33ba2455b02b5bdeaea591c5be013218e6cdefed5f539c778006ae1727f284",
+        "exportToDownloadMs": 8012.379166999999,
+        "totalUiMs": 11171.088708,
+        "peakChromiumRssBytes": 2086797312,
+        "workerExport": {
+          "action": "export",
+          "ms": 6570.70000000298,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 35.5,
+            "exportRevalidationMs": 1316.3999999910593,
+            "exportWorkbookConstructionMs": 461.70000000298023,
+            "exportSerializationMs": 4246.5999999940395
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-csv-baseline/export-20000-csv.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-csv-candidate/export-20000-csv.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      },
+      "recoveryPackageIdentity": null
+    },
+    {
+      "round": 3,
+      "format": "xlsx",
+      "order": [
+        "baseline",
+        "candidate"
+      ],
+      "baseline": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-xlsx-baseline",
+        "console": {
+          "rows": 20000,
+          "format": "xlsx",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 16.386761333,
+          "rssMb": 1864.984375
+        },
+        "sourceSha256": [
+          "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+          "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+        ],
+        "exportBytes": 9634374,
+        "exportSha256": "56b74b835a2e1b582971c1ba568b07607f209e8f1d7114f01ce705b02b60739d",
+        "exportToDownloadMs": 10429.818584,
+        "totalUiMs": 16386.761333,
+        "peakChromiumRssBytes": 1955577856,
+        "workerExport": {
+          "action": "export",
+          "ms": 8991.89999999106,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1708.6000000089407,
+            "exportRevalidationMs": 1450.7999999970198,
+            "exportWorkbookConstructionMs": 446.79999999701977,
+            "exportSerializationMs": 4849.70000000298
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "candidate": {
+        "output": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-xlsx-candidate",
+        "console": {
+          "rows": 20000,
+          "format": "xlsx",
+          "completed": true,
+          "exportVerified": true,
+          "seconds": 15.760713166,
+          "rssMb": 2021.609375
+        },
+        "sourceSha256": [
+          "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+          "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+        ],
+        "exportBytes": 11340872,
+        "exportSha256": "ba5e57b3a2815334ea142db92202eb06e6c197f49963473eee781a90d9aa5fd0",
+        "exportToDownloadMs": 9821.98475,
+        "totalUiMs": 15760.713166,
+        "peakChromiumRssBytes": 2119811072,
+        "workerExport": {
+          "action": "export",
+          "ms": 8383,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1714.4000000059605,
+            "exportRevalidationMs": 1462.7000000029802,
+            "exportWorkbookConstructionMs": 451.5,
+            "exportSerializationMs": 4213.5999999940395
+          }
+        },
+        "cancelAndExportRecovery": false,
+        "independentRecoveryExportCheck": false,
+        "independentRecoveryMembershipCheck": false
+      },
+      "packageIdentity": {
+        "baseline": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-xlsx-baseline/export-20000-xlsx.xlsx",
+        "candidate": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-run/round-3-xlsx-candidate/export-20000-xlsx.xlsx",
+        "changed": [],
+        "duplicateNames": {
+          "baseline": [],
+          "candidate": []
+        },
+        "errors": [],
+        "extraInCandidate": [],
+        "identical": true,
+        "missingFromCandidate": []
+      },
+      "recoveryPackageIdentity": null
+    }
+  ]
+}

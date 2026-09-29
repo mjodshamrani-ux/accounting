@@ -1,0 +1,116 @@
+{
+  "schema": "tarasuf-browser-performance-2",
+  "createdAt": "2026-09-29T15:13:44.185Z",
+  "dist": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/source-candidate/dist",
+  "fixturesDir": "/Users/togomori/Documents/Codex/2026-09-07/l/work/sol-cycle-2/paired-inputs",
+  "fixedClock": "2026-07-31T12:00:00.000Z",
+  "node": "v24.19.0",
+  "memoryMeasurement": "Sum of RSS for this Chromium instance via SystemInfo.getProcessInfo and ps, sampled every 500ms; includes browser, renderer and worker processes, may double-count shared pages. Excludes Node fixture creation and offline export verification.",
+  "timingDefinition": "Files generated before measurement. UI upload/comparison/export wall time. Worker action timings include serialization and dispatch. Reconciliation includes normalization plus matching; export includes original re-read/recomputation, workbook construction and ZIP serialization.",
+  "runs": [
+    {
+      "rowsPerSide": 20000,
+      "format": "xlsx",
+      "sourceSha256": [
+        "93fa6ebb52454dc7f67bbc8fa9cebdb0cf93d1c06362ac94457533ee84195607",
+        "87660a9a11e1b1a52e565c15491b84d7c4e617237808df7f1b727f082eae1a2c"
+      ],
+      "sourceBytes": [
+        671475,
+        667895
+      ],
+      "stages": {
+        "upload0Ms": 1301.764208,
+        "upload1Ms": 1501.0003330000002,
+        "reconcileAndReviewMs": 2183.74325,
+        "prepareExportScreenMs": 914.9475830000001,
+        "exportToDownloadMs": 9870.043083,
+        "totalUiMs": 15860.360959
+      },
+      "workerActions": [
+        {
+          "action": "ready",
+          "ms": 84.69999998807907,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "read",
+          "ms": 952.9000000059605,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "read",
+          "ms": 888.9000000059605,
+          "ok": true,
+          "timings": {}
+        },
+        {
+          "action": "reconcile",
+          "ms": 1505.2999999970198,
+          "ok": true,
+          "timings": {
+            "normalizePairMs": 1185,
+            "matchingMs": 186.79999999701977
+          }
+        },
+        {
+          "action": "export",
+          "ms": 8430.60000000894,
+          "ok": true,
+          "timings": {
+            "exportOriginalReadMs": 1725.2000000029802,
+            "exportRevalidationMs": 1461.8999999910593,
+            "exportWorkbookConstructionMs": 445.80000001192093,
+            "exportSerializationMs": 4256.0999999940395
+          }
+        }
+      ],
+      "networkViolations": [],
+      "errors": [],
+      "peakChromiumRssBytes": 1992048640,
+      "downloadCompleted": true,
+      "browserChecksPassed": true,
+      "lifecycleRequired": false,
+      "completed": true,
+      "results": [
+        {
+          "matches": 10000,
+          "groups": 8000,
+          "sourceRows": [
+            20000,
+            20000
+          ],
+          "totals": [
+            2637800000,
+            2637800000
+          ],
+          "allCaseMembers": 40000,
+          "matchedEvidenceMembers": 32000
+        }
+      ],
+      "maxMainThreadHeartbeatGapMs": 605.7999999970198,
+      "independentExportDetails": {
+        "sourceRows": [
+          20000,
+          20000
+        ],
+        "amountsReferencesAndDates": true
+      },
+      "independentExportSourceCheck": true,
+      "independentMembershipDetails": {
+        "allCaseMembers": 40000,
+        "format": "xlsx",
+        "literalOracleSha256": "912cbc51017b90b22294ef0b9a0760112487671068ecc5b28bbd9a550b419ff4",
+        "matchedCases": 10000,
+        "matchedEvidenceMembers": 32000,
+        "needsReviewMembers": 8000,
+        "rowsPerSide": 20000,
+        "verified": true
+      },
+      "independentExportMembershipCheck": true
+    }
+  ],
+  "browser": "151.0.7922.34"
+}
