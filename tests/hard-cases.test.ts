@@ -846,7 +846,7 @@ test('compatibility: a session saved by the previous engine is refused, not sile
   // restored here would recompute different results under its saved
   // decisions. The session format is unchanged; only the engine version
   // differs. Its decisions are not restored from the original files either.
-  assert.equal(ENGINE_VERSION, '0.3.25-experimental');
+  assert.equal(ENGINE_VERSION, '0.3.26-experimental');
   const rows = [
     ['Date', 'Reference', 'Type', 'Amount'],
     ['2026-07-09', 'INV-34001', 'Tax Invoice', '1250.00'],

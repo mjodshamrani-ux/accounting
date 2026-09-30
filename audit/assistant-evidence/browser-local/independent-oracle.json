@@ -1,0 +1,37 @@
+{
+  "workbooks": [
+    {
+      "workbook": "work/qa/p5-partial-source-direct.xlsx",
+      "verified": true,
+      "id": "partial-source",
+      "approved": 1,
+      "engine": "0.3.26-experimental"
+    },
+    {
+      "workbook": "work/qa/p5-partial-source-restored.xlsx",
+      "verified": true,
+      "id": "partial-source",
+      "approved": 1,
+      "engine": "0.3.26-experimental"
+    },
+    {
+      "workbook": "work/qa/p5-untyped-credit-direct.xlsx",
+      "verified": true,
+      "id": "untyped-credit",
+      "approved": 0,
+      "engine": "0.3.26-experimental"
+    },
+    {
+      "workbook": "work/qa/p5-untyped-credit-restored.xlsx",
+      "verified": true,
+      "id": "untyped-credit",
+      "approved": 0,
+      "engine": "0.3.26-experimental"
+    }
+  ],
+  "answers": null,
+  "browser": {
+    "browserAnswersVerified": 2,
+    "engine": "0.3.26-experimental"
+  }
+}

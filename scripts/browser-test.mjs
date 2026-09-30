@@ -1,3 +1,4 @@
+import { verifyAssistantEvidence } from './assistant-evidence-browser-cases.mjs';
 import { verifyUnknownCreditRoles } from './unknown-credit-browser-cases.mjs';
 import { chromium } from 'playwright';
 import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
@@ -1192,6 +1193,13 @@ try {
       .isDisabled(),
     true,
   );
+  assert.equal(
+    await ambiguityPage.evaluate(
+      () => getComputedStyle(document.documentElement).scrollBehavior,
+    ),
+    'auto',
+    'form controls do not race smooth landing scroll',
+  );
   for (const side of [0, 1]) {
     await ambiguityPage
       .getByRole('combobox', {
@@ -1805,6 +1813,10 @@ try {
   );
   await verifyUnknownCreditRoles(
     await activeScenarioPage(context, 'unknown credit-note role'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyAssistantEvidence(
+    await activeScenarioPage(context, 'canonical assistant evidence'),
     `${origin}/mizan-test/`,
   );
   for (const completed of context.pages()) await completed.close();

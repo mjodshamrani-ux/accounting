@@ -13,6 +13,12 @@
 // has no English, when an entry no longer exists in the engine, or when the
 // slots do not correspond.
 export const engineCatalog: Record<string, string> = {
+  'الدليل المحفوظ لا يطابق بنية سجل المحرك؛ أعد التسوية':
+    'The retained evidence does not match the engine record structure; run the comparison again.',
+  'لا أستطيع شرح هذه النتيجة لأن بياناتها غير مكتملة أو غير متسقة مع سجل المحرك. أعد المقارنة من الملفات الأصلية.':
+    'I cannot explain this result because its data is incomplete or inconsistent with the engine record. Run the comparison again from the original files.',
+  'دليل محفوظ «${…}» من عمود «${…}». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.':
+    'Retained evidence «{0}» from column «{1}». Keeping it for audit does not make it sufficient proof of a match.',
   'رقم الفاتورة المرتبطة لا يثبت هوية هذا المستند. يلزم رقم المستند أو مرجع دفعة صريح.':
     'The related invoice number does not identify this document. An own-document number or an explicit payment reference is needed.',
   'الفاتورتان المرتبطتان بالإشعار الدائن مختلفتان: ${…} / ${…}':

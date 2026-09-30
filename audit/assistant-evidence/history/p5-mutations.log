@@ -1,0 +1,40 @@
+$ node scripts/test-mutations.mjs --filter=p5-
+Detected deliberate fault: p5-bypass-canonical-explanation-check
+Detected deliberate fault: p5-drop-audit-identifier-lookup
+Detected deliberate fault: p5-drop-native-cues-from-model-context
+Detected deliberate fault: p5-disable-utf8-evidence-budget
+Detected deliberate fault: p5-invent-model-case-total
+Detected deliberate fault: p5-ignore-bridge-delta-drift
+{
+  "baselinePassed": true,
+  "detected": 6,
+  "total": 6,
+  "available": 109,
+  "filter": "p5-",
+  "mutations": [
+    {
+      "mutation": "p5-bypass-canonical-explanation-check",
+      "detected": true
+    },
+    {
+      "mutation": "p5-drop-audit-identifier-lookup",
+      "detected": true
+    },
+    {
+      "mutation": "p5-drop-native-cues-from-model-context",
+      "detected": true
+    },
+    {
+      "mutation": "p5-disable-utf8-evidence-budget",
+      "detected": true
+    },
+    {
+      "mutation": "p5-invent-model-case-total",
+      "detected": true
+    },
+    {
+      "mutation": "p5-ignore-bridge-delta-drift",
+      "detected": true
+    }
+  ]
+}

@@ -9,7 +9,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[2]/'export-design'))
 from check_membership import Book, value, minor, require
 ROOT=Path(__file__).resolve().parent
 
-def check(filename,expected_engine='0.3.25-experimental'):
+def check(filename,expected_engine='0.3.26-experimental'):
     contract=json.loads((ROOT/'contract.json').read_text())
     manifest=json.loads((ROOT/'source-manifest.json').read_text())
     for name,sha in manifest.items():require(hashlib.sha256((ROOT/'frozen'/name).read_bytes()).hexdigest()==sha,'frozen source changed: '+name)

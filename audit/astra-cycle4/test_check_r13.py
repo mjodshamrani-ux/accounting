@@ -7,7 +7,7 @@ from check_r13 import check, Book
 
 XML = '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'
 SOURCE = Path('work/layered-headers/r13-fixed-workpaper.xlsx')
-EXPECTED_ENGINE = '0.3.25-experimental'
+EXPECTED_ENGINE = '0.3.26-experimental'
 
 class R13OracleTests(unittest.TestCase):
     def test_exact_failure_replay(self):

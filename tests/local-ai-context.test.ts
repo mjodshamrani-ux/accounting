@@ -22,7 +22,7 @@ function fixture() {
   );
 }
 
-test('a model cannot append unrelated proposal IDs to a specific document explanation', () => {
+void test('a model cannot append unrelated proposal IDs to a specific document explanation', () => {
   const result = fixture();
   const raw = JSON.stringify({
     intent: 'transaction',
@@ -32,7 +32,7 @@ test('a model cannot append unrelated proposal IDs to a specific document explan
   assert.equal(interpretModelOutput(result, raw, 'Explain supplier:0:2'), null);
 });
 
-test('a valid source ID still cannot be invented outside the model evidence window', () => {
+void test('a valid source ID still cannot be invented outside the model evidence window', () => {
   const result = fixture();
   const raw = JSON.stringify({
     intent: 'next',
@@ -52,7 +52,7 @@ test('a valid source ID still cannot be invented outside the model evidence wind
   );
 });
 
-test('local model receives canonical review cases, including the document asked about', async () => {
+void test('local model receives canonical review cases, including the document asked about', async () => {
   const result = fixture();
   let data:
     | { candidates: { id: string; signedMinorUnits: number }[] }
@@ -84,7 +84,7 @@ test('local model receives canonical review cases, including the document asked 
   assert.ok(data.candidates.length <= 20);
 });
 
-test('in-place changes to current accounting result invalidate an outstanding model reply', async () => {
+void test('in-place changes to current accounting result invalidate an outstanding model reply', async () => {
   const result = fixture();
   let destroyed = 0;
   const answer = await askLocalModel(
@@ -108,7 +108,7 @@ test('in-place changes to current accounting result invalidate an outstanding mo
   assert.equal(destroyed, 1);
 });
 
-test('blank prompts never query a local model', async () => {
+void test('blank prompts never query a local model', async () => {
   let calls = 0;
   await askLocalModel(fixture(), '  ', new AbortController().signal, {
     availability: async () => {
@@ -207,7 +207,7 @@ function assertWholeCanonicalCases(result: Comparison, data: ModelData) {
   }
 }
 
-test('large review contexts reserve ten canonical rows per side instead of starving ledger evidence', async () => {
+void test('large review contexts reserve ten canonical rows per side instead of starving ledger evidence', async () => {
   const result = broadFixture();
   const { data } = await captureData(result);
   assert.ok(data);
@@ -216,7 +216,7 @@ test('large review contexts reserve ten canonical rows per side instead of starv
   assertWholeCanonicalCases(result, data);
 });
 
-test('an explicitly requested late ledger row is prioritized with the same balanced budget', async () => {
+void test('an explicitly requested late ledger row is prioritized with the same balanced budget', async () => {
   const result = broadFixture();
   const { data } = await captureData(result, 'Explain ledger:0:26');
   assert.ok(data);
@@ -226,12 +226,9 @@ test('an explicitly requested late ledger row is prioritized with the same balan
   assertWholeCanonicalCases(result, data);
 });
 
-test('a referenced ambiguous group is admitted whole and remaining capacity stays bounded on both sides', async () => {
+void test('a referenced ambiguous group is admitted whole and remaining capacity stays bounded on both sides', async () => {
   const result = broadFixture(9);
-  // Change display copies only: candidate amounts must still come from sources.
-  result.cases = structuredClone(result.cases);
   const group = result.cases.find((c) => c.supplierMembers.length === 9)!;
-  group.supplierMembers[0].amount = 999999;
   const { data } = await captureData(result, 'Explain supplier:0:2');
   assert.ok(data);
   assert.equal(data.candidates[0].id, 'supplier:0:2');
@@ -242,7 +239,17 @@ test('a referenced ambiguous group is admitted whole and remaining capacity stay
   assertWholeCanonicalCases(result, data);
 });
 
-test('oversized referenced cases fall back before invoking a model and are never truncated', async () => {
+void test('an inconsistent ambiguous display group is refused before model routing', async () => {
+  const result = broadFixture(9);
+  result.cases = structuredClone(result.cases);
+  const group = result.cases.find((c) => c.supplierMembers.length === 9)!;
+  group.supplierMembers[0].amount = 999999;
+  const { data, answer } = await captureData(result, 'Explain supplier:0:2');
+  assert.equal(data, undefined);
+  assert.equal(answer, null);
+});
+
+void test('oversized referenced cases fall back before invoking a model and are never truncated', async () => {
   const result = broadFixture(11);
   let calls = 0;
   const answer = await askLocalModel(

@@ -14,6 +14,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '..');
 const tests = [
+  'tests/explanation-evidence.test.ts',
   'tests/unknown-credit-role.test.ts',
   'tests/related-invoice-roles.test.ts',
   'tests/typed-short-documents.test.ts',
@@ -866,6 +867,60 @@ const mutations = [
     name: 'unknown-credit-drop-native-audit-cue',
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [['    ...(unverifiedCreditNumber\n', '    ...(false\n']],
+  },
+  {
+    name: 'p5-bypass-canonical-explanation-check',
+    file: 'lib/reconciliation/assistant.ts',
+    changes: [
+      [
+        '    const { canonical } = proposalEvidence(result, true);',
+        '    if (result) return true;\n    const { canonical } = proposalEvidence(result, true);',
+      ],
+    ],
+  },
+  {
+    name: 'p5-drop-audit-identifier-lookup',
+    file: 'lib/reconciliation/assistant.ts',
+    changes: [
+      [
+        "      ...(t.retainedEvidence ?? [])\n        .filter((e) => e.field !== 'documentTypeLabel')\n        .map((e) => e.value),",
+        '      /* Fault: lose audit-only lookup cues. */',
+      ],
+    ],
+  },
+  {
+    name: 'p5-drop-native-cues-from-model-context',
+    file: 'lib/reconciliation/local-ai.ts',
+    changes: [
+      [
+        '      retainedEvidence: t.retainedEvidence,',
+        '      retainedEvidence: undefined,',
+      ],
+    ],
+  },
+  {
+    name: 'p5-disable-utf8-evidence-budget',
+    file: 'lib/reconciliation/local-ai.ts',
+    changes: [
+      ['if (new TextEncoder().encode(data).byteLength > 32768)', 'if (false)'],
+    ],
+  },
+  {
+    name: 'p5-invent-model-case-total',
+    file: 'lib/reconciliation/local-ai.ts',
+    changes: [
+      [
+        '        supplierTotalMinor: c.supplierTotal,',
+        '        supplierTotalMinor: c.supplierTotal + 1,',
+      ],
+    ],
+  },
+  {
+    name: 'p5-ignore-bridge-delta-drift',
+    file: 'lib/reconciliation/assistant.ts',
+    changes: [
+      ['        b.delta !== safeSum([s.closing!, -l.closing!]) ||\n', ''],
+    ],
   },
   {
     name: 'corrupt-exported-amount',

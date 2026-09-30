@@ -723,6 +723,11 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 106px;
 }
+/* Smooth landing navigation must not keep scrolling after form focus changes.
+   Select popups dismiss on scroll; session inputs need a stable viewport. */
+html:has(.app-shell.in-session) {
+  scroll-behavior: auto;
+}
 body {
   line-height: 1.7;
 }

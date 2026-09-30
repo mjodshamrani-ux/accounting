@@ -1,0 +1,11 @@
+{
+  "basis":"Manual source/answer contract before observing 0.4.18; synthetic development corpus, not a model benchmark or holdout",
+  "scope":{"supplier":"Synthetic Supplier","entity":"Synthetic Entity","account":"AP-P5","currency":"SAR","decimals":2,"cutoff":"2026-07-31","dateWindow":3,"confirmed":true,"coverageConfirmed":false},
+  "cases":[
+    {"id":"untyped-credit","question":"لماذا CN-701؟","lookupCount":1,"answerKind":"transaction","approved":0,"supplierMinor":-5000,"ledgerMinor":-5000,"retainedField":"unverifiedCreditNoteNumber","retainedValue":"CN-701"},
+    {"id":"unselected-reference","question":"Explain EXT-777","lookupCount":2,"answerKind":"transaction","approved":1,"supplierMinor":10000,"ledgerMinor":10000,"retainedField":"statedReference","retainedValue":"EXT-777","referenceColumn":1},
+    {"id":"balanced-variance","question":"Why is there a difference of 10.00?","lookupCount":0,"answerKind":"difference","approved":0,"supplierMinor":10000,"ledgerMinor":9000,"externalBalances":{"supplierOpening":"100","supplierClosing":"200","ledgerOpening":"0","ledgerClosing":"90","periodStart":"2026-07-01"}},
+    {"id":"partial-source","question":"Explain INV-P5-740","lookupCount":2,"answerKind":"transaction","approved":1,"supplierMinor":10000,"ledgerMinor":10000,"partial":true}
+  ],
+  "constraints":["Looking up an audit-only identifier never promotes it to matching authority", "All case members, source traces, arithmetic and displayed counters must agree with canonical processed rows", "A balance bridge cannot explain fabricated arithmetic", "Valid partial-source explanations remain useful and visibly partial", "Model output only routes questions or proposes native IDs; it cannot write explanation figures", "An inconsistent result must not reach a model provider", "Keep complete cases within a bounded prompt; decline rather than truncate identifiers"]
+}

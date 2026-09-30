@@ -38,6 +38,6 @@ run(process.env.PYTHON ?? 'python3', [
   path.join(out, 'reviewed', 'openxml.json'),
   '--require-reviewed',
   '--expected-engine',
-  '0.3.25-experimental',
+  '0.3.26-experimental',
 ]);
 console.log(`Partial reconciliation regression evidence: ${out}`);

@@ -1,0 +1,334 @@
+{
+  "engine": "0.3.26-experimental",
+  "contractSha256": "144203ed91b2c40b08246caad9757ba8b477f0409d17128bc63ba908893bbf08",
+  "observedAtUtc": "2026-09-30T18:48:35.935Z",
+  "passed": 4,
+  "total": 4,
+  "observations": [
+    {
+      "id": "untyped-credit",
+      "passed": true,
+      "sourceHashes": [
+        "8bbf85ec490badc041a229478d0960e53116f7bed08021861d54e1bc2dc05d06",
+        "e68f2b5fe17f3d7e4bf22db1e1dcbd6e71cec4d2d26dc0f8380b20ff99a477ba"
+      ],
+      "mappings": [
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      ],
+      "approved": 0,
+      "lookupIds": [
+        "supplier:0:2"
+      ],
+      "answer": {
+        "kind": "transaction",
+        "text": "المورد: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR\nدليل محفوظ «CN-701» من عمود «Credit Note No». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-8AFC13AB: AMBIGUOUS_CANDIDATE — Needs Review.\nالمرجع والمبلغ والتاريخ متطابقة، لكن دليل المستند غير متحقق. لم تُعتمد المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-799» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nمجموع المورد -50.00 SAR؛ مجموع الدفتر -50.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "restoredAnswer": {
+        "kind": "transaction",
+        "text": "المورد: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR\nدليل محفوظ «CN-701» من عمود «Credit Note No». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-8AFC13AB: AMBIGUOUS_CANDIDATE — Needs Review.\nالمرجع والمبلغ والتاريخ متطابقة، لكن دليل المستند غير متحقق. لم تُعتمد المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-799» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nمجموع المورد -50.00 SAR؛ مجموع الدفتر -50.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "probes": []
+    },
+    {
+      "id": "unselected-reference",
+      "passed": true,
+      "sourceHashes": [
+        "19aac8a652d0b235bb4403b494aee6a15436d9f05380f06c5c722a51563d7ef5",
+        "b8d858c3f516e0e4b5346b8e39a7b6f2a24904f957455d4414573280cc531407"
+      ],
+      "mappings": [
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": -1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": -1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      ],
+      "approved": 1,
+      "lookupIds": [
+        "supplier:0:2",
+        "ledger:0:2"
+      ],
+      "answer": {
+        "kind": "transaction",
+        "text": "المورد: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR\nدليل محفوظ «EXT-777» من عمود «Reference». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-D627B11C: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR\nالدفتر: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR\nدليل محفوظ «EXT-777» من عمود «Reference». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-D627B11C: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: المورد: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "restoredAnswer": {
+        "kind": "transaction",
+        "text": "المورد: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR\nدليل محفوظ «EXT-777» من عمود «Reference». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-D627B11C: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR\nالدفتر: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR\nدليل محفوظ «EXT-777» من عمود «Reference». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-D627B11C: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: المورد: CSV، صف 2، مرجع «INV-P5-714»، 2026-07-17، 100.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "probes": []
+    },
+    {
+      "id": "balanced-variance",
+      "passed": true,
+      "sourceHashes": [
+        "c96b8b4051a629e48b02ab24ee1cc90c8bcdd789c7f8b653582fc232db41e1e6",
+        "9470b20a6b104d227651520db65863007c275104af9980870b40554945b5724a"
+      ],
+      "mappings": [
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": -1,
+          "amount": 2,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "100",
+          "closing": "200",
+          "periodStart": "2026-07-01",
+          "excluded": {}
+        },
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": -1,
+          "amount": 2,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "0",
+          "closing": "90",
+          "periodStart": "2026-07-01",
+          "excluded": {}
+        }
+      ],
+      "approved": 0,
+      "lookupIds": [],
+      "answer": {
+        "kind": "difference",
+        "text": "الحالات التالية تحمل فرق الحركات المطلوب، محسوبًا بطرح الدفتر من المورد. هذا مستقل عن فرق الأرصدة الختامية. أثر الجسر يعرض أثر الحالة على الانتقال من رصيد المورد إلى رصيد الدفتر، بإشارة معاكسة.\nحالة CASE-41842599: AMOUNT_VARIANCE — Needs Review. مجموع المورد 100.00 SAR؛ مجموع الدفتر 90.00 SAR؛ فرق الحركات 10.00 SAR؛ أثر الجسر -10.00 SAR.\nالمصدر: المورد: CSV، صف 2، مرجع «INV-P5-730»، 2026-07-17، 100.00 SAR.\nالمصدر: الدفتر: CSV، صف 2، مرجع «INV-P5-730»، 2026-07-17، 90.00 SAR.\nتطابق قيمة الفرق يحدد حالات للفحص فقط. لا يثبت أن الحالة سبب فرق الأرصدة، ولا يثبت السبب الاقتصادي. راجع مستندات هذه الحالات. لم تُنشأ مطابقة ولم يُخفَ أي فرق.\nفرق الأرصدة الفعلي (المورد ناقص الدفتر): 110.00 SAR. هذا الرقم من النتيجة الفعلية، وليس من المبلغ المذكور في السؤال.\nرصيد المورد 200.00 SAR؛ رصيد الدفتر 90.00 SAR.\nحساب الانتقال من رصيد المورد إلى رصيد الدفتر: 200.00 SAR + (-100.00 SAR فرق الافتتاح) + (-10.00 SAR صافي آثار الحالات) = 90.00 SAR.\nالفرق المتبقي حسابيًا: 0.00 SAR. عدد الحركات دون مقابل: 0. الصفر لا يثبت أسباب الفروق أو اكتمال التسوية.\nعدد الحالات التي تحتاج إلى مراجعة: 1. معادلة الأرصدة متحققة، لكن المستخدم لم يؤكد بعد اكتمال تغطية الفترة.\nراجع فروق المبالغ والحركات التي لا مقابل لها. يبقى اقتراح ربط الدفعة للمراجعة حتى إن كان أثره الحسابي صفرًا.",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "restoredAnswer": {
+        "kind": "difference",
+        "text": "الحالات التالية تحمل فرق الحركات المطلوب، محسوبًا بطرح الدفتر من المورد. هذا مستقل عن فرق الأرصدة الختامية. أثر الجسر يعرض أثر الحالة على الانتقال من رصيد المورد إلى رصيد الدفتر، بإشارة معاكسة.\nحالة CASE-41842599: AMOUNT_VARIANCE — Needs Review. مجموع المورد 100.00 SAR؛ مجموع الدفتر 90.00 SAR؛ فرق الحركات 10.00 SAR؛ أثر الجسر -10.00 SAR.\nالمصدر: المورد: CSV، صف 2، مرجع «INV-P5-730»، 2026-07-17، 100.00 SAR.\nالمصدر: الدفتر: CSV، صف 2، مرجع «INV-P5-730»، 2026-07-17، 90.00 SAR.\nتطابق قيمة الفرق يحدد حالات للفحص فقط. لا يثبت أن الحالة سبب فرق الأرصدة، ولا يثبت السبب الاقتصادي. راجع مستندات هذه الحالات. لم تُنشأ مطابقة ولم يُخفَ أي فرق.\nفرق الأرصدة الفعلي (المورد ناقص الدفتر): 110.00 SAR. هذا الرقم من النتيجة الفعلية، وليس من المبلغ المذكور في السؤال.\nرصيد المورد 200.00 SAR؛ رصيد الدفتر 90.00 SAR.\nحساب الانتقال من رصيد المورد إلى رصيد الدفتر: 200.00 SAR + (-100.00 SAR فرق الافتتاح) + (-10.00 SAR صافي آثار الحالات) = 90.00 SAR.\nالفرق المتبقي حسابيًا: 0.00 SAR. عدد الحركات دون مقابل: 0. الصفر لا يثبت أسباب الفروق أو اكتمال التسوية.\nعدد الحالات التي تحتاج إلى مراجعة: 1. معادلة الأرصدة متحققة، لكن المستخدم لم يؤكد بعد اكتمال تغطية الفترة.\nراجع فروق المبالغ والحركات التي لا مقابل لها. يبقى اقتراح ربط الدفعة للمراجعة حتى إن كان أثره الحسابي صفرًا.",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "probes": [
+        {
+          "name": "invented-case-total",
+          "question": "Explain INV-P5-730",
+          "passed": true,
+          "answer": {
+            "kind": "unsupported",
+            "text": "لا أستطيع شرح هذه النتيجة لأن بياناتها غير مكتملة أو غير متسقة مع سجل المحرك. أعد المقارنة من الملفات الأصلية.",
+            "sourceIds": []
+          }
+        },
+        {
+          "name": "invented-bridge",
+          "question": "Why is there a balance difference?",
+          "passed": true,
+          "answer": {
+            "kind": "unsupported",
+            "text": "لا أستطيع شرح هذه النتيجة لأن بياناتها غير مكتملة أو غير متسقة مع سجل المحرك. أعد المقارنة من الملفات الأصلية.",
+            "sourceIds": []
+          }
+        },
+        {
+          "name": "invented-count",
+          "question": "What checks were completed?",
+          "passed": true,
+          "answer": {
+            "kind": "unsupported",
+            "text": "لا أستطيع شرح هذه النتيجة لأن بياناتها غير مكتملة أو غير متسقة مع سجل المحرك. أعد المقارنة من الملفات الأصلية.",
+            "sourceIds": []
+          }
+        },
+        {
+          "name": "display-member-drift",
+          "question": "Explain INV-P5-730",
+          "passed": true,
+          "answer": {
+            "kind": "unsupported",
+            "text": "لا أستطيع شرح هذه النتيجة لأن بياناتها غير مكتملة أو غير متسقة مع سجل المحرك. أعد المقارنة من الملفات الأصلية.",
+            "sourceIds": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "partial-source",
+      "passed": true,
+      "sourceHashes": [
+        "bb72e0592a192b26c64a05c7bb952f0c64dacf8c889da807edf80cf3f1ebd818",
+        "efe07a1667836b58994c133f7317e42888197c41250c4c0390b8adba723dba50"
+      ],
+      "mappings": [
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": -1,
+          "amount": 2,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": -1,
+          "amount": 2,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      ],
+      "approved": 1,
+      "lookupIds": [
+        "supplier:0:2",
+        "ledger:0:2"
+      ],
+      "answer": {
+        "kind": "transaction",
+        "text": "نتيجة جزئية: الحركات المعالجة 2؛ الصفوف التي تحتاج مراجعة القراءة 1؛ ملاحظات الأرصدة 0؛ ملاحظات المصدر أو النطاق 0. الأرقام تخص الحركات المقروءة فقط ولا تثبت اكتمال التسوية.\nالمورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nالدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: المورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "restoredAnswer": {
+        "kind": "transaction",
+        "text": "نتيجة جزئية: الحركات المعالجة 2؛ الصفوف التي تحتاج مراجعة القراءة 1؛ ملاحظات الأرصدة 0؛ ملاحظات المصدر أو النطاق 0. الأرقام تخص الحركات المقروءة فقط ولا تثبت اكتمال التسوية.\nالمورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nالدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: المورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "probes": []
+    }
+  ]
+}

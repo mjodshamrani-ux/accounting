@@ -8,7 +8,10 @@ import {
 } from './core.ts';
 import type { Comparison, Transaction } from './types.ts';
 import { readingStatus } from './reading-issues.ts';
-import { localizedReadErrors } from './localized-read-errors.ts';
+import {
+  localizedReadErrors,
+  unverifiedExclusions,
+} from './localized-read-errors.ts';
 import { shortDocumentCandidate } from './transaction-references.ts';
 
 export type EvidenceAnswer = {
@@ -54,7 +57,7 @@ const sameTransactionEvidence = (a: Transaction, b: Transaction) =>
 
 // Case members are display copies, never the authority for proposal amounts.
 // Check conservation and provenance before resolving IDs from canonical sources.
-function proposalEvidence(result: Comparison) {
+function proposalEvidence(result: Comparison, allowPartialExplanation = false) {
   const canonical = new Map<string, Transaction>();
   const reviewable = new Set<string>();
   const caseRows = new Set<string>();
@@ -81,7 +84,10 @@ function proposalEvidence(result: Comparison) {
     [result.supplier, 'supplier'],
     [result.ledger, 'ledger'],
   ] as const) {
-    if (source.errors.length || !source.transactions.length)
+    if (
+      !allowPartialExplanation &&
+      (source.errors.length || !source.transactions.length)
+    )
       failure(
         'قراءة المصدر غير مكتملة. صحح أخطاء القراءة قبل فحص اقتراح الذكاء الاصطناعي.',
       );
@@ -111,6 +117,24 @@ function proposalEvidence(result: Comparison) {
         failure(
           'توجد بيانات غير متسقة في معرّف حركة المصدر أو تاريخها أو مبلغها. أعد التسوية.',
         );
+      if (
+        t.retainedEvidence !== undefined &&
+        (!Array.isArray(t.retainedEvidence) ||
+          t.retainedEvidence.some(
+            (e) =>
+              !e ||
+              ![
+                'mappedReference',
+                'statedReference',
+                'batch',
+                'documentTypeLabel',
+                'unverifiedCreditNoteNumber',
+              ].includes(e.field) ||
+              typeof e.header !== 'string' ||
+              typeof e.value !== 'string',
+          ))
+      )
+        failure('الدليل المحفوظ لا يطابق بنية سجل المحرك؛ أعد التسوية');
       if (t.currency !== undefined && t.currency !== result.scope.currency)
         failure('عملة حركة المصدر لا تطابق نطاق النتيجة');
       safeSum([t.amount]);
@@ -213,6 +237,135 @@ function proposalEvidence(result: Comparison) {
   if (matchRows.size !== matchedRows.size)
     failure('سجل المطابقات غير مكتمل؛ أعد التسوية');
   return { canonical, reviewable };
+}
+
+// Canonical processed rows remain the authority for a partial explanation.
+// This is a consistency gate, not authentication of the underlying documents.
+// A model cannot use an inconsistent display copy as its evidence window.
+export function hasVerifiedExplanationEvidence(result: Comparison): boolean {
+  try {
+    const { canonical } = proposalEvidence(result, true);
+    const counts = {
+      autoMatchedCases: 0,
+      matchedSourceRows: 0,
+      needsReviewCases: 0,
+      needsReviewSourceRows: 0,
+      unmatchedCases: 0,
+      unmatchedSourceRows: 0,
+      manualMatches: 0,
+      rejectedCandidates: 0,
+    };
+    const unmatched = {
+      supplier: new Set<string>(),
+      ledger: new Set<string>(),
+    };
+    for (const c of result.cases) {
+      const rows = c.supplierMembers.length + c.ledgerMembers.length;
+      if (c.status === 'Matched') {
+        counts.matchedSourceRows += rows;
+        if (c.matchingRule === 'MANUAL_REVIEW') counts.manualMatches++;
+        else counts.autoMatchedCases++;
+      } else if (c.status === 'Needs Review') {
+        counts.needsReviewCases++;
+        counts.needsReviewSourceRows += rows;
+      } else if (c.status === 'Unmatched') {
+        counts.unmatchedCases++;
+        counts.unmatchedSourceRows += rows;
+        for (const t of c.supplierMembers) unmatched.supplier.add(t.id);
+        for (const t of c.ledgerMembers) unmatched.ledger.add(t.id);
+      } else counts.rejectedCandidates++;
+    }
+    if (
+      Object.entries(counts).some(
+        ([key, n]) => result.caseCounts[key as keyof typeof counts] !== n,
+      )
+    )
+      return false;
+    for (const [rows, side] of [
+      [result.supplierOnly, 'supplier'],
+      [result.ledgerOnly, 'ledger'],
+    ] as const) {
+      if (
+        rows.length !== unmatched[side].size ||
+        new Set(rows.map((t) => t.id)).size !== rows.length
+      )
+        return false;
+      if (
+        rows.some(
+          (t) =>
+            !unmatched[side].has(t.id) ||
+            !sameTransactionEvidence(t, canonical.get(t.id)!),
+        )
+      )
+        return false;
+    }
+    if (result.ambiguousIds.some((id) => !canonical.has(id))) return false;
+    const b = result.bridge,
+      s = result.supplier,
+      l = result.ledger;
+    if (b) {
+      if (
+        [s, l].some(
+          (source) =>
+            source.errors.length ||
+            unverifiedExclusions(source).length ||
+            source.closing === null ||
+            (source.balanceArithmeticStatus
+              ? source.balanceArithmeticStatus !== 'BALANCE_ARITHMETIC_VERIFIED'
+              : !source.balanceValid),
+        )
+      )
+        return false;
+      for (const source of [s, l]) {
+        if (source.mapping.reportType === 'open-items') {
+          if (source.total !== source.closing) return false;
+        } else if (
+          source.opening === null ||
+          safeSum([source.opening, source.total]) !== source.closing
+        )
+          return false;
+      }
+      const start = (source: typeof s) =>
+        source.mapping.periodStart || source.metadata?.periodStart || '';
+      const end = (source: typeof s) =>
+        source.metadata?.periodEnd || result.scope.cutoff;
+      if (
+        s.mapping.reportType !== 'open-items' &&
+        (!start(s) ||
+          start(s) !== start(l) ||
+          end(s) !== result.scope.cutoff ||
+          end(l) !== result.scope.cutoff)
+      )
+        return false;
+      const opening =
+        s.mapping.reportType === 'transactions'
+          ? safeSum([l.opening!, -s.opening!])
+          : 0;
+      const items = safeSum(result.cases.map((c) => c.bridgeEffect));
+      const adjusted = safeSum([s.closing!, opening, items]);
+      if (
+        b.delta !== safeSum([s.closing!, -l.closing!]) ||
+        b.openingAdjustment !== opening ||
+        b.itemAdjustment !== items ||
+        b.adjusted !== adjusted ||
+        b.residual !== safeSum([adjusted, -l.closing!])
+      )
+        return false;
+    }
+    if (
+      result.balanceComparable !==
+      !!(
+        b &&
+        s.balanceValid &&
+        l.balanceValid &&
+        result.scope.coverageConfirmed
+      )
+    )
+      return false;
+    return true;
+  } catch {
+    return false;
+  }
 }
 // No model text, claimed numbers or confidence scores can enter the ledger.
 // A future local model may only propose IDs; this boundary accepts unknown input.
@@ -392,6 +545,7 @@ export function resolveQuestionReferences(
   result: Comparison,
   question: string,
 ): Transaction[] | null {
+  if (!hasVerifiedExplanationEvidence(result)) return null;
   const q = latinDigits(question).trim();
   const all = [...result.supplier.transactions, ...result.ledger.transactions];
   const references = (t: Transaction) =>
@@ -399,10 +553,15 @@ export function resolveQuestionReferences(
       t.reference,
       t.documentReference,
       t.relatedInvoiceReference,
+      t.chosenReference,
+      t.statedReference,
       t.voucherReference,
       t.poReference,
       t.bankReference,
       t.receiptReference,
+      ...(t.retainedEvidence ?? [])
+        .filter((e) => e.field !== 'documentTypeLabel')
+        .map((e) => e.value),
     ]
       .filter((value): value is string => !!value)
       .map((value) => latinDigits(value.trim()));
@@ -445,7 +604,7 @@ function requestedVariance(
   | { kind: 'absent' }
   | { kind: 'invalid'; reason: string }
   | { kind: 'amount'; value: number } {
-  const amounts = [...question.matchAll(/[+−()\-]*\d[\d.,٬٫+−()\-]*/gu)];
+  const amounts = [...question.matchAll(/[+−()-]*\d[\d.,٬٫+−()-]*/gu)];
   if (!amounts.length) return { kind: 'absent' };
   const invalid = {
     kind: 'invalid' as const,
@@ -501,6 +660,12 @@ export function explainResult(
   question: string,
   selectedId?: string,
 ): EvidenceAnswer {
+  if (!hasVerifiedExplanationEvidence(result))
+    return {
+      kind: 'unsupported',
+      text: 'لا أستطيع شرح هذه النتيجة لأن بياناتها غير مكتملة أو غير متسقة مع سجل المحرك. أعد المقارنة من الملفات الأصلية.',
+      sourceIds: [],
+    };
   const answer = explainResultDetails(result, question, selectedId);
   const reading = readingStatus([result.supplier, result.ledger]);
   if (!reading.partial) return answer;
@@ -550,6 +715,10 @@ function explainResultDetails(
     for (const t of chosen) {
       refs.add(t.id);
       lines.push(describe(t));
+      for (const e of t.retainedEvidence ?? [])
+        lines.push(
+          `دليل محفوظ «${e.value}» من عمود «${e.header}». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.`,
+        );
       if (t.relatedInvoiceReference)
         lines.push(
           `الفاتورة المرتبطة «${t.relatedInvoiceReference}» من عمود «${t.relatedInvoiceEvidence?.header ?? 'غير متحقق'}». هذا الرقم لا يثبت هوية الإشعار أو الدفعة أو القيد.`,
