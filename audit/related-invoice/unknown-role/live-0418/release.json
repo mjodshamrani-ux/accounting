@@ -1,0 +1,140 @@
+{
+  "schema": "tarasuf-unknown-credit-live-release-1",
+  "appVersion": "0.4.18",
+  "engine": "0.3.25-experimental",
+  "deployedCommit": "ddb42153d1a79dc513731ad08841d120c8224418",
+  "deployedTree": "e1a356eb75d3c5ca75b81590a5589633a8adcd0d",
+  "githubRun": 36747282269,
+  "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.18",
+  "localUnit": {
+    "passed": 994,
+    "skipped": 0
+  },
+  "githubUnit": {
+    "total": 994,
+    "passed": 982,
+    "skipped": 12,
+    "failed": 0,
+    "skipReason": "Private local fixtures are unavailable in GitHub Actions"
+  },
+  "immutableCiMutations": {
+    "detected": 103,
+    "total": 103,
+    "shards": [
+      {
+        "job": "Accounting mutation gate (3/3)",
+        "baselinePassed": true,
+        "detected": 34,
+        "total": 34,
+        "available": 103
+      },
+      {
+        "job": "Accounting mutation gate (1/3)",
+        "baselinePassed": true,
+        "detected": 35,
+        "total": 35,
+        "available": 103
+      },
+      {
+        "job": "Accounting mutation gate (2/3)",
+        "baselinePassed": true,
+        "detected": 34,
+        "total": 34,
+        "available": 103
+      }
+    ]
+  },
+  "independentPythonTests": 55,
+  "newNativeContract": {
+    "baselinePassed": 2,
+    "candidatePassed": 10,
+    "total": 10,
+    "baselineIncorrectApprovals": 8,
+    "originalResults": "../baseline-0417",
+    "newWorkbooksIndependentlyVerified": 20
+  },
+  "live": {
+    "passed": true,
+    "downloadedWorkbooksIndependentlyVerified": 18,
+    "codeResponsesVerified": 36,
+    "executedAccountingWorkersVerified": 18,
+    "noObservedExternalRequests": true,
+    "noObservedPostRequests": true,
+    "noPageErrors": true,
+    "artifactId": 11112954109,
+    "artifactSha256": "sha256:a5dbbe7622d2e69794497d5001b4e3f2e30343c073cc9aee5e2d3d7c34d0304a",
+    "actualWorkerBlobMatchesCiEmbeddedPayload": true,
+    "largeNativePdf": {
+      "pages": 70,
+      "independentPassed": true,
+      "supplierTransactions": 2240,
+      "ledgerTransactions": 2240,
+      "requiredPairs": 2240,
+      "requiredPairsSatisfied": 2240,
+      "falseApprovedPairs": 0,
+      "missingPairs": 0,
+      "exactEvidenceMembers": 4480,
+      "parsedSupplierRows": 2450,
+      "parsedLedgerRows": 2241,
+      "pdfOrigins": 2450,
+      "excludedSupplierRows": 210,
+      "excludedLedgerRows": 1,
+      "totalMinorEachSide": 40779520,
+      "xmlPartsParsed": 30,
+      "nativeWorkbook": "native-70.xlsx",
+      "workbookSha256": "a1257f6d1886869dca70cd04f4574359a11292f5094309b4d082775d9156f30e"
+    }
+  },
+  "allGithubGates": [
+    {
+      "id": 109996562102,
+      "name": "Accounting mutation gate (3/3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 109996562188,
+      "name": "Accounting mutation gate (1/3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 109996562244,
+      "name": "Accounting mutation gate (2/3)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 109996562254,
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 110002570366,
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "productionDependencyAudit": "No known vulnerabilities found",
+  "lint": "New test/runner/browser files passed targeted lint; repository-wide pre-existing lint diagnostics remain",
+  "limitations": [
+    "Synthetic development/regression evidence, not an independent customer holdout",
+    "No universal 100 percent correctness claim",
+    "Arabic raster OCR is review-only",
+    "No general N:M invoice subsets or partial payment allocation added",
+    "No actual local-model training or provider-quality claim",
+    "Native PDF boundaries and PDF visual review were explicit test-user actions",
+    "70-page corpus has a known layout and unresolved balance carry-forward candidates; transaction comparison is not full balance reconciliation"
+  ],
+  "productSha256": {
+    "lib/reconciliation/transaction-references.ts": "7b97a60e66c61c9ed794de938072b96a42b2527195a0b38d5774b77405a2aceb",
+    "lib/reconciliation/types.ts": "5b925bc0d68da1b177e5a295afbf9f86b68424a62d37086bedc7cd98e54a455d",
+    "lib/reconciliation/cases.ts": "820b9ef477c48a9ee89148489fd9345ef28b6e3a4d3b1b2e3e14c41c4d4f4ba4",
+    "lib/reconciliation/assistant.ts": "dee532ca7c51058263a223aedc1a6ff659c1f19629e15a17da5f281201b29eba",
+    "lib/reconciliation/local-ai.ts": "b452b8e81715f33b844da73419168e5c0023275a839e5e281ccccad33e7ba175",
+    "lib/reconciliation/io.ts": "9508543963c71f56ab2d7f9802d5968200fe85bcb943371cdb97c626e4faea58"
+  },
+  "historicalCandidateReport": "../report.json remains the pre-GitHub candidate snapshot"
+}
