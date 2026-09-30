@@ -1,0 +1,226 @@
+[
+  {
+    "workbook": "audit/related-invoice/candidate-0417/conflicting-related-invoice-direct.xlsx",
+    "verified": true,
+    "id": "conflicting-related-invoice",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/conflicting-related-invoice-restored.xlsx",
+    "verified": true,
+    "id": "conflicting-related-invoice",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/credit-note-invoice-only-direct.xlsx",
+    "verified": true,
+    "id": "credit-note-invoice-only",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/credit-note-invoice-only-restored.xlsx",
+    "verified": true,
+    "id": "credit-note-invoice-only",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/different-credit-notes-direct.xlsx",
+    "verified": true,
+    "id": "different-credit-notes",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/different-credit-notes-restored.xlsx",
+    "verified": true,
+    "id": "different-credit-notes",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/generic-own-and-invoice-direct.xlsx",
+    "verified": true,
+    "id": "generic-own-and-invoice",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/generic-own-and-invoice-restored.xlsx",
+    "verified": true,
+    "id": "generic-own-and-invoice",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/journal-invoice-only-direct.xlsx",
+    "verified": true,
+    "id": "journal-invoice-only",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/journal-invoice-only-restored.xlsx",
+    "verified": true,
+    "id": "journal-invoice-only",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/ordinary-invoice-direct.xlsx",
+    "verified": true,
+    "id": "ordinary-invoice",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/ordinary-invoice-restored.xlsx",
+    "verified": true,
+    "id": "ordinary-invoice",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/own-credit-note-direct.xlsx",
+    "verified": true,
+    "id": "own-credit-note",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/own-credit-note-restored.xlsx",
+    "verified": true,
+    "id": "own-credit-note",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/payment-bank-identity-direct.xlsx",
+    "verified": true,
+    "id": "payment-bank-identity",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/payment-bank-identity-restored.xlsx",
+    "verified": true,
+    "id": "payment-bank-identity",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/payment-invoice-only-direct.xlsx",
+    "verified": true,
+    "id": "payment-invoice-only",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/payment-invoice-only-restored.xlsx",
+    "verified": true,
+    "id": "payment-invoice-only",
+    "sourceFormat": "xlsx",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/short-own-credit-note-direct.xlsx",
+    "verified": true,
+    "id": "short-own-credit-note",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/short-own-credit-note-restored.xlsx",
+    "verified": true,
+    "id": "short-own-credit-note",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/whole-credit-note-group-direct.xlsx",
+    "verified": true,
+    "id": "whole-credit-note-group",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-0417/whole-credit-note-group-restored.xlsx",
+    "verified": true,
+    "id": "whole-credit-note-group",
+    "sourceFormat": "xlsx",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-pdf-0417/different-credit-notes-direct.xlsx",
+    "verified": true,
+    "id": "different-credit-notes",
+    "sourceFormat": "pdf",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-pdf-0417/different-credit-notes-restored.xlsx",
+    "verified": true,
+    "id": "different-credit-notes",
+    "sourceFormat": "pdf",
+    "approved": 0,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-pdf-0417/own-credit-note-direct.xlsx",
+    "verified": true,
+    "id": "own-credit-note",
+    "sourceFormat": "pdf",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-pdf-0417/own-credit-note-restored.xlsx",
+    "verified": true,
+    "id": "own-credit-note",
+    "sourceFormat": "pdf",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-pdf-0417/short-own-credit-note-direct.xlsx",
+    "verified": true,
+    "id": "short-own-credit-note",
+    "sourceFormat": "pdf",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  },
+  {
+    "workbook": "audit/related-invoice/candidate-pdf-0417/short-own-credit-note-restored.xlsx",
+    "verified": true,
+    "id": "short-own-credit-note",
+    "sourceFormat": "pdf",
+    "approved": 1,
+    "engine": "0.3.24-experimental"
+  }
+]

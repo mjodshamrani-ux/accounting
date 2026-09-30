@@ -33,6 +33,8 @@ const transactionEvidenceFields: (keyof Transaction)[] = [
   'primaryReference',
   'documentReference',
   'documentNumberEvidence',
+  'relatedInvoiceReference',
+  'relatedInvoiceEvidence',
   'chosenReference',
   'chosenReferenceEvidence',
   'statedReference',
@@ -279,10 +281,6 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
     return rejected(
       'تتداخل هوية الاقتراح مع صف مستبعد أو غير مقروء؛ راجع اكتمال المجموعة أولًا.',
     );
-  if (proposed.some((t) => t.referenceEvidenceIssues?.length))
-    return rejected(
-      'دليل المرجع أو نوع المستند غير متحقق. راجع صفوف المصدر قبل فحص الاقتراح.',
-    );
   const types = new Set(
     proposed
       .map((t) => t.documentType)
@@ -291,6 +289,20 @@ export function verifyHypothesis(result: Comparison, input: unknown) {
   if (types.size > 1)
     return rejected(
       'أنواع المستندات متعارضة. تساوي المبلغ وحده لا يثبت صحة الربط.',
+    );
+  if (proposed.some((t) => t.referenceEvidenceIssues?.length))
+    return rejected(
+      'دليل المرجع أو نوع المستند غير متحقق. راجع صفوف المصدر قبل فحص الاقتراح.',
+    );
+  const relatedCreditInvoices = new Set(
+    proposed
+      .filter((t) => t.documentType === 'Credit Note')
+      .map((t) => t.relatedInvoiceReference)
+      .filter(Boolean),
+  );
+  if (relatedCreditInvoices.size > 1)
+    return rejected(
+      'أرقام الفواتير المرتبطة بالإشعار الدائن مختلفة. راجع الأصل قبل الربط.',
     );
   const orders = new Set(proposed.map((t) => t.poReference).filter(Boolean));
   if (orders.size > 1)
@@ -386,6 +398,7 @@ export function resolveQuestionReferences(
     [
       t.reference,
       t.documentReference,
+      t.relatedInvoiceReference,
       t.voucherReference,
       t.poReference,
       t.bankReference,
@@ -537,6 +550,10 @@ function explainResultDetails(
     for (const t of chosen) {
       refs.add(t.id);
       lines.push(describe(t));
+      if (t.relatedInvoiceReference)
+        lines.push(
+          `الفاتورة المرتبطة «${t.relatedInvoiceReference}» من عمود «${t.relatedInvoiceEvidence?.header ?? 'غير متحقق'}». هذا الرقم لا يثبت هوية الإشعار أو الدفعة أو القيد.`,
+        );
       const reconciliationCase = result.cases.find((c) =>
         c.sourceTrace.some((trace) => trace.sourceRowId === t.id),
       );

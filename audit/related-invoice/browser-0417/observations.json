@@ -1,0 +1,52 @@
+{
+  "schema": "tarasuf-f03-browser-1",
+  "cases": [
+    {
+      "id": "own-credit-note",
+      "sourceFormat": "xlsx",
+      "approved": 1,
+      "direct": "work/qa/f03-own-credit-note-direct.xlsx",
+      "restored": "work/qa/f03-own-credit-note-restored.xlsx",
+      "manualColumnMapping": false,
+      "externalScopeInputs": [
+        "currency",
+        "cutoff"
+      ],
+      "pdfReviewed": false,
+      "pdfManualCuts": []
+    },
+    {
+      "id": "different-credit-notes",
+      "sourceFormat": "xlsx",
+      "approved": 0,
+      "direct": "work/qa/f03-different-credit-notes-direct.xlsx",
+      "restored": "work/qa/f03-different-credit-notes-restored.xlsx",
+      "manualColumnMapping": false,
+      "externalScopeInputs": [
+        "currency",
+        "cutoff"
+      ],
+      "pdfReviewed": false,
+      "pdfManualCuts": []
+    },
+    {
+      "id": "short-own-credit-note",
+      "sourceFormat": "pdf",
+      "approved": 1,
+      "direct": "work/qa/f03-short-own-credit-note-direct.xlsx",
+      "restored": "work/qa/f03-short-own-credit-note-restored.xlsx",
+      "manualColumnMapping": false,
+      "externalScopeInputs": [
+        "currency",
+        "cutoff"
+      ],
+      "pdfReviewed": true,
+      "pdfManualCuts": [
+        20,
+        41,
+        62,
+        79
+      ]
+    }
+  ]
+}

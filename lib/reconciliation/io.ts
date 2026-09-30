@@ -782,6 +782,10 @@ export async function exportWorkbook(
       'Document Number Header',
       'Document Number Column',
       'Document Type',
+      'Related Invoice Reference',
+      'Related Invoice Header',
+      'Related Invoice Column',
+      'Chosen Reference Role',
     ],
     result.cases.flatMap((c) =>
       [...c.supplierMembers, ...c.ledgerMembers].map((t) => [
@@ -814,6 +818,10 @@ export async function exportWorkbook(
         t.documentNumberEvidence?.header ?? '',
         t.documentNumberEvidence?.column ?? '',
         t.documentType ?? '',
+        t.relatedInvoiceReference ?? '',
+        t.relatedInvoiceEvidence?.header ?? '',
+        t.relatedInvoiceEvidence?.column ?? '',
+        t.chosenReferenceEvidence?.role ?? '',
       ]),
     ),
   );

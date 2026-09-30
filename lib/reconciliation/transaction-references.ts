@@ -24,6 +24,7 @@ export function hasUnsafeReferenceText(t: Transaction): boolean {
     t.reference,
     t.primaryReference,
     t.documentReference,
+    t.relatedInvoiceReference,
     t.chosenReference,
     t.statedReference,
     t.voucherReference,
@@ -31,6 +32,17 @@ export function hasUnsafeReferenceText(t: Transaction): boolean {
     t.bankReference,
     t.receiptReference,
   ].some((value) => typeof value === 'string' && isUnsafeReferenceText(value));
+}
+
+export function chosenRelatedInvoice(t: Transaction): boolean {
+  return (
+    t.chosenReferenceEvidence?.role === 'related-invoice' &&
+    !!t.relatedInvoiceEvidence &&
+    t.chosenReferenceEvidence.column === t.relatedInvoiceEvidence.column &&
+    t.chosenReferenceEvidence.header === t.relatedInvoiceEvidence.header &&
+    !!t.relatedInvoiceReference &&
+    t.chosenReference === t.relatedInvoiceReference
+  );
 }
 
 export const SHORT_DOCUMENT_RULE = 'EXPLICIT_SHORT_DOCUMENT_EXACT_DATE_V1';
@@ -50,7 +62,9 @@ export function shortDocumentCandidate(t: Transaction): boolean {
     (t.documentType === 'Invoice' || t.documentType === 'Credit Note') &&
     t.documentReference === t.reference &&
     t.primaryReference === t.documentReference &&
-    (!t.chosenReference || t.chosenReference === t.documentReference) &&
+    (!t.chosenReference ||
+      t.chosenReference === t.documentReference ||
+      chosenRelatedInvoice(t)) &&
     ref.length >= 2 &&
     ref.length <= 3 &&
     /\p{L}/u.test(ref) &&
@@ -158,18 +172,61 @@ export function transactionReferences(
     ) ?? 'Unknown';
   if (rawType && documentType === 'Unknown')
     referenceEvidenceIssues.push(`نوع مستند غير متحقق: ${rawType}`);
-  const documentReference = field(
-    /^(?:supplier ref(?:erence)?|document (?:no|number|ref(?:erence)?)|invoice (?:no|number|ref(?:erence)?)|رقم المستند|مرجع المورد|رقم الفاتورة)$/i,
+  // A credit note/payment/journal can refer to an original invoice. That
+  // invoice number never identifies the new document, even if both amounts
+  // and dates agree. Roles come from explicit native headers AND row type.
+  const invoiceIsRelated = ['Credit Note', 'Payment', 'Journal'].includes(
+    documentType,
   );
+  const genericDocumentPattern =
+    /^(?:supplier ref(?:erence)?|document (?:no|number|ref(?:erence)?)|رقم المستند|مرجع المورد)$/i;
+  const invoicePattern =
+    /^(?:invoice (?:no|number|ref(?:erence)?)|رقم الفاتورة)$/i;
+  const creditNumberPattern =
+    /^(?:credit (?:note|memo) (?:no|number)|رقم الإشعار الدائن|رقم الاشعار الدائن)$/i;
+  const explicitlyRelatedPattern =
+    /^(?:(?:original|related) invoice (?:no|number|ref(?:erence)?)|رقم الفاتورة الأصلية|رقم الفاتورة الاصلية|رقم الفاتورة المرتبطة)$/i;
+  const ownPattern = new RegExp(
+    [
+      genericDocumentPattern.source,
+      ...(!invoiceIsRelated ? [invoicePattern.source] : []),
+      ...(documentType === 'Credit Note' ? [creditNumberPattern.source] : []),
+    ].join('|'),
+    'i',
+  );
+  const relatedPattern = new RegExp(
+    [
+      explicitlyRelatedPattern.source,
+      ...(invoiceIsRelated ? [invoicePattern.source] : []),
+    ].join('|'),
+    'i',
+  );
+  const documentReference = field(ownPattern);
+  const relatedInvoiceReference = field(relatedPattern);
+  const relatedColumns = headers.flatMap((h, column) =>
+    headerMatches(relatedPattern, h) ? [column] : [],
+  );
+  const relatedColumn =
+    relatedColumns.length === 1 ? relatedColumns[0] : undefined;
+  const relatedInvoiceEvidence: Transaction['relatedInvoiceEvidence'] =
+    relatedColumn !== undefined &&
+    relatedInvoiceReference &&
+    !referenceEvidenceIssues.length
+      ? {
+          header: String(rawHeaders[relatedColumn]).trim(),
+          column: relatedColumn + 1,
+        }
+      : undefined;
   const documentNumberColumns = headers.flatMap((label, column) => {
-    const role = headerMatches(
-      /^(?:document (?:no|number)|رقم المستند)$/i,
-      label,
-    )
-      ? ('document-number' as const)
-      : headerMatches(/^(?:invoice (?:no|number)|رقم الفاتورة)$/i, label)
-        ? ('invoice-number' as const)
-        : undefined;
+    const role =
+      headerMatches(/^(?:document (?:no|number)|رقم المستند)$/i, label) ||
+      (documentType === 'Credit Note' &&
+        headerMatches(creditNumberPattern, label))
+        ? ('document-number' as const)
+        : !invoiceIsRelated &&
+            headerMatches(/^(?:invoice (?:no|number)|رقم الفاتورة)$/i, label)
+          ? ('invoice-number' as const)
+          : undefined;
     return role ? [{ role, column }] : [];
   });
   const numberOrigin =
@@ -225,48 +282,68 @@ export function transactionReferences(
   // checks apply even though this column was not selected.
   const statedReferencePattern = /^(?:reference|ref|المرجع)$/i;
   const statedReference = field(statedReferencePattern);
+  const mappedRelated =
+    mapping.reference >= 0 &&
+    headerMatches(relatedPattern, headers[mapping.reference] ?? '');
   const chosenReferenceEvidence: Transaction['chosenReferenceEvidence'] =
-    mapped &&
-    statedReference === mapped &&
-    headerMatches(statedReferencePattern, headers[mapping.reference] ?? '') &&
-    !referenceEvidenceIssues.length
-      ? {
-          role: 'document-reference',
-          header: String(rawHeaders[mapping.reference]).trim(),
-          column: mapping.reference + 1,
-        }
-      : undefined;
+    mappedRelated &&
+    relatedInvoiceEvidence &&
+    mapped === relatedInvoiceReference
+      ? { ...relatedInvoiceEvidence, role: 'related-invoice' }
+      : mapped &&
+          statedReference === mapped &&
+          headerMatches(
+            statedReferencePattern,
+            headers[mapping.reference] ?? '',
+          ) &&
+          !referenceEvidenceIssues.length
+        ? {
+            role: 'document-reference',
+            header: String(rawHeaders[mapping.reference]).trim(),
+            column: mapping.reference + 1,
+          }
+        : undefined;
   // Without a chosen reference column only an explicit document number, bank
   // reference or receipt number identifies a row across the two books. A
   // voucher, batch or order number is kept by each book for itself, so a row
   // identified by one of them alone is never approved automatically.
   if (
-    mapping.reference < 0 &&
+    (mapping.reference < 0 || mappedRelated) &&
     !documentReference &&
-    !explicitBankReference &&
-    !explicitReceiptReference
+    !(
+      documentType === 'Payment' &&
+      (explicitBankReference || explicitReceiptReference)
+    )
   )
     referenceEvidenceIssues.push(
-      'لم يُختر عمود المرجع، ولا يحمل الصف رقم مستند أو مرجعًا بنكيًا أو رقم إيصال صريحًا؛ لا تُعتمد مطابقة آلية.',
+      mappedRelated
+        ? 'رقم الفاتورة المرتبطة لا يثبت هوية هذا المستند. يلزم رقم المستند أو مرجع دفعة صريح.'
+        : 'لم يُختر عمود المرجع، ولا يحمل الصف رقم مستند أو مرجعًا بنكيًا أو رقم إيصال صريحًا؛ لا تُعتمد مطابقة آلية.',
     );
   // A batch groups postings; it does not name a document.
   if (mapped && batch && mapped === batch)
     referenceEvidenceIssues.push(
       'العمود المختار مرجعًا هو رقم دفعة (Batch)، ولا يثبت هوية المستند.',
     );
+  // Keep the selected related value for audit, but never fall back to it
+  // as an identity. A missing native document identity stays reviewable.
+  const mappedIdentity = mappedRelated ? '' : mapped;
   const primaryReference =
     documentType === 'Payment'
       ? bankReference ||
         receiptReference ||
         voucherReference ||
         documentReference ||
-        mapped
+        mappedIdentity
       : documentType === 'Journal'
-        ? voucherReference || batch || documentReference || mapped
+        ? voucherReference || batch || documentReference || mappedIdentity
         : // A voucher is numbered by each book for itself. For a document, the
           // explicit document number, then the reference the accountant chose,
           // name it across both books; the voucher only when neither exists.
-          documentReference || mapped || voucherReference || poReference;
+          documentReference ||
+          mappedIdentity ||
+          voucherReference ||
+          poReference;
   // An order can legitimately have several invoices of the same amount. Keep
   // an order-only identity visible, but never present it as proof of a document.
   // A document number that is the order number itself is the order again.
@@ -340,6 +417,8 @@ export function transactionReferences(
     ...(statedReference ? { statedReference } : {}),
     primaryReference,
     documentReference,
+    ...(relatedInvoiceReference ? { relatedInvoiceReference } : {}),
+    ...(relatedInvoiceEvidence ? { relatedInvoiceEvidence } : {}),
     ...(documentNumberEvidence ? { documentNumberEvidence } : {}),
     voucherReference,
     poReference,

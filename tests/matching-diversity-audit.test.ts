@@ -180,8 +180,8 @@ test('known contradictory document types never auto-match equal signed amounts a
     assert.equal(r.matches.length, 0, `${a} versus ${b}`);
     assert.equal(
       r.caseCounts.needsReviewCases,
-      1,
-      'the contradiction is visible for review',
+      Number(a !== 'Invoice') + Number(b !== 'Invoice'),
+      'the missing own-document identity stays visible for review',
     );
   }
   const bilingual = [...headers];
@@ -306,7 +306,7 @@ test('identical repeated posting lines cannot be proved distinct by their sum', 
   }
 });
 
-test('valid positive and negative whole-reference groups match in either direction without subset search', () => {
+test('F03 preserves historical group sources: Invoice No proves an invoice group but not a credit-note group', () => {
   for (const sign of [1, -1])
     for (const reverse of [false, true]) {
       const type = sign === 1 ? 'Invoice' : 'Credit Note';
@@ -332,6 +332,12 @@ test('valid positive and negative whole-reference groups match in either directi
       const r = run(
         ...((reverse ? [group, single] : [single, group]) as [Row[], Row[]]),
       );
+      if (sign === -1) {
+        assert.equal(r.caseCounts.autoMatchedCases, 0);
+        assert.equal(r.caseCounts.matchedSourceRows, 0);
+        assert.equal(r.caseCounts.needsReviewSourceRows, 3);
+        continue;
+      }
       assert.equal(r.caseCounts.autoMatchedCases, 1);
       assert.equal(r.caseCounts.matchedSourceRows, 3);
       assert.equal(

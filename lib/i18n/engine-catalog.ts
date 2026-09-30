@@ -13,6 +13,15 @@
 // has no English, when an entry no longer exists in the engine, or when the
 // slots do not correspond.
 export const engineCatalog: Record<string, string> = {
+  'رقم الفاتورة المرتبطة لا يثبت هوية هذا المستند. يلزم رقم المستند أو مرجع دفعة صريح.':
+    'The related invoice number does not identify this document. An own-document number or an explicit payment reference is needed.',
+  'الفاتورتان المرتبطتان بالإشعار الدائن مختلفتان: ${…} / ${…}':
+    'The credit notes name different related invoices: {0} / {1}',
+  'أرقام الفواتير المرتبطة بالإشعار الدائن مختلفة. راجع الأصل قبل الربط.':
+    'The credit notes name different related invoices. Review the source before linking them.',
+  'الفاتورة المرتبطة «${…}» من عمود «${…}». هذا الرقم لا يثبت هوية الإشعار أو الدفعة أو القيد.':
+    'Related invoice “{0}” from column “{1}”. This number does not identify the credit note, payment or journal.',
+  'غير متحقق': 'Unverified',
   'نتيجة جزئية: الحركات المعالجة ${…}؛ الصفوف التي تحتاج مراجعة القراءة ${…}؛ ملاحظات الأرصدة ${…}؛ ملاحظات المصدر أو النطاق ${…}. الأرقام تخص الحركات المقروءة فقط ولا تثبت اكتمال التسوية.':
     'Partial result: processed transactions {0}; rows needing reading review {1}; balance issues {2}; source or scope issues {3}. Figures cover readable transactions only and do not establish a complete reconciliation.',
   'راجع ملاحظات القراءة أولًا. لم تُحوّل القيم غير المقروءة إلى أصفار أو حركات مالية.':

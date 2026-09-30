@@ -1,6 +1,7 @@
 import { money, parseDate, safeSum } from './core.ts';
 import {
   DOCUMENT_LABELS,
+  chosenRelatedInvoice,
   hasUnsafeReferenceText,
 } from './transaction-references.ts';
 import {
@@ -67,6 +68,16 @@ export function identityConflicts(a: Transaction, b: Transaction): string[] {
         conflicts.push(
           `تعارض هوية الدفعة (${field}): ${a[field]} / ${b[field]}`,
         );
+  if (
+    a.documentType === 'Credit Note' &&
+    b.documentType === 'Credit Note' &&
+    a.relatedInvoiceReference &&
+    b.relatedInvoiceReference &&
+    a.relatedInvoiceReference !== b.relatedInvoiceReference
+  )
+    conflicts.push(
+      `الفاتورتان المرتبطتان بالإشعار الدائن مختلفتان: ${a.relatedInvoiceReference} / ${b.relatedInvoiceReference}`,
+    );
   const hintedA = descriptionTypeHint(a.description),
     hintedB = descriptionTypeHint(b.description);
   const declared = (t: Transaction) =>
@@ -100,6 +111,8 @@ export function automaticConflicts(a: Transaction, b: Transaction): string[] {
   if (
     document(a) &&
     document(b) &&
+    !chosenRelatedInvoice(a) &&
+    !chosenRelatedInvoice(b) &&
     a.chosenReference &&
     b.chosenReference &&
     a.chosenReference.trim() !== b.chosenReference.trim()
@@ -909,11 +922,12 @@ export function buildReconciliationCases(
     if (!used.has(s.id))
       add(
         'SUPPLIER_ONLY',
-        'Unmatched',
+        s.referenceEvidenceIssues?.length ? 'Needs Review' : 'Unmatched',
         [s],
         [],
         'NO_VIABLE_LEDGER_COUNTERPART',
         [
+          ...(s.referenceEvidenceIssues ?? []),
           `مستند المورد ${s.reference || `صف ${s.row}`} بمبلغ ${money(s.amount, scope.decimals)} ${scope.currency}: لا يوجد مقابل دفتر يستوفي قواعد المطابقة أو حالة مراجعة مثبتة.`,
         ],
       );
@@ -921,11 +935,12 @@ export function buildReconciliationCases(
     if (!used.has(l.id))
       add(
         'LEDGER_ONLY',
-        'Unmatched',
+        l.referenceEvidenceIssues?.length ? 'Needs Review' : 'Unmatched',
         [],
         [l],
         'NO_VIABLE_SUPPLIER_COUNTERPART',
         [
+          ...(l.referenceEvidenceIssues ?? []),
           `مستند الدفتر ${l.reference || `صف ${l.row}`} بمبلغ ${money(l.amount, scope.decimals)} ${scope.currency}: لا يوجد مقابل مورد يستوفي قواعد المطابقة أو حالة مراجعة مثبتة.`,
         ],
       );

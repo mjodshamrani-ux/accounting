@@ -311,7 +311,7 @@ test('045 an opening balance from a different declared period cannot be certifie
   const b = source(f, 'ledger', { header: 1 });
   assert.equal(compare(a, b, scope).bridge, null);
 });
-test('045 numeric original invoice and credit-note IDs may match only with explicit identity evidence on both sides', () => {
+test('F03 preserves old numeric Invoice No inputs: an invoice can match, its credit note cannot borrow that identity', () => {
   for (const type of ['Invoice', 'Credit Note'])
     for (const ref of ['000012340567', '٠٠٠١٢٣٤٥٦٧']) {
       const f = file(
@@ -321,9 +321,17 @@ test('045 numeric original invoice and credit-note IDs may match only with expli
       const a = source(f, 'supplier');
       const b = source(f, 'ledger');
       const result = compare(a, b, scope);
-      assert.equal(result.matches.length, 1);
-      assert.equal(result.matches[0].evidence?.reference, ref);
-      assert.equal(result.supplier.transactions[0].reference, ref);
+      assert.equal(result.matches.length, type === 'Invoice' ? 1 : 0);
+      if (type === 'Invoice') {
+        assert.equal(result.matches[0].evidence?.reference, ref);
+        assert.equal(result.supplier.transactions[0].reference, ref);
+      } else {
+        assert.equal(result.supplier.transactions[0].reference, '');
+        assert.equal(
+          result.supplier.transactions[0].relatedInvoiceReference,
+          ref,
+        );
+      }
     }
 });
 test('045 numeric general references, unknown types, payments, shortened IDs and numeric groups stay unapproved', () => {

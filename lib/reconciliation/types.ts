@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.23-experimental';
+export const ENGINE_VERSION = '0.3.24-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -134,6 +134,10 @@ export type Transaction = {
     header: string;
     column: number;
   };
+  // An original invoice associated with this document. Audit/conflict evidence
+  // only; never the identity of a credit note, payment or journal.
+  relatedInvoiceReference?: string;
+  relatedInvoiceEvidence?: { header: string; column: number };
   voucherReference?: string;
   poReference?: string;
   bankReference?: string;
@@ -144,10 +148,11 @@ export type Transaction = {
   documentType?: 'Invoice' | 'Credit Note' | 'Payment' | 'Journal' | 'Unknown';
   chosenReference?: string;
   // Positive role provenance only for an explicitly selected, unique and safe
-  // generic reference column. Local vouchers/orders and audit-only retention
+  // generic reference column. A related-invoice role records why a selected
+  // value is audit/conflict evidence only. Local vouchers/orders and retention
   // must never acquire this authority merely by having the same cell value.
   chosenReferenceEvidence?: {
-    role: 'document-reference';
+    role: 'document-reference' | 'related-invoice';
     header: string;
     column: number;
   };

@@ -1,0 +1,2 @@
+# Frozen native PDF fixtures must retain exact bytes, including xref spaces.
+audit/related-invoice/frozen/*.pdf binary

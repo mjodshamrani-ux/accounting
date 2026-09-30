@@ -1,0 +1,571 @@
+{
+  "sourceFormat": "native-text-pdf",
+  "engine": "0.3.24-experimental",
+  "contractSha256": "1ced5b7305e81d965c905c613a41973ddd123f553d01cccd1be901efd55827d8",
+  "observedAtUtc": "2026-09-30T15:16:04.428Z",
+  "passed": 3,
+  "total": 3,
+  "observations": [
+    {
+      "id": "different-credit-notes",
+      "passed": true,
+      "sourceHashes": [
+        "70e887417e9ed289dd2abf58bbbeac579d6a2be4a6d5cde2d393594198d4d36a",
+        "24c3d449197b11c718b2826bed251b4dd4fe5b7edba7526172edb365f586d3db"
+      ],
+      "mappings": [
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {},
+          "pdfReviewed": true
+        },
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 4,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      ],
+      "direct": {
+        "approved": [],
+        "movements": [
+          [
+            {
+              "row": 2,
+              "primary": "CN-701",
+              "document": "CN-701",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "primary": "CN-799",
+              "document": "CN-799",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ]
+        ],
+        "rowFates": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "fullReconciliation": false
+      },
+      "restored": {
+        "approved": [],
+        "movements": [
+          [
+            {
+              "row": 2,
+              "primary": "CN-701",
+              "document": "CN-701",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "primary": "CN-799",
+              "document": "CN-799",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ]
+        ],
+        "rowFates": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "fullReconciliation": false
+      }
+    },
+    {
+      "id": "own-credit-note",
+      "passed": true,
+      "sourceHashes": [
+        "70e887417e9ed289dd2abf58bbbeac579d6a2be4a6d5cde2d393594198d4d36a",
+        "210d0fc48b7e5732419141d41b73eb7363c460b9385ce8e70a399e95dc2f600b"
+      ],
+      "mappings": [
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {},
+          "pdfReviewed": true
+        },
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 4,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      ],
+      "direct": {
+        "approved": [
+          {
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": -5000,
+            "rule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "primary": "CN-701"
+          }
+        ],
+        "movements": [
+          [
+            {
+              "row": 2,
+              "primary": "CN-701",
+              "document": "CN-701",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "primary": "CN-701",
+              "document": "CN-701",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ]
+        ],
+        "rowFates": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "fullReconciliation": false
+      },
+      "restored": {
+        "approved": [
+          {
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": -5000,
+            "rule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "primary": "CN-701"
+          }
+        ],
+        "movements": [
+          [
+            {
+              "row": 2,
+              "primary": "CN-701",
+              "document": "CN-701",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "primary": "CN-701",
+              "document": "CN-701",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ]
+        ],
+        "rowFates": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "fullReconciliation": false
+      }
+    },
+    {
+      "id": "short-own-credit-note",
+      "passed": true,
+      "sourceHashes": [
+        "564c83223ebaf869567152c4ccdb6ffe137ff5e9a8e50789e206b1b235060f63",
+        "0d4688ecd44af84c3592568ccf209e707010c97205681d70befa4fbc69a4ea18"
+      ],
+      "mappings": [
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {},
+          "pdfReviewed": true
+        },
+        {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 2,
+          "description": -1,
+          "amount": 4,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        }
+      ],
+      "direct": {
+        "approved": [
+          {
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": -5000,
+            "rule": "EXPLICIT_SHORT_DOCUMENT_EXACT_DATE_V1",
+            "primary": "CN-3"
+          }
+        ],
+        "movements": [
+          [
+            {
+              "row": 2,
+              "primary": "CN-3",
+              "document": "CN-3",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "primary": "CN-3",
+              "document": "CN-3",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ]
+        ],
+        "rowFates": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "fullReconciliation": false
+      },
+      "restored": {
+        "approved": [
+          {
+            "supplierRows": [
+              2
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": -5000,
+            "rule": "EXPLICIT_SHORT_DOCUMENT_EXACT_DATE_V1",
+            "primary": "CN-3"
+          }
+        ],
+        "movements": [
+          [
+            {
+              "row": 2,
+              "primary": "CN-3",
+              "document": "CN-3",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "primary": "CN-3",
+              "document": "CN-3",
+              "related": "INV-401",
+              "number": {
+                "role": "document-number",
+                "header": "Credit Note No",
+                "column": 2
+              },
+              "chosen": "INV-401",
+              "evidence": {
+                "header": "Invoice No",
+                "column": 3,
+                "role": "related-invoice"
+              },
+              "type": "Credit Note",
+              "amountMinor": -5000,
+              "issues": []
+            }
+          ]
+        ],
+        "rowFates": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "fullReconciliation": false
+      }
+    }
+  ]
+}
