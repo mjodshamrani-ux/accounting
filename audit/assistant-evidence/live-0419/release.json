@@ -1,0 +1,86 @@
+{
+  "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.19",
+  "verifiedAtUtc": "2026-09-30T20:22:27.332599+00:00",
+  "app": "0.4.19",
+  "engine": "0.3.26-experimental",
+  "sourceCommit": "3033d9962794f008e9e3ca903fe8167717cb9d2e",
+  "sourceTree": "1241c324b18bbb210123e0a27ad776f6e3422f65",
+  "ciRun": 36769605876,
+  "ciArtifact": {
+    "id": 11123725130,
+    "sha256": "sha256:2f0bebfc63e25de5891e99e04c3b64997a98845d10b3cba68ccdf14ded8f1970",
+    "sizeInBytes": 8244359
+  },
+  "unit": {
+    "localPassed": 1016,
+    "localSkipped": 0,
+    "ciPassed": 1004,
+    "ciSkippedPrivateFixtures": 12,
+    "ciFailed": 0,
+    "ciTotal": 1016
+  },
+  "mutationsDetected": 109,
+  "independentPythonMethods": 57,
+  "live": {
+    "routineExports": 22,
+    "additionalLargeExport": 1,
+    "verifiedCodeResponses": 52,
+    "uniqueVerifiedCodePaths": 2,
+    "executedAccountingWorkersVerified": 26,
+    "embeddedWorkerSha256": "016ef05ad9a2d6336ce4b6f32aea544fbc8b80ba628ee89f3373d5a45fa8018d",
+    "externalRequestsObserved": 0,
+    "nonGetRequestsObserved": 0,
+    "pageErrors": [],
+    "localModelSurface": {
+      "apiExposed": true,
+      "inferenceRequiredForTheseExactQuestions": false
+    },
+    "large": {
+      "supplierTransactions": 2240,
+      "ledgerTransactions": 2240,
+      "requiredPairs": 2240,
+      "requiredPairsSatisfied": 2240,
+      "falseApprovedPairs": 0,
+      "missingPairs": 0,
+      "exactEvidenceMembers": 4480,
+      "parsedSupplierRows": 2450,
+      "parsedLedgerRows": 2241,
+      "pdfOrigins": 2450,
+      "excludedSupplierRows": 210,
+      "excludedLedgerRows": 1,
+      "totalMinorEachSide": 40779520,
+      "xmlPartsParsed": 30
+    }
+  },
+  "workbookSha256": {
+    "p5-partial-source-direct.xlsx": "fdfa6447c51b9ec7bfb5619409a80196cb73f39f3c012b6df1e112c3a41cb3b0",
+    "p5-partial-source-restored.xlsx": "60cfddc2650132fa79dbf85f1cb446b8f4e9c3c1a2afa45ebaaada0e4b4f5f63",
+    "p5-untyped-credit-direct.xlsx": "390d870be0b997d40e5c1f8d849bc0a6151a32498459123d6bac023d7cd5005b",
+    "p5-untyped-credit-restored.xlsx": "76c3883da062ac3b5a8c3c83cb0f0e31e6929ae6c47e7af45a964064ab8428c0",
+    "f03-different-credit-notes-direct.xlsx": "cfe112048282ba9bc10abcb1338e42bf58846852a51d52936068f81cf6b2d68b",
+    "f03-different-credit-notes-restored.xlsx": "79f3ed59f85d2538567a5756b4b1c6644d99ddadb5cc80173248eff53c5fe7f4",
+    "f03-own-credit-note-direct.xlsx": "902557565c971697c53d70f76df7fbe25fd8d6cdb407b63836d775c9c857ab70",
+    "f03-own-credit-note-restored.xlsx": "7bd4c786bf6934096b67ea2da8c0c08003394079024a060678279dd1de24ab1b",
+    "f03-short-own-credit-note-direct.xlsx": "48f129d3a1adc32f049b2ded09cbadc72aba3b93b99a4d363754c3c8b8148a5f",
+    "f03-short-own-credit-note-restored.xlsx": "c3f3c9a1a50f58a1daf178ffa62f7fd2f0998d123f9333d6bf530778d4800c4f",
+    "unknown-blank-credit-ordinary-invoice-direct.xlsx": "ef0d2e5ae901f671abb0a2862fe405fcc6586d0919e7e7a42cad49cf11bc7175",
+    "unknown-blank-credit-ordinary-invoice-restored.xlsx": "5f969dd7d895619fcc1cbb9e960147685023a102e26225323c37bcbeb9650c3b",
+    "unknown-different-untyped-credit-direct.xlsx": "8198399e703c3a69a8afc0995ca8b4c8b4f5b3dc25e9b6b1e64cd4dcfa324275",
+    "unknown-different-untyped-credit-restored.xlsx": "9aa392b3d5e08ca7c6a158e64bb67880173b352ea8ed3c643067563c1820117c",
+    "typed-0-direct.xlsx": "c3f27d9227517affc17c713dfb57e10429306ec0cf8a77be24d532714351dce7",
+    "typed-0-restored.xlsx": "41c93e57fc276c25761d963ef8043a85f76b7fcbdf1870f8406580ab889b3b1a",
+    "typed-1-direct.xlsx": "d9194fbb43f37346df681fc3fc7a12094517bf3f6d4b4de6c475117cb9363bc2",
+    "typed-1-restored.xlsx": "15344deaed0ae59c062649b50ed1dad93b72ebcac016eda70e5a75a6832344e5",
+    "layered-0-direct.xlsx": "670d11941e062e4bfa9bfa6e77307291047c9fc4be72c9c81477a562ec4dc23a",
+    "layered-0-restored.xlsx": "f291cb10c02ed65cf2c0efb9e7d90de152c7d438588da36f6f70204143955222",
+    "layered-1-direct.xlsx": "5fbabea9f63cec0412039aa1235b1824f852bced8cd5da87940fb9f4f78af1ed",
+    "layered-1-restored.xlsx": "f65ff040a627c0b17a71117479910954e65ba2a66b8fd6c61feae54c34e4af7d",
+    "native-70.xlsx": "6ebd762bc19706bce3e9967d59cfd5d783f886f70d30cfbde7eb81e150755d9a"
+  },
+  "limitations": [
+    "Synthetic development/regression evidence, not a holdout or customer study",
+    "Native PDF large case has known layout, explicit column boundaries and visual review; no full reconciliation claim",
+    "Provider-interface tests use a test double; no actual model training or provider-quality claim",
+    "Financial OCR, bank/GL-TB and general invoice N:M remain outside this cycle"
+  ]
+}

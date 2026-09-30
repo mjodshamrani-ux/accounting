@@ -1,0 +1,80 @@
+{
+  "schema": "tarasuf-assistant-evidence-browser-1",
+  "engine": "0.3.26-experimental",
+  "cases": [
+    {
+      "id": "untyped-credit",
+      "approved": 0,
+      "direct": "work/qa/p5-untyped-credit-direct.xlsx",
+      "restored": "work/qa/p5-untyped-credit-restored.xlsx",
+      "directAnswer": {
+        "question": "لماذا CN-701؟",
+        "text": "المورد: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR\nدليل محفوظ «CN-701» من عمود «Credit Note No». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-8AFC13AB: AMBIGUOUS_CANDIDATE — Needs Review.\nالمرجع والمبلغ والتاريخ متطابقة، لكن دليل المستند غير متحقق. لم تُعتمد المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-799» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nمجموع المورد -50.00 SAR؛ مجموع الدفتر -50.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "englishAnswer": {
+        "question": "Explain CN-701",
+        "text": "Supplier: CSV, row 2, reference “INV-401”, 2026-07-17, -50.00 SAR\nRetained evidence «CN-701» from column «Credit Note No». Keeping it for audit does not make it sufficient proof of a match.\nCase CASE-8AFC13AB: AMBIGUOUS_CANDIDATE — Needs Review.\nThe reference, amount and date agree, but the document evidence is not verified. The match was not approved.\nCredit note number «CN-701» is present, but the document type is unclear. Review the roles of the numbers before matching.\nCredit note number «CN-799» is present, but the document type is unclear. Review the roles of the numbers before matching.\nCredit note number «CN-701» is present, but the document type is unclear. Review the roles of the numbers before matching.\nSupplier total -50.00 SAR; AP ledger total -50.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.\nCase member: AP ledger: CSV, row 2, reference “INV-401”, 2026-07-17, -50.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "translated": "Supplier: CSV, row 2, reference “INV-401”, 2026-07-17, -50.00 SAR\nRetained evidence «CN-701» from column «Credit Note No». Keeping it for audit does not make it sufficient proof of a match.\nCase CASE-8AFC13AB: AMBIGUOUS_CANDIDATE — Needs Review.\nThe reference, amount and date agree, but the document evidence is not verified. The match was not approved.\nCredit note number «CN-701» is present, but the document type is unclear. Review the roles of the numbers before matching.\nCredit note number «CN-799» is present, but the document type is unclear. Review the roles of the numbers before matching.\nCredit note number «CN-701» is present, but the document type is unclear. Review the roles of the numbers before matching.\nSupplier total -50.00 SAR; AP ledger total -50.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.\nCase member: AP ledger: CSV, row 2, reference “INV-401”, 2026-07-17, -50.00 SAR",
+      "restoredAnswer": {
+        "question": "لماذا CN-701؟",
+        "text": "المورد: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR\nدليل محفوظ «CN-701» من عمود «Credit Note No». حفظه للتدقيق لا يجعله وحده إثباتًا للمطابقة.\nحالة CASE-8AFC13AB: AMBIGUOUS_CANDIDATE — Needs Review.\nالمرجع والمبلغ والتاريخ متطابقة، لكن دليل المستند غير متحقق. لم تُعتمد المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-799» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nيوجد رقم إشعار دائن «CN-701» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.\nمجموع المورد -50.00 SAR؛ مجموع الدفتر -50.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-401»، 2026-07-17، -50.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "manualColumnMapping": false,
+      "externalScopeInputs": [
+        "currency",
+        "cutoff"
+      ],
+      "modelUsed": false
+    },
+    {
+      "id": "partial-source",
+      "approved": 1,
+      "direct": "work/qa/p5-partial-source-direct.xlsx",
+      "restored": "work/qa/p5-partial-source-restored.xlsx",
+      "directAnswer": {
+        "question": "اشرح INV-P5-740",
+        "text": "نتيجة جزئية: الحركات المعالجة 2؛ الصفوف التي تحتاج مراجعة القراءة 1؛ ملاحظات الأرصدة 0؛ ملاحظات المصدر أو النطاق 0. الأرقام تخص الحركات المقروءة فقط ولا تثبت اكتمال التسوية.\nالمورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nالدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: المورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "englishAnswer": {
+        "question": "Explain INV-P5-740",
+        "text": "Partial result: processed transactions 2; rows needing reading review 1; balance issues 0; source or scope issues 0. Figures cover readable transactions only and do not establish a complete reconciliation.\nSupplier: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR\nCase CASE-421D9F72: EXACT_1_TO_1 — Matched.\nThe original reference matches in every character and is not repeated on either side. The amount and its sign match, and the date difference in days is 0.\nSupplier total 100.00 SAR; AP ledger total 100.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.\nCase member: AP ledger: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR\nAP ledger: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR\nCase CASE-421D9F72: EXACT_1_TO_1 — Matched.\nThe original reference matches in every character and is not repeated on either side. The amount and its sign match, and the date difference in days is 0.\nSupplier total 100.00 SAR; AP ledger total 100.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.\nCase member: Supplier: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "translated": "Partial result: processed transactions 2; rows needing reading review 1; balance issues 0; source or scope issues 0. Figures cover readable transactions only and do not establish a complete reconciliation.\nSupplier: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR\nCase CASE-421D9F72: EXACT_1_TO_1 — Matched.\nThe original reference matches in every character and is not repeated on either side. The amount and its sign match, and the date difference in days is 0.\nSupplier total 100.00 SAR; AP ledger total 100.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.\nCase member: AP ledger: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR\nAP ledger: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR\nCase CASE-421D9F72: EXACT_1_TO_1 — Matched.\nThe original reference matches in every character and is not repeated on either side. The amount and its sign match, and the date difference in days is 0.\nSupplier total 100.00 SAR; AP ledger total 100.00 SAR; difference 0.00 SAR; bridge effect 0.00 SAR.\nCase member: Supplier: CSV, row 2, reference “INV-P5-740”, 2026-07-17, 100.00 SAR",
+      "restoredAnswer": {
+        "question": "اشرح INV-P5-740",
+        "text": "نتيجة جزئية: الحركات المعالجة 2؛ الصفوف التي تحتاج مراجعة القراءة 1؛ ملاحظات الأرصدة 0؛ ملاحظات المصدر أو النطاق 0. الأرقام تخص الحركات المقروءة فقط ولا تثبت اكتمال التسوية.\nالمورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: الدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nالدفتر: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR\nحالة CASE-421D9F72: EXACT_1_TO_1 — Matched.\nالمرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم.\nمجموع المورد 100.00 SAR؛ مجموع الدفتر 100.00 SAR؛ الفرق 0.00 SAR؛ أثر الجسر 0.00 SAR.\nعضو الحالة: المورد: CSV، صف 2، مرجع «INV-P5-740»، 2026-07-17، 100.00 SAR",
+        "sourceIds": [
+          "supplier:0:2",
+          "ledger:0:2"
+        ]
+      },
+      "manualColumnMapping": false,
+      "externalScopeInputs": [
+        "currency",
+        "cutoff"
+      ],
+      "modelUsed": false
+    }
+  ]
+}

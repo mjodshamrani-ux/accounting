@@ -1,0 +1,34 @@
+[
+  {
+    "workbook": "work/qa/unknown-blank-credit-ordinary-invoice-direct.xlsx",
+    "verified": true,
+    "id": "blank-credit-ordinary-invoice",
+    "format": "xlsx",
+    "approved": 1,
+    "engine": "0.3.26-experimental"
+  },
+  {
+    "workbook": "work/qa/unknown-blank-credit-ordinary-invoice-restored.xlsx",
+    "verified": true,
+    "id": "blank-credit-ordinary-invoice",
+    "format": "xlsx",
+    "approved": 1,
+    "engine": "0.3.26-experimental"
+  },
+  {
+    "workbook": "work/qa/unknown-different-untyped-credit-direct.xlsx",
+    "verified": true,
+    "id": "different-untyped-credit",
+    "format": "xlsx",
+    "approved": 0,
+    "engine": "0.3.26-experimental"
+  },
+  {
+    "workbook": "work/qa/unknown-different-untyped-credit-restored.xlsx",
+    "verified": true,
+    "id": "different-untyped-credit",
+    "format": "xlsx",
+    "approved": 0,
+    "engine": "0.3.26-experimental"
+  }
+]
