@@ -9,6 +9,7 @@ import {
   explainResult,
   resolveQuestionReferences,
   hasVerifiedExplanationEvidence,
+  containsExactIdentifier,
 } from '../lib/reconciliation/assistant.ts';
 import {
   askLocalModel,
@@ -365,4 +366,18 @@ void test('P5 an over-budget UTF-8 window declines without truncating evidence o
   );
   assert.equal(calls, 0);
   assert.equal(t.retainedEvidence!.at(-1)?.value, huge);
+});
+
+void test('P5 exact identifier lookup keeps punctuation and Unicode boundaries during literal screening', () => {
+  for (const [question, id, expected] of [
+    ['See (CN-701)', 'CN-701', true],
+    ['Explain CN-7010', 'CN-701', false],
+    ['Explain CN.7+01', 'CN.7+01', true],
+    ['Explain CNx7+01', 'CN.7+01', false],
+    ['𝑨CN-701', 'CN-701', false],
+    ['CN-701𐒠', 'CN-701', false],
+    ['مرجعCN-701', 'CN-701', false],
+    ['CN-701/CN-702', 'CN-701', false],
+  ] as const)
+    assert.equal(containsExactIdentifier(question, id), expected);
 });

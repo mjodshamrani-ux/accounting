@@ -530,7 +530,7 @@ export function containsExactIdentifier(
   question: string,
   identifier: string,
 ): boolean {
-  if (!identifier) return false;
+  if (!identifier || !question.includes(identifier)) return false;
   const escaped = identifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   // Punctuation within document identifiers is significant; substring matches are unsafe.
   return new RegExp(

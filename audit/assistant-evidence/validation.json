@@ -8,7 +8,7 @@
   "families": 4,
   "nativeExportWorkbooks": 8,
   "browserExportWorkbooks": 4,
-  "unitTestsPassed": 1015,
+  "unitTestsPassed": 1016,
   "unitTestsSkipped": 0,
   "newMutationsDetected": 6,
   "mutationCatalogue": 109,
@@ -23,5 +23,13 @@
     "bank reconciliation",
     "GL/TB reconciliation",
     "general invoice N:M"
-  ]
+  ],
+  "explanationPerformance": {
+    "rowsPerSide": 20000,
+    "baselineChecksMs": 14389.47625,
+    "candidateChecksMs": 320.66712499999994,
+    "baselineLateReferenceMs": 5992.661083999998,
+    "candidateLateReferenceMs": 313.18091700000014,
+    "basis": "Isolated Node synthetic measurement, no browser or device latency guarantee"
+  }
 }

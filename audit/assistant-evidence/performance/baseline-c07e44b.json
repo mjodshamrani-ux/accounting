@@ -1,0 +1,26 @@
+{
+  "basis": "Synthetic 20k CSV movements per side, isolated Node measurement; not a browser or device latency guarantee",
+  "engine": "0.3.26-experimental",
+  "rowsPerSide": 20000,
+  "approved": 20000,
+  "readMs": 122.37179200000003,
+  "comparisonMs": 1202.481375,
+  "evidenceValidationMs": 151.53120799999988,
+  "explanations": [
+    {
+      "question": "What checks were completed?",
+      "kind": "checks",
+      "sourceIds": [],
+      "milliseconds": 14389.47625
+    },
+    {
+      "question": "Explain INV-P5-MEASURE-19999",
+      "kind": "transaction",
+      "sourceIds": [
+        "supplier:0:20001",
+        "ledger:0:20001"
+      ],
+      "milliseconds": 5992.661083999998
+    }
+  ]
+}
