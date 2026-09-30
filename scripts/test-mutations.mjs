@@ -14,6 +14,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '..');
 const tests = [
+  'tests/unknown-credit-role.test.ts',
   'tests/related-invoice-roles.test.ts',
   'tests/typed-short-documents.test.ts',
   'tests/core.test.ts',
@@ -855,6 +856,16 @@ const mutations = [
         "'Unmatched'",
       ],
     ],
+  },
+  {
+    name: 'unknown-credit-remove-role-review-gate',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['  if (unverifiedCreditNumber)\n', '  if (false)\n']],
+  },
+  {
+    name: 'unknown-credit-drop-native-audit-cue',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['    ...(unverifiedCreditNumber\n', '    ...(false\n']],
   },
   {
     name: 'corrupt-exported-amount',

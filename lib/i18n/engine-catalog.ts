@@ -757,6 +757,8 @@ export const engineCatalog: Record<string, string> = {
   'دليل غير مقروء بثقة: ${…}، صف ${…}':
     'Evidence not read reliably: {0}, row {1}',
   'نوع مستند غير متحقق: ${…}': 'Unverified document type: {0}',
+  'يوجد رقم إشعار دائن «${…}» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.':
+    'Credit note number «{0}» is present, but the document type is unclear. Review the roles of the numbers before matching.',
   'أمر الشراء وحده لا يثبت هوية الفاتورة':
     'A purchase order alone does not establish the invoice’s identity',
   // visual-draft.ts

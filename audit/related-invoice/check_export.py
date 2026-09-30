@@ -10,7 +10,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parent.parent/'export-design'))
 from check_membership import Book, value, minor, require
 ROOT=Path(__file__).resolve().parent
 
-def check(filename, expected_engine='0.3.24-experimental'):
+def check(filename, expected_engine='0.3.25-experimental'):
     contract=json.loads((ROOT/'contract.json').read_text())
     manifest=json.loads((ROOT/'source-manifest.json').read_text())
     for name,sha in manifest.items():
@@ -87,5 +87,5 @@ def check(filename, expected_engine='0.3.24-experimental'):
     finally:book.close()
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('workbooks',nargs='+',type=Path);p.add_argument('--expected-engine',default='0.3.24-experimental');a=p.parse_args()
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('workbooks',nargs='+',type=Path);p.add_argument('--expected-engine',default='0.3.25-experimental');a=p.parse_args()
     print(json.dumps([{'workbook':str(f),**check(f,a.expected_engine)} for f in a.workbooks],indent=2))

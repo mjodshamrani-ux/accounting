@@ -1,0 +1,58 @@
+{
+  "schema": "tarasuf-cycle6-live-0417-1",
+  "appVersion": "0.4.17",
+  "engine": "0.3.24-experimental",
+  "featureCommit": "22c44bd301e39cebd2cc48f01dbc87d3a7c7b9a1",
+  "deployedCommit": "fa3e7fa67c6e3ba6999d792f001e18af79629c3f",
+  "pullRequest": "https://github.com/mjodshamrani-ux/accounting/pull/5",
+  "pullRequestRun": 36736786875,
+  "mainRun": 36738961880,
+  "gates": "build and all three mutation shards passed on both immutable commits; main Pages deploy passed",
+  "localTests": {
+    "pass": 977,
+    "skip": 0
+  },
+  "mainTests": {
+    "total": 977,
+    "pass": 965,
+    "skip": 12,
+    "fail": 0,
+    "skipReason": "Private local user fixtures are unavailable in GitHub Actions"
+  },
+  "immutableCiMutationFaults": {
+    "detected": 101,
+    "total": 101
+  },
+  "artifact": {
+    "id": 11110590829,
+    "sha256": "2a79b4536de1dae8593a57684c22747de7931d4bf562fa8b70ba401089afa695"
+  },
+  "live": {
+    "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.17",
+    "runtime": "runtime.json",
+    "actualDownloadedWorkbooks": 14,
+    "codeAssetsChecked": 28,
+    "sameOriginOnly": true,
+    "noPostRequests": true,
+    "noPageErrors": true,
+    "workerBlobSha256VerifiedAgainstCiArtifact": true,
+    "largePdf": {
+      "pages": 70,
+      "approved": 2240,
+      "falseMatches": 0,
+      "missingRequired": 0,
+      "nativeEvidenceMembers": 4480,
+      "rawPdfOrigins": 2450
+    }
+  },
+  "followup": "Final audit reproduced unsafe unknown-type credit-number headers. Historical 0.4.17 remains unchanged; tracked in unknown-role/baseline-0417 and corrected by 0.4.18.",
+  "limitations": [
+    "Synthetic development/regression evidence, not a customer holdout",
+    "Arabic raster OCR remains review-only",
+    "No general N:M or subset-sum matching",
+    "Full balance reconciliation requires independent coverage evidence",
+    "Local-model context interface uses a test double, not real-model training"
+  ],
+  "localPerformance": "A concurrent-load 20k wall-clock failure was preserved and the unchanged full suite was rerun in isolation successfully.",
+  "initialCandidateReport": "../report.json remains the historical pre-publish snapshot; development mutation results there are superseded by immutable PR/main CI results here."
+}

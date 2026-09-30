@@ -1,0 +1,19 @@
+Detected deliberate fault: unknown-credit-remove-role-review-gate
+Detected deliberate fault: unknown-credit-drop-native-audit-cue
+{
+  "baselinePassed": true,
+  "detected": 2,
+  "total": 2,
+  "available": 103,
+  "filter": "unknown-credit",
+  "mutations": [
+    {
+      "mutation": "unknown-credit-remove-role-review-gate",
+      "detected": true
+    },
+    {
+      "mutation": "unknown-credit-drop-native-audit-cue",
+      "detected": true
+    }
+  ]
+}

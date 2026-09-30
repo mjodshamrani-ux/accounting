@@ -184,6 +184,16 @@ export function transactionReferences(
     /^(?:invoice (?:no|number|ref(?:erence)?)|رقم الفاتورة)$/i;
   const creditNumberPattern =
     /^(?:credit (?:note|memo) (?:no|number)|رقم الإشعار الدائن|رقم الاشعار الدائن)$/i;
+  // A populated explicit credit-number column contradicts interpreting an
+  // untyped Invoice No as a proved own identity. Do not infer a credit-note
+  // type: retain the native cue for audit and require review. Empty template
+  // columns do not penalize an otherwise ordinary invoice.
+  const unverifiedCreditNumber =
+    documentType === 'Unknown' ? field(creditNumberPattern) : '';
+  if (unverifiedCreditNumber)
+    referenceEvidenceIssues.push(
+      `يوجد رقم إشعار دائن «${unverifiedCreditNumber}» ولم يتضح نوع المستند. راجع دور الأرقام قبل المطابقة.`,
+    );
   const explicitlyRelatedPattern =
     /^(?:(?:original|related) invoice (?:no|number|ref(?:erence)?)|رقم الفاتورة الأصلية|رقم الفاتورة الاصلية|رقم الفاتورة المرتبطة)$/i;
   const ownPattern = new RegExp(
@@ -369,6 +379,15 @@ export function transactionReferences(
     primaryReference,
   ];
   const retainedEvidence: NonNullable<Transaction['retainedEvidence']> = [
+    ...(unverifiedCreditNumber
+      ? [
+          {
+            field: 'unverifiedCreditNoteNumber' as const,
+            header: headerOf(creditNumberPattern),
+            value: unverifiedCreditNumber,
+          },
+        ]
+      : []),
     ...(statedReference &&
     statedReference !== mapped &&
     !kept.includes(statedReference)

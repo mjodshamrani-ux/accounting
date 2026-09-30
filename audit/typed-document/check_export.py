@@ -10,7 +10,7 @@ from check_membership import Book, value, minor, require
 ROOT = Path(__file__).resolve().parent
 
 
-def check(filename, expected_engine='0.3.24-experimental'):
+def check(filename, expected_engine='0.3.25-experimental'):
     contract = json.loads((ROOT / 'contract.json').read_text())
     for name, sha in contract['files'].items():
         require(hashlib.sha256((ROOT / 'frozen' / name).read_bytes()).hexdigest() == sha, 'frozen source changed')
@@ -78,6 +78,6 @@ def check(filename, expected_engine='0.3.24-experimental'):
 if __name__ == '__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('workbooks',nargs='+',type=Path)
-    parser.add_argument('--expected-engine',default='0.3.24-experimental')
+    parser.add_argument('--expected-engine',default='0.3.25-experimental')
     args=parser.parse_args()
     print(json.dumps([{'workbook':str(p),**check(p,args.expected_engine)} for p in args.workbooks],indent=2))

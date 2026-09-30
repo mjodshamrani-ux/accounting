@@ -1,0 +1,33 @@
+{
+  "schema": "tarasuf-unknown-credit-candidate-1",
+  "appVersion": "0.4.18",
+  "engine": "0.3.25-experimental",
+  "contractSha256": "39ac7dc9abc4129c57d71b285201d72be776e14a0d471ca295feabd8a78a6a5f",
+  "baseline": {
+    "appVersion": "0.4.17",
+    "engine": "0.3.24-experimental",
+    "passed": 2,
+    "total": 10,
+    "incorrectApprovals": 8
+  },
+  "candidate": {
+    "nativePassed": 10,
+    "nativeTotal": 10,
+    "independentNativeWorkbooksVerified": 20,
+    "actualBrowserWorkbooksVerified": 4,
+    "localUnitPassed": 994,
+    "localUnitSkipped": 0,
+    "targetedMutationsDetected": 2,
+    "allImmutableCiMutations": "pending",
+    "githubAndLiveRelease": "pending",
+    "unchangedPerformanceThreshold": "20k rows < 6 seconds in full unit gate",
+    "newInvariant": "Unverified credit-number headers are negative/audit evidence only; blank columns do not block ordinary invoice matches"
+  },
+  "limitations": [
+    "Synthetic development corpus, not a holdout",
+    "No universal correctness claim",
+    "Arabic raster OCR remains review-only",
+    "No general N:M or partial-payment allocation",
+    "No real-model training or quality claim"
+  ]
+}

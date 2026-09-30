@@ -80,7 +80,7 @@ export async function verifyRelatedInvoiceRoles(page, url) {
     const saved = await (await pending).path();
     assert.equal(
       JSON.parse(await readFile(saved, 'utf8')).engine,
-      '0.3.24-experimental',
+      '0.3.25-experimental',
     );
     async function exportCase(suffix) {
       await page

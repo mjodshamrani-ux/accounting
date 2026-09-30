@@ -1,0 +1,2759 @@
+{
+  "engine": "0.3.24-experimental",
+  "contractSha256": "39ac7dc9abc4129c57d71b285201d72be776e14a0d471ca295feabd8a78a6a5f",
+  "observedAtUtc": "2026-09-30T16:30:35.378Z",
+  "passed": 2,
+  "total": 10,
+  "observations": [
+    {
+      "id": "different-untyped-credit",
+      "format": "xlsx",
+      "sourceHashes": [
+        "623eb54a3e781e34d2ce8b16c3c4f32c1c3796623dbd65bf3b6c0342313c5dfd",
+        "e68f2b5fe17f3d7e4bf22db1e1dcbd6e71cec4d2d26dc0f8380b20ff99a477ba"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "same-untyped-credit",
+      "format": "xlsx",
+      "sourceHashes": [
+        "623eb54a3e781e34d2ce8b16c3c4f32c1c3796623dbd65bf3b6c0342313c5dfd",
+        "e52de4b3dfffb3d95854dc8d425eaf80575496c768986b49105ca84368888f07"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arabic-untyped-credit",
+      "format": "xlsx",
+      "sourceHashes": [
+        "8c34dd6c1f6f7931efbeed494e96b953c34554aeca1527d6ae3feb514dd74b22",
+        "66de2de28b698742f38d09228f09ac834335a2393ba6204a9a66119e6bcd10b7"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chosen-generic-untyped-credit",
+      "format": "xlsx",
+      "sourceHashes": [
+        "3893c783b3aeb276127d79686b00e6c7eb4e5870561e0239dba20001d453d68a",
+        "56b7f1e11691c01289976b0ea6f061fd1b74c60780c7c8b94b8c600f4d26b377"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "blank-credit-ordinary-invoice",
+      "format": "xlsx",
+      "sourceHashes": [
+        "55159d61a1f0733cf9754070ed0db4652d7698a9a94662fdb5f1bffe6d39d204",
+        "fad6ff09453383dece8cd349b198eeeb80a32448db811d87aa997341fa006f8d"
+      ],
+      "passed": true,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-5CA0EA06",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "supplierTotal": 5000,
+            "ledgerTotal": 5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-5CA0EA06",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:1:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "Statement",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "supplierTotal": 5000,
+            "ledgerTotal": 5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:1:2",
+                "side": "supplier",
+                "sheet": "Statement",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "different-untyped-credit",
+      "format": "csv",
+      "sourceHashes": [
+        "8bbf85ec490badc041a229478d0960e53116f7bed08021861d54e1bc2dc05d06",
+        "e68f2b5fe17f3d7e4bf22db1e1dcbd6e71cec4d2d26dc0f8380b20ff99a477ba"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "same-untyped-credit",
+      "format": "csv",
+      "sourceHashes": [
+        "8bbf85ec490badc041a229478d0960e53116f7bed08021861d54e1bc2dc05d06",
+        "e52de4b3dfffb3d95854dc8d425eaf80575496c768986b49105ca84368888f07"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "arabic-untyped-credit",
+      "format": "csv",
+      "sourceHashes": [
+        "5888d5c454b0f04dcbdfa748ac418b2180752f9338100d3ebe4c4e320b8e6a12",
+        "66de2de28b698742f38d09228f09ac834335a2393ba6204a9a66119e6bcd10b7"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "رقم الفاتورة",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "رقم الفاتورة",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chosen-generic-untyped-credit",
+      "format": "csv",
+      "sourceHashes": [
+        "b5d9c8dedf3cff433a08ceeb5b6da271f0aafa6471eab83dbb058baecea0a70e",
+        "56b7f1e11691c01289976b0ea6f061fd1b74c60780c7c8b94b8c600f4d26b377"
+      ],
+      "passed": false,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": -5000,
+              "type": "Unknown",
+              "retained": [
+                {
+                  "field": "mappedReference",
+                  "header": "Reference",
+                  "value": "DOC-714"
+                }
+              ],
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-78976AE0",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": -5000,
+                "amountMinor": -5000,
+                "currency": "SAR",
+                "retainedEvidence": [
+                  {
+                    "field": "mappedReference",
+                    "header": "Reference",
+                    "value": "DOC-714"
+                  }
+                ],
+                "chosenReference": "DOC-714",
+                "chosenReferenceEvidence": {
+                  "role": "document-reference",
+                  "header": "Reference",
+                  "column": 7
+                },
+                "statedReference": "DOC-714",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "-50.00"
+              }
+            ],
+            "supplierTotal": -5000,
+            "ledgerTotal": -5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "blank-credit-ordinary-invoice",
+      "format": "csv",
+      "sourceHashes": [
+        "e0b2bf474f595fb08736434f3ff8812ca78739f4cb15e22ffa9eca3e43c7f0c2",
+        "fad6ff09453383dece8cd349b198eeeb80a32448db811d87aa997341fa006f8d"
+      ],
+      "passed": true,
+      "direct": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-5CA0EA06",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "supplierTotal": 5000,
+            "ledgerTotal": 5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      },
+      "restored": {
+        "approved": 1,
+        "needsReview": 0,
+        "fullReconciliation": false,
+        "movements": [
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ],
+          [
+            {
+              "row": 2,
+              "amount": 5000,
+              "type": "Unknown",
+              "issues": [],
+              "number": {
+                "role": "invoice-number",
+                "header": "Invoice No",
+                "column": 3
+              }
+            }
+          ]
+        ],
+        "cases": [
+          {
+            "caseId": "CASE-5CA0EA06",
+            "classification": "EXACT_1_TO_1",
+            "status": "Matched",
+            "supplierMembers": [
+              {
+                "id": "supplier:0:2",
+                "side": "supplier",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "ledgerMembers": [
+              {
+                "id": "ledger:0:2",
+                "side": "ledger",
+                "row": 2,
+                "sheet": "CSV",
+                "date": "2026-07-17",
+                "reference": "INV-401",
+                "normalizedReference": "INV401",
+                "description": "",
+                "amount": 5000,
+                "amountMinor": 5000,
+                "currency": "SAR",
+                "chosenReference": "INV-401",
+                "primaryReference": "INV-401",
+                "documentReference": "INV-401",
+                "documentNumberEvidence": {
+                  "role": "invoice-number",
+                  "header": "Invoice No",
+                  "column": 3
+                },
+                "voucherReference": "",
+                "poReference": "",
+                "bankReference": "",
+                "receiptReference": "",
+                "paymentIdentityFields": [],
+                "documentType": "Unknown",
+                "referenceEvidenceIssues": [],
+                "originalAmount": "50.00"
+              }
+            ],
+            "supplierTotal": 5000,
+            "ledgerTotal": 5000,
+            "variance": 0,
+            "bridgeEffect": 0,
+            "matchingRule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2",
+            "evidence": [
+              "المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ 0 يوم."
+            ],
+            "reviewRequired": false,
+            "sourceTrace": [
+              {
+                "sourceRowId": "supplier:0:2",
+                "side": "supplier",
+                "sheet": "CSV",
+                "row": 2
+              },
+              {
+                "sourceRowId": "ledger:0:2",
+                "side": "ledger",
+                "sheet": "CSV",
+                "row": 2
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

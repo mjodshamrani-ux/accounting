@@ -1,3 +1,4 @@
+import { verifyUnknownCreditRoles } from './unknown-credit-browser-cases.mjs';
 import { chromium } from 'playwright';
 import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
@@ -1800,6 +1801,10 @@ try {
   );
   await verifyRelatedInvoiceRoles(
     await activeScenarioPage(context, 'own-document and related-invoice roles'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyUnknownCreditRoles(
+    await activeScenarioPage(context, 'unknown credit-note role'),
     `${origin}/mizan-test/`,
   );
   for (const completed of context.pages()) await completed.close();

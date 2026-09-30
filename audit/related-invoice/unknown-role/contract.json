@@ -1,0 +1,12 @@
+{
+  "basis": "Manual negative/positive accounting contract frozen before observing 0.4.17; synthetic development cases, not a holdout",
+  "scope": {"supplier":"Synthetic Supplier","entity":"Synthetic Entity","account":"AP-714","currency":"SAR","decimals":2,"cutoff":"2026-07-31","dateWindow":3,"confirmed":true,"coverageConfirmed":false},
+  "cases": [
+    {"id":"different-untyped-credit","supplierCredit":"CN-701","ledgerCredit":"CN-799","approved":0,"amountMinor":-5000},
+    {"id":"same-untyped-credit","supplierCredit":"CN-701","ledgerCredit":"CN-701","approved":0,"amountMinor":-5000},
+    {"id":"arabic-untyped-credit","supplierCredit":"CN-701","ledgerCredit":"CN-799","approved":0,"amountMinor":-5000},
+    {"id":"chosen-generic-untyped-credit","supplierCredit":"CN-701","ledgerCredit":"CN-799","approved":0,"amountMinor":-5000,"chosenReference":true},
+    {"id":"blank-credit-ordinary-invoice","supplierCredit":"","ledgerCredit":"","approved":1,"amountMinor":5000}
+  ],
+  "constraints": ["A nonempty explicit credit-note-number column with unknown native type blocks automatic matching without guessing a type", "Retain the literal credit number and its header for audit only", "Keep all source cells, amounts, row fates and session replay", "An empty credit-number column must not block ordinary invoices", "No full balance reconciliation without coverage evidence"]
+}
