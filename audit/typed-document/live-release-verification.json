@@ -1,0 +1,484 @@
+{
+  "schema": "tarasuf-astra-cycle5-release-1",
+  "observedAtUtc": "2026-09-30T13:37:42.276934+00:00",
+  "status": "deployed and verified on live GitHub Pages",
+  "appVersion": "0.4.16",
+  "engineVersion": "0.3.23-experimental",
+  "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.16",
+  "publishedSourceCommit": "3ccaece143b07af972dd1da78552812072f04404",
+  "publishedSourceTree": "48c1597029436abb7bd2638c61b84dc091113cf3",
+  "pullRequest": "https://github.com/mjodshamrani-ux/accounting/pull/4",
+  "ci": {
+    "url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/36721012008",
+    "conclusion": "success",
+    "testsPassed": 933,
+    "testsFailed": 0,
+    "testsSkipped": 12,
+    "skips": "Private/local original fixtures are unavailable in GitHub; all passed locally",
+    "deliberateFaultsDetected": 95,
+    "deliberateFaultsTotal": 95,
+    "mutationShards": [
+      {
+        "index": 1,
+        "detected": 32
+      },
+      {
+        "index": 2,
+        "detected": 32
+      },
+      {
+        "index": 3,
+        "detected": 31
+      }
+    ],
+    "independentOracleTests": 51,
+    "browser": "passed",
+    "largeNativePdf": "passed",
+    "partialInputArabicEnglish": "passed",
+    "productionAudit": "zero current advisories"
+  },
+  "local": {
+    "testsPassed": 945,
+    "testsFailed": 0,
+    "testsSkipped": 0,
+    "deliberateFaultsDetected": 95,
+    "deliberateFaultsTotal": 95,
+    "typecheck": "passed",
+    "build": "passed",
+    "browser": "passed",
+    "bilingualStressWorkbooks": 18,
+    "exactNumericCells": 288,
+    "nativeDateCells": 504,
+    "formulaCells": 180,
+    "p2Contracts": "passed",
+    "partialContracts": "passed",
+    "foundation": {
+      "contractsPassed": 40,
+      "completedComparisons": 22,
+      "safeStops": 18,
+      "completedAutomatically": 0
+    }
+  },
+  "pagesArtifact": {
+    "id": 11100670710,
+    "zipSha256": "7f4d0f35d7acdaa6760d8d1330922903f6a2822df1a45e25c06298daef745e66",
+    "verifiedAgainstGitHubDigest": true,
+    "liveCodeMatchesArtifact": true,
+    "loadedAssets": {
+      "assets/index-DVOU_KzH.css": "48cef0d0a3f6a3d0728f240ff20ab81c83df81ffb62638fe69f51ab44303d623",
+      "assets/index-C3HzlAWu.js": "47f589fe36dde36f671671f13a4af4620a8443ba0be84c3d9d07ed138c1fdea5"
+    },
+    "embeddedWorkerSha256": "a51cd89336e078ea4f95ba58a73df4f04e69b04cefe8dc2cb754969a98f7be82",
+    "realWorkersObserved": 8,
+    "embeddedWorkerVerification": "Actual Blob bytes hashed in the browser and compared with the decoded worker string in the byte-verified CI main asset"
+  },
+  "liveNativeExcel": {
+    "passed": true,
+    "workbooksIndependentlyVerified": 8,
+    "originalF02": [
+      {
+        "workbook": "work/qa/layered-0-direct.xlsx",
+        "verified": true,
+        "source": "supplier-layered-proven.xlsx",
+        "sourceHash": "ed920ea60d9c302e2d319f76920f048227366fc5b01fdbb5229bab584fc93e8a",
+        "movements": 4,
+        "rowFates": 10,
+        "approvedSupplierRows": [
+          8
+        ],
+        "headerBand": [
+          3,
+          4
+        ],
+        "fullReconciliation": false
+      },
+      {
+        "workbook": "work/qa/layered-0-restored.xlsx",
+        "verified": true,
+        "source": "supplier-layered-proven.xlsx",
+        "sourceHash": "ed920ea60d9c302e2d319f76920f048227366fc5b01fdbb5229bab584fc93e8a",
+        "movements": 4,
+        "rowFates": 10,
+        "approvedSupplierRows": [
+          8
+        ],
+        "headerBand": [
+          3,
+          4
+        ],
+        "fullReconciliation": false
+      },
+      {
+        "workbook": "work/qa/layered-1-direct.xlsx",
+        "verified": true,
+        "source": "supplier-layered-conflict.xlsx",
+        "sourceHash": "9d4133c437598504fc8284d61f993e6977cf9bf699c44e3bb6fb499f85f859b4",
+        "movements": 4,
+        "rowFates": 10,
+        "approvedSupplierRows": [
+          8
+        ],
+        "headerBand": [
+          3,
+          4
+        ],
+        "fullReconciliation": false
+      },
+      {
+        "workbook": "work/qa/layered-1-restored.xlsx",
+        "verified": true,
+        "source": "supplier-layered-conflict.xlsx",
+        "sourceHash": "9d4133c437598504fc8284d61f993e6977cf9bf699c44e3bb6fb499f85f859b4",
+        "movements": 4,
+        "rowFates": 10,
+        "approvedSupplierRows": [
+          8
+        ],
+        "headerBand": [
+          3,
+          4
+        ],
+        "fullReconciliation": false
+      }
+    ],
+    "typedF02E": [
+      {
+        "workbook": "work/qa/typed-0-direct.xlsx",
+        "verified": true,
+        "source": "supplier-typed-proven.xlsx",
+        "engine": "0.3.23-experimental",
+        "supplierMovements": 4,
+        "supplierRowFates": 10,
+        "approvedMemberSets": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000
+          },
+          {
+            "supplierRows": [
+              9
+            ],
+            "ledgerRows": [
+              4
+            ],
+            "amountMinor": -5000
+          },
+          {
+            "supplierRows": [
+              6,
+              7
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": 100000
+          }
+        ],
+        "fullReconciliation": false
+      },
+      {
+        "workbook": "work/qa/typed-0-restored.xlsx",
+        "verified": true,
+        "source": "supplier-typed-proven.xlsx",
+        "engine": "0.3.23-experimental",
+        "supplierMovements": 4,
+        "supplierRowFates": 10,
+        "approvedMemberSets": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000
+          },
+          {
+            "supplierRows": [
+              9
+            ],
+            "ledgerRows": [
+              4
+            ],
+            "amountMinor": -5000
+          },
+          {
+            "supplierRows": [
+              6,
+              7
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": 100000
+          }
+        ],
+        "fullReconciliation": false
+      },
+      {
+        "workbook": "work/qa/typed-1-direct.xlsx",
+        "verified": true,
+        "source": "supplier-typed-conflict.xlsx",
+        "engine": "0.3.23-experimental",
+        "supplierMovements": 4,
+        "supplierRowFates": 10,
+        "approvedMemberSets": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000
+          },
+          {
+            "supplierRows": [
+              9
+            ],
+            "ledgerRows": [
+              4
+            ],
+            "amountMinor": -5000
+          }
+        ],
+        "fullReconciliation": false
+      },
+      {
+        "workbook": "work/qa/typed-1-restored.xlsx",
+        "verified": true,
+        "source": "supplier-typed-conflict.xlsx",
+        "engine": "0.3.23-experimental",
+        "supplierMovements": 4,
+        "supplierRowFates": 10,
+        "approvedMemberSets": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000
+          },
+          {
+            "supplierRows": [
+              9
+            ],
+            "ledgerRows": [
+              4
+            ],
+            "amountMinor": -5000
+          }
+        ],
+        "fullReconciliation": false
+      }
+    ],
+    "engineVersions": [
+      "0.3.23-experimental",
+      "0.3.23-experimental",
+      "0.3.23-experimental",
+      "0.3.23-experimental",
+      "0.3.23-experimental",
+      "0.3.23-experimental",
+      "0.3.23-experimental",
+      "0.3.23-experimental"
+    ],
+    "retainedWorkbookHashes": [
+      {
+        "file": "audit/typed-document/live-0416/layered-0-direct.xlsx",
+        "sha256": "0cbf74fbb3a9057c24858af4f311df4e474eef7758679ac9f5e0d24715f3258b"
+      },
+      {
+        "file": "audit/typed-document/live-0416/layered-0-restored.xlsx",
+        "sha256": "85900a95fa50ed70e066f654c008b921fc323d28fc44ec93659211e10b4282ec"
+      },
+      {
+        "file": "audit/typed-document/live-0416/layered-1-direct.xlsx",
+        "sha256": "f41a91adadb2947a8952e56442ad5a2caf2a0c7bb49c68ae5dadc84a688c5eda"
+      },
+      {
+        "file": "audit/typed-document/live-0416/layered-1-restored.xlsx",
+        "sha256": "bc4249ecac60386a6fccba58f4ec1a372a211524a85d7b03f91cefe7161aa42d"
+      },
+      {
+        "file": "audit/typed-document/live-0416/typed-0-direct.xlsx",
+        "sha256": "0fff1a49c237a5d23ca668a21615b761bb02df59ce50db755cca4fa490517733"
+      },
+      {
+        "file": "audit/typed-document/live-0416/typed-0-restored.xlsx",
+        "sha256": "0e2094764bfca8d4d9e5dd846ce1206374f4f1fd77631d2a620b42c10b5ae408"
+      },
+      {
+        "file": "audit/typed-document/live-0416/typed-1-direct.xlsx",
+        "sha256": "4799e14b0bb8ae109923dc4b1eac9f6d80c16d20c89de9ec01ca4b415b28387e"
+      },
+      {
+        "file": "audit/typed-document/live-0416/typed-1-restored.xlsx",
+        "sha256": "52b51f87707187c906d70a42ee85de29fefa16c0f44ce6f01bb93f56d6f6b756"
+      }
+    ],
+    "newFinancialDecision": "CN-3 credit note at supplier row 9 matches ledger row 4, -5000 minor units; explicit document-number roles/type and exact date required",
+    "baselineDistinction": "0.4.15 already accepted the 780+220 invoice group and payment on these explicit source roles/types; the short credit-note match is the new improvement",
+    "negativeIdentityConflict": "Equal total with different invoice/PO identity remains unapproved; independent proved payment and credit-note matches survive",
+    "fullBalanceReconciliation": false
+  },
+  "liveLargeNativePdf": {
+    "passed": true,
+    "pages": 70,
+    "independentOoxmlCounts": {
+      "supplierTransactions": 2240,
+      "ledgerTransactions": 2240,
+      "requiredPairs": 2240,
+      "requiredPairsSatisfied": 2240,
+      "falseApprovedPairs": 0,
+      "missingPairs": 0,
+      "exactEvidenceMembers": 4480,
+      "parsedSupplierRows": 2450,
+      "parsedLedgerRows": 2241,
+      "pdfOrigins": 2450,
+      "excludedSupplierRows": 210,
+      "excludedLedgerRows": 1,
+      "totalMinorEachSide": 40779520,
+      "xmlPartsParsed": 30
+    },
+    "checks": [
+      {
+        "check": "real-worker-page-progress",
+        "filename": "native-70.pdf",
+        "pages": 70,
+        "messages": 142
+      },
+      {
+        "check": "bounded-page-navigation",
+        "lang": "ar",
+        "pages": 70,
+        "lastReference": "INV-70-02240",
+        "invalid": [
+          "0",
+          "71",
+          "1.5",
+          ""
+        ],
+        "approvalRemainedFalse": true
+      },
+      {
+        "check": "bounded-page-navigation",
+        "lang": "en",
+        "pages": 70,
+        "lastReference": "INV-70-02240",
+        "invalid": [
+          "0",
+          "71",
+          "1.5",
+          ""
+        ],
+        "approvalRemainedFalse": true
+      },
+      {
+        "check": "70-page-ui-reconciliation",
+        "matchedCases": 2240,
+        "manualMatches": 0,
+        "unmatched": 0,
+        "unread": 0
+      },
+      {
+        "check": "xlsx-full-member-set",
+        "file": "native-70.xlsx",
+        "matches": 2240,
+        "sourceIds": 4480,
+        "totalMinorEachSide": 40779520
+      },
+      {
+        "check": "saved-session",
+        "engine": "0.3.23-experimental",
+        "originalSource": "native-70.pdf",
+        "originalHash": "1ddaaf082c89eef9d32fbf9b09f8b8c8901bdd248dbbc132e557e2698dc5458d",
+        "pdfCuts": [
+          25,
+          49,
+          68
+        ],
+        "decisions": 0
+      },
+      {
+        "check": "fresh-page-session-restoration",
+        "matchedCases": 2240
+      },
+      {
+        "check": "late-page-failure-retains-source",
+        "failurePage": 70,
+        "retainedFile": "ledger-70.csv",
+        "progressCleared": true,
+        "workerTerminated": true
+      },
+      {
+        "check": "cancel-after-real-page-progress",
+        "retainedFile": "ledger-70.csv",
+        "progressCleared": true,
+        "workerTerminated": true
+      },
+      {
+        "check": "real-worker-page-progress",
+        "filename": "native-100.pdf",
+        "pages": 100,
+        "messages": 202
+      },
+      {
+        "check": "bounded-page-navigation",
+        "lang": "en",
+        "pages": 100,
+        "lastReference": "INV-100-02800",
+        "invalid": [
+          "0",
+          "101",
+          "1.5",
+          ""
+        ],
+        "approvalRemainedFalse": true
+      },
+      {
+        "check": "new-worker-recovers-after-cancel",
+        "source": "native-100.pdf",
+        "pages": 100
+      }
+    ],
+    "lastPage": {
+      "page": 70,
+      "reference": "INV-70-02240",
+      "supplierSourceRow": 2448,
+      "checked": true
+    },
+    "sourceSha256": {
+      "pdf": "1ddaaf082c89eef9d32fbf9b09f8b8c8901bdd248dbbc132e557e2698dc5458d",
+      "csv": "17d56e578074f1837958031713c9f5ee80cc86bac86b81206fa191b5dbc6fa31",
+      "oracle": "00890f347dee9dce270bde3142423581c2aa985a3fc1dd3439f22fe43d2d72da"
+    }
+  },
+  "observedPrivacy": {
+    "externalRequests": 0,
+    "nonGetRequests": 0,
+    "pageErrors": 0,
+    "scope": "Synthetic native Excel/PDF, save/restore and export workflows; observations are not a universal privacy guarantee"
+  },
+  "productionDependencyAudit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0
+  },
+  "limitations": [
+    "Development/regression fixtures, not a new independent customer holdout or a universal accuracy guarantee",
+    "New short-reference rule is limited to explicitly typed 1:1 documents with exact dates and original-membership uniqueness; invoice-number role is insufficient for credit notes",
+    "Original F02 and its historical results remain unchanged",
+    "Arabic raster OCR observed 0/3 exact amounts and remains financially unverified; AI proposals cannot approve matches",
+    "Older engine sessions require original files to be reuploaded"
+  ],
+  "candidateEvidence": "audit/typed-document/report.json is the historical pre-CI snapshot; this record adds the completed local mutation, CI and live release result"
+}
