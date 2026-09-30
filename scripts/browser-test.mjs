@@ -1,4 +1,5 @@
 import { chromium } from 'playwright';
+import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import { verifyLanguages } from './language-browser-cases.mjs';
@@ -1796,6 +1797,10 @@ try {
     await activeScenarioPage(context, 'explicitly typed short documents'),
     `${origin}/mizan-test/`,
     true,
+  );
+  await verifyRelatedInvoiceRoles(
+    await activeScenarioPage(context, 'own-document and related-invoice roles'),
+    `${origin}/mizan-test/`,
   );
   for (const completed of context.pages()) await completed.close();
   console.log('[browser] template lifecycle');

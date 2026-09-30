@@ -58,9 +58,28 @@ test('046 Arabic presentation forms normalize document categories without rewrit
     const right = normalizeSource(b, mapping, scope, 'ledger');
     assert.equal(right.transactions[0].documentType, expected);
     assert.equal(right.transactions[0].originalAmount, amount);
-    assert.equal(right.transactions[0].reference, 'DOC-00046');
-    assert.deepEqual(right.transactions[0].referenceEvidenceIssues, []);
-    assert.equal(compare(left, right, scope).matches.length, 1);
+    // Keep the historical Invoice No input. Its new type-aware role is an
+    // original invoice on Credit Note/Payment, not those documents' identity.
+    assert.equal(
+      right.transactions[0].reference,
+      expected === 'Invoice' ? 'DOC-00046' : '',
+    );
+    assert.equal(
+      compare(left, right, scope).matches.length,
+      expected === 'Invoice' ? 1 : 0,
+    );
+    if (expected !== 'Invoice')
+      assert.equal(right.transactions[0].relatedInvoiceReference, 'DOC-00046');
+    // A separate native Document No states the own-document role explicitly.
+    const ownA = source(plain),
+      ownB = source(raw);
+    ownA.sheets[0].rows[0][1] = 'Document No';
+    ownB.sheets[0].rows[0][1] = 'Document No';
+    const ownLeft = normalizeSource(ownA, mapping, scope, 'supplier');
+    const ownRight = normalizeSource(ownB, mapping, scope, 'ledger');
+    assert.deepEqual(ownRight.transactions[0].referenceEvidenceIssues, []);
+    assert.equal(ownRight.transactions[0].reference, 'DOC-00046');
+    assert.equal(compare(ownLeft, ownRight, scope).matches.length, 1);
     assert.deepEqual(b, original);
   }
 });

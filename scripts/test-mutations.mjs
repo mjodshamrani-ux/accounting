@@ -14,6 +14,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '..');
 const tests = [
+  'tests/related-invoice-roles.test.ts',
   'tests/typed-short-documents.test.ts',
   'tests/core.test.ts',
   'tests/pdf-stream-integrity.test.ts',
@@ -258,7 +259,7 @@ const mutations = [
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [
       [
-        "    headerMatches(statedReferencePattern, headers[mapping.reference] ?? '') &&\n",
+        /headerMatches\(\s*statedReferencePattern,\s*headers\[mapping\.reference\] \?\? '',\s*\) &&\s*/,
         '',
       ],
     ],
@@ -418,8 +419,8 @@ const mutations = [
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [
       [
-        'documentReference || mapped || voucherReference || poReference;',
-        'documentReference || voucherReference || mapped || poReference;',
+        /documentReference \|\|\s*mappedIdentity \|\|\s*voucherReference \|\|\s*poReference;/,
+        'documentReference || voucherReference || mappedIdentity || poReference;',
       ],
     ],
   },
@@ -447,7 +448,10 @@ const mutations = [
     name: 'v11-approve-on-a-voucher-with-no-chosen-reference',
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [
-      ['mapping.reference < 0 &&\n    !documentReference &&', 'false &&'],
+      [
+        '(mapping.reference < 0 || mappedRelated) &&\n    !documentReference &&',
+        'false &&',
+      ],
     ],
   },
   {
@@ -765,7 +769,7 @@ const mutations = [
     changes: [
       ['    numberRole &&\n', ''],
       [
-        '    t.documentReference === t.reference &&\n    t.primaryReference === t.documentReference &&\n    (!t.chosenReference || t.chosenReference === t.documentReference) &&\n',
+        '    t.documentReference === t.reference &&\n    t.primaryReference === t.documentReference &&\n    (!t.chosenReference ||\n      t.chosenReference === t.documentReference ||\n      chosenRelatedInvoice(t)) &&\n',
         '',
       ],
     ],
@@ -790,7 +794,7 @@ const mutations = [
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [
       [
-        '    (!t.chosenReference || t.chosenReference === t.documentReference) &&\n',
+        '    (!t.chosenReference ||\n      t.chosenReference === t.documentReference ||\n      chosenRelatedInvoice(t)) &&\n',
         '',
       ],
     ],
@@ -798,7 +802,59 @@ const mutations = [
   {
     name: 'typed-short-use-original-invoice-number-as-credit-note-number',
     file: 'lib/reconciliation/transaction-references.ts',
-    changes: [['    numberRole &&\n', '']],
+    changes: [
+      [
+        "  const invoiceIsRelated = ['Credit Note', 'Payment', 'Journal'].includes(\n    documentType,\n  );",
+        '  const invoiceIsRelated = false;',
+      ],
+    ],
+  },
+  {
+    name: 'f03-ignore-related-credit-invoice-conflict',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      ['a.relatedInvoiceReference !== b.relatedInvoiceReference', 'false'],
+    ],
+  },
+  {
+    name: 'f03-drop-own-credit-note-header',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        "...(documentType === 'Credit Note' ? [creditNumberPattern.source] : []),",
+        '/* Fault: omit explicit own credit-note number. */',
+      ],
+    ],
+  },
+  {
+    name: 'f03-promote-related-invoice-discriminator',
+    file: 'lib/reconciliation/document-pairs.ts',
+    changes: [
+      [
+        "t.chosenReferenceEvidence?.role === 'document-reference'",
+        '!!t.chosenReferenceEvidence',
+      ],
+    ],
+  },
+  {
+    name: 'f03-ai-ignore-related-invoice-contradiction',
+    file: 'lib/reconciliation/assistant.ts',
+    changes: [['if (relatedCreditInvoices.size > 1)', 'if (false)']],
+  },
+  {
+    name: 'f03-drop-exported-related-invoice',
+    file: 'lib/reconciliation/io.ts',
+    changes: [["        t.relatedInvoiceReference ?? '',", "        '',"]],
+  },
+  {
+    name: 'f03-silent-unmatched-unverified-identity',
+    file: 'lib/reconciliation/cases.ts',
+    changes: [
+      [
+        "s.referenceEvidenceIssues?.length ? 'Needs Review' : 'Unmatched'",
+        "'Unmatched'",
+      ],
+    ],
   },
   {
     name: 'corrupt-exported-amount',

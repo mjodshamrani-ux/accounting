@@ -1,0 +1,52 @@
+{
+  "schema": "tarasuf-cycle6-candidate-1",
+  "appVersion": "0.4.17",
+  "engine": "0.3.24-experimental",
+  "baselineAppVersion": "0.4.16",
+  "baselineEngine": "0.3.23-experimental",
+  "contractSha256": "1ced5b7305e81d965c905c613a41973ddd123f553d01cccd1be901efd55827d8",
+  "baseline": {
+    "xlsxPassed": 3,
+    "xlsxTotal": 11,
+    "pdfPassed": 0,
+    "pdfTotal": 3,
+    "knownFalseMatch": "CN-701 vs CN-799 under shared original INV-401"
+  },
+  "candidate": {
+    "xlsxPassed": 11,
+    "xlsxTotal": 11,
+    "pdfPassed": 3,
+    "pdfTotal": 3,
+    "independentWorkbooksVerified": 28,
+    "browserWorkbooksVerified": 6,
+    "localTestsPassed": 977,
+    "localTestsSkipped": 0,
+    "newFaultsDetected": 6,
+    "shortReferenceFaultsDetected": 7,
+    "allMutations": {
+      "baselinePassed": true,
+      "detected": 101,
+      "total": 101
+    },
+    "gitHubAndLiveRelease": "pending",
+    "globalLint": "fails existing repository diagnostics; new F03 test/runner/browser files checked separately",
+    "newInvariant": "Exact unproved candidates remain one review case containing both native rows",
+    "localPerformanceRetest": "Full unit gate repeated in isolation after a 20k wall-clock failure while full mutation and browser processes ran concurrently; threshold was not changed.",
+    "localProductSha256": {
+      "lib/reconciliation/transaction-references.ts": "f360b7648d8bc455b8898c9dacc2791d4bf5abfeb5fbe25d4b63ceb4bb78cbb8",
+      "lib/reconciliation/cases.ts": "820b9ef477c48a9ee89148489fd9345ef28b6e3a4d3b1b2e3e14c41c4d4f4ba4",
+      "lib/reconciliation/assistant.ts": "dee532ca7c51058263a223aedc1a6ff659c1f19629e15a17da5f281201b29eba",
+      "lib/reconciliation/local-ai.ts": "b452b8e81715f33b844da73419168e5c0023275a839e5e281ccccad33e7ba175",
+      "lib/reconciliation/io.ts": "9508543963c71f56ab2d7f9802d5968200fe85bcb943371cdb97c626e4faea58",
+      "lib/reconciliation/types.ts": "404d565a1918c990766edc012fcc1be8cd5f6b5bb97140a5f1e9b322a75df76d"
+    }
+  },
+  "scope": "Synthetic development/regression corpus; no holdout, real-client or universal correctness claim",
+  "unchangedLimitations": [
+    "Unknown-type Invoice No keeps previous interpretation; not universal role inference",
+    "Arabic raster OCR remains review-only",
+    "No general N:M/subset-sum or partial payment allocation",
+    "Historical unmet P1-V2-06 remains recorded",
+    "Local model interface test uses a test double; no real-model training claim"
+  ]
+}
