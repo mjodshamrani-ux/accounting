@@ -1,0 +1,123 @@
+{
+  "schema": "tarasuf-typed-document-extension-1",
+  "status": "New F02-E development contract authored before product observation; not a holdout",
+  "files": {
+    "ledger-typed.csv": "49bf9b5c52057b22618754db26654671bd9bb7ca27d8b40daf5414f40f6c3895",
+    "supplier-typed-conflict.xlsx": "0553898e0e0789cb46d1e1a8ead04a5d3c1e454783a74428d3a4d4d8dbba7539",
+    "supplier-typed-proven.xlsx": "00524040245fc318d4fcba601e35fcffc55fcc1da500e88b2a93d32d6eec9ef9"
+  },
+  "scope": {
+    "supplier": "Synthetic supplier",
+    "entity": "Synthetic buyer",
+    "account": "AP-714",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-07-31",
+    "dateWindow": 3,
+    "confirmed": true,
+    "coverageConfirmed": false
+  },
+  "sourceRows": {
+    "supplierMovements": [
+      6,
+      7,
+      8,
+      9
+    ],
+    "supplierTotalMinor": 60000,
+    "supplierOpeningMinor": 100000,
+    "supplierClosingMinor": 160000,
+    "supplierRowFates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "ledgerMovements": [
+      2,
+      3,
+      4
+    ],
+    "ledgerTotalMinor": 60000
+  },
+  "positive": {
+    "requiredApprovedMemberSets": [
+      {
+        "supplierRows": [
+          6,
+          7
+        ],
+        "ledgerRows": [
+          2
+        ],
+        "amountMinor": 100000,
+        "rule": "EXACT_REFERENCE_GROUP_TOTAL_V1"
+      },
+      {
+        "supplierRows": [
+          8
+        ],
+        "ledgerRows": [
+          3
+        ],
+        "amountMinor": -35000
+      },
+      {
+        "supplierRows": [
+          9
+        ],
+        "ledgerRows": [
+          4
+        ],
+        "amountMinor": -5000,
+        "rule": "EXPLICIT_SHORT_DOCUMENT_EXACT_DATE_V1"
+      }
+    ]
+  },
+  "conflict": {
+    "changedSupplierRow": 7,
+    "reference": "INV-934",
+    "po": "PO-99",
+    "unchangedAmountMinor": 22000,
+    "forbiddenSupplierInvoiceMembers": [
+      6,
+      7
+    ],
+    "requiredApprovedSupplierRows": [
+      8,
+      9
+    ],
+    "mustRetainSupplierMovements": [
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "policy": {
+    "shortNormalizedLength": [
+      2,
+      3
+    ],
+    "lettersAndDigitsRequired": true,
+    "explicitInvoiceOrCreditNoteBothSidesRequired": true,
+    "explicitDocumentNumberBothSidesRequired": true,
+    "literalEqualityRequired": true,
+    "exactDateRequired": true,
+    "canonicalTypeSignRequired": true,
+    "wholeOriginalMembershipRequired": true,
+    "supportsGroups": false,
+    "supportsNumericOnlyOrAlphabeticOnlyShortIds": false,
+    "documentNumberHeaderRoleRequired": true,
+    "invoiceNumberHeaderSupportsCreditNotes": false,
+    "selectedReferenceMustNotContradictDocumentNumber": true
+  },
+  "originalF02MustRemainUnchanged": true,
+  "fullBalanceReconciliation": false
+}

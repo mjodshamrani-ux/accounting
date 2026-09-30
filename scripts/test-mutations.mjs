@@ -14,6 +14,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '..');
 const tests = [
+  'tests/typed-short-documents.test.ts',
   'tests/core.test.ts',
   'tests/pdf-stream-integrity.test.ts',
   'tests/visual-boundary.test.ts',
@@ -742,6 +743,62 @@ const mutations = [
     changes: [
       ["status: 'needs-review' as const", "status: 'confirmed' as const"],
     ],
+  },
+  {
+    name: 'typed-short-disable-required-positive-proof',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['    ref.length <= 3 &&', '    ref.length < 2 &&']],
+  },
+  {
+    name: 'typed-short-infer-type-without-explicit-label',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        "    (t.documentType === 'Invoice' || t.documentType === 'Credit Note') &&\n    t.documentReference",
+        '    true &&\n    t.documentReference',
+      ],
+    ],
+  },
+  {
+    name: 'typed-short-grant-document-number-role-to-generic-reference',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      ['    numberRole &&\n', ''],
+      [
+        '    t.documentReference === t.reference &&\n    t.primaryReference === t.documentReference &&\n    (!t.chosenReference || t.chosenReference === t.documentReference) &&\n',
+        '',
+      ],
+    ],
+  },
+  {
+    name: 'typed-short-ignore-canonical-type-sign',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        "    (t.documentType === 'Invoice' ? t.amount > 0 : t.amount < 0) &&",
+        '    t.amount !== 0 &&',
+      ],
+    ],
+  },
+  {
+    name: 'typed-short-allow-neighbouring-dates',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['    a.date === b.date', '    true']],
+  },
+  {
+    name: 'typed-short-ignore-selected-reference-conflict',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [
+      [
+        '    (!t.chosenReference || t.chosenReference === t.documentReference) &&\n',
+        '',
+      ],
+    ],
+  },
+  {
+    name: 'typed-short-use-original-invoice-number-as-credit-note-number',
+    file: 'lib/reconciliation/transaction-references.ts',
+    changes: [['    numberRole &&\n', '']],
   },
   {
     name: 'corrupt-exported-amount',

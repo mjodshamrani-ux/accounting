@@ -7,10 +7,11 @@ from check_r13 import check, Book
 
 XML = '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'
 SOURCE = Path('work/layered-headers/r13-fixed-workpaper.xlsx')
+EXPECTED_ENGINE = '0.3.23-experimental'
 
 class R13OracleTests(unittest.TestCase):
     def test_exact_failure_replay(self):
-        self.assertTrue(check(SOURCE)['verified'])
+        self.assertTrue(check(SOURCE, EXPECTED_ENGINE)['verified'])
 
     def test_financial_membership_or_source_tampering_is_rejected(self):
         for sheet, address, changed in [
@@ -18,6 +19,7 @@ class R13OracleTests(unittest.TestCase):
             ('Excluded Rows','D8','[]'),
             ('Parsed Supplier Source','C12','INV-FORGED'),
             ('Export Metadata','B3','0' * 64),
+            ('Export Metadata','B2','0.3.22-experimental'),
             ('Matches','A2','Invented approval'),
         ]:
             with self.subTest(sheet=sheet, address=address), tempfile.TemporaryDirectory() as tmp:
@@ -39,7 +41,7 @@ class R13OracleTests(unittest.TestCase):
                             data = ET.tostring(root, encoding='utf-8')
                         output.writestr(item, data)
                 with self.assertRaises(AssertionError):
-                    check(target)
+                    check(target, EXPECTED_ENGINE)
 
 if __name__ == '__main__':
     unittest.main()

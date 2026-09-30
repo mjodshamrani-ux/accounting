@@ -12,7 +12,7 @@ from check_membership import Book, value, minor, require
 ROOT = Path(__file__).resolve().parent.parent
 ORIGINAL_SHA = 'a085499d9e6ae2d165cd6716034f0945ecbb7151ad561bca70a4926a94250958'
 
-def check(filename):
+def check(filename, expected_engine='0.3.22-experimental'):
     original = ROOT / 'sol-cycle4/r13-excluded-competitor.xlsx'
     require(hashlib.sha256(original.read_bytes()).hexdigest() == ORIGINAL_SHA, 'Original R13 source changed')
     book = Book(filename)
@@ -20,7 +20,7 @@ def check(filename):
         metadata, _ = book.rows('Export Metadata', {'Field', 'Value'})
         metadata = {value(row, 'Field'): value(row, 'Value') for row in metadata}
         require(metadata['Supplier SHA-256'] == ORIGINAL_SHA, 'A lookalike source replaced the retained failure')
-        require(metadata['Engine version'] == '0.3.22-experimental', 'Wrong candidate engine')
+        require(metadata['Engine version'] == expected_engine, 'Wrong candidate engine')
         matches, _ = book.rows('Matches', {'Supplier References', 'Match Decision'})
         require(len(matches) == 0, 'Excluded competitor manufactured an approved match')
         tx, _ = book.rows('Supplier transactions', {'صف المصدر', 'المرجع الأصلي', 'المبلغ الموحد'})
@@ -45,5 +45,6 @@ def check(filename):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('workbook', type=Path)
+    parser.add_argument('--expected-engine', default='0.3.22-experimental')
     args = parser.parse_args()
-    print(json.dumps(check(args.workbook), indent=2))
+    print(json.dumps(check(args.workbook, args.expected_engine), indent=2))

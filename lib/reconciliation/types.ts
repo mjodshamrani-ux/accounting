@@ -1,4 +1,4 @@
-export const ENGINE_VERSION = '0.3.22-experimental';
+export const ENGINE_VERSION = '0.3.23-experimental';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -127,6 +127,13 @@ export type Transaction = {
   primaryReference?: string;
   referenceEvidenceIssues?: string[];
   documentReference?: string;
+  // A safe unique native header stating a NUMBER, not a generic reference.
+  // An invoice number on a credit-note row may name the original invoice.
+  documentNumberEvidence?: {
+    role: 'document-number' | 'invoice-number';
+    header: string;
+    column: number;
+  };
   voucherReference?: string;
   poReference?: string;
   bankReference?: string;

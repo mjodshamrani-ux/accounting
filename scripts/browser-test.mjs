@@ -1792,6 +1792,11 @@ try {
     await activeScenarioPage(context, 'native layered XLSX headers'),
     `${origin}/mizan-test/`,
   );
+  await verifyLayeredHeaders(
+    await activeScenarioPage(context, 'explicitly typed short documents'),
+    `${origin}/mizan-test/`,
+    true,
+  );
   for (const completed of context.pages()) await completed.close();
   console.log('[browser] template lifecycle');
   await verifyTemplateLifecycle(context, `${origin}/mizan-test/`);

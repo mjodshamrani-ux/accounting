@@ -33,6 +33,48 @@ export function hasUnsafeReferenceText(t: Transaction): boolean {
   ].some((value) => typeof value === 'string' && isUnsafeReferenceText(value));
 }
 
+export const SHORT_DOCUMENT_RULE = 'EXPLICIT_SHORT_DOCUMENT_EXACT_DATE_V1';
+
+/** A narrow 1:1 exception, never positive authority for a group or payment.
+ * The native row must explicitly state BOTH its document number and its type.
+ * A prefix, description, selected generic Reference, or AI label is insufficient.
+ * Canonical AP signs are positive for invoices and negative for credit notes. */
+export function shortDocumentCandidate(t: Transaction): boolean {
+  const ref = t.normalizedReference;
+  const numberRole =
+    t.documentNumberEvidence?.role === 'document-number' ||
+    (t.documentType === 'Invoice' &&
+      t.documentNumberEvidence?.role === 'invoice-number');
+  return (
+    numberRole &&
+    (t.documentType === 'Invoice' || t.documentType === 'Credit Note') &&
+    t.documentReference === t.reference &&
+    t.primaryReference === t.documentReference &&
+    (!t.chosenReference || t.chosenReference === t.documentReference) &&
+    ref.length >= 2 &&
+    ref.length <= 3 &&
+    /\p{L}/u.test(ref) &&
+    /[0-9]/.test(ref) &&
+    (t.documentType === 'Invoice' ? t.amount > 0 : t.amount < 0) &&
+    !t.referenceEvidenceIssues?.length &&
+    !hasUnsafeReferenceText(t)
+  );
+}
+
+export function exactShortDocumentPair(
+  a: Transaction,
+  b: Transaction,
+): boolean {
+  return (
+    shortDocumentCandidate(a) &&
+    shortDocumentCandidate(b) &&
+    a.documentType === b.documentType &&
+    a.reference.trim() === b.reference.trim() &&
+    a.normalizedReference === b.normalizedReference &&
+    a.date === b.date
+  );
+}
+
 // Document-type labels the product understands. This is a closed, general
 // vocabulary: whole labels whose qualifier names the issuer or the tax status,
 // never another role. It is not a dictionary of any party's own codes; a code
@@ -119,6 +161,30 @@ export function transactionReferences(
   const documentReference = field(
     /^(?:supplier ref(?:erence)?|document (?:no|number|ref(?:erence)?)|invoice (?:no|number|ref(?:erence)?)|رقم المستند|مرجع المورد|رقم الفاتورة)$/i,
   );
+  const documentNumberColumns = headers.flatMap((label, column) => {
+    const role = headerMatches(
+      /^(?:document (?:no|number)|رقم المستند)$/i,
+      label,
+    )
+      ? ('document-number' as const)
+      : headerMatches(/^(?:invoice (?:no|number)|رقم الفاتورة)$/i, label)
+        ? ('invoice-number' as const)
+        : undefined;
+    return role ? [{ role, column }] : [];
+  });
+  const numberOrigin =
+    documentNumberColumns.length === 1 ? documentNumberColumns[0] : undefined;
+  const documentNumberEvidence: Transaction['documentNumberEvidence'] =
+    numberOrigin &&
+    documentReference &&
+    !referenceEvidenceIssues.length &&
+    (row[numberOrigin.column] ?? '').trim() === documentReference
+      ? {
+          role: numberOrigin.role,
+          header: String(rawHeaders[numberOrigin.column]).trim(),
+          column: numberOrigin.column + 1,
+        }
+      : undefined;
   const voucherReference = field(
     /^(?:(?:ap |payment )?voucher(?: (?:no|number|ref(?:erence)?))?|رقم القيد|مرجع القيد|سند)$/i,
   );
@@ -274,6 +340,7 @@ export function transactionReferences(
     ...(statedReference ? { statedReference } : {}),
     primaryReference,
     documentReference,
+    ...(documentNumberEvidence ? { documentNumberEvidence } : {}),
     voucherReference,
     poReference,
     bankReference,
