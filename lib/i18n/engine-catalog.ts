@@ -140,12 +140,14 @@ export const engineCatalog: Record<string, string> = {
     'Supplier total {0}; AP ledger total {1}; difference {2}; bridge effect {3}.',
   'عضو الحالة: ${…}': 'Case member: {t0}',
   'مطابقة بقواعد المحرك': 'Match under the engine’s rules',
+  'رقم المستند القصير ونوعه مذكوران صراحة في الملفين. الرقم مطابق بكل رموزه وغير مكرر، والتاريخ والمبلغ بإشارته متطابقان. فُحصت الحركات الخاطئة والمستبعدة قبل اعتماد المطابقة.':
+    'Both files explicitly state the short document number and its type. The literal number is identical and unique, and the date and signed amount agree. Unread and excluded movements were checked before approval.',
+  'المرجع وحده لا يستوفي شروط المطابقة الآلية. المرجع القصير يحتاج رقم مستند ونوع فاتورة أو إشعار دائن صريحين في الملفين، مع تاريخ مطابق ودون حركة منافسة.':
+    'The reference alone does not meet the automatic matching rules. A short reference needs an explicit document number and invoice or credit-note type in both files, with the same date and no competing movement.',
   'قرار يدوي للمحاسب': 'Accountant’s manual decision',
   'المقابل: ${…}': 'Counterpart: {t0}',
   'هذه الحركة تحتاج إلى مراجعة، ولا توجد لها مطابقة معتمدة.':
     'This transaction needs review and has no approved match.',
-  'لا يستوفي المرجع شروط المطابقة الآلية: يجب أن يضم حروفًا وأرقامًا، وألا يقل طوله بعد التوحيد عن أربعة محارف.':
-    'The reference does not meet the conditions for automatic matching: it must contain letters and digits and be at least four characters long after normalization.',
   'لا يطابق المحرك تلقائيًا حركة مبلغها صفر.':
     'The engine does not automatically match a transaction with a zero amount.',
   'فكّ المراجع أحد الروابط لهذه الحركة، ولن يعيده المحرك تلقائيًا.':

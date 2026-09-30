@@ -1,0 +1,256 @@
+{
+  "engine": "0.3.22-experimental",
+  "sourceRoot": "/Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/work/typed-cycle5-baseline",
+  "observedAtUtc": "2026-09-30T12:02:22.010Z",
+  "basis": "New development sources with manual frozen contract; no holdout claim",
+  "observations": [
+    {
+      "kind": "proven",
+      "sourceHashes": [
+        "00524040245fc318d4fcba601e35fcffc55fcc1da500e88b2a93d32d6eec9ef9",
+        "49bf9b5c52057b22618754db26654671bd9bb7ca27d8b40daf5414f40f6c3895"
+      ],
+      "direct": {
+        "approved": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000,
+            "rule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2"
+          },
+          {
+            "supplierRows": [
+              6,
+              7
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": 100000,
+            "rule": "EXACT_REFERENCE_GROUP_TOTAL_V1"
+          }
+        ],
+        "supplierMovements": [
+          {
+            "row": 6,
+            "ref": "INV-932",
+            "type": "Invoice",
+            "amountMinor": 78000
+          },
+          {
+            "row": 7,
+            "ref": "INV-932",
+            "type": "Invoice",
+            "amountMinor": 22000
+          },
+          {
+            "row": 8,
+            "ref": "BANK-44",
+            "type": "Payment",
+            "amountMinor": -35000
+          },
+          {
+            "row": 9,
+            "ref": "CN-3",
+            "type": "Credit Note",
+            "amountMinor": -5000
+          }
+        ],
+        "supplierRowFates": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fullReconciliation": false
+      },
+      "restored": {
+        "approved": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000,
+            "rule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2"
+          },
+          {
+            "supplierRows": [
+              6,
+              7
+            ],
+            "ledgerRows": [
+              2
+            ],
+            "amountMinor": 100000,
+            "rule": "EXACT_REFERENCE_GROUP_TOTAL_V1"
+          }
+        ],
+        "supplierMovements": [
+          {
+            "row": 6,
+            "ref": "INV-932",
+            "type": "Invoice",
+            "amountMinor": 78000
+          },
+          {
+            "row": 7,
+            "ref": "INV-932",
+            "type": "Invoice",
+            "amountMinor": 22000
+          },
+          {
+            "row": 8,
+            "ref": "BANK-44",
+            "type": "Payment",
+            "amountMinor": -35000
+          },
+          {
+            "row": 9,
+            "ref": "CN-3",
+            "type": "Credit Note",
+            "amountMinor": -5000
+          }
+        ],
+        "supplierRowFates": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fullReconciliation": false
+      }
+    },
+    {
+      "kind": "conflict",
+      "sourceHashes": [
+        "0553898e0e0789cb46d1e1a8ead04a5d3c1e454783a74428d3a4d4d8dbba7539",
+        "49bf9b5c52057b22618754db26654671bd9bb7ca27d8b40daf5414f40f6c3895"
+      ],
+      "direct": {
+        "approved": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000,
+            "rule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2"
+          }
+        ],
+        "supplierMovements": [
+          {
+            "row": 6,
+            "ref": "INV-932",
+            "type": "Invoice",
+            "amountMinor": 78000
+          },
+          {
+            "row": 7,
+            "ref": "INV-934",
+            "type": "Invoice",
+            "amountMinor": 22000
+          },
+          {
+            "row": 8,
+            "ref": "BANK-44",
+            "type": "Payment",
+            "amountMinor": -35000
+          },
+          {
+            "row": 9,
+            "ref": "CN-3",
+            "type": "Credit Note",
+            "amountMinor": -5000
+          }
+        ],
+        "supplierRowFates": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fullReconciliation": false
+      },
+      "restored": {
+        "approved": [
+          {
+            "supplierRows": [
+              8
+            ],
+            "ledgerRows": [
+              3
+            ],
+            "amountMinor": -35000,
+            "rule": "EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2"
+          }
+        ],
+        "supplierMovements": [
+          {
+            "row": 6,
+            "ref": "INV-932",
+            "type": "Invoice",
+            "amountMinor": 78000
+          },
+          {
+            "row": 7,
+            "ref": "INV-934",
+            "type": "Invoice",
+            "amountMinor": 22000
+          },
+          {
+            "row": 8,
+            "ref": "BANK-44",
+            "type": "Payment",
+            "amountMinor": -35000
+          },
+          {
+            "row": 9,
+            "ref": "CN-3",
+            "type": "Credit Note",
+            "amountMinor": -5000
+          }
+        ],
+        "supplierRowFates": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fullReconciliation": false
+      }
+    }
+  ]
+}

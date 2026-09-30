@@ -6,7 +6,12 @@ import {
 } from './header-view.ts';
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
-import { transactionReferences } from './transaction-references.ts';
+import {
+  transactionReferences,
+  shortDocumentCandidate,
+  exactShortDocumentPair,
+  SHORT_DOCUMENT_RULE,
+} from './transaction-references.ts';
 import {
   balanceOnlyError,
   localizedReadErrors,
@@ -1430,7 +1435,7 @@ export function compare(
       s.referenceEvidenceIssues?.length ||
       usedA.has(s.id) ||
       !s.normalizedReference ||
-      !strongAutomaticReference(s) ||
+      !(strongAutomaticReference(s) || shortDocumentCandidate(s)) ||
       s.amount === 0
     )
       continue;
@@ -1447,7 +1452,10 @@ export function compare(
     if (l.referenceEvidenceIssues?.length || !readErrors.canMatch([l]))
       continue;
     // Numeric document IDs need explicit document-role evidence on BOTH sides.
-    if (!strongAutomaticReference(l)) continue;
+    if (!(strongAutomaticReference(l) || shortDocumentCandidate(l))) continue;
+    const shortDocument =
+      shortDocumentCandidate(s) || shortDocumentCandidate(l);
+    if (shortDocument && !exactShortDocumentPair(s, l)) continue;
     if (
       explicitNumericDocument(s) &&
       (!explicitNumericDocument(l) || s.documentType !== l.documentType)
@@ -1462,9 +1470,13 @@ export function compare(
         supplierId: s.id,
         ledgerId: l.id,
         kind: 'auto',
-        reason: `المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ ${days} يوم.`,
+        reason: shortDocument
+          ? 'رقم المستند القصير ونوعه مذكوران صراحة في الملفين. الرقم مطابق بكل رموزه وغير مكرر، والتاريخ والمبلغ بإشارته متطابقان. فُحصت الحركات الخاطئة والمستبعدة قبل اعتماد المطابقة.'
+          : `المرجع الأصلي مطابق بكل رموزه، وغير مكرر في أي طرف. المبلغ وإشارته متطابقان، وفرق التاريخ ${days} يوم.`,
         evidence: {
-          rule: 'EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2',
+          rule: shortDocument
+            ? SHORT_DOCUMENT_RULE
+            : 'EXACT_REFERENCE_SIGNED_AMOUNT_UNIQUE_V2',
           supplierRow: s.row,
           ledgerRow: l.row,
           amount: s.amount,

@@ -1,0 +1,103 @@
+{
+  "schema": "tarasuf-astra-cycle5-candidate-1",
+  "observedAtUtc": "2026-09-30T13:02:45.670688+00:00",
+  "status": "Local unit, build, browser, independent export and large-PDF checks passed; full mutation replay, final-commit CI and Pages deployment pending",
+  "appVersion": "0.4.16",
+  "engineVersion": "0.3.23-experimental",
+  "baseCommit": "5ed7f42ee4f9d4c1912f95b998ea618103d7583d",
+  "unit": {
+    "passed": 945,
+    "failed": 0,
+    "skipped": 0,
+    "newTests": 44
+  },
+  "mutationGate": {
+    "catalogue": 95,
+    "newFaultsDetectedInInitialRun": 7,
+    "newFaultsTotal": 7,
+    "completeCatalogueAfterDependencyUpdate": "running; do not count as passed yet"
+  },
+  "build": {
+    "typecheck": "passed",
+    "staticBuild": "passed",
+    "socialMetadata": "passed",
+    "staticPrivacyPolicy": "passed"
+  },
+  "browser": {
+    "status": "passed after dependency update",
+    "typedNativeXlsxScenarios": 2,
+    "sessionReplayScenarios": 2,
+    "typedExportsIndependentlyVerified": 4,
+    "externalRequestsObserved": 0,
+    "nonGetRequestsObserved": 0
+  },
+  "independentExportOracles": {
+    "exportDesignTests": 45,
+    "layeredTests": 2,
+    "r13Tests": 2,
+    "typedTests": 2,
+    "typedTamperProbes": 8,
+    "r13TamperProbes": 6,
+    "bilingualStressWorkbooks": 18,
+    "exactNumericCells": 288,
+    "nativeDateCells": 504,
+    "formulaCells": 180
+  },
+  "productionDependencyAudit": {
+    "before": {
+      "moderate": 6,
+      "high": 6
+    },
+    "after": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0
+    },
+    "fixedVersions": {
+      "brace-expansion": [
+        "1.1.21",
+        "2.1.7",
+        "5.0.12"
+      ],
+      "fast-uri": "3.1.8",
+      "ip-address": "10.7.1"
+    }
+  },
+  "financialChange": {
+    "positiveNewRequiredMatch": "supplier row 9 CN-3 to ledger row 4, -5000 minor units",
+    "unchangedExistingProof": "780+220 invoice group and -350 payment were already accepted by 0.4.15 when these explicit source roles and types were present",
+    "negative": "equal-sum invoice parts with conflicting document/PO identity remain unapproved",
+    "originalF02": "unchanged; missing explicit type remains review-only"
+  },
+  "limitations": [
+    "Development/regression fixtures; not a new customer holdout",
+    "New rule is 1:1, exact date and explicit Invoice/Credit Note with a proved document-number role; no general short-reference waiver",
+    "Arabic raster OCR still 0/3 exact amounts, financially unverified and cannot approve matches",
+    "Missing ledger balance proof: transaction comparison only",
+    "Older engine sessions require original files to be reuploaded"
+  ],
+  "releaseEvidence": "Final CI, deployed code hashes and live workflows will be recorded separately after publication",
+  "largePdf": {
+    "status": "passed after dependency update",
+    "pages": 70,
+    "requiredPairsSatisfied": 2240,
+    "falseApprovedPairs": 0,
+    "missingPairs": 0,
+    "native100PageReadAndCancellationRecovery": "passed"
+  },
+  "p2Contracts": "passed",
+  "partialContracts": "passed",
+  "foundationContracts": {
+    "passed": 40,
+    "completedComparisons": 22,
+    "safeStops": 18,
+    "completedAutomatically": 0
+  },
+  "retainedPreflightFailure": {
+    "cause": "Read-only browser audit still expected the previous engine version after the product correctly wrote 0.3.23-experimental",
+    "fixed": "Pinned both active partial/large browser audit version expectations to the new release; replay passed",
+    "financialAssertionsChanged": false
+  }
+}

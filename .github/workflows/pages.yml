@@ -31,7 +31,7 @@ jobs:
       - name: Verify frozen layered-statement source facts and independent export oracle
         run: |
           python3 audit/layered-statement/check_contract.py
-          python3 audit/astra-cycle4/check_r13.py work/layered-headers/r13-fixed-workpaper.xlsx
+          python3 audit/astra-cycle4/check_r13.py work/layered-headers/r13-fixed-workpaper.xlsx --expected-engine 0.3.23-experimental
           python3 -m unittest discover -s audit/astra-cycle4 -p 'test_*.py' -v
           python3 -m unittest discover -s audit/layered-statement -p 'test_*.py' -v
       - name: Preserve proved groups and reject competing identity memberships
@@ -49,12 +49,16 @@ jobs:
       - run: pnpm test:browser
       - name: Independently verify layered XLSX headers after browser upload and session replay
         run: python3 audit/layered-statement/check_export.py work/qa/layered-0-direct.xlsx work/qa/layered-0-restored.xlsx work/qa/layered-1-direct.xlsx work/qa/layered-1-restored.xlsx
+      - name: Independently verify typed documents and short-reference proofs after native replay
+        run: |
+          python3 audit/typed-document/check_export.py work/qa/typed-0-direct.xlsx work/qa/typed-0-restored.xlsx work/qa/typed-1-direct.xlsx work/qa/typed-1-restored.xlsx
+          python3 -m unittest discover -s audit/typed-document -p 'test_*.py' -v
       - name: Verify partial results through the Arabic and English interface
         run: |
           node audit/partial-input/browser/run.mjs ci-partial isolated
-          python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial/partial.xlsx --out audit/partial-input/browser/ci-partial/openxml.json --browser-oracle audit/partial-input/browser/fixtures-isolated/oracle.json --require-reviewed --expected-engine 0.3.22-experimental
+          python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial/partial.xlsx --out audit/partial-input/browser/ci-partial/openxml.json --browser-oracle audit/partial-input/browser/fixtures-isolated/oracle.json --require-reviewed --expected-engine 0.3.23-experimental
           node audit/partial-input/browser/run.mjs ci-partial-original original
-          python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial-original/partial.xlsx --out audit/partial-input/browser/ci-partial-original/openxml.json --browser-oracle audit/partial-input/browser/fixtures/oracle.json --require-reviewed --expected-engine 0.3.22-experimental
+          python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial-original/partial.xlsx --out audit/partial-input/browser/ci-partial-original/openxml.json --browser-oracle audit/partial-input/browser/fixtures/oracle.json --require-reviewed --expected-engine 0.3.23-experimental
       - name: Preserve partial reconciliation evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -69,7 +73,7 @@ jobs:
       - name: Verify large PDFs through the browser and independently check the exported workbook
         run: |
           node audit/large-statements/browser/run.mjs ci-large-native
-          python3 audit/large-statements/check_openxml.py --browser-dir audit/large-statements/browser/ci-large-native --out audit/large-statements/browser/ci-large-native/openxml.json --expected-engine 0.3.22-experimental
+          python3 audit/large-statements/check_openxml.py --browser-dir audit/large-statements/browser/ci-large-native --out audit/large-statements/browser/ci-large-native/openxml.json --expected-engine 0.3.23-experimental
       - name: Preserve large statement browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

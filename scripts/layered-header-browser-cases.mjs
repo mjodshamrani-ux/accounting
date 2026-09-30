@@ -5,16 +5,21 @@ import { ar } from '../lib/i18n/locales/ar.ts';
 
 /** The actual frozen XLSX crosses the browser/worker boundary. No injected
  * mapping or constructed parsed rows can stand in for successful file reading. */
-export async function verifyLayeredHeaders(page, url) {
+export async function verifyLayeredHeaders(page, url, typed = false) {
+  const folder = typed
+    ? 'audit/typed-document/frozen/'
+    : 'audit/layered-statement/frozen/';
+  const sourceNames = typed
+    ? ['supplier-typed-proven.xlsx', 'supplier-typed-conflict.xlsx']
+    : ['supplier-layered-proven.xlsx', 'supplier-layered-conflict.xlsx'];
+  const prefix = typed ? 'typed' : 'layered';
   await page.goto(url);
   await page.waitForFunction(
     () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
   );
   const captures = [];
-  for (const name of [
-    'supplier-layered-proven.xlsx',
-    'supplier-layered-conflict.xlsx',
-  ]) {
+  for (const name of sourceNames) {
+    const expectedMatches = typed ? (captures.length ? 2 : 3) : 1;
     if (captures.length) {
       await page.goto(url);
       await page.waitForFunction(
@@ -23,17 +28,15 @@ export async function verifyLayeredHeaders(page, url) {
     }
     for (const [label, file] of [
       [ar.app.sides[0], name],
-      [ar.app.sides[1], 'ledger-plain.csv'],
+      [ar.app.sides[1], typed ? 'ledger-typed.csv' : 'ledger-plain.csv'],
     ]) {
-      await page
-        .getByLabel(label, { exact: true })
-        .setInputFiles({
-          name: file,
-          mimeType: file.endsWith('.csv')
-            ? 'text/csv'
-            : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-          buffer: await readFile('audit/layered-statement/frozen/' + file),
-        });
+      await page.getByLabel(label, { exact: true }).setInputFiles({
+        name: file,
+        mimeType: file.endsWith('.csv')
+          ? 'text/csv'
+          : 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        buffer: await readFile(folder + file),
+      });
       await page.waitForFunction(
         () => !document.querySelector('.notice.loading'),
       );
@@ -96,7 +99,7 @@ export async function verifyLayeredHeaders(page, url) {
       .waitFor();
     assert.equal(
       await page.locator('.metric').nth(0).locator('strong').innerText(),
-      '1',
+      String(expectedMatches),
     );
     const save = page.waitForEvent('download');
     await page
@@ -117,7 +120,7 @@ export async function verifyLayeredHeaders(page, url) {
       const book = new ExcelJS.Workbook();
       await book.xlsx.readFile(await (await download).path());
       const proof = book.getWorksheet('XLSX Header Provenance');
-      assert.equal(proof.rowCount, 8);
+      assert.equal(proof.rowCount, typed ? 10 : 8);
       assert.equal(proof.getCell('J3').value, 'B3:B4');
       assert.equal(proof.getCell('P3').value, 'Automatic source rule');
       assert.equal(book.getWorksheet('Parsed Supplier Source').rowCount, 11);
@@ -128,7 +131,7 @@ export async function verifyLayeredHeaders(page, url) {
         ),
         [780, 220, -350, -50],
       );
-      const target = `work/qa/layered-${captures.length}-${suffix}.xlsx`;
+      const target = `work/qa/${prefix}-${captures.length}-${suffix}.xlsx`;
       await writeFile(target, await readFile(await (await download).path()));
       return target;
     }
@@ -145,22 +148,25 @@ export async function verifyLayeredHeaders(page, url) {
       .waitFor();
     assert.equal(
       await page.locator('.metric').nth(0).locator('strong').innerText(),
-      '1',
+      String(expectedMatches),
     );
     const restored = await exportCase('restored');
     captures.push({
       source: name,
       direct,
       restored,
-      autoMatches: 1,
+      autoMatches: expectedMatches,
       manualHeaderQuestions: 0,
     });
   }
   await mkdir('work/qa', { recursive: true });
   await writeFile(
-    'work/qa/layered-browser.json',
+    `work/qa/${prefix}-browser.json`,
     JSON.stringify(
-      { schema: 'tarasuf-f02-browser-1', cases: captures },
+      {
+        schema: typed ? 'tarasuf-f02-e-browser-1' : 'tarasuf-f02-browser-1',
+        cases: captures,
+      },
       null,
       2,
     ),

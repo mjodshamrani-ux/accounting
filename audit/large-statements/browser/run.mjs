@@ -376,7 +376,7 @@ try {
   const sessionPath = path.join(out, 'native-70-session.json');
   await (await saved).saveAs(sessionPath);
   const session = JSON.parse(await readFile(sessionPath, 'utf8'));
-  assert.equal(session.engine, '0.3.22-experimental');
+  assert.equal(session.engine, '0.3.23-experimental');
   assert.equal(session.decisions.length, 0);
   assert.equal(session.files[0].name, 'native-70.pdf');
   assert.equal(session.files[0].sha256, sha256(await readFile(fixture('native-70.pdf'))));

@@ -778,6 +778,10 @@ export async function exportWorkbook(
       'Reviewer Decision',
       'Reviewer Reason',
       'Retained Evidence',
+      'Document Number Role',
+      'Document Number Header',
+      'Document Number Column',
+      'Document Type',
     ],
     result.cases.flatMap((c) =>
       [...c.supplierMembers, ...c.ledgerMembers].map((t) => [
@@ -806,6 +810,10 @@ export async function exportWorkbook(
         (t.retainedEvidence ?? [])
           .map((e) => `${e.field} (${e.header}): ${e.value}`)
           .join(' | '),
+        t.documentNumberEvidence?.role ?? '',
+        t.documentNumberEvidence?.header ?? '',
+        t.documentNumberEvidence?.column ?? '',
+        t.documentType ?? '',
       ]),
     ),
   );

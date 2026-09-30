@@ -9,6 +9,7 @@ import {
 import type { Comparison, Transaction } from './types.ts';
 import { readingStatus } from './reading-issues.ts';
 import { localizedReadErrors } from './localized-read-errors.ts';
+import { shortDocumentCandidate } from './transaction-references.ts';
 
 export type EvidenceAnswer = {
   kind: 'difference' | 'transaction' | 'checks' | 'next' | 'unsupported';
@@ -31,6 +32,7 @@ const transactionEvidenceFields: (keyof Transaction)[] = [
   'documentType',
   'primaryReference',
   'documentReference',
+  'documentNumberEvidence',
   'chosenReference',
   'chosenReferenceEvidence',
   'statedReference',
@@ -393,7 +395,13 @@ export function resolveQuestionReferences(
       .map((value) => latinDigits(value.trim()));
   const requested = (q.match(/[\p{L}\p{N}][\p{L}\p{N}_:/.-]*/gu) ?? []).filter(
     (token) =>
-      token.length >= 4 && /\p{L}/u.test(token) && /\p{N}/u.test(token),
+      token.length >= 2 &&
+      /\p{L}/u.test(token) &&
+      /\p{N}/u.test(token) &&
+      // Keep an unknown numeric scientific notation in the amount parser,
+      // where it is rejected; never route 2e2 to an unrelated document.
+      (!/^\d+[eE]\d+$/u.test(token) ||
+        all.some((t) => references(t).includes(token))),
   );
   if (
     requested.some(
@@ -407,7 +415,11 @@ export function resolveQuestionReferences(
       containsExactIdentifier(q, t.id) ||
       references(t).some(
         (reference) =>
-          reference.length >= 4 && containsExactIdentifier(q, reference),
+          (reference.length >= 4 ||
+            (reference.length >= 2 &&
+              /\p{L}/u.test(reference) &&
+              /\p{N}/u.test(reference))) &&
+          containsExactIdentifier(q, reference),
       ),
   );
 }
@@ -576,13 +588,14 @@ function explainResultDetails(
             .map((d) => d.message),
         );
         if (
-          !t.normalizedReference ||
-          !/\p{L}/u.test(t.normalizedReference) ||
-          !/\d/.test(t.normalizedReference) ||
-          t.normalizedReference.length < 4
+          !shortDocumentCandidate(t) &&
+          (!t.normalizedReference ||
+            !/\p{L}/u.test(t.normalizedReference) ||
+            !/\d/.test(t.normalizedReference) ||
+            t.normalizedReference.length < 4)
         )
           lines.push(
-            'لا يستوفي المرجع شروط المطابقة الآلية: يجب أن يضم حروفًا وأرقامًا، وألا يقل طوله بعد التوحيد عن أربعة محارف.',
+            'المرجع وحده لا يستوفي شروط المطابقة الآلية. المرجع القصير يحتاج رقم مستند ونوع فاتورة أو إشعار دائن صريحين في الملفين، مع تاريخ مطابق ودون حركة منافسة.',
           );
         if (!t.amount) lines.push('لا يطابق المحرك تلقائيًا حركة مبلغها صفر.');
         if (result.rejectedPairs.some((pair) => pair.split('|').includes(t.id)))
