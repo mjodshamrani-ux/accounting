@@ -213,6 +213,55 @@ export const en: Messages = {
       'No words could be read on this page. It may contain text the reader did not recognize, so check the original image.',
     details: 'File and reader details',
   },
+  visualReview: {
+    title: 'Value review record',
+    intro:
+      'Select a word, choose its role and check it against the crop. Editing a value clears its previous review. This record saves your checks only; it does not approve transactions or matches.',
+    family:
+      'Saved value reviews currently support a single opaque PNG page up to 2 MB. Other formats remain reading drafts.',
+    cellLabel: 'Review an image value',
+    cellTitle: 'Check this value',
+    crop: 'Value crop from the original image',
+    observed: 'Reader output',
+    role: 'Value role',
+    chooseRole: 'Choose a role',
+    roles: {
+      amount: 'Amount',
+      date: 'Date',
+      reference: 'Reference',
+      currency: 'Currency',
+    },
+    value: 'Value as shown in the original',
+    valueHint:
+      'Keep the sign and separators as shown. No calculations are performed on this value here.',
+    reviewed: 'This value was checked against the crop',
+    pending: 'This value has not been reviewed',
+    confirm: 'Confirm this value review',
+    count: (reviewed: number, total: number) =>
+      `${reviewed} reviewed values out of ${total} recorded — this does not confirm complete page coverage`,
+    save: 'Save review record',
+    restore: 'Open saved review record',
+    restoreLabel: 'Image review record in JSON format',
+    saving: 'Checking the image and values before saving',
+    restoring: 'Checking the review record and original image',
+    confirming: 'Recording this value review',
+    errors: {
+      format:
+        'This image is outside the supported PNG review family or its bytes are damaged. You can still view the reading draft.',
+      limit: 'The image or record exceeds the current value review limits.',
+      pixels:
+        'The complete image data could not be decoded. No value review record was linked.',
+      source:
+        'The preview does not match the original image bytes. The review record was not accepted.',
+      record:
+        'The review record structure is invalid or its reader settings differ from this version.',
+      stale:
+        'The image or a value changed after review. Use the original record or read and review it again.',
+      cell: 'The value, its location or its review receipt could not be verified.',
+    },
+    failed:
+      'The review record could not be opened or saved. No values were added to reconciliation.',
+  },
   scene: {
     supplierPaper: 'Supplier statement',
     ledgerPaper: 'AP ledger',

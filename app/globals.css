@@ -709,6 +709,45 @@ th {
   background: #fef3c7;
   border-color: #d97706;
 }
+.visual-review-record {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #f8faff;
+}
+.visual-cell-crop {
+  width: 100%;
+  max-width: 720px;
+  height: 160px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.visual-cell-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.visual-cell-fields label {
+  display: grid;
+  gap: 6px;
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.visual-cell-fields input,
+.visual-cell-fields select {
+  width: 100%;
+  min-width: 0;
+}
+.visual-cell-fields select {
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+}
+.visual-cell-review h4 {
+  font-size: 17px;
+}
 @media (max-width: 720px) {
   .visual-draft-grid {
     grid-template-columns: 1fr;

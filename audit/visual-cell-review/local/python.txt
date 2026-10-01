@@ -1,0 +1,8 @@
+test_corruptions_cannot_pass_the_independent_checker (test_record.IndependentReviewTests) ... ok
+test_source_bytes_crc_and_crop_damage (test_record.IndependentReviewTests) ... ok
+test_valid_known_literals_and_pixels (test_record.IndependentReviewTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.146s
+
+OK

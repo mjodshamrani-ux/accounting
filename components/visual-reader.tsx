@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from './ui/button';
+import { VisualCellReview } from './visual-cell-review';
+import {
+  createVisualReview,
+  confirmVisualCell,
+  restoreVisualReview,
+  saveVisualReview,
+  VisualEvidenceError,
+  type VisualReview,
+} from '@/lib/reconciliation/visual-review';
 import type {
   VisualDraft,
   VisualDraftInput,
@@ -22,6 +31,17 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
   const [error, setError] = useState<UiText | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
   const [selected, setSelected] = useState('');
+  const [review, setReview] = useState<VisualReview | null>(null);
+  const [reviewNotice, setReviewNotice] = useState<UiText | null>(null);
+  const reviewRef = useRef<VisualReview | null>(null);
+  function updateReview(value: VisualReview | null) {
+    reviewRef.current = value;
+    setReview(value);
+  }
+  const reviewError = (failure: unknown) =>
+    failure instanceof VisualEvidenceError
+      ? uiText((m) => m.visualReview.errors[failure.code])
+      : uiText((m) => m.visualReview.failed);
   const job = useRef<AbortController | null>(null);
   useEffect(
     () => () => {
@@ -40,6 +60,8 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
     setBusy(uiText((m) => m.visualReader.preparing));
     setError(null);
     setDraft(null);
+    updateReview(null);
+    setReviewNotice(null);
     setPageIndex(0);
     setSelected('');
     let ocr:
@@ -50,8 +72,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
         >
       | undefined;
     try {
-      if (file.size > 8 * 1024 * 1024)
-        fail((m) => m.visualReader.tooLarge);
+      if (file.size > 8 * 1024 * 1024) fail((m) => m.visualReader.tooLarge);
       const buffer = await file.arrayBuffer();
       controller.signal.throwIfAborted();
       const hash = Array.from(
@@ -161,9 +182,21 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
         hash,
       );
       if (alive()) setDraft(result);
+      // Unsupported review families keep their OCR draft. They never acquire
+      // a record merely because a file extension says PNG or OCR is confident.
+      if (new Uint8Array(buffer)[0] === 137 && result.pageCount === 1) {
+        try {
+          const linked = await createVisualReview(
+            result,
+            new Uint8Array(buffer),
+          );
+          if (alive()) updateReview(linked);
+        } catch (failure) {
+          if (alive()) setReviewNotice(reviewError(failure));
+        }
+      }
     } catch (failure) {
-      if (alive())
-        setError(errorText(failure, (m) => m.visualReader.failed));
+      if (alive()) setError(errorText(failure, (m) => m.visualReader.failed));
     } finally {
       ocr?.destroy();
       if (job.current === controller) {
@@ -177,8 +210,80 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
     job.current = null;
     setBusy(null);
     setDraft(null);
+    updateReview(null);
+    setReviewNotice(null);
     setError(null);
     setSelected('');
+  }
+  async function reviewAction(
+    action: 'confirm' | 'save' | 'restore',
+    input?: string | File,
+  ) {
+    if (busy) return;
+    const current = reviewRef.current;
+    if (action !== 'restore' && !current) return;
+    const controller = new AbortController();
+    job.current?.abort();
+    job.current = controller;
+    const alive = () =>
+      job.current === controller && !controller.signal.aborted;
+    setBusy(
+      uiText((m) =>
+        action === 'save'
+          ? m.visualReview.saving
+          : action === 'restore'
+            ? m.visualReview.restoring
+            : m.visualReview.confirming,
+      ),
+    );
+    setError(null);
+    if (action === 'restore') {
+      setDraft(null);
+      updateReview(null);
+      setSelected('');
+      setPageIndex(0);
+      setReviewNotice(null);
+    }
+    try {
+      if (action === 'restore') {
+        if (!(input instanceof File) || input.size > 16 * 1024 * 1024)
+          throw new VisualEvidenceError('limit');
+        const restored = await restoreVisualReview(
+          new Uint8Array(await input.arrayBuffer()),
+        );
+        if (alive()) {
+          updateReview(restored);
+          setDraft(restored.draft);
+        }
+      } else if (action === 'confirm') {
+        if (typeof input !== 'string') throw new VisualEvidenceError('cell');
+        const next = await confirmVisualCell(
+          current!,
+          input,
+          new Date().toISOString(),
+        );
+        if (alive() && reviewRef.current === current) updateReview(next);
+      } else {
+        const bytes = await saveVisualReview(current!);
+        if (alive() && reviewRef.current === current) {
+          const url = URL.createObjectURL(
+            new Blob([new Uint8Array(bytes)], { type: 'application/json' }),
+          );
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `tarasuf-visual-review-${current!.source.sha256.slice(0, 8)}.json`;
+          link.click();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }
+      }
+    } catch (failure) {
+      if (alive()) setError(reviewError(failure));
+    } finally {
+      if (job.current === controller) {
+        job.current = null;
+        setBusy(null);
+      }
+    }
   }
   const page = draft?.pages[pageIndex];
   const word = page?.words.find((v) => v.id === selected);
@@ -218,6 +323,20 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
               {v.tryCandidate}
             </Button>
           )}
+          <label className="file-button">
+            {t.visualReview.restore}
+            <input
+              type="file"
+              accept=".json"
+              aria-label={t.visualReview.restoreLabel}
+              disabled={!!busy}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) void reviewAction('restore', file);
+                e.target.value = '';
+              }}
+            />
+          </label>
           {(busy || draft || error) && (
             <Button variant="ghost" onClick={clear}>
               {busy ? v.cancel : v.clear}
@@ -311,6 +430,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                         type="button"
                         className="visual-word"
                         aria-pressed={selected === w.id}
+                        disabled={!!busy}
                         onClick={() => setSelected(w.id)}
                       >
                         <bdi>{w.text}</bdi>
@@ -325,6 +445,39 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                 )}
               </div>
             </div>
+            {review ? (
+              <div className="visual-review-record stack">
+                <h3>{t.visualReview.title}</h3>
+                <p>{t.visualReview.intro}</p>
+                <output>
+                  {t.visualReview.count(
+                    review.cells.filter((c) => c.review).length,
+                    review.cells.length,
+                  )}
+                </output>
+                {word && (
+                  <VisualCellReview
+                    key={`${review.revision}:${word.id}`}
+                    record={review}
+                    wordId={word.id}
+                    disabled={!!busy}
+                    onChange={updateReview}
+                    onConfirm={(id) => void reviewAction('confirm', id)}
+                  />
+                )}
+                <Button
+                  variant="outline"
+                  disabled={!!busy || !review.cells.length}
+                  onClick={() => void reviewAction('save')}
+                >
+                  {t.visualReview.save}
+                </Button>
+              </div>
+            ) : (
+              <p className="hint">
+                {reviewNotice ? say(reviewNotice) : t.visualReview.family}
+              </p>
+            )}
             <details>
               <summary>{v.details}</summary>
               <p dir="ltr" style={{ overflowWrap: 'anywhere' }}>

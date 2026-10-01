@@ -21,6 +21,8 @@ const tests = [
   'tests/core.test.ts',
   'tests/pdf-stream-integrity.test.ts',
   'tests/visual-boundary.test.ts',
+  'tests/visual-png.test.ts',
+  'tests/visual-review.test.ts',
   'tests/reliability.test.ts',
   'tests/assistant-adversarial.test.ts',
   'tests/supplier-layouts.test.ts',
@@ -64,6 +66,46 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+  {
+    name: 'p6-ignore-png-chunk-crc',
+    file: 'lib/reconciliation/visual-png.ts',
+    changes: [
+      [
+        'crc32(bytes.subarray(offset + 4, end - 4)) !== view.getUint32(end - 4)',
+        'false',
+      ],
+    ],
+  },
+  {
+    name: 'p6-trust-a-substituted-image-preview',
+    file: 'lib/reconciliation/visual-review.ts',
+    changes: [['native.pixelSha256 !== displayed.pixelSha256', 'false']],
+  },
+  {
+    name: 'p6-retain-reviewed-status-after-value-edit',
+    file: 'lib/reconciliation/visual-review.ts',
+    changes: [
+      [
+        'review: null,',
+        'review: value.cells.find(c => c.wordId === wordId)?.review ?? null,',
+      ],
+    ],
+  },
+  {
+    name: 'p6-skip-cell-fingerprint-on-restore',
+    file: 'lib/reconciliation/visual-review.ts',
+    changes: [
+      [
+        'raw.review.fingerprint !== (await fingerprint(base.revision, cell))',
+        'false',
+      ],
+    ],
+  },
+  {
+    name: 'p6-launder-cell-review-into-accounting',
+    file: 'lib/reconciliation/source-boundary.ts',
+    changes: [["source.kind === 'visual-review'", 'false']],
+  },
   {
     name: 'f02-discard-excluded-movement-membership',
     file: 'lib/reconciliation/localized-read-errors.ts',

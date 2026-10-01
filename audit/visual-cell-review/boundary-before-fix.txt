@@ -1,0 +1,29 @@
+✔ visual drafts cannot normalize even with plausible fabricated accounting sheets and approval flags (4.177125ms)
+✔ workpaper export rejects a visual draft before original reread or no-original fallback on either side (29.330375ms)
+✔ session save rejects visual drafts instead of laundering their sheets through demoBytes (4.768625ms)
+✔ session restore does not discard a visual-draft marker and treat accompanying CSV bytes as native (1.403042ms)
+✖ reviewed visual cells are evidence only: every accounting gate rejects the marker even with native CSV sheets (1.982458ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 176.794416
+
+✖ failing tests:
+
+test at tests/visual-boundary.test.ts:125:6
+✖ reviewed visual cells are evidence only: every accounting gate rejects the marker even with native CSV sheets (1.982458ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///Users/togomori/Documents/Codex/2026-09-07/l/outputs/mizan/tests/visual-boundary.test.ts:130:12)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /المسودة البصرية غير متحققة/,
+    operator: 'throws',
+    diff: 'simple'
+  }

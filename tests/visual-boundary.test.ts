@@ -121,3 +121,44 @@ void test('session restore does not discard a visual-draft marker and treat acco
     );
   }
 });
+
+void test('reviewed visual cells are evidence only: every accounting gate rejects the marker even with native CSV sheets', async () => {
+  const result = run(),
+    saved = JSON.parse(new TextDecoder().decode(await saveSession(state())));
+  for (const side of [0, 1]) {
+    const input = state();
+    input.files[side] = {
+      ...input.files[side],
+      kind: 'visual-review',
+      status: 'cell-evidence-only',
+      cells: [
+        { value: '100', review: { checkedAt: '2026-10-01T09:00:00.000Z' } },
+      ],
+    } as SourceFile;
+    assert.throws(
+      () =>
+        normalizeSource(
+          input.files[side],
+          demoMappings[side],
+          scope,
+          side === 0 ? 'supplier' : 'ledger',
+        ),
+      forbidden,
+    );
+    await assert.rejects(
+      exportWorkbook(result, input.files, {
+        checked: false,
+        name: '',
+        notes: '',
+      }),
+      forbidden,
+    );
+    await assert.rejects(saveSession(input), forbidden);
+    const modified = structuredClone(saved);
+    modified.files[side].kind = 'visual-review';
+    await assert.rejects(
+      restoreSession(new TextEncoder().encode(JSON.stringify(modified)).buffer),
+      forbidden,
+    );
+  }
+});

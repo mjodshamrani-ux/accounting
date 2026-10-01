@@ -28,6 +28,8 @@ jobs:
       - run: pnpm test
       - name: Verify recorded real local-provider experiment without downloading model weights
         run: python3 -m unittest discover -s audit/local-provider -p 'test_*.py' -v
+      - name: Independently verify source pixels and cell review receipts
+        run: python3 -m unittest discover -s audit/visual-cell-review -p 'test_*.py' -v
       - name: Detect false matches and changed workbook evidence
         run: python3 -m unittest discover -s audit/export-design -p 'test_*.py' -v
       - name: Verify frozen layered-statement source facts and independent export oracle
@@ -65,6 +67,16 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Independently verify the real OCR browser review record
+        run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
+      - name: Preserve visual review evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: visual-review-evidence
+          path: work/qa/p6-*
+          if-no-files-found: ignore
+          retention-days: 7
       - run: python3 audit/related-invoice/check_export.py work/qa/f03-*.xlsx
       - run: python3 audit/related-invoice/unknown-role/check_export.py work/qa/unknown-*.xlsx
       - run: python3 audit/assistant-evidence/check_export.py work/qa/p5-*.xlsx --browser work/qa/p5-browser.json

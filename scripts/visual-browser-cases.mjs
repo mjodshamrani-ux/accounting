@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { deflateSync } from 'node:zlib';
+import { verifyVisualReview } from './visual-review-browser-cases.mjs';
 
 // This PDF contains only the actual RGB pixels generated below. There is no
 // text layer for the application (or this test) to mistake for OCR output.
@@ -265,6 +266,7 @@ export async function verifyVisualReader(page, baseUrl) {
       geometry.left + geometry.width <= 100.01 &&
         geometry.top + geometry.height <= 100.01,
     );
+    await verifyVisualReview(page, panel, png, assertIsolated);
     // A native-source change unmounts the completed visual draft. It must not
     // leave words, pixels or an OCR approval attached to the new source.
     const nativeCsvName = 'visual-lifecycle-native.csv';
