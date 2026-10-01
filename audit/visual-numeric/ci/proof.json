@@ -1,0 +1,38 @@
+{
+  "sourceCommit": "d9054652e59d7342524f5235c4244135b5f2da64",
+  "workflowRun": 36908746669,
+  "visualArtifactId": 11185733727,
+  "visualArtifactDigest": "sha256:51b83fcd8be77641274d6068c956601275e341d5fa4942293a46f94fc0c80a23",
+  "independentReceiptCheck": "pass; known Arabic literal, original pixels and every bound observation/proof member",
+  "financialPromotion": false,
+  "files": {
+    "p6-region-ar-mobile.png": {
+      "bytes": 22882,
+      "sha256": "08abdf863dde100549b51bd785955d6a0d8a6d4127ddf50ccbd4b39de52dee4b"
+    },
+    "p6-region-ar.png": {
+      "bytes": 27305,
+      "sha256": "740cb65bdfea48ad38fa0cd28d585b4fd98d05d4f387f64590a68b99603f5739"
+    },
+    "p6-region-en-mobile.png": {
+      "bytes": 23764,
+      "sha256": "db07c79b20b0b06caa32db1aa3e833b2d727e991775a9e19253499d1f07671c6"
+    },
+    "p6-region-report.json": {
+      "bytes": 310,
+      "sha256": "b7c2d4cffeb9852af7fe1187e3ae073456e1ac651d4ea52c99913b1daf60d55c"
+    },
+    "p6-region-reviewed.json": {
+      "bytes": 588528,
+      "sha256": "c52b114e2b9e6d844ac01c72cbea9f12abddf3011c28fc8c33f8c7b336d3ece7"
+    },
+    "p6-region-source.png": {
+      "bytes": 217668,
+      "sha256": "cdcf740a1b0f6bca7b3f3016f7ab3b4fcf4a61acbaf87a6516cda0e265b5d83c"
+    },
+    "previous-release-compatibility.json": {
+      "bytes": 262,
+      "sha256": "b8cc8b768b45802ce80ca2443fe656aba0100750ed4413bffb23bd5350dd6428"
+    }
+  }
+}

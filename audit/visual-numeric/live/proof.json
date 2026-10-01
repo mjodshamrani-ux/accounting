@@ -1,0 +1,58 @@
+{
+  "sourceCommit": "d9054652e59d7342524f5235c4244135b5f2da64",
+  "sourceTree": "a997498cb88d3bd6c98d6b313e8fe3b2604ae050",
+  "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.21",
+  "artifactDigest": "sha256:7353ef593f33dcfd3d9ef881896a9da59ca37f829948e9f1b915d6aa5308fe5d",
+  "comparison": "Every observed JavaScript/CSS response body matched the downloaded and digest-verified CI artifact; 25 responses, nine unique paths.",
+  "financialPromotion": false,
+  "originalRunnerPath": "work/p6-regions-live.mjs",
+  "replay": [
+    "copy live/run-recorded.mjs to work/p6-regions-live.mjs (its imports resolve from that original path)",
+    "download and verify Pages artifact 11185743917 from workflow 36908746669; extract it safely",
+    "set DIST to the extracted Pages directory, then run node work/p6-regions-live.mjs",
+    "run both independent Python record checkers on the generated work/qa records"
+  ],
+  "extraWordEvidence": "p6-word-reviewed.json and p6-word-source.png were copied from work/qa after the exact recorded runner completed; their SHA is also bound by report.json.",
+  "files": {
+    "p6-region-ar-mobile.png": {
+      "bytes": 27426,
+      "sha256": "e82fe2228d929b023cb20456b90a277857d18d83c56bdb2f9791984f35b04720"
+    },
+    "p6-region-ar.png": {
+      "bytes": 32020,
+      "sha256": "72a0a6fb768bca9ee2412728eddf902f732f83ad4d85bd78f3b73b6315f42024"
+    },
+    "p6-region-en-mobile.png": {
+      "bytes": 29626,
+      "sha256": "80a97028b4645f747ff58685f20c862a72860d8142d2937a7d747f7c4a20b6fd"
+    },
+    "p6-region-report.json": {
+      "bytes": 310,
+      "sha256": "b7c2d4cffeb9852af7fe1187e3ae073456e1ac651d4ea52c99913b1daf60d55c"
+    },
+    "p6-region-reviewed.json": {
+      "bytes": 588528,
+      "sha256": "f3a43b80b2c523757c1c82434dbdb0281f44189b62f59a31d4b7507bb3cbbb73"
+    },
+    "p6-region-source.png": {
+      "bytes": 217668,
+      "sha256": "cdcf740a1b0f6bca7b3f3016f7ab3b4fcf4a61acbaf87a6516cda0e265b5d83c"
+    },
+    "p6-word-reviewed.json": {
+      "bytes": 165574,
+      "sha256": "55448ab602bf12edbceabd475f6869833dfa6a7b232f56d5f5a7b7f2070274b4"
+    },
+    "p6-word-source.png": {
+      "bytes": 60972,
+      "sha256": "96b7661c62782cb9459a8071f8dfb143a6ebe293ab0c38fc22394eda8bbd71e9"
+    },
+    "report.json": {
+      "bytes": 5669,
+      "sha256": "d92fafcae044f3b08070cb8a64fc77d3c78477c8385e54fde4adc2d3fb47c04a"
+    },
+    "run-recorded.mjs": {
+      "bytes": 3729,
+      "sha256": "dce35ffed3d855a7ea278b7ffedbec776985b5341b06703797593e0e9bcb95de"
+    }
+  }
+}
