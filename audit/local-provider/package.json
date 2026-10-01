@@ -1,0 +1,10 @@
+{
+  "name": "tarasuf-local-provider-feasibility",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Development-only local model experiment; excluded from the site bundle",
+  "dependencies": {
+    "@huggingface/transformers": "4.3.0"
+  }
+}

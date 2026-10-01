@@ -1,0 +1,8 @@
+{
+  "mechanism": "macOS sandbox-exec",
+  "profile": "audit/local-provider/no-network.sb",
+  "profileRule": "deny network*",
+  "probeAllowed": false,
+  "error": "TypeError: fetch failed",
+  "productionDataUsed": false
+}

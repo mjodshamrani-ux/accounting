@@ -1,0 +1,29 @@
+{
+  "verified": true,
+  "reportSha256": "a6b489a232dbdf550e72500050ac5e81aeb806cac4d5cb09283224c9a956e850",
+  "modelExact": 0,
+  "baselineExact": 0,
+  "acceptedWrongSemanticProposals": 0,
+  "rawWrongSemanticProposals": 15,
+  "rejectionReasons": {
+    "unproven-citation": 8,
+    "invalid-json": 9,
+    "citation-keys": 6,
+    "unknown-role-or-column": 1
+  },
+  "medianMs": 9841.02904200001,
+  "maxMs": 24657.679208,
+  "loadMs": 808.297708,
+  "peakObservedProcessRssBytes": 3642556416,
+  "timeouts": 0,
+  "languagePresentations": 24,
+  "families": 12,
+  "limitations": [
+    "synthetic development cases",
+    "one physical device",
+    "Node CPU; not browser model inference",
+    "cold means session load with already downloaded files; OS file cache not controlled",
+    "sampled RSS is not total system/GPU memory"
+  ],
+  "hardDeadlineSupervisorPassed": true
+}

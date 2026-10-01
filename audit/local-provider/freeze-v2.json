@@ -1,0 +1,21 @@
+{
+  "version": "p5-local-column-v2",
+  "frozenBeforeFirstInference": true,
+  "previousRun": "p5-local-column-v1",
+  "changes": [
+    "Separate trusted rules from untrusted DATA with native chat roles",
+    "Record source.errors and warnings under correct engine property names",
+    "Report raw semantic errors even when structural validation rejects them",
+    "Parent-process hard deadline; prevent sleeping during this measured run"
+  ],
+  "truthOrPromptRulesChanged": false,
+  "casesPreviouslyObserved": true,
+  "files": {
+    "contract.json": "3a1e8288539f45cb7c3e0e809445e9d2a4c880d6c4905d30b2c613b6e6864b5e",
+    "model.json": "fa37dce458e841deed973662e085c00e1eeef11f9e3c0ad7670c765aa8f5dcf4",
+    "prompt.txt": "66ff726780adffe6bec0c8175493f06c71afeec8d749b53ea4d21e7f08f4398d",
+    "proposal.ts": "8cad4e0e2a5bd7cf12eed7e30cd8917c4d61df8a03c79bac81312b91e1ba2888",
+    "run-v2.mjs": "f87eaf5108c3b76cae6c04f08e620755220600cd64185f3d6ca7678b9329c46e",
+    "supervise.mjs": "99ebabedd8f035929704653d614f2582518b00ca04026d762720aed8cc55a0e2"
+  }
+}

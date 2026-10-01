@@ -36,6 +36,8 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+/audit/local-provider/node_modules
+/audit/local-provider/__pycache__/
 
 # typescript incremental build cache
 tsconfig.tsbuildinfo

@@ -26,6 +26,8 @@ jobs:
       - run: pnpm audit --prod --audit-level=moderate
       - run: pnpm typecheck
       - run: pnpm test
+      - name: Verify recorded real local-provider experiment without downloading model weights
+        run: python3 -m unittest discover -s audit/local-provider -p 'test_*.py' -v
       - name: Detect false matches and changed workbook evidence
         run: python3 -m unittest discover -s audit/export-design -p 'test_*.py' -v
       - name: Verify frozen layered-statement source facts and independent export oracle
