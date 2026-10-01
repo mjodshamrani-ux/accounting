@@ -748,6 +748,27 @@ th {
 .visual-cell-review h4 {
   font-size: 17px;
 }
+.visual-crop-surface {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--border);
+  background: white;
+  line-height: 0;
+  cursor: crosshair;
+  touch-action: none;
+}
+.visual-crop-surface:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+.visual-crop-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
 @media (max-width: 720px) {
   .visual-draft-grid {
     grid-template-columns: 1fr;

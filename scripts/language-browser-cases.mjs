@@ -22,7 +22,7 @@ const allowedArabic = [
   .sort((a, b) => b.length - a.length);
 // Latin words the Arabic interface uses as they are: formats, units, codes.
 const allowedLatin = new Set(
-  'PDF Excel CSV XLSX PNG JPEG MB SAR KWD Diagnostics AR EN English TARASUF'.split(
+  'PDF Excel CSV XLSX PNG JPEG MB SAR KWD Diagnostics AR EN English Shift Enter Escape TARASUF'.split(
     ' ',
   ),
 );

@@ -3,6 +3,7 @@ import { verifyUnknownCreditRoles } from './unknown-credit-browser-cases.mjs';
 import { chromium } from 'playwright';
 import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
+import { verifyVisualRegions } from './visual-region-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import { verifyLanguages } from './language-browser-cases.mjs';
 import { verifyLayeredHeaders } from './layered-header-browser-cases.mjs';
@@ -1825,6 +1826,10 @@ try {
   await context.setOffline(false);
   await verifyVisualReader(
     await activeScenarioPage(context, 'visual reader'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyVisualRegions(
+    await activeScenarioPage(context, 'manual visual regions'),
     `${origin}/mizan-test/`,
   );
   console.log('[browser] Arabic and English');

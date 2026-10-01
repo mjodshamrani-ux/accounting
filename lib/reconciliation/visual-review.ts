@@ -25,9 +25,21 @@ export type VisualCell = Readonly<{
     checkedAt: string;
   }> | null;
 }>;
-export type VisualReview = Readonly<{
+export type VisualRegion = Readonly<{
+  id: string;
+  origin: 'manual-crop';
+  role: VisualCellRole;
+  observed: readonly Readonly<{
+    wordId: string;
+    text: string;
+    complete: boolean;
+  }>[];
+  value: string;
+  region: VisualCell['region'];
+  review: VisualCell['review'];
+}>;
+type VisualReviewBase = Readonly<{
   kind: 'visual-review';
-  version: 1;
   status: 'cell-evidence-only';
   source: Readonly<{ name: string; sha256: string; originalPng: string }>;
   draft: VisualDraft;
@@ -35,6 +47,13 @@ export type VisualReview = Readonly<{
   revision: string;
   cells: readonly VisualCell[];
 }>;
+export type VisualReview = VisualReviewBase &
+  (
+    | Readonly<{ version: 1 }>
+    | Readonly<{ version: 2; regions: readonly VisualRegion[] }>
+  );
+export const visualRegions = (value: VisualReview): readonly VisualRegion[] =>
+  value.version === 2 ? value.regions : [];
 const accepted = new WeakSet<object>();
 const reject = (
   code: ConstructorParameters<typeof VisualEvidenceError>[0],
@@ -67,6 +86,16 @@ const freeze = <T extends VisualReview>(value: T): T => {
     Object.freeze(cell);
   });
   Object.freeze(value.cells);
+  if (value.version === 2) {
+    value.regions.forEach((r) => {
+      r.observed.forEach(Object.freeze);
+      Object.freeze(r.observed);
+      Object.freeze(r.region);
+      if (r.review) Object.freeze(r.review);
+      Object.freeze(r);
+    });
+    Object.freeze(value.regions);
+  }
   Object.freeze(value);
   accepted.add(value);
   return value;
@@ -284,7 +313,11 @@ export function editVisualCell(
   const box = region ?? regionOf(word, page.width, page.height);
   if (!validRegion(box, word, page.width, page.height)) return reject('cell');
   const cells = value.cells.filter((c) => c.wordId !== wordId);
-  if (cells.length >= VISUAL_EVIDENCE_LIMITS.cells) return reject('limit');
+  if (
+    cells.length + visualRegions(value).length >=
+    VISUAL_EVIDENCE_LIMITS.cells
+  )
+    return reject('limit');
   cells.push({
     wordId,
     role,
@@ -331,6 +364,130 @@ export async function confirmVisualCell(
     ),
   });
 }
+const regionFingerprint = (revision: string, cell: VisualRegion) =>
+  textDigest([
+    'tarasuf-visual-region-v1',
+    revision,
+    cell.id,
+    cell.origin,
+    cell.role,
+    cell.observed,
+    cell.value,
+    cell.region,
+  ]);
+export function nextVisualRegionId(value: VisualReview): string {
+  assertAccepted(value);
+  const highest = Math.max(
+    0,
+    ...visualRegions(value).map((r) => Number(r.id.split(':')[1])),
+  );
+  if (highest >= 999999) return reject('limit');
+  return `region:${highest + 1}`;
+}
+/** A reviewer-selected pixel region, including values OCR entirely omitted.
+ * Observations are derived from every intersecting raw OCR word, never supplied
+ * by the caller. Even a fully reviewed region remains cell evidence only. */
+export function editVisualRegion(
+  value: VisualReview,
+  id: string,
+  role: VisualCellRole,
+  text: string,
+  region: VisualCell['region'],
+): VisualReview {
+  assertAccepted(value);
+  const page = value.draft.pages[0];
+  if (
+    !isVisualLiteral(id) ||
+    !/^region:[1-9]\d{0,5}$/.test(id) ||
+    !roles.includes(role) ||
+    !isVisualLiteral(text) ||
+    !shape(region, ['x0', 'y0', 'x1', 'y1']) ||
+    !Object.values(region).every(
+      (v) => typeof v === 'number' && Number.isSafeInteger(v),
+    ) ||
+    region.x0 < 0 ||
+    region.y0 < 0 ||
+    region.x1 > page.width ||
+    region.y1 > page.height ||
+    region.x0 >= region.x1 ||
+    region.y0 >= region.y1
+  )
+    return reject('cell');
+  const box = { ...region };
+  const observed = page.words
+    .filter(
+      (w) =>
+        w.bbox.x0 < box.x1 &&
+        w.bbox.x1 > box.x0 &&
+        w.bbox.y0 < box.y1 &&
+        w.bbox.y1 > box.y0,
+    )
+    .map((w) => ({
+      wordId: w.id,
+      text: w.text,
+      complete:
+        w.bbox.x0 >= box.x0 &&
+        w.bbox.y0 >= box.y0 &&
+        w.bbox.x1 <= box.x1 &&
+        w.bbox.y1 <= box.y1,
+    }));
+  const regions = visualRegions(value).filter((r) => r.id !== id);
+  if (
+    observed.length > 64 ||
+    observed.reduce((n, w) => n + w.text.length, 0) > 8192
+  )
+    return reject('limit');
+  if (regions.length + value.cells.length >= VISUAL_EVIDENCE_LIMITS.cells)
+    return reject('limit');
+  regions.push({
+    id,
+    origin: 'manual-crop',
+    role,
+    value: text,
+    observed,
+    region: box,
+    review: null,
+  });
+  return freeze({ ...value, version: 2, regions });
+}
+export function removeVisualRegion(
+  value: VisualReview,
+  id: string,
+): VisualReview {
+  assertAccepted(value);
+  if (value.version === 1) return value;
+  return freeze({
+    ...value,
+    regions: value.regions.filter((r) => r.id !== id),
+  });
+}
+export async function confirmVisualRegion(
+  value: VisualReview,
+  id: string,
+  checkedAt: string,
+): Promise<VisualReview> {
+  assertAccepted(value);
+  const cell = visualRegions(value).find((r) => r.id === id);
+  if (
+    !cell ||
+    !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(checkedAt) ||
+    !Number.isFinite(Date.parse(checkedAt)) ||
+    new Date(checkedAt).toISOString() !== checkedAt
+  )
+    return reject('cell');
+  const proof = {
+    revision: value.revision,
+    fingerprint: await regionFingerprint(value.revision, cell),
+    checkedAt,
+  };
+  return freeze({
+    ...value,
+    version: 2,
+    regions: visualRegions(value).map((r) =>
+      r.id === id ? { ...r, review: proof } : r,
+    ),
+  });
+}
 /** Restore proof by recomputing pixels, source bytes, OCR observations, setting
  * revision and EACH reviewed cell. Checksums bind data, not a human identity. */
 export async function restoreVisualReview(
@@ -345,6 +502,7 @@ export async function restoreVisualReview(
     return reject('record');
   }
   if (
+    !record(p) ||
     !shape(p, [
       'kind',
       'version',
@@ -354,13 +512,17 @@ export async function restoreVisualReview(
       'pixelSha256',
       'revision',
       'cells',
+      ...(p.version === 2 ? ['regions'] : []),
     ]) ||
     p.kind !== 'visual-review' ||
-    p.version !== 1 ||
+    (p.version !== 1 && p.version !== 2) ||
     p.status !== 'cell-evidence-only' ||
     !shape(p.source, ['name', 'sha256', 'originalPng']) ||
     !Array.isArray(p.cells) ||
-    p.cells.length > VISUAL_EVIDENCE_LIMITS.cells
+    p.cells.length > VISUAL_EVIDENCE_LIMITS.cells ||
+    (p.version === 2 &&
+      (!Array.isArray(p.regions) ||
+        p.regions.length + p.cells.length > VISUAL_EVIDENCE_LIMITS.cells))
   )
     return reject('record');
   const base = await createVisualReview(
@@ -373,7 +535,7 @@ export async function restoreVisualReview(
     base.revision !== p.revision
   )
     return reject('stale');
-  let current = base;
+  let current: VisualReview = base;
   const ids = new Set<string>();
   for (const raw of p.cells) {
     if (
@@ -415,6 +577,56 @@ export async function restoreVisualReview(
         raw.wordId,
         raw.review.checkedAt,
       );
+    }
+  }
+  if (p.version === 2) {
+    current = freeze({ ...current, version: 2, regions: [] });
+    const ids = new Set<string>();
+    for (const raw of p.regions as unknown[]) {
+      if (
+        !shape(raw, [
+          'id',
+          'origin',
+          'role',
+          'observed',
+          'value',
+          'region',
+          'review',
+        ]) ||
+        typeof raw.id !== 'string' ||
+        ids.has(raw.id) ||
+        raw.origin !== 'manual-crop' ||
+        typeof raw.role !== 'string' ||
+        !roles.includes(raw.role) ||
+        !isVisualLiteral(raw.value)
+      )
+        return reject('cell');
+      ids.add(raw.id);
+      current = editVisualRegion(
+        current,
+        raw.id,
+        raw.role as VisualCellRole,
+        raw.value,
+        raw.region as VisualCell['region'],
+      );
+      const cell = visualRegions(current).find((r) => r.id === raw.id)!;
+      if (JSON.stringify(cell.observed) !== JSON.stringify(raw.observed))
+        return reject('stale');
+      if (raw.review !== null) {
+        if (
+          !shape(raw.review, ['revision', 'fingerprint', 'checkedAt']) ||
+          raw.review.revision !== base.revision ||
+          raw.review.fingerprint !==
+            (await regionFingerprint(base.revision, cell)) ||
+          typeof raw.review.checkedAt !== 'string'
+        )
+          return reject('stale');
+        current = await confirmVisualRegion(
+          current,
+          raw.id,
+          raw.review.checkedAt,
+        );
+      }
     }
   }
   return current;

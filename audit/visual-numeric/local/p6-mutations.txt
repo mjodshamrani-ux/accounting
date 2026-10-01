@@ -1,0 +1,57 @@
+Already up to date
+Done in 141ms using pnpm v11.19.0
+$ node scripts/test-mutations.mjs --filter p6-
+Detected deliberate fault: p6-retain-manual-region-review-after-edit
+Detected deliberate fault: p6-ignore-manual-region-observations
+Detected deliberate fault: p6-skip-manual-region-fingerprint
+Detected deliberate fault: p6-accept-outside-image-manual-region
+Detected deliberate fault: p6-ignore-png-chunk-crc
+Detected deliberate fault: p6-trust-a-substituted-image-preview
+Detected deliberate fault: p6-retain-reviewed-status-after-value-edit
+Detected deliberate fault: p6-skip-cell-fingerprint-on-restore
+Detected deliberate fault: p6-launder-cell-review-into-accounting
+{
+  "baselinePassed": true,
+  "detected": 9,
+  "total": 9,
+  "available": 118,
+  "filter": "p6-",
+  "mutations": [
+    {
+      "mutation": "p6-retain-manual-region-review-after-edit",
+      "detected": true
+    },
+    {
+      "mutation": "p6-ignore-manual-region-observations",
+      "detected": true
+    },
+    {
+      "mutation": "p6-skip-manual-region-fingerprint",
+      "detected": true
+    },
+    {
+      "mutation": "p6-accept-outside-image-manual-region",
+      "detected": true
+    },
+    {
+      "mutation": "p6-ignore-png-chunk-crc",
+      "detected": true
+    },
+    {
+      "mutation": "p6-trust-a-substituted-image-preview",
+      "detected": true
+    },
+    {
+      "mutation": "p6-retain-reviewed-status-after-value-edit",
+      "detected": true
+    },
+    {
+      "mutation": "p6-skip-cell-fingerprint-on-restore",
+      "detected": true
+    },
+    {
+      "mutation": "p6-launder-cell-review-into-accounting",
+      "detected": true
+    }
+  ]
+}

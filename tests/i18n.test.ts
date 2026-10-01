@@ -82,7 +82,7 @@ test('English interface copy contains no Arabic', () => {
 test('Arabic interface copy has no stray English words', () => {
   // File formats, units, currency codes and names that stay in Latin script.
   const latin = new Set(
-    'PDF Excel CSV XLSX PNG JPEG MB SAR KWD Diagnostics AR EN English UTF Unicode OCR URL'.split(
+    'PDF Excel CSV XLSX PNG JPEG MB SAR KWD Diagnostics AR EN English Shift Enter Escape UTF Unicode OCR URL'.split(
       ' ',
     ),
   );

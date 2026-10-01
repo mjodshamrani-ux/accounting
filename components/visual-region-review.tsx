@@ -1,63 +1,60 @@
-/* oxlint-disable jsx-a11y/prefer-tag-over-role -- SVG supplies a crop viewport and needs an accessible image role. */
+/* oxlint-disable jsx-a11y/prefer-tag-over-role -- SVG is a precisely clipped accessible image viewport. */
 import { useId, useState } from 'react';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import {
-  editVisualCell,
-  removeVisualCell,
+  editVisualRegion,
+  removeVisualRegion,
+  visualRegions,
   isVisualLiteral,
   type VisualReview,
   type VisualCellRole,
+  type VisualCell,
 } from '@/lib/reconciliation/visual-review';
 
-/** A source crop plus one literal attestation, never a transaction approval. */
-export function VisualCellReview({
+export function VisualRegionReview({
   record,
-  wordId,
+  id,
+  region,
   disabled,
   onChange,
   onConfirm,
+  onRemove,
   onError,
 }: {
   record: VisualReview;
-  wordId: string;
+  id: string;
+  region: VisualCell['region'];
   disabled: boolean;
-  onChange: (next: VisualReview) => void;
+  onChange: (r: VisualReview) => void;
   onConfirm: (id: string) => void;
+  onRemove: () => void;
   onError: (failure: unknown) => void;
 }) {
   const { t } = useI18n(),
-    v = t.visualReview;
-  const cropId = useId();
-  const page = record.draft.pages[0],
-    word = page.words.find((w) => w.id === wordId)!;
-  const cell = record.cells.find((c) => c.wordId === wordId);
-  const [literal, setLiteral] = useState(cell?.value ?? word.text);
+    v = t.visualReview,
+    clip = useId();
+  const cell = visualRegions(record).find((c) => c.id === id);
+  const page = record.draft.pages[0];
+  const [literal, setLiteral] = useState(cell?.value ?? '');
   const [role, setRole] = useState<VisualCellRole | ''>(cell?.role ?? '');
-  const region = cell?.region ?? {
-    x0: Math.max(0, word.bbox.x0 - 64),
-    y0: Math.max(0, word.bbox.y0 - 24),
-    x1: Math.min(page.width, word.bbox.x1 + 64),
-    y1: Math.min(page.height, word.bbox.y1 + 24),
-  };
-  function change(nextRole: VisualCellRole | '', nextLiteral: string) {
-    setRole(nextRole);
-    setLiteral(nextLiteral);
+  function change(r: VisualCellRole | '', text: string) {
+    setRole(r);
+    setLiteral(text);
     try {
-      if (!nextRole || !isVisualLiteral(nextLiteral))
-        onChange(removeVisualCell(record, wordId));
-      else
-        onChange(editVisualCell(record, wordId, nextRole, nextLiteral, region));
+      onChange(
+        r && isVisualLiteral(text)
+          ? editVisualRegion(record, id, r, text, region)
+          : removeVisualRegion(record, id),
+      );
     } catch (failure) {
-      onChange(removeVisualCell(record, wordId));
+      onChange(removeVisualRegion(record, id));
       onError(failure);
     }
   }
   return (
-    <section className="visual-cell-review stack" aria-label={v.cellLabel}>
-      <h4>{v.cellTitle}</h4>
-      {/* A vector viewport crops the verified local PNG without resampling it. */}
-      {/* oxlint-disable-next-line jsx-a11y/prefer-tag-over-role */}
+    <section className="visual-cell-review stack" aria-label={v.regionLabel}>
+      <h4>{v.regionTitle}</h4>
       <svg
         className="visual-cell-crop"
         role="img"
@@ -65,7 +62,7 @@ export function VisualCellReview({
         viewBox={`${region.x0} ${region.y0} ${region.x1 - region.x0} ${region.y1 - region.y0}`}
       >
         <defs>
-          <clipPath id={cropId} clipPathUnits="userSpaceOnUse">
+          <clipPath id={clip} clipPathUnits="userSpaceOnUse">
             <rect
               x={region.x0}
               y={region.y0}
@@ -78,21 +75,23 @@ export function VisualCellReview({
           href={page.imageDataUrl}
           width={page.width}
           height={page.height}
-          clipPath={`url(#${cropId})`}
-        />
-        <rect
-          x={word.bbox.x0}
-          y={word.bbox.y0}
-          width={word.bbox.x1 - word.bbox.x0}
-          height={word.bbox.y1 - word.bbox.y0}
-          fill="none"
-          stroke="#b45309"
-          strokeWidth="1"
+          clipPath={`url(#${clip})`}
         />
       </svg>
-      <small>
-        {v.observed} <bdi>{word.text}</bdi>
-      </small>
+      <small>{v.manualHint}</small>
+      {cell && (
+        <small>
+          {v.observed}{' '}
+          {cell.observed.length
+            ? cell.observed.map((o) => (
+                <span key={o.wordId}>
+                  <bdi>{o.text}</bdi>
+                  {o.complete ? ' ' : ` (${v.partialWord}) `}
+                </span>
+              ))
+            : v.noObservation}
+        </small>
+      )}
       <div className="visual-cell-fields">
         <label className="field">
           {v.role}
@@ -119,8 +118,8 @@ export function VisualCellReview({
             value={literal}
             maxLength={512}
             disabled={disabled}
-            onChange={(e) => change(role, e.target.value)}
             dir="auto"
+            onChange={(e) => change(role, e.target.value)}
           />
         </label>
       </div>
@@ -128,13 +127,25 @@ export function VisualCellReview({
       <output className={cell?.review ? 'notice' : 'hint'}>
         {cell?.review ? v.reviewed : v.pending}
       </output>
-      <Button
-        variant="outline"
-        disabled={disabled || !cell || !!cell.review}
-        onClick={() => onConfirm(wordId)}
-      >
-        {v.confirm}
-      </Button>
+      <div className="visual-crop-actions">
+        <Button
+          variant="outline"
+          disabled={disabled || !cell || !!cell.review}
+          onClick={() => onConfirm(id)}
+        >
+          {v.confirm}
+        </Button>
+        <Button
+          variant="ghost"
+          disabled={disabled}
+          onClick={() => {
+            onChange(removeVisualRegion(record, id));
+            onRemove();
+          }}
+        >
+          {v.removeCrop}
+        </Button>
+      </div>
     </section>
   );
 }

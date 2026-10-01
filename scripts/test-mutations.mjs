@@ -23,6 +23,7 @@ const tests = [
   'tests/visual-boundary.test.ts',
   'tests/visual-png.test.ts',
   'tests/visual-review.test.ts',
+  'tests/visual-region.test.ts',
   'tests/reliability.test.ts',
   'tests/assistant-adversarial.test.ts',
   'tests/supplier-layouts.test.ts',
@@ -67,6 +68,26 @@ const tests = [
 ];
 const mutations = [
   {
+    name: 'p6-retain-manual-region-review-after-edit',
+    file: 'lib/reconciliation/visual-review.ts',
+    changes: [['region: box,\n    review: null,', 'region: box,\n    review: visualRegions(value).find(r => r.id === id)?.review ?? null,']],
+  },
+  {
+    name: 'p6-ignore-manual-region-observations',
+    file: 'lib/reconciliation/visual-review.ts',
+    changes: [['JSON.stringify(cell.observed) !== JSON.stringify(raw.observed)', 'false']],
+  },
+  {
+    name: 'p6-skip-manual-region-fingerprint',
+    file: 'lib/reconciliation/visual-review.ts',
+    changes: [['raw.review.fingerprint !==\n            (await regionFingerprint(base.revision, cell))', 'false']],
+  },
+  {
+    name: 'p6-accept-outside-image-manual-region',
+    file: 'lib/reconciliation/visual-review.ts',
+    changes: [['region.x1 > page.width ||', 'false ||']],
+  },
+  {
     name: 'p6-ignore-png-chunk-crc',
     file: 'lib/reconciliation/visual-png.ts',
     changes: [
@@ -86,8 +107,8 @@ const mutations = [
     file: 'lib/reconciliation/visual-review.ts',
     changes: [
       [
-        'review: null,',
-        'review: value.cells.find(c => c.wordId === wordId)?.review ?? null,',
+        'region: { ...box },\n    review: null,',
+        'region: { ...box },\n    review: value.cells.find(c => c.wordId === wordId)?.review ?? null,',
       ],
     ],
   },

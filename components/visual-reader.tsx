@@ -1,13 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from './ui/button';
 import { VisualCellReview } from './visual-cell-review';
+import { VisualCropPicker } from './visual-crop-picker';
+import { VisualRegionReview } from './visual-region-review';
 import {
   createVisualReview,
   confirmVisualCell,
+  confirmVisualRegion,
+  nextVisualRegionId,
+  editVisualRegion,
+  removeVisualRegion,
+  visualRegions,
   restoreVisualReview,
   saveVisualReview,
   VisualEvidenceError,
   type VisualReview,
+  type VisualCell,
 } from '@/lib/reconciliation/visual-review';
 import type {
   VisualDraft,
@@ -31,6 +39,10 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
   const [error, setError] = useState<UiText | null>(null);
   const [pageIndex, setPageIndex] = useState(0);
   const [selected, setSelected] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState<{
+    id: string;
+    region: VisualCell['region'];
+  } | null>(null);
   const [review, setReview] = useState<VisualReview | null>(null);
   const [reviewNotice, setReviewNotice] = useState<UiText | null>(null);
   const reviewRef = useRef<VisualReview | null>(null);
@@ -64,6 +76,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
     setReviewNotice(null);
     setPageIndex(0);
     setSelected('');
+    setSelectedRegion(null);
     let ocr:
       | Awaited<
           ReturnType<
@@ -214,6 +227,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
     setReviewNotice(null);
     setError(null);
     setSelected('');
+    setSelectedRegion(null);
   }
   async function reviewAction(
     action: 'confirm' | 'save' | 'restore',
@@ -241,6 +255,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
       setDraft(null);
       updateReview(null);
       setSelected('');
+      setSelectedRegion(null);
       setPageIndex(0);
       setReviewNotice(null);
     }
@@ -257,11 +272,9 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
         }
       } else if (action === 'confirm') {
         if (typeof input !== 'string') throw new VisualEvidenceError('cell');
-        const next = await confirmVisualCell(
-          current!,
-          input,
-          new Date().toISOString(),
-        );
+        const next = await (
+          input.startsWith('region:') ? confirmVisualRegion : confirmVisualCell
+        )(current!, input, new Date().toISOString());
         if (alive() && reviewRef.current === current) updateReview(next);
       } else {
         const bytes = await saveVisualReview(current!);
@@ -369,6 +382,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                   onChange={(e) => {
                     setPageIndex(Number(e.target.value));
                     setSelected('');
+                    setSelectedRegion(null);
                   }}
                 >
                   {draft.pages.map((p, i) => (
@@ -389,37 +403,50 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
               )}
             </div>
             <div className="visual-draft-grid">
-              <div
-                style={{
-                  position: 'relative',
-                  alignSelf: 'start',
-                  border: '1px solid var(--border)',
-                  lineHeight: 0,
+              <VisualCropPicker
+                key={`${review?.revision ?? draft.source.sha256}:${selectedRegion?.id ?? selected}`}
+                image={page.imageDataUrl}
+                width={page.width}
+                height={page.height}
+                alt={v.originalImage(page.page)}
+                enabled={!!review}
+                disabled={!!busy}
+                highlight={selectedRegion?.region ?? word?.bbox}
+                editing={selectedRegion?.region}
+                onPick={(region, fresh) => {
+                  if (!reviewRef.current || busy) return;
+                  try {
+                    const current = reviewRef.current;
+                    const id =
+                      !fresh && selectedRegion
+                        ? selectedRegion.id
+                        : nextVisualRegionId(current);
+                    const existing = visualRegions(current).find(
+                      (c) => c.id === id,
+                    );
+                    if (existing) {
+                      try {
+                        updateReview(
+                          editVisualRegion(
+                            current,
+                            id,
+                            existing.role,
+                            existing.value,
+                            region,
+                          ),
+                        );
+                      } catch (failure) {
+                        updateReview(removeVisualRegion(current, id));
+                        setError(reviewError(failure));
+                      }
+                    }
+                    setSelected('');
+                    setSelectedRegion({ id, region });
+                  } catch (failure) {
+                    setError(reviewError(failure));
+                  }
                 }}
-              >
-                {/* Local document pixels must never use a remote image optimizer. */}
-                {/* oxlint-disable-next-line next/no-img-element */}
-                <img
-                  src={page.imageDataUrl}
-                  alt={v.originalImage(page.page)}
-                  style={{ width: '100%', height: 'auto' }}
-                />
-                {word && (
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      position: 'absolute',
-                      border: '2px solid #d97706',
-                      background: '#f59e0b20',
-                      pointerEvents: 'none',
-                      left: `${(word.bbox.x0 / page.width) * 100}%`,
-                      top: `${(word.bbox.y0 / page.height) * 100}%`,
-                      width: `${((word.bbox.x1 - word.bbox.x0) / page.width) * 100}%`,
-                      height: `${((word.bbox.y1 - word.bbox.y0) / page.height) * 100}%`,
-                    }}
-                  />
-                )}
-              </div>
+              />
               <div className="visual-words" aria-label={v.words}>
                 {page.words.length ? (
                   <>
@@ -431,7 +458,10 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                         className="visual-word"
                         aria-pressed={selected === w.id}
                         disabled={!!busy}
-                        onClick={() => setSelected(w.id)}
+                        onClick={() => {
+                          setSelected(w.id);
+                          setSelectedRegion(null);
+                        }}
                       >
                         <bdi>{w.text}</bdi>
                       </button>
@@ -451,11 +481,12 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                 <p>{t.visualReview.intro}</p>
                 <output>
                   {t.visualReview.count(
-                    review.cells.filter((c) => c.review).length,
-                    review.cells.length,
+                    review.cells.filter((c) => c.review).length +
+                      visualRegions(review).filter((c) => c.review).length,
+                    review.cells.length + visualRegions(review).length,
                   )}
                 </output>
-                {word && (
+                {word && !selectedRegion && (
                   <VisualCellReview
                     key={`${review.revision}:${word.id}`}
                     record={review}
@@ -463,11 +494,53 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                     disabled={!!busy}
                     onChange={updateReview}
                     onConfirm={(id) => void reviewAction('confirm', id)}
+                    onError={(failure) => setError(reviewError(failure))}
+                  />
+                )}
+                {!!visualRegions(review).length && (
+                  <div
+                    aria-label={t.visualReview.regionsTitle}
+                    className="visual-crop-actions"
+                  >
+                    {visualRegions(review).map((cell, index) => (
+                      <Button
+                        key={cell.id}
+                        variant="outline"
+                        disabled={!!busy}
+                        aria-pressed={selectedRegion?.id === cell.id}
+                        onClick={() => {
+                          setSelected('');
+                          setSelectedRegion({
+                            id: cell.id,
+                            region: cell.region,
+                          });
+                        }}
+                      >
+                        {t.visualReview.regionItem(index + 1)}{' '}
+                        <bdi>{cell.value}</bdi>
+                      </Button>
+                    ))}
+                  </div>
+                )}
+                {selectedRegion && (
+                  <VisualRegionReview
+                    key={`${review.revision}:${selectedRegion.id}:${JSON.stringify(selectedRegion.region)}`}
+                    record={review}
+                    id={selectedRegion.id}
+                    region={selectedRegion.region}
+                    disabled={!!busy}
+                    onChange={updateReview}
+                    onConfirm={(id) => void reviewAction('confirm', id)}
+                    onRemove={() => setSelectedRegion(null)}
+                    onError={(failure) => setError(reviewError(failure))}
                   />
                 )}
                 <Button
                   variant="outline"
-                  disabled={!!busy || !review.cells.length}
+                  disabled={
+                    !!busy ||
+                    !(review.cells.length + visualRegions(review).length)
+                  }
                   onClick={() => void reviewAction('save')}
                 >
                   {t.visualReview.save}
