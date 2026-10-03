@@ -1,0 +1,325 @@
+{
+  "version": "0.4.22",
+  "engine": "0.3.26-experimental",
+  "sourceCommit": "20bf019061db5c73e663e0a4bc28d71445891762",
+  "sourceTree": "261fbb6ad8b01af7522254d15d13a1db8ff0a2a3",
+  "workflow": {
+    "id": 37132301046,
+    "url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37132301046",
+    "status": "completed",
+    "conclusion": "success",
+    "completedAt": "2026-10-03T15:29:29Z",
+    "jobs": [
+      {
+        "id": 111229810854,
+        "name": "build",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 111229811032,
+        "name": "Accounting mutation gate (2/3)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 111229811060,
+        "name": "Accounting mutation gate (3/3)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 111229811116,
+        "name": "Accounting mutation gate (1/3)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 111232900175,
+        "name": "deploy",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "unit": {
+    "local": {
+      "pass": 1066,
+      "fail": 0,
+      "skip": 0
+    },
+    "ci": {
+      "pass": 1054,
+      "fail": 0,
+      "skip": 12,
+      "skipReason": "Private local user fixtures not available to CI"
+    }
+  },
+  "mutation": {
+    "expected": 123,
+    "killed": 123,
+    "shards": [
+      {
+        "jobId": 111229811116,
+        "names": [
+          "p6-table-retain-coverage-after-row-edit",
+          "p6-table-skip-coverage-fingerprint",
+          "p6-ignore-manual-region-observations",
+          "p6-ignore-png-chunk-crc",
+          "p6-skip-cell-fingerprint-on-restore",
+          "f02-ignore-unknown-excluded-identity",
+          "partial-treat-untrusted-cells-as-format-proof",
+          "partial-drop-transitive-error-impact",
+          "p2-reject-explicit-numeric-payment-identities",
+          "p2-ignore-overlapping-payment-identity-memberships",
+          "p2-accept-inferred-payment-role-as-explicit-proof",
+          "p2-approve-groups-beyond-the-member-limit",
+          "p1-accept-placeholder-category-or-zero-as-a-discriminator",
+          "p1-grant-document-role-to-another-selected-column",
+          "p1-use-normalized-document-identity",
+          "047-accept-unanswered-format-ambiguity",
+          "046-disable-all-supported-groups",
+          "v11-read-carried-forward-as-a-transaction",
+          "v11-approve-a-source-compared-with-itself",
+          "hard-r01-rank-own-voucher-before-chosen-reference",
+          "v11-approve-on-a-voucher-with-no-chosen-reference",
+          "h03-let-a-document-number-outvote-unselected-references",
+          "hard-g08-accept-payment-parts-beyond-the-date-window",
+          "045-skip-generic-account-scope-evidence",
+          "accept-a-partial-pdf-operator-stream",
+          "trust-stale-case-member-evidence",
+          "ignore-known-document-evidence-conflicts",
+          "silently-round-original-xlsx-numeric-lexemes",
+          "reject-unused-helper-formulas",
+          "drop-classified-rows-without-a-reason",
+          "classify-any-summary-word-as-a-nontransaction",
+          "reverse-proven-ap-direction",
+          "fuzzy-reference-auto-match",
+          "allow-unconfirmed-coverage",
+          "typed-short-infer-type-without-explicit-label",
+          "typed-short-allow-neighbouring-dates",
+          "f03-ignore-related-credit-invoice-conflict",
+          "f03-ai-ignore-related-invoice-contradiction",
+          "unknown-credit-remove-role-review-gate",
+          "p5-drop-audit-identifier-lookup",
+          "p5-invent-model-case-total"
+        ]
+      },
+      {
+        "jobId": 111229811032,
+        "names": [
+          "p6-table-swap-neighboring-amount-and-balance",
+          "p6-table-launder-table-inventory-into-accounting",
+          "p6-skip-manual-region-fingerprint",
+          "p6-trust-a-substituted-image-preview",
+          "p6-launder-cell-review-into-accounting",
+          "f02-hide-compatible-currency-glyphs",
+          "partial-accept-stale-format-selection",
+          "partial-drop-displaced-literal-identities",
+          "p2-promote-placeholder-payment-identities",
+          "p2-drop-primary-only-competing-members",
+          "p2-accept-duplicate-postings-in-nm-groups",
+          "p2-ignore-group-member-rejection",
+          "p1-reject-valid-contextual-numeric-or-alphabetic-discriminators",
+          "p1-choose-first-repeated-discriminator",
+          "p1-ignore-document-pair-amount-difference",
+          "047-ambiguity-guard-throws-unrelated-error",
+          "046-accept-payment-groups-without-explicit-identity",
+          "v11-refuse-black-text-grazed-by-a-table-rule",
+          "v11-take-a-renamed-copy-for-another-source",
+          "hard-r01-let-a-voucher-hide-a-po-only-identity",
+          "v11-take-a-batch-for-a-document",
+          "v11-read-only-bare-labels-in-descriptions",
+          "hard-g08-accept-any-group-across-dates",
+          "045-allow-a-second-sheetdata-to-drop-earlier-rows",
+          "allow-visual-drafts-into-accounting",
+          "allow-ai-proposals-outside-the-evidence-window",
+          "accept-duplicate-posting-lines-as-a-group",
+          "ignore-pdf-overlap-between-separate-baselines",
+          "treat-pdf-table-edges-as-filled-area",
+          "accept-a-timestamp-as-a-read-issue",
+          "ignore-date-and-reference-in-reordered-summary-rows",
+          "ignore-contradictory-closing-footer-in-direction-proof",
+          "ignore-date-window",
+          "promote-ai-hypothesis",
+          "typed-short-grant-document-number-role-to-generic-reference",
+          "typed-short-ignore-selected-reference-conflict",
+          "f03-drop-own-credit-note-header",
+          "f03-drop-exported-related-invoice",
+          "unknown-credit-drop-native-audit-cue",
+          "p5-drop-native-cues-from-model-context",
+          "p5-ignore-bridge-delta-drift"
+        ]
+      },
+      {
+        "jobId": 111229811060,
+        "names": [
+          "p6-table-ignore-known-unassigned-crops",
+          "p6-retain-manual-region-review-after-edit",
+          "p6-accept-outside-image-manual-region",
+          "p6-retain-reviewed-status-after-value-edit",
+          "f02-discard-excluded-movement-membership",
+          "partial-drop-reading-issue-details-from-export",
+          "partial-ignore-isolated-error-membership",
+          "p4-silently-stop-after-twenty-pages",
+          "p2-waive-voucher-conflicts-without-a-certified-document-partition",
+          "p2-let-an-exact-payment-consume-a-group-member-first",
+          "p2-ignore-whole-group-date-span",
+          "p1-accept-formula-or-spreadsheet-error-reference-text",
+          "p1-disable-document-pair-resolution",
+          "p1-ignore-unsafe-discriminator-competitors",
+          "p1-restore-a-rejected-document-pair",
+          "047-reuse-format-choice-across-context",
+          "hard-t01-read-any-label-ending-in-invoice",
+          "v11-let-stripes-hide-text",
+          "hard-s01-drop-a-source-without-a-role",
+          "v11-take-a-document-number-equal-to-the-order-as-proof",
+          "v11-let-a-document-number-outvote-the-chosen-references",
+          "v11-leave-blocked-exact-pairs-as-unrelated-rows",
+          "045-ignore-declared-aging-report",
+          "045-concatenate-conflicting-xlsx-cell-payloads",
+          "reuse-an-ai-column-proposal-after-settings-change",
+          "skip-an-earlier-table-for-a-richer-later-header",
+          "ignore-xlsx-overwritten-cell-addresses",
+          "reject-supported-multisheet-workpapers",
+          "count-total-rows-as-transactions",
+          "automatically-match-with-unread-potential-duplicates",
+          "prove-direction-from-a-single-movement",
+          "reverse-source-sign",
+          "ignore-reference-duplicates",
+          "typed-short-disable-required-positive-proof",
+          "typed-short-ignore-canonical-type-sign",
+          "typed-short-use-original-invoice-number-as-credit-note-number",
+          "f03-promote-related-invoice-discriminator",
+          "f03-silent-unmatched-unverified-identity",
+          "p5-bypass-canonical-explanation-check",
+          "p5-disable-utf8-evidence-budget",
+          "corrupt-exported-amount"
+        ]
+      }
+    ],
+    "catalog": "scripts/mutation-test.mjs"
+  },
+  "browser": {
+    "ci": {
+      "fullFlow": "success",
+      "tableRealOcr": "success",
+      "tableSaveRestore": "success",
+      "sourceEditInvalidation": "success",
+      "tamperRejection": "success",
+      "languages": [
+        "ar",
+        "en"
+      ],
+      "mobileWidth": 390
+    },
+    "localFinal": {
+      "passed": false,
+      "reason": "Chromium startup forbidden after environment permissions changed; frozen local evidence retained."
+    }
+  },
+  "independentChecks": {
+    "tableRecord": "success on real CI browser record",
+    "visualManualCrop": "success",
+    "visualWords": "success",
+    "nativeWorkpaperExports": "success",
+    "checksImportAccountingEngine": false
+  },
+  "largePdf": {
+    "classification": "known synthetic layout; regression only",
+    "pages": 70,
+    "requiredMatches": 2240,
+    "satisfiedMatches": 2240,
+    "falseApproved": 0,
+    "missing": 0,
+    "exactEvidenceMembers": 4480,
+    "excludedSupplier": 210,
+    "excludedLedger": 1
+  },
+  "publicSmoke": {
+    "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.22",
+    "method": "Codex in-app browser via CUA, observed public DOM",
+    "versionVisible": "0.4.22",
+    "restoredRecord": "baseline/reviewed.json",
+    "reviewedValues": 4,
+    "movements": 1,
+    "unreadable": 1,
+    "excluded": 1,
+    "unclassified": 0,
+    "missingCells": 0,
+    "coverage": "recorded",
+    "financialInputsEmpty": true,
+    "financialConfirmDisabled": true,
+    "warnOrErrorLogs": 0,
+    "publicDownloadVerified": false,
+    "publicDownloadLimitation": "CUA download event timed out after click; successful save/restore independently covered in CI.",
+    "bundleByteComparisonPerformed": false
+  },
+  "artifacts": [
+    {
+      "id": 11277646893,
+      "name": "related-invoice-evidence",
+      "bytes": 1530259,
+      "digestReportedByGitHub": "sha256:c2bbbc39e35a274cba5a627e6ffbacb9bc484efd2bffbae424a4bae9ae6550b8",
+      "expired": false,
+      "sourceCommit": "20bf019061db5c73e663e0a4bc28d71445891762",
+      "localZipDigestRecomputed": false
+    },
+    {
+      "id": 11277607052,
+      "name": "github-pages",
+      "bytes": 8256241,
+      "digestReportedByGitHub": "sha256:ce5545abd7baf84edd4893ce89e43a6609413f8cd234d8cc19580799acdea824",
+      "expired": false,
+      "sourceCommit": "20bf019061db5c73e663e0a4bc28d71445891762",
+      "localZipDigestRecomputed": false
+    },
+    {
+      "id": 11277607012,
+      "name": "assistant-evidence",
+      "bytes": 326627,
+      "digestReportedByGitHub": "sha256:54c842063b03d038467d23d9aa0664585ca4c5d5f0c111650d423ffa8a76e21f",
+      "expired": false,
+      "sourceCommit": "20bf019061db5c73e663e0a4bc28d71445891762",
+      "localZipDigestRecomputed": false
+    },
+    {
+      "id": 11277367690,
+      "name": "large-statement-browser-evidence",
+      "bytes": 1812304,
+      "digestReportedByGitHub": "sha256:55ff0d41b8a5d95182d00ca3645d375ad099d136b22d83bd509fbc0b0e67fd49",
+      "expired": false,
+      "sourceCommit": "20bf019061db5c73e663e0a4bc28d71445891762",
+      "localZipDigestRecomputed": false
+    },
+    {
+      "id": 11277342505,
+      "name": "visual-review-evidence",
+      "bytes": 1157856,
+      "digestReportedByGitHub": "sha256:58734dcdddba1c341a908ebf69bdec7e3ac2dab98ccbce9bac771cf28895490a",
+      "expired": false,
+      "sourceCommit": "20bf019061db5c73e663e0a4bc28d71445891762",
+      "localZipDigestRecomputed": false
+    },
+    {
+      "id": 11277118082,
+      "name": "partial-reconciliation-evidence",
+      "bytes": 1324024,
+      "digestReportedByGitHub": "sha256:6212504cefa12f6aec843375dfe84efd844f099694dddbbedef154e039a00904",
+      "expired": false,
+      "sourceCommit": "20bf019061db5c73e663e0a4bc28d71445891762",
+      "localZipDigestRecomputed": false
+    }
+  ],
+  "previousFailuresPreserved": [
+    "first-run.json",
+    "second-run.json"
+  ],
+  "limits": [
+    "Evidence-only visual table; no financial source promotion",
+    "Manual known geometry and literal values; not automatic extraction, training, holdout or general supplier fit",
+    "Arabic/Persian OCR failure remains documented; failed local AI provider remains disabled",
+    "CI artifact metadata and logs retrieved; artifact ZIP hashes not independently recomputed locally",
+    "Public restore smoke complements but does not repeat the full CI suite"
+  ]
+}
