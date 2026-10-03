@@ -219,7 +219,9 @@ export async function verifyVisualReader(page, baseUrl) {
         `${name}: real OCR must preserve ${expected}; observed ${JSON.stringify(words)}`,
       );
     assert.ok(
-      (await panel.locator('details').textContent()).includes(
+      (await panel.locator('details').filter({
+        has: page.getByText('تفاصيل الملف وأداة القراءة', { exact: true }),
+      }).textContent()).includes(
         createHash('sha256').update(source).digest('hex'),
       ),
       `${name}: draft hash must identify these exact source bytes`,

@@ -1,0 +1,11 @@
+{
+  "runId": 37131471717,
+  "sourceCommit": "f73424d8c155e816e7265753301a476ba9edb6aa",
+  "buildJobId": 111227539307,
+  "auditConclusion": "success",
+  "buildConclusion": "failure",
+  "failedStep": "Run pnpm test:browser",
+  "reason": "The existing visual-reader test selected every nested details element, which became ambiguous after the table-inventory panel was added.",
+  "deployed": false,
+  "response": "Select the source-evidence details by its exact summary. Preserve the source SHA assertion and repeat the gates."
+}
