@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
+@import '../styles/vendor/shadcn-4.18.0.tailwind.css';
 @font-face {
   font-family: 'Noto Sans Arabic';
   src: url('/fonts/noto-sans-arabic-variable.woff2') format('woff2');
