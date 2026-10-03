@@ -45,7 +45,7 @@ function strings(value: unknown, at = ''): [string, string][] {
     // numbers for counts and rows, then a list or a word where one is expected.
     const call = value as (...args: unknown[]) => unknown;
     let text: unknown;
-    for (const args of [[1, 1, 1], [['#1', '#2']], ['#1']])
+    for (const args of [Array(Math.max(3, value.length)).fill(1), [['#1', '#2']], ['#1']])
       try {
         text = call(...args);
         break;

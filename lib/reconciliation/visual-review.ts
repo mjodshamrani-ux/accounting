@@ -100,9 +100,10 @@ const freeze = <T extends VisualReview>(value: T): T => {
   accepted.add(value);
   return value;
 };
-function assertAccepted(value: VisualReview) {
+export function assertVisualReview(value: VisualReview) {
   if (!accepted.has(value)) reject('record');
 }
+const assertAccepted = assertVisualReview;
 export const isVisualLiteral = (value: unknown): value is string =>
   typeof value === 'string' &&
   value.length <= 512 &&

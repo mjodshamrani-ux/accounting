@@ -763,6 +763,33 @@ th {
   outline: 3px solid var(--primary);
   outline-offset: 3px;
 }
+.visual-table-review {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.visual-table-row {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.visual-table-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+  gap: 12px;
+  min-width: 0;
+}
+.visual-table-fields input,
+.visual-table-fields select {
+  width: 100%;
+  min-width: 0;
+}
+.visual-table-crop {
+  display: block;
+  width: 100%;
+  max-height: 180px;
+  border: 1px solid var(--border);
+  background: white;
+}
 .visual-crop-actions {
   display: flex;
   gap: 8px;
@@ -785,7 +812,8 @@ html {
 }
 /* Smooth landing navigation must not keep scrolling after form focus changes.
    Select popups dismiss on scroll; session inputs need a stable viewport. */
-html:has(.app-shell.in-session) {
+html:has(.app-shell.in-session),
+html:has(.visual-reader[open]) {
   scroll-behavior: auto;
 }
 body {

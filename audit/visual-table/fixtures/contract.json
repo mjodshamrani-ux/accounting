@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "classification": "known synthetic development; manual geometry and literal input, not holdout or automatic extraction",
+  "source": {
+    "name": "statement.png",
+    "width": 1200,
+    "height": 760,
+    "bytes": 85707,
+    "sha256": "20faa7ba31972885baab149ffbf46a1b3c345ebeb3006c7c290b64ac3fa111cb"
+  },
+  "grid": {
+    "region": {
+      "x0": 80,
+      "y0": 220,
+      "x1": 1120,
+      "y1": 580
+    },
+    "rowCuts": [
+      220,
+      340,
+      460,
+      580
+    ],
+    "columnCuts": [
+      80,
+      350,
+      620,
+      850,
+      1120
+    ],
+    "roles": [
+      "reference",
+      "date",
+      "amount",
+      "balance"
+    ]
+  },
+  "rows": [
+    {
+      "id": "row:1",
+      "disposition": "movement",
+      "expected": [
+        "INV-001",
+        "2026-07-01",
+        "-٢٥٠٫٠٠",
+        "٩٬٩٩٩٫٠٠"
+      ],
+      "crops": [
+        {
+          "role": "reference",
+          "region": {
+            "x0": 88,
+            "x1": 342,
+            "y0": 240,
+            "y1": 320
+          }
+        },
+        {
+          "role": "date",
+          "region": {
+            "x0": 358,
+            "x1": 612,
+            "y0": 240,
+            "y1": 320
+          }
+        },
+        {
+          "role": "amount",
+          "region": {
+            "x0": 628,
+            "x1": 842,
+            "y0": 240,
+            "y1": 320
+          }
+        },
+        {
+          "role": "amount",
+          "region": {
+            "x0": 858,
+            "x1": 1112,
+            "y0": 240,
+            "y1": 320
+          }
+        }
+      ]
+    },
+    {
+      "id": "row:2",
+      "disposition": "unreadable",
+      "note": "Damaged original amount; no guessed value"
+    },
+    {
+      "id": "row:3",
+      "disposition": "non-movement",
+      "note": "Printed closing total, not a movement"
+    }
+  ],
+  "renderer": {
+    "browser": "151.0.7922.34",
+    "canvas": "native Chromium 2D",
+    "font": "Arial platform font"
+  },
+  "required": {
+    "rows": 3,
+    "movements": 1,
+    "unreadable": 1,
+    "excluded": 1,
+    "reviewedValues": 4,
+    "financialPromotion": false
+  }
+}

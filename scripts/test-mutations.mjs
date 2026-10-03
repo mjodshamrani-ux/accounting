@@ -24,6 +24,7 @@ const tests = [
   'tests/visual-png.test.ts',
   'tests/visual-review.test.ts',
   'tests/visual-region.test.ts',
+  'tests/visual-table.test.ts',
   'tests/reliability.test.ts',
   'tests/assistant-adversarial.test.ts',
   'tests/supplier-layouts.test.ts',
@@ -67,6 +68,31 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+  {
+    name: 'p6-table-retain-coverage-after-row-edit',
+    file: 'lib/reconciliation/visual-table.ts',
+    changes: [['rows: value.rows.map((r, i) => (i === index ? row : r)),\n    coverage: null,', 'rows: value.rows.map((r, i) => (i === index ? row : r)),\n    coverage: value.coverage,']],
+  },
+  {
+    name: 'p6-table-swap-neighboring-amount-and-balance',
+    file: 'lib/reconciliation/visual-table.ts',
+    changes: [['c.region.x0 >= value.grid.columnCuts[column] &&', 'true &&'], ['c.region.x1 <= value.grid.columnCuts[column + 1] &&', 'true &&']],
+  },
+  {
+    name: 'p6-table-ignore-known-unassigned-crops',
+    file: 'lib/reconciliation/visual-table.ts',
+    changes: [['counts.unassignedCrops ||', 'false ||']],
+  },
+  {
+    name: 'p6-table-skip-coverage-fingerprint',
+    file: 'lib/reconciliation/visual-table.ts',
+    changes: [['p.coverage.fingerprint !== (await coverageHash(current))', 'false']],
+  },
+  {
+    name: 'p6-table-launder-table-inventory-into-accounting',
+    file: 'lib/reconciliation/source-boundary.ts',
+    changes: [["source.kind === 'visual-table'", 'false']],
+  },
   {
     name: 'p6-retain-manual-region-review-after-edit',
     file: 'lib/reconciliation/visual-review.ts',

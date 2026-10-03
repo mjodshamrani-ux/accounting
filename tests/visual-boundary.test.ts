@@ -126,11 +126,15 @@ void test('reviewed visual cells are evidence only: every accounting gate reject
   const result = run(),
     saved = JSON.parse(new TextDecoder().decode(await saveSession(state())));
   for (const side of [0, 1])
-    for (const version of [1, 2]) {
+    for (const [kind, version] of [
+      ['visual-review', 1],
+      ['visual-review', 2],
+      ['visual-table', 1],
+    ] as const) {
       const input = state();
       input.files[side] = {
         ...input.files[side],
-        kind: 'visual-review',
+        kind,
         version,
         ...(version === 2
           ? {
@@ -167,7 +171,7 @@ void test('reviewed visual cells are evidence only: every accounting gate reject
       );
       await assert.rejects(saveSession(input), forbidden);
       const modified = structuredClone(saved);
-      modified.files[side].kind = 'visual-review';
+      modified.files[side].kind = kind;
       modified.files[side].version = version;
       await assert.rejects(
         restoreSession(

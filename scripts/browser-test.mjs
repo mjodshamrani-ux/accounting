@@ -4,6 +4,7 @@ import { chromium } from 'playwright';
 import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyVisualRegions } from './visual-region-browser-cases.mjs';
+import { verifyVisualTable } from './visual-table-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import { verifyLanguages } from './language-browser-cases.mjs';
 import { verifyLayeredHeaders } from './layered-header-browser-cases.mjs';
@@ -1833,6 +1834,10 @@ try {
     `${origin}/mizan-test/`,
   );
   console.log('[browser] Arabic and English');
+  await verifyVisualTable(
+    await activeScenarioPage(context, 'visual table inventory'),
+    `${origin}/mizan-test/`,
+  );
   await verifyLanguages(
     await activeScenarioPage(context, 'languages'),
     `${origin}/mizan-test/`,

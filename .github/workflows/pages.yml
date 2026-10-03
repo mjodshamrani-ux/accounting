@@ -32,6 +32,8 @@ jobs:
         run: python3 -m unittest discover -s audit/visual-cell-review -p 'test_*.py' -v
       - name: Preserve failed numeric OCR evidence and verify manual crop receipts independently
         run: python3 -m unittest discover -s audit/visual-numeric -p 'test_*.py' -v
+      - name: Independently verify table inventory and detect missing or misassigned source facts
+        run: python3 -m unittest discover -s audit/visual-table -p 'test_*.py' -v
       - name: Detect false matches and changed workbook evidence
         run: python3 -m unittest discover -s audit/export-design -p 'test_*.py' -v
       - name: Verify frozen layered-statement source facts and independent export oracle
@@ -73,6 +75,8 @@ jobs:
         run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
       - name: Independently verify the manually selected Arabic crop from real browser OCR
         run: python3 audit/visual-numeric/check_record.py work/qa/p6-region-reviewed.json work/qa/p6-region-source.png
+      - name: Independently verify native table review, unresolved row and total exclusion
+        run: python3 audit/visual-table/check_record.py work/qa/p6-table-reviewed.json work/qa/p6-table-source.png
       - name: Preserve visual review evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -7,7 +7,9 @@ export function assertNativeAccountingSource(source: unknown): void {
     source !== null &&
     typeof source === 'object' &&
     'kind' in source &&
-    (source.kind === 'visual-draft' || source.kind === 'visual-review')
+    (source.kind === 'visual-draft' ||
+      source.kind === 'visual-review' ||
+      source.kind === 'visual-table')
   )
     throw new Error(
       'المسودة البصرية غير متحققة ولا تصلح مصدرًا للمقارنة أو التصدير المحاسبي.',

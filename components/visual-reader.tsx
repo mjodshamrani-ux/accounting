@@ -3,6 +3,11 @@ import { Button } from './ui/button';
 import { VisualCellReview } from './visual-cell-review';
 import { VisualCropPicker } from './visual-crop-picker';
 import { VisualRegionReview } from './visual-region-review';
+import { VisualTableReview } from './visual-table-review';
+import {
+  restoreVisualTable,
+  type VisualTable,
+} from '@/lib/reconciliation/visual-table';
 import {
   createVisualReview,
   confirmVisualCell,
@@ -44,9 +49,13 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
     region: VisualCell['region'];
   } | null>(null);
   const [review, setReview] = useState<VisualReview | null>(null);
+  const [restoredTable, setRestoredTable] = useState<VisualTable | null>(null);
+  const [reviewEpoch, setReviewEpoch] = useState(0);
   const [reviewNotice, setReviewNotice] = useState<UiText | null>(null);
   const reviewRef = useRef<VisualReview | null>(null);
   function updateReview(value: VisualReview | null) {
+    setRestoredTable(null);
+    setReviewEpoch((n) => n + 1);
     reviewRef.current = value;
     setReview(value);
   }
@@ -263,11 +272,16 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
       if (action === 'restore') {
         if (!(input instanceof File) || input.size > 16 * 1024 * 1024)
           throw new VisualEvidenceError('limit');
-        const restored = await restoreVisualReview(
-          new Uint8Array(await input.arrayBuffer()),
-        );
+        const bytes = new Uint8Array(await input.arrayBuffer());
+        const kind = JSON.parse(
+          new TextDecoder('utf-8', { fatal: true }).decode(bytes),
+        )?.kind;
+        const table =
+          kind === 'visual-table' ? await restoreVisualTable(bytes) : null;
+        const restored = table?.image ?? (await restoreVisualReview(bytes));
         if (alive()) {
           updateReview(restored);
+          setRestoredTable(table);
           setDraft(restored.draft);
         }
       } else if (action === 'confirm') {
@@ -545,6 +559,12 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                 >
                   {t.visualReview.save}
                 </Button>
+                <VisualTableReview
+                  key={reviewEpoch}
+                  image={review}
+                  initial={restoredTable}
+                  disabled={!!busy}
+                />
               </div>
             ) : (
               <p className="hint">

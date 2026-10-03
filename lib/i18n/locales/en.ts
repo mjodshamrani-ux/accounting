@@ -213,6 +213,65 @@ export const en: Messages = {
       'No words could be read on this page. It may contain text the reader did not recognize, so check the original image.',
     details: 'File and reader details',
   },
+  visualTable: {
+    title: 'Table row inventory',
+    intro:
+      'An experimental step for delimiting one table in a PNG image and accounting for its rows. Link values to reviewed crops, and identify totals and unreadable rows. This record does not enter reconciliation yet.',
+    choose: 'Select the entire table body without headers',
+    rowCuts: 'Vertical row boundaries in pixels',
+    columnCuts: 'Horizontal column boundaries in pixels',
+    cutsHint:
+      'Enter increasing coordinates separated by English commas, including both frame edges. Coordinates appear below the image. Manual boundaries alone do not prove file completeness.',
+    roles: 'Column roles from left to right',
+    create: 'Create row inventory',
+    replace: 'Create a new inventory and discard previous table reviews',
+    roleNames: {
+      reference: 'Reference',
+      date: 'Date',
+      amount: 'Transaction amount',
+      balance: 'Balance',
+      currency: 'Currency',
+    },
+    row: (n: number) => `Row ${n}`,
+    disposition: 'Row type',
+    dispositions: {
+      unclassified: 'Unclassified',
+      movement: 'Transaction',
+      'non-movement': 'Total or non-transaction row',
+      unreadable: 'Unreadable row',
+    },
+    note: 'Exclusion reason or reading issue',
+    applyRow: 'Save row classification',
+    noCell: 'No reviewed value linked',
+    cropHint:
+      'Only reviewed crops inside the cell with the corresponding role are listed. Review a new crop above when needed.',
+    confirmExcluded: 'I checked this row and it is not a transaction',
+    exclusionChecked: 'Exclusion checked against the source',
+    coverage:
+      'I checked the full page and included the entire table and every row',
+    coverageHint:
+      'This reviews the range and row inventory only. It neither confirms unreviewed values nor resolves unreadable rows. Changing a row, value or frame cancels it.',
+    covered: 'Range review recorded',
+    pending: 'Range review not recorded',
+    unassigned: (n: number) =>
+      `Reviewed crops inside the range not linked to a row or reviewed exclusion: ${n}`,
+    counts: (
+      movements: number,
+      excluded: number,
+      unreadable: number,
+      unclassified: number,
+      missing: number,
+    ) =>
+      `Transactions: ${movements} · Excluded: ${excluded} · Unreadable: ${unreadable} · Unclassified: ${unclassified} · Values not linked: ${missing}`,
+    save: 'Save table record',
+    saving: 'Verifying table record',
+    failed:
+      'The change could not be accepted. Check boundaries, crops and row classifications.',
+    onlyEvidence:
+      'Evidence record only, even when every review is complete. It is not an accounting source or proof of a completed reconciliation.',
+    limits:
+      'One rectangular table, up to 200 rows and 8 columns within the supported PNG limits. Table boundaries are not extracted automatically at this stage.',
+  },
   visualReview: {
     title: 'Value review record',
     intro:
@@ -227,10 +286,12 @@ export const en: Messages = {
     cancelCrop: 'Cancel selection',
     removeCrop: 'Remove this value',
     selectSurface: 'Select a crop from the original image',
-    selectHelp: 'Drag around the value, including its sign and separators. Use arrow keys to move the frame or Shift with arrows to resize it, then Enter. Escape returns to the preview without changes.',
+    selectHelp:
+      'Drag around the value, including its sign and separators. Use arrow keys to move the frame or Shift with arrows to resize it, then Enter. Escape returns to the preview without changes.',
     regionLabel: 'Review a selected image value',
     regionTitle: 'Value from the crop',
-    manualHint: 'Enter the value as shown in the crop. This is manual entry, not a verified reader result.',
+    manualHint:
+      'Enter the value as shown in the crop. This is manual entry, not a verified reader result.',
     partialWord: 'word clipped by crop',
     noObservation: 'No reader words intersect this crop',
     regionsTitle: 'Values selected from the image',
