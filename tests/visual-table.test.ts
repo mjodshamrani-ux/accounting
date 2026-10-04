@@ -223,6 +223,43 @@ void test('row changes revoke inventory proof and the changed exclusion, while s
   assert.notEqual(newImage.revision, t.revision);
   assert.equal(visualTableCounts(newImage).unclassified, 3);
 });
+void test('excluded rows retain reviewed cells with the same geometry and replay rules and edits revoke their receipts', async () => {
+  const cells = ['region:1', 'region:2', 'region:3', 'region:4'];
+  let t = await classified();
+  t = editVisualTableRow(t, 0, {
+    disposition: 'non-movement',
+    note: 'Printed total',
+    cells,
+  });
+  t = await confirmVisualTableExclusion(t, 0, at);
+  t = await confirmVisualTableCoverage(t, at);
+  assert.deepEqual(
+    (await restoreVisualTable(await saveVisualTable(t))).rows[0].cells,
+    cells,
+  );
+  assert.throws(() =>
+    editVisualTableRow(t, 1, {
+      disposition: 'non-movement',
+      note: 'Other total',
+      cells,
+    }),
+  );
+  assert.throws(() =>
+    editVisualTableRow(t, 0, {
+      disposition: 'non-movement',
+      note: 'Printed total',
+      cells: ['region:1', 'region:2', 'region:4', 'region:3'],
+    }),
+  );
+  const changed = editVisualTableRow(t, 0, {
+    disposition: 'non-movement',
+    note: 'Printed total',
+    cells: ['region:1', null, null, null],
+  });
+  assert.equal(changed.rows[0].review, null);
+  assert.equal(changed.coverage, null);
+  await assert.rejects(confirmVisualTableCoverage(changed, at));
+});
 void test('restore rejects changed rows, grid, cells, source, raw observations, fingerprints, missing rows and added authority', async () => {
   const t = await confirmVisualTableCoverage(await classified(), at);
   const mutate: ((p: TamperedTable) => unknown)[] = [

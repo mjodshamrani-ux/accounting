@@ -81,7 +81,7 @@ def check(filename, source=None):
         require(len(issues)==1 and value(issues[0],'Side')=='supplier' and value(issues[0],'Source Row')=='3','damaged row omitted')
         require(json.loads(value(issues[0],'Original Values'))==['INV-002','2026-07-02','',''] and value(issues[0],'Reason'),'damaged identity erased or amount invented')
         raw,_=book.rows('Parsed Supplier Source',{'صف المصدر',*[f'عمود {i}' for i in range(1,5)]})
-        expected=[['Reference','Date','Movement','Balance'],['INV-001','2026-07-01','-٢٥٠٫٠٠','٩٬٩٩٩٫٠٠'],['INV-002','2026-07-02','',''],['','','','']]
+        expected=[['Reference','Date','Movement','Balance'],['INV-001','2026-07-01','-٢٥٠٫٠٠','٩٬٩٩٩٫٠٠'],['INV-002','2026-07-02','',''],['Closing total','','','']]
         require([[value(r,f'عمود {i}') for i in range(1,5)] for r in raw]==expected,'literal source cells lost/rewritten')
         settings,_=book.rows('Run Settings',{'الحقل','القيمة'})
         values={value(r,'الحقل'):value(r,'القيمة') for r in settings}

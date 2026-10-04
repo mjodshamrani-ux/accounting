@@ -136,7 +136,7 @@ function RowReview({
           />
         </label>
       )}
-      {fields.disposition === 'movement' && (
+      {(fields.disposition === 'movement' || fields.disposition === 'non-movement') && (
         <>
           <small>{v.cropHint}</small>
           <div className="visual-table-fields">

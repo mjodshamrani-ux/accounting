@@ -513,3 +513,99 @@ void test('same PNG cannot become independent evidence by changing its record co
   assert.equal(result.matches.length, 0);
   assert.ok(result.cases.some((c) => c.status === 'Needs Review'));
 });
+
+void test('old blank footer exclusions have no authority to create automatic uniqueness', async () => {
+  const { result } = await fixture({ noFooterProof: true });
+  assert.equal(result.matches.length, 0);
+  assert.equal(
+    result.supplier.excluded.find((r) => r.row === 4)?.kind,
+    'manual',
+  );
+});
+void test('classifying a competing movement as non-movement does not certify its exclusion', async () => {
+  const { confirmVisualTableCoverage, confirmVisualTableExclusion } =
+    await import('../lib/reconciliation/visual-table.ts');
+  const { saveVisualAccountingRecord } =
+    await import('../lib/reconciliation/visual-accounting-source.ts');
+  const base = await fixture(),
+    f = await knownVisualSource(undefined, {
+      reference2: 'INV-001',
+      amount2: '-250.00',
+    });
+  let table = f.table;
+  table = editVisualTableRow(table, 1, {
+    disposition: 'non-movement',
+    note: 'Declared as total by reviewer',
+    cells: ['region:9', 'region:10', 'region:12', null],
+  });
+  table = await confirmVisualTableExclusion(
+    table,
+    1,
+    '2026-10-04T09:00:00.000Z',
+  );
+  table = await confirmVisualTableCoverage(table, '2026-10-04T09:00:00.000Z');
+  const record = await createVisualAccountingRecord(
+    table,
+    f.headers,
+    f.context,
+    '2026-10-04T09:00:00.000Z',
+    f.currencyProof,
+  );
+  const file = await readFile(
+    'competitor.tarasuf-reviewed.json',
+    (await saveVisualAccountingRecord(record)).slice().buffer,
+  );
+  const result = reconcileSupplierStatement({
+    ...base.state,
+    files: [file, base.ledger],
+    mappings: [visualAccountingMapping(file), base.state.mappings[1]],
+  }).result;
+  assert.equal(result.matches.length, 0);
+  assert.equal(
+    result.supplier.excluded.find((r) => r.row === 3)?.kind,
+    'manual',
+  );
+});
+void test('omitting reviewed in-row facts prevents an exclusion from isolating itself to one reference', async () => {
+  const { confirmVisualTableCoverage, confirmVisualTableExclusion } =
+    await import('../lib/reconciliation/visual-table.ts');
+  const { saveVisualAccountingRecord } =
+    await import('../lib/reconciliation/visual-accounting-source.ts');
+  const base = await fixture(),
+    f = await knownVisualSource(undefined, {
+      reference2: 'INV-999',
+      amount2: '-250.00',
+    });
+  let table = editVisualTableRow(f.table, 1, {
+    disposition: 'non-movement',
+    note: 'Declared as total',
+    cells: ['region:9', null, null, null],
+  });
+  table = await confirmVisualTableExclusion(
+    table,
+    1,
+    '2026-10-04T09:00:00.000Z',
+  );
+  table = await confirmVisualTableCoverage(table, '2026-10-04T09:00:00.000Z');
+  const record = await createVisualAccountingRecord(
+    table,
+    f.headers,
+    f.context,
+    '2026-10-04T09:00:00.000Z',
+    f.currencyProof,
+  );
+  const file = await readFile(
+    'omitted-facts.tarasuf-reviewed.json',
+    (await saveVisualAccountingRecord(record)).slice().buffer,
+  );
+  const result = reconcileSupplierStatement({
+    ...base.state,
+    files: [file, base.ledger],
+    mappings: [visualAccountingMapping(file), base.state.mappings[1]],
+  }).result;
+  assert.equal(result.matches.length, 0);
+  assert.equal(
+    result.supplier.excluded.find((r) => r.row === 3)?.isolation,
+    undefined,
+  );
+});

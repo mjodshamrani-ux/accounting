@@ -86,6 +86,13 @@ export async function knownVisualSource(
       y1: Math.ceil(sar.bbox.y1) + 2,
     },
   });
+  if (!changes.noFooterProof)
+    additional.push({
+      id: 'region:13',
+      role: 'reference',
+      value: 'Closing total',
+      region: { x0: 88, x1: 342, y0: 480, y1: 560 },
+    });
   for (const c of additional) {
     image = editVisualRegion(image, c.id, c.role, c.value, c.region);
     image = await confirmVisualRegion(image, c.id, at);
@@ -109,7 +116,7 @@ export async function knownVisualSource(
   table = editVisualTableRow(table, 2, {
     disposition: 'non-movement',
     note: contract.excluded,
-    cells: [null, null, null, null],
+    cells: [changes.noFooterProof ? null : 'region:13', null, null, null],
   });
   table = await confirmVisualTableExclusion(table, 2, at);
   table = await confirmVisualTableCoverage(table, at);

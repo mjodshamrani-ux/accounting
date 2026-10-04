@@ -70,6 +70,15 @@ const tests = [
 ];
 const mutations = [
   {
+    name:'p6-source-ignore-excluded-facts',file:'lib/reconciliation/core.ts',
+    changes:[["isolation: visualRowFactsRetained(file, i - 1)","isolation: true"]],
+  },
+  {
+    name:'p6-source-certify-unproved-exclusion',file:'lib/reconciliation/core.ts',
+    changes:[["const proven = visualNonMovementProven(file, i - 1, mapping);","const proven = true;"]],
+  },
+
+  {
     name: 'p6-source-ignore-bound-mapping',file:'lib/reconciliation/visual-accounting-source.ts',
     changes:[["if (mapping[k] !== expected[k]) fail();", "if (false) fail();"]],
   },

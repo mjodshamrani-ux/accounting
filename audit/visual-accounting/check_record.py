@@ -46,11 +46,11 @@ def check_table(record, original):
         assert word["id"] == "p1:w%d:%s,%s,%s,%s" % (i + 1, box["x0"], box["y0"], box["x1"], box["y1"])
         assert isinstance(word["text"], str) and len(word["text"]) <= 4096
     assert image["revision"] == png.fingerprint(["tarasuf-visual-review-v1", source["sha256"], image["pixelSha256"], draft["engine"], page["words"]])
-    assert len(image["regions"]) == 11
+    assert len(image["regions"]) == 12
     for i, cell in enumerate(image["regions"]):
         expected = contract["rows"][0]
         assert set(cell) == {"id", "origin", "role", "observed", "value", "region", "review"}
-        assert cell["id"] == "region:%d" % (i + 1) and cell["origin"] == "manual-crop"
+        assert cell["id"] == "region:%d" % (i + 1 if i<11 else 13) and cell["origin"] == "manual-crop"
         region = cell["region"]
         assert set(region) == {"x0", "y0", "x1", "y1"} and all(type(v) is int for v in region.values())
         if i < 4:
@@ -64,11 +64,14 @@ def check_table(record, original):
         elif i < 10:
             assert cell["value"] == ["INV-002", "2026-07-02"][i-8] and cell["role"] == ["reference", "date"][i-8]
             assert region == [{"x0":88,"x1":342,"y0":360,"y1":440},{"x0":358,"x1":612,"y0":360,"y1":440}][i-8]
-        else:
+        elif i == 10:
             import math
             currency = next(w for w in page["words"] if w["text"] == "SAR")
             assert cell["value"] == "SAR" and cell["role"] == "currency"
             assert region == {"x0":math.floor(currency["bbox"]["x0"])-2,"x1":math.ceil(currency["bbox"]["x1"])+2,"y0":math.floor(currency["bbox"]["y0"])-2,"y1":math.ceil(currency["bbox"]["y1"])+2}
+        else:
+            assert cell["value"] == "Closing total" and cell["role"] == "reference"
+            assert region == {"x0":88,"x1":342,"y0":480,"y1":560}
         observed = []
         for word in page["words"]:
             b = word["bbox"]
@@ -98,7 +101,7 @@ def check_table(record, original):
             assert row["disposition"] == "movement" and row["note"] == "" and row["review"] is None
             assert row["cells"] == ["region:9", "region:10", None, None]
         else:
-            assert row["disposition"] == "non-movement" and row["cells"] == [None]*4 and row["note"] == expected["note"]
+            assert row["disposition"] == "non-movement" and row["cells"] == ["region:13",None,None,None] and row["note"] == expected["note"]
         if i == 2:
             proof = row["review"]
             assert set(proof) == {"fingerprint", "checkedAt"}
@@ -108,7 +111,7 @@ def check_table(record, original):
     assert set(coverage) == {"fingerprint", "checkedAt"}
     stamp(coverage["checkedAt"])
     assert coverage["fingerprint"] == png.fingerprint(["tarasuf-table-coverage-v1", record["revision"], record["rows"]])
-    return {"status":"pass","imageRows":3,"manualValues":11,"missingAmounts":1,"reviewedExclusions":1}
+    return {"status":"pass","imageRows":3,"manualValues":12,"missingAmounts":1,"reviewedExclusions":1}
 
 def check(record, original):
     contract = json.loads((Path(__file__).parent / "contract.json").read_text())

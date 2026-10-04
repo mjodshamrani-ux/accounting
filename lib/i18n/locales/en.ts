@@ -275,6 +275,7 @@ export const en: Messages = {
   visualAccounting: {
     title: 'Use the table for transaction comparison',
     intro: 'An experimental path for one PNG with manually reviewed values and rows. Each value is checked again; unreadable cells remain for review.',
+    exclusionHint: 'An exclusion note does not prove a total row. Review its printed label in a crop and assign it to that row’s reference cell. Unproven exclusions remain for review.',
     headerHint: 'Review separate header crops above the table using the reference role, and the currency code using the currency role. Choosing a column name alone is not source evidence.',
     header: (role: string) => `${role} header evidence`,
     chooseHeader: 'Choose a reviewed source crop',

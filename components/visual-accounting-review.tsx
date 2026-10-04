@@ -114,6 +114,7 @@ export function VisualAccountingReview({
       <summary>{v.title}</summary>
       <p>{v.intro}</p>
       <p className="hint">{v.headerHint}</p>
+      <p className="hint">{v.exclusionHint}</p>
       <div className="form-grid">
         {table.grid.roles.map((role, i) => (
           <label className="field" key={role}>

@@ -229,7 +229,14 @@ export function editVisualTableRow(
     !input.note.trim()
   )
     return reject();
-  if (input.disposition !== 'movement' && input.cells.some((c) => c !== null))
+  // Excluded rows may retain reviewed labels and values as evidence. The
+  // accounting boundary, not this review receipt, decides whether a printed
+  // structural label proves that the row is not a competing movement.
+  if (
+    input.disposition !== 'movement' &&
+    input.disposition !== 'non-movement' &&
+    input.cells.some((c) => c !== null)
+  )
     return reject();
   const used = new Set(
     value.rows

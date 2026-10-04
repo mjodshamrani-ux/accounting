@@ -2,7 +2,7 @@
  * fallback. Original PNG, literal crops, header meanings, inventory and the
  * accountant's interpretation travel together and are replayed at every async
  * boundary. This v1 deliberately cannot prove a reconciled balance. */
-import { parseDate, parseMoney } from './core.ts';
+import { parseDate, parseMoney, structuralSummaryLabel } from './core.ts';
 import { defaultMapping, MAX_FILE_BYTES } from './types.ts';
 import type { Mapping, Scope, SourceFile, SheetData } from './types.ts';
 import { digest } from './visual-png.ts';
@@ -298,9 +298,7 @@ export async function saveVisualAccountingRecord(
   await restoreVisualAccountingRecord(bytes);
   return bytes;
 }
-export function isReviewedVisualSource(
-  value: unknown,
-): value is SourceFile & {
+export function isReviewedVisualSource(value: unknown): value is SourceFile & {
   kind: 'reviewed-visual-source';
   visual: VisualAccountingRecord;
 } {
@@ -506,4 +504,70 @@ export async function replayReviewedVisualSource(
   )
     fail();
   return fresh;
+}
+
+/** A human exclusion note is not a certificate that a movement never existed.
+ * Only a literal structural label with every already-reviewed in-row fact
+ * retained can acquire native non-movement semantics. Unknown exclusions stay
+ * manual and participate in the engine's competing-identity checks. */
+export function visualRowFactsRetained(
+  file: SourceFile,
+  index: number,
+): boolean {
+  assertReviewedVisualSource(file);
+  const table = file.visual!.table,
+    row = table.rows[index];
+  const y0 = table.grid.rowCuts[index],
+    y1 = table.grid.rowCuts[index + 1],
+    x0 = table.grid.region.x0,
+    x1 = table.grid.region.x1;
+  return visualRegions(table.image)
+    .filter(
+      (c) =>
+        c.review &&
+        c.region.y0 < y1 &&
+        c.region.y1 > y0 &&
+        c.region.x0 < x1 &&
+        c.region.x1 > x0,
+    )
+    .every((c) => row.cells.includes(c.id));
+}
+export function visualNonMovementProven(
+  file: SourceFile,
+  index: number,
+  mapping: Mapping,
+): boolean {
+  assertReviewedVisualSource(file);
+  const table = file.visual!.table,
+    row = table.rows[index],
+    sheet = file.sheets[0],
+    values = sheet.rows[index + 1];
+  // This source family prints "Closing total", which is not a native balance
+  // identity. Accept the literal footer only when no dated/document facts
+  // accompany it and every other retained value has its declared numeric role.
+  let visualFooter = /^(Closing total|الإجمالي الختامي)$/i.test(
+    values[mapping.reference]?.trim() ?? '',
+  );
+  if (visualFooter) {
+    try {
+      values.forEach((value, column) => {
+        if (!value.trim() || column === mapping.reference) return;
+        const role = table.grid.roles[column];
+        if (role !== 'amount' && role !== 'balance') throw Error('identity');
+        parseMoney(
+          value,
+          file.visual!.context.numberFormat,
+          file.visual!.context.decimals,
+        );
+      });
+    } catch {
+      visualFooter = false;
+    }
+  }
+  if (
+    row.disposition !== 'non-movement' ||
+    (!visualFooter && !structuralSummaryLabel(values, mapping, sheet.rows[0]))
+  )
+    return false;
+  return visualRowFactsRetained(file, index);
 }

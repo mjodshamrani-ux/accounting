@@ -6,7 +6,11 @@ import {
 } from './header-view.ts';
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
-import { assertVisualAccountingReading } from './visual-accounting-source.ts';
+import {
+  assertVisualAccountingReading,
+  visualNonMovementProven,
+  visualRowFactsRetained,
+} from './visual-accounting-source.ts';
 import {
   transactionReferences,
   shortDocumentCandidate,
@@ -917,7 +921,19 @@ export function normalizeSource(
     try {
       const visualRow = file.visual?.table.rows[i - 1];
       if (visualRow?.disposition === 'non-movement') {
-        result.excluded.push({ row: rn, kind: 'non-movement', reason: visualRow.note, values: row });
+        const proven = visualNonMovementProven(file, i - 1, mapping);
+        result.excluded.push({
+          row: rn,
+          kind: proven ? 'non-movement' : 'manual',
+          reason: visualRow.note,
+          values: row,
+          ...(proven ? {} : {
+            isolation: visualRowFactsRetained(file, i - 1)
+              ? safeReferenceEnvelope(sheet, mapping, row, rn,
+                transactionReferences(sheet, mapping, row, rn))
+              : undefined,
+          }),
+        });
         continue;
       }
       if (file.visual) {

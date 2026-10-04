@@ -21,11 +21,13 @@ def receipts(p):
 
 class ReviewedSourceOracle(unittest.TestCase):
     def setUp(self):
-        self.record=json.loads((ROOT/'baseline/reviewed.json').read_text())
+        self.record=json.loads((ROOT/'baseline/with-footer.json').read_text())
         self.png=(ROOT.parent/'visual-table/fixtures/statement.png').read_bytes()
+    def test_previous_unproved_footer_export_is_detected(self):
+        with self.assertRaises(AssertionError):check_export(ROOT/'baseline/direct.xlsx')
     def test_known_record_and_excel(self):
         self.assertEqual(check(self.record,self.png)['missingAmounts'],1)
-        self.assertEqual(check_export(ROOT/'baseline/direct.xlsx')['matches'],1)
+        self.assertEqual(check_export(ROOT/'baseline/with-footer.xlsx')['matches'],1)
     def test_wrong_literals_context_headers_and_row_omission_fail_even_with_recomputed_public_hashes(self):
         edits=[lambda p:p['table']['image']['regions'][2].__setitem__('value','250.00'),
                lambda p:p['table']['image']['regions'][2].__setitem__('value','٩٬٩٩٩٫٠٠'),
@@ -43,7 +45,7 @@ class ReviewedSourceOracle(unittest.TestCase):
         for fault in ['signed-amount','missing-error','omitted-image','record-chunk']:
             with self.subTest(fault=fault), tempfile.TemporaryDirectory() as tmp:
                 path=Path(tmp)/'changed.xlsx'
-                with ZipFile(ROOT/'baseline/direct.xlsx') as src,ZipFile(path,'w') as out:
+                with ZipFile(ROOT/'baseline/with-footer.xlsx') as src,ZipFile(path,'w') as out:
                     wb=ET.fromstring(src.read('xl/workbook.xml'))
                     names=[e.get('name') for e in wb.find(NS+'sheets')]
                     target='xl/worksheets/sheet%d.xml'%(names.index('Matches' if fault=='signed-amount' else 'Reading Issues' if fault=='missing-error' else 'Visual Source Record')+1)
