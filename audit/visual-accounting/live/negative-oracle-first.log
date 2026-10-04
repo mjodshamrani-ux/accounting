@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<workspace>/work/visual-accounting-live/check-negative.py", line 11, in <module>
+    matches,_=book.rows('Matches',{'Reference','Supplier amount','Ledger amount'})
+  File "<workspace>/audit/export-design/check_membership.py", line 111, in rows
+    require(wanted <= set(headers.values()), f"missing headers in {sheet_name}: {wanted - set(headers.values())}")
+  File "<workspace>/audit/export-design/check_membership.py", line 33, in require
+    raise AssertionError(reason)
+AssertionError: missing headers in Matches: {'Reference', 'Ledger amount', 'Supplier amount'}

@@ -1,0 +1,50 @@
+{
+  "url": "https://mjodshamrani-ux.github.io/accounting/?v=0.4.24",
+  "version": "0.4.24",
+  "adversarialReviewedRecords": true,
+  "automaticOCR": false,
+  "cases": [
+    {
+      "case": "unproved-footer",
+      "expectedMatches": 0,
+      "localMatches": 0,
+      "unknownExclusionRow": 4,
+      "manualExclusions": [
+        4
+      ],
+      "publicMatches": 0,
+      "sessionRecalculated": true,
+      "workpaperDownloaded": true,
+      "networkViolations": [],
+      "pageErrors": []
+    },
+    {
+      "case": "excluded-competitor",
+      "expectedMatches": 0,
+      "localMatches": 0,
+      "unknownExclusionRow": 3,
+      "manualExclusions": [
+        3
+      ],
+      "publicMatches": 0,
+      "sessionRecalculated": true,
+      "workpaperDownloaded": true,
+      "networkViolations": [],
+      "pageErrors": []
+    },
+    {
+      "case": "omitted-reviewed-facts",
+      "expectedMatches": 0,
+      "localMatches": 0,
+      "unknownExclusionRow": 3,
+      "manualExclusions": [
+        3
+      ],
+      "publicMatches": 0,
+      "sessionRecalculated": true,
+      "workpaperDownloaded": true,
+      "networkViolations": [],
+      "pageErrors": []
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "assertions": "Adversarial reviewed annotations: zero approved matches and retained original evidence; not OCR accuracy",
+  "cases": [
+    {
+      "case": "unproved-footer",
+      "approvedMatches": 0,
+      "excludedRowRetained": true,
+      "originalRecord": true,
+      "originalPNG": true,
+      "xmlReadable": true,
+      "workbookSHA256": "e2b052f63c88b6477e1c8baeea4a22c8f14740ab3ed0ccddf81bbe004708dde4"
+    },
+    {
+      "case": "excluded-competitor",
+      "approvedMatches": 0,
+      "excludedRowRetained": true,
+      "originalRecord": true,
+      "originalPNG": true,
+      "xmlReadable": true,
+      "workbookSHA256": "c99efcf39e33135767917f15f1715d5cb530cc6e2a533fe07cecc7f9704eb2ab"
+    },
+    {
+      "case": "omitted-reviewed-facts",
+      "approvedMatches": 0,
+      "excludedRowRetained": true,
+      "originalRecord": true,
+      "originalPNG": true,
+      "xmlReadable": true,
+      "workbookSHA256": "c57661854df057d2fcf40d82edbdb9c7beef1ad19a61ed06e4452cada434982a"
+    }
+  ]
+}

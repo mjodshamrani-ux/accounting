@@ -1,0 +1,18 @@
+{"case":"unproved-footer","buttons":["AR العربية","EN English"," المعالجة على جهازك","تسوية جديدة","حفظ الجلسة للمتابعة لاحقًا","مساعد فهم النتيجة","تنزيل ورقة عمل جزئية","العودة للمراجعة","الخصوصية وحدود النسخة","حدود الخصوصية"]}
+{"case":"excluded-competitor","buttons":["AR العربية","EN English"," المعالجة على جهازك","تسوية جديدة","حفظ الجلسة للمتابعة لاحقًا","مساعد فهم النتيجة","تنزيل مسودة Excel","العودة للمراجعة","الخصوصية وحدود النسخة","حدود الخصوصية"]}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('button', { name: 'تنزيل ورقة عمل جزئية', exact: true })[22m
+
+    at <workspace>/work/visual-accounting-live/negative-browser.mjs:23:151 {
+  log: [
+    "  - waiting for getByRole('button', { name: 'تنزيل ورقة عمل جزئية', exact: true })"
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v24.19.0

@@ -1,0 +1,365 @@
+﻿2026-10-04T00:29:06.3736416Z Current runner version: '2.337.0'
+2026-10-04T00:29:06.3757643Z ##[group]Runner Image Provisioner
+2026-10-04T00:29:06.3758255Z Hosted Compute Agent
+2026-10-04T00:29:06.3758671Z Version: 20260901.588
+2026-10-04T00:29:06.3759102Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-04T00:29:06.3759615Z Build Date: 2026-09-01T19:56:44Z
+2026-10-04T00:29:06.3760106Z Worker ID: {2348b741-27ad-4f35-b73d-d6a42c222869}
+2026-10-04T00:29:06.3760570Z Azure Region: westus3
+2026-10-04T00:29:06.3760954Z ##[endgroup]
+2026-10-04T00:29:06.3761790Z ##[group]Operating System
+2026-10-04T00:29:06.3762149Z Ubuntu
+2026-10-04T00:29:06.3762523Z 24.04.5
+2026-10-04T00:29:06.3762839Z LTS
+2026-10-04T00:29:06.3763175Z ##[endgroup]
+2026-10-04T00:29:06.3763558Z ##[group]Runner Image
+2026-10-04T00:29:06.3763943Z Image: ubuntu-24.04
+2026-10-04T00:29:06.3764341Z Version: 20260927.320.1
+2026-10-04T00:29:06.3765109Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-04T00:29:06.3766173Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-04T00:29:06.3767078Z ##[endgroup]
+2026-10-04T00:29:06.3767792Z ##[group]GITHUB_TOKEN Permissions
+2026-10-04T00:29:06.3769268Z Contents: read
+2026-10-04T00:29:06.3769663Z Metadata: read
+2026-10-04T00:29:06.3770004Z ##[endgroup]
+2026-10-04T00:29:06.3771487Z Secret source: Actions
+2026-10-04T00:29:06.3772030Z Cache mode: write
+2026-10-04T00:29:06.3772552Z Prepare workflow directory
+2026-10-04T00:29:06.3988546Z Prepare all required actions
+2026-10-04T00:29:06.4021989Z Getting action download info
+2026-10-04T00:29:06.7332137Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-04T00:29:06.8315417Z Download action repository 'pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1' (SHA:b906affcce14559ad1aafd4ab0e942779e9f58b1)
+2026-10-04T00:29:08.0706268Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-04T00:29:08.2691917Z Complete job name: Accounting mutation gate (6/6)
+2026-10-04T00:29:08.3271491Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-10-04T00:29:08.3272501Z with:
+2026-10-04T00:29:08.3273027Z   repository: mjodshamrani-ux/accounting
+2026-10-04T00:29:08.3278410Z   token: ***
+2026-10-04T00:29:08.3278902Z   ssh-strict: true
+2026-10-04T00:29:08.3279396Z   ssh-user: git
+2026-10-04T00:29:08.3279914Z   persist-credentials: true
+2026-10-04T00:29:08.3280480Z   clean: true
+2026-10-04T00:29:08.3281001Z   sparse-checkout-cone-mode: true
+2026-10-04T00:29:08.3281615Z   fetch-depth: 1
+2026-10-04T00:29:08.3282112Z   fetch-tags: false
+2026-10-04T00:29:08.3282622Z   show-progress: true
+2026-10-04T00:29:08.3283153Z   lfs: false
+2026-10-04T00:29:08.3283635Z   submodules: false
+2026-10-04T00:29:08.3284162Z   set-safe-directory: true
+2026-10-04T00:29:08.3284803Z   allow-unsafe-pr-checkout: false
+2026-10-04T00:29:08.3285526Z ##[endgroup]
+2026-10-04T00:29:08.4372434Z Syncing repository: mjodshamrani-ux/accounting
+2026-10-04T00:29:08.4377924Z ##[group]Getting Git version info
+2026-10-04T00:29:08.4379888Z Working directory is '/home/runner/work/accounting/accounting'
+2026-10-04T00:29:08.4382960Z [command]/usr/bin/git version
+2026-10-04T00:29:08.4512261Z git version 2.55.0
+2026-10-04T00:29:08.4540701Z ##[endgroup]
+2026-10-04T00:29:08.4565565Z Temporarily overriding HOME='/home/runner/work/_temp/9bd3caa8-b435-4bf6-a6ec-3aec66eec90a' before making global git config changes
+2026-10-04T00:29:08.4567949Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-04T00:29:08.4589380Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/accounting/accounting
+2026-10-04T00:29:08.4652693Z Deleting the contents of '/home/runner/work/accounting/accounting'
+2026-10-04T00:29:08.4657705Z ##[group]Initializing the repository
+2026-10-04T00:29:08.4664125Z [command]/usr/bin/git init /home/runner/work/accounting/accounting
+2026-10-04T00:29:08.4770920Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-04T00:29:08.4778036Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-04T00:29:08.4780072Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-04T00:29:08.4781601Z hint: call:
+2026-10-04T00:29:08.4782548Z hint:
+2026-10-04T00:29:08.4783595Z hint: 	git config --global init.defaultBranch <name>
+2026-10-04T00:29:08.4784850Z hint:
+2026-10-04T00:29:08.4786219Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-04T00:29:08.4788145Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-04T00:29:08.4789877Z hint:
+2026-10-04T00:29:08.4790498Z hint: 	git branch -m <name>
+2026-10-04T00:29:08.4791196Z hint:
+2026-10-04T00:29:08.4792046Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-04T00:29:08.4793626Z Initialized empty Git repository in /home/runner/work/accounting/accounting/.git/
+2026-10-04T00:29:08.4796498Z [command]/usr/bin/git remote add origin https://github.com/mjodshamrani-ux/accounting
+2026-10-04T00:29:08.4893580Z ##[endgroup]
+2026-10-04T00:29:08.4895079Z ##[group]Disabling automatic garbage collection
+2026-10-04T00:29:08.4896645Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-04T00:29:08.4932395Z ##[endgroup]
+2026-10-04T00:29:08.4933693Z ##[group]Setting up auth
+2026-10-04T00:29:08.4939652Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-04T00:29:08.4975945Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-04T00:29:08.5281042Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-04T00:29:08.5315525Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-04T00:29:08.5502123Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-04T00:29:08.5533455Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-04T00:29:08.5719690Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-04T00:29:08.5755700Z ##[endgroup]
+2026-10-04T00:29:08.5756892Z ##[group]Fetching the repository
+2026-10-04T00:29:08.5762404Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c767c1aa79badca8304ea171782209ff69c31f66:refs/remotes/origin/main
+2026-10-04T00:29:10.4356978Z From https://github.com/mjodshamrani-ux/accounting
+2026-10-04T00:29:10.4358193Z  * [new ref]         c767c1aa79badca8304ea171782209ff69c31f66 -> origin/main
+2026-10-04T00:29:10.4359885Z ##[endgroup]
+2026-10-04T00:29:10.4360307Z ##[group]Determining the checkout info
+2026-10-04T00:29:10.4362382Z ##[endgroup]
+2026-10-04T00:29:10.4367827Z [command]/usr/bin/git sparse-checkout disable
+2026-10-04T00:29:10.4413069Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-04T00:29:10.4440415Z ##[group]Checking out the ref
+2026-10-04T00:29:10.4448627Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-04T00:29:10.7242170Z Switched to a new branch 'main'
+2026-10-04T00:29:10.7266994Z branch 'main' set up to track 'origin/main'.
+2026-10-04T00:29:10.7271188Z ##[endgroup]
+2026-10-04T00:29:10.7311586Z [command]/usr/bin/git log -1 --format=%H
+2026-10-04T00:29:10.7336177Z c767c1aa79badca8304ea171782209ff69c31f66
+2026-10-04T00:29:10.7525521Z ##[group]Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+2026-10-04T00:29:10.7525814Z with:
+2026-10-04T00:29:10.7526381Z   version: 11.19.0
+2026-10-04T00:29:10.7526531Z   dest: ~/setup-pnpm
+2026-10-04T00:29:10.7526681Z   run_install: null
+2026-10-04T00:29:10.7526830Z   cache: false
+2026-10-04T00:29:10.7526985Z   cache_dependency_path: pnpm-lock.yaml
+2026-10-04T00:29:10.7527176Z   package_json_file: package.json
+2026-10-04T00:29:10.7527358Z   standalone: false
+2026-10-04T00:29:10.7527506Z ##[endgroup]
+2026-10-04T00:29:10.8481673Z ##[group]Running self-installer...
+2026-10-04T00:29:11.1122847Z (node:2096) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-04T00:29:11.1123747Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-04T00:29:11.2796155Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-10-04T00:29:11.2943407Z Packages: +1
+2026-10-04T00:29:11.2943961Z +
+2026-10-04T00:29:11.6261142Z Progress: resolved 1, reused 0, downloaded 1, added 1, done
+2026-10-04T00:29:11.6463056Z 
+2026-10-04T00:29:11.6463474Z dependencies:
+2026-10-04T00:29:11.6463668Z + pnpm 11.19.0 (12.9.1 is available)
+2026-10-04T00:29:11.6463796Z 
+2026-10-04T00:29:11.6484139Z Done in 680ms
+2026-10-04T00:29:11.8637288Z ##[endgroup]
+2026-10-04T00:29:11.8637730Z Installation Completed!
+2026-10-04T00:29:11.8768669Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-10-04T00:29:11.8768889Z with:
+2026-10-04T00:29:11.8769001Z   node-version: 24
+2026-10-04T00:29:11.8769115Z   cache: pnpm
+2026-10-04T00:29:11.8769227Z   always-auth: false
+2026-10-04T00:29:11.8769344Z   check-latest: false
+2026-10-04T00:29:11.8770652Z   token: ***
+2026-10-04T00:29:11.8770760Z env:
+2026-10-04T00:29:11.8770909Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-04T00:29:11.8771084Z ##[endgroup]
+2026-10-04T00:29:11.9683356Z Found in cache @ /opt/hostedtoolcache/node/24.21.0/x64
+2026-10-04T00:29:11.9686373Z (node:2111) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-04T00:29:11.9686826Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-04T00:29:11.9688568Z ##[group]Environment details
+2026-10-04T00:29:14.0998108Z node: v24.21.0
+2026-10-04T00:29:14.0998366Z npm: 11.19.0
+2026-10-04T00:29:14.0998625Z yarn: 1.22.22
+2026-10-04T00:29:14.0999395Z ##[endgroup]
+2026-10-04T00:29:14.1028251Z [command]/home/runner/setup-pnpm/node_modules/.bin/pnpm store path --silent
+2026-10-04T00:29:14.7087126Z /home/runner/setup-pnpm/node_modules/.bin/store/v11
+2026-10-04T00:29:14.9228419Z Cache hit for: node-cache-Linux-x64-pnpm-970ff90c8c5b62d936b78a56179f81cdf02982feb14381f8bba791078d20d9fe
+2026-10-04T00:29:14.9299740Z (node:2111) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-04T00:29:16.1620367Z Received 33554432 of 118816928 (28.2%), 32.0 MBs/sec
+2026-10-04T00:29:16.6430008Z Received 118816928 of 118816928 (100.0%), 76.5 MBs/sec
+2026-10-04T00:29:16.6431374Z Cache Size: ~113 MB (118816928 B)
+2026-10-04T00:29:16.6477401Z [command]/usr/bin/tar -xf /home/runner/work/_temp/ca11cf6b-84ce-4415-acc1-b5a7f19a6bd3/cache.tzst -P -C /home/runner/work/accounting/accounting --use-compress-program unzstd
+2026-10-04T00:29:17.4315199Z Cache restored successfully
+2026-10-04T00:29:17.4368897Z Cache restored from key: node-cache-Linux-x64-pnpm-970ff90c8c5b62d936b78a56179f81cdf02982feb14381f8bba791078d20d9fe
+2026-10-04T00:29:17.4519141Z ##[group]Run pnpm install --frozen-lockfile
+2026-10-04T00:29:17.4519397Z [36;1mpnpm install --frozen-lockfile[0m
+2026-10-04T00:29:17.4757950Z shell: /usr/bin/bash -e {0}
+2026-10-04T00:29:17.4758112Z env:
+2026-10-04T00:29:17.4758263Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-04T00:29:17.4758441Z ##[endgroup]
+2026-10-04T00:29:17.8411463Z ? Verifying lockfile against supply-chain policies (367 entries)...
+2026-10-04T00:29:17.8452837Z Lockfile is up to date, resolution step is skipped
+2026-10-04T00:29:17.9294221Z Progress: resolved 1, reused 0, downloaded 0, added 0
+2026-10-04T00:29:17.9651478Z Packages: +249
+2026-10-04T00:29:17.9675921Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2026-10-04T00:29:18.5494712Z Packages are hard linked from the content-addressable store to the virtual store.
+2026-10-04T00:29:18.5495393Z   Content-addressable store is at: /home/runner/setup-pnpm/node_modules/.bin/store/v11
+2026-10-04T00:29:18.5496494Z   Virtual store is at:             node_modules/.pnpm
+2026-10-04T00:29:18.9294057Z Progress: resolved 249, reused 249, downloaded 0, added 77
+2026-10-04T00:29:19.3251964Z Progress: resolved 249, reused 249, downloaded 0, added 249, done
+2026-10-04T00:29:20.1689554Z ✓ Lockfile passes supply-chain policies (367 entries in 2.3s)
+2026-10-04T00:29:20.3669934Z 
+2026-10-04T00:29:20.3670587Z dependencies:
+2026-10-04T00:29:20.3670995Z + @base-ui/react 1.7.0
+2026-10-04T00:29:20.3671254Z + @shadcn/react 0.3.0
+2026-10-04T00:29:20.3671594Z + @tesseract.js-data/ara 1.0.0
+2026-10-04T00:29:20.3671904Z + @tesseract.js-data/eng 1.0.0
+2026-10-04T00:29:20.3672231Z + class-variance-authority 0.7.1
+2026-10-04T00:29:20.3672498Z + clsx 2.1.1
+2026-10-04T00:29:20.3672696Z + cmdk 1.1.1
+2026-10-04T00:29:20.3672907Z + date-fns 4.1.0
+2026-10-04T00:29:20.3673116Z + embla-carousel-react 8.5.2
+2026-10-04T00:29:20.3673374Z + exceljs 4.4.0
+2026-10-04T00:29:20.3673574Z + input-otp 1.4.2
+2026-10-04T00:29:20.3673796Z + jszip 3.10.1
+2026-10-04T00:29:20.3674023Z + lucide-react 1.31.0
+2026-10-04T00:29:20.3674247Z + react 19.2.6
+2026-10-04T00:29:20.3674512Z + react-day-picker 9.8.1
+2026-10-04T00:29:20.3674805Z + react-dom 19.2.6
+2026-10-04T00:29:20.3675088Z + react-resizable-panels 4.5.8
+2026-10-04T00:29:20.3675365Z + recharts 3.8.0
+2026-10-04T00:29:20.3675551Z + saxes 5.0.1
+2026-10-04T00:29:20.3675784Z + tailwind-merge 3.6.0
+2026-10-04T00:29:20.3676268Z + tesseract.js 7.0.0
+2026-10-04T00:29:20.3676511Z + tw-animate-css 1.4.0
+2026-10-04T00:29:20.3676749Z + unpdf 1.8.1
+2026-10-04T00:29:20.3676891Z 
+2026-10-04T00:29:20.3677081Z devDependencies:
+2026-10-04T00:29:20.3677561Z + @tailwindcss/postcss 4.2.1
+2026-10-04T00:29:20.3677769Z + @types/node 22.19.19
+2026-10-04T00:29:20.3677913Z + @types/react 19.2.14
+2026-10-04T00:29:20.3678058Z + @types/react-dom 19.2.3
+2026-10-04T00:29:20.3678212Z + @vitejs/plugin-react 6.0.2
+2026-10-04T00:29:20.3678359Z + oxfmt 0.61.0
+2026-10-04T00:29:20.3678476Z + oxlint 1.76.0
+2026-10-04T00:29:20.3678622Z + oxlint-tsgolint 7.0.2001
+2026-10-04T00:29:20.3678771Z + playwright 1.62.1
+2026-10-04T00:29:20.3678899Z + tailwindcss 4.2.1
+2026-10-04T00:29:20.3679026Z + typescript 5.9.3
+2026-10-04T00:29:20.3679144Z + vite 8.0.16
+2026-10-04T00:29:20.3679216Z 
+2026-10-04T00:29:20.3963656Z Done in 2.8s using pnpm v11.19.0
+2026-10-04T00:29:20.4431507Z ##[group]Run pnpm test:mutations
+2026-10-04T00:29:20.4431708Z [36;1mpnpm test:mutations[0m
+2026-10-04T00:29:20.4485104Z shell: /usr/bin/bash -e {0}
+2026-10-04T00:29:20.4485261Z env:
+2026-10-04T00:29:20.4485420Z   PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
+2026-10-04T00:29:20.4485608Z   MUTATION_SHARD: 6/6
+2026-10-04T00:29:20.4485739Z ##[endgroup]
+2026-10-04T00:29:21.0140709Z Already up to date
+2026-10-04T00:29:21.0145851Z Done in 267ms using pnpm v11.19.0
+2026-10-04T00:29:21.0271690Z $ node scripts/test-mutations.mjs
+2026-10-04T00:30:07.9631490Z Detected deliberate fault: p6-source-false-balance-certification
+2026-10-04T00:30:31.2553160Z Detected deliberate fault: p6-retain-manual-region-review-after-edit
+2026-10-04T00:30:54.6307121Z Detected deliberate fault: p6-retain-reviewed-status-after-value-edit
+2026-10-04T00:31:17.0189276Z Detected deliberate fault: partial-drop-reading-issue-details-from-export
+2026-10-04T00:31:39.8381509Z Detected deliberate fault: p4-silently-stop-after-twenty-pages
+2026-10-04T00:32:02.1038701Z Detected deliberate fault: p2-let-an-exact-payment-consume-a-group-member-first
+2026-10-04T00:32:24.0350790Z Detected deliberate fault: p1-accept-formula-or-spreadsheet-error-reference-text
+2026-10-04T00:32:46.1467263Z Detected deliberate fault: p1-ignore-unsafe-discriminator-competitors
+2026-10-04T00:33:08.5510358Z Detected deliberate fault: 047-reuse-format-choice-across-context
+2026-10-04T00:33:30.4949468Z Detected deliberate fault: v11-let-stripes-hide-text
+2026-10-04T00:33:52.5833209Z Detected deliberate fault: v11-take-a-document-number-equal-to-the-order-as-proof
+2026-10-04T00:34:14.8928763Z Detected deliberate fault: v11-leave-blocked-exact-pairs-as-unrelated-rows
+2026-10-04T00:34:37.3171914Z Detected deliberate fault: 045-concatenate-conflicting-xlsx-cell-payloads
+2026-10-04T00:35:00.2648280Z Detected deliberate fault: skip-an-earlier-table-for-a-richer-later-header
+2026-10-04T00:35:23.5549585Z Detected deliberate fault: reject-supported-multisheet-workpapers
+2026-10-04T00:35:46.4761726Z Detected deliberate fault: automatically-match-with-unread-potential-duplicates
+2026-10-04T00:36:06.5932522Z Detected deliberate fault: reverse-source-sign
+2026-10-04T00:36:29.7983589Z Detected deliberate fault: typed-short-disable-required-positive-proof
+2026-10-04T00:36:53.8988882Z Detected deliberate fault: typed-short-use-original-invoice-number-as-credit-note-number
+2026-10-04T00:37:18.3954407Z Detected deliberate fault: f03-silent-unmatched-unverified-identity
+2026-10-04T00:37:43.7506841Z Detected deliberate fault: p5-disable-utf8-evidence-budget
+2026-10-04T00:37:43.8316942Z {
+2026-10-04T00:37:43.8317234Z   "baselinePassed": true,
+2026-10-04T00:37:43.8320087Z   "detected": 21,
+2026-10-04T00:37:43.8320336Z   "total": 21,
+2026-10-04T00:37:43.8320593Z   "available": 129,
+2026-10-04T00:37:43.8320750Z   "shard": {
+2026-10-04T00:37:43.8320935Z     "index": 6,
+2026-10-04T00:37:43.8321121Z     "count": 6
+2026-10-04T00:37:43.8321325Z   },
+2026-10-04T00:37:43.8321536Z   "mutations": [
+2026-10-04T00:37:43.8321759Z     {
+2026-10-04T00:37:43.8322078Z       "mutation": "p6-source-false-balance-certification",
+2026-10-04T00:37:43.8322415Z       "detected": true
+2026-10-04T00:37:43.8322638Z     },
+2026-10-04T00:37:43.8322803Z     {
+2026-10-04T00:37:43.8323157Z       "mutation": "p6-retain-manual-region-review-after-edit",
+2026-10-04T00:37:43.8323475Z       "detected": true
+2026-10-04T00:37:43.8323665Z     },
+2026-10-04T00:37:43.8323828Z     {
+2026-10-04T00:37:43.8324123Z       "mutation": "p6-retain-reviewed-status-after-value-edit",
+2026-10-04T00:37:43.8324456Z       "detected": true
+2026-10-04T00:37:43.8324653Z     },
+2026-10-04T00:37:43.8324836Z     {
+2026-10-04T00:37:43.8325156Z       "mutation": "partial-drop-reading-issue-details-from-export",
+2026-10-04T00:37:43.8325496Z       "detected": true
+2026-10-04T00:37:43.8325617Z     },
+2026-10-04T00:37:43.8325735Z     {
+2026-10-04T00:37:43.8325917Z       "mutation": "p4-silently-stop-after-twenty-pages",
+2026-10-04T00:37:43.8326693Z       "detected": true
+2026-10-04T00:37:43.8326835Z     },
+2026-10-04T00:37:43.8326953Z     {
+2026-10-04T00:37:43.8327157Z       "mutation": "p2-let-an-exact-payment-consume-a-group-member-first",
+2026-10-04T00:37:43.8327393Z       "detected": true
+2026-10-04T00:37:43.8327513Z     },
+2026-10-04T00:37:43.8345357Z     {
+2026-10-04T00:37:43.8345737Z       "mutation": "p1-accept-formula-or-spreadsheet-error-reference-text",
+2026-10-04T00:37:43.8346266Z       "detected": true
+2026-10-04T00:37:43.8346459Z     },
+2026-10-04T00:37:43.8346621Z     {
+2026-10-04T00:37:43.8346908Z       "mutation": "p1-ignore-unsafe-discriminator-competitors",
+2026-10-04T00:37:43.8347273Z       "detected": true
+2026-10-04T00:37:43.8347420Z     },
+2026-10-04T00:37:43.8347550Z     {
+2026-10-04T00:37:43.8347726Z       "mutation": "047-reuse-format-choice-across-context",
+2026-10-04T00:37:43.8347920Z       "detected": true
+2026-10-04T00:37:43.8348080Z     },
+2026-10-04T00:37:43.8348188Z     {
+2026-10-04T00:37:43.8348349Z       "mutation": "v11-let-stripes-hide-text",
+2026-10-04T00:37:43.8348523Z       "detected": true
+2026-10-04T00:37:43.8348652Z     },
+2026-10-04T00:37:43.8349007Z     {
+2026-10-04T00:37:43.8349214Z       "mutation": "v11-take-a-document-number-equal-to-the-order-as-proof",
+2026-10-04T00:37:43.8349441Z       "detected": true
+2026-10-04T00:37:43.8349564Z     },
+2026-10-04T00:37:43.8349668Z     {
+2026-10-04T00:37:43.8349857Z       "mutation": "v11-leave-blocked-exact-pairs-as-unrelated-rows",
+2026-10-04T00:37:43.8350067Z       "detected": true
+2026-10-04T00:37:43.8350187Z     },
+2026-10-04T00:37:43.8350297Z     {
+2026-10-04T00:37:43.8350484Z       "mutation": "045-concatenate-conflicting-xlsx-cell-payloads",
+2026-10-04T00:37:43.8350689Z       "detected": true
+2026-10-04T00:37:43.8350813Z     },
+2026-10-04T00:37:43.8350921Z     {
+2026-10-04T00:37:43.8351109Z       "mutation": "skip-an-earlier-table-for-a-richer-later-header",
+2026-10-04T00:37:43.8351404Z       "detected": true
+2026-10-04T00:37:43.8351556Z     },
+2026-10-04T00:37:43.8351669Z     {
+2026-10-04T00:37:43.8351841Z       "mutation": "reject-supported-multisheet-workpapers",
+2026-10-04T00:37:43.8352039Z       "detected": true
+2026-10-04T00:37:43.8352162Z     },
+2026-10-04T00:37:43.8352266Z     {
+2026-10-04T00:37:43.8352469Z       "mutation": "automatically-match-with-unread-potential-duplicates",
+2026-10-04T00:37:43.8352691Z       "detected": true
+2026-10-04T00:37:43.8352820Z     },
+2026-10-04T00:37:43.8352932Z     {
+2026-10-04T00:37:43.8353068Z       "mutation": "reverse-source-sign",
+2026-10-04T00:37:43.8353228Z       "detected": true
+2026-10-04T00:37:43.8353350Z     },
+2026-10-04T00:37:43.8353458Z     {
+2026-10-04T00:37:43.8353657Z       "mutation": "typed-short-disable-required-positive-proof",
+2026-10-04T00:37:43.8353859Z       "detected": true
+2026-10-04T00:37:43.8353990Z     },
+2026-10-04T00:37:43.8354096Z     {
+2026-10-04T00:37:43.8354321Z       "mutation": "typed-short-use-original-invoice-number-as-credit-note-number",
+2026-10-04T00:37:43.8354574Z       "detected": true
+2026-10-04T00:37:43.8354701Z     },
+2026-10-04T00:37:43.8354805Z     {
+2026-10-04T00:37:43.8354978Z       "mutation": "f03-silent-unmatched-unverified-identity",
+2026-10-04T00:37:43.8355178Z       "detected": true
+2026-10-04T00:37:43.8355303Z     },
+2026-10-04T00:37:43.8355413Z     {
+2026-10-04T00:37:43.8355571Z       "mutation": "p5-disable-utf8-evidence-budget",
+2026-10-04T00:37:43.8355750Z       "detected": true
+2026-10-04T00:37:43.8355874Z     }
+2026-10-04T00:37:43.8356990Z   ]
+2026-10-04T00:37:43.8357160Z }
+2026-10-04T00:37:43.8558619Z Post job cleanup.
+2026-10-04T00:37:43.9436475Z (node:14212) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-04T00:37:43.9436986Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-04T00:37:43.9439294Z Cache hit occurred on the primary key node-cache-Linux-x64-pnpm-970ff90c8c5b62d936b78a56179f81cdf02982feb14381f8bba791078d20d9fe, not saving cache.
+2026-10-04T00:37:43.9523813Z Post job cleanup.
+2026-10-04T00:37:44.0523537Z Pruning is unnecessary.
+2026-10-04T00:37:44.0658225Z Post job cleanup.
+2026-10-04T00:37:44.1299412Z [command]/usr/bin/git version
+2026-10-04T00:37:44.1335794Z git version 2.55.0
+2026-10-04T00:37:44.1390056Z Temporarily overriding HOME='/home/runner/work/_temp/73a99619-abd0-4b15-b46c-6a3058c03be8' before making global git config changes
+2026-10-04T00:37:44.1391097Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-04T00:37:44.1395761Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/accounting/accounting
+2026-10-04T00:37:44.1451690Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-04T00:37:44.1496970Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-04T00:37:44.1791728Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-04T00:37:44.1836702Z http.https://github.com/.extraheader
+2026-10-04T00:37:44.1852178Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-04T00:37:44.1915705Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-04T00:37:44.2130166Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-04T00:37:44.2167178Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-04T00:37:44.2485067Z Cleaning up orphan processes
+2026-10-04T00:37:44.2698192Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

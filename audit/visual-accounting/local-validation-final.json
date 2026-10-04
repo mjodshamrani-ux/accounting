@@ -1,0 +1,164 @@
+{
+  "unitTests": {
+    "passed": 1089,
+    "failed": 0,
+    "skipped": 0
+  },
+  "catalogue": {
+    "total": 131,
+    "shards": [
+      22,
+      22,
+      22,
+      22,
+      22,
+      21
+    ],
+    "exactlyOnce": true,
+    "newMutationsDetectedLocally": 8
+  },
+  "browser": {
+    "passed": true,
+    "knownDevelopmentCase": true,
+    "training": false,
+    "automaticOCR": false,
+    "manuallyReviewedImage": true,
+    "matches": 1,
+    "damagedRows": 1,
+    "fullBalanceReconciliation": false,
+    "contextEditRevokesReview": true,
+    "currencyContradictionRejected": true,
+    "originalsReplayedOnRestore": true,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "mobile": true,
+    "networkViolations": [],
+    "pageErrors": []
+  },
+  "independentExports": [
+    {
+      "workbook": "work/visual-accounting/direct.xlsx",
+      "verified": true,
+      "matches": 1,
+      "damagedRows": 1,
+      "originalPng": true,
+      "fullRecord": true,
+      "fullBalanceReconciliation": false
+    },
+    {
+      "workbook": "work/visual-accounting/restored.xlsx",
+      "verified": true,
+      "matches": 1,
+      "damagedRows": 1,
+      "originalPng": true,
+      "fullRecord": true,
+      "fullBalanceReconciliation": false
+    },
+    {
+      "workbook": "work/qa/p6-accounting-ar.xlsx",
+      "verified": true,
+      "matches": 1,
+      "damagedRows": 1,
+      "originalPng": true,
+      "fullRecord": true,
+      "fullBalanceReconciliation": false
+    },
+    {
+      "workbook": "work/qa/p6-accounting-en.xlsx",
+      "verified": true,
+      "matches": 1,
+      "damagedRows": 1,
+      "originalPng": true,
+      "fullRecord": true,
+      "fullBalanceReconciliation": false
+    },
+    {
+      "workbook": "work/qa/p6-accounting-restored.xlsx",
+      "verified": true,
+      "matches": 1,
+      "damagedRows": 1,
+      "originalPng": true,
+      "fullRecord": true,
+      "fullBalanceReconciliation": false
+    }
+  ],
+  "logs": [
+    {
+      "localPath": "work/vas-footer-targeted.log",
+      "bytes": 4243,
+      "sha256": "35cc70d9407dde4fb207478e9520bcefe9947eda37c71051b8a0616ed18c7416"
+    },
+    {
+      "localPath": "work/vas-footer-targeted-fixed.log",
+      "bytes": 3514,
+      "sha256": "b14e316f0a1529488648887a770f8861154ebcc462353163a363f080d62c3e98"
+    },
+    {
+      "localPath": "work/vas-footer-all-tests-final.log",
+      "bytes": 106945,
+      "sha256": "2388b37d1e7bca4689088afd558afdb37f708bf5ee2a068ec166a9d86bab3fe3"
+    },
+    {
+      "localPath": "work/vas-footer-mutants.log",
+      "bytes": 1224,
+      "sha256": "a1794abe5ad6d5d28511f471b4038dec8563cf2adb104541357c12349349eab7"
+    },
+    {
+      "localPath": "work/vas-footer-excluded-facts-mutant.log",
+      "bytes": 296,
+      "sha256": "921c72ab6573bbad760421808fb0793080148d62e9fa626e4d434550cdc9778b"
+    },
+    {
+      "localPath": "work/vas-footer-certification-mutant-final.log",
+      "bytes": 292,
+      "sha256": "61bcebded547d572f6647cf7d4deff7bf49b67fdf2074dc38e3ee1bf6ced3bbc"
+    },
+    {
+      "localPath": "work/vas-footer-excluded-facts-mutant-final.log",
+      "bytes": 296,
+      "sha256": "921c72ab6573bbad760421808fb0793080148d62e9fa626e4d434550cdc9778b"
+    },
+    {
+      "localPath": "work/vas-footer-browser-final.log",
+      "bytes": 5166,
+      "sha256": "ea4ddc7583a523287935623e71f4ea1d3b4df9e30d55ff2b34512291eed2b93f"
+    },
+    {
+      "localPath": "work/vas-footer-independent.log",
+      "bytes": 514,
+      "sha256": "2e37be5c3e0e227507c1a7a2900f588532e9277e931076997d03f5474b1626aa"
+    },
+    {
+      "localPath": "work/vas-footer-ui-record-oracle.json",
+      "bytes": 189,
+      "sha256": "44c00153c677f1d955525e7e43f2ecc831c3b816d905c7f61ded3e42b33044e4"
+    },
+    {
+      "localPath": "work/vas-footer-export-oracle.json",
+      "bytes": 1061,
+      "sha256": "ac9e1b97ca688243a2b1148f2fb41c4ebac158283310413a769c2ff8f49d14c2"
+    },
+    {
+      "localPath": "work/vas-footer-typecheck-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "localPath": "work/vas-0424-build.log",
+      "bytes": 2151,
+      "sha256": "537ff828000b7039b98c1df5cc2fe132d7343d810b248eb690bb3876e5e26b68"
+    }
+  ],
+  "retainedPriorEvidence": [
+    "baseline/reviewed.json",
+    "baseline/direct.xlsx"
+  ],
+  "limits": [
+    "Known synthetic case; not training or holdout",
+    "Manual one-table PNG only; no new AI activation",
+    "No full balance reconciliation",
+    "Local private-fixture logs are retained on disk; only hashes published"
+  ]
+}

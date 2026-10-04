@@ -1,0 +1,34 @@
+{
+  "attempts": [
+    {
+      "path": "audit/visual-accounting/live/negative-live-first.log",
+      "originalLocalSHA256": "36eb87a28ff7001e5b1d7deeffffc663840e0f10801afb1369ba4ee9f4e90fd8",
+      "publishedRedactedSHA256": "d468ae6e205588b5a14f9db2233d1edf138fe8eb70ea9f5e358dd0022133e298",
+      "redaction": "Workspace path only"
+    },
+    {
+      "path": "audit/visual-accounting/live/negative-live-second.log",
+      "originalLocalSHA256": "32a23a5c48a534c16f7163a10bb3512f9db32d6f78f7c23ae27785827ef49d9b",
+      "publishedRedactedSHA256": "4cf184f2cdbed71709b899729e9611d19b72070bb2b608bd0384533431d8afbc",
+      "redaction": "Workspace path only"
+    },
+    {
+      "path": "audit/visual-accounting/live/negative-live-third.log",
+      "originalLocalSHA256": "1ee91842b76ff252746abc147b29297d848352737232b37de0c61efaef41ad9a",
+      "publishedRedactedSHA256": "97fa8b7ab954e2e04c4bdafe665ffd1ba3574e155d7e99cf17b8808979334f08",
+      "redaction": "Workspace path only"
+    },
+    {
+      "path": "audit/visual-accounting/live/negative-oracle-first.log",
+      "originalLocalSHA256": "07a6757dec2f3fca026136a3f36e904a123126b144af0f0a6e52694fcbf28e9e",
+      "publishedRedactedSHA256": "9ed368d2c0e11c4a04cd10157c46eac427c9876988626c338673ded5e7dde0bd",
+      "redaction": "Workspace path only"
+    }
+  ],
+  "reasons": [
+    "First attempt submitted before the reader became ready",
+    "Two attempts selected the partial-download label for a draft-download case",
+    "Independent checker initially used incorrect worksheet/header names; corrected to the actual documented contract"
+  ],
+  "productRulesWeakened": false
+}
