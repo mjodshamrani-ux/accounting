@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "classification": "Known synthetic development case from the frozen 0.4.22 PNG. Manual values and geometry; not training, holdout or automatic extraction.",
+  "pngSha256": "20faa7ba31972885baab149ffbf46a1b3c345ebeb3006c7c290b64ac3fa111cb",
+  "context": {"side":"supplier","supplier":"Synthetic Supplier","entity":"Synthetic Entity","account":"","currency":"SAR","decimals":2,"periodStart":"2026-07-01","cutoff":"2026-07-31","multiplier":1,"numberFormat":"dot","dateFormat":"ymd"},
+  "headers": ["Reference","Date","Movement","Balance"],
+  "movement1": ["INV-001","2026-07-01","-٢٥٠٫٠٠","٩٬٩٩٩٫٠٠"],
+  "movement2": ["INV-002","2026-07-02",null,null],
+  "excluded": "Printed closing total, not a movement",
+  "ledger": [["Reference","Date","Amount","Currency"],["INV-001","2026-07-01","-250.00","SAR"],["INV-002","2026-07-02","80.00","SAR"]],
+  "required": {"matches":1,"matchedSupplierIds":["supplier:0:2"],"matchedLedgerIds":["ledger:0:2"],"supplierTransactions":1,"supplierErrors":1,"supplierErrorRow":3,"supplierTotalMinor":-25000,"ledgerTotalMinor":-17000,"ledgerOnly":["INV-002"],"balanceValid":false,"fullBalanceReconciliation":false,"imageRows":3}
+}

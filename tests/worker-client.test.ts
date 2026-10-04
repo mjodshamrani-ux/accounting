@@ -476,3 +476,32 @@ test('longer deadlines apply only to PDF import or original-source session/expor
     );
   }
 });
+
+test('reviewed image worker replies replay originals before gaining in-memory authority',async()=>{
+  const {knownVisualSource}=await import('../audit/visual-accounting/make_record.mjs');
+  const {readVisualAccountingSource,visualAccountingMapping}=await import('../lib/reconciliation/visual-accounting-source.ts');
+  const {normalizeSource}=await import('../lib/reconciliation/core.ts');
+  const f=await knownVisualSource(),file=await readVisualAccountingSource('statement.tarasuf-reviewed.json',f.bytes.slice().buffer);
+  const {client,workers}=setup(5000);
+  const pending=client.request<import('../lib/reconciliation/types.ts').SourceFile>('read',{name:file.name});
+  workers[0].respond({ok:true,value:structuredClone(file)});
+  const restored=await pending;
+  const c=f.context,scope={supplier:c.supplier,entity:c.entity,account:c.account,currency:c.currency,decimals:c.decimals,cutoff:c.cutoff,dateWindow:3,confirmed:true,coverageConfirmed:false};
+  assert.equal(normalizeSource(restored,visualAccountingMapping(restored),scope,'supplier').transactions.length,1);
+  const bad=structuredClone(file);bad.sheets[0].rows[1][2]='250.00';
+  const failure=client.request('read',{name:file.name});workers[0].respond({ok:true,value:bad});
+  await assert.rejects(failure,/مصدر الصورة/);
+});
+test('abort during async image replay cannot resolve or disturb the following worker request',async()=>{
+  const {knownVisualSource}=await import('../audit/visual-accounting/make_record.mjs');
+  const {readVisualAccountingSource}=await import('../lib/reconciliation/visual-accounting-source.ts');
+  const f=await knownVisualSource(),file=await readVisualAccountingSource('statement.tarasuf-reviewed.json',f.bytes.slice().buffer);
+  const {client,workers}=setup(5000),controller=new AbortController();
+  const pending=client.request('read',{name:file.name},controller.signal);
+  workers[0].respond({ok:true,value:structuredClone(file)});
+  controller.abort(); await assert.rejects(pending,/أُلغيت/);
+  const next=client.request('read',{name:'synthetic.xlsx'});
+  workers[1].respond({ok:true,value:valid()}); assert.equal((await next as {name:string}).name,'synthetic.xlsx');
+  await new Promise(resolve=>setTimeout(resolve,100));
+  assert.equal(workers[1].stopped,false);
+});

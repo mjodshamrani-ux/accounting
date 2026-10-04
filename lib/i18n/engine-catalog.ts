@@ -13,6 +13,14 @@
 // has no English, when an entry no longer exists in the engine, or when the
 // slots do not correspond.
 export const engineCatalog: Record<string, string> = {
+  'تعذر التحقق من مصدر الصورة المراجع أو تغير سياقه. راجع العناوين والقيم والنطاق.':
+    'The reviewed image source could not be verified or its context changed. Check the headers, values and scope.',
+  'صف صورة غير مقروء: ${…}': 'Unreadable image row: {0}',
+  'تعذرت قراءة قيمة من الصورة أو خالفت الصيغة المحددة (${…})':
+    'An image value could not be read or does not agree with the chosen format ({0})',
+  'صف صورة غير مقروء': 'Unreadable image row',
+  'القيم من صورة مراجعة يدويًا وتخص مقارنة الحركات فقط. لم تُثبت تسوية الأرصدة أو اكتمال الفترة.':
+    'Values are manually reviewed from an image and support transaction comparison only. Balance reconciliation and period completeness have not been proven.',
   'الدليل المحفوظ لا يطابق بنية سجل المحرك؛ أعد التسوية':
     'The retained evidence does not match the engine record structure; run the comparison again.',
   'لا أستطيع شرح هذه النتيجة لأن بياناتها غير مكتملة أو غير متسقة مع سجل المحرك. أعد المقارنة من الملفات الأصلية.':

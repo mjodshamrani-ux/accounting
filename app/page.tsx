@@ -1,6 +1,7 @@
 import { headerLabels } from '@/lib/reconciliation/header-view';
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
+import { visualAccountingMapping, VISUAL_SOURCE_INVALID } from '@/lib/reconciliation/visual-accounting-source';
 import { BrandMark, BrandWordmark, DisplayHeading } from '@/components/brand';
 import {
   LandingIntro,
@@ -166,15 +167,18 @@ function Choice({
   value,
   options,
   onChange,
+  disabled = false,
 }: {
   label: string;
   value: string;
   options: [string, string][];
   onChange: (s: string) => void;
+  disabled?: boolean;
 }) {
   return (
     <Field label={label}>
       <Select
+        disabled={disabled}
         value={value}
         onValueChange={(v) => v !== null && onChange(String(v))}
         items={options.map(([value, label]) => ({ value, label }))}
@@ -369,7 +373,7 @@ export default function App() {
   const directionProofs = useMemo(
     () =>
       files.map((file, i) =>
-        file
+        file && !file.visual
           ? inferStatementDirection(file, mappings[i], scope.decimals)
           : undefined,
       ),
@@ -866,11 +870,13 @@ export default function App() {
           throw failure;
         }
         if (!alive()) return;
-        const selection = selectImportMapping(
-          parsed,
-          i === 0 ? 'supplier' : 'ledger',
-        );
-        directionEdited.current[i] = false;
+        if (parsed.visual && parsed.visual.context.side !== (i === 0 ? 'supplier' : 'ledger'))
+          throw new Error(VISUAL_SOURCE_INVALID);
+        const other = files[1 - i]?.visual?.context;
+        if (parsed.visual && other && ['supplier','entity','account','currency','decimals','cutoff'].some(k => parsed.visual!.context[k as keyof typeof other] !== other[k as keyof typeof other]))
+          throw new Error(VISUAL_SOURCE_INVALID);
+        const selection = parsed.visual ? {mapping:visualAccountingMapping(parsed),notice:''} : selectImportMapping(parsed,i===0?'supplier':'ledger');
+        directionEdited.current[i] = !!parsed.visual;
         setPdfDrafts(
           (previous) =>
             previous.map((v, j) => (j === i ? false : v)) as [boolean, boolean],
@@ -880,7 +886,7 @@ export default function App() {
         setFormatChoices(
           (previous) =>
             previous.map((choice, j) =>
-              j === i ? { dateFormat: false, numberFormat: false } : choice,
+              j === i ? { dateFormat: !!parsed.visual, numberFormat: !!parsed.visual } : choice,
             ) as [FormatChoices, FormatChoices],
         );
         setFiles(
@@ -896,7 +902,12 @@ export default function App() {
               j === i ? { ...selection.mapping, pdfReviewed: false } : m,
             ) as [Mapping, Mapping],
         );
-        setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
+        if (parsed.visual) {
+          const c=parsed.visual.context;
+          scopeEdited.current={supplier:true,entity:true,account:true,currency:true,cutoff:true,decimals:true};
+          setBalanceMode(false);
+          setScope(s=>({...s,supplier:c.supplier,entity:c.entity,account:c.account,currency:c.currency,decimals:c.decimals,cutoff:c.cutoff,confirmed:false,coverageConfirmed:false}));
+        } else setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
         setNotice(selection.notice ? engineText(selection.notice) : null);
       },
     );
@@ -1542,6 +1553,8 @@ export default function App() {
               <VisualReader
                 key={`${visualRevision}:${visualCandidate ? `${visualCandidate.name}:${visualCandidate.lastModified}` : 'visual'}`}
                 candidate={visualCandidate}
+                scope={scope}
+                onSource={loadFile}
               />
               <div className="demo-strip">
                 <div>
@@ -1621,6 +1634,7 @@ export default function App() {
                 )}
                 {scopeOpen && (
                   <div className="panel stack">
+                    {files.some(f=>f?.visual) && <p className="hint">{t.visualAccounting.locked}</p>}
                     <div className="form-grid">
                       <Field
                         label={t.app.scope.cutoffField}
@@ -1639,6 +1653,7 @@ export default function App() {
                         }
                       >
                         <Input
+                          disabled={files.some(f=>f?.visual)}
                           type="date"
                           aria-label={t.app.scope.cutoffLabel}
                           value={scope.cutoff}
@@ -1657,6 +1672,7 @@ export default function App() {
                         }
                       >
                         <Input
+                          disabled={files.some(f=>f?.visual)}
                           aria-label={t.app.scope.currencyLabel}
                           maxLength={3}
                           dir="ltr"
@@ -1671,6 +1687,7 @@ export default function App() {
                       </Field>
                       <Choice
                         label={t.app.scope.decimals}
+                        disabled={files.some(f=>f?.visual)}
                         value={precisionMissing ? '' : String(scope.decimals)}
                         onChange={(v) => {
                           if (v) updateScope({ decimals: Number(v) });
@@ -1701,7 +1718,7 @@ export default function App() {
                         )}
                       />
                     </div>
-                    <Tick
+                    {!files.some(f=>f?.visual) && <Tick
                       checked={balanceMode}
                       onChange={(value) => {
                         setBalanceMode(value);
@@ -1724,7 +1741,7 @@ export default function App() {
                       }}
                     >
                       {t.app.scope.balanceMode}
-                    </Tick>
+                    </Tick>}
                     {(balanceMode ||
                       unresolvedScope.some((field) =>
                         ['supplier', 'entity', 'account'].includes(field),
@@ -1732,6 +1749,7 @@ export default function App() {
                       <div className="form-grid">
                         <Field label={t.app.scope.supplierField}>
                           <Input
+                          disabled={files.some(f=>f?.visual)}
                             aria-label={t.app.scope.supplierLabel}
                             value={scope.supplier}
                             onChange={(e) =>
@@ -1741,6 +1759,7 @@ export default function App() {
                         </Field>
                         <Field label={t.app.scope.entityField}>
                           <Input
+                          disabled={files.some(f=>f?.visual)}
                             aria-label={t.app.scope.entityLabel}
                             value={scope.entity}
                             onChange={(e) =>
@@ -1750,6 +1769,7 @@ export default function App() {
                         </Field>
                         <Field label={t.app.scope.accountField}>
                           <Input
+                          disabled={files.some(f=>f?.visual)}
                             aria-label={t.app.scope.accountLabel}
                             value={scope.account}
                             onChange={(e) =>
@@ -2558,6 +2578,23 @@ function SourceConfiguration({
         onChange={(v) => onChange({ [key]: Number(v) })}
       />
     );
+  }
+  if (file.visual) {
+    return <section className="surface pad stack visual-accounting-bound">
+      <h2>{t.app.sides[side]}</h2>
+      <p className="summary-line"><bdi>{file.name}</bdi></p>
+      <strong>{t.visualAccounting.loaded}</strong>
+      <p className="hint">{t.visualAccounting.locked}</p>
+      <p className="hint">{t.visualAccounting.limits}</p>
+      {importIssues.length > 0 && <div role="status" className="hint warn">
+        <strong>{c.readingNotes(importIssues.length)}</strong>
+        {importIssues.slice(0,5).map((issue,index)=><p key={index}>{c.issueAt(issue.row,issue.column)}{issue.messages.map(message=>say(engineText(message))).join(t.common.listSeparator)}</p>)}
+      </div>}
+      <details><summary>{t.visualAccounting.details}</summary>
+        <div className="table-scroll"><table><thead><tr>{header.map((h,i)=><th key={i}>{h}</th>)}</tr></thead>
+          <tbody>{sheet.rows.slice(1).map((row,i)=><tr key={i}>{row.map((cell,j)=><td key={j}><bdi>{cell}</bdi></td>)}</tr>)}</tbody></table></div>
+      </details>
+    </section>;
   }
   if (!sheet) {
     return (

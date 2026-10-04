@@ -1,5 +1,6 @@
 import { validateZipContents } from './zip.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
+import { isReviewedVisualSource, replayReviewedVisualSource, readVisualAccountingSource, VISUAL_SOURCE_SUFFIX } from './visual-accounting-source.ts';
 import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
 import { readPdf } from './pdf.ts';
 import {
@@ -273,6 +274,7 @@ export async function readFile(
 ): Promise<SourceFile> {
   if (buffer.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
+  if (name.toLowerCase().endsWith(VISUAL_SOURCE_SUFFIX)) return readVisualAccountingSource(name, buffer);
   const sha256 = Array.from(
     new Uint8Array(await crypto.subtle.digest('SHA-256', buffer)),
     (b) => b.toString(16).padStart(2, '0'),
@@ -567,6 +569,7 @@ export async function readFile(
 export async function replayNativeHeaderSource(
   file: SourceFile,
 ): Promise<SourceFile> {
+  if (isReviewedVisualSource(file)) return replayReviewedVisualSource(file);
   assertNativeAccountingSource(file);
   if (!/\.xlsx$/i.test(file.name)) return file;
   if (!(file.original instanceof ArrayBuffer)) {
@@ -595,6 +598,7 @@ export async function exportWorkbook(
     observeStage?.(stage, now - stageStarted);
     stageStarted = now;
   };
+  files = [await replayReviewedVisualSource(files[0]), await replayReviewedVisualSource(files[1])];
   files.forEach(assertNativeAccountingSource);
   // Re-read both complete originals, one at a time. Concurrent PDF/XLSX
   // parsers multiply peak memory while preserving no additional evidence.
@@ -702,6 +706,28 @@ export async function exportWorkbook(
     ...sourceReadingIssues(result.supplier, verifiedFiles[0], 'supplier'),
     ...sourceReadingIssues(result.ledger, verifiedFiles[1], 'ledger'),
   ];
+  const visualFiles = verifiedFiles.flatMap((file, side) => file.visual ? [{file, side}] : []);
+  if (visualFiles.length) {
+    add('Visual Source Proof', ['Side','Record SHA-256','PNG SHA-256','Pixel SHA-256','Basis','Context','Interpretation receipt','Table coverage'],
+      visualFiles.map(({file,side}) => [side===0?'supplier':'ledger',file.sha256!,file.visual!.table.image.source.sha256,file.visual!.table.image.pixelSha256,
+        file.visual!.basis,JSON.stringify(file.visual!.context),JSON.stringify(file.visual!.review),JSON.stringify(file.visual!.table.coverage)]));
+    // Carry the complete original record, not a flattened CSV or an OCR-only
+    // summary. Bounded chunks are text cells and preserve all omitted rows,
+    // raw observations, crop positions, reviewed literals and receipts.
+    add('Visual Source Record', ['Side','Part','Original JSON text'],visualFiles.flatMap(({file,side}) => {
+      const text=new TextDecoder('utf-8',{fatal:true}).decode(file.original!);
+      const points=Array.from(text), parts:(string|number)[][]=[];
+      for(let n=0;n<points.length;n+=3000) parts.push([side===0?'supplier':'ledger',parts.length+1,points.slice(n,n+3000).join('')]);
+      return parts;
+    }));
+    for (const {file,side} of visualFiles) {
+      const page=file.visual!.table.image.draft.pages[0];
+      const image=book.addImage({base64:file.visual!.table.image.source.originalPng,extension:'png'});
+      const sheet=add(`Visual ${side===0?'supplier':'ledger'} PNG`,['Original PNG; human-reviewed transactions only'],[[file.visual!.table.image.source.sha256]]);
+      const scale=Math.min(1,600/page.width,800/page.height);
+      sheet.addImage(image,{tl:{col:0,row:3},ext:{width:page.width*scale,height:page.height*scale}});
+    }
+  }
   add(
     'Diagnostics',
     ['الرمز', 'التفسير', 'حركات المصدر'],

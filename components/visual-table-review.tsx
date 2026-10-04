@@ -3,6 +3,8 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n/context';
 import { Button } from './ui/button';
 import { VisualCropPicker } from './visual-crop-picker';
+import { VisualAccountingReview, type VisualSourceTransfer } from './visual-accounting-review';
+import type { Scope } from '@/lib/reconciliation/types';
 import {
   isVisualLiteral,
   type VisualReview,
@@ -188,10 +190,14 @@ export function VisualTableReview({
   image,
   initial,
   disabled,
+  scope,
+  onSource,
 }: {
   image: VisualReview;
   initial?: VisualTable | null;
   disabled: boolean;
+  scope?: Scope;
+  onSource?: VisualSourceTransfer;
 }) {
   const { t } = useI18n(),
     v = t.visualTable,
@@ -458,6 +464,7 @@ export function VisualTableReview({
             </Button>
           </div>
           <p className="hint">{v.onlyEvidence}</p>
+          {scope && onSource && <VisualAccountingReview key={`${table.revision}:${table.coverage?.fingerprint??'pending'}`} table={table} scope={scope} disabled={disabled||busy} onSource={onSource} />}
         </>
       )}
     </details>

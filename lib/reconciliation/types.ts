@@ -51,6 +51,10 @@ export type SheetData = {
   >;
 };
 export type SourceFile = {
+  // Discriminators are guarded at runtime; legacy rejection tests also carry
+  // deliberately forged visual-draft/table markers through this boundary.
+  kind?: string;
+  visual?: import('./visual-accounting-source.ts').VisualAccountingRecord;
   name: string;
   sheets: SheetData[];
   original?: ArrayBuffer;

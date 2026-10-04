@@ -1,5 +1,7 @@
 import { normalizeSource } from './core.ts';
 import { assertInputFormats } from './input-readiness.ts';
+import { assertNativeAccountingSource } from './source-boundary.ts';
+import { assertVisualAccountingReading } from './visual-accounting-source.ts';
 import { inferStatementDirection } from './statement-direction.ts';
 import type { Mapping, Scope, SourceFile, SourceResult } from './types.ts';
 
@@ -77,6 +79,8 @@ export function prepareVerifiedSources(
       'مصادر المقارنة وإعدادات قراءتها وأدوارها غير متطابقة في العدد أو غير صالحة.',
     );
   roles.forEach((_, i) => assertReading(mappings[i]));
+  files.forEach(assertNativeAccountingSource);
+  files.forEach((file, i) => assertVisualAccountingReading(file, mappings[i], scope, roles[i]));
   assertInputFormats(files, mappings, scope);
   const proven = roles.map((_, i) =>
     verifyDirectionEvidence(files[i], mappings[i], scope.decimals),

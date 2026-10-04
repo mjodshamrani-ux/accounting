@@ -4,6 +4,9 @@ import { VisualCellReview } from './visual-cell-review';
 import { VisualCropPicker } from './visual-crop-picker';
 import { VisualRegionReview } from './visual-region-review';
 import { VisualTableReview } from './visual-table-review';
+import type { VisualSourceTransfer } from './visual-accounting-review';
+import type { Scope } from '@/lib/reconciliation/types';
+import { restoreVisualAccountingRecord } from '@/lib/reconciliation/visual-accounting-source';
 import {
   restoreVisualTable,
   type VisualTable,
@@ -35,8 +38,9 @@ import {
   type UiText,
 } from '@/lib/i18n/text';
 
-/** Experimental extraction view: it never writes native files, mappings or matches. */
-export function VisualReader({ candidate }: { candidate?: File | null }) {
+/** Raw OCR remains evidence only. Accounting transfer requires an explicit
+ * human-reviewed source record with independently replayed PNG and table. */
+export function VisualReader({ candidate, scope, onSource }: { candidate?: File | null; scope?: Scope; onSource?: VisualSourceTransfer }) {
   const { t, say } = useI18n();
   const v = t.visualReader;
   const [draft, setDraft] = useState<VisualDraft | null>(null);
@@ -277,7 +281,7 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
           new TextDecoder('utf-8', { fatal: true }).decode(bytes),
         )?.kind;
         const table =
-          kind === 'visual-table' ? await restoreVisualTable(bytes) : null;
+          kind === 'visual-table' ? await restoreVisualTable(bytes) : kind === 'reviewed-visual-source' ? (await restoreVisualAccountingRecord(bytes)).table : null;
         const restored = table?.image ?? (await restoreVisualReview(bytes));
         if (alive()) {
           updateReview(restored);
@@ -564,6 +568,8 @@ export function VisualReader({ candidate }: { candidate?: File | null }) {
                   image={review}
                   initial={restoredTable}
                   disabled={!!busy}
+                  scope={scope}
+                  onSource={onSource}
                 />
               </div>
             ) : (

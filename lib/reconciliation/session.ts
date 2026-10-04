@@ -1,5 +1,6 @@
 import { ENGINE_VERSION, MAX_FILE_BYTES } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
+import { isReviewedVisualSource, VISUAL_SOURCE_SUFFIX, VISUAL_SOURCE_INVALID, assertVisualAccountingReading } from './visual-accounting-source.ts';
 import type {
   SourceFile,
   Mapping,
@@ -49,17 +50,20 @@ export async function saveSession(state: SessionState): Promise<ArrayBuffer> {
     sha256: string | undefined;
     data: string;
     pdfCuts?: number[];
+    kind?: 'reviewed-visual-source';
   }[] = [];
   for (const [side, f] of state.files.entries()) {
     const original = f.original ?? demoBytes(f);
     const name = f.original ? f.name : f.name.replace(/\.[^.]+$/, '') + '.csv';
     const checked = await readFile(name, original, f.pdf?.cuts);
+    assertVisualAccountingReading(checked,state.mappings[side],state.scope,side===0?'supplier':'ledger');
     verifiedMappings[side] = verifyDirectionEvidence(
       checked,
       state.mappings[side],
       state.scope.decimals,
     );
     files.push({
+      ...(f.visual ? {kind: 'reviewed-visual-source' as const} : {}),
       name,
       sha256: checked.sha256,
       data: encode(original),
@@ -113,7 +117,10 @@ export async function restoreSession(bytes: ArrayBuffer) {
     throw new Error('بنية الجلسة غير صالحة');
   const restoredFiles: SourceFile[] = [];
   for (const f of p.files) {
-    assertNativeAccountingSource(f);
+    const visual = isReviewedVisualSource(f);
+    if (visual) {
+      if (f.kind !== 'reviewed-visual-source' || typeof f.name !== 'string' || !f.name.toLowerCase().endsWith(VISUAL_SOURCE_SUFFIX)) throw new Error(VISUAL_SOURCE_INVALID);
+    } else assertNativeAccountingSource(f);
     if (
       typeof f.name !== 'string' ||
       f.name.length > 255 ||
@@ -122,6 +129,7 @@ export async function restoreSession(bytes: ArrayBuffer) {
     )
       throw new Error('مصدر الجلسة غير صالح');
     const read = await readFile(f.name, decode(f.data), f.pdfCuts);
+    if (visual && !read.visual) throw new Error(VISUAL_SOURCE_INVALID);
     if (read.sha256 !== f.sha256)
       throw new Error('بصمة مصدر الجلسة غير مطابقة');
     restoredFiles.push(read);

@@ -5,6 +5,7 @@ import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyVisualRegions } from './visual-region-browser-cases.mjs';
 import { verifyVisualTable } from './visual-table-browser-cases.mjs';
+import { verifyVisualAccounting } from './visual-accounting-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import { verifyLanguages } from './language-browser-cases.mjs';
 import { verifyLayeredHeaders } from './layered-header-browser-cases.mjs';
@@ -1836,6 +1837,10 @@ try {
   console.log('[browser] Arabic and English');
   await verifyVisualTable(
     await activeScenarioPage(context, 'visual table inventory'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyVisualAccounting(
+    await activeScenarioPage(context, 'reviewed image accounting source'),
     `${origin}/mizan-test/`,
   );
   await verifyLanguages(

@@ -96,7 +96,8 @@ export function createWorkerClient(
         abort();
         return;
       }
-      worker.onmessage = (event) => {
+      worker.onmessage = async (event) => {
+        if (settled) return;
         const response = event.data as unknown;
         // Library messages and delayed replies are not accounting results.
         if (
@@ -154,6 +155,14 @@ export function createWorkerClient(
         }
         try {
           validateWorkerValue(action, response.value, payload);
+          if (action === 'read' && isRecord(response.value) && response.value.kind === 'reviewed-visual-source') {
+            const { replayReviewedVisualSource } = await import('./visual-accounting-source.ts');
+            response.value = await replayReviewedVisualSource(response.value as import('./types.ts').SourceFile);
+          }
+          if (action === 'restore-session' && isRecord(response.value) && Array.isArray(response.value.files)) {
+            const { replayReviewedVisualSource } = await import('./visual-accounting-source.ts');
+            response.value.files = await Promise.all(response.value.files.map(replayReviewedVisualSource));
+          }
         } catch (error) {
           fail(error);
           return;

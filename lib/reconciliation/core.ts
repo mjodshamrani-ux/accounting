@@ -6,6 +6,7 @@ import {
 } from './header-view.ts';
 import { defaultMapping } from './types.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
+import { assertVisualAccountingReading } from './visual-accounting-source.ts';
 import {
   transactionReferences,
   shortDocumentCandidate,
@@ -753,6 +754,7 @@ export function normalizeSource(
   side: 'supplier' | 'ledger',
 ): SourceResult {
   assertNativeAccountingSource(file);
+  assertVisualAccountingReading(file, mapping, scope, side);
   validateScope(scope);
   if (
     ![0, 2, 3].includes(scope.decimals) ||
@@ -813,7 +815,9 @@ export function normalizeSource(
     mapping,
     sourceName: file.name,
     sourceHash: file.sha256,
-    sourceOrigin: `${file.sha256 ?? `content:${sheetFingerprint(file.sheets[mapping.sheet])}`}#${mapping.sheet}`,
+    sourceOrigin: file.visual
+      ? `visual-pixels:${file.visual.table.image.pixelSha256}#1`
+      : `${file.sha256 ?? `content:${sheetFingerprint(file.sheets[mapping.sheet])}`}#${mapping.sheet}`,
   };
   if (
     mapping.mode === 'signed' &&
@@ -911,6 +915,15 @@ export function normalizeSource(
     result.rowCount++;
     let references: ReturnType<typeof transactionReferences> | undefined;
     try {
+      const visualRow = file.visual?.table.rows[i - 1];
+      if (visualRow?.disposition === 'non-movement') {
+        result.excluded.push({ row: rn, kind: 'non-movement', reason: visualRow.note, values: row });
+        continue;
+      }
+      if (file.visual) {
+        references = transactionReferences(sheet, mapping, row, rn);
+        if (sheet.rowIssues?.[rn]?.length) throw new Error(sheet.rowIssues[rn].join('; '));
+      }
       // A statement's own totals and its headers repeated on each page are not
       // transactions. Exclude them with a recorded reason instead of demanding a
       // typed justification per row; they stay listed, counted and exported.
@@ -963,7 +976,7 @@ export function normalizeSource(
         });
         continue;
       }
-      if (label && structuralReadingSafe) {
+      if (!file.visual && label && structuralReadingSafe) {
         result.excluded.push({
           row: rn,
           reason: `صف إجمالي أو رصيد — استُبعد تلقائيًا («${label.trim()}»)`,
@@ -972,7 +985,7 @@ export function normalizeSource(
         });
         continue;
       }
-      if (nonFinancialFooter(row) && wholeTextRowSafe(true)) {
+      if (!file.visual && nonFinancialFooter(row) && wholeTextRowSafe(true)) {
         result.excluded.push({
           row: rn,
           reason:
@@ -982,7 +995,7 @@ export function normalizeSource(
         });
         continue;
       }
-      if (repeatedHeader(row) && wholeTextRowSafe()) {
+      if (!file.visual && repeatedHeader(row) && wholeTextRowSafe()) {
         result.excluded.push({
           row: rn,
           reason: 'صف عناوين مُكرر — استُبعد تلقائيًا',
@@ -1035,6 +1048,7 @@ export function normalizeSource(
         throw new Error(
           'الصف يحتوي معادلة. استخدم نسخة موثوقة بقيم ثابتة، أو استبعد الصف مع توضيح السبب.',
         );
+      if (file.visual && row.every((v) => !v.trim())) throw new Error('صف صورة غير مقروء');
       if (row.every((v) => !v.trim())) {
         result.excluded.push({
           row: rn,
@@ -1264,6 +1278,15 @@ export function normalizeSource(
     arithmeticValid &&
     scope.coverageConfirmed &&
     !unverifiedExclusions(result).length;
+  if (file.visual) {
+    // Human-reviewed movement values do not prove an opening/closing balance
+    // or economic period coverage, even if scope flags claim otherwise.
+    result.opening = result.closing = null;
+    result.balanceValid = false;
+    result.balanceArithmeticStatus = 'BALANCE_ROW_NOT_FOUND';
+    result.coverageStatus = 'PERIOD_COVERAGE_UNCONFIRMED';
+    result.warnings.push('القيم من صورة مراجعة يدويًا وتخص مقارنة الحركات فقط. لم تُثبت تسوية الأرصدة أو اكتمال الفترة.');
+  }
   if (result.closing !== null) {
     const expected =
       mapping.reportType === 'open-items'
@@ -1540,7 +1563,8 @@ export function compare(
   const sameSource =
     !!supplier.sourceOrigin &&
     supplier.sourceOrigin === ledger.sourceOrigin &&
-    supplier.transactions.some((t) => ledgerRows.has(t.row));
+    (supplier.sourceOrigin.startsWith('visual-pixels:') ||
+      supplier.transactions.some((t) => ledgerRows.has(t.row)));
   const caseResult = buildReconciliationCases(
     supplier,
     ledger,

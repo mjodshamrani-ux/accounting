@@ -25,6 +25,7 @@ const tests = [
   'tests/visual-review.test.ts',
   'tests/visual-region.test.ts',
   'tests/visual-table.test.ts',
+  'tests/visual-accounting-source.test.ts',
   'tests/reliability.test.ts',
   'tests/assistant-adversarial.test.ts',
   'tests/supplier-layouts.test.ts',
@@ -68,6 +69,31 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+  {
+    name: 'p6-source-ignore-bound-mapping',file:'lib/reconciliation/visual-accounting-source.ts',
+    changes:[["if (mapping[k] !== expected[k]) fail();", "if (false) fail();"]],
+  },
+  {
+    name: 'p6-source-ignore-interpretation-receipt',file:'lib/reconciliation/visual-accounting-source.ts',
+    changes:[["if (p.review.fingerprint !== fresh.review.fingerprint) fail();", "if (false) fail();"]],
+  },
+  {
+    name: 'p6-source-accept-missing-currency-proof',file:'lib/reconciliation/visual-accounting-source.ts',
+    changes:[["if (!table.grid.roles.includes('currency') && currencyProof === null) fail();", "if (false) fail();"]],
+  },
+  {
+    name: 'p6-source-ignore-replayed-sheet-literals',file:'lib/reconciliation/visual-accounting-source.ts',
+    changes:[[" ||\n    JSON.stringify(file.sheets) !== JSON.stringify(fresh.sheets)", ""]],
+  },
+  {
+    name: 'p6-source-hide-damaged-cell',file:'lib/reconciliation/visual-accounting-source.ts',
+    changes:[["if (!readable) sheet.cellIssues!", "if (false) sheet.cellIssues!"]],
+  },
+  {
+    name: 'p6-source-false-balance-certification',file:'lib/reconciliation/core.ts',
+    changes:[["    result.balanceValid = false;\n    result.balanceArithmeticStatus = 'BALANCE_ROW_NOT_FOUND';", "    result.balanceValid = true;\n    result.balanceArithmeticStatus = 'BALANCE_ROW_NOT_FOUND';"]],
+  },
+
   {
     name: 'p6-table-retain-coverage-after-row-edit',
     file: 'lib/reconciliation/visual-table.ts',

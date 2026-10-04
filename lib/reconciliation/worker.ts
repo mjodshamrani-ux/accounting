@@ -7,6 +7,7 @@ import { ENGINE_VERSION } from './types.ts';
 import { WORKER_CHANNEL, isRequest } from './protocol.ts';
 import { ImportDiagnosticError } from './import-diagnostics.ts';
 import { isInputReadinessRejection } from './input-readiness.ts';
+import { replayReviewedVisualSource } from './visual-accounting-source.ts';
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
@@ -23,7 +24,10 @@ self.onmessage = async (event: MessageEvent) => {
   try {
     let value: unknown;
     if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
-    else if (action === 'save-session') value = await saveSession(payload);
+    else if (action === 'save-session') {
+      payload.files = [await replayReviewedVisualSource(payload.files[0]), await replayReviewedVisualSource(payload.files[1])];
+      value = await saveSession(payload);
+    }
     else if (action === 'restore-session')
       value = await restoreSession(payload.buffer);
     else if (action === 'read')
@@ -57,6 +61,7 @@ self.onmessage = async (event: MessageEvent) => {
         payload.side,
       );
     else if (action === 'export') {
+      payload.files = [await replayReviewedVisualSource(payload.files[0]), await replayReviewedVisualSource(payload.files[1])];
       assertInputFormats(
         payload.files,
         [payload.result.supplier.mapping, payload.result.ledger.mapping],

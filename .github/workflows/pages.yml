@@ -34,6 +34,13 @@ jobs:
         run: python3 -m unittest discover -s audit/visual-numeric -p 'test_*.py' -v
       - name: Independently verify table inventory and detect missing or misassigned source facts
         run: python3 -m unittest discover -s audit/visual-table -p 'test_*.py' -v
+      - name: Independently verify explicit reviewed-image sources and partial Excel results
+        run: |
+          python3 -m unittest discover -s audit/visual-accounting -p 'test_*.py' -v
+          node --experimental-strip-types audit/visual-accounting/make_record.mjs
+          node --experimental-strip-types audit/visual-accounting/export_fixture.mjs
+          python3 audit/visual-accounting/check_record.py work/visual-accounting/statement.tarasuf-reviewed.json audit/visual-table/fixtures/statement.png
+          python3 audit/visual-accounting/check_export.py work/visual-accounting/direct.xlsx work/visual-accounting/restored.xlsx
       - name: Detect false matches and changed workbook evidence
         run: python3 -m unittest discover -s audit/export-design -p 'test_*.py' -v
       - name: Verify frozen layered-statement source facts and independent export oracle
@@ -77,6 +84,10 @@ jobs:
         run: python3 audit/visual-numeric/check_record.py work/qa/p6-region-reviewed.json work/qa/p6-region-source.png
       - name: Independently verify native table review, unresolved row and total exclusion
         run: python3 audit/visual-table/check_record.py work/qa/p6-table-reviewed.json work/qa/p6-table-source.png
+      - name: Independently verify original image, complete reviewed record and damaged row after UI transfer and replay
+        run: |
+          python3 audit/visual-accounting/check_record.py work/qa/p6-accounting-source.json work/qa/p6-accounting-source.png
+          python3 audit/visual-accounting/check_export.py work/qa/p6-accounting-ar.xlsx work/qa/p6-accounting-en.xlsx work/qa/p6-accounting-restored.xlsx
       - name: Preserve visual review evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
