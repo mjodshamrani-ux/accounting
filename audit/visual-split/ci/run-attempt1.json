@@ -1,0 +1,944 @@
+{
+  "id": 37369259397,
+  "name": "Test and deploy Tarasuf Pages",
+  "event": "push",
+  "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+  "head_branch": "main",
+  "path": ".github/workflows/pages.yml",
+  "status": "completed",
+  "conclusion": "failure",
+  "run_attempt": 1,
+  "run_number": 64,
+  "created_at": "2026-10-05T20:21:50Z",
+  "updated_at": "2026-10-05T20:44:57Z",
+  "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397",
+  "sourceTree": "900c8cde1788d8a2f5a4783b2556eef46b88300a",
+  "jobs": [
+    {
+      "id": 111961996222,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T20:21:50Z",
+      "started_at": "2026-10-05T20:22:12Z",
+      "completed_at": "2026-10-05T20:28:45Z",
+      "runner_id": 1000000300,
+      "runner_name": "GitHub Actions 1000000300",
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996222",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T20:22:13Z",
+          "completed_at": "2026-10-05T20:22:15Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T20:22:15Z",
+          "completed_at": "2026-10-05T20:22:17Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-05T20:22:17Z",
+          "completed_at": "2026-10-05T20:22:19Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-05T20:22:19Z",
+          "completed_at": "2026-10-05T20:22:24Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-05T20:22:24Z",
+          "completed_at": "2026-10-05T20:22:27Z"
+        },
+        {
+          "name": "Run pnpm audit --prod --audit-level=moderate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T20:22:27Z",
+          "completed_at": "2026-10-05T20:22:28Z"
+        },
+        {
+          "name": "Run pnpm typecheck",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-10-05T20:22:28Z",
+          "completed_at": "2026-10-05T20:22:39Z"
+        },
+        {
+          "name": "Run pnpm test",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-10-05T20:22:39Z",
+          "completed_at": "2026-10-05T20:24:03Z"
+        },
+        {
+          "name": "Verify recorded real local-provider experiment without downloading model weights",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-10-05T20:24:03Z",
+          "completed_at": "2026-10-05T20:24:03Z"
+        },
+        {
+          "name": "Independently verify source pixels and cell review receipts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-05T20:24:03Z",
+          "completed_at": "2026-10-05T20:24:03Z"
+        },
+        {
+          "name": "Preserve failed numeric OCR evidence and verify manual crop receipts independently",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-05T20:24:03Z",
+          "completed_at": "2026-10-05T20:24:14Z"
+        },
+        {
+          "name": "Independently verify table inventory and detect missing or misassigned source facts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-05T20:24:14Z",
+          "completed_at": "2026-10-05T20:24:17Z"
+        },
+        {
+          "name": "Independently verify explicit reviewed-image sources and partial Excel results",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-05T20:24:17Z",
+          "completed_at": "2026-10-05T20:24:32Z"
+        },
+        {
+          "name": "Independently verify bilingual reviewed debit-credit sources and partial workpapers",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-10-05T20:24:32Z",
+          "completed_at": "2026-10-05T20:24:51Z"
+        },
+        {
+          "name": "Detect false matches and changed workbook evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-10-05T20:24:51Z",
+          "completed_at": "2026-10-05T20:24:55Z"
+        },
+        {
+          "name": "Verify frozen layered-statement source facts and independent export oracle",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-10-05T20:24:55Z",
+          "completed_at": "2026-10-05T20:24:55Z"
+        },
+        {
+          "name": "Verify own-document roles and independent related-invoice Excel evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-10-05T20:24:55Z",
+          "completed_at": "2026-10-05T20:24:58Z"
+        },
+        {
+          "name": "Verify unknown credit-number roles without blocking blank template columns",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-10-05T20:24:58Z",
+          "completed_at": "2026-10-05T20:24:59Z"
+        },
+        {
+          "name": "Verify canonical explanation evidence and native replay independently",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 19,
+          "started_at": "2026-10-05T20:24:59Z",
+          "completed_at": "2026-10-05T20:25:00Z"
+        },
+        {
+          "name": "Preserve proved groups and reject competing identity memberships",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 20,
+          "started_at": "2026-10-05T20:25:00Z",
+          "completed_at": "2026-10-05T20:25:02Z"
+        },
+        {
+          "name": "Preserve useful partial results and independently check unresolved errors in Excel",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 21,
+          "started_at": "2026-10-05T20:25:02Z",
+          "completed_at": "2026-10-05T20:25:05Z"
+        },
+        {
+          "name": "Verify independent end-to-end foundation cases",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 22,
+          "started_at": "2026-10-05T20:25:05Z",
+          "completed_at": "2026-10-05T20:25:08Z"
+        },
+        {
+          "name": "Independently verify bilingual Excel outputs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 23,
+          "started_at": "2026-10-05T20:25:08Z",
+          "completed_at": "2026-10-05T20:25:09Z"
+        },
+        {
+          "name": "Run pnpm build",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 24,
+          "started_at": "2026-10-05T20:25:09Z",
+          "completed_at": "2026-10-05T20:25:13Z"
+        },
+        {
+          "name": "Run pnpm exec playwright install --with-deps chromium",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 25,
+          "started_at": "2026-10-05T20:25:13Z",
+          "completed_at": "2026-10-05T20:25:39Z"
+        },
+        {
+          "name": "Run pnpm test:browser",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 26,
+          "started_at": "2026-10-05T20:25:39Z",
+          "completed_at": "2026-10-05T20:27:23Z"
+        },
+        {
+          "name": "Independently verify the real OCR browser review record",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 27,
+          "started_at": "2026-10-05T20:27:23Z",
+          "completed_at": "2026-10-05T20:27:31Z"
+        },
+        {
+          "name": "Independently verify the manually selected Arabic crop from real browser OCR",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 28,
+          "started_at": "2026-10-05T20:27:31Z",
+          "completed_at": "2026-10-05T20:27:41Z"
+        },
+        {
+          "name": "Independently verify native table review, unresolved row and total exclusion",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 29,
+          "started_at": "2026-10-05T20:27:41Z",
+          "completed_at": "2026-10-05T20:27:45Z"
+        },
+        {
+          "name": "Independently verify original image, complete reviewed record and damaged row after UI transfer and replay",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30,
+          "started_at": "2026-10-05T20:27:45Z",
+          "completed_at": "2026-10-05T20:27:52Z"
+        },
+        {
+          "name": "Independently verify split-image UI transfer, both languages and replay",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31,
+          "started_at": "2026-10-05T20:27:52Z",
+          "completed_at": "2026-10-05T20:28:01Z"
+        },
+        {
+          "name": "Preserve visual review evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 32,
+          "started_at": "2026-10-05T20:28:01Z",
+          "completed_at": "2026-10-05T20:28:03Z"
+        },
+        {
+          "name": "Run python3 audit/related-invoice/check_export.py work/qa/f03-*.xlsx",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-10-05T20:28:03Z",
+          "completed_at": "2026-10-05T20:28:03Z"
+        },
+        {
+          "name": "Run python3 audit/related-invoice/unknown-role/check_export.py work/qa/unknown-*.xlsx",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-10-05T20:28:03Z",
+          "completed_at": "2026-10-05T20:28:03Z"
+        },
+        {
+          "name": "Run python3 audit/assistant-evidence/check_export.py work/qa/p5-*.xlsx --browser work/qa/p5-browser.json",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-10-05T20:28:03Z",
+          "completed_at": "2026-10-05T20:28:03Z"
+        },
+        {
+          "name": "Preserve assistant source and explanation evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-10-05T20:28:03Z",
+          "completed_at": "2026-10-05T20:28:05Z"
+        },
+        {
+          "name": "Preserve related-invoice native and browser evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-10-05T20:28:05Z",
+          "completed_at": "2026-10-05T20:28:06Z"
+        },
+        {
+          "name": "Independently verify layered XLSX headers after browser upload and session replay",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 38,
+          "started_at": "2026-10-05T20:28:06Z",
+          "completed_at": "2026-10-05T20:28:07Z"
+        },
+        {
+          "name": "Independently verify typed documents and short-reference proofs after native replay",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 39,
+          "started_at": "2026-10-05T20:28:07Z",
+          "completed_at": "2026-10-05T20:28:07Z"
+        },
+        {
+          "name": "Verify partial results through the Arabic and English interface",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 40,
+          "started_at": "2026-10-05T20:28:07Z",
+          "completed_at": "2026-10-05T20:28:18Z"
+        },
+        {
+          "name": "Preserve partial reconciliation evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 41,
+          "started_at": "2026-10-05T20:28:18Z",
+          "completed_at": "2026-10-05T20:28:20Z"
+        },
+        {
+          "name": "Verify large PDFs through the browser and independently check the exported workbook",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 42,
+          "started_at": "2026-10-05T20:28:20Z",
+          "completed_at": "2026-10-05T20:28:38Z"
+        },
+        {
+          "name": "Preserve large statement browser evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 43,
+          "started_at": "2026-10-05T20:28:38Z",
+          "completed_at": "2026-10-05T20:28:40Z"
+        },
+        {
+          "name": "Preserve synthetic browser failure screenshots",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 44,
+          "started_at": "2026-10-05T20:28:40Z",
+          "completed_at": "2026-10-05T20:28:40Z"
+        },
+        {
+          "name": "Run actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 45,
+          "started_at": "2026-10-05T20:28:40Z",
+          "completed_at": "2026-10-05T20:28:42Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 88,
+          "started_at": "2026-10-05T20:28:42Z",
+          "completed_at": "2026-10-05T20:28:42Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 89,
+          "started_at": "2026-10-05T20:28:42Z",
+          "completed_at": "2026-10-05T20:28:43Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 90,
+          "started_at": "2026-10-05T20:28:43Z",
+          "completed_at": "2026-10-05T20:28:43Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 91,
+          "started_at": "2026-10-05T20:28:43Z",
+          "completed_at": "2026-10-05T20:28:43Z"
+        }
+      ]
+    },
+    {
+      "id": 111961996584,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "Accounting mutation gate (5/6)",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T20:21:51Z",
+      "started_at": "2026-10-05T20:22:09Z",
+      "completed_at": "2026-10-05T20:38:15Z",
+      "runner_id": 1000000301,
+      "runner_name": "GitHub Actions 1000000301",
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996584",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T20:22:09Z",
+          "completed_at": "2026-10-05T20:22:10Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T20:22:10Z",
+          "completed_at": "2026-10-05T20:22:12Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-05T20:22:12Z",
+          "completed_at": "2026-10-05T20:22:14Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-05T20:22:14Z",
+          "completed_at": "2026-10-05T20:22:17Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-05T20:22:17Z",
+          "completed_at": "2026-10-05T20:22:21Z"
+        },
+        {
+          "name": "Verify regression tests detect deliberate accounting faults",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T20:22:21Z",
+          "completed_at": "2026-10-05T20:38:13Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-05T20:38:13Z",
+          "completed_at": "2026-10-05T20:38:13Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-05T20:38:13Z",
+          "completed_at": "2026-10-05T20:38:13Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-05T20:38:13Z",
+          "completed_at": "2026-10-05T20:38:13Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-05T20:38:13Z",
+          "completed_at": "2026-10-05T20:38:13Z"
+        }
+      ]
+    },
+    {
+      "id": 111961996675,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "Accounting mutation gate (3/6)",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T20:21:51Z",
+      "started_at": "2026-10-05T20:31:58Z",
+      "completed_at": "2026-10-05T20:44:56Z",
+      "runner_id": 1000000311,
+      "runner_name": "GitHub Actions 1000000311",
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996675",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T20:31:59Z",
+          "completed_at": "2026-10-05T20:32:01Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T20:32:01Z",
+          "completed_at": "2026-10-05T20:32:05Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-05T20:32:05Z",
+          "completed_at": "2026-10-05T20:32:06Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-05T20:32:06Z",
+          "completed_at": "2026-10-05T20:32:23Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-05T20:32:23Z",
+          "completed_at": "2026-10-05T20:32:27Z"
+        },
+        {
+          "name": "Verify regression tests detect deliberate accounting faults",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T20:32:27Z",
+          "completed_at": "2026-10-05T20:44:53Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-05T20:44:53Z",
+          "completed_at": "2026-10-05T20:44:53Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-05T20:44:53Z",
+          "completed_at": "2026-10-05T20:44:53Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-05T20:44:53Z",
+          "completed_at": "2026-10-05T20:44:53Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-05T20:44:53Z",
+          "completed_at": "2026-10-05T20:44:53Z"
+        }
+      ]
+    },
+    {
+      "id": 111961996679,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "Accounting mutation gate (1/6)",
+      "status": "completed",
+      "conclusion": "cancelled",
+      "created_at": "2026-10-05T20:21:51Z",
+      "started_at": "2026-10-05T20:21:51Z",
+      "completed_at": "2026-10-05T20:36:53Z",
+      "runner_id": 0,
+      "runner_name": "",
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996679",
+      "steps": []
+    },
+    {
+      "id": 111961996696,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "Accounting mutation gate (4/6)",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T20:21:51Z",
+      "started_at": "2026-10-05T20:32:36Z",
+      "completed_at": "2026-10-05T20:41:54Z",
+      "runner_id": 1000000313,
+      "runner_name": "GitHub Actions 1000000313",
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996696",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T20:32:37Z",
+          "completed_at": "2026-10-05T20:32:38Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T20:32:38Z",
+          "completed_at": "2026-10-05T20:32:40Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-05T20:32:40Z",
+          "completed_at": "2026-10-05T20:32:42Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-05T20:32:42Z",
+          "completed_at": "2026-10-05T20:32:44Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-05T20:32:44Z",
+          "completed_at": "2026-10-05T20:32:47Z"
+        },
+        {
+          "name": "Verify regression tests detect deliberate accounting faults",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T20:32:47Z",
+          "completed_at": "2026-10-05T20:41:51Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-05T20:41:51Z",
+          "completed_at": "2026-10-05T20:41:51Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-05T20:41:51Z",
+          "completed_at": "2026-10-05T20:41:51Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-05T20:41:51Z",
+          "completed_at": "2026-10-05T20:41:51Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-05T20:41:51Z",
+          "completed_at": "2026-10-05T20:41:52Z"
+        }
+      ]
+    },
+    {
+      "id": 111961996765,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "Accounting mutation gate (2/6)",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T20:21:51Z",
+      "started_at": "2026-10-05T20:22:34Z",
+      "completed_at": "2026-10-05T20:36:49Z",
+      "runner_id": 1000000303,
+      "runner_name": "GitHub Actions 1000000303",
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996765",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T20:22:35Z",
+          "completed_at": "2026-10-05T20:22:36Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T20:22:36Z",
+          "completed_at": "2026-10-05T20:22:40Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-05T20:22:40Z",
+          "completed_at": "2026-10-05T20:22:41Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-05T20:22:41Z",
+          "completed_at": "2026-10-05T20:22:48Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-05T20:22:48Z",
+          "completed_at": "2026-10-05T20:22:51Z"
+        },
+        {
+          "name": "Verify regression tests detect deliberate accounting faults",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T20:22:51Z",
+          "completed_at": "2026-10-05T20:36:45Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-05T20:36:45Z",
+          "completed_at": "2026-10-05T20:36:46Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-05T20:36:46Z",
+          "completed_at": "2026-10-05T20:36:46Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-05T20:36:46Z",
+          "completed_at": "2026-10-05T20:36:46Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-05T20:36:46Z",
+          "completed_at": "2026-10-05T20:36:46Z"
+        }
+      ]
+    },
+    {
+      "id": 111961996808,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "Accounting mutation gate (6/6)",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-10-05T20:21:51Z",
+      "started_at": "2026-10-05T20:27:00Z",
+      "completed_at": "2026-10-05T20:39:36Z",
+      "runner_id": 1000000308,
+      "runner_name": "GitHub Actions 1000000308",
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996808",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-10-05T20:27:01Z",
+          "completed_at": "2026-10-05T20:27:02Z"
+        },
+        {
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-10-05T20:27:02Z",
+          "completed_at": "2026-10-05T20:27:05Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-10-05T20:27:05Z",
+          "completed_at": "2026-10-05T20:27:06Z"
+        },
+        {
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-10-05T20:27:06Z",
+          "completed_at": "2026-10-05T20:27:22Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-10-05T20:27:22Z",
+          "completed_at": "2026-10-05T20:27:26Z"
+        },
+        {
+          "name": "Verify regression tests detect deliberate accounting faults",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-10-05T20:27:26Z",
+          "completed_at": "2026-10-05T20:39:34Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10,
+          "started_at": "2026-10-05T20:39:34Z",
+          "completed_at": "2026-10-05T20:39:34Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11,
+          "started_at": "2026-10-05T20:39:34Z",
+          "completed_at": "2026-10-05T20:39:34Z"
+        },
+        {
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12,
+          "started_at": "2026-10-05T20:39:34Z",
+          "completed_at": "2026-10-05T20:39:34Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-10-05T20:39:34Z",
+          "completed_at": "2026-10-05T20:39:34Z"
+        }
+      ]
+    },
+    {
+      "id": 111970029354,
+      "run_id": 37369259397,
+      "run_attempt": 1,
+      "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "skipped",
+      "created_at": "2026-10-05T20:44:57Z",
+      "started_at": "2026-10-05T20:44:57Z",
+      "completed_at": "2026-10-05T20:44:56Z",
+      "runner_id": null,
+      "runner_name": null,
+      "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111970029354",
+      "steps": []
+    }
+  ]
+}

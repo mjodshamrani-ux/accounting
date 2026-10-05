@@ -1,0 +1,33 @@
+{
+  "sourceCommit": "1f9acf618c951be27336afc130fb526ddec99a8e",
+  "runId": 37369259397,
+  "runAttempt": 1,
+  "job": {
+    "id": 111961996679,
+    "run_id": 37369259397,
+    "workflow_name": "Test and deploy Tarasuf Pages",
+    "head_branch": "main",
+    "run_url": "https://api.github.com/repos/mjodshamrani-ux/accounting/actions/runs/37369259397",
+    "run_attempt": 1,
+    "node_id": "CR_kwDOUS3iMs8AAAAaEXR9hw",
+    "head_sha": "1f9acf618c951be27336afc130fb526ddec99a8e",
+    "url": "https://api.github.com/repos/mjodshamrani-ux/accounting/actions/jobs/111961996679",
+    "html_url": "https://github.com/mjodshamrani-ux/accounting/actions/runs/37369259397/job/111961996679",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "created_at": "2026-10-05T20:21:51Z",
+    "started_at": "2026-10-05T20:21:51Z",
+    "completed_at": "2026-10-05T20:36:53Z",
+    "name": "Accounting mutation gate (1/6)",
+    "steps": [],
+    "check_run_url": "https://api.github.com/repos/mjodshamrani-ux/accounting/check-runs/111961996679",
+    "labels": [
+      "ubuntu-latest"
+    ],
+    "runner_id": 0,
+    "runner_name": "",
+    "runner_group_id": 0,
+    "runner_group_name": ""
+  },
+  "classification": "queued job cancelled before runner assignment; never counted as a passed mutation shard"
+}
