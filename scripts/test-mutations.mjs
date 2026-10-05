@@ -27,6 +27,7 @@ const tests = [
   'tests/visual-table.test.ts',
   'tests/visual-accounting-source.test.ts',
   'tests/visual-split-source.test.ts',
+  'tests/review-effort.test.ts',
   'tests/reliability.test.ts',
   'tests/assistant-adversarial.test.ts',
   'tests/supplier-layouts.test.ts',
@@ -70,6 +71,9 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+  {name:'p6-effort-include-paused-time',file:'lib/review-effort.ts',changes:[['if (paused) pausedMs[paused] += duration;', 'if (paused) firstMs[stage] += duration;']]},
+  {name:'p6-effort-lose-rework-time',file:'lib/review-effort.ts',changes:[['else (rework ? reworkMs : firstMs)[stage] += duration;', 'else firstMs[stage] += duration;']]},
+  {name:'p6-effort-ignore-idle-deadline',file:'lib/review-effort.ts',changes:[['if (!state.paused && atMs >= deadline)', 'if (false)']]},
   {name:'p6-split-accept-mixed-amount-basis',file:'lib/reconciliation/visual-table.ts',changes:[['!validAmountRoles(input.roles)','false']]},
   {name:'p6-split-ignore-table-version',file:'lib/reconciliation/visual-table.ts',changes:[['p.version !== current.version ||','false ||']]},
   {name:'p6-split-ignore-source-version',file:'lib/reconciliation/visual-accounting-source.ts',changes:[['if (p.version !== table.version) fail();','if (false) fail();']]},

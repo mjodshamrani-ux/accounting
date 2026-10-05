@@ -4,6 +4,7 @@ import { VisualCellReview } from './visual-cell-review';
 import { VisualCropPicker } from './visual-crop-picker';
 import { VisualRegionReview } from './visual-region-review';
 import { VisualTableReview } from './visual-table-review';
+import { VisualReviewEffort } from './visual-review-effort';
 import type { VisualSourceTransfer } from './visual-accounting-review';
 import type { Scope } from '@/lib/reconciliation/types';
 import { restoreVisualAccountingRecord } from '@/lib/reconciliation/visual-accounting-source';
@@ -40,7 +41,15 @@ import {
 
 /** Raw OCR remains evidence only. Accounting transfer requires an explicit
  * human-reviewed source record with independently replayed PNG and table. */
-export function VisualReader({ candidate, scope, onSource }: { candidate?: File | null; scope?: Scope; onSource?: VisualSourceTransfer }) {
+export function VisualReader({
+  candidate,
+  scope,
+  onSource,
+}: {
+  candidate?: File | null;
+  scope?: Scope;
+  onSource?: VisualSourceTransfer;
+}) {
   const { t, say } = useI18n();
   const v = t.visualReader;
   const [draft, setDraft] = useState<VisualDraft | null>(null);
@@ -56,6 +65,8 @@ export function VisualReader({ candidate, scope, onSource }: { candidate?: File 
   const [restoredTable, setRestoredTable] = useState<VisualTable | null>(null);
   const [reviewEpoch, setReviewEpoch] = useState(0);
   const [reviewNotice, setReviewNotice] = useState<UiText | null>(null);
+  const [tableBusy, setTableBusy] = useState(false);
+  const [contextBusy, setContextBusy] = useState(false);
   const reviewRef = useRef<VisualReview | null>(null);
   function updateReview(value: VisualReview | null) {
     setRestoredTable(null);
@@ -281,7 +292,11 @@ export function VisualReader({ candidate, scope, onSource }: { candidate?: File 
           new TextDecoder('utf-8', { fatal: true }).decode(bytes),
         )?.kind;
         const table =
-          kind === 'visual-table' ? await restoreVisualTable(bytes) : kind === 'reviewed-visual-source' ? (await restoreVisualAccountingRecord(bytes)).table : null;
+          kind === 'visual-table'
+            ? await restoreVisualTable(bytes)
+            : kind === 'reviewed-visual-source'
+              ? (await restoreVisualAccountingRecord(bytes)).table
+              : null;
         const restored = table?.image ?? (await restoreVisualReview(bytes));
         if (alive()) {
           updateReview(restored);
@@ -494,84 +509,92 @@ export function VisualReader({ candidate, scope, onSource }: { candidate?: File 
               </div>
             </div>
             {review ? (
-              <div className="visual-review-record stack">
-                <h3>{t.visualReview.title}</h3>
-                <p>{t.visualReview.intro}</p>
-                <output>
-                  {t.visualReview.count(
-                    review.cells.filter((c) => c.review).length +
-                      visualRegions(review).filter((c) => c.review).length,
-                    review.cells.length + visualRegions(review).length,
+              <VisualReviewEffort
+                key={review.source.sha256}
+                sourceSha256={review.source.sha256}
+                disabled={!!busy || tableBusy || contextBusy}
+              >
+                <div className="visual-review-record stack">
+                  <h3>{t.visualReview.title}</h3>
+                  <p>{t.visualReview.intro}</p>
+                  <output>
+                    {t.visualReview.count(
+                      review.cells.filter((c) => c.review).length +
+                        visualRegions(review).filter((c) => c.review).length,
+                      review.cells.length + visualRegions(review).length,
+                    )}
+                  </output>
+                  {word && !selectedRegion && (
+                    <VisualCellReview
+                      key={`${review.revision}:${word.id}`}
+                      record={review}
+                      wordId={word.id}
+                      disabled={!!busy}
+                      onChange={updateReview}
+                      onConfirm={(id) => void reviewAction('confirm', id)}
+                      onError={(failure) => setError(reviewError(failure))}
+                    />
                   )}
-                </output>
-                {word && !selectedRegion && (
-                  <VisualCellReview
-                    key={`${review.revision}:${word.id}`}
-                    record={review}
-                    wordId={word.id}
-                    disabled={!!busy}
-                    onChange={updateReview}
-                    onConfirm={(id) => void reviewAction('confirm', id)}
-                    onError={(failure) => setError(reviewError(failure))}
-                  />
-                )}
-                {!!visualRegions(review).length && (
-                  <div
-                    aria-label={t.visualReview.regionsTitle}
-                    className="visual-crop-actions"
+                  {!!visualRegions(review).length && (
+                    <div
+                      aria-label={t.visualReview.regionsTitle}
+                      className="visual-crop-actions"
+                    >
+                      {visualRegions(review).map((cell, index) => (
+                        <Button
+                          key={cell.id}
+                          variant="outline"
+                          disabled={!!busy}
+                          aria-pressed={selectedRegion?.id === cell.id}
+                          onClick={() => {
+                            setSelected('');
+                            setSelectedRegion({
+                              id: cell.id,
+                              region: cell.region,
+                            });
+                          }}
+                        >
+                          {t.visualReview.regionItem(index + 1)}{' '}
+                          <bdi>{cell.value}</bdi>
+                        </Button>
+                      ))}
+                    </div>
+                  )}
+                  {selectedRegion && (
+                    <VisualRegionReview
+                      key={`${review.revision}:${selectedRegion.id}:${JSON.stringify(selectedRegion.region)}`}
+                      record={review}
+                      id={selectedRegion.id}
+                      region={selectedRegion.region}
+                      disabled={!!busy}
+                      onChange={updateReview}
+                      onConfirm={(id) => void reviewAction('confirm', id)}
+                      onRemove={() => setSelectedRegion(null)}
+                      onError={(failure) => setError(reviewError(failure))}
+                    />
+                  )}
+                  <Button
+                    variant="outline"
+                    disabled={
+                      !!busy ||
+                      !(review.cells.length + visualRegions(review).length)
+                    }
+                    onClick={() => void reviewAction('save')}
                   >
-                    {visualRegions(review).map((cell, index) => (
-                      <Button
-                        key={cell.id}
-                        variant="outline"
-                        disabled={!!busy}
-                        aria-pressed={selectedRegion?.id === cell.id}
-                        onClick={() => {
-                          setSelected('');
-                          setSelectedRegion({
-                            id: cell.id,
-                            region: cell.region,
-                          });
-                        }}
-                      >
-                        {t.visualReview.regionItem(index + 1)}{' '}
-                        <bdi>{cell.value}</bdi>
-                      </Button>
-                    ))}
-                  </div>
-                )}
-                {selectedRegion && (
-                  <VisualRegionReview
-                    key={`${review.revision}:${selectedRegion.id}:${JSON.stringify(selectedRegion.region)}`}
-                    record={review}
-                    id={selectedRegion.id}
-                    region={selectedRegion.region}
+                    {t.visualReview.save}
+                  </Button>
+                  <VisualTableReview
+                    key={reviewEpoch}
+                    image={review}
+                    initial={restoredTable}
                     disabled={!!busy}
-                    onChange={updateReview}
-                    onConfirm={(id) => void reviewAction('confirm', id)}
-                    onRemove={() => setSelectedRegion(null)}
-                    onError={(failure) => setError(reviewError(failure))}
+                    scope={scope}
+                    onSource={onSource}
+                    onBusy={setTableBusy}
+                    onContextBusy={setContextBusy}
                   />
-                )}
-                <Button
-                  variant="outline"
-                  disabled={
-                    !!busy ||
-                    !(review.cells.length + visualRegions(review).length)
-                  }
-                  onClick={() => void reviewAction('save')}
-                >
-                  {t.visualReview.save}
-                </Button>
-                <VisualTableReview
-                  key={reviewEpoch}
-                  image={review}
-                  initial={restoredTable}
-                  disabled={!!busy}
-                  scope={scope}
-                  onSource={onSource}
-                />
-              </div>
+                </div>
+              </VisualReviewEffort>
             ) : (
               <p className="hint">
                 {reviewNotice ? say(reviewNotice) : t.visualReview.family}

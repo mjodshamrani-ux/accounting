@@ -10,6 +10,48 @@ const plural = (n: number, one: string, many: string) =>
   `${n} ${n === 1 ? one : many}`;
 
 export const en: Messages = {
+  reviewEffort: {
+    title: 'Measure image review effort',
+    intro:
+      'Optional local measurement from the moment you start. Select the stage and mark rework when correcting an earlier review. This record grants no accounting authority.',
+    limits:
+      'Measures activity in this window, not attention. Pauses after 30 seconds without a click or field change within the review, on leaving the window, or while processing. Resume explicitly. Long silent reading requires resuming; its later time stays outside activity. Export before changing the image, restoring another record or closing the page; nothing is saved automatically or sent.',
+    sample: 'Measurement case type',
+    choose: 'Choose case type',
+    development: 'Known or synthetic development case',
+    field: 'Field case declared by reviewer; not independently verified',
+    start: 'Start effort measurement',
+    pause: 'Pause effort measurement',
+    resume: 'Resume effort measurement',
+    finish: 'Finish effort measurement',
+    export: 'Export effort record',
+    newMeasurement:
+      'Start a new record and discard the previous measurement from this window',
+    stage: 'Effort measurement stage',
+    stages: {
+      values: 'Values and crops',
+      table: 'Table and rows',
+      context: 'Headers, context and transfer',
+    },
+    rework: 'Reworking an earlier review',
+    running: 'Measurement running',
+    finished: 'Measurement finished',
+    paused: {
+      manual: 'Measurement paused manually',
+      idle: 'Measurement paused for inactivity',
+      hidden: 'Measurement paused on leaving the window',
+      processing: 'Measurement paused during processing',
+    },
+    active: (n: number) => `Active time: ${n} seconds`,
+    reworked: (n: number) => `Including rework: ${n} seconds`,
+    stopped: (n: number) => `Paused time: ${n} seconds`,
+    actions: (c: number, e: number, r: number) =>
+      `Review clicks: ${c}; field changes: ${e}; resumes: ${r}`,
+    limit:
+      'Measurement stopped at the event limit. The finished record retains earlier events; export it and start a new record.',
+    failed:
+      'Could not continue effort measurement. Do not rely on this measurement. Source review remains available.',
+  },
   document: {
     title: 'Tarasuf — Supplier Account Reconciliation',
     description:
