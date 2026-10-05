@@ -107,7 +107,7 @@ jobs:
       - name: Independently replay local effort timers (accelerated development cases only)
         run: |
           python3 -m unittest discover -s audit/review-effort -p 'test_*.py' -v
-          python3 audit/review-effort/check_record.py work/qa/review-effort-ar.json work/qa/review-effort-en.json
+          python3 audit/review-effort/check_record.py --development-oracle work/qa/review-effort-ar.json work/qa/review-effort-en.json
       - name: Preserve development effort evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -1,0 +1,30 @@
+{
+  "classification": "Local focused native browser; known synthetic English PNG in Arabic UI; not a live public-site screenshot",
+  "sourceTree": "900c8cde1788d8a2f5a4783b2556eef46b88300a",
+  "sourceCommit": "1f9acf618c951be27336afc130fb526ddec99a8e",
+  "screenshot": "audit/visual-split/native/review-en-source-ar.png",
+  "bytes": 228957,
+  "sha256": "51f86fca0b33afd3babb5616ec02654de9b490b43fa2de8ed2f44c97ac821dc6",
+  "browserReport": {
+    "passed": true,
+    "knownDevelopmentCase": true,
+    "sourceLanguage": "en",
+    "splitColumns": true,
+    "training": false,
+    "automaticOCR": false,
+    "manuallyReviewedImage": true,
+    "matches": 3,
+    "damagedRows": 3,
+    "fullBalanceReconciliation": false,
+    "contextEditRevokesReview": true,
+    "currencyContradictionRejected": true,
+    "originalsReplayedOnRestore": true,
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "mobile": true,
+    "networkViolations": [],
+    "pageErrors": []
+  }
+}

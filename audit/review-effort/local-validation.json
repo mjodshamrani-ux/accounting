@@ -41,11 +41,11 @@
     "sha256": "b3fc64f8eb04972c683e4b7e5cd9e328646d963ec92b559559add3949b7c533a"
   },
   "independentTests": {
-    "tests": 4,
+    "tests": 5,
     "passed": true,
-    "localPath": "work/review-effort/independent-tests.log",
-    "bytes": 412,
-    "sha256": "4161d619bcb71136985708af516a5d18a8bdc5378564d7defe7e892f2b6f9981"
+    "localPath": "work/review-effort/independent-tests-final.log",
+    "bytes": 523,
+    "sha256": "85972e287e797724157c391126dbe113acf571407355bec45d28e0bdd6088c10"
   },
   "focusedBrowser": {
     "passed": true,
@@ -112,9 +112,9 @@
     "scripts/test-review-effort-browser.mjs": "e4219db0e21ef65d5a44890503e5d43f651e0172ace810bc34fea34a548fbf8e",
     "scripts/browser-test.mjs": "7e7e620019bf5ff15f36b2ff5e210c998aadcb9745d14f54a7c38a9dc7e7e5c2",
     "scripts/test-mutations.mjs": "1761669422da1df06bf686bde566e7ecb1634a78299329def76c776cd59b9e6e",
-    "audit/review-effort/check_record.py": "ced1af8eb7ef0ef47479b30197fa2af0ce6d5f7f1ee4627162214c0f9c349f29",
-    "audit/review-effort/test_record.py": "5636a72c08e750efd4d287857f96869bbeda3963dec6bfbc3b0e4799b4c17885",
-    ".github/workflows/pages.yml": "07c21aa15abb96f482bbc1dec649e3ed3c49f597b9ab5ecd2bfb41d5f48a9314"
+    "audit/review-effort/check_record.py": "277c400644a2bb058dbb3756765a7c9edbdc25ac9967c60871030f773e67bf9e",
+    "audit/review-effort/test_record.py": "f69804700d4ed24b9151a3bdcc52bccbeffd0a9c389f5bf4f58b5ea9b9d265a3",
+    ".github/workflows/pages.yml": "ca205eb35a56d3d0b9bd90e0f409a20f1b079debe3a482fd94f8b155add96085"
   },
   "preservedAttempts": [
     {
@@ -190,13 +190,26 @@
     "cancelledJob": 111961996679,
     "noStepsOrLogs": true,
     "rerunAccepted": true,
-    "attempt2": "in progress at capture"
+    "attempt2": "completed/success",
+    "mutationFaults": 134,
+    "deploy": "success",
+    "sourceChangesByThisTask": false,
+    "liveInspectionOwner": "original active task"
   },
-  "ciForCandidate": "pending draft PR",
+  "ciForCandidate": {
+    "firstHead": "4028bfed13c52e5be18b837574d261a6c998741b",
+    "run": 37374153011,
+    "build": "success",
+    "unitPassed": 1090,
+    "skippedPrivate": 12,
+    "mutationGate": "success",
+    "detectedFaults": 137,
+    "firstRunConclusion": "success"
+  },
   "developmentFiles": {
     "independent-replay.log": {
-      "bytes": 716,
-      "sha256": "773f4cd75951238a3b5256b81fb56df9e0bc8fe33d4b478a7f32feddad45477f"
+      "bytes": 766,
+      "sha256": "ac04786e71edbf39cc0ea76b6a5e84fde55e8dbf5ebf6063688e91f3ec9665ff"
     },
     "review-effort-ar.json": {
       "bytes": 1622,
@@ -214,5 +227,19 @@
       "bytes": 66336,
       "sha256": "ae6c1bb32adc3986723fd4e0402cce095dc3ae27706318fbdf853539cf58aff7"
     }
+  },
+  "independentCLI": {
+    "generalReplay": "no accelerated scenario constraints or provenance claim",
+    "developmentOracle": "explicit --development-oracle in CI only",
+    "tests": "field declaration accepted as a declaration; oracle rejects it"
+  },
+  "independentReview": {
+    "head": "4028bfed13c52e5be18b837574d261a6c998741b",
+    "result": "no new provable code defect; native-focus gate remains unverified",
+    "scope": "reducer, schema/restore, reset continuity and accounting isolation; Python follow-up not yet reviewed"
+  },
+  "mainEvidenceUpdate": {
+    "sha": "057d6f5f83ed1371834245748c786b4155ccaa5b",
+    "scope": "0.4.25 CI/live evidence and release documentation; no source or workflow changes"
   }
 }

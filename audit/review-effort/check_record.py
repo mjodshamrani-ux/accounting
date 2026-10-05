@@ -1,7 +1,7 @@
 """Independent replay of local timer exports. It does not prove attention or field provenance."""
 import json
 import re
-import sys
+import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -70,16 +70,24 @@ def check(record):
 
 
 if __name__ == '__main__':
-    for name in sys.argv[1:]:
+    parser = argparse.ArgumentParser(description='Replay local effort records; no attention or field provenance claim.')
+    parser.add_argument('--development-oracle', action='store_true', help='Also require the accelerated browser development scenario.')
+    parser.add_argument('records', nargs='+')
+    args = parser.parse_args()
+    for name in args.records:
         p = Path(name)
         assert p.stat().st_size <= 2_000_000
         record = json.loads(p.read_text())
         result = check(record)
-        # These particular browser exports are accelerated known development cases.
-        assert record['sample'] == 'development'
-        assert result['firstMs']['values'] >= 5000 and result['firstMs']['context'] >= 1000
-        assert result['reworkMs']['table'] >= 32000 and result['resumes'] == 4
-        assert all(result['pausedMs'][reason] >= minimum for reason, minimum in
-                   [('manual', 5000), ('idle', 5000), ('hidden', 10000), ('processing', 2000)])
-        assert result['clicks'] >= 1 and result['changes'] >= 1
-        print(json.dumps({'file': p.name, 'classification': 'accelerated development; not human field timing', **result}))
+        if args.development_oracle:
+            # These particular browser exports are accelerated known development cases.
+            assert record['sample'] == 'development'
+            assert result['firstMs']['values'] >= 5000 and result['firstMs']['context'] >= 1000
+            assert result['reworkMs']['table'] >= 32000 and result['resumes'] == 4
+            assert all(result['pausedMs'][reason] >= minimum for reason, minimum in
+                       [('manual', 5000), ('idle', 5000), ('hidden', 10000), ('processing', 2000)])
+            assert result['clicks'] >= 1 and result['changes'] >= 1
+        classification = ('accelerated development; not human field timing' if args.development_oracle
+                          else 'reviewer-declared field; provenance and attention unverified' if record['sample'] == 'field-self-declared'
+                          else 'development; not independently validated human field timing')
+        print(json.dumps({'file': p.name, 'sample': record['sample'], 'classification': classification, **result}))

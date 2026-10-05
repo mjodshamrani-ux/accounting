@@ -1,6 +1,11 @@
 """Independent arithmetic oracle and rejection cases; no production reducer imported."""
 import copy
+import json
+import subprocess
+import sys
+import tempfile
 import unittest
+from pathlib import Path
 from check_record import check
 
 
@@ -46,6 +51,21 @@ class RecordTests(unittest.TestCase):
         for stamp in ('2026-02-30T00:00:00.000Z', 'yesterday'):
             r['startedAt'] = stamp
             with self.subTest(stamp=stamp), self.assertRaises((AssertionError, ValueError)): check(r)
+
+    def test_cli_general_replay_does_not_impose_development_or_claim_field_provenance(self):
+        r = fixture()
+        r['sample'] = 'field-self-declared'
+        with tempfile.TemporaryDirectory() as directory:
+            p = Path(directory)/'declared.json'
+            p.write_text(json.dumps(r))
+            command = [sys.executable, str(Path(__file__).with_name('check_record.py'))]
+            result = subprocess.run([*command, str(p)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            output = json.loads(result.stdout)
+            self.assertIn('provenance and attention unverified', output['classification'])
+            self.assertEqual(output['wallMs'], 19000)
+            oracle = subprocess.run([*command, '--development-oracle', str(p)], capture_output=True, text=True)
+            self.assertNotEqual(oracle.returncode, 0)
 
 
 if __name__ == '__main__':
