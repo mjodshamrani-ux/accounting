@@ -115,6 +115,7 @@ export function VisualAccountingReview({
       <p>{v.intro}</p>
       <p className="hint">{v.headerHint}</p>
       <p className="hint">{v.exclusionHint}</p>
+      {table.version === 2 && <p className="hint">{v.splitHint}</p>}
       <div className="form-grid">
         {table.grid.roles.map((role, i) => (
           <label className="field" key={role}>

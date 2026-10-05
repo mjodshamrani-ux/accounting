@@ -3,7 +3,10 @@ import { useEffect, useId, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n/context';
 import { Button } from './ui/button';
 import { VisualCropPicker } from './visual-crop-picker';
-import { VisualAccountingReview, type VisualSourceTransfer } from './visual-accounting-review';
+import {
+  VisualAccountingReview,
+  type VisualSourceTransfer,
+} from './visual-accounting-review';
 import type { Scope } from '@/lib/reconciliation/types';
 import {
   isVisualLiteral,
@@ -136,7 +139,8 @@ function RowReview({
           />
         </label>
       )}
-      {(fields.disposition === 'movement' || fields.disposition === 'non-movement') && (
+      {(fields.disposition === 'movement' ||
+        fields.disposition === 'non-movement') && (
         <>
           <small>{v.cropHint}</small>
           <div className="visual-table-fields">
@@ -372,6 +376,8 @@ export function VisualTableReview({
                     'reference',
                     'date',
                     'amount',
+                    'debit',
+                    'credit',
                     'balance',
                     'currency',
                   ] as const
@@ -464,7 +470,15 @@ export function VisualTableReview({
             </Button>
           </div>
           <p className="hint">{v.onlyEvidence}</p>
-          {scope && onSource && <VisualAccountingReview key={`${table.revision}:${table.coverage?.fingerprint??'pending'}`} table={table} scope={scope} disabled={disabled||busy} onSource={onSource} />}
+          {scope && onSource && (
+            <VisualAccountingReview
+              key={`${table.revision}:${table.coverage?.fingerprint ?? 'pending'}`}
+              table={table}
+              scope={scope}
+              disabled={disabled || busy}
+              onSource={onSource}
+            />
+          )}
         </>
       )}
     </details>

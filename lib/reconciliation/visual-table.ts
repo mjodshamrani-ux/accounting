@@ -18,6 +18,8 @@ export type TableRole =
   | 'reference'
   | 'date'
   | 'amount'
+  | 'debit'
+  | 'credit'
   | 'balance'
   | 'currency';
 export type TableGrid = Readonly<{
@@ -36,7 +38,7 @@ export type TableRow = Readonly<{
 }>;
 export type VisualTable = Readonly<{
   kind: 'visual-table';
-  version: 1;
+  version: 1 | 2;
   status: 'table-evidence-only';
   image: VisualReview;
   revision: string;
@@ -45,7 +47,15 @@ export type VisualTable = Readonly<{
   coverage: Receipt | null;
 }>;
 export const VISUAL_TABLE_LIMITS = Object.freeze({ rows: 200, columns: 8 });
-const roles = ['reference', 'date', 'amount', 'balance', 'currency'];
+const roles = [
+  'reference',
+  'date',
+  'amount',
+  'debit',
+  'credit',
+  'balance',
+  'currency',
+];
 const dispositions = ['unclassified', 'movement', 'non-movement', 'unreadable'];
 const accepted = new WeakSet<object>();
 const reject = (): never => {
@@ -129,7 +139,7 @@ function gridCopy(image: VisualReview, input: TableGrid): TableGrid {
     input.roles.length !== input.columnCuts.length - 1 ||
     input.roles.some((r) => !roles.includes(r)) ||
     new Set(input.roles).size !== input.roles.length ||
-    !input.roles.includes('amount')
+    !validAmountRoles(input.roles)
   )
     return reject();
   return {
@@ -139,16 +149,28 @@ function gridCopy(image: VisualReview, input: TableGrid): TableGrid {
     roles: [...input.roles],
   };
 }
+/** Each table has exactly one amount basis. A split basis must name both
+ * sides; it never borrows a balance or an unrelated amount column. */
+function validAmountRoles(value: readonly TableRole[]) {
+  return value.includes('amount')
+    ? !value.includes('debit') && !value.includes('credit')
+    : value.includes('debit') && value.includes('credit');
+}
 export async function createVisualTable(
   image: VisualReview,
   input: TableGrid,
 ): Promise<VisualTable> {
   assertVisualReview(image);
   const grid = gridCopy(image, input);
-  const revision = await hash(['tarasuf-visual-table-v1', image, grid]);
+  const version = grid.roles.includes('debit') ? 2 : 1;
+  const revision = await hash([
+    `tarasuf-visual-table-v${version}`,
+    image,
+    grid,
+  ]);
   return freeze({
     kind: 'visual-table',
-    version: 1,
+    version,
     status: 'table-evidence-only',
     image,
     revision,
@@ -191,10 +213,9 @@ export function tableCellCandidates(
     column >= value.grid.roles.length
   )
     return reject();
-  const role =
-    value.grid.roles[column] === 'balance'
-      ? 'amount'
-      : value.grid.roles[column];
+  const role = ['balance', 'debit', 'credit'].includes(value.grid.roles[column])
+    ? 'amount'
+    : value.grid.roles[column];
   return visualRegions(value.image).filter(
     (c) =>
       c.review &&
@@ -267,7 +288,7 @@ export function editVisualTableRow(
 }
 const rowHash = (value: VisualTable, row: TableRow) =>
   hash([
-    'tarasuf-table-exclusion-v1',
+    `tarasuf-table-exclusion-v${value.version}`,
     value.revision,
     row.id,
     row.disposition,
@@ -275,7 +296,11 @@ const rowHash = (value: VisualTable, row: TableRow) =>
     row.cells,
   ]);
 const coverageHash = (value: VisualTable) =>
-  hash(['tarasuf-table-coverage-v1', value.revision, value.rows]);
+  hash([
+    `tarasuf-table-coverage-v${value.version}`,
+    value.revision,
+    value.rows,
+  ]);
 export async function confirmVisualTableExclusion(
   value: VisualTable,
   index: number,
@@ -387,7 +412,7 @@ export async function restoreVisualTable(
       'coverage',
     ]) ||
     p.kind !== 'visual-table' ||
-    p.version !== 1 ||
+    ![1, 2].includes(p.version as number) ||
     p.status !== 'table-evidence-only' ||
     !dense(p.rows, VISUAL_TABLE_LIMITS.rows)
   )
@@ -396,7 +421,11 @@ export async function restoreVisualTable(
     new TextEncoder().encode(JSON.stringify(p.image)),
   );
   let current = await createVisualTable(image, p.grid as TableGrid);
-  if (p.revision !== current.revision || p.rows.length !== current.rows.length)
+  if (
+    p.version !== current.version ||
+    p.revision !== current.revision ||
+    p.rows.length !== current.rows.length
+  )
     return reject();
   for (const [i, raw] of p.rows.entries()) {
     if (

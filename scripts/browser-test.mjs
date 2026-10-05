@@ -5,6 +5,7 @@ import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
 import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyVisualRegions } from './visual-region-browser-cases.mjs';
 import { verifyVisualTable } from './visual-table-browser-cases.mjs';
+import { verifyVisualSplit } from './visual-split-browser-cases.mjs';
 import { verifyVisualAccounting } from './visual-accounting-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import { verifyLanguages } from './language-browser-cases.mjs';
@@ -1841,6 +1842,10 @@ try {
   );
   await verifyVisualAccounting(
     await activeScenarioPage(context, 'reviewed image accounting source'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyVisualSplit(
+    await activeScenarioPage(context, 'split reviewed image'),
     `${origin}/mizan-test/`,
   );
   await verifyLanguages(

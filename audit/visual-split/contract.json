@@ -1,0 +1,19 @@
+{
+  "classification":"known synthetic development; explicitly reviewed pixels, not holdout, training or automatic OCR",
+  "context":{"side":"supplier","supplier":"Synthetic Split Supplier","entity":"Synthetic Entity","account":"","currency":"SAR","decimals":2,"periodStart":"2026-07-01","cutoff":"2026-07-31","multiplier":1,"numberFormat":"dot","dateFormat":"ymd"},
+  "headers":{"en":["Reference","Date","Debit","Credit","Balance"],"ar":["المرجع","التاريخ","مدين","دائن","الرصيد"]},
+  "roles":["reference","date","debit","credit","balance"],
+  "rows":[
+    ["INV-100","2026-07-01","1000.00","0.00","1000.00"],
+    ["PAY-200","2026-07-02","0.00","250.00","750.00"],
+    ["CN-300","2026-07-03","0.00","125.00","625.00"],
+    ["BOTH-400","2026-07-04","120.00","40.00","705.00"],
+    ["NEG-500","2026-07-05","-90.00","0.00","615.00"],
+    ["MISS-600","2026-07-06","0.00",null,"565.00"],
+    ["Total","","1030.00","415.00","565.00"]
+  ],
+  "ledger":[["Reference","Date","Amount","Currency"],["INV-100","2026-07-01","1000.00","SAR"],["PAY-200","2026-07-02","-250.00","SAR"],["CN-300","2026-07-03","-125.00","SAR"],["BOTH-400","2026-07-04","80.00","SAR"],["NEG-500","2026-07-05","-90.00","SAR"],["MISS-600","2026-07-06","-50.00","SAR"]],
+  "required":{"matches":3,"references":["INV-100","PAY-200","CN-300"],"amountMinor":[100000,-25000,-12500],"errors":[5,6,7],"excluded":[8],"supplierTotalMinor":62500,"imageRows":7,"fullBalanceReconciliation":false,"missingIsNotZero":true},
+  "grid":{"region":{"x0":70,"y0":220,"x1":1330,"y1":780},"rowCuts":[220,300,380,460,540,620,700,780],"columnCuts":[70,370,650,870,1090,1330]},
+  "headerY":[165,210],"currencyRegion":{"x0":1110,"y0":80,"x1":1200,"y1":120}
+}

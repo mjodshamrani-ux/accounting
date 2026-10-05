@@ -41,6 +41,11 @@ jobs:
           node --experimental-strip-types audit/visual-accounting/export_fixture.mjs
           python3 audit/visual-accounting/check_record.py work/visual-accounting/statement.tarasuf-reviewed.json audit/visual-table/fixtures/statement.png
           python3 audit/visual-accounting/check_export.py work/visual-accounting/direct.xlsx work/visual-accounting/restored.xlsx
+      - name: Independently verify bilingual reviewed debit-credit sources and partial workpapers
+        run: |
+          python3 -m unittest discover -s audit/visual-split -p 'test_*.py' -v
+          node --experimental-strip-types audit/visual-split/export-fixture.mjs
+          python3 audit/visual-split/check_export.py work/visual-split/en-direct.xlsx work/visual-split/en-restored.xlsx work/visual-split/ar-direct.xlsx work/visual-split/ar-restored.xlsx
       - name: Detect false matches and changed workbook evidence
         run: python3 -m unittest discover -s audit/export-design -p 'test_*.py' -v
       - name: Verify frozen layered-statement source facts and independent export oracle
@@ -88,6 +93,9 @@ jobs:
         run: |
           python3 audit/visual-accounting/check_record.py work/qa/p6-accounting-source.json work/qa/p6-accounting-source.png
           python3 audit/visual-accounting/check_export.py work/qa/p6-accounting-ar.xlsx work/qa/p6-accounting-en.xlsx work/qa/p6-accounting-restored.xlsx
+      - name: Independently verify split-image UI transfer, both languages and replay
+        run: |
+          python3 audit/visual-split/check_export.py work/qa/p6-split-en-ar.xlsx work/qa/p6-split-en-en.xlsx work/qa/p6-split-en-restored.xlsx work/qa/p6-split-ar-ar.xlsx work/qa/p6-split-ar-en.xlsx work/qa/p6-split-ar-restored.xlsx
       - name: Preserve visual review evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

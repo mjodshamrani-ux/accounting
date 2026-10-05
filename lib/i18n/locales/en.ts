@@ -231,6 +231,8 @@ export const en: Messages = {
       amount: 'Transaction amount',
       balance: 'Balance',
       currency: 'Currency',
+      debit: 'Debit',
+      credit: 'Credit',
     },
     row: (n: number) => `Row ${n}`,
     disposition: 'Row type',
@@ -274,9 +276,14 @@ export const en: Messages = {
   },
   visualAccounting: {
     title: 'Use the table for transaction comparison',
-    intro: 'An experimental path for one PNG with manually reviewed values and rows. Each value is checked again; unreadable cells remain for review.',
-    exclusionHint: 'An exclusion note does not prove a total row. Review its printed label in a crop and assign it to that row’s reference cell. Unproven exclusions remain for review.',
-    headerHint: 'Review separate header crops above the table using the reference role, and the currency code using the currency role. Choosing a column name alone is not source evidence.',
+    intro:
+      'An experimental path for one PNG with manually reviewed values and rows. Each value is checked again; unreadable cells remain for review.',
+    splitHint:
+      'Review debit and credit as printed. A printed zero is a value; a blank or unreadable cell stays for review and is never inferred as zero.',
+    exclusionHint:
+      'An exclusion note does not prove a total row. Review its printed label in a crop and assign it to that row’s reference cell. Unproven exclusions remain for review.',
+    headerHint:
+      'Review separate header crops above the table using the reference role, and the currency code using the currency role. Choosing a column name alone is not source evidence.',
     header: (role: string) => `${role} header evidence`,
     chooseHeader: 'Choose a reviewed source crop',
     currencyProof: 'Currency code evidence in the image',
@@ -294,12 +301,16 @@ export const en: Messages = {
     numberFormat: 'Image amount separators',
     dateFormat: 'Image date order',
     choose: 'Choose the source interpretation',
-    confirm: 'I checked the column meanings, currency, signs and scope of this image',
+    confirm:
+      'I checked the column meanings, currency, signs and scope of this image',
     use: 'Use reviewed values in comparison',
     busy: 'Verifying the reviewed source',
-    failed: 'The source could not be verified. Check header and currency evidence, period and formats.',
-    limits: 'Up to 200 rows in one table in an opaque PNG. Values and reviews are manual, not verified automatic extraction or a full balance reconciliation.',
-    locked: 'This image interpretation is bound to its review. Return to the image and create a new reviewed source to change it.',
+    failed:
+      'The source could not be verified. Check header and currency evidence, period and formats.',
+    limits:
+      'Up to 200 rows in one table in an opaque PNG. Values and reviews are manual, not verified automatic extraction or a full balance reconciliation.',
+    locked:
+      'This image interpretation is bound to its review. Return to the image and create a new reviewed source to change it.',
     loaded: 'Manually reviewed image source',
     details: 'Reviewed values and source evidence',
   },

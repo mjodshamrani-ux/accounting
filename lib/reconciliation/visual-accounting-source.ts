@@ -29,7 +29,7 @@ export type VisualAccountingContext = Readonly<{
 }>;
 export type VisualAccountingRecord = Readonly<{
   kind: 'reviewed-visual-source';
-  version: 1;
+  version: 1 | 2;
   basis: 'human-reviewed-transactions';
   table: VisualTable;
   headers: readonly string[];
@@ -127,6 +127,8 @@ const headerPatterns: Record<TableRole, RegExp> = {
   date: /^(?:date|transaction date|posting date|invoice date|document date|التاريخ|تاريخ الحركة|تاريخ المستند|تاريخ القيد)$/i,
   amount:
     /^(?:amount|movement(?: amount)?|transaction amount|المبلغ|مبلغ الحركة)$/i,
+  debit: /^(?:debit(?: amount)?|مدين|المدين)$/i,
+  credit: /^(?:credit(?: amount)?|دائن|الدائن)$/i,
   balance: /^(?:balance|running balance|الرصيد|الرصيد الجاري)$/i,
   currency: /^(?:currency|currency code|العملة|رمز العملة)$/i,
 };
@@ -172,8 +174,13 @@ function headersCopy(table: VisualTable, headers: readonly string[]) {
   )
     return fail();
   if (
-    !['reference', 'date', 'amount'].every((r) =>
+    !['reference', 'date'].every((r) =>
       table.grid.roles.includes(r as TableRole),
+    ) ||
+    !(
+      table.grid.roles.includes('amount') ||
+      (table.grid.roles.includes('debit') &&
+        table.grid.roles.includes('credit'))
     )
   )
     return fail();
@@ -202,7 +209,7 @@ const fingerprint = (
 ) =>
   digest(
     encode([
-      'tarasuf-reviewed-visual-source-v1',
+      `tarasuf-reviewed-visual-source-v${table.version}`,
       table,
       headers,
       currencyProof,
@@ -239,7 +246,7 @@ export async function createVisualAccountingRecord(
   // table is immutable and context/headers were copied before awaiting crypto.
   return freeze({
     kind: 'reviewed-visual-source',
-    version: 1,
+    version: table.version,
     basis: 'human-reviewed-transactions',
     table,
     headers: selected,
@@ -274,13 +281,14 @@ export async function restoreVisualAccountingRecord(
       'review',
     ]) ||
     p.kind !== 'reviewed-visual-source' ||
-    p.version !== 1 ||
+    ![1, 2].includes(p.version as number) ||
     p.basis !== 'human-reviewed-transactions' ||
     !shape(p.review, ['fingerprint', 'checkedAt']) ||
     !time(p.review.checkedAt)
   )
     return fail();
   const table = await restoreVisualTable(encode(p.table));
+  if (p.version !== table.version) fail();
   const fresh = await createVisualAccountingRecord(
     table,
     p.headers as string[],
@@ -325,10 +333,12 @@ export function visualAccountingMapping(file: SourceFile): Mapping {
     date: table.grid.roles.indexOf('date'),
     reference: table.grid.roles.indexOf('reference'),
     amount: table.grid.roles.indexOf('amount'),
+    debit: table.grid.roles.indexOf('debit'),
+    credit: table.grid.roles.indexOf('credit'),
     currencyColumn: table.grid.roles.indexOf('currency'),
     description: -1,
     reportType: 'transactions' as const,
-    mode: 'signed' as const,
+    mode: (table.version === 2 ? 'split' : 'signed') as Mapping['mode'],
     multiplier: c.multiplier,
     numberFormat: c.numberFormat,
     dateFormat: c.dateFormat,
@@ -431,7 +441,7 @@ export async function readVisualAccountingSource(
         if (role === 'balance' && values[col] === '') return;
         if (role === 'reference') return; // blank reference can only need review, never proof
         try {
-          if (role === 'amount' || role === 'balance')
+          if (['amount', 'debit', 'credit', 'balance'].includes(role))
             parseMoney(values[col], c.numberFormat, c.decimals);
           else if (role === 'date') parseDate(values[col], c.dateFormat);
           else if (role === 'currency' && values[col] !== c.currency)
@@ -445,15 +455,14 @@ export async function readVisualAccountingSource(
           // A value valid under a different locale MUST participate in the
           // shared format intersection. Marking it unsafe here would hide a
           // contradiction and manufacture a plausible partial interpretation.
-          const alternatives =
-            role === 'amount'
-              ? ['dot', 'comma']
-              : role === 'date'
-                ? ['ymd', 'dmy', 'mdy']
-                : [];
+          const alternatives = ['amount', 'debit', 'credit'].includes(role)
+            ? ['dot', 'comma']
+            : role === 'date'
+              ? ['ymd', 'dmy', 'mdy']
+              : [];
           const readable = alternatives.some((format) => {
             try {
-              if (role === 'amount')
+              if (['amount', 'debit', 'credit'].includes(role))
                 parseMoney(
                   values[col],
                   format as Mapping['numberFormat'],
@@ -553,7 +562,8 @@ export function visualNonMovementProven(
       values.forEach((value, column) => {
         if (!value.trim() || column === mapping.reference) return;
         const role = table.grid.roles[column];
-        if (role !== 'amount' && role !== 'balance') throw Error('identity');
+        if (!['amount', 'debit', 'credit', 'balance'].includes(role))
+          throw Error('identity');
         parseMoney(
           value,
           file.visual!.context.numberFormat,
