@@ -233,7 +233,7 @@ jobs:
           MUTATION_SHARD: ${{ matrix.shard }}/6
         run: pnpm test:mutations
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs: [build, mutations]
     permissions:
       pages: write
