@@ -21,10 +21,12 @@ import {
 export function VisualReviewEffort({
   sourceSha256,
   disabled,
+  active = true,
   children,
 }: {
   sourceSha256: string;
   disabled: boolean;
+  active?: boolean;
   children: ReactNode;
 }) {
   const { t } = useI18n(),
@@ -71,12 +73,16 @@ export function VisualReviewEffort({
     };
   }, [emit]);
   useEffect(() => {
+    if (!active) emit({ type: 'pause', reason: 'hidden' });
+  }, [active, emit]);
+  useEffect(() => {
     if (disabled) emit({ type: 'pause', reason: 'processing' });
   }, [disabled, emit]);
   useEffect(() => {
     const root = document.getElementById('visual-reader');
     const activity = (event: Event) => {
       if (
+        active &&
         !disabled &&
         event.target instanceof Element &&
         !event.target.closest('[data-review-effort-controls]')
@@ -94,7 +100,7 @@ export function VisualReviewEffort({
       root?.removeEventListener('click', activity, true);
       root?.removeEventListener('input', activity, true);
     };
-  }, [disabled, emit]);
+  }, [active, disabled, emit]);
   const state = record ? summarizeReviewEffort(record) : null;
   const lastEvent = record?.events.at(-1);
   const totals =

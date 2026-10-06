@@ -8,6 +8,7 @@ import { WORKER_CHANNEL, isRequest } from './protocol.ts';
 import { ImportDiagnosticError } from './import-diagnostics.ts';
 import { isInputReadinessRejection } from './input-readiness.ts';
 import { replayReviewedVisualSource } from './visual-accounting-source.ts';
+import { replayClearing, saveClearing, restoreClearing, exportClearing } from './clearing-io.ts';
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
@@ -24,6 +25,10 @@ self.onmessage = async (event: MessageEvent) => {
   try {
     let value: unknown;
     if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
+    else if(action === 'clearing-reconcile') value=await replayClearing(payload);
+    else if(action === 'clearing-save') value=await saveClearing(payload);
+    else if(action === 'clearing-restore') value=await restoreClearing(payload.buffer);
+    else if(action === 'clearing-export') value=await exportClearing(payload.state,payload.result);
     else if (action === 'save-session') {
       payload.files = [await replayReviewedVisualSource(payload.files[0]), await replayReviewedVisualSource(payload.files[1])];
       value = await saveSession(payload);

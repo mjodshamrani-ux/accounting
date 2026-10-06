@@ -14,6 +14,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = resolve(import.meta.dirname, '..');
 const tests = [
+  'tests/clearing.test.ts',
   'tests/explanation-evidence.test.ts',
   'tests/unknown-credit-role.test.ts',
   'tests/related-invoice-roles.test.ts',
@@ -71,6 +72,11 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+  {name:'clearing-ignore-reference-role',file:'lib/reconciliation/clearing.ts',changes:[['referenceRole &&','true &&']]},
+  {name:'clearing-ignore-source-errors',file:'lib/reconciliation/clearing.ts',changes:[['!errors &&','true &&']]},
+  {name:'clearing-accept-nonzero-group',file:'lib/reconciliation/clearing.ts',changes:[['net === 0 &&','true &&']]},
+  {name:'clearing-accept-stale-export',file:'lib/reconciliation/clearing-io.ts',changes:[['if (JSON.stringify(result) !== JSON.stringify(expected))','if (false)']]},
+  {name:'clearing-manual-partial-bucket',file:'lib/reconciliation/clearing.ts',changes:[["if (intersecting.some((c) => c.ids.some((id) => !selectedIds.has(id))))","if (false)"]]},
   {name:'p6-effort-include-paused-time',file:'lib/review-effort.ts',changes:[['if (paused) pausedMs[paused] += duration;', 'if (paused) firstMs[stage] += duration;']]},
   {name:'p6-effort-lose-rework-time',file:'lib/review-effort.ts',changes:[['else (rework ? reworkMs : firstMs)[stage] += duration;', 'else firstMs[stage] += duration;']]},
   {name:'p6-effort-ignore-idle-deadline',file:'lib/review-effort.ts',changes:[['if (!state.paused && atMs >= deadline)', 'if (false)']]},

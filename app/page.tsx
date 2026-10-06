@@ -1,4 +1,5 @@
 import { headerLabels } from '@/lib/reconciliation/header-view';
+import { ClearingWorkspace } from '@/components/clearing-workspace';
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
 import { visualAccountingMapping, VISUAL_SOURCE_INVALID } from '@/lib/reconciliation/visual-accounting-source';
@@ -349,6 +350,7 @@ function ReadingIssueList({
 }
 
 export default function App() {
+  const [domain, setDomain] = useState<'supplier' | 'clearing'>('supplier');
   const { t, dir, say } = useI18n();
   const [auditEvents, setAuditEvents] = useState<AuditEvent[]>([]);
   const [engineReady, setEngineReady] = useState(false);
@@ -1234,7 +1236,8 @@ export default function App() {
     setNotice(null);
   }
   return (
-    <div className={`app-shell ${showLanding ? 'has-landing' : 'in-session'}`}>
+    <><ClearingWorkspace active={domain === 'clearing'} onBack={() => setDomain('supplier')} />
+    <div hidden={domain !== 'supplier'} className={`app-shell ${showLanding ? 'has-landing' : 'in-session'}`}>
       <a className="skip-link" href="#reconciliation">
         {t.app.shell.skipLink}
       </a>
@@ -1292,6 +1295,11 @@ export default function App() {
           </>
         )}
         <div className="workspace" id="reconciliation">
+          <nav aria-label={t.clearing.navigation} style={{paddingBlock: 12}}>
+            <Button variant="outline" disabled={!!busy} onClick={() => setDomain('clearing')}>
+              {t.clearing.entry}
+            </Button>
+          </nav>
           {privacy && (
             <section
               className="surface pad stack"
@@ -1555,6 +1563,7 @@ export default function App() {
                 candidate={visualCandidate}
                 scope={scope}
                 onSource={loadFile}
+                active={domain === 'supplier'}
               />
               <div className="demo-strip">
                 <div>
@@ -2472,7 +2481,7 @@ export default function App() {
           </button>
         )}
       </footer>
-    </div>
+    </div></>
   );
 }
 function Metric({
