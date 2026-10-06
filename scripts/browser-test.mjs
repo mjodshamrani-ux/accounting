@@ -6,6 +6,7 @@ import { verifyVisualReader } from './visual-browser-cases.mjs';
 import { verifyVisualRegions } from './visual-region-browser-cases.mjs';
 import { verifyVisualTable } from './visual-table-browser-cases.mjs';
 import { verifyVisualSplit } from './visual-split-browser-cases.mjs';
+import { verifyReviewEffort } from './review-effort-browser-cases.mjs';
 import { verifyVisualAccounting } from './visual-accounting-browser-cases.mjs';
 import { verifyTemplateLifecycle } from './lifecycle-browser-cases.mjs';
 import { verifyLanguages } from './language-browser-cases.mjs';
@@ -1850,6 +1851,10 @@ try {
   );
   await verifyLanguages(
     await activeScenarioPage(context, 'languages'),
+    `${origin}/mizan-test/`,
+  );
+  await verifyReviewEffort(
+    await activeScenarioPage(context, 'local review effort'),
     `${origin}/mizan-test/`,
   );
   assert.deepEqual(errors, []);

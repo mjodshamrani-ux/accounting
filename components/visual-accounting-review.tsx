@@ -20,11 +20,13 @@ export function VisualAccountingReview({
   scope,
   disabled,
   onSource,
+  onBusy,
 }: {
   table: VisualTable;
   scope: Scope;
   disabled: boolean;
   onSource: VisualSourceTransfer;
+  onBusy?: (busy: boolean) => void;
 }) {
   const { t } = useI18n(),
     v = t.visualAccounting;
@@ -49,6 +51,10 @@ export function VisualAccountingReview({
     [busy, setBusy] = useState(false),
     [error, setError] = useState(false);
   const checked = confirmedTable === table;
+  useEffect(() => {
+    onBusy?.(busy);
+    return () => onBusy?.(false);
+  }, [busy, onBusy]);
   const serial = useRef(0),
     alive = useRef({ active: true });
   useEffect(() => {

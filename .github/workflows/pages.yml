@@ -104,6 +104,18 @@ jobs:
           path: work/qa/p6-*
           if-no-files-found: ignore
           retention-days: 7
+      - name: Independently replay local effort timers (accelerated development cases only)
+        run: |
+          python3 -m unittest discover -s audit/review-effort -p 'test_*.py' -v
+          python3 audit/review-effort/check_record.py --development-oracle work/qa/review-effort-ar.json work/qa/review-effort-en.json
+      - name: Preserve development effort evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: review-effort-development
+          path: work/qa/review-effort-*
+          if-no-files-found: ignore
+          retention-days: 7
       - run: python3 audit/related-invoice/check_export.py work/qa/f03-*.xlsx
       - run: python3 audit/related-invoice/unknown-role/check_export.py work/qa/unknown-*.xlsx
       - run: python3 audit/assistant-evidence/check_export.py work/qa/p5-*.xlsx --browser work/qa/p5-browser.json

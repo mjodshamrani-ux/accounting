@@ -796,6 +796,26 @@ th {
   flex-wrap: wrap;
   align-items: center;
 }
+.visual-review-effort-wrap,
+.visual-review-effort {
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+}
+.visual-review-effort > * {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.visual-review-effort select {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.visual-review-effort [data-slot='button'] {
+  max-width: 100%;
+  white-space: normal;
+  height: auto;
+}
 @media (max-width: 720px) {
   .visual-draft-grid {
     grid-template-columns: 1fr;

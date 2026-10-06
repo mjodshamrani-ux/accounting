@@ -1,0 +1,96 @@
+{
+  "kind": "review-effort",
+  "version": 1,
+  "sourceSha256": "b82fd9c80db47f8b8b5ca0bafbf79ef373e2133cdde245bdff1503b68c4066d0",
+  "sample": "development",
+  "startedAt": "2026-10-05T21:02:10.746Z",
+  "idleAfterMs": 30000,
+  "events": [
+    {
+      "type": "activity",
+      "action": "click",
+      "atMs": 31
+    },
+    {
+      "type": "pause",
+      "reason": "manual",
+      "atMs": 5059
+    },
+    {
+      "type": "resume",
+      "atMs": 10092
+    },
+    {
+      "type": "stage",
+      "stage": "table",
+      "atMs": 10095
+    },
+    {
+      "type": "rework",
+      "enabled": true,
+      "atMs": 10124
+    },
+    {
+      "type": "activity",
+      "action": "click",
+      "atMs": 12158
+    },
+    {
+      "type": "activity",
+      "action": "click",
+      "atMs": 12188
+    },
+    {
+      "type": "activity",
+      "action": "click",
+      "atMs": 12226
+    },
+    {
+      "type": "pause",
+      "reason": "processing",
+      "atMs": 12241
+    },
+    {
+      "type": "resume",
+      "atMs": 14271
+    },
+    {
+      "type": "activity",
+      "action": "change",
+      "atMs": 14274
+    },
+    {
+      "type": "pause",
+      "reason": "idle",
+      "atMs": 44274
+    },
+    {
+      "type": "resume",
+      "atMs": 50127
+    },
+    {
+      "type": "pause",
+      "reason": "hidden",
+      "atMs": 50129
+    },
+    {
+      "type": "resume",
+      "atMs": 60154
+    },
+    {
+      "type": "rework",
+      "enabled": false,
+      "atMs": 60187
+    },
+    {
+      "type": "stage",
+      "stage": "context",
+      "atMs": 60190
+    },
+    {
+      "type": "finish",
+      "reason": "user",
+      "atMs": 61219
+    }
+  ]
+}

@@ -196,12 +196,16 @@ export function VisualTableReview({
   disabled,
   scope,
   onSource,
+  onBusy,
+  onContextBusy,
 }: {
   image: VisualReview;
   initial?: VisualTable | null;
   disabled: boolean;
   scope?: Scope;
   onSource?: VisualSourceTransfer;
+  onBusy?: (busy: boolean) => void;
+  onContextBusy?: (busy: boolean) => void;
 }) {
   const { t } = useI18n(),
     v = t.visualTable,
@@ -219,6 +223,10 @@ export function VisualTableReview({
   );
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(false);
+  useEffect(() => {
+    onBusy?.(busy);
+    return () => onBusy?.(false);
+  }, [busy, onBusy]);
   const operation = useRef(0),
     current = useRef(table);
   useEffect(
@@ -477,6 +485,7 @@ export function VisualTableReview({
               scope={scope}
               disabled={disabled || busy}
               onSource={onSource}
+              onBusy={onContextBusy}
             />
           )}
         </>
