@@ -26,6 +26,11 @@ jobs:
       - run: pnpm audit --prod --audit-level=moderate
       - run: pnpm typecheck
       - run: pnpm test
+      - name: Independently verify native single-account clearing and replay workpapers
+        run: |
+          node --experimental-strip-types audit/clearing/export-fixture.mjs
+          python3 audit/clearing/check_export.py work/clearing/direct.xlsx work/clearing/restored.xlsx
+          python3 -m unittest discover -s audit/clearing -p 'test_*.py' -v
       - name: Verify recorded real local-provider experiment without downloading model weights
         run: python3 -m unittest discover -s audit/local-provider -p 'test_*.py' -v
       - name: Independently verify source pixels and cell review receipts
@@ -83,6 +88,20 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Independently verify human clearing and reopened memberships after UI and session replay
+        run: |
+          python3 audit/clearing/check_export.py --cleared 7 work/qa/clearing-manual.xlsx
+          python3 audit/clearing/check_export.py --cleared 4 work/qa/clearing-reopened.xlsx work/qa/clearing-restored.xlsx
+      - name: Preserve synthetic clearing evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: single-account-clearing
+          path: |
+            work/clearing
+            work/qa/clearing-*
+          if-no-files-found: ignore
+          retention-days: 7
       - name: Independently verify the real OCR browser review record
         run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
       - name: Independently verify the manually selected Arabic crop from real browser OCR
@@ -214,7 +233,7 @@ jobs:
           MUTATION_SHARD: ${{ matrix.shard }}/6
         run: pnpm test:mutations
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs: [build, mutations]
     permissions:
       pages: write

@@ -1,4 +1,5 @@
 import { verifyAssistantEvidence } from './assistant-evidence-browser-cases.mjs';
+import { verifyClearing } from './clearing-browser-cases.mjs';
 import { verifyUnknownCreditRoles } from './unknown-credit-browser-cases.mjs';
 import { chromium } from 'playwright';
 import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
@@ -1857,6 +1858,8 @@ try {
     await activeScenarioPage(context, 'local review effort'),
     `${origin}/mizan-test/`,
   );
+  await verifyClearing(await activeScenarioPage(context, 'single-account clearing'), `${origin}/mizan-test/`);
+
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);

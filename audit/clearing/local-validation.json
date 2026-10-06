@@ -1,0 +1,39 @@
+{
+  "observedAtUtc": "2026-10-06T14:27:48.833440+00:00",
+  "base": "b7e3ecda5831495134f81e13b5d839fd76996f62",
+  "branch": "codex/multi-reconciliation-clearing",
+  "sample": "synthetic-development-not-field",
+  "tests": {
+    "unit": {
+      "pass": 1116,
+      "fail": 0,
+      "skipped": 0
+    },
+    "clearingContracts": 14,
+    "independentCheckerTests": 6,
+    "newMutationsDetected": 5,
+    "mutationCatalogSize": 142,
+    "fullBrowser": "passed including domain timer pause",
+    "types": "passed",
+    "scopedLint": "passed",
+    "buildAndHardening": "passed",
+    "independentExports": 5
+  },
+  "fullMutationCatalog": "CI pending",
+  "review": "independent architecture review pending",
+  "published": false,
+  "sourceSha256": "c38e74110b0e5b92b900aa9f06ff5e15381cdafbc217b8b1f7b4779160797f46",
+  "failuresPreserved": [
+    "work/clearing/full-tests.log",
+    "work/clearing/full-browser.log",
+    "work/clearing/domain-timer-browser.log"
+  ],
+  "finalLogs": [
+    "work/clearing/full-tests-release.log",
+    "work/clearing/full-browser-release.log",
+    "work/clearing/domain-timer-browser-final.log",
+    "work/clearing/mutations.log",
+    "work/clearing/checker.log"
+  ],
+  "remaining": "AR, GL/TB, allocation, bank and other domains; P5 semantic model quality and field gates remain open."
+}

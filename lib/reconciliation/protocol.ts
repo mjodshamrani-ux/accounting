@@ -14,6 +14,10 @@ export const WORKER_ACTIONS = [
   'compare',
   'normalize',
   'export',
+  'clearing-reconcile',
+  'clearing-save',
+  'clearing-restore',
+  'clearing-export',
 ] as const;
 export type WorkerAction = (typeof WORKER_ACTIONS)[number];
 export const isRecord = (value: unknown): value is Record<string, unknown> =>
