@@ -72,6 +72,16 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+  {
+    name: 'clearing-hide-uncached-formulas-as-blank',
+    file: 'lib/reconciliation/clearing.ts',
+    changes: [
+      [
+        '    try {\n      if (',
+        "    if (!values.some((v) => v.trim())) { inventory.push({ row, kind: 'blank', values }); continue; }\n    try {\n      if (",
+      ],
+    ],
+  },
   {name:'clearing-ignore-reference-role',file:'lib/reconciliation/clearing.ts',changes:[['referenceRole &&','true &&']]},
   {name:'clearing-ignore-source-errors',file:'lib/reconciliation/clearing.ts',changes:[['!errors &&','true &&']]},
   {name:'clearing-accept-nonzero-group',file:'lib/reconciliation/clearing.ts',changes:[['net === 0 &&','true &&']]},

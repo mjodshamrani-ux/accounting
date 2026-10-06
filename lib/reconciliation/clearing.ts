@@ -230,10 +230,6 @@ export function reconcileClearing(input: ClearingInput): ClearingResult {
       inventory.push({ row, kind: 'header', values });
       continue;
     }
-    if (!values.some((v) => v.trim())) {
-      inventory.push({ row, kind: 'blank', values });
-      continue;
-    }
     try {
       if (
         sheet.hiddenRows.includes(row) ||
@@ -247,6 +243,11 @@ export function reconcileClearing(input: ClearingInput): ClearingResult {
         )
       )
         refuse('CELL');
+      // Unreadable cells can have empty display values; validate evidence before blank classification.
+      if (!values.some((v) => v.trim())) {
+        inventory.push({ row, kind: 'blank', values });
+        continue;
+      }
       const cell = (column: number) => values[column] ?? '';
       const posting = cleanId(cell(r.posting));
       const reference = cleanId(cell(r.reference));

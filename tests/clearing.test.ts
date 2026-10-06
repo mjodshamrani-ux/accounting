@@ -342,6 +342,60 @@ void test('XLSX selected-cell formulas/hidden rows fail visibly while ordinary n
     0,
   );
 });
+void test('uncached XLSX formulas cannot disappear as blank rows through replay, session or Excel export', async () => {
+  const csv = await fixture();
+  const book = new ExcelJS.Workbook();
+  const sheet = book.addWorksheet('Clearing');
+  sheet.addRows(csv.file.sheets[0].rows);
+  const row = sheet.addRow([]);
+  const formulas = [
+    '"P011"',
+    '"C001"',
+    '"2026-09-15"',
+    '-10',
+    '"2150"',
+    '"SAR"',
+  ];
+  formulas.forEach((formula, index) => {
+    row.getCell(index + 1).value = { formula };
+  });
+  sheet.getCell('H12').value = { formula: '1+1' }; // Unselected helper remains allowed.
+  const bytes = await book.xlsx.writeBuffer();
+  const file = await readFile(
+    'clearing.xlsx',
+    new Uint8Array(bytes as unknown as Uint8Array).buffer,
+  );
+  assert.ok(file.sheets[0].rows[10].every((value) => value === ''));
+  assert.ok(file.sheets[0].formulaCells?.['11:1']);
+  const input = { ...csv, file };
+  const result = (await replayClearing(input)).result;
+  assert.equal(
+    result.inventory.find((entry) => entry.row === 11)?.kind,
+    'error',
+  );
+  assert.equal(
+    result.cases.filter((entry) => entry.status === 'cleared').length,
+    0,
+  );
+  assert.equal(
+    result.inventory.filter((entry) => entry.kind === 'error').length,
+    1,
+  );
+  assert.equal(
+    result.inventory.find((entry) => entry.row === 12)?.kind,
+    'blank',
+  );
+  const blockedDecision = { ...input, events: [event(input, 'clear', [7, 8])] };
+  await assert.rejects(() => replayClearing(blockedDecision), /DECISION/);
+  await assert.rejects(() => saveClearing(blockedDecision), /DECISION/);
+  const restored = await restoreClearing(await saveClearing(input));
+  assert.deepEqual(restored.result, result);
+  const exported = new ExcelJS.Workbook();
+  await exported.xlsx.load(await exportClearing(input, result));
+  const inventory = exported.getWorksheet('Source inventory')!;
+  assert.equal(inventory.getRow(12).getCell(2).value, 'error');
+  assert.equal(inventory.getRow(13).getCell(2).value, 'blank');
+});
 void test('original text including formula-looking description is exported as text, with every row and member preserved', async () => {
   const input = await fixture(); // change native bytes, not the parsed cache
   const raw = new TextDecoder()
