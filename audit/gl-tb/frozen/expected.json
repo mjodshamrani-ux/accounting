@@ -1,0 +1,348 @@
+{
+  "sample": "synthetic-development-not-field",
+  "sourceFamily": "gl-tb-canonical-1",
+  "scope": {
+    "entity": "Synthetic Entity",
+    "ledger": "Primary Book",
+    "account": "1100",
+    "dimensions": "CostCentre=CC01|Department=D01",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "Current",
+    "start": "2026-09-01",
+    "end": "2026-09-30"
+  },
+  "amountFields": [
+    "openingDebit",
+    "openingCredit",
+    "periodDebit",
+    "periodCredit",
+    "closingDebit",
+    "closingCredit"
+  ],
+  "cases": [
+    {
+      "name": "positive",
+      "status": "consistent",
+      "files": [
+        {
+          "file": "positive-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "positive-tb.csv",
+          "sha256": "15dbc39ecfdc47aac8089c748689c591e43dedf2e762c54babe8c296a8e297f0",
+          "rows": 2
+        }
+      ],
+      "glAmounts": [
+        100000,
+        0,
+        30000,
+        10000,
+        120000,
+        0
+      ],
+      "tbAmounts": [
+        100000,
+        0,
+        30000,
+        10000,
+        120000,
+        0
+      ],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "same-net-different-turnover",
+      "status": "difference",
+      "files": [
+        {
+          "file": "same-net-different-turnover-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "same-net-different-turnover-tb.csv",
+          "sha256": "ac74f266a376051333c43b2462d22f15401cf48612cac58782c724fbe5e8e80b",
+          "rows": 2
+        }
+      ],
+      "differences": [
+        0,
+        0,
+        -5000,
+        -5000,
+        0,
+        0
+      ],
+      "glBridge": 0,
+      "tbBridge": 0
+    },
+    {
+      "name": "tb-bridge-broken",
+      "status": "inconsistent",
+      "files": [
+        {
+          "file": "tb-bridge-broken-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "tb-bridge-broken-tb.csv",
+          "sha256": "5bd6d88310c94b77ceaba3d9c1c766f39b75054ec87730d1855563d02fc32d78",
+          "rows": 2
+        }
+      ],
+      "glBridge": 0,
+      "tbBridge": 10000
+    },
+    {
+      "name": "gl-bridge-broken",
+      "status": "inconsistent",
+      "files": [
+        {
+          "file": "gl-bridge-broken-gl.csv",
+          "sha256": "354dc2fb1c6fad32514c10b28bcc56a19a0980282a8a3da2d67b9cfb61361914",
+          "rows": 5
+        },
+        {
+          "file": "gl-bridge-broken-tb.csv",
+          "sha256": "15dbc39ecfdc47aac8089c748689c591e43dedf2e762c54babe8c296a8e297f0",
+          "rows": 2
+        }
+      ],
+      "glBridge": 10000,
+      "tbBridge": 0
+    },
+    {
+      "name": "zero-activity",
+      "status": "consistent",
+      "files": [
+        {
+          "file": "zero-activity-gl.csv",
+          "sha256": "125f4ff526afb23063565e667d5d9d1c4e3b18a928998ca9ec8746e3221a2f29",
+          "rows": 3
+        },
+        {
+          "file": "zero-activity-tb.csv",
+          "sha256": "f26be0dbe6883674837d20848fa056155d8e8fe6f3907aa8664e045c1a4e4ce4",
+          "rows": 2
+        }
+      ],
+      "glAmounts": [
+        100000,
+        0,
+        0,
+        0,
+        100000,
+        0
+      ],
+      "tbAmounts": [
+        100000,
+        0,
+        0,
+        0,
+        100000,
+        0
+      ],
+      "glBridge": 0,
+      "tbBridge": 0,
+      "differences": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "missing-tb",
+      "status": "missing",
+      "files": [
+        {
+          "file": "missing-tb-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "missing-tb-tb.csv",
+          "sha256": "1580f0fcc05a9c41becac56fb12832f4f6b7ee8aca1a59c3a598666de2b1b4db",
+          "rows": 1
+        }
+      ]
+    },
+    {
+      "name": "missing-gl-opening",
+      "status": "missing",
+      "files": [
+        {
+          "file": "missing-gl-opening-gl.csv",
+          "sha256": "da486a3c56bbfd7337444e8c3fdb7e0a887000a4d270b8cd17f91f419bd6e969",
+          "rows": 4
+        },
+        {
+          "file": "missing-gl-opening-tb.csv",
+          "sha256": "15dbc39ecfdc47aac8089c748689c591e43dedf2e762c54babe8c296a8e297f0",
+          "rows": 2
+        }
+      ]
+    },
+    {
+      "name": "duplicate-balance-scope",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "duplicate-balance-scope-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "duplicate-balance-scope-tb.csv",
+          "sha256": "683fe50ada87a9edc4f0d758199f1186ca38bad80f2373df340665ebacdb2528",
+          "rows": 3
+        }
+      ]
+    },
+    {
+      "name": "dimensions-mismatch",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "dimensions-mismatch-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "dimensions-mismatch-tb.csv",
+          "sha256": "8ff00cd6762d25e6f016de8a7ee278ba5130f6019a2855c5bb40ebbc99064052",
+          "rows": 2
+        }
+      ]
+    },
+    {
+      "name": "period-mismatch",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "period-mismatch-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "period-mismatch-tb.csv",
+          "sha256": "0b5f29089e085c59a8f3da8b1e6c3b2543322f274fa5840e25d4b6b14135c9e3",
+          "rows": 2
+        }
+      ]
+    },
+    {
+      "name": "currency-mismatch",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "currency-mismatch-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "currency-mismatch-tb.csv",
+          "sha256": "a0e5c225b96a90253f6c29029b7757ec7c0770709d8865b93cf2e4a0e210c778",
+          "rows": 2
+        }
+      ]
+    },
+    {
+      "name": "currency-basis-mismatch",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "currency-basis-mismatch-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "currency-basis-mismatch-tb.csv",
+          "sha256": "2f5165c7dd36ed8f6aa29d3234cc1a36d96566c23b4b5613ae67c7405ebab9f1",
+          "rows": 2
+        }
+      ]
+    },
+    {
+      "name": "posting-layer-mismatch",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "posting-layer-mismatch-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "posting-layer-mismatch-tb.csv",
+          "sha256": "0d3442cddaf91d277477643251adc8438a28117d91b60f1e4496143e4fb6eead",
+          "rows": 2
+        }
+      ]
+    },
+    {
+      "name": "unposted-movement",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "unposted-movement-gl.csv",
+          "sha256": "380321b6759e62b788e2688ffc788866ffab14ed35079c270af437a5cf63c025",
+          "rows": 5
+        },
+        {
+          "file": "unposted-movement-tb.csv",
+          "sha256": "15dbc39ecfdc47aac8089c748689c591e43dedf2e762c54babe8c296a8e297f0",
+          "rows": 2
+        }
+      ]
+    },
+    {
+      "name": "other-account-is-visible",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "other-account-is-visible-gl.csv",
+          "sha256": "51812d071db9c0f79092b421b98bf5815b2ba83c8e43e4f7979e8cba5b5d9e74",
+          "rows": 5
+        },
+        {
+          "file": "other-account-is-visible-tb.csv",
+          "sha256": "4ee5c46e73d9b0663a6fbfe2ae991737fd17573138fe15e151a23d46a39d4bf5",
+          "rows": 3
+        }
+      ]
+    },
+    {
+      "name": "blank-is-not-zero",
+      "status": "source-error",
+      "files": [
+        {
+          "file": "blank-is-not-zero-gl.csv",
+          "sha256": "a35b24b2ee6fdd92f3ad17fce5dd5c464302cd5ebd73621911106a8c54044276",
+          "rows": 5
+        },
+        {
+          "file": "blank-is-not-zero-tb.csv",
+          "sha256": "15dbc39ecfdc47aac8089c748689c591e43dedf2e762c54babe8c296a8e297f0",
+          "rows": 2
+        }
+      ]
+    }
+  ]
+}

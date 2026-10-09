@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import type { SourceFile } from '../lib/reconciliation/types';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -15,6 +15,23 @@ function parseCuts(text: string): number[] | null {
   const values = parts.map(Number);
   if (values.some((value) => !Number.isFinite(value))) return null;
   return values;
+}
+
+class OriginalPdfUrl {
+  private value = '';
+  constructor(private original: ArrayBuffer) {}
+  getSnapshot = () => this.value;
+  subscribe = (notify: () => void) => {
+    const value = URL.createObjectURL(
+      new Blob([this.original], { type: 'application/pdf' }),
+    );
+    this.value = value;
+    notify();
+    return () => {
+      if (this.value === value) this.value = '';
+      URL.revokeObjectURL(value);
+    };
+  };
 }
 
 export function PdfReview({
@@ -40,21 +57,28 @@ export function PdfReview({
   const [pageDraft, setPageDraft] = useState('1');
   const [offset, setOffset] = useState(0);
   const [open, setOpen] = useState(false);
-  useEffect(() => {
+  const [reading, setReading] = useState({ file, page, header });
+  if (reading.file !== file) {
+    setReading({ file, page: 1, header });
     setPage(1);
+    setPageDraft('1');
+    setOffset(0);
     setOpen(false);
-  }, [file]);
-  useEffect(() => setOffset(0), [page, file, header]);
-  useEffect(() => setPageDraft(String(page)), [page, file]);
-  useEffect(() => setCuts(format(file.pdf!.cuts)), [file]);
-  const [url, setUrl] = useState('');
-  useEffect(() => {
-    const u = URL.createObjectURL(
-      new Blob([file.original!], { type: 'application/pdf' }),
-    );
-    setUrl(u);
-    return () => URL.revokeObjectURL(u);
-  }, [file.original]);
+    setCuts(format(applied));
+  } else if (reading.page !== page || reading.header !== header) {
+    setReading({ file, page, header });
+    setOffset(0);
+    if (reading.page !== page) setPageDraft(String(page));
+  }
+  const originalUrl = useMemo(
+    () => new OriginalPdfUrl(file.original!),
+    [file.original],
+  );
+  const url = useSyncExternalStore(
+    originalUrl.subscribe,
+    originalUrl.getSnapshot,
+    () => '',
+  );
   const sheet = file.sheets[0];
   const rowsByPage = useMemo(() => {
     const pages = new Map<number, { row: string[]; rn: number }[]>();

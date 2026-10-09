@@ -1,0 +1,37 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_DOT_ADDENDUM_V1",
+  "status": "independent-precode-addendum-not-implementation-accepted",
+  "originalDraftManifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+  "originalFreezeSha256": "1b9612a623e3055fe6fa369eb4b7b175da67ab04e07f0895e42b112fb251c7c4",
+  "productImports": false,
+  "expectedFromProduct": false,
+  "nativeExtractionAcceptanceIsSeparate": true,
+  "implementationAccepted": false,
+  "scope": "only explicit original dot review and new-source rebound numberFormat choice for the existing finite qualified-currency family",
+  "ambiguousMandatoryPositiveIds": [
+    "kwd-on-page",
+    "kwd-cross-page",
+    "kwd-own-reference"
+  ],
+  "otherSixMandatoryPositiveIds": [
+    "sar-on-page",
+    "sar-cross-page",
+    "sar-own-reference",
+    "jpy-on-page",
+    "jpy-cross-page",
+    "jpy-own-reference"
+  ],
+  "manualTruth": "manual-number-format-truth.json",
+  "actions": "actions-addendum.json",
+  "counts": {
+    "reviewedAmbiguousPositives": 3,
+    "unchangedOtherPositives": 6,
+    "additionalRefusalActions": 27
+  },
+  "financialApproval": false,
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

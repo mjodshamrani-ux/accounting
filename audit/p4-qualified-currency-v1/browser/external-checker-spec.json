@@ -1,0 +1,46 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_EXTERNAL_CHECKER_DRAFT_V1",
+  "productImports": false,
+  "expectedFromProduct": false,
+  "productSidecarImportApi": false,
+  "financialAuthority": false,
+  "mandatoryCoverage": {
+    "positiveCases": 18,
+    "targetedRefusalCases": 12,
+    "identityUniqueness": true,
+    "emptyReportAccepted": false,
+    "partialReportAccepted": false
+  },
+  "expectedInputs": "byte-exact frozen manual expected JSON, original PDFs, CSVs, format truth and boundary clarification pinned by source-pins.json",
+  "strictComparisons": [
+    "CSV bytes/UTF-8 rows/quoted descriptions/leading-zero references/signed literals",
+    "original PDF bytes and SHA256",
+    "all inventory coordinates/pages/empty cells/literals",
+    "all original-to-derived links and original explicit reference citations",
+    "exactly one currencyContext with unchanged finite precision policy and precisionOrigin",
+    "every qualified header currency evidence item including repeated page2 header",
+    "live declared original extraction hash/revision agreement across observations and sidecar",
+    "KWD explicit original dot acknowledgement and full original formatChoice",
+    "KWD derived formatChoice fresh CSV SHA256, fresh reconstruction candidate set, empty CSV cuts",
+    "false financialApproval/scopeConfirmed and no comparison/match publication"
+  ],
+  "disposableTamperCopiesRequired": [
+    "currency code",
+    "policy exponent",
+    "missing/extra/duplicate context",
+    "missing/extra/duplicate header evidence",
+    "currency source hash/literal/row/page/column",
+    "omitted continuation header",
+    "original-choice source/column/header/exponent/candidates/cuts",
+    "derived-choice original-hash reuse/column/exponent/candidates/PDF cuts",
+    "missing/false original dot acknowledgement",
+    "financialApproval true",
+    "scopeConfirmed true",
+    "empty/partial/extra/duplicate case observations"
+  ],
+  "productMissingLiveReviewProof": "Separate Apply refusal through owned existing API; no foreign sidecar is submitted",
+  "successClaim": "strict independent checker accepts complete unchanged native artifact bundle; no financial authority",
+  "tamperClaim": "independent checker refuses modified downloaded provenance; no product-sidecar-import claim",
+  "implementationProvided": false,
+  "runtimeAcceptance": false
+}

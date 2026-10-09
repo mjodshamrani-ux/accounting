@@ -964,7 +964,7 @@ export async function readPdf(
           const token = tokens[index];
           token.glyphText = raw;
           if (
-            /^[0-9٠-٩۰-۹.,٬٫()+−\-\/\s]+$/u.test(raw) &&
+            /^[0-9٠-٩۰-۹.,٬٫()+−\-/\s]+$/u.test(raw) &&
             raw.trim() !== token.text
           ) {
             token.extractionText = token.text;

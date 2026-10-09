@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readdir } from 'node:fs/promises';
 
 const workflowHeadings = {
   confirm: 'راجع البيانات قبل المقارنة',
@@ -6,10 +7,216 @@ const workflowHeadings = {
   export: 'ورقة العمل جاهزة للمراجعة',
 };
 
-const displayFont = 'Thmanyah Serif Display';
-const displayFontPath = '/fonts/thmanyah-serif-display-bold.woff2';
+const displayFontFamilies = [
+  'Geeza Pro',
+  'Traditional Arabic',
+  'Tahoma',
+  'Arial',
+  'serif',
+];
+const displayFontStack =
+  '"Geeza Pro", "Traditional Arabic", Tahoma, Arial, serif';
+const fontFamilies = (value) =>
+  value.split(',').map((family) => family.trim().replace(/^["']|["']$/g, ''));
 const narrowWorkflowType = new WeakMap();
 const layoutWidths = [320, 390, 768, 820, 1024, 1280];
+
+async function verifyForbiddenDisplayDistribution(page) {
+  for (const directory of ['../public/fonts/', '../dist/fonts/'])
+    assert.deepEqual(
+      (await readdir(new URL(directory, import.meta.url))).filter((name) =>
+        /thmanyah/i.test(name),
+      ),
+      [],
+      `${directory}: the unresolved display font and its distribution metadata are absent`,
+    );
+  const assets = await page.evaluate(() => {
+    const rules = [...document.styleSheets].flatMap((sheet) => [
+      ...sheet.cssRules,
+    ]);
+    return {
+      forbiddenRules: rules
+        .filter((rule) => /thmanyah/i.test(rule.cssText))
+        .map((rule) => rule.cssText),
+      forbiddenFaces: [...document.fonts]
+        .filter((face) => /thmanyah/i.test(face.family))
+        .map((face) => face.family),
+      embeddedSystemFaces: rules
+        .filter(
+          (rule) =>
+            rule instanceof CSSFontFaceRule &&
+            /Geeza Pro|Traditional Arabic|Tahoma|Arial/i.test(
+              rule.style.fontFamily,
+            ),
+        )
+        .map((rule) => rule.cssText),
+      forbiddenLinks: [...document.querySelectorAll('link[href]')]
+        .filter((link) => /thmanyah/i.test(link.href))
+        .map((link) => link.href),
+      forbiddenRequests: performance
+        .getEntriesByType('resource')
+        .filter((entry) => /thmanyah/i.test(entry.name))
+        .map((entry) => entry.name),
+      externalFontRequests: performance
+        .getEntriesByType('resource')
+        .filter(
+          (entry) =>
+            /\.(?:woff2?|ttf|otf)(?:\?|$)/i.test(entry.name) &&
+            new URL(entry.name).origin !== location.origin,
+        )
+        .map((entry) => entry.name),
+      outlinedPreloads: document.querySelectorAll(
+        'link[rel="preload"][as="image"][href*="/brand/type/"]',
+      ).length,
+    };
+  });
+  for (const key of [
+    'forbiddenRules',
+    'forbiddenFaces',
+    'embeddedSystemFaces',
+    'forbiddenLinks',
+    'forbiddenRequests',
+    'externalFontRequests',
+  ])
+    assert.deepEqual(
+      assets[key],
+      [],
+      `${key}: display text uses installed system fonts without unresolved or remote font distribution`,
+    );
+  assert.equal(
+    assets.outlinedPreloads,
+    0,
+    'outlined heading images are not preloaded',
+  );
+}
+
+// System fonts differ by host. Assert the declared fallback contract and actual
+// rendered bounds, not a downloaded face identity or one font's pixel metrics.
+export async function verifySystemDisplayFont(page) {
+  const viewport = page.viewportSize();
+  try {
+    await verifyForbiddenDisplayDistribution(page);
+    for (const width of [320, 390, 1440]) {
+      await page.setViewportSize({ width, height: 1050 });
+      const layout = await page.evaluate(async () => {
+        await document.fonts.ready;
+        await new Promise((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(resolve)),
+        );
+        const selector =
+          '.display-heading, .brand-wordmark-arabic, .tarasuf-benefits-heading h2, .tarasuf-privacy-formal-heading h2, .tarasuf-benefit h3';
+        const headings = [...document.querySelectorAll(selector)]
+          .filter((element) => element.getClientRects().length)
+          .map((element) => {
+            const style = getComputedStyle(element);
+            const box = element.getBoundingClientRect();
+            const range = document.createRange();
+            range.selectNodeContents(element);
+            const fragments = [...range.getClientRects()].filter(
+              (rect) => rect.width > 0 && rect.height > 0,
+            );
+            const clipped = [];
+            for (
+              let ancestor = element;
+              ancestor;
+              ancestor = ancestor.parentElement
+            ) {
+              const parentStyle = getComputedStyle(ancestor);
+              const parentBox = ancestor.getBoundingClientRect();
+              if (
+                fragments.some(
+                  (rect) =>
+                    (['hidden', 'clip'].includes(parentStyle.overflowX) &&
+                      (rect.left < parentBox.left - 1 ||
+                        rect.right > parentBox.right + 1)) ||
+                    (['hidden', 'clip'].includes(parentStyle.overflowY) &&
+                      (rect.top < parentBox.top - 1 ||
+                        rect.bottom > parentBox.bottom + 1)),
+                )
+              )
+                clipped.push(ancestor.className);
+            }
+            return {
+              text: element.textContent.trim(),
+              family: style.fontFamily,
+              weight: style.fontWeight,
+              size: parseFloat(style.fontSize),
+              lineHeight: parseFloat(style.lineHeight),
+              width: box.width,
+              height: box.height,
+              lines: new Set(fragments.map((rect) => Math.round(rect.top)))
+                .size,
+              horizontalFit: fragments.every(
+                (rect) =>
+                  rect.left >= box.left - 1 && rect.right <= box.right + 1,
+              ),
+              clipped,
+              lang: element.getAttribute('lang'),
+              dir: element.getAttribute('dir'),
+              nativeHeading: element.hasAttribute('data-display-heading'),
+            };
+          });
+        return {
+          lang: document.documentElement.lang,
+          dir: document.documentElement.dir,
+          width: innerWidth,
+          documentWidth: document.documentElement.scrollWidth,
+          bodyWidth: document.body.scrollWidth,
+          headings,
+        };
+      });
+      assert.ok(['ar', 'en'].includes(layout.lang));
+      assert.equal(layout.dir, layout.lang === 'ar' ? 'rtl' : 'ltr');
+      assert.equal(layout.width, width);
+      assert.ok(
+        layout.documentWidth <= width + 2 && layout.bodyWidth <= width + 2,
+        `${layout.lang}/${width}: no horizontal overflow`,
+      );
+      assert.ok(
+        layout.headings.length > 0,
+        'system-font text is actually rendered',
+      );
+      for (const heading of layout.headings) {
+        assert.deepEqual(
+          fontFamilies(heading.family),
+          displayFontFamilies,
+          `${heading.text}: exact system display fallback stack`,
+        );
+        assert.equal(heading.weight, '700');
+        assert.ok(
+          heading.text &&
+            heading.width > 0 &&
+            heading.height > 0 &&
+            heading.lines > 0,
+        );
+        assert.ok(
+          heading.lineHeight >= heading.size * 1.3,
+          `${heading.text}: line spacing accommodates glyphs and marks`,
+        );
+        assert.ok(
+          heading.height >= heading.lineHeight * heading.lines - 2,
+          `${heading.text}: heading height accommodates every rendered line`,
+        );
+        assert.equal(
+          heading.horizontalFit,
+          true,
+          `${layout.lang}/${width}: heading text wraps within its width`,
+        );
+        assert.deepEqual(
+          heading.clipped,
+          [],
+          `${layout.lang}/${width}: system-font text is not clipped`,
+        );
+        if (heading.nativeHeading) {
+          assert.equal(heading.lang, layout.lang);
+          assert.equal(heading.dir, layout.dir);
+        }
+      }
+    }
+  } finally {
+    if (viewport) await page.setViewportSize(viewport);
+  }
+}
 
 async function verifyReadableTarget(target, description) {
   await target.waitFor();
@@ -499,7 +706,7 @@ async function verifyNativeHeading(page, id) {
   assert.equal(await heading.locator('img, svg, canvas').count(), 0);
   assert.equal(await heading.getAttribute('dir'), 'rtl');
   assert.equal(await heading.getAttribute('lang'), 'ar');
-  const rendered = await heading.evaluate(async (element, family) => {
+  const rendered = await heading.evaluate(async (element, stack) => {
     await document.fonts.ready;
     const style = getComputedStyle(element);
     return {
@@ -509,17 +716,9 @@ async function verifyNativeHeading(page, id) {
       letterSpacing: style.letterSpacing,
       transform: style.transform,
       synthesis: style.fontSynthesis,
-      loaded: [...document.fonts].some(
-        (font) =>
-          font.family.replace(/["']/g, '') === family &&
-          font.status === 'loaded',
-      ),
-      available: document.fonts.check(
-        `700 32px "${family}"`,
-        element.textContent,
-      ),
+      available: document.fonts.check(`700 32px ${stack}`, element.textContent),
     };
-  }, displayFont);
+  }, displayFontStack);
   assert.ok(
     rendered.text.trim(),
     `${id}: real text remains readable and selectable`,
@@ -528,17 +727,12 @@ async function verifyNativeHeading(page, id) {
     !rendered.text.includes('ـ'),
     `${id}: headings use natural Arabic shaping`,
   );
-  assert.match(rendered.family, /Thmanyah Serif Display/);
+  assert.deepEqual(fontFamilies(rendered.family), displayFontFamilies);
   assert.equal(rendered.weight, '700');
-  assert.equal(
-    rendered.loaded,
-    true,
-    `${id}: original font loaded even offline`,
-  );
   assert.equal(
     rendered.available,
     true,
-    `${id}: native font is available for the text`,
+    `${id}: the system fallback stack renders native text even offline`,
   );
   assert.ok(
     ['normal', '0px'].includes(rendered.letterSpacing),
@@ -574,10 +768,26 @@ async function verifyNarrowWorkflowTypography(page, step) {
           (rect) => rect.width > 0,
         );
         const bounds = element.getBoundingClientRect();
+        const singleLine = element.cloneNode(true);
+        Object.assign(singleLine.style, {
+          whiteSpace: 'nowrap',
+          width: 'max-content',
+          maxWidth: 'none',
+          position: 'absolute',
+          visibility: 'hidden',
+        });
+        let singleLineWidth;
+        try {
+          element.parentElement.append(singleLine);
+          singleLineWidth = singleLine.getBoundingClientRect().width;
+        } finally {
+          singleLine.remove();
+        }
         return {
           size: parseFloat(style.fontSize),
           lineHeight: parseFloat(style.lineHeight),
           lines: new Set(fragments.map((rect) => Math.round(rect.top))).size,
+          requiresWrap: singleLineWidth > bounds.width + 1,
           staysWithinHeading: fragments.every(
             (rect) =>
               rect.left >= bounds.left - 1 && rect.right <= bounds.right + 1,
@@ -612,8 +822,8 @@ async function verifyNarrowWorkflowTypography(page, step) {
         'long export heading must not shrink to fit a fixed image width',
       );
       assert.ok(
-        typography.lines >= 2,
-        'the longest workflow heading wraps naturally at 320px',
+        typography.lines >= (typography.requiresWrap ? 2 : 1),
+        'the export heading wraps when its actual system-font text exceeds the available width',
       );
     }
   } finally {
@@ -675,7 +885,38 @@ export async function verifyBrandLanding(page) {
     /[\u0640\u064b-\u065f\u0670]/g,
     '',
   );
-  assert.match(plainTitle, /^تراصف — تسوية حسابات الموردين$/);
+  assert.equal(plainTitle, 'تراصف — تسويات محاسبية محلية');
+  assert.deepEqual(
+    await page
+      .locator('[data-domain-entry]')
+      .evaluateAll((entries) =>
+        entries.map((entry) => entry.dataset.domainEntry),
+      ),
+    [
+      'supplier',
+      'clearing',
+      'ar',
+      'gl-tb',
+      'allocation',
+      'bank',
+      'tb-financial',
+      'intercompany',
+      'gateway',
+      'stock',
+      'assets',
+      'payroll',
+    ],
+    'the landing offers all twelve approved reconciliation workflows',
+  );
+  assert.equal(
+    await page.locator('#reconciliation-types-title').innerText(),
+    'اختر نوع التسوية',
+  );
+  for (const selector of ['.primary-link', '.nav-start'])
+    assert.equal(
+      await page.locator(selector).getAttribute('href'),
+      '#reconciliation-types',
+    );
   assert.equal(await page.locator('h1').count(), 1);
   assert.equal(
     await page.locator('.brand-wordmark-latin').count(),
@@ -723,7 +964,7 @@ export async function verifyBrandLanding(page) {
   assert.equal(
     await page.locator('.display-heading img, .brand-wordmark img').count(),
     0,
-    'headings and the wordmark use original-font text, not outlined images',
+    'headings and the wordmark remain native selectable text',
   );
   for (const id of ['heroLine1', 'heroLine2', 'upload', 'process', 'privacy']) {
     await verifyNativeHeading(page, id);
@@ -747,57 +988,14 @@ export async function verifyBrandLanding(page) {
       'تَـراصُـف',
       'preserve the exact original brand diacritics and two kashidas',
     );
-    assert.match(lettering.family, /Thmanyah Serif Display/);
+    assert.deepEqual(fontFamilies(lettering.family), displayFontFamilies);
     assert.equal(lettering.weight, '700');
     assert.ok(['normal', '0px'].includes(lettering.letterSpacing));
     assert.equal(lettering.transform, 'none');
     assert.equal(lettering.synthesis, 'none');
   }
 
-  // The production preload and first native headings load the one authentic
-  // face. Future workflow steps must render with that face while offline.
-  const displayAssets = await page.evaluate((fontPath) => {
-    const preload = document.querySelector(
-      `link[rel="preload"][as="font"][href$="${fontPath}"]`,
-    );
-    return {
-      origin: location.origin,
-      preloadOrigin: preload ? new URL(preload.href).origin : null,
-      preloadType: preload?.type,
-      preloadCrossOrigin: preload?.crossOrigin,
-      requests: performance
-        .getEntriesByType('resource')
-        .filter((entry) => new URL(entry.name).pathname.endsWith(fontPath))
-        .map((entry) => ({
-          origin: new URL(entry.name).origin,
-          completed: entry.responseEnd > 0,
-        })),
-      outlinedPreloads: document.querySelectorAll(
-        'link[rel="preload"][as="image"][href*="/brand/type/"]',
-      ).length,
-    };
-  }, displayFontPath);
-  assert.equal(
-    displayAssets.preloadOrigin,
-    displayAssets.origin,
-    'preload font from this site only',
-  );
-  assert.equal(displayAssets.preloadType, 'font/woff2');
-  assert.equal(displayAssets.preloadCrossOrigin, 'anonymous');
-  assert.ok(
-    displayAssets.requests.length > 0,
-    'the original local display font is requested',
-  );
-  assert.ok(
-    displayAssets.requests.every(
-      (request) => request.origin === displayAssets.origin && request.completed,
-    ),
-  );
-  assert.equal(
-    displayAssets.outlinedPreloads,
-    0,
-    'obsolete outlined heading images are not preloaded',
-  );
+  await verifyForbiddenDisplayDistribution(page);
 
   await verifyPrivacyNavigation(page);
 
@@ -899,6 +1097,7 @@ export async function verifyBrandLanding(page) {
     'all sections remain readable when motion preference changes at runtime',
   );
   await verifyNarrowLayouts(page, 'landing');
+  await verifySystemDisplayFont(page);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 }
@@ -938,4 +1137,5 @@ export async function verifyWorkflowBrand(page, step) {
   );
   await verifyNativeHeading(page, step);
   await verifyNarrowWorkflowTypography(page, step);
+  await verifySystemDisplayFont(page);
 }

@@ -1,0 +1,4 @@
+Item ID,Item dimensions,Quantity,Unit,Quantity precision,Posted value,Valuation reference,Entity,Inventory ledger,GL ledger,Currency,Currency basis,Posting status,Posting layer,As of,Chart version,Map version,Valuation policy version,Inventory account set version
+A,warehouse=W1,10,EA,0,1000,V-A,Synthetic Stock Owner,STOCK-BOOK,GL-BOOK,SAR,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-posted-values-1,INV-SET-1
+B,warehouse=W2,3.5,KG,1,300,V-B,Synthetic Stock Owner,STOCK-BOOK,GL-BOOK,SAR,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-posted-values-1,INV-SET-1
+A,warehouse=W1,broken,EA,0,1000,V-A,Synthetic Stock Owner,STOCK-BOOK,GL-BOOK,SAR,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-posted-values-1,INV-SET-1

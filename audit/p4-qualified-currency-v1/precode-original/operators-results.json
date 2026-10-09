@@ -1,0 +1,5212 @@
+{
+  "outcome": "PASS",
+  "claim": "Independent original PDF operator, positional width, xref, source and freeze pins, manual CSV literal/link/Decimal verification. Action definitions checked structurally, no future product implementation acceptance.",
+  "freezeSha256": "1b9612a623e3055fe6fa369eb4b7b175da67ab04e07f0895e42b112fb251c7c4",
+  "manifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+  "frozenPayloadFilesChecked": 65,
+  "manifestFilesChecked": 72,
+  "cases": [
+    {
+      "id": "sar-on-page",
+      "originalSha256": "668097cd48fbbe565a14735dcc003e93709ffde614abbfc133e3eae4c4da754b",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 926,
+          "sha256": "609d81b950836996646d3786871c1c3a6fb5cbab5d74f2086e8a804aed8827b2"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "line, \"one\"",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2.05",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 4,
+          "literal": "0.00",
+          "x": 440.0,
+          "right": 452.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "42667a9fb186baa0472cfb00193d720872165814cbd88a8921967cd72114e5cb",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -1250,
+        205,
+        0
+      ],
+      "totalMinor": -1045,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "sar-cross-page",
+      "originalSha256": "3a894b9660f69ddda37d60f8b47cd05ea9ecd41d01ce60c42fb3a1bffa467a8f",
+      "pages": 2,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 568,
+          "sha256": "894c55010577a449f0054ab9505424d4e69aa567cdc825b3ac4efc58ffb6ec0e"
+        },
+        {
+          "page": 2,
+          "bytes": 747,
+          "sha256": "367c7387e75ccc38770e0949f53ed52f20e55d4d3dea17cea81ff5b34d8ca5ba"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Continued invoice",
+          "x": 40.0,
+          "right": 91.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-02",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "+2.05",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-03",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "0.00",
+          "x": 440.0,
+          "right": 452.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "dd1aeedaedbd2b1413b6d48f3ee5df5e5600040e186183f1f60073ca580045a1",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -1250,
+        205,
+        0
+      ],
+      "totalMinor": -1045,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "sar-own-reference",
+      "originalSha256": "71514097fa13388ca3b93fe58cd46acc55c67f019e0afd27c636bc5efa988c31",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 935,
+          "sha256": "23447f14e6b66040cc5b7691b008225be024e9322a11acc7c6c9b0c7f0b632d4"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2.05",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 4,
+          "literal": "0.00",
+          "x": 440.0,
+          "right": 452.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -1250,
+        205,
+        0
+      ],
+      "totalMinor": -1045,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "jpy-on-page",
+      "originalSha256": "71b282a98a55a034d83fedf3d06b09738ab51266f79364325ac76cbccd4ad659",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 917,
+          "sha256": "9254e3663a5d3e9defed17332c31706a4bee8cefe613ca6e3f2ab898f857eae0"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (JPY)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "line, \"one\"",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12",
+          "x": 440.0,
+          "right": 449.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2",
+          "x": 440.0,
+          "right": 446.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 4,
+          "literal": "0",
+          "x": 440.0,
+          "right": 443.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "eebe0bd84fe65b863b5deb8851283569222ed3ea5a183411c46982680855076e",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -12,
+        2,
+        0
+      ],
+      "totalMinor": -10,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "jpy-cross-page",
+      "originalSha256": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83",
+      "pages": 2,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 565,
+          "sha256": "91403a1ae2218407e1f3248a140287ed81fe8156fe2b78e5d2794fa608510978"
+        },
+        {
+          "page": 2,
+          "bytes": 741,
+          "sha256": "9214a0a482f0ee9ea3aea1ed67eb1bff7d5484b2f1b43a9d23ad9af9d7e5ba55"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (JPY)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12",
+          "x": 440.0,
+          "right": 449.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (JPY)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Continued invoice",
+          "x": 40.0,
+          "right": 91.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-02",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "+2",
+          "x": 440.0,
+          "right": 446.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-03",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "0",
+          "x": 440.0,
+          "right": 443.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -12,
+        2,
+        0
+      ],
+      "totalMinor": -10,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "jpy-own-reference",
+      "originalSha256": "e6f519f14041a233ee7634efa3f26853b433a337b20d7d51da22769dc00fd812",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 926,
+          "sha256": "5bbedfd9475877c0fcfae4274affc1fa327da4366f91d48811b08f115dd4ec3f"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (JPY)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12",
+          "x": 440.0,
+          "right": 449.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2",
+          "x": 440.0,
+          "right": 446.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 4,
+          "literal": "0",
+          "x": 440.0,
+          "right": 443.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "729eb878a4cc452cd2559b59dbeadda57de2d90f6aae10ce6de413a16e679293",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -12,
+        2,
+        0
+      ],
+      "totalMinor": -10,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "kwd-on-page",
+      "originalSha256": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 929,
+          "sha256": "940c73f860a284e9143bb6c12402475059cd3982db7c83df654818ba02e1fe20"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (KWD)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "line, \"one\"",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.500",
+          "x": 440.0,
+          "right": 461.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2.005",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 4,
+          "literal": "0.000",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -12500,
+        2005,
+        0
+      ],
+      "totalMinor": -10495,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "kwd-cross-page",
+      "originalSha256": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0",
+      "pages": 2,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 569,
+          "sha256": "524ed78dc003d2ea318cb6a788e8f6bb2f6a07ce7f9a74e7d62ff20de5942349"
+        },
+        {
+          "page": 2,
+          "bytes": 749,
+          "sha256": "62de39d835044077681301a3fc1d198ca04fcaa14e9541a6f72466700579052c"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (KWD)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.500",
+          "x": 440.0,
+          "right": 461.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (KWD)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Continued invoice",
+          "x": 40.0,
+          "right": 91.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-02",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "+2.005",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-03",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "0.000",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -12500,
+        2005,
+        0
+      ],
+      "totalMinor": -10495,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "kwd-own-reference",
+      "originalSha256": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 938,
+          "sha256": "f3d9fb31d4bd790ae008cf00619ae4a129002199acaac311923ffd7a87f0ca5c"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (KWD)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.500",
+          "x": 440.0,
+          "right": 461.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "second",
+          "x": 300.0,
+          "right": 318.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2.005",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 3,
+          "literal": "zero",
+          "x": 300.0,
+          "right": 312.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 4,
+          "literal": "0.000",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "csvByteExact": true,
+      "csvSha256": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+      "signedLiteralExact": true,
+      "minorUnits": [
+        -12500,
+        2005,
+        0
+      ],
+      "totalMinor": -10495,
+      "sourceHeaderEvidenceExact": true
+    },
+    {
+      "id": "changed-page-currency",
+      "originalSha256": "414240c09f79ae466a8b777fcab21c35378a8bafcc69f10ea9ca262866ac5ea0",
+      "pages": 2,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 568,
+          "sha256": "dd29e12bf03902cd40ce1e25dd13f1532651f1ea1c053f7f5b1c5caef704a824"
+        },
+        {
+          "page": 2,
+          "bytes": 571,
+          "sha256": "ce1367a3a71a50f0aeccdf6af171b8d30c64a8f059b148a7e3804d496116d40b"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.00",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (JPY)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Continued invoice",
+          "x": 40.0,
+          "right": 91.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "+2",
+          "x": 440.0,
+          "right": 446.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Original repeated currency header changes from SAR to JPY."
+    },
+    {
+      "id": "missing-page-qualification",
+      "originalSha256": "588858ba99a622b3637beeec07c20dda9256ca6c7dd56ba75ba8c4c1ae995c45",
+      "pages": 2,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 568,
+          "sha256": "894c55010577a449f0054ab9505424d4e69aa567cdc825b3ac4efc58ffb6ec0e"
+        },
+        {
+          "page": 2,
+          "bytes": 566,
+          "sha256": "ec37d5b2019264901dadb277ea1bd5e8f21262fc598b3fefc856a92e402d5e05"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount",
+          "x": 440.0,
+          "right": 479.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Continued invoice",
+          "x": 40.0,
+          "right": 91.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "+2.05",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Qualified original currency evidence is missing on continuation page."
+    },
+    {
+      "id": "contradictory-currency-row",
+      "originalSha256": "b71faabd4c0e376ff839ab54c39740698a1fac5bc6e14890ad2cc713b879ceb0",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 738,
+          "sha256": "07641bb74511509452d6d94bd450d8a88deba3f70403bc8a8da9e84f818f50bf"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Currency",
+          "x": 40.0,
+          "right": 64.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "JPY",
+          "x": 170.0,
+          "right": 179.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Contradictory occupied source context cannot be dropped."
+    },
+    {
+      "id": "double-currency-header",
+      "originalSha256": "9a5476ebf2d2ef214cfd1080fcb23d7886699afd4de2d112113560989ad5e3e3",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 576,
+          "sha256": "2446802f2e1934ed1214becc4287f3f1a2b3ab5b4266bbf1ffa693264a0104fa"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR) (JPY)",
+          "x": 440.0,
+          "right": 515.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Two original currency qualifiers are ambiguous and outside the finite family."
+    },
+    {
+      "id": "unknown-currency-header",
+      "originalSha256": "193fcebe11d4c0937d65b0c70265b4c95ab8a46db288dcf5f7d66be7d1c1c327",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 568,
+          "sha256": "a075f02ed0677e3da610172e6b5504e6869dcf2fcfb0cdc49543d77657884fbc"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (ZZZ)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Unknown currency is not admitted by the frozen precision policy."
+    },
+    {
+      "id": "lowercase-qualifier",
+      "originalSha256": "ca8210cf7228598ae862f9133e2d06330d741fea3b65837d916747f592ed5c7a",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 568,
+          "sha256": "380bb957e9bbede856170924cfae157aa643090ffe58f6179c066cddaa44bd9c"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (sar)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Literal lowercase qualifier is outside this exact uppercase family."
+    },
+    {
+      "id": "symbol-qualifier",
+      "originalSha256": "06dbaa8a9c18b6fb788e9a702097e41fb7fe7d2cdd17ff4b93b68f12bb29ed46",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 566,
+          "sha256": "f19778a71fd96b7b0d6be2af597e743a38cc46a9f1bde22ec08cc7ccdb957c9d"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount ($)",
+          "x": 440.0,
+          "right": 491.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "A symbol cannot supply a unique admitted original currency code."
+    },
+    {
+      "id": "ambiguous-qualifier",
+      "originalSha256": "551ff60fec75f4b29528cf05a6038be81b21fc41309ee54dd7781cf7c52babf7",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 572,
+          "sha256": "12439447aeb33e09843cf64780a1b5daccb829f4a91fd2952d0978f32ffed436"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR/JPY)",
+          "x": 440.0,
+          "right": 509.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Multiple currency spelling cannot supply unique original context."
+    },
+    {
+      "id": "jpy-fractional",
+      "originalSha256": "b1e4efe3b55b3894a5e2632d373307c872a99f9bc68b908c5c20e9ccd0dd54b2",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 753,
+          "sha256": "9fc6a6c7c234d2567b1fa5f7ec41e23886f3e139cba3ee965259f9565375fb74"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (JPY)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12",
+          "x": 440.0,
+          "right": 449.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "late fractional",
+          "x": 300.0,
+          "right": 345.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2.5",
+          "x": 440.0,
+          "right": 452.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "JPY fixed zero exponent cannot represent the late fractional amount."
+    },
+    {
+      "id": "sar-excess-fraction",
+      "originalSha256": "b994dc2921a007d5f2273252a940f1b353786c04888cf00d445b7f3f6fbc2324",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 767,
+          "sha256": "e34bee5f6bfe5244ad3e7dd572fceb3097b5c19b6586da7baf39cdba6b6e27c2"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "late excessive precision",
+          "x": 300.0,
+          "right": 372.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2.001",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "SAR fixed two exponent must not round the late amount."
+    },
+    {
+      "id": "kwd-excess-fraction",
+      "originalSha256": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 769,
+          "sha256": "702dc421b4aad1b1e99330e0fd56c78d7e8126b119e4d270b245d0d71e3012d1"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (KWD)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.500",
+          "x": 440.0,
+          "right": 461.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "late excessive precision",
+          "x": 300.0,
+          "right": 372.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "+2.0001",
+          "x": 440.0,
+          "right": 461.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "KWD fixed three exponent must not round the late amount."
+    },
+    {
+      "id": "late-corrupt-amount",
+      "originalSha256": "ecb2e77c2ba0f2cb3396eaf0877f9be46f9f89f6e66e0552d7323fb888ddd496",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 755,
+          "sha256": "d34eaaaba08ed4a7ce2e4cad0f34844bb33673846775ddbe9d9df0c056484484"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "late corrupt",
+          "x": 300.0,
+          "right": 336.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 4,
+          "literal": "BROKEN",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Readable early movement cannot authorize omission of a corrupt late amount."
+    },
+    {
+      "id": "changed-page-reference-role",
+      "originalSha256": "b6e0df22098b8172a2d27fc20f7e6630b5b9ed69c7309f50d4d72c50d008c0b3",
+      "pages": 2,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 568,
+          "sha256": "894c55010577a449f0054ab9505424d4e69aa567cdc825b3ac4efc58ffb6ec0e"
+        },
+        {
+          "page": 2,
+          "bytes": 579,
+          "sha256": "37ad3c02443c1b67dda947f710901c939fb8a35a27e131b89d4bad61083cafb5"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Purchase Order",
+          "x": 170.0,
+          "right": 212.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Continued invoice",
+          "x": 40.0,
+          "right": 91.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "+2.05",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "A changed identity header is not a repeated qualifying section header."
+    },
+    {
+      "id": "extra-balance-column",
+      "originalSha256": "e8eebea63a0850b5bad2411fa50bf22e376dbacf379b750e6566807845b041cb",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 701,
+          "sha256": "05ee5d56a8d533c26169b83cb35abcec3d564bf949cb409a236d7afde9272120"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 522,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 5,
+          "literal": "Balance",
+          "x": 540.0,
+          "right": 561.0,
+          "cutLeft": 522,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 522,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 5,
+          "literal": "100.00",
+          "x": 540.0,
+          "right": 558.0,
+          "cutLeft": 522,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Fifth financial field is outside four-column family and must not be erased."
+    },
+    {
+      "id": "missing-continuation",
+      "originalSha256": "a748a276f24a2fd252880c65c62bd5630f67ac1518db37f1fe94a142c1925620",
+      "pages": 2,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 568,
+          "sha256": "894c55010577a449f0054ab9505424d4e69aa567cdc825b3ac4efc58ffb6ec0e"
+        },
+        {
+          "page": 2,
+          "bytes": 388,
+          "sha256": "0020f829365dde35d19de32b02350c8a1220a7ce1bf64da5df16fbe106c4e076"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 2,
+          "physicalY": 730.0,
+          "column": 4,
+          "literal": "+2.05",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "Same currency cannot create missing section continuation authority."
+    },
+    {
+      "id": "late-unknown-row",
+      "originalSha256": "237333edfe31617dd8e4ae43945011b0fbad254c05b78f5014c2c57a7a7899e2",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 923,
+          "sha256": "def80306beda59d9508abeab206cd80177c27a1290895f970a71ab6924f12608"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Signed amount (SAR)",
+          "x": 440.0,
+          "right": 497.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 690.0,
+          "column": 3,
+          "literal": "unknown note",
+          "x": 300.0,
+          "right": 336.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 3,
+          "literal": "first line",
+          "x": 300.0,
+          "right": 330.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 670.0,
+          "column": 4,
+          "literal": "+2.05",
+          "x": 440.0,
+          "right": 455.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "An unresolved occupied original row cannot be silently dropped."
+    },
+    {
+      "id": "bare-existing-family",
+      "originalSha256": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 564,
+          "sha256": "5bf00a1e502c26495b9d1a0f400cf8d7fe797a59f00f5ed2707077f71a23efd3"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Amount",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "plain original family",
+          "x": 300.0,
+          "right": 363.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "No original qualified amount header; preserve the previous bare-family contract and mint no new currency context."
+    },
+    {
+      "id": "description-code-only",
+      "originalSha256": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+      "pages": 1,
+      "operatorInventoryExact": true,
+      "xrefExact": true,
+      "streams": [
+        {
+          "page": 1,
+          "bytes": 574,
+          "sha256": "651697dd6782d9c4dd982de53c8346f239792834395db60a47cd9a0cde4c3ff2"
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 1,
+          "literal": "Date",
+          "x": 40.0,
+          "right": 52.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 2,
+          "literal": "Reference",
+          "x": 170.0,
+          "right": 197.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 3,
+          "literal": "Description",
+          "x": 300.0,
+          "right": 333.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 750.0,
+          "column": 4,
+          "literal": "Amount",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 1,
+          "literal": "Invoice No",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 730.0,
+          "column": 2,
+          "literal": "INV-000271",
+          "x": 170.0,
+          "right": 200.0,
+          "cutLeft": 150,
+          "cutRight": 270,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 1,
+          "literal": "2026-10-01",
+          "x": 40.0,
+          "right": 70.0,
+          "cutLeft": 0,
+          "cutRight": 150,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 3,
+          "literal": "SAR appears only in description",
+          "x": 300.0,
+          "right": 393.0,
+          "cutLeft": 270,
+          "cutRight": 420,
+          "font": "Courier",
+          "fontSize": 5.0
+        },
+        {
+          "page": 1,
+          "physicalY": 710.0,
+          "column": 4,
+          "literal": "-12.50",
+          "x": 440.0,
+          "right": 458.0,
+          "cutLeft": 420,
+          "cutRight": 600,
+          "font": "Courier",
+          "fontSize": 5.0
+        }
+      ],
+      "manualRefusalReason": "No original qualified amount header; preserve the previous bare-family contract and mint no new currency context."
+    }
+  ],
+  "actions": [
+    {
+      "id": "sar-wrong-zero-exponent",
+      "source": "sar-on-page",
+      "change": {
+        "selectedDecimals": 0
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "sar-wrong-three-exponent",
+      "source": "sar-on-page",
+      "change": {
+        "selectedDecimals": 3
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "jpy-wrong-two-exponent",
+      "source": "jpy-on-page",
+      "change": {
+        "selectedDecimals": 2
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "kwd-wrong-two-exponent",
+      "source": "kwd-on-page",
+      "change": {
+        "selectedDecimals": 2
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "cached-qualified-header-tamper",
+      "source": "sar-cross-page",
+      "change": {
+        "row": 4,
+        "column": 4,
+        "literal": "Signed amount (JPY)"
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "original-qualified-header-tamper",
+      "source": "sar-cross-page",
+      "change": "change original qualifier bytes without the reviewed original hash",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "currency-citation-literal-tamper",
+      "source": "sar-cross-page",
+      "change": "change currency evidence literal after review",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "currency-citation-coordinate-tamper",
+      "source": "sar-cross-page",
+      "change": "change physical row/page/column of currency evidence",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "omit-second-header-evidence",
+      "source": "sar-cross-page",
+      "change": "remove original page2 currency evidence",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "source-swap-after-review",
+      "source": "sar-on-page",
+      "change": "replace original SAR source with original JPY source after owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "precision-swap-after-review",
+      "source": "kwd-on-page",
+      "change": "change selectedDecimals from3 to2 after owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "revision-swap-after-review",
+      "source": "sar-on-page",
+      "change": "change extractionRevision after owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "copied-currency-receipt",
+      "source": "sar-on-page",
+      "change": "copy or deserialize owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "sidecar-currency-tamper",
+      "source": "sar-on-page",
+      "change": "replace sidecar currency SAR withJPY before validation/import",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "sidecar-precision-tamper",
+      "source": "sar-on-page",
+      "change": "replace sidecar decimals2 with0 before validation/import",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "source-swap-during-replay",
+      "source": "sar-cross-page",
+      "change": "replace source during awaited original replay",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "cancellation-during-replay",
+      "source": "sar-cross-page",
+      "change": "cancel at first native PDF page before next-page publication",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "incomplete-selected-movements",
+      "source": "sar-on-page",
+      "change": "leave one missing-reference movement proposal unselected",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    }
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

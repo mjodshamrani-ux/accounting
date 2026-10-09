@@ -1,0 +1,22 @@
+{
+  "version": "intercompany-ledger-1",
+  "summaryKeys": ["Domain", "Version", "Claim", "Status", "Decimals", "Context", "entityA", "entityB", "ledgerA", "ledgerB", "accountA", "accountB", "dimensionsA", "dimensionsB", "currency", "currencyBasis", "fxPolicy", "postingStatus", "postingLayer", "start", "end", "asOf", "policyVersion", "Scope confirmed", "Completeness confirmed", "Completeness reference", "Completeness reason"],
+  "sheets": {
+    "Summary": ["Field", "Value"],
+    "Left entries": ["Record ID", "Source row", "Transaction ID", "Counterparty transaction ID", "Account", "Dimensions", "Posting date", "Debit", "Credit", "Net"],
+    "Right entries": ["Record ID", "Source row", "Transaction ID", "Counterparty transaction ID", "Account", "Dimensions", "Posting date", "Debit", "Credit", "Net"],
+    "Relations": ["Record ID", "Source row", "Relation ID", "Left ID", "Right ID", "Left account", "Left dimensions", "Right account", "Right dimensions", "Left posting date", "Right posting date", "Valid from", "Valid to", "Reference"],
+    "Timing": ["Record ID", "Source row", "Evidence ID", "Side", "Transaction ID", "Counterparty transaction ID", "Counterparty posting date", "Expected counterparty amount", "Reference"],
+    "Pairs": ["Relation ID", "Relation record ID", "Left record ID", "Right record ID", "Left net", "Right net", "Residual", "Status", "Review"],
+    "Pair members": ["Relation ID", "Side", "Record ID", "Transaction ID", "Counterparty transaction ID", "Debit", "Credit", "Net"],
+    "Totals": ["Side", "Debit", "Credit", "Net"],
+    "Missing": ["Kind", "Key"],
+    "Issues": ["Code", "Source", "Source row", "Key", "Related"],
+    "Cell evidence": ["Source", "Hash", "Sheet", "Sheet name", "Source row", "Column", "Header", "Value"],
+    "Inventory": ["Source", "Hash", "Source row", "Kind", "Errors"],
+    "Reading": ["Source", "Sheet", "Role", "Family", "Confirmed"],
+    "Events": ["Sequence", "Event ID", "Type", "Relation ID", "UTC time", "Reference", "Note", "Context"],
+    "Event members": ["Sequence", "Event ID", "Record ID"],
+    "Sources": ["Source", "Name", "Hash", "Chunk", "Original base64"]
+  }
+}

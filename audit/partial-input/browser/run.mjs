@@ -145,8 +145,10 @@ async function open(lang) {
   const page = (currentPage = await context.newPage());
   await page.goto(url);
   await page.waitForFunction(() => !document.querySelector('.notice.loading'));
-  if (lang === 'en')
-    await page.locator('.language-switch button[lang="en"]').click();
+  if (lang === 'en') await switchLanguage(page, lang);
+  // The current directory explicitly opens the retained supplier workflow.
+  await page.locator('[data-domain-entry="supplier"]').click();
+  await page.locator('.workflow-title:visible').waitFor({ state: 'visible' });
   assert.match(
     await page
       .locator('meta[http-equiv="Content-Security-Policy"]')
@@ -156,7 +158,7 @@ async function open(lang) {
   return { page, context };
 }
 async function switchLanguage(page, lang) {
-  await page.locator(`.language-switch button[lang="${lang}"]`).click();
+  await page.locator(`.language-switch button[lang="${lang}"]:visible`).first().click();
   await page.waitForFunction(
     (wanted) => document.documentElement.lang === wanted,
     lang,
@@ -379,6 +381,7 @@ try {
     oracle.readingIssues.map((i) => i.rawValues),
   );
   assert.deepEqual(
+    // oxlint-disable-next-line typescript/require-array-sort-compare -- Fixture membership/verdict canonicalization intentionally retains native UTF-16 and ToString ordering.
     records(book.getWorksheet('Match Evidence'))
       .map((r) => r['Source Row ID'])
       .sort(),

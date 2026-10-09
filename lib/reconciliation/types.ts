@@ -1,4 +1,5 @@
 export const ENGINE_VERSION = '0.3.26-experimental';
+export const REVIEWED_INVOICE_AGGREGATE_RULE = 'REVIEWED_INVOICE_AGGREGATE_V1';
 export const MAX_ROWS = 20000;
 export const MAX_SHEETS = 40;
 export const MAX_FILE_BYTES = 8 * 1024 * 1024;
@@ -233,6 +234,19 @@ export type SourceResult = {
   sourceOrigin?: string;
   sourceHash?: string;
 };
+export type ReviewedInvoiceAggregateProof = {
+  receiptId: string;
+  candidateId: string;
+  componentId: string;
+  snapshotKey: string;
+  reviewerLabel: string;
+  rationale: string;
+  supplierIds: string[];
+  ledgerIds: string[];
+  totalMinor: number;
+  relation: 'group-equivalence';
+  pairwiseAllocation: false;
+};
 export type Match = {
   caseId?: string;
   supplierIds?: string[];
@@ -242,6 +256,7 @@ export type Match = {
   kind: 'auto' | 'manual';
   reason: string;
   note?: string;
+  reviewedAggregate?: ReviewedInvoiceAggregateProof;
   evidence?: {
     rule: string;
     supplierRow: number;
@@ -286,6 +301,7 @@ export type ReconciliationCase = {
   reviewerReason?: string;
   createdAt?: string;
   reviewedAt?: string;
+  reviewedAggregate?: ReviewedInvoiceAggregateProof;
   sourceTrace: {
     sourceRowId: string;
     side: Transaction['side'];

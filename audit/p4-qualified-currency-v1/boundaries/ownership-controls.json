@@ -1,0 +1,16 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_OWNERSHIP_CONTROLS_V1",
+  "source": "kwd-cross-page",
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "frozenMoneyUnchanged": true,
+  "successfulControls": [
+    {"id": "late-caller-source-mutation-ignored", "change": "After Apply has taken private snapshots of its currentSource/currentReading arguments, mutate that old caller SourceFile sheets/original buffer during native replay without calling a session mutator", "expected": "current owned apply succeeds with exact original frozen KWD CSV, inventory, original PDF, dot review and source hashes"},
+    {"id": "late-caller-reading-choice-mutation-ignored", "change": "After Apply has taken private snapshots of its currentSource/currentReading arguments, mutate old caller Mapping numberFormat/formatChoice arrays during native replay without a session mutator", "expected": "current owned apply succeeds under unchanged private dot choice; exact frozen signed minor units and original/derived source bindings"},
+    {"id": "late-caller-review-acknowledgement-mutation-ignored", "change": "After recordReviewerDecision takes its owned input snapshot, mutate old caller acknowledgement/decision object without a subsequent session method", "expected": "owned review remains exact; successful apply still carries the recorded dot interpretation and exact frozen source/CSV bindings"}
+  ],
+  "generationRefusals": [
+    {"id": "explicit-reading-choice-replacement-during-await", "change": "Call session.replaceSource with a reading carrying a changed original number-format choice while apply awaits native original replay", "expected": "pending generation refuses with no partial artifact or stale receipt publication"},
+    {"id": "explicit-review-invalidation-during-await", "change": "Call session.updateReviewer with empty label/rationale while apply awaits native original replay", "expected": "pending generation refuses with no partial artifact or stale receipt publication"}
+  ]
+}

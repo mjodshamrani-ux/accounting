@@ -1,0 +1,103 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_BOUNDARIES_V1",
+  "originalDraftManifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+  "formatAddendumManifestSha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+  "productImports": false,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "productSidecarImportApi": false,
+  "receiptTiming": {
+    "beforeCurrencyReceiptMint": [
+      "admitted original currency code",
+      "matching fixed-policy selected exponent",
+      "valid explicit acknowledged original numeric choice when ambiguous"
+    ],
+    "existingLateApplyRefusalsPreserved": [
+      "late corrupt amount",
+      "unresolved original movement reference",
+      "existing full reading refusals"
+    ],
+    "applyConsumesReceiptBeforeAwait": true,
+    "blockedReceiptFalseMeans": "no surviving usable receipt after refusal; not a universal never-minted structural receipt claim",
+    "newUniversalFinancialDryRunBeforeMint": false
+  },
+  "actions": [
+    {
+      "contract": "original-draft",
+      "id": "sidecar-currency-tamper",
+      "boundary": "independent-downloaded-artifact-checker",
+      "expected": "checker-refuses-modified-downloaded-provenance; no product-sidecar-import claim"
+    },
+    {
+      "contract": "original-draft",
+      "id": "sidecar-precision-tamper",
+      "boundary": "independent-downloaded-artifact-checker",
+      "expected": "checker-refuses-modified-downloaded-provenance; no product-sidecar-import claim"
+    },
+    {
+      "contract": "original-draft",
+      "id": "original-qualified-header-tamper",
+      "boundary": "original-input-before-owned-snapshot-or-explicit-replaceSource",
+      "expected": "original-byte/hash/cache disagreement refuses replay, or explicit session replacement advances generation and refuses pending apply"
+    },
+    {
+      "contract": "original-draft",
+      "id": "source-swap-during-replay",
+      "boundary": "live-session-replaceSource",
+      "expected": "generation changes during await; no pending artifact"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "choice-swap-during-replay",
+      "boundary": "live-session-replaceSource-with-changed-reading-choice",
+      "expected": "generation changes during await; no pending artifact"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "acknowledgement-cleared-during-replay",
+      "boundary": "live-session-updateReviewer-or-new-recordReviewerDecision",
+      "expected": "owned review changes generation; no pending artifact; late mutation of caller acknowledgement object alone is ignored"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "derived-choice-original-hash-reuse",
+      "boundary": "private-copy-product-generated-choice-fault-before-apply-publication",
+      "expected": "fresh CSV source binding mismatch prevents publication"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "derived-choice-precision",
+      "boundary": "private-copy-product-generated-choice-fault-before-apply-publication",
+      "expected": "fresh CSV currency/exponent binding mismatch prevents publication"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "derived-choice-amount-column",
+      "boundary": "private-copy-product-generated-choice-fault-before-apply-publication",
+      "expected": "fresh CSV amount-column binding mismatch prevents publication"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "derived-choice-candidate-tamper",
+      "boundary": "private-copy-product-generated-choice-fault-before-apply-publication",
+      "expected": "recorded versus fresh allowed-candidate mismatch prevents publication"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "derived-choice-pdf-cuts",
+      "boundary": "private-copy-product-generated-choice-fault-before-apply-publication",
+      "expected": "fresh CSV extraction-cuts binding mismatch prevents publication"
+    },
+    {
+      "contract": "format-addendum",
+      "id": "provenance-without-original-review",
+      "boundary": "product-owned-apply-without-live-original-review-and-separate-independent-artifact-checker",
+      "expected": "product missing owned review/receipt refuses; independently edited sidecar also refuses checker credit; no sidecar import exists"
+    }
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

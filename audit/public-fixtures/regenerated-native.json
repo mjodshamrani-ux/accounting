@@ -1,0 +1,246 @@
+{
+  "version": 1,
+  "generator": "audit/public-fixtures/regenerate-native.py",
+  "records": [
+    {
+      "path": "audit/intercompany/regressions/native-white-font.xlsx",
+      "bytes": 5161,
+      "sha256": "50efb99c65c0171e52d5879c9701eabb891dc6ea16b3f56097d0437c1f328be4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored intercompany white-font; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/intercompany/regressions/native-fractional-date.xlsx",
+      "bytes": 5175,
+      "sha256": "d18be24de7c26352038de68cee32d68c5ecfd8d18439a0ebdfe7e0c0219646c2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored intercompany fractional-date; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/payment-gateway/regressions/white-font.xlsx",
+      "bytes": 5176,
+      "sha256": "4be9a0df6c7c3fd2fa6150db65b4b1e31acfca2a9fe91f8acd17f05b2484c75a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored payment-gateway white-font; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/payment-gateway/native/source-0.xlsx",
+            "sha256": "961214fb0d618b73341dbb0dbc19366265ad85796598ee07d04dea07333a05c0"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/payment-gateway/regressions/fractional-date.xlsx",
+      "bytes": 5186,
+      "sha256": "af41d5347a88271144a7b4a879be504702db70f6b7b4891aa97c8da92b269b14",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored payment-gateway fractional-date; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/payment-gateway/native/source-0.xlsx",
+            "sha256": "961214fb0d618b73341dbb0dbc19366265ad85796598ee07d04dea07333a05c0"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/payment-gateway/regressions/integer-date.xlsx",
+      "bytes": 5183,
+      "sha256": "7d6496607260b15f9e374df7c30a6c3bf94a861420f2d5da99742638295f37fb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored payment-gateway integer-date; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/payment-gateway/native/source-0.xlsx",
+            "sha256": "961214fb0d618b73341dbb0dbc19366265ad85796598ee07d04dea07333a05c0"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-visibility/native-white-font.xlsx",
+      "bytes": 4749,
+      "sha256": "90ef5c3528432954a54e5925512c74fc74b864ad162e9813a579225608f4f87a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence white-font; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-visibility/native-black-fill.xlsx",
+      "bytes": 4762,
+      "sha256": "b71ba377009d351535aa4ea503a2c78b5308ffe0436b53f2b521b0f8162e99a1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence black-fill; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-visibility/native-tiny-row.xlsx",
+      "bytes": 4750,
+      "sha256": "e85d97fedb90858bbda81beea63ff5e09e4b7330c3ac9579130e6734ec133815",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence tiny-row; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-visibility/native-tiny-column.xlsx",
+      "bytes": 4781,
+      "sha256": "7276560fb284d1dd994640dc37491b52e544d75255d04ad66fb89cc576f6a3a6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence tiny-column; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-visibility/native-low-zoom.xlsx",
+      "bytes": 4780,
+      "sha256": "fec62a978ad9a561a7138ae70dc6c062efb0b13848056ee41ea27011a07fd758",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence low-zoom; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-visibility/native-hex-column.xlsx",
+      "bytes": 4783,
+      "sha256": "d42d6515312dd4b439f33103050023b121a15215ee37e1c536a3d3a55cdcb229",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence hex-column; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-black-background.xlsx",
+      "bytes": 5379,
+      "sha256": "0148c5f092e689eeff52c0d76765a9537abb5f15d160f6f3fc5bcf25b5e25694",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence black-background; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    },
+    {
+      "path": "audit/bank-adjustment/regressions/native-black-background-wrapped.xlsx",
+      "bytes": 5480,
+      "sha256": "bf3e808594b41a0a7aa60c2da11cf4db69384393233817a25f3ba668a17156c3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Deterministic authored bank evidence black-background-wrapped; no legacy regression binary input.",
+        "inputs": [
+          {
+            "path": "audit/intercompany/native/source-0.xlsx",
+            "sha256": "2d71123a3f6c86623547efc200318e2050ae41b143bfc8ebf7a06880f10efa27"
+          },
+          {
+            "path": "audit/bank-adjustment/frozen/closing-outflow-5.csv",
+            "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+          }
+        ]
+      }
+    }
+  ]
+}

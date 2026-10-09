@@ -62,7 +62,7 @@ const prepared = (file: SourceFile, value: 'dot' | 'comma' = 'dot') => {
   return { bare, assessment };
 };
 
-test('047 an ambiguous amount format needs a recorded choice, not a value in the mapping', () => {
+void test('047 an ambiguous amount format needs a recorded choice, not a value in the mapping', () => {
   const file = fixture();
   const { bare, assessment } = prepared(file);
   assert.equal(assessment.numberFormat.status, 'ambiguous');
@@ -87,7 +87,7 @@ test('047 an ambiguous amount format needs a recorded choice, not a value in the
   assert.doesNotThrow(() => assertInputFormats([file], [chosen], scope));
 });
 
-test('047 a recorded choice does not travel to another document or another reading', () => {
+void test('047 a recorded choice does not travel to another document or another reading', () => {
   const file = fixture();
   const { bare, assessment } = prepared(file);
   const choice = formatChoice(
@@ -155,7 +155,7 @@ test('047 a recorded choice does not travel to another document or another readi
     );
 });
 
-test('047 a choice made at another currency precision is not reused', () => {
+void test('047 a choice made at another currency precision is not reused', () => {
   const file = fixture();
   const { bare, assessment } = prepared(file);
   const choice = formatChoice(
@@ -175,7 +175,7 @@ test('047 a choice made at another currency precision is not reused', () => {
   );
 });
 
-test('047 a column template never carries a document-specific choice', () => {
+void test('047 a column template never carries a document-specific choice', () => {
   const file = fixture();
   const { bare, assessment } = prepared(file);
   const chosen: Mapping = {
@@ -214,7 +214,7 @@ test('047 a column template never carries a document-specific choice', () => {
   );
 });
 
-test('047 formatChoiceColumns follows the mapped amount columns in either mode', () => {
+void test('047 formatChoiceColumns follows the mapped amount columns in either mode', () => {
   const signed = {
     ...defaultMapping(),
     date: 0,
@@ -233,7 +233,7 @@ test('047 formatChoiceColumns follows the mapped amount columns in either mode',
   assert.deepEqual(formatChoiceColumns(split, 'numberFormat'), [3, 4]);
 });
 
-test('047 a saved session is re-checked on restore and cannot assert its own approval', async () => {
+void test('047 a saved session is re-checked on restore and cannot assert its own approval', async () => {
   const csv = new TextEncoder().encode(rows.map((r) => r.join(',')).join('\n'))
     .buffer as ArrayBuffer;
   const supplier = await readFile('supplier.csv', csv);
@@ -291,7 +291,7 @@ test('047 a saved session is re-checked on restore and cannot assert its own app
 
 // A change can leave the file hash and every column number untouched and still
 // change which values reach the interpretation. Those are the cases below.
-test('047 changing PDF extraction boundaries does not change the file hash', async () => {
+void test('047 changing PDF extraction boundaries does not change the file hash', async () => {
   const bytes = syntheticPdf([
     [
       ['Date', 'Reference', 'Amount'],
@@ -307,7 +307,7 @@ test('047 changing PDF extraction boundaries does not change the file hash', asy
   assert.notDeepEqual(narrow.sheets[0].rows, wide.sheets[0].rows);
 });
 
-test('047 a choice made under one set of extraction boundaries is not reused under another', () => {
+void test('047 a choice made under one set of extraction boundaries is not reused under another', () => {
   const rowsFor = (amount: string) => [
     ['Date', 'Reference', 'Amount'],
     ['2026-07-01', 'INV-1', amount],
@@ -360,7 +360,7 @@ test('047 a choice made under one set of extraction boundaries is not reused und
   );
 });
 
-test('047 excluding a row, or typing a balance, asks the format question again', () => {
+void test('047 excluding a row, or typing a balance, asks the format question again', () => {
   const file = fixture();
   const { bare, assessment } = prepared(file);
   const chosen: Mapping = {
@@ -390,7 +390,7 @@ test('047 excluding a row, or typing a balance, asks the format question again',
   guarded({ ...chosen, closing: '2,000' }, 'closing balance typed in');
 });
 
-test('047 a change that does not touch the values keeps the answer', () => {
+void test('047 a change that does not touch the values keeps the answer', () => {
   const file = fixture();
   const { bare, assessment } = prepared(file);
   const chosen: Mapping = {

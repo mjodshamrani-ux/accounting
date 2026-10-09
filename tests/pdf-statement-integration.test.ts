@@ -134,7 +134,7 @@ const mapping = () => ({
 });
 
 for (const font of ['Helvetica', 'Courier'] as const) {
-  test(`${font}: real PDF bytes with a three-line AP header retain all ten columns and every movement`, async () => {
+  void test(`${font}: real PDF bytes with a three-line AP header retain all ten columns and every movement`, async () => {
     const bytes = wrappedHeaderPdf(undefined, font);
     const file = await readFile('synthetic-ap.pdf', bytes, [], true);
     const sheet = file.sheets[0];
@@ -174,7 +174,7 @@ for (const font of ['Helvetica', 'Courier'] as const) {
     assert.equal(result.total, 40035);
   });
 
-  test(`${font}: explicit-cut re-read used during export exactly reproduces automatic PDF extraction and accounting provenance`, async () => {
+  void test(`${font}: explicit-cut re-read used during export exactly reproduces automatic PDF extraction and accounting provenance`, async () => {
     const initial = await readFile(
       'synthetic-ap.pdf',
       wrappedHeaderPdf(undefined, font),
@@ -196,7 +196,7 @@ for (const font of ['Helvetica', 'Courier'] as const) {
     );
   });
 
-  test(`${font}: multiple PDF pages keep their repeated logical headers, original fragments and exact movement page lineage`, async () => {
+  void test(`${font}: multiple PDF pages keep their repeated logical headers, original fragments and exact movement page lineage`, async () => {
     const initial = await readFile(
       'synthetic-ap-two-pages.pdf',
       wrappedHeaderPdf([movements.slice(0, 2), movements.slice(2)], font),
@@ -251,7 +251,7 @@ for (const font of ['Helvetica', 'Courier'] as const) {
 }
 
 for (const font of ['Helvetica', 'Courier'] as const) {
-  test(`${font}: export and session restoration re-prove wrapped-header cells and page provenance from original PDF bytes`, async () => {
+  void test(`${font}: export and session restoration re-prove wrapped-header cells and page provenance from original PDF bytes`, async () => {
     const supplier = await readFile(
       'synthetic-supplier.csv',
       new TextEncoder().encode(
@@ -399,7 +399,7 @@ for (const font of ['Helvetica', 'Courier'] as const) {
   });
 }
 
-test('manual PDF page-title exclusion cannot disguise an unproved page counter', async () => {
+void test('manual PDF page-title exclusion cannot disguise an unproved page counter', async () => {
   const original = wrappedHeaderPdf([
     movements.slice(0, 2),
     movements.slice(2),

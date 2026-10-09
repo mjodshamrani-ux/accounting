@@ -12,7 +12,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
@@ -20,12 +20,39 @@ jobs:
           version: 11.19.0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: '24'
+          node-version: '24.19.0'
           cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
       - run: pnpm install --frozen-lockfile
       - run: pnpm audit --prod --audit-level=moderate
+      - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+      - run: pnpm test:mutation-runner
+      - name: Independently verify bank movements, gross/net roles, complete reversals and retained timing
+        run: |
+          node --experimental-strip-types audit/bank/export-fixture.mjs
+          python3 -m unittest discover -s audit/bank -p 'test_*.py' -v
+      - name: Independently verify payment allocation capacity, remittance, history and replay
+        run: |
+          node --experimental-strip-types audit/allocation/export-fixture.mjs
+          python3 -m unittest discover -s audit/allocation -p 'test_*.py' -v
+      - name: Independently verify GL detail and balance-source cells, bridges and replay
+        run: |
+          node --experimental-strip-types audit/gl-tb/export-fixture.mjs
+          python3 -m unittest discover -s audit/gl-tb -p 'test_*.py' -v
+      - name: Independently verify customer AR original documents, decisions and replay workpapers
+        run: |
+          node --experimental-strip-types audit/ar-limited/export-fixture.mjs
+          python3 -m unittest discover -s audit/ar-limited -p 'test_*.py' -v
+      - name: Independently verify native single-account clearing and replay workpapers
+        run: |
+          node --experimental-strip-types audit/clearing/export-fixture.mjs
+          python3 audit/clearing/check_export.py work/clearing/direct.xlsx work/clearing/restored.xlsx
+          python3 -m unittest discover -s audit/clearing -p 'test_*.py' -v
       - name: Verify recorded real local-provider experiment without downloading model weights
         run: python3 -m unittest discover -s audit/local-provider -p 'test_*.py' -v
       - name: Independently verify source pixels and cell review receipts
@@ -83,6 +110,25 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Verify twelve-type entry, readiness, navigation and retained supplier state
+        run: |
+          pnpm test:browser:reconciliation-entry
+          pnpm test:browser:startup-readiness
+          pnpm test:browser:domain-navigation
+          pnpm test:browser:main-integration
+      - name: Verify native Chrome section families and qualified currencies
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          MIZAN_SECTION_PROOF_DIR: ${{ runner.temp }}/section-families-native
+          MIZAN_QUALIFIED_CURRENCY_PROOF_DIR: ${{ runner.temp }}/section-currency-native
+        run: |
+          test -x "$MIZAN_CHROMIUM"
+          pnpm test:browser:section-families
+          pnpm test:browser:section-currency
+      - name: Independently verify human clearing and reopened memberships after UI and session replay
+        run: |
+          python3 audit/clearing/check_export.py --cleared 7 work/qa/clearing-manual.xlsx
+          python3 audit/clearing/check_export.py --cleared 4 work/qa/clearing-reopened.xlsx work/qa/clearing-restored.xlsx
       - name: Independently verify the real OCR browser review record
         run: python3 audit/visual-cell-review/check_record.py work/qa/p6-reviewed.json work/qa/p6-source.png
       - name: Independently verify the manually selected Arabic crop from real browser OCR
@@ -96,98 +142,67 @@ jobs:
       - name: Independently verify split-image UI transfer, both languages and replay
         run: |
           python3 audit/visual-split/check_export.py work/qa/p6-split-en-ar.xlsx work/qa/p6-split-en-en.xlsx work/qa/p6-split-en-restored.xlsx work/qa/p6-split-ar-ar.xlsx work/qa/p6-split-ar-en.xlsx work/qa/p6-split-ar-restored.xlsx
-      - name: Preserve visual review evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: visual-review-evidence
-          path: work/qa/p6-*
-          if-no-files-found: ignore
-          retention-days: 7
       - name: Independently replay local effort timers (accelerated development cases only)
         run: |
           python3 -m unittest discover -s audit/review-effort -p 'test_*.py' -v
           python3 audit/review-effort/check_record.py --development-oracle work/qa/review-effort-ar.json work/qa/review-effort-en.json
-      - name: Preserve development effort evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: review-effort-development
-          path: work/qa/review-effort-*
-          if-no-files-found: ignore
-          retention-days: 7
       - run: python3 audit/related-invoice/check_export.py work/qa/f03-*.xlsx
       - run: python3 audit/related-invoice/unknown-role/check_export.py work/qa/unknown-*.xlsx
       - run: python3 audit/assistant-evidence/check_export.py work/qa/p5-*.xlsx --browser work/qa/p5-browser.json
-      - name: Preserve assistant source and explanation evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: assistant-evidence
-          path: |
-            work/p5-native
-            work/qa/p5-*.xlsx
-            work/qa/p5-browser.json
-          if-no-files-found: ignore
-          retention-days: 7
-      - name: Preserve related-invoice native and browser evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: related-invoice-evidence
-          path: |
-            work/f03-native
-            work/f03-pdf
-            work/unknown-role
-            work/qa/unknown-*.xlsx
-            work/qa/unknown-browser.json
-            work/qa/f03-*.xlsx
-            work/qa/f03-browser.json
-          if-no-files-found: ignore
-          retention-days: 7
       - name: Independently verify layered XLSX headers after browser upload and session replay
         run: python3 audit/layered-statement/check_export.py work/qa/layered-0-direct.xlsx work/qa/layered-0-restored.xlsx work/qa/layered-1-direct.xlsx work/qa/layered-1-restored.xlsx
       - name: Independently verify typed documents and short-reference proofs after native replay
         run: |
           python3 audit/typed-document/check_export.py work/qa/typed-0-direct.xlsx work/qa/typed-0-restored.xlsx work/qa/typed-1-direct.xlsx work/qa/typed-1-restored.xlsx
           python3 -m unittest discover -s audit/typed-document -p 'test_*.py' -v
+      - name: Independently verify original bank browser decisions, reversal policy, timing and sessions
+        run: |
+          python3 audit/bank/check_export.py work/qa/bank-direct.xlsx
+          python3 audit/bank/check_export.py work/qa/bank-restored.xlsx
+          python3 audit/bank/check_export.py --contract individual work/qa/bank-individual.xlsx
+          python3 audit/bank/check_export.py --contract timing-after-cutoff --through 1 work/qa/bank-timing-manual.xlsx
+          python3 audit/bank/check_export.py --contract timing-after-cutoff --through 1 work/qa/bank-timing-restored.xlsx
+          python3 audit/bank/check_export.py --contract timing-after-cutoff work/qa/bank-timing-undo.xlsx
+          python3 audit/bank/check_export.py --contract no-identity --through 1 work/qa/bank-noidentity-manual.xlsx
+          python3 audit/bank/check_export.py --contract no-identity work/qa/bank-noidentity-undo.xlsx
+          python3 audit/bank/check_export.py --contract balanced-extra-members work/qa/bank-policy-error.xlsx
+          python3 audit/bank/check_export.py --contract wrong-fee-parent work/qa/bank-source-error.xlsx
+          python3 audit/bank/check_export.py --native-sources work/qa/bank-native-source-0.xlsx work/qa/bank-native-source-1.xlsx work/qa/bank-native.xlsx
+          python3 audit/bank/check_export.py --native-sources work/qa/bank-native-source-0.xlsx work/qa/bank-native-source-1.xlsx work/qa/bank-native-restored.xlsx
+      - name: Independently verify allocation and GL/TB browser downloads
+        run: |
+          python3 audit/allocation/check_export.py work/qa/allocation-direct.xlsx work/qa/allocation-restored.xlsx
+          python3 audit/allocation/check_export.py --contract undo work/qa/allocation-undo.xlsx
+          python3 audit/allocation/check_export.py --contract payment-overrun work/qa/allocation-overrun.xlsx
+          python3 audit/allocation/check_export.py --contract currency-mismatch work/qa/allocation-source-error.xlsx
+          python3 audit/allocation/check_export.py --native-sources work/qa/allocation-native-source-0.xlsx work/qa/allocation-native-source-1.xlsx work/qa/allocation-native-source-2.xlsx work/qa/allocation-native.xlsx work/qa/allocation-native-restored.xlsx
+          python3 audit/gl-tb/check_export.py work/qa/gl-tb-direct.xlsx
+          python3 audit/gl-tb/check_export.py --native-sources work/qa/gl-tb-native-gl.xlsx work/qa/gl-tb-native-tb.xlsx work/qa/gl-tb-native.xlsx work/qa/gl-tb-native-restored.xlsx
+          python3 audit/gl-tb/check_export.py --contract same-net-different-turnover work/qa/gl-tb-turnover.xlsx
+          python3 audit/gl-tb/check_export.py --contract zero-activity work/qa/gl-tb-zero.xlsx
+          python3 audit/gl-tb/check_export.py --contract missing-tb work/qa/gl-tb-missing.xlsx
+          python3 audit/gl-tb/check_export.py --contract dimensions-mismatch work/qa/gl-tb-scope-error.xlsx
+      - name: Independently verify customer AR browser downloads
+        run: |
+          python3 audit/ar-limited/check_export.py work/qa/ar-direct.xlsx work/qa/ar-reconfirmed.xlsx
+          python3 audit/ar-limited/check_export.py --reopened work/qa/ar-reopened.xlsx work/qa/ar-restored.xlsx
+          python3 audit/ar-limited/check_export.py --contract amount-difference work/qa/ar-negative.xlsx
       - name: Verify partial results through the Arabic and English interface
         run: |
           node audit/partial-input/browser/run.mjs ci-partial isolated
           python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial/partial.xlsx --out audit/partial-input/browser/ci-partial/openxml.json --browser-oracle audit/partial-input/browser/fixtures-isolated/oracle.json --require-reviewed --expected-engine 0.3.26-experimental
           node audit/partial-input/browser/run.mjs ci-partial-original original
           python3 audit/partial-reconciliation/check_openxml.py --xlsx audit/partial-input/browser/ci-partial-original/partial.xlsx --out audit/partial-input/browser/ci-partial-original/openxml.json --browser-oracle audit/partial-input/browser/fixtures/oracle.json --require-reviewed --expected-engine 0.3.26-experimental
-      - name: Preserve partial reconciliation evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: partial-reconciliation-evidence
-          path: |
-            audit/partial-input/browser/ci-partial
-            audit/partial-input/browser/ci-partial-original
-            work/partial-regression
-          if-no-files-found: ignore
-          retention-days: 7
       - name: Verify large PDFs through the browser and independently check the exported workbook
         run: |
           node audit/large-statements/browser/run.mjs ci-large-native
           python3 audit/large-statements/check_openxml.py --browser-dir audit/large-statements/browser/ci-large-native --out audit/large-statements/browser/ci-large-native/openxml.json --expected-engine 0.3.26-experimental
-      - name: Preserve large statement browser evidence
-        if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: large-statement-browser-evidence
-          path: audit/large-statements/browser/ci-large-native
-          if-no-files-found: ignore
-          retention-days: 7
-      - name: Preserve synthetic browser failure screenshots
-        if: failure()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: browser-failure-screenshots
-          path: work/qa
-          if-no-files-found: ignore
-          retention-days: 7
+      # Native screenshots, workbooks, signatures and raw validation outputs stay
+      # on the ephemeral runner, including failures. Only reviewed dist is uploaded.
+      - name: Verify complete public source export and distribution before upload
+        run: |
+          node scripts/public-content-check.mjs --source-export
+          node scripts/public-content-check.mjs --dist
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: dist
@@ -206,16 +221,43 @@ jobs:
           version: 11.19.0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: '24'
+          node-version: '24.19.0'
           cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
       - run: pnpm install --frozen-lockfile
       - name: Verify regression tests detect deliberate accounting faults
         env:
           MUTATION_SHARD: ${{ matrix.shard }}/6
         run: pnpm test:mutations
+  specialized-faults:
+    name: Specialized accounting fault gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.19.0'
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:mutation-runner
+      - name: Recompute all36 specialized faults in disposable copies
+        env:
+          SPECIALIZED_FAULT_OUTPUT_DIR: ${{ runner.temp }}/specialized-fault-evidence
+        run: pnpm test:specialized-faults
   deploy:
-    if: github.event_name != 'pull_request'
-    needs: [build, mutations]
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    needs: [build, mutations, specialized-faults]
     permissions:
       pages: write
       id-token: write

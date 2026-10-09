@@ -1,0 +1,1100 @@
+[
+  {
+    "name": "three-components-positive",
+    "kind": "ready",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "cost-one-minor-difference",
+    "kind": "difference",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "depreciation-one-minor-difference",
+    "kind": "difference",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "impairment-one-minor-difference",
+    "kind": "difference",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "negative-cost-gl-not-flipped",
+    "kind": "difference",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "negative-contra-gl-not-flipped",
+    "kind": "difference",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "cost-missing",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "negative-cost-unsupported",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "negative-accumulated-depreciation-unsupported",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "negative-impairment-unsupported",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "carrying-equation-fails",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "carrying-negative-unsupported",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "precision-not-rounded",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "arabic-numeric-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "decimal-comma-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "exponent-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "asset-identity-literal",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "asset-dimensions-complete",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "component-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "evidence-component-match",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "evidence-valuation-match",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "gl-dimensions-match",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "evidence-sign-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "evidence-basis-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "evidence-class-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "gl-class-not-inferred",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "expired-evidence",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "inclusive-validity",
+    "kind": "ready",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "year-zero-invalid-evidence",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "compact-date-invalid-evidence",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "week-date-invalid-evidence",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "zero-carrying-valid",
+    "kind": "ready",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "contra-exceeds-cost-source-error",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "component-differences-masked-by-net",
+    "kind": "difference",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "duplicate-register",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "empty-register",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "duplicate-mapping",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "empty-mapping",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "duplicate-evidence",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "empty-evidence",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "duplicate-gl",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "empty-gl",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "malformed-register-competitor-full-member",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "mapping-id-does-not-prove-component-uniqueness",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "unmapped-zero-cost-account-not-dropped",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "unmapped-zero-contra-account-not-dropped",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "zero-impairment-still-needs-mapping",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "zero-asset-component-still-needs-mapping",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "zero-component-still-needs-evidence",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "orphan-mapping-visible",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "orphan-evidence-visible",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "opposite-cost-differences-zero-grand",
+    "kind": "difference",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "minor-bound-inclusive",
+    "kind": "ready",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "register-aggregate-bound-plus-one",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "value-bound-plus-one",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "account-class-component-mismatch",
+    "kind": "missing",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "foreign-entity",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "unposted-row",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "foreign-component-policy",
+    "kind": "source-error",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "SAR",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "jpy-zero-precision-positive",
+    "kind": "ready",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "JPY",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  },
+  {
+    "name": "kwd-three-precision-positive",
+    "kind": "ready",
+    "scope": {
+      "entity": "Synthetic Asset Owner",
+      "assetLedger": "ASSET-BOOK",
+      "glLedger": "GL-BOOK",
+      "currency": "KWD",
+      "currencyBasis": "functional",
+      "postingStatus": "posted",
+      "postingLayer": "Current",
+      "asOf": "2026-09-30",
+      "chartVersion": "CHART-1",
+      "mapVersion": "MAP-1",
+      "componentPolicyVersion": "provided-components-1",
+      "assetAccountSetVersion": "ASSET-SET-1"
+    }
+  }
+]

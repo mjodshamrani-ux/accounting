@@ -1,0 +1,82 @@
+{
+  "sourceCommit": "f2def49fa1e0db770ebcaff76d12dc238da2ce6f",
+  "scope": "Exact immutable historical oracles/reviewer sources/self-authenticated model experiments; never product exclusions. Original artifacts remain executable and unchanged.",
+  "files": [
+    {
+      "path": "audit/bank-adjustment/reviews/integrated-original/b22-product-evidence/browser_worker_probes.mjs",
+      "bytes": 4975,
+      "sha256": "111b0c1d2783eee364beae0c5b5c958d9fde3a118da4bf57f6db7e0631daaba9"
+    },
+    {
+      "path": "audit/bank-adjustment/reviews/integrated-original/b22-product-evidence/worker_probes.mjs",
+      "bytes": 4424,
+      "sha256": "008ae60cec55c12ad13396a1c45d9a66ddae8e75dfa4b6a9bc289035c84a1151"
+    },
+    {
+      "path": "audit/bank-balance/reviews/b2-evidence/independent-financial.mjs",
+      "bytes": 4162,
+      "sha256": "bca93e58c891f04d42ca816b9b531db2e51a0fdad09654e26253e712e932fa67"
+    },
+    {
+      "path": "audit/large-statements/frozen/checks.mjs",
+      "bytes": 11913,
+      "sha256": "c37993c869517a65c52708ca3d9dbf626f8b76aae6a9b6f30048180864946ad7"
+    },
+    {
+      "path": "audit/local-provider/run-v2.mjs",
+      "bytes": 9685,
+      "sha256": "f87eaf5108c3b76cae6c04f08e620755220600cd64185f3d6ca7678b9329c46e"
+    },
+    {
+      "path": "audit/local-provider/run.mjs",
+      "bytes": 9160,
+      "sha256": "30df952efe9141f40ba0f7dc591968f1bb1f2a0856b0cd97e188e245e7103956"
+    },
+    {
+      "path": "audit/p1-reference-resolution/independent-v2/frozen/run.mjs",
+      "bytes": 10305,
+      "sha256": "e4a6e7e13d2c290994f701aa1c0e1938ffa0aa9e32dc15ad8d8be01935a32a84"
+    },
+    {
+      "path": "audit/p1-reference-resolution/independent-v3/frozen/run.mjs",
+      "bytes": 10305,
+      "sha256": "e4a6e7e13d2c290994f701aa1c0e1938ffa0aa9e32dc15ad8d8be01935a32a84"
+    },
+    {
+      "path": "audit/p1-reference-resolution/independent/frozen/run.mjs",
+      "bytes": 9240,
+      "sha256": "a0b605e895b4431f04c22bfc87a2448b52804b03599c1bf86d8da1daa151d30f"
+    },
+    {
+      "path": "audit/p2-group-resolution/holdout-v2/frozen/run.mjs",
+      "bytes": 11806,
+      "sha256": "337097aab86b9fccbbc93d1ec69c4b75a8ad22234f0027e7dcaa2beb44f759a6"
+    },
+    {
+      "path": "audit/p2-group-resolution/holdout/frozen/run.mjs",
+      "bytes": 11806,
+      "sha256": "337097aab86b9fccbbc93d1ec69c4b75a8ad22234f0027e7dcaa2beb44f759a6"
+    },
+    {
+      "path": "audit/p2-group-resolution/independent/frozen/run.mjs",
+      "bytes": 11746,
+      "sha256": "001b795cccc23c4edb047fb2e69a628b82e6a936dfa26ffb51ef29b74ae21025"
+    },
+    {
+      "path": "audit/partial-reconciliation/frozen/run.mjs",
+      "bytes": 12433,
+      "sha256": "4bf5a897a7d35fc8f92d405a3b97e0aa9cbb01035658227a6aa1942c1695d593"
+    },
+    {
+      "path": "audit/release-049/independent-reference-check/frozen/run.mjs",
+      "bytes": 6977,
+      "sha256": "53fc95158645af5a51db746c99eec2b59428ed847a6fe2cbdb1fdfbe321883f3"
+    },
+    {
+      "path": "audit/p8-non-ai-four-story-v1/frozen/write-xlsx.cjs",
+      "bytes": 1427,
+      "sha256": "676081b784267d36111d87e5d878de5cc30bec4dfca97c4100b5397f578fd490",
+      "basis": "Independently authored literal-string XLSX fixture generator frozen in 2be4206d before driver/evaluator; CommonJS original retained byte-exact, no product or maintained tool exclusion."
+    }
+  ]
+}

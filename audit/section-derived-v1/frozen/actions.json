@@ -1,0 +1,59 @@
+{
+  "authorship": "Independent explicit action annotation added after initial fixture freeze to clarify review inputs; original and expected files unchanged.",
+  "cases": {
+    "section-signed": {
+      "selectedMovementRows": [
+        3,
+        4
+      ],
+      "decision": "accept"
+    },
+    "cross-page": {
+      "selectedMovementRows": [
+        3,
+        6
+      ],
+      "decision": "accept"
+    },
+    "explicit-native-reference": {
+      "selectedMovementRows": [
+        4
+      ],
+      "decision": "accept"
+    },
+    "missing-parent": {
+      "selectedMovementRows": [],
+      "decision": "accept"
+    },
+    "unknown-boundary": {
+      "selectedMovementRows": [
+        3
+      ],
+      "decision": "accept"
+    },
+    "late-corrupt-amount": {
+      "selectedMovementRows": [],
+      "decision": "accept"
+    },
+    "competing-reference": {
+      "selectedMovementRows": [],
+      "decision": "accept"
+    },
+    "duplicate-parent": {
+      "selectedMovementRows": [],
+      "decision": "accept"
+    },
+    "page-gap": {
+      "selectedMovementRows": [
+        3
+      ],
+      "decision": "accept"
+    },
+    "unselected-movement": {
+      "selectedMovementRows": [
+        3
+      ],
+      "decision": "accept"
+    }
+  }
+}

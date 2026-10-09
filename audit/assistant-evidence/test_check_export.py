@@ -7,7 +7,8 @@ from zipfile import ZipFile
 from check_export import check, check_answers, Book
 ROOT = Path(__file__).resolve().parents[2]
 CANDIDATE = ROOT / 'work/p5-native'
-if not CANDIDATE.exists(): CANDIDATE = Path(__file__).resolve().parent / 'candidate-0419'
+# CI runs the synthetic native exporter before this oracle. Historical raw
+# output directories are intentionally outside the public dependency boundary.
 FILE = CANDIDATE / 'untyped-credit-direct.xlsx'
 XML = '{http://schemas.openxmlformats.org/spreadsheetml/2006/main}'
 

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "id": "P1V206-SOURCE-PROOF-V1",
+  "kind": "independent-precode-source-safety-proof",
+  "scope": "Read original frozen P1V206 bytes; prove whether its manually required pairs follow from visible native facts. No production matcher, parsing, normalization, AI, network, download, or approval authority.",
+  "originalContractStatus": "OPEN_POSITIVE_REQUIREMENT_NOT_RECLASSIFIED",
+  "originalContractFile": "audit/p1-reference-resolution/independent-v2/frozen/contracts.json",
+  "originalCaseId": "P1V206",
+  "header": ["Date", "Document No", "Reference", "Voucher No", "Description", "Amount", "Currency"],
+  "original": {
+    "supplierFile": "audit/p1-reference-resolution/independent-v2/frozen/fixtures/P1V206-supplier.csv",
+    "ledgerFile": "audit/p1-reference-resolution/independent-v2/frozen/fixtures/P1V206-ledger.csv",
+    "supplierRows": [
+      ["2026-09-24", "D-850", "Z", "S-Q", "Entry record", "193.75", "SAR"],
+      ["2026-09-24", "D-850", "N/A", "S-R", "Entry record", "193.75", "SAR"],
+      ["2026-09-24", "D-850", "ر", "S-S", "Entry record", "193.75", "SAR"],
+      ["2026-09-24", "D-850", "-", "S-T", "Entry record", "193.75", "SAR"]
+    ],
+    "ledgerRows": [
+      ["2026-09-24", "D-850", "-", "L-Q", "Entry record", "193.75", "SAR"],
+      ["2026-09-24", "D-850", "ر", "L-R", "Entry record", "193.75", "SAR"],
+      ["2026-09-24", "D-850", "N/A", "L-S", "Entry record", "193.75", "SAR"],
+      ["2026-09-24", "D-850", "Z", "L-T", "Entry record", "193.75", "SAR"]
+    ],
+    "requiredAutoPairs": [[2, 5], [4, 3]],
+    "forbidOtherAutoPairs": true,
+    "forbidAutoGroups": true,
+    "readPolicy": "all-transactions",
+    "decisions": [],
+    "expectedCompatibleBijectionCount": 14,
+    "expectedForcedPairs": [],
+    "expectedNeitherRequiredPairBijectionCount": 4,
+    "witnessPairs": [[2, 2], [3, 5], [4, 4], [5, 3]],
+    "witnessMissingReferenceCompletion": {
+      "supplier": [{"row": 3, "hypotheticalReference": "Z"}, {"row": 5, "hypotheticalReference": "ر"}],
+      "ledger": [{"row": 2, "hypotheticalReference": "Z"}, {"row": 4, "hypotheticalReference": "ر"}]
+    }
+  },
+  "proofAssumptions": {
+    "completeOneToOneBijection": "Assume all four movements on each side have exactly one counterpart. This grants stronger completeness than the source establishes; nonuniqueness even under this assumption suffices to disprove forced pairs.",
+    "edgeRequirements": ["Literal document equality", "Literal date equality", "Literal currency equality", "Exact signed Decimal amount equality", "Literal chosen-reference equality only when both cells are usable"],
+    "missingMarkers": ["", "N/A", "-"],
+    "missingMarkerMeaning": "For these fixtures only, missing reference cells impose no reference identity constraint. They do not prove different identities and token equality does not identify a pair.",
+    "usableReferenceDomain": "This finite fixture proof accepts the literal nonplaceholder labels present here. It defines no production validation rule for arbitrary reference text.",
+    "voucherMeaning": "Voucher No is local to each book. S-* and L-* values provide no native cross-book mapping.",
+    "descriptionMeaning": "All descriptions are Entry record; description does not supply cross-book identity.",
+    "witnessMeaning": "Witness pairs and missing-reference completions are hypothetical accounting realities compatible with all visible native facts, never field truth, source edits, recommended matches, or approvals.",
+    "safetyConclusion": "Neither manually required original pair is forced by native evidence. Approving them requires additional noncompetition evidence or a changed accounting policy. The original positive requirement remains unfulfilled under the existing competitor invariant."
+  },
+  "positiveControl": {
+    "kind": "new-synthetic-literal-native-source-control-not-original-facts",
+    "rationale": "Keep the same Z and ر labels and row positions; replace both missing sibling labels with independently explicit A and B in each book. All four chosen references are distinct within each original document bucket.",
+    "supplierCsv": "Date,Document No,Reference,Voucher No,Description,Amount,Currency\n2026-09-24,D-850,Z,S-Q,Entry record,193.75,SAR\n2026-09-24,D-850,A,S-R,Entry record,193.75,SAR\n2026-09-24,D-850,ر,S-S,Entry record,193.75,SAR\n2026-09-24,D-850,B,S-T,Entry record,193.75,SAR\n",
+    "ledgerCsv": "Date,Document No,Reference,Voucher No,Description,Amount,Currency\n2026-09-24,D-850,B,L-Q,Entry record,193.75,SAR\n2026-09-24,D-850,ر,L-R,Entry record,193.75,SAR\n2026-09-24,D-850,A,L-S,Entry record,193.75,SAR\n2026-09-24,D-850,Z,L-T,Entry record,193.75,SAR\n",
+    "expectedCompatibleBijectionCount": 1,
+    "expectedForcedPairs": [[2, 5], [3, 4], [4, 3], [5, 2]],
+    "expectedOriginalRequiredPairsForced": true,
+    "approvalMeaning": "Unique compatibility is a source-identity positive control only; financial, conflict, read-error, scope, decision and other production guards still apply. This proof grants no automatic approval authority."
+  }
+}

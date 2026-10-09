@@ -1,0 +1,114 @@
+{
+  "outcome": "derived",
+  "originalSha256": "30ff25c2350c33a1ec7420a4cf15d77c9dca222058926562147e790af8cb639b",
+  "originalByteLength": 1280,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "INV-271",
+        "first line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "second",
+        "+2.50"
+      ]
+    }
+  ],
+  "proposals": [
+    {
+      "targetRow": 4,
+      "reference": "INV-271",
+      "parentCells": [
+        {
+          "row": 2,
+          "page": 1,
+          "column": 1,
+          "literal": "Invoice No"
+        },
+        {
+          "row": 2,
+          "page": 1,
+          "column": 2,
+          "literal": "INV-271"
+        }
+      ],
+      "continuationCells": [],
+      "headerCells": []
+    }
+  ],
+  "links": [
+    {
+      "originalRow": 3,
+      "page": 1,
+      "derivedRow": 2,
+      "reference": "INV-271",
+      "referenceOrigin": "explicit-source-cell"
+    },
+    {
+      "originalRow": 4,
+      "page": 1,
+      "derivedRow": 3,
+      "reference": "INV-271",
+      "referenceOrigin": "accepted-section-proposal"
+    }
+  ],
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Amount"
+    ],
+    [
+      "2026-10-01",
+      "INV-271",
+      "first line",
+      "-12.50"
+    ],
+    [
+      "2026-10-01",
+      "INV-271",
+      "second",
+      "+2.50"
+    ]
+  ],
+  "csvSha256": "11c1848f08f0f8787a861fef952d8613efe7f76c71b27177b1ddbc6985aefcc9",
+  "signedAmounts": [
+    "-12.50",
+    "+2.50"
+  ],
+  "amountMinor": [
+    -1250,
+    250
+  ]
+}

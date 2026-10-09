@@ -27,7 +27,7 @@ const run = (scope = unnamed) =>
     normalizeSource(demoFiles[1], demoMappings[1], scope, 'ledger'),
     scope,
   );
-test('transaction comparison needs verified scope but not optional descriptive names', async () => {
+void test('transaction comparison needs verified scope but not optional descriptive names', async () => {
   const result = run();
   assert.equal(result.matches.length, 2);
   assert.equal(result.balanceComparable, false);
@@ -48,14 +48,14 @@ test('transaction comparison needs verified scope but not optional descriptive n
   });
   assert.ok(bytes.byteLength > 1000);
 });
-test('known currency precision is explicit and unknown currencies are not assigned two decimals', () => {
+void test('known currency precision is explicit and unknown currencies are not assigned two decimals', () => {
   assert.equal(currencyPrecision('SAR'), 2);
   assert.equal(currencyPrecision('KWD'), 3);
   assert.equal(currencyPrecision('JPY'), 0);
   assert.equal(currencyPrecision('ZZZ'), undefined);
   assert.equal(currencyPrecision('constructor'), undefined);
 });
-test('currency precision changes the ambiguity assessment, not the transaction value', () => {
+void test('currency precision changes the ambiguity assessment, not the transaction value', () => {
   const file = {
     name: 'synthetic.csv',
     sheets: [
@@ -74,7 +74,7 @@ test('currency precision changes the ambiguity assessment, not the transaction v
   assert.equal(suggestFormats(file, m, 3).numberFormat.status, 'ambiguous');
   assert.equal(suggestFormats(file, m, 2).numberFormat.status, 'proven');
 });
-test('PDF automatic column suggestions retain required human review and original row provenance', async () => {
+void test('PDF automatic column suggestions retain required human review and original row provenance', async () => {
   const file = await readFile(
     'synthetic.pdf',
     syntheticStyledPdf(),
@@ -98,7 +98,7 @@ test('PDF automatic column suggestions retain required human review and original
   const reread = await readFile(file.name, file.original!, file.pdf?.cuts);
   assert.deepEqual(reread.sheets, file.sheets);
 });
-test('transaction column spans do not invalidate intact labeled PDF metadata; other parsing issues do', () => {
+void test('transaction column spans do not invalidate intact labeled PDF metadata; other parsing issues do', () => {
   const file = {
     name: 'synthetic.pdf',
     pdf: { cuts: [25, 45], pages: 1 },

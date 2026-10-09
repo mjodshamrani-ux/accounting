@@ -91,7 +91,7 @@ const rows = (r: Result) => [
   ...r.ledger.transactions,
 ];
 
-test('evaluator: the untouched engine passes the cases used below', async () => {
+void test('evaluator: the untouched engine passes the cases used below', async () => {
   for (const [t, v] of [
     ['R02-batch-kept', 'batch'],
     ['R01-voucher-and-reference', 'voucher-differs'],
@@ -104,7 +104,7 @@ test('evaluator: the untouched engine passes the cases used below', async () => 
     assert.equal(await verdict(spec(t, v)), 'pass', `${t} ${v}`);
 });
 
-test('evaluator: losing a required piece of evidence fails the case', async () => {
+void test('evaluator: losing a required piece of evidence fails the case', async () => {
   const s = spec('R02-batch-kept', 'batch');
   const lost = tampered((r) => {
     for (const t of rows(r)) delete t.retainedEvidence;
@@ -114,7 +114,7 @@ test('evaluator: losing a required piece of evidence fails the case', async () =
   assert.ok(record.findings.some((f: string) => /batch/.test(f)));
 });
 
-test('evaluator: the value in a field of another role does not count as kept', async () => {
+void test('evaluator: the value in a field of another role does not count as kept', async () => {
   // The voucher number moved into the order field: the value is still on
   // the row, but not as a voucher.
   const moved = tampered((r) => {
@@ -211,7 +211,7 @@ const statedReferenceCase = () => ({
   },
 });
 
-test('evaluator: exact generic reference text and header count as retained under either supported representation', async () => {
+void test('evaluator: exact generic reference text and header count as retained under either supported representation', async () => {
   for (const assist of ['none', 'declared']) {
     const observed = tampered((r) => {
       for (const t of rows(r))
@@ -230,7 +230,7 @@ test('evaluator: exact generic reference text and header count as retained under
   }
 });
 
-test('evaluator: an unselected reference needs its exact retained role, header and value', async () => {
+void test('evaluator: an unselected reference needs its exact retained role, header and value', async () => {
   for (const [label, change] of [
     ['missing tuple', (t: Tx) => { delete t.retainedEvidence; }],
     ['wrong role', (t: Tx) => { t.retainedEvidence![0].field = 'batch'; }],
@@ -251,7 +251,7 @@ test('evaluator: an unselected reference needs its exact retained role, header a
   }
 });
 
-test('evaluator: retained reference evidence from another source or row does not count', async () => {
+void test('evaluator: retained reference evidence from another source or row does not count', async () => {
   for (const origin of ['other source', 'other row']) {
     const record = await evaluateHardCase(
       statedReferenceCase(),
@@ -275,7 +275,7 @@ test('evaluator: retained reference evidence from another source or row does not
   }
 });
 
-test('evaluator: preserving unselected references never licenses an automatic match', async () => {
+void test('evaluator: preserving unselected references never licenses an automatic match', async () => {
   const record = await evaluateHardCase(
     statedReferenceCase(),
     tampered((r) => {
@@ -289,7 +289,7 @@ test('evaluator: preserving unselected references never licenses an automatic ma
   assert.equal(record.verdict, 'fail-unsafe');
 });
 
-test('evaluator: an unexpected internal error is not a successful refusal', async () => {
+void test('evaluator: an unexpected internal error is not a successful refusal', async () => {
   const invalid = spec('F09-missing-amount', 'no-amount-column');
   for (const error of [
     new Error('unexpected failure inside the engine'),
@@ -308,7 +308,7 @@ test('evaluator: an unexpected internal error is not a successful refusal', asyn
   );
 });
 
-test('evaluator: every invalid case names its own rejection, and another reason fails', async () => {
+void test('evaluator: every invalid case names its own rejection, and another reason fails', async () => {
   for (const sp of ['development', 'validation', 'final', 'final-b'])
     for (const d of hardManifest(sp, 400)) {
       const s = buildHardCase(d);
@@ -325,7 +325,7 @@ test('evaluator: every invalid case names its own rejection, and another reason 
   );
 });
 
-test('evaluator: Needs Review passes as Unmatched only where the contract allows both', async () => {
+void test('evaluator: Needs Review passes as Unmatched only where the contract allows both', async () => {
   const conflict = spec('T06-type-conflict', 'payment-labelled-invoice');
   assert.deepEqual(conflict.oracle.contract.outcomes, ['review']);
   const demoted = tampered((r) => {
@@ -340,7 +340,7 @@ test('evaluator: Needs Review passes as Unmatched only where the contract allows
   assert.equal(await verdict(zeros), 'pass');
 });
 
-test('evaluator: a required diagnostic is part of the verdict', async () => {
+void test('evaluator: a required diagnostic is part of the verdict', async () => {
   const silent = tampered((r) => {
     for (const c of r.cases)
       c.evidence = c.evidence.filter((e) => !/مجموع الطرفين مختلف/.test(e));
@@ -351,7 +351,7 @@ test('evaluator: a required diagnostic is part of the verdict', async () => {
   );
 });
 
-test('evaluator: a reference warning does not hide a wrong amount or date', async () => {
+void test('evaluator: a reference warning does not hide a wrong amount or date', async () => {
   for (const change of [
     (t: Tx) => (t.amount += 1),
     (t: Tx) => (t.date = '2026-07-28'),
@@ -372,7 +372,7 @@ test('evaluator: a reference warning does not hide a wrong amount or date', asyn
   }
 });
 
-test('evaluator: a row read under its own document number is not a misread, any other value is', async () => {
+void test('evaluator: a row read under its own document number is not a misread, any other value is', async () => {
   const s = spec('H03-document-no-vs-chosen-reference', 'agree', 'holdout');
   assert.equal(await verdict(s), 'pass');
   const record = await evaluateHardCase(
@@ -387,7 +387,7 @@ test('evaluator: a row read under its own document number is not a misread, any 
   assert.ok(record.counts.silentMisreads > 0);
 });
 
-test('evaluator: unaided and declared runs record assistance separately', async () => {
+void test('evaluator: unaided and declared runs record assistance separately', async () => {
   // English development layout: the product leaves the reference column
   // open when a Reference and a Voucher No column both exist.
   const s = spec('R01-voucher-and-reference', 'voucher-differs', 'development');

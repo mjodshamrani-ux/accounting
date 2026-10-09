@@ -1,0 +1,161 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_ACTIONS_V1",
+  "actions": [
+    {
+      "id": "sar-wrong-zero-exponent",
+      "source": "sar-on-page",
+      "change": {
+        "selectedDecimals": 0
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "sar-wrong-three-exponent",
+      "source": "sar-on-page",
+      "change": {
+        "selectedDecimals": 3
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "jpy-wrong-two-exponent",
+      "source": "jpy-on-page",
+      "change": {
+        "selectedDecimals": 2
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "kwd-wrong-two-exponent",
+      "source": "kwd-on-page",
+      "change": {
+        "selectedDecimals": 2
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "cached-qualified-header-tamper",
+      "source": "sar-cross-page",
+      "change": {
+        "row": 4,
+        "column": 4,
+        "literal": "Signed amount (JPY)"
+      },
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "original-qualified-header-tamper",
+      "source": "sar-cross-page",
+      "change": "change original qualifier bytes without the reviewed original hash",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "currency-citation-literal-tamper",
+      "source": "sar-cross-page",
+      "change": "change currency evidence literal after review",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "currency-citation-coordinate-tamper",
+      "source": "sar-cross-page",
+      "change": "change physical row/page/column of currency evidence",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "omit-second-header-evidence",
+      "source": "sar-cross-page",
+      "change": "remove original page2 currency evidence",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "source-swap-after-review",
+      "source": "sar-on-page",
+      "change": "replace original SAR source with original JPY source after owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "precision-swap-after-review",
+      "source": "kwd-on-page",
+      "change": "change selectedDecimals from3 to2 after owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "revision-swap-after-review",
+      "source": "sar-on-page",
+      "change": "change extractionRevision after owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "copied-currency-receipt",
+      "source": "sar-on-page",
+      "change": "copy or deserialize owned receipt",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "sidecar-currency-tamper",
+      "source": "sar-on-page",
+      "change": "replace sidecar currency SAR withJPY before validation/import",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "sidecar-precision-tamper",
+      "source": "sar-on-page",
+      "change": "replace sidecar decimals2 with0 before validation/import",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "source-swap-during-replay",
+      "source": "sar-cross-page",
+      "change": "replace source during awaited original replay",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "cancellation-during-replay",
+      "source": "sar-cross-page",
+      "change": "cancel at first native PDF page before next-page publication",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    },
+    {
+      "id": "incomplete-selected-movements",
+      "source": "sar-on-page",
+      "change": "leave one missing-reference movement proposal unselected",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false
+    }
+  ]
+}

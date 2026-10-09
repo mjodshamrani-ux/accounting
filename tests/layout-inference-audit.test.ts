@@ -29,7 +29,7 @@ const source = (rows: string[][]): SourceFile => ({
   sheets: [{ name: 'Transactions', rows, hiddenRows: [], formulaRows: [] }],
 });
 
-test('a richer later header cannot silently erase an earlier transaction table', () => {
+void test('a richer later header cannot silently erase an earlier transaction table', () => {
   const file = source([
     ['Date', 'Reference', 'Amount'],
     ['2028-02-13', 'AUD-9001', '125.50'],
@@ -80,7 +80,7 @@ test('a richer later header cannot silently erase an earlier transaction table',
   }
 });
 
-test('explicit multiline and bilingual labels map consistently without changing source text', () => {
+void test('explicit multiline and bilingual labels map consistently without changing source text', () => {
   const file = source([
     [
       'Date / التاريخ',
@@ -106,7 +106,7 @@ test('explicit multiline and bilingual labels map consistently without changing 
   assert.equal(JSON.stringify(file), before);
 });
 
-test('long cover text does not prevent locating the first explicit table', () => {
+void test('long cover text does not prevent locating the first explicit table', () => {
   const file = source([
     ...Array.from({ length: 45 }, (_, i) => [`Statement note ${i + 1}`]),
     ['Date', 'Reference', 'Amount'],
@@ -116,7 +116,7 @@ test('long cover text does not prevent locating the first explicit table', () =>
   assert.equal(selectImportMapping(file, 'supplier').kind, 'unique-table');
 });
 
-test('conflicting bilingual money labels and duplicate amount columns stay unresolved', () => {
+void test('conflicting bilingual money labels and duplicate amount columns stay unresolved', () => {
   for (const header of [
     ['Date', 'Reference', 'Amount (SAR) / المبلغ (USD)'],
     ['Date', 'Reference', 'Amount', 'المبلغ'],
@@ -130,7 +130,7 @@ test('conflicting bilingual money labels and duplicate amount columns stay unres
   }
 });
 
-test('explicit bilingual currency tags prefill the actual currency', () => {
+void test('explicit bilingual currency tags prefill the actual currency', () => {
   const file = source([
     ['Date / التاريخ', 'Reference / المرجع', 'Amount (USD) / المبلغ (USD)'],
     ['2028-02-13', 'AUD-9351', '125.50'],
@@ -146,7 +146,7 @@ test('explicit bilingual currency tags prefill the actual currency', () => {
   );
 });
 
-test('currency inference ignores safe repeated headers and summary rows without hiding mixed currencies', () => {
+void test('currency inference ignores safe repeated headers and summary rows without hiding mixed currencies', () => {
   const file = source([
     ['Date', 'Reference', 'Amount', 'Currency'],
     ['2028-02-13', 'AUD-9401', '125.50', 'SAR'],
@@ -193,7 +193,7 @@ test('currency inference ignores safe repeated headers and summary rows without 
   );
 });
 
-test('384 independent CSV/XLSX layouts infer columns and retain the same signed economic records', async () => {
+void test('384 independent CSV/XLSX layouts infer columns and retain the same signed economic records', async () => {
   // Expected minor units are literal business truth, not parsed from engine output.
   const expected = [
     ['AUD-9501', 12550],

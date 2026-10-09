@@ -60,7 +60,7 @@ function accounted(file: SourceFile, result: SourceResult): void {
   );
 }
 
-test('a valid transaction stays a transaction when its entire description is a summary word', () => {
+void test('a valid transaction stays a transaction when its entire description is a summary word', () => {
   for (const description of [
     'Total',
     'Closing Balance',
@@ -82,7 +82,7 @@ test('a valid transaction stays a transaction when its entire description is a s
   }
 });
 
-test('a summary word in an unused helper cannot remove a real transaction', () => {
+void test('a summary word in an unused helper cannot remove a real transaction', () => {
   const file = fixture(
     [['2026-07-01', 'INV-100', 'Goods', '100.00', 'Total']],
     ['Date', 'Reference', 'Description', 'Amount', 'Group'],
@@ -94,7 +94,7 @@ test('a summary word in an unused helper cannot remove a real transaction', () =
   accounted(file, result);
 });
 
-test('a duplicate with description Total remains visible and prevents an automatic match', () => {
+void test('a duplicate with description Total remains visible and prevents an automatic match', () => {
   const source = fixture([
     ['2026-07-01', 'INV-100', 'Invoice', '100.00'],
     ['2026-07-01', 'INV-100', 'Total', '100.00'],
@@ -119,7 +119,7 @@ test('a duplicate with description Total remains visible and prevents an automat
   accounted(counterpart, ledger);
 });
 
-test('unreadable potential duplicates leave readable data available but cannot prove any automatic match', () => {
+void test('unreadable potential duplicates leave readable data available but cannot prove any automatic match', () => {
   for (const side of ['supplier', 'ledger'] as const) {
     for (const defect of ['amount', 'date', 'reference'] as const) {
       const broken = fixture([
@@ -168,7 +168,7 @@ test('unreadable potential duplicates leave readable data available but cannot p
   }
 });
 
-test('summary wording cannot bypass a mapped parsing or formula defect in a transaction', () => {
+void test('summary wording cannot bypass a mapped parsing or formula defect in a transaction', () => {
   for (const issue of ['cell', 'row', 'formula']) {
     const file = fixture([['2026-07-01', 'INV-100', 'Total', '100.00']]);
     if (issue === 'cell')
@@ -185,7 +185,7 @@ test('summary wording cannot bypass a mapped parsing or formula defect in a tran
   }
 });
 
-test('a decimal quantity is not inferred as a monetary amount', () => {
+void test('a decimal quantity is not inferred as a monetary amount', () => {
   const file = fixture(
     [['2026-07-01', 'INV-100', '2.50']],
     ['Date', 'Reference', 'Quantity'],
@@ -197,7 +197,7 @@ test('a decimal quantity is not inferred as a monetary amount', () => {
   assert.throws(() => normalizeSource(file, inferred, scope, 'supplier'));
 });
 
-test('a due date is not inferred as the transaction date merely because it parses', () => {
+void test('a due date is not inferred as the transaction date merely because it parses', () => {
   const file = fixture(
     [['2026-07-31', 'INV-100', '100.00']],
     ['Due Date', 'Reference', 'Amount'],
@@ -209,7 +209,7 @@ test('a due date is not inferred as the transaction date merely because it parse
   assert.throws(() => normalizeSource(file, inferred, scope, 'supplier'));
 });
 
-test('an unknown identifier column does not become an invoice reference through uniqueness', () => {
+void test('an unknown identifier column does not become an invoice reference through uniqueness', () => {
   const file = fixture(
     [['2026-07-01', 'SKU-100', '100.00']],
     ['Date', 'Stock Code', 'Amount'],
@@ -227,7 +227,7 @@ test('an unknown identifier column does not become an invoice reference through 
   assert.equal(compare(supplier, ledger, scope).matches.length, 0);
 });
 
-test('two explicit reference headers cannot be resolved by preferring the column without duplicates', () => {
+void test('two explicit reference headers cannot be resolved by preferring the column without duplicates', () => {
   const build = (invoice: string) =>
     fixture(
       [
@@ -257,7 +257,7 @@ test('two explicit reference headers cannot be resolved by preferring the column
   accounted(ledgerFile, ledger);
 });
 
-test('structural opening and total lines remain accounted for without manual exclusions', () => {
+void test('structural opening and total lines remain accounted for without manual exclusions', () => {
   const file = fixture([
     ['Opening balance', '', '', '40.00'],
     ['2026-07-01', 'INV-100', 'Goods', '100.00'],
@@ -283,7 +283,7 @@ test('structural opening and total lines remain accounted for without manual exc
   accounted(file, result);
 });
 
-test('reordered columns cannot turn a dated transaction with a numeric reference into a total', () => {
+void test('reordered columns cannot turn a dated transaction with a numeric reference into a total', () => {
   const variants = [
     {
       header: ['Description', 'Reference', 'Date', 'Amount'],
@@ -334,7 +334,7 @@ test('reordered columns cannot turn a dated transaction with a numeric reference
   }
 });
 
-test('missing or malformed dates with numeric document references remain reviewable rows', () => {
+void test('missing or malformed dates with numeric document references remain reviewable rows', () => {
   const header = ['Description', 'Reference', 'Date', 'Amount'];
   const m = {
     ...defaultMapping(),
@@ -366,7 +366,7 @@ test('missing or malformed dates with numeric document references remain reviewa
   );
 });
 
-test('dated opening and closing records need dedicated balance identities, never invoice numbers', () => {
+void test('dated opening and closing records need dedicated balance identities, never invoice numbers', () => {
   const header = ['Type', 'Reference', 'Date', 'Amount'];
   const m = { ...defaultMapping(), reference: 1, date: 2, amount: 3 };
   const opening = ['Opening Balance', 'B/F', '2026-07-01', '40.00'];

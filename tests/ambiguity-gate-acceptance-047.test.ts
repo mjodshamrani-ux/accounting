@@ -70,7 +70,7 @@ const answered = (
   } as Mapping;
 };
 
-test('047 only the guard’s own refusal counts as protection', () => {
+void test('047 only the guard’s own refusal counts as protection', () => {
   const file = {
     name: 'a.csv',
     sha256: 'a'.repeat(64),
@@ -113,12 +113,12 @@ test('047 only the guard’s own refusal counts as protection', () => {
     undefined,
     null,
   ])
-    assert.equal(isInputReadinessRejection(impostor), false, String(impostor));
+    assert.equal(isInputReadinessRejection(impostor), false, impostor instanceof Error ? impostor.toString() : impostor !== null && typeof impostor === 'object' ? Object.prototype.toString.call(impostor) : String(impostor));
   // A refusal of one code is not a refusal of another.
   assert.equal(isInputReadinessRejection(caught, 'FORMAT_INVALID'), false);
 });
 
-test('047 the answered ambiguity is accepted and produces the chosen values', () => {
+void test('047 the answered ambiguity is accepted and produces the chosen values', () => {
   const file = {
     name: 'a.csv',
     sha256: 'a'.repeat(64),
@@ -143,7 +143,7 @@ test('047 the answered ambiguity is accepted and produces the chosen values', ()
   }
 });
 
-test('047 the worker refuses an unanswered ambiguity on reconcile, compare and export, and completes once answered', async () => {
+void test('047 the worker refuses an unanswered ambiguity on reconcile, compare and export, and completes once answered', async () => {
   const supplierFile = await readFile('supplier.csv', csv());
   const ledgerFile = await readFile('ledger.csv', separateBytes(csv()));
   const files = [supplierFile, ledgerFile];
@@ -232,7 +232,7 @@ test('047 the worker refuses an unanswered ambiguity on reconcile, compare and e
   }
 });
 
-test('047 session restore refuses an unanswered ambiguity with the same code', async () => {
+void test('047 session restore refuses an unanswered ambiguity with the same code', async () => {
   const supplierFile = await readFile('supplier.csv', csv());
   const ledgerFile = await readFile('ledger.csv', separateBytes(csv()));
   const bare = [inferMapping(supplierFile), inferMapping(ledgerFile)] as [

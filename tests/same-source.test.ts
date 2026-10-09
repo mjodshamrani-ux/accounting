@@ -1,3 +1,4 @@
+import { testValueText } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -53,7 +54,7 @@ const isDiagnosticOnly = (r: ReturnType<typeof run>) =>
     (c) => c.status !== 'Matched' && c.evidence[0] === SAME_SOURCE_MESSAGE,
   );
 
-test('the same file on both sides is a labelled diagnostic, never approved', async () => {
+void test('the same file on both sides is a labelled diagnostic, never approved', async () => {
   const f = await read('july.csv');
   const r = run([f, f], [reading(f, 'supplier'), reading(f, 'ledger')]);
   assert.ok(isDiagnosticOnly(r));
@@ -62,7 +63,7 @@ test('the same file on both sides is a labelled diagnostic, never approved', asy
   assert.ok(engineCatalog[SAME_SOURCE_MESSAGE]);
 });
 
-test('a copy under another name is still the same source', async () => {
+void test('a copy under another name is still the same source', async () => {
   const f = await read('july.csv');
   const copy = await read('july (copy) - ledger.csv');
   assert.equal(f.sha256, copy.sha256);
@@ -70,7 +71,7 @@ test('a copy under another name is still the same source', async () => {
   assert.ok(isDiagnosticOnly(r));
 });
 
-test('the same file read with its columns listed or chosen differently is still the same source', async () => {
+void test('the same file read with its columns listed or chosen differently is still the same source', async () => {
   const f = await read('july.csv');
   const m = reading(f, 'supplier');
   // The same reading with its keys in another order.
@@ -86,7 +87,7 @@ test('the same file read with its columns listed or chosen differently is still 
   );
 });
 
-test('similar names on two different sources are two sources', async () => {
+void test('similar names on two different sources are two sources', async () => {
   const supplier = await read('july statement.csv');
   const ledger = await read('july statement.csv', [
     ...ROWS,
@@ -101,7 +102,7 @@ test('similar names on two different sources are two sources', async () => {
   assert.ok(!r.diagnostics.some((d) => d.code === 'SAME_SOURCE_BOTH_SIDES'));
 });
 
-test('two different sheets of one workbook are two sources', async () => {
+void test('two different sheets of one workbook are two sources', async () => {
   const book = new ExcelJS.Workbook();
   for (const name of ['Vendor statement', 'AP ledger']) {
     const sheet = book.addWorksheet(name);
@@ -135,7 +136,7 @@ test('two different sheets of one workbook are two sources', async () => {
   );
 });
 
-test('restoring, comparing again and exporting keep the self-comparison unapproved', async () => {
+void test('restoring, comparing again and exporting keep the self-comparison unapproved', async () => {
   const f = await read('july.csv');
   const copy = await read('july-ledger.csv');
   const files: [SourceFile, SourceFile] = [f, copy];
@@ -178,7 +179,7 @@ test('restoring, comparing again and exporting keep the self-comparison unapprov
   const texts: string[] = [];
   book.eachSheet((sheet) =>
     sheet.eachRow((row) =>
-      row.eachCell((cell) => void texts.push(String(cell.value ?? ''))),
+      row.eachCell((cell) => void texts.push(testValueText(cell.value ?? ''))),
     ),
   );
   assert.ok(texts.includes('SAME_SOURCE_BOTH_SIDES'));

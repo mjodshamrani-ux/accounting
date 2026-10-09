@@ -1,0 +1,87 @@
+{
+  "version": "p4-native-section-families-browser-v1",
+  "synthetic": true,
+  "fieldAcceptance": false,
+  "financialMatching": false,
+  "languages": [
+    "ar",
+    "en"
+  ],
+  "viewportWidths": [
+    320,
+    390
+  ],
+  "familyFreezeSha256": {
+    "p4-multicell-section-v1": "a7feb24d741f936d9de3fd8b4b46ccde0623582e495c2d55fe64f21d22b61a54",
+    "p4-native-arabic-section-v4": "70a4cd2d8632e81e86d6f74575ab166c01c9204a2055725467b677cb0fa1cfb8",
+    "p4-raw-signed-header-v2": "d19d2d665dfeb7c23474791d4eecb26b384407b615574376c524f02013f0940f"
+  },
+  "acceptedPrecodeCommits": {
+    "p4-native-arabic-section-v4": "42cac594f469a99b00502d43a940cc06bba4e899",
+    "p4-raw-signed-header-v2": "a74b8e2dd31fe1d9650d0fbb856692216f346f3f"
+  },
+  "vocabularyAlias": {
+    "path": "audit/p4-raw-signed-header-v2/vocabulary-alias.json",
+    "sha256": "f1b9776a87521145bf00b43cd6f998389a3f37070f8575c99e567c63fb1dd4c5"
+  },
+  "positiveCases": [
+    {
+      "family": "p4-multicell-section-v1",
+      "id": "pair-cross-page"
+    },
+    {
+      "family": "p4-native-arabic-section-v4",
+      "id": "arabic-cross-page"
+    },
+    {
+      "family": "p4-native-arabic-section-v4",
+      "id": "arabic-numeric-literals"
+    },
+    {
+      "family": "p4-raw-signed-header-v2",
+      "id": "split-cross-page"
+    },
+    {
+      "family": "p4-raw-signed-header-v2",
+      "id": "movement-cross-page"
+    },
+    {
+      "family": "p4-raw-signed-header-v2",
+      "id": "own-reference"
+    }
+  ],
+  "negativeCases": [
+    {
+      "family": "p4-multicell-section-v1",
+      "id": "nonadjacent-pair"
+    },
+    {
+      "family": "p4-native-arabic-section-v4",
+      "id": "arabic-unknown-role"
+    },
+    {
+      "family": "p4-raw-signed-header-v2",
+      "id": "missing-lower-header"
+    }
+  ],
+  "truth": "Existing immutable manually authored PDF/CSV/inventory/citation expectations; no product result used to construct expected output.",
+  "checks": [
+    "actual native PDF upload",
+    "explicit source",
+    "structure inventory/citations",
+    "derivative inventory/citations",
+    "pending review clear",
+    "reviewer/selection/source receipt invalidation",
+    "byte-exact UTF-8 CSV",
+    "preserved native PDF",
+    "independent Python CSV/Decimal",
+    "fresh product CSV reader signs/rows",
+    "no automatic financial result",
+    "AR/EN no horizontal overflow",
+    "no page errors"
+  ],
+  "publicProjection": {
+    "type": "source-identity-metadata",
+    "changes": "The Arabic generator wrapper uses a portable runtime locator. Its metadata freeze identity pin is refreshed; all frozen fixture bytes, financial truth, case/control assertions and native acceptance criteria remain unchanged."
+  }
+}

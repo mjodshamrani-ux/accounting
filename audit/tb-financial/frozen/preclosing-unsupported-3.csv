@@ -1,0 +1,7 @@
+Line ID,Line label,Line class,Amount,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+CASH,Cash,current-asset,1000.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+REC,Receivables net,current-asset,500.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+PPE,Equipment,noncurrent-asset,500.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+PAY,Payables,current-liability,800.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+LOAN,Loan,noncurrent-liability,200.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+CAP,Capital,equity,1000.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing

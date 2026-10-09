@@ -1,0 +1,9 @@
+{
+  "authorship": "Separate boundary-stage clarification following first native-reader test; original expected blocked outcome and all previous frozen files preserved.",
+  "cases": {
+    "page-gap": {
+      "expectedBlockStage": "native-reader",
+      "expectedDiagnosticCode": "PDF_NO_EXTRACTABLE_TEXT"
+    }
+  }
+}

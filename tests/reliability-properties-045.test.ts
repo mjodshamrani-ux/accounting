@@ -1,3 +1,4 @@
+import { compareDefaultSort } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
@@ -111,8 +112,8 @@ function economicSignature(result: Comparison) {
   return result.cases
     .map((c) => ({
       status: c.status,
-      a: c.supplierMembers.map((t) => [t.reference, t.date, t.amount]).sort(),
-      b: c.ledgerMembers.map((t) => [t.reference, t.date, t.amount]).sort(),
+      a: c.supplierMembers.map((t) => [t.reference, t.date, t.amount]).sort(compareDefaultSort),
+      b: c.ledgerMembers.map((t) => [t.reference, t.date, t.amount]).sort(compareDefaultSort),
       variance: c.variance,
     }))
     .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
@@ -181,7 +182,7 @@ function verifyPartitionAndAmounts(
   }
 }
 
-test('metamorphic real CSV files preserve decisions after reordering columns and plain transaction rows', async () => {
+void test('metamorphic real CSV files preserve decisions after reordering columns and plain transaction rows', async () => {
   const original = fixture(),
     baseline = await pipeline(original);
   assert.deepEqual(
@@ -211,7 +212,7 @@ test('metamorphic real CSV files preserve decisions after reordering columns and
   );
 });
 
-test('Arabic money digits, decimal comma and alternate explicit date formats preserve economic meaning', async () => {
+void test('Arabic money digits, decimal comma and alternate explicit date formats preserve economic meaning', async () => {
   const original = fixture(),
     baseline = await pipeline(original),
     variant = fixture();
@@ -232,7 +233,7 @@ test('Arabic money digits, decimal comma and alternate explicit date formats pre
   );
 });
 
-test('determinism includes complete decisions, evidence, bridge and source row identities', async () => {
+void test('determinism includes complete decisions, evidence, bridge and source row identities', async () => {
   const c = fixture(),
     { result, sources, scope } = await pipeline(c);
   for (let i = 0; i < 3; i++)
@@ -240,7 +241,7 @@ test('determinism includes complete decisions, evidence, bridge and source row i
   verifyPartitionAndAmounts(result, c);
 });
 
-test('a currency conflict cannot cross into automatic matches or a proven balance bridge', async () => {
+void test('a currency conflict cannot cross into automatic matches or a proven balance bridge', async () => {
   const c = fixture();
   c.sources[1].metadata.currency = 'USD';
   for (const row of c.sources[1].rows) row.currency = 'USD';
@@ -261,7 +262,7 @@ test('a currency conflict cannot cross into automatic matches or a proven balanc
   assert.equal(result.bridge, null);
 });
 
-test('reference normalization collisions do not become identities merely because amounts agree', async () => {
+void test('reference normalization collisions do not become identities merely because amounts agree', async () => {
   const c = fixture();
   c.sources[0].rows[0].reference = 'AB-12';
   c.sources[1].rows[0].reference = 'A-B12';
@@ -273,7 +274,7 @@ test('reference normalization collisions do not become identities merely because
   verifyPartitionAndAmounts(result, c);
 });
 
-test('independent invariant probes detect deliberate source reuse, numeric alteration and sign inversion', async () => {
+void test('independent invariant probes detect deliberate source reuse, numeric alteration and sign inversion', async () => {
   const c = fixture(),
     { result } = await pipeline(c);
   verifyPartitionAndAmounts(result, c);
@@ -297,7 +298,7 @@ test('independent invariant probes detect deliberate source reuse, numeric alter
   );
 });
 
-test('published file-size and parsed-row limits reject at import rather than returning partial success', async () => {
+void test('published file-size and parsed-row limits reject at import rather than returning partial success', async () => {
   await assert.rejects(
     () => readFile('oversize.csv', new ArrayBuffer(MAX_FILE_BYTES + 1)),
     /حجم الملف|MB/,

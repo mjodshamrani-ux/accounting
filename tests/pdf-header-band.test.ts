@@ -66,7 +66,7 @@ function ledgerPage(seed = 937) {
   return { width: 1000, tokens };
 }
 
-test('two dates and a vertically split AP balance header produce all ten columns with exact line evidence', () => {
+void test('two dates and a vertically split AP balance header produce all ten columns with exact line evidence', () => {
   const page = ledgerPage();
   const before = JSON.stringify(page);
   const layout = suggestPdfColumnLayout([page]);
@@ -87,7 +87,7 @@ test('two dates and a vertically split AP balance header produce all ten columns
   assert.equal(extracted[4].row[1], '2026-05-19');
 });
 
-test('geometric header evidence remains stable for independent amounts, pages, and wrapped versus unwrapped labels', () => {
+void test('geometric header evidence remains stable for independent amounts, pages, and wrapped versus unwrapped labels', () => {
   for (let seed = 1; seed < 21; seed++) {
     const first = ledgerPage(seed);
     const second = ledgerPage(seed + 1);
@@ -103,7 +103,7 @@ test('geometric header evidence remains stable for independent amounts, pages, a
   }
 });
 
-test('unknown or misaligned fragments cannot be converted to a known balance heading', () => {
+void test('unknown or misaligned fragments cannot be converted to a known balance heading', () => {
   const unknown = ledgerPage();
   unknown.tokens.find((item) => item.text === 'Balance')!.text = 'Estimated';
   assert.equal(suggestPdfColumnLayout([unknown]), null);
@@ -118,7 +118,7 @@ test('unknown or misaligned fragments cannot be converted to a known balance hea
   assert.equal(suggestPdfColumnLayout([overlap]), null);
 });
 
-test('a different second-page table, duplicate header or transaction crossing a candidate gap cancels the strict proposal', () => {
+void test('a different second-page table, duplicate header or transaction crossing a candidate gap cancels the strict proposal', () => {
   const different = ledgerPage();
   different.tokens.find((item) => item.text === 'Supplier Ref')!.text =
     'Vendor Ref';
@@ -135,14 +135,14 @@ test('a different second-page table, duplicate header or transaction crossing a 
   assert.equal(suggestPdfColumnLayout([crossed]), null);
 });
 
-test('the existing vocabulary-free geometry fallback remains available without claiming header identity', () => {
+void test('the existing vocabulary-free geometry fallback remains available without claiming header identity', () => {
   const page = ledgerPage();
   page.tokens = page.tokens.filter((item) => item.y < 690);
   assert.equal(suggestPdfColumnLayout([page]), null);
   assert.ok(projectPdfColumns([page]));
 });
 
-test('close split header words have one exact supported interpretation, while wide gaps remain separate', () => {
+void test('close split header words have one exact supported interpretation, while wide gaps remain separate', () => {
   const page = ledgerPage();
   page.tokens = page.tokens.flatMap((item) =>
     item.text === 'Invoice Date'

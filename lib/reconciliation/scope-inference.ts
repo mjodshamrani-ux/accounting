@@ -194,7 +194,7 @@ function metadataEnd(
 function normalizedValue(
   field: ScopeSuggestionField | 'period',
   raw: string,
-  mapping: Mapping,
+  _mapping: Mapping,
 ): string | null {
   const value = clean(raw);
   if (!value || value.length > 250) return null;

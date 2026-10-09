@@ -1,0 +1,166 @@
+[
+  {
+    "case": "independent-units-positive",
+    "financial": "ready"
+  },
+  {
+    "case": "quantity-not-a-value",
+    "financial": "ready"
+  },
+  {
+    "case": "zero-quantity-does-not-invent-value",
+    "financial": "ready"
+  },
+  {
+    "case": "quantity-fraction-not-exact",
+    "financial": "source-error"
+  },
+  {
+    "case": "quantity-missing",
+    "financial": "source-error"
+  },
+  {
+    "case": "unit-mismatch",
+    "financial": "missing"
+  },
+  {
+    "case": "unit-missing",
+    "financial": "source-error"
+  },
+  {
+    "case": "precision-evidence-mismatch",
+    "financial": "missing"
+  },
+  {
+    "case": "quantity-precision-seven",
+    "financial": "source-error"
+  },
+  {
+    "case": "value-missing",
+    "financial": "source-error"
+  },
+  {
+    "case": "value-excess-precision",
+    "financial": "source-error"
+  },
+  {
+    "case": "value-negative",
+    "financial": "source-error"
+  },
+  {
+    "case": "value-arabic-digits-unsupported",
+    "financial": "source-error"
+  },
+  {
+    "case": "value-valuation-evidence-mismatch",
+    "financial": "missing"
+  },
+  {
+    "case": "item-dimensions-complete",
+    "financial": "missing"
+  },
+  {
+    "case": "gl-dimensions-complete",
+    "financial": "missing"
+  },
+  {
+    "case": "expired-policy",
+    "financial": "source-error"
+  },
+  {
+    "case": "policy-validity-inclusive",
+    "financial": "ready"
+  },
+  {
+    "case": "policy-sign-not-inferred",
+    "financial": "source-error"
+  },
+  {
+    "case": "policy-basis-not-inferred",
+    "financial": "source-error"
+  },
+  {
+    "case": "class-not-inventory",
+    "financial": "source-error"
+  },
+  {
+    "case": "difference-one-minor",
+    "financial": "difference"
+  },
+  {
+    "case": "debit-credit-independent",
+    "financial": "difference"
+  },
+  {
+    "case": "literal-item-id",
+    "financial": "missing"
+  },
+  {
+    "case": "quantity-bound-positive",
+    "financial": "ready"
+  },
+  {
+    "case": "quantity-bound-negative",
+    "financial": "source-error"
+  },
+  {
+    "case": "duplicate-register",
+    "financial": "source-error"
+  },
+  {
+    "case": "empty-register",
+    "financial": "missing"
+  },
+  {
+    "case": "duplicate-mapping",
+    "financial": "source-error"
+  },
+  {
+    "case": "empty-mapping",
+    "financial": "missing"
+  },
+  {
+    "case": "duplicate-evidence",
+    "financial": "source-error"
+  },
+  {
+    "case": "empty-evidence",
+    "financial": "missing"
+  },
+  {
+    "case": "duplicate-gl",
+    "financial": "source-error"
+  },
+  {
+    "case": "empty-gl",
+    "financial": "missing"
+  },
+  {
+    "case": "malformed-competitor-still-member",
+    "financial": "source-error"
+  },
+  {
+    "case": "unique-map-id-not-unique-item",
+    "financial": "source-error"
+  },
+  {
+    "case": "unmapped-zero-gl-not-dropped",
+    "financial": "missing"
+  },
+  {
+    "case": "opposite-account-differences-zero-grand",
+    "financial": "difference"
+  },
+  {
+    "case": "money-aggregate-bound-positive",
+    "financial": "ready"
+  },
+  {
+    "case": "money-aggregate-bound-negative",
+    "financial": "source-error"
+  },
+  {
+    "case": "signed-gl-net-not-flipped",
+    "financial": "difference"
+  }
+]

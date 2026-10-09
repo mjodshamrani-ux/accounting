@@ -1,0 +1,38 @@
+{
+  "pages": [
+    [
+      [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed"
+      ],
+      [
+        "",
+        "",
+        "",
+        "amount"
+      ],
+      [
+        "Invoice No",
+        "INV-271",
+        "",
+        ""
+      ],
+      [
+        "2026-10-01",
+        "",
+        "line, \"one\"",
+        "-12.50"
+      ],
+      [
+        "2026-10-01",
+        "",
+        "second",
+        "+2.50"
+      ]
+    ]
+  ],
+  "synthetic": true,
+  "rawHeaderRowsPreserved": true
+}

@@ -22,7 +22,7 @@ const fixture = (rows: string[][]): SourceFile => ({
   ],
 });
 
-test('ISO dates, explicit month names and whole numbers need no locale question', () => {
+void test('ISO dates, explicit month names and whole numbers need no locale question', () => {
   const result = suggestFormats(
     fixture([
       ['2026-07-01', 'A', '100'],
@@ -38,7 +38,7 @@ test('ISO dates, explicit month names and whole numbers need no locale question'
   assert.deepEqual(result.patch, { dateFormat: 'ymd', numberFormat: 'dot' });
 });
 
-test('calendar ambiguity remains visible until a whole-column interpretation is unique', () => {
+void test('calendar ambiguity remains visible until a whole-column interpretation is unique', () => {
   const file = fixture([['01/02/2026', 'A', '1234.56']]);
   const ambiguous = suggestFormats(file, mapping, 2);
   assert.equal(ambiguous.dateFormat.status, 'ambiguous');
@@ -56,7 +56,7 @@ test('calendar ambiguity remains visible until a whole-column interpretation is 
   assert.equal(same.dateFormat.status, 'proven');
 });
 
-test('impossible dates, short years and mutually incompatible date orders are invalid', () => {
+void test('impossible dates, short years and mutually incompatible date orders are invalid', () => {
   for (const dates of [
     ['2026-02-29'],
     ['31-Apr-2026'],
@@ -85,7 +85,7 @@ test('impossible dates, short years and mutually incompatible date orders are in
   assert.equal(partial.dateFormat.checkedValues, 1);
 });
 
-test('number format inference obeys grouping, decimal precision and Arabic separators', () => {
+void test('number format inference obeys grouping, decimal precision and Arabic separators', () => {
   for (const [amount, format] of [
     ['1,234.56', 'dot'],
     ['(1.234,56)', 'comma'],
@@ -111,7 +111,7 @@ test('number format inference obeys grouping, decimal precision and Arabic separ
   }
 });
 
-test('three-decimal currencies never guess between decimal and thousands separators', () => {
+void test('three-decimal currencies never guess between decimal and thousands separators', () => {
   for (const amount of ['1.234', '1,234', '-12.345']) {
     const result = suggestFormats(
       fixture([['2026-07-01', 'A', amount]]),
@@ -137,7 +137,7 @@ test('three-decimal currencies never guess between decimal and thousands separat
   );
 });
 
-test('native Excel numeric cells are locale independent, while text cells still constrain format', () => {
+void test('native Excel numeric cells are locale independent, while text cells still constrain format', () => {
   const file = fixture([
     ['2026-07-01', 'A', '1.234'],
     ['2026-07-02', 'B', '25,000'],
@@ -158,7 +158,7 @@ test('native Excel numeric cells are locale independent, while text cells still 
   assert.equal(lowerPrecision.checkedValues, 2);
 });
 
-test('mapped parser defects and percentage cells cannot become format proof', () => {
+void test('mapped parser defects and percentage cells cannot become format proof', () => {
   for (const mode of ['cell', 'row', 'formula', 'percent']) {
     const file = fixture([['2026-07-01', 'A', '1234.56']]);
     if (mode === 'cell') file.sheets[0].cellIssues = { '2:3': ['hidden sign'] };
@@ -184,7 +184,7 @@ test('mapped parser defects and percentage cells cannot become format proof', ()
   assert.equal(suggestFormats(file, mapping, 2).dateFormat.status, 'invalid');
 });
 
-test('inference ignores explicit exclusions, preheaders and clear balance rows without changing them', () => {
+void test('inference ignores explicit exclusions, preheaders and clear balance rows without changing them', () => {
   const file = fixture([
     ['not a date', 'preheader', 'bad amount'],
     ['Date', 'Reference', 'Amount'],
@@ -208,7 +208,7 @@ test('inference ignores explicit exclusions, preheaders and clear balance rows w
   assert.deepEqual({ file, m }, original);
 });
 
-test('split amounts allow a blank side but not an entirely missing movement value', () => {
+void test('split amounts allow a blank side but not an entirely missing movement value', () => {
   const split = {
     ...mapping,
     mode: 'split' as const,
@@ -228,7 +228,7 @@ test('split amounts allow a blank side but not an entirely missing movement valu
   assert.equal(partial.checkedValues, 2);
 });
 
-test('no sample cutoff hides a late incompatible value or an oversized source', () => {
+void test('no sample cutoff hides a late incompatible value or an oversized source', () => {
   const rows = Array.from({ length: 1500 }, () => [
     '13/07/2026',
     'A',
@@ -245,7 +245,7 @@ test('no sample cutoff hides a late incompatible value or an oversized source', 
   assert.equal(suggestFormats(huge, mapping, 2).numberFormat.status, 'invalid');
 });
 
-test('existing entered balances participate in proof and missing mappings stay unavailable', () => {
+void test('existing entered balances participate in proof and missing mappings stay unavailable', () => {
   const file = fixture([['2026-07-01', 'A', '1.23']]);
   assert.equal(
     suggestFormats(file, { ...mapping, opening: '1,23' }, 2).numberFormat

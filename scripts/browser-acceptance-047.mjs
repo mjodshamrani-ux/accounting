@@ -206,7 +206,7 @@ for (const entry of await acceptanceCases()) {
           await settled(page);
         }
       }
-      let hint = await blockingHint(page);
+      const hint = await blockingHint(page);
       if (hint) {
         record.blockedBefore = hint.slice(0, 200);
         // The app asks for an interpretation the document cannot settle. This

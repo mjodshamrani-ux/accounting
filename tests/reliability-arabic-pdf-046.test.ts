@@ -50,7 +50,7 @@ const readFixture = async (id: string) =>
 for (const fixture of manifest.fixtures.filter(
   (f: { expected: unknown }) => f.expected,
 )) {
-  test(`046 Arabic text PDF ${fixture.id}: actual fields, provenance, matches and independent Excel values`, async () => {
+  void test(`046 Arabic text PDF ${fixture.id}: actual fields, provenance, matches and independent Excel values`, async () => {
     const file = await readFixture(fixture.id);
     const selected = selectImportMapping(file, 'supplier').mapping;
     assert.ok(file.pdf?.autoColumns);
@@ -156,7 +156,7 @@ for (const fixture of manifest.fixtures.filter(
       );
   });
 }
-test('046 Arabic continuation and second account table remain visible and cannot claim complete reading', async () => {
+void test('046 Arabic continuation and second account table remain visible and cannot claim complete reading', async () => {
   for (const id of ['reportlab-wrapped-reference', 'reportlab-second-table']) {
     const file = await readFixture(id);
     const source = normalizeSource(
@@ -181,7 +181,7 @@ test('046 Arabic continuation and second account table remain visible and cannot
     );
   }
 });
-test('046 glyph provenance uses pinned bidi ordering without mutating Latin references or numeric signs', () => {
+void test('046 glyph provenance uses pinned bidi ordering without mutating Latin references or numeric signs', () => {
   const ops = { showText: 1 },
     box = [0, 0, 100, 10];
   for (const raw of [
@@ -196,7 +196,7 @@ test('046 glyph provenance uses pinned bidi ordering without mutating Latin refe
     bindTextPaints(
       ops,
       [1],
-      [[[...raw].map((unicode) => ({ unicode }))]],
+      [[Array.from(raw).map((unicode) => ({ unicode }))]],
       [text],
       [box],
       sources,
@@ -211,7 +211,7 @@ test('046 glyph provenance uses pinned bidi ordering without mutating Latin refe
           bindTextPaints(
             ops,
             [1],
-            [[[...raw].map((unicode) => ({ unicode }))]],
+            [[Array.from(raw).map((unicode) => ({ unicode }))]],
             [wrong],
             [box],
           ),
@@ -219,7 +219,7 @@ test('046 glyph provenance uses pinned bidi ordering without mutating Latin refe
       );
   }
 });
-test('046 source geometry may attach adjacent sign fragments but never guesses separated digits', () => {
+void test('046 source geometry may attach adjacent sign fragments but never guesses separated digits', () => {
   const tokens = [
     { text: '−', x: 20, y: 700, width: 7, height: 10 },
     { text: '٩٨٫٠٥', x: 27.05, y: 700, width: 35, height: 10 },
@@ -242,7 +242,7 @@ test('046 source geometry may attach adjacent sign fragments but never guesses s
     '12 34',
   );
 });
-test('046 Arabic word fragments follow RTL geometry while financial fragments retain their source sequence', () => {
+void test('046 Arabic word fragments follow RTL geometry while financial fragments retain their source sequence', () => {
   const tokens = [
     {
       text: 'الفاتورة',
@@ -274,7 +274,7 @@ test('046 Arabic word fragments follow RTL geometry while financial fragments re
   )[0];
   assert.equal(mixed.row[0], 'الفاتورة INV-001');
 });
-test('046 full-page rectangular clips accept visible statements but partial and unknown clips reject', async () => {
+void test('046 full-page rectangular clips accept visible statements but partial and unknown clips reject', async () => {
   const rows = [
     ['Date', 'Reference', 'Amount'],
     ['2026-07-01', 'INV-1', '100.00'],
@@ -301,7 +301,7 @@ test('046 full-page rectangular clips accept visible statements but partial and 
 
 // Source fixtures use generated glyph streams, not OCR; mixed image pages never
 // become a successful prefix extraction (the existing OCR boundary is retained).
-test('046 native Arabic source followed by an unreadable page cannot return partial accounting data', async () => {
+void test('046 native Arabic source followed by an unreadable page cannot return partial accounting data', async () => {
   const bytes = await readBytes(
     new URL(
       './fixtures/pdf-arabic-046/reportlab-mixed-image.pdf',

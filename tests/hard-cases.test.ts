@@ -1,3 +1,4 @@
+import { testValueText } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -89,7 +90,7 @@ const typed = (supplierType: string, ledgerType = supplierType) =>
     ],
   );
 
-test('T01: documented invoice labels are read as invoices and match', async () => {
+void test('T01: documented invoice labels are read as invoices and match', async () => {
   for (const label of [
     'Tax Invoice',
     'tax  invoice',
@@ -125,7 +126,7 @@ test('T01: documented invoice labels are read as invoices and match', async () =
   }
 });
 
-test('T01 reverse: labels that name another role or no role are not guessed', async () => {
+void test('T01 reverse: labels that name another role or no role are not guessed', async () => {
   // A pro-forma or a reversal is not the invoice itself, and a bare code has
   // no documented meaning; each stays unknown and blocks automatic matching.
   for (const label of [
@@ -147,7 +148,7 @@ test('T01 reverse: labels that name another role or no role are not guessed', as
   }
 });
 
-test('T01 reverse: a recognised synonym still conflicts with another role', async () => {
+void test('T01 reverse: a recognised synonym still conflicts with another role', async () => {
   for (const [a, b] of [
     ['Tax Invoice', 'Payment'],
     ['فاتورة ضريبية', 'إشعار دائن'],
@@ -207,7 +208,7 @@ const paymentCase = (result: Awaited<ReturnType<typeof reconcile>>) =>
 const controlMatched = (result: Awaited<ReturnType<typeof reconcile>>) =>
   statusOf(result, 'INV-34900') === 'Matched';
 
-test('G08: parts of one payment on neighbouring days match through an explicit bank identity', async () => {
+void test('G08: parts of one payment on neighbouring days match through an explicit bank identity', async () => {
   const bank = 'TRF-88120';
   for (const [single, parts] of [
     [
@@ -252,7 +253,7 @@ test('G08: parts of one payment on neighbouring days match through an explicit b
   );
 });
 
-test('G08 reverse: a spread group without full, unique, in-window identity stays for review', async () => {
+void test('G08 reverse: a spread group without full, unique, in-window identity stays for review', async () => {
   const bank = 'TRF-88120';
   const cases: [string, Part, Part[], number?][] = [
     [
@@ -346,7 +347,7 @@ test('G08 reverse: a spread group without full, unique, in-window identity stays
   assert.ok(controlMatched(competing));
 });
 
-test('G08 reverse: invoice groups still need one date', async () => {
+void test('G08 reverse: invoice groups still need one date', async () => {
   const head = ['Date', 'Reference', 'Type', 'PO', 'Description', 'Amount'];
   const result = await reconcile(
     [
@@ -380,7 +381,7 @@ const rowOf = (result: Awaited<ReturnType<typeof reconcile>>, ref: string) =>
       t.reference === ref || t.retainedEvidence?.some((e) => e.value === ref),
   );
 
-test('R01: each book numbers its own vouchers; the chosen reference still names the invoice', async () => {
+void test('R01: each book numbers its own vouchers; the chosen reference still names the invoice', async () => {
   const result = await reconcile(
     [
       VOUCHERED,
@@ -418,7 +419,7 @@ test('R01: each book numbers its own vouchers; the chosen reference still names 
   assert.equal(s.primaryReference, 'INV-30017');
 });
 
-test('R01 reverse: the chosen reference must itself prove the document', async () => {
+void test('R01 reverse: the chosen reference must itself prove the document', async () => {
   const cases: [string, string[], string[]][] = [
     [
       'chosen references differ even though vouchers agree',
@@ -536,7 +537,7 @@ test('R01 reverse: the chosen reference must itself prove the document', async (
   assert.equal(po.cases.filter((c) => c.status === 'Matched').length, 0);
 });
 
-test('R02: batch, chosen reference and type label are kept with their headers, never as proof', async () => {
+void test('R02: batch, chosen reference and type label are kept with their headers, never as proof', async () => {
   const head = [
     'Date',
     'Reference',
@@ -610,7 +611,7 @@ test('R02: batch, chosen reference and type label are kept with their headers, n
   assert.equal(batchOnly.cases.filter((c) => c.status === 'Matched').length, 0);
 });
 
-test('R02: retained evidence survives session restore and is exported beside the row', async () => {
+void test('R02: retained evidence survives session restore and is exported beside the row', async () => {
   const head = ['Date', 'Reference', 'Type', 'Bank Ref', 'Batch', 'Amount'];
   const rows = [
     head,
@@ -652,7 +653,7 @@ test('R02: retained evidence survives session restore and is exported beside the
   const cells = sheet
     .getColumn(column)
     .values.slice(2)
-    .map((v) => String(v ?? ''));
+    .map((v) => testValueText(v ?? ''));
   assert.ok(
     cells.includes(
       'mappedReference (Reference): PAY-4410 | batch (Batch): B-77',
@@ -670,7 +671,7 @@ test('R02: retained evidence survives session restore and is exported beside the
 const MISMATCH =
   'مصادر المقارنة وإعدادات قراءتها وأدوارها غير متطابقة في العدد أو غير صالحة.';
 
-test('S01: sources, readings and roles that do not correspond are refused, never dropped', async () => {
+void test('S01: sources, readings and roles that do not correspond are refused, never dropped', async () => {
   const rows = [
     ['Date', 'Reference', 'Amount'],
     ['2026-07-09', 'INV-1001', '1250.00'],
@@ -723,7 +724,7 @@ test('S01: sources, readings and roles that do not correspond are refused, never
   );
 });
 
-test('S06: formula-like and long references are exported as the text they are', async () => {
+void test('S06: formula-like and long references are exported as the text they are', async () => {
   const long = 'INV-' + '7'.repeat(180);
   const tricky = ['=HYPERLINK("x")', '+SUM(1)', '@INV-2001', '-INV-2002', long];
   const head = ['Date', 'Reference', 'Batch', 'Amount'];
@@ -764,15 +765,15 @@ test('S06: formula-like and long references are exported as the text they are', 
     if (n === 1) return;
     const cell = row.getCell(refColumn);
     // A stored text value, never a formula the spreadsheet would run.
-    assert.equal(cell.type, ExcelJS.ValueType.String, String(cell.value));
+    assert.equal(cell.type, ExcelJS.ValueType.String, testValueText(cell.value));
     assert.equal(row.getCell(retained).type, ExcelJS.ValueType.String);
-    exported.push(String(cell.value));
+    exported.push(testValueText(cell.value));
   });
   for (const ref of tricky)
     assert.equal(exported.filter((v) => v === ref).length, 2, ref);
 });
 
-test('S06: an export whose retained evidence was changed after comparing is refused', async () => {
+void test('S06: an export whose retained evidence was changed after comparing is refused', async () => {
   const head = ['Date', 'Reference', 'Batch', 'Amount'];
   const rows = [head, ['2026-07-10', 'INV-2001', 'B-1', '100.00']];
   const files = [
@@ -791,7 +792,7 @@ test('S06: an export whose retained evidence was changed after comparing is refu
   );
 });
 
-test('S08: the same file under another name, or overlapping exports, are not consumed twice', async () => {
+void test('S08: the same file under another name, or overlapping exports, are not consumed twice', async () => {
   const head = ['Date', 'Reference', 'Type', 'Amount'];
   const one = ['2026-07-09', 'INV-8001', 'Invoice', '410.00'];
   const two = ['2026-07-10', 'INV-8002', 'Invoice', '220.00'];
@@ -834,7 +835,7 @@ test('S08: the same file under another name, or overlapping exports, are not con
   assert.equal(statusOf(overlapped, 'INV-8002'), 'Matched');
 });
 
-test('compatibility: a session saved by the previous engine is refused, not silently re-decided', async () => {
+void test('compatibility: a session saved by the previous engine is refused, not silently re-decided', async () => {
   // T01, G08 and R01 (0.3.15), then the V1.1 self-comparison, reference and
   // review changes (0.3.16), unselected-reference evidence (0.3.17), and
   // repeated-document pair certificates (0.3.18), and payment components (0.3.19)

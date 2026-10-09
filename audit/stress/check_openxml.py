@@ -6,7 +6,7 @@ from decimal import Decimal
 from datetime import date
 import json
 
-root = Path('audit/stress/workbooks')
+root = Path('work/stress/workbooks')
 ns = {'x': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 cases = json.loads((root / 'manifest.json').read_text())
 checks = date_checks = formula_checks = 0

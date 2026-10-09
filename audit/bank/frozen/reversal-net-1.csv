@@ -1,0 +1,7 @@
+Record ID,Settlement ID,Movement date,Value date,Cash direction,Role,Parent payment ID,Reverses record ID,Policy,Status,Entity,Ledger,Bank account,Currency,Period start,Period end,Amount
+L1,S1,2026-09-15,2026-09-16,inflow,principal,,,incoming-net,posted,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,1000
+F1,S1,2026-09-15,2026-09-16,outflow,fee,L1,,incoming-net,posted,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,15
+T1,S1,2026-09-15,2026-09-16,outflow,fee-tax,L1,,incoming-net,posted,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,2.25
+R-L1,S1-R,2026-09-20,2026-09-21,outflow,reversal,,L1,reversal,posted,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,1000
+R-F1,S1-R,2026-09-20,2026-09-21,inflow,reversal,,F1,reversal,posted,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,15
+R-T1,S1-R,2026-09-20,2026-09-21,inflow,reversal,,T1,reversal,posted,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,2.25

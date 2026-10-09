@@ -1,0 +1,79 @@
+{
+  "outcome": "derived",
+  "originalSha256": "ef5cda4fe0ac4059b8fdbfd76fd6bf9e170387cbe8f51cad080f386c92b25ef9",
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "OWN-1",
+        "line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "",
+        "",
+        "Invoice: INV-1",
+        ""
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "line",
+        "-12.50"
+      ]
+    }
+  ],
+  "links": [
+    2,
+    4
+  ],
+  "references": [
+    "OWN-1",
+    "INV-1"
+  ],
+  "csvSha256": "721ee4d52057f521521e4c049f3cab9d84ec214851abf8c1cd5cd6d65c0a9188",
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Amount"
+    ],
+    [
+      "2026-10-01",
+      "OWN-1",
+      "line",
+      "-12.50"
+    ],
+    [
+      "2026-10-01",
+      "INV-1",
+      "line",
+      "-12.50"
+    ]
+  ],
+  "amountMinor": [
+    -1250,
+    -1250
+  ]
+}

@@ -1,0 +1,8 @@
+Account ID,Complete dimensions,Account label,Account class,Debit,Credit,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+001,none,Cash,current-asset,1000.001,0.000,Synthetic Financial Owner,Primary Book,KWD,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+002,none,Receivables,current-asset,600.000,0.000,Synthetic Financial Owner,Primary Book,KWD,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+003,none,Allowance,current-asset,0.000,100.000,Synthetic Financial Owner,Primary Book,KWD,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+004,none,Equipment,noncurrent-asset,500.000,0.000,Synthetic Financial Owner,Primary Book,KWD,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+101,none,Payables,current-liability,0.000,800.000,Synthetic Financial Owner,Primary Book,KWD,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+102,none,Loan,noncurrent-liability,0.000,200.000,Synthetic Financial Owner,Primary Book,KWD,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+201,none,Capital,equity,0.000,1000.001,Synthetic Financial Owner,Primary Book,KWD,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing

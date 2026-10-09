@@ -21,7 +21,7 @@ export const usableDiscriminator = (value: string) => {
   const label = value.normalize('NFKC').trim().replace(/\s+/g, ' ');
   return (
     /[\p{L}\p{Nd}]/u.test(label) &&
-    !/^[0٠۰\s.,٬٫+()\-]+$/u.test(label) &&
+    !/^[0٠۰\s.,٬٫+()-]+$/u.test(label) &&
     !nonIdentityLabel.test(label) &&
     !summaryLabel.test(label) &&
     !categoryLabels.some((pattern) => pattern.test(label))

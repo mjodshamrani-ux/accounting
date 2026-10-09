@@ -11,6 +11,8 @@ import {
 } from './document-pairs.ts';
 import { paymentIdentityComponents } from './payment-components.ts';
 import { localizedReadErrors } from './localized-read-errors.ts';
+import { REVIEWED_INVOICE_AGGREGATE_RULE } from './types.ts';
+import { resolveSupplierAggregateAuthority, type SupplierAggregateAuthority } from './invoice-overlap-review.ts';
 import type {
   CaseCounts,
   Match,
@@ -18,6 +20,7 @@ import type {
   Scope,
   SourceResult,
   Transaction,
+  Decision,
 } from './types.ts';
 
 const gap = (a: Transaction, b: Transaction) =>
@@ -210,7 +213,11 @@ export function buildReconciliationCases(
   rejectedPairs: string[],
   // Set when both sides are one source: every case stays for review.
   sameSource?: string,
+  aggregateAuthority?: SupplierAggregateAuthority,
+  decisions: Decision[] = [],
 ) {
+  const reviewedAggregates = aggregateAuthority === undefined ? [] :
+    resolveSupplierAggregateAuthority(aggregateAuthority, supplier, ledger, scope, decisions, rejectedPairs);
   const cases: ReconciliationCase[] = [],
     used = new Set<string>(),
     caseIds = new Set<string>();
@@ -294,6 +301,30 @@ export function buildReconciliationCases(
           .map((t) => t.id),
       ),
   );
+  // These reservations have already been proved by the live native ledger.
+  // Every competitor index above and below still uses the complete originals.
+  for (const proof of reviewedAggregates) {
+    const a = proof.supplierIds.map((id) => byId.get(id));
+    const b = proof.ledgerIds.map((id) => byId.get(id));
+    if (!a.length || !b.length || a.some((t) => t?.side !== 'supplier') ||
+      b.some((t) => t?.side !== 'ledger') ||
+      new Set([...proof.supplierIds, ...proof.ledgerIds]).size !== a.length + b.length ||
+      safeSum(a.map((t) => t!.amount)) !== proof.totalMinor ||
+      safeSum(b.map((t) => t!.amount)) !== proof.totalMinor ||
+      !Number.isSafeInteger(proof.totalMinor) || proof.totalMinor <= 0 ||
+      proof.relation !== 'group-equivalence' || proof.pairwiseAllocation !== false ||
+      exactMatches.some((m) => proof.supplierIds.includes(m.supplierId) || proof.ledgerIds.includes(m.ledgerId)))
+      throw new Error('Reviewed aggregate membership conflicts with main row ownership.');
+    const supplierMembers = a as Transaction[], ledgerMembers = b as Transaction[];
+    const c = add(a.length === 1 ? (b.length === 1 ? 'EXACT_1_TO_1' : 'EXACT_1_TO_MANY') :
+      b.length === 1 ? 'EXACT_MANY_TO_1' : 'EXACT_MANY_TO_MANY', 'Matched',
+      supplierMembers, ledgerMembers, REVIEWED_INVOICE_AGGREGATE_RULE,
+      ['اعتماد بشري كامل لمكوّن الفواتير يثبت تكافؤ المجموعة؛ لا توزيع زوجي للمبالغ.',
+        `المراجع: ${proof.reviewerLabel}؛ ${proof.rationale}`]);
+    c.reviewedAggregate = structuredClone(proof);
+    c.reviewerDecision = 'Accepted';
+    c.reviewerReason = proof.rationale;
+  }
   for (const m of exactMatches) {
     if (
       m.kind === 'auto' &&
@@ -485,7 +516,7 @@ export function buildReconciliationCases(
       )
         ? ['توجد هويات بنكية أو إيصالات أو أوامر شراء متعارضة داخل المجموعة.']
         : []),
-      ...[...new Set(members.flatMap((t) => automaticConflicts(a[0], t)))],
+      ...new Set(members.flatMap((t) => automaticConflicts(a[0], t))),
       ...(safeSum(a.map((t) => t.amount)) !== safeSum(b.map((t) => t.amount))
         ? ['مجموعا الدفعة بإشارتهما مختلفان؛ لم تُعتمد المطابقة.']
         : []),
@@ -962,7 +993,7 @@ export function buildReconciliationCases(
     );
   const caseCounts: CaseCounts = {
     autoMatchedCases: count('Matched').filter(
-      (c) => c.matchingRule !== 'MANUAL_REVIEW',
+      (c) => c.reviewerDecision !== 'Accepted',
     ).length,
     matchedSourceRows: rowCount(count('Matched')),
     needsReviewCases: count('Needs Review').length,
@@ -970,7 +1001,7 @@ export function buildReconciliationCases(
     unmatchedCases: count('Unmatched').length,
     unmatchedSourceRows: rowCount(count('Unmatched')),
     manualMatches: count('Matched').filter(
-      (c) => c.matchingRule === 'MANUAL_REVIEW',
+      (c) => c.reviewerDecision === 'Accepted',
     ).length,
     rejectedCandidates: count('Rejected').length,
   };
@@ -985,7 +1016,14 @@ export function buildReconciliationCases(
           ? originalMatchesBySupplier.get(c.supplierMembers[0].id)
           : undefined;
       return {
-        ...(prior ?? {
+        ...(c.reviewedAggregate ? {
+          supplierId: c.supplierMembers[0].id,
+          ledgerId: c.ledgerMembers[0].id,
+          kind: 'manual' as const,
+          reason: c.evidence.join('\n'),
+          note: c.reviewerReason,
+          reviewedAggregate: structuredClone(c.reviewedAggregate),
+        } : prior ?? {
           supplierId: c.supplierMembers[0].id,
           ledgerId: c.ledgerMembers[0].id,
           kind: 'auto' as const,

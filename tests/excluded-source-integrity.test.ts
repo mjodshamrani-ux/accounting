@@ -1,3 +1,4 @@
+import { compareDefaultSort } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compare, normalizeSource } from '../lib/reconciliation/core.ts';
@@ -131,7 +132,7 @@ function conserve(
   );
 }
 
-test('manual exclusions retain a safe literal envelope before bad amount or date parsing on either side', () => {
+void test('manual exclusions retain a safe literal envelope before bad amount or date parsing on either side', () => {
   for (const side of ['a', 'b'] as const)
     for (const defect of ['amount', 'date'] as const) {
       const files = input([{}], [{}]);
@@ -163,7 +164,7 @@ test('manual exclusions retain a safe literal envelope before bad amount or date
     }
 });
 
-test('literal and normalized manual exclusion collisions block only the affected pair on both sides', () => {
+void test('literal and normalized manual exclusion collisions block only the affected pair on both sides', () => {
   for (const side of ['a', 'b'] as const)
     for (const doc of ['INV-100', 'inv/100']) {
       const good = [{}, { doc: 'INV-200' }];
@@ -186,7 +187,7 @@ test('literal and normalized manual exclusion collisions block only the affected
     }
 });
 
-test('every excluded secondary identity blocks matching across reference roles without supplying positive authority', () => {
+void test('every excluded secondary identity blocks matching across reference roles without supplying positive authority', () => {
   for (const side of ['a', 'b'] as const)
     for (const field of [
       'chosen',
@@ -221,7 +222,7 @@ test('every excluded secondary identity blocks matching across reference roles w
     }
 });
 
-test('a displaced identity in the manually excluded date or amount remains negative evidence on either side', () => {
+void test('a displaced identity in the manually excluded date or amount remains negative evidence on either side', () => {
   for (const side of ['a', 'b'] as const)
     for (const field of ['date', 'amount'] as const) {
       const files = input([{}, { doc: 'INV-200' }], [{}, { doc: 'INV-200' }]);
@@ -252,7 +253,7 @@ test('a displaced identity in the manually excluded date or amount remains negat
     }
 });
 
-test('an excluded unknown or unsafe reference envelope is a wildcard even when the visible document is disjoint', () => {
+void test('an excluded unknown or unsafe reference envelope is a wildcard even when the visible document is disjoint', () => {
   const damage = [
     (source: SourceFile) => {
       source.sheets[0].rowIssues = { '3': ['Uncertain row alignment'] };
@@ -303,7 +304,7 @@ test('an excluded unknown or unsafe reference envelope is a wildcard even when t
     }
 });
 
-test('parsed manual exclusions with a missing or empty isolation envelope cannot recover automatic matches', () => {
+void test('parsed manual exclusions with a missing or empty isolation envelope cannot recover automatic matches', () => {
   for (const side of [0, 1] as const)
     for (const missing of [false, true]) {
       const files = input([{}], [{}]);
@@ -327,7 +328,7 @@ test('parsed manual exclusions with a missing or empty isolation envelope cannot
     }
 });
 
-test('unsafe blank manual exclusions remain wildcard blockers and cannot establish complete balance coverage', () => {
+void test('unsafe blank manual exclusions remain wildcard blockers and cannot establish complete balance coverage', () => {
   const damage = [
     (source: SourceFile) => {
       source.sheets[0].hiddenRows = [3];
@@ -365,7 +366,7 @@ test('unsafe blank manual exclusions remain wildcard blockers and cannot establi
     }
 });
 
-test('excluded cross-role normalized taint follows original transitive memberships after manual acceptance or rejection', () => {
+void test('excluded cross-role normalized taint follows original transitive memberships after manual acceptance or rejection', () => {
   const good = [
     { doc: 'INV-100', receipt: 'R-SECOND' },
     { doc: 'INV-200', bank: 'B-FIRST', receipt: 'R-SECOND' },
@@ -407,7 +408,7 @@ test('excluded cross-role normalized taint follows original transitive membershi
     }
 });
 
-test('outside-period literal or normalized collisions cannot manufacture uniqueness through date filtering', () => {
+void test('outside-period literal or normalized collisions cannot manufacture uniqueness through date filtering', () => {
   for (const side of ['a', 'b'] as const)
     for (const date of ['2026-06-01', '2026-08-01'])
       for (const doc of ['INV-100', 'inv/100']) {
@@ -431,7 +432,7 @@ test('outside-period literal or normalized collisions cannot manufacture uniquen
       }
 });
 
-test('a safely disjoint outside-period movement leaves the in-period pair automatic', () => {
+void test('a safely disjoint outside-period movement leaves the in-period pair automatic', () => {
   for (const side of ['a', 'b'] as const) {
     const files = input([{}], [{}]);
     files[side].sheets[0].rows.push(
@@ -449,7 +450,7 @@ test('a safely disjoint outside-period movement leaves the in-period pair automa
   }
 });
 
-test('confirmed headers, blank rows, summaries, repeated headers and independent footers are non-movements', () => {
+void test('confirmed headers, blank rows, summaries, repeated headers and independent footers are non-movements', () => {
   const files = input([{}], [{}]);
   for (const source of [files.a, files.b])
     source.sheets[0].rows.push(
@@ -480,7 +481,7 @@ test('confirmed headers, blank rows, summaries, repeated headers and independent
   conserve(result, files);
 });
 
-test('legacy exclusions use all nonempty raw cells as negative keys regardless of their reason text', () => {
+void test('legacy exclusions use all nonempty raw cells as negative keys regardless of their reason text', () => {
   for (const side of [0, 1] as const)
     for (const reason of [
       'صف فارغ',
@@ -504,7 +505,7 @@ test('legacy exclusions use all nonempty raw cells as negative keys regardless o
     }
 });
 
-test('legacy exclusions with disjoint raw identities preserve independent automatic pairs', () => {
+void test('legacy exclusions with disjoint raw identities preserve independent automatic pairs', () => {
   for (const side of [0, 1] as const) {
     const files = input([{}], [{}]);
     const normalized = sources(files);
@@ -517,7 +518,7 @@ test('legacy exclusions with disjoint raw identities preserve independent automa
   }
 });
 
-test('a legacy isolation certificate cannot omit a competing identity still present in a raw cell', () => {
+void test('a legacy isolation certificate cannot omit a competing identity still present in a raw cell', () => {
   for (const side of [0, 1] as const) {
     const files = input([{}, { doc: 'INV-200' }], [{}, { doc: 'INV-200' }]);
     const normalized = sources(files);
@@ -542,7 +543,7 @@ test('a legacy isolation certificate cannot omit a competing identity still pres
   }
 });
 
-test('explicit manual acceptance remains manual when an excluded possible competitor blocks automatic authority', () => {
+void test('explicit manual acceptance remains manual when an excluded possible competitor blocks automatic authority', () => {
   const files = input(
     [{}, { doc: 'INV-200' }, { amount: 'bad' }],
     [{}, { doc: 'INV-200' }],
@@ -560,7 +561,7 @@ test('explicit manual acceptance remains manual when an excluded possible compet
     },
   ]);
   assert.deepEqual(
-    result.matches.map((match) => [match.supplierId, match.kind]).sort(),
+    result.matches.map((match) => [match.supplierId, match.kind]).sort(compareDefaultSort),
     [
       ['supplier:0:2', 'manual'],
       ['supplier:0:3', 'auto'],
@@ -569,7 +570,7 @@ test('explicit manual acceptance remains manual when an excluded possible compet
   conserve(result, files);
 });
 
-test('AI hypotheses reject excluded identity memberships without mutation and leave disjoint proposals for review', () => {
+void test('AI hypotheses reject excluded identity memberships without mutation and leave disjoint proposals for review', () => {
   for (const side of ['a', 'b'] as const) {
     const files = input(
       [{ doc: 'INV-100' }, { doc: 'INV-200' }],
@@ -605,7 +606,7 @@ test('AI hypotheses reject excluded identity memberships without mutation and le
   }
 });
 
-test('offsetting manually excluded movements prevent complete balance reconciliation despite exact arithmetic', () => {
+void test('offsetting manually excluded movements prevent complete balance reconciliation despite exact arithmetic', () => {
   for (const side of ['a', 'b'] as const) {
     const files = input([{}], [{}]);
     files[side].sheets[0].rows.push(
@@ -647,7 +648,7 @@ test('offsetting manually excluded movements prevent complete balance reconcilia
   }
 });
 
-test('manual excluded competitors block complete invoice and payment group proofs while disjoint groups survive', () => {
+void test('manual excluded competitors block complete invoice and payment group proofs while disjoint groups survive', () => {
   const invoices = input(
     [
       { doc: 'INV-GROUP1', po: 'PO-7' },
@@ -701,7 +702,7 @@ test('manual excluded competitors block complete invoice and payment group proof
   conserve(paymentResult, payments);
 });
 
-test('malformed exclusion state rejects an AI proposal without throwing or mutating', () => {
+void test('malformed exclusion state rejects an AI proposal without throwing or mutating', () => {
   const files = input([{ doc: 'INV-100' }], [{ doc: 'INV-200' }]);
   const result = compare(...sources(files), scope);
   // Unknown runtime data must fail inside the assistant validation boundary.

@@ -1,0 +1,25 @@
+{
+  "version": "QUALIFIED_CURRENCY_PRECODE_CLOSURE_MANIFEST_V1",
+  "files": [
+    {
+      "path": "RESULT.public.json",
+      "bytes": 4497,
+      "sha256": "71aa25b54ef608c8422cb043eaf7f11f08ef3e067f75fb685667863d755dff13"
+    },
+    {
+      "path": "closure-run.log",
+      "bytes": 207,
+      "sha256": "a13596f6b697b0f41e04bff714a61b97b595002658dc3ddb5ba97f55c2dbfc78"
+    },
+    {
+      "path": "verify-closure.py",
+      "bytes": 8224,
+      "sha256": "0f5ad02269eb6d754eeb39a16deceac7d460c2db966c97ac23ffe0d7088eba8e"
+    }
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

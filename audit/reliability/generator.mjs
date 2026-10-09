@@ -394,7 +394,7 @@ export function generateCase(descriptor) {
     b,
     explicitPairs = null;
   let problem = anchor?.exception ?? null;
-  let invalid =
+  const invalid =
     anchor?.invalid ??
     (descriptor.category === 'invalid' ? descriptor.scenario : null);
   const style = anchor?.style ?? descriptor.scenario;

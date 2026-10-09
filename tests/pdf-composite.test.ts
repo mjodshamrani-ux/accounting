@@ -40,7 +40,7 @@ const fixture = async (name: string) => {
   );
 };
 
-test('carried-forward lines between pages are structure, not dates or transactions', async () => {
+void test('carried-forward lines between pages are structure, not dates or transactions', async () => {
   // Before: "Carried forward" was not a known summary label, so its empty date
   // failed the date-format check and the whole statement was refused.
   const c = compositeCase('REPEAT', 'resolvable', 1);
@@ -71,7 +71,7 @@ test('carried-forward lines between pages are structure, not dates or transactio
   );
 });
 
-test('a table rule at a page break does not make black text count as hidden', async () => {
+void test('a table rule at a page break does not make black text count as hidden', async () => {
   // Before: the cut row's bottom border grazing the last text line was taken
   // as a grey background, and the whole file was refused as low-contrast.
   const pdf = await fixture('PDFC-CROSSPAGE-resolvable-1');

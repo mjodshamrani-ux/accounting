@@ -35,7 +35,7 @@ import {
 const cases = await recomputeCases();
 const resolved = cases.filter((c) => !c.formatRefusal);
 const named = (name: string) => cases.find((c) => c.name.startsWith(name))!;
-test('partial date case must preserve its one independently valid pair and both invalid rows', () => {
+void test('partial date case must preserve its one independently valid pair and both invalid rows', () => {
   const result = coreResult(named('partial result'));
   assert.deepEqual(
     result.matches.map((m) => [m.supplierId, m.ledgerId]),
@@ -143,7 +143,7 @@ async function assertWorkbookRows(bytes: ArrayBuffer, expected: Comparison) {
 }
 
 for (const c of resolved)
-  test(`every recompute path gives the core result: ${c.name}`, async () => {
+  void test(`every recompute path gives the core result: ${c.name}`, async () => {
     const expected = coreResult(c);
     const a = normalizeSource(c.files[0], c.mappings[0], c.scope, 'supplier');
     const b = normalizeSource(c.files[1], c.mappings[1], c.scope, 'ledger');
@@ -192,7 +192,7 @@ for (const c of resolved)
     );
   });
 
-test('the cases hold what they are named for', () => {
+void test('the cases hold what they are named for', () => {
   const ordinary = coreResult(named('ordinary'));
   assert.ok(ordinary.matches.some((m) => m.kind === 'auto'));
 
@@ -237,7 +237,7 @@ const refusedByFormatGuard = (error: unknown, code: InputReadinessCode) => {
 };
 
 for (const c of cases.filter((c) => c.formatRefusal))
-  test(`every path refuses ${c.formatRefusal}: ${c.name}`, async () => {
+  void test(`every path refuses ${c.formatRefusal}: ${c.name}`, async () => {
     const code = c.formatRefusal!;
     refused(await worker.send('reconcile', payload(c)), /صيغة/, code);
     refused(await worker.send('compare', payload(c)), /صيغة/, code);
@@ -253,7 +253,7 @@ for (const c of cases.filter((c) => c.formatRefusal))
     );
   });
 
-test('exportWorkbook itself refuses an unanswered format ambiguity', async () => {
+void test('exportWorkbook itself refuses an unanswered format ambiguity', async () => {
   // Called directly, not through the worker: the export holds the invariant.
   const c = named('unresolved');
   await assert.rejects(
@@ -270,7 +270,7 @@ test('exportWorkbook itself refuses an unanswered format ambiguity', async () =>
   await assertWorkbookRows(bytes, coreResult(answered));
 });
 
-test('a result changed after comparing is not exported', async () => {
+void test('a result changed after comparing is not exported', async () => {
   const c = named('manual decision');
   const result = coreResult(c);
   value(await exported(result, c.files));
@@ -287,7 +287,7 @@ test('a result changed after comparing is not exported', async () => {
   }
 });
 
-test('a saved format choice that no longer fits is refused', async () => {
+void test('a saved format choice that no longer fits is refused', async () => {
   const c = named('the same ambiguity');
   const saved = value<ArrayBuffer>(
     await worker.send('save-session', { ...payload(c), events: [], review }),
@@ -343,14 +343,14 @@ const conflictingDirection = (c: RecomputeCase) => {
   } as Record<string, Mapping>;
 };
 
-test('a debit/credit direction claim the source does not prove', async () => {
+void test('a debit/credit direction claim the source does not prove', async () => {
   const c = named('split columns');
   const honest = coreResult(c);
   const saved = value<ArrayBuffer>(
     await worker.send('save-session', { ...payload(c), events: [], review }),
   );
   const session = JSON.parse(new TextDecoder().decode(saved));
-  for (const [name, ledger] of Object.entries(conflictingDirection(c))) {
+  for (const [_name, ledger] of Object.entries(conflictingDirection(c))) {
     const mappings: [Mapping, Mapping] = [c.mappings[0], ledger];
     // Session, restore and export re-prove the claim from the source.
     refused(
@@ -378,7 +378,7 @@ test('a debit/credit direction claim the source does not prove', async () => {
   }
 });
 
-test('compare re-proves a claimed debit/credit direction before showing a result', async () => {
+void test('compare re-proves a claimed debit/credit direction before showing a result', async () => {
   const c = named('split columns');
   // The direction proof has no structured code: its own message identifies it.
   for (const ledger of Object.values(conflictingDirection(c))) {
@@ -398,7 +398,7 @@ test('compare re-proves a claimed debit/credit direction before showing a result
   assert.deepEqual(value(await worker.send('compare', payload(c))), honest);
 });
 
-test('a direction claim whose facts hold but whose explanation was edited', async () => {
+void test('a direction claim whose facts hold but whose explanation was edited', async () => {
   // verifyDirectionEvidence accepts it and returns the proven evidence. The
   // session and the export already used that; compare now shows it as well.
   const c = named('split columns');
@@ -420,7 +420,7 @@ test('a direction claim whose facts hold but whose explanation was edited', asyn
   value(await exported(reconciled.result, c.files));
 });
 
-test('two faults at once: the format guard, then the direction proof', async () => {
+void test('two faults at once: the format guard, then the direction proof', async () => {
   const c = named('split columns');
   const forged = conflictingDirection(c).flippedSign;
   // A scope the reading refuses. At 8c01b54 the reading reported it; the
@@ -451,7 +451,7 @@ test('two faults at once: the format guard, then the direction proof', async () 
   );
 });
 
-test('the shared recompute reports its stages in order', () => {
+void test('the shared recompute reports its stages in order', () => {
   const c = resolved[0];
   const stages: string[] = [];
   const { result } = reconcileSupplierStatement(
@@ -462,7 +462,7 @@ test('the shared recompute reports its stages in order', () => {
   assert.deepEqual(result, coreResult({ ...c, decisions: [], rejected: [] }));
 });
 
-test('the recompute paths share one entry point; the verifier does not', () => {
+void test('the recompute paths share one entry point; the verifier does not', () => {
   const read = (file: string) => fs.readFileSync(file, 'utf8');
   for (const file of ['worker.ts', 'session.ts', 'io.ts']) {
     const source = read(`lib/reconciliation/${file}`);

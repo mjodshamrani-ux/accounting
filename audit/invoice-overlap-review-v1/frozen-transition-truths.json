@@ -1,0 +1,255 @@
+{
+  "provenance": "Independent Python integer economic reasoning frozen before module; selected amount is 100 aggregate with residual 100 ledger; no pairwise allocation.",
+  "rows": {
+    "supplier:S1": 100,
+    "ledger:L1": 40,
+    "ledger:L2": 60,
+    "ledger:L3": 100
+  },
+  "candidates": {
+    "split": [
+      "supplier:S1",
+      "ledger:L1",
+      "ledger:L2"
+    ],
+    "single": [
+      "supplier:S1",
+      "ledger:L3"
+    ]
+  },
+  "cases": [
+    {
+      "name": "accept-split",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ]
+      },
+      "expected": "committed-component"
+    },
+    {
+      "name": "accept-single",
+      "input": {
+        "selected": [
+          "single"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ]
+      },
+      "expected": "committed-component"
+    },
+    {
+      "name": "reject-all",
+      "input": {
+        "selected": [],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ]
+      },
+      "expected": "committed-component"
+    },
+    {
+      "name": "overlap",
+      "input": {
+        "selected": [
+          "split",
+          "single"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ]
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "missing-competitor",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ]
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "missing-residual",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2"
+        ]
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "incomplete",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ],
+        "complete": false
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "changed-source",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ],
+        "source": false
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "stale-generation",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ],
+        "generation": false
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "outside",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ],
+        "outside": true
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "global-reused",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ],
+        "reused": true
+      },
+      "expected": "refused-unchanged"
+    },
+    {
+      "name": "known-invalid",
+      "input": {
+        "selected": [
+          "split"
+        ],
+        "choices": [
+          "split",
+          "single"
+        ],
+        "reviewed": [
+          "supplier:S1",
+          "ledger:L1",
+          "ledger:L2",
+          "ledger:L3"
+        ],
+        "invalid": true
+      },
+      "expected": "refused-unchanged"
+    }
+  ],
+  "undo": "whole receipt inactive, all source rows restored; receipt history remains",
+  "restore": "replay every prior commit/undo through fresh source/search and reject any altered event"
+}

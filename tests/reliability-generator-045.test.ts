@@ -1,3 +1,4 @@
+import { compareDefaultSort } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -13,7 +14,7 @@ import {
 import { generateCase } from '../audit/reliability/generator.mjs';
 import { displayMinor, renderCase } from '../audit/reliability/renderers.mjs';
 
-test('independent corpus manifest has 5000 cases in declared categories and disjoint layout holdout', () => {
+void test('independent corpus manifest has 5000 cases in declared categories and disjoint layout holdout', () => {
   const manifest = buildManifest();
   assert.equal(manifest.length, 5000);
   assert.deepEqual(summarizeManifest(manifest).categories, CATEGORY_COUNTS);
@@ -30,12 +31,12 @@ test('independent corpus manifest has 5000 cases in declared categories and disj
   }
   assert.equal(foundationManifest().length, 40);
   assert.deepEqual(
-    [...new Set(foundationManifest().map((d) => d.category))].sort(),
+    [...new Set(foundationManifest().map((d) => d.category))].sort(compareDefaultSort),
     ['ambiguous', 'clear', 'complex', 'invalid', 'reading'],
   );
 });
 
-test('all forty hand-calculated anchors independently agree with generated balances and explicit pairs', () => {
+void test('all forty hand-calculated anchors independently agree with generated balances and explicit pairs', () => {
   for (const d of foundationManifest()) {
     const c = generateCase(d),
       a = c.oracle.manualAnchor!;
@@ -63,7 +64,7 @@ test('all forty hand-calculated anchors independently agree with generated balan
   }
 });
 
-test('truth and observable approval are separate for an unreferenced payment allocation', () => {
+void test('truth and observable approval are separate for an unreferenced payment allocation', () => {
   const c = generateCase(foundationManifest()[30]);
   assert.equal(c.oracle.economicLinks.length, 1);
   assert.equal(c.oracle.economicLinks[0].aKeys.length, 1);
@@ -73,14 +74,14 @@ test('truth and observable approval are separate for an unreferenced payment all
   assert.equal(c.oracle.expectedExceptions.length, 3);
 });
 
-test('equal balances do not hide countervailing invoice errors', () => {
+void test('equal balances do not hide countervailing invoice errors', () => {
   const c = generateCase(foundationManifest()[15]);
   assert.equal(c.oracle.balances.difference, 0);
   assert.equal(c.oracle.permittedAutoMatches.length, 0);
   assert.equal(c.oracle.expectedExceptions.length, 4);
 });
 
-test('cutoff exclusions are explicit and do not disappear from source observations', () => {
+void test('cutoff exclusions are explicit and do not disappear from source observations', () => {
   const c = generateCase(foundationManifest()[21]);
   assert.equal(c.oracle.rows.length, 2);
   assert.equal(c.oracle.activeRows.length, 1);
@@ -91,7 +92,7 @@ test('cutoff exclusions are explicit and do not disappear from source observatio
   assert.equal(c.oracle.balances.cutoffMovementA, 0);
 });
 
-test('integer minor formatting preserves zero and three decimals without production money helpers', () => {
+void test('integer minor formatting preserves zero and three decimals without production money helpers', () => {
   assert.equal(displayMinor(123456, 3), '123.456');
   assert.equal(displayMinor(-1, 3), '−0.001'.replace('−', '-'));
   assert.equal(displayMinor(123, 0), '123');
@@ -101,7 +102,7 @@ test('integer minor formatting preserves zero and three decimals without product
   assert.throws(() => displayMinor(0.3, 2));
 });
 
-test('development scenarios are reproducible and contain economic diversity beyond labels and layout', () => {
+void test('development scenarios are reproducible and contain economic diversity beyond labels and layout', () => {
   const development = buildManifest().filter((d) => d.split === 'development');
   const fingerprints = new Set<string>();
   for (const d of development) {
@@ -122,7 +123,7 @@ test('development scenarios are reproducible and contain economic diversity beyo
   }
 });
 
-test('forty foundation source pairs are real files and never embed hidden lineage or oracle keys', async () => {
+void test('forty foundation source pairs are real files and never embed hidden lineage or oracle keys', async () => {
   let csv = 0,
     xlsx = 0,
     pdf = 0;
@@ -164,7 +165,7 @@ test('forty foundation source pairs are real files and never embed hidden lineag
   assert.ok(csv > 0 && xlsx > 0 && pdf > 0);
 });
 
-test('generator, manifest and renderers cannot import production reconciliation code', async () => {
+void test('generator, manifest and renderers cannot import production reconciliation code', async () => {
   for (const file of ['generator.mjs', 'manifest.mjs', 'renderers.mjs']) {
     const source = await fs.readFile(
       new URL('../audit/reliability/' + file, import.meta.url),
@@ -175,7 +176,7 @@ test('generator, manifest and renderers cannot import production reconciliation 
   }
 });
 
-test('a wrong closing balance blocks balance verification without banning independently proved movement matches', () => {
+void test('a wrong closing balance blocks balance verification without banning independently proved movement matches', () => {
   const d = buildManifest().find(
     (d) => d.split === 'development' && d.scenario === 'wrong-total',
   )!;
@@ -190,7 +191,7 @@ test('a wrong closing balance blocks balance verification without banning indepe
   assert.equal(c.oracle.permittedAutoMatches.length, c.sources[0].rows.length);
 });
 
-test('invalid source values affect their rows while scope conflicts stop the affected comparison', () => {
+void test('invalid source values affect their rows while scope conflicts stop the affected comparison', () => {
   const manifest = buildManifest();
   const c = generateCase(
     manifest.find(
@@ -212,7 +213,7 @@ test('invalid source values affect their rows while scope conflicts stop the aff
   assert.equal(scoped.oracle.permittedAutoMatches.length, 0);
 });
 
-test('numeric invoice identity is explicit while an equally long generic reference needs review', () => {
+void test('numeric invoice identity is explicit while an equally long generic reference needs review', () => {
   const verified = generateCase(foundationManifest()[5]);
   assert.equal(verified.sources[0].metadata.referenceHeader, 'Invoice No');
   assert.equal(verified.sources[1].metadata.referenceHeader, 'Invoice No');
@@ -231,7 +232,7 @@ test('numeric invoice identity is explicit while an equally long generic referen
   );
 });
 
-test('file-specific scenarios really contain their named structures', async () => {
+void test('file-specific scenarios really contain their named structures', async () => {
   const manifest = buildManifest();
   const formula = await renderCase(
     generateCase(
@@ -263,7 +264,7 @@ test('file-specific scenarios really contain their named structures', async () =
   assert.equal(open.case.sources[1].metadata.opening, null);
 });
 
-test('revision 1.0.1 keeps allocation lineage shared while physical row identities remain distinct', () => {
+void test('revision 1.0.1 keeps allocation lineage shared while physical row identities remain distinct', () => {
   for (const index of [18, 19]) {
     const c = generateCase(foundationManifest()[index]);
     assert.equal(c.oracle.economicLinks.length, 1);
@@ -278,7 +279,7 @@ test('revision 1.0.1 keeps allocation lineage shared while physical row identiti
   }
 });
 
-test('ambiguous decimal case exposes two defensible interpretations and requires format confirmation before normalization', async () => {
+void test('ambiguous decimal case exposes two defensible interpretations and requires format confirmation before normalization', async () => {
   const d = buildManifest().find(
     (d) => d.split === 'development' && d.scenario === 'ambiguous-number',
   )!;
@@ -302,7 +303,7 @@ test('ambiguous decimal case exposes two defensible interpretations and requires
   assert.ok(rendered.files[0].bytes.byteLength > 0);
 });
 
-test('PDF monetary banners use the same decimal convention as transaction cells', async () => {
+void test('PDF monetary banners use the same decimal convention as transaction cells', async () => {
   const d = buildManifest().find(
     (d) =>
       d.split === 'development' &&

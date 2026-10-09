@@ -1,0 +1,6211 @@
+{
+  "version": "bank-balance-evidence-1",
+  "sample": "synthetic-not-field",
+  "scope": {
+    "entity": "Synthetic Cash Owner",
+    "ledger": "Primary Book",
+    "account": "BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30"
+  },
+  "openingAsOf": "2026-08-31",
+  "closingAsOf": "2026-09-30",
+  "headers": [
+    "Record ID",
+    "Balance kind",
+    "As of",
+    "Entity",
+    "Ledger",
+    "Bank account",
+    "Currency",
+    "Period start",
+    "Period end",
+    "Balance basis",
+    "Status",
+    "Amount"
+  ],
+  "cases": [
+    {
+      "name": "balanced",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "balanced-0.csv",
+          "sha256": "f7ba1b291f29ead5c413cfebcd10c76b0513decb3f3d7d4fe2e85b091864e100"
+        },
+        {
+          "file": "balanced-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "zero-opening",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "zero-opening-0.csv",
+          "sha256": "142fadd42ac43093e8815327e57eaab9c8a88a158df560725a2bf3b4a869bb39"
+        },
+        {
+          "file": "zero-opening-1.csv",
+          "sha256": "8dd0fe067142b359dda6bbff43a7c17f0135e4a8a4cfbc6972bd91cde71d24f7"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 0
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -101725
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 0
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -101725
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 0,
+          "closing": -101725,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 0,
+          "closing": -101725,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "negative-closing",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "negative-closing-0.csv",
+          "sha256": "ed27af3f119164e220120c53787b338f483492fb544393d3b10a4b20437db129"
+        },
+        {
+          "file": "negative-closing-1.csv",
+          "sha256": "e116c429a6893ae02fd20383fd5b2f08b832d5618ae6fd8a10ca253b3b092028"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 50000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -51725
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 50000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -51725
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 50000,
+          "closing": -51725,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 50000,
+          "closing": -51725,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "opening-and-closing-difference",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "opening-and-closing-difference-0.csv",
+          "sha256": "f7ba1b291f29ead5c413cfebcd10c76b0513decb3f3d7d4fe2e85b091864e100"
+        },
+        {
+          "file": "opening-and-closing-difference-1.csv",
+          "sha256": "371eed5d3e679a5744366274af11637e94f0d80101e57a7d4f664ab44b85a7ce"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200100
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98375
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 200100,
+          "closing": 98375,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": -100,
+        "closing": -100
+      },
+      "status": "inconsistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "cash-bridge-difference",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "cash-bridge-difference-0.csv",
+          "sha256": "f7ba1b291f29ead5c413cfebcd10c76b0513decb3f3d7d4fe2e85b091864e100"
+        },
+        {
+          "file": "cash-bridge-difference-1.csv",
+          "sha256": "beb7cd5c3bea26d3cfc52b51c287fec6beefd03f56c198b72caab8f17ca72f4f"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98276
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": 98276,
+          "movement": -101725,
+          "residual": -1
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": -1
+      },
+      "status": "inconsistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "bank-bridge-difference",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "bank-bridge-difference-0.csv",
+          "sha256": "c41db9c2ec1efe114e4c259f79ff92b57d36777261ce29bf4df53435483c9b0e"
+        },
+        {
+          "file": "bank-bridge-difference-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98276
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 98276,
+          "movement": -101725,
+          "residual": -1
+        },
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 1
+      },
+      "status": "inconsistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "missing-opening",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "missing-opening-0.csv",
+          "sha256": "df696fe57386e4c7ef8bcab50ec720f057fcce47d3859c9b03ccbb929771c21a"
+        },
+        {
+          "file": "missing-opening-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": null
+        },
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": 0
+      },
+      "status": "missing",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "missing-closing",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "missing-closing-0.csv",
+          "sha256": "f7ba1b291f29ead5c413cfebcd10c76b0513decb3f3d7d4fe2e85b091864e100"
+        },
+        {
+          "file": "missing-closing-1.csv",
+          "sha256": "ebe74a5bf1074ebb629882c6967c068bf4cb4273ad7f62ae8e5e3bf6a57636b0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        }
+      ],
+      "sourceError": false,
+      "missing": [
+        [
+          1,
+          "closing"
+        ]
+      ],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": null,
+          "movement": -101725,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": null
+      },
+      "status": "missing",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "missing-both",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "missing-both-0.csv",
+          "sha256": "e2c1c9b14f7f7a0e89eb8f268364f6e47dd6f810c0baa6eaa694d065e05e1b5b"
+        },
+        {
+          "file": "missing-both-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [
+        [
+          0,
+          "opening"
+        ],
+        [
+          0,
+          "closing"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": -101725,
+          "residual": null
+        },
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "missing",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "blank-row-retained",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "blank-row-retained-0.csv",
+          "sha256": "f7ba1b291f29ead5c413cfebcd10c76b0513decb3f3d7d4fe2e85b091864e100"
+        },
+        {
+          "file": "blank-row-retained-1.csv",
+          "sha256": "52a3a65e8fe6c615c3c6976b31db17d5e57ae446384c2a9d355fea9df2d29e8f"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 4,
+          "kind": "blank"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": 98275,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "duplicate-own-id",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "duplicate-own-id-0.csv",
+          "sha256": "9e3bf56b0e6f0085bb901101acc019c2809791976d6a051693ccc4fd42cad1e9"
+        },
+        {
+          "file": "duplicate-own-id-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "error"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ],
+        [
+          0,
+          "closing"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "duplicate-opening",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "duplicate-opening-0.csv",
+          "sha256": "ea937c6df62b20dad86aeccb95638b0006a99b0eafe951b0bc28b51c57d15b2b"
+        },
+        {
+          "file": "duplicate-opening-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 0,
+          "row": 4,
+          "kind": "error"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "malformed-competing-id",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "malformed-competing-id-0.csv",
+          "sha256": "6b1a297777e05e98080cd78a70f1aded2de4375466a5f3c82e62f64c3fdf5f30"
+        },
+        {
+          "file": "malformed-competing-id-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 0,
+          "row": 4,
+          "kind": "error"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "scope-mismatch",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "scope-mismatch-0.csv",
+          "sha256": "271733eb30841c22ec991fdb2484e5d86b55650b8b49931af7b963e23efdb4a8"
+        },
+        {
+          "file": "scope-mismatch-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "opening-date-mismatch",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "opening-date-mismatch-0.csv",
+          "sha256": "1fa6e242112660d1dc342bc365b4592772dfef1a3804a1934bf26f14515eddae"
+        },
+        {
+          "file": "opening-date-mismatch-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "closing-date-mismatch",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "closing-date-mismatch-0.csv",
+          "sha256": "32648a76b41861713a56787ca080de761ebe4e320c90badb69984b470603d82b"
+        },
+        {
+          "file": "closing-date-mismatch-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "error"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "closing"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "value-basis",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "value-basis-0.csv",
+          "sha256": "c8729e09438076223e2e0c35bd96b686e21409cbec4012e5b269e494f91e568b"
+        },
+        {
+          "file": "value-basis-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "available-basis",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "available-basis-0.csv",
+          "sha256": "a2a167394f2a684d39dad2ca71342cab395b77d457e8a277e95971886ba33123"
+        },
+        {
+          "file": "available-basis-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "wrong-status",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "wrong-status-0.csv",
+          "sha256": "b53433c717a752d1f5e66814fb4543eefd51ca4451dc1c26568a4eb4409836a5"
+        },
+        {
+          "file": "wrong-status-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "unknown-kind",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "unknown-kind-0.csv",
+          "sha256": "443e776613bbf41ae371be90bebbad3c4bfeee3148bc6175395d9082248abfd4"
+        },
+        {
+          "file": "unknown-kind-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "blank-amount",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "blank-amount-0.csv",
+          "sha256": "522165cc03987ab456519b2637c64881ae64bc87a56e4eadc6839314746ad417"
+        },
+        {
+          "file": "blank-amount-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "error"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "closing"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "precision-loss",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "precision-loss-0.csv",
+          "sha256": "4501faf0c0223fab0e05ab894001d26271b7d2f23d131da4d9423f6b4018e472"
+        },
+        {
+          "file": "precision-loss-1.csv",
+          "sha256": "1f9342abe37aa5015bb425ac090876f1932c5626e504a255366f7d5ffa257cf0"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "error"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "closing"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "pending-movement-policy",
+      "bankCase": "balanced-extra-members",
+      "files": [
+        {
+          "file": "pending-movement-policy-0.csv",
+          "sha256": "d58adc8bb9aaecd4b82e55293632860c08a9bbd203b7cdffa5ec9676b57b97ea"
+        },
+        {
+          "file": "pending-movement-policy-1.csv",
+          "sha256": "8ea484fee158df431181d14eb5d3563b322e2d40a6106573918cca678ababb45"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 100000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 100000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 100000,
+          "movement": -100000,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": 100000,
+          "movement": -100000,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "balanced-extra-members",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "individual",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 0,
+            "row": 3,
+            "reference": "B2",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "inflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "individual",
+            "amount": 20000,
+            "signed": 20000
+          },
+          {
+            "side": 0,
+            "row": 4,
+            "reference": "B3",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "individual",
+            "amount": 20000,
+            "signed": -20000
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "individual",
+            "amount": 100000,
+            "signed": -100000
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1",
+              "B2",
+              "B3"
+            ],
+            "cash": [
+              "L1"
+            ],
+            "bankMinor": -100000,
+            "cashMinor": -100000,
+            "deltaMinor": 0,
+            "status": "needs-review",
+            "reason": "policy-members",
+            "eligible": false
+          }
+        ],
+        "actions": [
+          {
+            "type": "accept",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1"
+            ],
+            "reject": true
+          },
+          {
+            "type": "accept",
+            "bank": [
+              "B1",
+              "B2",
+              "B3"
+            ],
+            "cash": [
+              "L1"
+            ],
+            "reject": true
+          }
+        ],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "timing-kept-after-undo",
+      "bankCase": "timing-after-cutoff",
+      "files": [
+        {
+          "file": "timing-kept-after-undo-0.csv",
+          "sha256": "d58adc8bb9aaecd4b82e55293632860c08a9bbd203b7cdffa5ec9676b57b97ea"
+        },
+        {
+          "file": "timing-kept-after-undo-1.csv",
+          "sha256": "8ea484fee158df431181d14eb5d3563b322e2d40a6106573918cca678ababb45"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 100000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 100000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 100000,
+          "movement": -100000,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": 100000,
+          "movement": -100000,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 1,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "timing-after-cutoff",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-30",
+            "valueDate": "2026-10-02",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "individual",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-29",
+            "valueDate": "2026-09-30",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "individual",
+            "amount": 100000,
+            "signed": -100000
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1"
+            ],
+            "bankMinor": -100000,
+            "cashMinor": -100000,
+            "deltaMinor": 0,
+            "status": "needs-review",
+            "reason": "timing-review",
+            "eligible": true
+          }
+        ],
+        "actions": [
+          {
+            "type": "accept",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1"
+            ],
+            "expectedStatus": "matched-manual"
+          },
+          {
+            "type": "undo",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1"
+            ],
+            "expectedStatus": "needs-review"
+          }
+        ],
+        "timingItems": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "movementDate": "2026-09-30",
+            "valueDate": "2026-10-02",
+            "outsidePeriod": true,
+            "validMovement": true
+          }
+        ],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "movement-source-error",
+      "bankCase": "wrong-fee-parent",
+      "files": [
+        {
+          "file": "movement-source-error-0.csv",
+          "sha256": "f7ba1b291f29ead5c413cfebcd10c76b0513decb3f3d7d4fe2e85b091864e100"
+        },
+        {
+          "file": "movement-source-error-1.csv",
+          "sha256": "490c25bc0f7e19193d9d82d4c489932036359b5ad60740cefb9efc244a2f6b2e"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 98275
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100225
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "wrong-fee-parent",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          },
+          {
+            "side": 1,
+            "row": 5,
+            "reference": "L2",
+            "settlement": "S2",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "individual",
+            "amount": 200000,
+            "signed": -200000
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -100225,
+            "deltaMinor": -1500,
+            "status": "source-error",
+            "reason": "source-error",
+            "eligible": false
+          },
+          {
+            "key": "S2",
+            "bank": [],
+            "cash": [
+              "L2"
+            ],
+            "bankMinor": 0,
+            "cashMinor": -200000,
+            "deltaMinor": 200000,
+            "status": "source-error",
+            "reason": "source-error",
+            "eligible": false
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": true
+      }
+    },
+    {
+      "name": "empty-movement-period",
+      "bankCase": "empty-sources",
+      "files": [
+        {
+          "file": "empty-movement-period-0.csv",
+          "sha256": "f998d59b8ca30d5fcfc4f8c53ac4d79985b2ffb7873dd73826c586e30de20a5b"
+        },
+        {
+          "file": "empty-movement-period-1.csv",
+          "sha256": "8280fc29cfcf711c300429c71ca086fbd1dc19f1001c4a1dde14a856a1a63a52"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 200000,
+          "movement": 0,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": 200000,
+          "movement": 0,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "empty-sources",
+        "records": [],
+        "groups": [],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "zero-net-full-reversal",
+      "bankCase": "reversal-fees",
+      "files": [
+        {
+          "file": "zero-net-full-reversal-0.csv",
+          "sha256": "f998d59b8ca30d5fcfc4f8c53ac4d79985b2ffb7873dd73826c586e30de20a5b"
+        },
+        {
+          "file": "zero-net-full-reversal-1.csv",
+          "sha256": "8280fc29cfcf711c300429c71ca086fbd1dc19f1001c4a1dde14a856a1a63a52"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 200000,
+          "closing": 200000,
+          "movement": 0,
+          "residual": 0
+        },
+        {
+          "opening": 200000,
+          "closing": 200000,
+          "movement": 0,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "reversal-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 0,
+            "row": 3,
+            "reference": "R-B1",
+            "settlement": "S1-R",
+            "movementDate": "2026-09-20",
+            "valueDate": "2026-09-21",
+            "direction": "inflow",
+            "role": "reversal",
+            "parent": "",
+            "reverses": "B1",
+            "policy": "reversal",
+            "amount": 101725,
+            "signed": 101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          },
+          {
+            "side": 1,
+            "row": 5,
+            "reference": "R-L1",
+            "settlement": "S1-R",
+            "movementDate": "2026-09-20",
+            "valueDate": "2026-09-21",
+            "direction": "inflow",
+            "role": "reversal",
+            "parent": "",
+            "reverses": "L1",
+            "policy": "reversal",
+            "amount": 100000,
+            "signed": 100000
+          },
+          {
+            "side": 1,
+            "row": 6,
+            "reference": "R-F1",
+            "settlement": "S1-R",
+            "movementDate": "2026-09-20",
+            "valueDate": "2026-09-21",
+            "direction": "inflow",
+            "role": "reversal",
+            "parent": "",
+            "reverses": "F1",
+            "policy": "reversal",
+            "amount": 1500,
+            "signed": 1500
+          },
+          {
+            "side": 1,
+            "row": 7,
+            "reference": "R-T1",
+            "settlement": "S1-R",
+            "movementDate": "2026-09-20",
+            "valueDate": "2026-09-21",
+            "direction": "inflow",
+            "role": "reversal",
+            "parent": "",
+            "reverses": "T1",
+            "policy": "reversal",
+            "amount": 225,
+            "signed": 225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          },
+          {
+            "key": "S1-R",
+            "bank": [
+              "R-B1"
+            ],
+            "cash": [
+              "R-L1",
+              "R-F1",
+              "R-T1"
+            ],
+            "bankMinor": 101725,
+            "cashMinor": 101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "zero-closing",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "zero-closing-0.csv",
+          "sha256": "6b1959f4859dee9512087adb4c1097c7246d44fe155567f689abdd62e2148e49"
+        },
+        {
+          "file": "zero-closing-1.csv",
+          "sha256": "2dd971935f7fe6f7ab62e68c3705d71578a05445279da569cb3839253d26f0db"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 101725
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 0
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 101725
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 0
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 101725,
+          "closing": 0,
+          "movement": -101725,
+          "residual": 0
+        },
+        {
+          "opening": 101725,
+          "closing": 0,
+          "movement": -101725,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "positive-limit",
+      "bankCase": "empty-sources",
+      "files": [
+        {
+          "file": "positive-limit-0.csv",
+          "sha256": "9d213e54127d6267af8c2b0c27356127efd5e665293c03bf5eeda5715982d1fb"
+        },
+        {
+          "file": "positive-limit-1.csv",
+          "sha256": "28705f4c740d507901d4c441af22b8c3b0549dc4c914d8f0094086b11295ffc4"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 100000000000000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 100000000000000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 100000000000000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 100000000000000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 100000000000000,
+          "closing": 100000000000000,
+          "movement": 0,
+          "residual": 0
+        },
+        {
+          "opening": 100000000000000,
+          "closing": 100000000000000,
+          "movement": 0,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "empty-sources",
+        "records": [],
+        "groups": [],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "negative-limit",
+      "bankCase": "empty-sources",
+      "files": [
+        {
+          "file": "negative-limit-0.csv",
+          "sha256": "9e2852aea84d03de972d971d480dca48b7e6ce53ea714d2b6f1f77186b90f806"
+        },
+        {
+          "file": "negative-limit-1.csv",
+          "sha256": "6669c1450ca6bd3d30e9f8a11da61d81e14d398d1f360fdd736f1e6de1d309db"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": -100000000000000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100000000000000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": -100000000000000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100000000000000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": -100000000000000,
+          "closing": -100000000000000,
+          "movement": 0,
+          "residual": 0
+        },
+        {
+          "opening": -100000000000000,
+          "closing": -100000000000000,
+          "movement": 0,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "balances-consistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "empty-sources",
+        "records": [],
+        "groups": [],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "positive-over-limit",
+      "bankCase": "empty-sources",
+      "files": [
+        {
+          "file": "positive-over-limit-0.csv",
+          "sha256": "5389716ccf6eb956db8814c8ae4b025559b625b9bccb7d4b083fc79a03c5bf14"
+        },
+        {
+          "file": "positive-over-limit-1.csv",
+          "sha256": "8280fc29cfcf711c300429c71ca086fbd1dc19f1001c4a1dde14a856a1a63a52"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "empty-sources",
+        "records": [],
+        "groups": [],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "negative-over-limit",
+      "bankCase": "empty-sources",
+      "files": [
+        {
+          "file": "negative-over-limit-0.csv",
+          "sha256": "f17bbe24a37845b128aaea19d24d0c56903b4c4b08aac4acb52695a28ba6ddbf"
+        },
+        {
+          "file": "negative-over-limit-1.csv",
+          "sha256": "8280fc29cfcf711c300429c71ca086fbd1dc19f1001c4a1dde14a856a1a63a52"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 200000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 200000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "error"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": true,
+      "missing": [
+        [
+          0,
+          "opening"
+        ]
+      ],
+      "components": [
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        },
+        {
+          "opening": null,
+          "closing": null,
+          "movement": null,
+          "residual": null
+        }
+      ],
+      "differences": {
+        "opening": null,
+        "closing": null
+      },
+      "status": "source-error",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "empty-sources",
+        "records": [],
+        "groups": [],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    },
+    {
+      "name": "residual-over-limit",
+      "bankCase": "empty-sources",
+      "files": [
+        {
+          "file": "residual-over-limit-0.csv",
+          "sha256": "a40bc860ecc361c9b989461d81600fcf8060e55074c7fd956ed66e48b533d395"
+        },
+        {
+          "file": "residual-over-limit-1.csv",
+          "sha256": "5331388808d73a6f61539ebd0fdb7e0b7955f7bc324743eea7ba12b1f0ec6418"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 100000000000000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100000000000000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 100000000000000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100000000000000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 100000000000000,
+          "closing": -100000000000000,
+          "movement": 0,
+          "residual": 200000000000000
+        },
+        {
+          "opening": 100000000000000,
+          "closing": -100000000000000,
+          "movement": 0,
+          "residual": 200000000000000
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "inconsistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "empty-sources",
+        "records": [],
+        "groups": [],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      },
+      "reject": "BALANCE_SUM"
+    },
+    {
+      "name": "difference-over-limit",
+      "bankCase": "empty-sources",
+      "files": [
+        {
+          "file": "difference-over-limit-0.csv",
+          "sha256": "9d213e54127d6267af8c2b0c27356127efd5e665293c03bf5eeda5715982d1fb"
+        },
+        {
+          "file": "difference-over-limit-1.csv",
+          "sha256": "6669c1450ca6bd3d30e9f8a11da61d81e14d398d1f360fdd736f1e6de1d309db"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": 100000000000000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": 100000000000000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": -100000000000000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100000000000000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": 100000000000000,
+          "closing": 100000000000000,
+          "movement": 0,
+          "residual": 0
+        },
+        {
+          "opening": -100000000000000,
+          "closing": -100000000000000,
+          "movement": 0,
+          "residual": 0
+        }
+      ],
+      "differences": {
+        "opening": 200000000000000,
+        "closing": 200000000000000
+      },
+      "status": "inconsistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "empty-sources",
+        "records": [],
+        "groups": [],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      },
+      "reject": "BALANCE_SUM"
+    },
+    {
+      "name": "intermediate-cancellation",
+      "bankCase": "outgoing-fees",
+      "files": [
+        {
+          "file": "intermediate-cancellation-0.csv",
+          "sha256": "9e2852aea84d03de972d971d480dca48b7e6ce53ea714d2b6f1f77186b90f806"
+        },
+        {
+          "file": "intermediate-cancellation-1.csv",
+          "sha256": "6669c1450ca6bd3d30e9f8a11da61d81e14d398d1f360fdd736f1e6de1d309db"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "0-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": -100000000000000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "0-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100000000000000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "1-opening",
+          "kind": "opening",
+          "asOf": "2026-08-31",
+          "amount": -100000000000000
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "reference": "1-closing",
+          "kind": "closing",
+          "asOf": "2026-09-30",
+          "amount": -100000000000000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "closing"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "opening"
+        },
+        {
+          "side": 1,
+          "row": 3,
+          "kind": "closing"
+        }
+      ],
+      "sourceError": false,
+      "missing": [],
+      "components": [
+        {
+          "opening": -100000000000000,
+          "closing": -100000000000000,
+          "movement": -101725,
+          "residual": -101725
+        },
+        {
+          "opening": -100000000000000,
+          "closing": -100000000000000,
+          "movement": -101725,
+          "residual": -101725
+        }
+      ],
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "status": "inconsistent",
+      "timingItems": 0,
+      "bankTruth": {
+        "file": "audit/bank/frozen/expected.json",
+        "sha256": "f875ac0478f30bf909c00a616301d331b6dcf6a993f7fddabf6cdd784ae1ce2b",
+        "case": "outgoing-fees",
+        "records": [
+          {
+            "side": 0,
+            "row": 2,
+            "reference": "B1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "settlement",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 101725,
+            "signed": -101725
+          },
+          {
+            "side": 1,
+            "row": 2,
+            "reference": "L1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "principal",
+            "parent": "",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 100000,
+            "signed": -100000
+          },
+          {
+            "side": 1,
+            "row": 3,
+            "reference": "F1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 1500,
+            "signed": -1500
+          },
+          {
+            "side": 1,
+            "row": 4,
+            "reference": "T1",
+            "settlement": "S1",
+            "movementDate": "2026-09-15",
+            "valueDate": "2026-09-16",
+            "direction": "outflow",
+            "role": "fee-tax",
+            "parent": "L1",
+            "reverses": "",
+            "policy": "outgoing-inclusive",
+            "amount": 225,
+            "signed": -225
+          }
+        ],
+        "groups": [
+          {
+            "key": "S1",
+            "bank": [
+              "B1"
+            ],
+            "cash": [
+              "L1",
+              "F1",
+              "T1"
+            ],
+            "bankMinor": -101725,
+            "cashMinor": -101725,
+            "deltaMinor": 0,
+            "status": "matched-evidence",
+            "reason": "explicit-identity",
+            "eligible": true
+          }
+        ],
+        "actions": [],
+        "timingItems": [],
+        "sourceError": false
+      }
+    }
+  ]
+}

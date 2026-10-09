@@ -256,7 +256,7 @@ function delimitedRecords(rows, delimiter) {
     for (let ci = 0; ci < rows[ri].length; ci++) {
       if (ci) out += delimiter;
       const value = String(rows[ri][ci] ?? '');
-      let quoted =
+      const quoted =
         value.indexOf(delimiter) >= 0 ||
         value.indexOf('"') >= 0 ||
         value.indexOf('\n') >= 0;
@@ -398,8 +398,8 @@ function writePdf(pages) {
     );
   }
   objects[1] = `<< /Type /Pages /Kids [${kids.map((id) => `${id} 0 R`).join(' ')}] /Count ${kids.length} >>`;
-  let result = '%PDF-1.4\n',
-    offsets = [0];
+  let result = '%PDF-1.4\n';
+  const offsets = [0];
   objects.forEach((value, i) => {
     offsets.push(enc.encode(result).length);
     result += `${i + 1} 0 obj\n${value}\nendobj\n`;
@@ -534,7 +534,7 @@ function pdfStatement(source) {
         row: index + 1,
       })),
     );
-    let operations = [];
+    const operations = [];
     for (const line of visible)
       for (let ci = 0; ci < line.values.length; ci++) {
         const text = String(line.values[ci]);

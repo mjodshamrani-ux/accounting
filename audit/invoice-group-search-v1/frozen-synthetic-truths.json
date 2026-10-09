@@ -1,0 +1,269 @@
+{
+  "contract": "INVOICE_GROUP_SEARCH_V1",
+  "provenance": "Manually specified synthetic economic events and exact expected memberships before engine implementation. Not a field holdout; no matching-engine invocation.",
+  "cases": [
+    {
+      "id": "NM_FULL",
+      "supplier": [
+        [
+          "A",
+          "600"
+        ],
+        [
+          "A",
+          "400"
+        ]
+      ],
+      "ledger": [
+        [
+          "A",
+          "250"
+        ],
+        [
+          "A",
+          "750"
+        ]
+      ],
+      "truth": [
+        {
+          "invoice": "A",
+          "supplierRows": [
+            2,
+            3
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "sumMinor": 1000,
+          "status": "candidate"
+        }
+      ]
+    },
+    {
+      "id": "NO_AMOUNT_IDENTITY",
+      "supplier": [
+        [
+          "A",
+          "1000"
+        ],
+        [
+          "B",
+          "500"
+        ]
+      ],
+      "ledger": [
+        [
+          "B",
+          "500"
+        ],
+        [
+          "A",
+          "400"
+        ],
+        [
+          "A",
+          "600"
+        ],
+        [
+          "C",
+          "500"
+        ]
+      ],
+      "truth": [
+        {
+          "invoice": "A",
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            3,
+            4
+          ],
+          "sumMinor": 1000,
+          "status": "candidate"
+        },
+        {
+          "invoice": "B",
+          "supplierRows": [
+            3
+          ],
+          "ledgerRows": [
+            2
+          ],
+          "sumMinor": 500,
+          "status": "candidate"
+        }
+      ]
+    },
+    {
+      "id": "SELECTED_PARTS",
+      "supplier": [
+        [
+          "P",
+          "1000",
+          "A"
+        ],
+        [
+          "P",
+          "500",
+          "B"
+        ]
+      ],
+      "ledger": [
+        [
+          "P",
+          "400",
+          "A"
+        ],
+        [
+          "P",
+          "600",
+          "A"
+        ],
+        [
+          "P",
+          "500",
+          "B"
+        ]
+      ],
+      "truth": [
+        {
+          "invoice": "P",
+          "selected": "A",
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "sumMinor": 1000,
+          "status": "candidate"
+        },
+        {
+          "invoice": "P",
+          "selected": "B",
+          "supplierRows": [
+            3
+          ],
+          "ledgerRows": [
+            4
+          ],
+          "sumMinor": 500,
+          "status": "candidate"
+        }
+      ]
+    },
+    {
+      "id": "NO_ZERO_SUBSET",
+      "supplier": [
+        [
+          "A",
+          "1000"
+        ]
+      ],
+      "ledger": [
+        [
+          "A",
+          "400"
+        ],
+        [
+          "A",
+          "600"
+        ],
+        [
+          "A",
+          "0"
+        ]
+      ],
+      "truth": [
+        {
+          "invoice": "A",
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2,
+            3,
+            4
+          ],
+          "status": "needs-review",
+          "reason": "invalid-invoice-member"
+        }
+      ]
+    },
+    {
+      "id": "LAST_ROLE_COMPETITOR",
+      "supplier": [
+        [
+          "A",
+          "1000"
+        ]
+      ],
+      "ledger": [
+        [
+          "A",
+          "400"
+        ],
+        [
+          "A",
+          "600"
+        ],
+        [
+          "A",
+          "900",
+          "",
+          "Payment"
+        ]
+      ],
+      "truth": [
+        {
+          "invoice": "A",
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "status": "needs-review",
+          "reason": "identity-competition"
+        }
+      ]
+    },
+    {
+      "id": "UNEQUAL_FULL",
+      "supplier": [
+        [
+          "A",
+          "1000"
+        ]
+      ],
+      "ledger": [
+        [
+          "A",
+          "400"
+        ],
+        [
+          "A",
+          "599"
+        ]
+      ],
+      "truth": [
+        {
+          "invoice": "A",
+          "supplierRows": [
+            2
+          ],
+          "ledgerRows": [
+            2,
+            3
+          ],
+          "status": "needs-review",
+          "reason": "amount-mismatch"
+        }
+      ]
+    }
+  ]
+}

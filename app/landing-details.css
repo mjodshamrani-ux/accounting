@@ -23,7 +23,7 @@
 }
 .tarasuf-benefits-heading h2,
 .tarasuf-privacy-formal-heading h2 {
-  font-family: 'Thmanyah Serif Display', 'Noto Sans Arabic', serif;
+  font-family: 'Geeza Pro', 'Traditional Arabic', Tahoma, Arial, serif;
   font-weight: 700;
   font-synthesis: none;
   color: #0a1b2e;
@@ -99,7 +99,7 @@
   background: #9980cc;
 }
 .tarasuf-benefit h3 {
-  font-family: 'Thmanyah Serif Display', 'Noto Sans Arabic', serif;
+  font-family: 'Geeza Pro', 'Traditional Arabic', Tahoma, Arial, serif;
   font-synthesis: none;
   font-size: clamp(23px, 2.3vw, 30px);
   color: #192c48;

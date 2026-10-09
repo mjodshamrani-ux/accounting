@@ -74,7 +74,7 @@ const verifyPartition = (r: Comparison) => {
   assert.deepEqual(actual, expected, 'every source row has exactly one case');
 };
 
-test('P1 proves repeated-document pairs with explicit selected reference provenance and honest evidence', async () => {
+void test('P1 proves repeated-document pairs with explicit selected reference provenance and honest evidence', async () => {
   for (const header of ['Reference', 'Ref.', 'المرجع']) {
     const h = [...headers];
     h[2] = header;
@@ -103,7 +103,7 @@ test('P1 proves repeated-document pairs with explicit selected reference provena
   }
 });
 
-test('P1 preserves leading zeros, punctuation and case instead of matching normalized lookalikes', async () => {
+void test('P1 preserves leading zeros, punctuation and case instead of matching normalized lookalikes', async () => {
   for (const refs of [
     ['PART-01', 'PART-1'],
     ['PART-01', 'PART01'],
@@ -118,7 +118,7 @@ test('P1 preserves leading zeros, punctuation and case instead of matching norma
   }
 });
 
-test('P1 requires literal document identity even when normalization collides', async () => {
+void test('P1 requires literal document identity even when normalization collides', async () => {
   for (const doc of ['INV8170', 'inv-8170', 'INV-08170', 'INV-8171']) {
     const r = run(
       await input(
@@ -134,7 +134,7 @@ test('P1 requires literal document identity even when normalization collides', a
   }
 });
 
-test('P1 does not use unselected references or selected local voucher/order columns as positive identity', async () => {
+void test('P1 does not use unselected references or selected local voucher/order columns as positive identity', async () => {
   for (const selected of [-1, 1, 4])
     assert.equal(
       auto(run(await input(data(), data(), headers, selected))).length,
@@ -154,7 +154,7 @@ test('P1 does not use unselected references or selected local voucher/order colu
   assert.equal(auto(r).length, 0);
 });
 
-test('P1 counts all discriminator occurrences before amount, date or consumption filtering', async () => {
+void test('P1 counts all discriminator occurrences before amount, date or consumption filtering', async () => {
   for (const change of ['amount', 'date'] as const) {
     const competitor = row('LINE-0011');
     if (change === 'amount') competitor[5] = '999.00';
@@ -200,7 +200,7 @@ test('P1 counts all discriminator occurrences before amount, date or consumption
   verifyPartition(rejected);
 });
 
-test('P1 missing, placeholder and unsafe discriminators leave the entire document bucket unresolved', async () => {
+void test('P1 missing, placeholder and unsafe discriminators leave the entire document bucket unresolved', async () => {
   for (const value of [
     '',
     '0',
@@ -242,7 +242,7 @@ test('P1 missing, placeholder and unsafe discriminators leave the entire documen
   assert.equal(auto(run(p)).length, 0, 'duplicate generic reference headers');
 });
 
-test('P1 contextual discriminator accepts literal numeric and alphabetic references in either language', async () => {
+void test('P1 contextual discriminator accepts literal numeric and alphabetic references in either language', async () => {
   for (const refs of [
     ['000084', '0084', '84'],
     ['KEY-X', 'KEY-Y'],
@@ -263,7 +263,7 @@ test('P1 contextual discriminator accepts literal numeric and alphabetic referen
   }
 });
 
-test('P1 contextual references are unique within a document, not across unrelated documents', async () => {
+void test('P1 contextual references are unique within a document, not across unrelated documents', async () => {
   const a = [row('KEY-X'), row('KEY-Y'), row('KEY-X', '100.00', 'INV-8171')];
   const r = run(await input(a, a.toReversed()));
   assert.equal(auto(r).length, 3);
@@ -277,7 +277,7 @@ test('P1 contextual references are unique within a document, not across unrelate
   verifyPartition(r);
 });
 
-test('P1 formula-like and error references remain literal, visible and unapproved in every automatic path', async () => {
+void test('P1 formula-like and error references remain literal, visible and unapproved in every automatic path', async () => {
   for (const value of [
     '=1+1',
     '=SUM(A1)',
@@ -314,7 +314,7 @@ test('P1 formula-like and error references remain literal, visible and unapprove
   }
 });
 
-test('P1 direct-source comparisons cannot omit issue flags to bypass unsafe-reference checks', async () => {
+void test('P1 direct-source comparisons cannot omit issue flags to bypass unsafe-reference checks', async () => {
   for (const field of [
     'chosenReference',
     'documentReference',
@@ -352,7 +352,7 @@ test('P1 direct-source comparisons cannot omit issue flags to bypass unsafe-refe
   );
 });
 
-test('P1 assistant proposal verification rejects a case copy with altered discriminator evidence', async () => {
+void test('P1 assistant proposal verification rejects a case copy with altered discriminator evidence', async () => {
   for (const value of [
     { chosenReference: 'ALTERED-1' },
     { chosenReferenceEvidence: undefined },
@@ -371,7 +371,7 @@ test('P1 assistant proposal verification rejects a case copy with altered discri
   }
 });
 
-test('P1 keeps amount, sign, date, type, PO conflict and source-reading guards', async () => {
+void test('P1 keeps amount, sign, date, type, PO conflict and source-reading guards', async () => {
   for (const [column, value] of [
     [5, '100.01'],
     [5, '-100.00'],
@@ -410,7 +410,7 @@ test('P1 keeps amount, sign, date, type, PO conflict and source-reading guards',
   assert.equal(auto(compare(r.supplier, r.ledger, scope)).length, 0);
 });
 
-test('P1 excluded same-document evidence blocks uniqueness while an unrelated total does not', async () => {
+void test('P1 excluded same-document evidence blocks uniqueness while an unrelated total does not', async () => {
   const r = run(await input());
   for (const value of ['INV-8170', 'LINE-0011']) {
     const s = structuredClone(r.supplier);
@@ -426,7 +426,7 @@ test('P1 excluded same-document evidence blocks uniqueness while an unrelated to
   assert.equal(auto(compare(s, r.ledger, scope)).length, 2);
 });
 
-test('P1 rejects an invalid source date even when compare is called directly', async () => {
+void test('P1 rejects an invalid source date even when compare is called directly', async () => {
   for (const side of ['supplier', 'ledger'] as const) {
     const r = run(await input());
     r[side].transactions[0].date = 'invalid-date';
@@ -437,7 +437,7 @@ test('P1 rejects an invalid source date even when compare is called directly', a
   }
 });
 
-test('P1 honors rejection, manual decisions and self-comparison without losing rows', async () => {
+void test('P1 honors rejection, manual decisions and self-comparison without losing rows', async () => {
   const p = await input();
   const r = run(p);
   const s = r.supplier.transactions,
@@ -468,7 +468,7 @@ test('P1 honors rejection, manual decisions and self-comparison without losing r
   verifyPartition(self);
 });
 
-test('P1 case identity follows the discriminator when identical-amount/date rows are reordered', async () => {
+void test('P1 case identity follows the discriminator when identical-amount/date rows are reordered', async () => {
   const identity = (r: Comparison) =>
     Object.fromEntries(
       r.cases.map((c) => [c.supplierMembers[0].chosenReference, c.caseId]),
@@ -486,7 +486,7 @@ test('P1 case identity follows the discriminator when identical-amount/date rows
   );
 });
 
-test('P1 preserves genuine whole-document groups instead of splitting duplicate discriminators', async () => {
+void test('P1 preserves genuine whole-document groups instead of splitting duplicate discriminators', async () => {
   const a = [[...row('LINE-0099', '300.00'), 'PO-9001']];
   const b = [
     [...row('LINE-0099', '100.00'), 'PO-9001'],
@@ -499,7 +499,7 @@ test('P1 preserves genuine whole-document groups instead of splitting duplicate 
   verifyPartition(r);
 });
 
-test('P1 missing Type is allowed but numeric document roles must be explicit on both sources', async () => {
+void test('P1 missing Type is allowed but numeric document roles must be explicit on both sources', async () => {
   const a = data().map((r) => {
     r[3] = '';
     return r;
@@ -518,7 +518,7 @@ test('P1 missing Type is allowed but numeric document roles must be explicit on 
   assert.equal(auto(run(await input(n, b))).length, 0);
 });
 
-test('P1 restore and verified Excel export preserve pairs and reject altered provenance', async () => {
+void test('P1 restore and verified Excel export preserve pairs and reject altered provenance', async () => {
   const p = await input();
   const r = run(p);
   const review = { name: 'Reviewer', notes: '', checked: true };

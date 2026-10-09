@@ -1,3 +1,4 @@
+import { testValueText } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -33,23 +34,23 @@ const run = (
     scope,
   );
 
-test('same input yields byte-identical engine evidence across 20 runs', () => {
+void test('same input yields byte-identical engine evidence across 20 runs', () => {
   const baseline = JSON.stringify(run());
   for (let i = 0; i < 20; i++) assert.equal(JSON.stringify(run()), baseline);
 });
-test('punctuation normalization is suggestion-only; never proves reference equality', () => {
+void test('punctuation normalization is suggestion-only; never proves reference equality', () => {
   const r = run();
   assert.ok(!r.matches.some((m) => m.supplierId === 'supplier:0:2'));
   assert.ok(r.diagnostics.some((d) => d.code === 'REFERENCE_VARIANT'));
 });
-test('reference reused with different amounts prevents both automatic matches', () => {
+void test('reference reused with different amounts prevents both automatic matches', () => {
   const files = structuredClone(demoFiles);
   files[0].sheets[0].rows[1][1] = 'INV-002';
   const r = run(files);
   assert.ok(!r.matches.some((m) => m.supplierId === 'supplier:0:3'));
   assert.ok(r.ambiguousIds.includes('supplier:0:3'));
 });
-test('sign conflict is explicit and does not change balances or signed values', () => {
+void test('sign conflict is explicit and does not change balances or signed values', () => {
   const files = structuredClone(demoFiles);
   files[1].sheets[0].rows[2][3] = '-7300';
   const r = run(files);
@@ -58,7 +59,7 @@ test('sign conflict is explicit and does not change balances or signed values', 
   assert.equal(r.bridge, null);
   assert.ok(r.ledger.warnings.some((w) => w.includes('عدم اتساق')));
 });
-test('invalid mappings and multipliers fail at engine boundary', () => {
+void test('invalid mappings and multipliers fail at engine boundary', () => {
   for (const patch of [
     { multiplier: 0 },
     { multiplier: NaN },
@@ -79,7 +80,7 @@ test('invalid mappings and multipliers fail at engine boundary', () => {
     );
   }
 });
-test('safe sums reject invalid operands even if they cancel', () => {
+void test('safe sums reject invalid operands even if they cancel', () => {
   for (const numbers of [
     [Infinity, -Infinity],
     [NaN],
@@ -88,7 +89,7 @@ test('safe sums reject invalid operands even if they cancel', () => {
   ])
     assert.throws(() => safeSum(numbers));
 });
-test('ambiguous CSV delimiter is rejected instead of guessed', () => {
+void test('ambiguous CSV delimiter is rejected instead of guessed', () => {
   assert.throws(
     () => parseCSV('date,ref;amount\n2026-01-01,INV1;100'),
     /تعذر تحديد فاصل الأعمدة/,
@@ -117,13 +118,13 @@ const checkImported = (f: SourceFile) =>
     scope,
     'supplier',
   );
-test('Excel merged data rows block normalization without rejecting unrelated sheets', async () => {
+void test('Excel merged data rows block normalization without rejecting unrelated sheets', async () => {
   const f = await xlsx((s) => {
     s.mergeCells('B2:B3');
   });
   assert.ok(checkImported(f).errors.some((e) => e.message.includes('مدمجة')));
 });
-test('Excel cell errors and overprecision numeric references block selected data rows', async () => {
+void test('Excel cell errors and overprecision numeric references block selected data rows', async () => {
   for (const change of [
     (s: ExcelJS.Worksheet) => {
       s.getCell('B2').value = { error: '#VALUE!' };
@@ -137,7 +138,7 @@ test('Excel cell errors and overprecision numeric references block selected data
     assert.equal(r.transactions.length, 0);
   }
 });
-test('an Excel timestamp reads as its day and the dropped time is reported', async () => {
+void test('an Excel timestamp reads as its day and the dropped time is reported', async () => {
   const file = await xlsx((s) => {
     s.getCell('A2').value = new Date('2026-08-01T12:00:00Z');
   });
@@ -149,7 +150,7 @@ test('an Excel timestamp reads as its day and the dropped time is reported', asy
   assert.deepEqual(r.errors, []);
   assert.equal(r.transactions[0].date, '2026-08-01');
 });
-test('all matched transactions have exact amounts, original reference equality, uniqueness and evidence', () => {
+void test('all matched transactions have exact amounts, original reference equality, uniqueness and evidence', () => {
   const r = run();
   const ids = new Set<string>();
   for (const m of r.matches) {
@@ -189,7 +190,7 @@ test('all matched transactions have exact amounts, original reference equality, 
     ]),
   );
 });
-test('500 seeded exact money roundtrips and signed sums', () => {
+void test('500 seeded exact money roundtrips and signed sums', () => {
   let seed = 9217;
   for (let i = 0; i < 500; i++) {
     seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
@@ -199,7 +200,7 @@ test('500 seeded exact money roundtrips and signed sums', () => {
     assert.equal(safeSum([parseMoney(s), parseMoney('-' + s)]), 0);
   }
 });
-test('assistant reports actual delta and never adopts number or instructions in question', () => {
+void test('assistant reports actual delta and never adopts number or instructions in question', () => {
   const r = run();
   const answer = explainResult(
     r,
@@ -210,7 +211,7 @@ test('assistant reports actual delta and never adopts number or instructions in 
   assert.ok(!answer.text.includes('50,000'));
   assert.ok(answer.text.includes('الصفر لا يثبت'));
 });
-test('assistant declines unknown question, missing transaction and unsupported balance', () => {
+void test('assistant declines unknown question, missing transaction and unsupported balance', () => {
   const r = run();
   assert.equal(explainResult(r, 'اكتب قصيدة').kind, 'unsupported');
   assert.equal(explainResult(r, 'شرح', 'invented').kind, 'unsupported');
@@ -222,7 +223,7 @@ test('assistant declines unknown question, missing transaction and unsupported b
     ),
   );
 });
-test('transaction explanations cite existing rows and expose reference variant', () => {
+void test('transaction explanations cite existing rows and expose reference variant', () => {
   const r = run();
   const answer = explainResult(r, 'لماذا لم تتم مطابقة INV-001؟');
   assert.equal(answer.kind, 'transaction');
@@ -230,7 +231,7 @@ test('transaction explanations cite existing rows and expose reference variant',
   assert.ok(answer.sourceIds.includes('supplier:0:2'));
   assert.ok(answer.sourceIds.includes('ledger:0:2'));
 });
-test('assistant and hypotheses cannot mutate engine state', () => {
+void test('assistant and hypotheses cannot mutate engine state', () => {
   const r = run();
   const before = JSON.stringify(r);
   explainResult(r, 'ماذا أراجع الآن؟');
@@ -240,7 +241,7 @@ test('assistant and hypotheses cannot mutate engine state', () => {
   });
   assert.equal(JSON.stringify(r), before);
 });
-test('hypothesis rejects invented amounts, unknown IDs, duplicates, used rows and rejected pairs', () => {
+void test('hypothesis rejects invented amounts, unknown IDs, duplicates, used rows and rejected pairs', () => {
   const r = run();
   for (const p of [
     null,
@@ -266,7 +267,7 @@ test('hypothesis rejects invented amounts, unknown IDs, duplicates, used rows an
     'rejected',
   );
 });
-test('equal totals and different totals both stay unconfirmed hypotheses', () => {
+void test('equal totals and different totals both stay unconfirmed hypotheses', () => {
   const r = run();
   const same = verifyHypothesis(r, {
     supplierIds: ['supplier:0:2'],
@@ -281,7 +282,7 @@ test('equal totals and different totals both stay unconfirmed hypotheses', () =>
   assert.equal(different.status, 'needs-review');
   assert.equal(different.difference, 20000);
 });
-test('export includes structured match evidence and diagnostics', async () => {
+void test('export includes structured match evidence and diagnostics', async () => {
   const r = run();
   const bytes = await exportWorkbook(r, demoFiles, {
     checked: false,
@@ -302,7 +303,7 @@ test('export includes structured match evidence and diagnostics', async () => {
   const sources = [...r.supplier.transactions, ...r.ledger.transactions];
   const exportedIds: string[] = [];
   for (let row = 2; row <= evidence.rowCount; row++) {
-    const id = String(evidence.getCell(row, 7).value);
+    const id = testValueText(evidence.getCell(row, 7).value);
     exportedIds.push(id);
     const transaction = sources.find((t) => t.id === id)!;
     assert.ok(transaction);
@@ -323,7 +324,7 @@ test('export includes structured match evidence and diagnostics', async () => {
   assert.equal(new Set(exportedIds).size, exportedIds.length);
 });
 
-test('export rechecks sources and refuses altered balance, match and source', async () => {
+void test('export rechecks sources and refuses altered balance, match and source', async () => {
   for (const mutate of [
     (r: ReturnType<typeof run>) => {
       r.bridge!.delta = 0;

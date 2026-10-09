@@ -1,0 +1,11 @@
+{"id":"sar-on-page","originalStatus":"proven","originalCandidates":["dot"],"unreadRows":[2],"csvStatus":"proven"}
+{"id":"sar-cross-page","originalStatus":"proven","originalCandidates":["dot"],"unreadRows":[2,5],"csvStatus":"proven"}
+{"id":"sar-own-reference","originalStatus":"proven","originalCandidates":["dot"],"unreadRows":[2],"csvStatus":"proven"}
+{"id":"jpy-on-page","originalStatus":"proven","originalCandidates":["dot","comma"],"unreadRows":[2],"csvStatus":"proven"}
+{"id":"jpy-cross-page","originalStatus":"proven","originalCandidates":["dot","comma"],"unreadRows":[2,5],"csvStatus":"proven"}
+{"id":"jpy-own-reference","originalStatus":"proven","originalCandidates":["dot","comma"],"unreadRows":[2],"csvStatus":"proven"}
+{"id":"kwd-on-page","originalStatus":"ambiguous","originalCandidates":["dot","comma"],"unreadRows":[2],"csvStatus":"ambiguous"}
+{"id":"kwd-cross-page","originalStatus":"ambiguous","originalCandidates":["dot","comma"],"unreadRows":[2,5],"csvStatus":"ambiguous"}
+{"id":"kwd-own-reference","originalStatus":"ambiguous","originalCandidates":["dot","comma"],"unreadRows":[2],"csvStatus":"ambiguous"}
+{"id":"jpy-fractional","originalStatus":"proven","originalCandidates":["dot","comma"],"unreadRows":[2,4]}
+{"id":"kwd-excess-fraction","originalStatus":"ambiguous","originalCandidates":["dot","comma"],"unreadRows":[2,4]}

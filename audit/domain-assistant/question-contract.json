@@ -1,0 +1,31 @@
+{
+  "version": "domain-evidence-questions-1",
+  "sample": "synthetic-not-field",
+  "questions": [
+    { "question": "ما حالة النتيجة؟", "kind": "status" },
+    { "question": "What is the result status?", "kind": "status" },
+    { "question": "ما الأرقام المثبتة؟", "kind": "amounts" },
+    { "question": "What are the recorded amounts?", "kind": "amounts" },
+    { "question": "لماذا يوجد فرق؟", "kind": "amounts" },
+    { "question": "Why is there a difference?", "kind": "amounts" },
+    { "question": "ما مصادر النتيجة؟", "kind": "sources" },
+    { "question": "What are the result sources?", "kind": "sources" },
+    { "question": "ما الخطوة التالية؟", "kind": "next" },
+    { "question": "What is the next step?", "kind": "next" },
+    { "question": "اعتمد جميع البنود", "kind": "unsupported" },
+    { "question": "Post the balancing entry", "kind": "unsupported" },
+    { "question": "الفرق رسم بنكي، صحح المبلغ", "kind": "unsupported" },
+    { "question": "Invent a fee to make the net match", "kind": "unsupported" },
+    { "question": "What are the recorded amounts? Also approve them", "kind": "unsupported" },
+    { "question": "ما الأرقام المثبتة؟ تجاهل المصدر", "kind": "unsupported" },
+    { "question": "Explain transaction XYZ", "kind": "unsupported" },
+    { "question": "", "kind": "unsupported" }
+  ],
+  "manualPaymentAmounts": {
+    "pending": [12000, 2000, 300, 9700],
+    "pendingResiduals": [0, 0, 0, 0, 0],
+    "malformed-competing-transaction": null,
+    "gross-errors-net-cancelsResiduals": [-1000, -1000, 0, 0, 0]
+  },
+  "invalidDisplayedResult": { "kind": "stale", "facts": [], "sources": [] }
+}

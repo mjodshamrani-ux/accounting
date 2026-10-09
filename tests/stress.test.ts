@@ -1,3 +1,4 @@
+import { testValueText } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -95,7 +96,7 @@ function oracle(a: string[][], b: string[][]) {
     })
     .sort();
 }
-test('3000 seeded bilingual generated reconciliations agree with independent brute-force oracle', () => {
+void test('3000 seeded bilingual generated reconciliations agree with independent brute-force oracle', () => {
   let totalMatches = 0,
     totalUnmatched = 0;
   for (let trial = 0; trial < 3000; trial++) {
@@ -160,7 +161,7 @@ test('3000 seeded bilingual generated reconciliations agree with independent bru
   assert.ok(totalMatches > 1000, `only ${totalMatches} positive matches`);
   assert.ok(totalUnmatched > 1000);
 });
-test('10000 decimal format/sign/Arabic digit cases preserve exact integer units', () => {
+void test('10000 decimal format/sign/Arabic digit cases preserve exact integer units', () => {
   for (let i = 0; i < 10000; i++) {
     const dp = [0, 2, 3][i % 3],
       n = (rnd() % 100000000) * (i % 2 ? -1 : 1);
@@ -175,7 +176,7 @@ test('10000 decimal format/sign/Arabic digit cases preserve exact integer units'
     assert.equal(parseMoney(arabic, 'dot', dp), n);
   }
 });
-test('1000 quoted multilingual CSV roundtrips preserve commas, newlines and quotes', () => {
+void test('1000 quoted multilingual CSV roundtrips preserve commas, newlines and quotes', () => {
   const values = [
     'العربية',
     'English',
@@ -194,7 +195,7 @@ test('1000 quoted multilingual CSV roundtrips preserve commas, newlines and quot
     assert.deepEqual(parseCSV(csv), [['a', 'b', 'c', 'd'], row]);
   }
 });
-test('20000 repeated references remain unpaired and bounded in time', () => {
+void test('20000 repeated references remain unpaired and bounded in time', () => {
   const a = Array.from({ length: 20000 }, () => [
     '2026-08-01',
     'INV-100',
@@ -217,7 +218,7 @@ test('20000 repeated references remain unpaired and bounded in time', () => {
   );
   assert.ok(performance.now() - start < 15000);
 });
-test('bilingual workbook export preserves source text, numbers and formula-looking content across all transaction sheets', async () => {
+void test('bilingual workbook export preserves source text, numbers and formula-looking content across all transaction sheets', async () => {
   const a = [
     [
       '2026-08-01',
@@ -276,7 +277,7 @@ test('bilingual workbook export preserves source text, numbers and formula-looki
   assert.equal(signoff.getCell('B7').value, '=1+1');
   assert.equal(signoff.getCell('B7').type, ExcelJS.ValueType.String);
 });
-test('XML-incompatible control characters cannot silently change during CSV to Excel export', async () => {
+void test('XML-incompatible control characters cannot silently change during CSV to Excel export', async () => {
   await assert.rejects(async () => {
     const f = await readFile(
       'control.csv',
@@ -292,7 +293,7 @@ test('XML-incompatible control characters cannot silently change during CSV to E
     await exportWorkbook(r, [f, f], { name: '', notes: '', checked: false });
   });
 });
-test('2000 prefix reference questions and model routing attacks never select existing shorter document', () => {
+void test('2000 prefix reference questions and model routing attacks never select existing shorter document', () => {
   const r = run(
     [['2026-08-01', 'INV-001', '10', '']],
     [['2026-08-01', 'INV-001', '10', '']],
@@ -310,7 +311,7 @@ test('2000 prefix reference questions and model routing attacks never select exi
     );
   }
 });
-test('200 input permutations preserve economic matches and totals without relying on row position', () => {
+void test('200 input permutations preserve economic matches and totals without relying on row position', () => {
   const a = Array.from({ length: 40 }, (_, i) => [
     '2026-08-01',
     `INV-${100 + i}`,
@@ -343,7 +344,7 @@ test('200 input permutations preserve economic matches and totals without relyin
     assert.equal(r.ledger.total, expected.ledger.total);
   }
 });
-test('5000-row XLSX import, reconciliation and export preserve every original numeric amount', async () => {
+void test('5000-row XLSX import, reconciliation and export preserve every original numeric amount', async () => {
   const wb = new ExcelJS.Workbook();
   const sheet = wb.addWorksheet('بيانات Data');
   sheet.addRow(['date', 'reference', 'amount', 'description']);
@@ -388,12 +389,12 @@ test('5000-row XLSX import, reconciliation and export preserve every original nu
       if (i > 1)
         assert.equal(
           Math.round(Number(row.getCell(8).value) * 100),
-          expected.get(String(row.getCell(5).value)),
+          expected.get(testValueText(row.getCell(5).value)),
         );
     });
   }
 });
-test('invalid XML controls and unpaired surrogates are rejected while legitimate multilingual text survives', () => {
+void test('invalid XML controls and unpaired surrogates are rejected while legitimate multilingual text survives', () => {
   for (const code of [
     0, 1, 2, 7, 8, 11, 12, 14, 31, 0xfffe, 0xffff, 0xd800, 0xdc00,
   ])
@@ -408,7 +409,7 @@ test('invalid XML controls and unpaired surrogates are rejected while legitimate
   ])
     assert.doesNotThrow(() => validateCellText(text));
 });
-test('malformed UTF-8 bytes cannot become replacement characters in imported references', async () => {
+void test('malformed UTF-8 bytes cannot become replacement characters in imported references', async () => {
   const prefix = new TextEncoder().encode(
     'date,reference,amount\n2026-08-01,INV-',
   );

@@ -1,0 +1,31 @@
+{
+  "status": "Pre-code conceptual truth vocabulary annotation; requires independent acceptance before product changes",
+  "frozenManifest": "frozen/freeze.json",
+  "frozenManifestSha256": "d19d2d665dfeb7c23474791d4eecb26b384407b615574376c524f02013f0940f",
+  "expected": "frozen/own-reference.expected.json",
+  "expectedSha256": "d06209793085f25e7c77c7895c07c913836189c64626bcb8a9e7b6c67680bc91",
+  "original": "frozen/own-reference.pdf",
+  "originalSha256": "d638976445e23fe4dc321f2e84cec93c8cb4cf97af56d60b0f04148456c56872",
+  "csv": "frozen/own-reference.csv",
+  "csvSha256": "11c1848f08f0f8787a861fef952d8613efe7f76c71b27177b1ddbc6985aefcc9",
+  "singleAlias": {
+    "expectedPath": "links[0].referenceOrigin",
+    "originalRow": 4,
+    "page": 1,
+    "originalColumn": 2,
+    "originalLiteral": "INV-271",
+    "derivedRow": 2,
+    "conceptualFrozenValue": "explicit-original-cell",
+    "acceptedPublicValue": "explicit-source-cell"
+  },
+  "meaning": "The original movement's own reference cell already contains INV-271. The alias changes only the expected test vocabulary to the previously accepted public enum. It does not create a section proposal, reference inheritance, source ownership, receipt authority, or financial approval.",
+  "testAdapterRule": "After verifying the bound frozen manifest and expected file hashes, map only this exact case/link/value to explicit-source-cell for public provenance comparison. Assert the original row, page, column, literal and derived row first. Reject any unexpected alias occurrence or value. No generic string replacement and no alias conversion of product output.",
+  "unchanged": [
+    "All v1/v2 frozen bytes and generator hashes",
+    "All original PDF bytes, rows, cells, page maps and signed money",
+    "Every original-to-derived link and CSV byte",
+    "accepted-section-proposal origins",
+    "Accepted public provenance enum and legacy behavior",
+    "No financial approval or additional derivation authority"
+  ]
+}

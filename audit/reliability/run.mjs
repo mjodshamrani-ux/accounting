@@ -185,8 +185,8 @@ await writeFile(
 await writeFile(resolve(output, 'cases.jsonl'), '');
 const records = [],
   fingerprints = new Set();
-let peakRss = process.memoryUsage().rss,
-  started = performance.now();
+let peakRss = process.memoryUsage().rss;
+const started = performance.now();
 for (const descriptor of manifest) {
   const spec = /^(?:G046|H046|J046)-/.test(descriptor.id)
       ? generateFocusedCase(descriptor)
@@ -239,7 +239,7 @@ function acceptanceGate(records, enabled) {
   const examples = {};
   const note = (kind, id, field) => {
     violations[kind] = (violations[kind] ?? 0) + 1;
-    (examples[kind] ??= []).length < 10 &&
+    if ((examples[kind] ??= []).length < 10)
       examples[kind].push(`${id}:${field}`);
   };
   let checkedFields = 0;

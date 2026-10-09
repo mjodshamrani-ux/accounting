@@ -69,7 +69,7 @@ function setup(timeout = 1000) {
   }, timeout);
   return { workers, client };
 }
-test('typed PDF failure survives the worker without producing a partial source', async () => {
+void test('typed PDF failure survives the worker without producing a partial source', async () => {
   const { workers, client } = setup();
   const failed = client.request('read', { name: 'mixed.pdf' });
   const diagnosis = {
@@ -97,7 +97,7 @@ test('typed PDF failure survives the worker without producing a partial source',
   assert.ok(await next);
 });
 
-test('unvalidated or misplaced diagnosis remains a plain failure, never trusted metadata', async () => {
+void test('unvalidated or misplaced diagnosis remains a plain failure, never trusted metadata', async () => {
   for (const [action, diagnosis] of [
     ['read', { page: 2, contentKind: 'mixed' }],
     [
@@ -127,7 +127,7 @@ test('unvalidated or misplaced diagnosis remains a plain failure, never trusted 
     });
   }
 });
-test('worker wire protocol ignores library messages and stale ids instead of resolving undefined', async () => {
+void test('worker wire protocol ignores library messages and stale ids instead of resolving undefined', async () => {
   const { workers, client } = setup();
   const p = client.request('read', { name: 'synthetic.xlsx' });
   const w = workers[0];
@@ -144,7 +144,7 @@ test('worker wire protocol ignores library messages and stale ids instead of res
   assert.equal(await p, value);
   assert.equal(w.stopped, false);
 });
-test('empty error messages always reject, and the next import gets a clean worker', async () => {
+void test('empty error messages always reject, and the next import gets a clean worker', async () => {
   const { workers, client } = setup();
   const bad = client.request('read', { name: 'synthetic.xlsx' });
   workers[0].respond({ ok: false, error: '' });
@@ -155,7 +155,7 @@ test('empty error messages always reject, and the next import gets a clean worke
   workers[1].respond({ ok: true, value: valid() });
   assert.ok(await next);
 });
-test('missing value, malformed sheets, wrong source and wrong action cannot reach the UI', async () => {
+void test('missing value, malformed sheets, wrong source and wrong action cannot reach the UI', async () => {
   for (const response of [
     { ok: true },
     { ok: true, value: { sheets: [] } },
@@ -171,7 +171,7 @@ test('missing value, malformed sheets, wrong source and wrong action cannot reac
   }
   assert.throws(() => assertSourceFile(undefined), /جدولًا صالحًا/);
 });
-test('abort, worker errors, message errors and timeout recover without poisoning subsequent requests', async () => {
+void test('abort, worker errors, message errors and timeout recover without poisoning subsequent requests', async () => {
   for (const failure of ['abort', 'error', 'messageerror', 'timeout']) {
     const { workers, client } = setup(10),
       controller = new AbortController();
@@ -193,7 +193,7 @@ test('abort, worker errors, message errors and timeout recover without poisoning
     await next;
   }
 });
-test('readiness checks engine version and concurrent calls cannot steal another response', async () => {
+void test('readiness checks engine version and concurrent calls cannot steal another response', async () => {
   const { workers, client } = setup();
   const ready = client.prepare();
   assert.equal(ready, client.prepare());
@@ -210,7 +210,7 @@ test('readiness checks engine version and concurrent calls cannot steal another 
   workers[1].respond({ ok: true, value: valid() });
   await p;
 });
-test('worker dispatcher only accepts explicitly namespaced accounting requests', () => {
+void test('worker dispatcher only accepts explicitly namespaced accounting requests', () => {
   assert.equal(isRequest({ id: 1, action: 'read', payload: {} }), false);
   assert.equal(
     isRequest({ channel: WORKER_CHANNEL, id: 1, action: 'read', payload: {} }),
@@ -231,7 +231,7 @@ test('worker dispatcher only accepts explicitly namespaced accounting requests',
   );
 });
 
-test('verified PDF progress is bounded metadata and never resolves the source request', async () => {
+void test('verified PDF progress is bounded metadata and never resolves the source request', async () => {
   const { client, workers } = setup();
   const seen: ProcessingProgress[] = [];
   let resolved = false;
@@ -269,7 +269,7 @@ test('verified PDF progress is bounded metadata and never resolves the source re
   assert.equal(w.stopped, false);
 });
 
-test('progress cannot bypass final source validation or typed late-page failure', async () => {
+void test('progress cannot bypass final source validation or typed late-page failure', async () => {
   for (const response of [
     { ok: true, value: { ...valid(), name: 'wrong.pdf' } },
     { ok: true },
@@ -306,7 +306,7 @@ test('progress cannot bypass final source validation or typed late-page failure'
   }
 });
 
-test('malformed or misplaced current-request progress fails closed', async () => {
+void test('malformed or misplaced current-request progress fails closed', async () => {
   const sample = { stage: 'pdf-read', completed: 1, total: 70 };
   const malformed = [
     null,
@@ -352,7 +352,7 @@ test('malformed or misplaced current-request progress fails closed', async () =>
   }
 });
 
-test('PDF progress rejects regressions, changed totals and premature or reversed stages', async () => {
+void test('PDF progress rejects regressions, changed totals and premature or reversed stages', async () => {
   const read = (completed: number, total = 70) => ({
     stage: 'pdf-read',
     completed,
@@ -380,7 +380,7 @@ test('PDF progress rejects regressions, changed totals and premature or reversed
   }
 });
 
-test('library and stale progress are ignored; abort clears the sequence for the next worker', async () => {
+void test('library and stale progress are ignored; abort clears the sequence for the next worker', async () => {
   const { client, workers } = setup();
   const controller = new AbortController();
   const seen: ProcessingProgress[] = [];
@@ -415,7 +415,7 @@ test('library and stale progress are ignored; abort clears the sequence for the 
   assert.deepEqual(seen.at(-1), { stage: 'pdf-read', completed: 0, total: 2 });
 });
 
-test('PDF deadlines cover the request; progress never extends the fixed deadline', async (t) => {
+void test('PDF deadlines cover the request; progress never extends the fixed deadline', async (t) => {
   t.mock.timers.enable({ apis: ['setTimeout'] });
   const workers: FakeWorker[] = [];
   const client = createWorkerClient(() => {
@@ -449,7 +449,7 @@ test('PDF deadlines cover the request; progress never extends the fixed deadline
   assert.equal(overridden.workers[0].stopped, true);
 });
 
-test('longer deadlines apply only to PDF import or original-source session/export checks', () => {
+void test('longer deadlines apply only to PDF import or original-source session/export checks', () => {
   for (const action of ['ready', 'normalize', 'reconcile', 'compare'])
     assert.equal(
       workerRequestTimeout(action, { name: 'statement.pdf' }),
@@ -477,7 +477,7 @@ test('longer deadlines apply only to PDF import or original-source session/expor
   }
 });
 
-test('reviewed image worker replies replay originals before gaining in-memory authority',async()=>{
+void test('reviewed image worker replies replay originals before gaining in-memory authority',async()=>{
   const {knownVisualSource}=await import('../audit/visual-accounting/make_record.mjs');
   const {readVisualAccountingSource,visualAccountingMapping}=await import('../lib/reconciliation/visual-accounting-source.ts');
   const {normalizeSource}=await import('../lib/reconciliation/core.ts');
@@ -492,7 +492,7 @@ test('reviewed image worker replies replay originals before gaining in-memory au
   const failure=client.request('read',{name:file.name});workers[0].respond({ok:true,value:bad});
   await assert.rejects(failure,/مصدر الصورة/);
 });
-test('abort during async image replay cannot resolve or disturb the following worker request',async()=>{
+void test('abort during async image replay cannot resolve or disturb the following worker request',async()=>{
   const {knownVisualSource}=await import('../audit/visual-accounting/make_record.mjs');
   const {readVisualAccountingSource}=await import('../lib/reconciliation/visual-accounting-source.ts');
   const f=await knownVisualSource(),file=await readVisualAccountingSource('statement.tarasuf-reviewed.json',f.bytes.slice().buffer);

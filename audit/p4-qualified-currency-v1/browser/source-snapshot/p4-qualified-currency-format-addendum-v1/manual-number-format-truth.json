@@ -1,0 +1,250 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_DOT_TRUTH_V1",
+  "expectedFromProduct": false,
+  "productImports": false,
+  "cases": [
+    {
+      "id": "kwd-on-page",
+      "originalSha256": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+      "derivedCsvSha256": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+      "currency": "KWD",
+      "decimals": 3,
+      "signedAmounts": [
+        "-12.500",
+        "+2.005",
+        "0.000"
+      ],
+      "numericInterpretations": {
+        "dotDecimalMinor": [
+          -12500,
+          2005,
+          0
+        ],
+        "dotGroupingMinor": [
+          -12500000,
+          2005000,
+          0
+        ]
+      },
+      "acknowledgement": {
+        "originalDotInterpretationReviewed": true
+      },
+      "originalNumberFormatChoice": {
+        "value": "dot",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ],
+        "sourceHash": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+        "cuts": [
+          25,
+          45,
+          70
+        ]
+      },
+      "derivedNumberFormatChoice": {
+        "value": "dot",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ],
+        "sourceHash": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+        "cuts": []
+      },
+      "originalExtractionBinding": {
+        "required": [
+          "extractionHash",
+          "extractionRevision"
+        ],
+        "valuesMustComeFrom": "fresh replay of the bound original PDF; this independent draft does not fabricate extraction output hashes"
+      },
+      "outcomeAfterExplicitReview": "derived-exact-original-csv",
+      "outcomeWithoutExplicitReview": "refused-no-currency-receipt-or-artifact",
+      "financialApproval": false
+    },
+    {
+      "id": "kwd-cross-page",
+      "originalSha256": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0",
+      "derivedCsvSha256": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+      "currency": "KWD",
+      "decimals": 3,
+      "signedAmounts": [
+        "-12.500",
+        "+2.005",
+        "0.000"
+      ],
+      "numericInterpretations": {
+        "dotDecimalMinor": [
+          -12500,
+          2005,
+          0
+        ],
+        "dotGroupingMinor": [
+          -12500000,
+          2005000,
+          0
+        ]
+      },
+      "acknowledgement": {
+        "originalDotInterpretationReviewed": true
+      },
+      "originalNumberFormatChoice": {
+        "value": "dot",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ],
+        "sourceHash": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0",
+        "cuts": [
+          25,
+          45,
+          70
+        ]
+      },
+      "derivedNumberFormatChoice": {
+        "value": "dot",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ],
+        "sourceHash": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+        "cuts": []
+      },
+      "originalExtractionBinding": {
+        "required": [
+          "extractionHash",
+          "extractionRevision"
+        ],
+        "valuesMustComeFrom": "fresh replay of the bound original PDF; this independent draft does not fabricate extraction output hashes"
+      },
+      "outcomeAfterExplicitReview": "derived-exact-original-csv",
+      "outcomeWithoutExplicitReview": "refused-no-currency-receipt-or-artifact",
+      "financialApproval": false
+    },
+    {
+      "id": "kwd-own-reference",
+      "originalSha256": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7",
+      "derivedCsvSha256": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+      "currency": "KWD",
+      "decimals": 3,
+      "signedAmounts": [
+        "-12.500",
+        "+2.005",
+        "0.000"
+      ],
+      "numericInterpretations": {
+        "dotDecimalMinor": [
+          -12500,
+          2005,
+          0
+        ],
+        "dotGroupingMinor": [
+          -12500000,
+          2005000,
+          0
+        ]
+      },
+      "acknowledgement": {
+        "originalDotInterpretationReviewed": true
+      },
+      "originalNumberFormatChoice": {
+        "value": "dot",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ],
+        "sourceHash": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7",
+        "cuts": [
+          25,
+          45,
+          70
+        ]
+      },
+      "derivedNumberFormatChoice": {
+        "value": "dot",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ],
+        "sourceHash": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+        "cuts": []
+      },
+      "originalExtractionBinding": {
+        "required": [
+          "extractionHash",
+          "extractionRevision"
+        ],
+        "valuesMustComeFrom": "fresh replay of the bound original PDF; this independent draft does not fabricate extraction output hashes"
+      },
+      "outcomeAfterExplicitReview": "derived-exact-original-csv",
+      "outcomeWithoutExplicitReview": "refused-no-currency-receipt-or-artifact",
+      "financialApproval": false
+    }
+  ]
+}

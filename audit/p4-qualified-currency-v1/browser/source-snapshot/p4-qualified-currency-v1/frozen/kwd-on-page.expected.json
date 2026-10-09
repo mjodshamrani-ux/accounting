@@ -1,0 +1,156 @@
+{
+  "id": "kwd-on-page",
+  "outcome": "derived",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+  "originalByteLength": 1472,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (KWD)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "line, \"one\"",
+        "-12.500"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "second",
+        "+2.005"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "zero",
+        "0.000"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "originalRow": 3,
+      "page": 1,
+      "derivedRow": 2,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "-12.500"
+    },
+    {
+      "originalRow": 4,
+      "page": 1,
+      "derivedRow": 3,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "+2.005"
+    },
+    {
+      "originalRow": 5,
+      "page": 1,
+      "derivedRow": 4,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "0.000"
+    }
+  ],
+  "currencyEvidence": [
+    {
+      "sourceHash": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+      "row": 1,
+      "page": 1,
+      "column": 4,
+      "literal": "Signed amount (KWD)"
+    }
+  ],
+  "currencyContext": {
+    "currency": "KWD",
+    "decimals": 3,
+    "precisionOrigin": "finite-contract-policy",
+    "precisionPolicy": {
+      "SAR": 2,
+      "JPY": 0,
+      "KWD": 3
+    }
+  },
+  "headerRows": [
+    1
+  ],
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Signed amount (KWD)"
+    ],
+    [
+      "2026-10-01",
+      "INV-000271",
+      "line, \"one\"",
+      "-12.500"
+    ],
+    [
+      "2026-10-01",
+      "INV-000271",
+      "second",
+      "+2.005"
+    ],
+    [
+      "2026-10-01",
+      "INV-000271",
+      "zero",
+      "0.000"
+    ]
+  ],
+  "csvSha256": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+  "signedAmounts": [
+    "-12.500",
+    "+2.005",
+    "0.000"
+  ],
+  "amountMinor": [
+    -12500,
+    2005,
+    0
+  ],
+  "totalMinor": -10495,
+  "positiveObligation": "all movements, qualified header and exact currency context must be preserved after explicit review"
+}

@@ -26,9 +26,13 @@ const allowedLatin = new Set(
     ' ',
   ),
 );
+// FIFO is the approved accounting acronym in this exact inventory limitation,
+// not a general exception for English anywhere in the Arabic interface.
+const stockNotice = 'لا احتساب FIFO أو تكلفة، ولا إثبات ملكية المخزون.';
+const stockNoticeSelector = '.reconciliation-choice:has([data-domain-entry="stock"]) .reconciliation-choice-limit';
 
-async function visibleText(page) {
-  return page.evaluate(() => {
+async function visibleText(page, approvedStockNotice) {
+  return page.evaluate(({ approvedStockNotice, stockNoticeSelector }) => {
     const out = [];
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     for (let node = walker.nextNode(); node; node = walker.nextNode()) {
@@ -36,7 +40,10 @@ async function visibleText(page) {
       if (!element || element.closest('script, style, [hidden]')) continue;
       const style = getComputedStyle(element);
       if (style.display === 'none' || style.visibility === 'hidden') continue;
-      if (node.textContent.trim()) out.push(node.textContent.trim());
+      let text = node.textContent.trim();
+      if (approvedStockNotice && element.matches(stockNoticeSelector) && text === approvedStockNotice)
+        text = text.replace(/\bFIFO\b/g, '');
+      if (text) out.push(text);
     }
     for (const element of document.querySelectorAll(
       '[aria-label], [placeholder], [alt], [title]',
@@ -46,7 +53,7 @@ async function visibleText(page) {
         if (value?.trim()) out.push(value.trim());
       }
     return out;
-  });
+  }, { approvedStockNotice, stockNoticeSelector });
 }
 
 async function assertNoArabic(page, where) {
@@ -59,7 +66,10 @@ async function assertNoArabic(page, where) {
 }
 
 async function assertNoStrayEnglish(page, where) {
-  const words = (await visibleText(page))
+  const stockLimit = page.locator(stockNoticeSelector);
+  assert.equal(await stockLimit.count(), 1, 'one inventory-directory limitation');
+  assert.equal(await stockLimit.innerText(), stockNotice, 'the exact approved Arabic inventory boundary remains visible');
+  const words = (await visibleText(page, stockNotice))
     // Source row IDs (supplier:0:2) and the sample's own Latin data are data,
     // not interface copy.
     .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
@@ -146,7 +156,7 @@ export async function verifyLanguages(page, url) {
     { lang: english.lang, dir: english.dir, stored: english.stored },
     { lang: 'en', dir: 'ltr', stored: 'en' },
   );
-  assert.equal(english.title, 'Tarasuf — Supplier Account Reconciliation');
+  assert.equal(english.title, 'Tarasuf — Local Accounting Reconciliation');
   await page.getByRole('heading', { name: 'Review workspace' }).waitFor();
   assert.deepEqual(await metrics(page), arabicMetrics, 'same result in English');
   assert.equal(await page.locator('tbody tr').count(), arabicRows);

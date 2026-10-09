@@ -146,7 +146,7 @@ async function modified(edit: (book: ExcelJS.Workbook) => void) {
   return new Uint8Array(await book.xlsx.writeBuffer()).buffer;
 }
 
-test('R045 independent exported workbook oracle accepts signed amounts, empty references, Arabic and an opening difference', async () => {
+void test('R045 independent exported workbook oracle accepts signed amounts, empty references, Arabic and an opening difference', async () => {
   const { bytes, expected } = await fixture();
   const report = await verifyWorkbook(bytes, expected);
   assert.equal(report.sourceRows, 8);
@@ -154,7 +154,7 @@ test('R045 independent exported workbook oracle accepts signed amounts, empty re
   assert.ok(report.formulas > 0);
 });
 
-test('R045 independent verifier rejects amount, sign, visible reference, row count and cached formula mutations', async () => {
+void test('R045 independent verifier rejects amount, sign, visible reference, row count and cached formula mutations', async () => {
   const { bytes, expected } = await fixture();
   // A valid control must pass first so a broken verifier cannot make every mutation look detected.
   await verifyWorkbook(bytes, expected);
@@ -237,13 +237,13 @@ test('R045 independent verifier rejects amount, sign, visible reference, row cou
   }
 });
 
-test('R045 independent decimal oracle rejects lost minor precision rather than rounding', () => {
+void test('R045 independent decimal oracle rejects lost minor precision rather than rounding', () => {
   assert.equal(decimalMinor('1.234e1', 2), 1234n);
   assert.equal(decimalMinor('-0.01', 2), -1n);
   assert.throws(() => decimalMinor('1.234', 2));
 });
 
-test('R045 independent verifier covers transaction-only, zero-effect rejected cases, manual decisions and currency precision', async () => {
+void test('R045 independent verifier covers transaction-only, zero-effect rejected cases, manual decisions and currency precision', async () => {
   // exportWorkbook refuses a reading that is still ambiguous, so where the
   // amounts allow two readings the accountant's answer is recorded first, as
   // the interface does. The expected workbook is unchanged.
@@ -370,7 +370,7 @@ test('R045 independent verifier covers transaction-only, zero-effect rejected ca
   assert.deepEqual(answeredRuns, [3, 3]);
 });
 
-test('R045 versioned partial output contract preserves every reading issue and rejects corrupted disclosure', async () => {
+void test('R045 versioned partial output contract preserves every reading issue and rejects corrupted disclosure', async () => {
   const row = ['2026-08-01', 'INV-PART-001', 'Invoice', '100.00', 'SAR'];
   const invalid = [
     '2026-08-01',

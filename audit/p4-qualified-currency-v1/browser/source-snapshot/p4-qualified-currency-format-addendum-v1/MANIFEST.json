@@ -1,0 +1,50 @@
+{
+  "version": "p4-qualified-currency-format-independent-addendum-manifest-v1",
+  "productImports": false,
+  "expectedFromProduct": false,
+  "nativeReviewerAcceptance": false,
+  "implementationAccepted": false,
+  "originalDraftManifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+  "files": [
+    {
+      "path": "ADDENDUM.md",
+      "bytes": 5888,
+      "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7"
+    },
+    {
+      "path": "actions-addendum.json",
+      "bytes": 7040,
+      "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e"
+    },
+    {
+      "path": "contract-addendum.json",
+      "bytes": 1614,
+      "sha256": "239c5aa2be9ee238c668c220182c1807b0567fcb823e64931594284f7658092b"
+    },
+    {
+      "path": "create-addendum.py",
+      "bytes": 6369,
+      "sha256": "b135ba7bfd578fd92365556151ef928f15b73dce938e169bbdfd7b387af1c4ea"
+    },
+    {
+      "path": "independent-addendum-consistency.log",
+      "bytes": 368,
+      "sha256": "0bce7bc9232dc8f69cec9afec00930f22e5f1691aa72f613f8bee89cae34c46d"
+    },
+    {
+      "path": "manual-number-format-truth.json",
+      "bytes": 6361,
+      "sha256": "f05237e7a1fc910a70d7f53b1e58bd4da8c0e8db5a2f5a9d67061377bb06cb45"
+    },
+    {
+      "path": "verify-addendum.py",
+      "bytes": 3399,
+      "sha256": "e3ec212b9868bf49be4723d5ba479eb5d3fedc57f40b616ea84616605b41ff5a"
+    }
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

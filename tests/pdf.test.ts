@@ -19,7 +19,7 @@ const rows = [
   ['2026-08-02', 'PAY-002', '-20.00', 'Payment'],
 ];
 const cuts = [25, 45, 65];
-test('oversized PDF cells reject before reaching Excel and malformed PDFs do not poison later reads', async () => {
+void test('oversized PDF cells reject before reaching Excel and malformed PDFs do not poison later reads', async () => {
   await assert.rejects(
     readFile('long-cell.pdf', syntheticPdf([[['x'.repeat(5000)]]], 0.01)),
     /خلايا PDF/,
@@ -30,7 +30,7 @@ test('oversized PDF cells reject before reaching Excel and malformed PDFs do not
   const recovered = await readFile('valid.pdf', syntheticPdf([rows]), cuts);
   assert.deepEqual(recovered.sheets[0].rows, rows);
 });
-test('OCR invisible text and large raster backgrounds cannot pass as native PDF text', () => {
+void test('OCR invisible text and large raster backgrounds cannot pass as native PDF text', () => {
   const ops = {
     save: 1,
     restore: 2,
@@ -75,7 +75,7 @@ const scope = {
   confirmed: true,
   coverageConfirmed: false,
 };
-test('PDF actual bytes preserve columns, signs, row provenance and original bytes', async () => {
+void test('PDF actual bytes preserve columns, signs, row provenance and original bytes', async () => {
   const bytes = syntheticPdf([rows]);
   const f = await readFile('supplier.PDF', bytes, cuts);
   assert.deepEqual(f.sheets[0].rows, rows);
@@ -89,7 +89,7 @@ test('PDF actual bytes preserve columns, signs, row provenance and original byte
   );
   assert.equal(s.transactions[1].sourcePage, 1);
 });
-test('PDF cannot reconcile without explicit extraction review', async () => {
+void test('PDF cannot reconcile without explicit extraction review', async () => {
   const f = await readFile('a.pdf', syntheticPdf([rows]), cuts);
   assert.throws(
     () =>
@@ -106,7 +106,7 @@ test('PDF cannot reconcile without explicit extraction review', async () => {
   );
   assert.ok(normalizeSource(f, mapping, scope, 'supplier').transactions.length);
 });
-test('multi-page PDF keeps repeated headers and page lineage instead of silently deleting rows', async () => {
+void test('multi-page PDF keeps repeated headers and page lineage instead of silently deleting rows', async () => {
   const f = await readFile('a.pdf', syntheticPdf([rows, rows]), cuts);
   assert.equal(f.sheets[0].rows.length, 6);
   assert.equal(f.sheets[0].rowPages?.['4'], 2);
@@ -124,14 +124,14 @@ test('multi-page PDF keeps repeated headers and page lineage instead of silently
     f.sheets[0].rows.length,
   );
 });
-test('blank/scanned page rejects the entire PDF including text/image mixed documents', async () => {
+void test('blank/scanned page rejects the entire PDF including text/image mixed documents', async () => {
   for (const pages of [[[]], [rows, []]])
     await assert.rejects(
       readFile('scan.pdf', syntheticPdf(pages), cuts),
       /OCR/,
     );
 });
-test('fake PDF and more than 100 pages fail closed', async () => {
+void test('fake PDF and more than 100 pages fail closed', async () => {
   await assert.rejects(
     readFile('fake.pdf', new TextEncoder().encode('not a PDF').buffer),
     /PDF/,
@@ -145,12 +145,12 @@ test('fake PDF and more than 100 pages fail closed', async () => {
     /100/,
   );
 });
-test('column boundary crossings and duplicate overlay glyphs produce blocking row issues', () => {
+void test('column boundary crossings and duplicate overlay glyphs produce blocking row issues', () => {
   const t = { text: '1234.56', x: 140, y: 100, width: 50, height: 10 };
   assert.ok(layoutPdfPage([t], [25], 600)[0].issues.length);
   assert.ok(layoutPdfPage([t, t], [50], 600)[0].issues.length);
 });
-test('invalid column cuts, coordinates and replacement characters fail closed', () => {
+void test('invalid column cuts, coordinates and replacement characters fail closed', () => {
   for (const c of [
     [NaN],
     [0],
@@ -175,7 +175,7 @@ test('invalid column cuts, coordinates and replacement characters fail closed', 
     ),
   );
 });
-test('Arabic glyph text is preserved without reversing references or guessing numbers', () => {
+void test('Arabic glyph text is preserved without reversing references or guessing numbers', () => {
   const result = layoutPdfPage(
     [
       { text: 'فاتورة-١٢٣', x: 400, y: 100, width: 80, height: 10 },
@@ -187,7 +187,7 @@ test('Arabic glyph text is preserved without reversing references or guessing nu
   assert.deepEqual(result[0].row, ['١٬٢٣٤٫٥٦', 'فاتورة-١٢٣']);
   assert.deepEqual(result[0].issues, []);
 });
-test('PDF export re-extracts original bytes and session restoration keeps the same result', async () => {
+void test('PDF export re-extracts original bytes and session restoration keeps the same result', async () => {
   const f = await readFile('a.pdf', syntheticPdf([rows]), cuts);
   const ledgerFile = await readSeparately(f, cuts);
   const files: [typeof f, typeof f] = [f, ledgerFile];

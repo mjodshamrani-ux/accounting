@@ -1,0 +1,144 @@
+{
+  "outcome": "derived",
+  "originalSha256": "fe8f1ab798ecb8374f4fe0421ebe66e0a78b139ff32167162e4f9e426951a842",
+  "originalByteLength": 21506,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "\u0627\u0644\u062a\u0627\u0631\u064a\u062e",
+        "\u0627\u0644\u0645\u0631\u062c\u0639",
+        "\u0627\u0644\u0648\u0635\u0641",
+        "\u0627\u0644\u0645\u0628\u0644\u063a"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "\u0631\u0642\u0645 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629",
+        "AR-271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "\u0634\u0631\u0627\u0621 \u0645\u0648\u0627\u062f",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "\u0631\u0642\u0645 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629",
+        "AR-272",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 5,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "\u0631\u062f \u0645\u0648\u0627\u062f",
+        "+2.50"
+      ]
+    }
+  ],
+  "proposals": [
+    {
+      "targetRow": 3,
+      "reference": "AR-271",
+      "parentCells": [
+        {
+          "row": 2,
+          "page": 1,
+          "column": 1,
+          "literal": "\u0631\u0642\u0645 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629"
+        },
+        {
+          "row": 2,
+          "page": 1,
+          "column": 2,
+          "literal": "AR-271"
+        }
+      ],
+      "continuationCells": [],
+      "headerCells": []
+    },
+    {
+      "targetRow": 5,
+      "reference": "AR-272",
+      "parentCells": [
+        {
+          "row": 4,
+          "page": 1,
+          "column": 1,
+          "literal": "\u0631\u0642\u0645 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629"
+        },
+        {
+          "row": 4,
+          "page": 1,
+          "column": 2,
+          "literal": "AR-272"
+        }
+      ],
+      "continuationCells": [],
+      "headerCells": []
+    }
+  ],
+  "links": [
+    {
+      "originalRow": 3,
+      "page": 1,
+      "derivedRow": 2,
+      "reference": "AR-271",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "originalRow": 5,
+      "page": 1,
+      "derivedRow": 3,
+      "reference": "AR-272",
+      "referenceOrigin": "accepted-section-proposal"
+    }
+  ],
+  "csvSha256": "66d44317f90bd8814271b0c8a7550830ea4c0d0ea62c5d5497f380ff7e0b1ed8",
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Amount"
+    ],
+    [
+      "2026-10-01",
+      "AR-271",
+      "\u0634\u0631\u0627\u0621 \u0645\u0648\u0627\u062f",
+      "-12.50"
+    ],
+    [
+      "2026-10-01",
+      "AR-272",
+      "\u0631\u062f \u0645\u0648\u0627\u062f",
+      "+2.50"
+    ]
+  ],
+  "signedAmounts": [
+    "-12.50",
+    "+2.50"
+  ],
+  "amountMinor": [
+    -1250,
+    250
+  ]
+}

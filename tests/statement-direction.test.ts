@@ -61,7 +61,7 @@ const fixture = (reverse = false): SourceFile => ({
   ],
 });
 
-test('both supplier and AP directions require exact running-balance recurrences', () => {
+void test('both supplier and AP directions require exact running-balance recurrences', () => {
   for (const reverse of [false, true]) {
     const file = fixture(reverse);
     const before = structuredClone({ file, mapping });
@@ -74,7 +74,7 @@ test('both supplier and AP directions require exact running-balance recurrences'
   }
 });
 
-test('an explicit leading label can supply the baseline without invented zero opening', () => {
+void test('an explicit leading label can supply the baseline without invented zero opening', () => {
   const file = fixture();
   file.sheets[0].rows[1] = ['Opening balance', '', '', '', '', '100'];
   assert.equal(inferStatementDirection(file, mapping)?.multiplier, 1);
@@ -82,7 +82,7 @@ test('an explicit leading label can supply the baseline without invented zero op
   assert.equal(inferStatementDirection(file, mapping), undefined);
 });
 
-test('no single recurrence or zero-only activity can establish direction', () => {
+void test('no single recurrence or zero-only activity can establish direction', () => {
   const file = fixture();
   file.sheets[0].rows.pop();
   assert.equal(inferStatementDirection(file, mapping), undefined);
@@ -101,7 +101,7 @@ test('no single recurrence or zero-only activity can establish direction', () =>
   assert.equal(result.checkedRows, 3);
 });
 
-test('any later inconsistency cancels earlier proof, including zero movements with balance changes', () => {
+void test('any later inconsistency cancels earlier proof, including zero movements with balance changes', () => {
   for (const tail of [
     ['2026-07-04', 'Invoice', 'INV-200', '5', '0', '110'],
     ['2026-07-04', 'Invoice', 'INV-200', '5', '0', '121'],
@@ -113,7 +113,7 @@ test('any later inconsistency cancels earlier proof, including zero movements wi
   }
 });
 
-test('malformed or omitted movements cannot be skipped to recover a sign suggestion', () => {
+void test('malformed or omitted movements cannot be skipped to recover a sign suggestion', () => {
   for (const column of [0, 3, 4, 5]) {
     const file = fixture();
     file.sheets[0].rows[2][column] = 'bad';
@@ -135,7 +135,7 @@ test('malformed or omitted movements cannot be skipped to recover a sign suggest
   assert.equal(inferStatementDirection(file, mapping), undefined);
 });
 
-test('descending dates, negative split values and simultaneous debit/credit prevent proof', () => {
+void test('descending dates, negative split values and simultaneous debit/credit prevent proof', () => {
   const descending = fixture();
   descending.sheets[0].rows[3][0] = '2026-07-01';
   assert.equal(inferStatementDirection(descending, mapping), undefined);
@@ -154,7 +154,7 @@ test('descending dates, negative split values and simultaneous debit/credit prev
   }
 });
 
-test('only a unique explicit running-balance column qualifies', () => {
+void test('only a unique explicit running-balance column qualifies', () => {
   for (const label of ['Balance', 'Outstanding', 'Remaining', 'Unfamiliar']) {
     const file = fixture();
     file.sheets[0].rows[0][5] = label;
@@ -173,7 +173,7 @@ test('only a unique explicit running-balance column qualifies', () => {
   );
 });
 
-test('native Excel numeric values are read independently of displayed locale', () => {
+void test('native Excel numeric values are read independently of displayed locale', () => {
   const file = fixture(true);
   file.name = 'synthetic-native.xlsx';
   const sheet = file.sheets[0];
@@ -189,7 +189,7 @@ test('native Excel numeric values are read independently of displayed locale', (
   assert.equal(inferStatementDirection(file, mapping), undefined);
 });
 
-test('currency precision and Arabic numeric notation use exact engine parsing', () => {
+void test('currency precision and Arabic numeric notation use exact engine parsing', () => {
   const file = fixture();
   file.sheets[0].rows[1] = ['Opening balance', '', '', '', '', '١٠٠٫٠٠٠'];
   file.sheets[0].rows[2] = [
@@ -212,7 +212,7 @@ test('currency precision and Arabic numeric notation use exact engine parsing', 
   assert.equal(inferStatementDirection(file, mapping, 2), undefined);
 });
 
-test('selected-cell issues, unsafe opening identities and formula-only metadata cancel proof', () => {
+void test('selected-cell issues, unsafe opening identities and formula-only metadata cancel proof', () => {
   for (const rn of [1, 2, 3, 4]) {
     const hidden = fixture();
     hidden.sheets[0].hiddenRows = [rn];
@@ -250,7 +250,7 @@ test('selected-cell issues, unsafe opening identities and formula-only metadata 
   assert.equal(inferStatementDirection(unused, mapping)?.multiplier, 1);
 });
 
-test('repeated headers and structural footers preserve the full recurrence chain', () => {
+void test('repeated headers and structural footers preserve the full recurrence chain', () => {
   const file = fixture();
   file.sheets[0].rows.splice(3, 0, [...headers]);
   file.sheets[0].rows.push(
@@ -274,7 +274,7 @@ test('repeated headers and structural footers preserve the full recurrence chain
   assert.equal(inferStatementDirection(file, mapping), undefined);
 });
 
-test('a late opening record or transaction named Total cannot reset or evade the chain', () => {
+void test('a late opening record or transaction named Total cannot reset or evade the chain', () => {
   const late = fixture();
   late.sheets[0].rows.push(['Opening Balance', '', '', '', '', '115']);
   assert.equal(inferStatementDirection(late, mapping), undefined);
@@ -288,7 +288,7 @@ test('a late opening record or transaction named Total cannot reset or evade the
   assert.equal(inferStatementDirection(conflictingOpening, mapping), undefined);
 });
 
-test('an independently aligned closing footer must have exactly one matching amount beside its currency', () => {
+void test('an independently aligned closing footer must have exactly one matching amount beside its currency', () => {
   const file = fixture(true);
   file.sheets[0].rows[0][3] = 'Debit (SAR)';
   file.sheets[0].rows[0][4] = 'Credit (SAR)';

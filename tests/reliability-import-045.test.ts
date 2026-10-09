@@ -31,7 +31,7 @@ async function mutate(xmlEdit: (xml: string) => string, bytes?: ArrayBuffer) {
   return archive.generateAsync({ type: 'arraybuffer', compression: 'DEFLATE' });
 }
 
-test('R045 XML second sheetData cannot replace earlier financial rows', async () => {
+void test('R045 XML second sheetData cannot replace earlier financial rows', async () => {
   const bytes = await mutate((xml) =>
     xml.replace(
       '</sheetData>',
@@ -44,7 +44,7 @@ test('R045 XML second sheetData cannot replace earlier financial rows', async ()
   );
 });
 
-test('R045 mixed cell payloads cannot concatenate into a different amount', async () => {
+void test('R045 mixed cell payloads cannot concatenate into a different amount', async () => {
   for (const payload of [
     '<v>100</v><is><t>999</t></is>',
     '<is><t>999</t></is><v>100</v>',
@@ -57,7 +57,7 @@ test('R045 mixed cell payloads cannot concatenate into a different amount', asyn
   }
 });
 
-test('R045 invalid row coordinates cannot silently discard a movement', async () => {
+void test('R045 invalid row coordinates cannot silently discard a movement', async () => {
   for (const row of ['0', '-1', '2tail', '2.5']) {
     const bytes = await mutate((xml) =>
       xml
@@ -68,7 +68,7 @@ test('R045 invalid row coordinates cannot silently discard a movement', async ()
   }
 });
 
-test('R045 valid reordered columns, inline text and long references remain exact', async () => {
+void test('R045 valid reordered columns, inline text and long references remain exact', async () => {
   const bytes = await workbook([
     ['Amount', 'Description', 'Reference', 'Date'],
     [
@@ -93,7 +93,7 @@ test('R045 valid reordered columns, inline text and long references remain exact
   assert.equal(result.total, 8000);
 });
 
-test('R045 closing balance currency is evidence, not disposable footer text', async () => {
+void test('R045 closing balance currency is evidence, not disposable footer text', async () => {
   for (const currency of ['USD', 'EUR']) {
     const bytes = await workbook([
       ['Date', 'Reference', 'Amount', 'Currency'],
@@ -112,7 +112,7 @@ test('R045 closing balance currency is evidence, not disposable footer text', as
   }
 });
 
-test('R045 native formula cache validation does not reinterpret decimal point as grouping', async () => {
+void test('R045 native formula cache validation does not reinterpret decimal point as grouping', async () => {
   const bytes = await workbook([
     ['Date', 'Reference', 'Amount'],
     ['2026-08-01', 'INV-1', 1.234],
@@ -131,7 +131,7 @@ test('R045 native formula cache validation does not reinterpret decimal point as
   );
 });
 
-test('R045 duplicate workbook containers and worksheet IDs cannot discard a complete sheet', async () => {
+void test('R045 duplicate workbook containers and worksheet IDs cannot discard a complete sheet', async () => {
   const book = new ExcelJS.Workbook();
   for (const name of ['First', 'Second']) {
     const sheet = book.addWorksheet(name);
@@ -162,7 +162,7 @@ test('R045 duplicate workbook containers and worksheet IDs cannot discard a comp
   }
 });
 
-test('R045 explicit as-of metadata is retained independently of prepared date', async () => {
+void test('R045 explicit as-of metadata is retained independently of prepared date', async () => {
   for (const label of [
     'As of',
     'Statement as of',
@@ -185,7 +185,7 @@ test('R045 explicit as-of metadata is retained independently of prepared date', 
   }
 });
 
-test('R045 duplicate date systems or style definitions cannot change dates or erase reference zeros', async () => {
+void test('R045 duplicate date systems or style definitions cannot change dates or erase reference zeros', async () => {
   const bytes = await workbook(
     [
       ['Date', 'Reference', 'Amount'],
@@ -230,7 +230,7 @@ test('R045 duplicate date systems or style definitions cannot change dates or er
   }
 });
 
-test('R045 missing or aliased worksheet parts cannot silently remove or relabel source data', async () => {
+void test('R045 missing or aliased worksheet parts cannot silently remove or relabel source data', async () => {
   const book = new ExcelJS.Workbook();
   for (const name of ['First', 'Second']) {
     const sheet = book.addWorksheet(name);
@@ -268,7 +268,7 @@ test('R045 missing or aliased worksheet parts cannot silently remove or relabel 
   }
 });
 
-test('R045 balance metadata rejects a wrong formula cache and retains a matching currency', async () => {
+void test('R045 balance metadata rejects a wrong formula cache and retains a matching currency', async () => {
   for (const result of [1.234, 9.999]) {
     const bytes = await workbook([
       ['Date', 'Reference', 'Amount', 'Currency'],
@@ -289,7 +289,7 @@ test('R045 balance metadata rejects a wrong formula cache and retains a matching
   }
 });
 
-test('R045 conflicting or ambiguous snapshot metadata cannot produce a verified date', async () => {
+void test('R045 conflicting or ambiguous snapshot metadata cannot produce a verified date', async () => {
   for (const preamble of [
     [['As of', '08/09/2026']],
     [
@@ -309,7 +309,7 @@ test('R045 conflicting or ambiguous snapshot metadata cannot produce a verified 
   }
 });
 
-test('R045 an uncached transaction formula remains an explicit issue rather than zero or a deleted row', async () => {
+void test('R045 an uncached transaction formula remains an explicit issue rather than zero or a deleted row', async () => {
   const bytes = await workbook([
     ['Date', 'Reference', 'Amount'],
     ['2026-08-01', 'INV-1', { formula: '100+20' }],
@@ -329,7 +329,7 @@ test('R045 an uncached transaction formula remains an explicit issue rather than
   );
 });
 
-test('R045 standard 1904 dates, sparse rows and deterministic omitted subsequent cell coordinates remain supported', async () => {
+void test('R045 standard 1904 dates, sparse rows and deterministic omitted subsequent cell coordinates remain supported', async () => {
   const book = new ExcelJS.Workbook();
   book.properties.date1904 = true;
   const sheet = book.addWorksheet('Data');
@@ -352,7 +352,7 @@ test('R045 standard 1904 dates, sparse rows and deterministic omitted subsequent
   );
 });
 
-test('R045 running balance column currency cannot be borrowed from a different currency scope', async () => {
+void test('R045 running balance column currency cannot be borrowed from a different currency scope', async () => {
   const file = await readFile(
     'statement.xlsx',
     await workbook([

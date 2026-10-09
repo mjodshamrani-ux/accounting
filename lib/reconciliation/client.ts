@@ -1,3 +1,5 @@
+// Vite supplies the default Worker constructor for this virtual module (vite/client.d.ts).
+// oxlint-disable-next-line import/default
 import LocalWorker from './worker.ts?worker&inline';
 import { createWorkerClient } from './worker-client.ts';
 const client = createWorkerClient(() => new LocalWorker());

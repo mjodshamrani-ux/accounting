@@ -1,0 +1,68 @@
+{
+  "version": "QUALIFIED_CURRENCY_ADDENDA_INDEPENDENT_PRECODE_REVIEW_V1",
+  "outcome": "REQUIRED-IMMUTABLE-BROWSER-CLARIFICATION",
+  "implementationAccepted": false,
+  "runtimeAccepted": false,
+  "financialApproval": false,
+  "sealedSourceManifests": {
+    "p4-qualified-currency-v1": {
+      "manifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+      "files": 72
+    },
+    "p4-qualified-currency-format-addendum-v1": {
+      "manifestSha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "files": 7
+    },
+    "p4-qualified-currency-boundary-clarification-v1": {
+      "manifestSha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
+      "files": 5
+    },
+    "p4-qualified-currency-browser-v1": {
+      "manifestSha256": "94dffd30f325de9e0c755204c22b7a8dfa800f7a69715da58abeccf690518c0d",
+      "files": 94
+    }
+  },
+  "acceptedSemantics": [
+    "All three KWD original and derived formatChoice objects exactly equal fresh native context/current candidate sets; choice rebound uses CSV SHA and empty cuts.",
+    "SAR proven candidate dot; JPY proven candidates dot/comma with equal interpretations; no redundant ambiguity approval.",
+    "Original source/extraction context plus admitted code/exponent retained; exact current candidate set checked by new finite adapter without broadening general input-readiness guards.",
+    "Existing private entry snapshots ignore late old-caller mutation; live replaceSource/updateReviewer invalidates generation.",
+    "Apply consumes live receipt before await; copied/deserialized receipt cannot acquire WeakMap ownership.",
+    "Sidecar tamper belongs to external downloaded-artifact checker; no product sidecar import or archive restoration API.",
+    "All27 format refusal definitions have existing public input/review, live generation, or private generated-choice-fault boundaries; no imagined input API.",
+    "All30 browser language identities/132width facts, manual truth, CSV arithmetic and source snapshots independently exact;2 bare controls preserve old-family acceptance without currency context."
+  ],
+  "requiredRevision": {
+    "id": "KWD-EXCESS-AMBIGUITY-PREREQUISITE",
+    "source": "kwd-excess-fraction",
+    "languages": [
+      "ar",
+      "en"
+    ],
+    "evidence": "Fresh original native suggestFormats numberFormat status ambiguous, candidates dot/comma, unreadRows2,4. First source movement row3 -12.500 dot -12500 minor vs grouping -12500000. Late row4 +2.0001 *1000 =2000.1000 nonintegral.",
+    "contradiction": "Browser ACCEPTANCE says choice/ack for only3KWD positive originals while excess-fraction matrix declares late Apply refusal and gives no prerequisite choice. Without own-source reviewed choice, early new ambiguity admission blocks before intended late test.",
+    "requiredFix": "NEW immutable clarification: every admitted ambiguous original needs valid acknowledged current original dot choice; both KWDexcess browser languages bind sourceHash f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf sheet0 header0 columns3 decimals3 candidates dot,comma cuts25,45,70 no exclusions balanceInputs empty,empty. After explicit review mint current receipt then Apply consumes it and refuses row4 without artifact. Never copy positive source hash or replace sealed inputs."
+  },
+  "preservedEvidence": [
+    "native-format-context.mjs",
+    "native-format-context.log",
+    "native-format-context.json",
+    "independent-pins-matrix.py",
+    "pins-matrix.log",
+    "pins-matrix-results.json",
+    "independent-pins-matrix-second.py",
+    "pins-matrix-second.log",
+    "pins-matrix-results-second.json",
+    "reviewed-action-boundaries.json"
+  ],
+  "productAndOriginalProofChanges": false,
+  "limits": [
+    "Future action/browser execution is still required after implementation.",
+    "No current core/product changes, browser, packages, remote actions or mutants were used."
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

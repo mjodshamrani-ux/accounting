@@ -69,7 +69,7 @@ const accounted = (file: SourceFile, mapping: Mapping, result: unknown) => {
   );
 };
 
-test('an ordinary vendor statement imports and compares without manual row surgery', async () => {
+void test('an ordinary vendor statement imports and compares without manual row surgery', async () => {
   const file = await vendorStatement();
   const selection = selectImportMapping(file, 'supplier');
   assert.equal(selection.kind, 'unique-table');
@@ -107,7 +107,7 @@ test('an ordinary vendor statement imports and compares without manual row surge
   assert.equal(compare(result, ledger, scope).matches.length, 4);
 });
 
-test('the dropped time is reported as a note, never as a silent change', async () => {
+void test('the dropped time is reported as a note, never as a silent change', async () => {
   const file = await vendorStatement();
   const note = file.sheets[0].cellNotes?.['6:1']?.join('؛ ') ?? '';
   assert.match(note, /A6/);
@@ -116,7 +116,7 @@ test('the dropped time is reported as a note, never as a silent change', async (
   assert.equal(file.sheets[0].cellIssues?.['6:1'], undefined);
 });
 
-test('a formula inside a total row does not resurrect it as an error', async () => {
+void test('a formula inside a total row does not resurrect it as an error', async () => {
   const wb = new ExcelJS.Workbook();
   const ws = wb.addWorksheet('Statement');
   ws.addRow(['Date', 'Reference', 'Amount']);
@@ -134,7 +134,7 @@ test('a formula inside a total row does not resurrect it as an error', async () 
   accounted(file, mapping, result);
 });
 
-test('one unreadable row reports itself instead of rejecting both files', () => {
+void test('one unreadable row reports itself instead of rejecting both files', () => {
   const build = (amount: string): SourceFile => ({
     name: 'rows.csv',
     sheets: [
@@ -188,7 +188,7 @@ test('one unreadable row reports itself instead of rejecting both files', () => 
   );
 });
 
-test('the cut-off default is the latest date present, so it excludes nothing', async () => {
+void test('the cut-off default is the latest date present, so it excludes nothing', async () => {
   const file = await vendorStatement();
   const mapping = selectImportMapping(file, 'supplier').mapping;
   const latest = latestSourceDate([file, file], [mapping, mapping]);
@@ -297,7 +297,7 @@ function statementPage(
   return words;
 }
 
-test('a PDF with unfamiliar headers gets its columns from geometry', async () => {
+void test('a PDF with unfamiliar headers gets its columns from geometry', async () => {
   const file = await readFile(
     'statement.pdf',
     positionedPdf([
@@ -328,7 +328,7 @@ test('a PDF with unfamiliar headers gets its columns from geometry', async () =>
     );
 });
 
-test('geometry detection is independent of the header wording', async () => {
+void test('geometry detection is independent of the header wording', async () => {
   for (const headers of [
     ['Date', 'Doc. Ref', 'Narration', 'Value'],
     ['Date', 'Voucher', 'Particulars', 'Net'],
@@ -349,7 +349,7 @@ test('geometry detection is independent of the header wording', async () => {
   }
 });
 
-test('a reviewed PDF reconciles with no boundary typed by hand', async () => {
+void test('a reviewed PDF reconciles with no boundary typed by hand', async () => {
   const file = await readFile(
     'statement.pdf',
     positionedPdf([statementPage(statementRows, true)]),
@@ -385,7 +385,7 @@ test('a reviewed PDF reconciles with no boundary typed by hand', async () => {
   );
 });
 
-test('geometry refuses to invent columns when the layout proves none', async () => {
+void test('geometry refuses to invent columns when the layout proves none', async () => {
   // Continuous prose: no vertical band is free of text on every line, so there
   // is no boundary to prove and none may be guessed.
   const lines = [
@@ -405,7 +405,7 @@ test('geometry refuses to invent columns when the layout proves none', async () 
   assert.equal(file.sheets[0].rows.length, 3);
 });
 
-test('a cell overflowing a boundary is flagged, never merged quietly', async () => {
+void test('a cell overflowing a boundary is flagged, never merged quietly', async () => {
   const words = statementPage(statementRows, true);
   // A late row whose narration runs across the amount column's boundary.
   words.push({

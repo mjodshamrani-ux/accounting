@@ -1,0 +1,5373 @@
+{
+  "version": "bank-adjustment-ledger-1",
+  "sample": "synthetic-not-field",
+  "scope": {
+    "entity": "Synthetic Cash Owner",
+    "ledger": "Primary Book",
+    "account": "BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30"
+  },
+  "openingAsOf": "2026-08-31",
+  "closingAsOf": "2026-09-30",
+  "headers": [
+    [
+      "Item ID",
+      "Point",
+      "Adjust side",
+      "Evidence ID",
+      "Amount",
+      "Explanation",
+      "Entity",
+      "Ledger",
+      "Bank account",
+      "Currency",
+      "Period start",
+      "Period end"
+    ],
+    [
+      "Evidence ID",
+      "Lifecycle ID",
+      "Kind",
+      "Source side",
+      "Record ID",
+      "Movement date",
+      "Value date",
+      "Document reference",
+      "Entity",
+      "Ledger",
+      "Bank account",
+      "Currency",
+      "Period start",
+      "Period end",
+      "Signed amount"
+    ]
+  ],
+  "cases": [
+    {
+      "name": "equal-empty",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "equal-empty-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "equal-empty-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "equal-empty-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "equal-empty-3.csv",
+          "sha256": "9006eaa5952c34996a6c58a540396c171ba53c427586a5c26d82e4f82500ae6b"
+        },
+        {
+          "file": "equal-empty-4.csv",
+          "sha256": "e585c2e886bcbb561b0278a88c286977a1b1a85868d66e28e7735fc458e93128"
+        },
+        {
+          "file": "equal-empty-5.csv",
+          "sha256": "43dbbf53a33e84ce03849ad0ca85c5cf6a667e02fc0e6afe8b40914b17dca6d3"
+        }
+      ],
+      "actions": [],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          200000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          200000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [],
+      "proofIds": [],
+      "itemRows": [],
+      "proofRows": []
+    },
+    {
+      "name": "closing-outflow",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "closing-outflow-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "closing-outflow-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "closing-outflow-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "closing-outflow-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "closing-outflow-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "closing-outflow-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          -10000,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "closing-inflow",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "closing-inflow-0.csv",
+          "sha256": "1ec625b6aa057d7f52bd36d8df72fc666bf9e5e695e1d80109971f82b0aad941"
+        },
+        {
+          "file": "closing-inflow-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "closing-inflow-2.csv",
+          "sha256": "adbdbd3a055c063bc2ec253cc9c85f0e2ada7e9b5077914cb650c3e32bdf12b6"
+        },
+        {
+          "file": "closing-inflow-3.csv",
+          "sha256": "9006eaa5952c34996a6c58a540396c171ba53c427586a5c26d82e4f82500ae6b"
+        },
+        {
+          "file": "closing-inflow-4.csv",
+          "sha256": "ebbc5e593a57183c76b74932afdcd6c84ba5d495e1afa6d079893bcf685bf25e"
+        },
+        {
+          "file": "closing-inflow-5.csv",
+          "sha256": "26658bdff2d1679361f45987e4e040657523a1dc1b88c46a8d74659c0acc2b11"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          210000,
+          200000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          10000
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          210000,
+          210000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        10000,
+        0
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "cashbook",
+          "P1",
+          "100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "bank",
+          "B1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ]
+      ]
+    },
+    {
+      "name": "old-carried",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "old-carried-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "old-carried-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "old-carried-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "old-carried-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "old-carried-4.csv",
+          "sha256": "3ffbf881ff51b09bb4299886d7a6c48b59d4a840be8cce5b1618486cab0f3800"
+        },
+        {
+          "file": "old-carried-5.csv",
+          "sha256": "27e637735b847febed7daa1c553415e61786fa03de7640c40aa290ba23e8457b"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          -10000,
+          0
+        ],
+        "closing": [
+          -10000,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          190000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-open",
+        "I-close"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I-close",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "old-cleared",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "old-cleared-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "old-cleared-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "old-cleared-2.csv",
+          "sha256": "04afa48aeba0587f09f3b4cf6a39503ab41568ef9f0a3ec9caffe78b8b7d418e"
+        },
+        {
+          "file": "old-cleared-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "old-cleared-4.csv",
+          "sha256": "3633fbc5cb577f4eb1c5cb7e2f2ea6d7b4fbd4d73e9def2e1b784213447326ff"
+        },
+        {
+          "file": "old-cleared-5.csv",
+          "sha256": "cc02ecaec00138d55eca24274c6c08790af2f47086ca44b91cf43337f5bfb301"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          -10000,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          190000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        -10000,
+        0
+      ],
+      "itemIds": [
+        "I-open"
+      ],
+      "proofIds": [
+        "P1",
+        "P-clear"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P-clear",
+          "L1",
+          "settlement",
+          "bank",
+          "B-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-P-clear",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "old-correction-carried",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "old-correction-carried-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "old-correction-carried-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "old-correction-carried-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "old-correction-carried-3.csv",
+          "sha256": "c6070e453978778daa6734223d42324f8635c3e715046473f5bc349b4dee4fba"
+        },
+        {
+          "file": "old-correction-carried-4.csv",
+          "sha256": "382bc4e578238aea42fcaaabbbaee9a57897336330b4041a320b4eb8bb3c2ddd"
+        },
+        {
+          "file": "old-correction-carried-5.csv",
+          "sha256": "dcd9b5f3b35a4aef78f25b097460b2940618446ed98251abac56adde6f5f7ffd"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          199900
+        ],
+        "closing": [
+          200000,
+          199900
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          100
+        ],
+        "closing": [
+          0,
+          100
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          200000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-open",
+        "I-close"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "cashbook",
+          "P1",
+          "1.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I-close",
+          "closing",
+          "cashbook",
+          "P1",
+          "1.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "cashbook-error",
+          "cashbook",
+          "BOOK-ERR",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "1.00"
+        ]
+      ]
+    },
+    {
+      "name": "pending",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "pending-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "pending-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "pending-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "pending-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "pending-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "pending-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [],
+      "invalid": false,
+      "status": "needs-review",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 10000
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "undo",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "undo-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "undo-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "undo-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "undo-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "undo-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "undo-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept",
+        "undo"
+      ],
+      "invalid": false,
+      "status": "needs-review",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 10000
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "reject",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "reject-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "reject-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "reject-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "reject-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "reject-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "reject-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "reject"
+      ],
+      "invalid": false,
+      "status": "needs-review",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 10000
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "reject-undo-accept",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "reject-undo-accept-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "reject-undo-accept-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "reject-undo-accept-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "reject-undo-accept-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "reject-undo-accept-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "reject-undo-accept-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "reject",
+        "undo",
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          -10000,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "carry-undo",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "carry-undo-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "carry-undo-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "carry-undo-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "carry-undo-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "carry-undo-4.csv",
+          "sha256": "3ffbf881ff51b09bb4299886d7a6c48b59d4a840be8cce5b1618486cab0f3800"
+        },
+        {
+          "file": "carry-undo-5.csv",
+          "sha256": "27e637735b847febed7daa1c553415e61786fa03de7640c40aa290ba23e8457b"
+        }
+      ],
+      "actions": [
+        "accept",
+        "undo"
+      ],
+      "invalid": false,
+      "status": "needs-review",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 10000,
+        "closing": 10000
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-open",
+        "I-close"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I-close",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-adjust-side",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-adjust-side-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-adjust-side-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "wrong-adjust-side-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "wrong-adjust-side-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "wrong-adjust-side-4.csv",
+          "sha256": "87760715ad4d4aef6e4cf12c9e95f3f0149cdbb566e7644c52be89ccb2f4b668"
+        },
+        {
+          "file": "wrong-adjust-side-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "cashbook",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "amount-not-proof",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "amount-not-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "amount-not-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "amount-not-proof-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "amount-not-proof-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "amount-not-proof-4.csv",
+          "sha256": "8e4b06824925044c25f5e145e9d500b7c40780003bcb4486eb4626efed0c1863"
+        },
+        {
+          "file": "amount-not-proof-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-99.99",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "blank-evidence",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "blank-evidence-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "blank-evidence-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "blank-evidence-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "blank-evidence-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "blank-evidence-4.csv",
+          "sha256": "0169c91d85dca48b41090eb817ec1242049ce56d6264d7f7936c22356472c18e"
+        },
+        {
+          "file": "blank-evidence-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "duplicate-item",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "duplicate-item-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "duplicate-item-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "duplicate-item-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "duplicate-item-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "duplicate-item-4.csv",
+          "sha256": "cac72425e39a642f0379ec0e19cf64064ae8c628019f3dfce8a5d7df1cb8d4ff"
+        },
+        {
+          "file": "duplicate-item-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1",
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "malformed-competing-item",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "malformed-competing-item-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "malformed-competing-item-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "malformed-competing-item-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "malformed-competing-item-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "malformed-competing-item-4.csv",
+          "sha256": "ddf09d22e5bc2f5c743d5fb235d37f1268ffe657f4aa3043209c93e578e68a42"
+        },
+        {
+          "file": "malformed-competing-item-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1",
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "broken",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "duplicate-proof",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "duplicate-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "duplicate-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "duplicate-proof-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "duplicate-proof-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "duplicate-proof-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "duplicate-proof-5.csv",
+          "sha256": "3ae91fe77fc83882e3c4293de8a39f9cf41fca51e84350e0aa623d7448bf6d1a"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1",
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "malformed-competing-proof",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "malformed-competing-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "malformed-competing-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "malformed-competing-proof-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "malformed-competing-proof-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "malformed-competing-proof-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "malformed-competing-proof-5.csv",
+          "sha256": "ab558d87bcb30b0953494266bb8dc45486d7be0c75b3d065c1f112aec1898ca9"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1",
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "broken"
+        ]
+      ]
+    },
+    {
+      "name": "item-scope-mismatch",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "item-scope-mismatch-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "item-scope-mismatch-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "item-scope-mismatch-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "item-scope-mismatch-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "item-scope-mismatch-4.csv",
+          "sha256": "d662332a6fe2b53767d031b1b58482b8e6b99c1680c29d31cc901207d3c7452c"
+        },
+        {
+          "file": "item-scope-mismatch-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-OTHER",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "proof-scope-mismatch",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "proof-scope-mismatch-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "proof-scope-mismatch-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "proof-scope-mismatch-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "proof-scope-mismatch-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "proof-scope-mismatch-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "proof-scope-mismatch-5.csv",
+          "sha256": "079364bf6bade2b3985aff8d235967019b560375815a199a15779e79d85b200f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-OTHER",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "unlisted-old-closing",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "unlisted-old-closing-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unlisted-old-closing-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unlisted-old-closing-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "unlisted-old-closing-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "unlisted-old-closing-4.csv",
+          "sha256": "1ed2320b5b3e48dbc920c56ab61e45bca60666f943bb25552cc3d1bd09d48415"
+        },
+        {
+          "file": "unlisted-old-closing-5.csv",
+          "sha256": "27e637735b847febed7daa1c553415e61786fa03de7640c40aa290ba23e8457b"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-close"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-close",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "missing-clearing-proof",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "missing-clearing-proof-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "missing-clearing-proof-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "missing-clearing-proof-2.csv",
+          "sha256": "04afa48aeba0587f09f3b4cf6a39503ab41568ef9f0a3ec9caffe78b8b7d418e"
+        },
+        {
+          "file": "missing-clearing-proof-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "missing-clearing-proof-4.csv",
+          "sha256": "3633fbc5cb577f4eb1c5cb7e2f2ea6d7b4fbd4d73e9def2e1b784213447326ff"
+        },
+        {
+          "file": "missing-clearing-proof-5.csv",
+          "sha256": "27e637735b847febed7daa1c553415e61786fa03de7640c40aa290ba23e8457b"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        -10000,
+        0
+      ],
+      "itemIds": [
+        "I-open"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-clearing-sign",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-clearing-sign-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-sign-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-clearing-sign-2.csv",
+          "sha256": "04afa48aeba0587f09f3b4cf6a39503ab41568ef9f0a3ec9caffe78b8b7d418e"
+        },
+        {
+          "file": "wrong-clearing-sign-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "wrong-clearing-sign-4.csv",
+          "sha256": "3633fbc5cb577f4eb1c5cb7e2f2ea6d7b4fbd4d73e9def2e1b784213447326ff"
+        },
+        {
+          "file": "wrong-clearing-sign-5.csv",
+          "sha256": "b15677dcb0209e681ddab64e8b8634a9d4d8f31a0fb7dc114e32ecb7609631b5"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        -10000,
+        0
+      ],
+      "itemIds": [
+        "I-open"
+      ],
+      "proofIds": [
+        "P1",
+        "P-clear"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P-clear",
+          "L1",
+          "settlement",
+          "bank",
+          "B-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-P-clear",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-clearing-record",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-clearing-record-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-record-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-clearing-record-2.csv",
+          "sha256": "04afa48aeba0587f09f3b4cf6a39503ab41568ef9f0a3ec9caffe78b8b7d418e"
+        },
+        {
+          "file": "wrong-clearing-record-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "wrong-clearing-record-4.csv",
+          "sha256": "3633fbc5cb577f4eb1c5cb7e2f2ea6d7b4fbd4d73e9def2e1b784213447326ff"
+        },
+        {
+          "file": "wrong-clearing-record-5.csv",
+          "sha256": "8c0a89ba5d9d6438ec68bc7ce4965d66e3e6743d0f575ff8fc20c4965e88bada"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        -10000,
+        0
+      ],
+      "itemIds": [
+        "I-open"
+      ],
+      "proofIds": [
+        "P1",
+        "P-clear"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P-clear",
+          "L1",
+          "settlement",
+          "bank",
+          "UNKNOWN",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-P-clear",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-current-record",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-current-record-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-current-record-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "wrong-current-record-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "wrong-current-record-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "wrong-current-record-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "wrong-current-record-5.csv",
+          "sha256": "a2af66175fa22cb5bac847d1320dddd59ab9a55a5f717b203b95aca87409cd3f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "UNKNOWN",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-current-date",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-current-date-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-current-date-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "wrong-current-date-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "wrong-current-date-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "wrong-current-date-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "wrong-current-date-5.csv",
+          "sha256": "a274a1d1acef0f4acf881b5a6d9a72291b0a78ea93a4278ad2559df391f54aed"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-21",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "zero-adjustment",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "zero-adjustment-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "zero-adjustment-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "zero-adjustment-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "zero-adjustment-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "zero-adjustment-4.csv",
+          "sha256": "e1b7b8cc17637e90a2132999f939cb4dfaa390d2bd52c8ed2297677ca25e4e3a"
+        },
+        {
+          "file": "zero-adjustment-5.csv",
+          "sha256": "602fddb391e1a25ac9c23a9bf20e201bb83d2c72f2b150c9a6abac5e796ddfc8"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "0.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "0.00"
+        ]
+      ]
+    },
+    {
+      "name": "unknown-fee-kind",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "unknown-fee-kind-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unknown-fee-kind-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "unknown-fee-kind-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "unknown-fee-kind-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "unknown-fee-kind-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "unknown-fee-kind-5.csv",
+          "sha256": "76f05c67be38458b36e77bebfbd79e55c8185047f5816e145fc59c1410cc2c90"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "assumed-fee",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "unused-proof",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "unused-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unused-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "unused-proof-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "unused-proof-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "unused-proof-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "unused-proof-5.csv",
+          "sha256": "f5165a9d137c799d2f9b135d5cf20628fde516a4bbff695468d937156a31253b"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1",
+        "UNUSED"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "UNUSED",
+          "L-unused",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-UNUSED",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "proof-reuse",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "proof-reuse-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "proof-reuse-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "proof-reuse-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "proof-reuse-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "proof-reuse-4.csv",
+          "sha256": "162a682813cb07e26c662bcdfb4f3013db8edb01d2f1452a0d8f135c9b785f8a"
+        },
+        {
+          "file": "proof-reuse-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1",
+        "I2"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I2",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "movement-reuse",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "movement-reuse-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "movement-reuse-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "movement-reuse-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "movement-reuse-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "movement-reuse-4.csv",
+          "sha256": "4aae53bad04a95f615c0622b23f0d625abec188dc48cc7f6908fc6bd7195dc42"
+        },
+        {
+          "file": "movement-reuse-5.csv",
+          "sha256": "ae5f87b4811cec94744f2f39c0d0dc1d8c8c2fe531f45246d3263fca1a928ee3"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1",
+        "I2"
+      ],
+      "proofIds": [
+        "P1",
+        "P2"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I2",
+          "closing",
+          "bank",
+          "P2",
+          "-100.00",
+          "Explicit original evidence P2",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P2",
+          "L2",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P2",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "own-bridge-gap",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "own-bridge-gap-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "own-bridge-gap-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "own-bridge-gap-2.csv",
+          "sha256": "862f38702207162a8d46780396b0456c3a8b3966f765fb2ecc0030472d86dc02"
+        },
+        {
+          "file": "own-bridge-gap-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "own-bridge-gap-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "own-bridge-gap-5.csv",
+          "sha256": "886fe2692ebd0a797d9f54b0dabcffa4b19f50635d0cf28543fcf115c3847a9f"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "inconsistent",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200001,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          -10000,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          190001,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 1
+      },
+      "residual": [
+        -1,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "uncovered-movement",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "uncovered-movement-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "uncovered-movement-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "uncovered-movement-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "uncovered-movement-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "uncovered-movement-4.csv",
+          "sha256": "e585c2e886bcbb561b0278a88c286977a1b1a85868d66e28e7735fc458e93128"
+        },
+        {
+          "file": "uncovered-movement-5.csv",
+          "sha256": "43dbbf53a33e84ce03849ad0ca85c5cf6a667e02fc0e6afe8b40914b17dca6d3"
+        }
+      ],
+      "actions": [],
+      "invalid": false,
+      "status": "inconsistent",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 10000
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [],
+      "proofIds": [],
+      "itemRows": [],
+      "proofRows": []
+    },
+    {
+      "name": "unresolved-equal-net",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "unresolved-equal-net-0.csv",
+          "sha256": "4038dbcbd98053eb871fba9eca429b1867e7cb2c2b5e459644d63be63ceb5c78"
+        },
+        {
+          "file": "unresolved-equal-net-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unresolved-equal-net-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "unresolved-equal-net-3.csv",
+          "sha256": "9006eaa5952c34996a6c58a540396c171ba53c427586a5c26d82e4f82500ae6b"
+        },
+        {
+          "file": "unresolved-equal-net-4.csv",
+          "sha256": "e585c2e886bcbb561b0278a88c286977a1b1a85868d66e28e7735fc458e93128"
+        },
+        {
+          "file": "unresolved-equal-net-5.csv",
+          "sha256": "43dbbf53a33e84ce03849ad0ca85c5cf6a667e02fc0e6afe8b40914b17dca6d3"
+        }
+      ],
+      "actions": [],
+      "invalid": false,
+      "status": "needs-review",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          200000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          200000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [],
+      "proofIds": [],
+      "itemRows": [],
+      "proofRows": []
+    },
+    {
+      "name": "blank-inventory",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "blank-inventory-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "blank-inventory-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "blank-inventory-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "blank-inventory-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "blank-inventory-4.csv",
+          "sha256": "1c197d949f9b09e32393c26d0d46fd3d9266181eb760a1eacfcff303026edc2a"
+        },
+        {
+          "file": "blank-inventory-5.csv",
+          "sha256": "ea9e9a9e51df9113dd6597e0d2ef4f0d2435d1bb18c485682c80e24261075ede"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          -10000,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "name": "isolated-own-bridge-gap",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "isolated-own-bridge-gap-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "isolated-own-bridge-gap-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "isolated-own-bridge-gap-2.csv",
+          "sha256": "862f38702207162a8d46780396b0456c3a8b3966f765fb2ecc0030472d86dc02"
+        },
+        {
+          "file": "isolated-own-bridge-gap-3.csv",
+          "sha256": "9006eaa5952c34996a6c58a540396c171ba53c427586a5c26d82e4f82500ae6b"
+        },
+        {
+          "file": "isolated-own-bridge-gap-4.csv",
+          "sha256": "02e31402952219a1ee32084e8060f569fc2e21e76ea3fab36e7fcd02ea44635c"
+        },
+        {
+          "file": "isolated-own-bridge-gap-5.csv",
+          "sha256": "7b3e4fa85f90acb581225ee44fce60c4689b4ee78888700211d4c6d0685b1033"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "inconsistent",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200001,
+          200000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          0
+        ],
+        "closing": [
+          -1,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          200000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        -1,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-gap"
+      ],
+      "proofIds": [
+        "P-gap"
+      ],
+      "itemRows": [
+        [
+          "I-gap",
+          "closing",
+          "bank",
+          "P-gap",
+          "-0.01",
+          "Explicit original evidence P-gap",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P-gap",
+          "L-gap",
+          "bank-error",
+          "bank",
+          "ERR",
+          "2026-09-20",
+          "2026-09-20",
+          "DOC-P-gap",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-0.01"
+        ]
+      ]
+    },
+    {
+      "name": "settlement-cannot-hide-policy",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "settlement-cannot-hide-policy-0.csv",
+          "sha256": "44aca2ad5692cfcb10c0c83c580ecdd1e9b2b103463978027daf2568723d60d2"
+        },
+        {
+          "file": "settlement-cannot-hide-policy-1.csv",
+          "sha256": "402c1c75419c6be4e961f37c0342e31b96bfc13d91fdb025a2929571b76bc0df"
+        },
+        {
+          "file": "settlement-cannot-hide-policy-2.csv",
+          "sha256": "adbdbd3a055c063bc2ec253cc9c85f0e2ada7e9b5077914cb650c3e32bdf12b6"
+        },
+        {
+          "file": "settlement-cannot-hide-policy-3.csv",
+          "sha256": "ae20096993f8ca9f3e2d505fcd4492458e8c0dd9fe8b6f422fb2bde69b05a68b"
+        },
+        {
+          "file": "settlement-cannot-hide-policy-4.csv",
+          "sha256": "3a4a9b34ff3c692eb5f298fc0e5dce5870f5a2f85b19b5467da16400f66f413d"
+        },
+        {
+          "file": "settlement-cannot-hide-policy-5.csv",
+          "sha256": "e86c24ccbaae947f4c92d4c5a62004fa8edbab9fba204f329fbd38b8df307faf"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "needs-review",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          210000,
+          210000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          10000,
+          10000
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          210000,
+          210000
+        ],
+        "closing": [
+          210000,
+          210000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        10000,
+        10000
+      ],
+      "itemIds": [
+        "OPEN-C",
+        "OPEN-B"
+      ],
+      "proofIds": [
+        "OLD-C",
+        "OLD-B",
+        "CLEAR-B",
+        "CLEAR-C"
+      ],
+      "itemRows": [
+        [
+          "OPEN-C",
+          "opening",
+          "bank",
+          "OLD-C",
+          "100.00",
+          "Explicit original evidence OLD-C",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "OPEN-B",
+          "opening",
+          "cashbook",
+          "OLD-B",
+          "100.00",
+          "Explicit original evidence OLD-B",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "OLD-C",
+          "LC",
+          "timing",
+          "cashbook",
+          "HIST-C",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-OLD-C",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ],
+        [
+          "OLD-B",
+          "LB",
+          "timing",
+          "bank",
+          "HIST-B",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-OLD-B",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ],
+        [
+          "CLEAR-B",
+          "LC",
+          "settlement",
+          "bank",
+          "B-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-CLEAR-B",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ],
+        [
+          "CLEAR-C",
+          "LB",
+          "settlement",
+          "cashbook",
+          "C-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-CLEAR-C",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ]
+      ]
+    },
+    {
+      "name": "settlement-cannot-hide-undo",
+      "bankActions": [
+        "undo"
+      ],
+      "files": [
+        {
+          "file": "settlement-cannot-hide-undo-0.csv",
+          "sha256": "e4ebbf1ac23e176efffaa994138e32618e38544f78db6ea178bedcf92862141e"
+        },
+        {
+          "file": "settlement-cannot-hide-undo-1.csv",
+          "sha256": "402c1c75419c6be4e961f37c0342e31b96bfc13d91fdb025a2929571b76bc0df"
+        },
+        {
+          "file": "settlement-cannot-hide-undo-2.csv",
+          "sha256": "adbdbd3a055c063bc2ec253cc9c85f0e2ada7e9b5077914cb650c3e32bdf12b6"
+        },
+        {
+          "file": "settlement-cannot-hide-undo-3.csv",
+          "sha256": "ae20096993f8ca9f3e2d505fcd4492458e8c0dd9fe8b6f422fb2bde69b05a68b"
+        },
+        {
+          "file": "settlement-cannot-hide-undo-4.csv",
+          "sha256": "3a4a9b34ff3c692eb5f298fc0e5dce5870f5a2f85b19b5467da16400f66f413d"
+        },
+        {
+          "file": "settlement-cannot-hide-undo-5.csv",
+          "sha256": "e86c24ccbaae947f4c92d4c5a62004fa8edbab9fba204f329fbd38b8df307faf"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "needs-review",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          210000,
+          210000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          10000,
+          10000
+        ],
+        "closing": [
+          0,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          210000,
+          210000
+        ],
+        "closing": [
+          210000,
+          210000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        10000,
+        10000
+      ],
+      "itemIds": [
+        "OPEN-C",
+        "OPEN-B"
+      ],
+      "proofIds": [
+        "OLD-C",
+        "OLD-B",
+        "CLEAR-B",
+        "CLEAR-C"
+      ],
+      "itemRows": [
+        [
+          "OPEN-C",
+          "opening",
+          "bank",
+          "OLD-C",
+          "100.00",
+          "Explicit original evidence OLD-C",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "OPEN-B",
+          "opening",
+          "cashbook",
+          "OLD-B",
+          "100.00",
+          "Explicit original evidence OLD-B",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "OLD-C",
+          "LC",
+          "timing",
+          "cashbook",
+          "HIST-C",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-OLD-C",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ],
+        [
+          "OLD-B",
+          "LB",
+          "timing",
+          "bank",
+          "HIST-B",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-OLD-B",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ],
+        [
+          "CLEAR-B",
+          "LC",
+          "settlement",
+          "bank",
+          "B-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-CLEAR-B",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ],
+        [
+          "CLEAR-C",
+          "LB",
+          "settlement",
+          "cashbook",
+          "C-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-CLEAR-C",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "100.00"
+        ]
+      ]
+    },
+    {
+      "name": "changed-carry-proof",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "changed-carry-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "changed-carry-proof-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "changed-carry-proof-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "changed-carry-proof-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "changed-carry-proof-4.csv",
+          "sha256": "294f5119e8af2b1e8bbe5f8eb9624bffbb1a172f5114e3b76a58c1319c7b62fc"
+        },
+        {
+          "file": "changed-carry-proof-5.csv",
+          "sha256": "7420354d104af12ab2395d21f48f434f8d77d5c55bacb701741313750841c556"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-open",
+        "I-close"
+      ],
+      "proofIds": [
+        "P1",
+        "P2"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I-close",
+          "closing",
+          "bank",
+          "P2",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P2",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD2",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P2",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-value-date",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-value-date-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-value-date-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        },
+        {
+          "file": "wrong-value-date-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "wrong-value-date-3.csv",
+          "sha256": "763fc31626ba319abdadc75c0a869f249cd8ad9ba5d5ec6cb8a85bfdcf7b1be5"
+        },
+        {
+          "file": "wrong-value-date-4.csv",
+          "sha256": "9e03bdbeed1ac8089c45e6b41cca0863d63634c3ebe76d8d17765957e0d583e0"
+        },
+        {
+          "file": "wrong-value-date-5.csv",
+          "sha256": "b4d9b0c76aadc3c63d801627233ab5eefa7f33e6efd65ae431fe6a7b46d407a9"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          200000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        -10000
+      ],
+      "itemIds": [
+        "I1"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I1",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "C1",
+          "2026-09-20",
+          "2026-10-03",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-clearing-date",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-clearing-date-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-date-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-clearing-date-2.csv",
+          "sha256": "04afa48aeba0587f09f3b4cf6a39503ab41568ef9f0a3ec9caffe78b8b7d418e"
+        },
+        {
+          "file": "wrong-clearing-date-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "wrong-clearing-date-4.csv",
+          "sha256": "3633fbc5cb577f4eb1c5cb7e2f2ea6d7b4fbd4d73e9def2e1b784213447326ff"
+        },
+        {
+          "file": "wrong-clearing-date-5.csv",
+          "sha256": "e846dfa74d2239f6c517e3cb226d44a2ae5cfdc042e9e523e31570fffd9f57b9"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        -10000,
+        0
+      ],
+      "itemIds": [
+        "I-open"
+      ],
+      "proofIds": [
+        "P1",
+        "P-clear"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P-clear",
+          "L1",
+          "settlement",
+          "bank",
+          "B-clear",
+          "2026-09-11",
+          "2026-09-10",
+          "DOC-P-clear",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "wrong-clearing-side",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "wrong-clearing-side-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-side-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-clearing-side-2.csv",
+          "sha256": "04afa48aeba0587f09f3b4cf6a39503ab41568ef9f0a3ec9caffe78b8b7d418e"
+        },
+        {
+          "file": "wrong-clearing-side-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "wrong-clearing-side-4.csv",
+          "sha256": "3633fbc5cb577f4eb1c5cb7e2f2ea6d7b4fbd4d73e9def2e1b784213447326ff"
+        },
+        {
+          "file": "wrong-clearing-side-5.csv",
+          "sha256": "b854faa2ce2a65e395cbfda91fbb3c06b6873dd0bfec41ed52ae314cd8f9ad5d"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        -10000,
+        0
+      ],
+      "itemIds": [
+        "I-open"
+      ],
+      "proofIds": [
+        "P1",
+        "P-clear"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P-clear",
+          "L1",
+          "settlement",
+          "cashbook",
+          "B-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-P-clear",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "positive-adjusted-overflow",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "positive-adjusted-overflow-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "positive-adjusted-overflow-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "positive-adjusted-overflow-2.csv",
+          "sha256": "4cb9f2a3e6f4be10ac2eab60407b5b48208d6a0488fd2d32c48fcbf0719c31b6"
+        },
+        {
+          "file": "positive-adjusted-overflow-3.csv",
+          "sha256": "0e85da7f7ada5a123241cde23e79aec43ff9a78bc6775666f20e502253cd15fa"
+        },
+        {
+          "file": "positive-adjusted-overflow-4.csv",
+          "sha256": "382bc4e578238aea42fcaaabbbaee9a57897336330b4041a320b4eb8bb3c2ddd"
+        },
+        {
+          "file": "positive-adjusted-overflow-5.csv",
+          "sha256": "dcd9b5f3b35a4aef78f25b097460b2940618446ed98251abac56adde6f5f7ffd"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "inconsistent",
+      "raw": {
+        "opening": [
+          100000000000000,
+          100000000000000
+        ],
+        "closing": [
+          100000000000000,
+          100000000000000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          100
+        ],
+        "closing": [
+          0,
+          100
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          100000000000000,
+          100000000000100
+        ],
+        "closing": [
+          100000000000000,
+          100000000000100
+        ]
+      },
+      "differences": {
+        "opening": -100,
+        "closing": -100
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-open",
+        "I-close"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "cashbook",
+          "P1",
+          "1.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I-close",
+          "closing",
+          "cashbook",
+          "P1",
+          "1.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "cashbook-error",
+          "cashbook",
+          "BOOK-ERR",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "1.00"
+        ]
+      ],
+      "reject": "ADJUSTMENT_SUM"
+    },
+    {
+      "name": "negative-adjusted-overflow",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "negative-adjusted-overflow-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "negative-adjusted-overflow-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "negative-adjusted-overflow-2.csv",
+          "sha256": "cbcb02be25b71ba351f6816cf5bac820bb640bf82b8e8b05683bf5ab32eb4cb1"
+        },
+        {
+          "file": "negative-adjusted-overflow-3.csv",
+          "sha256": "efbc83290eea2194343d39d31a89465f0991d8b7ea2debaad26b0af9c7eb0578"
+        },
+        {
+          "file": "negative-adjusted-overflow-4.csv",
+          "sha256": "dd0742c8b9af70c7f35101f8aca1f564f8ebb3f7239ad52e297eca8066d8d2c4"
+        },
+        {
+          "file": "negative-adjusted-overflow-5.csv",
+          "sha256": "aa8cb49dc2a77d4b5e63e6c563a519416418f77a6e2499c08437f2d512ed98d7"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "inconsistent",
+      "raw": {
+        "opening": [
+          -100000000000000,
+          -100000000000000
+        ],
+        "closing": [
+          -100000000000000,
+          -100000000000000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          0,
+          -100
+        ],
+        "closing": [
+          0,
+          -100
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          -100000000000000,
+          -100000000000100
+        ],
+        "closing": [
+          -100000000000000,
+          -100000000000100
+        ]
+      },
+      "differences": {
+        "opening": 100,
+        "closing": 100
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-open",
+        "I-close"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "cashbook",
+          "P1",
+          "-1.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I-close",
+          "closing",
+          "cashbook",
+          "P1",
+          "-1.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "cashbook-error",
+          "cashbook",
+          "BOOK-ERR",
+          "2026-08-20",
+          "2026-08-20",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-1.00"
+        ]
+      ],
+      "reject": "ADJUSTMENT_SUM"
+    },
+    {
+      "name": "carry-with-future-value",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "carry-with-future-value-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "carry-with-future-value-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "carry-with-future-value-2.csv",
+          "sha256": "ace5411294ee8020246ace85160beadcf05f244473237c6127e6034f3394d01b"
+        },
+        {
+          "file": "carry-with-future-value-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "carry-with-future-value-4.csv",
+          "sha256": "3ffbf881ff51b09bb4299886d7a6c48b59d4a840be8cce5b1618486cab0f3800"
+        },
+        {
+          "file": "carry-with-future-value-5.csv",
+          "sha256": "26c91e4176c5e4b3e86d896756abe6652321877b13b6c20d5d7ded7a24fc52d2"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": false,
+      "status": "reconciled-with-evidence",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          200000,
+          190000
+        ]
+      },
+      "adjustments": {
+        "opening": [
+          -10000,
+          0
+        ],
+        "closing": [
+          -10000,
+          0
+        ]
+      },
+      "adjusted": {
+        "opening": [
+          190000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "differences": {
+        "opening": 0,
+        "closing": 0
+      },
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        0,
+        0
+      ],
+      "itemIds": [
+        "I-open",
+        "I-close"
+      ],
+      "proofIds": [
+        "P1"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ],
+        [
+          "I-close",
+          "closing",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    },
+    {
+      "name": "settlement-before-original-value",
+      "bankActions": [],
+      "files": [
+        {
+          "file": "settlement-before-original-value-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "settlement-before-original-value-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "settlement-before-original-value-2.csv",
+          "sha256": "04afa48aeba0587f09f3b4cf6a39503ab41568ef9f0a3ec9caffe78b8b7d418e"
+        },
+        {
+          "file": "settlement-before-original-value-3.csv",
+          "sha256": "6f98402a0a34397c930dd027618f67491b7bf99dcbb48a27c5612a8706a021f4"
+        },
+        {
+          "file": "settlement-before-original-value-4.csv",
+          "sha256": "3633fbc5cb577f4eb1c5cb7e2f2ea6d7b4fbd4d73e9def2e1b784213447326ff"
+        },
+        {
+          "file": "settlement-before-original-value-5.csv",
+          "sha256": "8ce969adbd0ced9445abc1fc914c41771021d970358d6d5900fc5c3de20f1bae"
+        }
+      ],
+      "actions": [
+        "accept"
+      ],
+      "invalid": true,
+      "status": "source-error",
+      "raw": {
+        "opening": [
+          200000,
+          190000
+        ],
+        "closing": [
+          190000,
+          190000
+        ]
+      },
+      "adjustments": null,
+      "adjusted": null,
+      "differences": null,
+      "residual": [
+        0,
+        0
+      ],
+      "movements": [
+        -10000,
+        0
+      ],
+      "itemIds": [
+        "I-open"
+      ],
+      "proofIds": [
+        "P1",
+        "P-clear"
+      ],
+      "itemRows": [
+        [
+          "I-open",
+          "opening",
+          "bank",
+          "P1",
+          "-100.00",
+          "Explicit original evidence P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30"
+        ]
+      ],
+      "proofRows": [
+        [
+          "P1",
+          "L1",
+          "timing",
+          "cashbook",
+          "OLD1",
+          "2026-08-20",
+          "2026-10-02",
+          "DOC-P1",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ],
+        [
+          "P-clear",
+          "L1",
+          "settlement",
+          "bank",
+          "B-clear",
+          "2026-09-10",
+          "2026-09-10",
+          "DOC-P-clear",
+          "Synthetic Cash Owner",
+          "Primary Book",
+          "BANK-001",
+          "SAR",
+          "2026-09-01",
+          "2026-09-30",
+          "-100.00"
+        ]
+      ]
+    }
+  ]
+}

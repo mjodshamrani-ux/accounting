@@ -1,0 +1,18 @@
+{
+  "version": "domain-startup-readiness-ui-v1",
+  "scope": "Main App navigation readiness only; no financial engine, matching, allocation or file authority change",
+  "synthetic": true,
+  "fieldAcceptance": false,
+  "beforeFixAppSha256": "c6319456fa21129be7540d480d37e05437fcd8ca8765cf8c002c933656cf99b2",
+  "beforeFixBuildIndexSha256": "ae5aa2714ff7994f5bdc82f6f9fb4b96da3017bde8612de4db1de4e6d11cdf17",
+  "originalProbe": "work/integration-continuation/gateway-startup-probe/attempt-1",
+  "domains": ["clearing", "ar", "gl-tb", "allocation", "bank", "tb-financial", "intercompany", "gateway", "stock", "assets", "payroll"],
+  "languages": ["ar", "en"],
+  "expectations": {
+    "whileOriginalReadyReplyHeld": "Every existing domain navigation button is disabled; no domain read/reconcile request or financial publication can begin from that navigation",
+    "afterUntouchedOriginalReadyReplyReleased": "Existing domain buttons become available subject to the existing busy guard; gateway native demo reads four originals and reaches whole-batch-review-required with zero accepted financial events",
+    "alreadyReadyBehavior": "Existing domain workflows and main reviewed-group ownership remain unchanged",
+    "cancelledOrFailedPreparation": "Navigation remains unavailable until engine readiness is established"
+  },
+  "preservation": "Retain original failed full browser gate and demonstrated ready-reply contention. This is a UI prerequisite regression contract, not a new accounting truth or field evidence."
+}

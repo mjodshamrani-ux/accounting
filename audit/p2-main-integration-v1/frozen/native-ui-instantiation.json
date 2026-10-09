@@ -1,0 +1,214 @@
+{
+  "contract": "SUPPLIER_OVERLAP_MAIN_V1",
+  "addendum": "NATIVE_UI_SAR_TWO_DECIMALS_V1",
+  "status": "pending-independent-pre-browser-review",
+  "baselineCommit": "a1fee779ca597694b2e8227be1cea37891c0bae9",
+  "originalTruthSha256": "7c3add58890206952a235c0efc4e5761be416919e4770abd36cb7dc068b9de24",
+  "nativeEncodingAddendumSha256": "679dd3717b8f2ca5ff39d65ecc6d8aab01fe900f15dff90ee2963a45bc42f506",
+  "truthOrigin": "Manual monetary instantiation of frozen A and C, authored before native browser fixtures or product-output observation.",
+  "syntheticOnly": true,
+  "newOriginalFiles": true,
+  "authorityTransfersFromOtherFixtures": false,
+  "reason": "The actual App requires the registered two-decimal precision for SAR. Engine-only SAR decimals=0 fixtures cannot serve as successful App fixtures. This separately reviewed new native instantiation preserves integer minor money, memberships and decisions, while using SAR decimals=2 and fresh native source identities.",
+  "scope": {
+    "entity": "E",
+    "account": "AP",
+    "supplier": "S",
+    "currency": "SAR",
+    "decimals": 2,
+    "cutoff": "2026-09-30",
+    "dateWindow": 7,
+    "confirmed": true,
+    "coverageConfirmed": true
+  },
+  "nativeSource": {
+    "kind": "csv",
+    "encoding": "utf-8",
+    "headers": [
+      "Invoice No",
+      "Amount",
+      "Date",
+      "Document Type"
+    ],
+    "mapping": {
+      "reference": 0,
+      "amount": 1,
+      "date": 2,
+      "header": 0,
+      "start": 1,
+      "sheet": "Sheet1"
+    },
+    "invoice": "INV-X-1",
+    "documentType": "Invoice"
+  },
+  "amountEncoding": {
+    "100": "1.00",
+    "40": "0.40",
+    "60": "0.60"
+  },
+  "cases": [
+    {
+      "id": "A",
+      "supplier": [
+        {
+          "key": "s1",
+          "row": 2,
+          "rawAmount": "1.00",
+          "amountMinor": 100,
+          "date": "2026-09-01"
+        }
+      ],
+      "ledger": [
+        {
+          "key": "l1",
+          "row": 2,
+          "rawAmount": "0.40",
+          "amountMinor": 40,
+          "date": "2026-09-01"
+        },
+        {
+          "key": "l2",
+          "row": 3,
+          "rawAmount": "0.60",
+          "amountMinor": 60,
+          "date": "2026-09-02"
+        },
+        {
+          "key": "l3",
+          "row": 4,
+          "rawAmount": "1.00",
+          "amountMinor": 100,
+          "date": "2026-09-03"
+        }
+      ],
+      "candidateCount": 2,
+      "accept": [
+        [
+          "s1",
+          "l1",
+          "l2"
+        ]
+      ],
+      "reject": [
+        [
+          "s1",
+          "l3"
+        ]
+      ],
+      "afterCommit": {
+        "manualMatches": 1,
+        "autoMatchedCases": 0,
+        "matchedSourceRows": 3,
+        "needsReviewCases": 0,
+        "unmatchedCases": 1,
+        "unmatchedSourceRows": 1,
+        "activeReceiptCount": 1
+      },
+      "afterUndo": {
+        "manualMatches": 0,
+        "autoMatchedCases": 0,
+        "matchedSourceRows": 0,
+        "needsReviewCases": 1,
+        "needsReviewSourceRows": 4,
+        "unmatchedCases": 0,
+        "activeReceiptCount": 0
+      }
+    },
+    {
+      "id": "C",
+      "supplier": [
+        {
+          "key": "s1",
+          "row": 2,
+          "rawAmount": "1.00",
+          "amountMinor": 100,
+          "date": "2026-09-01"
+        },
+        {
+          "key": "s2",
+          "row": 3,
+          "rawAmount": "1.00",
+          "amountMinor": 100,
+          "date": "2026-09-02"
+        }
+      ],
+      "ledger": [
+        {
+          "key": "l1",
+          "row": 2,
+          "rawAmount": "0.40",
+          "amountMinor": 40,
+          "date": "2026-09-01"
+        },
+        {
+          "key": "l2",
+          "row": 3,
+          "rawAmount": "0.60",
+          "amountMinor": 60,
+          "date": "2026-09-02"
+        },
+        {
+          "key": "l3",
+          "row": 4,
+          "rawAmount": "0.40",
+          "amountMinor": 40,
+          "date": "2026-09-03"
+        },
+        {
+          "key": "l4",
+          "row": 5,
+          "rawAmount": "0.60",
+          "amountMinor": 60,
+          "date": "2026-09-04"
+        }
+      ],
+      "candidateCount": 9,
+      "accept": [
+        [
+          "s1",
+          "l1",
+          "l2"
+        ],
+        [
+          "s2",
+          "l3",
+          "l4"
+        ]
+      ],
+      "rejectEveryOtherCandidate": true,
+      "afterCommit": {
+        "manualMatches": 2,
+        "autoMatchedCases": 0,
+        "matchedSourceRows": 6,
+        "needsReviewCases": 0,
+        "unmatchedCases": 0,
+        "activeReceiptCount": 1
+      },
+      "afterUndo": {
+        "manualMatches": 0,
+        "autoMatchedCases": 0,
+        "matchedSourceRows": 0,
+        "activeReceiptCount": 0,
+        "equalsFreshOriginalBaseline": true
+      }
+    }
+  ],
+  "requiredNativeUiChecks": [
+    "fresh-confirmed-scope-and-precision",
+    "full-component-every-row-reviewed",
+    "explicit-each-candidate-accept-or-reject",
+    "main-comparison-receives-exact-reviewed-groups",
+    "group-equivalence-no-pairwise-allocation",
+    "whole-component-undo-from-main-case",
+    "fresh-original-replay-preserves-members-and-money",
+    "saved-session-restore-archive-no-automatic-authority",
+    "AR-and-EN-small-screen-layout",
+    "explicit-handoff-opens-empty-independent-allocation"
+  ],
+  "untestedClaimsExcluded": [
+    "field-validation",
+    "physical-user-interaction",
+    "all-currency-precisions",
+    "weak-device-measurement"
+  ]
+}

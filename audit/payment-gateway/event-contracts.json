@@ -1,0 +1,867 @@
+{
+  "version": "payment-gateway-batch-1",
+  "sample": "synthetic-not-field",
+  "afterUnexecutedDraft": true,
+  "cases": [
+    {
+      "name": "accept",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": null,
+      "expected": {
+        "review": "accepted",
+        "status": "consistent-with-evidence",
+        "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+        "memberIds": [
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+          "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+          "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+        ]
+      }
+    },
+    {
+      "name": "reject",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "reject",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": null,
+      "expected": {
+        "review": "rejected",
+        "status": "needs-review",
+        "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+        "memberIds": [
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+          "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+          "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+        ]
+      }
+    },
+    {
+      "name": "accept-undo",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-2",
+          "type": "undo",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": null,
+      "expected": {
+        "review": "needs-review",
+        "status": "needs-review",
+        "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+        "memberIds": [
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+          "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+          "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+        ]
+      }
+    },
+    {
+      "name": "reject-undo-accept",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "reject",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-2",
+          "type": "undo",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-3",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": null,
+      "expected": {
+        "review": "accepted",
+        "status": "consistent-with-evidence",
+        "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+        "memberIds": [
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+          "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+          "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+          "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+        ]
+      }
+    },
+    {
+      "name": "repeat-accept",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-2",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_STATE",
+      "expected": null
+    },
+    {
+      "name": "reject-then-accept",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "reject",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-2",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_STATE",
+      "expected": null
+    },
+    {
+      "name": "undo-without-decision",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "undo",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_STATE",
+      "expected": null
+    },
+    {
+      "name": "repeated-undo",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-2",
+          "type": "undo",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-3",
+          "type": "undo",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_STATE",
+      "expected": null
+    },
+    {
+      "name": "duplicate-event-id",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        },
+        {
+          "id": "E-1",
+          "type": "undo",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_ID",
+      "expected": null
+    },
+    {
+      "name": "partial-members",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_MEMBERS",
+      "expected": null
+    },
+    {
+      "name": "duplicate-member",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_MEMBERS",
+      "expected": null
+    },
+    {
+      "name": "stale-context",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "old",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_CONTEXT",
+      "expected": null
+    },
+    {
+      "name": "wrong-batch",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-002",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_BATCH",
+      "expected": null
+    },
+    {
+      "name": "bad-time",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-02-30T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_DATE",
+      "expected": null
+    },
+    {
+      "name": "empty-reference",
+      "case": "pending",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "IDENTITY",
+      "expected": null
+    },
+    {
+      "name": "do-not-accept-wrong-net",
+      "case": "wrong-net",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"517129e13508f1facefc8243035fcc19f993f37783e27b4bafd2bce49a0baaf2\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"517129e13508f1facefc8243035fcc19f993f37783e27b4bafd2bce49a0baaf2\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_FINANCIAL",
+      "expected": null
+    },
+    {
+      "name": "do-not-accept-fee-proof-missing",
+      "case": "fee-proof-missing",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_FINANCIAL",
+      "expected": null
+    },
+    {
+      "name": "do-not-accept-incomplete",
+      "case": "incomplete",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":false,\"reference\":\"\",\"note\":\"\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": false,
+        "reference": "",
+        "note": ""
+      },
+      "error": "EVENT_FINANCIAL",
+      "expected": null
+    },
+    {
+      "name": "do-not-accept-malformed-competing-transaction",
+      "case": "malformed-competing-transaction",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "accept",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,4]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,5]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_FINANCIAL",
+      "expected": null
+    },
+    {
+      "name": "reject-malformed-whole-batch",
+      "case": "malformed-competing-transaction",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "reject",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,4]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,5]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": null,
+      "expected": {
+        "review": "rejected",
+        "status": "source-error",
+        "context": "[\"payment-gateway-batch-1\",[\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+        "memberIds": [
+          "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,2]",
+          "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,3]",
+          "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,4]",
+          "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,5]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+          "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+          "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+          "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+        ]
+      }
+    },
+    {
+      "name": "reject-malformed-partial",
+      "case": "malformed-competing-transaction",
+      "events": [
+        {
+          "id": "E-1",
+          "type": "reject",
+          "batchId": "BATCH-001",
+          "memberIds": [
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,2]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,3]",
+            "[\"payment-gateway-batch-1\",0,\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",0,4]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,2]",
+            "[\"payment-gateway-batch-1\",1,\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",0,3]",
+            "[\"payment-gateway-batch-1\",2,\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",0,2]",
+            "[\"payment-gateway-batch-1\",3,\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\",0,2]"
+          ],
+          "context": "[\"payment-gateway-batch-1\",[\"6a94c80de641ebc1748fd5f236b667434fc7da56a89fb92040064248b1f71012\",\"ea189e68146ef4bc273a2fe996bd098b3be704c2ee0dc8ef30a17d2ab971917a\",\"45aa8455e6b35261622064e2aca5f3d84a45447a7c0d899413a959a4e3850067\",\"2497fdbabc040ab5dd1fa594966a7276a0061e688023d38a353305a87dfae2b9\"],[{\"sheet\":0,\"role\":\"transactions\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"fee-evidence\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"settlement\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true},{\"sheet\":0,\"role\":\"payout\",\"family\":\"payment-gateway-batch-1\",\"confirmed\":true}],{\"entity\":\"Synthetic Merchant\",\"gateway\":\"Gateway example\",\"merchantAccount\":\"001\",\"bankAccount\":\"BANK-01\",\"dimensions\":\"department=01\",\"currency\":\"SAR\",\"currencyBasis\":\"functional\",\"fxPolicy\":\"same-currency-no-conversion\",\"start\":\"2026-09-01\",\"end\":\"2026-09-30\",\"asOf\":\"2026-09-30\",\"policyVersion\":\"PG-1\",\"batchId\":\"BATCH-001\",\"confirmed\":true},{\"confirmed\":true,\"reference\":\"Synthetic supplied inventory\",\"note\":\"All supplied transactions and independently evidenced fees reviewed\"}]",
+          "at": "2026-10-07T00:00:00.000Z",
+          "reference": "Independent synthetic review",
+          "note": "All original records including any malformed contender"
+        }
+      ],
+      "complete": {
+        "confirmed": true,
+        "reference": "Synthetic supplied inventory",
+        "note": "All supplied transactions and independently evidenced fees reviewed"
+      },
+      "error": "EVENT_MEMBERS",
+      "expected": null
+    }
+  ]
+}

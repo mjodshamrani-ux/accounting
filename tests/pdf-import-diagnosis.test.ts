@@ -44,7 +44,7 @@ async function failedRead(bytes: ArrayBuffer) {
   );
 }
 
-test('PDF diagnosis: blank and vector-only pages report no extractable text without claiming a scan', async () => {
+void test('PDF diagnosis: blank and vector-only pages report no extractable text without claiming a scan', async () => {
   for (const decoration of ['', 'q 0 g 20 20 50 50 re f Q']) {
     const error = await failedRead(syntheticPdf([[]], 10, decoration));
     assert.ok(error instanceof ImportDiagnosticError);
@@ -53,7 +53,7 @@ test('PDF diagnosis: blank and vector-only pages report no extractable text with
   }
 });
 
-test('PDF diagnosis: image-only bytes report factual image presence with the legacy no-text message', async () => {
+void test('PDF diagnosis: image-only bytes report factual image presence with the legacy no-text message', async () => {
   const error = await failedRead(syntheticPdf([[]], 10, raster()));
   assert.ok(error instanceof ImportDiagnosticError);
   assert.equal(error.message, noTextMessage(1));
@@ -64,7 +64,7 @@ test('PDF diagnosis: image-only bytes report factual image presence with the leg
   });
 });
 
-test('PDF diagnosis: both small and large images mixed with native text retain the original rejection', async () => {
+void test('PDF diagnosis: both small and large images mixed with native text retain the original rejection', async () => {
   for (const size of [1, 600]) {
     const error = await failedRead(syntheticPdf([rows], 10, raster(size)));
     assert.ok(error instanceof ImportDiagnosticError);
@@ -83,7 +83,7 @@ test('PDF diagnosis: both small and large images mixed with native text retain t
   }
 });
 
-test('PDF diagnosis: image-paint counts count occurrences without inferring image content', async () => {
+void test('PDF diagnosis: image-paint counts count occurrences without inferring image content', async () => {
   const error = await failedRead(
     syntheticPdf([rows], 10, `${raster()}\n${raster(15)}`),
   );
@@ -92,7 +92,7 @@ test('PDF diagnosis: image-paint counts count occurrences without inferring imag
   assert.equal(error.diagnosis.contentKind, 'mixed');
 });
 
-test('PDF diagnosis: first blocking page is explicit and never claims the remaining pages were inspected', async () => {
+void test('PDF diagnosis: first blocking page is explicit and never claims the remaining pages were inspected', async () => {
   const error = await failedRead(syntheticPdf([rows, [], rows]));
   assert.ok(error instanceof ImportDiagnosticError);
   assert.equal(error.message, noTextMessage(2));
@@ -103,7 +103,7 @@ test('PDF diagnosis: first blocking page is explicit and never claims the remain
   });
 });
 
-test('PDF diagnosis: clean native-text PDFs retain the same exact extracted rows', async () => {
+void test('PDF diagnosis: clean native-text PDFs retain the same exact extracted rows', async () => {
   const file = await readFile(
     'native.pdf',
     syntheticPdf([rows]),
@@ -115,7 +115,7 @@ test('PDF diagnosis: clean native-text PDFs retain the same exact extracted rows
   assert.equal(Object.hasOwn(file, 'diagnosis'), false);
 });
 
-test('PDF diagnosis: earlier occlusion and hidden-text failures retain precedence over a later image', async () => {
+void test('PDF diagnosis: earlier occlusion and hidden-text failures retain precedence over a later image', async () => {
   const decorations = [
     ['q 1 g 298 725 60 15 re f Q', /يغطي أحد رسوم PDF نصًا تحته/],
     ['3 Tr\nBT /F1 10 Tf 1 0 0 1 40 690 Tm (HIDDEN) Tj ET', /مخفي|غير مرئي/],
@@ -129,7 +129,7 @@ test('PDF diagnosis: earlier occlusion and hidden-text failures retain precedenc
   }
 });
 
-test('PDF diagnosis schema: exact bounded worker round-trip is accepted', () => {
+void test('PDF diagnosis schema: exact bounded worker round-trip is accepted', () => {
   const diagnoses: ImportDiagnosis[] = [
     emptyDiagnosis(),
     { ...emptyDiagnosis(), contentKind: 'image-only', imagePaints: 1 },
@@ -164,7 +164,7 @@ test('PDF diagnosis schema: exact bounded worker round-trip is accepted', () => 
   }
 });
 
-test('PDF diagnosis schema: malformed, contradictory and extended payloads are rejected', () => {
+void test('PDF diagnosis schema: malformed, contradictory and extended payloads are rejected', () => {
   const patches: Record<string, unknown>[] = [
     { schemaVersion: 2 },
     { format: 'xlsx' },
@@ -220,7 +220,7 @@ test('PDF diagnosis schema: malformed, contradictory and extended payloads are r
   );
 });
 
-test('PDF diagnosis schema: rejects accessors without reading them and tolerates hostile objects', () => {
+void test('PDF diagnosis schema: rejects accessors without reading them and tolerates hostile objects', () => {
   let getterCalled = false;
   const accessor = Object.defineProperty({ ...emptyDiagnosis() }, 'page', {
     get() {
@@ -245,7 +245,7 @@ test('PDF diagnosis schema: rejects accessors without reading them and tolerates
   );
 });
 
-test('PDF diagnosis error: immutable validated copy prevents later diagnostic mutation', () => {
+void test('PDF diagnosis error: immutable validated copy prevents later diagnostic mutation', () => {
   const input = emptyDiagnosis();
   const error = new ImportDiagnosticError('legacy message', input);
   input.page = 10;

@@ -59,7 +59,7 @@ function fixture(
   );
 }
 
-test('Arabic and English variance questions find a proved transaction difference without closing balances', () => {
+void test('Arabic and English variance questions find a proved transaction difference without closing balances', () => {
   const result = fixture();
   assert.equal(result.bridge, null);
   for (const question of [
@@ -85,7 +85,7 @@ test('Arabic and English variance questions find a proved transaction difference
   }
 });
 
-test('thousands separators and Arabic or Persian digits preserve the exact requested minor units', () => {
+void test('thousands separators and Arabic or Persian digits preserve the exact requested minor units', () => {
   const result = fixture([['INV-VAR-612', '2240.25', '1040']]);
   for (const question of [
     'لماذا الفرق ١٬٢٠٠٫٢٥؟',
@@ -99,7 +99,7 @@ test('thousands separators and Arabic or Persian digits preserve the exact reque
   }
 });
 
-test('all cases sharing a requested variance are cited without selecting one as the cause', () => {
+void test('all cases sharing a requested variance are cited without selecting one as the cause', () => {
   const result = fixture([
     ['INV-VAR-601', '1240.25', '1040'],
     ['INV-VAR-602', '890.25', '690'],
@@ -114,7 +114,7 @@ test('all cases sharing a requested variance are cited without selecting one as 
   assert.match(answer.text, /تطابق قيمة الفرق يحدد حالات للفحص فقط/);
 });
 
-test('negative variance uses its signed value and the bridge effect has the opposite sign', () => {
+void test('negative variance uses its signed value and the bridge effect has the opposite sign', () => {
   const result = fixture([['INV-VAR-611', '1040', '1240.25']]);
   for (const question of [
     'لماذا الفرق -٢٠٠٫٢٥؟',
@@ -132,7 +132,7 @@ test('negative variance uses its signed value and the bridge effect has the oppo
   assert.ok(!opposite.text.includes(result.cases[0].caseId));
 });
 
-test('transaction variance and closing-balance delta remain explicitly separate', () => {
+void test('transaction variance and closing-balance delta remain explicitly separate', () => {
   const result = fixture(undefined, 2, true);
   assert.equal(result.bridge?.delta, 50025);
   assert.equal(result.cases[0].variance, 20025);
@@ -147,7 +147,7 @@ test('transaction variance and closing-balance delta remain explicitly separate'
   assert.match(answer.text, /لا يثبت أن الحالة سبب فرق الأرصدة/);
 });
 
-test('missing requested amounts do not select a nearby case or repeat the user amount as a fact', () => {
+void test('missing requested amounts do not select a nearby case or repeat the user amount as a fact', () => {
   const result = fixture();
   for (const question of [
     'لماذا فرق ٥٠٬٠٠٠؟',
@@ -163,7 +163,7 @@ test('missing requested amounts do not select a nearby case or repeat the user a
   }
 });
 
-test('ambiguous numeric conventions, invalid notation and multiple amounts never select a case', () => {
+void test('ambiguous numeric conventions, invalid notation and multiple amounts never select a case', () => {
   const result = fixture();
   for (const question of [
     'Why variance 200.25 and 100?',
@@ -191,7 +191,7 @@ test('ambiguous numeric conventions, invalid notation and multiple amounts never
   for (const c of ambiguous.cases) assert.ok(!answer.text.includes(c.caseId));
 });
 
-test('an explicit foreign currency or unknown invoice cannot be replaced by a same-number case', () => {
+void test('an explicit foreign currency or unknown invoice cannot be replaced by a same-number case', () => {
   const result = fixture();
   for (const question of [
     'Why variance 200.25 USD?',
@@ -212,7 +212,7 @@ test('an explicit foreign currency or unknown invoice cannot be replaced by a sa
   assert.equal(unknown.sourceIds.length, 0);
 });
 
-test('stale numeric evidence and unreadable source rows cannot acquire a grounded variance explanation', () => {
+void test('stale numeric evidence and unreadable source rows cannot acquire a grounded variance explanation', () => {
   for (const mutate of [
     (r: ReturnType<typeof fixture>) => {
       r.cases[0].variance = 25000;
@@ -233,7 +233,7 @@ test('stale numeric evidence and unreadable source rows cannot acquire a grounde
   }
 });
 
-test('amount questions and hostile instructions never alter source values or turn cases into matches', () => {
+void test('amount questions and hostile instructions never alter source values or turn cases into matches', () => {
   const result = fixture();
   const before = JSON.stringify(result);
   const answer = explainResult(

@@ -2,6 +2,20 @@
 // English form, by reason. Everything else the engine writes is a message the
 // interface can show, and must have an entry in lib/i18n/engine-catalog.ts.
 export const NOT_SHOWN: Record<string, string[]> = {
+  // AR source grammar: native headings and document-type data, never UI copy.
+  arSourceGrammar: [
+    'معرف الحركة الفريد',
+    'نوع المستند',
+    'رقم المستند الأصلي',
+    'رقم المستند',
+    'تاريخ الترحيل',
+    'مبلغ الحركة الأصلي الموقع',
+    'الكيان',
+    'معرف العميل',
+    'الحساب',
+    'الفاتورة المرتبطة',
+    'إشعار دائن',
+  ],
   // The synthetic sample documents are data, like the accountant's own files:
   // their descriptions, headings and party names are never translated.
   sampleData: [
@@ -59,6 +73,9 @@ export const NOT_SHOWN: Record<string, string[]> = {
     'الحقل',
     'القيمة',
     // Prefixes the engine uses to recognise its own reading notes.
+    // These startsWith selectors are not standalone messages emitted to users.
+    'صيغة Excel في ',
+    'نص يعبر حد عمود',
     'نص يعبر حد عمود؛',
     'خلية مدمجة في ',
   ],

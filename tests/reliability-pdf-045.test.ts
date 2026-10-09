@@ -37,7 +37,7 @@ const buffer = (bytes: Uint8Array) =>
     bytes.byteOffset + bytes.byteLength,
   ) as ArrayBuffer;
 for (const number of [3, 4, 19])
-  test(`045 PDF foundation ${number}: real files preserve metadata, balances, footer and all movements`, async () => {
+  void test(`045 PDF foundation ${number}: real files preserve metadata, balances, footer and all movements`, async () => {
     const spec = generateCase(foundationManifest()[number - 1]);
     const rendered = await renderCase(spec);
     const configuredScope = {
@@ -100,7 +100,7 @@ for (const number of [3, 4, 19])
     assert.equal(result.bridge?.residual, 0);
   });
 for (const id of ['C01436', 'C03754'])
-  test(`045 PDF reordered multi-page source ${id} retains every movement and excludes only repeated page metadata`, async () => {
+  void test(`045 PDF reordered multi-page source ${id} retains every movement and excludes only repeated page metadata`, async () => {
     const spec = generateCase(
       buildManifest().find((d: { id: string }) => d.id === id),
     );
@@ -138,7 +138,7 @@ for (const id of ['C01436', 'C03754'])
     );
     assert.ok(result.excluded.some((r) => /رأس صفحة/.test(r.reason)));
   });
-test('045 a later-page changed identity or a transaction before the repeated header is never excluded as metadata', () => {
+void test('045 a later-page changed identity or a transaction before the repeated header is never excluded as metadata', () => {
   const first = [
     ['Currency: SAR Entity: Buyer', '', ''],
     ['Date', 'Reference', 'Amount'],
@@ -172,7 +172,7 @@ test('045 a later-page changed identity or a transaction before the repeated hea
       assert.ok(r.transactions.some((t) => t.row === 5 && t.amount === 2500));
   }
 });
-function inMemory(rows: string[][], header = 0): SourceFile {
+function inMemory(rows: string[][], _header = 0): SourceFile {
   return {
     name: 'source.pdf',
     pdf: { cuts: [30, 60], pages: 1 },
@@ -187,7 +187,7 @@ function inMemory(rows: string[][], header = 0): SourceFile {
     ],
   };
 }
-test('045 only an isolated exact page-number footer is excluded', () => {
+void test('045 only an isolated exact page-number footer is excluded', () => {
   for (const footer of ['Page 1', 'Page 2 of 3', 'صفحة ١', 'الصفحة ٢ من ٣']) {
     const file = inMemory([
       ['Date', 'Reference', 'Amount'],
@@ -222,7 +222,7 @@ test('045 only an isolated exact page-number footer is excluded', () => {
     assert.ok(!result.excluded.some((r) => r.row === 3));
   }
 });
-test('045 inline closing balances retain amount and source evidence without erasing a dated invoice', () => {
+void test('045 inline closing balances retain amount and source evidence without erasing a dated invoice', () => {
   const file = inMemory([
     ['Date', 'Reference', 'Amount'],
     ['2026-07-15', 'INV-20', '100'],
@@ -270,7 +270,7 @@ test('045 inline closing balances retain amount and source evidence without eras
     );
   }
 });
-test('045 PDF metadata outside table columns can span cuts without concatenating financial values', async () => {
+void test('045 PDF metadata outside table columns can span cuts without concatenating financial values', async () => {
   const bytes = syntheticPdf(
     [
       [
@@ -299,7 +299,7 @@ test('045 PDF metadata outside table columns can span cuts without concatenating
   assert.equal(result.closing, 10000);
 });
 
-test('045 all 24 supported four-column PDF orders preserve the same financial fields', async () => {
+void test('045 all 24 supported four-column PDF orders preserve the same financial fields', async () => {
   const fields = ['Date', 'Reference', 'Description', 'Amount'];
   function permutations<T>(values: T[]): T[][] {
     return values.length

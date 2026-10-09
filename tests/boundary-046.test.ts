@@ -14,7 +14,7 @@ import { selectImportMapping } from '../lib/reconciliation/import-selection.ts';
 import { inferStatementDirection } from '../lib/reconciliation/statement-direction.ts';
 import { syntheticPdf } from './helpers/pdf-fixture.ts';
 
-test('046 Arabic presentation forms normalize document categories without rewriting source, references or amounts', () => {
+void test('046 Arabic presentation forms normalize document categories without rewriting source, references or amounts', () => {
   const scope: Scope = {
     supplier: '',
     entity: '',
@@ -95,7 +95,7 @@ const balanceScope: Scope = {
   confirmed: true,
   coverageConfirmed: false,
 };
-test('046 actual Arabic PDF balance labels establish arithmetic with original provenance, not coverage', async () => {
+void test('046 actual Arabic PDF balance labels establish arithmetic with original provenance, not coverage', async () => {
   const bytes = await readBytes(
     new URL(
       './fixtures/pdf-arabic-046/reportlab-arabic-balances.pdf',
@@ -170,7 +170,7 @@ test('046 actual Arabic PDF balance labels establish arithmetic with original pr
   assert.equal(wrong.balanceValid, false);
 });
 
-test('046 balance category normalization never repairs monetary characters or erases dated documents and unsafe labels', () => {
+void test('046 balance category normalization never repairs monetary characters or erases dated documents and unsafe labels', () => {
   const mapping = { ...defaultMapping(), date: 0, reference: 1, amount: 2 };
   const opening = 'اﻟﺮﺻﻴﺪ اﻻﻓﺘﺘﺎﺣﻲ',
     closing = 'اﻟﺮﺻﻴﺪ اﻟﺨﺘﺎﻣﻲ';
@@ -231,7 +231,7 @@ test('046 balance category normalization never repairs monetary characters or er
   }
 });
 
-test('046 shaped running balance labels retain exact sign proof and reject conflicting recurrences', () => {
+void test('046 shaped running balance labels retain exact sign proof and reject conflicting recurrences', () => {
   const mapping = {
     ...defaultMapping(),
     date: 0,
@@ -261,7 +261,7 @@ test('046 shaped running balance labels retain exact sign proof and reject confl
   assert.equal(inferStatementDirection(file, mapping), undefined);
 });
 
-test('046 rectangular PDF clipping cannot ignore nested exclusions, holes or a later opaque cover', async () => {
+void test('046 rectangular PDF clipping cannot ignore nested exclusions, holes or a later opaque cover', async () => {
   const text = [
     ['Date', 'Reference', 'Amount'],
     ['2026-07-01', 'INV-00046', '100.00'],

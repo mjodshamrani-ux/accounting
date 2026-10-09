@@ -275,11 +275,9 @@ export function summarizeManifest(manifest) {
     categories: counts('category'),
     splits: counts('split'),
     scenarios: counts('scenario'),
-    layoutFamilies: [
-      ...new Set(
-        manifest.flatMap((entry) => [entry.layoutFamilyA, entry.layoutFamilyB]),
-      ),
-    ].length,
+    layoutFamilies: new Set(
+      manifest.flatMap((entry) => [entry.layoutFamilyA, entry.layoutFamilyB]),
+    ).size,
     foundationCases: manifest.filter((entry) => entry.foundation).length,
     warning:
       'Synthetic coverage is not a market distribution; alternate renderings are not additional economic scenarios.',

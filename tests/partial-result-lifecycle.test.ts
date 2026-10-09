@@ -1,3 +1,4 @@
+import { compareDefaultSort, testValueText } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -91,7 +92,7 @@ function summary(book: ExcelJS.Workbook, name: string) {
   )?.['Value / القيمة'];
 }
 
-test('partial source rows remain explicit through Excel and original-source session restoration', async () => {
+void test('partial source rows remain explicit through Excel and original-source session restoration', async () => {
   const p = await input();
   const result = reconcileSupplierStatement(p).result;
   assert.equal(result.supplier.errors.length, 13);
@@ -123,8 +124,8 @@ test('partial source rows remain explicit through Excel and original-source sess
     assert.equal(issue['Source Sheet'], 'CSV');
     assert.equal(issue['Issue Scope'], 'Row');
     assert.equal(issue['PDF Page'], null);
-    assert.equal(JSON.parse(String(issue['Original Values']))[2], 'unread');
-    assert.ok(String(issue.Reason).trim());
+    assert.equal(JSON.parse(testValueText(issue['Original Values']))[2], 'unread');
+    assert.ok(testValueText(issue.Reason).trim());
     assert.equal(
       Object.hasOwn(issue, 'Amount'),
       false,
@@ -141,16 +142,16 @@ test('partial source rows remain explicit through Excel and original-source sess
   );
   assert.equal(diagnostics.length, 13);
   assert.ok(diagnostics.every((r) => !r['حركات المصدر']));
-  assert.match(String(summary(book, 'Reading Status')), /Partial/);
+  assert.match(testValueText(summary(book, 'Reading Status')), /Partial/);
   assert.equal(summary(book, 'Rows Needing Reading Review'), 13);
   assert.equal(summary(book, 'Supplier Processed Transaction Total'), 350);
   assert.equal(summary(book, 'Ledger Processed Transaction Total'), 350);
-  assert.match(String(summary(book, 'Totals Basis')), /unknown, not zero/);
-  assert.match(String(summary(book, 'Reviewer Status')), /open reading issues/);
-  assert.match(String(summary(book, 'Workbook Mode')), /Partial/);
+  assert.match(testValueText(summary(book, 'Totals Basis')), /unknown, not zero/);
+  assert.match(testValueText(summary(book, 'Reviewer Status')), /open reading issues/);
+  assert.match(testValueText(summary(book, 'Workbook Mode')), /Partial/);
   const memberIds = records(book.getWorksheet('Match Evidence')!)
     .map((r) => r['Source Row ID'])
-    .sort();
+    .sort(compareDefaultSort);
   assert.deepEqual(
     memberIds,
     ['ledger:0:2', 'ledger:0:3', 'supplier:0:16', 'supplier:0:2'].sort(),
@@ -180,7 +181,7 @@ test('partial source rows remain explicit through Excel and original-source sess
   );
 });
 
-test('partial assistant answers disclose incompleteness, prioritize row errors and reject model approval', async () => {
+void test('partial assistant answers disclose incompleteness, prioritize row errors and reject model approval', async () => {
   const p = await input(1);
   const result = reconcileSupplierStatement(p).result;
   for (const question of [
@@ -210,7 +211,7 @@ test('partial assistant answers disclose incompleteness, prioritize row errors a
   assert.match(proposal.reason, /قراءة المصدر غير مكتملة/);
 });
 
-test('balance-only issues have no invented row or page and preserve the entered text', async () => {
+void test('balance-only issues have no invented row or page and preserve the entered text', async () => {
   const p = await input(0);
   p.mappings[0].opening = 'not-a-balance';
   const result = reconcileSupplierStatement(p).result;
@@ -232,7 +233,7 @@ test('balance-only issues have no invented row or page and preserve the entered 
   assert.deepEqual(issue.values, ['not-a-balance', '']);
 });
 
-test('clean export and assistant keep their existing status without a partial claim', async () => {
+void test('clean export and assistant keep their existing status without a partial claim', async () => {
   const p = await input(0);
   const result = reconcileSupplierStatement(p).result;
   const book = new ExcelJS.Workbook();
@@ -249,7 +250,7 @@ test('clean export and assistant keep their existing status without a partial cl
   );
 });
 
-test('reference-shaped invalid amounts retain negative collision evidence while disjoint pairs continue', async () => {
+void test('reference-shaped invalid amounts retain negative collision evidence while disjoint pairs continue', async () => {
   const p = await input(13, true);
   const result = reconcileSupplierStatement(p).result;
   assert.equal(result.supplier.errors.length, 13);

@@ -10,7 +10,7 @@ import type { SourceFile } from '../lib/reconciliation/types.ts';
 import { readFile } from '../lib/reconciliation/io.ts';
 import { syntheticStyledPdf } from './helpers/styled-pdf-fixture.ts';
 
-test('explicit English month names are calendar-checked independently of numeric date order', () => {
+void test('explicit English month names are calendar-checked independently of numeric date order', () => {
   for (const format of ['ymd', 'dmy', 'mdy'] as const) {
     assert.equal(parseDate('02-Jul-2026', format), '2026-07-02');
     assert.equal(parseDate('٢٩-February-٢٠٢٤', format), '2024-02-29');
@@ -55,7 +55,7 @@ const scope = {
   confirmed: true,
   coverageConfirmed: true,
 };
-test('currency-tagged debit/credit headers select transaction values and preserve signs', () => {
+void test('currency-tagged debit/credit headers select transaction values and preserve signs', () => {
   const source = file();
   const mapping = inferMapping(source);
   assert.equal(mapping.mode, 'split');
@@ -79,7 +79,7 @@ test('currency-tagged debit/credit headers select transaction values and preserv
   assert.equal(result.balanceValid, true);
   assert.equal(result.total, 110000);
 });
-test('a header currency mismatch or duplicate debit column is never guessed away', () => {
+void test('a header currency mismatch or duplicate debit column is never guessed away', () => {
   const source = file();
   assert.throws(
     () =>
@@ -99,7 +99,7 @@ test('a header currency mismatch or duplicate debit column is never guessed away
   source.sheets[0].rows[0].push('Debit (SAR)');
   assert.equal(inferMapping(source).debit, -1);
 });
-test('styled PDF flows through strict normalization with exact source rows and amounts', async () => {
+void test('styled PDF flows through strict normalization with exact source rows and amounts', async () => {
   const source = await readFile(
     'synthetic-styled.pdf',
     syntheticStyledPdf(),

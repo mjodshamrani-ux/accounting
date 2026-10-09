@@ -1,0 +1,16 @@
+.bank-balance-section button {
+  max-width: 100%;
+  min-height: 2rem;
+  height: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.bank-balance-section textarea {
+  max-width: 100%;
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.4rem;
+  background: var(--background);
+}

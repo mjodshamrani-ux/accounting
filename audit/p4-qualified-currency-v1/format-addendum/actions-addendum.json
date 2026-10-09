@@ -1,0 +1,222 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_DOT_ACTIONS_V1",
+  "actions": [
+    {
+      "id": "missing-original-dot-acknowledgement",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "remove originalDotInterpretationReviewed acknowledgement"
+    },
+    {
+      "id": "false-original-dot-acknowledgement",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "set originalDotInterpretationReviewed false"
+    },
+    {
+      "id": "missing-original-choice",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "supply mapping.numberFormat dot without an original bound choice"
+    },
+    {
+      "id": "forged-choice-source-hash",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice sourceHash with derived CSV SHA256"
+    },
+    {
+      "id": "choice-value-comma",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original selected choice value with comma"
+    },
+    {
+      "id": "choice-amount-column",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice columns[3] with[2]"
+    },
+    {
+      "id": "choice-header-row",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice header0 with1"
+    },
+    {
+      "id": "choice-sheet",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice sheet0 with1"
+    },
+    {
+      "id": "choice-exponent",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice decimals3 with2"
+    },
+    {
+      "id": "choice-missing-candidate",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice candidates[dot,comma] with[dot]"
+    },
+    {
+      "id": "choice-extra-candidate",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "append an unrecognized third candidate"
+    },
+    {
+      "id": "choice-duplicate-candidate",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice candidates with[dot,dot]"
+    },
+    {
+      "id": "choice-cuts",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice cuts[25,45,70] with[25,46,70]"
+    },
+    {
+      "id": "choice-exclusion",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice excludedRows[] with[3]"
+    },
+    {
+      "id": "choice-balance-input",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace original choice empty balanceInputs with[0,empty]"
+    },
+    {
+      "id": "choice-extraction-revision",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "change original extractionRevision while preserving file SHA256"
+    },
+    {
+      "id": "choice-extraction-hash",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "change original extractionHash while preserving file SHA256"
+    },
+    {
+      "id": "choice-swap-during-replay",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace acknowledged dot choice with comma during original replay await"
+    },
+    {
+      "id": "acknowledgement-cleared-during-replay",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "clear originalDotInterpretationReviewed during original replay await"
+    },
+    {
+      "id": "derived-choice-original-hash-reuse",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "use original PDF sourceHash for derived CSV formatChoice"
+    },
+    {
+      "id": "derived-choice-precision",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace derived choice exponent3 with2"
+    },
+    {
+      "id": "derived-choice-amount-column",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace derived choice columns[3] with[2]"
+    },
+    {
+      "id": "derived-choice-candidate-tamper",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "remove comma from supplied derived candidates while fresh native candidate set is[dot,comma]"
+    },
+    {
+      "id": "derived-choice-pdf-cuts",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "retain original PDF cuts in new CSV choice instead of empty cuts"
+    },
+    {
+      "id": "provenance-without-original-review",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "supply sidecar claiming reviewed dot while live original review/choice is absent"
+    },
+    {
+      "id": "choice-getter",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "replace a new choice/context field with accessor descriptor; require zero getter reads before refusal"
+    },
+    {
+      "id": "choice-over-budget",
+      "source": "kwd-cross-page",
+      "outcome": "refused",
+      "partialArtifact": false,
+      "financialApproval": false,
+      "change": "supply over-budget new choice/candidate metadata; require refusal before copying"
+    }
+  ],
+  "allActionsPreserveOriginalSources": true
+}

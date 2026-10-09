@@ -17,7 +17,7 @@ const infer = (a: SourceFile, b: SourceFile | null = null) =>
     [inferMapping(a), b ? inferMapping(b) : defaultMapping()],
   );
 
-test('explicit metadata from a nine-column supplier layout retains source evidence and uses period end', () => {
+void test('explicit metadata from a nine-column supplier layout retains source evidence and uses period end', () => {
   const file = source([
     ['Synthetic vendor report'],
     ['Supplier', 'Tidal Office Supplies'],
@@ -70,7 +70,7 @@ test('explicit metadata from a nine-column supplier layout retains source eviden
   assert.equal(result.fields.currency.evidence.length, 3);
 });
 
-test('Arabic labels and explicit inline metadata work before a PDF table without column cuts', () => {
+void test('Arabic labels and explicit inline metadata work before a PDF table without column cuts', () => {
   const file = source(
     [
       ['كشف المورد التجريبي'],
@@ -99,7 +99,7 @@ test('Arabic labels and explicit inline metadata work before a PDF table without
   assert.equal(result.fields.supplier.evidence.length, 1);
 });
 
-test('PDF inline labels separated only by spaces remain anchored and preserve role across both sides', () => {
+void test('PDF inline labels separated only by spaces remain anchored and preserve role across both sides', () => {
   const a = source([
     ['Supplier: Tidal Office Supplies Customer: Cedar Works LLC Currency: SAR'],
     ['Customer Account: C-009 Period: 01-Jun-2026 to 30-Jun-2026'],
@@ -123,7 +123,7 @@ test('PDF inline labels separated only by spaces remain anchored and preserve ro
   assert.equal(result.values.account, 'C-009');
 });
 
-test('different explicit dates, entities, accounts and currencies remain conflicts without a chosen value', () => {
+void test('different explicit dates, entities, accounts and currencies remain conflicts without a chosen value', () => {
   const a = source([
     ['Customer', 'Cedar Works LLC'],
     ['Customer Account', 'a42'],
@@ -149,7 +149,7 @@ test('different explicit dates, entities, accounts and currencies remain conflic
   }
 });
 
-test('nothing comes from filename, company title, generic account, statement date, transaction extrema or other sheets', () => {
+void test('nothing comes from filename, company title, generic account, statement date, transaction extrema or other sheets', () => {
   const file = source(
     [
       ['Company', 'Guessable Co'],
@@ -191,7 +191,7 @@ test('nothing comes from filename, company title, generic account, statement dat
   );
 });
 
-test('a complete mapped currency column provides one currency with auditable rows; unmapped helpers do not', () => {
+void test('a complete mapped currency column provides one currency with auditable rows; unmapped helpers do not', () => {
   const file = source([
     ['Date', 'Reference', 'Amount', 'Currency', 'Helper currency'],
     ['2026-06-02', 'SYN-41', '187.50', 'sar', 'USD'],
@@ -205,7 +205,7 @@ test('a complete mapped currency column provides one currency with auditable row
   assert.equal(result.fields.currency.evidence[0].kind, 'column');
 });
 
-test('incomplete currency columns block prefill and mixed currencies are exposed even when a row is blank', () => {
+void test('incomplete currency columns block prefill and mixed currencies are exposed even when a row is blank', () => {
   const file = source([
     ['Currency', 'SAR'],
     ['Date', 'Reference', 'Amount', 'Currency'],
@@ -232,7 +232,7 @@ test('incomplete currency columns block prefill and mixed currencies are exposed
   );
 });
 
-test('only selected amount headers are currency evidence and their contradictions prevent prefill', () => {
+void test('only selected amount headers are currency evidence and their contradictions prevent prefill', () => {
   const file = source([
     ['Currency', 'SAR'],
     ['Date', 'Reference', 'Debit (SAR)', 'Credit (USD)', 'Helper (AED)'],
@@ -247,7 +247,7 @@ test('only selected amount headers are currency evidence and their contradiction
   );
 });
 
-test('invalid explicit metadata cannot be overridden by another valid label or a header', () => {
+void test('invalid explicit metadata cannot be overridden by another valid label or a header', () => {
   const file = source([
     ['Currency', 'Saudi Riyal'],
     ['Currency', 'SAR'],
@@ -265,7 +265,7 @@ test('invalid explicit metadata cannot be overridden by another valid label or a
   assert.equal(infer(file).values.cutoff, undefined);
 });
 
-test('ambiguous numeric metadata is not filled even when transaction date order is configured', () => {
+void test('ambiguous numeric metadata is not filled even when transaction date order is configured', () => {
   const file = source([['Period End', '03/04/2026'], header, transaction]);
   const mapping = inferMapping(file);
   assert.equal(infer(file).values.cutoff, undefined);
@@ -285,7 +285,7 @@ test('ambiguous numeric metadata is not filled even when transaction date order 
   );
 });
 
-test('hidden, formula, and parser-flagged metadata cannot become suggestions', () => {
+void test('hidden, formula, and parser-flagged metadata cannot become suggestions', () => {
   const variants: Partial<SheetData>[] = [
     { hiddenRows: [1] },
     { formulaRows: [1] },
@@ -304,7 +304,7 @@ test('hidden, formula, and parser-flagged metadata cannot become suggestions', (
   }
 });
 
-test('suggestions are deterministic, do not mutate source/mappings and never supply approvals or balance evidence', () => {
+void test('suggestions are deterministic, do not mutate source/mappings and never supply approvals or balance evidence', () => {
   const file = source([
     ['Supplier', 'Tidal Office Supplies'],
     ['Currency', 'SAR'],

@@ -1,0 +1,24 @@
+Public metadata projection: concrete local runtime paths redacted; historical result text is preserved, not a new experiment.
+{"id":"sar-on-page","rows":5,"pages":1,"currentBoundary":"qualified unsupported","failures":[]}
+{"id":"sar-cross-page","rows":7,"pages":2,"currentBoundary":"qualified unsupported","failures":[]}
+{"id":"sar-own-reference","rows":5,"pages":1,"currentBoundary":"qualified unsupported","failures":[]}
+{"id":"jpy-on-page","rows":5,"pages":1,"currentBoundary":"qualified unsupported","failures":[]}
+{"id":"jpy-cross-page","rows":7,"pages":2,"currentBoundary":"qualified unsupported","failures":[]}
+{"id":"jpy-own-reference","rows":5,"pages":1,"currentBoundary":"qualified unsupported","failures":[]}
+file://local-runtime-redacted/input-readiness.ts:200
+        throw new InputReadinessError(
+              ^
+
+InputReadinessError: kwd-on-page.csv: صيغة المبالغ تحتمل أكثر من قراءة بنتائج مختلفة. اختر الصيغة الصحيحة لهذا المصدر قبل المقارنة. يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.
+    at assertInputFormats (file://local-runtime-redacted/input-readiness.ts:200:15)
+    at prepareVerifiedSources (file://local-runtime-redacted/source-preparation.ts:84:3)
+    at file://local-runtime-redacted/independent-native.mjs:49:18 {
+  readiness: {
+    code: 'FORMAT_AMBIGUOUS_UNRESOLVED',
+    source: 'kwd-on-page.csv',
+    field: 'numberFormat',
+    candidates: [ 'dot', 'comma' ]
+  }
+}
+
+Node.js v24.19.0

@@ -1,0 +1,111 @@
+{
+  "sample": "synthetic-not-field",
+  "preFixSHA": "3bdd839cf18b05c16e7f1a5aeb9cfe9fe31297ea",
+  "originalSHA256": "86046c0049f4269dbc52e3ac0313708a701e312a2eb2bdc3fc6bae72024fdfd4",
+  "sha256": "b56fb286544a488c398c58ebead79392b8addb1dcb44ff15574b630c33b1b0e2",
+  "rows": [
+    [
+      "Transaction ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference",
+      "Entity",
+      "Gateway",
+      "Merchant account",
+      "Bank account",
+      "Complete dimensions",
+      "Currency",
+      "Currency basis",
+      "FX policy",
+      "Period start",
+      "Period end",
+      "As of",
+      "Policy version",
+      "Batch ID"
+    ],
+    [
+      "T-001",
+      "sale",
+      "2026-09-10",
+      "80.00",
+      "Order 001",
+      "Synthetic Merchant",
+      "Gateway example",
+      "001",
+      "BANK-01",
+      "department=01",
+      "SAR",
+      "functional",
+      "same-currency-no-conversion",
+      "2026-09-01",
+      "2026-09-30",
+      "2026-09-30",
+      "PG-1",
+      "BATCH-001"
+    ],
+    [
+      "T-002",
+      "sale",
+      "2026-09-11",
+      "40.00",
+      "Order 002",
+      "Synthetic Merchant",
+      "Gateway example",
+      "001",
+      "BANK-01",
+      "department=01",
+      "SAR",
+      "functional",
+      "same-currency-no-conversion",
+      "2026-09-01",
+      "2026-09-30",
+      "2026-09-30",
+      "PG-1",
+      "BATCH-001"
+    ],
+    [
+      "T-003",
+      "refund",
+      "2026-09-12",
+      "20.00",
+      "Refund order 001",
+      "Synthetic Merchant",
+      "Gateway example",
+      "001",
+      "BANK-01",
+      "department=01",
+      "SAR",
+      "functional",
+      "same-currency-no-conversion",
+      "2026-09-01",
+      "2026-09-30",
+      "2026-09-30",
+      "PG-1",
+      "BATCH-001"
+    ],
+    [
+      "bad;one"
+    ],
+    [
+      "bad;two"
+    ],
+    [
+      "bad;three"
+    ],
+    [
+      "bad;four"
+    ]
+  ],
+  "issueRows": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "validTransactions": 3,
+  "physicalMembers": 11,
+  "totals": null,
+  "residuals": null,
+  "status": "source-error"
+}

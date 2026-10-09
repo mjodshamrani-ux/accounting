@@ -1,3 +1,4 @@
+import { compareDefaultSort } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -210,7 +211,7 @@ function verifyWorkbook(book: ExcelJS.Workbook, result: Comparison) {
     assert.equal(evidence.getCell(row, 2).value, 'EXACT_MANY_TO_MANY');
     assert.equal(evidence.getCell(row, 3).value, 'Matched');
   }
-  assert.deepEqual(ids.sort(), allIds(result));
+  assert.deepEqual(ids.sort(compareDefaultSort), allIds(result));
   assert.deepEqual(summaryValue(book, 'Auto Matched Cases'), {
     formula: 'COUNTIF(\'Matches\'!Q2:Q2,"Auto")',
     result: 1,
@@ -221,7 +222,7 @@ function verifyWorkbook(book: ExcelJS.Workbook, result: Comparison) {
   });
 }
 
-test('P2 original CSV bank and receipt identities survive normalisation, session restore and N:M export with all source members', async () => {
+void test('P2 original CSV bank and receipt identities survive normalisation, session restore and N:M export with all source members', async () => {
   for (const receipt of [false, true]) {
     const p = await input(receipt);
     const result = run(p);
@@ -247,7 +248,7 @@ test('P2 original CSV bank and receipt identities survive normalisation, session
   }
 });
 
-test('P2 group explanation cites every member and distinguishes group totals from individual pairings in both languages', async () => {
+void test('P2 group explanation cites every member and distinguishes group totals from individual pairings in both languages', async () => {
   const result = run(await input());
   provenGroup(result);
   for (const id of allIds(result)) {
@@ -277,7 +278,7 @@ test('P2 group explanation cites every member and distinguishes group totals fro
   }
 });
 
-test('P2 rejecting any member pair atomically unmatches the whole group and restore preserves that rejection', async () => {
+void test('P2 rejecting any member pair atomically unmatches the whole group and restore preserves that rejection', async () => {
   const p = await input();
   const original = run(p);
   provenGroup(original);
@@ -316,7 +317,7 @@ test('P2 rejecting any member pair atomically unmatches the whole group and rest
     .getSheetValues()
     .slice(2)
     .map((row) => (row as ExcelJS.CellValue[])[7])
-    .sort();
+    .sort(compareDefaultSort);
   assert.deepEqual(evidenceIds, allIds(original));
   assert.equal(
     book.getWorksheet('Review History')!.getCell('C2').value,
@@ -325,7 +326,7 @@ test('P2 rejecting any member pair atomically unmatches the whole group and rest
   provenGroup(run(p)); // Removing the rejection restores proof; this is not a claim of a UI undo control.
 });
 
-test('P2 assistant rejects a case-member copy with forged explicit payment identity provenance', async () => {
+void test('P2 assistant rejects a case-member copy with forged explicit payment identity provenance', async () => {
   const original = run(await input());
   provenGroup(original);
   for (const fields of [undefined, [], ['receiptReference']] as const) {
@@ -344,7 +345,7 @@ test('P2 assistant rejects a case-member copy with forged explicit payment ident
   }
 });
 
-test('P2 changed source bytes invalidate the old group and cannot be exported or restored as its old proof', async () => {
+void test('P2 changed source bytes invalidate the old group and cannot be exported or restored as its old proof', async () => {
   const p = await input();
   const original = run(p);
   provenGroup(original);

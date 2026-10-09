@@ -5,7 +5,7 @@ import type { ProcessingProgress } from '../lib/reconciliation/processing-progre
 import { ImportDiagnosticError } from '../lib/reconciliation/import-diagnostics.ts';
 import { syntheticPdf } from './helpers/pdf-fixture.ts';
 
-test('100-page native import retains the last page and reports progress without replacing the final source', async () => {
+void test('100-page native import retains the last page and reports progress without replacing the final source', async () => {
   const pages = Array.from({ length: 100 }, (_, i) => [
     ['Date', 'Reference', 'Amount'],
     ['2026-07-01', `LONG-${String(i + 1).padStart(4, '0')}`, '-17.25'],
@@ -33,7 +33,7 @@ test('100-page native import retains the last page and reports progress without 
   );
 });
 
-test('failure on page 70 does not emit layout or return a usable prefix and the next import is clean', async () => {
+void test('failure on page 70 does not emit layout or return a usable prefix and the next import is clean', async () => {
   const row = [
     ['Date', 'Reference', 'Amount'],
     ['2026-07-01', 'END-7001', '12.34'],

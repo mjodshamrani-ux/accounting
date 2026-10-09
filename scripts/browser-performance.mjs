@@ -11,8 +11,15 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { createHash } from 'node:crypto';
+import os from 'node:os';
+import {
+  MAX_ROWS,
+  MAX_FILE_BYTES,
+  MAX_SHEETS,
+  MAX_PDF_PAGES,
+} from '../lib/reconciliation/types.ts';
 import { verifyPerformanceExport } from './verify-performance-export.mjs';
-import { processRssBytes, withinMemoryDeadline } from './process-memory.mjs';
+import { sampleProcessRss, exportMemorySamples } from './process-memory.mjs';
 const membershipChecker = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '../audit/export-design/check_membership.py',
@@ -34,9 +41,13 @@ const sizes = option('--sizes', '100,1000,5000,20000').split(',').map(Number);
 const formats = option('--formats', 'csv,xlsx').split(',');
 assert.ok(
   sizes.every(
-    (size) => Number.isSafeInteger(size) && size > 0 && size % 10 === 0,
+    (size) =>
+      Number.isSafeInteger(size) &&
+      size > 0 &&
+      size <= MAX_ROWS &&
+      size % 10 === 0,
   ),
-  'sizes must be positive multiples of 10',
+  'sizes must be positive multiples of 10 within the current row limit',
 );
 assert.ok(formats.every((format) => ['csv', 'xlsx'].includes(format)));
 const shell = promisify(execFile);
@@ -146,6 +157,10 @@ for (const size of sizes)
         await writeFile(file, await encode(source.table, format));
       const bytes = await readFile(file);
       assert.ok(bytes.length > 0, `empty fixture ${file}`);
+      assert.ok(
+        bytes.length <= MAX_FILE_BYTES,
+        `fixture exceeds current byte limit ${file}`,
+      );
       sourceSha256.push(createHash('sha256').update(bytes).digest('hex'));
       paths.push(file);
     }
@@ -194,14 +209,38 @@ const server = createServer(async (req, res) => {
 await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
 const origin = `http://127.0.0.1:${server.address().port}`;
 const report = {
-  schema: 'tarasuf-browser-performance-2',
+  schema: 'tarasuf-browser-performance-3',
   createdAt: new Date().toISOString(),
   dist,
   fixturesDir,
   fixedClock: fixedClock || null,
   node: process.version,
+  buildIndexSha256: createHash('sha256')
+    .update(await readFile(path.join(dist, 'index.html')))
+    .digest('hex'),
+  scriptSha256: createHash('sha256')
+    .update(await readFile(fileURLToPath(import.meta.url)))
+    .digest('hex'),
+  device: {
+    platform: os.platform(),
+    release: os.release(),
+    arch: os.arch(),
+    cpuModel: os.cpus()[0]?.model,
+    logicalCpus: os.cpus().length,
+    memoryBytes: os.totalmem(),
+    executablePath:
+      process.env.MIZAN_CHROMIUM ?? 'installed Playwright browser',
+  },
+  limits: {
+    rowsPerSource: MAX_ROWS,
+    fileBytes: MAX_FILE_BYTES,
+    sheets: MAX_SHEETS,
+    textPdfPages: MAX_PDF_PAGES,
+  },
+  characterization:
+    'One sample per requested size/format; no SLA, percentile, improvement, field or weakest-device claim. Two native protocol reads are not1000 distributed accountants.',
   memoryMeasurement:
-    'Sum of RSS for this Chromium instance via SystemInfo.getProcessInfo and ps, sampled every 500ms; includes browser, renderer and worker processes, may double-count shared pages. Excludes Node fixture creation and offline export verification.',
+    'Observed RSS for this Chromium instance via CDP and ps:500ms normally,20ms during export with at most one sample in flight. Includes browser/renderer/worker processes and may double-count shared pages; not a guaranteed peak. A failed partial attempt is retained; only an OS/CDP-proven dead auxiliary process permits one fresh complete sample. Export coverage requires a full sample interval inside an actual Worker export. Excludes Node fixture creation and independent verification.',
   timingDefinition:
     'Files generated before measurement. UI upload/comparison/export wall time. Worker action timings include serialization and dispatch. Reconciliation includes normalization plus matching; export includes original re-read/recomputation, workbook construction and ZIP serialization.',
   runs: [],
@@ -223,11 +262,14 @@ try {
       memorySamplesSuccessful: 0,
       memorySamplesDuringExport: 0,
       memorySamplingErrors: 0,
+      memorySamplingRetries: 0,
+      memorySamplingFailures: [],
+      memorySamples: [],
       downloadCompleted: false,
       browserChecksPassed: false,
       lifecycleRequired:
         option('--lifecycle', 'no') === 'yes' &&
-        run.size === 20000 &&
+        run.size === Math.max(...sizes) &&
         run.format === 'xlsx',
       completed: false,
     };
@@ -237,36 +279,82 @@ try {
       context,
       page,
       sampleTimer,
-      exportActive = false,
+      exportSampleTimer,
+      measuredPhase = 'startup',
       downloadPath;
     try {
-      browser = await chromium.launch({ headless: true });
+      browser = await chromium.launch({
+        headless: true,
+        executablePath: process.env.MIZAN_CHROMIUM,
+      });
       report.browser = browser.version();
       const cdp = await browser.newBrowserCDPSession();
       const measureSample = async () => {
-        const beganDuringExport = exportActive;
+        const phaseAtStart = measuredPhase;
+        const sampleStartedMs = performance.now();
+        const sampleStartedEpochMs = performance.timeOrigin + sampleStartedMs;
+        const trace = { stage: 'cdp-process-list', attempts: [] };
         try {
-          const rss = await withinMemoryDeadline(async () => {
-            const { processInfo } = await cdp.send('SystemInfo.getProcessInfo');
-            const ids = processInfo.map((p) => p.id);
-            if (!ids.length)
-              throw new Error('No Chromium processes to measure');
-            const { stdout } = await shell(
-              'ps',
-              ['-o', 'pid=,rss=', '-p', ids.join(',')],
-              { timeout: 5000 },
-            );
-            return processRssBytes(ids, stdout);
+          const measurement = await sampleProcessRss({
+            listProcesses: async () =>
+              (await cdp.send('SystemInfo.getProcessInfo')).processInfo,
+            readRss: async (ids) =>
+              (
+                await shell('ps', ['-o', 'pid=,rss=', '-p', ids.join(',')], {
+                  timeout: 5000,
+                })
+              ).stdout,
+            isAlive: (id) => {
+              try {
+                process.kill(id, 0);
+                return true;
+              } catch (error) {
+                if (error.code === 'ESRCH') return false;
+                throw error;
+              }
+            },
+            onAttempt: (attempt) => {
+              trace.stage = 'pid-rss-validation';
+              trace.attempts.push({
+                ...attempt,
+                stdout: attempt.stdout.slice(0, 8000),
+                stdoutTruncated: attempt.stdout.length > 8000,
+              });
+            },
           });
+          const rss = measurement.rssBytes;
           entry.memorySamplesSuccessful += 1;
-          if (beganDuringExport && exportActive)
-            entry.memorySamplesDuringExport += 1;
+          entry.memorySamplingRetries += measurement.attempts.length - 1;
+          entry.memorySamples.push({
+            phaseAtStart,
+            phaseAtEnd: measuredPhase,
+            hostSampleStartedMs: sampleStartedMs,
+            hostSampleEndedMs: performance.now(),
+            hostSampleStartedEpochMs: sampleStartedEpochMs,
+            hostSampleEndedEpochMs: performance.timeOrigin + performance.now(),
+            rssBytes: rss,
+            processTrace: structuredClone(trace),
+          });
           entry.peakChromiumRssBytes = Math.max(
             entry.peakChromiumRssBytes,
             rss,
           );
-        } catch {
+        } catch (error) {
           entry.memorySamplingErrors += 1;
+          entry.memorySamplingFailures.push({
+            phaseAtStart,
+            phaseAtEnd: measuredPhase,
+            hostSampleStartedMs: sampleStartedMs,
+            hostSampleEndedMs: performance.now(),
+            processTrace: structuredClone(trace),
+            error: String(error?.message ?? error).slice(0, 4000),
+            errorTruncated: String(error?.message ?? error).length > 4000,
+            code: error?.code ?? null,
+            psStdoutOnError: String(error?.stdout ?? '').slice(0, 8000),
+            psStderrOnError: String(error?.stderr ?? '').slice(0, 8000),
+            psStdoutOnErrorTruncated: String(error?.stdout ?? '').length > 8000,
+            psStderrOnErrorTruncated: String(error?.stderr ?? '').length > 8000,
+          });
         }
       };
       const sample = () => {
@@ -283,6 +371,12 @@ try {
         acceptDownloads: true,
       });
       context.setDefaultTimeout(55000);
+      await context.route('**/*', (route) => {
+        const u = new URL(route.request().url());
+        return ['blob:', 'data:'].includes(u.protocol) || u.origin === origin
+          ? route.continue()
+          : route.abort();
+      });
       if (fixedClock)
         await context.addInitScript((iso) => {
           const NativeDate = Date;
@@ -307,6 +401,9 @@ try {
       await context.addInitScript(() => {
         window.__bench = {
           actions: [],
+          requests: [],
+          terminations: [],
+          workerInstances: 0,
           gaps: [],
           completed: [],
           last: performance.now(),
@@ -315,6 +412,8 @@ try {
         window.Worker = class extends NativeWorker {
           constructor(...args) {
             super(...args);
+            this.benchInstance = ++window.__bench.workerInstances;
+            window.__benchNativeWorker = this;
             this.requests = new Map();
             this.addEventListener('message', (e) => {
               const d = e.data;
@@ -324,7 +423,11 @@ try {
               if (start) {
                 window.__bench.actions.push({
                   action: start.action,
+                  id: d.id,
+                  workerInstance: this.benchInstance,
                   ms: performance.now() - start.time,
+                  startedEpochMs: performance.timeOrigin + start.time,
+                  endedEpochMs: performance.timeOrigin + performance.now(),
                   ok: d.ok,
                   timings: d.timings ?? null,
                 });
@@ -361,12 +464,29 @@ try {
             });
           }
           postMessage(message, ...rest) {
-            if (message?.channel === 'mizan-accounting-v1')
+            if (message?.channel === 'mizan-accounting-v1') {
+              window.__bench.requests.push({
+                id: message.id,
+                action: message.action,
+                workerInstance: this.benchInstance,
+                time: performance.now(),
+              });
               this.requests.set(message.id, {
                 action: message.action,
                 time: performance.now(),
               });
+            }
             return super.postMessage(message, ...rest);
+          }
+          terminate() {
+            window.__bench.terminations.push({
+              workerInstance: this.benchInstance,
+              time: performance.now(),
+              pendingExportIds: [...this.requests]
+                .filter(([, request]) => request.action === 'export')
+                .map(([id]) => id),
+            });
+            return super.terminate();
           }
         };
         setInterval(() => {
@@ -381,15 +501,19 @@ try {
         d.type() === 'beforeunload' ? d.accept() : d.dismiss(),
       );
       await page.goto(origin + '/mizan-test/');
-      await page.waitForFunction(
-        () => !document.body.innerText.includes('جارٍ تجهيز أداة المقارنة'),
+      await page.waitForFunction(() =>
+        window.__bench.actions.some(
+          (action) => action.action === 'ready' && action.ok === true,
+        ),
       );
+      await page.evaluate(() => document.fonts.ready);
       await context.setOffline(true);
       const t = performance.now();
       for (const [i, label] of [
         'كشف المورد',
         'تقرير الحسابات الدائنة',
       ].entries()) {
+        measuredPhase = 'upload' + i;
         const start = performance.now();
         await page
           .getByLabel(label, { exact: true })
@@ -417,12 +541,14 @@ try {
       });
       await compare.waitFor({ state: 'visible' });
       const compareStart = performance.now();
+      measuredPhase = 'compare';
       await compare.click();
       await page
         .getByRole('heading', { name: 'مساحة المراجعة', exact: true })
         .waitFor();
       entry.stages.reconcileAndReviewMs = performance.now() - compareStart;
       const prepareStart = performance.now();
+      measuredPhase = 'prepare-export';
       await page
         .getByRole('button', { name: 'إعداد ورقة العمل', exact: true })
         .click();
@@ -431,7 +557,8 @@ try {
         .waitFor();
       entry.stages.prepareExportScreenMs = performance.now() - prepareStart;
       const exportStart = performance.now();
-      exportActive = true;
+      measuredPhase = 'export';
+      exportSampleTimer = setInterval(sample, 20);
       const download = page.waitForEvent('download', { timeout: 55000 });
       await page
         .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
@@ -440,10 +567,15 @@ try {
       downloadPath = path.join(output, `export-${run.size}-${run.format}.xlsx`);
       await saved.saveAs(downloadPath);
       entry.stages.exportToDownloadMs = performance.now() - exportStart;
-      exportActive = false;
+      clearInterval(exportSampleTimer);
+      await pendingSample;
       entry.stages.totalUiMs = performance.now() - t;
       const telemetry = await page.evaluate(() => window.__bench);
       entry.workerActions = telemetry.actions;
+      entry.memorySamplesDuringExport = exportMemorySamples(
+        entry.memorySamples,
+        entry.workerActions,
+      ).length;
       entry.results = telemetry.completed;
       entry.maxMainThreadHeartbeatGapMs = Math.max(...telemetry.gaps);
       entry.downloadCompleted = true;
@@ -474,28 +606,208 @@ try {
       await sample();
       if (entry.lifecycleRequired) {
         entry.peakBeforeLifecycleRssBytes = entry.peakChromiumRssBytes;
+        measuredPhase = 'protocol-overlap';
+        const originals = await Promise.all(
+          run.paths.map(async (file, index) => ({
+            name: path.basename(file),
+            base64: (await readFile(file)).toString('base64'),
+            sha256: run.sourceSha256[index],
+            rowsSha256: createHash('sha256')
+              .update(
+                JSON.stringify(
+                  run.sources[index].table.map((row) =>
+                    Array.from(
+                      { length: header.length },
+                      (_, i) => row[i] ?? '',
+                    ),
+                  ),
+                ),
+              )
+              .digest('hex'),
+          })),
+        );
+        entry.nativeProtocolOverlap = await page.evaluate(async (inputs) => {
+          const worker = window.__benchNativeWorker;
+          const ids = inputs.map((_, index) => 1000001 + index);
+          const before = JSON.stringify(window.__bench.completed);
+          const started = performance.now();
+          const replies = await new Promise((resolve, reject) => {
+            const received = [];
+            const pending = new Set(ids);
+            const timer = setTimeout(() => {
+              worker.removeEventListener('message', observe);
+              reject(new Error('Bounded two-read protocol probe timed out'));
+            }, 10000);
+            function observe(event) {
+              const d = event.data;
+              if (
+                d?.channel !== 'mizan-accounting-v1' ||
+                d.kind === 'progress' ||
+                !pending.has(d.id)
+              )
+                return;
+              pending.delete(d.id);
+              received.push(d);
+              if (!pending.size) {
+                clearTimeout(timer);
+                worker.removeEventListener('message', observe);
+                resolve(received);
+              }
+            }
+            worker.addEventListener('message', observe);
+            for (const [index, input] of inputs.entries()) {
+              const bytes = Uint8Array.from(atob(input.base64), (char) =>
+                char.charCodeAt(0),
+              );
+              worker.postMessage({
+                channel: 'mizan-accounting-v1',
+                id: ids[index],
+                action: 'read',
+                payload: { name: input.name, buffer: bytes.buffer },
+              });
+            }
+          });
+          const digest = async (rows) =>
+            Array.from(
+              new Uint8Array(
+                await crypto.subtle.digest(
+                  'SHA-256',
+                  new TextEncoder().encode(JSON.stringify(rows)),
+                ),
+              ),
+              (b) => b.toString(16).padStart(2, '0'),
+            ).join('');
+          const results = [];
+          for (const reply of replies) {
+            const index = ids.indexOf(reply.id),
+              wanted = inputs[index];
+            const rows = reply.value?.sheets?.[0]?.rows;
+            const rowsSha256 = await digest(rows);
+            if (
+              reply.ok !== true ||
+              reply.action !== 'read' ||
+              reply.value.name !== wanted.name ||
+              reply.value.sha256 !== wanted.sha256 ||
+              rowsSha256 !== wanted.rowsSha256
+            )
+              throw new Error(
+                'Two native read results crossed or changed source rows/bytes',
+              );
+            results.push({
+              id: reply.id,
+              name: reply.value.name,
+              sha256: reply.value.sha256,
+              rows: rows.length,
+              rowsSha256,
+            });
+          }
+          if (before !== JSON.stringify(window.__bench.completed))
+            throw new Error('Protocol probe changed financial result');
+          return {
+            status: 'PASS',
+            requests: ids.length,
+            results,
+            elapsedMs: performance.now() - started,
+            financialResultsUnchanged: true,
+            scope:
+              'Two actual native read requests dispatched before awaiting either; no UI-client concurrency claim',
+          };
+        }, originals);
+        assert.equal(entry.nativeProtocolOverlap.requests, 2);
+        measuredPhase = 'cancel-recovery';
         let unexpectedDownloads = 0;
         const countDownload = () => unexpectedDownloads++;
         page.on('download', countDownload);
+        const lifecycleStart = performance.now();
+        const exportsBefore = await page.evaluate(
+          () =>
+            window.__bench.requests.filter((r) => r.action === 'export').length,
+        );
         await page
           .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
-          .click();
+          .dblclick();
+        const exportsAfter = await page.evaluate(
+          () =>
+            window.__bench.requests.filter((r) => r.action === 'export').length,
+        );
+        assert.equal(
+          exportsAfter - exportsBefore,
+          1,
+          'Repeated busy UI click posts only one export',
+        );
+        entry.repeatedBusyExportRequests = exportsAfter - exportsBefore;
+        const cancelledRequest = await page.evaluate(() =>
+          window.__bench.requests.filter((r) => r.action === 'export').at(-1),
+        );
+        const cancelStart = performance.now();
         await page.getByRole('button', { name: 'إلغاء', exact: true }).click();
         await page.getByText('أُلغيت العملية.', { exact: true }).waitFor();
+        entry.cancelToVisibleMs = performance.now() - cancelStart;
+        const termination = await page.evaluate(
+          (request) =>
+            window.__bench.terminations.find(
+              (t) =>
+                t.workerInstance === request.workerInstance &&
+                t.pendingExportIds.includes(request.id),
+            ),
+          cancelledRequest,
+        );
+        assert.ok(
+          termination,
+          'Cancel forwards native termination of the worker owning the pending export',
+        );
         await page.waitForTimeout(250);
         assert.equal(
           unexpectedDownloads,
           0,
           'cancelled export must not publish a late workbook',
         );
-        page.off('download', countDownload);
+        const retryStart = performance.now();
         const retry = page.waitForEvent('download', { timeout: 55000 });
         await page
           .getByRole('button', { name: 'تنزيل مسودة Excel', exact: true })
           .click();
         await (
           await retry
-        ).saveAs(path.join(output, 'cancel-recovery-20000.xlsx'));
+        ).saveAs(path.join(output, `cancel-recovery-${run.size}.xlsx`));
+        entry.recoveryExportToDownloadMs = performance.now() - retryStart;
+        entry.lifecycleMs = performance.now() - lifecycleStart;
+        const lifecycleTelemetry = await page.evaluate(() => window.__bench);
+        const recoveryRequest = lifecycleTelemetry.requests
+          .filter((r) => r.action === 'export')
+          .at(-1);
+        assert.notEqual(
+          recoveryRequest.workerInstance,
+          cancelledRequest.workerInstance,
+          'Retry uses a fresh native Worker',
+        );
+        assert.ok(
+          lifecycleTelemetry.actions.some(
+            (r) =>
+              r.action === 'export' &&
+              r.id === recoveryRequest.id &&
+              r.workerInstance === recoveryRequest.workerInstance &&
+              r.ok === true,
+          ),
+        );
+        assert.equal(
+          unexpectedDownloads,
+          1,
+          'Exactly one fresh recovery download; no cancelled publication during retry',
+        );
+        page.off('download', countDownload);
+        entry.cancelledExportTermination = {
+          cancelledRequest,
+          termination,
+          recoveryRequest,
+          totalDownloadsThroughRecovery: unexpectedDownloads,
+          forwardedNativeTermination: true,
+        };
+        entry.lifecycleWorkerActions = lifecycleTelemetry.actions;
+        entry.actualRequests = lifecycleTelemetry.requests;
+        entry.maxMainThreadHeartbeatGapIncludingLifecycleMs = Math.max(
+          ...lifecycleTelemetry.gaps,
+        );
         entry.cancelAndExportRecovery = true;
       }
       // Include errors and requests produced by cancellation/recovery too.
@@ -517,6 +829,7 @@ try {
       }
     } finally {
       clearInterval(sampleTimer);
+      clearInterval(exportSampleTimer);
       await pendingSample;
       if (entry.peakBeforeLifecycleRssBytes !== undefined) {
         entry.peakIncludingLifecycleRssBytes = entry.peakChromiumRssBytes;
@@ -553,13 +866,15 @@ try {
         entry.independentExportMembershipCheck = true;
         if (entry.cancelAndExportRecovery) {
           await verifyPerformanceExport(
-            await readFile(path.join(output, 'cancel-recovery-20000.xlsx')),
+            await readFile(
+              path.join(output, `cancel-recovery-${run.size}.xlsx`),
+            ),
             run.sources,
             run.totals,
           );
           entry.independentRecoveryExportCheck = true;
           entry.independentRecoveryMembershipDetails = await membership(
-            path.join(output, 'cancel-recovery-20000.xlsx'),
+            path.join(output, `cancel-recovery-${run.size}.xlsx`),
           );
           entry.independentRecoveryMembershipCheck = true;
         }
@@ -576,10 +891,17 @@ try {
       entry.independentExportSourceCheck === true &&
       entry.independentExportMembershipCheck === true &&
       entry.memorySamplesSuccessful > 0 &&
+      entry.memorySamplesDuringExport > 0 &&
       entry.memorySamplingErrors === 0 &&
       entry.peakChromiumRssBytes > 0 &&
       (!entry.lifecycleRequired ||
         (entry.cancelAndExportRecovery === true &&
+          entry.nativeProtocolOverlap?.status === 'PASS' &&
+          entry.repeatedBusyExportRequests === 1 &&
+          entry.cancelledExportTermination?.forwardedNativeTermination ===
+            true &&
+          entry.cancelledExportTermination.totalDownloadsThroughRecovery ===
+            1 &&
           entry.independentRecoveryExportCheck === true &&
           entry.independentRecoveryMembershipCheck === true)) &&
       !entry.error &&

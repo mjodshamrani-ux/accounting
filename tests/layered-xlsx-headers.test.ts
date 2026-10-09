@@ -70,7 +70,7 @@ function assertRowFates(
     Array.from({ length: file.sheets[1].rows.length }, (_, i) => i + 1),
   );
 }
-test('F02-R01/R15: frozen bytes auto-read; preserve every row, signs and conservative matching', async () => {
+void test('F02-R01/R15: frozen bytes auto-read; preserve every row, signs and conservative matching', async () => {
   const file = await native();
   const raw = structuredClone(file.sheets[1]);
   const selection = selectImportMapping(file, 'supplier');
@@ -143,12 +143,12 @@ test('F02-R01/R15: frozen bytes auto-read; preserve every row, signs and conserv
     range: 'B3:B4',
   });
 });
-test('F02-R02: permute all columns and rename sheets without coordinate/name assumptions', async () => {
+void test('F02-R02: permute all columns and rename sheets without coordinate/name assumptions', async () => {
   const file = await variant((s, book) => {
     const original = Array.from({ length: 10 }, (_, r) =>
       Array.from({ length: 7 }, (_, c) => s.getCell(r + 1, c + 1).value),
     );
-    for (const merge of [...s.model.merges]) s.unMergeCells(merge);
+    for (const merge of s.model.merges.slice()) s.unMergeCells(merge);
     for (let r = 1; r <= 10; r++)
       for (let c = 1; c <= 7; c++)
         s.getCell(r, c).value = original[r - 1][7 - c];
@@ -178,7 +178,7 @@ test('F02-R02: permute all columns and rename sheets without coordinate/name ass
     [78000, 22000, -35000, -5000],
   );
 });
-test('F02-R03: explicit bilingual labels and consistent parent currency', async () => {
+void test('F02-R03: explicit bilingual labels and consistent parent currency', async () => {
   const file = await variant((s) => {
     s.getCell('A3').value = 'Date / التاريخ';
     s.getCell('B3').value = 'Document No / رقم المستند';
@@ -190,7 +190,7 @@ test('F02-R03: explicit bilingual labels and consistent parent currency', async 
   assert.equal(headerLabels(file.sheets[1], 3)[2], 'Debit (SAR) / مدين (SAR)');
   assert.equal((await reconcile(file)).a.transactions.length, 4);
 });
-test('F02-R09: NFKC currency tags cannot hide a parent/child conflict', async () => {
+void test('F02-R09: NFKC currency tags cannot hide a parent/child conflict', async () => {
   const file = await variant((s) => {
     s.getCell('C3').value = 'Movement (ＵＳＤ)';
     s.getCell('C4').value = 'Debit (SAR)';
@@ -199,7 +199,7 @@ test('F02-R09: NFKC currency tags cannot hide a parent/child conflict', async ()
   assert.notEqual(selectImportMapping(file, 'supplier').kind, 'unique-table');
   assert.equal(file.sheets[1].rows[2][2], 'Movement (ＵＳＤ)');
 });
-test('F02-R03/R14: NFKC parent currency is inherited and checked against scope', async () => {
+void test('F02-R03/R14: NFKC parent currency is inherited and checked against scope', async () => {
   const compatible = await variant((s) => {
     s.getCell('C3').value = 'Movement (ＳＡＲ)';
   });
@@ -220,7 +220,7 @@ test('F02-R03/R14: NFKC parent currency is inherited and checked against scope',
   ]);
   await assert.rejects(() => reconcile(incompatible), /عملة عنوان المبلغ/);
 });
-test('F02-R14: explicit NFKC child currencies remain visible to scope checks', async () => {
+void test('F02-R14: explicit NFKC child currencies remain visible to scope checks', async () => {
   const file = await variant((s) => {
     s.getCell('C3').value = 'Movement (ＵＳＤ)';
     s.getCell('C4').value = 'Debit (ＵＳＤ)';
@@ -328,13 +328,13 @@ const refused: [string, (s: ExcelJS.Worksheet) => void][] = [
   ],
 ];
 for (const [id, change] of refused)
-  test(`F02-${id}: keep file and refuse layered inference`, async () => {
+  void test(`F02-${id}: keep file and refuse layered inference`, async () => {
     const file = await variant(change);
     assert.equal(file.sheets[1].rows.length, 10);
     assert.equal(layeredHeaderView(file.sheets[1], 3), undefined);
     assert.notEqual(selectImportMapping(file, 'supplier').kind, 'unique-table');
   });
-test('F02-R11: do not skip an earlier unresolved table or choose between two plausible sheets', async () => {
+void test('F02-R11: do not skip an earlier unresolved table or choose between two plausible sheets', async () => {
   const first = await variant((s, book) => {
     book.worksheets[0].addRows([
       ['Date', 'Reference', 'Strange amount'],
@@ -354,7 +354,7 @@ test('F02-R11: do not skip an earlier unresolved table or choose between two pla
   });
   assert.equal(selectImportMapping(two, 'supplier').kind, 'choose-sheet');
 });
-test('F02-R12: frozen different identity never approves the equal-sum invoice group', async () => {
+void test('F02-R12: frozen different identity never approves the equal-sum invoice group', async () => {
   const file = await native('supplier-layered-conflict.xlsx');
   const { a, result } = await reconcile(file);
   assert.equal(selectImportMapping(file, 'supplier').kind, 'unique-table');
@@ -370,7 +370,7 @@ test('F02-R12: frozen different identity never approves the equal-sum invoice gr
     [[8]],
   );
 });
-test('F02-R13: erroneous competing payment remains a completeness barrier', async () => {
+void test('F02-R13: erroneous competing payment remains a completeness barrier', async () => {
   const file = await variant((s) => {
     s.addRow([
       '2026-07-16',
@@ -396,7 +396,7 @@ test('F02-R13: erroneous competing payment remains a completeness barrier', asyn
     false,
   );
 });
-test('F02-R14: native header proof never repairs signs or a broken balance', async () => {
+void test('F02-R14: native header proof never repairs signs or a broken balance', async () => {
   const file = await variant((s) => {
     s.getCell('D8').value = -350;
     s.getCell('E10').value = 999;
@@ -412,7 +412,7 @@ test('F02-R14: native header proof never repairs signs or a broken balance', asy
   assert.equal(file.sheets[1].rows[7][3], '-350');
   assertRowFates(file, a);
 });
-test('F02-R04: header exception never exempts merged transaction cells', async () => {
+void test('F02-R04: header exception never exempts merged transaction cells', async () => {
   const merged = await variant((s) => s.mergeCells('C6:D6'));
   assert.ok(layeredHeaderView(merged.sheets[1], 3));
   const { a } = await reconcile(merged);
@@ -424,7 +424,7 @@ test('F02-R04: header exception never exempts merged transaction cells', async (
     ),
   );
 });
-test('F02-R13 excluded competitor: excluding a rival must not manufacture uniqueness', async () => {
+void test('F02-R13 excluded competitor: excluding a rival must not manufacture uniqueness', async () => {
   // Replay the exact original failing package, not a newly generated lookalike.
   const rival = await readFile(
     'r13-excluded-competitor.xlsx',
@@ -516,7 +516,7 @@ test('F02-R13 excluded competitor: excluding a rival must not manufacture unique
     new Uint8Array(exported),
   );
 });
-test('native layered-header reading preserves 5,004 movements without reparsing per row', async () => {
+void test('native layered-header reading preserves 5,004 movements without reparsing per row', async () => {
   const started = performance.now();
   const file = await variant((s) => {
     s.spliceRows(10, 1);
@@ -555,7 +555,7 @@ test('native layered-header reading preserves 5,004 movements without reparsing 
     }),
   );
 });
-test('F02-R16: cloned/forged provenance is not source authority; replay uses actual bytes', async () => {
+void test('F02-R16: cloned/forged provenance is not source authority; replay uses actual bytes', async () => {
   const file = await native();
   const clone = structuredClone(file);
   assert.equal(validHeaderGeometry(clone.sheets[1]), true);
@@ -583,7 +583,7 @@ test('F02-R16: cloned/forged provenance is not source authority; replay uses act
   const replayed = await replayNativeHeaderSource(reordered);
   assert.ok(layeredHeaderView(replayed.sheets[1], 3));
 });
-test('F02-R16/export: session replay and original-based export retain source provenance and row fates', async () => {
+void test('F02-R16/export: session replay and original-based export retain source provenance and row fates', async () => {
   const file = await native(),
     ledger = await native('ledger-plain.csv');
   const { mappings, result } = await reconcile(file);

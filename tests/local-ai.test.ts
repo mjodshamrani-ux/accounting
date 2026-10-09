@@ -16,7 +16,7 @@ const r = compare(
   normalizeSource(demoFiles[1], demoMappings[1], scope, 'ledger'),
   scope,
 );
-test('unavailable or downloadable models never create a session or start download', async () => {
+void test('unavailable or downloadable models never create a session or start download', async () => {
   for (const availability of ['unavailable', 'downloadable', 'downloading']) {
     let creates = 0;
     assert.equal(
@@ -32,7 +32,7 @@ test('unavailable or downloadable models never create a session or start downloa
     assert.equal(creates, 0);
   }
 });
-test('ready model uses same languages, structured output and destroys session', async () => {
+void test('ready model uses same languages, structured output and destroys session', async () => {
   let destroyed = 0;
   let availabilityOptions: unknown;
   const answer = await askLocalModel(
@@ -60,7 +60,7 @@ test('ready model uses same languages, structured output and destroys session', 
   assert.ok(answer?.text.includes('3,500.00'));
   assert.equal(destroyed, 1);
 });
-test('model cannot supply financial facts, approval, prose or nonexistent IDs', () => {
+void test('model cannot supply financial facts, approval, prose or nonexistent IDs', () => {
   for (const raw of [
     'approved',
     '{"intent":"difference","amount":50000}',
@@ -70,7 +70,7 @@ test('model cannot supply financial facts, approval, prose or nonexistent IDs', 
   ])
     assert.equal(interpretModelOutput(r, raw), null);
 });
-test('model-generated proposal is rechecked without becoming a match', () => {
+void test('model-generated proposal is rechecked without becoming a match', () => {
   const before = JSON.stringify(r);
   const answer = interpretModelOutput(
     r,
@@ -80,7 +80,7 @@ test('model-generated proposal is rechecked without becoming a match', () => {
   assert.ok(answer?.text.includes('لا ينشئ مطابقة'));
   assert.equal(JSON.stringify(r), before);
 });
-test('abort and model errors fall back without output or retained session', async () => {
+void test('abort and model errors fall back without output or retained session', async () => {
   const controller = new AbortController();
   let destroyed = 0;
   const answer = await askLocalModel(r, 'question', controller.signal, {

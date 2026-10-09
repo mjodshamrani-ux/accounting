@@ -1,0 +1,152 @@
+{
+  "sample": "synthetic-development-not-field",
+  "authoredBeforeEngine": true,
+  "policy": "ar-limited-1",
+  "currency": "SAR",
+  "decimals": 2,
+  "cases": [
+    {
+      "name": "positive",
+      "files": [
+        {
+          "role": "ledger",
+          "file": "positive-ledger.csv",
+          "sha256": "c4a0df598368ed40a2878d29e66c2fe74f75ef5e801be319e90b76aa0052af92",
+          "sourceRows": 3,
+          "amountsMinor": [
+            10000,
+            -2500,
+            -4000
+          ]
+        },
+        {
+          "role": "statement",
+          "file": "positive-statement.csv",
+          "sha256": "7250a9a9caf33a2f8d2a12ac6802ee8ff2c4ed1ccd4425684543230b2747db59",
+          "sourceRows": 3,
+          "amountsMinor": [
+            10000,
+            -2500,
+            -4000
+          ]
+        }
+      ],
+      "requiredPairs": [
+        [
+          2,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "automaticPairCount": 3
+    },
+    {
+      "name": "amount-difference",
+      "files": [
+        {
+          "role": "ledger",
+          "file": "amount-difference-ledger.csv",
+          "sha256": "7f10bbf61aa4936f0d4bb20c724e4139befd88341462d55104e639392d70a405",
+          "sourceRows": 1,
+          "amountsMinor": [
+            9000
+          ]
+        },
+        {
+          "role": "statement",
+          "file": "amount-difference-statement.csv",
+          "sha256": "18828f87bdf9fdb2eec87e0194278c60a73f238029e7c39b4e6dd7718009b015",
+          "sourceRows": 1,
+          "amountsMinor": [
+            9100
+          ]
+        }
+      ],
+      "requiredPairs": [],
+      "automaticPairCount": 0
+    },
+    {
+      "name": "type-collision",
+      "files": [
+        {
+          "role": "ledger",
+          "file": "type-collision-ledger.csv",
+          "sha256": "ca5916641f323b06cb31eaed2e189ac1473e557cde2cc96bcfea64caabbbed49",
+          "sourceRows": 1,
+          "amountsMinor": [
+            3000
+          ]
+        },
+        {
+          "role": "statement",
+          "file": "type-collision-statement.csv",
+          "sha256": "8597ab144e2cfa921972b45424cda2e4c19696ecb61955fd137eb2dde4eeea22",
+          "sourceRows": 1,
+          "amountsMinor": [
+            -3000
+          ]
+        }
+      ],
+      "requiredPairs": [],
+      "automaticPairCount": 0
+    },
+    {
+      "name": "receipt-is-not-invoice-allocation",
+      "files": [
+        {
+          "role": "ledger",
+          "file": "receipt-is-not-invoice-allocation-ledger.csv",
+          "sha256": "0b4f56d6b3809950b11d2e938e3acafa203b14b1ec7e5e9ae158601868286488",
+          "sourceRows": 1,
+          "amountsMinor": [
+            5500
+          ]
+        },
+        {
+          "role": "statement",
+          "file": "receipt-is-not-invoice-allocation-statement.csv",
+          "sha256": "d664e803de75af6e125aaa2cf6aa5db324813a11578be153f9c4ba743518816d",
+          "sourceRows": 1,
+          "amountsMinor": [
+            -5500
+          ]
+        }
+      ],
+      "requiredPairs": [],
+      "automaticPairCount": 0
+    },
+    {
+      "name": "duplicate-own-document",
+      "files": [
+        {
+          "role": "ledger",
+          "file": "duplicate-own-document-ledger.csv",
+          "sha256": "727065c468111848ff81b63e6ccc73811abeececa2fd02875ef783a238ceb41d",
+          "sourceRows": 2,
+          "amountsMinor": [
+            2000,
+            2000
+          ]
+        },
+        {
+          "role": "statement",
+          "file": "duplicate-own-document-statement.csv",
+          "sha256": "11a20854352035a5261ffcf9b22c21468863e103877944d21708b84d39522211",
+          "sourceRows": 1,
+          "amountsMinor": [
+            2000
+          ]
+        }
+      ],
+      "requiredPairs": [],
+      "automaticPairCount": 0
+    }
+  ]
+}

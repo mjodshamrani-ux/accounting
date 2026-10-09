@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "scope": "independent-original-literal/CSV/Decimal draft self-check; native extraction not accepted",
+  "productImports": false,
+  "expectedFromProduct": false,
+  "nativeAccepted": false,
+  "counts": {
+    "derived": 9,
+    "blocked": 16,
+    "outside-new-family": 2
+  },
+  "actions": 18,
+  "positiveChecks": [
+    {
+      "id": "sar-on-page",
+      "currency": "SAR",
+      "decimals": 2,
+      "amountMinor": [
+        -1250,
+        205,
+        0
+      ],
+      "rows": 5,
+      "qualifiedHeaderRows": [
+        1
+      ]
+    },
+    {
+      "id": "sar-cross-page",
+      "currency": "SAR",
+      "decimals": 2,
+      "amountMinor": [
+        -1250,
+        205,
+        0
+      ],
+      "rows": 7,
+      "qualifiedHeaderRows": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "sar-own-reference",
+      "currency": "SAR",
+      "decimals": 2,
+      "amountMinor": [
+        -1250,
+        205,
+        0
+      ],
+      "rows": 5,
+      "qualifiedHeaderRows": [
+        1
+      ]
+    },
+    {
+      "id": "jpy-on-page",
+      "currency": "JPY",
+      "decimals": 0,
+      "amountMinor": [
+        -12,
+        2,
+        0
+      ],
+      "rows": 5,
+      "qualifiedHeaderRows": [
+        1
+      ]
+    },
+    {
+      "id": "jpy-cross-page",
+      "currency": "JPY",
+      "decimals": 0,
+      "amountMinor": [
+        -12,
+        2,
+        0
+      ],
+      "rows": 7,
+      "qualifiedHeaderRows": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "jpy-own-reference",
+      "currency": "JPY",
+      "decimals": 0,
+      "amountMinor": [
+        -12,
+        2,
+        0
+      ],
+      "rows": 5,
+      "qualifiedHeaderRows": [
+        1
+      ]
+    },
+    {
+      "id": "kwd-on-page",
+      "currency": "KWD",
+      "decimals": 3,
+      "amountMinor": [
+        -12500,
+        2005,
+        0
+      ],
+      "rows": 5,
+      "qualifiedHeaderRows": [
+        1
+      ]
+    },
+    {
+      "id": "kwd-cross-page",
+      "currency": "KWD",
+      "decimals": 3,
+      "amountMinor": [
+        -12500,
+        2005,
+        0
+      ],
+      "rows": 7,
+      "qualifiedHeaderRows": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "kwd-own-reference",
+      "currency": "KWD",
+      "decimals": 3,
+      "amountMinor": [
+        -12500,
+        2005,
+        0
+      ],
+      "rows": 5,
+      "qualifiedHeaderRows": [
+        1
+      ]
+    }
+  ]
+}

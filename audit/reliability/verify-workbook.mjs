@@ -602,7 +602,9 @@ export async function verifyWorkbook(bytes, expected) {
     dates++;
   }
   assert.deepEqual(
+    // oxlint-disable-next-line typescript/require-array-sort-compare -- Fixture membership/verdict canonicalization intentionally retains native UTF-16 and ToString ordering.
     [...seen].sort(),
+    // oxlint-disable-next-line typescript/require-array-sort-compare -- Fixture membership/verdict canonicalization intentionally retains native UTF-16 and ToString ordering.
     [...rowsById.keys()].sort(),
     'Every source represented once',
   );
@@ -610,6 +612,7 @@ export async function verifyWorkbook(bytes, expected) {
     const actual = caseMembers.get(c.id);
     assert.ok(actual);
     assert.equal(actual.status, c.status);
+    // oxlint-disable-next-line typescript/require-array-sort-compare -- Fixture membership/verdict canonicalization intentionally retains native UTF-16 and ToString ordering.
     assert.deepEqual([...actual.members].sort(), [...c.ids].sort());
     if (c.rule) assert.equal(actual.rule, c.rule);
     if (c.classification) assert.equal(actual.classification, c.classification);
@@ -618,6 +621,7 @@ export async function verifyWorkbook(bytes, expected) {
   // Unlike expected.cases (an interface-consistency check), these memberships
   // originate in the independent visible-evidence oracle before engine execution.
   const membershipKey = (a, b) =>
+    // oxlint-disable-next-line typescript/require-array-sort-compare -- Fixture membership/verdict canonicalization intentionally retains native UTF-16 and ToString ordering.
     JSON.stringify([[...a].sort(), [...b].sort()]);
   const acceptedMemberships = [...caseMembers.values()]
     .filter((c) => c.status === 'Matched')
@@ -842,7 +846,7 @@ export async function verifyWorkbook(bytes, expected) {
   );
   const rowEffects = [],
     bridgeCases = new Set();
-  for (const [rn, row] of bridge.rows) {
+  for (const row of bridge.rows.values()) {
     const c = caseMembers.get(get(row, 'A'));
     if (!c) continue;
     assert.ok(!bridgeCases.has(c.id), 'Bridge case repeated');

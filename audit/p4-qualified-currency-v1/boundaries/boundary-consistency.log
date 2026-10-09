@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "scope": "independent action-boundary and ownership clarification consistency; no implementation or native execution claim",
+  "priorSeals": [
+    {
+      "bundle": "p4-qualified-currency-v1",
+      "manifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+      "unchangedPayloadFiles": 72
+    },
+    {
+      "bundle": "p4-qualified-currency-format-addendum-v1",
+      "manifestSha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "unchangedPayloadFiles": 7
+    }
+  ],
+  "clarifiedActionIds": 12,
+  "successfulOwnershipControls": 3,
+  "explicitGenerationRefusalControls": 2,
+  "productSidecarImportApi": false,
+  "lateApplyValidationPreserved": true
+}

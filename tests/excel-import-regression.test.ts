@@ -21,7 +21,7 @@ async function parse(edit: (sheet: ExcelJS.Worksheet) => void) {
   );
 }
 
-test('unused percentage, hidden-sign format, formulas, errors and merged notes do not invalidate mapped transactions', async () => {
+void test('unused percentage, hidden-sign format, formulas, errors and merged notes do not invalidate mapped transactions', async () => {
   const variants: ((sheet: ExcelJS.Worksheet) => void)[] = [
     (sheet) => {
       sheet.getCell('D2').value = 0.15;
@@ -68,7 +68,7 @@ test('unused percentage, hidden-sign format, formulas, errors and merged notes d
   }
 });
 
-test('formula in mapped amount still blocks cached values and names its exact cell', async () => {
+void test('formula in mapped amount still blocks cached values and names its exact cell', async () => {
   const file = await parse((sheet) => {
     sheet.getCell('C2').value = { formula: '999+1', result: 100 };
   });
@@ -78,7 +78,7 @@ test('formula in mapped amount still blocks cached values and names its exact ce
   assert.equal(result.transactions.length, 1);
 });
 
-test('uncached formulas cannot disappear as an empty data row', async () => {
+void test('uncached formulas cannot disappear as an empty data row', async () => {
   const file = await parse((sheet) => {
     sheet.getRow(2).values = [
       { formula: 'A3' },
@@ -100,7 +100,7 @@ test('uncached formulas cannot disappear as an empty data row', async () => {
   assert.deepEqual(excluded.errors, []);
 });
 
-test('displayed numeric references cannot silently collapse to a different raw identifier', async () => {
+void test('displayed numeric references cannot silently collapse to a different raw identifier', async () => {
   for (const [format, conditional] of [
     ['#0000', false],
     ['0000.00', false],
@@ -136,7 +136,7 @@ test('displayed numeric references cannot silently collapse to a different raw i
   assert.equal(result.transactions[0].reference, '0012');
 });
 
-test('text formats hiding a mapped reference require review; unrelated text formats remain usable', async () => {
+void test('text formats hiding a mapped reference require review; unrelated text formats remain usable', async () => {
   for (const format of [';;;', '0;0;0;"Other"', '0;0;0;"INV-"@']) {
     const file = await parse((sheet) => {
       sheet.getCell('B2').numFmt = format;
@@ -152,7 +152,7 @@ test('text formats hiding a mapped reference require review; unrelated text form
   }
 });
 
-test('conditional numeric formats are checked only in their affected ranges and selected columns', async () => {
+void test('conditional numeric formats are checked only in their affected ranges and selected columns', async () => {
   for (const [ref, expectedRows] of [
     ['D2:D3', []],
     ['$C$3', [3]],
@@ -188,7 +188,7 @@ test('conditional numeric formats are checked only in their affected ranges and 
   }
 });
 
-test('ordinary conditional accounting formats retain values without evaluating Excel expressions', async () => {
+void test('ordinary conditional accounting formats retain values without evaluating Excel expressions', async () => {
   const file = await parse((sheet) =>
     sheet.addConditionalFormatting({
       ref: 'C2:C3',
@@ -210,7 +210,7 @@ test('ordinary conditional accounting formats retain values without evaluating E
   );
 });
 
-test('multisheet workbooks are admitted through the declared sheet limit and fail beyond it', async () => {
+void test('multisheet workbooks are admitted through the declared sheet limit and fail beyond it', async () => {
   const workbook = new ExcelJS.Workbook();
   for (let index = 0; index < MAX_SHEETS; index++)
     workbook.addWorksheet(`Sheet ${index}`).addRow(['Notes']);

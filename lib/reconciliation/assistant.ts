@@ -7,6 +7,7 @@ import {
   safeSum,
 } from './core.ts';
 import type { Comparison, Transaction } from './types.ts';
+import { REVIEWED_INVOICE_AGGREGATE_RULE } from './types.ts';
 import { readingStatus } from './reading-issues.ts';
 import {
   localizedReadErrors,
@@ -209,6 +210,28 @@ function proposalEvidence(result: Comparison, allowPartialExplanation = false) {
       (c.status === 'Matched' && a !== b)
     )
       failure('أرقام الحالة لا تطابق حركات المصدر الحالية؛ أعد التسوية');
+    if (c.matchingRule === REVIEWED_INVOICE_AGGREGATE_RULE || c.reviewedAggregate) {
+      const proof = c.reviewedAggregate;
+      const classification = c.supplierMembers.length === 1
+        ? (c.ledgerMembers.length === 1 ? 'EXACT_1_TO_1' : 'EXACT_1_TO_MANY')
+        : c.ledgerMembers.length === 1 ? 'EXACT_MANY_TO_1' : 'EXACT_MANY_TO_MANY';
+      if (!proof || c.matchingRule !== REVIEWED_INVOICE_AGGREGATE_RULE || c.status !== 'Matched' ||
+        c.classification !== classification || c.reviewerDecision !== 'Accepted' || c.reviewRequired ||
+        !c.supplierMembers.length || !c.ledgerMembers.length ||
+        proof.relation !== 'group-equivalence' || proof.pairwiseAllocation !== false ||
+        !Number.isSafeInteger(proof.totalMinor) || proof.totalMinor <= 0 || proof.totalMinor !== a ||
+        typeof proof.snapshotKey !== 'string' || !/^[a-f0-9]{64}$/.test(proof.snapshotKey) ||
+        ![proof.receiptId, proof.candidateId, proof.componentId, proof.reviewerLabel, proof.rationale]
+          .every((value) => typeof value === 'string' && !!value.trim()) ||
+        c.reviewerReason !== proof.rationale ||
+        JSON.stringify(c.evidence) !== JSON.stringify([
+          'اعتماد بشري كامل لمكوّن الفواتير يثبت تكافؤ المجموعة؛ لا توزيع زوجي للمبالغ.',
+          `المراجع: ${proof.reviewerLabel}؛ ${proof.rationale}`,
+        ]) ||
+        JSON.stringify(proof.supplierIds) !== JSON.stringify(c.supplierMembers.map((t) => t.id)) ||
+        JSON.stringify(proof.ledgerIds) !== JSON.stringify(c.ledgerMembers.map((t) => t.id)))
+        failure('دليل التجميع المعتمد لا يطابق العضوية والقرار الحاليين.');
+    }
   }
   if (caseRows.size !== canonical.size)
     failure('لا تظهر جميع حركات المصدر مرة واحدة في النتيجة الحالية');
@@ -228,6 +251,11 @@ function proposalEvidence(result: Comparison, allowPartialExplanation = false) {
         JSON.stringify(matchCase.ledgerMembers.map((t) => t.id).sort())
     )
       failure('سجل المطابقات لا يطابق حالات النتيجة الحالية');
+    if (matchCase!.reviewedAggregate || match.reviewedAggregate) {
+      if (match.kind !== 'manual' || match.note !== matchCase!.reviewerReason ||
+        JSON.stringify(match.reviewedAggregate) !== JSON.stringify(matchCase!.reviewedAggregate))
+        failure('دليل التجميع في سجل المطابقات لا يطابق الحالة الحالية.');
+    }
     for (const id of [...a, ...b]) {
       if (!matchedRows.has(id) || matchRows.has(id))
         failure('سجل المطابقات لا يطابق حالات النتيجة الحالية');
@@ -263,7 +291,7 @@ export function hasVerifiedExplanationEvidence(result: Comparison): boolean {
       const rows = c.supplierMembers.length + c.ledgerMembers.length;
       if (c.status === 'Matched') {
         counts.matchedSourceRows += rows;
-        if (c.matchingRule === 'MANUAL_REVIEW') counts.manualMatches++;
+        if (c.matchingRule === 'MANUAL_REVIEW' || c.matchingRule === REVIEWED_INVOICE_AGGREGATE_RULE) counts.manualMatches++;
         else counts.autoMatchedCases++;
       } else if (c.status === 'Needs Review') {
         counts.needsReviewCases++;

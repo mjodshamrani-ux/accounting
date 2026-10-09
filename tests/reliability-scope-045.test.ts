@@ -37,7 +37,7 @@ async function source(
   );
   return normalizeSource(file, inferMapping(file), scope, side);
 }
-test('declared aging cannot be accepted by choosing the transactions default', async () => {
+void test('declared aging cannot be accepted by choosing the transactions default', async () => {
   for (const title of [
     'Aging report',
     'Supplier - Aging report',
@@ -64,7 +64,7 @@ test('declared aging cannot be accepted by choosing the transactions default', a
     'An invoice description is not a report title',
   );
 });
-test('generic accounts cannot be merged merely because reference and amount agree', async () => {
+void test('generic accounts cannot be merged merely because reference and amount agree', async () => {
   const a = await source('supplier'),
     b = await source('ledger', { account: 'AP-98' });
   assert.ok(b.errors.some((e) => e.row === 0));
@@ -81,13 +81,13 @@ test('generic accounts cannot be merged merely because reference and amount agre
   });
   assert.equal(compare(customer, vendor, scope).matches.length, 1);
 });
-test('source-level currency conflicts never relabel a foreign transaction as the scope currency', async () => {
+void test('source-level currency conflicts never relabel a foreign transaction as the scope currency', async () => {
   const a = await source('supplier', { currency: 'USD' });
   assert.equal(a.transactions.length, 0);
   assert.ok(a.errors.some((e) => e.row > 0 && /عملة المصدر/.test(e.message)));
   assert.ok(a.excluded.length + a.errors.filter((e) => e.row > 0).length >= 4);
 });
-test('an explicitly balanced empty period can be compared but an unproven empty file cannot', async () => {
+void test('an explicitly balanced empty period can be compared but an unproven empty file cannot', async () => {
   const csv =
     'Period: 2026-07-01 to 2026-07-31\nDate,Reference,Description,Amount\n,,Opening balance,0.00\n2026-08-01,INV-799,Invoice after cutoff,80.00\n,,Closing balance,0.00';
   const file = await readFile(

@@ -1,0 +1,156 @@
+{
+  "id": "sar-own-reference",
+  "outcome": "derived",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "71514097fa13388ca3b93fe58cd46acc55c67f019e0afd27c636bc5efa988c31",
+  "originalByteLength": 1478,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (SAR)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "INV-000271",
+        "first line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "second",
+        "+2.05"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "zero",
+        "0.00"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "originalRow": 3,
+      "page": 1,
+      "derivedRow": 2,
+      "reference": "INV-000271",
+      "referenceOrigin": "explicit-source-cell",
+      "referenceParentRow": 2,
+      "amountLiteral": "-12.50"
+    },
+    {
+      "originalRow": 4,
+      "page": 1,
+      "derivedRow": 3,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "+2.05"
+    },
+    {
+      "originalRow": 5,
+      "page": 1,
+      "derivedRow": 4,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "0.00"
+    }
+  ],
+  "currencyEvidence": [
+    {
+      "sourceHash": "71514097fa13388ca3b93fe58cd46acc55c67f019e0afd27c636bc5efa988c31",
+      "row": 1,
+      "page": 1,
+      "column": 4,
+      "literal": "Signed amount (SAR)"
+    }
+  ],
+  "currencyContext": {
+    "currency": "SAR",
+    "decimals": 2,
+    "precisionOrigin": "finite-contract-policy",
+    "precisionPolicy": {
+      "SAR": 2,
+      "JPY": 0,
+      "KWD": 3
+    }
+  },
+  "headerRows": [
+    1
+  ],
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Signed amount (SAR)"
+    ],
+    [
+      "2026-10-01",
+      "INV-000271",
+      "first line",
+      "-12.50"
+    ],
+    [
+      "2026-10-01",
+      "INV-000271",
+      "second",
+      "+2.05"
+    ],
+    [
+      "2026-10-01",
+      "INV-000271",
+      "zero",
+      "0.00"
+    ]
+  ],
+  "csvSha256": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59",
+  "signedAmounts": [
+    "-12.50",
+    "+2.05",
+    "0.00"
+  ],
+  "amountMinor": [
+    -1250,
+    205,
+    0
+  ],
+  "totalMinor": -1045,
+  "positiveObligation": "all movements, qualified header and exact currency context must be preserved after explicit review"
+}

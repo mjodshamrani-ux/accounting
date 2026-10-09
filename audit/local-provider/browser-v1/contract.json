@@ -1,0 +1,20 @@
+{
+  "version": "p5-browser-runtime-smoke-v1",
+  "developmentOnly": true,
+  "productEnabled": false,
+  "synthetic": true,
+  "semanticAcceptance": false,
+  "physicalWeakDeviceEvidence": false,
+  "modelManifest": "audit/local-provider/proposal-v2/qwen25-model.json",
+  "runtimeVersion": "4.3.0",
+  "backend": "wasm",
+  "threads": 4,
+  "maxNewTokens": 16,
+  "doSample": false,
+  "loadDeadlineMs": 60000,
+  "caseDeadlineMs": 60000,
+  "rssLimitBytes": 6442450944,
+  "memorySampleIntervalMs": 500,
+  "cases": ["extract-en-1", "extract-ar-1", "chat-matched-en", "chat-matched-ar"],
+  "networkBoundary": "Playwright request interception and loopback HTTP asset whitelist; no OS air-gap claim"
+}

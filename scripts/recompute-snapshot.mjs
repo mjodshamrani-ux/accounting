@@ -197,11 +197,14 @@ for (const c of await recomputeCases()) {
     : null;
   const choice = c.mappings[0].formatChoice?.numberFormat;
   if (session && choice) {
-    for (const [name, edit] of [
+    for (const [nameValue, edit] of [
       ['sourceHash', (fc) => ({ ...fc, sourceHash: '0'.repeat(64) })],
       ['value', (fc) => ({ ...fc, value: 'comma' })],
       ['decimals', (fc) => ({ ...fc, decimals: 2 })],
     ]) {
+      if (typeof nameValue !== 'string')
+        throw new TypeError('Snapshot case name must be text');
+      const name = nameValue;
       const corrupt = structuredClone(session);
       corrupt.mappings[0].formatChoice.numberFormat = edit(
         corrupt.mappings[0].formatChoice.numberFormat,
@@ -229,7 +232,7 @@ for (const c of await recomputeCases()) {
   }
   const evidence = c.mappings[1].directionEvidence;
   if (session && evidence) {
-    for (const [name, mapping] of [
+    for (const [nameValue, mapping] of [
       [
         'checkedRows',
         {
@@ -263,6 +266,9 @@ for (const c of await recomputeCases()) {
         },
       ],
     ]) {
+      if (typeof nameValue !== 'string')
+        throw new TypeError('Snapshot direction name must be text');
+      const name = nameValue;
       const mappings = [c.mappings[0], mapping];
       const other = await reconcileAll(c, mappings);
       record.tampered[`direction.${name}.reconcile`] = await outcome(
@@ -299,10 +305,13 @@ for (const c of await recomputeCases()) {
       }
       // Two faults at once: which refusal is reported first.
       const badScope = { ...c.scope, currency: 7 };
-      for (const [label, ledger] of [
+      for (const [labelValue, ledger] of [
         ['provenClaim', c.mappings[1]],
         [name, mapping],
       ]) {
+        if (typeof labelValue !== 'string')
+          throw new TypeError('Snapshot direction label must be text');
+        const label = labelValue;
         const doubled = {
           files: c.files,
           mappings: [c.mappings[0], ledger],

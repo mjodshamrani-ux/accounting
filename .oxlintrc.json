@@ -29,7 +29,26 @@
     "build/**",
     "dist/**",
     "coverage/**",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "audit/**/reviews/original/**",
+    "audit/**/validation/**",
+    "audit/**/first-inference/**",
+    "audit/**/validation-first/**",
+    "audit/bank-adjustment/reviews/integrated-original/b22-product-evidence/browser_worker_probes.mjs",
+    "audit/bank-adjustment/reviews/integrated-original/b22-product-evidence/worker_probes.mjs",
+    "audit/bank-balance/reviews/b2-evidence/independent-financial.mjs",
+    "audit/large-statements/frozen/checks.mjs",
+    "audit/local-provider/run-v2.mjs",
+    "audit/local-provider/run.mjs",
+    "audit/p1-reference-resolution/independent-v2/frozen/run.mjs",
+    "audit/p1-reference-resolution/independent-v3/frozen/run.mjs",
+    "audit/p1-reference-resolution/independent/frozen/run.mjs",
+    "audit/p2-group-resolution/holdout-v2/frozen/run.mjs",
+    "audit/p2-group-resolution/holdout/frozen/run.mjs",
+    "audit/p2-group-resolution/independent/frozen/run.mjs",
+    "audit/partial-reconciliation/frozen/run.mjs",
+    "audit/release-049/independent-reference-check/frozen/run.mjs",
+    "audit/p8-non-ai-four-story-v1/frozen/write-xlsx.cjs"
   ],
   "overrides": [
     {

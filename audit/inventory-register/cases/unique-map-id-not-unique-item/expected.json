@@ -1,0 +1,1953 @@
+{
+  "scope": {
+    "entity": "Synthetic Stock Owner",
+    "inventoryLedger": "STOCK-BOOK",
+    "glLedger": "GL-BOOK",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "Current",
+    "asOf": "2026-09-30",
+    "chartVersion": "CHART-1",
+    "mapVersion": "MAP-1",
+    "valuationPolicyVersion": "provided-posted-values-1",
+    "inventoryAccountSetVersion": "INV-SET-1"
+  },
+  "expected": {
+    "financial": "source-error",
+    "decimals": 2,
+    "records": [
+      [
+        {
+          "row": 2,
+          "values": [
+            "A",
+            "warehouse=W1",
+            10,
+            "EA",
+            0,
+            100000,
+            "V-A"
+          ]
+        },
+        {
+          "row": 3,
+          "values": [
+            "B",
+            "warehouse=W2",
+            35,
+            "KG",
+            1,
+            30000,
+            "V-B"
+          ]
+        }
+      ],
+      [
+        {
+          "row": 2,
+          "values": [
+            "MAP-A",
+            "A",
+            "warehouse=W1",
+            "INV-1",
+            "branch=01",
+            "POL-A"
+          ]
+        },
+        {
+          "row": 3,
+          "values": [
+            "MAP-B",
+            "B",
+            "warehouse=W2",
+            "INV-1",
+            "branch=01",
+            "POL-B"
+          ]
+        },
+        {
+          "row": 4,
+          "values": [
+            "MAP-C",
+            "A",
+            "warehouse=W1",
+            "INV-1",
+            "branch=01",
+            "POL-A"
+          ]
+        }
+      ],
+      [
+        {
+          "row": 2,
+          "values": [
+            "POL-A",
+            "A",
+            "warehouse=W1",
+            "EA",
+            0,
+            "V-A",
+            "INV-1",
+            "branch=01",
+            "inventory",
+            "debit-positive",
+            "provided-posted-carrying-value",
+            "2026-01-01",
+            "2026-12-31",
+            "SYN-POL-A"
+          ]
+        },
+        {
+          "row": 3,
+          "values": [
+            "POL-B",
+            "B",
+            "warehouse=W2",
+            "KG",
+            1,
+            "V-B",
+            "INV-1",
+            "branch=01",
+            "inventory",
+            "debit-positive",
+            "provided-posted-carrying-value",
+            "2026-01-01",
+            "2026-12-31",
+            "SYN-POL-B"
+          ]
+        }
+      ],
+      [
+        {
+          "row": 2,
+          "values": [
+            "INV-1",
+            "branch=01",
+            "inventory",
+            130000,
+            0
+          ]
+        }
+      ]
+    ],
+    "issues": [
+      [
+        1,
+        2,
+        "DUPLICATE_MAPPING"
+      ],
+      [
+        1,
+        4,
+        "DUPLICATE_MAPPING"
+      ]
+    ],
+    "missing": [
+      "mapping:('A', 'warehouse=W1')"
+    ],
+    "comparisons": [
+      {
+        "account": "INV-1",
+        "dimensions": "branch=01",
+        "registerMinor": null,
+        "debitMinor": null,
+        "creditMinor": null,
+        "glMinor": null,
+        "differenceMinor": null
+      }
+    ],
+    "totals": null,
+    "inventory": [
+      [
+        0,
+        1,
+        "header"
+      ],
+      [
+        0,
+        2,
+        "data"
+      ],
+      [
+        0,
+        3,
+        "data"
+      ],
+      [
+        1,
+        1,
+        "header"
+      ],
+      [
+        1,
+        2,
+        "data"
+      ],
+      [
+        1,
+        3,
+        "data"
+      ],
+      [
+        1,
+        4,
+        "data"
+      ],
+      [
+        2,
+        1,
+        "header"
+      ],
+      [
+        2,
+        2,
+        "data"
+      ],
+      [
+        2,
+        3,
+        "data"
+      ],
+      [
+        3,
+        1,
+        "header"
+      ],
+      [
+        3,
+        2,
+        "data"
+      ]
+    ],
+    "cells": [
+      [
+        0,
+        1,
+        1,
+        "Item ID",
+        "Item ID"
+      ],
+      [
+        0,
+        1,
+        2,
+        "Item dimensions",
+        "Item dimensions"
+      ],
+      [
+        0,
+        1,
+        3,
+        "Quantity",
+        "Quantity"
+      ],
+      [
+        0,
+        1,
+        4,
+        "Unit",
+        "Unit"
+      ],
+      [
+        0,
+        1,
+        5,
+        "Quantity precision",
+        "Quantity precision"
+      ],
+      [
+        0,
+        1,
+        6,
+        "Posted value",
+        "Posted value"
+      ],
+      [
+        0,
+        1,
+        7,
+        "Valuation reference",
+        "Valuation reference"
+      ],
+      [
+        0,
+        1,
+        8,
+        "Entity",
+        "Entity"
+      ],
+      [
+        0,
+        1,
+        9,
+        "Inventory ledger",
+        "Inventory ledger"
+      ],
+      [
+        0,
+        1,
+        10,
+        "GL ledger",
+        "GL ledger"
+      ],
+      [
+        0,
+        1,
+        11,
+        "Currency",
+        "Currency"
+      ],
+      [
+        0,
+        1,
+        12,
+        "Currency basis",
+        "Currency basis"
+      ],
+      [
+        0,
+        1,
+        13,
+        "Posting status",
+        "Posting status"
+      ],
+      [
+        0,
+        1,
+        14,
+        "Posting layer",
+        "Posting layer"
+      ],
+      [
+        0,
+        1,
+        15,
+        "As of",
+        "As of"
+      ],
+      [
+        0,
+        1,
+        16,
+        "Chart version",
+        "Chart version"
+      ],
+      [
+        0,
+        1,
+        17,
+        "Map version",
+        "Map version"
+      ],
+      [
+        0,
+        1,
+        18,
+        "Valuation policy version",
+        "Valuation policy version"
+      ],
+      [
+        0,
+        1,
+        19,
+        "Inventory account set version",
+        "Inventory account set version"
+      ],
+      [
+        0,
+        2,
+        1,
+        "Item ID",
+        "A"
+      ],
+      [
+        0,
+        2,
+        2,
+        "Item dimensions",
+        "warehouse=W1"
+      ],
+      [
+        0,
+        2,
+        3,
+        "Quantity",
+        "10"
+      ],
+      [
+        0,
+        2,
+        4,
+        "Unit",
+        "EA"
+      ],
+      [
+        0,
+        2,
+        5,
+        "Quantity precision",
+        "0"
+      ],
+      [
+        0,
+        2,
+        6,
+        "Posted value",
+        "1000"
+      ],
+      [
+        0,
+        2,
+        7,
+        "Valuation reference",
+        "V-A"
+      ],
+      [
+        0,
+        2,
+        8,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        0,
+        2,
+        9,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        0,
+        2,
+        10,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        0,
+        2,
+        11,
+        "Currency",
+        "SAR"
+      ],
+      [
+        0,
+        2,
+        12,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        0,
+        2,
+        13,
+        "Posting status",
+        "posted"
+      ],
+      [
+        0,
+        2,
+        14,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        0,
+        2,
+        15,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        0,
+        2,
+        16,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        0,
+        2,
+        17,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        0,
+        2,
+        18,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        0,
+        2,
+        19,
+        "Inventory account set version",
+        "INV-SET-1"
+      ],
+      [
+        0,
+        3,
+        1,
+        "Item ID",
+        "B"
+      ],
+      [
+        0,
+        3,
+        2,
+        "Item dimensions",
+        "warehouse=W2"
+      ],
+      [
+        0,
+        3,
+        3,
+        "Quantity",
+        "3.5"
+      ],
+      [
+        0,
+        3,
+        4,
+        "Unit",
+        "KG"
+      ],
+      [
+        0,
+        3,
+        5,
+        "Quantity precision",
+        "1"
+      ],
+      [
+        0,
+        3,
+        6,
+        "Posted value",
+        "300"
+      ],
+      [
+        0,
+        3,
+        7,
+        "Valuation reference",
+        "V-B"
+      ],
+      [
+        0,
+        3,
+        8,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        0,
+        3,
+        9,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        0,
+        3,
+        10,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        0,
+        3,
+        11,
+        "Currency",
+        "SAR"
+      ],
+      [
+        0,
+        3,
+        12,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        0,
+        3,
+        13,
+        "Posting status",
+        "posted"
+      ],
+      [
+        0,
+        3,
+        14,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        0,
+        3,
+        15,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        0,
+        3,
+        16,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        0,
+        3,
+        17,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        0,
+        3,
+        18,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        0,
+        3,
+        19,
+        "Inventory account set version",
+        "INV-SET-1"
+      ],
+      [
+        1,
+        1,
+        1,
+        "Mapping ID",
+        "Mapping ID"
+      ],
+      [
+        1,
+        1,
+        2,
+        "Item ID",
+        "Item ID"
+      ],
+      [
+        1,
+        1,
+        3,
+        "Item dimensions",
+        "Item dimensions"
+      ],
+      [
+        1,
+        1,
+        4,
+        "GL account",
+        "GL account"
+      ],
+      [
+        1,
+        1,
+        5,
+        "GL dimensions",
+        "GL dimensions"
+      ],
+      [
+        1,
+        1,
+        6,
+        "Evidence ID",
+        "Evidence ID"
+      ],
+      [
+        1,
+        1,
+        7,
+        "Entity",
+        "Entity"
+      ],
+      [
+        1,
+        1,
+        8,
+        "Inventory ledger",
+        "Inventory ledger"
+      ],
+      [
+        1,
+        1,
+        9,
+        "GL ledger",
+        "GL ledger"
+      ],
+      [
+        1,
+        1,
+        10,
+        "Currency",
+        "Currency"
+      ],
+      [
+        1,
+        1,
+        11,
+        "Currency basis",
+        "Currency basis"
+      ],
+      [
+        1,
+        1,
+        12,
+        "Posting status",
+        "Posting status"
+      ],
+      [
+        1,
+        1,
+        13,
+        "Posting layer",
+        "Posting layer"
+      ],
+      [
+        1,
+        1,
+        14,
+        "As of",
+        "As of"
+      ],
+      [
+        1,
+        1,
+        15,
+        "Chart version",
+        "Chart version"
+      ],
+      [
+        1,
+        1,
+        16,
+        "Map version",
+        "Map version"
+      ],
+      [
+        1,
+        1,
+        17,
+        "Valuation policy version",
+        "Valuation policy version"
+      ],
+      [
+        1,
+        1,
+        18,
+        "Inventory account set version",
+        "Inventory account set version"
+      ],
+      [
+        1,
+        2,
+        1,
+        "Mapping ID",
+        "MAP-A"
+      ],
+      [
+        1,
+        2,
+        2,
+        "Item ID",
+        "A"
+      ],
+      [
+        1,
+        2,
+        3,
+        "Item dimensions",
+        "warehouse=W1"
+      ],
+      [
+        1,
+        2,
+        4,
+        "GL account",
+        "INV-1"
+      ],
+      [
+        1,
+        2,
+        5,
+        "GL dimensions",
+        "branch=01"
+      ],
+      [
+        1,
+        2,
+        6,
+        "Evidence ID",
+        "POL-A"
+      ],
+      [
+        1,
+        2,
+        7,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        1,
+        2,
+        8,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        1,
+        2,
+        9,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        1,
+        2,
+        10,
+        "Currency",
+        "SAR"
+      ],
+      [
+        1,
+        2,
+        11,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        1,
+        2,
+        12,
+        "Posting status",
+        "posted"
+      ],
+      [
+        1,
+        2,
+        13,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        1,
+        2,
+        14,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        1,
+        2,
+        15,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        1,
+        2,
+        16,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        1,
+        2,
+        17,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        1,
+        2,
+        18,
+        "Inventory account set version",
+        "INV-SET-1"
+      ],
+      [
+        1,
+        3,
+        1,
+        "Mapping ID",
+        "MAP-B"
+      ],
+      [
+        1,
+        3,
+        2,
+        "Item ID",
+        "B"
+      ],
+      [
+        1,
+        3,
+        3,
+        "Item dimensions",
+        "warehouse=W2"
+      ],
+      [
+        1,
+        3,
+        4,
+        "GL account",
+        "INV-1"
+      ],
+      [
+        1,
+        3,
+        5,
+        "GL dimensions",
+        "branch=01"
+      ],
+      [
+        1,
+        3,
+        6,
+        "Evidence ID",
+        "POL-B"
+      ],
+      [
+        1,
+        3,
+        7,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        1,
+        3,
+        8,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        1,
+        3,
+        9,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        1,
+        3,
+        10,
+        "Currency",
+        "SAR"
+      ],
+      [
+        1,
+        3,
+        11,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        1,
+        3,
+        12,
+        "Posting status",
+        "posted"
+      ],
+      [
+        1,
+        3,
+        13,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        1,
+        3,
+        14,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        1,
+        3,
+        15,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        1,
+        3,
+        16,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        1,
+        3,
+        17,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        1,
+        3,
+        18,
+        "Inventory account set version",
+        "INV-SET-1"
+      ],
+      [
+        1,
+        4,
+        1,
+        "Mapping ID",
+        "MAP-C"
+      ],
+      [
+        1,
+        4,
+        2,
+        "Item ID",
+        "A"
+      ],
+      [
+        1,
+        4,
+        3,
+        "Item dimensions",
+        "warehouse=W1"
+      ],
+      [
+        1,
+        4,
+        4,
+        "GL account",
+        "INV-1"
+      ],
+      [
+        1,
+        4,
+        5,
+        "GL dimensions",
+        "branch=01"
+      ],
+      [
+        1,
+        4,
+        6,
+        "Evidence ID",
+        "POL-A"
+      ],
+      [
+        1,
+        4,
+        7,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        1,
+        4,
+        8,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        1,
+        4,
+        9,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        1,
+        4,
+        10,
+        "Currency",
+        "SAR"
+      ],
+      [
+        1,
+        4,
+        11,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        1,
+        4,
+        12,
+        "Posting status",
+        "posted"
+      ],
+      [
+        1,
+        4,
+        13,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        1,
+        4,
+        14,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        1,
+        4,
+        15,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        1,
+        4,
+        16,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        1,
+        4,
+        17,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        1,
+        4,
+        18,
+        "Inventory account set version",
+        "INV-SET-1"
+      ],
+      [
+        2,
+        1,
+        1,
+        "Evidence ID",
+        "Evidence ID"
+      ],
+      [
+        2,
+        1,
+        2,
+        "Item ID",
+        "Item ID"
+      ],
+      [
+        2,
+        1,
+        3,
+        "Item dimensions",
+        "Item dimensions"
+      ],
+      [
+        2,
+        1,
+        4,
+        "Unit",
+        "Unit"
+      ],
+      [
+        2,
+        1,
+        5,
+        "Quantity precision",
+        "Quantity precision"
+      ],
+      [
+        2,
+        1,
+        6,
+        "Valuation reference",
+        "Valuation reference"
+      ],
+      [
+        2,
+        1,
+        7,
+        "GL account",
+        "GL account"
+      ],
+      [
+        2,
+        1,
+        8,
+        "GL dimensions",
+        "GL dimensions"
+      ],
+      [
+        2,
+        1,
+        9,
+        "Account class",
+        "Account class"
+      ],
+      [
+        2,
+        1,
+        10,
+        "Sign",
+        "Sign"
+      ],
+      [
+        2,
+        1,
+        11,
+        "Value basis",
+        "Value basis"
+      ],
+      [
+        2,
+        1,
+        12,
+        "Valid from",
+        "Valid from"
+      ],
+      [
+        2,
+        1,
+        13,
+        "Valid to",
+        "Valid to"
+      ],
+      [
+        2,
+        1,
+        14,
+        "Reference",
+        "Reference"
+      ],
+      [
+        2,
+        1,
+        15,
+        "Entity",
+        "Entity"
+      ],
+      [
+        2,
+        1,
+        16,
+        "Inventory ledger",
+        "Inventory ledger"
+      ],
+      [
+        2,
+        1,
+        17,
+        "GL ledger",
+        "GL ledger"
+      ],
+      [
+        2,
+        1,
+        18,
+        "Currency",
+        "Currency"
+      ],
+      [
+        2,
+        1,
+        19,
+        "Currency basis",
+        "Currency basis"
+      ],
+      [
+        2,
+        1,
+        20,
+        "Posting status",
+        "Posting status"
+      ],
+      [
+        2,
+        1,
+        21,
+        "Posting layer",
+        "Posting layer"
+      ],
+      [
+        2,
+        1,
+        22,
+        "As of",
+        "As of"
+      ],
+      [
+        2,
+        1,
+        23,
+        "Chart version",
+        "Chart version"
+      ],
+      [
+        2,
+        1,
+        24,
+        "Map version",
+        "Map version"
+      ],
+      [
+        2,
+        1,
+        25,
+        "Valuation policy version",
+        "Valuation policy version"
+      ],
+      [
+        2,
+        1,
+        26,
+        "Inventory account set version",
+        "Inventory account set version"
+      ],
+      [
+        2,
+        2,
+        1,
+        "Evidence ID",
+        "POL-A"
+      ],
+      [
+        2,
+        2,
+        2,
+        "Item ID",
+        "A"
+      ],
+      [
+        2,
+        2,
+        3,
+        "Item dimensions",
+        "warehouse=W1"
+      ],
+      [
+        2,
+        2,
+        4,
+        "Unit",
+        "EA"
+      ],
+      [
+        2,
+        2,
+        5,
+        "Quantity precision",
+        "0"
+      ],
+      [
+        2,
+        2,
+        6,
+        "Valuation reference",
+        "V-A"
+      ],
+      [
+        2,
+        2,
+        7,
+        "GL account",
+        "INV-1"
+      ],
+      [
+        2,
+        2,
+        8,
+        "GL dimensions",
+        "branch=01"
+      ],
+      [
+        2,
+        2,
+        9,
+        "Account class",
+        "inventory"
+      ],
+      [
+        2,
+        2,
+        10,
+        "Sign",
+        "debit-positive"
+      ],
+      [
+        2,
+        2,
+        11,
+        "Value basis",
+        "provided-posted-carrying-value"
+      ],
+      [
+        2,
+        2,
+        12,
+        "Valid from",
+        "2026-01-01"
+      ],
+      [
+        2,
+        2,
+        13,
+        "Valid to",
+        "2026-12-31"
+      ],
+      [
+        2,
+        2,
+        14,
+        "Reference",
+        "SYN-POL-A"
+      ],
+      [
+        2,
+        2,
+        15,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        2,
+        2,
+        16,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        2,
+        2,
+        17,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        2,
+        2,
+        18,
+        "Currency",
+        "SAR"
+      ],
+      [
+        2,
+        2,
+        19,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        2,
+        2,
+        20,
+        "Posting status",
+        "posted"
+      ],
+      [
+        2,
+        2,
+        21,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        2,
+        2,
+        22,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        2,
+        2,
+        23,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        2,
+        2,
+        24,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        2,
+        2,
+        25,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        2,
+        2,
+        26,
+        "Inventory account set version",
+        "INV-SET-1"
+      ],
+      [
+        2,
+        3,
+        1,
+        "Evidence ID",
+        "POL-B"
+      ],
+      [
+        2,
+        3,
+        2,
+        "Item ID",
+        "B"
+      ],
+      [
+        2,
+        3,
+        3,
+        "Item dimensions",
+        "warehouse=W2"
+      ],
+      [
+        2,
+        3,
+        4,
+        "Unit",
+        "KG"
+      ],
+      [
+        2,
+        3,
+        5,
+        "Quantity precision",
+        "1"
+      ],
+      [
+        2,
+        3,
+        6,
+        "Valuation reference",
+        "V-B"
+      ],
+      [
+        2,
+        3,
+        7,
+        "GL account",
+        "INV-1"
+      ],
+      [
+        2,
+        3,
+        8,
+        "GL dimensions",
+        "branch=01"
+      ],
+      [
+        2,
+        3,
+        9,
+        "Account class",
+        "inventory"
+      ],
+      [
+        2,
+        3,
+        10,
+        "Sign",
+        "debit-positive"
+      ],
+      [
+        2,
+        3,
+        11,
+        "Value basis",
+        "provided-posted-carrying-value"
+      ],
+      [
+        2,
+        3,
+        12,
+        "Valid from",
+        "2026-01-01"
+      ],
+      [
+        2,
+        3,
+        13,
+        "Valid to",
+        "2026-12-31"
+      ],
+      [
+        2,
+        3,
+        14,
+        "Reference",
+        "SYN-POL-B"
+      ],
+      [
+        2,
+        3,
+        15,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        2,
+        3,
+        16,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        2,
+        3,
+        17,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        2,
+        3,
+        18,
+        "Currency",
+        "SAR"
+      ],
+      [
+        2,
+        3,
+        19,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        2,
+        3,
+        20,
+        "Posting status",
+        "posted"
+      ],
+      [
+        2,
+        3,
+        21,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        2,
+        3,
+        22,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        2,
+        3,
+        23,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        2,
+        3,
+        24,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        2,
+        3,
+        25,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        2,
+        3,
+        26,
+        "Inventory account set version",
+        "INV-SET-1"
+      ],
+      [
+        3,
+        1,
+        1,
+        "GL account",
+        "GL account"
+      ],
+      [
+        3,
+        1,
+        2,
+        "GL dimensions",
+        "GL dimensions"
+      ],
+      [
+        3,
+        1,
+        3,
+        "Account class",
+        "Account class"
+      ],
+      [
+        3,
+        1,
+        4,
+        "Debit",
+        "Debit"
+      ],
+      [
+        3,
+        1,
+        5,
+        "Credit",
+        "Credit"
+      ],
+      [
+        3,
+        1,
+        6,
+        "Entity",
+        "Entity"
+      ],
+      [
+        3,
+        1,
+        7,
+        "Inventory ledger",
+        "Inventory ledger"
+      ],
+      [
+        3,
+        1,
+        8,
+        "GL ledger",
+        "GL ledger"
+      ],
+      [
+        3,
+        1,
+        9,
+        "Currency",
+        "Currency"
+      ],
+      [
+        3,
+        1,
+        10,
+        "Currency basis",
+        "Currency basis"
+      ],
+      [
+        3,
+        1,
+        11,
+        "Posting status",
+        "Posting status"
+      ],
+      [
+        3,
+        1,
+        12,
+        "Posting layer",
+        "Posting layer"
+      ],
+      [
+        3,
+        1,
+        13,
+        "As of",
+        "As of"
+      ],
+      [
+        3,
+        1,
+        14,
+        "Chart version",
+        "Chart version"
+      ],
+      [
+        3,
+        1,
+        15,
+        "Map version",
+        "Map version"
+      ],
+      [
+        3,
+        1,
+        16,
+        "Valuation policy version",
+        "Valuation policy version"
+      ],
+      [
+        3,
+        1,
+        17,
+        "Inventory account set version",
+        "Inventory account set version"
+      ],
+      [
+        3,
+        2,
+        1,
+        "GL account",
+        "INV-1"
+      ],
+      [
+        3,
+        2,
+        2,
+        "GL dimensions",
+        "branch=01"
+      ],
+      [
+        3,
+        2,
+        3,
+        "Account class",
+        "inventory"
+      ],
+      [
+        3,
+        2,
+        4,
+        "Debit",
+        "1300"
+      ],
+      [
+        3,
+        2,
+        5,
+        "Credit",
+        "0"
+      ],
+      [
+        3,
+        2,
+        6,
+        "Entity",
+        "Synthetic Stock Owner"
+      ],
+      [
+        3,
+        2,
+        7,
+        "Inventory ledger",
+        "STOCK-BOOK"
+      ],
+      [
+        3,
+        2,
+        8,
+        "GL ledger",
+        "GL-BOOK"
+      ],
+      [
+        3,
+        2,
+        9,
+        "Currency",
+        "SAR"
+      ],
+      [
+        3,
+        2,
+        10,
+        "Currency basis",
+        "functional"
+      ],
+      [
+        3,
+        2,
+        11,
+        "Posting status",
+        "posted"
+      ],
+      [
+        3,
+        2,
+        12,
+        "Posting layer",
+        "Current"
+      ],
+      [
+        3,
+        2,
+        13,
+        "As of",
+        "2026-09-30"
+      ],
+      [
+        3,
+        2,
+        14,
+        "Chart version",
+        "CHART-1"
+      ],
+      [
+        3,
+        2,
+        15,
+        "Map version",
+        "MAP-1"
+      ],
+      [
+        3,
+        2,
+        16,
+        "Valuation policy version",
+        "provided-posted-values-1"
+      ],
+      [
+        3,
+        2,
+        17,
+        "Inventory account set version",
+        "INV-SET-1"
+      ]
+    ],
+    "members": [
+      [
+        0,
+        2
+      ],
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        1,
+        4
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        2
+      ]
+    ],
+    "hashes": [
+      "7def4a6ab6723859d985fea7b35fc5475053fcf7af48d8a61b46ba70158617dc",
+      "ce84400618b71d17b9d4fcce74807843dadf10b81424d61c0ed960cac1dacc1c",
+      "ea6167bf092ad8329a4161c774df35eb122990bbaa6498e1c385445af57a04ab",
+      "888aa4bddc65ce383cf9e1de0516a67507b9560c40a3b875ae392993444fca0e"
+    ]
+  }
+}

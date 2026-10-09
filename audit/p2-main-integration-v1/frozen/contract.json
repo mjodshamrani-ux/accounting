@@ -1,0 +1,1486 @@
+{
+  "contract": "SUPPLIER_OVERLAP_MAIN_V1",
+  "status": "frozen-before-product-implementation",
+  "baselineCommit": "a1fee779ca597694b2e8227be1cea37891c0bae9",
+  "authoredAtUtc": "2026-10-08T06:20:21.425893+00:00",
+  "truthOrigin": "Independent manually specified economic memberships and integer arithmetic. No current or prospective reconciliation output was used as an oracle.",
+  "syntheticOnly": true,
+  "scope": {
+    "entity": "E",
+    "account": "AP",
+    "supplier": "S",
+    "currency": "SAR",
+    "decimals": 0,
+    "cutoff": "2026-09-30",
+    "dateWindow": 7,
+    "confirmed": true,
+    "coverageConfirmed": true
+  },
+  "memberKeyConvention": "Independent fixture labels; tests map these to original side/sheet/row transaction IDs.",
+  "authority": {
+    "import": "archived-not-authoritative",
+    "runtime": "live-parent-owned-coordinator",
+    "sourceInterpretationApprovalMatchesOrAllocates": false,
+    "groupEquivalenceCreatesPairwiseAllocation": false
+  },
+  "invariants": [
+    "all-original-source-membership-indexes-preserved",
+    "each-original-movement-owned-by-one-final-main-case",
+    "whole-component-review-commit-and-undo",
+    "source-and-main-context-generation-freshness",
+    "ledger-and-main-comparison-published-atomically",
+    "archive-never-confers-authority",
+    "existing-payment-allocation-engine-unchanged"
+  ],
+  "cases": [
+    {
+      "id": "A",
+      "name": "split-versus-single-whole-component-and-undo",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "partitionRows": 4,
+      "allCandidates": [
+        {
+          "supplierKeys": [
+            "s1"
+          ],
+          "ledgerKeys": [
+            "l1",
+            "l2"
+          ],
+          "totalMinor": 100,
+          "relation": "group-equivalence",
+          "pairwiseAllocation": false,
+          "varianceMinor": 0,
+          "bridgeEffectMinor": 0,
+          "kind": "manual"
+        },
+        {
+          "supplierKeys": [
+            "s1"
+          ],
+          "ledgerKeys": [
+            "l3"
+          ],
+          "totalMinor": 100,
+          "relation": "group-equivalence",
+          "pairwiseAllocation": false,
+          "varianceMinor": 0,
+          "bridgeEffectMinor": 0,
+          "kind": "manual"
+        }
+      ],
+      "action": {
+        "accept": [
+          [
+            "s1",
+            "l1",
+            "l2"
+          ]
+        ],
+        "reject": [
+          [
+            "s1",
+            "l3"
+          ]
+        ],
+        "reviewAllKeys": [
+          "s1",
+          "l1",
+          "l2",
+          "l3"
+        ]
+      },
+      "expected": {
+        "activeReceiptCount": 1,
+        "groups": [
+          {
+            "supplierKeys": [
+              "s1"
+            ],
+            "ledgerKeys": [
+              "l1",
+              "l2"
+            ],
+            "totalMinor": 100,
+            "relation": "group-equivalence",
+            "pairwiseAllocation": false,
+            "varianceMinor": 0,
+            "bridgeEffectMinor": 0,
+            "kind": "manual"
+          }
+        ],
+        "residualKeys": [
+          "l3"
+        ],
+        "counts": {
+          "manualMatches": 1,
+          "autoMatchedCases": 0,
+          "matchedSourceRows": 3,
+          "needsReviewCases": 0,
+          "needsReviewSourceRows": 0,
+          "unmatchedCases": 1,
+          "unmatchedSourceRows": 1,
+          "rejectedCandidates": 0
+        },
+        "allOriginalAmountsUnchanged": true
+      },
+      "afterUndo": {
+        "activeReceiptCount": 0,
+        "historyActions": [
+          "commit",
+          "undo"
+        ],
+        "mainComparisonEqualsFreshOriginalBaseline": true,
+        "counts": {
+          "manualMatches": 0,
+          "autoMatchedCases": 0,
+          "matchedSourceRows": 0,
+          "needsReviewCases": 1,
+          "needsReviewSourceRows": 4,
+          "unmatchedCases": 0,
+          "unmatchedSourceRows": 0,
+          "rejectedCandidates": 0
+        }
+      }
+    },
+    {
+      "id": "B",
+      "name": "two-equal-subsets-do-not-select-coverage",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 30,
+          "voucherReference": ""
+        },
+        {
+          "key": "l4",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 5,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-04",
+          "amountMinor": 70,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "allCandidates": [
+        {
+          "supplierKeys": [
+            "s1"
+          ],
+          "ledgerKeys": [
+            "l1",
+            "l2"
+          ],
+          "totalMinor": 100,
+          "relation": "group-equivalence",
+          "pairwiseAllocation": false,
+          "varianceMinor": 0,
+          "bridgeEffectMinor": 0,
+          "kind": "manual"
+        },
+        {
+          "supplierKeys": [
+            "s1"
+          ],
+          "ledgerKeys": [
+            "l3",
+            "l4"
+          ],
+          "totalMinor": 100,
+          "relation": "group-equivalence",
+          "pairwiseAllocation": false,
+          "varianceMinor": 0,
+          "bridgeEffectMinor": 0,
+          "kind": "manual"
+        }
+      ],
+      "action": {
+        "accept": [
+          [
+            "s1",
+            "l1",
+            "l2"
+          ]
+        ],
+        "reject": [
+          [
+            "s1",
+            "l3",
+            "l4"
+          ]
+        ]
+      },
+      "expected": {
+        "groups": [
+          {
+            "supplierKeys": [
+              "s1"
+            ],
+            "ledgerKeys": [
+              "l1",
+              "l2"
+            ],
+            "totalMinor": 100,
+            "relation": "group-equivalence",
+            "pairwiseAllocation": false,
+            "varianceMinor": 0,
+            "bridgeEffectMinor": 0,
+            "kind": "manual"
+          }
+        ],
+        "residualKeys": [
+          "l3",
+          "l4"
+        ],
+        "counts": {
+          "manualMatches": 1,
+          "autoMatchedCases": 0,
+          "matchedSourceRows": 3,
+          "needsReviewCases": 0,
+          "needsReviewSourceRows": 0,
+          "unmatchedCases": 2,
+          "unmatchedSourceRows": 2,
+          "rejectedCandidates": 0
+        },
+        "partitionRows": 5,
+        "missingCompetitorDecision": "refused-unchanged",
+        "acceptBothAlternatives": "refused-unchanged"
+      }
+    },
+    {
+      "id": "C",
+      "name": "two-disjoint-groups-in-one-connected-component",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "s2",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l4",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 5,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-04",
+          "amountMinor": 60,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 200,
+        "ledger": 200
+      },
+      "action": {
+        "accept": [
+          [
+            "s1",
+            "l1",
+            "l2"
+          ],
+          [
+            "s2",
+            "l3",
+            "l4"
+          ]
+        ],
+        "rejectEveryOtherCandidate": true,
+        "reviewEveryComponentRow": true
+      },
+      "expected": {
+        "activeReceiptCount": 1,
+        "groups": [
+          {
+            "supplierKeys": [
+              "s1"
+            ],
+            "ledgerKeys": [
+              "l1",
+              "l2"
+            ],
+            "totalMinor": 100,
+            "relation": "group-equivalence",
+            "pairwiseAllocation": false,
+            "varianceMinor": 0,
+            "bridgeEffectMinor": 0,
+            "kind": "manual"
+          },
+          {
+            "supplierKeys": [
+              "s2"
+            ],
+            "ledgerKeys": [
+              "l3",
+              "l4"
+            ],
+            "totalMinor": 100,
+            "relation": "group-equivalence",
+            "pairwiseAllocation": false,
+            "varianceMinor": 0,
+            "bridgeEffectMinor": 0,
+            "kind": "manual"
+          }
+        ],
+        "residualKeys": [],
+        "counts": {
+          "manualMatches": 2,
+          "autoMatchedCases": 0,
+          "matchedSourceRows": 6,
+          "needsReviewCases": 0,
+          "needsReviewSourceRows": 0,
+          "unmatchedCases": 0,
+          "unmatchedSourceRows": 0,
+          "rejectedCandidates": 0
+        },
+        "partitionRows": 6
+      },
+      "afterUndo": {
+        "activeReceiptCount": 0,
+        "releasedKeys": [
+          "s1",
+          "s2",
+          "l1",
+          "l2",
+          "l3",
+          "l4"
+        ],
+        "mainComparisonEqualsFreshOriginalBaseline": true
+      }
+    },
+    {
+      "id": "D",
+      "name": "two-independent-components-share-no-owned-row",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "s2",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-Y",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 80,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l4",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 5,
+          "invoice": "INV-Y",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-04",
+          "amountMinor": 30,
+          "voucherReference": ""
+        },
+        {
+          "key": "l5",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 6,
+          "invoice": "INV-Y",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-05",
+          "amountMinor": 50,
+          "voucherReference": ""
+        },
+        {
+          "key": "l6",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 7,
+          "invoice": "INV-Y",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-06",
+          "amountMinor": 80,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 180,
+        "ledger": 360
+      },
+      "action": {
+        "commitComponentsInSequence": [
+          "INV-X",
+          "INV-Y"
+        ],
+        "accept": [
+          [
+            "s1",
+            "l1",
+            "l2"
+          ],
+          [
+            "s2",
+            "l4",
+            "l5"
+          ]
+        ],
+        "rejectEveryOtherCandidate": true
+      },
+      "expected": {
+        "activeReceiptCount": 2,
+        "groups": [
+          {
+            "supplierKeys": [
+              "s1"
+            ],
+            "ledgerKeys": [
+              "l1",
+              "l2"
+            ],
+            "totalMinor": 100,
+            "relation": "group-equivalence",
+            "pairwiseAllocation": false,
+            "varianceMinor": 0,
+            "bridgeEffectMinor": 0,
+            "kind": "manual"
+          },
+          {
+            "supplierKeys": [
+              "s2"
+            ],
+            "ledgerKeys": [
+              "l4",
+              "l5"
+            ],
+            "totalMinor": 80,
+            "relation": "group-equivalence",
+            "pairwiseAllocation": false,
+            "varianceMinor": 0,
+            "bridgeEffectMinor": 0,
+            "kind": "manual"
+          }
+        ],
+        "residualKeys": [
+          "l3",
+          "l6"
+        ],
+        "counts": {
+          "manualMatches": 2,
+          "autoMatchedCases": 0,
+          "matchedSourceRows": 6,
+          "needsReviewCases": 0,
+          "needsReviewSourceRows": 0,
+          "unmatchedCases": 2,
+          "unmatchedSourceRows": 2,
+          "rejectedCandidates": 0
+        },
+        "partitionRows": 8,
+        "allOwnedRowKeysDistinct": true
+      }
+    },
+    {
+      "id": "E",
+      "name": "existing-main-owners-block-whole-new-component",
+      "scenarios": [
+        {
+          "owner": "automatic-exact-1-to-1",
+          "supplierKeys": [
+            "s1"
+          ],
+          "ledgerKeys": [
+            "l3"
+          ],
+          "amountMinor": 100,
+          "originalMembers": [
+            {
+              "key": "s1",
+              "side": "supplier",
+              "invoice": "INV-OWN",
+              "selectedReference": "",
+              "amountMinor": 100,
+              "date": "2026-09-01",
+              "documentType": "Invoice"
+            },
+            {
+              "key": "l3",
+              "side": "ledger",
+              "invoice": "INV-OWN",
+              "selectedReference": "",
+              "amountMinor": 100,
+              "date": "2026-09-01",
+              "documentType": "Invoice"
+            }
+          ],
+          "requestedGroup": {
+            "supplierKeys": [
+              "s1"
+            ],
+            "ledgerKeys": [
+              "l3"
+            ],
+            "totalMinor": 100
+          },
+          "baselineCounts": {
+            "autoMatchedCases": 1,
+            "manualMatches": 0,
+            "matchedSourceRows": 2,
+            "needsReviewCases": 0,
+            "needsReviewSourceRows": 0,
+            "unmatchedCases": 0,
+            "unmatchedSourceRows": 0,
+            "rejectedCandidates": 0
+          }
+        },
+        {
+          "owner": "automatic-certified-complete-group",
+          "supplierKeys": [
+            "s1"
+          ],
+          "ledgerKeys": [
+            "l1",
+            "l2"
+          ],
+          "amountMinor": 100,
+          "originalMembers": [
+            {
+              "key": "s1",
+              "side": "supplier",
+              "invoice": "INV-OWN",
+              "selectedReference": "",
+              "amountMinor": 100,
+              "date": "2026-09-01",
+              "documentType": "Invoice",
+              "poReference": "PO-OWN"
+            },
+            {
+              "key": "l1",
+              "side": "ledger",
+              "invoice": "INV-OWN",
+              "selectedReference": "",
+              "amountMinor": 40,
+              "date": "2026-09-01",
+              "documentType": "Invoice",
+              "poReference": "PO-OWN"
+            },
+            {
+              "key": "l2",
+              "side": "ledger",
+              "invoice": "INV-OWN",
+              "selectedReference": "",
+              "amountMinor": 60,
+              "date": "2026-09-01",
+              "documentType": "Invoice",
+              "poReference": "PO-OWN"
+            }
+          ],
+          "requestedGroup": {
+            "supplierKeys": [
+              "s1"
+            ],
+            "ledgerKeys": [
+              "l1",
+              "l2"
+            ],
+            "totalMinor": 100
+          },
+          "baselineCounts": {
+            "autoMatchedCases": 1,
+            "manualMatches": 0,
+            "matchedSourceRows": 3,
+            "needsReviewCases": 0,
+            "needsReviewSourceRows": 0,
+            "unmatchedCases": 0,
+            "unmatchedSourceRows": 0,
+            "rejectedCandidates": 0
+          }
+        },
+        {
+          "owner": "scalar-manual-decision",
+          "supplierKeys": [
+            "s1"
+          ],
+          "ledgerKeys": [
+            "l3"
+          ],
+          "amountMinor": 100,
+          "originalMembers": [
+            {
+              "key": "s1",
+              "side": "supplier",
+              "sheet": "Sheet1",
+              "row": 2,
+              "invoice": "INV-X",
+              "selectedReference": "",
+              "documentType": "Invoice",
+              "date": "2026-09-01",
+              "amountMinor": 100,
+              "voucherReference": ""
+            },
+            {
+              "key": "l1",
+              "side": "ledger",
+              "sheet": "Sheet1",
+              "row": 2,
+              "invoice": "INV-X",
+              "selectedReference": "",
+              "documentType": "Invoice",
+              "date": "2026-09-01",
+              "amountMinor": 40,
+              "voucherReference": ""
+            },
+            {
+              "key": "l2",
+              "side": "ledger",
+              "sheet": "Sheet1",
+              "row": 3,
+              "invoice": "INV-X",
+              "selectedReference": "",
+              "documentType": "Invoice",
+              "date": "2026-09-02",
+              "amountMinor": 60,
+              "voucherReference": ""
+            },
+            {
+              "key": "l3",
+              "side": "ledger",
+              "sheet": "Sheet1",
+              "row": 4,
+              "invoice": "INV-X",
+              "selectedReference": "",
+              "documentType": "Invoice",
+              "date": "2026-09-03",
+              "amountMinor": 100,
+              "voucherReference": ""
+            }
+          ],
+          "requestedGroup": {
+            "supplierKeys": [
+              "s1"
+            ],
+            "ledgerKeys": [
+              "l1",
+              "l2"
+            ],
+            "totalMinor": 100
+          },
+          "existingDecision": {
+            "supplierKey": "s1",
+            "ledgerKey": "l3",
+            "note": "Human decision on original equal invoice movements."
+          }
+        }
+      ],
+      "expected": {
+        "outcome": "refused-unchanged",
+        "ledgerGenerationUnchanged": true,
+        "receiptsUnchanged": true,
+        "mainComparisonUnchanged": true,
+        "automaticOwnerMustNotBeReclassifiedAsManual": true
+      }
+    },
+    {
+      "id": "F",
+      "name": "main-decisions-share-ownership-and-selection-generation",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "partitionRows": 4,
+      "initialAcceptedGroup": {
+        "supplierKeys": [
+          "s1"
+        ],
+        "ledgerKeys": [
+          "l1",
+          "l2"
+        ],
+        "totalMinor": 100,
+        "relation": "group-equivalence",
+        "pairwiseAllocation": false,
+        "varianceMinor": 0,
+        "bridgeEffectMinor": 0,
+        "kind": "manual"
+      },
+      "additionalOriginalMembers": [
+        {
+          "key": "s2",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-Z",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-05",
+          "amountMinor": 25,
+          "voucherReference": ""
+        },
+        {
+          "key": "l4",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 5,
+          "invoice": "INV-Z",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-06",
+          "amountMinor": 25,
+          "voucherReference": ""
+        }
+      ],
+      "scenarios": [
+        {
+          "action": "scalar-link-owned-s1-to-l3",
+          "expected": "refused-unchanged"
+        },
+        {
+          "action": "disjoint-scalar-link-s2-to-l4-with-grounded-note",
+          "expected": {
+            "acceptedGroupUnchanged": true,
+            "scalarDecisionRecordedSeparately": true,
+            "mainGenerationIncremented": true,
+            "oldSelection": "refused-unchanged",
+            "counts": {
+              "manualMatches": 2,
+              "autoMatchedCases": 0,
+              "matchedSourceRows": 5,
+              "needsReviewCases": 0,
+              "needsReviewSourceRows": 0,
+              "unmatchedCases": 1,
+              "unmatchedSourceRows": 1,
+              "rejectedCandidates": 0
+            },
+            "partitionRows": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "G",
+      "name": "consumption-cannot-create-residual-identity-uniqueness",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "partitionRows": 4,
+      "competitorVariants": [
+        "indistinguishable-duplicate-original-invoice-member",
+        "unread-physical-row-with-same-invoice",
+        "read-error-with-overlapping-identity-envelope"
+      ],
+      "expected": {
+        "originalCompetitorsRemainInIndexesAndInventory": true,
+        "newAggregateCommit": "refused-unchanged",
+        "residualAutomaticMatchCreatedByFiltering": false,
+        "dropCompetitorToRestoreCompleteness": false
+      }
+    },
+    {
+      "id": "H",
+      "name": "stale-concurrent-cancelled-or-truncated-work-is-atomic",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "partitionRows": 4,
+      "invalidations": [
+        "original-byte-change",
+        "source-hash-change",
+        "cached-extraction-change",
+        "mapping-change",
+        "scope-change",
+        "revision-change",
+        "main-generation-change",
+        "main-decisions-change",
+        "main-rejected-change",
+        "ledger-generation-change",
+        "in-flight-concurrent-commit",
+        "invalidatePending",
+        "initial-abort",
+        "timed-abort",
+        "resource-truncation"
+      ],
+      "expected": {
+        "outcome": "refused-unchanged-or-explicit-cancelled",
+        "oneConcurrentWinnerAtMost": true,
+        "ledgerAndMainPublishTogether": true,
+        "partialReceiptCount": 0,
+        "workbookDeliveredAfterCancellation": false
+      }
+    },
+    {
+      "id": "I",
+      "name": "session-import-is-an-archive-never-human-approval",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "partitionRows": 4,
+      "sessionVariants": [
+        "valid-accepted-review",
+        "valid-review-with-undo",
+        "valid-semantic-edit-to-another-complete-disjoint-selection"
+      ],
+      "expected": {
+        "status": "archived-not-authoritative",
+        "activeAggregateReceiptCountAfterRestore": 0,
+        "mainComparisonEqualsFreshOriginalBaseline": true,
+        "archivePreservedAndLabelled": true,
+        "freshHumanWholeComponentCommitRequired": true
+      },
+      "invalidArchiveVariants": [
+        "malformed-receipt",
+        "altered-source",
+        "altered-membership",
+        "invalid-active-receipt-chain"
+      ],
+      "invalidArchiveExpected": "refused-unchanged"
+    },
+    {
+      "id": "J",
+      "name": "native-export-keeps-group-members-and-live-authority",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "partitionRows": 4,
+      "initialAcceptedGroup": {
+        "supplierKeys": [
+          "s1"
+        ],
+        "ledgerKeys": [
+          "l1",
+          "l2"
+        ],
+        "totalMinor": 100,
+        "relation": "group-equivalence",
+        "pairwiseAllocation": false,
+        "varianceMinor": 0,
+        "bridgeEffectMinor": 0,
+        "kind": "manual"
+      },
+      "expected": {
+        "mainGroupedMemberKeys": [
+          "s1",
+          "l1",
+          "l2"
+        ],
+        "memberAmountsMinor": {
+          "s1": 100,
+          "l1": 40,
+          "l2": 60,
+          "l3": 100
+        },
+        "residualKeys": [
+          "l3"
+        ],
+        "liveReceiptAndBindingIncluded": true,
+        "completeNativeRowInventoryIncluded": true,
+        "longTextUnicodeLossless": true,
+        "pairwiseAllocation": false,
+        "scalarFirstMemberDecisionManufactured": false,
+        "ordinaryExporterWithoutLiveCoordinator": "refused",
+        "forgedJsonGroupedResult": "refused",
+        "roundTripRestoreActiveAggregateOwners": 0
+      }
+    },
+    {
+      "id": "K",
+      "name": "existing-payment-allocation-remains-the-only-capacity-engine",
+      "domain": "available-payments-open-invoices-proposed-remittance",
+      "originalAvailableMinor": {
+        "payment": 100,
+        "invoice-1": 60,
+        "invoice-2": 80
+      },
+      "allocationEventMinor": [
+        {
+          "payment": "payment",
+          "invoice": "invoice-1",
+          "amount": 40
+        },
+        {
+          "payment": "payment",
+          "invoice": "invoice-2",
+          "amount": 30
+        }
+      ],
+      "expectedAvailableMinor": {
+        "payment": 30,
+        "invoice-1": 20,
+        "invoice-2": 50
+      },
+      "afterWholeEventUndoAvailableMinor": {
+        "payment": 100,
+        "invoice-1": 60,
+        "invoice-2": 80
+      },
+      "expected": {
+        "allocationEngineChanged": false,
+        "overlapManufacturesCapacity": false,
+        "overlapGeneratesAllocationEvent": false
+      }
+    },
+    {
+      "id": "L",
+      "name": "bridge-and-counts-use-each-original-movement-once",
+      "originalMembers": [
+        {
+          "key": "s1",
+          "side": "supplier",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 100,
+          "voucherReference": ""
+        },
+        {
+          "key": "l1",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 2,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-01",
+          "amountMinor": 40,
+          "voucherReference": ""
+        },
+        {
+          "key": "l2",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 3,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-02",
+          "amountMinor": 60,
+          "voucherReference": ""
+        },
+        {
+          "key": "l3",
+          "side": "ledger",
+          "sheet": "Sheet1",
+          "row": 4,
+          "invoice": "INV-X",
+          "selectedReference": "",
+          "documentType": "Invoice",
+          "date": "2026-09-03",
+          "amountMinor": 100,
+          "voucherReference": ""
+        }
+      ],
+      "originalTotalsMinor": {
+        "supplier": 100,
+        "ledger": 200
+      },
+      "partitionRows": 4,
+      "initialAcceptedGroup": {
+        "supplierKeys": [
+          "s1"
+        ],
+        "ledgerKeys": [
+          "l1",
+          "l2"
+        ],
+        "totalMinor": 100,
+        "relation": "group-equivalence",
+        "pairwiseAllocation": false,
+        "varianceMinor": 0,
+        "bridgeEffectMinor": 0,
+        "kind": "manual"
+      },
+      "provenBalanceContext": {
+        "supplierOpeningMinor": 100,
+        "ledgerOpeningMinor": 120,
+        "supplierClosingMinor": 200,
+        "ledgerClosingMinor": 320,
+        "periodStart": "2026-09-01",
+        "periodEnd": "2026-09-30",
+        "bothArithmeticVerified": true,
+        "bothBalanceValid": true
+      },
+      "expected": {
+        "bridge": {
+          "delta": -120,
+          "openingAdjustment": 20,
+          "itemAdjustment": 100,
+          "adjusted": 320,
+          "residual": 0
+        },
+        "aggregateBridgeEffectMinor": 0,
+        "residualLedgerBridgeEffectMinor": 100,
+        "counts": {
+          "manualMatches": 1,
+          "autoMatchedCases": 0,
+          "matchedSourceRows": 3,
+          "needsReviewCases": 0,
+          "needsReviewSourceRows": 0,
+          "unmatchedCases": 1,
+          "unmatchedSourceRows": 1,
+          "rejectedCandidates": 0
+        },
+        "partitionRows": 4,
+        "physicalErrorsAndExclusionsStillInventoried": true
+      }
+    }
+  ]
+}

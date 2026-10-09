@@ -10,7 +10,11 @@ const SHORT: Record<Lang, string> = { ar: 'AR', en: 'EN' };
 export function LanguageSwitcher() {
   const { lang, setLang, t } = useI18n();
   return (
-    <div className="language-switch" role="group" aria-label={t.language.group}>
+    <fieldset
+      style={{ margin: 0, padding: 0, border: 0, minWidth: 0 }}
+      className="language-switch"
+      aria-label={t.language.group}
+    >
       {LANGUAGES.map((code, i) => (
         <span key={code} className="language-switch__item">
           {i > 0 && (
@@ -29,6 +33,6 @@ export function LanguageSwitcher() {
           </button>
         </span>
       ))}
-    </div>
+    </fieldset>
   );
 }

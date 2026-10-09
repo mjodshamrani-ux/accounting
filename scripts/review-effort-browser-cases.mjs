@@ -268,6 +268,43 @@ export async function verifyReviewEffort(page, baseUrl) {
         path: `work/qa/review-effort-${lang}.png`,
         fullPage: true,
       });
+      // Changing the reconciliation domain hides the source review, so it must
+      // pause immediately and require an explicit resume when returning.
+      await meter
+        .getByLabel(next.sample, { exact: true })
+        .selectOption('development');
+      await meter
+        .getByRole('button', { name: next.start, exact: true })
+        .click();
+      await page
+        .getByRole('button', {
+          name: messages[otherLang].clearing.entry,
+          exact: true,
+        })
+        .click();
+      await page.clock.runFor(10000);
+      await page
+        .getByRole('button', {
+          name: messages[otherLang].clearing.back,
+          exact: true,
+        })
+        .click();
+      await meter.getByText(next.paused.hidden, { exact: true }).waitFor();
+      await meter
+        .getByRole('button', { name: next.finish, exact: true })
+        .click();
+      const domainExport = page.waitForEvent('download');
+      await meter
+        .getByRole('button', { name: next.export, exact: true })
+        .click();
+      const domainPath = await (await domainExport).path();
+      const domainRecord = restoreReviewEffort(await readFile(domainPath, 'utf8'));
+      const domainSummary = summarizeReviewEffort(domainRecord);
+      assert.ok(domainSummary.pausedMs.hidden >= 10000);
+      assert.ok(
+        domainSummary.activeMs < 1000,
+        'clearing work must not count toward image review',
+      );
       console.log(
         `[browser] effort ${lang}: timing, pauses, idle, processing, rework, export, restart and layout passed (accelerated synthetic test; background=simulated blur handler)`,
       );

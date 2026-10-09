@@ -39,7 +39,7 @@ function reading(f: SourceFile): Mapping {
   return { ...m, ...suggestFormats(f, m, scope.decimals).patch };
 }
 
-test('partial formats isolate malformed dates and amounts without losing original rows or choosing a default', () => {
+void test('partial formats isolate malformed dates and amounts without losing original rows or choosing a default', () => {
   const f = file([
     ['2026-08-01', 'INV-001', '123,45'],
     ['impossible', 'INV-002', 'not an amount'],
@@ -73,7 +73,7 @@ test('partial formats isolate malformed dates and amounts without losing origina
   assert.equal(source.balanceValid, false);
 });
 
-test('partial formats cannot cherry-pick contradictory but valid conventions', () => {
+void test('partial formats cannot cherry-pick contradictory but valid conventions', () => {
   const f = file([
     ['2026-08-01', 'INV-001', '100,50'],
     ['2026-08-02', 'INV-002', '100.50'],
@@ -87,7 +87,7 @@ test('partial formats cannot cherry-pick contradictory but valid conventions', (
   assert.throws(() => assertInputFormats([f], [m], scope));
 });
 
-test('unsafe comma evidence never scales the remaining ambiguous KWD amount', () => {
+void test('unsafe comma evidence never scales the remaining ambiguous KWD amount', () => {
   const f = file([
     ['2026-08-01', 'INV-001', '100,50'],
     ['2026-08-02', 'INV-002', '1,234'],
@@ -101,7 +101,7 @@ test('unsafe comma evidence never scales the remaining ambiguous KWD amount', ()
   assert.throws(() => assertInputFormats([f], [m], scope));
 });
 
-test('partial formats do not allow a stale chosen convention to bypass proven evidence', () => {
+void test('partial formats do not allow a stale chosen convention to bypass proven evidence', () => {
   const f = file([
     ['2026-08-01', 'INV-001', '100,50'],
     ['2026-08-02', 'INV-002', '1,234'],
@@ -112,7 +112,7 @@ test('partial formats do not allow a stale chosen convention to bypass proven ev
   assert.throws(() => assertInputFormats([f], [m], scope), /الصيغة المختارة/);
 });
 
-test('native numeric cells remain independent of display format while formula or percentage cells remain errors', () => {
+void test('native numeric cells remain independent of display format while formula or percentage cells remain errors', () => {
   const f = file([
     ['2026-08-01', 'INV-001', '1,234'],
     ['2026-08-02', 'INV-002', '500'],
@@ -141,7 +141,7 @@ test('native numeric cells remain independent of display format while formula or
   );
 });
 
-test('no readable date or amount evidence remains an explicit unresolved source, not a default', () => {
+void test('no readable date or amount evidence remains an explicit unresolved source, not a default', () => {
   const f = file([['bad date', 'INV-001', 'unknown']]);
   const m = inferMapping(f),
     a = suggestFormats(f, m, 3);
@@ -151,7 +151,7 @@ test('no readable date or amount evidence remains an explicit unresolved source,
   assert.throws(() => assertInputFormats([f], [m], scope));
 });
 
-test('malformed companion rows cannot answer genuine date ambiguity or transfer a choice to different evidence', () => {
+void test('malformed companion rows cannot answer genuine date ambiguity or transfer a choice to different evidence', () => {
   const f = file([
     ['01/02/2026', 'INV-001', '100.50'],
     ['bad date', 'INV-002', 'bad amount'],

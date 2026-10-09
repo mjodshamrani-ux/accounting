@@ -1,0 +1,745 @@
+{
+  "version": "p5-browser-device-measurement-v1",
+  "startedAt": "2026-10-08T01:57:49.521Z",
+  "developmentOnly": true,
+  "productEnabled": false,
+  "synthetic": true,
+  "semanticAcceptance": false,
+  "physicalWeakDeviceEvidence": false,
+  "deviceEvidence": {
+    "physical": true,
+    "throttled": false,
+    "classificationBasis": "current development host; no weak-device claim"
+  },
+  "freezeSha256": "b33009c528a92f3b1ae0d1925d93936d0fec3c034f914ec9984bd98283eae2d9",
+  "sourceCommit": "faaffb9f06d96c15c27f2b129ffc62e5c5e4a874",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.6.0",
+    "cpu": "Apple M5",
+    "ramBytes": 17179869184,
+    "logicalCpus": 10
+  },
+  "browser": {
+    "version": "154.0.8037.98"
+  },
+  "backend": "wasm",
+  "threadProfile": {
+    "requested": 4,
+    "observedHardwareConcurrency": 10,
+    "crossOriginIsolated": true
+  },
+  "model": {
+    "id": "onnx-community/Qwen2.5-0.5B-Instruct",
+    "revision": "22942cb7d7ba4cc81bb4673549ca4d4614469b5e",
+    "dtype": "q8",
+    "totalBytes": 519137612
+  },
+  "runtime": {
+    "transformers": "4.3.0",
+    "onnxruntimeWeb": "1.31.0-dev.20260914-8d85527a0"
+  },
+  "assets": [
+    {
+      "path": "config.json",
+      "bytes": 678,
+      "sha256": "777e01f0fbb3346eb229cb6fb278ed6533c1e4dcb9ebf4bed0f6e94ef17fa1b5",
+      "verified": true
+    },
+    {
+      "path": "generation_config.json",
+      "bytes": 242,
+      "sha256": "f7e7ce458658b2d40d9eb213b91b77a8bf698845ab89360976722d7ac46928a3",
+      "verified": true
+    },
+    {
+      "path": "special_tokens_map.json",
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "verified": true
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 7031673,
+      "sha256": "a8506e7111b80c6d8635951a02eab0f4e1a8e4e5772da83846579e97b16f61bf",
+      "verified": true
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 7849,
+      "sha256": "6a14243f0ae04884e597b3f032c05e15de9f417318fdcac24ab4e2680e691430",
+      "verified": true
+    },
+    {
+      "path": "onnx/model_quantized.onnx",
+      "bytes": 512096557,
+      "sha256": "41834041ab1b29eff9fc592f1a29a1844133aea35832ea9fa91682be13016100",
+      "verified": true
+    }
+  ],
+  "network": {
+    "boundary": "Playwright request interception and loopback HTTP asset whitelist; no OS air-gap claim",
+    "osAirGap": false,
+    "requests": [
+      {
+        "url": "http://127.0.0.1:60109/",
+        "method": "GET",
+        "resourceType": "document",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/harness/controller.mjs",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/harness/worker.mjs",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/runtime/transformers.min.js",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/models/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer_config.json",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/models/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer.json",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/models/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer_config.json",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/models/onnx-community/Qwen2.5-0.5B-Instruct/config.json",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/models/onnx-community/Qwen2.5-0.5B-Instruct/onnx/model_quantized.onnx",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/models/onnx-community/Qwen2.5-0.5B-Instruct/generation_config.json",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/runtime/ort-wasm-simd-threaded.asyncify.mjs",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/runtime/ort-wasm-simd-threaded.asyncify.wasm",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/harness/worker.mjs",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/runtime/transformers.min.js",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60109/missing-model/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer_config.json",
+        "method": "GET",
+        "resourceType": "fetch",
+        "allowed": true
+      }
+    ],
+    "serverRequests": [
+      {
+        "method": "GET",
+        "path": "/",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/harness/controller.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/harness/worker.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/transformers.min.js",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/models/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer_config.json",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/models/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer.json",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/models/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer_config.json",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/models/onnx-community/Qwen2.5-0.5B-Instruct/config.json",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/models/onnx-community/Qwen2.5-0.5B-Instruct/onnx/model_quantized.onnx",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/models/onnx-community/Qwen2.5-0.5B-Instruct/generation_config.json",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/ort-wasm-simd-threaded.asyncify.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/ort-wasm-simd-threaded.asyncify.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/ort-wasm-simd-threaded.asyncify.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/ort-wasm-simd-threaded.asyncify.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/ort-wasm-simd-threaded.asyncify.wasm",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/harness/worker.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/transformers.min.js",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/missing-model/onnx-community/Qwen2.5-0.5B-Instruct/tokenizer_config.json",
+        "allowed": false
+      }
+    ]
+  },
+  "memory": {
+    "method": "CDP SystemInfo.getProcessInfo owned Chrome PIDs + complete ps RSS sum",
+    "limitBytes": 6442450944,
+    "intervalMs": 500,
+    "samples": [
+      {
+        "at": "2026-10-08T01:57:50.013Z",
+        "stage": "launch",
+        "bytes": 477364224,
+        "pids": [
+          3723,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:50.518Z",
+        "stage": "load",
+        "bytes": 1455390720,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:51.023Z",
+        "stage": "load",
+        "bytes": 2652618752,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:51.528Z",
+        "stage": "load",
+        "bytes": 2807087104,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:52.034Z",
+        "stage": "extract-en-1",
+        "bytes": 3054911488,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:52.539Z",
+        "stage": "extract-en-1",
+        "bytes": 3079307264,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:53.044Z",
+        "stage": "extract-en-1",
+        "bytes": 3460464640,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:53.551Z",
+        "stage": "extract-en-1",
+        "bytes": 3614130176,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:54.057Z",
+        "stage": "extract-ar-1",
+        "bytes": 3240214528,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:54.563Z",
+        "stage": "extract-ar-1",
+        "bytes": 3240247296,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:55.069Z",
+        "stage": "extract-ar-1",
+        "bytes": 3240869888,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:55.575Z",
+        "stage": "extract-ar-1",
+        "bytes": 3383853056,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:56.079Z",
+        "stage": "chat-matched-en",
+        "bytes": 3376480256,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:56.585Z",
+        "stage": "chat-matched-en",
+        "bytes": 3376480256,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:57.089Z",
+        "stage": "chat-matched-en",
+        "bytes": 3380445184,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:57.595Z",
+        "stage": "chat-matched-en",
+        "bytes": 3362553856,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:58.101Z",
+        "stage": "chat-matched-ar",
+        "bytes": 3362766848,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:58.604Z",
+        "stage": "chat-matched-ar",
+        "bytes": 3362766848,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:59.109Z",
+        "stage": "chat-matched-ar",
+        "bytes": 3362766848,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      },
+      {
+        "at": "2026-10-08T01:57:59.615Z",
+        "stage": "chat-matched-ar",
+        "bytes": 3525984256,
+        "pids": [
+          3723,
+          3735,
+          3732,
+          3731,
+          3727,
+          3728,
+          3729
+        ]
+      }
+    ],
+    "gaps": [],
+    "peakBytes": 3614130176,
+    "limitExceeded": false,
+    "limitations": "RSS sum can double-count shared pages; snapshots can miss peaks between samples. Missing PIDs invalidate the complete sample."
+  },
+  "cases": [
+    {
+      "id": "extract-en-1",
+      "task": "extract",
+      "inputSha256": "b2cad8b318f649c6dd7906818300ae78ccc4cd93c394502da610f0b8202cb8b7",
+      "expectedSha256": "e3c321defaaadc8d48035f2ad891e08f4a3331b2dff6db7d62d0ca0f67d6de42",
+      "status": "ok",
+      "value": {
+        "elapsedMs": 2224.735000014305,
+        "inputTokens": 203,
+        "generatedTokenIds": [
+          73594,
+          2236,
+          198,
+          515,
+          220,
+          330,
+          22217,
+          25433,
+          788,
+          330,
+          62931,
+          12,
+          18,
+          15,
+          15,
+          756
+        ],
+        "generatedTokens": 16,
+        "raw": "```json\n{\n  \"invoice_reference\": \"INV-300\",\n"
+      },
+      "wallMs": 2228.3009589999997,
+      "semanticScored": false
+    },
+    {
+      "id": "extract-ar-1",
+      "task": "extract",
+      "inputSha256": "c3104a6ed30180638ea415d2292768a6fda9d6310cbb033f03dfd39e87a78b05",
+      "expectedSha256": "02700a93ff3e9a3d3811c0a4a0a2dff44c1a15e036bb2b7d07861c7e1f2fef71",
+      "status": "ok",
+      "value": {
+        "elapsedMs": 1767.0049999952316,
+        "inputTokens": 206,
+        "generatedTokenIds": [
+          26338,
+          17316,
+          127537,
+          0,
+          134948,
+          131616,
+          92647,
+          1478,
+          13073,
+          97017,
+          69083,
+          1447,
+          73594,
+          2236,
+          198,
+          515
+        ],
+        "generatedTokens": 16,
+        "raw": "Конечно! Вот пример ответа на ваш запрос:\n\n```json\n{\n"
+      },
+      "wallMs": 1775.7787079999998,
+      "semanticScored": false
+    },
+    {
+      "id": "chat-matched-en",
+      "task": "chat",
+      "inputSha256": "2bfc3d189ebd3f6524c00bbabae363d6f7aec4aeae9f198e13b575e93a645b3f",
+      "expectedSha256": "0a5d188f0a4d2ba52340e7bfa168f85eac0f4c49bc22daac4894a6eaddae1f0a",
+      "status": "ok",
+      "value": {
+        "elapsedMs": 2081.9150000214577,
+        "inputTokens": 262,
+        "generatedTokenIds": [
+          39814,
+          11,
+          358,
+          646,
+          1492,
+          498,
+          14198,
+          279,
+          2661,
+          12641,
+          369,
+          458,
+          24615,
+          13,
+          5209,
+          3410
+        ],
+        "generatedTokens": 16,
+        "raw": "Sure, I can help you interpret the given quote for an invoice. Please provide"
+      },
+      "wallMs": 2083.053417,
+      "semanticScored": false
+    },
+    {
+      "id": "chat-matched-ar",
+      "task": "chat",
+      "inputSha256": "0e39e0adad22f95220e13c1e0a640faff9b99f43d3793609eb23f651891addb2",
+      "expectedSha256": "0a5d188f0a4d2ba52340e7bfa168f85eac0f4c49bc22daac4894a6eaddae1f0a",
+      "status": "ok",
+      "value": {
+        "elapsedMs": 2179.7699999809265,
+        "inputTokens": 268,
+        "generatedTokenIds": [
+          785,
+          1196,
+          594,
+          1681,
+          4977,
+          311,
+          387,
+          911,
+          264,
+          5896,
+          7745,
+          15860,
+          458,
+          24615,
+          369,
+          400
+        ],
+        "generatedTokens": 16,
+        "raw": "The user's request seems to be about a financial transaction involving an invoice for $"
+      },
+      "wallMs": 2180.9012919999986,
+      "semanticScored": false
+    }
+  ],
+  "probes": {
+    "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 10,
+      "crossOriginIsolated": true,
+      "webgpuExposed": true
+    },
+    "cancellation": {
+      "result": {
+        "status": "fallback",
+        "reason": "cancelled",
+        "error": null
+      },
+      "generationObserved": true,
+      "terminatedWorkers": 1,
+      "elapsedMs": 0.5499999821186066,
+      "active": false,
+      "workerPresent": false
+    },
+    "missingAsset": {
+      "status": "fallback",
+      "reason": "runtime-unavailable",
+      "error": "TypeError: Cannot read properties of undefined (reading 'tokenizer_class')"
+    },
+    "unavailable": {
+      "status": "fallback",
+      "reason": "worker-unavailable",
+      "error": "Error: Unavailable worker capability"
+    },
+    "staleReply": {
+      "accepted": false,
+      "staleReplies": 1
+    }
+  },
+  "errors": [],
+  "limitations": [
+    "Four small frozen synthetic runtime smokes; output is not semantic acceptance.",
+    "Request routing restricts page and worker requests; Chromium background networking is not an OS air-gap proof.",
+    "Host observations and any CPU throttling cannot substitute for a physical weak-device run."
+  ],
+  "load": {
+    "status": "ok",
+    "value": {
+      "loadMs": 1607.9350000023842,
+      "crossOriginIsolated": true,
+      "hardwareConcurrency": 10,
+      "backend": "wasm",
+      "threads": 4
+    },
+    "wallMs": 1636.7279999999998
+  },
+  "completedAt": "2026-10-08T01:58:00.292Z",
+  "schemaErrors": [],
+  "runtimeSmokePassed": true
+}

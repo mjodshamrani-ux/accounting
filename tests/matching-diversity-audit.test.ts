@@ -166,7 +166,7 @@ function permutations<T>(rows: T[]): T[][] {
       );
 }
 
-test('known contradictory document types never auto-match equal signed amounts and exact references', () => {
+void test('known contradictory document types never auto-match equal signed amounts and exact references', () => {
   for (const [a, b] of [
     ['Invoice', 'Credit Note'],
     ['Invoice', 'Payment'],
@@ -227,7 +227,7 @@ test('known contradictory document types never auto-match equal signed amounts a
   );
 });
 
-test('contradictory explicit PO evidence blocks auto-match while ordinary internal voucher differences do not', () => {
+void test('contradictory explicit PO evidence blocks auto-match while ordinary internal voucher differences do not', () => {
   const a = [
     { ref: 'INV-8201', amount: '713.11', po: 'PO-410', voucher: 'SUP-731' },
   ];
@@ -244,7 +244,7 @@ test('contradictory explicit PO evidence blocks auto-match while ordinary intern
   );
 });
 
-test('a mapped invoice reference is not replaced by an unrelated common PO', () => {
+void test('a mapped invoice reference is not replaced by an unrelated common PO', () => {
   const h = [...headers];
   h[1] = 'Reference';
   const a = normalizeSource(
@@ -266,7 +266,7 @@ test('a mapped invoice reference is not replaced by an unrelated common PO', () 
   conserved(r);
 });
 
-test('PO-only identity remains visible but cannot certify one invoice or a group of invoices', () => {
+void test('PO-only identity remains visible but cannot certify one invoice or a group of invoices', () => {
   for (const [a, b] of [
     [
       [{ ref: '', amount: '92', po: 'PO-740' }],
@@ -286,7 +286,7 @@ test('PO-only identity remains visible but cannot certify one invoice or a group
   }
 });
 
-test('identical repeated posting lines cannot be proved distinct by their sum', () => {
+void test('identical repeated posting lines cannot be proved distinct by their sum', () => {
   const single = [{ ref: 'INV-DUP-80', amount: '184', po: 'PO-388' }];
   const repeated = Array.from({ length: 2 }, () => ({
     ref: 'INV-DUP-80',
@@ -306,7 +306,7 @@ test('identical repeated posting lines cannot be proved distinct by their sum', 
   }
 });
 
-test('F03 preserves historical group sources: Invoice No proves an invoice group but not a credit-note group', () => {
+void test('F03 preserves historical group sources: Invoice No proves an invoice group but not a credit-note group', () => {
   for (const sign of [1, -1])
     for (const reverse of [false, true]) {
       const type = sign === 1 ? 'Invoice' : 'Credit Note';
@@ -347,7 +347,7 @@ test('F03 preserves historical group sources: Invoice No proves an invoice group
     }
 });
 
-test('one-to-many proof fails with altered amount, date, type, PO, voucher or unreadable identity', () => {
+void test('one-to-many proof fails with altered amount, date, type, PO, voucher or unreadable identity', () => {
   const single = [{ ref: 'INV-MUT-81', amount: '184', po: 'PO-387' }];
   const group = [
     { ref: 'INV-MUT-81', amount: '80', po: 'PO-387', voucher: 'AP-711' },
@@ -374,7 +374,7 @@ test('one-to-many proof fails with altered amount, date, type, PO, voucher or un
   assert.equal(compare(...pair, scope).matches.length, 0);
 });
 
-test('mixed signs, competing whole groups and subset coincidences never produce a group match', () => {
+void test('mixed signs, competing whole groups and subset coincidences never produce a group match', () => {
   for (const [a, b] of [
     [
       [{ ref: 'INV-SUB-54', amount: '100', po: 'PO-87' }],
@@ -405,7 +405,7 @@ test('mixed signs, competing whole groups and subset coincidences never produce 
     assert.equal(run(a, b).matches.length, 0);
 });
 
-test('currency from another normalized scope cannot be compared, including manual decisions', () => {
+void test('currency from another normalized scope cannot be compared, including manual decisions', () => {
   const a = sources(
     [{ ref: 'INV-FX-01', amount: '100' }],
     [{ ref: 'INV-FX-01', amount: '100' }],
@@ -521,7 +521,7 @@ test('currency from another normalized scope cannot be compared, including manua
   }
 });
 
-test('date boundaries, signed zero and reference punctuation do not silently broaden identity', () => {
+void test('date boundaries, signed zero and reference punctuation do not silently broaden identity', () => {
   const a = [{ ref: 'INV-DATE-55', amount: '178.31', date: '2026-09-10' }];
   assert.equal(run(a, [{ ...a[0], date: '2026-09-13' }]).matches.length, 1);
   assert.equal(run(a, [{ ...a[0], date: '2026-09-14' }]).matches.length, 0);
@@ -533,7 +533,7 @@ test('date boundaries, signed zero and reference punctuation do not silently bro
   );
 });
 
-test('unique payment amount with different references remains review-only under every row permutation', () => {
+void test('unique payment amount with different references remains review-only under every row permutation', () => {
   const a = [
     {
       ref: 'RCPT-760',
@@ -575,7 +575,7 @@ test('unique payment amount with different references remains review-only under 
   );
 });
 
-test('classification and row conservation are invariant under 864 independent source permutations', () => {
+void test('classification and row conservation are invariant under 864 independent source permutations', () => {
   const a = [
     { ref: 'INV-EXACT-11', amount: '109.17' },
     { ref: 'INV-GROUP-19', amount: '731.14', po: 'PO-567' },
@@ -601,7 +601,7 @@ test('classification and row conservation are invariant under 864 independent so
   assert.equal(checks, 864);
 });
 
-test('exact minor units remain conserved for all supported scales and arithmetic limits reject overflow', () => {
+void test('exact minor units remain conserved for all supported scales and arithmetic limits reject overflow', () => {
   for (const decimals of [0, 2, 3]) {
     const unit = 10 ** decimals;
     const amount = decimals === 0 ? '91' : decimals === 2 ? '91.07' : '91.007';
@@ -629,7 +629,7 @@ test('exact minor units remain conserved for all supported scales and arithmetic
   assert.throws(() => compare(...pair, s));
 });
 
-test('repeated headers with formula, hidden or unreadable cells cannot silently leave the transaction population', () => {
+void test('repeated headers with formula, hidden or unreadable cells cannot silently leave the transaction population', () => {
   const clean = file([{ ref: 'INV-REPEAT-88', amount: '113.19' }]);
   clean.sheets[0].rows.push([...headers]);
   const benign = normalizeSource(clean, mapping, scope, 'supplier');
@@ -664,7 +664,7 @@ test('repeated headers with formula, hidden or unreadable cells cannot silently 
   }
 });
 
-test('overlapping rejected edges never choose arbitrary partners under source or decision permutations', () => {
+void test('overlapping rejected edges never choose arbitrary partners under source or decision permutations', () => {
   const a = [
     { ref: 'INV-REJECT-S1', amount: '71.93' },
     { ref: 'INV-REJECT-S2', amount: '71.93' },

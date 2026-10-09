@@ -1,0 +1,93 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_BROWSER_NEGATIVE_DOT_TRUTH_V1",
+  "synthetic": true,
+  "productImports": false,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "nativeAccepted": false,
+  "runtimeAcceptance": false,
+  "sourceCase": "kwd-excess-fraction",
+  "languages": [
+    "ar",
+    "en"
+  ],
+  "originalSha256": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+  "originalByteLength": 1312,
+  "frozenExpectedSha256": "94072889cc760b0a9da9c302818c6144f64d9ee70c7842b0d732af4367ede928",
+  "currency": "KWD",
+  "decimals": 3,
+  "amountHeader": "Signed amount (KWD)",
+  "acknowledgement": {
+    "originalDotInterpretationReviewed": true
+  },
+  "originalNumberFormatChoice": {
+    "value": "dot",
+    "sheet": 0,
+    "header": 0,
+    "columns": [
+      3
+    ],
+    "decimals": 3,
+    "candidates": [
+      "dot",
+      "comma"
+    ],
+    "excludedRows": [],
+    "balanceInputs": [
+      "",
+      ""
+    ],
+    "sourceHash": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+    "cuts": [
+      25,
+      45,
+      70
+    ]
+  },
+  "originalExtractionBinding": {
+    "required": [
+      "extractionHash",
+      "extractionRevision"
+    ],
+    "valuesMustComeFrom": "fresh native replay and current reading of this exact negative original; never reuse positive extraction values or invent pre-code hashes"
+  },
+  "ownOriginalHeaderEvidence": {
+    "sourceHash": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+    "sheet": 1,
+    "row": 1,
+    "page": 1,
+    "column": 4,
+    "literal": "Signed amount (KWD)"
+  },
+  "lateRefusalCell": {
+    "sheet": 1,
+    "row": 4,
+    "page": 1,
+    "column": 4,
+    "literal": "+2.0001",
+    "fixedPolicyScaledExactDecimal": "2000.1000",
+    "integralMinorUnits": false,
+    "roundingAllowed": false
+  },
+  "frozenOutcome": "blocked",
+  "expectedSequence": [
+    "fresh own original extraction and allowed candidate reconstruction",
+    "select matching KWD3 and own bound dot choice",
+    "explicit original dot acknowledgement plus ordinary reviewer/rationale/proposal review",
+    "currency admission permits owned structural review receipt",
+    "Apply consumes/invalidate owned receipt before awaited replay",
+    "full original reading refuses row4 excessive fractional precision",
+    "no partial artifact, derived CSV, sidecar, download or surviving usable receipt"
+  ],
+  "wrongCopiedPositiveChoices": {
+    "originalSourceHashes": {
+      "kwd-on-page": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+      "kwd-cross-page": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0",
+      "kwd-own-reference": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7"
+    },
+    "expected": "different original sourceHash refuses before currency receipt mint; the separate dot acknowledgement cannot repair it"
+  },
+  "derivedChoiceOrOutputTruth": null,
+  "financialScopeConfirmed": false,
+  "economicTruthChanged": false
+}

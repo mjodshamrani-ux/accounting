@@ -18,7 +18,7 @@ const scope = {
 };
 for (const producer of ['openpyxl', 'xlsxwriter'])
   for (const lang of ['ar', 'en'])
-    test(`046 valid ${producer} ${lang}: merged preamble, native dates, long/zero-prefixed references and hidden row retained once`, async () => {
+    void test(`046 valid ${producer} ${lang}: merged preamble, native dates, long/zero-prefixed references and hidden row retained once`, async () => {
       const name = `${producer}-${lang}.xlsx`;
       const buffer = await bytes(
         new URL('./fixtures/xlsx-046/' + name, import.meta.url),

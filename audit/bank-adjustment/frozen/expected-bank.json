@@ -1,0 +1,3040 @@
+{
+  "sample": "synthetic-not-field",
+  "version": "bank-cash-movements-1",
+  "scope": {
+    "entity": "Synthetic Cash Owner",
+    "ledger": "Primary Book",
+    "account": "BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30"
+  },
+  "headers": [
+    "Record ID",
+    "Settlement ID",
+    "Movement date",
+    "Value date",
+    "Cash direction",
+    "Role",
+    "Parent payment ID",
+    "Reverses record ID",
+    "Policy",
+    "Status",
+    "Entity",
+    "Ledger",
+    "Bank account",
+    "Currency",
+    "Period start",
+    "Period end",
+    "Amount"
+  ],
+  "cases": [
+    {
+      "name": "equal-empty",
+      "files": [
+        {
+          "file": "equal-empty-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "equal-empty-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "closing-outflow",
+      "files": [
+        {
+          "file": "closing-outflow-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "closing-outflow-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "closing-inflow",
+      "files": [
+        {
+          "file": "closing-inflow-0.csv",
+          "sha256": "1ec625b6aa057d7f52bd36d8df72fc666bf9e5e695e1d80109971f82b0aad941"
+        },
+        {
+          "file": "closing-inflow-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B1",
+          "settlement": "GROUP-B1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "inflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": 10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B1",
+          "bank": [
+            "B1"
+          ],
+          "cash": [],
+          "bankMinor": 10000,
+          "cashMinor": 0,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "old-carried",
+      "files": [
+        {
+          "file": "old-carried-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "old-carried-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "old-cleared",
+      "files": [
+        {
+          "file": "old-cleared-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "old-cleared-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "GROUP-B-clear",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-clear",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "old-correction-carried",
+      "files": [
+        {
+          "file": "old-correction-carried-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "old-correction-carried-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "pending",
+      "files": [
+        {
+          "file": "pending-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "pending-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "undo",
+      "files": [
+        {
+          "file": "undo-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "undo-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "reject",
+      "files": [
+        {
+          "file": "reject-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "reject-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "reject-undo-accept",
+      "files": [
+        {
+          "file": "reject-undo-accept-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "reject-undo-accept-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "carry-undo",
+      "files": [
+        {
+          "file": "carry-undo-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "carry-undo-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-adjust-side",
+      "files": [
+        {
+          "file": "wrong-adjust-side-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-adjust-side-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "amount-not-proof",
+      "files": [
+        {
+          "file": "amount-not-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "amount-not-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "blank-evidence",
+      "files": [
+        {
+          "file": "blank-evidence-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "blank-evidence-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "duplicate-item",
+      "files": [
+        {
+          "file": "duplicate-item-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "duplicate-item-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "malformed-competing-item",
+      "files": [
+        {
+          "file": "malformed-competing-item-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "malformed-competing-item-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "duplicate-proof",
+      "files": [
+        {
+          "file": "duplicate-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "duplicate-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "malformed-competing-proof",
+      "files": [
+        {
+          "file": "malformed-competing-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "malformed-competing-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "item-scope-mismatch",
+      "files": [
+        {
+          "file": "item-scope-mismatch-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "item-scope-mismatch-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "proof-scope-mismatch",
+      "files": [
+        {
+          "file": "proof-scope-mismatch-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "proof-scope-mismatch-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "unlisted-old-closing",
+      "files": [
+        {
+          "file": "unlisted-old-closing-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unlisted-old-closing-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "missing-clearing-proof",
+      "files": [
+        {
+          "file": "missing-clearing-proof-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "missing-clearing-proof-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "GROUP-B-clear",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-clear",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-clearing-sign",
+      "files": [
+        {
+          "file": "wrong-clearing-sign-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-sign-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "GROUP-B-clear",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-clear",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-clearing-record",
+      "files": [
+        {
+          "file": "wrong-clearing-record-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-record-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "GROUP-B-clear",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-clear",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-current-record",
+      "files": [
+        {
+          "file": "wrong-current-record-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-current-record-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-current-date",
+      "files": [
+        {
+          "file": "wrong-current-date-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-current-date-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "zero-adjustment",
+      "files": [
+        {
+          "file": "zero-adjustment-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "zero-adjustment-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "unknown-fee-kind",
+      "files": [
+        {
+          "file": "unknown-fee-kind-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unknown-fee-kind-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "unused-proof",
+      "files": [
+        {
+          "file": "unused-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "unused-proof-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "proof-reuse",
+      "files": [
+        {
+          "file": "proof-reuse-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "proof-reuse-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "movement-reuse",
+      "files": [
+        {
+          "file": "movement-reuse-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "movement-reuse-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "own-bridge-gap",
+      "files": [
+        {
+          "file": "own-bridge-gap-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "own-bridge-gap-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "uncovered-movement",
+      "files": [
+        {
+          "file": "uncovered-movement-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "uncovered-movement-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "unresolved-equal-net",
+      "files": [
+        {
+          "file": "unresolved-equal-net-0.csv",
+          "sha256": "4038dbcbd98053eb871fba9eca429b1867e7cb2c2b5e459644d63be63ceb5c78"
+        },
+        {
+          "file": "unresolved-equal-net-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-in",
+          "settlement": "GROUP-B-in",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "inflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": 10000
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "B-out",
+          "settlement": "GROUP-B-out",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-in",
+          "bank": [
+            "B-in"
+          ],
+          "cash": [],
+          "bankMinor": 10000,
+          "cashMinor": 0,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        },
+        {
+          "key": "GROUP-B-out",
+          "bank": [
+            "B-out"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-in",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        },
+        {
+          "side": 0,
+          "row": 3,
+          "reference": "B-out",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "blank-inventory",
+      "files": [
+        {
+          "file": "blank-inventory-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "blank-inventory-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "isolated-own-bridge-gap",
+      "files": [
+        {
+          "file": "isolated-own-bridge-gap-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "isolated-own-bridge-gap-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "settlement-cannot-hide-policy",
+      "files": [
+        {
+          "file": "settlement-cannot-hide-policy-0.csv",
+          "sha256": "44aca2ad5692cfcb10c0c83c580ecdd1e9b2b103463978027daf2568723d60d2"
+        },
+        {
+          "file": "settlement-cannot-hide-policy-1.csv",
+          "sha256": "402c1c75419c6be4e961f37c0342e31b96bfc13d91fdb025a2929571b76bc0df"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "CLEAR",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "inflow",
+          "role": "periodic-fee",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": 10000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C-clear",
+          "settlement": "CLEAR",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "inflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": 10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "CLEAR",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [
+            "C-clear"
+          ],
+          "bankMinor": 10000,
+          "cashMinor": 10000,
+          "deltaMinor": 0,
+          "status": "needs-review",
+          "reason": "policy-members",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "settlement-cannot-hide-undo",
+      "files": [
+        {
+          "file": "settlement-cannot-hide-undo-0.csv",
+          "sha256": "e4ebbf1ac23e176efffaa994138e32618e38544f78db6ea178bedcf92862141e"
+        },
+        {
+          "file": "settlement-cannot-hide-undo-1.csv",
+          "sha256": "402c1c75419c6be4e961f37c0342e31b96bfc13d91fdb025a2929571b76bc0df"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "CLEAR",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "inflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": 10000
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C-clear",
+          "settlement": "CLEAR",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "inflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": 10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "CLEAR",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [
+            "C-clear"
+          ],
+          "bankMinor": 10000,
+          "cashMinor": 10000,
+          "deltaMinor": 0,
+          "status": "matched-evidence",
+          "reason": "explicit-identity",
+          "eligible": true
+        }
+      ],
+      "actions": [
+        {
+          "type": "undo",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [
+            "C-clear"
+          ],
+          "expectedStatus": "needs-review"
+        }
+      ],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "changed-carry-proof",
+      "files": [
+        {
+          "file": "changed-carry-proof-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "changed-carry-proof-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-value-date",
+      "files": [
+        {
+          "file": "wrong-value-date-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "wrong-value-date-1.csv",
+          "sha256": "b49b0f418595fe9c76100841da8cbb6e1ffd95c59448788badfb708a45315502"
+        }
+      ],
+      "records": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "settlement": "GROUP-C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 2,
+          "kind": "movement"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-C1",
+          "bank": [],
+          "cash": [
+            "C1"
+          ],
+          "bankMinor": 0,
+          "cashMinor": -10000,
+          "deltaMinor": 10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [
+        {
+          "side": 1,
+          "row": 2,
+          "reference": "C1",
+          "movementDate": "2026-09-20",
+          "valueDate": "2026-10-02",
+          "outsidePeriod": true,
+          "validMovement": true
+        }
+      ],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-clearing-date",
+      "files": [
+        {
+          "file": "wrong-clearing-date-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-date-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "GROUP-B-clear",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-clear",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "wrong-clearing-side",
+      "files": [
+        {
+          "file": "wrong-clearing-side-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "wrong-clearing-side-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "GROUP-B-clear",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-clear",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "positive-adjusted-overflow",
+      "files": [
+        {
+          "file": "positive-adjusted-overflow-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "positive-adjusted-overflow-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "negative-adjusted-overflow",
+      "files": [
+        {
+          "file": "negative-adjusted-overflow-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "negative-adjusted-overflow-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "carry-with-future-value",
+      "files": [
+        {
+          "file": "carry-with-future-value-0.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        },
+        {
+          "file": "carry-with-future-value-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    },
+    {
+      "name": "settlement-before-original-value",
+      "files": [
+        {
+          "file": "settlement-before-original-value-0.csv",
+          "sha256": "f5f0dc76256c44cb0dff55dac5a46b6d82077ed67b0d283c2387a48b49099937"
+        },
+        {
+          "file": "settlement-before-original-value-1.csv",
+          "sha256": "0d66ba7c8c221db46538f0fbb8d5302d5d5b663688d617ccea0ede9e012cc876"
+        }
+      ],
+      "records": [
+        {
+          "side": 0,
+          "row": 2,
+          "reference": "B-clear",
+          "settlement": "GROUP-B-clear",
+          "movementDate": "2026-09-10",
+          "valueDate": "2026-09-10",
+          "direction": "outflow",
+          "role": "principal",
+          "parent": "",
+          "reverses": "",
+          "policy": "individual",
+          "amount": 10000,
+          "signed": -10000
+        }
+      ],
+      "inventory": [
+        {
+          "side": 0,
+          "row": 1,
+          "kind": "header"
+        },
+        {
+          "side": 0,
+          "row": 2,
+          "kind": "movement"
+        },
+        {
+          "side": 1,
+          "row": 1,
+          "kind": "header"
+        }
+      ],
+      "groups": [
+        {
+          "key": "GROUP-B-clear",
+          "bank": [
+            "B-clear"
+          ],
+          "cash": [],
+          "bankMinor": -10000,
+          "cashMinor": 0,
+          "deltaMinor": -10000,
+          "status": "needs-review",
+          "reason": "missing-counterpart",
+          "eligible": false
+        }
+      ],
+      "actions": [],
+      "timingItems": [],
+      "sourceError": false
+    }
+  ]
+}

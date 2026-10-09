@@ -1,0 +1,81 @@
+{
+  "outcome": "candidate",
+  "fields": {
+    "date": "2026-09-13",
+    "reference": "INV-413",
+    "amount": "115.00",
+    "currency": "ريال سعودي"
+  },
+  "normalizedCurrency": "SAR",
+  "amountMinor": "11500",
+  "evidence": {
+    "date": {
+      "value": {
+        "startUtf16": 200,
+        "endUtf16": 210,
+        "startByte": 322,
+        "endByte": 332,
+        "literal": "2026-09-13"
+      },
+      "role": {
+        "startUtf16": 185,
+        "endUtf16": 198,
+        "startByte": 295,
+        "endByte": 320,
+        "literal": "تاريخ الإصدار"
+      }
+    },
+    "reference": {
+      "value": {
+        "startUtf16": 177,
+        "endUtf16": 184,
+        "startByte": 287,
+        "endByte": 294,
+        "literal": "INV-413"
+      },
+      "role": {
+        "startUtf16": 163,
+        "endUtf16": 175,
+        "startByte": 262,
+        "endByte": 285,
+        "literal": "رقم الفاتورة"
+      }
+    },
+    "amount": {
+      "value": {
+        "startUtf16": 239,
+        "endUtf16": 245,
+        "startByte": 384,
+        "endByte": 390,
+        "literal": "115.00"
+      },
+      "role": {
+        "startUtf16": 211,
+        "endUtf16": 226,
+        "startByte": 333,
+        "endByte": 362,
+        "literal": "إجمالي الفاتورة"
+      }
+    },
+    "currency": {
+      "value": {
+        "startUtf16": 228,
+        "endUtf16": 238,
+        "startByte": 364,
+        "endByte": 383,
+        "literal": "ريال سعودي"
+      },
+      "role": {
+        "startUtf16": 211,
+        "endUtf16": 226,
+        "startByte": 333,
+        "endByte": 362,
+        "literal": "إجمالي الفاتورة"
+      }
+    }
+  },
+  "originalSha256": "1384a4568d27e337d3708d0c4db15d34b438288419ba491fa00d3c6b7450bd96",
+  "extractionRevision": "synthetic-text-extraction-v1",
+  "synthetic": true,
+  "fieldValidation": false
+}
