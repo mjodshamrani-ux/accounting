@@ -108,10 +108,8 @@ jobs:
           node --experimental-strip-types audit/stress/export-corpus.mjs
           python3 audit/stress/check_openxml.py
       - run: pnpm build
-      - name: Diagnose CSS and verify reviewed distribution immediately after build
-        run: |
-          node scripts/compare-reviewed-css.mjs
-          node scripts/public-content-check.mjs --dist
+      - name: Verify reviewed distribution immediately after build
+        run: node scripts/public-content-check.mjs --dist
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
       - name: Verify twelve-type entry, readiness, navigation and retained supplier state

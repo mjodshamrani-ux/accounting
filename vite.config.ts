@@ -6,7 +6,8 @@ export default defineConfig({
   base: './',
   plugins: [react()],
   resolve: { alias: { '@': fileURLToPath(new URL('.', import.meta.url)) } },
-  css: { postcss: { plugins: [tailwindcss()] } },
+  // Let Vite's pinned optimizer run once; Tailwind's earlier optimizer varies by platform.
+  css: { postcss: { plugins: [tailwindcss({ optimize: false })] } },
   server: { host: '127.0.0.1', watch: { usePolling: true } },
   worker: {
     format: 'es',

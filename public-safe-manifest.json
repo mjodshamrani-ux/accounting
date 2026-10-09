@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 18338,
-      "sha256": "0a508b761946727c75400c58a414c9c8f81c39edad74478e2a83a1758a0f3f3f",
+      "bytes": 18261,
+      "sha256": "72b6dd9cb9ab7c2aae731de21a66923d80a0e6998f45822c13c882bfc104a43f",
       "kind": "text"
     },
     {
@@ -3620,12 +3620,6 @@
       "bytes": 12748,
       "sha256": "be231794c23fcd4012cff5d696bef105b5d6e9d7d328e07803ffc67e66cc41d1",
       "kind": "text"
-    },
-    {
-      "path": "audit/build/reviewed.css",
-      "kind": "text",
-      "bytes": 241170,
-      "sha256": "187016ccc7a3b9f0a86393cd2ea6e982940635d149167cbe02aea632228e9e7b"
     },
     {
       "path": "audit/clearing/check_export.py",
@@ -25226,12 +25220,6 @@
       "kind": "text"
     },
     {
-      "path": "scripts/compare-reviewed-css.mjs",
-      "kind": "text",
-      "bytes": 1306,
-      "sha256": "2db77acc67289da5c2b208824bfec4fd3931a39e0f8e44c08e75f07bb67ec944"
-    },
-    {
       "path": "scripts/domain-assistant-browser-cases.mjs",
       "bytes": 5598,
       "sha256": "c35c3718a18c5575174170399ff6bcc43232c0f6b5e0c39f676e761956c10d72",
@@ -26875,8 +26863,8 @@
     },
     {
       "path": "vite.config.ts",
-      "bytes": 576,
-      "sha256": "dc990c06dc04dae4a28bcd4817b8f6c45fca4cc391a6ddf3c2f191f9a57fb917",
+      "bytes": 687,
+      "sha256": "02d6861ec4c69167886bc3ff4274886c7465ba8b76c70f2ad5e0950dad885fed",
       "kind": "text"
     }
   ],
@@ -26888,20 +26876,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-BpomSWUA.js",
+      "path": "assets/index-CM_BCvE5.css",
+      "bytes": 245127,
+      "sha256": "8b799cd681a59bff77a300e362974d483a96f794849ca4dfccd597d26ec4d1c1",
+      "kind": "text"
+    },
+    {
+      "path": "assets/index-HTFBPm7M.js",
       "bytes": 5809246,
-      "sha256": "f6da2d51eed9790425ea61f430f9fa25370484cdeeac8cd12c546517a43e3ec5",
+      "sha256": "39c20e8337f71ffc8091394bc1e44652040808a5ec47a31cb4e17989cf1fab97",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
         "description": "Application bundle compiled locally from the bounded export-text verification fixes and existing pinned pnpm-lock.yaml. Locked ZIP/XML parser literals include control bytes. Full decoded privacy scans remain required. Exact source tree, build lineage and these bytes await independent review before publication."
       }
-    },
-    {
-      "path": "assets/index-DbI6ESiS.css",
-      "bytes": 241170,
-      "sha256": "187016ccc7a3b9f0a86393cd2ea6e982940635d149167cbe02aea632228e9e7b",
-      "kind": "text"
     },
     {
       "path": "assets/pdfjs-BvlvQ5M7.js",
@@ -26926,9 +26914,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/visual-renderer-CeY-ji8P.js",
+      "path": "assets/visual-renderer-BZWMf7-G.js",
       "bytes": 6542,
-      "sha256": "d4c1839195e937285d7fd23f50c398e725c1ee06183b07532f257ad258aee5ea",
+      "sha256": "1ff243204e068bcb2872756f5fc4ac793f5963a0ad5ea18b2e3b8f56c41948cd",
       "kind": "text"
     },
     {
@@ -27004,7 +26992,7 @@
     {
       "path": "index.html",
       "bytes": 3359,
-      "sha256": "0db73d932f5d8a53b3b14a8d07a2e640414244d0b8be464adccfab73dd77f2f6",
+      "sha256": "27ed6672dd1cd2198d25289ae64509b38cbd2a9660b89796e18eb1f799d67d68",
       "kind": "text"
     },
     {
