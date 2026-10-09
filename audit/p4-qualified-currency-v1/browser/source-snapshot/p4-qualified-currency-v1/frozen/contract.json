@@ -1,0 +1,214 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_DRAFT_V1",
+  "status": "independent-precode-draft-not-native-accepted",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "productImports": false,
+  "fieldAcceptance": false,
+  "financialApproval": false,
+  "precisionPolicy": {
+    "SAR": 2,
+    "JPY": 0,
+    "KWD": 3
+  },
+  "exactAmountHeaders": [
+    "Signed amount (SAR)",
+    "Signed amount (JPY)",
+    "Signed amount (KWD)"
+  ],
+  "mapping": {
+    "sheet": 0,
+    "header": 0,
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "mode": "signed",
+    "multiplier": 1,
+    "currencyColumn": -1,
+    "debit": -1,
+    "credit": -1,
+    "numberFormat": "dot",
+    "dateFormat": "ymd",
+    "pdfReviewed": true
+  },
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "nativeRowCoordinates": "one-based",
+  "derivedHeaderPolicy": "retain exact original qualified header",
+  "precisionOrigin": "finite-contract-policy; not an original exponent cell",
+  "cases": [
+    {
+      "id": "sar-on-page",
+      "original": "sar-on-page.pdf",
+      "expected": "sar-on-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "sar-cross-page",
+      "original": "sar-cross-page.pdf",
+      "expected": "sar-cross-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "sar-own-reference",
+      "original": "sar-own-reference.pdf",
+      "expected": "sar-own-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "jpy-on-page",
+      "original": "jpy-on-page.pdf",
+      "expected": "jpy-on-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "jpy-cross-page",
+      "original": "jpy-cross-page.pdf",
+      "expected": "jpy-cross-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "jpy-own-reference",
+      "original": "jpy-own-reference.pdf",
+      "expected": "jpy-own-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "kwd-on-page",
+      "original": "kwd-on-page.pdf",
+      "expected": "kwd-on-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "kwd-cross-page",
+      "original": "kwd-cross-page.pdf",
+      "expected": "kwd-cross-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "kwd-own-reference",
+      "original": "kwd-own-reference.pdf",
+      "expected": "kwd-own-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "changed-page-currency",
+      "original": "changed-page-currency.pdf",
+      "expected": "changed-page-currency.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "missing-page-qualification",
+      "original": "missing-page-qualification.pdf",
+      "expected": "missing-page-qualification.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "contradictory-currency-row",
+      "original": "contradictory-currency-row.pdf",
+      "expected": "contradictory-currency-row.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "double-currency-header",
+      "original": "double-currency-header.pdf",
+      "expected": "double-currency-header.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "unknown-currency-header",
+      "original": "unknown-currency-header.pdf",
+      "expected": "unknown-currency-header.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "lowercase-qualifier",
+      "original": "lowercase-qualifier.pdf",
+      "expected": "lowercase-qualifier.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "symbol-qualifier",
+      "original": "symbol-qualifier.pdf",
+      "expected": "symbol-qualifier.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "ambiguous-qualifier",
+      "original": "ambiguous-qualifier.pdf",
+      "expected": "ambiguous-qualifier.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "jpy-fractional",
+      "original": "jpy-fractional.pdf",
+      "expected": "jpy-fractional.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "sar-excess-fraction",
+      "original": "sar-excess-fraction.pdf",
+      "expected": "sar-excess-fraction.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "kwd-excess-fraction",
+      "original": "kwd-excess-fraction.pdf",
+      "expected": "kwd-excess-fraction.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "late-corrupt-amount",
+      "original": "late-corrupt-amount.pdf",
+      "expected": "late-corrupt-amount.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "changed-page-reference-role",
+      "original": "changed-page-reference-role.pdf",
+      "expected": "changed-page-reference-role.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "extra-balance-column",
+      "original": "extra-balance-column.pdf",
+      "expected": "extra-balance-column.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "missing-continuation",
+      "original": "missing-continuation.pdf",
+      "expected": "missing-continuation.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "late-unknown-row",
+      "original": "late-unknown-row.pdf",
+      "expected": "late-unknown-row.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "bare-existing-family",
+      "original": "bare-existing-family.pdf",
+      "expected": "bare-existing-family.expected.json",
+      "outcome": "outside-new-family"
+    },
+    {
+      "id": "description-code-only",
+      "original": "description-code-only.pdf",
+      "expected": "description-code-only.expected.json",
+      "outcome": "outside-new-family"
+    }
+  ],
+  "actions": "actions.json",
+  "counts": {
+    "derived": 9,
+    "blocked": 16,
+    "outsideNewFamilyControls": 2,
+    "actions": 18
+  }
+}

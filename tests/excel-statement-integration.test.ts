@@ -1,3 +1,4 @@
+import { testValueText } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -254,11 +255,11 @@ const settingsMapping = (book: ExcelJS.Workbook, label: string): Mapping => {
   const sheet = book.getWorksheet('Run Settings')!;
   for (let row = 2; row <= sheet.rowCount; row++)
     if (sheet.getCell(row, 1).value === label)
-      return JSON.parse(String(sheet.getCell(row, 2).value));
+      return JSON.parse(testValueText(sheet.getCell(row, 2).value));
   throw new Error('Missing exported mapping');
 };
 
-test('namespaced original-shaped Excel pair reaches exact comparison, audit workbook and restorable session', async () => {
+void test('namespaced original-shaped Excel pair reaches exact comparison, audit workbook and restorable session', async () => {
   const { files, mappings, result } = await pair();
   assert.equal(mappings[1].date, 0, 'Posting Date has the explicit AP role');
   assert.equal(
@@ -322,7 +323,7 @@ test('namespaced original-shaped Excel pair reaches exact comparison, audit work
   );
 });
 
-test('export and session restore reject stale claimed direction proof even when arithmetic result was otherwise unchanged', async () => {
+void test('export and session restore reject stale claimed direction proof even when arithmetic result was otherwise unchanged', async () => {
   const { files, mappings, result } = await pair();
   const bytes = await saveSession(state(files, mappings));
   for (const change of [
@@ -351,7 +352,7 @@ test('export and session restore reject stale claimed direction proof even when 
   }
 });
 
-test('export and saved sessions replace arbitrary direction explanation text with freshly computed evidence', async () => {
+void test('export and saved sessions replace arbitrary direction explanation text with freshly computed evidence', async () => {
   const { files, mappings, result } = await pair();
   const canonical = mappings[1].directionEvidence!.reason;
   const altered = structuredClone(result);

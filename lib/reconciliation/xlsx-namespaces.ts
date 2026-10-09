@@ -340,7 +340,7 @@ function compatibleXml(
         ? `${coordinate[1]}${Number(coordinate[2])}`
         : rawAddress;
       if (coordinate)
-        previousColumn = [...coordinate[1]].reduce(
+        previousColumn = coordinate[1].split('').reduce(
           (n, char) => n * 26 + char.charCodeAt(0) - 64,
           0,
         );

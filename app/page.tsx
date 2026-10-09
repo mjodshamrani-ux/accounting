@@ -1,7 +1,27 @@
+import { reconciliationDirectoryCopy } from '@/lib/i18n/reconciliation-directory';
+import { ReconciliationDirectory } from '@/components/reconciliation-directory';
+import {PayrollWorkspace} from '@/components/payroll-workspace';
+import {payrollCopy} from '@/lib/i18n/payroll';
+import {AssetWorkspace} from '@/components/fixed-assets-workspace';
+import {assetCopy} from '@/lib/i18n/fixed-assets';
+import { StockWorkspace } from '@/components/inventory-register-workspace';
+import { stockCopy } from '@/lib/i18n/inventory-register';
+import { GatewayWorkspace } from '@/components/payment-gateway-workspace';
+import { gatewayCopy } from '@/lib/i18n/payment-gateway';
+import { IntercompanyWorkspace } from '@/components/intercompany-workspace';
+import { intercompanyCopy } from '@/lib/i18n/intercompany';
+import { FinancialWorkspace } from '@/components/tb-financial-workspace';
+import { BankWorkspace } from '@/components/bank-workspace';
+import { AllocationWorkspace } from '@/components/allocation-workspace';
+import { createAllocationWorkflowHandoff, type AllocationWorkflowHandoff } from '@/lib/reconciliation/allocation-workflow-handoff';
+import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
+import { GlTbWorkspace } from '@/components/gl-tb-workspace';
+import { ArWorkspace } from '@/components/ar-workspace';
 import { headerLabels } from '@/lib/reconciliation/header-view';
+import { ClearingWorkspace } from '@/components/clearing-workspace';
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
-import { visualAccountingMapping, VISUAL_SOURCE_INVALID } from '@/lib/reconciliation/visual-accounting-source';
+import { visualAccountingMapping, VISUAL_SOURCE_INVALID, } from '@/lib/reconciliation/visual-accounting-source';
 import { BrandMark, BrandWordmark, DisplayHeading } from '@/components/brand';
 import {
   LandingIntro,
@@ -9,6 +29,11 @@ import {
   LandingBenefits,
 } from '@/components/landing';
 import { SourceUpload } from '@/components/source-upload';
+import { MultilineSourceReview } from '@/components/multiline-source-review';
+import { SourceStructureReview } from '@/components/source-structure-review';
+import { InvoiceOverlapReview } from '@/components/invoice-overlap-review';
+import { SupplierInvoiceOverlapReview, type SupplierMainReviewInput } from '@/lib/reconciliation/supplier-overlap-review';
+import { SectionDerivedReview } from '@/components/section-derived-review';
 import { APP_VERSION } from '@/lib/brand';
 import { TransactionReview } from '@/components/transaction-review';
 import { PdfReview } from '@/components/pdf-review';
@@ -25,7 +50,7 @@ import {
   uiText,
   type UiText,
 } from '@/lib/i18n/text';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import {
   ShieldCheck,
@@ -248,13 +273,14 @@ function ReadingIssueList({
         sourceReadingIssues(source, file, side),
       ),
     [
-      entries[0]?.source,
-      entries[0]?.file,
-      entries[1]?.source,
-      entries[1]?.file,
+      entries
     ],
   );
-  useEffect(() => setPage(0), [issues]);
+  const issueBinding = JSON.stringify(issues);
+  const [pageBinding, setPageBinding] = useState(issueBinding);
+  if (pageBinding !== issueBinding) {
+    setPageBinding(issueBinding); setPage(0);
+  }
   const current = Math.min(
     page,
     Math.max(0, Math.ceil(issues.length / 10) - 1),
@@ -349,7 +375,11 @@ function ReadingIssueList({
 }
 
 export default function App() {
+  const [domain, setDomain] = useState<
+    |'supplier' | 'clearing' | 'ar' | 'gl-tb' | 'allocation' | 'bank' | 'tb-financial' | 'intercompany' | 'gateway' | 'stock' | 'assets' | 'payroll'>('supplier');
   const { t, dir, say } = useI18n();
+  const [allocationHandoff, setAllocationHandoff] = useState<AllocationWorkflowHandoff | null>(null);
+  const allocationHandoffSerial = useRef(0);
   const [auditEvents, setAuditEvents] = useState<AuditEvent[]>([]);
   const [engineReady, setEngineReady] = useState(false);
   const [files, setFiles] = useState<[SourceFile | null, SourceFile | null]>([
@@ -361,11 +391,20 @@ export default function App() {
     defaultMapping(),
   ]);
   const [scope, setScope] = useState<Scope>(initialScope);
-  const scopeEdited = useRef<
+  const allocationHandoffReady = useMemo(() => {
+    if (!files[0] || !files[1]) return false;
+    try {
+      createAllocationWorkflowHandoff([files[0], files[1]], scope, 'eligibility-check');
+      return true;
+    } catch {
+      return false;
+    }
+  }, [files, scope]);
+  const [ scopeEdited, setScopeEdited] = useState<
     Partial<Record<ScopeSuggestionField | 'decimals', boolean>>
   >({});
   const [formatChoices, setFormatChoices] = useState(freshFormatChoices);
-  const directionEdited = useRef<[boolean, boolean]>([false, false]);
+  const [ directionEdited, setDirectionEdited] = useState<[boolean, boolean]>([false, false,]);
   const [pdfDrafts, setPdfDrafts] = useState<[boolean, boolean]>([
     false,
     false,
@@ -379,7 +418,15 @@ export default function App() {
       ),
     [files, mappings, scope.decimals],
   );
-  useEffect(() => {
+  const [directionInference, setDirectionInference] = useState({
+    directionProofs,
+    directionEdited,
+  });
+  if (
+    directionInference.directionProofs !== directionProofs ||
+    directionInference.directionEdited !== directionEdited
+  ) {
+    setDirectionInference({ directionProofs, directionEdited });
     setMappings((previous) => {
       let changed = false;
       const next = previous.map((mapping, i) => {
@@ -390,7 +437,7 @@ export default function App() {
         }
         if (
           proof &&
-          !directionEdited.current[i] &&
+          !directionEdited[i] &&
           (mapping.multiplier !== proof.multiplier ||
             JSON.stringify(mapping.directionEvidence) !== JSON.stringify(proof))
         ) {
@@ -405,7 +452,7 @@ export default function App() {
       }) as [Mapping, Mapping];
       return changed ? next : previous;
     });
-  }, [directionProofs]);
+  }
   const [balanceMode, setBalanceMode] = useState(false);
   const scopeSuggestions = useMemo(
     () => inferScopeSuggestions(files, mappings),
@@ -422,16 +469,33 @@ export default function App() {
     () => latestSourceDate(files, mappings),
     [files, mappings],
   );
-  useEffect(() => {
+  const [scopeInference, setScopeInference] = useState({
+    scopeSuggestions,
+    latestDate,
+    balanceMode,
+    scopeEdited,
+  });
+  if (
+    scopeInference.scopeSuggestions !== scopeSuggestions ||
+    scopeInference.latestDate !== latestDate ||
+    scopeInference.balanceMode !== balanceMode ||
+    scopeInference.scopeEdited !== scopeEdited
+  ) {
+    setScopeInference({
+      scopeSuggestions,
+      latestDate,
+      balanceMode,
+      scopeEdited,
+    });
     setScope((previous) => {
       const next = { ...previous };
       for (const field of scopeFields) {
-        if (!scopeEdited.current[field])
+        if (!scopeEdited[field])
           next[field] = scopeSuggestions.values[field] ?? initialScope[field];
       }
       // Rows after the cut-off are excluded, so defaulting to the latest date in
       // the sources excludes nothing and still lets the accountant narrow it.
-      if (!scopeEdited.current.cutoff && !next.cutoff && !balanceMode)
+      if (!scopeEdited.cutoff && !next.cutoff && !balanceMode)
         next.cutoff = latestDate;
       const changed = scopeFields.some(
         (field) => previous[field] !== next[field],
@@ -440,8 +504,22 @@ export default function App() {
         ? { ...next, confirmed: false, coverageConfirmed: false }
         : previous;
     });
-  }, [scopeSuggestions, latestDate, balanceMode]);
-  useEffect(() => {
+  }
+  const [formatInference, setFormatInference] = useState({
+    formatSuggestions,
+    formatChoices,
+    currency: scope.currency,
+  });
+  if (
+    formatInference.formatSuggestions !== formatSuggestions ||
+    formatInference.formatChoices !== formatChoices ||
+    formatInference.currency !== scope.currency
+  ) {
+    setFormatInference({
+      formatSuggestions,
+      formatChoices,
+      currency: scope.currency,
+    });
     setMappings((previous) => {
       let changed = false;
       const next = previous.map((mapping, i) => {
@@ -458,27 +536,25 @@ export default function App() {
       }) as [Mapping, Mapping];
       return changed ? next : previous;
     });
-  }, [formatSuggestions, formatChoices, scope.currency]);
+  }
   const precisionMissing =
     !!scope.currency &&
     currencyPrecision(scope.currency) === undefined &&
-    !scopeEdited.current.decimals;
-  useEffect(() => {
+    !scopeEdited.decimals;
     const precision = currencyPrecision(scope.currency);
-    if (precision === undefined || scopeEdited.current.decimals) return;
-    setScope((previous) =>
-      previous.decimals === precision
-        ? previous
-        : {
+    if (precision !== undefined &&
+    ! scopeEdited.decimals &&
+    scope.decimals !== precision) {
+    setScope((previous) => ( {
             ...previous,
             decimals: precision,
             confirmed: false,
             coverageConfirmed: false,
-          },
+          })
     );
-  }, [scope.currency]);
+  }
   const scopeAutofillPending = scopeFields.some((field) => {
-    if (scopeEdited.current[field]) return false;
+    if (scopeEdited[field]) return false;
     let expected = scopeSuggestions.values[field] ?? initialScope[field];
     if (field === 'cutoff' && !expected && !balanceMode) expected = latestDate;
     return scope[field] !== expected;
@@ -488,10 +564,10 @@ export default function App() {
     directionProofs.some(
       (proof, i) =>
         proof &&
-        !directionEdited.current[i] &&
+        !directionEdited[i] &&
         proof.multiplier !== mappings[i].multiplier,
     ) ||
-    (!scopeEdited.current.decimals &&
+    (!scopeEdited.decimals &&
       currencyPrecision(scope.currency) !== undefined &&
       currencyPrecision(scope.currency) !== scope.decimals) ||
     formatSuggestions.some(
@@ -509,7 +585,7 @@ export default function App() {
       file &&
       mappings[i].mode === 'split' &&
       !directionProofs[i] &&
-      !directionEdited.current[i],
+      !directionEdited[i],
   );
   const unresolvedFormats = formatSuggestions.some(
     (suggestion, i) =>
@@ -529,7 +605,7 @@ export default function App() {
   const unresolvedScope = scopeFields.filter(
     (field) =>
       scopeSuggestions.fields[field].status === 'conflict' &&
-      !scopeEdited.current[field],
+      !scopeEdited[field],
   );
 
   const [scopeOpen, setScopeOpen] = useState(false);
@@ -584,6 +660,9 @@ export default function App() {
   const blocked = blockedBy ? t.app.blocked[blockedBy] : '';
   const [step, setStep] = useState(0);
   const workflowHeading = useRef<HTMLHeadingElement>(null);
+  const domainPanels = useRef<HTMLDivElement>(null);
+  const previousDomain = useRef(domain);
+  const domainReturnFocus = useRef<HTMLElement | null>(null);
   const previousStep = useRef(step);
   const showLanding = step === 0 && !files.some(Boolean);
   const previousLanding = useRef(showLanding);
@@ -591,10 +670,26 @@ export default function App() {
   const privacyReturnFocus = useRef<HTMLElement | null>(null);
   // Open the panel when the confirmation step still needs a value, then leave it
   // to the accountant: it must not snap shut as the last field is filled.
-  useEffect(() => {
+  const [scopePanelTrigger, setScopePanelTrigger] = useState({
+    step,
+    scopeNeedsInput,
+    scopeConflict,
+    preparationPending,
+  });
+  if (
+    scopePanelTrigger.step !== step ||
+    scopePanelTrigger.scopeNeedsInput !== scopeNeedsInput ||
+    scopePanelTrigger.scopeConflict !== scopeConflict ||
+    scopePanelTrigger.preparationPending !== preparationPending) {
+    setScopePanelTrigger({
+      step,
+      scopeNeedsInput,
+      scopeConflict,
+      preparationPending,
+    });
     if (step === 1 && !preparationPending && (scopeNeedsInput || scopeConflict))
       setScopeOpen(true);
-  }, [step, scopeNeedsInput, scopeConflict, preparationPending]);
+  }
   const [demo, setDemo] = useState(false);
   // Messages are kept as what to say, so they follow a change of language.
   const [busy, setBusy] = useState<UiText | null>(null);
@@ -612,6 +707,11 @@ export default function App() {
   const [result, setResult] = useState<Comparison | null>(null);
   const [decisions, setDecisions] = useState<Decision[]>([]);
   const [rejected, setRejected] = useState<string[]>([]);
+  const [mainReviewGeneration, setMainReviewGeneration] = useState(0);
+  const [mainOverlapReview, setMainOverlapReview] = useState(() => new SupplierInvoiceOverlapReview());
+  const [mainExtractionRevision, setMainExtractionRevision] = useState('native-overlap-reading-v1');
+  const [mainOverlapOpen, setMainOverlapOpen] = useState(false);
+  const mainReviewContext = useMemo(() => ({ generation: mainReviewGeneration, decisions, rejected }), [mainReviewGeneration, decisions, rejected]);
   const [review, setReview] = useState({ checked: false, name: '', notes: '' });
   const [tab, setTab] = useState('exceptions');
   const [query, setQuery] = useState('');
@@ -636,7 +736,6 @@ export default function App() {
     if (!files.some(Boolean)) return;
     const warn = (e: BeforeUnloadEvent) => {
       e.preventDefault();
-      e.returnValue = '';
     };
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
@@ -653,6 +752,20 @@ export default function App() {
     workflowHeading.current?.focus({ preventScroll: true });
   }, [step, showLanding]);
   useEffect(() => {
+    if (previousDomain.current === domain) return;
+    previousDomain.current = domain;
+    const origin = domainReturnFocus.current;
+    const target = domain === 'supplier'
+      ? origin?.isConnected && !origin.closest('[hidden]')
+        ? origin
+        : workflowHeading.current
+      : domainPanels.current
+          ?.querySelector(`[data-domain-panel="${domain}"]`)
+          ?.querySelector<HTMLElement>('h1, h2');
+    target?.scrollIntoView({ behavior: 'instant', block: domain === 'supplier' && target === origin ? 'center' : 'start' });
+    target?.focus({ preventScroll: true });
+  }, [domain]);
+  useEffect(() => {
     if (privacy) {
       privacyHeading.current?.scrollIntoView({ block: 'start' });
       privacyHeading.current?.focus({ preventScroll: true });
@@ -667,6 +780,11 @@ export default function App() {
     setPrivacy(!privacy);
   }
   function invalidate() {
+    mainOverlapReview.invalidatePending();
+    setMainOverlapReview(new SupplierInvoiceOverlapReview());
+    setMainReviewGeneration(0);
+    setMainExtractionRevision('native-overlap-reading-v1');
+    setMainOverlapOpen(false);
     setImportDiagnosis(null);
     setAuditEvents([]);
     setResult(null);
@@ -678,17 +796,42 @@ export default function App() {
     setSelected('');
     setPage(0);
   }
+  function mainOverlapInput(
+    signal?: AbortSignal,
+    nextScope = scope,
+    nextDecisions = decisions,
+    nextRejected = rejected,
+    generation = mainReviewGeneration,
+  ): SupplierMainReviewInput {
+    if (!files[0] || !files[1]) fail((m) => m.app.errors.filesMissing);
+    return { currentSourceFiles: [files[0], files[1]], mappings,
+      scope: nextScope, revision: mainExtractionRevision, signal,
+      main: { generation, decisions: nextDecisions, rejected: nextRejected } };
+  }
+  function applyMainOverlapResult(next: Comparison) {
+    job.current?.controller.abort();
+    job.current = null;
+    setBusy(null);
+    setProcessingProgress(null);
+    setScope(next.scope);
+    setValidated([next.supplier, next.ledger]);
+    setResult(next);
+    setReview((previous) => ({ ...previous, checked: false }));
+    setStep(2);
+    setSelected('');
+    setPage(0);
+  }
   function updateScope(p: Partial<Scope>) {
+    setScopeEdited((previous) => {
+      const next = { ...previous };
     for (const field of scopeFields)
-      if (field in p) scopeEdited.current[field] = true;
-    if ('currency' in p) {
-      scopeEdited.current.decimals = false;
+      if (field in p) next[field] = true;
+    if ('currency' in p) next.decimals = false;
+      if ('decimals' in p) next.decimals = true;
+      return next;
+    });
+    if ('currency' in p || 'decimals' in p)
       setFormatChoices(freshFormatChoices());
-    }
-    if ('decimals' in p) {
-      scopeEdited.current.decimals = true;
-      setFormatChoices(freshFormatChoices());
-    }
     invalidate();
     setScope((s) => ({
       ...s,
@@ -720,7 +863,12 @@ export default function App() {
       'closing',
     ].some((key) => Object.hasOwn(p, key));
     if (readingChanged) {
-      directionEdited.current[i] = false;
+      setDirectionEdited(
+        (previous) =>
+          previous.map((value, index) => (index === i ? false : value)) as[
+            boolean,
+            boolean,],
+      );
       // A choice belongs to the reading it was made under. Changing the reading
       // drops it here as well as in formatChoices, so no later path can use it.
       p = {
@@ -731,7 +879,12 @@ export default function App() {
           : { formatChoice: undefined }),
       };
     } else if ('multiplier' in p) {
-      directionEdited.current[i] = true;
+      setDirectionEdited(
+        (previous) =>
+          previous.map((value, index) => (index === i ? true : value)) as[
+            boolean,
+            boolean,],
+      );
       p = { ...p, directionEvidence: undefined };
     }
     if (readingChanged)
@@ -789,6 +942,7 @@ export default function App() {
     fn: (signal: AbortSignal, alive: () => boolean) => Promise<void>,
   ) {
     job.current?.controller.abort();
+    mainOverlapReview.invalidatePending();
     const id = ++seq.current,
       controller = new AbortController();
     job.current = { id, controller };
@@ -822,20 +976,41 @@ export default function App() {
     setProcessingProgress(null);
     setNotice(uiText((m) => m.app.notices.cancelled));
   }
+  function navigateDomain(next: typeof domain) {
+    if (domain === 'supplier' && next !== 'supplier') {
+      const origin = document.activeElement;
+      domainReturnFocus.current = origin instanceof HTMLElement &&
+        origin.closest('[data-domain-navigation]') ? origin : null;
+    }
+    job.current?.controller.abort();
+    job.current = null;
+    setBusy(null);
+    setProcessingProgress(null);
+    mainOverlapReview.invalidatePending();
+    setMainOverlapOpen(false);
+    setDomain(next);
+  }
+  function openFreshAllocation() {
+    if (!allocationHandoffReady || !files[0] || !files[1]) return;
+    setAllocationHandoff(createAllocationWorkflowHandoff(
+      [files[0], files[1]], scope, `supplier-handoff-${++allocationHandoffSerial.current}`,
+    ));
+    navigateDomain('allocation');
+  }
   function loadDemo() {
     if (busy) return;
     setVisualCandidate(null);
     setVisualRevision((v) => v + 1);
     invalidate();
     setDemo(true);
-    directionEdited.current = [true, true];
-    scopeEdited.current = {
+    setDirectionEdited( [true, true]);
+    setScopeEdited( {
       supplier: true,
       entity: true,
       account: true,
       currency: true,
       cutoff: true,
-    };
+    });
     setFormatChoices(freshFormatChoices());
     setBalanceMode(false);
     setFiles(structuredClone(demoFiles));
@@ -873,10 +1048,16 @@ export default function App() {
         if (parsed.visual && parsed.visual.context.side !== (i === 0 ? 'supplier' : 'ledger'))
           throw new Error(VISUAL_SOURCE_INVALID);
         const other = files[1 - i]?.visual?.context;
-        if (parsed.visual && other && ['supplier','entity','account','currency','decimals','cutoff'].some(k => parsed.visual!.context[k as keyof typeof other] !== other[k as keyof typeof other]))
+        if (parsed.visual && other && ['supplier','entity','account','currency','decimals','cutoff',].some(
+            (k) => parsed.visual!.context[k as keyof typeof other] !== other[k as keyof typeof other],))
           throw new Error(VISUAL_SOURCE_INVALID);
         const selection = parsed.visual ? {mapping:visualAccountingMapping(parsed),notice:''} : selectImportMapping(parsed,i===0?'supplier':'ledger');
-        directionEdited.current[i] = !!parsed.visual;
+        setDirectionEdited(
+          (previous) =>
+            previous.map((value, index) =>
+              index ===i ? !!parsed.visual : value,
+            ) as [boolean, boolean],
+        );
         setPdfDrafts(
           (previous) =>
             previous.map((v, j) => (j === i ? false : v)) as [boolean, boolean],
@@ -904,10 +1085,10 @@ export default function App() {
         );
         if (parsed.visual) {
           const c=parsed.visual.context;
-          scopeEdited.current={supplier:true,entity:true,account:true,currency:true,cutoff:true,decimals:true};
+          setScopeEdited({supplier:true,entity:true,account:true,currency:true,cutoff:true,decimals:true,});
           setBalanceMode(false);
-          setScope(s=>({...s,supplier:c.supplier,entity:c.entity,account:c.account,currency:c.currency,decimals:c.decimals,cutoff:c.cutoff,confirmed:false,coverageConfirmed:false}));
-        } else setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false }));
+          setScope((s)=>({...s,supplier:c.supplier,entity:c.entity,account:c.account,currency:c.currency,decimals:c.decimals,cutoff:c.cutoff,confirmed:false,coverageConfirmed:false,}));
+        } else setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false, }));
         setNotice(selection.notice ? engineText(selection.notice) : null);
       },
     );
@@ -928,7 +1109,12 @@ export default function App() {
         );
         if (!alive()) return;
         invalidate();
-        directionEdited.current[i] = false;
+        setDirectionEdited(
+          (previous) =>
+            previous.map((value, index) => (index === i ? false : value)) as[
+              boolean,
+              boolean,],
+        );
         setFormatChoices(
           (previous) =>
             previous.map((choice, j) =>
@@ -979,12 +1165,19 @@ export default function App() {
           decisions: nextDecisions,
           rejected: nextRejected,
         };
-        const computed = await workerTask<{
+        const contextChanged = JSON.stringify([nextDecisions, nextRejected]) !== JSON.stringify([decisions, rejected]);
+        const nextGeneration = mainReviewGeneration + (contextChanged ? 1 : 0);
+        mainOverlapReview.invalidatePending();
+        const overlapState = mainOverlapReview.state;
+        const owned = overlapState.activeReceiptIds.length > 0
+          ? await mainOverlapReview.comparison(mainOverlapInput(signal, confirmed, nextDecisions, nextRejected, nextGeneration))
+          : null;
+        const computed = owned ? { a: owned.supplier, b: owned.ledger, result: owned } : await workerTask<{
           a: SourceResult;
           b: SourceResult;
           result: Comparison | null;
         }>('reconcile', payload, signal);
-        if (!alive()) return;
+        if (!alive() || mainOverlapReview.state.generation !== overlapState.generation) return;
         setValidated([computed.a, computed.b]);
         if (!computed.result) {
           setStep(1);
@@ -1007,6 +1200,7 @@ export default function App() {
         ]);
         setDecisions(nextDecisions);
         setRejected(nextRejected);
+        setMainReviewGeneration(nextGeneration);
         setReview((v) => ({ ...v, checked: false }));
         setStep(2);
         setSelected('');
@@ -1019,7 +1213,9 @@ export default function App() {
     await task(
       uiText((m) => m.app.tasks.saveSession),
       async (signal, alive) => {
-        const buffer = await workerTask<ArrayBuffer>(
+        const buffer = mainOverlapReview.state.receipts.length || mainOverlapReview.archivedReviewDraft
+          ? await mainOverlapReview.saveSession(mainOverlapInput(signal), { review, events: auditEvents })
+          : await workerTask<ArrayBuffer>(
           'save-session',
           {
             files,
@@ -1058,19 +1254,30 @@ export default function App() {
           Awaited<ReturnType<typeof restoreSession>>
         >('restore-session', { buffer: await file.arrayBuffer() }, signal);
         if (!alive()) return;
+        const restoredOverlap = new SupplierInvoiceOverlapReview();
+        if (saved.overlapArchive) {
+          await restoredOverlap.reimportSession({
+            currentSourceFiles: saved.files, mappings: saved.mappings, scope: saved.scope,
+            revision: saved.overlapArchive.revision, signal,
+            main: { generation: 0, decisions: saved.decisions, rejected: saved.rejected },
+          }, saved.overlapArchive.session);
+          if (!alive()) return;
+        }
         invalidate();
-        directionEdited.current = [true, true];
+        setMainOverlapReview(restoredOverlap);
+        setMainExtractionRevision(saved.overlapArchive?.revision ?? 'native-overlap-reading-v1');
+        setDirectionEdited( [true, true]);
         setPdfDrafts([false, false]);
         setFiles(saved.files);
         setMappings(saved.mappings);
-        scopeEdited.current = {
+        setScopeEdited( {
           supplier: true,
           entity: true,
           account: true,
           currency: true,
           cutoff: true,
           decimals: true,
-        };
+        });
         setFormatChoices([
           { dateFormat: true, numberFormat: true },
           { dateFormat: true, numberFormat: true },
@@ -1081,7 +1288,7 @@ export default function App() {
         setRejected(saved.rejected);
         setResult(saved.result);
         setAuditEvents(saved.events);
-        setReview(saved.review);
+        setReview(saved.overlapArchive ? { ...saved.review, checked: false } : saved.review);
         setDemo(false);
         setStep(2);
         setNotice(uiText((m) => m.app.notices.sessionRestored));
@@ -1093,7 +1300,9 @@ export default function App() {
     await task(
       uiText((m) => m.app.tasks.export),
       async (signal, alive) => {
-        const buffer = await workerTask<ArrayBuffer>(
+        const buffer = result.matches.some((match) => match.reviewedAggregate)
+          ? await mainOverlapReview.exportWorkbook(mainOverlapInput(signal), { ...review, events: auditEvents })
+          : await workerTask<ArrayBuffer>(
           'export',
           { result, files, review: { ...review, events: auditEvents } },
           signal,
@@ -1173,7 +1382,12 @@ export default function App() {
       )
       .map((c) => c.supplierMembers[0] ?? c.ledgerMembers[0]);
     return tx;
-  }, [result, tab, query, matchedBySupplier]);
+  }, [result, tab, query]);
+  const startSyntheticDemo = useEffectEvent(() => {
+    if (files.some(Boolean) || busy)
+      throw new Error('Cannot replace an active session');
+    loadDemo();
+  });
   // The optional agent interface only opens the synthetic example; it never exposes user files or results.
   useEffect(() => {
     type MC = {
@@ -1202,9 +1416,7 @@ export default function App() {
               Object.keys(input).length
             )
               throw new Error('Expected empty object');
-            if (files.some(Boolean) || busy)
-              throw new Error('Cannot replace an active session');
-            loadDemo();
+            startSyntheticDemo();
             return { status: 'synthetic-demo-opened' };
           },
         },
@@ -1212,7 +1424,7 @@ export default function App() {
       ),
     ).catch(() => {});
     return () => lifecycle.abort();
-  }, [files, busy]);
+  }, []);
   function reset() {
     setError(null);
     setImportDiagnosis(null);
@@ -1222,10 +1434,10 @@ export default function App() {
     cancel();
     invalidate();
     setFiles([null, null]);
-    directionEdited.current = [false, false];
+    setDirectionEdited( [false, false]);
     setPdfDrafts([false, false]);
     setMappings([defaultMapping(), defaultMapping()]);
-    scopeEdited.current = {};
+    setScopeEdited( {});
     setFormatChoices(freshFormatChoices());
     setBalanceMode(false);
     setScope(initialScope);
@@ -1234,7 +1446,43 @@ export default function App() {
     setNotice(null);
   }
   return (
-    <div className={`app-shell ${showLanding ? 'has-landing' : 'in-session'}`}>
+    <>
+    <div ref={domainPanels} hidden={domain === 'supplier'}>
+      <div data-domain-panel="payroll" hidden={domain !== 'payroll'}>
+        <PayrollWorkspace active={domain === 'payroll'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="assets" hidden={domain !== 'assets'}>
+        <AssetWorkspace active={domain === 'assets'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="stock" hidden={domain !== 'stock'}>
+        <StockWorkspace active={domain === 'stock'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="gateway" hidden={domain !== 'gateway'}>
+        <GatewayWorkspace active={domain === 'gateway'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="intercompany" hidden={domain !== 'intercompany'}>
+        <IntercompanyWorkspace active={domain === 'intercompany'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="tb-financial" hidden={domain !== 'tb-financial'}>
+        <FinancialWorkspace active={domain === 'tb-financial'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="bank" hidden={domain !== 'bank'}>
+        <BankWorkspace active={domain === 'bank'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="allocation" hidden={domain !== 'allocation'}>
+        <AllocationWorkspace key={allocationHandoff?.revision ?? 'direct-allocation'} handoff={allocationHandoff ?? undefined} active={domain === 'allocation'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="gl-tb" hidden={domain !== 'gl-tb'}>
+        <GlTbWorkspace active={domain === 'gl-tb'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="ar" hidden={domain !== 'ar'}>
+        <ArWorkspace active={domain === 'ar'} onBack={() => navigateDomain('supplier')} />
+      </div>
+      <div data-domain-panel="clearing" hidden={domain !== 'clearing'}>
+        <ClearingWorkspace active={domain === 'clearing'} onBack={() => navigateDomain('supplier')} />
+      </div>
+    </div>
+    <div hidden={domain !== 'supplier'} className={`app-shell ${showLanding ? 'has-landing' : 'in-session'}`}>
       <a className="skip-link" href="#reconciliation">
         {t.app.shell.skipLink}
       </a>
@@ -1278,20 +1526,43 @@ export default function App() {
             <ShieldCheck size={16} /> <span>{t.app.shell.localPill}</span>
           </button>
           {showLanding && (
-            <a className="nav-start" href="#reconciliation">
+            <a className="nav-start" href="#reconciliation-types">
               {t.app.shell.navStart} <ForwardArrow size={15} />
             </a>
           )}
         </div>
       </header>
       <main>
-        {showLanding && (
-          <>
-            <LandingIntro />
-            <LandingBenefits />
-          </>
-        )}
+        {showLanding && <LandingIntro />}
+        <ReconciliationDirectory
+          disabled={!!busy || !engineReady}
+          entries={[
+            { id: 'supplier', title: reconciliationDirectoryCopy[dir === 'rtl' ? 'ar' : 'en'].supplierTitle },
+            { id: 'clearing', title: t.clearing.entry },
+            { id: 'ar', title: t.arDocuments.entry },
+            { id: 'gl-tb', title: t.glTb.entry },
+            { id: 'allocation', title: t.allocation.entry },
+            { id: 'bank', title: t.bank.entry },
+            { id: 'tb-financial', title: t.financial.trialBalanceAndFinancialPosition },
+            { id: 'intercompany', title: intercompanyCopy[dir === 'rtl' ? 'ar' : 'en'].title },
+            { id: 'gateway', title: gatewayCopy[dir === 'rtl' ? 'ar' : 'en'].title },
+            { id: 'stock', title: stockCopy[dir === 'rtl' ? 'ar' : 'en'].title },
+            { id: 'assets', title: assetCopy[dir === 'rtl' ? 'ar' : 'en'].title },
+            { id: 'payroll', title: payrollCopy[dir === 'rtl' ? 'ar' : 'en'].title },
+          ]}
+          onSelect={(next) => {
+            if (next === 'supplier') {
+              workflowHeading.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
+              workflowHeading.current?.focus({ preventScroll: true });
+              return;
+            }
+            if (next === 'allocation') setAllocationHandoff(null);
+            navigateDomain(next);
+          }}
+        />
+        {showLanding && <LandingBenefits />}
         <div className="workspace" id="reconciliation">
+
           {privacy && (
             <section
               className="surface pad stack"
@@ -1324,7 +1595,7 @@ export default function App() {
                     localStorage.removeItem('mizan.mapping.1.v1');
                     setNotice(uiText((m) => m.app.notices.templatesCleared));
                   } catch {
-                    setError(uiText((m) => m.app.errors.templatesUnavailable));
+                    setError(uiText((m) => m.app.errors.templatesUnavailable),);
                   }
                 }}
               >
@@ -1435,10 +1706,10 @@ export default function App() {
             </Button>
           )}
           {!engineReady && !error && (
-            <div className="notice loading" role="status">
+            <output style={{ display: 'block' }} className="notice loading">
               <LoaderCircle className="spin" size={17} />
               {t.app.shell.engineLoading}
-            </div>
+            </output>
           )}
           {error && (
             <div className="notice error" role="alert">
@@ -1464,12 +1735,12 @@ export default function App() {
             </div>
           )}
           {notice && (
-            <div className="notice success" role="status">
+            <output style={{ display: 'block' }} className="notice success">
               {say(notice)}
-            </div>
+            </output>
           )}
           {busy && (
-            <div className="notice loading" role="status">
+            <output style={{ display: 'block' }} className="notice loading">
               <LoaderCircle className="spin" size={20} />
               {processingProgress
                 ? processingProgress.completed === 0
@@ -1489,7 +1760,7 @@ export default function App() {
               <Button variant="ghost" onClick={cancel}>
                 {t.common.cancel}
               </Button>
-            </div>
+            </output>
           )}
           {step === 0 && (
             <>
@@ -1522,7 +1793,7 @@ export default function App() {
                 </div>
                 <p className="source-file-limits" id="source-file-limits">
                   <span>
-                    <bdi>XLSX</bdi> · <bdi>CSV</bdi> · {t.app.upload.pdfBefore}
+                    <bdi>XLSX</bdi> · <bdi>CSV</bdi> ·{' '}{t.app.upload.pdfBefore}
                     <bdi>PDF</bdi>
                     {t.app.upload.pdfAfter}
                   </span>
@@ -1550,11 +1821,13 @@ export default function App() {
                   </Button>
                 </div>
               </section>
+              <MultilineSourceReview />
               <VisualReader
                 key={`${visualRevision}:${visualCandidate ? `${visualCandidate.name}:${visualCandidate.lastModified}` : 'visual'}`}
                 candidate={visualCandidate}
                 scope={scope}
                 onSource={loadFile}
+                active={domain === 'supplier'}
               />
               <div className="demo-strip">
                 <div>
@@ -1626,15 +1899,16 @@ export default function App() {
                   </p>
                 )}
                 {scopeConflict && !scopeOpen && (
-                  <p className="hint warn" role="status">
+                  <output style={{ display: 'block' }} className="hint warn">
                     {t.app.scope.conflict(
-                      unresolvedScope.map((field) => t.app.scopeFields[field]),
+                      unresolvedScope.map((field) => t.app.scopeFields[field],),
                     )}
-                  </p>
+                  </output>
                 )}
                 {scopeOpen && (
                   <div className="panel stack">
-                    {files.some(f=>f?.visual) && <p className="hint">{t.visualAccounting.locked}</p>}
+                    {files.some((f)=>f?.visual) && ( <p className="hint">{t.visualAccounting.locked}</p>
+                      )}
                     <div className="form-grid">
                       <Field
                         label={t.app.scope.cutoffField}
@@ -1653,7 +1927,7 @@ export default function App() {
                         }
                       >
                         <Input
-                          disabled={files.some(f=>f?.visual)}
+                          disabled={files.some((f)=>f?.visual)}
                           type="date"
                           aria-label={t.app.scope.cutoffLabel}
                           value={scope.cutoff}
@@ -1672,7 +1946,7 @@ export default function App() {
                         }
                       >
                         <Input
-                          disabled={files.some(f=>f?.visual)}
+                          disabled={files.some((f)=>f?.visual)}
                           aria-label={t.app.scope.currencyLabel}
                           maxLength={3}
                           dir="ltr"
@@ -1687,7 +1961,7 @@ export default function App() {
                       </Field>
                       <Choice
                         label={t.app.scope.decimals}
-                        disabled={files.some(f=>f?.visual)}
+                        disabled={files.some((f)=>f?.visual)}
                         value={precisionMissing ? '' : String(scope.decimals)}
                         onChange={(v) => {
                           if (v) updateScope({ decimals: Number(v) });
@@ -1718,7 +1992,7 @@ export default function App() {
                         )}
                       />
                     </div>
-                    {!files.some(f=>f?.visual) && <Tick
+                    {!files.some((f)=>f?.visual) && ( <Tick
                       checked={balanceMode}
                       onChange={(value) => {
                         setBalanceMode(value);
@@ -1741,7 +2015,8 @@ export default function App() {
                       }}
                     >
                       {t.app.scope.balanceMode}
-                    </Tick>}
+                    </Tick>
+                      )}
                     {(balanceMode ||
                       unresolvedScope.some((field) =>
                         ['supplier', 'entity', 'account'].includes(field),
@@ -1749,7 +2024,7 @@ export default function App() {
                       <div className="form-grid">
                         <Field label={t.app.scope.supplierField}>
                           <Input
-                          disabled={files.some(f=>f?.visual)}
+                          disabled={files.some((f)=>f?.visual)}
                             aria-label={t.app.scope.supplierLabel}
                             value={scope.supplier}
                             onChange={(e) =>
@@ -1759,7 +2034,7 @@ export default function App() {
                         </Field>
                         <Field label={t.app.scope.entityField}>
                           <Input
-                          disabled={files.some(f=>f?.visual)}
+                          disabled={files.some((f)=>f?.visual)}
                             aria-label={t.app.scope.entityLabel}
                             value={scope.entity}
                             onChange={(e) =>
@@ -1769,7 +2044,7 @@ export default function App() {
                         </Field>
                         <Field label={t.app.scope.accountField}>
                           <Input
-                          disabled={files.some(f=>f?.visual)}
+                          disabled={files.some((f)=>f?.visual)}
                             aria-label={t.app.scope.accountLabel}
                             value={scope.account}
                             onChange={(e) =>
@@ -1812,7 +2087,7 @@ export default function App() {
                                         {t.app.scope.evidenceRow}
                                         {item.row}
                                       </p>
-                                    ),
+                                    )
                                   )}
                                 </div>
                               ),
@@ -1844,20 +2119,30 @@ export default function App() {
                       }
                       balanceMode={balanceMode}
                       directionConfirmed={
-                        directionEdited.current[i] || !!directionProofs[i]
+                        directionEdited[i] || !!directionProofs[i]
                       }
-                      onPdfDraftChange={(pending) =>
+                      onPdfDraftChange={(pending) => {
+                        mainOverlapReview.invalidatePending();
                         setPdfDrafts((previous) =>
                           previous[i] === pending
                             ? previous
                             : (previous.map((v, j) =>
                                 j === i ? pending : v,
                               ) as [boolean, boolean]),
-                        )
-                      }
+                        );
+                      }}
                     />
                   ),
               )}
+              <SourceStructureReview files={files} mappings={mappings} scope={scope} />
+              <InvoiceOverlapReview files={files} mappings={mappings} scope={scope} extractionRevision={mainExtractionRevision} open={mainOverlapOpen} onOpenChange={setMainOverlapOpen} mainReview={{ coordinator: mainOverlapReview, context: mainReviewContext, onResult: applyMainOverlapResult, blockedReason: blocked || (busy ? t.app.blocked.preparing : '') }} />
+              <Button type="button" variant="outline" data-testid="allocation-workflow-handoff" className="h-auto whitespace-normal text-start" disabled={!!busy || !allocationHandoffReady} aria-describedby={!allocationHandoffReady && files.every(Boolean) ? 'allocation-handoff-source-required' : undefined} onClick={openFreshAllocation}>{allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').open}</Button>
+              {!allocationHandoffReady && files.every(Boolean) && (
+                <p id="allocation-handoff-source-required" className="hint">
+                  {allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').requiresSources}
+                </p>
+              )}
+              <SectionDerivedReview files={files} mappings={mappings} scope={scope} />
               <section className="surface pad stack">
                 {pdfReviewPending && (
                   <p className="hint warn">{t.app.compare.pdfPending}</p>
@@ -1977,7 +2262,7 @@ export default function App() {
                 </div>
               )}
               {reading.partial && (
-                <div className="notice" role="status">
+                <output style={{ display: 'block' }} className="notice">
                   <strong>{t.app.readingIssues.partial}</strong>
                   <p>
                     {t.app.readingIssues.counts(
@@ -1987,7 +2272,7 @@ export default function App() {
                   </p>
                   {reading.balanceIssues > 0 && (
                     <p>
-                      {t.app.readingIssues.balanceCount(reading.balanceIssues)}
+                      {t.app.readingIssues.balanceCount(reading.balanceIssues,)}
                     </p>
                   )}
                   {reading.sourceIssues > 0 && (
@@ -2002,7 +2287,7 @@ export default function App() {
                       <p key={i}>{say(engineText(d.message))}</p>
                     ))}
                   <p>{t.app.results.skippedAdvice}</p>
-                </div>
+                </output>
               )}
               {reading.partial && files[0] && files[1] && (
                 <ReadingIssueList
@@ -2020,11 +2305,11 @@ export default function App() {
                 <div className="notice">{t.app.results.transactionsOnly}</div>
               )}
               {!!onScreenDiagnostics.length && (
-                <div className="notice" role="status">
+                <output style={{ display: 'block' }} className="notice">
                   {onScreenDiagnostics.map((d, i) => (
                     <p key={i}>{say(engineText(d.message))}</p>
                   ))}
-                </div>
+                </output>
               )}
               <AccountingAssistant
                 result={result}
@@ -2032,6 +2317,13 @@ export default function App() {
               />
               {step === 2 && (
                 <>
+                  <InvoiceOverlapReview files={files} mappings={mappings} scope={scope} extractionRevision={mainExtractionRevision} open={mainOverlapOpen} onOpenChange={setMainOverlapOpen} mainReview={{ coordinator: mainOverlapReview, context: mainReviewContext, onResult: applyMainOverlapResult, blockedReason: blocked || (busy ? t.app.blocked.preparing : '') }} />
+                  <Button type="button" variant="outline" data-testid="allocation-workflow-handoff" className="h-auto whitespace-normal text-start" disabled={!!busy || !allocationHandoffReady} aria-describedby={!allocationHandoffReady && files.every(Boolean) ? 'allocation-handoff-source-required' : undefined} onClick={openFreshAllocation}>{allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').open}</Button>
+              {!allocationHandoffReady && files.every(Boolean) && (
+                <p id="allocation-handoff-source-required" className="hint">
+                  {allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').requiresSources}
+                </p>
+              )}
                   <section className="surface">
                     <div className="section-heading">
                       <div>
@@ -2249,6 +2541,11 @@ export default function App() {
                         const match = result.matches.find(
                           (m) => m.supplierId === a && m.ledgerId === b,
                         );
+                        if (match?.reviewedAggregate) {
+                          setSelected('');
+                          setMainOverlapOpen(true);
+                          return;
+                        }
                         const ids = match
                           ? [
                               ...(match.supplierIds ?? [a]),
@@ -2261,6 +2558,7 @@ export default function App() {
                           { action: 'unlink', ids, note },
                         );
                       }}
+                      onGroupReview={() => { setSelected(''); setMainOverlapOpen(true); }}
                       onReview={(id, note) => {
                         setAuditEvents((events) => [
                           ...events,
@@ -2272,7 +2570,7 @@ export default function App() {
                           },
                         ]);
                         setReview((r) => ({ ...r, checked: false }));
-                        setNotice(uiText((m) => m.app.notices.reviewRecorded));
+                        setNotice(uiText((m) => m.app.notices.reviewRecorded),);
                       }}
                     />
                   )}
@@ -2301,7 +2599,7 @@ export default function App() {
                           <bdi>
                             {result.supplier.closing === null
                               ? t.app.finish.notAvailable
-                              : money(result.supplier.closing, scope.decimals)}
+                              : money(result.supplier.closing, scope.decimals,)}
                           </bdi>
                         </div>
                         <div>
@@ -2346,13 +2644,13 @@ export default function App() {
                             <div>
                               <span>{t.app.finish.adjusted}</span>
                               <bdi>
-                                {money(result.bridge.adjusted, scope.decimals)}
+                                {money(result.bridge.adjusted, scope.decimals,)}
                               </bdi>
                             </div>
                             <div>
                               <span>{t.app.finish.residual}</span>
                               <bdi>
-                                {money(result.bridge.residual, scope.decimals)}
+                                {money(result.bridge.residual, scope.decimals,)}
                               </bdi>
                             </div>
                           </>
@@ -2472,7 +2770,7 @@ export default function App() {
           </button>
         )}
       </footer>
-    </div>
+    </div></>
   );
 }
 function Metric({
@@ -2580,21 +2878,25 @@ function SourceConfiguration({
     );
   }
   if (file.visual) {
-    return <section className="surface pad stack visual-accounting-bound">
+    return ( <section className="surface pad stack visual-accounting-bound">
       <h2>{t.app.sides[side]}</h2>
       <p className="summary-line"><bdi>{file.name}</bdi></p>
       <strong>{t.visualAccounting.loaded}</strong>
       <p className="hint">{t.visualAccounting.locked}</p>
       <p className="hint">{t.visualAccounting.limits}</p>
-      {importIssues.length > 0 && <div role="status" className="hint warn">
+      {importIssues.length > 0 && ( <output style={{ display: 'block' }} className="hint warn">
         <strong>{c.readingNotes(importIssues.length)}</strong>
-        {importIssues.slice(0,5).map((issue,index)=><p key={index}>{c.issueAt(issue.row,issue.column)}{issue.messages.map(message=>say(engineText(message))).join(t.common.listSeparator)}</p>)}
-      </div>}
+        {importIssues.slice(0,5).map((issue,index)=> (<p key={index}>{c.issueAt(issue.row,issue.column)}{issue.messages.map((message)=>say(engineText(message))).join(t.common.listSeparator)}</p>))}
+      </output>
+        )}
       <details><summary>{t.visualAccounting.details}</summary>
-        <div className="table-scroll"><table><thead><tr>{header.map((h,i)=><th key={i}>{h}</th>)}</tr></thead>
-          <tbody>{sheet.rows.slice(1).map((row,i)=><tr key={i}>{row.map((cell,j)=><td key={j}><bdi>{cell}</bdi></td>)}</tr>)}</tbody></table></div>
+        <div className="table-scroll"><table><thead><tr>{header.map((h,i)=> (<th key={i}>{h}</th>
+                  ))}</tr></thead>
+          <tbody>{sheet.rows.slice(1).map((row,i)=> (<tr key={i}>{row.map((cell,j)=> (<td key={j}><bdi>{cell}</bdi></td>))}</tr>
+                ))}</tbody></table></div>
       </details>
-    </section>;
+    </section>
+    );
   }
   if (!sheet) {
     return (
@@ -2607,9 +2909,9 @@ function SourceConfiguration({
             </p>
           </div>
         </div>
-        <p className="hint warn" role="status">
+        <output style={{ display: 'block' }} className="hint warn">
           {say(engineText(initialSelection.notice))}
-        </p>
+        </output>
         <Choice
           label={c.sheetField}
           value="-1"
@@ -2734,9 +3036,9 @@ function SourceConfiguration({
         />
       )}
       {initialSelection.kind === 'workpaper' && (
-        <p className="hint" role="status">
+        <output style={{ display: 'block' }} className="hint">
           {say(engineText(initialSelection.notice))}
-        </p>
+        </output>
       )}
       {file.pdf && (
         <PdfReview
@@ -2780,15 +3082,16 @@ function SourceConfiguration({
       {(['dateFormat', 'numberFormat'] as const)
         .filter((field) => formats?.[field].status === 'invalid')
         .map((field) => (
-          <p className="hint warn" role="status" key={field}>
+          <output
+            style={{ display: 'block' }} className="hint warn" key={field}>
             {say(engineText(formats![field].reason))}
-          </p>
+          </output>
         ))}
       {!!validation?.errors.length && (
         <div className="panel stack">
-          <p className="hint warn" role="status">
+          <output style={{ display: 'block' }} className="hint warn">
             {t.app.readingIssues.partial}
-          </p>
+          </output>
           <ReadingIssueList
             entries={[
               {

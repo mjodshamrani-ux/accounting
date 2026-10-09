@@ -1,5 +1,9 @@
 import { useId, type SVGProps } from 'react';
-import { BRAND_COLORS, BRAND_DISPLAY_NAME, type DisplayHeadingId } from '@/lib/brand';
+import {
+  BRAND_COLORS,
+  BRAND_DISPLAY_NAME,
+  type DisplayHeadingId,
+} from '@/lib/brand';
 import { useI18n } from '@/lib/i18n/context';
 import { cn } from '@/lib/utils';
 
@@ -59,11 +63,7 @@ export function BrandMark({
 export function BrandWordmark({ className }: { className?: string }) {
   const { t } = useI18n();
   return (
-    <span
-      className={cn('brand-wordmark', className)}
-      role="img"
-      aria-label={t.brand.name}
-    >
+    <span className={cn('brand-wordmark', className)}>
       <span
         className="brand-wordmark-arabic"
         dir="rtl"
@@ -72,6 +72,7 @@ export function BrandWordmark({ className }: { className?: string }) {
       >
         {BRAND_DISPLAY_NAME}
       </span>
+      <span className="sr-only">{t.brand.name}</span>
     </span>
   );
 }

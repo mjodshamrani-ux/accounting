@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type DragEvent } from 'react';
+import { useId, useRef, useState, type DragEvent } from 'react';
 import { Check, Upload, FileCheck2 } from 'lucide-react';
 import { useI18n } from '@/lib/i18n/context';
 import { uiText, type UiText } from '@/lib/i18n/text';
@@ -192,9 +192,11 @@ export function SourceUpload({
   const [dragging, setDragging] = useState(false);
   // What is blocking, not how it reads: the notice follows the language.
   const [blocked, setBlocked] = useState<'' | 'busy' | 'loading'>('');
-  useEffect(() => {
+  const [availability, setAvailability] = useState({ busy, ready });
+  if (availability.busy !== busy || availability.ready !== ready) {
+    setAvailability({ busy, ready });
     setBlocked('');
-  }, [busy, ready]);
+  }
   const depth = useRef(0);
   const disabled = busy || !ready;
   const stateId = `source-state-${side}`;
@@ -214,7 +216,7 @@ export function SourceUpload({
     onFile(files[0]);
   }
   return (
-    <article
+    <div
       className={`dropzone source-card ${filename ? 'has-file' : ''}`}
       data-side={side}
       data-drag-active={dragging && !disabled ? 'true' : 'false'}
@@ -259,11 +261,7 @@ export function SourceUpload({
       </div>
       <h3>{label}</h3>
       <p className="source-card__description">
-        {filename ? (
-          <bdi>{filename}</bdi>
-        ) : (
-          t.upload.description[side]
-        )}
+        {filename ? <bdi>{filename}</bdi> : t.upload.description[side]}
       </p>
       <span
         className="source-card__state"
@@ -305,6 +303,6 @@ export function SourceUpload({
           }}
         />
       </label>
-    </article>
+    </div>
   );
 }

@@ -1,0 +1,30 @@
+{
+  "authorship": "Independent manually authored PDF/CSV truth tables frozen before TypeScript engine; no product imports.",
+  "arithmetic": "Python decimal.Decimal signed minor units",
+  "files": {
+    "competing-reference.expected.json": "233b0a00a22d926102086b5a582ff22ba0f25fda7576bdc1c5c8999afc57cc0f",
+    "competing-reference.pdf": "da0102b58b988cef12e8cb0a52756b951b76432d547dd9518d4206388b704a23",
+    "contract.json": "49af46b036b26905c82558cfb4c46f12d2fe3bc999a6b282443e8c2716ed9962",
+    "cross-page.csv": "949a81275cebc3485eb2a95a1c074274defff58b012d69e12c79e9b99f36460a",
+    "cross-page.expected.json": "2b28e8faed6c1cb7c6ec8c19539a4d10cc8201f2e4febd6cf6fd3645344a68aa",
+    "cross-page.pdf": "4179f99896a3b2bc54d1940cc43a24a9f341a6d4cb378d4e4bfcfae000c02d87",
+    "duplicate-parent.expected.json": "5754ba3a8f8ed1eadfc120c3884711d657b4062194c0c1fe9cc4b6124b427b74",
+    "duplicate-parent.pdf": "a40b6745f56d6dfbbd1148ae33e7258f151b32cf8eb54fa81894dde22e55e338",
+    "explicit-native-reference.csv": "721ee4d52057f521521e4c049f3cab9d84ec214851abf8c1cd5cd6d65c0a9188",
+    "explicit-native-reference.expected.json": "4a070b68690b784455108207c4796333e13703fa6617b5cea1243b61df8cfff8",
+    "explicit-native-reference.pdf": "ef5cda4fe0ac4059b8fdbfd76fd6bf9e170387cbe8f51cad080f386c92b25ef9",
+    "late-corrupt-amount.expected.json": "98579c4f7ecf18407180d4db4339e0ace06b133dcb84866a460035c6956c7472",
+    "late-corrupt-amount.pdf": "45b864055f3649f5a3bd04c11377acad6567e43332d81fd0ab82086e6aadab57",
+    "missing-parent.expected.json": "dafd775dadd0cbf727bce05b2e65ba6d0ee7dd045b53442ec6f2d528e933717a",
+    "missing-parent.pdf": "b92482e513c4b48fa4ea95b18d6738088d5a9b6a14f5d9a36e4d0c1b50646761",
+    "page-gap.expected.json": "48840837f1237b4a7d83eca0248c206623f11918f99b689c8f2ef8b66c176aba",
+    "page-gap.pdf": "79395b29d2c71c27b8764cc4b14357ed91d6d85329cb1b6e149c36fc8d4e72af",
+    "section-signed.csv": "cdc682e2160fc0a544111104c802abdb4c2ac05be16a4c2256954f4c54899747",
+    "section-signed.expected.json": "6f9d2c5004a8da52d8e7320bf65bb7d0b22e5cd40d0e22476a90c5cc87cd3a08",
+    "section-signed.pdf": "cacf75170462da84aeafe2b80e2281d081cc93b4b19b52f045e8f776066c8aeb",
+    "unknown-boundary.expected.json": "acac5ad0ebca2d4ee8d6243504d9143421bd8dc25127f4b086ab403e58556772",
+    "unknown-boundary.pdf": "00e9ea43aa9833b80bfa9db702e348e62f735f0d1ab1e458b2e3c7af48ed48aa",
+    "unselected-movement.expected.json": "7775ac23124ae5c77c505c794f4526ccc7cfe99ea2d935350a0674f211021bcd",
+    "unselected-movement.pdf": "6f152e0da962562ac98126818cc87fb52f80eef9c349a1c97cdc0a31a560e455"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "reason": "amount-difference",
+  "evidence": [
+    "supplier",
+    "ledger"
+  ],
+  "supplierMinor": "12500",
+  "ledgerMinor": "12000",
+  "differenceMinor": "500"
+}

@@ -89,9 +89,9 @@ const labels: Record<string, keyof StatementMetadata | 'period'> = {
 };
 const otherLabels =
   /^(?:statement no\.?|supplier vat no\.?|payment terms|prepared date|ledger|erp source)$/i;
-const formulaIssue = (message: string) => /^صيغة Excel في /.test(message);
-const mergedIssue = (message: string) => /^خلية مدمجة في /.test(message);
-const boundaryIssue = (message: string) => /^نص يعبر حد عمود/.test(message);
+const formulaIssue = (message: string) => message.startsWith('صيغة Excel في ');
+const mergedIssue = (message: string) => message.startsWith('خلية مدمجة في ');
+const boundaryIssue = (message: string) => message.startsWith('نص يعبر حد عمود');
 
 /** Balance/identity evidence remains separate from transaction inclusion and user coverage approval. */
 export function extractStatementMetadata(
@@ -417,7 +417,7 @@ export function extractStatementMetadata(
     for (const term of terms) {
       const coordinate = /^\$?([A-Z]{1,3})\$?([1-9]\d*)$/i.exec(term[2])!;
       const col =
-        [...coordinate[1].toUpperCase()].reduce(
+        coordinate[1].toUpperCase().split('').reduce(
           (n, char) => n * 26 + char.charCodeAt(0) - 64,
           0,
         ) - 1;

@@ -52,7 +52,7 @@ function moneyText(minor: number, comma: boolean, parentheses: boolean) {
   return minor < 0 ? (parentheses ? `(${number})` : `-${number}`) : number;
 }
 
-test('PDF diversity: 64 seeded valid layouts preserve independent values under column, font and paint-order changes', async () => {
+void test('PDF diversity: 64 seeded valid layouts preserve independent values under column, font and paint-order changes', async () => {
   for (let seed = 1; seed <= 64; seed++) {
     const next = random(seed);
     const size = 8 + (seed % 4);
@@ -130,7 +130,7 @@ test('PDF diversity: 64 seeded valid layouts preserve independent values under c
   }
 });
 
-test('PDF diversity: 2 to 6 pages retain repeated headers, source pages and every unique transaction', async () => {
+void test('PDF diversity: 2 to 6 pages retain repeated headers, source pages and every unique transaction', async () => {
   for (let pageCount = 2; pageCount <= 6; pageCount++) {
     const pages = Array.from({ length: pageCount }, (_, page) => [
       ['Date', 'Reference', 'Amount'],
@@ -172,7 +172,7 @@ test('PDF diversity: 2 to 6 pages retain repeated headers, source pages and ever
   }
 });
 
-test('PDF diversity requires review: a second-page column reorder cannot silently reuse the first mapping', async () => {
+void test('PDF diversity requires review: a second-page column reorder cannot silently reuse the first mapping', async () => {
   const file = await readFile(
     'reordered-page.pdf',
     syntheticPdf([
@@ -226,7 +226,7 @@ test('PDF diversity requires review: a second-page column reorder cannot silentl
   );
 });
 
-test('PDF diversity: a reference displaced into an amount cell cannot hide a competing original row', async () => {
+void test('PDF diversity: a reference displaced into an amount cell cannot hide a competing original row', async () => {
   for (const repeatedHeader of [true, false]) {
     const bytes = syntheticPdf([
       [
@@ -286,7 +286,7 @@ test('PDF diversity: a reference displaced into an amount cell cannot hide a com
   }
 });
 
-test('PDF diversity requires review: wrapped transaction descriptions remain separate source rows, never invented joins', async () => {
+void test('PDF diversity requires review: wrapped transaction descriptions remain separate source rows, never invented joins', async () => {
   const commands = [
     ...['Date', 'Reference', 'Amount', 'Description'].map((value, i) =>
       text([30, 172, 315, 452][i], 760, value),
@@ -319,7 +319,7 @@ test('PDF diversity requires review: wrapped transaction descriptions remain sep
   assert.equal(compare(supplier, ledger, scope).matches.length, 0);
 });
 
-test('PDF diversity requires review: complete rows drawn across one another are not trustworthy transactions', async () => {
+void test('PDF diversity requires review: complete rows drawn across one another are not trustworthy transactions', async () => {
   for (const gap of [2, 4, 6]) {
     const commands = [
       ...['Date', 'Reference', 'Amount'].map((value, i) =>
@@ -369,7 +369,7 @@ test('PDF diversity requires review: complete rows drawn across one another are 
   }
 });
 
-test('PDF diversity: close but visibly disjoint rows and staggered side-by-side cells remain accepted', async () => {
+void test('PDF diversity: close but visibly disjoint rows and staggered side-by-side cells remain accepted', async () => {
   for (const gap of [8, 10, 12, 16]) {
     const commands = [
       ...['Date', 'Reference', 'Amount'].map((value, i) =>
@@ -415,7 +415,7 @@ test('PDF diversity: close but visibly disjoint rows and staggered side-by-side 
   assert.ok(result.every((row) => row.issues.length === 0));
 });
 
-test('PDF diversity unsupported: partially clipped glyphs at the page edge cannot be accepted as fully visible', async () => {
+void test('PDF diversity unsupported: partially clipped glyphs at the page edge cannot be accepted as fully visible', async () => {
   const rows = [
     [
       ['Date', 'Reference', 'Amount'],
@@ -439,7 +439,7 @@ test('PDF diversity unsupported: partially clipped glyphs at the page edge canno
   );
 });
 
-test('PDF diversity unsupported: later covers and hidden text remain rejected while styled table backgrounds are safe', async () => {
+void test('PDF diversity unsupported: later covers and hidden text remain rejected while styled table backgrounds are safe', async () => {
   const visible = await readFile(
     'styled-safe.pdf',
     syntheticStyledPdf(),
@@ -476,7 +476,7 @@ test('PDF diversity unsupported: later covers and hidden text remain rejected wh
   );
 });
 
-test('PDF diversity requires review: partial tokens cannot cross the final shared multipage column boundary', () => {
+void test('PDF diversity requires review: partial tokens cannot cross the final shared multipage column boundary', () => {
   const t = (value: string, x: number, y: number, width: number): PdfToken => ({
     text: value,
     x,
@@ -520,7 +520,7 @@ test('PDF diversity requires review: partial tokens cannot cross the final share
     }
 });
 
-test('PDF diversity: RTL-adjacent Arabic descriptions and Arabic numbers keep exact text without reversing identifiers', () => {
+void test('PDF diversity: RTL-adjacent Arabic descriptions and Arabic numbers keep exact text without reversing identifiers', () => {
   const tokens: PdfToken[] = [
     { text: 'فاتورة أجهزة', x: 440, y: 700, width: 100, height: 10 },
     { text: '-١٬٢٣٤٫٥٦', x: 300, y: 700, width: 70, height: 10 },

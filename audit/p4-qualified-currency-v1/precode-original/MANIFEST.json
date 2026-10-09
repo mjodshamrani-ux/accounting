@@ -1,0 +1,70 @@
+{
+  "version": "INDEPENDENT_PRECODE_PROOF_MANIFEST_V1",
+  "files": [
+    {
+      "path": "RESULT.json",
+      "bytes": 4058,
+      "sha256": "a35a97bc29a3a74c078bcb7ec2c11ef9550b537b63c3aa7c795b7e90d10e7a8e"
+    },
+    {
+      "path": "independent-native-second.mjs",
+      "bytes": 7268,
+      "sha256": "67a14b65665b4c65b3afb3d71ff60327d0e3cea5668e75f9fa195d90b4d19924"
+    },
+    {
+      "path": "independent-native.mjs",
+      "bytes": 6677,
+      "sha256": "a6cd534d3946431aa47d57e8a25ea6900c6a3e324b8593cb8ea367767a23ba49"
+    },
+    {
+      "path": "independent-operators.py",
+      "bytes": 8470,
+      "sha256": "f9e39fafca4e6bf5586b2cd6147798d928e0e16ee4ba1413ac48092ee88390cc"
+    },
+    {
+      "path": "independent-refusals.py",
+      "bytes": 3505,
+      "sha256": "de3ee7e44a6359df3f146b56fe295d1be24c661ecd0dcb38b04c8e580dc9bba1"
+    },
+    {
+      "path": "native-results-second.json",
+      "bytes": 143844,
+      "sha256": "3c779ec800d1605de8c1e6a82a74f2ed60813d25d4b9e2235308b281c12d09dc"
+    },
+    {
+      "path": "native-run-second.log",
+      "bytes": 2822,
+      "sha256": "e5aa97be9c3b82c8eada9d9bcc8765a4dc810fec575975de5e320a508592e95e"
+    },
+    {
+      "path": "native-run.public.txt",
+      "bytes": 1578,
+      "sha256": "80c238c4dc4e93662bf1a4a8194e2bd25845172d4c669199e2d55e67465f8308"
+    },
+    {
+      "path": "operators-results.json",
+      "bytes": 128307,
+      "sha256": "f657600834697423499a935019c95be3c1bba642d9ce051098083fdeae26aa9f"
+    },
+    {
+      "path": "operators-run.log",
+      "bytes": 240,
+      "sha256": "5035fb6a3a2e55f171766bfe1fef965bbcd3dd04aea6ad9bdb95a6417b344a13"
+    },
+    {
+      "path": "refusals-results.json",
+      "bytes": 254,
+      "sha256": "2366ba93abd396f3fefaa5d68d53dca9dafe4253de56cc27aba78cad4c1f842f"
+    },
+    {
+      "path": "refusals-run.log",
+      "bytes": 242,
+      "sha256": "82acc81485c788d8fa34060f49cfc2bd68837d4f598485dc42cade18db8493ee"
+    }
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

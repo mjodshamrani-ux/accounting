@@ -1,0 +1,97 @@
+{
+  "version": "p5-browser-runtime-smoke-v1",
+  "frozenBeforeInference": true,
+  "frozenAt": "2026-10-08T01:57:49.510Z",
+  "sourceCommit": "faaffb9f06d96c15c27f2b129ffc62e5c5e4a874",
+  "runtimeVersion": "4.3.0",
+  "ortVersion": "1.31.0-dev.20260914-8d85527a0",
+  "model": "onnx-community/Qwen2.5-0.5B-Instruct",
+  "revision": "22942cb7d7ba4cc81bb4673549ca4d4614469b5e",
+  "dtype": "q8",
+  "contract": {
+    "version": "p5-browser-runtime-smoke-v1",
+    "developmentOnly": true,
+    "productEnabled": false,
+    "synthetic": true,
+    "semanticAcceptance": false,
+    "physicalWeakDeviceEvidence": false,
+    "modelManifest": "audit/local-provider/proposal-v2/qwen25-model.json",
+    "runtimeVersion": "4.3.0",
+    "backend": "wasm",
+    "threads": 4,
+    "maxNewTokens": 16,
+    "doSample": false,
+    "loadDeadlineMs": 60000,
+    "caseDeadlineMs": 60000,
+    "rssLimitBytes": 6442450944,
+    "memorySampleIntervalMs": 500,
+    "cases": [
+      "extract-en-1",
+      "extract-ar-1",
+      "chat-matched-en",
+      "chat-matched-ar"
+    ],
+    "networkBoundary": "Playwright request interception and loopback HTTP asset whitelist; no OS air-gap claim"
+  },
+  "files": {
+    "audit/local-provider/browser-v1/contract.json": "3abae71cbd4b4bf5cc2a6e6553654937810b2c01c8eab02dfa0584168f861b71",
+    "audit/local-provider/browser-v1/controller.mjs": "d69279017da6545b3d97e77126f769f42d8145218918f3ce466d3cff37126713",
+    "audit/local-provider/browser-v1/worker.mjs": "fc86307cf750058946e1dd231feb5303329dce3503157091a457b7ebd1cf1dac",
+    "audit/local-provider/browser-v1/index.html": "dd663ce627a822fd778d46467e6542dba942578ea8e159120770567ce057e7cf",
+    "audit/local-provider/browser-v1/run.mjs": "18dacae9aca0b1a497ee2afa1e6c42cd0fa36e6a170f8ce2f736ef6280c5e688",
+    "scripts/process-memory.mjs": "bfa46f09dc87c5fd28cf6bd206043e167ee68fffcf4d1f6c630700911fccd7b6",
+    "audit/local-provider/device-measurement-v1/schema.mjs": "bd16857e3c43d27998b1f4eaab99e68780940d858c3c5105f4b09bf318c2f8ab",
+    "audit/local-provider/proposal-v2/qwen25-model.json": "1c8cc66c1f53be6c1fd3beeed7649912a62cef12518986152952002de7f9f50d",
+    "../../../2026-09-07/l/outputs/mizan/work/local-provider-runtime/node_modules/.pnpm/@huggingface+transformers@4.3.0_@types+node@26.6.3/node_modules/@huggingface/transformers/dist/transformers.min.js": "1475fd440e9932ab206682ee42cb18f6097403e9ee77ea62084c592d0f83597d",
+    "../../../2026-09-07/l/outputs/mizan/work/local-provider-runtime/node_modules/.pnpm/@huggingface+transformers@4.3.0_@types+node@26.6.3/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.asyncify.mjs": "0966b6105cd936744498aa60df7a22cbd47af3374dbc64a9ab561c08a71e3611",
+    "../../../2026-09-07/l/outputs/mizan/work/local-provider-runtime/node_modules/.pnpm/@huggingface+transformers@4.3.0_@types+node@26.6.3/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.asyncify.wasm": "49871f5a4409519797e127440868a6d1923339d9185907f301a5b2a1d90af082",
+    "audit/local-provider/proposal-v2/frozen/extract-en-1.txt": "b2cad8b318f649c6dd7906818300ae78ccc4cd93c394502da610f0b8202cb8b7",
+    "audit/local-provider/proposal-v2/frozen/extract-en-1.expected.json": "e3c321defaaadc8d48035f2ad891e08f4a3331b2dff6db7d62d0ca0f67d6de42",
+    "audit/local-provider/proposal-v2/extract-prompt.txt": "bb3548959eb5c9fe96e200fdb4952b71cb6f960f6a6a870be73bd61d0c8db8c4",
+    "audit/local-provider/proposal-v2/frozen/extract-ar-1.txt": "c3104a6ed30180638ea415d2292768a6fda9d6310cbb033f03dfd39e87a78b05",
+    "audit/local-provider/proposal-v2/frozen/extract-ar-1.expected.json": "02700a93ff3e9a3d3811c0a4a0a2dff44c1a15e036bb2b7d07861c7e1f2fef71",
+    "audit/local-provider/proposal-v2/frozen/chat-matched-en.txt": "2bfc3d189ebd3f6524c00bbabae363d6f7aec4aeae9f198e13b575e93a645b3f",
+    "audit/local-provider/proposal-v2/frozen/chat-matched-en.expected.json": "0a5d188f0a4d2ba52340e7bfa168f85eac0f4c49bc22daac4894a6eaddae1f0a",
+    "audit/local-provider/proposal-v2/chat-prompt.txt": "10986afb01f4314a092431d205b57a75050f6332aadf8583fb99b0f99b730fdd",
+    "audit/local-provider/proposal-v2/frozen/chat-matched-ar.txt": "0e39e0adad22f95220e13c1e0a640faff9b99f43d3793609eb23f651891addb2",
+    "audit/local-provider/proposal-v2/frozen/chat-matched-ar.expected.json": "0a5d188f0a4d2ba52340e7bfa168f85eac0f4c49bc22daac4894a6eaddae1f0a"
+  },
+  "assets": [
+    {
+      "path": "config.json",
+      "bytes": 678,
+      "sha256": "777e01f0fbb3346eb229cb6fb278ed6533c1e4dcb9ebf4bed0f6e94ef17fa1b5",
+      "verified": true
+    },
+    {
+      "path": "generation_config.json",
+      "bytes": 242,
+      "sha256": "f7e7ce458658b2d40d9eb213b91b77a8bf698845ab89360976722d7ac46928a3",
+      "verified": true
+    },
+    {
+      "path": "special_tokens_map.json",
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "verified": true
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 7031673,
+      "sha256": "a8506e7111b80c6d8635951a02eab0f4e1a8e4e5772da83846579e97b16f61bf",
+      "verified": true
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 7849,
+      "sha256": "6a14243f0ae04884e597b3f032c05e15de9f417318fdcac24ab4e2680e691430",
+      "verified": true
+    },
+    {
+      "path": "onnx/model_quantized.onnx",
+      "bytes": 512096557,
+      "sha256": "41834041ab1b29eff9fc592f1a29a1844133aea35832ea9fa91682be13016100",
+      "verified": true
+    }
+  ]
+}

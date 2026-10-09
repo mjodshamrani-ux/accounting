@@ -1,0 +1,82 @@
+{
+  "id": "missing-page-qualification",
+  "outcome": "blocked",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "588858ba99a622b3637beeec07c20dda9256ca6c7dd56ba75ba8c4c1ae995c45",
+  "originalByteLength": 1899,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (SAR)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 2,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 2,
+      "values": [
+        "Continued invoice",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 6,
+      "page": 2,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "+2.05"
+      ]
+    }
+  ],
+  "links": [],
+  "currencyEvidence": [],
+  "reason": "Qualified original currency evidence is missing on continuation page.",
+  "newCurrencyReceipt": false,
+  "derivedCurrencyArtifact": false,
+  "partialArtifact": false
+}

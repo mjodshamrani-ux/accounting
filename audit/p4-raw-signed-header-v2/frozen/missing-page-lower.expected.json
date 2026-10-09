@@ -1,0 +1,79 @@
+{
+  "outcome": "blocked",
+  "originalSha256": "74534bad4070cb6ebe8631a85ba21594bca1d622bd5adf660c4003ffe097f15f",
+  "originalByteLength": 2037,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "",
+        "",
+        "",
+        "amount"
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 2,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed"
+      ]
+    },
+    {
+      "row": 6,
+      "page": 2,
+      "values": [
+        "Continued invoice",
+        "INV-271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 7,
+      "page": 2,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    }
+  ],
+  "proposals": [],
+  "links": []
+}

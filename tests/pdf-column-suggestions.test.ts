@@ -20,7 +20,7 @@ const page = () => ({
     t('120', 420, 680, 20),
   ],
 });
-test('only one explicit complete header and consistent gaps produce PDF suggestions', () => {
+void test('only one explicit complete header and consistent gaps produce PDF suggestions', () => {
   const p = page();
   const before = JSON.stringify(p);
   const cuts = suggestPdfColumns([p]);
@@ -39,7 +39,7 @@ test('only one explicit complete header and consistent gaps produce PDF suggesti
   );
   assert.equal(suggestPdfColumns([duplicate]), null);
 });
-test('overlapping, incompatible multi-page or floating tokens cancel automatic suggestions', () => {
+void test('overlapping, incompatible multi-page or floating tokens cancel automatic suggestions', () => {
   const overlap = page();
   overlap.tokens[3].width = 210;
   assert.equal(suggestPdfColumns([overlap]), null);
@@ -53,7 +53,7 @@ test('overlapping, incompatible multi-page or floating tokens cancel automatic s
   nan.tokens[0].x = NaN;
   assert.equal(suggestPdfColumns([nan]), null);
 });
-test('partial rows tighten a gap without splitting an extended reference', () => {
+void test('partial rows tighten a gap without splitting an extended reference', () => {
   const p = page();
   p.tokens.push(
     t('2026-06-02', 20, 650, 65),

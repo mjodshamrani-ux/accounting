@@ -1,0 +1,9 @@
+Mapping ID,Account ID,Complete dimensions,Line ID,Sign,Evidence ID,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+M-001,001,none,CASH,debit-positive,P-001,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+M-002,002,none,REC,debit-positive,P-002,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+M-003,003,none,REC,debit-positive,P-003,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+M-004,004,none,PPE,debit-positive,P-004,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+M-101,101,none,PAY,credit-positive,P-101,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+M-102,102,none,LOAN,credit-positive,P-102,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+M-201,201,none,CAP,credit-positive,P-201,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing
+M-002-B,002,branch=B,REC,debit-positive,P-002-B,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,post-closing

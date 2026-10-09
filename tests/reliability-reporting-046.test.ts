@@ -32,7 +32,7 @@ const record = (over = {}) => ({
   ...over,
 });
 
-test('046 stopping every clear case cannot be reported as accurate work', () => {
+void test('046 stopping every clear case cannot be reported as accurate work', () => {
   const stoppedRun = aggregate(
     Array.from({ length: 50 }, () =>
       record({
@@ -57,7 +57,7 @@ test('046 stopping every clear case cannot be reported as accurate work', () => 
   );
 });
 
-test('046 a false match is never absorbed into the correct-match total', () => {
+void test('046 a false match is never absorbed into the correct-match total', () => {
   const run = aggregate([
     record(),
     record({
@@ -74,7 +74,7 @@ test('046 a false match is never absorbed into the correct-match total', () => {
   assert.deepEqual(run.falseMatchMinorByCurrency, { SAR: '2500' });
 });
 
-test('046 amounts of different currencies are never summed together', () => {
+void test('046 amounts of different currencies are never summed together', () => {
   const run = aggregate([
     record({ currency: 'SAR', falseMatches: 1, falseMatchValueMinor: '100' }),
     record({ currency: 'KWD', falseMatches: 1, falseMatchValueMinor: '250' }),
@@ -82,7 +82,7 @@ test('046 amounts of different currencies are never summed together', () => {
   assert.deepEqual(run.falseMatchMinorByCurrency, { SAR: '100', KWD: '250' });
 });
 
-test('046 confirmations are counted per kind so an oracle-fed format is visible', () => {
+void test('046 confirmations are counted per kind so an oracle-fed format is visible', () => {
   // Each "format invalid" confirmation marks a source the engine could not read
   // on its own. Collapsing them into one total would hide the capability gap.
   const run = aggregate([

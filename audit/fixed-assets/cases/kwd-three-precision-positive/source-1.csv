@@ -1,0 +1,7 @@
+Mapping ID,Asset ID,Asset dimensions,Component,GL account,GL dimensions,Evidence ID,Entity,Asset ledger,GL ledger,Currency,Currency basis,Posting status,Posting layer,As of,Chart version,Map version,Component policy version,Asset account set version
+MAP-A-cost,A,site=01,cost,GL-cost,branch=01,POL-A-cost,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,KWD,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+MAP-A-depreciation,A,site=01,depreciation,GL-depreciation,branch=01,POL-A-depreciation,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,KWD,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+MAP-A-impairment,A,site=01,impairment,GL-impairment,branch=01,POL-A-impairment,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,KWD,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+MAP-B-cost,B,site=02,cost,GL-cost,branch=01,POL-B-cost,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,KWD,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+MAP-B-depreciation,B,site=02,depreciation,GL-depreciation,branch=01,POL-B-depreciation,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,KWD,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+MAP-B-impairment,B,site=02,impairment,GL-impairment,branch=01,POL-B-impairment,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,KWD,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1

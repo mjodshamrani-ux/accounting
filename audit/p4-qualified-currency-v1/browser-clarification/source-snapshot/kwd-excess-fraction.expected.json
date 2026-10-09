@@ -1,0 +1,62 @@
+{
+  "id": "kwd-excess-fraction",
+  "outcome": "blocked",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+  "originalByteLength": 1312,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (KWD)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.500"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "late excessive precision",
+        "+2.0001"
+      ]
+    }
+  ],
+  "links": [],
+  "currencyEvidence": [],
+  "reason": "KWD fixed three exponent must not round the late amount.",
+  "newCurrencyReceipt": false,
+  "derivedCurrencyArtifact": false,
+  "partialArtifact": false
+}

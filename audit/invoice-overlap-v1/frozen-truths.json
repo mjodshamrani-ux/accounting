@@ -1,0 +1,686 @@
+{
+  "version": "INVOICE_OVERLAP_SEARCH_V1",
+  "provenance": "Manually specified economic identity events; independent Python integer enumeration of every nonempty related subset pair before TS engine creation. Synthetic development truths, not field holdout. No maximal coverage objective.",
+  "cases": [
+    {
+      "id": "proper-1N",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 1000,
+          "voucher": "V1"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "A",
+          "selected": "",
+          "minor": 700,
+          "voucher": "V3"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1"
+        ],
+        "ledger": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "proper-N1",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "A",
+          "selected": "",
+          "minor": 700,
+          "voucher": "V3"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 1000,
+          "voucher": "V1"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1",
+            "2"
+          ],
+          "ledgerIds": [
+            "1"
+          ],
+          "totalMinor": 1000
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1",
+          "2",
+          "3"
+        ],
+        "ledger": [
+          "1"
+        ]
+      }
+    },
+    {
+      "id": "proper-NM",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "A",
+          "selected": "",
+          "minor": 900,
+          "voucher": "V3"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 250,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 750,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "A",
+          "selected": "",
+          "minor": 800,
+          "voucher": "V3"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1",
+            "2"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1",
+          "2",
+          "3"
+        ],
+        "ledger": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "full-NM",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V2"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 250,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 750,
+          "voucher": "V2"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1",
+            "2"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1",
+          "2"
+        ],
+        "ledger": [
+          "1",
+          "2"
+        ]
+      }
+    },
+    {
+      "id": "overlapping-alternatives",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 1000,
+          "voucher": "V1"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "A",
+          "selected": "",
+          "minor": 300,
+          "voucher": "V3"
+        },
+        {
+          "id": "4",
+          "invoice": "A",
+          "selected": "",
+          "minor": 700,
+          "voucher": "V4"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        },
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "3",
+            "4"
+          ],
+          "totalMinor": 1000
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1"
+        ],
+        "ledger": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      }
+    },
+    {
+      "id": "shared-either-side",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1",
+            "2"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        },
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "1"
+          ],
+          "totalMinor": 400
+        },
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "2"
+          ],
+          "ledgerIds": [
+            "2"
+          ],
+          "totalMinor": 600
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1",
+          "2"
+        ],
+        "ledger": [
+          "1",
+          "2"
+        ]
+      }
+    },
+    {
+      "id": "zero-membership-visible",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 1000,
+          "voucher": "V1"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "A",
+          "selected": "",
+          "minor": 0,
+          "voucher": "V3"
+        }
+      ],
+      "blocked": true,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "1",
+            "2",
+            "3"
+          ],
+          "totalMinor": 1000
+        },
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1"
+        ],
+        "ledger": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "negative-membership-visible",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 1000,
+          "voucher": "V1"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "A",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "A",
+          "selected": "",
+          "minor": -100,
+          "voucher": "V3"
+        },
+        {
+          "id": "4",
+          "invoice": "A",
+          "selected": "",
+          "minor": 300,
+          "voucher": "V4"
+        }
+      ],
+      "blocked": true,
+      "truthCandidates": [
+        {
+          "invoice": "A",
+          "selected": "",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1"
+        ],
+        "ledger": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      }
+    },
+    {
+      "id": "distinct-selected-parts",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "P",
+          "selected": "A",
+          "minor": 1000,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "P",
+          "selected": "B",
+          "minor": 500,
+          "voucher": "V2"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "P",
+          "selected": "A",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "P",
+          "selected": "A",
+          "minor": 600,
+          "voucher": "V2"
+        },
+        {
+          "id": "3",
+          "invoice": "P",
+          "selected": "B",
+          "minor": 500,
+          "voucher": "V3"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [
+        {
+          "invoice": "P",
+          "selected": "A",
+          "supplierIds": [
+            "1"
+          ],
+          "ledgerIds": [
+            "1",
+            "2"
+          ],
+          "totalMinor": 1000
+        },
+        {
+          "invoice": "P",
+          "selected": "B",
+          "supplierIds": [
+            "2"
+          ],
+          "ledgerIds": [
+            "3"
+          ],
+          "totalMinor": 500
+        }
+      ],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1",
+          "2"
+        ],
+        "ledger": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "id": "different-invoices-no-sum-relation",
+      "supplier": [
+        {
+          "id": "1",
+          "invoice": "A",
+          "selected": "",
+          "minor": 1000,
+          "voucher": "V1"
+        }
+      ],
+      "ledger": [
+        {
+          "id": "1",
+          "invoice": "B",
+          "selected": "",
+          "minor": 400,
+          "voucher": "V1"
+        },
+        {
+          "id": "2",
+          "invoice": "B",
+          "selected": "",
+          "minor": 600,
+          "voucher": "V2"
+        }
+      ],
+      "blocked": false,
+      "truthCandidates": [],
+      "truthPhysicalIds": {
+        "supplier": [
+          "1"
+        ],
+        "ledger": [
+          "1",
+          "2"
+        ]
+      }
+    }
+  ]
+}

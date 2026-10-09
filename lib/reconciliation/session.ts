@@ -11,6 +11,8 @@ import type {
 import { readFile } from './io.ts';
 import { verifyDirectionEvidence } from './source-preparation.ts';
 import { reconcileSupplierStatement } from './supplier-reconciliation.ts';
+import { InvoiceOverlapReviewLedger, type InvoiceOverlapSession } from './invoice-overlap-review.ts';
+export type SupplierOverlapArchive = { revision: string; session: InvoiceOverlapSession };
 export type SessionState = {
   files: [SourceFile, SourceFile];
   mappings: [Mapping, Mapping];
@@ -19,6 +21,7 @@ export type SessionState = {
   rejected: string[];
   events: AuditEvent[];
   review: { name: string; notes: string; checked: boolean };
+  overlapArchive?: SupplierOverlapArchive;
 };
 const encode = (b: ArrayBuffer) => {
   let s = '';
@@ -82,6 +85,7 @@ export async function saveSession(state: SessionState): Promise<ArrayBuffer> {
       rejected: state.rejected,
       events: state.events,
       review: state.review,
+      ...(state.overlapArchive ? { overlapArchive: state.overlapArchive } : {}),
     }),
   ).buffer;
   if (bytes.byteLength > 30 * 1024 * 1024)
@@ -172,6 +176,18 @@ export async function restoreSession(bytes: ArrayBuffer) {
       !e.ids.every((id: unknown) => typeof id === 'string' && ids.has(id))
     )
       throw new Error('حدث مراجعة غير صالح');
+  let overlapArchive: SupplierOverlapArchive | undefined;
+  if (p.overlapArchive !== undefined) {
+    if (!p.overlapArchive || typeof p.overlapArchive.revision !== 'string' ||
+      !p.overlapArchive.revision.trim() || p.overlapArchive.revision.length > 4000 ||
+      !p.overlapArchive.session)
+      throw new Error('Invalid archived supplier overlap review.');
+    const archiveOwner = new InvoiceOverlapReviewLedger();
+    const imported = await archiveOwner.reimportSession({ currentSourceFiles: files,
+      mappings: p.mappings, scope: p.scope, revision: p.overlapArchive.revision },
+    p.overlapArchive.session);
+    overlapArchive = { revision: p.overlapArchive.revision, session: imported.archive };
+  }
   return {
     files,
     mappings,
@@ -181,5 +197,6 @@ export async function restoreSession(bytes: ArrayBuffer) {
     events: p.events as AuditEvent[],
     review: { name: p.review.name, notes: p.review.notes, checked: false },
     result,
+    ...(overlapArchive ? { overlapArchive } : {}),
   };
 }

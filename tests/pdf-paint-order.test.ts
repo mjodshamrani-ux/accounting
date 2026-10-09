@@ -6,7 +6,7 @@ import {
 } from '../lib/reconciliation/pdf-paint-order.ts';
 import { readFile } from '../lib/reconciliation/io.ts';
 import { syntheticStyledPdf } from './helpers/styled-pdf-fixture.ts';
-test('exact glyph binding records when text was painted, including split and merged runs', () => {
+void test('exact glyph binding records when text was painted, including split and merged runs', () => {
   const ops = { showText: 1 };
   const a = [0, 0, 10, 10],
     b = [20, 0, 30, 10];
@@ -25,7 +25,7 @@ test('exact glyph binding records when text was painted, including split and mer
   );
   assert.throws(() => bindTextPaints(ops, [], [], ['100'], [a]), /بالكامل/);
 });
-test('white text requires an opaque dark background covering its entire box', () => {
+void test('white text requires an opaque dark background covering its entire box', () => {
   const box = [10, 10, 20, 20];
   assert.equal(visibleOnBackground('#ffffff', box, []), false);
   assert.equal(
@@ -47,7 +47,7 @@ test('white text requires an opaque dark background covering its entire box', ()
     false,
   );
 });
-test('colored statement headers and pale backgrounds drawn after a title load without hiding data', async () => {
+void test('colored statement headers and pale backgrounds drawn after a title load without hiding data', async () => {
   const file = await readFile(
     'synthetic-styled.pdf',
     syntheticStyledPdf(),
@@ -61,14 +61,14 @@ test('colored statement headers and pale backgrounds drawn after a title load wi
   ]);
   assert.deepEqual(file.sheets[0].rowIssues, {});
 });
-test('a later opaque rectangle covering transaction text still prevents import', async () => {
+void test('a later opaque rectangle covering transaction text still prevents import', async () => {
   await assert.rejects(
     readFile('synthetic-covered.pdf', syntheticStyledPdf(true), [25, 45]),
     /يغطي|تغط/,
   );
 });
 
-test('a hairline table rule grazing black text is not a background, but covers and stripes still are', () => {
+void test('a hairline table rule grazing black text is not a background, but covers and stripes still are', () => {
   // A glyph box 11.7pt tall; a printed row border 0.75pt thick across its
   // lower edge, as Chromium draws where a page break cuts a table row.
   const glyph = [488.8, 527.2, 643.2, 538.9];

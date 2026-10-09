@@ -1,0 +1,186 @@
+{
+  "failureAuthority": "No partial review/CSV/new receipt/source mutation; prior interpretation-only receipt consumed on owned refused Apply. Structural blocked reviews may retain diagnostic suggestions and legacy interpretation-only receipts, never usable derivation or financial authority.",
+  "actions": [
+    {
+      "id": "byte-budget",
+      "source": "arabic-pair-signed.pdf",
+      "budget": {
+        "maxOriginalBytes": 1
+      },
+      "expected": "resource-blocked"
+    },
+    {
+      "id": "page-budget",
+      "source": "arabic-cross-page.pdf",
+      "budget": {
+        "maxPages": 1
+      },
+      "expected": "resource-blocked"
+    },
+    {
+      "id": "row-budget",
+      "source": "arabic-pair-signed.pdf",
+      "budget": {
+        "maxRows": 3
+      },
+      "expected": "resource-blocked"
+    },
+    {
+      "id": "proposal-budget",
+      "source": "arabic-pair-signed.pdf",
+      "budget": {
+        "maxProposals": 1
+      },
+      "expected": "resource-blocked"
+    },
+    {
+      "id": "citation-budget",
+      "source": "arabic-cross-page.pdf",
+      "budget": {
+        "maxEvidenceCells": 1
+      },
+      "expected": "resource-blocked"
+    },
+    {
+      "id": "pre-aborted",
+      "source": "arabic-pair-signed.pdf",
+      "cancel": "before-inspect",
+      "expected": "cancelled"
+    },
+    {
+      "id": "native-read-aborted",
+      "source": "arabic-resource-cancellation.pdf",
+      "cancel": {
+        "stage": "pdf-read",
+        "completed": 1
+      },
+      "expected": "cancelled-before-next-page"
+    },
+    {
+      "id": "row-walk-aborted",
+      "source": "arabic-resource-cancellation.pdf",
+      "cancel": {
+        "stage": "section-rows",
+        "completed": 256
+      },
+      "expected": "cancelled-before-publication"
+    },
+    {
+      "id": "replace-during-replay",
+      "source": "arabic-resource-cancellation.pdf",
+      "change": "replaceSource at pdf-read completed=1",
+      "expected": "stale-generation-blocked-before-next-page"
+    },
+    {
+      "id": "reviewer-cleared-during-replay",
+      "source": "arabic-resource-cancellation.pdf",
+      "change": "updateReviewer empty label/rationale at pdf-read completed=1",
+      "expected": "stale-generation-blocked-before-next-page"
+    },
+    {
+      "id": "source-role-cache-tamper",
+      "source": "arabic-pair-signed.pdf",
+      "change": {
+        "row": 2,
+        "column": 1,
+        "literal": "\u0631\u0642\u0645 \u0627\u0644\u0637\u0644\u0628"
+      },
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "source-value-cache-tamper",
+      "source": "arabic-pair-signed.pdf",
+      "change": {
+        "row": 2,
+        "column": 2,
+        "literal": "AR-999"
+      },
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "bidi-reference-cache-tamper",
+      "source": "arabic-pair-signed.pdf",
+      "change": {
+        "row": 2,
+        "column": 2,
+        "literal": "AR-\u202e271"
+      },
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "source-signed-amount-cache-tamper",
+      "source": "arabic-pair-signed.pdf",
+      "change": {
+        "row": 3,
+        "column": 4,
+        "literal": "+12.50"
+      },
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "original-byte-tamper",
+      "source": "arabic-pair-signed.pdf",
+      "change": "flip original byte without matching sourceSha256",
+      "expected": "original-rehash-blocked"
+    },
+    {
+      "id": "source-page-cache-tamper",
+      "source": "arabic-cross-page.pdf",
+      "change": {
+        "row": 5,
+        "page": 1
+      },
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "post-review-mapping",
+      "source": "arabic-pair-signed.pdf",
+      "change": "mapping.amount after owned receipt",
+      "expected": "stale-receipt-blocked"
+    },
+    {
+      "id": "post-review-revision",
+      "source": "arabic-pair-signed.pdf",
+      "change": "extractionRevision after owned receipt",
+      "expected": "stale-receipt-blocked"
+    },
+    {
+      "id": "post-review-decimals",
+      "source": "arabic-pair-signed.pdf",
+      "change": "decimals after owned receipt",
+      "expected": "stale-receipt-blocked"
+    },
+    {
+      "id": "proposal-span-tamper",
+      "source": "arabic-cross-page.pdf",
+      "change": "change role/value span literal/page/column in saved review",
+      "expected": "fresh-review-comparison-blocked"
+    },
+    {
+      "id": "receipt-clone",
+      "source": "arabic-pair-signed.pdf",
+      "change": "structuredClone/JSON reconstruction of owned receipt",
+      "expected": "counterfeit-receipt-blocked"
+    },
+    {
+      "id": "unselected-movement",
+      "source": "arabic-pair-signed.pdf",
+      "selectedMovementRows": [
+        3
+      ],
+      "expected": "unresolved-movement-blocked"
+    },
+    {
+      "id": "cuts-before-clone",
+      "source": "arabic-pair-signed.pdf",
+      "change": "cuts array length100001",
+      "expected": "resource-blocked-before-clone"
+    },
+    {
+      "id": "reviewer-metadata-before-clone",
+      "source": "arabic-pair-signed.pdf",
+      "change": "rationale length100001",
+      "expected": "resource-blocked-before-clone"
+    }
+  ]
+}

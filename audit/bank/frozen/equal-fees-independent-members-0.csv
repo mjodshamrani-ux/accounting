@@ -1,0 +1,3 @@
+Record ID,Settlement ID,Movement date,Value date,Cash direction,Role,Parent payment ID,Reverses record ID,Policy,Status,Entity,Ledger,Bank account,Currency,Period start,Period end,Amount
+B1,S1,2026-09-15,2026-09-16,outflow,settlement,,,outgoing-inclusive,booked,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,1017.25
+B2,S2,2026-09-15,2026-09-16,outflow,settlement,,,outgoing-inclusive,booked,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,2017.25

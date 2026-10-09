@@ -77,7 +77,7 @@ const accounted = (
   );
 };
 
-test('046 balance labels after the amount remain structural across column permutations and preserve complete payment groups', () => {
+void test('046 balance labels after the amount remain structural across column permutations and preserve complete payment groups', () => {
   for (const order of [
     [0, 1, 2, 3, 4, 5, 6],
     [4, 0, 3, 1, 6, 5, 2],
@@ -107,7 +107,7 @@ test('046 balance labels after the amount remain structural across column permut
   }
 });
 
-test('046 a dated invoice named Opening or Closing balance cannot disappear when its amount precedes its description', () => {
+void test('046 a dated invoice named Opening or Closing balance cannot disappear when its amount precedes its description', () => {
   for (const description of ['Opening balance', 'Closing balance']) {
     const file = source(['-100.00']);
     file.sheets[0].rows[3][0] = 'INV-046-DOCT';
@@ -131,7 +131,7 @@ test('046 a dated invoice named Opening or Closing balance cannot disappear when
   }
 });
 
-test('046 nonleading balance labels cannot conceal references, malformed dates or amounts, multiple labels or unrelated helper text', () => {
+void test('046 nonleading balance labels cannot conceal references, malformed dates or amounts, multiple labels or unrelated helper text', () => {
   for (const mutation of [
     { column: 0, value: 'INV-046-77' },
     { column: 3, value: '2026-07-15' },
@@ -184,7 +184,7 @@ test('046 nonleading balance labels cannot conceal references, malformed dates o
   );
 });
 
-test('046 unsafe or hidden nonleading balance labels remain source errors and cannot establish complete groups', () => {
+void test('046 unsafe or hidden nonleading balance labels remain source errors and cannot establish complete groups', () => {
   for (const risk of ['cellIssues', 'referenceIssues', 'hiddenRows'] as const) {
     const a = source(['-100.00']),
       b = source(['-40.00', '-60.00']);

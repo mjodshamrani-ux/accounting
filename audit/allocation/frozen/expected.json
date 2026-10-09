@@ -1,0 +1,1239 @@
+{
+  "sample": "synthetic-not-field",
+  "version": "allocation-snapshot-1",
+  "scope": {
+    "entity": "Synthetic Buyer",
+    "ledger": "Primary Book",
+    "party": "Supplier S01",
+    "account": "2100",
+    "currency": "SAR",
+    "cutoff": "2026-09-30",
+    "basis": "before-proposed-allocation"
+  },
+  "headers": [
+    [
+      "Payment ID",
+      "Payment date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+    ],
+    [
+      "Invoice ID",
+      "Invoice date",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Original amount",
+      "Available amount"
+    ],
+    [
+      "Advice line ID",
+      "Entity",
+      "Ledger",
+      "Party",
+      "Account",
+      "Currency",
+      "Snapshot date",
+      "Allocation basis",
+      "Payment ID",
+      "Invoice ID",
+      "Allocation amount"
+    ]
+  ],
+  "cases": [
+    {
+      "name": "one-to-one",
+      "files": [
+        {
+          "file": "one-to-one-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "one-to-one-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "one-to-one-2.csv",
+          "sha256": "62d9f2092a4ac1343efa09703ed61927ad2ae58745b6e9261bdf134c3381d1b7"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "remittance",
+          "id": "D1",
+          "proofs": [
+            "R1"
+          ]
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          100000,
+          0
+        ],
+        "1:I1": [
+          100000,
+          100000,
+          100000,
+          0
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          100000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "one-to-many",
+      "files": [
+        {
+          "file": "one-to-many-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "one-to-many-1.csv",
+          "sha256": "75f25e1ace380b898673f36da0de96f0cf3ecd0ffcd5ae1848521c101ace7230"
+        },
+        {
+          "file": "one-to-many-2.csv",
+          "sha256": "41e1649ae74860c1f47f88393b675a10bc0786ca140f61c27d60a03bd2df8d7a"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "remittance",
+          "id": "D1",
+          "proofs": [
+            "R1",
+            "R2",
+            "R3"
+          ]
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          100000,
+          0
+        ],
+        "1:I1": [
+          40000,
+          40000,
+          40000,
+          0
+        ],
+        "1:I2": [
+          35000,
+          35000,
+          35000,
+          0
+        ],
+        "1:I3": [
+          25000,
+          25000,
+          25000,
+          0
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          40000
+        ],
+        [
+          "P1",
+          "I2",
+          35000
+        ],
+        [
+          "P1",
+          "I3",
+          25000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "many-to-one",
+      "files": [
+        {
+          "file": "many-to-one-0.csv",
+          "sha256": "1b14d430c72c5d38127713e4b4bc06c6b57a6bed6e9fad314068e5b46c743879"
+        },
+        {
+          "file": "many-to-one-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "many-to-one-2.csv",
+          "sha256": "6d9640f5e8ca0dddfdc14aafeb64f8f6f1c7a2faf896de0b3b5ebdb623675724"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "remittance",
+          "id": "D1",
+          "proofs": [
+            "R1",
+            "R2"
+          ]
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          60000,
+          60000,
+          60000,
+          0
+        ],
+        "0:P2": [
+          40000,
+          40000,
+          40000,
+          0
+        ],
+        "1:I1": [
+          100000,
+          100000,
+          100000,
+          0
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          60000
+        ],
+        [
+          "P2",
+          "I1",
+          40000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "partial",
+      "files": [
+        {
+          "file": "partial-0.csv",
+          "sha256": "f6d0781a8d7639cef237e71807547b269378ab40b258e4f5357039b4e7f81fcb"
+        },
+        {
+          "file": "partial-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "partial-2.csv",
+          "sha256": "33884bbd71fae807a6cff82e80aeeaacc4b59d2bb40bd0547315db2e71a011ea"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "remittance",
+          "id": "D1",
+          "proofs": [
+            "R1"
+          ]
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          60000,
+          60000,
+          60000,
+          0
+        ],
+        "1:I1": [
+          100000,
+          100000,
+          60000,
+          40000
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          60000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "leftover",
+      "files": [
+        {
+          "file": "leftover-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "leftover-1.csv",
+          "sha256": "7805ded8e620df4249f40bcd924909ffda7791204f5b38fadd406163b095e9f3"
+        },
+        {
+          "file": "leftover-2.csv",
+          "sha256": "66270d3e6437faf8cddd8b34e3f1b336bda0e58e9925546e46099ca1cd7505fa"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "remittance",
+          "id": "D1",
+          "proofs": [
+            "R1"
+          ]
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          75000,
+          25000
+        ],
+        "1:I1": [
+          75000,
+          75000,
+          75000,
+          0
+        ],
+        "1:I2": [
+          25000,
+          25000,
+          0,
+          25000
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          75000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "stages",
+      "files": [
+        {
+          "file": "stages-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "stages-1.csv",
+          "sha256": "521513929fb5a696f7cd263f3bf13976f9182acf535f268b0958325e9e05a8b5"
+        },
+        {
+          "file": "stages-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "human",
+          "id": "D1",
+          "links": [
+            [
+              "P1",
+              "I1",
+              400
+            ]
+          ]
+        },
+        {
+          "type": "human",
+          "id": "D2",
+          "links": [
+            [
+              "P1",
+              "I2",
+              350
+            ]
+          ]
+        },
+        {
+          "type": "human",
+          "id": "D3",
+          "links": [
+            [
+              "P1",
+              "I3",
+              700
+            ]
+          ],
+          "reject": true
+        },
+        {
+          "type": "human",
+          "id": "D4",
+          "links": [
+            [
+              "P1",
+              "I1",
+              100
+            ]
+          ],
+          "reject": true
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          75000,
+          25000
+        ],
+        "1:I1": [
+          40000,
+          40000,
+          40000,
+          0
+        ],
+        "1:I2": [
+          35000,
+          35000,
+          35000,
+          0
+        ],
+        "1:I3": [
+          70000,
+          70000,
+          0,
+          70000
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          40000
+        ],
+        [
+          "P1",
+          "I2",
+          35000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        },
+        {
+          "accepted": true,
+          "active": [
+            "D1",
+            "D2"
+          ]
+        },
+        {
+          "accepted": false,
+          "active": [
+            "D1",
+            "D2"
+          ]
+        },
+        {
+          "accepted": false,
+          "active": [
+            "D1",
+            "D2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "payment-overrun",
+      "files": [
+        {
+          "file": "payment-overrun-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "payment-overrun-1.csv",
+          "sha256": "9b3df432b868e0352d56edf9a5916db77a96968dbd6fe0c2051ab93f98118803"
+        },
+        {
+          "file": "payment-overrun-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "human",
+          "id": "D1",
+          "links": [
+            [
+              "P1",
+              "I1",
+              700
+            ],
+            [
+              "P1",
+              "I2",
+              500
+            ]
+          ],
+          "reject": true
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          0,
+          100000
+        ],
+        "1:I1": [
+          70000,
+          70000,
+          0,
+          70000
+        ],
+        "1:I2": [
+          50000,
+          50000,
+          0,
+          50000
+        ]
+      },
+      "links": [],
+      "history": [
+        {
+          "accepted": false,
+          "active": []
+        }
+      ]
+    },
+    {
+      "name": "invoice-overrun",
+      "files": [
+        {
+          "file": "invoice-overrun-0.csv",
+          "sha256": "a0c3f2dff400cb62e741ff829f04fdc73f67a910ced163ba225878c81dce3230"
+        },
+        {
+          "file": "invoice-overrun-1.csv",
+          "sha256": "e9de0b4675ce84d576fc8d109063b3d2361c3a030762bc0163db194e2c6c701f"
+        },
+        {
+          "file": "invoice-overrun-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "human",
+          "id": "D1",
+          "links": [
+            [
+              "P1",
+              "I1",
+              300
+            ],
+            [
+              "P2",
+              "I1",
+              300
+            ]
+          ],
+          "reject": true
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          30000,
+          30000,
+          0,
+          30000
+        ],
+        "0:P2": [
+          30000,
+          30000,
+          0,
+          30000
+        ],
+        "1:I1": [
+          50000,
+          50000,
+          0,
+          50000
+        ]
+      },
+      "links": [],
+      "history": [
+        {
+          "accepted": false,
+          "active": []
+        }
+      ]
+    },
+    {
+      "name": "no-evidence",
+      "files": [
+        {
+          "file": "no-evidence-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "no-evidence-1.csv",
+          "sha256": "8d135e97c155afa8e8203a77b38a1bed9f7196e3a86547118146213129b62279"
+        },
+        {
+          "file": "no-evidence-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "ready",
+      "actions": [],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          0,
+          100000
+        ],
+        "1:I1": [
+          60000,
+          60000,
+          0,
+          60000
+        ],
+        "1:I2": [
+          40000,
+          40000,
+          0,
+          40000
+        ]
+      },
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "two-choices",
+      "files": [
+        {
+          "file": "two-choices-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "two-choices-1.csv",
+          "sha256": "1f96e2f501dd99948d80479378ff83469c4cf3bf0cee3425ec6853aa05379903"
+        },
+        {
+          "file": "two-choices-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "human",
+          "id": "D1",
+          "links": [
+            [
+              "P1",
+              "I3",
+              700
+            ],
+            [
+              "P1",
+              "I4",
+              300
+            ]
+          ]
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          100000,
+          0
+        ],
+        "1:I1": [
+          60000,
+          60000,
+          0,
+          60000
+        ],
+        "1:I2": [
+          40000,
+          40000,
+          0,
+          40000
+        ],
+        "1:I3": [
+          70000,
+          70000,
+          70000,
+          0
+        ],
+        "1:I4": [
+          30000,
+          30000,
+          30000,
+          0
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I3",
+          70000
+        ],
+        [
+          "P1",
+          "I4",
+          30000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "part-paid",
+      "files": [
+        {
+          "file": "part-paid-0.csv",
+          "sha256": "12de9dddf4db1d4e5f5efbf6ed1e601aa488e2bb9bed3f82c3977167cd267756"
+        },
+        {
+          "file": "part-paid-1.csv",
+          "sha256": "763157047b867769598b78eecfe021d9051d764f7e45d1acadef21aeffcb3045"
+        },
+        {
+          "file": "part-paid-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "human",
+          "id": "D1",
+          "links": [
+            [
+              "P1",
+              "I1",
+              1000
+            ]
+          ],
+          "reject": true
+        },
+        {
+          "type": "human",
+          "id": "D2",
+          "links": [
+            [
+              "P2",
+              "I1",
+              600
+            ]
+          ]
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          0,
+          100000
+        ],
+        "0:P2": [
+          60000,
+          60000,
+          60000,
+          0
+        ],
+        "1:I1": [
+          100000,
+          60000,
+          60000,
+          0
+        ]
+      },
+      "links": [
+        [
+          "P2",
+          "I1",
+          60000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": false,
+          "active": []
+        },
+        {
+          "accepted": true,
+          "active": [
+            "D2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "undo",
+      "files": [
+        {
+          "file": "undo-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "undo-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "undo-2.csv",
+          "sha256": "88f76ce65e4bac95ad554909671ab16f4fad4701f3982367c86073334d44c7ba"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "remittance",
+          "id": "D1",
+          "proofs": [
+            "R1"
+          ]
+        },
+        {
+          "type": "undo",
+          "id": "U1",
+          "target": "D1"
+        },
+        {
+          "type": "remittance",
+          "id": "D2",
+          "proofs": [
+            "R1"
+          ]
+        },
+        {
+          "type": "undo",
+          "id": "U2",
+          "target": "D1",
+          "reject": true
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          40000,
+          60000
+        ],
+        "1:I1": [
+          100000,
+          100000,
+          40000,
+          60000
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          40000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        },
+        {
+          "accepted": true,
+          "active": []
+        },
+        {
+          "accepted": true,
+          "active": [
+            "D2"
+          ]
+        },
+        {
+          "accepted": false,
+          "active": [
+            "D2"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "proof-reuse",
+      "files": [
+        {
+          "file": "proof-reuse-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "proof-reuse-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "proof-reuse-2.csv",
+          "sha256": "88f76ce65e4bac95ad554909671ab16f4fad4701f3982367c86073334d44c7ba"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "remittance",
+          "id": "D1",
+          "proofs": [
+            "R1"
+          ]
+        },
+        {
+          "type": "remittance",
+          "id": "D2",
+          "proofs": [
+            "R1"
+          ],
+          "reject": true
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          100000,
+          40000,
+          60000
+        ],
+        "1:I1": [
+          100000,
+          100000,
+          40000,
+          60000
+        ]
+      },
+      "links": [
+        [
+          "P1",
+          "I1",
+          40000
+        ]
+      ],
+      "history": [
+        {
+          "accepted": true,
+          "active": [
+            "D1"
+          ]
+        },
+        {
+          "accepted": false,
+          "active": [
+            "D1"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "zero-available",
+      "files": [
+        {
+          "file": "zero-available-0.csv",
+          "sha256": "d774f1ee7479765fb9b5c2f25cc1987b195a899520d7dd414519366358d13ee4"
+        },
+        {
+          "file": "zero-available-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "zero-available-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "ready",
+      "actions": [
+        {
+          "type": "human",
+          "id": "D1",
+          "links": [
+            [
+              "P1",
+              "I1",
+              1
+            ]
+          ],
+          "reject": true
+        }
+      ],
+      "balances": {
+        "0:P1": [
+          100000,
+          0,
+          0,
+          0
+        ],
+        "1:I1": [
+          100000,
+          100000,
+          0,
+          100000
+        ]
+      },
+      "links": [],
+      "history": [
+        {
+          "accepted": false,
+          "active": []
+        }
+      ]
+    },
+    {
+      "name": "duplicate-payment",
+      "files": [
+        {
+          "file": "duplicate-payment-0.csv",
+          "sha256": "e2b0f036759ca234a385a853beb1f4a5182aa7bf083776e207529b4e2c495e52"
+        },
+        {
+          "file": "duplicate-payment-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "duplicate-payment-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "duplicate-invoice",
+      "files": [
+        {
+          "file": "duplicate-invoice-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "duplicate-invoice-1.csv",
+          "sha256": "79046924bee6d9c5d2859cea070833dc98bd6ac68e3bc7da71161d234f40732e"
+        },
+        {
+          "file": "duplicate-invoice-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "duplicate-proof",
+      "files": [
+        {
+          "file": "duplicate-proof-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "duplicate-proof-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "duplicate-proof-2.csv",
+          "sha256": "528504d7e5d2454631097c995494bacd8a02ac4833a1bbfd95c140def1b577a2"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "foreign-proof",
+      "files": [
+        {
+          "file": "foreign-proof-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "foreign-proof-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "foreign-proof-2.csv",
+          "sha256": "7c7a63c8014c58528660d17247a430965b0c8eb8858fd74e0330947a6134367b"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "currency-mismatch",
+      "files": [
+        {
+          "file": "currency-mismatch-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "currency-mismatch-1.csv",
+          "sha256": "d20f9c1689c556c4fd2040ac951c15054a74ff387d5da3e7ced77e1e4bcda29a"
+        },
+        {
+          "file": "currency-mismatch-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "late-payment",
+      "files": [
+        {
+          "file": "late-payment-0.csv",
+          "sha256": "d3c2b3999dc87480305f75840f764f3e01b1050858ce5ad53ada8425d82ff5ac"
+        },
+        {
+          "file": "late-payment-1.csv",
+          "sha256": "c0e4f78622d75e73aab728a27866020739b52b6dafa5472738291a3fa2b476d7"
+        },
+        {
+          "file": "late-payment-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "blank-capacity",
+      "files": [
+        {
+          "file": "blank-capacity-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "blank-capacity-1.csv",
+          "sha256": "9392bdf46d2dd00aa01a2398ca64b9d273857aacfc53374926d5e2931cbc6255"
+        },
+        {
+          "file": "blank-capacity-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    },
+    {
+      "name": "capacity-over-original",
+      "files": [
+        {
+          "file": "capacity-over-original-0.csv",
+          "sha256": "16f0bf3b41baf788fe1eb7b61433b8ff12b49955aca0d2ed3444e9de3237697b"
+        },
+        {
+          "file": "capacity-over-original-1.csv",
+          "sha256": "a00c625e64b7e6144e3162dada681b2649a178614178c29f0c0db0bde821156d"
+        },
+        {
+          "file": "capacity-over-original-2.csv",
+          "sha256": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3"
+        }
+      ],
+      "status": "source-error",
+      "actions": [],
+      "balances": null,
+      "links": [],
+      "history": []
+    }
+  ]
+}

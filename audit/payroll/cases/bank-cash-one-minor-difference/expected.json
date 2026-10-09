@@ -1,0 +1,9678 @@
+{
+  "version": "payroll-posted-run-gl-bank-1",
+  "scope": {
+    "entity": "Synthetic Payroll Owner",
+    "payrollRun": "RUN-2026-09",
+    "payrollLedger": "PAYROLL-BOOK",
+    "glLedger": "GL-BOOK",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "Current",
+    "periodStart": "2026-09-01",
+    "periodEnd": "2026-09-30",
+    "payrollPostingDate": "2026-09-30",
+    "paymentDate": "2026-10-01",
+    "bankAccount": "BANK-001",
+    "payoutReference": "PAYOUT-2026-09",
+    "chartVersion": "CHART-1",
+    "mapVersion": "MAP-1",
+    "payrollPolicyVersion": "PAYROLL-POL-1",
+    "bankMappingVersion": "BANK-MAP-1",
+    "accountSetVersion": "ACCOUNT-SET-1"
+  },
+  "decimals": 2,
+  "kind": "difference",
+  "records": [
+    [
+      {
+        "source": 0,
+        "row": 2,
+        "employee": "A",
+        "dimensions": "department=01",
+        "gross": 100000,
+        "deductions": 10000,
+        "employer": 5000,
+        "net": 90000,
+        "payrollReference": "PAY-A"
+      },
+      {
+        "source": 0,
+        "row": 3,
+        "employee": "B",
+        "dimensions": "department=02",
+        "gross": 40000,
+        "deductions": 4000,
+        "employer": 2000,
+        "net": 36000,
+        "payrollReference": "PAY-B"
+      }
+    ],
+    [
+      {
+        "source": 1,
+        "row": 2,
+        "id": "MAP-A-gross-expense",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "gross-expense",
+        "account": "GL-gross-expense",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-gross-expense"
+      },
+      {
+        "source": 1,
+        "row": 3,
+        "id": "MAP-A-employee-deduction-payable",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "employee-deduction-payable",
+        "account": "GL-employee-deduction-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-employee-deduction-payable"
+      },
+      {
+        "source": 1,
+        "row": 4,
+        "id": "MAP-A-net-payable",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "net-payable",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-net-payable"
+      },
+      {
+        "source": 1,
+        "row": 5,
+        "id": "MAP-A-employer-expense",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "employer-expense",
+        "account": "GL-employer-expense",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-employer-expense"
+      },
+      {
+        "source": 1,
+        "row": 6,
+        "id": "MAP-A-employer-payable",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "employer-payable",
+        "account": "GL-employer-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-employer-payable"
+      },
+      {
+        "source": 1,
+        "row": 7,
+        "id": "MAP-A-net-clearing",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "net-clearing",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-net-clearing"
+      },
+      {
+        "source": 1,
+        "row": 8,
+        "id": "MAP-A-bank-cash",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "bank-cash",
+        "account": "GL-bank-cash",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-bank-cash"
+      },
+      {
+        "source": 1,
+        "row": 9,
+        "id": "MAP-B-gross-expense",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "gross-expense",
+        "account": "GL-gross-expense",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-gross-expense"
+      },
+      {
+        "source": 1,
+        "row": 10,
+        "id": "MAP-B-employee-deduction-payable",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "employee-deduction-payable",
+        "account": "GL-employee-deduction-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-employee-deduction-payable"
+      },
+      {
+        "source": 1,
+        "row": 11,
+        "id": "MAP-B-net-payable",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "net-payable",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-net-payable"
+      },
+      {
+        "source": 1,
+        "row": 12,
+        "id": "MAP-B-employer-expense",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "employer-expense",
+        "account": "GL-employer-expense",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-employer-expense"
+      },
+      {
+        "source": 1,
+        "row": 13,
+        "id": "MAP-B-employer-payable",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "employer-payable",
+        "account": "GL-employer-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-employer-payable"
+      },
+      {
+        "source": 1,
+        "row": 14,
+        "id": "MAP-B-net-clearing",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "net-clearing",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-net-clearing"
+      },
+      {
+        "source": 1,
+        "row": 15,
+        "id": "MAP-B-bank-cash",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "bank-cash",
+        "account": "GL-bank-cash",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-bank-cash"
+      }
+    ],
+    [
+      {
+        "source": 2,
+        "row": 2,
+        "id": "POL-A-gross-expense",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "gross-expense",
+        "payrollReference": "PAY-A",
+        "account": "GL-gross-expense",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-expense",
+        "sign": "debit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-gross-expense"
+      },
+      {
+        "source": 2,
+        "row": 3,
+        "id": "POL-A-employee-deduction-payable",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "employee-deduction-payable",
+        "payrollReference": "PAY-A",
+        "account": "GL-employee-deduction-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "employee-deduction-liability",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-employee-deduction-payable"
+      },
+      {
+        "source": 2,
+        "row": 4,
+        "id": "POL-A-net-payable",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "net-payable",
+        "payrollReference": "PAY-A",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-net-liability",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-net-payable"
+      },
+      {
+        "source": 2,
+        "row": 5,
+        "id": "POL-A-employer-expense",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "employer-expense",
+        "payrollReference": "PAY-A",
+        "account": "GL-employer-expense",
+        "glDimensions": "branch=01",
+        "accountClass": "employer-contribution-expense",
+        "sign": "debit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-employer-expense"
+      },
+      {
+        "source": 2,
+        "row": 6,
+        "id": "POL-A-employer-payable",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "employer-payable",
+        "payrollReference": "PAY-A",
+        "account": "GL-employer-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "employer-contribution-liability",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-employer-payable"
+      },
+      {
+        "source": 2,
+        "row": 7,
+        "id": "POL-A-net-clearing",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "net-clearing",
+        "payrollReference": "PAY-A",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-net-liability",
+        "sign": "debit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-net-clearing"
+      },
+      {
+        "source": 2,
+        "row": 8,
+        "id": "POL-A-bank-cash",
+        "employee": "A",
+        "dimensions": "department=01",
+        "component": "bank-cash",
+        "payrollReference": "PAY-A",
+        "account": "GL-bank-cash",
+        "glDimensions": "branch=01",
+        "accountClass": "cash",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-bank-cash"
+      },
+      {
+        "source": 2,
+        "row": 9,
+        "id": "POL-B-gross-expense",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "gross-expense",
+        "payrollReference": "PAY-B",
+        "account": "GL-gross-expense",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-expense",
+        "sign": "debit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-gross-expense"
+      },
+      {
+        "source": 2,
+        "row": 10,
+        "id": "POL-B-employee-deduction-payable",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "employee-deduction-payable",
+        "payrollReference": "PAY-B",
+        "account": "GL-employee-deduction-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "employee-deduction-liability",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-employee-deduction-payable"
+      },
+      {
+        "source": 2,
+        "row": 11,
+        "id": "POL-B-net-payable",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "net-payable",
+        "payrollReference": "PAY-B",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-net-liability",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-net-payable"
+      },
+      {
+        "source": 2,
+        "row": 12,
+        "id": "POL-B-employer-expense",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "employer-expense",
+        "payrollReference": "PAY-B",
+        "account": "GL-employer-expense",
+        "glDimensions": "branch=01",
+        "accountClass": "employer-contribution-expense",
+        "sign": "debit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-employer-expense"
+      },
+      {
+        "source": 2,
+        "row": 13,
+        "id": "POL-B-employer-payable",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "employer-payable",
+        "payrollReference": "PAY-B",
+        "account": "GL-employer-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "employer-contribution-liability",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-employer-payable"
+      },
+      {
+        "source": 2,
+        "row": 14,
+        "id": "POL-B-net-clearing",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "net-clearing",
+        "payrollReference": "PAY-B",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-net-liability",
+        "sign": "debit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-net-clearing"
+      },
+      {
+        "source": 2,
+        "row": 15,
+        "id": "POL-B-bank-cash",
+        "employee": "B",
+        "dimensions": "department=02",
+        "component": "bank-cash",
+        "payrollReference": "PAY-B",
+        "account": "GL-bank-cash",
+        "glDimensions": "branch=01",
+        "accountClass": "cash",
+        "sign": "credit-positive",
+        "basis": "provided-posted-payroll-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-bank-cash"
+      }
+    ],
+    [
+      {
+        "source": 3,
+        "row": 2,
+        "id": "ENTRY-gross-expense",
+        "phase": "payroll",
+        "component": "gross-expense",
+        "account": "GL-gross-expense",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-expense",
+        "debit": 140000,
+        "credit": 0,
+        "entryDate": "2026-09-30",
+        "postingReference": "RUN-2026-09",
+        "normal": 140000
+      },
+      {
+        "source": 3,
+        "row": 3,
+        "id": "ENTRY-employee-deduction-payable",
+        "phase": "payroll",
+        "component": "employee-deduction-payable",
+        "account": "GL-employee-deduction-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "employee-deduction-liability",
+        "debit": 0,
+        "credit": 14000,
+        "entryDate": "2026-09-30",
+        "postingReference": "RUN-2026-09",
+        "normal": 14000
+      },
+      {
+        "source": 3,
+        "row": 4,
+        "id": "ENTRY-net-payable",
+        "phase": "payroll",
+        "component": "net-payable",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-net-liability",
+        "debit": 0,
+        "credit": 126000,
+        "entryDate": "2026-09-30",
+        "postingReference": "RUN-2026-09",
+        "normal": 126000
+      },
+      {
+        "source": 3,
+        "row": 5,
+        "id": "ENTRY-employer-expense",
+        "phase": "payroll",
+        "component": "employer-expense",
+        "account": "GL-employer-expense",
+        "glDimensions": "branch=01",
+        "accountClass": "employer-contribution-expense",
+        "debit": 7000,
+        "credit": 0,
+        "entryDate": "2026-09-30",
+        "postingReference": "RUN-2026-09",
+        "normal": 7000
+      },
+      {
+        "source": 3,
+        "row": 6,
+        "id": "ENTRY-employer-payable",
+        "phase": "payroll",
+        "component": "employer-payable",
+        "account": "GL-employer-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "employer-contribution-liability",
+        "debit": 0,
+        "credit": 7000,
+        "entryDate": "2026-09-30",
+        "postingReference": "RUN-2026-09",
+        "normal": 7000
+      },
+      {
+        "source": 3,
+        "row": 7,
+        "id": "ENTRY-net-clearing",
+        "phase": "disbursement",
+        "component": "net-clearing",
+        "account": "GL-net-payable",
+        "glDimensions": "branch=01",
+        "accountClass": "payroll-net-liability",
+        "debit": 126000,
+        "credit": 0,
+        "entryDate": "2026-10-01",
+        "postingReference": "PAYOUT-2026-09",
+        "normal": 126000
+      },
+      {
+        "source": 3,
+        "row": 8,
+        "id": "ENTRY-bank-cash",
+        "phase": "disbursement",
+        "component": "bank-cash",
+        "account": "GL-bank-cash",
+        "glDimensions": "branch=01",
+        "accountClass": "cash",
+        "debit": 0,
+        "credit": 125999,
+        "entryDate": "2026-10-01",
+        "postingReference": "PAYOUT-2026-09",
+        "normal": 125999
+      }
+    ],
+    [
+      {
+        "source": 4,
+        "row": 2,
+        "id": "BANK-TXN-01",
+        "bankAccount": "BANK-001",
+        "direction": "outflow",
+        "amount": 126000,
+        "valueDate": "2026-10-01",
+        "payoutReference": "PAYOUT-2026-09"
+      }
+    ]
+  ],
+  "issues": [],
+  "missing": [],
+  "comparisons": [
+    {
+      "account": "GL-gross-expense",
+      "dimensions": "branch=01",
+      "component": "gross-expense",
+      "register": 140000,
+      "gl": 140000,
+      "difference": 0,
+      "glRow": 2,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-employee-deduction-payable",
+      "dimensions": "branch=01",
+      "component": "employee-deduction-payable",
+      "register": 14000,
+      "gl": 14000,
+      "difference": 0,
+      "glRow": 3,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-net-payable",
+      "dimensions": "branch=01",
+      "component": "net-payable",
+      "register": 126000,
+      "gl": 126000,
+      "difference": 0,
+      "glRow": 4,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-employer-expense",
+      "dimensions": "branch=01",
+      "component": "employer-expense",
+      "register": 7000,
+      "gl": 7000,
+      "difference": 0,
+      "glRow": 5,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-employer-payable",
+      "dimensions": "branch=01",
+      "component": "employer-payable",
+      "register": 7000,
+      "gl": 7000,
+      "difference": 0,
+      "glRow": 6,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-net-payable",
+      "dimensions": "branch=01",
+      "component": "net-clearing",
+      "register": 126000,
+      "gl": 126000,
+      "difference": 0,
+      "glRow": 7,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-bank-cash",
+      "dimensions": "branch=01",
+      "component": "bank-cash",
+      "register": 126000,
+      "gl": 125999,
+      "difference": 1,
+      "glRow": 8,
+      "registerRows": [
+        2,
+        3
+      ]
+    }
+  ],
+  "bankComparison": {
+    "register": 126000,
+    "bank": 126000,
+    "difference": 0,
+    "bankRows": [
+      2
+    ]
+  },
+  "totals": {
+    "register": {
+      "gross": 140000,
+      "deductions": 14000,
+      "employer": 7000,
+      "net": 126000
+    },
+    "gl": {
+      "gross-expense": 140000,
+      "employee-deduction-payable": 14000,
+      "net-payable": 126000,
+      "employer-expense": 7000,
+      "employer-payable": 7000,
+      "net-clearing": 126000,
+      "bank-cash": 125999
+    },
+    "bank": 126000
+  },
+  "cells": [
+    [
+      0,
+      1,
+      1,
+      "Employee ID",
+      "Employee ID"
+    ],
+    [
+      0,
+      1,
+      2,
+      "Employee dimensions",
+      "Employee dimensions"
+    ],
+    [
+      0,
+      1,
+      3,
+      "Gross",
+      "Gross"
+    ],
+    [
+      0,
+      1,
+      4,
+      "Deductions",
+      "Deductions"
+    ],
+    [
+      0,
+      1,
+      5,
+      "Employer contribution",
+      "Employer contribution"
+    ],
+    [
+      0,
+      1,
+      6,
+      "Net",
+      "Net"
+    ],
+    [
+      0,
+      1,
+      7,
+      "Payroll reference",
+      "Payroll reference"
+    ],
+    [
+      0,
+      1,
+      8,
+      "Entity",
+      "Entity"
+    ],
+    [
+      0,
+      1,
+      9,
+      "Payroll run",
+      "Payroll run"
+    ],
+    [
+      0,
+      1,
+      10,
+      "Payroll ledger",
+      "Payroll ledger"
+    ],
+    [
+      0,
+      1,
+      11,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      0,
+      1,
+      12,
+      "Currency",
+      "Currency"
+    ],
+    [
+      0,
+      1,
+      13,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      0,
+      1,
+      14,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      0,
+      1,
+      15,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      0,
+      1,
+      16,
+      "Period start",
+      "Period start"
+    ],
+    [
+      0,
+      1,
+      17,
+      "Period end",
+      "Period end"
+    ],
+    [
+      0,
+      1,
+      18,
+      "Payroll posting date",
+      "Payroll posting date"
+    ],
+    [
+      0,
+      1,
+      19,
+      "Payment date",
+      "Payment date"
+    ],
+    [
+      0,
+      1,
+      20,
+      "Bank account",
+      "Bank account"
+    ],
+    [
+      0,
+      1,
+      21,
+      "Payout reference",
+      "Payout reference"
+    ],
+    [
+      0,
+      1,
+      22,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      0,
+      1,
+      23,
+      "Map version",
+      "Map version"
+    ],
+    [
+      0,
+      1,
+      24,
+      "Payroll policy version",
+      "Payroll policy version"
+    ],
+    [
+      0,
+      1,
+      25,
+      "Bank mapping version",
+      "Bank mapping version"
+    ],
+    [
+      0,
+      1,
+      26,
+      "Account set version",
+      "Account set version"
+    ],
+    [
+      0,
+      2,
+      1,
+      "Employee ID",
+      "A"
+    ],
+    [
+      0,
+      2,
+      2,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      0,
+      2,
+      3,
+      "Gross",
+      "1000"
+    ],
+    [
+      0,
+      2,
+      4,
+      "Deductions",
+      "100"
+    ],
+    [
+      0,
+      2,
+      5,
+      "Employer contribution",
+      "50"
+    ],
+    [
+      0,
+      2,
+      6,
+      "Net",
+      "900"
+    ],
+    [
+      0,
+      2,
+      7,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      0,
+      2,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      0,
+      2,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      0,
+      2,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      0,
+      2,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      0,
+      2,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      0,
+      2,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      0,
+      2,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      0,
+      2,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      0,
+      2,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      0,
+      2,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      0,
+      2,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      0,
+      2,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      0,
+      2,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      0,
+      2,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      0,
+      2,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      0,
+      2,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      0,
+      2,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      0,
+      2,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      0,
+      2,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      0,
+      3,
+      1,
+      "Employee ID",
+      "B"
+    ],
+    [
+      0,
+      3,
+      2,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      0,
+      3,
+      3,
+      "Gross",
+      "400"
+    ],
+    [
+      0,
+      3,
+      4,
+      "Deductions",
+      "40"
+    ],
+    [
+      0,
+      3,
+      5,
+      "Employer contribution",
+      "20"
+    ],
+    [
+      0,
+      3,
+      6,
+      "Net",
+      "360"
+    ],
+    [
+      0,
+      3,
+      7,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      0,
+      3,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      0,
+      3,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      0,
+      3,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      0,
+      3,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      0,
+      3,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      0,
+      3,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      0,
+      3,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      0,
+      3,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      0,
+      3,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      0,
+      3,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      0,
+      3,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      0,
+      3,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      0,
+      3,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      0,
+      3,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      0,
+      3,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      0,
+      3,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      0,
+      3,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      0,
+      3,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      0,
+      3,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      1,
+      1,
+      "Mapping ID",
+      "Mapping ID"
+    ],
+    [
+      1,
+      1,
+      2,
+      "Employee ID",
+      "Employee ID"
+    ],
+    [
+      1,
+      1,
+      3,
+      "Employee dimensions",
+      "Employee dimensions"
+    ],
+    [
+      1,
+      1,
+      4,
+      "Component",
+      "Component"
+    ],
+    [
+      1,
+      1,
+      5,
+      "GL account",
+      "GL account"
+    ],
+    [
+      1,
+      1,
+      6,
+      "GL dimensions",
+      "GL dimensions"
+    ],
+    [
+      1,
+      1,
+      7,
+      "Evidence ID",
+      "Evidence ID"
+    ],
+    [
+      1,
+      1,
+      8,
+      "Entity",
+      "Entity"
+    ],
+    [
+      1,
+      1,
+      9,
+      "Payroll run",
+      "Payroll run"
+    ],
+    [
+      1,
+      1,
+      10,
+      "Payroll ledger",
+      "Payroll ledger"
+    ],
+    [
+      1,
+      1,
+      11,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      1,
+      1,
+      12,
+      "Currency",
+      "Currency"
+    ],
+    [
+      1,
+      1,
+      13,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      1,
+      1,
+      14,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      1,
+      1,
+      15,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      1,
+      1,
+      16,
+      "Period start",
+      "Period start"
+    ],
+    [
+      1,
+      1,
+      17,
+      "Period end",
+      "Period end"
+    ],
+    [
+      1,
+      1,
+      18,
+      "Payroll posting date",
+      "Payroll posting date"
+    ],
+    [
+      1,
+      1,
+      19,
+      "Payment date",
+      "Payment date"
+    ],
+    [
+      1,
+      1,
+      20,
+      "Bank account",
+      "Bank account"
+    ],
+    [
+      1,
+      1,
+      21,
+      "Payout reference",
+      "Payout reference"
+    ],
+    [
+      1,
+      1,
+      22,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      1,
+      1,
+      23,
+      "Map version",
+      "Map version"
+    ],
+    [
+      1,
+      1,
+      24,
+      "Payroll policy version",
+      "Payroll policy version"
+    ],
+    [
+      1,
+      1,
+      25,
+      "Bank mapping version",
+      "Bank mapping version"
+    ],
+    [
+      1,
+      1,
+      26,
+      "Account set version",
+      "Account set version"
+    ],
+    [
+      1,
+      2,
+      1,
+      "Mapping ID",
+      "MAP-A-gross-expense"
+    ],
+    [
+      1,
+      2,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      1,
+      2,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      1,
+      2,
+      4,
+      "Component",
+      "gross-expense"
+    ],
+    [
+      1,
+      2,
+      5,
+      "GL account",
+      "GL-gross-expense"
+    ],
+    [
+      1,
+      2,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      2,
+      7,
+      "Evidence ID",
+      "POL-A-gross-expense"
+    ],
+    [
+      1,
+      2,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      2,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      2,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      2,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      2,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      2,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      2,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      2,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      2,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      2,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      2,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      2,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      2,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      2,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      2,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      2,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      2,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      2,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      2,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      3,
+      1,
+      "Mapping ID",
+      "MAP-A-employee-deduction-payable"
+    ],
+    [
+      1,
+      3,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      1,
+      3,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      1,
+      3,
+      4,
+      "Component",
+      "employee-deduction-payable"
+    ],
+    [
+      1,
+      3,
+      5,
+      "GL account",
+      "GL-employee-deduction-payable"
+    ],
+    [
+      1,
+      3,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      3,
+      7,
+      "Evidence ID",
+      "POL-A-employee-deduction-payable"
+    ],
+    [
+      1,
+      3,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      3,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      3,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      3,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      3,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      3,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      3,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      3,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      3,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      3,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      3,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      3,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      3,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      3,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      3,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      3,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      3,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      3,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      3,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      4,
+      1,
+      "Mapping ID",
+      "MAP-A-net-payable"
+    ],
+    [
+      1,
+      4,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      1,
+      4,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      1,
+      4,
+      4,
+      "Component",
+      "net-payable"
+    ],
+    [
+      1,
+      4,
+      5,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      1,
+      4,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      4,
+      7,
+      "Evidence ID",
+      "POL-A-net-payable"
+    ],
+    [
+      1,
+      4,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      4,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      4,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      4,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      4,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      4,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      4,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      4,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      4,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      4,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      4,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      4,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      4,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      4,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      4,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      4,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      4,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      4,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      4,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      5,
+      1,
+      "Mapping ID",
+      "MAP-A-employer-expense"
+    ],
+    [
+      1,
+      5,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      1,
+      5,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      1,
+      5,
+      4,
+      "Component",
+      "employer-expense"
+    ],
+    [
+      1,
+      5,
+      5,
+      "GL account",
+      "GL-employer-expense"
+    ],
+    [
+      1,
+      5,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      5,
+      7,
+      "Evidence ID",
+      "POL-A-employer-expense"
+    ],
+    [
+      1,
+      5,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      5,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      5,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      5,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      5,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      5,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      5,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      5,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      5,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      5,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      5,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      5,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      5,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      5,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      5,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      5,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      5,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      5,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      5,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      6,
+      1,
+      "Mapping ID",
+      "MAP-A-employer-payable"
+    ],
+    [
+      1,
+      6,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      1,
+      6,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      1,
+      6,
+      4,
+      "Component",
+      "employer-payable"
+    ],
+    [
+      1,
+      6,
+      5,
+      "GL account",
+      "GL-employer-payable"
+    ],
+    [
+      1,
+      6,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      6,
+      7,
+      "Evidence ID",
+      "POL-A-employer-payable"
+    ],
+    [
+      1,
+      6,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      6,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      6,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      6,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      6,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      6,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      6,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      6,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      6,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      6,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      6,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      6,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      6,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      6,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      6,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      6,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      6,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      6,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      6,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      7,
+      1,
+      "Mapping ID",
+      "MAP-A-net-clearing"
+    ],
+    [
+      1,
+      7,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      1,
+      7,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      1,
+      7,
+      4,
+      "Component",
+      "net-clearing"
+    ],
+    [
+      1,
+      7,
+      5,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      1,
+      7,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      7,
+      7,
+      "Evidence ID",
+      "POL-A-net-clearing"
+    ],
+    [
+      1,
+      7,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      7,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      7,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      7,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      7,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      7,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      7,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      7,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      7,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      7,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      7,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      7,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      7,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      7,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      7,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      7,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      7,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      7,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      7,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      8,
+      1,
+      "Mapping ID",
+      "MAP-A-bank-cash"
+    ],
+    [
+      1,
+      8,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      1,
+      8,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      1,
+      8,
+      4,
+      "Component",
+      "bank-cash"
+    ],
+    [
+      1,
+      8,
+      5,
+      "GL account",
+      "GL-bank-cash"
+    ],
+    [
+      1,
+      8,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      8,
+      7,
+      "Evidence ID",
+      "POL-A-bank-cash"
+    ],
+    [
+      1,
+      8,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      8,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      8,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      8,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      8,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      8,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      8,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      8,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      8,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      8,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      8,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      8,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      8,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      8,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      8,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      8,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      8,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      8,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      8,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      9,
+      1,
+      "Mapping ID",
+      "MAP-B-gross-expense"
+    ],
+    [
+      1,
+      9,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      1,
+      9,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      1,
+      9,
+      4,
+      "Component",
+      "gross-expense"
+    ],
+    [
+      1,
+      9,
+      5,
+      "GL account",
+      "GL-gross-expense"
+    ],
+    [
+      1,
+      9,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      9,
+      7,
+      "Evidence ID",
+      "POL-B-gross-expense"
+    ],
+    [
+      1,
+      9,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      9,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      9,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      9,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      9,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      9,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      9,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      9,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      9,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      9,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      9,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      9,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      9,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      9,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      9,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      9,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      9,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      9,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      9,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      10,
+      1,
+      "Mapping ID",
+      "MAP-B-employee-deduction-payable"
+    ],
+    [
+      1,
+      10,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      1,
+      10,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      1,
+      10,
+      4,
+      "Component",
+      "employee-deduction-payable"
+    ],
+    [
+      1,
+      10,
+      5,
+      "GL account",
+      "GL-employee-deduction-payable"
+    ],
+    [
+      1,
+      10,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      10,
+      7,
+      "Evidence ID",
+      "POL-B-employee-deduction-payable"
+    ],
+    [
+      1,
+      10,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      10,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      10,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      10,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      10,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      10,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      10,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      10,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      10,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      10,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      10,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      10,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      10,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      10,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      10,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      10,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      10,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      10,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      10,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      11,
+      1,
+      "Mapping ID",
+      "MAP-B-net-payable"
+    ],
+    [
+      1,
+      11,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      1,
+      11,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      1,
+      11,
+      4,
+      "Component",
+      "net-payable"
+    ],
+    [
+      1,
+      11,
+      5,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      1,
+      11,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      11,
+      7,
+      "Evidence ID",
+      "POL-B-net-payable"
+    ],
+    [
+      1,
+      11,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      11,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      11,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      11,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      11,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      11,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      11,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      11,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      11,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      11,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      11,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      11,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      11,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      11,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      11,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      11,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      11,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      11,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      11,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      12,
+      1,
+      "Mapping ID",
+      "MAP-B-employer-expense"
+    ],
+    [
+      1,
+      12,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      1,
+      12,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      1,
+      12,
+      4,
+      "Component",
+      "employer-expense"
+    ],
+    [
+      1,
+      12,
+      5,
+      "GL account",
+      "GL-employer-expense"
+    ],
+    [
+      1,
+      12,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      12,
+      7,
+      "Evidence ID",
+      "POL-B-employer-expense"
+    ],
+    [
+      1,
+      12,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      12,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      12,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      12,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      12,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      12,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      12,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      12,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      12,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      12,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      12,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      12,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      12,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      12,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      12,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      12,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      12,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      12,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      12,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      13,
+      1,
+      "Mapping ID",
+      "MAP-B-employer-payable"
+    ],
+    [
+      1,
+      13,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      1,
+      13,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      1,
+      13,
+      4,
+      "Component",
+      "employer-payable"
+    ],
+    [
+      1,
+      13,
+      5,
+      "GL account",
+      "GL-employer-payable"
+    ],
+    [
+      1,
+      13,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      13,
+      7,
+      "Evidence ID",
+      "POL-B-employer-payable"
+    ],
+    [
+      1,
+      13,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      13,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      13,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      13,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      13,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      13,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      13,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      13,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      13,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      13,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      13,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      13,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      13,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      13,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      13,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      13,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      13,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      13,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      13,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      14,
+      1,
+      "Mapping ID",
+      "MAP-B-net-clearing"
+    ],
+    [
+      1,
+      14,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      1,
+      14,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      1,
+      14,
+      4,
+      "Component",
+      "net-clearing"
+    ],
+    [
+      1,
+      14,
+      5,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      1,
+      14,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      14,
+      7,
+      "Evidence ID",
+      "POL-B-net-clearing"
+    ],
+    [
+      1,
+      14,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      14,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      14,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      14,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      14,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      14,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      14,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      14,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      14,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      14,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      14,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      14,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      14,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      14,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      14,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      14,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      14,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      14,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      14,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      1,
+      15,
+      1,
+      "Mapping ID",
+      "MAP-B-bank-cash"
+    ],
+    [
+      1,
+      15,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      1,
+      15,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      1,
+      15,
+      4,
+      "Component",
+      "bank-cash"
+    ],
+    [
+      1,
+      15,
+      5,
+      "GL account",
+      "GL-bank-cash"
+    ],
+    [
+      1,
+      15,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      15,
+      7,
+      "Evidence ID",
+      "POL-B-bank-cash"
+    ],
+    [
+      1,
+      15,
+      8,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      1,
+      15,
+      9,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      1,
+      15,
+      10,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      1,
+      15,
+      11,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      15,
+      12,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      15,
+      13,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      15,
+      14,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      15,
+      15,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      15,
+      16,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      1,
+      15,
+      17,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      1,
+      15,
+      18,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      1,
+      15,
+      19,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      1,
+      15,
+      20,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      1,
+      15,
+      21,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      1,
+      15,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      15,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      15,
+      24,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      1,
+      15,
+      25,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      1,
+      15,
+      26,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      1,
+      1,
+      "Evidence ID",
+      "Evidence ID"
+    ],
+    [
+      2,
+      1,
+      2,
+      "Employee ID",
+      "Employee ID"
+    ],
+    [
+      2,
+      1,
+      3,
+      "Employee dimensions",
+      "Employee dimensions"
+    ],
+    [
+      2,
+      1,
+      4,
+      "Component",
+      "Component"
+    ],
+    [
+      2,
+      1,
+      5,
+      "Payroll reference",
+      "Payroll reference"
+    ],
+    [
+      2,
+      1,
+      6,
+      "GL account",
+      "GL account"
+    ],
+    [
+      2,
+      1,
+      7,
+      "GL dimensions",
+      "GL dimensions"
+    ],
+    [
+      2,
+      1,
+      8,
+      "Account class",
+      "Account class"
+    ],
+    [
+      2,
+      1,
+      9,
+      "Sign",
+      "Sign"
+    ],
+    [
+      2,
+      1,
+      10,
+      "Value basis",
+      "Value basis"
+    ],
+    [
+      2,
+      1,
+      11,
+      "Valid from",
+      "Valid from"
+    ],
+    [
+      2,
+      1,
+      12,
+      "Valid to",
+      "Valid to"
+    ],
+    [
+      2,
+      1,
+      13,
+      "Reference",
+      "Reference"
+    ],
+    [
+      2,
+      1,
+      14,
+      "Entity",
+      "Entity"
+    ],
+    [
+      2,
+      1,
+      15,
+      "Payroll run",
+      "Payroll run"
+    ],
+    [
+      2,
+      1,
+      16,
+      "Payroll ledger",
+      "Payroll ledger"
+    ],
+    [
+      2,
+      1,
+      17,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      2,
+      1,
+      18,
+      "Currency",
+      "Currency"
+    ],
+    [
+      2,
+      1,
+      19,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      2,
+      1,
+      20,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      2,
+      1,
+      21,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      2,
+      1,
+      22,
+      "Period start",
+      "Period start"
+    ],
+    [
+      2,
+      1,
+      23,
+      "Period end",
+      "Period end"
+    ],
+    [
+      2,
+      1,
+      24,
+      "Payroll posting date",
+      "Payroll posting date"
+    ],
+    [
+      2,
+      1,
+      25,
+      "Payment date",
+      "Payment date"
+    ],
+    [
+      2,
+      1,
+      26,
+      "Bank account",
+      "Bank account"
+    ],
+    [
+      2,
+      1,
+      27,
+      "Payout reference",
+      "Payout reference"
+    ],
+    [
+      2,
+      1,
+      28,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      2,
+      1,
+      29,
+      "Map version",
+      "Map version"
+    ],
+    [
+      2,
+      1,
+      30,
+      "Payroll policy version",
+      "Payroll policy version"
+    ],
+    [
+      2,
+      1,
+      31,
+      "Bank mapping version",
+      "Bank mapping version"
+    ],
+    [
+      2,
+      1,
+      32,
+      "Account set version",
+      "Account set version"
+    ],
+    [
+      2,
+      2,
+      1,
+      "Evidence ID",
+      "POL-A-gross-expense"
+    ],
+    [
+      2,
+      2,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      2,
+      2,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      2,
+      2,
+      4,
+      "Component",
+      "gross-expense"
+    ],
+    [
+      2,
+      2,
+      5,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      2,
+      2,
+      6,
+      "GL account",
+      "GL-gross-expense"
+    ],
+    [
+      2,
+      2,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      2,
+      8,
+      "Account class",
+      "payroll-expense"
+    ],
+    [
+      2,
+      2,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      2,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      2,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      2,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      2,
+      13,
+      "Reference",
+      "SYN-POL-A-gross-expense"
+    ],
+    [
+      2,
+      2,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      2,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      2,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      2,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      2,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      2,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      2,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      2,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      2,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      2,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      2,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      2,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      2,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      2,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      2,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      2,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      2,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      2,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      2,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      3,
+      1,
+      "Evidence ID",
+      "POL-A-employee-deduction-payable"
+    ],
+    [
+      2,
+      3,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      2,
+      3,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      2,
+      3,
+      4,
+      "Component",
+      "employee-deduction-payable"
+    ],
+    [
+      2,
+      3,
+      5,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      2,
+      3,
+      6,
+      "GL account",
+      "GL-employee-deduction-payable"
+    ],
+    [
+      2,
+      3,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      3,
+      8,
+      "Account class",
+      "employee-deduction-liability"
+    ],
+    [
+      2,
+      3,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      3,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      3,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      3,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      3,
+      13,
+      "Reference",
+      "SYN-POL-A-employee-deduction-payable"
+    ],
+    [
+      2,
+      3,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      3,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      3,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      3,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      3,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      3,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      3,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      3,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      3,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      3,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      3,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      3,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      3,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      3,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      3,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      3,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      3,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      3,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      3,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      4,
+      1,
+      "Evidence ID",
+      "POL-A-net-payable"
+    ],
+    [
+      2,
+      4,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      2,
+      4,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      2,
+      4,
+      4,
+      "Component",
+      "net-payable"
+    ],
+    [
+      2,
+      4,
+      5,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      2,
+      4,
+      6,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      2,
+      4,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      4,
+      8,
+      "Account class",
+      "payroll-net-liability"
+    ],
+    [
+      2,
+      4,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      4,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      4,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      4,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      4,
+      13,
+      "Reference",
+      "SYN-POL-A-net-payable"
+    ],
+    [
+      2,
+      4,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      4,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      4,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      4,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      4,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      4,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      4,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      4,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      4,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      4,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      4,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      4,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      4,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      4,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      4,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      4,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      4,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      4,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      4,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      5,
+      1,
+      "Evidence ID",
+      "POL-A-employer-expense"
+    ],
+    [
+      2,
+      5,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      2,
+      5,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      2,
+      5,
+      4,
+      "Component",
+      "employer-expense"
+    ],
+    [
+      2,
+      5,
+      5,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      2,
+      5,
+      6,
+      "GL account",
+      "GL-employer-expense"
+    ],
+    [
+      2,
+      5,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      5,
+      8,
+      "Account class",
+      "employer-contribution-expense"
+    ],
+    [
+      2,
+      5,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      5,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      5,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      5,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      5,
+      13,
+      "Reference",
+      "SYN-POL-A-employer-expense"
+    ],
+    [
+      2,
+      5,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      5,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      5,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      5,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      5,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      5,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      5,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      5,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      5,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      5,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      5,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      5,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      5,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      5,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      5,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      5,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      5,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      5,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      5,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      6,
+      1,
+      "Evidence ID",
+      "POL-A-employer-payable"
+    ],
+    [
+      2,
+      6,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      2,
+      6,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      2,
+      6,
+      4,
+      "Component",
+      "employer-payable"
+    ],
+    [
+      2,
+      6,
+      5,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      2,
+      6,
+      6,
+      "GL account",
+      "GL-employer-payable"
+    ],
+    [
+      2,
+      6,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      6,
+      8,
+      "Account class",
+      "employer-contribution-liability"
+    ],
+    [
+      2,
+      6,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      6,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      6,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      6,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      6,
+      13,
+      "Reference",
+      "SYN-POL-A-employer-payable"
+    ],
+    [
+      2,
+      6,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      6,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      6,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      6,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      6,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      6,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      6,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      6,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      6,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      6,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      6,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      6,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      6,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      6,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      6,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      6,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      6,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      6,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      6,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      7,
+      1,
+      "Evidence ID",
+      "POL-A-net-clearing"
+    ],
+    [
+      2,
+      7,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      2,
+      7,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      2,
+      7,
+      4,
+      "Component",
+      "net-clearing"
+    ],
+    [
+      2,
+      7,
+      5,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      2,
+      7,
+      6,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      2,
+      7,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      7,
+      8,
+      "Account class",
+      "payroll-net-liability"
+    ],
+    [
+      2,
+      7,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      7,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      7,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      7,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      7,
+      13,
+      "Reference",
+      "SYN-POL-A-net-clearing"
+    ],
+    [
+      2,
+      7,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      7,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      7,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      7,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      7,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      7,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      7,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      7,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      7,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      7,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      7,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      7,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      7,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      7,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      7,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      7,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      7,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      7,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      7,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      8,
+      1,
+      "Evidence ID",
+      "POL-A-bank-cash"
+    ],
+    [
+      2,
+      8,
+      2,
+      "Employee ID",
+      "A"
+    ],
+    [
+      2,
+      8,
+      3,
+      "Employee dimensions",
+      "department=01"
+    ],
+    [
+      2,
+      8,
+      4,
+      "Component",
+      "bank-cash"
+    ],
+    [
+      2,
+      8,
+      5,
+      "Payroll reference",
+      "PAY-A"
+    ],
+    [
+      2,
+      8,
+      6,
+      "GL account",
+      "GL-bank-cash"
+    ],
+    [
+      2,
+      8,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      8,
+      8,
+      "Account class",
+      "cash"
+    ],
+    [
+      2,
+      8,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      8,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      8,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      8,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      8,
+      13,
+      "Reference",
+      "SYN-POL-A-bank-cash"
+    ],
+    [
+      2,
+      8,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      8,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      8,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      8,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      8,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      8,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      8,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      8,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      8,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      8,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      8,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      8,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      8,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      8,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      8,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      8,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      8,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      8,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      8,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      9,
+      1,
+      "Evidence ID",
+      "POL-B-gross-expense"
+    ],
+    [
+      2,
+      9,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      2,
+      9,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      2,
+      9,
+      4,
+      "Component",
+      "gross-expense"
+    ],
+    [
+      2,
+      9,
+      5,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      2,
+      9,
+      6,
+      "GL account",
+      "GL-gross-expense"
+    ],
+    [
+      2,
+      9,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      9,
+      8,
+      "Account class",
+      "payroll-expense"
+    ],
+    [
+      2,
+      9,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      9,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      9,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      9,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      9,
+      13,
+      "Reference",
+      "SYN-POL-B-gross-expense"
+    ],
+    [
+      2,
+      9,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      9,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      9,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      9,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      9,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      9,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      9,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      9,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      9,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      9,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      9,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      9,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      9,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      9,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      9,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      9,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      9,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      9,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      9,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      10,
+      1,
+      "Evidence ID",
+      "POL-B-employee-deduction-payable"
+    ],
+    [
+      2,
+      10,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      2,
+      10,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      2,
+      10,
+      4,
+      "Component",
+      "employee-deduction-payable"
+    ],
+    [
+      2,
+      10,
+      5,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      2,
+      10,
+      6,
+      "GL account",
+      "GL-employee-deduction-payable"
+    ],
+    [
+      2,
+      10,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      10,
+      8,
+      "Account class",
+      "employee-deduction-liability"
+    ],
+    [
+      2,
+      10,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      10,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      10,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      10,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      10,
+      13,
+      "Reference",
+      "SYN-POL-B-employee-deduction-payable"
+    ],
+    [
+      2,
+      10,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      10,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      10,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      10,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      10,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      10,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      10,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      10,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      10,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      10,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      10,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      10,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      10,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      10,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      10,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      10,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      10,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      10,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      10,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      11,
+      1,
+      "Evidence ID",
+      "POL-B-net-payable"
+    ],
+    [
+      2,
+      11,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      2,
+      11,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      2,
+      11,
+      4,
+      "Component",
+      "net-payable"
+    ],
+    [
+      2,
+      11,
+      5,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      2,
+      11,
+      6,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      2,
+      11,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      11,
+      8,
+      "Account class",
+      "payroll-net-liability"
+    ],
+    [
+      2,
+      11,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      11,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      11,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      11,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      11,
+      13,
+      "Reference",
+      "SYN-POL-B-net-payable"
+    ],
+    [
+      2,
+      11,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      11,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      11,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      11,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      11,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      11,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      11,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      11,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      11,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      11,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      11,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      11,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      11,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      11,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      11,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      11,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      11,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      11,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      11,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      12,
+      1,
+      "Evidence ID",
+      "POL-B-employer-expense"
+    ],
+    [
+      2,
+      12,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      2,
+      12,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      2,
+      12,
+      4,
+      "Component",
+      "employer-expense"
+    ],
+    [
+      2,
+      12,
+      5,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      2,
+      12,
+      6,
+      "GL account",
+      "GL-employer-expense"
+    ],
+    [
+      2,
+      12,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      12,
+      8,
+      "Account class",
+      "employer-contribution-expense"
+    ],
+    [
+      2,
+      12,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      12,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      12,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      12,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      12,
+      13,
+      "Reference",
+      "SYN-POL-B-employer-expense"
+    ],
+    [
+      2,
+      12,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      12,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      12,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      12,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      12,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      12,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      12,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      12,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      12,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      12,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      12,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      12,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      12,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      12,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      12,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      12,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      12,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      12,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      12,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      13,
+      1,
+      "Evidence ID",
+      "POL-B-employer-payable"
+    ],
+    [
+      2,
+      13,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      2,
+      13,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      2,
+      13,
+      4,
+      "Component",
+      "employer-payable"
+    ],
+    [
+      2,
+      13,
+      5,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      2,
+      13,
+      6,
+      "GL account",
+      "GL-employer-payable"
+    ],
+    [
+      2,
+      13,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      13,
+      8,
+      "Account class",
+      "employer-contribution-liability"
+    ],
+    [
+      2,
+      13,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      13,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      13,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      13,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      13,
+      13,
+      "Reference",
+      "SYN-POL-B-employer-payable"
+    ],
+    [
+      2,
+      13,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      13,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      13,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      13,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      13,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      13,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      13,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      13,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      13,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      13,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      13,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      13,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      13,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      13,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      13,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      13,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      13,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      13,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      13,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      14,
+      1,
+      "Evidence ID",
+      "POL-B-net-clearing"
+    ],
+    [
+      2,
+      14,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      2,
+      14,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      2,
+      14,
+      4,
+      "Component",
+      "net-clearing"
+    ],
+    [
+      2,
+      14,
+      5,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      2,
+      14,
+      6,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      2,
+      14,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      14,
+      8,
+      "Account class",
+      "payroll-net-liability"
+    ],
+    [
+      2,
+      14,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      14,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      14,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      14,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      14,
+      13,
+      "Reference",
+      "SYN-POL-B-net-clearing"
+    ],
+    [
+      2,
+      14,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      14,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      14,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      14,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      14,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      14,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      14,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      14,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      14,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      14,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      14,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      14,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      14,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      14,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      14,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      14,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      14,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      14,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      14,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      2,
+      15,
+      1,
+      "Evidence ID",
+      "POL-B-bank-cash"
+    ],
+    [
+      2,
+      15,
+      2,
+      "Employee ID",
+      "B"
+    ],
+    [
+      2,
+      15,
+      3,
+      "Employee dimensions",
+      "department=02"
+    ],
+    [
+      2,
+      15,
+      4,
+      "Component",
+      "bank-cash"
+    ],
+    [
+      2,
+      15,
+      5,
+      "Payroll reference",
+      "PAY-B"
+    ],
+    [
+      2,
+      15,
+      6,
+      "GL account",
+      "GL-bank-cash"
+    ],
+    [
+      2,
+      15,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      15,
+      8,
+      "Account class",
+      "cash"
+    ],
+    [
+      2,
+      15,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      15,
+      10,
+      "Value basis",
+      "provided-posted-payroll-component"
+    ],
+    [
+      2,
+      15,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      15,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      15,
+      13,
+      "Reference",
+      "SYN-POL-B-bank-cash"
+    ],
+    [
+      2,
+      15,
+      14,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      2,
+      15,
+      15,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      2,
+      15,
+      16,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      2,
+      15,
+      17,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      15,
+      18,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      15,
+      19,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      15,
+      20,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      15,
+      21,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      15,
+      22,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      2,
+      15,
+      23,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      2,
+      15,
+      24,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      2,
+      15,
+      25,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      2,
+      15,
+      26,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      2,
+      15,
+      27,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      2,
+      15,
+      28,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      15,
+      29,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      15,
+      30,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      2,
+      15,
+      31,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      2,
+      15,
+      32,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      3,
+      1,
+      1,
+      "Entry ID",
+      "Entry ID"
+    ],
+    [
+      3,
+      1,
+      2,
+      "Phase",
+      "Phase"
+    ],
+    [
+      3,
+      1,
+      3,
+      "Component",
+      "Component"
+    ],
+    [
+      3,
+      1,
+      4,
+      "GL account",
+      "GL account"
+    ],
+    [
+      3,
+      1,
+      5,
+      "GL dimensions",
+      "GL dimensions"
+    ],
+    [
+      3,
+      1,
+      6,
+      "Account class",
+      "Account class"
+    ],
+    [
+      3,
+      1,
+      7,
+      "Debit",
+      "Debit"
+    ],
+    [
+      3,
+      1,
+      8,
+      "Credit",
+      "Credit"
+    ],
+    [
+      3,
+      1,
+      9,
+      "Entry date",
+      "Entry date"
+    ],
+    [
+      3,
+      1,
+      10,
+      "Posting reference",
+      "Posting reference"
+    ],
+    [
+      3,
+      1,
+      11,
+      "Entity",
+      "Entity"
+    ],
+    [
+      3,
+      1,
+      12,
+      "Payroll run",
+      "Payroll run"
+    ],
+    [
+      3,
+      1,
+      13,
+      "Payroll ledger",
+      "Payroll ledger"
+    ],
+    [
+      3,
+      1,
+      14,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      3,
+      1,
+      15,
+      "Currency",
+      "Currency"
+    ],
+    [
+      3,
+      1,
+      16,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      3,
+      1,
+      17,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      3,
+      1,
+      18,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      3,
+      1,
+      19,
+      "Period start",
+      "Period start"
+    ],
+    [
+      3,
+      1,
+      20,
+      "Period end",
+      "Period end"
+    ],
+    [
+      3,
+      1,
+      21,
+      "Payroll posting date",
+      "Payroll posting date"
+    ],
+    [
+      3,
+      1,
+      22,
+      "Payment date",
+      "Payment date"
+    ],
+    [
+      3,
+      1,
+      23,
+      "Bank account",
+      "Bank account"
+    ],
+    [
+      3,
+      1,
+      24,
+      "Payout reference",
+      "Payout reference"
+    ],
+    [
+      3,
+      1,
+      25,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      3,
+      1,
+      26,
+      "Map version",
+      "Map version"
+    ],
+    [
+      3,
+      1,
+      27,
+      "Payroll policy version",
+      "Payroll policy version"
+    ],
+    [
+      3,
+      1,
+      28,
+      "Bank mapping version",
+      "Bank mapping version"
+    ],
+    [
+      3,
+      1,
+      29,
+      "Account set version",
+      "Account set version"
+    ],
+    [
+      3,
+      2,
+      1,
+      "Entry ID",
+      "ENTRY-gross-expense"
+    ],
+    [
+      3,
+      2,
+      2,
+      "Phase",
+      "payroll"
+    ],
+    [
+      3,
+      2,
+      3,
+      "Component",
+      "gross-expense"
+    ],
+    [
+      3,
+      2,
+      4,
+      "GL account",
+      "GL-gross-expense"
+    ],
+    [
+      3,
+      2,
+      5,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      2,
+      6,
+      "Account class",
+      "payroll-expense"
+    ],
+    [
+      3,
+      2,
+      7,
+      "Debit",
+      "1400"
+    ],
+    [
+      3,
+      2,
+      8,
+      "Credit",
+      "0"
+    ],
+    [
+      3,
+      2,
+      9,
+      "Entry date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      2,
+      10,
+      "Posting reference",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      2,
+      11,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      3,
+      2,
+      12,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      2,
+      13,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      3,
+      2,
+      14,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      2,
+      15,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      2,
+      16,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      2,
+      17,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      2,
+      18,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      2,
+      19,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      3,
+      2,
+      20,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      3,
+      2,
+      21,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      2,
+      22,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      2,
+      23,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      3,
+      2,
+      24,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      2,
+      25,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      2,
+      26,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      2,
+      27,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      3,
+      2,
+      28,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      3,
+      2,
+      29,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      3,
+      3,
+      1,
+      "Entry ID",
+      "ENTRY-employee-deduction-payable"
+    ],
+    [
+      3,
+      3,
+      2,
+      "Phase",
+      "payroll"
+    ],
+    [
+      3,
+      3,
+      3,
+      "Component",
+      "employee-deduction-payable"
+    ],
+    [
+      3,
+      3,
+      4,
+      "GL account",
+      "GL-employee-deduction-payable"
+    ],
+    [
+      3,
+      3,
+      5,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      3,
+      6,
+      "Account class",
+      "employee-deduction-liability"
+    ],
+    [
+      3,
+      3,
+      7,
+      "Debit",
+      "0"
+    ],
+    [
+      3,
+      3,
+      8,
+      "Credit",
+      "140"
+    ],
+    [
+      3,
+      3,
+      9,
+      "Entry date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      3,
+      10,
+      "Posting reference",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      3,
+      11,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      3,
+      3,
+      12,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      3,
+      13,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      3,
+      3,
+      14,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      3,
+      15,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      3,
+      16,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      3,
+      17,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      3,
+      18,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      3,
+      19,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      3,
+      3,
+      20,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      3,
+      3,
+      21,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      3,
+      22,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      3,
+      23,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      3,
+      3,
+      24,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      3,
+      25,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      3,
+      26,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      3,
+      27,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      3,
+      3,
+      28,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      3,
+      3,
+      29,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      3,
+      4,
+      1,
+      "Entry ID",
+      "ENTRY-net-payable"
+    ],
+    [
+      3,
+      4,
+      2,
+      "Phase",
+      "payroll"
+    ],
+    [
+      3,
+      4,
+      3,
+      "Component",
+      "net-payable"
+    ],
+    [
+      3,
+      4,
+      4,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      3,
+      4,
+      5,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      4,
+      6,
+      "Account class",
+      "payroll-net-liability"
+    ],
+    [
+      3,
+      4,
+      7,
+      "Debit",
+      "0"
+    ],
+    [
+      3,
+      4,
+      8,
+      "Credit",
+      "1260"
+    ],
+    [
+      3,
+      4,
+      9,
+      "Entry date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      4,
+      10,
+      "Posting reference",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      4,
+      11,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      3,
+      4,
+      12,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      4,
+      13,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      3,
+      4,
+      14,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      4,
+      15,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      4,
+      16,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      4,
+      17,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      4,
+      18,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      4,
+      19,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      3,
+      4,
+      20,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      3,
+      4,
+      21,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      4,
+      22,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      4,
+      23,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      3,
+      4,
+      24,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      4,
+      25,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      4,
+      26,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      4,
+      27,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      3,
+      4,
+      28,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      3,
+      4,
+      29,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      3,
+      5,
+      1,
+      "Entry ID",
+      "ENTRY-employer-expense"
+    ],
+    [
+      3,
+      5,
+      2,
+      "Phase",
+      "payroll"
+    ],
+    [
+      3,
+      5,
+      3,
+      "Component",
+      "employer-expense"
+    ],
+    [
+      3,
+      5,
+      4,
+      "GL account",
+      "GL-employer-expense"
+    ],
+    [
+      3,
+      5,
+      5,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      5,
+      6,
+      "Account class",
+      "employer-contribution-expense"
+    ],
+    [
+      3,
+      5,
+      7,
+      "Debit",
+      "70"
+    ],
+    [
+      3,
+      5,
+      8,
+      "Credit",
+      "0"
+    ],
+    [
+      3,
+      5,
+      9,
+      "Entry date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      5,
+      10,
+      "Posting reference",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      5,
+      11,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      3,
+      5,
+      12,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      5,
+      13,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      3,
+      5,
+      14,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      5,
+      15,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      5,
+      16,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      5,
+      17,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      5,
+      18,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      5,
+      19,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      3,
+      5,
+      20,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      3,
+      5,
+      21,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      5,
+      22,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      5,
+      23,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      3,
+      5,
+      24,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      5,
+      25,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      5,
+      26,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      5,
+      27,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      3,
+      5,
+      28,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      3,
+      5,
+      29,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      3,
+      6,
+      1,
+      "Entry ID",
+      "ENTRY-employer-payable"
+    ],
+    [
+      3,
+      6,
+      2,
+      "Phase",
+      "payroll"
+    ],
+    [
+      3,
+      6,
+      3,
+      "Component",
+      "employer-payable"
+    ],
+    [
+      3,
+      6,
+      4,
+      "GL account",
+      "GL-employer-payable"
+    ],
+    [
+      3,
+      6,
+      5,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      6,
+      6,
+      "Account class",
+      "employer-contribution-liability"
+    ],
+    [
+      3,
+      6,
+      7,
+      "Debit",
+      "0"
+    ],
+    [
+      3,
+      6,
+      8,
+      "Credit",
+      "70"
+    ],
+    [
+      3,
+      6,
+      9,
+      "Entry date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      6,
+      10,
+      "Posting reference",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      6,
+      11,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      3,
+      6,
+      12,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      6,
+      13,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      3,
+      6,
+      14,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      6,
+      15,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      6,
+      16,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      6,
+      17,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      6,
+      18,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      6,
+      19,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      3,
+      6,
+      20,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      3,
+      6,
+      21,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      6,
+      22,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      6,
+      23,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      3,
+      6,
+      24,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      6,
+      25,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      6,
+      26,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      6,
+      27,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      3,
+      6,
+      28,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      3,
+      6,
+      29,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      3,
+      7,
+      1,
+      "Entry ID",
+      "ENTRY-net-clearing"
+    ],
+    [
+      3,
+      7,
+      2,
+      "Phase",
+      "disbursement"
+    ],
+    [
+      3,
+      7,
+      3,
+      "Component",
+      "net-clearing"
+    ],
+    [
+      3,
+      7,
+      4,
+      "GL account",
+      "GL-net-payable"
+    ],
+    [
+      3,
+      7,
+      5,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      7,
+      6,
+      "Account class",
+      "payroll-net-liability"
+    ],
+    [
+      3,
+      7,
+      7,
+      "Debit",
+      "1260"
+    ],
+    [
+      3,
+      7,
+      8,
+      "Credit",
+      "0"
+    ],
+    [
+      3,
+      7,
+      9,
+      "Entry date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      7,
+      10,
+      "Posting reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      7,
+      11,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      3,
+      7,
+      12,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      7,
+      13,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      3,
+      7,
+      14,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      7,
+      15,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      7,
+      16,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      7,
+      17,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      7,
+      18,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      7,
+      19,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      3,
+      7,
+      20,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      3,
+      7,
+      21,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      7,
+      22,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      7,
+      23,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      3,
+      7,
+      24,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      7,
+      25,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      7,
+      26,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      7,
+      27,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      3,
+      7,
+      28,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      3,
+      7,
+      29,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      3,
+      8,
+      1,
+      "Entry ID",
+      "ENTRY-bank-cash"
+    ],
+    [
+      3,
+      8,
+      2,
+      "Phase",
+      "disbursement"
+    ],
+    [
+      3,
+      8,
+      3,
+      "Component",
+      "bank-cash"
+    ],
+    [
+      3,
+      8,
+      4,
+      "GL account",
+      "GL-bank-cash"
+    ],
+    [
+      3,
+      8,
+      5,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      8,
+      6,
+      "Account class",
+      "cash"
+    ],
+    [
+      3,
+      8,
+      7,
+      "Debit",
+      "0"
+    ],
+    [
+      3,
+      8,
+      8,
+      "Credit",
+      "1259.99"
+    ],
+    [
+      3,
+      8,
+      9,
+      "Entry date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      8,
+      10,
+      "Posting reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      8,
+      11,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      3,
+      8,
+      12,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      3,
+      8,
+      13,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      3,
+      8,
+      14,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      8,
+      15,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      8,
+      16,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      8,
+      17,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      8,
+      18,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      8,
+      19,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      3,
+      8,
+      20,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      3,
+      8,
+      21,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      3,
+      8,
+      22,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      3,
+      8,
+      23,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      3,
+      8,
+      24,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      3,
+      8,
+      25,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      8,
+      26,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      8,
+      27,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      3,
+      8,
+      28,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      3,
+      8,
+      29,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ],
+    [
+      4,
+      1,
+      1,
+      "Transaction ID",
+      "Transaction ID"
+    ],
+    [
+      4,
+      1,
+      2,
+      "Transaction bank account",
+      "Transaction bank account"
+    ],
+    [
+      4,
+      1,
+      3,
+      "Direction",
+      "Direction"
+    ],
+    [
+      4,
+      1,
+      4,
+      "Amount",
+      "Amount"
+    ],
+    [
+      4,
+      1,
+      5,
+      "Value date",
+      "Value date"
+    ],
+    [
+      4,
+      1,
+      6,
+      "Transaction payout reference",
+      "Transaction payout reference"
+    ],
+    [
+      4,
+      1,
+      7,
+      "Entity",
+      "Entity"
+    ],
+    [
+      4,
+      1,
+      8,
+      "Payroll run",
+      "Payroll run"
+    ],
+    [
+      4,
+      1,
+      9,
+      "Payroll ledger",
+      "Payroll ledger"
+    ],
+    [
+      4,
+      1,
+      10,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      4,
+      1,
+      11,
+      "Currency",
+      "Currency"
+    ],
+    [
+      4,
+      1,
+      12,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      4,
+      1,
+      13,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      4,
+      1,
+      14,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      4,
+      1,
+      15,
+      "Period start",
+      "Period start"
+    ],
+    [
+      4,
+      1,
+      16,
+      "Period end",
+      "Period end"
+    ],
+    [
+      4,
+      1,
+      17,
+      "Payroll posting date",
+      "Payroll posting date"
+    ],
+    [
+      4,
+      1,
+      18,
+      "Payment date",
+      "Payment date"
+    ],
+    [
+      4,
+      1,
+      19,
+      "Bank account",
+      "Bank account"
+    ],
+    [
+      4,
+      1,
+      20,
+      "Payout reference",
+      "Payout reference"
+    ],
+    [
+      4,
+      1,
+      21,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      4,
+      1,
+      22,
+      "Map version",
+      "Map version"
+    ],
+    [
+      4,
+      1,
+      23,
+      "Payroll policy version",
+      "Payroll policy version"
+    ],
+    [
+      4,
+      1,
+      24,
+      "Bank mapping version",
+      "Bank mapping version"
+    ],
+    [
+      4,
+      1,
+      25,
+      "Account set version",
+      "Account set version"
+    ],
+    [
+      4,
+      2,
+      1,
+      "Transaction ID",
+      "BANK-TXN-01"
+    ],
+    [
+      4,
+      2,
+      2,
+      "Transaction bank account",
+      "BANK-001"
+    ],
+    [
+      4,
+      2,
+      3,
+      "Direction",
+      "outflow"
+    ],
+    [
+      4,
+      2,
+      4,
+      "Amount",
+      "1260"
+    ],
+    [
+      4,
+      2,
+      5,
+      "Value date",
+      "2026-10-01"
+    ],
+    [
+      4,
+      2,
+      6,
+      "Transaction payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      4,
+      2,
+      7,
+      "Entity",
+      "Synthetic Payroll Owner"
+    ],
+    [
+      4,
+      2,
+      8,
+      "Payroll run",
+      "RUN-2026-09"
+    ],
+    [
+      4,
+      2,
+      9,
+      "Payroll ledger",
+      "PAYROLL-BOOK"
+    ],
+    [
+      4,
+      2,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      4,
+      2,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      4,
+      2,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      4,
+      2,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      4,
+      2,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      4,
+      2,
+      15,
+      "Period start",
+      "2026-09-01"
+    ],
+    [
+      4,
+      2,
+      16,
+      "Period end",
+      "2026-09-30"
+    ],
+    [
+      4,
+      2,
+      17,
+      "Payroll posting date",
+      "2026-09-30"
+    ],
+    [
+      4,
+      2,
+      18,
+      "Payment date",
+      "2026-10-01"
+    ],
+    [
+      4,
+      2,
+      19,
+      "Bank account",
+      "BANK-001"
+    ],
+    [
+      4,
+      2,
+      20,
+      "Payout reference",
+      "PAYOUT-2026-09"
+    ],
+    [
+      4,
+      2,
+      21,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      4,
+      2,
+      22,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      4,
+      2,
+      23,
+      "Payroll policy version",
+      "PAYROLL-POL-1"
+    ],
+    [
+      4,
+      2,
+      24,
+      "Bank mapping version",
+      "BANK-MAP-1"
+    ],
+    [
+      4,
+      2,
+      25,
+      "Account set version",
+      "ACCOUNT-SET-1"
+    ]
+  ],
+  "inventory": [
+    [
+      0,
+      1,
+      "header"
+    ],
+    [
+      0,
+      2,
+      "data"
+    ],
+    [
+      0,
+      3,
+      "data"
+    ],
+    [
+      1,
+      1,
+      "header"
+    ],
+    [
+      1,
+      2,
+      "data"
+    ],
+    [
+      1,
+      3,
+      "data"
+    ],
+    [
+      1,
+      4,
+      "data"
+    ],
+    [
+      1,
+      5,
+      "data"
+    ],
+    [
+      1,
+      6,
+      "data"
+    ],
+    [
+      1,
+      7,
+      "data"
+    ],
+    [
+      1,
+      8,
+      "data"
+    ],
+    [
+      1,
+      9,
+      "data"
+    ],
+    [
+      1,
+      10,
+      "data"
+    ],
+    [
+      1,
+      11,
+      "data"
+    ],
+    [
+      1,
+      12,
+      "data"
+    ],
+    [
+      1,
+      13,
+      "data"
+    ],
+    [
+      1,
+      14,
+      "data"
+    ],
+    [
+      1,
+      15,
+      "data"
+    ],
+    [
+      2,
+      1,
+      "header"
+    ],
+    [
+      2,
+      2,
+      "data"
+    ],
+    [
+      2,
+      3,
+      "data"
+    ],
+    [
+      2,
+      4,
+      "data"
+    ],
+    [
+      2,
+      5,
+      "data"
+    ],
+    [
+      2,
+      6,
+      "data"
+    ],
+    [
+      2,
+      7,
+      "data"
+    ],
+    [
+      2,
+      8,
+      "data"
+    ],
+    [
+      2,
+      9,
+      "data"
+    ],
+    [
+      2,
+      10,
+      "data"
+    ],
+    [
+      2,
+      11,
+      "data"
+    ],
+    [
+      2,
+      12,
+      "data"
+    ],
+    [
+      2,
+      13,
+      "data"
+    ],
+    [
+      2,
+      14,
+      "data"
+    ],
+    [
+      2,
+      15,
+      "data"
+    ],
+    [
+      3,
+      1,
+      "header"
+    ],
+    [
+      3,
+      2,
+      "data"
+    ],
+    [
+      3,
+      3,
+      "data"
+    ],
+    [
+      3,
+      4,
+      "data"
+    ],
+    [
+      3,
+      5,
+      "data"
+    ],
+    [
+      3,
+      6,
+      "data"
+    ],
+    [
+      3,
+      7,
+      "data"
+    ],
+    [
+      3,
+      8,
+      "data"
+    ],
+    [
+      4,
+      1,
+      "header"
+    ],
+    [
+      4,
+      2,
+      "data"
+    ]
+  ],
+  "members": [
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      1,
+      8
+    ],
+    [
+      1,
+      9
+    ],
+    [
+      1,
+      10
+    ],
+    [
+      1,
+      11
+    ],
+    [
+      1,
+      12
+    ],
+    [
+      1,
+      13
+    ],
+    [
+      1,
+      14
+    ],
+    [
+      1,
+      15
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      2,
+      7
+    ],
+    [
+      2,
+      8
+    ],
+    [
+      2,
+      9
+    ],
+    [
+      2,
+      10
+    ],
+    [
+      2,
+      11
+    ],
+    [
+      2,
+      12
+    ],
+    [
+      2,
+      13
+    ],
+    [
+      2,
+      14
+    ],
+    [
+      2,
+      15
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      3,
+      6
+    ],
+    [
+      3,
+      7
+    ],
+    [
+      3,
+      8
+    ],
+    [
+      4,
+      2
+    ]
+  ],
+  "hashes": [
+    "fd73bd7aa7592bb7c6721c4a0df69cb341b6a34dc2ff155c2b2b9f5887485b55",
+    "e90e3f20b099197fe32ba9a7d0352bf95d4c28faa7a1afbdc0358d2d17f98f03",
+    "9dfa7dc3a526d1e127c86efb32c0dbc77d7dd09efa41f5cef4c87cfadda36251",
+    "8680661ce9ff027e5cf63e8988499fe6e9fd216ab1b53eb023f1aa349d907b5a",
+    "0b22db388337da6272adc84eaba88adf77b3652b877ab8e1c7f3717fbf0dc38e"
+  ]
+}

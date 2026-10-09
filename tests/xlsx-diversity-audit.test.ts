@@ -69,7 +69,7 @@ const normalize = (
   s = scope,
 ) => normalizeSource(file, m, s, 'supplier');
 
-test('numeric XML must be a whole valid number, never a parseFloat prefix', async () => {
+void test('numeric XML must be a whole valid number, never a parseFloat prefix', async () => {
   const original = await workbook();
   for (const raw of [
     '123.45BAD',
@@ -94,7 +94,7 @@ test('numeric XML must be a whole valid number, never a parseFloat prefix', asyn
   }
 });
 
-test('equivalent valid numeric spellings are retained exactly without locale guesses', async () => {
+void test('equivalent valid numeric spellings are retained exactly without locale guesses', async () => {
   const original = await workbook();
   for (const raw of [
     '+123.4500',
@@ -119,7 +119,7 @@ test('equivalent valid numeric spellings are retained exactly without locale gue
   }
 });
 
-test('duplicate cells, duplicate rows and coordinate conflicts cannot overwrite source transactions', async () => {
+void test('duplicate cells, duplicate rows and coordinate conflicts cannot overwrite source transactions', async () => {
   const original = await workbook();
   const edits = [
     (xml: string) =>
@@ -148,7 +148,7 @@ test('duplicate cells, duplicate rows and coordinate conflicts cannot overwrite 
     );
 });
 
-test('precision lost by Number conversion becomes a cell issue, never an apparently exact financial amount', async () => {
+void test('precision lost by Number conversion becomes a cell issue, never an apparently exact financial amount', async () => {
   const original = await workbook();
   for (const raw of [
     '123.4500000000000001',
@@ -180,7 +180,7 @@ test('precision lost by Number conversion becomes a cell issue, never an apparen
   }
 });
 
-test('precision observations use workbook relationships and only block selected cells', async () => {
+void test('precision observations use workbook relationships and only block selected cells', async () => {
   let bytes = await workbook((sheet) => {
     sheet.getCell('D2').value = 123.45;
   });
@@ -210,7 +210,7 @@ test('precision observations use workbook relationships and only block selected 
   assert.deepEqual(new Uint8Array(file.original!), new Uint8Array(bytes));
 });
 
-test('rich text and hyperlink display text obey the same mapped-cell visibility rules as plain strings', async () => {
+void test('rich text and hyperlink display text obey the same mapped-cell visibility rules as plain strings', async () => {
   for (const kind of ['plain', 'rich', 'hyperlink'] as const) {
     for (const format of [';;;', '0;0;0;"999"', '0;0;0;"INV-"@']) {
       const file = await readFile(
@@ -234,7 +234,7 @@ test('rich text and hyperlink display text obey the same mapped-cell visibility 
   }
 });
 
-test('ordinary rich text, hyperlinks, currency and accounting formats retain exact source values', async () => {
+void test('ordinary rich text, hyperlinks, currency and accounting formats retain exact source values', async () => {
   for (const kind of ['plain', 'rich', 'hyperlink'] as const) {
     const file = await readFile(
       'independent.xlsx',
@@ -275,7 +275,7 @@ test('ordinary rich text, hyperlinks, currency and accounting formats retain exa
   }
 });
 
-test('seeded independent minor-unit oracle survives both Excel date epochs and all supported precisions', async () => {
+void test('seeded independent minor-unit oracle survives both Excel date epochs and all supported precisions', async () => {
   let seed = 92731;
   const minors = Array.from({ length: 64 }, () => {
     seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
@@ -344,7 +344,7 @@ test('seeded independent minor-unit oracle survives both Excel date epochs and a
     }
 });
 
-test('repeated safe page headers do not make proven Excel formats ambiguous or invalid', async () => {
+void test('repeated safe page headers do not make proven Excel formats ambiguous or invalid', async () => {
   const file = await readFile(
     'independent.xlsx',
     await workbook((sheet) => {
@@ -365,7 +365,7 @@ test('repeated safe page headers do not make proven Excel formats ambiguous or i
   );
 });
 
-test('untrusted or hidden repeated headers cannot be used to prove input formats', async () => {
+void test('untrusted or hidden repeated headers cannot be used to prove input formats', async () => {
   for (const mode of ['formula', 'hidden', 'row-issue', 'reference-issue']) {
     const file = await readFile(
       'independent.xlsx',
@@ -397,7 +397,7 @@ test('untrusted or hidden repeated headers cannot be used to prove input formats
   }
 });
 
-test('shared-string indices cannot be truncated into another source value', async () => {
+void test('shared-string indices cannot be truncated into another source value', async () => {
   const original = await workbook();
   for (const suffix of ['BAD', '.5', 'e1']) {
     await assert.rejects(
@@ -412,7 +412,7 @@ test('shared-string indices cannot be truncated into another source value', asyn
   }
 });
 
-test('implicit next-column addresses remain supported but cannot conceal a duplicate cell', async () => {
+void test('implicit next-column addresses remain supported but cannot conceal a duplicate cell', async () => {
   const original = await workbook();
   const omitted = await mutate(original, (xml) => xml.replace('r="C2"', ''));
   assert.deepEqual(
@@ -434,7 +434,7 @@ test('implicit next-column addresses remain supported but cannot conceal a dupli
   );
 });
 
-test('native ISO date cells retain their lexical dates and can never become year-sized amounts', async () => {
+void test('native ISO date cells retain their lexical dates and can never become year-sized amounts', async () => {
   const original = await workbook();
   const dated = await mutate(original, (xml) =>
     xml.replace(

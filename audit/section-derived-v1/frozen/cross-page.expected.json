@@ -1,0 +1,99 @@
+{
+  "outcome": "derived",
+  "originalSha256": "4179f99896a3b2bc54d1940cc43a24a9f341a6d4cb378d4e4bfcfae000c02d87",
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "",
+        "",
+        "Invoice: INV-1",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 2,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 2,
+      "values": [
+        "",
+        "",
+        "Continued invoice: INV-1",
+        ""
+      ]
+    },
+    {
+      "row": 6,
+      "page": 2,
+      "values": [
+        "2026-10-01",
+        "",
+        "continued",
+        "+2.50"
+      ]
+    }
+  ],
+  "links": [
+    3,
+    6
+  ],
+  "references": [
+    "INV-1",
+    "INV-1"
+  ],
+  "csvSha256": "949a81275cebc3485eb2a95a1c074274defff58b012d69e12c79e9b99f36460a",
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Amount"
+    ],
+    [
+      "2026-10-01",
+      "INV-1",
+      "line",
+      "-12.50"
+    ],
+    [
+      "2026-10-01",
+      "INV-1",
+      "continued",
+      "+2.50"
+    ]
+  ],
+  "amountMinor": [
+    -1250,
+    250
+  ]
+}

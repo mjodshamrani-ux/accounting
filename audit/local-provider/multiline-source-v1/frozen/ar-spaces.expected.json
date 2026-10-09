@@ -1,0 +1,81 @@
+{
+  "outcome": "candidate",
+  "fields": {
+    "date": "2026-09-17",
+    "reference": "INV-417",
+    "amount": "999.99",
+    "currency": "SAR"
+  },
+  "normalizedCurrency": "SAR",
+  "amountMinor": "99999",
+  "evidence": {
+    "date": {
+      "value": {
+        "startUtf16": 44,
+        "endUtf16": 54,
+        "startByte": 67,
+        "endByte": 77,
+        "literal": "2026-09-17"
+      },
+      "role": {
+        "startUtf16": 28,
+        "endUtf16": 41,
+        "startByte": 39,
+        "endByte": 64,
+        "literal": "تاريخ الإصدار"
+      }
+    },
+    "reference": {
+      "value": {
+        "startUtf16": 17,
+        "endUtf16": 24,
+        "startByte": 28,
+        "endByte": 35,
+        "literal": "INV-417"
+      },
+      "role": {
+        "startUtf16": 2,
+        "endUtf16": 14,
+        "startByte": 2,
+        "endByte": 25,
+        "literal": "رقم الفاتورة"
+      }
+    },
+    "amount": {
+      "value": {
+        "startUtf16": 79,
+        "endUtf16": 85,
+        "startByte": 116,
+        "endByte": 122,
+        "literal": "999.99"
+      },
+      "role": {
+        "startUtf16": 57,
+        "endUtf16": 72,
+        "startByte": 80,
+        "endByte": 109,
+        "literal": "إجمالي الفاتورة"
+      }
+    },
+    "currency": {
+      "value": {
+        "startUtf16": 75,
+        "endUtf16": 78,
+        "startByte": 112,
+        "endByte": 115,
+        "literal": "SAR"
+      },
+      "role": {
+        "startUtf16": 57,
+        "endUtf16": 72,
+        "startByte": 80,
+        "endByte": 109,
+        "literal": "إجمالي الفاتورة"
+      }
+    }
+  },
+  "originalSha256": "675b6918309179fe67ad3b2c48dafa9e2b063fd2e8bf69a05ad8450faf78ad24",
+  "extractionRevision": "synthetic-text-extraction-v1",
+  "synthetic": true,
+  "fieldValidation": false
+}

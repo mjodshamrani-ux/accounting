@@ -1,0 +1,66 @@
+{
+  "version": "P4_SECTION_DERIVED_V1",
+  "synthetic": true,
+  "cases": [
+    {
+      "id": "section-signed",
+      "original": "section-signed.pdf",
+      "expected": "section-signed.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "cross-page",
+      "original": "cross-page.pdf",
+      "expected": "cross-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "explicit-native-reference",
+      "original": "explicit-native-reference.pdf",
+      "expected": "explicit-native-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "missing-parent",
+      "original": "missing-parent.pdf",
+      "expected": "missing-parent.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "unknown-boundary",
+      "original": "unknown-boundary.pdf",
+      "expected": "unknown-boundary.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "late-corrupt-amount",
+      "original": "late-corrupt-amount.pdf",
+      "expected": "late-corrupt-amount.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "competing-reference",
+      "original": "competing-reference.pdf",
+      "expected": "competing-reference.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "duplicate-parent",
+      "original": "duplicate-parent.pdf",
+      "expected": "duplicate-parent.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "page-gap",
+      "original": "page-gap.pdf",
+      "expected": "page-gap.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "unselected-movement",
+      "original": "unselected-movement.pdf",
+      "expected": "unselected-movement.expected.json",
+      "outcome": "blocked"
+    }
+  ]
+}

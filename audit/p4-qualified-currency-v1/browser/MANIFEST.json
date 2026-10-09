@@ -1,0 +1,494 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_BROWSER_DRAFT_MANIFEST_V1",
+  "nativeAccepted": false,
+  "runtimeAcceptance": false,
+  "implementationAccepted": false,
+  "fieldAcceptance": false,
+  "financialApproval": false,
+  "productImports": false,
+  "expectedFromProduct": false,
+  "counts": {
+    "mandatoryPositiveCases": 18,
+    "targetedRefusalLanguageCases": 12,
+    "primaryBrowserCases": 30,
+    "primaryWidthMeasurements": 132
+  },
+  "files": [
+    {
+      "path": "ACCEPTANCE.md",
+      "bytes": 14397,
+      "sha256": "5a19019f9dbd7af6c54b0b748b95de7b8b9ff1db50510d1c6fddad8a643ce86c"
+    },
+    {
+      "path": "STATUS.json",
+      "bytes": 267,
+      "sha256": "a1e33f99ddda9ebfe866c1ad90643285b30d8c766ddc3f2ff0cf976e65aa0f7c"
+    },
+    {
+      "path": "acceptance-matrix.json",
+      "bytes": 114414,
+      "sha256": "b3d91022b2cfca7aae9eddcfa8d0e6a33437ddd6ff5a0ca8817c90ffe06428d8"
+    },
+    {
+      "path": "external-checker-spec.json",
+      "bytes": 2352,
+      "sha256": "01d3e852c18e3ad25fd1d5f1d302a5bcdb78a9fecdde7c8e1096c150096c0297"
+    },
+    {
+      "path": "source-pins.json",
+      "bytes": 1473,
+      "sha256": "0896f14890a9bcffaa6f35b3ead3f2481781aba838f73a7389a91e2176a5d92a"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-boundary-clarification-v1/BOUNDARIES.md",
+      "bytes": 6696,
+      "sha256": "58abed3820c1ff281d2d8976509187a0e71f8315ad112e872cfaaa9be34375fc"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-boundary-clarification-v1/MANIFEST.json",
+      "bytes": 1445,
+      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-boundary-clarification-v1/boundary-actions.json",
+      "bytes": 4814,
+      "sha256": "a18d5d5e7646fae569f843a62633b261a7e873ffa93e157c9bf2c161673c8c05"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-boundary-clarification-v1/boundary-consistency.log",
+      "bytes": 733,
+      "sha256": "99514beb5a55343732cc41e9dafa915ead6df01232d3e15bce42e7a771d293b2"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-boundary-clarification-v1/ownership-controls.json",
+      "bytes": 1997,
+      "sha256": "112fc17c037b13c15d8002bcc6372f09515e0bbb7e483ea8caf76d0d54c661c2"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-boundary-clarification-v1/verify-boundaries.py",
+      "bytes": 2230,
+      "sha256": "c12fdf60696e34e17c3742ae28044031ef79c961cc5d5552768797569a670797"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/ADDENDUM.md",
+      "bytes": 5888,
+      "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/MANIFEST.json",
+      "bytes": 1914,
+      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/actions-addendum.json",
+      "bytes": 7040,
+      "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/contract-addendum.json",
+      "bytes": 1614,
+      "sha256": "239c5aa2be9ee238c668c220182c1807b0567fcb823e64931594284f7658092b"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/create-addendum.py",
+      "bytes": 6369,
+      "sha256": "b135ba7bfd578fd92365556151ef928f15b73dce938e169bbdfd7b387af1c4ea"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/independent-addendum-consistency.log",
+      "bytes": 368,
+      "sha256": "0bce7bc9232dc8f69cec9afec00930f22e5f1691aa72f613f8bee89cae34c46d"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/manual-number-format-truth.json",
+      "bytes": 6361,
+      "sha256": "f05237e7a1fc910a70d7f53b1e58bd4da8c0e8db5a2f5a9d67061377bb06cb45"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-format-addendum-v1/verify-addendum.py",
+      "bytes": 3399,
+      "sha256": "e3ec212b9868bf49be4723d5ba479eb5d3fedc57f40b616ea84616605b41ff5a"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/CONTRACT.md",
+      "bytes": 6213,
+      "sha256": "72229fbd43fbd378cb2da09ce515a7c043e79ba261d80864f7f9dfe63f8098ba"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/MANIFEST.json",
+      "bytes": 12749,
+      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/draft-consistency-closure.log",
+      "bytes": 2390,
+      "sha256": "07bc118bc7c9db11e6c73516625899887f8927e0dff7712c64b9ce05bf96148d"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/draft-consistency-original.public.txt",
+      "bytes": 337,
+      "sha256": "96f5f634387183d90e5ac09a213cd5dda908279d56aa4bde8e94de24b485bd89"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/freeze.py",
+      "bytes": 13075,
+      "sha256": "7bcd5ef56aa4e037b933914b9c16404448990d31913376f369bc8895a78864a9"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/actions.json",
+      "bytes": 4598,
+      "sha256": "c322a27c036696562bd8fdea179fb366519d9e8f80e15870c98418b645d93f58"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/ambiguous-qualifier.expected.json",
+      "bytes": 987,
+      "sha256": "0b1c98a3390e46125fc62001670a7a97dfe0f12ae6040489ae1bb6640df6c534"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/ambiguous-qualifier.pdf",
+      "bytes": 1114,
+      "sha256": "551ff60fec75f4b29528cf05a6038be81b21fc41309ee54dd7781cf7c52babf7"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/bare-existing-family.expected.json",
+      "bytes": 1041,
+      "sha256": "7d19727ea3e444b441358091055f83eb5a2c20b8cf4076e41cc3ea871a5d46b9"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/bare-existing-family.pdf",
+      "bytes": 1106,
+      "sha256": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/changed-page-currency.expected.json",
+      "bytes": 1427,
+      "sha256": "6a86719ddf0d0accf30abb835a430f6c77faaac2239499717363bfea9006b32a"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/changed-page-currency.pdf",
+      "bytes": 1904,
+      "sha256": "414240c09f79ae466a8b777fcab21c35378a8bafcc69f10ea9ca262866ac5ea0"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/changed-page-reference-role.expected.json",
+      "bytes": 1453,
+      "sha256": "3a0252572d7688bfc6cf6b38707145d837ab84c6c876d65bbd564ec362b1eef3"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/changed-page-reference-role.pdf",
+      "bytes": 1912,
+      "sha256": "b6e0df22098b8172a2d27fc20f7e6630b5b9ed69c7309f50d4d72c50d008c0b3"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/contract.json",
+      "bytes": 5802,
+      "sha256": "5f94ec2f496fe19609caf3a4c345580160cc38bf292abeefa568deaef88b76e8"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/contradictory-currency-row.expected.json",
+      "bytes": 1111,
+      "sha256": "0b6bf9f0945e8343fcc4b1a60052594953c93350427257ec0eb5752e33080ff8"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/contradictory-currency-row.pdf",
+      "bytes": 1281,
+      "sha256": "b71faabd4c0e376ff839ab54c39740698a1fac5bc6e14890ad2cc713b879ceb0"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/description-code-only.expected.json",
+      "bytes": 1052,
+      "sha256": "59794d64c5d431132841b0fecc47593e941de76485b2b97cc1bf57908b7bc301"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/description-code-only.pdf",
+      "bytes": 1116,
+      "sha256": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/double-currency-header.expected.json",
+      "bytes": 1004,
+      "sha256": "029a7e9dc60576fa50148b50c3339a669febdca24a129bbc4d7c6f23459b0079"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/double-currency-header.pdf",
+      "bytes": 1118,
+      "sha256": "9a5476ebf2d2ef214cfd1080fcb23d7886699afd4de2d112113560989ad5e3e3"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/extra-balance-column.expected.json",
+      "bytes": 1051,
+      "sha256": "9ac60f6bf0d824e079314ad423a3f40a7e1f824da8d89579e6a09f94af7b89fa"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/extra-balance-column.pdf",
+      "bytes": 1244,
+      "sha256": "e8eebea63a0850b5bad2411fa50bf22e376dbacf379b750e6566807845b041cb"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/freeze.json",
+      "bytes": 9671,
+      "sha256": "1b9612a623e3055fe6fa369eb4b7b175da67ab04e07f0895e42b112fb251c7c4"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-cross-page.csv",
+      "bytes": 149,
+      "sha256": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-cross-page.expected.json",
+      "bytes": 3355,
+      "sha256": "2bb275d472bb6c1fb375c85bf5ad90c80aea4c6a2ea5bd10d404c454999ba2fc"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-cross-page.pdf",
+      "bytes": 2071,
+      "sha256": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-fractional.expected.json",
+      "bytes": 1126,
+      "sha256": "3e200a2939ce07ed6453365bf2f25d49dd11d56d7ee9e24dbb2c2dce26439249"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-fractional.pdf",
+      "bytes": 1296,
+      "sha256": "b1e4efe3b55b3894a5e2632d373307c872a99f9bc68b908c5c20e9ccd0dd54b2"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-on-page.csv",
+      "bytes": 154,
+      "sha256": "eebe0bd84fe65b863b5deb8851283569222ed3ea5a183411c46982680855076e"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-on-page.expected.json",
+      "bytes": 2851,
+      "sha256": "5f437998d751b7315c449be5e5cc8acf647db836fc7b84301f19a31ce9fe4283"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-on-page.pdf",
+      "bytes": 1460,
+      "sha256": "71b282a98a55a034d83fedf3d06b09738ab51266f79364325ac76cbccd4ad659"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-own-reference.csv",
+      "bytes": 149,
+      "sha256": "729eb878a4cc452cd2559b59dbeadda57de2d90f6aae10ce6de413a16e679293"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-own-reference.expected.json",
+      "bytes": 2856,
+      "sha256": "8d0956d323aef3a24ca3639041ff9411fe561757ad8a1ae647ad824206739657"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/jpy-own-reference.pdf",
+      "bytes": 1469,
+      "sha256": "e6f519f14041a233ee7634efa3f26853b433a337b20d7d51da22769dc00fd812"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-cross-page.csv",
+      "bytes": 161,
+      "sha256": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-cross-page.expected.json",
+      "bytes": 3412,
+      "sha256": "b36bc3300a394440100fe3865a1db236664e07dfe4332a7974214753316a2ed1"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-cross-page.pdf",
+      "bytes": 2083,
+      "sha256": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-excess-fraction.expected.json",
+      "bytes": 1135,
+      "sha256": "94072889cc760b0a9da9c302818c6144f64d9ee70c7842b0d732af4367ede928"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-excess-fraction.pdf",
+      "bytes": 1312,
+      "sha256": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-on-page.csv",
+      "bytes": 166,
+      "sha256": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-on-page.expected.json",
+      "bytes": 2908,
+      "sha256": "3c59395e3679721ba1332e2b4fbe5fba0a692e47c9dea23707a8029a395436c5"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-on-page.pdf",
+      "bytes": 1472,
+      "sha256": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-own-reference.csv",
+      "bytes": 161,
+      "sha256": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-own-reference.expected.json",
+      "bytes": 2913,
+      "sha256": "89386a8d1ddc32673936ce6eed0153bf93259ba6aee1abfed3b89ce59202e481"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/kwd-own-reference.pdf",
+      "bytes": 1481,
+      "sha256": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/late-corrupt-amount.expected.json",
+      "bytes": 1140,
+      "sha256": "1b8ab45c3f2026b23af2d838fe2dc643f266d5f1feecbfcb23236a28d49bde82"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/late-corrupt-amount.pdf",
+      "bytes": 1298,
+      "sha256": "ecb2e77c2ba0f2cb3396eaf0877f9be46f9f89f6e66e0552d7323fb888ddd496"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/late-unknown-row.expected.json",
+      "bytes": 1253,
+      "sha256": "4ed8b4a5f94c61f740e65ac6c905b68b9728610c839fd46611841fb7293e9db4"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/late-unknown-row.pdf",
+      "bytes": 1466,
+      "sha256": "237333edfe31617dd8e4ae43945011b0fbad254c05b78f5014c2c57a7a7899e2"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/lowercase-qualifier.expected.json",
+      "bytes": 985,
+      "sha256": "c50f64d7ece11f207ee7bcb2ee3cb5575df6f4da5292d8db8e7e9ea3dbfbf55b"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/lowercase-qualifier.pdf",
+      "bytes": 1110,
+      "sha256": "ca8210cf7228598ae862f9133e2d06330d741fea3b65837d916747f592ed5c7a"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/missing-continuation.expected.json",
+      "bytes": 1292,
+      "sha256": "d4df725a18dd797b02a7ee6360cd8611f3600c8d3adb4748c0fe138024f79417"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/missing-continuation.pdf",
+      "bytes": 1721,
+      "sha256": "a748a276f24a2fd252880c65c62bd5630f67ac1518db37f1fe94a142c1925620"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/missing-page-qualification.expected.json",
+      "bytes": 1440,
+      "sha256": "861832cdafbc74959ca35ace83eb3b469ee4a8549cf1f545de73750752bfd33a"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/missing-page-qualification.pdf",
+      "bytes": 1899,
+      "sha256": "588858ba99a622b3637beeec07c20dda9256ca6c7dd56ba75ba8c4c1ae995c45"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-cross-page.csv",
+      "bytes": 158,
+      "sha256": "dd1aeedaedbd2b1413b6d48f3ee5df5e5600040e186183f1f60073ca580045a1"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-cross-page.expected.json",
+      "bytes": 3397,
+      "sha256": "e791ee9bbec9f81c7af8e44cc3913b3f4378fa0875f6e00c58ab86ba7f24463c"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-cross-page.pdf",
+      "bytes": 2080,
+      "sha256": "3a894b9660f69ddda37d60f8b47cd05ea9ecd41d01ce60c42fb3a1bffa467a8f"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-excess-fraction.expected.json",
+      "bytes": 1131,
+      "sha256": "a93d8b20db52675b88b1d591552b4915456bebc6031e2af855c39a95d5b68744"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-excess-fraction.pdf",
+      "bytes": 1310,
+      "sha256": "b994dc2921a007d5f2273252a940f1b353786c04888cf00d445b7f3f6fbc2324"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-on-page.csv",
+      "bytes": 163,
+      "sha256": "42667a9fb186baa0472cfb00193d720872165814cbd88a8921967cd72114e5cb"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-on-page.expected.json",
+      "bytes": 2893,
+      "sha256": "95035fde2a7cd28864c46ac2c7102c01933bd68f9889bbfdefb003b2d9e8c87f"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-on-page.pdf",
+      "bytes": 1469,
+      "sha256": "668097cd48fbbe565a14735dcc003e93709ffde614abbfc133e3eae4c4da754b"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-own-reference.csv",
+      "bytes": 158,
+      "sha256": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-own-reference.expected.json",
+      "bytes": 2898,
+      "sha256": "0fbc8e8bf19912ca78d451cbed48cd75f7558c020bdf457d40f5ddaec2e96e5d"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/sar-own-reference.pdf",
+      "bytes": 1478,
+      "sha256": "71514097fa13388ca3b93fe58cd46acc55c67f019e0afd27c636bc5efa988c31"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/symbol-qualifier.expected.json",
+      "bytes": 977,
+      "sha256": "6726905548d3e82faefb75607090daedeae86f25b4b48baece4d53a149938431"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/symbol-qualifier.pdf",
+      "bytes": 1108,
+      "sha256": "06dbaa8a9c18b6fb788e9a702097e41fb7fe7d2cdd17ff4b93b68f12bb29ed46"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/unknown-currency-header.expected.json",
+      "bytes": 986,
+      "sha256": "e7c39b4d8ba29e96ad16a3dcfd766260cab3df3a1b4e3d18c8e7f5e379a1ee58"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/frozen/unknown-currency-header.pdf",
+      "bytes": 1110,
+      "sha256": "193fcebe11d4c0937d65b0c70265b4c95ab8a46db288dcf5f7d66be7d1c1c327"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/verify-draft-closure.py",
+      "bytes": 4579,
+      "sha256": "65444f10c16821987c299ecfb5d1935f8075ff8c7653720814b3da5b93345c87"
+    },
+    {
+      "path": "source-snapshot/p4-qualified-currency-v1/verify-draft.py",
+      "bytes": 4543,
+      "sha256": "60b625745aed994638164985978c7356b8b21aa5713f76b84a0baa5ca668b769"
+    },
+    {
+      "path": "static-draft-consistency.log",
+      "bytes": 409,
+      "sha256": "1ca9f93d57889c79dcaafadc9bd60e17c6f359f53989750581770406ea940bf0"
+    },
+    {
+      "path": "verify-draft.py",
+      "bytes": 5825,
+      "sha256": "d9714079b90de9998dd6cbb5cf5ef8bbb5ec53c89e3fab8eb356b646e805dc8e"
+    }
+  ],
+  "exclusion": "only this own root MANIFEST.json; nested source manifests are payloads",
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

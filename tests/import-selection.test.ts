@@ -38,7 +38,7 @@ async function workbookFile(tables: [string, (string | number)[][]][]) {
   );
 }
 
-test('upload chooses the only recognizable table after an instructions sheet and normalization preserves exact totals', async () => {
+void test('upload chooses the only recognizable table after an instructions sheet and normalization preserves exact totals', async () => {
   const file = await workbookFile([
     ['Instructions', [['Read the statement before comparing']]],
     ['Transactions', [['Synthetic supplier statement'], ...rows]],
@@ -60,7 +60,7 @@ test('upload chooses the only recognizable table after an instructions sheet and
   assert.equal(normalized.balanceValid, false);
 });
 
-test('two plausible source tables require explicit sheet selection instead of defaulting to either', async () => {
+void test('two plausible source tables require explicit sheet selection instead of defaulting to either', async () => {
   const file = await workbookFile([
     ['Diagnostics', [['Not a source table']]],
     ['Supplier A', rows],
@@ -77,7 +77,7 @@ test('two plausible source tables require explicit sheet selection instead of de
   assert.equal(normalizeSource(file, chosen, scope, 'supplier').total, 8025);
 });
 
-test('unknown multisheet layouts require sheet choice while unknown single-sheet files remain configurable', async () => {
+void test('unknown multisheet layouts require sheet choice while unknown single-sheet files remain configurable', async () => {
   const unknown = [
     ['Unfamiliar heading', 'Another heading'],
     ['abc', '100'],
@@ -98,7 +98,7 @@ test('unknown multisheet layouts require sheet choice while unknown single-sheet
   );
 });
 
-test('a unique debit-credit table is suggested without inferring the debt direction or confirmed balances', async () => {
+void test('a unique debit-credit table is suggested without inferring the debt direction or confirmed balances', async () => {
   const file = await workbookFile([
     ['Notes', [['Synthetic notes']]],
     [
@@ -117,7 +117,7 @@ test('a unique debit-credit table is suggested without inferring the debt direct
   assert.deepEqual(mapping.excluded, {});
 });
 
-test('a PDF awaiting column boundaries remains accessible without gaining extraction approval', () => {
+void test('a PDF awaiting column boundaries remains accessible without gaining extraction approval', () => {
   const file: SourceFile = {
     name: 'synthetic.pdf',
     sheets: [
@@ -135,7 +135,7 @@ test('a PDF awaiting column boundaries remains accessible without gaining extrac
   assert.notEqual(selection.mapping.pdfReviewed, true);
 });
 
-test('a real synthetic export reimports the appropriate source copy and does not restore old approvals or decisions', async () => {
+void test('a real synthetic export reimports the appropriate source copy and does not restore old approvals or decisions', async () => {
   const supplier = normalizeSource(
     demoFiles[0],
     demoMappings[0],
@@ -183,7 +183,7 @@ test('a real synthetic export reimports the appropriate source copy and does not
   }
 });
 
-test('familiar workpaper sheet names without the export signatures do not auto-select a side', async () => {
+void test('familiar workpaper sheet names without the export signatures do not auto-select a side', async () => {
   const file = await workbookFile([
     ['Diagnostics', [['Unrelated content']]],
     ['Run settings', [['Scope', 'not settings']]],
@@ -195,7 +195,7 @@ test('familiar workpaper sheet names without the export signatures do not auto-s
   assert.equal(selection.mapping.sheet, -1);
 });
 
-test('early review lists only selected cells on included data rows, retaining row-level geometry issues', () => {
+void test('early review lists only selected cells on included data rows, retaining row-level geometry issues', () => {
   const file: SourceFile = {
     name: 'synthetic.xlsx',
     sheets: [
@@ -238,7 +238,7 @@ test('early review lists only selected cells on included data rows, retaining ro
   assert.deepEqual(getMappedImportIssues(file, { ...mapping, sheet: -1 }), []);
 });
 
-test('early review exposes uncached formulas even when the row appears empty', async () => {
+void test('early review exposes uncached formulas even when the row appears empty', async () => {
   const workbook = new ExcelJS.Workbook();
   const sheet = workbook.addWorksheet('Data');
   sheet.addRow(['date', 'reference', 'amount']);

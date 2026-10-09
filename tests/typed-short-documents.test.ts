@@ -10,7 +10,7 @@ import {
   verifyHypothesis,
 } from '../lib/reconciliation/assistant.ts';
 import { SHORT_DOCUMENT_RULE } from '../lib/reconciliation/transaction-references.ts';
-import type { Mapping, Scope } from '../lib/reconciliation/types.ts';
+import type { Mapping, Scope, SourceFile } from '../lib/reconciliation/types.ts';
 
 const scope: Scope = {
   supplier: 'S',
@@ -83,7 +83,7 @@ for (const [ref, type, amount] of [
   ['I1', 'Invoice', '50.00'],
   ['ف١', 'فاتورة', '50.00'],
 ]) {
-  test(
+  void test(
     'typed short literal ' +
       ref +
       ': native rows require a successful exact 1:1 proof',
@@ -311,7 +311,7 @@ const negative: [string, string[][], string[][], Parameters<typeof run>[2]?][] =
     ],
   ];
 for (const [name, a, b, options] of negative)
-  test('typed short safety: ' + name, async () => {
+  void test('typed short safety: ' + name, async () => {
     const result = await run(a, b, options);
     assert.equal(auto(result).length, 0, name);
     assert.equal(
@@ -324,13 +324,13 @@ for (const [name, a, b, options] of negative)
     assert.equal(result.balanceComparable, false);
   });
 
-test('typed short: an isolated unrelated bad amount does not disable a proven match', async () => {
+void test('typed short: an isolated unrelated bad amount does not disable a proven match', async () => {
   const r = await run([row(), row('OTHER-55', 'Invoice', 'invalid')], [row()]);
   assert.equal(r.supplier.errors.length, 1);
   assert.equal(auto(r).length, 1);
   assert.equal(r.balanceComparable, false);
 });
-test('typed short: Arabic and English type/header labels name the same explicit source role', async () => {
+void test('typed short: Arabic and English type/header labels name the same explicit source role', async () => {
   const r = await run([row('C3')], [row('C3', 'إشعار دائن')], {
     rightHeader: [
       'التاريخ',
@@ -345,7 +345,7 @@ test('typed short: Arabic and English type/header labels name the same explicit 
   assert.equal(auto(r).length, 1);
   assert.equal(r.cases[0].matchingRule, SHORT_DOCUMENT_RULE);
 });
-test('typed short: Invoice No supplies number authority for an invoice only', async () => {
+void test('typed short: Invoice No supplies number authority for an invoice only', async () => {
   const r = await run(
     [row('I1', 'Invoice', '50.00')],
     [row('I1', 'فاتورة', '50.00')],
@@ -367,7 +367,7 @@ test('typed short: Invoice No supplies number authority for an invoice only', as
     'invoice-number',
   );
 });
-test('typed short: row order and a disjoint decoy do not change approved membership', async () => {
+void test('typed short: row order and a disjoint decoy do not change approved membership', async () => {
   for (const reversed of [false, true]) {
     const a = [row('C3'), row('OTHER-55', 'Credit Note', '-50.00')];
     if (reversed) a.reverse();
@@ -380,7 +380,7 @@ test('typed short: row order and a disjoint decoy do not change approved members
     );
   }
 });
-test('typed short: original membership survives a manual decision consuming the rival', async () => {
+void test('typed short: original membership survives a manual decision consuming the rival', async () => {
   const files = [
     await csv([row(), row('CN-3', 'Credit Note', '-49.00')], 's'),
     await csv([row(), row('OTHER-55', 'Credit Note', '-49.00')], 'l'),
@@ -389,7 +389,7 @@ test('typed short: original membership survives a manual decision consuming the 
     (f, i) => selectImportMapping(f, i ? 'ledger' : 'supplier').mapping,
   ) as [Mapping, Mapping];
   const r = reconcileSupplierStatement({
-    files: files as any,
+    files: files as [SourceFile, SourceFile],
     mappings,
     scope,
     decisions: [
@@ -403,20 +403,20 @@ test('typed short: original membership survives a manual decision consuming the 
   assert.equal(r.matches.filter((m) => m.kind === 'manual').length, 1);
   assert.equal(auto(r).length, 0);
 });
-test('typed short: a rejected pair cannot be recreated by the new rule', async () => {
+void test('typed short: a rejected pair cannot be recreated by the new rule', async () => {
   const files = [await csv([row()], 's'), await csv([row()], 'l')];
   const mappings = files.map(
     (f, i) => selectImportMapping(f, i ? 'ledger' : 'supplier').mapping,
   ) as [Mapping, Mapping];
   const r = reconcileSupplierStatement({
-    files: files as any,
+    files: files as [SourceFile, SourceFile],
     mappings,
     scope,
     rejected: ['supplier:0:2|ledger:0:2'],
   }).result;
   assert.equal(auto(r).length, 0);
 });
-test('typed short: chat resolves complete C3, refuses C30 and never manufactures approval', async () => {
+void test('typed short: chat resolves complete C3, refuses C30 and never manufactures approval', async () => {
   const r = await run([row('C3')], [row('C3')]);
   assert.equal(resolveQuestionReferences(r, 'لماذا C3')?.length, 2);
   assert.equal(resolveQuestionReferences(r, 'لماذا C30'), null);
@@ -432,7 +432,7 @@ test('typed short: chat resolves complete C3, refuses C30 and never manufactures
   assert.equal(auto(review).length, 0, 'the hypothesis cannot create a match');
 });
 
-test('F02-E: actual OOXML files give all required matches and keep the equal-sum conflict unapproved', async () => {
+void test('F02-E: actual OOXML files give all required matches and keep the equal-sum conflict unapproved', async () => {
   const contract = JSON.parse(
     await bytes('audit/typed-document/contract.json', 'utf8'),
   );
@@ -451,7 +451,7 @@ test('F02-E: actual OOXML files give all required matches and keep the equal-sum
       (f, i) => selectImportMapping(f, i ? 'ledger' : 'supplier').mapping,
     ) as [Mapping, Mapping];
     const r = reconcileSupplierStatement({
-      files: files as any,
+      files: files as [SourceFile, SourceFile],
       mappings,
       scope: contract.scope,
     }).result;

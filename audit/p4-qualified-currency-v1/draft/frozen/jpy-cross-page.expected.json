@@ -1,0 +1,184 @@
+{
+  "id": "jpy-cross-page",
+  "outcome": "derived",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83",
+  "originalByteLength": 2071,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (JPY)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 2,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (JPY)"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 2,
+      "values": [
+        "Continued invoice",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 6,
+      "page": 2,
+      "values": [
+        "2026-10-02",
+        "",
+        "second",
+        "+2"
+      ]
+    },
+    {
+      "row": 7,
+      "page": 2,
+      "values": [
+        "2026-10-03",
+        "",
+        "zero",
+        "0"
+      ]
+    }
+  ],
+  "links": [
+    {
+      "originalRow": 3,
+      "page": 1,
+      "derivedRow": 2,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "-12"
+    },
+    {
+      "originalRow": 6,
+      "page": 2,
+      "derivedRow": 3,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "+2"
+    },
+    {
+      "originalRow": 7,
+      "page": 2,
+      "derivedRow": 4,
+      "reference": "INV-000271",
+      "referenceOrigin": "accepted-section-proposal",
+      "referenceParentRow": 2,
+      "amountLiteral": "0"
+    }
+  ],
+  "currencyEvidence": [
+    {
+      "sourceHash": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83",
+      "row": 1,
+      "page": 1,
+      "column": 4,
+      "literal": "Signed amount (JPY)"
+    },
+    {
+      "sourceHash": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83",
+      "row": 4,
+      "page": 2,
+      "column": 4,
+      "literal": "Signed amount (JPY)"
+    }
+  ],
+  "currencyContext": {
+    "currency": "JPY",
+    "decimals": 0,
+    "precisionOrigin": "finite-contract-policy",
+    "precisionPolicy": {
+      "SAR": 2,
+      "JPY": 0,
+      "KWD": 3
+    }
+  },
+  "headerRows": [
+    1,
+    4
+  ],
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Signed amount (JPY)"
+    ],
+    [
+      "2026-10-01",
+      "INV-000271",
+      "first line",
+      "-12"
+    ],
+    [
+      "2026-10-02",
+      "INV-000271",
+      "second",
+      "+2"
+    ],
+    [
+      "2026-10-03",
+      "INV-000271",
+      "zero",
+      "0"
+    ]
+  ],
+  "csvSha256": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41",
+  "signedAmounts": [
+    "-12",
+    "+2",
+    "0"
+  ],
+  "amountMinor": [
+    -12,
+    2,
+    0
+  ],
+  "totalMinor": -10,
+  "positiveObligation": "all movements, qualified header and exact currency context must be preserved after explicit review"
+}

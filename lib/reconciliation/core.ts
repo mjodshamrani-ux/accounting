@@ -5,6 +5,7 @@ import {
   hasLayeredHeaderCandidate,
 } from './header-view.ts';
 import { defaultMapping } from './types.ts';
+import { resolveSupplierAggregateAuthority, type SupplierAggregateAuthority } from './invoice-overlap-review.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
 import {
   assertVisualAccountingReading,
@@ -88,8 +89,8 @@ export function parseMoney(
   const group = format === 'dot' ? ',' : '.';
   const pieces = s.split(sep);
   if (pieces.length > 2) throw new Error('فواصل المبلغ غير صحيحة');
-  let whole = pieces[0],
-    fraction = pieces[1] ?? '';
+  let whole = pieces[0];
+  const fraction = pieces[1] ?? '';
   if (whole.includes(group)) {
     const groups = whole.split(group);
     if (
@@ -171,7 +172,7 @@ export function parseDate(
     d = Number(named[1]);
     y = Number(named[3]);
   } else {
-    const p = s.split(/[\/.-]/);
+    const p = s.split(/[/.-]/);
     if (p.length !== 3 || p.some((x) => !/^\d+$/.test(x)))
       throw new Error('التاريخ غير صالح. حدد ترتيب اليوم والشهر والسنة.');
     if (format === 'ymd') [y, m, d] = p.map(Number);
@@ -622,7 +623,7 @@ function enforceSourceScope(
       message:
         'هوية المورد أو الجهة أو الحساب متعارضة داخل المصدر. لا يمكن اعتماد نطاق موحد.',
     });
-  if (metadata.warnings.some((warning) => /^CURRENCY_INVALID:/.test(warning)))
+  if (metadata.warnings.some((warning) => warning.startsWith('CURRENCY_INVALID:')))
     result.errors.push({
       row: 0,
       message:
@@ -630,7 +631,7 @@ function enforceSourceScope(
     });
   if (
     metadata.warnings.some((warning) =>
-      /^BALANCE_CURRENCY_MISMATCH:/.test(warning),
+      warning.startsWith('BALANCE_CURRENCY_MISMATCH:'),
     )
   )
     result.errors.push({
@@ -1346,7 +1347,10 @@ export function compare(
   scope: Scope,
   decisions: Decision[] = [],
   rejected: string[] = [],
+  aggregateAuthority?: SupplierAggregateAuthority,
 ): Comparison {
+  if (aggregateAuthority !== undefined)
+    resolveSupplierAggregateAuthority(aggregateAuthority, supplier, ledger, scope, decisions, rejected);
   validateScope(scope);
   if (
     !scope.confirmed ||
@@ -1588,6 +1592,8 @@ export function compare(
     matches,
     rejected,
     sameSource ? SAME_SOURCE_MESSAGE : undefined,
+    aggregateAuthority,
+    decisions,
   );
   const cases = caseResult.cases;
   matches.splice(0, matches.length, ...caseResult.matches);

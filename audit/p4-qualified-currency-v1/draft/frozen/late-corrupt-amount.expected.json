@@ -1,0 +1,62 @@
+{
+  "id": "late-corrupt-amount",
+  "outcome": "blocked",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "ecb2e77c2ba0f2cb3396eaf0877f9be46f9f89f6e66e0552d7323fb888ddd496",
+  "originalByteLength": 1298,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (SAR)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "late corrupt",
+        "BROKEN"
+      ]
+    }
+  ],
+  "links": [],
+  "currencyEvidence": [],
+  "reason": "Readable early movement cannot authorize omission of a corrupt late amount.",
+  "newCurrencyReceipt": false,
+  "derivedCurrencyArtifact": false,
+  "partialArtifact": false
+}

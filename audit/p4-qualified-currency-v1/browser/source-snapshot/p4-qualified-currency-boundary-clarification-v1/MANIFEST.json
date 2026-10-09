@@ -1,0 +1,38 @@
+{
+  "version": "p4-qualified-currency-boundary-clarification-manifest-v1",
+  "productImports": false,
+  "expectedFromProduct": false,
+  "implementationAccepted": false,
+  "files": [
+    {
+      "path": "BOUNDARIES.md",
+      "bytes": 6696,
+      "sha256": "58abed3820c1ff281d2d8976509187a0e71f8315ad112e872cfaaa9be34375fc"
+    },
+    {
+      "path": "boundary-actions.json",
+      "bytes": 4814,
+      "sha256": "a18d5d5e7646fae569f843a62633b261a7e873ffa93e157c9bf2c161673c8c05"
+    },
+    {
+      "path": "boundary-consistency.log",
+      "bytes": 733,
+      "sha256": "99514beb5a55343732cc41e9dafa915ead6df01232d3e15bce42e7a771d293b2"
+    },
+    {
+      "path": "ownership-controls.json",
+      "bytes": 1997,
+      "sha256": "112fc17c037b13c15d8002bcc6372f09515e0bbb7e483ea8caf76d0d54c661c2"
+    },
+    {
+      "path": "verify-boundaries.py",
+      "bytes": 2230,
+      "sha256": "c12fdf60696e34e17c3742ae28044031ef79c961cc5d5552768797569a670797"
+    }
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

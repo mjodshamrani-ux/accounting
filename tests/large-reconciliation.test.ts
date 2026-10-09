@@ -24,7 +24,7 @@ const conserve = (r: Comparison) => {
   );
 };
 
-test('group rejection preserves late edges and literal row IDs containing separators', () => {
+void test('group rejection preserves late edges and literal row IDs containing separators', () => {
   const a = [
     { amount: '-100', bank: 'BANK-A-1' },
     { amount: '-100', bank: 'BANK-B-2' },
@@ -63,7 +63,7 @@ test('group rejection preserves late edges and literal row IDs containing separa
   conserve(aliased);
 });
 
-test('20,000 by 20,000 oversized payment group retains every row and the last rejected edge', () => {
+void test('20,000 by 20,000 oversized payment group retains every row and the last rejected edge', () => {
   const rows = oversizedRows(20000);
   const [a, b] = sourcePair(rows, rows);
   assert.deepEqual(a.errors, []);
@@ -88,7 +88,7 @@ test('20,000 by 20,000 oversized payment group retains every row and the last re
   conserve(rejected);
 });
 
-test('20,000 interleaved approved, review and unmatched rows preserve ordered ambiguity and ledger diagnostics', () => {
+void test('20,000 interleaved approved, review and unmatched rows preserve ordered ambiguity and ledger diagnostics', () => {
   const [a, b] = sourcePair(...mixedRows(20000));
   const r = compare(a, b, scope);
   assert.equal(r.caseCounts.autoMatchedCases, 5000);

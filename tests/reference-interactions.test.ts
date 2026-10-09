@@ -76,7 +76,7 @@ const firstCase = (r: Result) => {
   };
 };
 
-test('an explicit document number cannot outvote the references the accountant chose', async () => {
+void test('an explicit document number cannot outvote the references the accountant chose', async () => {
   const H = [
     'Date',
     'Document No',
@@ -111,7 +111,7 @@ test('an explicit document number cannot outvote the references the accountant c
   assert.deepEqual(approved(agreeing), ['2']);
 });
 
-test('identities equal only after normalisation are never approved where no chosen reference can differ', async () => {
+void test('identities equal only after normalisation are never approved where no chosen reference can differ', async () => {
   // The chosen-reference conflict applies to documents only. A payment is
   // identified by its bank reference, and a document by its explicit number
   // even when the chosen references agree: both still need the text exactly.
@@ -152,7 +152,7 @@ test('identities equal only after normalisation are never approved where no chos
   }
 });
 
-test('a batch, an account or an order chosen as the reference does not prove a document', async () => {
+void test('a batch, an account or an order chosen as the reference does not prove a document', async () => {
   for (const [header, value] of [
     ['Batch', 'B-7701'],
     ['Account', 'AP-2001'],
@@ -165,7 +165,7 @@ test('a batch, an account or an order chosen as the reference does not prove a d
   }
 });
 
-test('one value in two fields of different roles does not prove the invoice', async () => {
+void test('one value in two fields of different roles does not prove the invoice', async () => {
   const H = ['Date', 'Document No', 'PO', 'Type', 'Description', 'Amount'];
   const row = [
     '2026-07-09',
@@ -182,7 +182,7 @@ test('one value in two fields of different roles does not prove the invoice', as
   assert.match(c.text, /أمر الشراء/);
 });
 
-test('matching amount and reference with conflicting document types stay for review', async () => {
+void test('matching amount and reference with conflicting document types stay for review', async () => {
   const H = ['Date', 'Reference', 'Type', 'Description', 'Amount'];
   for (const [a, b] of [
     ['Tax Invoice', 'Vendor Payment'],
@@ -199,7 +199,7 @@ test('matching amount and reference with conflicting document types stay for rev
   }
 });
 
-test('Type = Invoice with a description opening with another documented role is a conflict', async () => {
+void test('Type = Invoice with a description opening with another documented role is a conflict', async () => {
   const H = ['Date', 'Reference', 'Type', 'Description', 'Amount'];
   for (const description of [
     'Credit Note 55',
@@ -229,7 +229,7 @@ test('Type = Invoice with a description opening with another documented role is 
   }
 });
 
-test('an unknown or party-specific code stays unknown, is not guessed, and the pair is shown for review', async () => {
+void test('an unknown or party-specific code stays unknown, is not guessed, and the pair is shown for review', async () => {
   const H = ['Date', 'Reference', 'Type', 'Description', 'Amount'];
   for (const code of ['RV', 'KR', 'TX-07', 'ZINV', 'INV', 'فاتورة X']) {
     const row = ['2026-07-09', 'DOC-4440', code, 'Goods', '100.00'];
@@ -243,7 +243,7 @@ test('an unknown or party-specific code stays unknown, is not guessed, and the p
   }
 });
 
-test('with no reference column chosen, nothing is approved, as the interface says', async () => {
+void test('with no reference column chosen, nothing is approved, as the interface says', async () => {
   // The generated R01 layout: a Reference and a Voucher No column, so the
   // product leaves the reference column for the accountant to choose. Until
   // then no match is approved, even where both books share a voucher number
@@ -301,7 +301,7 @@ test('with no reference column chosen, nothing is approved, as the interface say
   assert.deepEqual(approved(run(chosen)), ['8']);
 });
 
-test('an unchosen voucher cannot prove a document even when the unselected references agree or are blank', async () => {
+void test('an unchosen voucher cannot prove a document even when the unselected references agree or are blank', async () => {
   // A shared voucher is local to each book. Agreement (or absence) of the
   // unselected Reference values removes the secondary-conflict guard from
   // this case: it still cannot approve until a reference is chosen.
@@ -331,7 +331,7 @@ test('an unchosen voucher cannot prove a document even when the unselected refer
   }
 });
 
-test('the accountant can still confirm by hand rows whose chosen references differ', async () => {
+void test('the accountant can still confirm by hand rows whose chosen references differ', async () => {
   const H = [
     'Date',
     'Document No',
@@ -379,7 +379,7 @@ test('the accountant can still confirm by hand rows whose chosen references diff
   );
 });
 
-test('invoice lines naming different purchase orders are shown for review with that reason', async () => {
+void test('invoice lines naming different purchase orders are shown for review with that reason', async () => {
   const H = ['Date', 'Reference', 'Type', 'PO', 'Description', 'Amount'];
   const r = await reconcile(
     H,

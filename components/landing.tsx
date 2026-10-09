@@ -132,7 +132,7 @@ export function LandingIntro() {
             {l.descriptionLine2}
           </p>
           <div className="hero-actions">
-            <a href="#reconciliation" className="primary-link">
+            <a href="#reconciliation-types" className="primary-link">
               {l.start} <ForwardArrow size={19} />
             </a>
             <a href="#how-it-works" className="quiet-link">

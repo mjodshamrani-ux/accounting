@@ -78,6 +78,7 @@ if (process.argv[1]?.endsWith('/export-fixture.mjs')) {
       ['restored', restored.result, restored.files, restored.review],
     ])
       await writeFile(
+        // oxlint-disable-next-line typescript/no-base-to-string, typescript/restrict-template-expressions -- This fixture tuple supplies only direct/restored literal labels; retain native template coercion.
         `${out}/${lang}-${label}.xlsx`,
         new Uint8Array(await exportWorkbook(r, files, review)),
       );

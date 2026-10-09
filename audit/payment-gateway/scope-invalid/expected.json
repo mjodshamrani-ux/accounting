@@ -1,0 +1,250 @@
+{
+  "cases": [
+    {
+      "name": "blank-dimensions",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "",
+        "currency": "SAR",
+        "currencyBasis": "functional",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "error": "IDENTITY",
+      "files": [
+        {
+          "file": "scope-invalid/blank-dimensions-0.csv",
+          "bytes": 743,
+          "sha256": "f0803f0335d42f359f4fa39caea271659778e4918811b05f761672e95a484f07"
+        },
+        {
+          "file": "scope-invalid/blank-dimensions-1.csv",
+          "bytes": 615,
+          "sha256": "5e5d90aaee408eaadcbf65739589d1b25902d7f4910fe3c6ef449e0f07519821"
+        },
+        {
+          "file": "scope-invalid/blank-dimensions-2.csv",
+          "bytes": 447,
+          "sha256": "5f43dbd9857c7f01cceade0eb0179d8548bb396d528ee106e76993df9bb7753b"
+        },
+        {
+          "file": "scope-invalid/blank-dimensions-3.csv",
+          "bytes": 374,
+          "sha256": "a3faa394ed31d43aa1d6199c4ed296957921cb5aedafbfa75ccdc1c3198417f2"
+        }
+      ]
+    },
+    {
+      "name": "wrong-asof",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "SAR",
+        "currencyBasis": "functional",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-29",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "error": "SCOPE",
+      "files": [
+        {
+          "file": "scope-invalid/wrong-asof-0.csv",
+          "bytes": 782,
+          "sha256": "78b2c6663902a4b6184abaac15d83bcbf786ca07554b5985053f85ff76ba02ab"
+        },
+        {
+          "file": "scope-invalid/wrong-asof-1.csv",
+          "bytes": 641,
+          "sha256": "6f99db4b6cebeec7eecebe9a79eb853eec539b8e0225572a5211d388dbb719fe"
+        },
+        {
+          "file": "scope-invalid/wrong-asof-2.csv",
+          "bytes": 460,
+          "sha256": "557d083b804c7c7f43a5014adff041c88508b11e499ed16156fec7487e298417"
+        },
+        {
+          "file": "scope-invalid/wrong-asof-3.csv",
+          "bytes": 387,
+          "sha256": "5f2ea1b331a0678355c5a2ead125d5e00bb9c96b1d3b080a70ef0c0847c3a897"
+        }
+      ]
+    },
+    {
+      "name": "wrong-basis",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "SAR",
+        "currencyBasis": "transaction",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "error": "SCOPE",
+      "files": [
+        {
+          "file": "scope-invalid/wrong-basis-0.csv",
+          "bytes": 785,
+          "sha256": "8f780d6a8b58d7b4d0edcee586efe1d3b070d4ad2d91cece4eb4687eb5ce0ab3"
+        },
+        {
+          "file": "scope-invalid/wrong-basis-1.csv",
+          "bytes": 643,
+          "sha256": "e7d80550f6474973f83a01e8caf34df6605dcb4f63029bb1ee5a3011bbf2ff8b"
+        },
+        {
+          "file": "scope-invalid/wrong-basis-2.csv",
+          "bytes": 461,
+          "sha256": "0bca549f44351351132fac0d71ad7168dbc60edcc2787cdb873207b59e7bf9d5"
+        },
+        {
+          "file": "scope-invalid/wrong-basis-3.csv",
+          "bytes": 388,
+          "sha256": "fe3fb86dbc45240c859f8e26efd9d817c6f84fe1936b67078bbd0a21dbabb70b"
+        }
+      ]
+    },
+    {
+      "name": "wrong-fx",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "SAR",
+        "currencyBasis": "functional",
+        "fxPolicy": "convert",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "error": "SCOPE",
+      "files": [
+        {
+          "file": "scope-invalid/wrong-fx-0.csv",
+          "bytes": 722,
+          "sha256": "9f58b98b782c8b5835920f37e7d606addcd1e8ff92b05901f375fe79b900f3f8"
+        },
+        {
+          "file": "scope-invalid/wrong-fx-1.csv",
+          "bytes": 601,
+          "sha256": "9cdaf3b7798d26a0d85e96e15dc9d7b1d17c6ed1fe5137619026b6ea2ae5fc7e"
+        },
+        {
+          "file": "scope-invalid/wrong-fx-2.csv",
+          "bytes": 440,
+          "sha256": "df500fd7167d8c578ce33ffdb5d8fb1ad0ad9ca989fc8c79c28c5ffd9ce574ca"
+        },
+        {
+          "file": "scope-invalid/wrong-fx-3.csv",
+          "bytes": 367,
+          "sha256": "3a4d92687306d674ca16d49484a541b017d54ccea0b1d2fbabc3c2c729519a3a"
+        }
+      ]
+    },
+    {
+      "name": "wrong-period",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "SAR",
+        "currencyBasis": "functional",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-10-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "error": "SCOPE",
+      "files": [
+        {
+          "file": "scope-invalid/wrong-period-0.csv",
+          "bytes": 782,
+          "sha256": "ae7188dc02cc17ab076b4ee2901778e6f0644a96300a8433120bd8cdc792fa81"
+        },
+        {
+          "file": "scope-invalid/wrong-period-1.csv",
+          "bytes": 641,
+          "sha256": "2c3e1eb876bc6abb57b12e72fc2d7396038a567c83a15acf834a8021d47aaec0"
+        },
+        {
+          "file": "scope-invalid/wrong-period-2.csv",
+          "bytes": 460,
+          "sha256": "34ce421d5adea0955f005cfcc1c3127f21545a2508668f7da84389a25cca3698"
+        },
+        {
+          "file": "scope-invalid/wrong-period-3.csv",
+          "bytes": 387,
+          "sha256": "e8c2620b2ac1ad653d979731f9f5f886016c4bc90cbba7046d3187893f2aa536"
+        }
+      ]
+    },
+    {
+      "name": "unknown-currency",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "ZZZ",
+        "currencyBasis": "functional",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "error": "CURRENCY",
+      "files": [
+        {
+          "file": "scope-invalid/unknown-currency-0.csv",
+          "bytes": 782,
+          "sha256": "e98cbc0b55774bf1f6e5c300c987221145938fd6d447bcdffd5cf9b5c8830355"
+        },
+        {
+          "file": "scope-invalid/unknown-currency-1.csv",
+          "bytes": 641,
+          "sha256": "c5ed2fde6ccbebc9cb171e99438392d830e349adfd83f141fd5b9b966a37235b"
+        },
+        {
+          "file": "scope-invalid/unknown-currency-2.csv",
+          "bytes": 460,
+          "sha256": "f0b5d32abe78bd2e70f4bbcfbcbd2ca569b3fbce556169b7491033df9d5868c2"
+        },
+        {
+          "file": "scope-invalid/unknown-currency-3.csv",
+          "bytes": 387,
+          "sha256": "088c25890febfee9098bb212ae71a85669d06c393d6cdb90e41afca6c9514127"
+        }
+      ]
+    }
+  ]
+}

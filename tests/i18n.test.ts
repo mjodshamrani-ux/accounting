@@ -61,14 +61,14 @@ function strings(value: unknown, at = ''): [string, string][] {
   return [];
 }
 
-test('English has exactly the Arabic keys, lists and message parameters', () => {
+void test('English has exactly the Arabic keys, lists and message parameters', () => {
   assert.deepEqual(
     [...shape(en, '', new Map())].sort(([a], [b]) => a.localeCompare(b)),
     [...shape(ar, '', new Map())].sort(([a], [b]) => a.localeCompare(b)),
   );
 });
 
-test('English interface copy contains no Arabic', () => {
+void test('English interface copy contains no Arabic', () => {
   const allowed = [
     'العربية', // the Arabic option, named in Arabic in both languages
     '١٢٣', // an example of the Arabic-Indic digits the image reader struggles with
@@ -79,7 +79,7 @@ test('English interface copy contains no Arabic', () => {
   }
 });
 
-test('Arabic interface copy has no stray English words', () => {
+void test('Arabic interface copy has no stray English words', () => {
   // File formats, units, currency codes and names that stay in Latin script.
   const latin = new Set(
     'PDF Excel CSV XLSX PNG JPEG MB SAR KWD Diagnostics AR EN English Shift Enter Escape UTF Unicode OCR URL'.split(
@@ -91,7 +91,7 @@ test('Arabic interface copy has no stray English words', () => {
       assert.ok(latin.has(word), `${at}: "${word}" in ${text}`);
 });
 
-test('the interface source has no Arabic outside the catalogues', () => {
+void test('the interface source has no Arabic outside the catalogues', () => {
   const left = sourceLiterals(uiFiles).filter(
     (literal) => !notShown.has(literal.key),
   );
@@ -101,7 +101,7 @@ test('the interface source has no Arabic outside the catalogues', () => {
   );
 });
 
-test('every engine message has English, and every entry is still used', () => {
+void test('every engine message has English, and every entry is still used', () => {
   const literals = sourceLiterals(engineFiles);
   const keys = new Set(literals.map((literal) => literal.key));
   const missing = literals.filter(
@@ -125,7 +125,7 @@ test('every engine message has English, and every entry is still used', () => {
   );
 });
 
-test('every catalogue entry uses each of its slots, and only those', () => {
+void test('every catalogue entry uses each of its slots, and only those', () => {
   for (const [arabic, english] of Object.entries(engineCatalog)) {
     const slots = arabic.split(SLOT).length - 1;
     const used = [...english.matchAll(/\{[et]?(\d+)\}/g)].map((m) => Number(m[1]));
@@ -138,7 +138,7 @@ test('every catalogue entry uses each of its slots, and only those', () => {
   }
 });
 
-test('each engine message is recognised and presented with its own values', () => {
+void test('each engine message is recognised and presented with its own values', () => {
   for (const [arabic, english] of Object.entries(engineCatalog)) {
     const parts = arabic.split(SLOT);
     // Latin sample values are user data: they must come through unchanged.
@@ -150,7 +150,7 @@ test('each engine message is recognised and presented with its own values', () =
   }
 });
 
-test('every user-data slot keeps Arabic data verbatim, even engine words', () => {
+void test('every user-data slot keeps Arabic data verbatim, even engine words', () => {
   // Data that is itself an engine word is the hardest case: it must still
   // be shown exactly as written wherever the slot holds user data.
   const words = ['المورد', 'بلا مرجع', 'فارغ', 'التاريخ'];
@@ -175,7 +175,7 @@ test('every user-data slot keeps Arabic data verbatim, even engine words', () =>
   }
 });
 
-test('user data inside an engine message is never translated', () => {
+void test('user data inside an engine message is never translated', () => {
   // A column heading that happens to be an engine word stays as written.
   assert.equal(
     localizeEngineText(
@@ -186,7 +186,7 @@ test('user data inside an engine message is never translated', () => {
   );
 });
 
-test('Arabic engine text is shown exactly as the engine wrote it', () => {
+void test('Arabic engine text is shown exactly as the engine wrote it', () => {
   for (const arabic of Object.keys(engineCatalog))
     assert.equal(localizeEngineText(arabic, 'ar'), arabic);
 });
@@ -201,7 +201,7 @@ const demoResult = () =>
     [],
   );
 
-test('the assistant gives the same answer to the Arabic and English presets', () => {
+void test('the assistant gives the same answer to the Arabic and English presets', () => {
   const result = demoResult();
   const id = result.cases.find((c) => c.status !== 'Matched')!.supplierMembers[0]
     ?.id;
@@ -214,7 +214,7 @@ test('the assistant gives the same answer to the Arabic and English presets', ()
   }
 });
 
-test('real engine output reads fully in English apart from user data', () => {
+void test('real engine output reads fully in English apart from user data', () => {
   const result = demoResult();
   const texts = [
     ...result.diagnostics.map((d) => d.message),

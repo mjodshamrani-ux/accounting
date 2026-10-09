@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "P1V206-SOURCE-PROOF-V1-SEAL",
+  "kind": "precode-independent-contract-and-proof-seal",
+  "creationHead": "2da3406bf3a4943337eca1d0023b5181ce7cd030",
+  "sealMeaning": "Pins independently authored precode proof and manual expectations before owner adds replay tests. No original edits, production imports or implementation, old test execution, network, download, inference, or approval.",
+  "originalSourceSha256": {
+    "audit/p1-reference-resolution/independent-v2/frozen/contracts.json": "23160a6ab0c37adfd31f8db7c556fbd700f5dfbd027ea3b203e26c8fa68cbdff",
+    "audit/p1-reference-resolution/independent-v2/frozen/fixtures/P1V206-supplier.csv": "dd94a7a2b773b34a81f92cd170bc373abf007b0b27d35c0392fc86aed0592262",
+    "audit/p1-reference-resolution/independent-v2/frozen/fixtures/P1V206-ledger.csv": "39463063c01d56afc3f58b92ede9bae1462649af55be33706ac5151f2ff6353a"
+  },
+  "frozenArtifactSha256": {
+    "contract.json": "03b19404323acae2e2054f1e190a97394de7e97e783d0a12bb52c70ce03e09d1",
+    "source_proof.py": "c21f99c64d6269c770928145d0ed8bf0221fa7c5bb7e3148e561617917a0e58a"
+  },
+  "positiveControlCsvSha256": {
+    "supplier": "34c2f2610c1521fc6f9f98ace68bc15e9d50f698510efe375ccfb8f4490ec1fe",
+    "ledger": "eaa90d17ae2772040c6e23527d2fe8bdccbb797aa32a1c2b32148a19db66fb52"
+  },
+  "selfHashPolicy": "MANIFEST.json is the seal document; its own SHA256 is reported separately to the owner. It does not recursively hash itself."
+}

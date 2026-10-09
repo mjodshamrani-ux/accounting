@@ -1,0 +1,5 @@
+Evidence ID,Lifecycle ID,Kind,Source side,Record ID,Movement date,Value date,Document reference,Entity,Ledger,Bank account,Currency,Period start,Period end,Signed amount
+OLD-C,LC,timing,cashbook,HIST-C,2026-08-20,2026-08-20,DOC-OLD-C,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,100.00
+OLD-B,LB,timing,bank,HIST-B,2026-08-20,2026-08-20,DOC-OLD-B,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,100.00
+CLEAR-B,LC,settlement,bank,B-clear,2026-09-10,2026-09-10,DOC-CLEAR-B,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,100.00
+CLEAR-C,LB,settlement,cashbook,C-clear,2026-09-10,2026-09-10,DOC-CLEAR-C,Synthetic Cash Owner,Primary Book,BANK-001,SAR,2026-09-01,2026-09-30,100.00

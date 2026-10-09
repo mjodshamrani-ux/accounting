@@ -1,0 +1,216 @@
+{
+  "version": "p5-multiline-source-v1",
+  "synthetic": true,
+  "holdout": false,
+  "fieldValidation": false,
+  "productEnabled": false,
+  "modelInferenceRun": false,
+  "cases": [
+    {
+      "id": "en-basic",
+      "language": "en",
+      "input": "en-basic.txt",
+      "expected": "en-basic.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "ar-basic",
+      "language": "ar",
+      "input": "ar-basic.txt",
+      "expected": "ar-basic.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "en-distractors",
+      "language": "en",
+      "input": "en-distractors.txt",
+      "expected": "en-distractors.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "ar-distractors",
+      "language": "ar",
+      "input": "ar-distractors.txt",
+      "expected": "ar-distractors.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "en-reordered-crlf",
+      "language": "en",
+      "input": "en-reordered-crlf.txt",
+      "expected": "en-reordered-crlf.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "ar-one-minor",
+      "language": "ar",
+      "input": "ar-one-minor.txt",
+      "expected": "ar-one-minor.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "en-same-distractor-value",
+      "language": "en",
+      "input": "en-same-distractor-value.txt",
+      "expected": "en-same-distractor-value.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "ar-spaces",
+      "language": "ar",
+      "input": "ar-spaces.txt",
+      "expected": "ar-spaces.expected.json",
+      "outcome": "candidate"
+    },
+    {
+      "id": "competing-totals",
+      "language": "en",
+      "input": "competing-totals.txt",
+      "expected": "competing-totals.expected.json",
+      "outcome": "question"
+    },
+    {
+      "id": "duplicate-identical-total",
+      "language": "en",
+      "input": "duplicate-identical-total.txt",
+      "expected": "duplicate-identical-total.expected.json",
+      "outcome": "question"
+    },
+    {
+      "id": "multiple-currencies",
+      "language": "en",
+      "input": "multiple-currencies.txt",
+      "expected": "multiple-currencies.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "missing-date",
+      "language": "en",
+      "input": "missing-date.txt",
+      "expected": "missing-date.expected.json",
+      "outcome": "question"
+    },
+    {
+      "id": "due-is-not-issue",
+      "language": "en",
+      "input": "due-is-not-issue.txt",
+      "expected": "due-is-not-issue.expected.json",
+      "outcome": "question"
+    },
+    {
+      "id": "po-is-not-invoice",
+      "language": "en",
+      "input": "po-is-not-invoice.txt",
+      "expected": "po-is-not-invoice.expected.json",
+      "outcome": "question"
+    },
+    {
+      "id": "missing-total",
+      "language": "en",
+      "input": "missing-total.txt",
+      "expected": "missing-total.expected.json",
+      "outcome": "question"
+    },
+    {
+      "id": "unlabeled-total",
+      "language": "en",
+      "input": "unlabeled-total.txt",
+      "expected": "unlabeled-total.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "source-instructions",
+      "language": "en",
+      "input": "source-instructions.txt",
+      "expected": "source-instructions.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "ar-source-instructions",
+      "language": "ar",
+      "input": "ar-source-instructions.txt",
+      "expected": "ar-source-instructions.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "invalid-issue-date",
+      "language": "en",
+      "input": "invalid-issue-date.txt",
+      "expected": "invalid-issue-date.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "invalid-due-date",
+      "language": "en",
+      "input": "invalid-due-date.txt",
+      "expected": "invalid-due-date.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "negative-total",
+      "language": "en",
+      "input": "negative-total.txt",
+      "expected": "negative-total.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "zero-total",
+      "language": "en",
+      "input": "zero-total.txt",
+      "expected": "zero-total.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "three-decimal-total",
+      "language": "en",
+      "input": "three-decimal-total.txt",
+      "expected": "three-decimal-total.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "credit-note",
+      "language": "en",
+      "input": "credit-note.txt",
+      "expected": "credit-note.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "second-invoice",
+      "language": "en",
+      "input": "second-invoice.txt",
+      "expected": "second-invoice.expected.json",
+      "outcome": "question"
+    },
+    {
+      "id": "issue-date-choice",
+      "language": "en",
+      "input": "issue-date-choice.txt",
+      "expected": "issue-date-choice.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "unknown-section",
+      "language": "en",
+      "input": "unknown-section.txt",
+      "expected": "unknown-section.expected.json",
+      "outcome": "abstain"
+    },
+    {
+      "id": "unicode-digit-total",
+      "language": "en",
+      "input": "unicode-digit-total.txt",
+      "expected": "unicode-digit-total.expected.json",
+      "outcome": "abstain"
+    }
+  ],
+  "remainingProposalTypes": [
+    "column-roles",
+    "parent-lines",
+    "section-relations",
+    "arbitrary-freestyle",
+    "multi-invoice",
+    "non-SAR",
+    "nonpositive-invoices",
+    "visual-source-extraction"
+  ]
+}

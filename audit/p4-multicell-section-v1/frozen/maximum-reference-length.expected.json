@@ -1,0 +1,89 @@
+{
+  "outcome": "derived",
+  "originalSha256": "2e036ad578fc93d1b89220f93f80e90b6736482a6b6617fcfa4d4db93ddf1c7a",
+  "originalByteLength": 1149,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    }
+  ],
+  "proposals": [
+    {
+      "targetRow": 3,
+      "reference": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "parentCells": [
+        {
+          "row": 2,
+          "page": 1,
+          "column": 1,
+          "literal": "Invoice No"
+        },
+        {
+          "row": 2,
+          "page": 1,
+          "column": 2,
+          "literal": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+        }
+      ],
+      "continuationCells": [],
+      "headerCells": []
+    }
+  ],
+  "links": [
+    {
+      "originalRow": 3,
+      "page": 1,
+      "derivedRow": 2,
+      "reference": "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "referenceOrigin": "accepted-section-proposal"
+    }
+  ],
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Amount"
+    ],
+    [
+      "2026-10-01",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "first line",
+      "-12.50"
+    ]
+  ],
+  "csvSha256": "92d921bf89df24e39ab881da55b2f6756673719c1b8bc018b401bc6ac8b86e94",
+  "signedAmounts": [
+    "-12.50"
+  ],
+  "amountMinor": [
+    -1250
+  ]
+}

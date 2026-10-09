@@ -1,0 +1,31 @@
+{
+  "contract": "ALLOCATION_WORKFLOW_CONTEXT_V1",
+  "truthReference": "audit/allocation-handoff-v1/frozen/expected.json H5/H8/H9",
+  "syntheticOnly": true,
+  "context": {
+    "entity": "Synthetic Buyer",
+    "ledger": "Primary Book",
+    "party": "Supplier S01",
+    "account": "2100",
+    "currency": "SAR",
+    "cutoff": "2026-09-30"
+  },
+  "amountMinorTruth": {
+    "original": 1000,
+    "available": 1000,
+    "partialDecisions": [
+      400,
+      350
+    ],
+    "remaining": 250,
+    "overrunRejected": 700,
+    "remainingAfterUndoFirst": 650
+  },
+  "sourceCopyTiming": "Exact independent declared fixture copies frozen after native measured proofs. No pre-browser source-copy commit claim.",
+  "files": {
+    "partial-0.csv": "c92cb16d9e1a0e8219e14ac22c825ed1df5eaa54ebe08d97a37a124dcf3a738a",
+    "partial-1.csv": "f5471e66a4ab92b112a2e94d9e0e85cd506e37eae72ae0feb68f636a1713c01b",
+    "partial-2.csv": "6004027e329686a1dc0ffb2ec8574ebbb08946f65231d274d55a4c6972bb3ad3",
+    "held-payments.csv": "c92cb16d9e1a0e8219e14ac22c825ed1df5eaa54ebe08d97a37a124dcf3a738a"
+  }
+}

@@ -1,0 +1,236 @@
+{
+  "version": "P4_MULTICELL_SECTION_V1",
+  "syntheticEnglishNativePdfOnly": true,
+  "mapping": {
+    "sheet": 0,
+    "header": 0,
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "mode": "signed",
+    "multiplier": 1,
+    "numberFormat": "dot",
+    "dateFormat": "ymd",
+    "pdfReviewed": true
+  },
+  "cuts": [
+    25,
+    45,
+    69
+  ],
+  "decimals": 2,
+  "revision": "p4-multicell-independent-v1",
+  "parentLabels": [
+    "Invoice No",
+    "Invoice No:",
+    "Invoice Number",
+    "Invoice Number:"
+  ],
+  "continuationLabels": [
+    "Continued invoice",
+    "Continued invoice:",
+    "Continued invoice No",
+    "Continued invoice No:"
+  ],
+  "pairConstraints": {
+    "occupiedCells": 2,
+    "adjacent": true,
+    "roleBeforeValue": true,
+    "sameOriginalRowAndPage": true,
+    "mappedAmountEmpty": true,
+    "referencePattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,63}$"
+  },
+  "defaultBudgets": {
+    "maxOriginalBytes": 8388608,
+    "maxPages": 100,
+    "maxRows": 20000,
+    "maxProposals": 4096,
+    "maxEvidenceCells": 65536
+  },
+  "rowYieldInterval": 256,
+  "cases": [
+    {
+      "id": "pair-signed",
+      "original": "pair-signed.pdf",
+      "expected": "pair-signed.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "pair-cross-page",
+      "original": "pair-cross-page.pdf",
+      "expected": "pair-cross-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "pair-colon-labels",
+      "original": "pair-colon-labels.pdf",
+      "expected": "pair-colon-labels.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "single-parent-pair-continuation",
+      "original": "single-parent-pair-continuation.pdf",
+      "expected": "single-parent-pair-continuation.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "pair-parent-single-continuation",
+      "original": "pair-parent-single-continuation.pdf",
+      "expected": "pair-parent-single-continuation.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "pair-columns-two-three",
+      "original": "pair-columns-two-three.pdf",
+      "expected": "pair-columns-two-three.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "explicit-own-reference",
+      "original": "explicit-own-reference.pdf",
+      "expected": "explicit-own-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "numeric-leading-zero-reference",
+      "original": "numeric-leading-zero-reference.pdf",
+      "expected": "numeric-leading-zero-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "maximum-reference-length",
+      "original": "maximum-reference-length.pdf",
+      "expected": "maximum-reference-length.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "new-section",
+      "original": "new-section.pdf",
+      "expected": "new-section.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "unknown-role",
+      "original": "unknown-role.pdf",
+      "expected": "unknown-role.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "extra-occupied-cell",
+      "original": "extra-occupied-cell.pdf",
+      "expected": "extra-occupied-cell.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "reversed-pair",
+      "original": "reversed-pair.pdf",
+      "expected": "reversed-pair.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "nonadjacent-pair",
+      "original": "nonadjacent-pair.pdf",
+      "expected": "nonadjacent-pair.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "amount-column-reference",
+      "original": "amount-column-reference.pdf",
+      "expected": "amount-column-reference.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "missing-value",
+      "original": "missing-value.pdf",
+      "expected": "missing-value.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "duplicate-mixed-parent",
+      "original": "duplicate-mixed-parent.pdf",
+      "expected": "duplicate-mixed-parent.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "competing-movement-reference",
+      "original": "competing-movement-reference.pdf",
+      "expected": "competing-movement-reference.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "missing-continuation",
+      "original": "missing-continuation.pdf",
+      "expected": "missing-continuation.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "competing-continuation",
+      "original": "competing-continuation.pdf",
+      "expected": "competing-continuation.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "missing-page-header",
+      "original": "missing-page-header.pdf",
+      "expected": "missing-page-header.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "changed-page-header",
+      "original": "changed-page-header.pdf",
+      "expected": "changed-page-header.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "intervening-unknown",
+      "original": "intervening-unknown.pdf",
+      "expected": "intervening-unknown.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "duplicate-continuation",
+      "original": "duplicate-continuation.pdf",
+      "expected": "duplicate-continuation.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "missing-movement-date",
+      "original": "missing-movement-date.pdf",
+      "expected": "missing-movement-date.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "late-corrupt-date",
+      "original": "late-corrupt-date.pdf",
+      "expected": "late-corrupt-date.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "late-corrupt-amount",
+      "original": "late-corrupt-amount.pdf",
+      "expected": "late-corrupt-amount.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "invalid-reference-character",
+      "original": "invalid-reference-character.pdf",
+      "expected": "invalid-reference-character.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "overlong-reference",
+      "original": "overlong-reference.pdf",
+      "expected": "overlong-reference.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "native-empty-page-gap",
+      "original": "native-empty-page-gap.pdf",
+      "expected": "native-empty-page-gap.expected.json",
+      "outcome": "native-import-blocked"
+    }
+  ],
+  "resourceSource": "resource-cancellation.pdf",
+  "actions": "actions.json"
+}

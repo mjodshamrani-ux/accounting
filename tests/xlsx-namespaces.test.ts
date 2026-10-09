@@ -77,7 +77,7 @@ function assertEquivalentSheets(
   assert.deepEqual(parsed(a), parsed(b));
 }
 
-test('prefixed SpreadsheetML workbook, styles, shared strings, worksheets and relationship parts are accepted without changing values', async () => {
+void test('prefixed SpreadsheetML workbook, styles, shared strings, worksheets and relationship parts are accepted without changing values', async () => {
   const original = await synthetic();
   const namespaced = await prefixed(original);
   // Reproduces the ExcelJS error that previously rejected the supplied originals.
@@ -115,12 +115,12 @@ test('prefixed SpreadsheetML workbook, styles, shared strings, worksheets and re
   );
 });
 
-test('ordinary canonical workbook is passed through without repacking', async () => {
+void test('ordinary canonical workbook is passed through without repacking', async () => {
   const original = await synthetic();
   assert.ok((await prepareXlsxForExcelJs(original)) === original);
 });
 
-test('namespace conversion retains formulas and dangerous sign formats as review blockers', async () => {
+void test('namespace conversion retains formulas and dangerous sign formats as review blockers', async () => {
   const workbook = new ExcelJS.Workbook();
   const sheet = workbook.addWorksheet('Synthetic');
   sheet.addRow(['Date', 'Reference', 'Amount']);
@@ -140,7 +140,7 @@ test('namespace conversion retains formulas and dangerous sign formats as review
   assert.equal(result.transactions.length, 0);
 });
 
-test('foreign namespace lookalikes are rejected instead of stripped into accounting fields', async () => {
+void test('foreign namespace lookalikes are rejected instead of stripped into accounting fields', async () => {
   for (const root of [true, false]) {
     const zip = await JSZip.loadAsync(await prefixed(await synthetic()));
     const path = root ? 'xl/workbook.xml' : 'xl/worksheets/sheet1.xml';
@@ -162,7 +162,7 @@ test('foreign namespace lookalikes are rejected instead of stripped into account
   }
 });
 
-test('undeclared XML prefixes and DTDs fail explicitly without accepting incomplete worksheets', async () => {
+void test('undeclared XML prefixes and DTDs fail explicitly without accepting incomplete worksheets', async () => {
   for (const mode of ['undeclared', 'doctype']) {
     const zip = await JSZip.loadAsync(await prefixed(await synthetic()));
     let xml = await zip.file('xl/workbook.xml')!.async('string');
@@ -184,7 +184,7 @@ test('undeclared XML prefixes and DTDs fail explicitly without accepting incompl
   }
 });
 
-test('namespaced and canonical Excel reads are independent in either order and after an invalid file', async () => {
+void test('namespaced and canonical Excel reads are independent in either order and after an invalid file', async () => {
   const original = await synthetic();
   const namespaced = await prefixed(original, 'relationships');
   for (const input of [namespaced, original, namespaced]) {

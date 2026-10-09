@@ -1,3 +1,4 @@
+import { compareDefaultSort } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compare, normalizeSource } from '../lib/reconciliation/core.ts';
@@ -96,7 +97,7 @@ const competing = (): { a: Row[]; b: Row[] } => ({
     { amount: '-60', receipt: 'R-100' },
   ],
 });
-test('P2 overlapping bank and receipt alternatives are reviewed before any row is consumed', () => {
+void test('P2 overlapping bank and receipt alternatives are reviewed before any row is consumed', () => {
   const { a, b } = competing();
   for (const order of [b, [...b].reverse()]) {
     const r = run(a, order);
@@ -111,7 +112,7 @@ test('P2 overlapping bank and receipt alternatives are reviewed before any row i
     conserved(r);
   }
 });
-test('P2 complete N:M payment groups are equivalent groups, never individual pairings', () => {
+void test('P2 complete N:M payment groups are equivalent groups, never individual pairings', () => {
   const r = run(
     [
       { amount: '-40', bank: 'BANK-771' },
@@ -129,7 +130,7 @@ test('P2 complete N:M payment groups are equivalent groups, never individual pai
   assert.match(r.cases[0].evidence.join(' '), /لا تثبت مقابلة كل صف/);
   conserved(r);
 });
-test('P2 invoice certified subgroups coexist with exact sibling pairs without amount-driven subsets', () => {
+void test('P2 invoice certified subgroups coexist with exact sibling pairs without amount-driven subsets', () => {
   const inv = (amount: string, chosen: string): Row => ({
     amount,
     chosen,
@@ -145,14 +146,14 @@ test('P2 invoice certified subgroups coexist with exact sibling pairs without am
   const group = r.cases.find((c) => c.classification === 'EXACT_1_TO_MANY')!;
   assert.ok(group);
   assert.deepEqual(
-    group.ledgerMembers.map((t) => t.amount).sort(),
+    group.ledgerMembers.map((t) => t.amount).sort(compareDefaultSort),
     [40000, 60000],
   );
   assert.equal(r.ledgerOnly[0].chosenReference, 'C');
   conserved(r);
 });
 
-test('P2 unbalanced, unsafe and manually consumed competitors never disappear from identity membership', () => {
+void test('P2 unbalanced, unsafe and manually consumed competitors never disappear from identity membership', () => {
   for (const change of [
     'unbalanced',
     'unsafe',
@@ -184,7 +185,7 @@ test('P2 unbalanced, unsafe and manually consumed competitors never disappear fr
   }
 });
 
-test('P2 a primary-only unknown member and normalized collisions cannot be dropped from bank groups', () => {
+void test('P2 a primary-only unknown member and normalized collisions cannot be dropped from bank groups', () => {
   const a: Row[] = [{ amount: '-100', bank: 'BANK-091' }];
   const parts: Row[] = [
     { amount: '-40', bank: 'BANK-091' },
@@ -201,7 +202,7 @@ test('P2 a primary-only unknown member and normalized collisions cannot be dropp
   }
 });
 
-test('P2 an exact payment pair cannot consume a member before overlapping receipts are examined', () => {
+void test('P2 an exact payment pair cannot consume a member before overlapping receipts are examined', () => {
   const r = run(
     [{ amount: '-100', bank: 'BANK-092', receipt: 'RCPT-092' }],
     [
@@ -214,7 +215,7 @@ test('P2 an exact payment pair cannot consume a member before overlapping receip
   conserved(r);
 });
 
-test('P2 identical bank and receipt memberships corroborate one group, while one-sided annotations need no guessing', () => {
+void test('P2 identical bank and receipt memberships corroborate one group, while one-sided annotations need no guessing', () => {
   for (const partial of [false, true]) {
     const a: Row[] = [
       { amount: '-40', bank: 'BANK-093', receipt: 'RCPT-093' },
@@ -230,7 +231,7 @@ test('P2 identical bank and receipt memberships corroborate one group, while one
   }
 });
 
-test('P2 N:M rejects duplicates on either side, sign offsets, wrong dates and incomplete or conflicting evidence', () => {
+void test('P2 N:M rejects duplicates on either side, sign offsets, wrong dates and incomplete or conflicting evidence', () => {
   const baseA: Row[] = [
     { amount: '-40', bank: 'BANK-094' },
     { amount: '-60', bank: 'BANK-094' },
@@ -288,7 +289,7 @@ test('P2 N:M rejects duplicates on either side, sign offsets, wrong dates and in
   }
 });
 
-test('P2 N:M group limit retains every row and never approves a truncated group', () => {
+void test('P2 N:M group limit retains every row and never approves a truncated group', () => {
   const a: Row[] = [
     { amount: '-5000', bank: 'BANK-095' },
     { amount: '-151', bank: 'BANK-095' },
@@ -303,7 +304,7 @@ test('P2 N:M group limit retains every row and never approves a truncated group'
   conserved(r);
 });
 
-test('P2 unknown document discriminators block invoice subgroups and do not fabricate uniqueness after manual use', () => {
+void test('P2 unknown document discriminators block invoice subgroups and do not fabricate uniqueness after manual use', () => {
   const inv = (amount: string, chosen: string): Row => ({
     amount,
     chosen,
@@ -321,7 +322,7 @@ test('P2 unknown document discriminators block invoice subgroups and do not fabr
   }
 });
 
-test('P2 an unknown-type original bank member prevents a smaller exact payment pair', () => {
+void test('P2 an unknown-type original bank member prevents a smaller exact payment pair', () => {
   const r = run(
     [
       { amount: '-100', bank: 'BANK-097' },
@@ -346,7 +347,7 @@ test('P2 an unknown-type original bank member prevents a smaller exact payment p
   conserved(r);
 });
 
-test('P2 invalid calendar dates and direct same-source comparisons cannot become approved groups', () => {
+void test('P2 invalid calendar dates and direct same-source comparisons cannot become approved groups', () => {
   const a: Row[] = [
     { amount: '-40', bank: 'BANK-098' },
     { amount: '-60', bank: 'BANK-098' },
@@ -372,7 +373,7 @@ test('P2 invalid calendar dates and direct same-source comparisons cannot become
   assert.equal(r.cases[0].reviewRequired, true);
 });
 
-test('P2 explicit numeric receipt identities retain leading zeros across separate N:M and N:1 groups', () => {
+void test('P2 explicit numeric receipt identities retain leading zeros across separate N:M and N:1 groups', () => {
   const row = (amount: string, receipt: string): Row => ({ amount, receipt });
   const r = run(
     [
@@ -390,11 +391,11 @@ test('P2 explicit numeric receipt identities retain leading zeros across separat
   );
   assert.equal(auto(r).length, 2);
   assert.deepEqual(
-    r.cases.map((c) => [c.supplierTotal, c.ledgerTotal]).sort(),
+    r.cases.map((c) => [c.supplierTotal, c.ledgerTotal]).sort(compareDefaultSort),
     [
       [-10000, -10000],
       [-3000, -3000],
-    ].sort(),
+    ].sort(compareDefaultSort),
   );
   for (const c of r.cases)
     assert.equal(
@@ -408,7 +409,7 @@ test('P2 explicit numeric receipt identities retain leading zeros across separat
   conserved(r);
 });
 
-test('P2 numeric support never promotes zero, placeholder or formula-like payment identities', () => {
+void test('P2 numeric support never promotes zero, placeholder or formula-like payment identities', () => {
   for (const receipt of [
     '0',
     '0000',
@@ -433,7 +434,7 @@ test('P2 numeric support never promotes zero, placeholder or formula-like paymen
   }
 });
 
-test('P2 certified document identity and shared PO permit different local voucher numbers without weakening whole-document proof', () => {
+void test('P2 certified document identity and shared PO permit different local voucher numbers without weakening whole-document proof', () => {
   const inv = (amount: string, chosen: string, voucher: string): Row => ({
     amount,
     chosen,

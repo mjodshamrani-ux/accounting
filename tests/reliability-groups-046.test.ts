@@ -98,7 +98,7 @@ function conserved(result: ReturnType<typeof compare>, count: number) {
   assert.equal(new Set(ids).size, count);
 }
 
-test('046 explicit shared bank identity proves a whole payment in either 1:N direction', () => {
+void test('046 explicit shared bank identity proves a whole payment in either 1:N direction', () => {
   for (const reverse of [false, true]) {
     const pair = reverse ? sources(parts, single) : sources(single, parts);
     const r = compare(...pair, scope);
@@ -124,14 +124,14 @@ test('046 explicit shared bank identity proves a whole payment in either 1:N dir
     conserved(r, 3);
   }
 });
-test('046 explicit receipt identity supports payment groups without a bank column value', () => {
+void test('046 explicit receipt identity supports payment groups without a bank column value', () => {
   const patch = (rows: Row[]) =>
     rows.map((r) => ({ ...r, bank: '', receipt: 'RCPT-046-09' }));
   const r = compare(...sources(patch(single), patch(parts)), scope);
   assert.equal(r.matches.length, 1);
   assert.match(r.matches[0].reason, /RCPT-046-09/);
 });
-test('046 generic shared payment references and unique amount subsets remain review, not proof', () => {
+void test('046 generic shared payment references and unique amount subsets remain review, not proof', () => {
   for (const b of [
     parts,
     [
@@ -157,7 +157,7 @@ test('046 generic shared payment references and unique amount subsets remain rev
     [],
   );
 });
-test('046 payment identity cannot allocate invoices or override document, amount, sign, date or receipt conflicts', () => {
+void test('046 payment identity cannot allocate invoices or override document, amount, sign, date or receipt conflicts', () => {
   for (const mutation of [
     { type: 'Invoice' },
     { amount: '-59.99' },
@@ -185,7 +185,7 @@ test('046 payment identity cannot allocate invoices or override document, amount
     0,
   );
 });
-test('046 bank-reference groups never search a matching subset or ignore a competing same-identity row', () => {
+void test('046 bank-reference groups never search a matching subset or ignore a competing same-identity row', () => {
   for (const extra of [
     { amount: '-10' },
     { amount: '-100' },
@@ -196,7 +196,7 @@ test('046 bank-reference groups never search a matching subset or ignore a compe
     conserved(r, 4);
   }
 });
-test('046 a duplicate component cannot be disguised by changing its description', () => {
+void test('046 a duplicate component cannot be disguised by changing its description', () => {
   for (const type of ['Payment', 'Invoice']) {
     const a = [{ amount: '100', type, ref: 'DOC-046-11', po: 'PO-046-71' }];
     const b = ['first description', 'second description'].map(
@@ -212,7 +212,7 @@ test('046 a duplicate component cannot be disguised by changing its description'
     assert.equal(compare(...sources(a, b), scope).matches.length, 0, type);
   }
 });
-test('046 explicit original invoice lines retain the existing 6750 = 2500 + 2250 + 2000 capability', () => {
+void test('046 explicit original invoice lines retain the existing 6750 = 2500 + 2250 + 2000 capability', () => {
   const common = {
     ref: 'INV-046-729',
     type: 'Invoice',
@@ -232,7 +232,7 @@ test('046 explicit original invoice lines retain the existing 6750 = 2500 + 2250
   assert.equal(r.cases[0].matchingRule, 'EXACT_REFERENCE_GROUP_TOTAL_V1');
   conserved(r, 4);
 });
-test('046 explicit source errors, hidden evidence and excluded same-payment rows prevent complete-group approval', () => {
+void test('046 explicit source errors, hidden evidence and excluded same-payment rows prevent complete-group approval', () => {
   const withError = sources(single, parts);
   withError[1].errors.push({ row: 99, message: 'unreadable movement' });
   assert.equal(compare(...withError, scope).matches.length, 0);
@@ -262,7 +262,7 @@ test('046 explicit source errors, hidden evidence and excluded same-payment rows
   );
   assert.equal(compare(...excluded, scope).matches.length, 0);
 });
-test('046 currency and amount-basis conflicts are not group evidence even after user confirmation', () => {
+void test('046 currency and amount-basis conflicts are not group evidence even after user confirmation', () => {
   const currency = sources(single, [
     parts[0],
     { ...parts[1], currency: 'USD' },
@@ -283,7 +283,7 @@ test('046 currency and amount-basis conflicts are not group evidence even after 
     compare(...sources(single, parts, {}, { reportType: 'open-items' }), scope),
   );
 });
-test('046 row-level amount basis cannot mix original and remaining values under a generic amount header', () => {
+void test('046 row-level amount basis cannot mix original and remaining values under a generic amount header', () => {
   const withBasis = (
     values: string[],
     reportType: Mapping['reportType'] = 'transactions',
@@ -333,7 +333,7 @@ test('046 row-level amount basis cannot mix original and remaining values under 
   const mixedOpen = withBasis(['Outstanding', 'Movement'], 'open-items');
   assert.ok(mixedOpen.errors.some((e) => e.row === 3));
 });
-test('046 payment group rejection is preserved and source ordering never selects a subset', () => {
+void test('046 payment group rejection is preserved and source ordering never selects a subset', () => {
   const variants = [parts, [...parts].reverse()];
   for (const rows of variants) {
     const pair = sources(single, rows);
@@ -344,7 +344,7 @@ test('046 payment group rejection is preserved and source ordering never selects
     assert.equal(compare(...pair, scope, [], rejected).matches.length, 0);
   }
 });
-test('046 a search limit is exposed with all group rows retained', () => {
+void test('046 a search limit is exposed with all group rows retained', () => {
   const b = Array.from({ length: 101 }, (_, i) => ({
     amount: String(-(i + 1)),
   }));
@@ -354,7 +354,7 @@ test('046 a search limit is exposed with all group rows retained', () => {
   assert.match(r.cases[0].evidence.join(' '), /حد الاعتماد الآلي/);
   conserved(r, 102);
 });
-test('046 a manual decision cannot override explicit document identity or PO conflicts', () => {
+void test('046 a manual decision cannot override explicit document identity or PO conflicts', () => {
   for (const patch of [
     { type: 'Invoice' },
     { po: 'PO-OTHER-88' },
@@ -377,7 +377,7 @@ test('046 a manual decision cannot override explicit document identity or PO con
   }
 });
 
-test('046 payment proof is re-read from original bytes for export and sessions, never trusted from an annotated result', async () => {
+void test('046 payment proof is re-read from original bytes for export and sessions, never trusted from an annotated result', async () => {
   const read = async (rows: Row[], side: string) => {
     const csv = file(rows)
       .sheets[0].rows.map((row) =>

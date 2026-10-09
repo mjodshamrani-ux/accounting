@@ -70,7 +70,7 @@ function noApproval(
   return result;
 }
 
-test('045 original document value cannot be compared as open-item outstanding even when numbers coincide', () => {
+void test('045 original document value cannot be compared as open-item outstanding even when numbers coincide', () => {
   for (const header of [
     'Original Amount',
     'Invoice Amount',
@@ -90,7 +90,7 @@ test('045 original document value cannot be compared as open-item outstanding ev
     noApproval(a, b);
   }
 });
-test('045 running balance, paid amount and aging buckets cannot masquerade as movement values', () => {
+void test('045 running balance, paid amount and aging buckets cannot masquerade as movement values', () => {
   for (const header of [
     'Running Balance',
     'الرصيد الجاري',
@@ -107,7 +107,7 @@ test('045 running balance, paid amount and aging buckets cannot masquerade as mo
     noApproval(a, source(file(), 'ledger'));
   }
 });
-test('045 explicit remaining values require an open-items report and never become period movements', () => {
+void test('045 explicit remaining values require an open-items report and never become period movements', () => {
   for (const header of [
     'Outstanding',
     'Remaining Amount',
@@ -119,7 +119,7 @@ test('045 explicit remaining values require an open-items report and never becom
     noApproval(a, source(file(), 'ledger'));
   }
 });
-test('045 supported original transaction values and remaining open items continue to auto-match', () => {
+void test('045 supported original transaction values and remaining open items continue to auto-match', () => {
   for (const [header, reportType] of [
     ['Invoice Amount', 'transactions'],
     ['Outstanding', 'open-items'],
@@ -135,7 +135,7 @@ test('045 supported original transaction values and remaining open items continu
     assert.equal(compare(a, b, scope).matches.length, 1);
   }
 });
-test('045 supplier and legal entity conflicts in explicit same-role metadata block automatic and manual comparison', () => {
+void test('045 supplier and legal entity conflicts in explicit same-role metadata block automatic and manual comparison', () => {
   for (const role of ['Supplier', 'Legal Entity']) {
     const a = source(
       file(undefined, undefined, [[role, 'Organization A']]),
@@ -163,7 +163,7 @@ test('045 supplier and legal entity conflicts in explicit same-role metadata blo
       );
   }
 });
-test('045 different account roles are not falsely equated across supplier and AP systems', () => {
+void test('045 different account roles are not falsely equated across supplier and AP systems', () => {
   const a = source(
     file(undefined, undefined, [['Customer Account', 'C-407']]),
     'supplier',
@@ -176,7 +176,7 @@ test('045 different account roles are not falsely equated across supplier and AP
   );
   assert.equal(compare(a, b, scope).matches.length, 1);
 });
-test('045 mixed supplier, entity or account columns stop the affected comparison without dropping either row', () => {
+void test('045 mixed supplier, entity or account columns stop the affected comparison without dropping either row', () => {
   for (const heading of [
     'Supplier',
     'Legal Entity',
@@ -203,7 +203,7 @@ test('045 mixed supplier, entity or account columns stop the affected comparison
     noApproval(a, b);
   }
 });
-test('045 explicit single-role row identity must agree between the two sources', () => {
+void test('045 explicit single-role row identity must agree between the two sources', () => {
   const a = source(
     file(
       ['Date', 'Invoice No', 'Amount', 'Supplier'],
@@ -220,7 +220,7 @@ test('045 explicit single-role row identity must agree between the two sources',
   );
   assert.throws(() => compare(a, b, scope), /نطاق|هوية|المورد/);
 });
-test('045 explicit currency column cannot be ignored by leaving it unmapped', () => {
+void test('045 explicit currency column cannot be ignored by leaving it unmapped', () => {
   const a = source(
     file(
       ['Date', 'Invoice No', 'Amount', 'Currency'],
@@ -231,7 +231,7 @@ test('045 explicit currency column cannot be ignored by leaving it unmapped', ()
   assert.ok(a.errors.length);
   noApproval(a, source(file(), 'ledger'));
 });
-test('045 open-item snapshots dated after the requested cutoff cannot reconstruct historical outstanding', () => {
+void test('045 open-item snapshots dated after the requested cutoff cannot reconstruct historical outstanding', () => {
   const a = source(
     file(['Date', 'Invoice No', 'Outstanding'], undefined, [
       ['Period', '2026-09-01 to 2026-09-30'],
@@ -245,7 +245,7 @@ test('045 open-item snapshots dated after the requested cutoff cannot reconstruc
   assert.ok(a.errors.some((e) => e.row === 0));
   noApproval(a, b);
 });
-test('045 a malformed or contradictory declared period cannot certify the arithmetic bridge', () => {
+void test('045 a malformed or contradictory declared period cannot certify the arithmetic bridge', () => {
   for (const metadata of [
     [['Period', '2026-08-99 to 2026-08-31']],
     [
@@ -262,7 +262,7 @@ test('045 a malformed or contradictory declared period cannot certify the arithm
     assert.equal(result.bridge, null);
   }
 });
-test('045 a clean declared snapshot at cutoff remains supported', () => {
+void test('045 a clean declared snapshot at cutoff remains supported', () => {
   const f = file(['Date', 'Invoice No', 'Outstanding'], undefined, [
     ['Period', '2026-08-01 to 2026-08-31'],
   ]);
@@ -272,7 +272,7 @@ test('045 a clean declared snapshot at cutoff remains supported', () => {
   assert.equal(result.matches.length, 1);
   assert.equal(result.bridge?.residual, 0);
 });
-test('045 a systemic parsing/semantic failure cannot be bypassed by a manual match', () => {
+void test('045 a systemic parsing/semantic failure cannot be bypassed by a manual match', () => {
   const a = source(file(['Date', 'Invoice No', 'Running Balance']), 'supplier');
   const b = source(file(), 'ledger');
   assert.throws(() =>
@@ -285,7 +285,7 @@ test('045 a systemic parsing/semantic failure cannot be bypassed by a manual mat
     ]),
   );
 });
-test('045 declared transaction period constrains inclusion before the balance equation is checked', () => {
+void test('045 declared transaction period constrains inclusion before the balance equation is checked', () => {
   const f = file(
     undefined,
     [
@@ -303,7 +303,7 @@ test('045 declared transaction period constrains inclusion before the balance eq
   const b = source(f, 'ledger', { header: 1, periodStart: '' });
   assert.equal(compare(a, b, scope).bridge, null);
 });
-test('045 an opening balance from a different declared period cannot be certified by coincidental equality', () => {
+void test('045 an opening balance from a different declared period cannot be certified by coincidental equality', () => {
   const f = file(undefined, undefined, [
     ['Period', '2026-07-01 to 2026-08-31'],
   ]);
@@ -311,7 +311,7 @@ test('045 an opening balance from a different declared period cannot be certifie
   const b = source(f, 'ledger', { header: 1 });
   assert.equal(compare(a, b, scope).bridge, null);
 });
-test('F03 preserves old numeric Invoice No inputs: an invoice can match, its credit note cannot borrow that identity', () => {
+void test('F03 preserves old numeric Invoice No inputs: an invoice can match, its credit note cannot borrow that identity', () => {
   for (const type of ['Invoice', 'Credit Note'])
     for (const ref of ['000012340567', '٠٠٠١٢٣٤٥٦٧']) {
       const f = file(
@@ -334,7 +334,7 @@ test('F03 preserves old numeric Invoice No inputs: an invoice can match, its cre
       }
     }
 });
-test('045 numeric general references, unknown types, payments, shortened IDs and numeric groups stay unapproved', () => {
+void test('045 numeric general references, unknown types, payments, shortened IDs and numeric groups stay unapproved', () => {
   const make = (
     ref: string,
     header = 'Invoice No',
@@ -373,7 +373,7 @@ test('045 numeric general references, unknown types, payments, shortened IDs and
     0,
   );
 });
-test('045 an explicit as-of snapshot is checked against cutoff without treating a preparation date as snapshot evidence', () => {
+void test('045 an explicit as-of snapshot is checked against cutoff without treating a preparation date as snapshot evidence', () => {
   for (const label of ['As of', 'Statement as of', 'تاريخ القطع']) {
     const a = source(
       file(['Date', 'Invoice No', 'Outstanding'], undefined, [
@@ -400,7 +400,7 @@ test('045 an explicit as-of snapshot is checked against cutoff without treating 
     1,
   );
 });
-test('045 manually entering a closing balance cannot hide a conflicting balance currency', () => {
+void test('045 manually entering a closing balance cannot hide a conflicting balance currency', () => {
   const a = source(
     file(
       ['Date', 'Invoice No', 'Amount', 'Currency'],
@@ -413,7 +413,7 @@ test('045 manually entering a closing balance cannot hide a conflicting balance 
   );
   noApproval(a, source(file(), 'ledger'));
 });
-test('045 bounded whole-reference groups retain all source rows for review beyond the automatic limit', () => {
+void test('045 bounded whole-reference groups retain all source rows for review beyond the automatic limit', () => {
   for (const size of [99, 100, 101]) {
     const headers = [
       'Date',
@@ -458,7 +458,7 @@ test('045 bounded whole-reference groups retain all source rows for review beyon
     }
   }
 });
-test('045 explicit conflicting document labels in descriptions veto a match but never certify one', () => {
+void test('045 explicit conflicting document labels in descriptions veto a match but never certify one', () => {
   for (const descriptions of [
     ['Credit Note returned goods', 'Payment bank transfer'],
     ['إشعار دائن: بضاعة مرتجعة', 'دفعة تحويل بنكي'],

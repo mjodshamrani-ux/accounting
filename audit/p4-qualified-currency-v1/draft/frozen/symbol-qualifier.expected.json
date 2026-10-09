@@ -1,0 +1,52 @@
+{
+  "id": "symbol-qualifier",
+  "outcome": "blocked",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "06dbaa8a9c18b6fb788e9a702097e41fb7fe7d2cdd17ff4b93b68f12bb29ed46",
+  "originalByteLength": 1108,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount ($)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    }
+  ],
+  "links": [],
+  "currencyEvidence": [],
+  "reason": "A symbol cannot supply a unique admitted original currency code.",
+  "newCurrencyReceipt": false,
+  "derivedCurrencyArtifact": false,
+  "partialArtifact": false
+}

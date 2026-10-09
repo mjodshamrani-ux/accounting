@@ -1,0 +1,138 @@
+{
+  "actions": [
+    {
+      "id": "pre-abort",
+      "source": "split-signed.pdf",
+      "expected": "cancelled-before-clone"
+    },
+    {
+      "id": "page-one-abort",
+      "source": "split-cross-page.pdf",
+      "expected": "cancelled-no-partial-publication"
+    },
+    {
+      "id": "row-256-abort",
+      "source": "resource-cancellation.pdf",
+      "expected": "cancelled-no-partial-publication"
+    },
+    {
+      "id": "pending-source-change",
+      "source": "split-cross-page.pdf",
+      "expected": "stale-no-partial-publication"
+    },
+    {
+      "id": "pending-reviewer-clear",
+      "source": "split-cross-page.pdf",
+      "expected": "stale-no-partial-publication"
+    },
+    {
+      "id": "upper-cell-tamper",
+      "source": "split-signed.pdf",
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "lower-cell-tamper",
+      "source": "split-signed.pdf",
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "lower-page-tamper",
+      "source": "split-cross-page.pdf",
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "original-byte-tamper",
+      "source": "split-signed.pdf",
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "signed-amount-tamper",
+      "source": "split-signed.pdf",
+      "expected": "original-replay-blocked"
+    },
+    {
+      "id": "stale-mapping",
+      "source": "split-signed.pdf",
+      "expected": "stale-receipt-blocked"
+    },
+    {
+      "id": "stale-revision",
+      "source": "split-signed.pdf",
+      "expected": "stale-receipt-blocked"
+    },
+    {
+      "id": "stale-decimals",
+      "source": "split-signed.pdf",
+      "expected": "stale-receipt-blocked"
+    },
+    {
+      "id": "band-span-tamper",
+      "source": "split-cross-page.pdf",
+      "expected": "fresh-review-comparison-blocked"
+    },
+    {
+      "id": "receipt-clone",
+      "source": "split-signed.pdf",
+      "expected": "counterfeit-receipt-blocked"
+    },
+    {
+      "id": "cuts-before-clone",
+      "source": "split-signed.pdf",
+      "expected": "resource-blocked-before-clone"
+    },
+    {
+      "id": "reviewer-before-clone",
+      "source": "split-signed.pdf",
+      "expected": "resource-blocked-before-clone"
+    },
+    {
+      "id": "budget-maxOriginalBytes",
+      "source": "split-cross-page.pdf",
+      "budget": {
+        "maxOriginalBytes": 1
+      },
+      "expected": "resource-blocked-no-partial-publication"
+    },
+    {
+      "id": "budget-maxPages",
+      "source": "split-cross-page.pdf",
+      "budget": {
+        "maxPages": 1
+      },
+      "expected": "resource-blocked-no-partial-publication"
+    },
+    {
+      "id": "budget-maxRows",
+      "source": "split-cross-page.pdf",
+      "budget": {
+        "maxRows": 1
+      },
+      "expected": "resource-blocked-no-partial-publication"
+    },
+    {
+      "id": "budget-maxProposals",
+      "source": "split-cross-page.pdf",
+      "budget": {
+        "maxProposals": 1
+      },
+      "expected": "resource-blocked-no-partial-publication"
+    },
+    {
+      "id": "budget-maxEvidenceCells",
+      "source": "split-cross-page.pdf",
+      "budget": {
+        "maxEvidenceCells": 1
+      },
+      "expected": "resource-blocked-no-partial-publication"
+    },
+    {
+      "id": "unselected-movement",
+      "source": "split-signed.pdf",
+      "selectedMovementRows": [
+        4
+      ],
+      "expected": "unresolved-movement-blocked"
+    }
+  ],
+  "failureAuthority": "No partial publication or usable derivation/financial authority. Legacy explicit interpretation receipt on a blocked structural review may exist; refused Apply consumes it with no CSV."
+}

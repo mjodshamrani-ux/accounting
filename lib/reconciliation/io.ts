@@ -60,9 +60,9 @@ function transparentNumericFormat(format: string, value: number): boolean {
       return '';
     })
     .replace(/\[(?:Black|Blue|Cyan|Green|Magenta|Red|Yellow)\]/gi, '')
-    .replace(/\\([$€£¥() +\-])/g, '$1')
+    .replace(/\\([$€£¥() +-])/g, '$1')
     .replace(/[$€£¥₹₩\s]/g, '');
-  if (!understood || /["\\\[\]%]/.test(section)) return false;
+  if (!understood || /["\\[\]%]/.test(section)) return false;
   if (/^general$/i.test(section)) return true;
   if (value === 0 && /^-\?*$/.test(section)) return true;
   if (index === 1) {
@@ -113,7 +113,7 @@ function transparentTextFormat(format: string): boolean {
 // range syntax is conservatively treated as applicable, never silently ignored.
 function rangeContains(ref: string, row: number, column: number): boolean {
   const colIndex = (letters: string) =>
-    [...letters.toUpperCase()].reduce(
+    letters.toUpperCase().split('').reduce(
       (n, letter) => n * 26 + letter.charCodeAt(0) - 64,
       0,
     );
@@ -137,6 +137,8 @@ function rangeContains(ref: string, row: number, column: number): boolean {
 }
 export function validateCellText(text: string): void {
   if (
+    // XML 1.0 forbids these code points; retaining the rejection is intentional.
+    // oxlint-disable-next-line eslint/no-control-regex
     /[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/u.test(text) ||
     !text.isWellFormed()
   )
@@ -144,7 +146,20 @@ export function validateCellText(text: string): void {
       'النص يحتوي محارف تحكم أو ترميز Unicode غير صالح لملف Excel. صحح المصدر؛ لن تُحذف هذه المحارف تلقائيًا.',
     );
 }
-export function parseCSV(text: string): string[][] {
+
+// Display only: cached formulas are already marked as issues before this is
+// called; export widths never enter accounting. Native ExcelJS structured cell
+// values have Object's default display, while dates retain their own rendering.
+function displayOnlyCellText(value: ExcelJS.CellValue): string {
+  if (value === null || value === undefined) return '';
+  if (typeof value === 'string') return value;
+  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (value instanceof Date) return value.toString();
+  return '[object Object]';
+}
+export function parseCSV(text: string, cellTextLimit: 4096 | 32767 = 4096): string[][] {
+  if (cellTextLimit !== 4096 && cellTextLimit !== 32767)
+    throw new Error('حد الخلية غير مدعوم');
   class CsvLimitError extends Error {}
   const limitErrors: Error[] = [];
   text = text.replace(/^\uFEFF/, '');
@@ -158,7 +173,7 @@ export function parseCSV(text: string): string[][] {
       quoted = false,
       afterQuote = false;
     const endCell = () => {
-      if (cell.length > 4096)
+      if (cell.length > cellTextLimit)
         throw new CsvLimitError('نص إحدى الخلايا يتجاوز الحد المسموح');
       row.push(cell);
       cell = '';
@@ -271,9 +286,16 @@ export async function readFile(
   pdfCuts?: number[],
   autoPdfColumns = false,
   onProgress?: (progress: ProcessingProgress) => void,
+  cellTextLimit: 4096 | 32767 = 4096,
 ): Promise<SourceFile> {
+  if (cellTextLimit !== 4096 && cellTextLimit !== 32767)
+    throw new Error('حد الخلية غير مدعوم');
   if (buffer.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
+  // Own the bytes and PDF column choices before WebCrypto/decoding awaits.
+  // The stored original, its hash and parsed cells must describe one snapshot.
+  buffer = buffer.slice(0);
+  pdfCuts = pdfCuts?.slice();
   if (name.toLowerCase().endsWith(VISUAL_SOURCE_SUFFIX)) return readVisualAccountingSource(name, buffer);
   const sha256 = Array.from(
     new Uint8Array(await crypto.subtle.digest('SHA-256', buffer)),
@@ -291,7 +313,7 @@ export async function readFile(
       original: buffer.slice(0),
       sha256,
       sheets: [
-        { name: 'CSV', rows: parseCSV(text), formulaRows: [], hiddenRows: [] },
+        { name: 'CSV', rows: parseCSV(text, cellTextLimit), formulaRows: [], hiddenRows: [] },
       ],
     };
   }
@@ -351,7 +373,7 @@ export async function readFile(
       const coordinate = /^([A-Z]+)([1-9]\d*)$/.exec(raw.cell);
       if (!coordinate)
         throw new Error('إحداثيات القيمة الرقمية الأصلية غير مدعومة');
-      const column = [...coordinate[1]].reduce(
+      const column = coordinate[1].split('').reduce(
         (n, char) => n * 26 + char.charCodeAt(0) - 64,
         0,
       );
@@ -496,7 +518,7 @@ export async function readFile(
               c,
               `صيغة Excel في ${cell.address}؛ استخدم قيمة ثابتة موثوقة في العمود المختار أو استبعد الصف مع سبب`,
             );
-            text = String('result' in value ? (value.result ?? '') : '');
+            text = displayOnlyCellText('result' in value ? (value.result ?? '') : '');
           } else if ('richText' in value)
             text = value.richText.map((t) => t.text).join('');
           else if ('text' in value) text = String(value.text);
@@ -513,7 +535,7 @@ export async function readFile(
           text = String(value).padStart(cell.numFmt.length, '0');
         else text = value === null || value === undefined ? '' : String(value);
         validateCellText(text);
-        if (text.length > 4096)
+        if (text.length > cellTextLimit)
           throw new Error('نص إحدى الخلايا يتجاوز الحد المسموح');
         values.push(text);
       }
@@ -539,7 +561,7 @@ export async function readFile(
           const parts = /^([A-Z]+)([1-9]\d*):([A-Z]+)([1-9]\d*)$/.exec(address);
           if (!parts) throw new Error('نطاق دمج Excel غير صالح');
           const column = (letters: string) =>
-            [...letters].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0);
+            letters.split('').reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0);
           const bounds = {
             top: Number(parts[2]),
             left: column(parts[1]),
@@ -592,6 +614,10 @@ export async function exportWorkbook(
   },
   observeStage?: (stage: string, milliseconds: number) => void,
 ): Promise<ArrayBuffer> {
+  if (result.matches.some((m) => m.reviewedAggregate ||
+    (m.kind === 'manual' && ((m.supplierIds?.length ?? 1) > 1 || (m.ledgerIds?.length ?? 1) > 1))) ||
+    result.cases.some((c) => c.reviewedAggregate || c.matchingRule === 'REVIEWED_INVOICE_AGGREGATE_V1'))
+    throw new Error('Reviewed invoice aggregates require their live supplier review coordinator to export.');
   let stageStarted = performance.now();
   const measured = (stage: string) => {
     const now = performance.now();
@@ -680,7 +706,7 @@ export async function exportWorkbook(
           headers[i].length + 4,
           ...rows
             .slice(0, 50)
-            .map((row) => Math.min(45, String(row[i] ?? '').length + 2)),
+            .map((row) => Math.min(45, displayOnlyCellText(row[i]).length + 2)),
         ),
       );
     });

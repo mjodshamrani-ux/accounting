@@ -1,0 +1,62 @@
+{
+  "id": "jpy-fractional",
+  "outcome": "blocked",
+  "synthetic": true,
+  "expectedFromProduct": false,
+  "financialApproval": false,
+  "originalSha256": "b1e4efe3b55b3894a5e2632d373307c872a99f9bc68b908c5c20e9ccd0dd54b2",
+  "originalByteLength": 1296,
+  "cuts": [
+    25,
+    45,
+    70
+  ],
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed amount (JPY)"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "late fractional",
+        "+2.5"
+      ]
+    }
+  ],
+  "links": [],
+  "currencyEvidence": [],
+  "reason": "JPY fixed zero exponent cannot represent the late fractional amount.",
+  "newCurrencyReceipt": false,
+  "derivedCurrencyArtifact": false,
+  "partialArtifact": false
+}

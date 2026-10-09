@@ -1,0 +1,241 @@
+{
+  "version": "P4_NATIVE_ARABIC_SECTION_V4",
+  "synthetic": true,
+  "producer": "local LibreOffice HTML with actual embedded TrueType/ToUnicode",
+  "nativeFieldAcceptanceClaim": false,
+  "generalArabicCoverageClaim": false,
+  "allowedNewParentRoles": [
+    "\u0631\u0642\u0645 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629"
+  ],
+  "allowedNewContinuationRoles": [
+    "\u062a\u0627\u0628\u0639 \u0627\u0644\u0641\u0627\u062a\u0648\u0631\u0629"
+  ],
+  "roleTrimOnly": true,
+  "referencePattern": "^[A-Za-z0-9][A-Za-z0-9._/-]{0,63}$",
+  "referenceNormalization": false,
+  "columnSchema": "four original signed fields only",
+  "mapping": {
+    "sheet": 0,
+    "header": 0,
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "mode": "signed",
+    "multiplier": 1,
+    "numberFormat": "dot",
+    "dateFormat": "ymd",
+    "pdfReviewed": true
+  },
+  "cuts": [
+    24,
+    44,
+    65
+  ],
+  "resourceCuts": [
+    24,
+    44,
+    65
+  ],
+  "revision": "p4-native-arabic-independent-v4",
+  "decimals": 2,
+  "defaultBudgets": {
+    "maxOriginalBytes": 8388608,
+    "maxPages": 100,
+    "maxRows": 20000,
+    "maxProposals": 4096,
+    "maxEvidenceCells": 65536
+  },
+  "rowYieldInterval": 256,
+  "cases": [
+    {
+      "id": "arabic-pair-signed",
+      "original": "arabic-pair-signed.pdf",
+      "expected": "arabic-pair-signed.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-cross-page",
+      "original": "arabic-cross-page.pdf",
+      "expected": "arabic-cross-page.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-explicit-own-reference",
+      "original": "arabic-explicit-own-reference.pdf",
+      "expected": "arabic-explicit-own-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-leading-zero-reference",
+      "original": "arabic-leading-zero-reference.pdf",
+      "expected": "arabic-leading-zero-reference.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-numeric-literals",
+      "original": "arabic-numeric-literals.pdf",
+      "expected": "arabic-numeric-literals.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-new-section",
+      "original": "arabic-new-section.pdf",
+      "expected": "arabic-new-section.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "english-parent-arabic-continuation",
+      "original": "english-parent-arabic-continuation.pdf",
+      "expected": "english-parent-arabic-continuation.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-parent-english-continuation",
+      "original": "arabic-parent-english-continuation.pdf",
+      "expected": "arabic-parent-english-continuation.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-pair-columns-two-three",
+      "original": "arabic-pair-columns-two-three.pdf",
+      "expected": "arabic-pair-columns-two-three.expected.json",
+      "outcome": "derived"
+    },
+    {
+      "id": "arabic-reference-64",
+      "original": "arabic-reference-64.pdf",
+      "expected": "arabic-reference-64.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        18,
+        67,
+        78
+      ]
+    },
+    {
+      "id": "arabic-unknown-role",
+      "original": "arabic-unknown-role.pdf",
+      "expected": "arabic-unknown-role.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-duplicate-parent",
+      "original": "arabic-duplicate-parent.pdf",
+      "expected": "arabic-duplicate-parent.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-duplicate-mixed-parent",
+      "original": "arabic-duplicate-mixed-parent.pdf",
+      "expected": "arabic-duplicate-mixed-parent.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-competing-movement-reference",
+      "original": "arabic-competing-movement-reference.pdf",
+      "expected": "arabic-competing-movement-reference.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-missing-continuation",
+      "original": "arabic-missing-continuation.pdf",
+      "expected": "arabic-missing-continuation.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-competing-continuation",
+      "original": "arabic-competing-continuation.pdf",
+      "expected": "arabic-competing-continuation.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-missing-page-header",
+      "original": "arabic-missing-page-header.pdf",
+      "expected": "arabic-missing-page-header.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-changed-page-header",
+      "original": "arabic-changed-page-header.pdf",
+      "expected": "arabic-changed-page-header.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-intervening-unknown",
+      "original": "arabic-intervening-unknown.pdf",
+      "expected": "arabic-intervening-unknown.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-late-corrupt-amount",
+      "original": "arabic-late-corrupt-amount.pdf",
+      "expected": "arabic-late-corrupt-amount.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-late-corrupt-date",
+      "original": "arabic-late-corrupt-date.pdf",
+      "expected": "arabic-late-corrupt-date.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-missing-date",
+      "original": "arabic-missing-date.pdf",
+      "expected": "arabic-missing-date.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-reversed-pair",
+      "original": "arabic-reversed-pair.pdf",
+      "expected": "arabic-reversed-pair.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-nonadjacent-pair",
+      "original": "arabic-nonadjacent-pair.pdf",
+      "expected": "arabic-nonadjacent-pair.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-amount-column-reference",
+      "original": "arabic-amount-column-reference.pdf",
+      "expected": "arabic-amount-column-reference.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-extra-occupied-cell",
+      "original": "arabic-extra-occupied-cell.pdf",
+      "expected": "arabic-extra-occupied-cell.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-orphan-continuation",
+      "original": "arabic-orphan-continuation.pdf",
+      "expected": "arabic-orphan-continuation.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-unknown-middle-page",
+      "original": "arabic-unknown-middle-page.pdf",
+      "expected": "arabic-unknown-middle-page.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-reference-65",
+      "original": "arabic-reference-65.pdf",
+      "expected": "arabic-reference-65.expected.json",
+      "outcome": "blocked"
+    },
+    {
+      "id": "arabic-invalid-reference",
+      "original": "arabic-invalid-reference.pdf",
+      "expected": "arabic-invalid-reference.expected.json",
+      "outcome": "blocked"
+    }
+  ],
+  "actions": "actions.json",
+  "resourceSource": "arabic-resource-cancellation.pdf",
+  "nativePrecodePositiveGate": "Exact full inventory/pages/hash/bytes AND no rowIssues/cellIssues/referenceIssues/cellNotes/other notes for every positive and resource; no metadata clearing",
+  "baselineOriginalIdentityReuse": "Thirty v3 originals byte exact. No receipt reuse/authority transfer. arabic-reference-64 freshly rendered at8pt in landscape wider reference cell."
+}

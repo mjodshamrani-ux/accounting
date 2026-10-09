@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "model": "onnx-community/Qwen2.5-0.5B-Instruct",
+  "revision": "22942cb7d7ba4cc81bb4673549ca4d4614469b5e",
+  "originalModel": "Qwen/Qwen2.5-0.5B-Instruct",
+  "dtype": "q8",
+  "runtimeVersion": "4.3.0",
+  "maxTotalBytes": 650000000,
+  "totalBytes": 519137612,
+  "files": [
+    {
+      "path": "config.json",
+      "bytes": 678,
+      "sha256": "777e01f0fbb3346eb229cb6fb278ed6533c1e4dcb9ebf4bed0f6e94ef17fa1b5",
+      "publishedBlobId": "eea21cd6f7909a44509a193b7fcdac194766c904",
+      "seconds": 0.6693918704986572
+    },
+    {
+      "path": "generation_config.json",
+      "bytes": 242,
+      "sha256": "f7e7ce458658b2d40d9eb213b91b77a8bf698845ab89360976722d7ac46928a3",
+      "publishedBlobId": "f602853d6100c43666f46c67b1c354fa15fe0b93",
+      "seconds": 0.6529338359832764
+    },
+    {
+      "path": "special_tokens_map.json",
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "publishedBlobId": "ac23c0aaa2434523c494330aeb79c58395378103",
+      "seconds": 0.9284451007843018
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 7031673,
+      "sha256": "a8506e7111b80c6d8635951a02eab0f4e1a8e4e5772da83846579e97b16f61bf",
+      "publishedBlobId": "d24314ef7f0afd1b678c2e24c767e19f24f86b0e",
+      "seconds": 1.2147021293640137
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 7849,
+      "sha256": "6a14243f0ae04884e597b3f032c05e15de9f417318fdcac24ab4e2680e691430",
+      "publishedBlobId": "24afe3594154cfee05edda73aeadf3daae0a53ba",
+      "seconds": 0.6775529384613037
+    },
+    {
+      "path": "onnx/model_quantized.onnx",
+      "bytes": 512096557,
+      "sha256": "41834041ab1b29eff9fc592f1a29a1844133aea35832ea9fa91682be13016100",
+      "publishedBlobId": "1ae4272fd2a7a1c1b93622b27ba5c2b1f99a54fd",
+      "seconds": 13.952625036239624
+    }
+  ],
+  "developmentOnly": true,
+  "productEnabled": false
+}

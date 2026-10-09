@@ -1,0 +1,90 @@
+{
+  "version": "QUALIFIED_CURRENCY_COMBINED_PRECODE_CLOSURE_V1",
+  "outcome": "PASS-COMBINED-PRECODE-CONTRACT",
+  "implementationAccepted": false,
+  "runtimeAccepted": false,
+  "fieldAcceptance": false,
+  "financialApproval": false,
+  "inputManifestPins": [
+    {
+      "path": "local-runtime-redacted/p4-qualified-currency-v1",
+      "manifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+      "payloadFiles": 72
+    },
+    {
+      "path": "local-runtime-redacted/p4-qualified-currency-format-addendum-v1",
+      "manifestSha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "payloadFiles": 7
+    },
+    {
+      "path": "local-runtime-redacted/p4-qualified-currency-boundary-clarification-v1",
+      "manifestSha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
+      "payloadFiles": 5
+    },
+    {
+      "path": "local-runtime-redacted/p4-qualified-currency-browser-v1",
+      "manifestSha256": "94dffd30f325de9e0c755204c22b7a8dfa800f7a69715da58abeccf690518c0d",
+      "payloadFiles": 94
+    },
+    {
+      "path": "local-runtime-redacted/p4-qualified-currency-browser-clarification-v1",
+      "manifestSha256": "5aca126df4fdd033b1773751e7c8f98a7a92e34f674ff92b1ba53dc02bc06a1c",
+      "payloadFiles": 9
+    }
+  ],
+  "preservedReviewerManifestPins": {
+    "precode-qualified-currency-review": "f4083b3236d61b971b5359298a6b901cc23aac6cb690a538c1cfe372c59cf561",
+    "precode-qualified-currency-addenda-review": "2d1ee525fe4803e7fc8476ccfec542bd4aa4f7c888b2d57827b43077909020da"
+  },
+  "closedFinding": "KWD-EXCESS-AMBIGUITY-PREREQUISITE",
+  "closureEvidence": {
+    "ownNegativeOriginalAndSnapshotExact": true,
+    "negativeBoundChoiceEqualsFreshNativeObservedChoice": true,
+    "freshAllowedCandidateSet": [
+      "dot",
+      "comma"
+    ],
+    "explicitOriginalDotAcknowledgementRequired": true,
+    "lateCell": {
+      "sheet": 1,
+      "row": 4,
+      "page": 1,
+      "column": 4,
+      "literal": "+2.0001",
+      "scaledDecimal": "2000.1000",
+      "integral": false
+    },
+    "wrongCopiedPositiveSourceHashesRefuse": true,
+    "affectedBrowserLanguageCases": [
+      "ar-kwd-excess-fraction-original",
+      "en-kwd-excess-fraction-original"
+    ],
+    "primaryCasesUnchanged": 30,
+    "primaryWidthMeasurementsUnchanged": 132,
+    "noNegativeCsvOrRoundedExpectedMoney": true,
+    "productSourcePinsUnchanged": 10
+  },
+  "acceptedBoundaries": [
+    "Every admitted ambiguous qualified original requires its own explicit acknowledged bound choice before currency receipt mint.",
+    "A valid negative original choice permits structural receipt; Apply consumes/invalidate receipt then rejects nonintegral row4, no partial artifact.",
+    "Late old-caller mutation after private entry snapshot preserves owned output; explicit session replaceSource/updateReviewer invalidates generation.",
+    "External sidecar tamper is checked only by independent download checker, never product import.",
+    "Opaque copied/deserialized receipt has no live session ownership; no new archive UI or financial authority."
+  ],
+  "implementationNotes": [
+    "ExtractionRevision must equal the current fresh declared revision in the bound source/extraction tuple; a legitimate shared revision label is not required to be globally unique. Positive source/extraction hashes cannot be substituted.",
+    "All27 format actions retain reviewed executable boundaries in the preserved reviewer evidence; extraction hash mismatch uses existing reviewer-decision binding, and generated derived-choice corruption uses isolated private-copy faults."
+  ],
+  "remainingBlockers": [],
+  "futureAcceptanceStillRequired": [
+    "Qualified implementation review and all original/format refusal runtime gates.",
+    "Native mounted App downloads and AR/EN30case132width evidence.",
+    "Strict independent artifact checker and disposable sidecar/coverage tamper copies.",
+    "Current batch closure before separate qualified implementation branch."
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

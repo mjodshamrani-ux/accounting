@@ -180,7 +180,7 @@ function assertWildcardReview(file: SourceFile, rows: number[]) {
   assert.equal(comparison.bridge, null);
 }
 
-test('046 a repeated page banner no longer blocks the format proof (C01436)', () => {
+void test('046 a repeated page banner no longer blocks the format proof (C01436)', () => {
   const file = statement();
   // The defect it reproduces: "statement" from the page-2 title in the date column.
   assert.equal(file.sheets[0].rows[8][1], 'statement');
@@ -194,7 +194,7 @@ test('046 a repeated page banner no longer blocks the format proof (C01436)', ()
   assert.equal(formats.dateFormat.checkedValues, 3);
 });
 
-test('046 inference and the normalizer classify the same banner rows', () => {
+void test('046 inference and the normalizer classify the same banner rows', () => {
   const file = statement();
   const marked = repeatedPageMetadataRows(file, file.sheets[0], mapping);
   assert.deepEqual(
@@ -211,7 +211,7 @@ test('046 inference and the normalizer classify the same banner rows', () => {
   assert.equal(result.transactions.length, 3);
 });
 
-test('046 no movement is deleted while the banner and footer are cleaned', () => {
+void test('046 no movement is deleted while the banner and footer are cleaned', () => {
   const file = statement();
   const result = read(file);
   assert.deepEqual(
@@ -228,7 +228,7 @@ test('046 no movement is deleted while the banner and footer are cleaned', () =>
     assert.ok(decided.has(row), `row ${row} vanished from the extraction`);
 });
 
-test('046 a banner-shaped row carrying a movement stays a movement', () => {
+void test('046 a banner-shaped row carrying a movement stays a movement', () => {
   // Counter-case: same text as the banner's first line, but with a date and an
   // amount on it. An amount/identity pair is never page furniture.
   const file = statement({
@@ -248,7 +248,7 @@ test('046 a banner-shaped row carrying a movement stays a movement', () => {
   );
 });
 
-test('046 a banner that is not repeated verbatim is not treated as one', () => {
+void test('046 a banner that is not repeated verbatim is not treated as one', () => {
   const file = statement({
     secondBanner: [
       ['Cedar Trading - Transaction', 'statement (continued)', '', ''],
@@ -267,7 +267,7 @@ test('046 a banner that is not repeated verbatim is not treated as one', () => {
   );
 });
 
-test('046 without a repeated table header the page prefix is not structural', () => {
+void test('046 without a repeated table header the page prefix is not structural', () => {
   const file = statement({ repeatHeaderOnPage2: false });
   assert.equal(repeatedPageMetadataRows(file, file.sheets[0], mapping).size, 0);
   const formats = suggestFormats(file, mapping, scope.decimals);
@@ -276,7 +276,7 @@ test('046 without a repeated table header the page prefix is not structural', ()
   assertWildcardReview(file, [9, 10, 11, 12]);
 });
 
-test('046 a damaged banner row remains visible and blocks matching despite readable format evidence', () => {
+void test('046 a damaged banner row remains visible and blocks matching despite readable format evidence', () => {
   // Only the boundary-crossing note is expected furniture. Overlapping text is
   // real damage, so the proof must not quietly step over the row.
   const file = statement({
@@ -294,7 +294,7 @@ test('046 a damaged banner row remains visible and blocks matching despite reada
   assertWildcardReview(file, [9, 10, 11, 12]);
 });
 
-test('046 an amount landing in the neighbouring reference keeps the source in review', () => {
+void test('046 an amount landing in the neighbouring reference keeps the source in review', () => {
   // Column drift: page 2 repeats the banner, but a movement's amount is read
   // into the reference cell. The proof must not report a clean statement.
   const file = statement({
@@ -313,7 +313,7 @@ test('046 an amount landing in the neighbouring reference keeps the source in re
   assertWildcardReview(file, [row]);
 });
 
-test('046 a thousand-fold separator reading is never proven silently', () => {
+void test('046 a thousand-fold separator reading is never proven silently', () => {
   // A three-decimal currency: 54.321 is 54 dinars 321 fils under a dot reading
   // and 54,321 dinars under a comma reading. Both parse the whole column, so the
   // choice stays with the accountant instead of defaulting a 1000x error in.
@@ -339,7 +339,7 @@ test('046 a thousand-fold separator reading is never proven silently', () => {
   assert.equal(formats.dateFormat.status, 'proven');
 });
 
-test('046 a balance line is recognised before the number format is known', () => {
+void test('046 a balance line is recognised before the number format is known', () => {
   // "Closing balance: -3,57" only parses under a comma reading, but the comma
   // reading is what this pass has to establish. Judging the line by the default
   // dot reading hides it, and the hidden line then invalidates its own column.
@@ -364,7 +364,7 @@ test('046 a balance line is recognised before the number format is known', () =>
   assert.ok(result.excluded.some((e) => e.row === 15));
 });
 
-test('046 a malformed balance amount is not excused by trying other readings', () => {
+void test('046 a malformed balance amount is not excused by trying other readings', () => {
   // Counter-case: no supported reading parses "1.2.3", so the line stays a row
   // with a problem instead of being waved through as a balance line.
   const file = statement();
@@ -379,7 +379,7 @@ test('046 a malformed balance amount is not excused by trying other readings', (
   assertWildcardReview(file, [15]);
 });
 
-test('046 a dated, referenced movement is never taken for a balance line', () => {
+void test('046 a dated, referenced movement is never taken for a balance line', () => {
   // Counter-case for widening the reading: a row with its own date, reference
   // and amount has more than one cell, so no reading can classify it away.
   const file = statement();

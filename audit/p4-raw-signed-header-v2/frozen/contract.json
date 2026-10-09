@@ -1,0 +1,366 @@
+{
+  "version": "P4_RAW_SIGNED_HEADER_V2",
+  "synthetic": true,
+  "nativeHeaderBandChange": false,
+  "glyphGeometryClaim": false,
+  "rawHeaderRowsPreserved": true,
+  "allowedBands": [
+    [
+      [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed"
+      ],
+      [
+        "",
+        "",
+        "",
+        "amount"
+      ]
+    ],
+    [
+      [
+        "Date",
+        "Reference",
+        "Description",
+        "Movement"
+      ],
+      [
+        "",
+        "",
+        "",
+        "Signed amount"
+      ]
+    ]
+  ],
+  "exactLiteralBands": true,
+  "samePageContiguousRequired": true,
+  "newColumnCount": 4,
+  "canonicalDerivedCsvHeader": [
+    "Date",
+    "Reference",
+    "Description",
+    "Amount"
+  ],
+  "mapping": {
+    "sheet": 0,
+    "header": 0,
+    "date": 0,
+    "reference": 1,
+    "description": 2,
+    "amount": 3,
+    "mode": "signed",
+    "multiplier": 1,
+    "numberFormat": "dot",
+    "dateFormat": "ymd",
+    "pdfReviewed": true
+  },
+  "cuts": [
+    25,
+    45,
+    69
+  ],
+  "revision": "p4-raw-signed-header-independent-v2",
+  "decimals": 2,
+  "defaultBudgets": {
+    "maxOriginalBytes": 8388608,
+    "maxPages": 100,
+    "maxRows": 20000,
+    "maxProposals": 4096,
+    "maxEvidenceCells": 65536
+  },
+  "rowYieldInterval": 256,
+  "cases": [
+    {
+      "id": "split-signed",
+      "original": "split-signed.pdf",
+      "expected": "split-signed.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "movement-signed",
+      "original": "movement-signed.pdf",
+      "expected": "movement-signed.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "split-cross-page",
+      "original": "split-cross-page.pdf",
+      "expected": "split-cross-page.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "movement-cross-page",
+      "original": "movement-cross-page.pdf",
+      "expected": "movement-cross-page.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "own-reference",
+      "original": "own-reference.pdf",
+      "expected": "own-reference.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "leading-zero-reference",
+      "original": "leading-zero-reference.pdf",
+      "expected": "leading-zero-reference.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "single-cell-parent",
+      "original": "single-cell-parent.pdf",
+      "expected": "single-cell-parent.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "new-section",
+      "original": "new-section.pdf",
+      "expected": "new-section.expected.json",
+      "outcome": "derived",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "missing-lower-header",
+      "original": "missing-lower-header.pdf",
+      "expected": "missing-lower-header.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "changed-lower-header",
+      "original": "changed-lower-header.pdf",
+      "expected": "changed-lower-header.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "lower-extra-context",
+      "original": "lower-extra-context.pdf",
+      "expected": "lower-extra-context.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "upper-currency-context",
+      "original": "upper-currency-context.pdf",
+      "expected": "upper-currency-context.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "split-debit-credit",
+      "original": "split-debit-credit.pdf",
+      "expected": "split-debit-credit.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "unknown-upper-label",
+      "original": "unknown-upper-label.pdf",
+      "expected": "unknown-upper-label.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "mixed-band-labels",
+      "original": "mixed-band-labels.pdf",
+      "expected": "mixed-band-labels.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "intervening-header-row",
+      "original": "intervening-header-row.pdf",
+      "expected": "intervening-header-row.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "reversed-band",
+      "original": "reversed-band.pdf",
+      "expected": "reversed-band.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "split-initial-page",
+      "original": "split-initial-page.pdf",
+      "expected": "split-initial-page.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "missing-page-lower",
+      "original": "missing-page-lower.pdf",
+      "expected": "missing-page-lower.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "changed-page-lower",
+      "original": "changed-page-lower.pdf",
+      "expected": "changed-page-lower.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "changed-page-upper",
+      "original": "changed-page-upper.pdf",
+      "expected": "changed-page-upper.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "split-repeated-pages",
+      "original": "split-repeated-pages.pdf",
+      "expected": "split-repeated-pages.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "same-page-repeat",
+      "original": "same-page-repeat.pdf",
+      "expected": "same-page-repeat.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "missing-date",
+      "original": "missing-date.pdf",
+      "expected": "missing-date.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "late-corrupt-amount",
+      "original": "late-corrupt-amount.pdf",
+      "expected": "late-corrupt-amount.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69
+      ]
+    },
+    {
+      "id": "five-columns",
+      "original": "five-columns.pdf",
+      "expected": "five-columns.expected.json",
+      "outcome": "blocked",
+      "cuts": [
+        25,
+        45,
+        69,
+        85
+      ]
+    }
+  ],
+  "actions": "actions.json",
+  "resourceSource": "resource-cancellation.pdf",
+  "headerBandsEvidence": "All eight literal cells per band, including blanks, from original rows; initial plus every proved carry band. Additive only on this family; legacy header evidence shapes unchanged."
+}

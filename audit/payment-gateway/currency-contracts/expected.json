@@ -1,0 +1,3373 @@
+{
+  "cases": [
+    {
+      "name": "JPY",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "JPY",
+        "currencyBasis": "functional",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "files": [
+        {
+          "file": "currency-contracts/JPY-0.csv",
+          "bytes": 773,
+          "sha256": "7d8727fbcdd4ad4c496401fb6e3a441dd2f2cc7a973ee4cbf61a8293e00915ee"
+        },
+        {
+          "file": "currency-contracts/JPY-1.csv",
+          "bytes": 635,
+          "sha256": "04ac3df38e174cf0f0f94bbd1f94057751fa93976269fe5a448fad7524383971"
+        },
+        {
+          "file": "currency-contracts/JPY-2.csv",
+          "bytes": 448,
+          "sha256": "ef4f77a61528d387b5ae63755980d6aeb41d1f98157af0be83108681f12f5b57"
+        },
+        {
+          "file": "currency-contracts/JPY-3.csv",
+          "bytes": 384,
+          "sha256": "1fbe3dfe07d83a5ce02a23c73a4ea4c4599438de74bf62c3861bc08cf40a3b6d"
+        }
+      ],
+      "error": null,
+      "expected": {
+        "records": [
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",0,\"7d8727fbcdd4ad4c496401fb6e3a441dd2f2cc7a973ee4cbf61a8293e00915ee\",0,2]",
+              "source": 0,
+              "row": 2,
+              "values": [
+                "T-001",
+                "sale",
+                "2026-09-10",
+                80,
+                "Order 001"
+              ]
+            },
+            {
+              "id": "[\"payment-gateway-batch-1\",0,\"7d8727fbcdd4ad4c496401fb6e3a441dd2f2cc7a973ee4cbf61a8293e00915ee\",0,3]",
+              "source": 0,
+              "row": 3,
+              "values": [
+                "T-002",
+                "sale",
+                "2026-09-11",
+                40,
+                "Order 002"
+              ]
+            },
+            {
+              "id": "[\"payment-gateway-batch-1\",0,\"7d8727fbcdd4ad4c496401fb6e3a441dd2f2cc7a973ee4cbf61a8293e00915ee\",0,4]",
+              "source": 0,
+              "row": 4,
+              "values": [
+                "T-003",
+                "refund",
+                "2026-09-12",
+                20,
+                "Refund order 001"
+              ]
+            }
+          ],
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",1,\"04ac3df38e174cf0f0f94bbd1f94057751fa93976269fe5a448fad7524383971\",0,2]",
+              "source": 1,
+              "row": 2,
+              "values": [
+                "E-001",
+                "F-001",
+                2,
+                "Independent fee detail 1",
+                "2026-09-01",
+                "2026-09-30"
+              ]
+            },
+            {
+              "id": "[\"payment-gateway-batch-1\",1,\"04ac3df38e174cf0f0f94bbd1f94057751fa93976269fe5a448fad7524383971\",0,3]",
+              "source": 1,
+              "row": 3,
+              "values": [
+                "E-002",
+                "F-002",
+                1,
+                "Independent fee detail 2",
+                "2026-09-01",
+                "2026-09-30"
+              ]
+            }
+          ],
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",2,\"ef4f77a61528d387b5ae63755980d6aeb41d1f98157af0be83108681f12f5b57\",0,2]",
+              "source": 2,
+              "row": 2,
+              "values": [
+                "S-001",
+                "2026-09-15",
+                120,
+                20,
+                3,
+                97,
+                "P-001",
+                "Gateway settlement statement"
+              ]
+            }
+          ],
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",3,\"1fbe3dfe07d83a5ce02a23c73a4ea4c4599438de74bf62c3861bc08cf40a3b6d\",0,2]",
+              "source": 3,
+              "row": 2,
+              "values": [
+                "P-001",
+                "2026-09-16",
+                97,
+                "Bank credit original"
+              ]
+            }
+          ]
+        ],
+        "issues": [],
+        "missing": [],
+        "cells": [
+          {
+            "source": 0,
+            "row": 1,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "Transaction ID"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 2,
+            "field": "Kind",
+            "text": "Kind"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 3,
+            "field": "Posting date",
+            "text": "Posting date"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 4,
+            "field": "Amount",
+            "text": "Amount"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 5,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 6,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 9,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 11,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 13,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 14,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 15,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 16,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 17,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "T-001"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 2,
+            "field": "Kind",
+            "text": "sale"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 3,
+            "field": "Posting date",
+            "text": "2026-09-10"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 4,
+            "field": "Amount",
+            "text": "80"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 5,
+            "field": "Reference",
+            "text": "Order 001"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 6,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 9,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 11,
+            "field": "Currency",
+            "text": "JPY"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 13,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 14,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 15,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 16,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 17,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "T-002"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 2,
+            "field": "Kind",
+            "text": "sale"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 3,
+            "field": "Posting date",
+            "text": "2026-09-11"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 4,
+            "field": "Amount",
+            "text": "40"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 5,
+            "field": "Reference",
+            "text": "Order 002"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 6,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 9,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 11,
+            "field": "Currency",
+            "text": "JPY"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 13,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 14,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 15,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 16,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 17,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "T-003"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 2,
+            "field": "Kind",
+            "text": "refund"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 3,
+            "field": "Posting date",
+            "text": "2026-09-12"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 4,
+            "field": "Amount",
+            "text": "20"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 5,
+            "field": "Reference",
+            "text": "Refund order 001"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 6,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 9,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 11,
+            "field": "Currency",
+            "text": "JPY"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 13,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 14,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 15,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 16,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 17,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 1,
+            "field": "Evidence ID",
+            "text": "Evidence ID"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 2,
+            "field": "Fee ID",
+            "text": "Fee ID"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 3,
+            "field": "Amount",
+            "text": "Amount"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 4,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 5,
+            "field": "Valid from",
+            "text": "Valid from"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 6,
+            "field": "Valid to",
+            "text": "Valid to"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 7,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 8,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 9,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 10,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 11,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 12,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 13,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 14,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 15,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 16,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 17,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 18,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 19,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 1,
+            "field": "Evidence ID",
+            "text": "E-001"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 2,
+            "field": "Fee ID",
+            "text": "F-001"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 3,
+            "field": "Amount",
+            "text": "2"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 4,
+            "field": "Reference",
+            "text": "Independent fee detail 1"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 5,
+            "field": "Valid from",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 6,
+            "field": "Valid to",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 7,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 8,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 9,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 10,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 11,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 12,
+            "field": "Currency",
+            "text": "JPY"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 13,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 14,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 15,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 16,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 17,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 18,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 19,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 1,
+            "field": "Evidence ID",
+            "text": "E-002"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 2,
+            "field": "Fee ID",
+            "text": "F-002"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 3,
+            "field": "Amount",
+            "text": "1"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 4,
+            "field": "Reference",
+            "text": "Independent fee detail 2"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 5,
+            "field": "Valid from",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 6,
+            "field": "Valid to",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 7,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 8,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 9,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 10,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 11,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 12,
+            "field": "Currency",
+            "text": "JPY"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 13,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 14,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 15,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 16,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 17,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 18,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 19,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 1,
+            "field": "Settlement ID",
+            "text": "Settlement ID"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 2,
+            "field": "Settlement date",
+            "text": "Settlement date"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 3,
+            "field": "Gross sales",
+            "text": "Gross sales"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 4,
+            "field": "Refunds",
+            "text": "Refunds"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 5,
+            "field": "Fees",
+            "text": "Fees"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 6,
+            "field": "Net",
+            "text": "Net"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 7,
+            "field": "Payout ID",
+            "text": "Payout ID"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 8,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 9,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 10,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 11,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 12,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 13,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 14,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 15,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 16,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 17,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 18,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 19,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 20,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 21,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 1,
+            "field": "Settlement ID",
+            "text": "S-001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 2,
+            "field": "Settlement date",
+            "text": "2026-09-15"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 3,
+            "field": "Gross sales",
+            "text": "120"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 4,
+            "field": "Refunds",
+            "text": "20"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 5,
+            "field": "Fees",
+            "text": "3"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 6,
+            "field": "Net",
+            "text": "97"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 7,
+            "field": "Payout ID",
+            "text": "P-001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 8,
+            "field": "Reference",
+            "text": "Gateway settlement statement"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 9,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 10,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 11,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 12,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 13,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 14,
+            "field": "Currency",
+            "text": "JPY"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 15,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 16,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 17,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 18,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 19,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 20,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 21,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 1,
+            "field": "Payout ID",
+            "text": "Payout ID"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 2,
+            "field": "Value date",
+            "text": "Value date"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 3,
+            "field": "Credit",
+            "text": "Credit"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 4,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 5,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 6,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 7,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 8,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 9,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 10,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 11,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 12,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 13,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 14,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 15,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 16,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 17,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 1,
+            "field": "Payout ID",
+            "text": "P-001"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 2,
+            "field": "Value date",
+            "text": "2026-09-16"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 3,
+            "field": "Credit",
+            "text": "97"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 4,
+            "field": "Reference",
+            "text": "Bank credit original"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 5,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 6,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 7,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 8,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 9,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 10,
+            "field": "Currency",
+            "text": "JPY"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 11,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 12,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 13,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 14,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 15,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 16,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 17,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          }
+        ],
+        "inventory": [
+          {
+            "source": 0,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "kind": "transactions",
+            "errors": []
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "kind": "transactions",
+            "errors": []
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "kind": "transactions",
+            "errors": []
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "kind": "fee-evidence",
+            "errors": []
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "kind": "fee-evidence",
+            "errors": []
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "kind": "settlement",
+            "errors": []
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "kind": "payout",
+            "errors": []
+          }
+        ],
+        "totals": [
+          120,
+          20,
+          3,
+          97
+        ],
+        "residuals": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "financial": "ready"
+      },
+      "afterFirstDraft": true
+    },
+    {
+      "name": "KWD",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "KWD",
+        "currencyBasis": "functional",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "files": [
+        {
+          "file": "currency-contracts/KWD-0.csv",
+          "bytes": 785,
+          "sha256": "8bfcbcbd7bfc55b86b4d71fedb4fb795b48dc040db339d34c6052185f9767853"
+        },
+        {
+          "file": "currency-contracts/KWD-1.csv",
+          "bytes": 643,
+          "sha256": "52a678336d09041785975a21f2311974551585ea77fed667a36fd3aa66ff9df6"
+        },
+        {
+          "file": "currency-contracts/KWD-2.csv",
+          "bytes": 464,
+          "sha256": "0857cefca8f3452264019a72f9fd53405079cba4cd7e9c985587fbf6317d8955"
+        },
+        {
+          "file": "currency-contracts/KWD-3.csv",
+          "bytes": 388,
+          "sha256": "2c888bcf9c60bb8c7a7036078566e9f7c0ef11986ed240682deeb83491ee7264"
+        }
+      ],
+      "error": null,
+      "expected": {
+        "records": [
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",0,\"8bfcbcbd7bfc55b86b4d71fedb4fb795b48dc040db339d34c6052185f9767853\",0,2]",
+              "source": 0,
+              "row": 2,
+              "values": [
+                "T-001",
+                "sale",
+                "2026-09-10",
+                80001,
+                "Order 001"
+              ]
+            },
+            {
+              "id": "[\"payment-gateway-batch-1\",0,\"8bfcbcbd7bfc55b86b4d71fedb4fb795b48dc040db339d34c6052185f9767853\",0,3]",
+              "source": 0,
+              "row": 3,
+              "values": [
+                "T-002",
+                "sale",
+                "2026-09-11",
+                40000,
+                "Order 002"
+              ]
+            },
+            {
+              "id": "[\"payment-gateway-batch-1\",0,\"8bfcbcbd7bfc55b86b4d71fedb4fb795b48dc040db339d34c6052185f9767853\",0,4]",
+              "source": 0,
+              "row": 4,
+              "values": [
+                "T-003",
+                "refund",
+                "2026-09-12",
+                20001,
+                "Refund order 001"
+              ]
+            }
+          ],
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",1,\"52a678336d09041785975a21f2311974551585ea77fed667a36fd3aa66ff9df6\",0,2]",
+              "source": 1,
+              "row": 2,
+              "values": [
+                "E-001",
+                "F-001",
+                2000,
+                "Independent fee detail 1",
+                "2026-09-01",
+                "2026-09-30"
+              ]
+            },
+            {
+              "id": "[\"payment-gateway-batch-1\",1,\"52a678336d09041785975a21f2311974551585ea77fed667a36fd3aa66ff9df6\",0,3]",
+              "source": 1,
+              "row": 3,
+              "values": [
+                "E-002",
+                "F-002",
+                1000,
+                "Independent fee detail 2",
+                "2026-09-01",
+                "2026-09-30"
+              ]
+            }
+          ],
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",2,\"0857cefca8f3452264019a72f9fd53405079cba4cd7e9c985587fbf6317d8955\",0,2]",
+              "source": 2,
+              "row": 2,
+              "values": [
+                "S-001",
+                "2026-09-15",
+                120001,
+                20001,
+                3000,
+                97000,
+                "P-001",
+                "Gateway settlement statement"
+              ]
+            }
+          ],
+          [
+            {
+              "id": "[\"payment-gateway-batch-1\",3,\"2c888bcf9c60bb8c7a7036078566e9f7c0ef11986ed240682deeb83491ee7264\",0,2]",
+              "source": 3,
+              "row": 2,
+              "values": [
+                "P-001",
+                "2026-09-16",
+                97000,
+                "Bank credit original"
+              ]
+            }
+          ]
+        ],
+        "issues": [],
+        "missing": [],
+        "cells": [
+          {
+            "source": 0,
+            "row": 1,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "Transaction ID"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 2,
+            "field": "Kind",
+            "text": "Kind"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 3,
+            "field": "Posting date",
+            "text": "Posting date"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 4,
+            "field": "Amount",
+            "text": "Amount"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 5,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 6,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 9,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 11,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 13,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 14,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 15,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 16,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 17,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 0,
+            "row": 1,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "T-001"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 2,
+            "field": "Kind",
+            "text": "sale"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 3,
+            "field": "Posting date",
+            "text": "2026-09-10"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 4,
+            "field": "Amount",
+            "text": "80.001"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 5,
+            "field": "Reference",
+            "text": "Order 001"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 6,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 9,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 11,
+            "field": "Currency",
+            "text": "KWD"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 13,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 14,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 15,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 16,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 17,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "T-002"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 2,
+            "field": "Kind",
+            "text": "sale"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 3,
+            "field": "Posting date",
+            "text": "2026-09-11"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 4,
+            "field": "Amount",
+            "text": "40.000"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 5,
+            "field": "Reference",
+            "text": "Order 002"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 6,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 9,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 11,
+            "field": "Currency",
+            "text": "KWD"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 13,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 14,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 15,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 16,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 17,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 1,
+            "field": "Transaction ID",
+            "text": "T-003"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 2,
+            "field": "Kind",
+            "text": "refund"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 3,
+            "field": "Posting date",
+            "text": "2026-09-12"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 4,
+            "field": "Amount",
+            "text": "20.001"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 5,
+            "field": "Reference",
+            "text": "Refund order 001"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 6,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 7,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 8,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 9,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 10,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 11,
+            "field": "Currency",
+            "text": "KWD"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 12,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 13,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 14,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 15,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 16,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 17,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "column": 18,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 1,
+            "field": "Evidence ID",
+            "text": "Evidence ID"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 2,
+            "field": "Fee ID",
+            "text": "Fee ID"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 3,
+            "field": "Amount",
+            "text": "Amount"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 4,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 5,
+            "field": "Valid from",
+            "text": "Valid from"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 6,
+            "field": "Valid to",
+            "text": "Valid to"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 7,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 8,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 9,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 10,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 11,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 12,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 13,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 14,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 15,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 16,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 17,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 18,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "column": 19,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 1,
+            "field": "Evidence ID",
+            "text": "E-001"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 2,
+            "field": "Fee ID",
+            "text": "F-001"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 3,
+            "field": "Amount",
+            "text": "2.000"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 4,
+            "field": "Reference",
+            "text": "Independent fee detail 1"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 5,
+            "field": "Valid from",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 6,
+            "field": "Valid to",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 7,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 8,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 9,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 10,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 11,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 12,
+            "field": "Currency",
+            "text": "KWD"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 13,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 14,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 15,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 16,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 17,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 18,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "column": 19,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 1,
+            "field": "Evidence ID",
+            "text": "E-002"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 2,
+            "field": "Fee ID",
+            "text": "F-002"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 3,
+            "field": "Amount",
+            "text": "1.000"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 4,
+            "field": "Reference",
+            "text": "Independent fee detail 2"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 5,
+            "field": "Valid from",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 6,
+            "field": "Valid to",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 7,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 8,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 9,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 10,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 11,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 12,
+            "field": "Currency",
+            "text": "KWD"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 13,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 14,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 15,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 16,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 17,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 18,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "column": 19,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 1,
+            "field": "Settlement ID",
+            "text": "Settlement ID"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 2,
+            "field": "Settlement date",
+            "text": "Settlement date"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 3,
+            "field": "Gross sales",
+            "text": "Gross sales"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 4,
+            "field": "Refunds",
+            "text": "Refunds"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 5,
+            "field": "Fees",
+            "text": "Fees"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 6,
+            "field": "Net",
+            "text": "Net"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 7,
+            "field": "Payout ID",
+            "text": "Payout ID"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 8,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 9,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 10,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 11,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 12,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 13,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 14,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 15,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 16,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 17,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 18,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 19,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 20,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "column": 21,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 1,
+            "field": "Settlement ID",
+            "text": "S-001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 2,
+            "field": "Settlement date",
+            "text": "2026-09-15"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 3,
+            "field": "Gross sales",
+            "text": "120.001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 4,
+            "field": "Refunds",
+            "text": "20.001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 5,
+            "field": "Fees",
+            "text": "3.000"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 6,
+            "field": "Net",
+            "text": "97.000"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 7,
+            "field": "Payout ID",
+            "text": "P-001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 8,
+            "field": "Reference",
+            "text": "Gateway settlement statement"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 9,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 10,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 11,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 12,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 13,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 14,
+            "field": "Currency",
+            "text": "KWD"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 15,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 16,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 17,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 18,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 19,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 20,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "column": 21,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 1,
+            "field": "Payout ID",
+            "text": "Payout ID"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 2,
+            "field": "Value date",
+            "text": "Value date"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 3,
+            "field": "Credit",
+            "text": "Credit"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 4,
+            "field": "Reference",
+            "text": "Reference"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 5,
+            "field": "Entity",
+            "text": "Entity"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 6,
+            "field": "Gateway",
+            "text": "Gateway"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 7,
+            "field": "Merchant account",
+            "text": "Merchant account"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 8,
+            "field": "Bank account",
+            "text": "Bank account"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 9,
+            "field": "Complete dimensions",
+            "text": "Complete dimensions"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 10,
+            "field": "Currency",
+            "text": "Currency"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 11,
+            "field": "Currency basis",
+            "text": "Currency basis"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 12,
+            "field": "FX policy",
+            "text": "FX policy"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 13,
+            "field": "Period start",
+            "text": "Period start"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 14,
+            "field": "Period end",
+            "text": "Period end"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 15,
+            "field": "As of",
+            "text": "As of"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 16,
+            "field": "Policy version",
+            "text": "Policy version"
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "column": 17,
+            "field": "Batch ID",
+            "text": "Batch ID"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 1,
+            "field": "Payout ID",
+            "text": "P-001"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 2,
+            "field": "Value date",
+            "text": "2026-09-16"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 3,
+            "field": "Credit",
+            "text": "97.000"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 4,
+            "field": "Reference",
+            "text": "Bank credit original"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 5,
+            "field": "Entity",
+            "text": "Synthetic Merchant"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 6,
+            "field": "Gateway",
+            "text": "Gateway example"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 7,
+            "field": "Merchant account",
+            "text": "001"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 8,
+            "field": "Bank account",
+            "text": "BANK-01"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 9,
+            "field": "Complete dimensions",
+            "text": "department=01"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 10,
+            "field": "Currency",
+            "text": "KWD"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 11,
+            "field": "Currency basis",
+            "text": "functional"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 12,
+            "field": "FX policy",
+            "text": "same-currency-no-conversion"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 13,
+            "field": "Period start",
+            "text": "2026-09-01"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 14,
+            "field": "Period end",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 15,
+            "field": "As of",
+            "text": "2026-09-30"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 16,
+            "field": "Policy version",
+            "text": "PG-1"
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "column": 17,
+            "field": "Batch ID",
+            "text": "BATCH-001"
+          }
+        ],
+        "inventory": [
+          {
+            "source": 0,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 0,
+            "row": 2,
+            "kind": "transactions",
+            "errors": []
+          },
+          {
+            "source": 0,
+            "row": 3,
+            "kind": "transactions",
+            "errors": []
+          },
+          {
+            "source": 0,
+            "row": 4,
+            "kind": "transactions",
+            "errors": []
+          },
+          {
+            "source": 1,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 1,
+            "row": 2,
+            "kind": "fee-evidence",
+            "errors": []
+          },
+          {
+            "source": 1,
+            "row": 3,
+            "kind": "fee-evidence",
+            "errors": []
+          },
+          {
+            "source": 2,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 2,
+            "row": 2,
+            "kind": "settlement",
+            "errors": []
+          },
+          {
+            "source": 3,
+            "row": 1,
+            "kind": "header",
+            "errors": []
+          },
+          {
+            "source": 3,
+            "row": 2,
+            "kind": "payout",
+            "errors": []
+          }
+        ],
+        "totals": [
+          120001,
+          20001,
+          3000,
+          97000
+        ],
+        "residuals": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "financial": "ready"
+      },
+      "afterFirstDraft": true
+    },
+    {
+      "name": "USD",
+      "scope": {
+        "entity": "Synthetic Merchant",
+        "gateway": "Gateway example",
+        "merchantAccount": "001",
+        "bankAccount": "BANK-01",
+        "dimensions": "department=01",
+        "currency": "USD",
+        "currencyBasis": "functional",
+        "fxPolicy": "same-currency-no-conversion",
+        "start": "2026-09-01",
+        "end": "2026-09-30",
+        "asOf": "2026-09-30",
+        "policyVersion": "PG-1",
+        "batchId": "BATCH-001"
+      },
+      "files": [
+        {
+          "file": "currency-contracts/USD-0.csv",
+          "bytes": 782,
+          "sha256": "38f41c1d77d50f6fe2750a94cbede4412f24bce6be7fb260d8d8cfc3230e99dc"
+        },
+        {
+          "file": "currency-contracts/USD-1.csv",
+          "bytes": 641,
+          "sha256": "90ceb9b88f89541c1bba0a06691c44e33493cf15f98f9eb165a15a10121c9d2b"
+        },
+        {
+          "file": "currency-contracts/USD-2.csv",
+          "bytes": 460,
+          "sha256": "67d1b27348d6c6f334afbb6b80c8f4d184d016d0fea680a75e9f6aeca3937627"
+        },
+        {
+          "file": "currency-contracts/USD-3.csv",
+          "bytes": 387,
+          "sha256": "468531e8f3c4696c977c23f2c14da32752b865cef1bc0f1fafa9a5063993e48c"
+        }
+      ],
+      "error": "CURRENCY",
+      "expected": null,
+      "afterFirstDraft": true
+    }
+  ]
+}

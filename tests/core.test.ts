@@ -53,7 +53,7 @@ const mapping: Mapping = {
   opening: '',
   closing: '',
 };
-test('decimal money: no floating arithmetic, Arabic digits and parentheses', () => {
+void test('decimal money: no floating arithmetic, Arabic digits and parentheses', () => {
   assert.equal(parseMoney('١٬٢٣٤٫٥٦'), 123456);
   assert.equal(parseMoney('(1.234,56)', 'comma'), -123456);
   assert.equal(parseMoney('0.01'), 1);
@@ -61,7 +61,7 @@ test('decimal money: no floating arithmetic, Arabic digits and parentheses', () 
   assert.equal(parseMoney('0.123', 'dot', 3), 123);
   assert.equal(money(-1), '-0.01');
 });
-test('reject ambiguous grouping, excessive precision, missing and exponent amounts', () => {
+void test('reject ambiguous grouping, excessive precision, missing and exponent amounts', () => {
   for (const v of [
     '12,34.56',
     '1.001',
@@ -75,14 +75,14 @@ test('reject ambiguous grouping, excessive precision, missing and exponent amoun
     assert.throws(() => parseMoney(v), v);
   assert.throws(() => safeSum([1e14, 1]));
 });
-test('dates require explicit format and real calendar dates', () => {
+void test('dates require explicit format and real calendar dates', () => {
   assert.equal(parseDate('03/04/2026', 'dmy'), '2026-04-03');
   assert.equal(parseDate('03/04/2026', 'mdy'), '2026-03-04');
   assert.equal(parseDate('٢٠٢٦-٠٨-٠١', 'ymd'), '2026-08-01');
   assert.throws(() => parseDate('2026-02-29', 'ymd'));
   assert.throws(() => parseDate('01/01/26', 'dmy'));
 });
-test('reference normalization preserves year and leading zero distinctions', () => {
+void test('reference normalization preserves year and leading zero distinctions', () => {
   assert.equal(normalizeReference(' INV/001 '), 'INV001');
   assert.notEqual(normalizeReference('INV-001'), normalizeReference('INV-1'));
   assert.notEqual(
@@ -90,7 +90,7 @@ test('reference normalization preserves year and leading zero distinctions', () 
     normalizeReference('INV-001'),
   );
 });
-test('demo retains duplicate ambiguity and produces 2 strict automatic pairs', () => {
+void test('demo retains duplicate ambiguity and produces 2 strict automatic pairs', () => {
   const r = run();
   assert.equal(r.matches.length, 2);
   assert.equal(r.ambiguousIds.length, 2);
@@ -103,7 +103,7 @@ test('demo retains duplicate ambiguity and produces 2 strict automatic pairs', (
   assert.equal(r.caseCounts.needsReviewSourceRows, 5);
   assert.equal(r.cases.flatMap((c) => c.sourceTrace).length, 14);
 });
-test('zero bridge residual never deletes opposite exceptions', () => {
+void test('zero bridge residual never deletes opposite exceptions', () => {
   const files: [SourceFile, SourceFile] = [
     fixture([
       ['2026-08-01', 'INV-A1', '100'],
@@ -118,7 +118,7 @@ test('zero bridge residual never deletes opposite exceptions', () => {
   assert.equal(r.supplierOnly.length, 2);
   assert.equal(r.matches.length, 1);
 });
-test('duplicate equality is not resolved by order or date', () => {
+void test('duplicate equality is not resolved by order or date', () => {
   const r = run();
   assert.ok(
     !r.matches.some(
@@ -133,14 +133,14 @@ test('duplicate equality is not resolved by order or date', () => {
     ];
   assert.equal(run(files).matches.length, 2);
 });
-test('numeric-only weak reference does not auto match', () => {
+void test('numeric-only weak reference does not auto match', () => {
   const files: [SourceFile, SourceFile] = [
     fixture([['2026-08-01', '00104', '100']]),
     separateSheets(fixture([['2026-08-01', '00104', '100']])),
   ];
   assert.equal(run(files, [mapping, mapping]).matches.length, 0);
 });
-test('direction must be explicit and sign disagreement cannot auto match', () => {
+void test('direction must be explicit and sign disagreement cannot auto match', () => {
   const files: [SourceFile, SourceFile] = [
     fixture([['2026-08-01', 'INV-104', '100']]),
     fixture([['2026-08-01', 'INV-104', '-100']]),
@@ -151,7 +151,7 @@ test('direction must be explicit and sign disagreement cannot auto match', () =>
     1,
   );
 });
-test('cutoff exclusions retained and blank/header rows accounted for', () => {
+void test('cutoff exclusions retained and blank/header rows accounted for', () => {
   const file = fixture([
     ['2026-08-01', 'INV-104', '100'],
     ['2026-09-01', 'INV-105', '200'],
@@ -165,7 +165,7 @@ test('cutoff exclusions retained and blank/header rows accounted for', () => {
     file.sheets[0].rows.length,
   );
 });
-test('a formula row blocks, a total row is classified, and no row is skipped silently', () => {
+void test('a formula row blocks, a total row is classified, and no row is skipped silently', () => {
   const f = fixture([
     ['2026-08-01', 'INV-104', '100'],
     ['', 'Total', '100'],
@@ -188,7 +188,7 @@ test('a formula row blocks, a total row is classified, and no row is skipped sil
     f.sheets[0].rows.length,
   );
 });
-test('manual exclusions require reason and preserve source contents', () => {
+void test('manual exclusions require reason and preserve source contents', () => {
   const f = fixture([
     ['', 'Total', '100'],
     ['2026-08-01', 'INV-104', '100'],
@@ -206,13 +206,13 @@ test('manual exclusions require reason and preserve source contents', () => {
     '100',
   ]);
 });
-test('currency mismatch blocks source', () => {
+void test('currency mismatch blocks source', () => {
   const f = structuredClone(demoFiles[0]);
   f.sheets[0].rows[1][4] = 'USD';
   const r = normalizeSource(f, demoMappings[0], scope, 'supplier');
   assert.equal(r.errors[0].row, 2);
 });
-test('reused column mapping is rejected', () => {
+void test('reused column mapping is rejected', () => {
   assert.throws(() =>
     normalizeSource(
       demoFiles[0],
@@ -222,7 +222,7 @@ test('reused column mapping is rejected', () => {
     ),
   );
 });
-test('arithmetic bridge stays separate from user coverage and invalid balances block it', () => {
+void test('arithmetic bridge stays separate from user coverage and invalid balances block it', () => {
   const unconfirmed = run(demoFiles, demoMappings, {
     ...scope,
     coverageConfirmed: false,
@@ -241,13 +241,13 @@ test('arithmetic bridge stays separate from user coverage and invalid balances b
   m[1].closing = '41000';
   assert.equal(run(demoFiles, m).bridge, null);
 });
-test('opening adjustment remains separate and unexplained', () => {
+void test('opening adjustment remains separate and unexplained', () => {
   const maps = structuredClone(demoMappings);
   maps[1].opening = '21000';
   maps[1].closing = '43000';
   assert.equal(run(demoFiles, maps).bridge?.openingAdjustment, 100000);
 });
-test('open items include old unpaid documents; sum must match closing', () => {
+void test('open items include old unpaid documents; sum must match closing', () => {
   const files: [SourceFile, SourceFile] = [
     fixture([['2026-01-01', 'INV-104', '40']]),
     separateSheets(fixture([['2026-01-01', 'INV-104', '40']])),
@@ -258,7 +258,7 @@ test('open items include old unpaid documents; sum must match closing', () => {
   assert.equal(r.balanceComparable, true);
   assert.equal(r.bridge?.openingAdjustment, 0);
 });
-test('mixed report types rejected', () => {
+void test('mixed report types rejected', () => {
   assert.throws(() =>
     run(demoFiles, [
       demoMappings[0],
@@ -266,7 +266,7 @@ test('mixed report types rejected', () => {
     ]),
   );
 });
-test('manual pair cannot consume a transaction twice or conceal amount discrepancy', () => {
+void test('manual pair cannot consume a transaction twice or conceal amount discrepancy', () => {
   const r = run();
   assert.throws(() =>
     compare(r.supplier, r.ledger, scope, [
@@ -284,7 +284,7 @@ test('manual pair cannot consume a transaction twice or conceal amount discrepan
     ]),
   );
 });
-test('rejected automatic match stays a rejected case until a new explicit decision', () => {
+void test('rejected automatic match stays a rejected case until a new explicit decision', () => {
   const r = run();
   const rejected = [`${r.matches[0].supplierId}|${r.matches[0].ledgerId}`];
   const r2 = compare(r.supplier, r.ledger, scope, [], rejected);
@@ -298,14 +298,14 @@ test('rejected automatic match stays a rejected case until a new explicit decisi
     14,
   );
 });
-test('inference suggests only column indices, no invented scope or balance', () => {
+void test('inference suggests only column indices, no invented scope or balance', () => {
   const m = inferMapping(demoFiles[0]);
   assert.equal(m.reference, 1);
   assert.equal(m.amount, 3);
   assert.equal(m.opening, '');
   assert.equal(m.periodStart, '');
 });
-test('20k rows compare without quadratic candidate search', () => {
+void test('20k rows compare without quadratic candidate search', () => {
   const rows = Array.from({ length: 20000 }, (_, i) => [
     '2026-08-01',
     `INV-${i}`,
@@ -318,7 +318,7 @@ test('20k rows compare without quadratic candidate search', () => {
   assert.ok(performance.now() - start < 6000);
 });
 
-test('generic word reference does not auto match', () => {
+void test('generic word reference does not auto match', () => {
   const f = fixture([['2026-08-01', 'INVOICE', '100']]);
   assert.equal(
     run([f, separateSheets(f)], [mapping, mapping]).matches.length,
@@ -326,7 +326,7 @@ test('generic word reference does not auto match', () => {
   );
 });
 
-test('extra CSV fields cannot silently shift or truncate amount', () => {
+void test('extra CSV fields cannot silently shift or truncate amount', () => {
   const f = fixture([['2026-08-01', 'INV-100', '12', '34']]);
   const r = normalizeSource(f, mapping, scope, 'supplier');
   assert.equal(r.transactions.length, 0);

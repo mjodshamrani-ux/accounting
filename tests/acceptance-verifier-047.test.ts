@@ -170,7 +170,7 @@ const sound = (): Record<string, (string | number)[][]> => ({
   'Ledger transactions': txRows(ledger),
 });
 
-test('047 a sound export passes the round', async () => {
+void test('047 a sound export passes the round', async () => {
   const result = await verifyAcceptanceExport(
     await workbook(sound()),
     expected,
@@ -181,7 +181,7 @@ test('047 a sound export passes the round', async () => {
   assert.match(result.reader, /no ExcelJS/);
 });
 
-test('047 swapping two links fails even though the count is unchanged', async () => {
+void test('047 swapping two links fails even though the count is unchanged', async () => {
   const sheets = sound();
   sheets['Matches'] = matchRows([
     ['INV-1', 'INV-2'],
@@ -202,7 +202,7 @@ test('047 swapping two links fails even though the count is unchanged', async ()
   );
 });
 
-test('047 a link the case forbids is caught', async () => {
+void test('047 a link the case forbids is caught', async () => {
   const withForbidden = {
     ...expected,
     requiredLinks: expected.requiredLinks.slice(0, 2),
@@ -221,7 +221,7 @@ test('047 a link the case forbids is caught', async () => {
   );
 });
 
-test('047 a dropped row on either side is caught', async () => {
+void test('047 a dropped row on either side is caught', async () => {
   for (const side of ['Supplier transactions', 'Ledger transactions']) {
     const sheets = sound();
     sheets[side] = txRows(supplier.slice(0, 2));
@@ -237,7 +237,7 @@ test('047 a dropped row on either side is caught', async () => {
   }
 });
 
-test('047 a changed amount is caught, and a blank one cannot slip through', async () => {
+void test('047 a changed amount is caught, and a blank one cannot slip through', async () => {
   const changed = sound();
   changed['Supplier transactions'] = txRows([
     { ...supplier[0], minor: supplier[0].minor + 100 },
@@ -273,7 +273,7 @@ test('047 a changed amount is caught, and a blank one cannot slip through', asyn
   }
 });
 
-test('047 an item that must stay for review or unmatched is checked', async () => {
+void test('047 an item that must stay for review or unmatched is checked', async () => {
   const sheets = sound();
   const wantsOpen = {
     ...expected,
@@ -292,7 +292,7 @@ test('047 an item that must stay for review or unmatched is checked', async () =
 
 // The round's own pass rule. Before this cycle it recorded the expected match
 // count without comparing it, and treated a missing export check as success.
-test('047 an unchecked export is not an accounting pass', () => {
+void test('047 an unchecked export is not an accounting pass', () => {
   const entry = {
     expect: 'completed' as const,
     expected: {
@@ -321,7 +321,7 @@ test('047 an unchecked export is not an accounting pass', () => {
   );
 });
 
-test('047 a link count that disagrees with the declared links is not a pass', () => {
+void test('047 a link count that disagrees with the declared links is not a pass', () => {
   const entry = {
     expect: 'completed' as const,
     expected: {
@@ -343,7 +343,7 @@ test('047 a link count that disagrees with the declared links is not a pass', ()
   );
 });
 
-test('047 reaching the results screen is not the criterion for a stop case', () => {
+void test('047 reaching the results screen is not the criterion for a stop case', () => {
   const entry = {
     expect: 'blocked-unreadable' as const,
     expectReason: /تعذر التحقق من صيغة/,

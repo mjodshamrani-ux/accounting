@@ -1,0 +1,220 @@
+{
+  "version": "p5-browser-device-measurement-v1",
+  "startedAt": "2026-10-08T01:56:25.132Z",
+  "developmentOnly": true,
+  "productEnabled": false,
+  "synthetic": true,
+  "semanticAcceptance": false,
+  "physicalWeakDeviceEvidence": false,
+  "deviceEvidence": {
+    "physical": true,
+    "throttled": false,
+    "classificationBasis": "current development host; no weak-device claim"
+  },
+  "freezeSha256": "40d32a7190db764865f744b839d35a7ce2523c306b97cc9bd7e6d0fbdad3c934",
+  "sourceCommit": "faaffb9f06d96c15c27f2b129ffc62e5c5e4a874",
+  "host": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "release": "25.6.0",
+    "cpu": "Apple M5",
+    "ramBytes": 17179869184,
+    "logicalCpus": 10
+  },
+  "browser": {
+    "version": "154.0.8037.98"
+  },
+  "backend": "wasm",
+  "threadProfile": {
+    "requested": 4,
+    "observedHardwareConcurrency": 10,
+    "crossOriginIsolated": true
+  },
+  "model": {
+    "id": "onnx-community/Qwen2.5-0.5B-Instruct",
+    "revision": "22942cb7d7ba4cc81bb4673549ca4d4614469b5e",
+    "dtype": "q8",
+    "totalBytes": 519137612
+  },
+  "runtime": {
+    "transformers": "4.3.0",
+    "onnxruntimeWeb": "1.31.0-dev.20260914-8d85527a0"
+  },
+  "assets": [
+    {
+      "path": "config.json",
+      "bytes": 678,
+      "sha256": "777e01f0fbb3346eb229cb6fb278ed6533c1e4dcb9ebf4bed0f6e94ef17fa1b5",
+      "verified": true
+    },
+    {
+      "path": "generation_config.json",
+      "bytes": 242,
+      "sha256": "f7e7ce458658b2d40d9eb213b91b77a8bf698845ab89360976722d7ac46928a3",
+      "verified": true
+    },
+    {
+      "path": "special_tokens_map.json",
+      "bytes": 613,
+      "sha256": "76862e765266b85aa9459767e33cbaf13970f327a0e88d1c65846c2ddd3a1ecd",
+      "verified": true
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 7031673,
+      "sha256": "a8506e7111b80c6d8635951a02eab0f4e1a8e4e5772da83846579e97b16f61bf",
+      "verified": true
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 7849,
+      "sha256": "6a14243f0ae04884e597b3f032c05e15de9f417318fdcac24ab4e2680e691430",
+      "verified": true
+    },
+    {
+      "path": "onnx/model_quantized.onnx",
+      "bytes": 512096557,
+      "sha256": "41834041ab1b29eff9fc592f1a29a1844133aea35832ea9fa91682be13016100",
+      "verified": true
+    }
+  ],
+  "network": {
+    "boundary": "Playwright request interception and loopback HTTP asset whitelist; no OS air-gap claim",
+    "osAirGap": false,
+    "requests": [
+      {
+        "url": "http://127.0.0.1:60097/",
+        "method": "GET",
+        "resourceType": "document",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60097/harness/controller.mjs",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60097/harness/worker.mjs",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60097/runtime/transformers.web.min.js",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60097/harness/worker.mjs",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      },
+      {
+        "url": "http://127.0.0.1:60097/runtime/transformers.web.min.js",
+        "method": "GET",
+        "resourceType": "script",
+        "allowed": true
+      }
+    ],
+    "serverRequests": [
+      {
+        "method": "GET",
+        "path": "/",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/harness/controller.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/harness/worker.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/transformers.web.min.js",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/harness/worker.mjs",
+        "allowed": true
+      },
+      {
+        "method": "GET",
+        "path": "/runtime/transformers.web.min.js",
+        "allowed": true
+      }
+    ]
+  },
+  "memory": {
+    "method": "CDP SystemInfo.getProcessInfo owned Chrome PIDs + complete ps RSS sum",
+    "limitBytes": 6442450944,
+    "intervalMs": 500,
+    "samples": [
+      {
+        "at": "2026-10-08T01:56:29.232Z",
+        "stage": "launch",
+        "bytes": 571228160,
+        "pids": [
+          3123,
+          3147,
+          3148,
+          3149,
+          3150
+        ]
+      }
+    ],
+    "gaps": [],
+    "peakBytes": 571228160,
+    "limitExceeded": false,
+    "limitations": "RSS sum can double-count shared pages; snapshots can miss peaks between samples. Missing PIDs invalidate the complete sample."
+  },
+  "cases": [],
+  "probes": {
+    "environment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 10,
+      "crossOriginIsolated": true,
+      "webgpuExposed": true
+    },
+    "cancellation": {
+      "skipped": true,
+      "reason": "Actual model load failed; no generation-cancellation claim"
+    },
+    "missingAsset": {
+      "status": "fallback",
+      "reason": "worker-unavailable",
+      "error": null
+    },
+    "unavailable": {
+      "status": "fallback",
+      "reason": "worker-unavailable",
+      "error": "Error: Unavailable worker capability"
+    },
+    "staleReply": {
+      "accepted": false,
+      "staleReplies": 1
+    }
+  },
+  "errors": [],
+  "limitations": [
+    "Four small frozen synthetic runtime smokes; output is not semantic acceptance.",
+    "Request routing restricts page and worker requests; Chromium background networking is not an OS air-gap proof.",
+    "Host observations and any CPU throttling cannot substitute for a physical weak-device run."
+  ],
+  "load": {
+    "status": "fallback",
+    "reason": "worker-unavailable",
+    "error": null,
+    "wallMs": 17.442667000000256
+  },
+  "completedAt": "2026-10-08T01:56:29.900Z",
+  "schemaErrors": [],
+  "runtimeSmokePassed": false
+}

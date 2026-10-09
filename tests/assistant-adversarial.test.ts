@@ -23,7 +23,7 @@ const run = () =>
     scope,
   );
 
-test('AI cannot pick one row from a reference shared by several documents', () => {
+void test('AI cannot pick one row from a reference shared by several documents', () => {
   const result = run();
   for (const id of ['supplier:0:8', 'supplier:0:9', 'ledger:0:7']) {
     assert.equal(
@@ -42,7 +42,7 @@ test('AI cannot pick one row from a reference shared by several documents', () =
   );
 });
 
-test('explicit row ID can disambiguate AI routing, but contradictory references cannot', () => {
+void test('explicit row ID can disambiguate AI routing, but contradictory references cannot', () => {
   const result = run();
   const raw = JSON.stringify({
     intent: 'transaction',
@@ -55,7 +55,7 @@ test('explicit row ID can disambiguate AI routing, but contradictory references 
   );
 });
 
-test('AI routing rejects irrelevant transaction fields and blank or oversized questions', () => {
+void test('AI routing rejects irrelevant transaction fields and blank or oversized questions', () => {
   const result = run();
   assert.equal(
     interpretModelOutput(
@@ -72,7 +72,7 @@ test('AI routing rejects irrelevant transaction fields and blank or oversized qu
   );
 });
 
-test('out-of-range hypothesis differences fail closed without crashing the assistant', () => {
+void test('out-of-range hypothesis differences fail closed without crashing the assistant', () => {
   const result = run();
   result.supplierOnly[0].amount = 100_000_000_000_000;
   result.ledgerOnly[0].amount = -100_000_000_000_000;
@@ -87,7 +87,7 @@ test('out-of-range hypothesis differences fail closed without crashing the assis
   assert.equal(JSON.stringify(result), before);
 });
 
-test('hostile model proposals never acquire authority or alter any source evidence', () => {
+void test('hostile model proposals never acquire authority or alter any source evidence', () => {
   const result = run();
   const before = JSON.stringify(result);
   const id = result.supplierOnly[0].id;
@@ -121,7 +121,7 @@ test('hostile model proposals never acquire authority or alter any source eviden
   assert.equal(JSON.stringify(result), before);
 });
 
-test('Arabic and aborted requests do not even query a model provider', async () => {
+void test('Arabic and aborted requests do not even query a model provider', async () => {
   let calls = 0;
   const api = {
     availability: async () => {

@@ -8,13 +8,6 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: 'Thmanyah Serif Display';
-  src: url('/fonts/thmanyah-serif-display-bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -31,7 +24,7 @@
   --color-accent-foreground: #5d32b5;
   --color-destructive: #b43e42;
   --radius-lg: 10px;
-  --font-display: 'Thmanyah Serif Display', 'Noto Sans Arabic', serif;
+  --font-display: 'Geeza Pro', 'Traditional Arabic', Tahoma, Arial, serif;
   --font-sans: 'Noto Sans Arabic', Arial, sans-serif;
 }
 :root {
@@ -993,7 +986,7 @@ body {
 }
 .display-heading,
 .brand-wordmark-arabic {
-  font-family: 'Thmanyah Serif Display', 'Noto Sans Arabic', serif;
+  font-family: 'Geeza Pro', 'Traditional Arabic', Tahoma, Arial, serif;
   font-weight: 700;
   font-style: normal;
   font-synthesis: none;
@@ -2335,6 +2328,10 @@ td {
 /* At the narrowest widths the switcher gives up spacing, never the header's
    one-line "start" action. */
 @media (max-width: 360px) {
+  .has-landing .language-switch button[aria-pressed='true'],
+  .has-landing .language-switch__divider {
+    display: none;
+  }
   .has-landing .topbar-actions {
     gap: 6px;
   }
@@ -2346,5 +2343,22 @@ td {
   }
   .nav-start {
     white-space: nowrap;
+    gap: 6px;
+    padding-inline: 9px;
   }
 }
+
+/* Each workflow remains discoverable without forcing long labels into one line. */
+.reconciliation-directory { width: min(1200px, calc(100% - 48px)); margin: 32px auto 48px; scroll-margin-top: 24px; }
+.reconciliation-directory h2 { margin: 0 0 12px; font-size: clamp(24px, 3vw, 34px); }
+.reconciliation-directory-intro { max-width: 78ch; line-height: 1.9; }
+.reconciliation-directory-boundary { padding: 14px 18px; border-inline-start: 3px solid var(--primary); background: var(--muted); line-height: 1.8; }
+.reconciliation-directory-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 24px; }
+.reconciliation-choice { min-width: 0; padding: 18px; border: 1px solid var(--border); border-radius: 12px; }
+.reconciliation-choice button { display: flex; width: 100%; height: auto; min-height: 48px; min-width: 0; white-space: normal; text-align: start; justify-content: space-between; gap: 12px; }
+.reconciliation-choice button span { min-width: 0; overflow-wrap: anywhere; }
+.reconciliation-choice button svg { flex-shrink: 0; }
+.reconciliation-choice p { line-height: 1.8; overflow-wrap: anywhere; }
+.reconciliation-choice-limit { color: var(--muted-foreground); font-size: 13px; }
+@media (max-width: 900px) { .reconciliation-directory-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .reconciliation-directory-grid { grid-template-columns: minmax(0, 1fr); } }

@@ -1,3 +1,4 @@
+import { testValueText } from './helpers/lint-value-text.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
@@ -14,7 +15,7 @@ import {
   demoScope,
 } from '../lib/reconciliation/demo.ts';
 const buf = (s: string) => new TextEncoder().encode(s).buffer;
-test('CSV quoted comma/newline, escaped quote, semicolon and BOM', () => {
+void test('CSV quoted comma/newline, escaped quote, semicolon and BOM', () => {
   assert.deepEqual(
     parseCSV('\uFEFFdate;reference;amount\r\n2026-01-01;"INV;1";"1,25"'),
     [
@@ -27,17 +28,17 @@ test('CSV quoted comma/newline, escaped quote, semicolon and BOM', () => {
     ['line\nnext', 'quote"here'],
   ]);
 });
-test('broken CSV, invalid encoding, wrong extension rejected', async () => {
+void test('broken CSV, invalid encoding, wrong extension rejected', async () => {
   assert.throws(() => parseCSV('a,b\n"broken,2'));
   await assert.rejects(() => readFile('x.pdf', buf('a,b')));
   await assert.rejects(() =>
     readFile('x.csv', new Uint8Array([0xff, 0xfe]).buffer),
   );
 });
-test('non-ZIP input is rejected by the preliminary archive check', () => {
+void test('non-ZIP input is rejected by the preliminary archive check', () => {
   assert.throws(() => checkZip(buf('not zip')));
 });
-test('XLSX preserves formatted reference zeros and flags formula rows', async () => {
+void test('XLSX preserves formatted reference zeros and flags formula rows', async () => {
   const wb = new ExcelJS.Workbook();
   const s = wb.addWorksheet('Data');
   s.addRow(['date', 'reference', 'amount']);
@@ -53,7 +54,7 @@ test('XLSX preserves formatted reference zeros and flags formula rows', async ()
   assert.deepEqual(r.sheets[0].formulaCells, { '3:3': { formula: '1+1' } });
   assert.deepEqual(r.sheets[0].hiddenRows, [2]);
 });
-test('Excel export roundtrip retains controls/source and never turns input into formula', async () => {
+void test('Excel export roundtrip retains controls/source and never turns input into formula', async () => {
   const scope = { ...demoScope, confirmed: true, coverageConfirmed: true };
   const files = structuredClone(demoFiles);
   files[0].sheets[0].rows[1][2] = '=HYPERLINK("https://example.invalid","x")';
@@ -93,8 +94,8 @@ test('Excel export roundtrip retains controls/source and never turns input into 
   const signoff = wb.getWorksheet('Review Sign-off')!;
   assert.equal(signoff.getCell('B7').value, '=1+1');
   assert.equal(signoff.getCell('B7').type, ExcelJS.ValueType.String);
-  assert.match(String(signoff.getCell('B8').value), /TARASUF/);
-  assert.doesNotMatch(String(signoff.getCell('B8').value), /Mizan/);
+  assert.match(testValueText(signoff.getCell('B8').value), /TARASUF/);
+  assert.doesNotMatch(testValueText(signoff.getCell('B8').value), /Mizan/);
   assert.ok(
     wb
       .getWorksheet('Needs Review')!

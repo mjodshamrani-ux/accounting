@@ -1,23 +1,31 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.25",
+  "version": "0.4.38",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
   },
   "scripts": {
     "dev": "node scripts/prepare-ocr-assets.mjs && vite --host 127.0.0.1",
-    "build": "node scripts/prepare-ocr-assets.mjs && vite build && node scripts/harden-build.mjs",
+    "build": "node scripts/prepare-ocr-assets.mjs && vite build --configLoader runner && node scripts/harden-build.mjs",
     "start": "vite preview --host 127.0.0.1",
-    "lint": "oxlint",
+    "lint": "node scripts/lint-check.mjs",
     "format": "oxfmt",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "preview": "vite preview --host 127.0.0.1",
-    "test:browser": "node scripts/browser-test.mjs",
-    "test:browser:performance": "node --experimental-strip-types scripts/browser-performance.mjs",
+    "test:browser": "node --experimental-strip-types scripts/prepare-browser-fixtures.mjs && node --experimental-strip-types scripts/browser-test.mjs",
+    "test:browser:main-integration": "node --experimental-strip-types scripts/supplier-main-overlap-browser.mjs",
+    "test:browser:startup-readiness": "node scripts/startup-readiness-browser.mjs",
+    "test:browser:domain-navigation": "node scripts/domain-navigation-browser.mjs",
+    "test:browser:reconciliation-entry": "node scripts/reconciliation-entry-browser.mjs",
+    "test:browser:section-families": "node --experimental-strip-types scripts/section-families-browser.mjs",
+    "test:browser:section-currency": "node --experimental-strip-types scripts/section-qualified-currency-browser.mjs",
+    "test:browser:performance": "node scripts/performance-check.mjs",
     "test:mutations": "node scripts/test-mutations.mjs",
-    "check": "pnpm typecheck && pnpm test && pnpm test:mutations && pnpm build && pnpm test:browser",
+    "test:mutation-runner": "node --test scripts/mutation-runner-support.test.mjs scripts/specialized-faults.test.mjs scripts/package-commands.test.mjs",
+    "test:specialized-faults": "node scripts/test-specialized-faults.mjs",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry",
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
     "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
@@ -25,7 +33,7 @@
     "test:reliability:partial": "node scripts/test-partial-contracts.mjs",
     "test:reliability": "node --experimental-strip-types audit/reliability/run.mjs --split development,validation,final --frozen",
     "test:reliability:development": "node --experimental-strip-types audit/reliability/run.mjs",
-    "test:reliability:performance": "node --experimental-strip-types audit/reliability/performance.mjs --sizes=100,1000,5000,20000"
+    "test:reliability:performance": "node scripts/performance-check.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

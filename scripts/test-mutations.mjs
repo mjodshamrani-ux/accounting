@@ -1,19 +1,29 @@
 // Deliberate accounting faults must be caught by assertion failures in the real
 // regression suite. Every mutant runs in a disposable copy; source is untouched.
 import {
-  mkdtemp,
   cp,
   symlink,
   readFile,
   writeFile,
   rm,
+  mkdir,
+  readdir,
+  lstat,
+  rmdir,
 } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
+import { constants } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { completedSuccessfully, isAssertionKill, createPrivateTree, removePrivateTree } from './mutation-runner-support.mjs';
 
 const root = resolve(import.meta.dirname, '..');
 const tests = [
+  'tests/bank.test.ts',
+  'tests/ar.test.ts',
+  'tests/gl-tb.test.ts',
+  'tests/allocation.test.ts',
+  'tests/clearing.test.ts',
   'tests/explanation-evidence.test.ts',
   'tests/unknown-credit-role.test.ts',
   'tests/related-invoice-roles.test.ts',
@@ -71,6 +81,89 @@ const tests = [
   'tests/layered-xlsx-headers.test.ts',
 ];
 const mutations = [
+{"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
+{"name": "bank-wrong-cash-perspective", "file": "lib/reconciliation/bank.ts", "changes": [["reading.perspective !== 'company-cash' ||", "false ||"]]},
+{"name": "bank-ignore-posting-status", "file": "lib/reconciliation/bank.ts", "changes": [["if (status !== (side ? 'posted' : 'booked')) fail('STATUS');", "if (false) fail('STATUS');"]]},
+{"name": "bank-ignore-fee-parent", "file": "lib/reconciliation/bank.ts", "changes": [["parent.settlement !== r.settlement ||", "false ||"], ["parent.policy !== r.policy ||", "false ||"]]},
+{"name": "bank-wrong-fee-sign", "file": "lib/reconciliation/bank.ts", "changes": [["(direction !== 'outflow' || !parent)", "(!parent)"], [": r.direction !== 'outflow'),", ": false),"]]},
+{"name": "bank-ignore-policy", "file": "lib/reconciliation/bank.ts", "changes": [["[...bank, ...cash].some((r) => r.policy !== policy) ||", "false ||"]]},
+{"name": "bank-extra-individual-members", "file": "lib/reconciliation/bank.ts", "changes": [["bank.length !== 1 ||\n      cash.length !== 1 ||", "false ||"]]},
+{"name": "bank-ignore-reversal-members", "file": "lib/reconciliation/bank.ts", "changes": [["!sameIds(\n            originals.map((r) => r.id),\n            originalMembers.map((r) => r.id),\n          )", "false"]]},
+{"name": "bank-exchange-reversal-origins", "file": "lib/reconciliation/bank.ts", "changes": [["originKeys.size !== 1", "false"], ["!sameIds(\n            originals.map((r) => r.id),\n            originalMembers.map((r) => r.id),\n          )", "false"]]},
+{"name": "bank-reuse-reversed-origin", "file": "lib/reconciliation/bank.ts", "changes": [["for (const field of ['Record ID', 'Reverses record ID']) {", "for (const field of ['Record ID', 'Reverses record ID']) { if(field==='Reverses record ID')continue;"]]},
+{"name": "bank-partial-reversal", "file": "lib/reconciliation/bank.ts", "changes": [["r.amount !== original.amount ||", "false ||"]]},
+{"name": "bank-same-direction-reversal", "file": "lib/reconciliation/bank.ts", "changes": [["r.direction === original.direction ||", "false ||"]]},
+{"name": "bank-earlier-reversal-booking", "file": "lib/reconciliation/bank.ts", "changes": [["r.movementDate < original.movementDate ||", "false ||"]]},
+{"name": "bank-earlier-reversal-value", "file": "lib/reconciliation/bank.ts", "changes": [["r.valueDate < original.valueDate", "false"]]},
+{"name": "bank-ignore-source-errors", "file": "lib/reconciliation/bank.ts", "changes": [["const sourceError = inventory.some((i) => i.kind === 'error');", "const sourceError = false;"]]},
+{"name": "bank-erase-timing-items", "file": "lib/reconciliation/bank.ts", "changes": [["iso(valueDate) &&", "false &&"]]},
+{"name": "bank-ignore-booking-timing", "file": "lib/reconciliation/bank.ts", "changes": [["new Set(members.map((r) => r.movementDate)).size !== 1 ||", "false ||"]]},
+{"name": "bank-ignore-value-timing", "file": "lib/reconciliation/bank.ts", "changes": [["new Set(members.map((r) => r.valueDate)).size !== 1 ||", "false ||"]]},
+{"name": "bank-erase-timing-after-accept", "file": "lib/reconciliation/bank.ts", "changes": [["found.status = 'matched-manual';", "found.status = 'matched-manual'; timingItems.length=0;"]]},
+{"name": "bank-undo-reattaches", "file": "lib/reconciliation/bank.ts", "changes": [["found.status = 'needs-review';", "found.status = 'matched-evidence';"]]},
+{"name": "bank-human-reference-override", "file": "lib/reconciliation/bank.ts", "changes": [["b.settlement ||\n        c.settlement ||", "false ||"]]},
+{"name": "bank-stale-event", "file": "lib/reconciliation/bank.ts", "changes": [["e.context !== context ||", "false ||"]]},
+{"name": "bank-human-without-reason", "file": "lib/reconciliation/bank.ts", "changes": [["visible(e.note, 2000);", "void 0;"]]},
+{"name": "bank-trust-cache", "file": "lib/reconciliation/bank-io.ts", "changes": [["const file = await readFile(source.name, source.original);", "const file = source;"]]},
+{"name": "bank-stale-export", "file": "lib/reconciliation/bank-io.ts", "changes": [["if (JSON.stringify(result) !== JSON.stringify(expected))", "if (false)"]]},
+{"name": "bank-formula-money", "file": "lib/reconciliation/bank.ts", "changes": [["sheet.formulaCells?.[`${row}:${c + 1}`] ||", "false ||"], ["sheet.cellIssues?.[`${row}:${c + 1}`]?.length,", "sheet.cellIssues?.[`${row}:${c + 1}`]?.filter(issue=>!issue.includes('صيغة Excel')).length,"]]},
+{"name": "bank-formula-header", "file": "lib/reconciliation/bank.ts", "changes": [["[sheet.cellIssues, sheet.referenceIssues].some((m)", "[{}, {}].some((m)"], ["Object.keys(sheet.formulaCells ?? {}).some((k) => k.startsWith('1:'))", "false"]]},
+  {"name": "allocation-formula-money", "file": "lib/reconciliation/allocation.ts", "changes": [["s.formulaCells?.[`${row}:${c + 1}`] ||", "false ||"], ["s.cellIssues?.[`${row}:${c + 1}`]?.length,", "s.cellIssues?.[`${row}:${c + 1}`]?.filter(issue => !issue.includes('صيغة Excel')).length,"]]},
+  {"name": "allocation-formula-header", "file": "lib/reconciliation/allocation.ts", "changes": [["[s.cellIssues, s.referenceIssues].some((m)", "[{}, {}].some((m)"], ["Object.keys(s.formulaCells ?? {}).some((k) => k.startsWith('1:'))", "false"]]},
+  {"name": "allocation-overrun", "file": "lib/reconciliation/allocation.ts", "changes": [["if (total > item.available) fail('OVER_AVAILABLE');", "if (false) fail('OVER_AVAILABLE');"], ["b.remaining < 0 ||", "false ||"]]},
+  {"name": "allocation-skip-payment-proof", "file": "lib/reconciliation/allocation.ts", "changes": [["p.payment !== pay.reference ||", "false ||"]]},
+  {"name": "allocation-skip-invoice-proof", "file": "lib/reconciliation/allocation.ts", "changes": [["p.invoice !== inv.reference ||", "false ||"]]},
+  {"name": "allocation-skip-amount-proof", "file": "lib/reconciliation/allocation.ts", "changes": [["p.amount !== l.amount ||", "false ||"]]},
+  {"name": "allocation-reuse-proof", "file": "lib/reconciliation/allocation.ts", "changes": [["proofsUsed.has(p.id)", "false"]]},
+  {"name": "allocation-human-without-reason", "file": "lib/reconciliation/allocation.ts", "changes": [["text(b.reason, 2000);", "void 0;"]]},
+  {"name": "allocation-partial-batch", "file": "lib/reconciliation/allocation.ts", "changes": [["for (const l of e.links) {", "for (const l of e.links.slice(0,1)) {"], ["active.set(e.id, e.links);", "active.set(e.id, e.links.slice(0,1));"]]},
+  {"name": "allocation-stale-event", "file": "lib/reconciliation/allocation.ts", "changes": [["e.context !== context ||", "false ||"]]},
+  {"name": "allocation-broken-undo", "file": "lib/reconciliation/allocation.ts", "changes": [["active.delete(e.target);", "active.get(e.target)!.pop();"]]},
+  {"name": "allocation-original-as-capacity", "file": "lib/reconciliation/allocation.ts", "changes": [["available,\n          traces:", "available: original,\n          traces:"]]},
+  {"name": "allocation-ignore-global-errors", "file": "lib/reconciliation/allocation.ts", "changes": [["if (status === 'source-error' && input.events.length)", "if (false)"]]},
+  {"name": "allocation-hide-scope-error", "file": "lib/reconciliation/allocation.ts", "changes": [["if (get(metadata[i]) !== input.scope[key]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
+  {"name": "allocation-trust-cache", "file": "lib/reconciliation/allocation-io.ts", "changes": [["const file = await readFile(source.name, source.original);", "const file = source;"]]},
+  {"name": "allocation-stale-export", "file": "lib/reconciliation/allocation-io.ts", "changes": [["if (JSON.stringify(result) !== JSON.stringify(expected))", "if (false)"]]},
+  {"name": "gl-tb-allow-formula-money", "file": "lib/reconciliation/gl-tb.ts", "changes": [["sheet.formulaCells?.[`${row}:${c + 1}`] ||", "false ||"], ["sheet.cellIssues?.[`${row}:${c + 1}`]?.length,", "sheet.cellIssues?.[`${row}:${c + 1}`]?.filter(issue => !issue.includes('صيغة Excel')).length,"]]},
+  {"name": "gl-tb-hide-identity-format-issues", "file": "lib/reconciliation/gl-tb.ts", "changes": [["referenceColumns.some(\n          (c) => sheet.referenceIssues?.[`${row}:${c + 1}`]?.length,\n        )", "false"]]},
+
+  {"name": "gl-tb-net-only", "file": "lib/reconciliation/gl-tb.ts", "changes": [["BALANCE_FIELDS.some((f) => differences[f] !== 0)", "BALANCE_FIELDS.some((f) => !['periodDebit','periodCredit'].includes(f) && differences[f] !== 0) || differences!.periodDebit !== differences!.periodCredit"]]},
+  {"name": "gl-tb-skip-gl-bridge", "file": "lib/reconciliation/gl-tb.ts", "changes": [["glBridge !== 0 || tbBridge !== 0", "tbBridge !== 0"]]},
+  {"name": "gl-tb-skip-tb-bridge", "file": "lib/reconciliation/gl-tb.ts", "changes": [["glBridge !== 0 || tbBridge !== 0", "glBridge !== 0"]]},
+  {"name": "gl-tb-hide-scope-errors", "file": "lib/reconciliation/gl-tb.ts", "changes": [["if (get(scopeHeaders[i]) !== scope[k]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
+  {"name": "gl-tb-allow-duplicate-balances", "file": "lib/reconciliation/gl-tb.ts", "changes": [["(r.kind !== 'movement' && kinds.get(r.kind)! > 1)", "false"]]},
+  {"name": "gl-tb-ignore-source-errors", "file": "lib/reconciliation/gl-tb.ts", "changes": [["inventory.some((i) => i.kind === 'error')", "false"]]},
+  {"name": "gl-tb-hide-unreadable-header", "file": "lib/reconciliation/gl-tb.ts", "changes": [["badHeader(sheet)", "false"]]},
+  {"name": "gl-tb-hide-formula-blank-row", "file": "lib/reconciliation/gl-tb.ts", "changes": [["    try {\n      if (", "    if (!values.some(v=>v.trim())) {inventory.push({side,row,kind:'blank',values});continue;}\n    try {\n      if ("]]},
+  {"name": "gl-tb-trust-parsed-cache", "file": "lib/reconciliation/gl-tb-io.ts", "changes": [["const file = await readFile(source.name, source.original);", "const file = source;"]]},
+  {"name": "gl-tb-accept-stale-export", "file": "lib/reconciliation/gl-tb-io.ts", "changes": [["if (JSON.stringify(result) !== JSON.stringify(expected))", "if (false)"]]},
+
+  {"name": "ar-hide-unreadable-header", "file": "lib/reconciliation/ar.ts", "changes": [["cell.startsWith('1:') && issues.length > 0", "false"], ["Object.keys(sheet.formulaCells ?? {}).some((cell) =>\n        cell.startsWith('1:'),\n      )", "false"]]},
+  {"name": "ar-hide-unselected-related-evidence", "file": "lib/reconciliation/ar.ts", "changes": [["const relatedConflict = relatedIds.size > 1;", "const relatedConflict = false;"]]},
+  {"name": "ar-hide-alternate-identity-columns", "file": "lib/reconciliation/ar.ts", "changes": [["if (candidates.length !== 1 || candidates[0] !== r[key])", "if (false)"]]},
+  {"name": "ar-hide-uncached-formula-row", "file": "lib/reconciliation/ar.ts", "changes": [["      try {\n        if (", "      if (!values.some(v=>v.trim())) {inventory.push({side,row,kind:'blank',values});continue;}\n      try {\n        if ("]]},
+  {"name": "ar-ignore-seller-perspective", "file": "lib/reconciliation/ar.ts", "changes": [["r.perspective !== 'seller-receivable' ||", "false ||"]]},
+  {"name": "ar-ignore-source-errors", "file": "lib/reconciliation/ar.ts", "changes": [["const reason: ArCase['reason'] = errors", "const reason: ArCase['reason'] = false"]]},
+  {"name": "ar-ignore-document-role", "file": "lib/reconciliation/ar.ts", "changes": [[": !documentRole", ": false"]]},
+  {"name": "ar-ignore-duplicate-documents", "file": "lib/reconciliation/ar.ts", "changes": [[": left.length > 1 || right.length > 1", ": false"]]},
+  {"name": "ar-accept-stale-export", "file": "lib/reconciliation/ar-io.ts", "changes": [["if (JSON.stringify(result) !== JSON.stringify(expected))", "if (false)"]]},
+  {"name": "ar-accept-stale-decisions", "file": "lib/reconciliation/ar.ts", "changes": [["event.context !== context ||", "false ||"]]},
+  {"name": "ar-ignore-document-type", "file": "lib/reconciliation/ar.ts", "changes": [["JSON.stringify([row.kind, row.document])", "JSON.stringify([row.document])"]]},
+  {
+    name: 'clearing-hide-uncached-formulas-as-blank',
+    file: 'lib/reconciliation/clearing.ts',
+    changes: [
+      [
+        '    try {\n      if (',
+        "    if (!values.some((v) => v.trim())) { inventory.push({ row, kind: 'blank', values }); continue; }\n    try {\n      if (",
+      ],
+    ],
+  },
+  {name:'clearing-ignore-reference-role',file:'lib/reconciliation/clearing.ts',changes:[['referenceRole &&','true &&']]},
+  {name:'clearing-ignore-source-errors',file:'lib/reconciliation/clearing.ts',changes:[['!errors &&','true &&']]},
+  {name:'clearing-accept-nonzero-group',file:'lib/reconciliation/clearing.ts',changes:[['net === 0 &&','true &&']]},
+  {name:'clearing-accept-stale-export',file:'lib/reconciliation/clearing-io.ts',changes:[['if (JSON.stringify(result) !== JSON.stringify(expected))','if (false)']]},
+  {name:'clearing-manual-partial-bucket',file:'lib/reconciliation/clearing.ts',changes:[["if (intersecting.some((c) => c.ids.some((id) => !selectedIds.has(id))))","if (false)"]]},
   {name:'p6-effort-include-paused-time',file:'lib/review-effort.ts',changes:[['if (paused) pausedMs[paused] += duration;', 'if (paused) firstMs[stage] += duration;']]},
   {name:'p6-effort-lose-rework-time',file:'lib/review-effort.ts',changes:[['else (rework ? reworkMs : firstMs)[stage] += duration;', 'else firstMs[stage] += duration;']]},
   {name:'p6-effort-ignore-idle-deadline',file:'lib/review-effort.ts',changes:[['if (!state.paused && atMs >= deadline)', 'if (false)']]},
@@ -1128,13 +1221,14 @@ if (listOnly) {
   process.exit(0);
 }
 
-function execute(cwd) {
+function execute(cwd, timeout = 120000) {
   return spawnSync(
     process.execPath,
     [
       '--experimental-strip-types',
       '--test',
       '--test-reporter=tap',
+      ...(testConcurrency ? [`--test-concurrency=${testConcurrency}`] : []),
       // A wall-clock budget cannot prove that an accounting fault was caught.
       // This unchanged performance test still runs in the full unit gate.
       '--test-skip-pattern=^20k rows compare without quadratic candidate search$',
@@ -1143,13 +1237,46 @@ function execute(cwd) {
     {
       cwd,
       encoding: 'utf8',
-      timeout: 45000,
+      timeout,
       maxBuffer: 8 * 1024 * 1024,
     },
   );
 }
-const baseline = execute(root);
-if (baseline.status !== 0) {
+// Resource controls affect scheduling and evidence retention only. They do not
+// filter assertions, weaken accounting checks or change catalogue membership.
+const concurrencyValue = process.env.MUTATION_TEST_CONCURRENCY;
+const testConcurrency = concurrencyValue === undefined ? undefined : Number(concurrencyValue);
+if (testConcurrency !== undefined &&
+    (!Number.isSafeInteger(testConcurrency) || testConcurrency < 1 || testConcurrency > 4))
+  throw Error('MUTATION_TEST_CONCURRENCY must be an integer from 1 to 4');
+const output = process.env.MUTATION_OUTPUT_DIR
+  ? resolve(process.env.MUTATION_OUTPUT_DIR)
+  : undefined;
+const reusePrivate = process.env.MUTATION_REUSE_PRIVATE_TREE === '1';
+if (process.env.MUTATION_REUSE_PRIVATE_TREE !== undefined &&
+    !['0', '1'].includes(process.env.MUTATION_REUSE_PRIVATE_TREE))
+  throw Error('MUTATION_REUSE_PRIVATE_TREE must be 0 or 1');
+if (output) {
+  await mkdir(output, { recursive: true });
+  // A completed or failed attempt is immutable; callers choose a new directory.
+  await writeFile(join(output, 'catalogue.json'), JSON.stringify({
+    ...selection,
+    testConcurrency: testConcurrency ?? 'node-default',
+    privateTreeMode: reusePrivate ? 'reuse-with-content-guards' : 'fresh-per-fault',
+    mutations: selectedMutations.map(({ name, file }) => ({ name, file })),
+  }, null, 2) + '\n', { flag: 'wx' });
+}
+// CI must complete the full unmodified suite before evaluating any mutation.
+// Both phases are bounded; an interrupted run can never establish a kill.
+const baseline = execute(root, 120000);
+if (output) {
+  await writeFile(join(output, 'baseline.log'), baseline.stdout + baseline.stderr);
+  await writeFile(join(output, 'baseline.json'), JSON.stringify({
+    status: baseline.status, signal: baseline.signal,
+    ...(baseline.error ? { error: baseline.error.message } : {}),
+  }, null, 2) + '\n');
+}
+if (!completedSuccessfully(baseline)) {
   process.stderr.write(baseline.stdout + baseline.stderr);
   throw Error(
     `Mutation gate requires a passing unmodified baseline (status=${baseline.status}, signal=${baseline.signal}, error=${baseline.error?.message ?? 'none'})`,
@@ -1157,22 +1284,99 @@ if (baseline.status !== 0) {
 }
 
 const report = [];
+async function copyInputs(scratch) {
+  await Promise.all(['lib', 'tests', 'audit', 'package.json'].map((name) =>
+    cp(join(root, name), join(scratch, name), {
+      recursive: true, mode: constants.COPYFILE_FICLONE,
+      // This gitignored installed runtime is a dependency link, never an audit
+      // source. All actual audit inputs stay private; other links are rejected.
+      filter: (source) => source !== join(root, 'audit/local-provider/node_modules'),
+    }),
+  ));
+  await symlink(join(root, 'node_modules'), join(scratch, 'node_modules'), 'dir');
+}
+// F02 regression tests write five named artifacts. They are outputs, never inputs.
+// Remove only these documented private outputs; reject any other leaked state.
+async function cleanGeneratedOutputs(scratch) {
+  const work = join(scratch, 'work');
+  let stat;
+  try { stat = await lstat(work); }
+  catch (error) { if (error.code === 'ENOENT') return []; throw error; }
+  if (!stat.isDirectory() || (await readdir(work)).some((name) => name !== 'layered-headers'))
+    throw Error('Mutation left unexpected private work output');
+  const directory = join(work, 'layered-headers');
+  const outputs = [];
+  if ((await readdir(work)).length) {
+    if (!(await lstat(directory)).isDirectory()) throw Error('Mutation output directory is not private');
+    for (const name of await readdir(directory)) {
+      if (!['large-reading.json', 'f02-workpaper.xlsx', 'r13-excluded-competitor.xlsx',
+        'r13-fixed-workpaper.xlsx', 'r13-observation.json'].includes(name) ||
+          !(await lstat(join(directory, name))).isFile())
+        throw Error(`Mutation left unexpected generated output: ${name}`);
+      const bytes = await readFile(join(directory, name));
+      outputs.push({ path: `work/layered-headers/${name}`, bytes: bytes.length,
+        sha256: createHash('sha256').update(bytes).digest('hex') });
+    }
+    await rm(directory, { recursive: true });
+  }
+  await rmdir(work);
+  return outputs;
+}
+// Reuse is opt-in and keeps a full PRIVATE tree. A fresh Node test process runs
+// each fault. Every input file is content-hashed after restoration, so disk state
+// cannot leak between faults; no shared/symlinked audit source can bypass a fault.
+async function inputDigest(scratch) {
+  const paths = [];
+  const directories = ['lib', 'tests', 'audit'];
+  const expectedTop = new Set(['lib', 'tests', 'audit', 'package.json', 'node_modules']);
+  if ((await readdir(scratch)).some((name) => !expectedTop.has(name)))
+    throw Error('Mutation test left unexpected private workspace state');
+  async function walk(relative) {
+    for (const file of await readdir(join(scratch, relative), { withFileTypes: true })) {
+      const path = join(relative, file.name);
+      if (file.isDirectory()) { directories.push(path); await walk(path); }
+      else if (file.isFile()) paths.push(path);
+      else throw Error(`Unsupported mutation input type: ${path}`);
+    }
+  }
+  for (const directory of ['lib', 'tests', 'audit']) await walk(directory);
+  paths.push('package.json');
+  paths.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+  directories.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+  if (paths.some((path) => /[\r\n"]/.test(path)))
+    throw Error('Unsupported mutation input path');
+  const hashes = spawnSync('git', ['hash-object', '--stdin-paths'], {
+    cwd: scratch, encoding: 'utf8', input: paths.join('\n') + '\n',
+    timeout: 120000, maxBuffer: 16 * 1024 * 1024,
+  });
+  if (!completedSuccessfully(hashes)) throw Error(`Mutation input hashing failed: ${hashes.stderr}`);
+  return {
+    files: paths.length,
+    directories: directories.length,
+    sha256: createHash('sha256').update(directories.join('\n')).update('\0')
+      .update(paths.join('\n')).update('\0').update(hashes.stdout).digest('hex'),
+  };
+}
+const reusable = reusePrivate ? await createPrivateTree(true) : undefined;
+let expectedInputs;
+try {
+if (reusable) {
+  await copyInputs(reusable);
+  expectedInputs = await inputDigest(reusable);
+  if (output) await writeFile(join(output, 'private-inputs.json'), JSON.stringify(expectedInputs, null, 2) + '\n');
+}
 for (const mutation of selectedMutations) {
-  const scratch = await mkdtemp(join(tmpdir(), 'mizan-mutant-'));
+  const scratch = reusable ?? await createPrivateTree();
+  let originalSource;
+  let faultError;
+  let restorationError;
+  let faultFailed = false;
+  let restorationFailed = false;
   try {
-    await Promise.all(
-      // audit/ holds the hard-case generators some regression tests build on.
-      ['lib', 'tests', 'audit', 'package.json'].map((name) =>
-        cp(join(root, name), join(scratch, name), { recursive: true }),
-      ),
-    );
-    await symlink(
-      join(root, 'node_modules'),
-      join(scratch, 'node_modules'),
-      'dir',
-    );
+    if (!reusable) await copyInputs(scratch);
     const file = join(scratch, mutation.file);
     let source = await readFile(file, 'utf8');
+    originalSource = source;
     for (const [before, after] of mutation.changes) {
       // Some accounting statements span multiple lines after formatting. Match
       // their syntax with a bounded regex while retaining exact uniqueness.
@@ -1180,8 +1384,15 @@ for (const mutation of selectedMutations) {
         before instanceof RegExp
           ? [...source.matchAll(new RegExp(before.source, 'g'))].length
           : source.split(before).length - 1;
-      if (count !== 1)
+      if (count !== 1) {
+        if (output) {
+          await writeFile(join(output, `${mutation.name}.source`), source);
+          await writeFile(join(output, `${mutation.name}.invalid.json`), JSON.stringify({
+            mutation: mutation.name, detected: false, phase: 'anchor', count,
+          }, null, 2) + '\n');
+        }
         throw Error(`Stale or non-unique mutation anchor: ${mutation.name}`);
+      }
       // Text is inserted literally: "$`" or "$'" in a mutant's text must not
       // act as a replacement pattern. A mutant that keeps the matched text
       // says so with a function of the match.
@@ -1191,6 +1402,7 @@ for (const mutation of selectedMutations) {
       );
     }
     await writeFile(file, source);
+    if (output) await writeFile(join(output, `${mutation.name}.source`), source);
     // A parser error is an invalid mutant, not evidence that an accounting
     // assertion detected the intended fault. Check syntax before the test run.
     const syntax = spawnSync(
@@ -1202,29 +1414,72 @@ for (const mutation of selectedMutations) {
         timeout: 10000,
       },
     );
-    if (syntax.status !== 0)
+    if (output) {
+      await writeFile(join(output, `${mutation.name}.syntax.log`), syntax.stdout + syntax.stderr);
+      await writeFile(join(output, `${mutation.name}.syntax.json`), JSON.stringify({
+        status: syntax.status, signal: syntax.signal,
+        ...(syntax.error ? { error: syntax.error.message } : {}),
+      }, null, 2) + '\n');
+    }
+    if (!completedSuccessfully(syntax)) {
+      if (output) await writeFile(join(output, `${mutation.name}.invalid.json`), JSON.stringify({
+        mutation: mutation.name, detected: false, phase: 'syntax', status: syntax.status,
+      }, null, 2) + '\n');
       throw Error(
         `Invalid mutation syntax: ${mutation.name}\n${syntax.stdout}${syntax.stderr}`,
       );
+    }
     const result = execute(scratch);
-    const assertionFailure =
-      result.status !== 0 &&
-      result.status !== null &&
-      result.stdout.includes('ERR_ASSERTION') &&
-      !/SyntaxError|ERR_MODULE_NOT_FOUND|ERR_UNKNOWN_FILE_EXTENSION/.test(
-        result.stdout + result.stderr,
-      );
-    report.push({ mutation: mutation.name, detected: assertionFailure });
+    const assertionFailure = isAssertionKill(result);
+    const record = { mutation: mutation.name, detected: assertionFailure,
+      status: result.status, signal: result.signal,
+      ...(result.error ? { error: result.error.message } : {}),
+    };
+    report.push(record);
+    if (output) {
+      await writeFile(join(output, `${mutation.name}.log`), result.stdout + result.stderr);
+      await writeFile(join(output, `${mutation.name}.source`), source);
+      await writeFile(join(output, 'results.json'), JSON.stringify({
+        baselinePassed: true, ...selection, mutations: report,
+      }, null, 2) + '\n');
+    }
     if (!assertionFailure) {
+      console.error(JSON.stringify({
+        mutation: mutation.name, status: result.status, signal: result.signal,
+        errorCode: result.error?.code ?? null,
+      }));
       process.stderr.write(result.stdout + result.stderr);
       throw Error(
         `Fault survived or failed without an assertion: ${mutation.name}`,
       );
     }
     console.log(`Detected deliberate fault: ${mutation.name}`);
+  } catch (error) {
+    faultFailed = true;
+    faultError = error;
   } finally {
-    await rm(scratch, { recursive: true, force: true });
+    try {
+    if (reusable) {
+      if (originalSource !== undefined) await writeFile(join(scratch, mutation.file), originalSource);
+      const outputs = await cleanGeneratedOutputs(scratch);
+      if (output) await writeFile(join(output, `${mutation.name}.outputs.json`), JSON.stringify(outputs, null, 2) + '\n');
+      const restored = await inputDigest(scratch);
+      if (restored.sha256 !== expectedInputs.sha256 || restored.files !== expectedInputs.files) {
+        restorationFailed = true;
+        restorationError = Error(`Mutation changed private input state: ${mutation.name}`);
+      } else if (output) await writeFile(join(output, `${mutation.name}.restored.json`), JSON.stringify(restored, null, 2) + '\n');
+    } else await removePrivateTree(scratch);
+    } catch (error) {
+      restorationFailed = true;
+      restorationError = error;
+    }
   }
+  if (faultFailed && restorationFailed) throw new AggregateError([faultError, restorationError], 'Mutation and private input restoration both failed');
+  if (faultFailed) throw faultError;
+  if (restorationFailed) throw restorationError;
+}
+} finally {
+  if (reusable) await removePrivateTree(reusable);
 }
 console.log(
   JSON.stringify(

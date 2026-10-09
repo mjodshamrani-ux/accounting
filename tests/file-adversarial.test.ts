@@ -21,7 +21,7 @@ async function imported(format: string, value = 100, column = 3) {
     'supplier',
   );
 }
-test('Excel formats that conceal or alter displayed values block the row', async () => {
+void test('Excel formats that conceal or alter displayed values block the row', async () => {
   for (const [format, value, column] of [
     ['-0.00', 100, 3],
     ['0.00;0.00', -100, 3],
@@ -34,7 +34,7 @@ test('Excel formats that conceal or alter displayed values block the row', async
   ] as const)
     assert.ok((await imported(format, value, column)).errors.length, format);
 });
-test('ordinary numeric, negative and accounting formats retain native exact amounts', async () => {
+void test('ordinary numeric, negative and accounting formats retain native exact amounts', async () => {
   for (const format of [
     'General',
     '0',
@@ -52,7 +52,7 @@ test('ordinary numeric, negative and accounting formats retain native exact amou
   }
 });
 
-test('conditional numeric formatting cannot silently override the displayed sign', async () => {
+void test('conditional numeric formatting cannot silently override the displayed sign', async () => {
   const workbook = new ExcelJS.Workbook();
   const sheet = workbook.addWorksheet('Synthetic');
   sheet.addRow(['date', 'reference', 'amount']);

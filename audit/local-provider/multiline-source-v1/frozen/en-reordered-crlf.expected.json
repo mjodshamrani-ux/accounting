@@ -1,0 +1,81 @@
+{
+  "outcome": "candidate",
+  "fields": {
+    "date": "2024-02-29",
+    "reference": "INV-414",
+    "amount": "90000000.01",
+    "currency": "Saudi riyals"
+  },
+  "normalizedCurrency": "SAR",
+  "amountMinor": "9000000001",
+  "evidence": {
+    "date": {
+      "value": {
+        "startUtf16": 53,
+        "endUtf16": 63,
+        "startByte": 53,
+        "endByte": 63,
+        "literal": "2024-02-29"
+      },
+      "role": {
+        "startUtf16": 41,
+        "endUtf16": 51,
+        "startByte": 41,
+        "endByte": 51,
+        "literal": "Issue date"
+      }
+    },
+    "reference": {
+      "value": {
+        "startUtf16": 103,
+        "endUtf16": 110,
+        "startByte": 103,
+        "endByte": 110,
+        "literal": "INV-414"
+      },
+      "role": {
+        "startUtf16": 87,
+        "endUtf16": 101,
+        "startByte": 87,
+        "endByte": 101,
+        "literal": "Invoice number"
+      }
+    },
+    "amount": {
+      "value": {
+        "startUtf16": 28,
+        "endUtf16": 39,
+        "startByte": 28,
+        "endByte": 39,
+        "literal": "90000000.01"
+      },
+      "role": {
+        "startUtf16": 0,
+        "endUtf16": 13,
+        "startByte": 0,
+        "endByte": 13,
+        "literal": "Invoice total"
+      }
+    },
+    "currency": {
+      "value": {
+        "startUtf16": 15,
+        "endUtf16": 27,
+        "startByte": 15,
+        "endByte": 27,
+        "literal": "Saudi riyals"
+      },
+      "role": {
+        "startUtf16": 0,
+        "endUtf16": 13,
+        "startByte": 0,
+        "endByte": 13,
+        "literal": "Invoice total"
+      }
+    }
+  },
+  "originalSha256": "4fd4ee8f894e8daff94ac77f80811e687b72ef342ce9b3537d315cd51650e165",
+  "extractionRevision": "synthetic-text-extraction-v1",
+  "synthetic": true,
+  "fieldValidation": false
+}

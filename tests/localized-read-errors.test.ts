@@ -122,7 +122,7 @@ const conserve = (
   assert.equal(r.bridge, null);
 };
 
-test('safe unrelated bad amounts and dates preserve proven pairs and every erroneous source row', () => {
+void test('safe unrelated bad amounts and dates preserve proven pairs and every erroneous source row', () => {
   for (const side of ['a', 'b'] as const)
     for (const defect of ['amount', 'date'] as const) {
       const files = input([{}], [{}]);
@@ -145,7 +145,7 @@ test('safe unrelated bad amounts and dates preserve proven pairs and every erron
     }
 });
 
-test('an unread same-reference or normalized-collision row blocks that bucket without blocking a disjoint pair', () => {
+void test('an unread same-reference or normalized-collision row blocks that bucket without blocking a disjoint pair', () => {
   for (const doc of ['INV-100', 'inv/100']) {
     const files = input(
       [{}, { doc: 'INV-200' }, { doc, amount: 'bad' }],
@@ -160,7 +160,7 @@ test('an unread same-reference or normalized-collision row blocks that bucket wi
   }
 });
 
-test('a displaced reference in a financial cell blocks its original competitor and preserves a disjoint pair', () => {
+void test('a displaced reference in a financial cell blocks its original competitor and preserves a disjoint pair', () => {
   for (const field of ['date', 'amount'] as const) {
     const files = input(
       [{}, { doc: 'INV-200' }, { doc: '1234', [field]: 'INV-100' }],
@@ -182,7 +182,7 @@ test('a displaced reference in a financial cell blocks its original competitor a
   }
 });
 
-test('a mixed alphanumeric bad amount is isolated by source evidence and blocks only when its literal token is a competing identity', () => {
+void test('a mixed alphanumeric bad amount is isolated by source evidence and blocks only when its literal token is a competing identity', () => {
   for (const competing of [false, true]) {
     const good = [{}, { doc: competing ? '12x.34' : 'INV-200' }];
     assert.equal(auto(compare(...sources(input(good, good)), scope)).length, 2);
@@ -204,7 +204,7 @@ test('a mixed alphanumeric bad amount is isolated by source evidence and blocks 
   }
 });
 
-test('unparsed literal cells are negative competitor evidence for alphabetic payment references, never repaired transaction facts', () => {
+void test('unparsed literal cells are negative competitor evidence for alphabetic payment references, never repaired transaction facts', () => {
   const payment = (amount: string) => ({
     doc: 'PAY-101',
     type: 'Payment',
@@ -231,7 +231,7 @@ test('unparsed literal cells are negative competitor evidence for alphabetic pay
   conserve(r, files);
 });
 
-test('every supported secondary reference is blocking evidence even when the bad row has a different primary document', () => {
+void test('every supported secondary reference is blocking evidence even when the bad row has a different primary document', () => {
   for (const field of ['chosen', 'bank', 'receipt', 'voucher', 'po'] as const) {
     const shared = { [field]: 'LINK-501' };
     const files = input(
@@ -249,7 +249,7 @@ test('every supported secondary reference is blocking evidence even when the bad
   }
 });
 
-test('unselected stated references and selected helper values both propagate taint without acquiring positive authority', () => {
+void test('unselected stated references and selected helper values both propagate taint without acquiring positive authority', () => {
   const files = input(
     [
       { chosen: 'STATED-44' },
@@ -270,7 +270,7 @@ test('unselected stated references and selected helper values both propagate tai
   conserve(r, files);
 });
 
-test('taint follows transitive original memberships even after a bridge row is manually used or rejected', () => {
+void test('taint follows transitive original memberships even after a bridge row is manually used or rejected', () => {
   const files = input(
     [
       { doc: 'INV-100', receipt: 'R-SECOND' },
@@ -307,7 +307,7 @@ test('taint follows transitive original memberships even after a bridge row is m
   }
 });
 
-test('unknown, structurally damaged, hidden or unsafe reference envelopes remain wildcard blockers', () => {
+void test('unknown, structurally damaged, hidden or unsafe reference envelopes remain wildcard blockers', () => {
   const damage = [
     (f: SourceFile) => {
       f.sheets[0].rowIssues = { '3': ['Uncertain row alignment'] };
@@ -348,7 +348,7 @@ test('unknown, structurally damaged, hidden or unsafe reference envelopes remain
   }
 });
 
-test('a selected generic helper alone cannot isolate a failed row, while a precise amount-cell issue can', () => {
+void test('a selected generic helper alone cannot isolate a failed row, while a precise amount-cell issue can', () => {
   const files = input([{}, { doc: 'INV-900' }], [{}]);
   files.a.sheets[0].cellIssues = {
     '3:4': ['Formula amount is not a trusted value'],
@@ -370,7 +370,7 @@ test('a selected generic helper alone cannot isolate a failed row, while a preci
   assert.equal(auto(compare(...sources(helper), scope)).length, 0);
 });
 
-test('bad-money rows cannot hide a second supplier, entity, currency or generic account', () => {
+void test('bad-money rows cannot hide a second supplier, entity, currency or generic account', () => {
   for (const label of ['Supplier Code', 'Entity', 'Account', 'Currency']) {
     const files = input([{}, { doc: 'INV-900', amount: 'bad' }], [{}]);
     if (label === 'Currency') files.a.sheets[0].rows[2][9] = 'USD';
@@ -394,7 +394,7 @@ test('bad-money rows cannot hide a second supplier, entity, currency or generic 
   }
 });
 
-test('invalid entered balances block arithmetic but preserve independent automatic and documented manual pairs', () => {
+void test('invalid entered balances block arithmetic but preserve independent automatic and documented manual pairs', () => {
   const files = input([{}], [{}]);
   const normalized = sources(files, {
     ...mapping,
@@ -432,7 +432,7 @@ test('invalid entered balances block arithmetic but preserve independent automat
   );
 });
 
-test('disjoint invoice groups and repeated-document pairs remain provable, but a failed bucket member blocks its whole proof', () => {
+void test('disjoint invoice groups and repeated-document pairs remain provable, but a failed bucket member blocks its whole proof', () => {
   const group = input(
     [
       { doc: 'INV-GROUP1', po: 'PO-7' },
@@ -469,7 +469,7 @@ test('disjoint invoice groups and repeated-document pairs remain provable, but a
   assert.equal(auto(compare(...sources(pair), scope)).length, 0);
 });
 
-test('whole payment groups remain complete only outside failed-row bank/receipt memberships', () => {
+void test('whole payment groups remain complete only outside failed-row bank/receipt memberships', () => {
   const payment = (bank: string, amount: string): Row => ({
     type: 'Payment',
     doc: `PAY-${bank}`,
@@ -508,7 +508,7 @@ test('whole payment groups remain complete only outside failed-row bank/receipt 
   conserve(tainted, files);
 });
 
-test('legacy direct-source errors without a valid envelope remain conservative', () => {
+void test('legacy direct-source errors without a valid envelope remain conservative', () => {
   const files = input([{}], [{}]);
   for (const isolation of [
     undefined,
@@ -524,7 +524,7 @@ test('legacy direct-source errors without a valid envelope remain conservative',
   }
 });
 
-test('duplicate direct-source IDs are refused even when their identity components have different taint', () => {
+void test('duplicate direct-source IDs are refused even when their identity components have different taint', () => {
   const files = input(
     [{}, { doc: 'INV-200' }, { doc: 'INV-900', amount: 'bad' }],
     [{}, { doc: 'INV-200' }],

@@ -1,0 +1,62 @@
+{
+  "version": "P4_QUALIFIED_CURRENCY_BROWSER_CLARIFICATION_MANIFEST_V1",
+  "nativeAccepted": false,
+  "runtimeAcceptance": false,
+  "implementationAccepted": false,
+  "financialApproval": false,
+  "productImports": false,
+  "expectedFromProduct": false,
+  "files": [
+    {
+      "path": "CLARIFICATION.md",
+      "bytes": 3707,
+      "sha256": "b12225409ede0299003381bc5c7d3260eb16fef2c2af7c6ac537816b120e1a44"
+    },
+    {
+      "path": "clarification.json",
+      "bytes": 2141,
+      "sha256": "97dfdafe5c4b34f2dccae83fd6c0d32f097942a7246469f6fc35828f93bbcb6c"
+    },
+    {
+      "path": "manual-negative-choice-binding.json",
+      "bytes": 2987,
+      "sha256": "aeb1c72e15285efe761555ece8bb33809e2c0d52c7d1f56c875b6d553ecadd23"
+    },
+    {
+      "path": "source-snapshot/browser-v1-MANIFEST.json",
+      "bytes": 20210,
+      "sha256": "93e828268c824e8fb1a4e7e1a5205d14ea1568c9122db55625922284dd31d9a2"
+    },
+    {
+      "path": "source-snapshot/freeze.json",
+      "bytes": 9671,
+      "sha256": "1b9612a623e3055fe6fa369eb4b7b175da67ab04e07f0895e42b112fb251c7c4"
+    },
+    {
+      "path": "source-snapshot/kwd-excess-fraction.expected.json",
+      "bytes": 1135,
+      "sha256": "94072889cc760b0a9da9c302818c6144f64d9ee70c7842b0d732af4367ede928"
+    },
+    {
+      "path": "source-snapshot/kwd-excess-fraction.pdf",
+      "bytes": 1312,
+      "sha256": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf"
+    },
+    {
+      "path": "static-clarification-consistency.log",
+      "bytes": 359,
+      "sha256": "38c8f72343e9b3bce44b3cb08b58f8e3bef1119eda2beeb5481efd20e4ef6b83"
+    },
+    {
+      "path": "verify-clarification.py",
+      "bytes": 3489,
+      "sha256": "be75b86e3e968722a4dfb925f22ac59906078e6fa9c8aac60a1571f6f187b9f1"
+    }
+  ],
+  "exclusion": "only own root MANIFEST.json; snapshot browser manifest remains included",
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

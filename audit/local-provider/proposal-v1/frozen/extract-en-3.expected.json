@@ -1,0 +1,27 @@
+{
+  "proposal": {
+    "date": "2026-09-12",
+    "reference": "INV-302",
+    "amount": "134.26",
+    "currency": "SAR"
+  },
+  "amountMinor": "13426",
+  "evidence": {
+    "date": {
+      "startUtf16": 50,
+      "endUtf16": 60,
+      "literal": "2026-09-12"
+    },
+    "reference": {
+      "startUtf16": 36,
+      "endUtf16": 43,
+      "literal": "INV-302"
+    },
+    "amount": {
+      "startUtf16": 13,
+      "endUtf16": 19,
+      "literal": "134.26"
+    }
+  },
+  "humanApproval": false
+}

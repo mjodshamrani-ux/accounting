@@ -1,0 +1,4 @@
+Entity,Counterparty,Ledger,Account ID,Complete dimensions,Transaction ID,Counterparty transaction ID,Posting date,Debit,Credit,Currency,Currency basis,FX policy,Posting status,Posting layer,Period start,Period end,As of,Policy version
+Synthetic Entity B,Synthetic Entity A,Book B,901,department=09,B-001,A-001,2026-09-11,0.00,100.00,SAR,functional,same-currency-no-conversion,posted,actual,2026-08-01,2026-09-30,2026-09-30,IC-1
+Synthetic Entity B,Synthetic Entity A,Book B,901,department=09,B-002,A-002,2026-09-11,30.00,0.00,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1
+Synthetic Entity B,Synthetic Entity A,Book B,901,department=09,B-003,A-003,2026-09-11,0.00,0.00,SAR,functional,same-currency-no-conversion,posted,actual,2026-09-01,2026-09-30,2026-09-30,IC-1

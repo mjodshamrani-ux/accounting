@@ -1,0 +1,61 @@
+{
+  "contract": "SUPPLIER_OVERLAP_MAIN_V1",
+  "addendum": "NATIVE_NEW_INSTANTIATION_V1",
+  "authoredAtUtc": "2026-10-08T06:39:47.919650+00:00",
+  "originalTruthSha256": "7c3add58890206952a235c0efc4e5761be416919e4770abd36cb7dc068b9de24",
+  "authority": "Independent separately reviewed new native fixture instantiation, never an identity-preserving rewrite of original source bytes or receipts.",
+  "reason": "The frozen economic labels contain no digits. Legacy automatic reference guards require letters and a digit (or the separately proved numeric-document rule). Literal original economic labels therefore cannot instantiate frozen automatic-owner predicates. No existing product guard or original frozen file is changed.",
+  "mapping": {
+    "INV-X": "INV-X-1",
+    "INV-Y": "INV-Y-2",
+    "INV-Z": "INV-Z-3",
+    "INV-OWN": "INV-OWN-4"
+  },
+  "bijection": true,
+  "newOriginalFiles": true,
+  "noAuthorityTransfersFromOriginalLabels": true,
+  "instantiateAllCrossReferencesConsistently": true,
+  "unchangedEconomicDimensions": [
+    "source-side",
+    "original-member-key",
+    "member-count",
+    "amountMinor",
+    "date",
+    "documentType",
+    "selectedReference",
+    "poReference",
+    "voucherReference",
+    "accepted-and-rejected-membership",
+    "integer-total",
+    "bridge-arithmetic",
+    "row-partition"
+  ],
+  "newPositiveNativePredicates": {
+    "A-D": "Economic memberships and money use their new native invoice labels consistently; main counts retain frozen expectations.",
+    "E": "INV-OWN-4 has the legacy reference shape needed to instantiate automatic exact pair and complete explicit group owners.",
+    "F": "INV-Z-3 disjoint scalar link remains separate from INV-X-1 aggregate.",
+    "G": "Consumed INV-X-1 membership remains in full original indexes and prevents automatic residual uniqueness; residual source pair stays Needs Review."
+  },
+  "requiredLiteralNegativeProbes": [
+    {
+      "fixture": "E automatic-exact-1-to-1 original literal INV-OWN",
+      "automaticMatchedCases": 0,
+      "matchedSourceRows": 0
+    },
+    {
+      "fixture": "E automatic-certified-complete-group original literal INV-OWN",
+      "automaticMatchedCases": 0,
+      "matchedSourceRows": 0
+    },
+    {
+      "fixture": "A original literal INV-X after no acceptance",
+      "automaticMatchedCases": 0,
+      "manualMatches": 0,
+      "matchedSourceRows": 0,
+      "unmatchedCases": 4,
+      "unmatchedSourceRows": 4
+    }
+  ],
+  "failedIterationEvidence": "externalwork/integration-continuation/p2/focused-first.log retained separately; 23/26 passed with original literal labels before new instantiation.",
+  "status": "frozen-before-test-native-instantiation-change"
+}

@@ -1,0 +1,150 @@
+{
+  "outcome": "derived",
+  "originalSha256": "479615cf73a52160a1e2677e9a089e8f0c9b3725b0f9e36985ab916588960b54",
+  "originalByteLength": 1257,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Signed"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "",
+        "",
+        "",
+        "amount"
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "000271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    }
+  ],
+  "proposals": [
+    {
+      "targetRow": 4,
+      "reference": "000271",
+      "parentCells": [
+        {
+          "row": 3,
+          "page": 1,
+          "column": 1,
+          "literal": "Invoice No"
+        },
+        {
+          "row": 3,
+          "page": 1,
+          "column": 2,
+          "literal": "000271"
+        }
+      ],
+      "continuationCells": [],
+      "headerBands": [
+        [
+          {
+            "row": 1,
+            "page": 1,
+            "column": 1,
+            "literal": "Date"
+          },
+          {
+            "row": 1,
+            "page": 1,
+            "column": 2,
+            "literal": "Reference"
+          },
+          {
+            "row": 1,
+            "page": 1,
+            "column": 3,
+            "literal": "Description"
+          },
+          {
+            "row": 1,
+            "page": 1,
+            "column": 4,
+            "literal": "Signed"
+          },
+          {
+            "row": 2,
+            "page": 1,
+            "column": 1,
+            "literal": ""
+          },
+          {
+            "row": 2,
+            "page": 1,
+            "column": 2,
+            "literal": ""
+          },
+          {
+            "row": 2,
+            "page": 1,
+            "column": 3,
+            "literal": ""
+          },
+          {
+            "row": 2,
+            "page": 1,
+            "column": 4,
+            "literal": "amount"
+          }
+        ]
+      ]
+    }
+  ],
+  "links": [
+    {
+      "originalRow": 4,
+      "page": 1,
+      "derivedRow": 2,
+      "reference": "000271",
+      "referenceOrigin": "accepted-section-proposal"
+    }
+  ],
+  "csvSha256": "1bf21234f3178a953fc06a7ee2eeb94229febc2f3d69045316cdcf3ae02dacb6",
+  "csvRows": [
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Amount"
+    ],
+    [
+      "2026-10-01",
+      "000271",
+      "first line",
+      "-12.50"
+    ]
+  ],
+  "signedAmounts": [
+    "-12.50"
+  ],
+  "amountMinor": [
+    -1250
+  ]
+}

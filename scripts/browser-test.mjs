@@ -1,4 +1,17 @@
+import {verifyPayroll} from './payroll-browser-cases.mjs';
+import {verifyAsset} from './fixed-assets-browser-cases.mjs';
+import { verifyStock } from './inventory-register-browser-cases.mjs';
+import { verifyGateway } from './payment-gateway-browser-cases.mjs';
+import { verifyDomainAssistant } from './domain-assistant-browser-cases.mjs';
+import { verifyIntercompany } from './intercompany-browser-cases.mjs';
+import { verifyFinancial } from './tb-financial-browser-cases.mjs';
+import { verifyBankAdjustments } from './bank-adjustment-browser-cases.mjs';
+import { verifyBank } from './bank-browser-cases.mjs';
+import { verifyAllocation } from './allocation-browser-cases.mjs';
+import { verifyGlTb } from './gl-tb-browser-cases.mjs';
+import { verifyAr } from './ar-browser-cases.mjs';
 import { verifyAssistantEvidence } from './assistant-evidence-browser-cases.mjs';
+import { verifyClearing } from './clearing-browser-cases.mjs';
 import { verifyUnknownCreditRoles } from './unknown-credit-browser-cases.mjs';
 import { chromium } from 'playwright';
 import { verifyRelatedInvoiceRoles } from './related-invoice-browser-cases.mjs';
@@ -1857,6 +1870,20 @@ try {
     await activeScenarioPage(context, 'local review effort'),
     `${origin}/mizan-test/`,
   );
+  await verifyClearing(await activeScenarioPage(context, 'single-account clearing'), `${origin}/mizan-test/`);
+  await verifyAr(await activeScenarioPage(context, 'customer AR documents'), `${origin}/mizan-test/`);
+  await verifyAllocation(await activeScenarioPage(context, 'Payment allocation'), `${origin}/mizan-test/`);
+  await verifyBank(await activeScenarioPage(context, 'Bank movements'), `${origin}/mizan-test/`);
+  await verifyBankAdjustments(await activeScenarioPage(context, 'Bank balances and adjustment evidence'), `${origin}/mizan-test/`);
+  await verifyGlTb(await activeScenarioPage(context, 'GL/TB consistency'), `${origin}/mizan-test/`);
+  await verifyFinancial(await activeScenarioPage(context, 'Trial balance financial position'), `${origin}/mizan-test/`);
+  await verifyIntercompany(await activeScenarioPage(context, 'Intercompany transaction evidence'), `${origin}/mizan-test/`);
+  await verifyGateway(await activeScenarioPage(context, 'Payment gateway batch evidence'), `${origin}/mizan-test/`);
+  await verifyStock(await activeScenarioPage(context, 'Posted inventory register / GL evidence'), `${origin}/mizan-test/`);
+  await verifyAsset(await activeScenarioPage(context, 'Posted fixed assets / GL component evidence'), `${origin}/mizan-test/`);
+  await verifyPayroll(await activeScenarioPage(context, 'Posted payroll / GL and bank payout evidence'), `${origin}/mizan-test/`, 'work/payroll/full-app-browser-payroll');
+  await verifyDomainAssistant(await activeScenarioPage(context, 'Domain evidence explanations'), `${origin}/mizan-test/`);
+
   assert.deepEqual(errors, []);
   assert.deepEqual(external, []);
   assert.deepEqual(post, []);

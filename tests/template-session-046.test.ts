@@ -16,7 +16,7 @@ import { restoreSession, saveSession } from '../lib/reconciliation/session.ts';
 import { normalizeSource, compare } from '../lib/reconciliation/core.ts';
 import { exportWorkbook } from '../lib/reconciliation/io.ts';
 
-test('legacy templates lose source facts, sign conventions and format assumptions when migrated', () => {
+void test('legacy templates lose source facts, sign conventions and format assumptions when migrated', () => {
   const old = {
     ...demoMappings[0],
     multiplier: -1,
@@ -77,7 +77,7 @@ test('legacy templates lose source facts, sign conventions and format assumption
   );
 });
 
-test('templates never recover financial values or proof even through forged v2 fields', () => {
+void test('templates never recover financial values or proof even through forged v2 fields', () => {
   const safe = mappingTemplate(demoMappings[0])!;
   const forged = {
     ...safe,
@@ -100,7 +100,7 @@ test('templates never recover financial values or proof even through forged v2 f
   assert.equal(mappingTemplate({ ...demoMappings[0], sheet: -1 }), null);
 });
 
-test('old-engine sessions cannot bypass reprocessing by carrying old approvals', async () => {
+void test('old-engine sessions cannot bypass reprocessing by carrying old approvals', async () => {
   const bytes = new TextEncoder().encode(
     JSON.stringify({
       format: 'mizan-session',
@@ -112,7 +112,7 @@ test('old-engine sessions cannot bypass reprocessing by carrying old approvals',
   await assert.rejects(restoreSession(bytes), /غير متوافق/);
 });
 
-test('current sessions re-read originals and recompute; forged source and stale export cannot survive', async () => {
+void test('current sessions re-read originals and recompute; forged source and stale export cannot survive', async () => {
   const scope = { ...demoScope, confirmed: true };
   const bytes = await saveSession({
     files: structuredClone(demoFiles),

@@ -1,0 +1,96 @@
+{
+  "version": "P4_SECTION_CONTINUATION_V1",
+  "synthetic": true,
+  "cases": [
+    {
+      "id": "en-section",
+      "source": "en-section.source.json",
+      "expected": "en-section.expected.json"
+    },
+    {
+      "id": "ar-section",
+      "source": "ar-section.source.json",
+      "expected": "ar-section.expected.json"
+    },
+    {
+      "id": "explicit-continuation",
+      "source": "explicit-continuation.source.json",
+      "expected": "explicit-continuation.expected.json"
+    },
+    {
+      "id": "no-marker",
+      "source": "no-marker.source.json",
+      "expected": "no-marker.expected.json"
+    },
+    {
+      "id": "page-gap",
+      "source": "page-gap.source.json",
+      "expected": "page-gap.expected.json"
+    },
+    {
+      "id": "unknown-section",
+      "source": "unknown-section.source.json",
+      "expected": "unknown-section.expected.json"
+    },
+    {
+      "id": "duplicate-parent",
+      "source": "duplicate-parent.source.json",
+      "expected": "duplicate-parent.expected.json"
+    },
+    {
+      "id": "competing-row-reference",
+      "source": "competing-row-reference.source.json",
+      "expected": "competing-row-reference.expected.json"
+    },
+    {
+      "id": "new-section",
+      "source": "new-section.source.json",
+      "expected": "new-section.expected.json"
+    },
+    {
+      "id": "late-corrupt-amount",
+      "source": "late-corrupt-amount.source.json",
+      "expected": "late-corrupt-amount.expected.json"
+    },
+    {
+      "id": "no-header-carry",
+      "source": "no-header-carry.source.json",
+      "expected": "no-header-carry.expected.json"
+    },
+    {
+      "id": "changed-header",
+      "source": "changed-header.source.json",
+      "expected": "changed-header.expected.json"
+    },
+    {
+      "id": "competing-continuation",
+      "source": "competing-continuation.source.json",
+      "expected": "competing-continuation.expected.json"
+    },
+    {
+      "id": "bidi-parent-rejected",
+      "source": "bidi-parent-rejected.source.json",
+      "expected": "bidi-parent-rejected.expected.json"
+    },
+    {
+      "id": "fringe-rtl-spans",
+      "source": "fringe-rtl-spans.source.json",
+      "expected": "fringe-rtl-spans.expected.json"
+    },
+    {
+      "id": "competing-parent-cells",
+      "source": "competing-parent-cells.source.json",
+      "expected": "competing-parent-cells.expected.json"
+    },
+    {
+      "id": "explicit-own-reference",
+      "source": "explicit-own-reference.source.json",
+      "expected": "explicit-own-reference.expected.json"
+    },
+    {
+      "id": "pre-parent-movement",
+      "source": "pre-parent-movement.source.json",
+      "expected": "pre-parent-movement.expected.json"
+    }
+  ]
+}

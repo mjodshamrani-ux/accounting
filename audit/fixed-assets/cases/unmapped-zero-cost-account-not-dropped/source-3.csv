@@ -1,0 +1,5 @@
+GL account,GL dimensions,Account class,Debit,Credit,Entity,Asset ledger,GL ledger,Currency,Currency basis,Posting status,Posting layer,As of,Chart version,Map version,Component policy version,Asset account set version
+GL-cost,branch=01,fixed-asset-cost,1400,0,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,SAR,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+GL-depreciation,branch=01,accumulated-depreciation,0,300,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,SAR,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+GL-impairment,branch=01,accumulated-impairment,0,50,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,SAR,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1
+GL-zero,branch=01,fixed-asset-cost,0,0,Synthetic Asset Owner,ASSET-BOOK,GL-BOOK,SAR,functional,posted,Current,2026-09-30,CHART-1,MAP-1,provided-components-1,ASSET-SET-1

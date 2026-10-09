@@ -43,7 +43,7 @@ const scope: Scope = {
   coverageConfirmed: false,
 };
 
-test('local import advice can complete unfamiliar mapping only after explicit application and engine checks', async () => {
+void test('local import advice can complete unfamiliar mapping only after explicit application and engine checks', async () => {
   const { file, mapping, output } = await fixture();
   const before = JSON.stringify({ file, mapping });
   let availabilityOptions: unknown;
@@ -93,7 +93,7 @@ test('local import advice can complete unfamiliar mapping only after explicit ap
   assert.equal(result.supplier.total, 13845);
 });
 
-test('download states, absent model and unsupported Arabic never start model creation', async () => {
+void test('download states, absent model and unsupported Arabic never start model creation', async () => {
   const { file, mapping, context } = await fixture();
   let creates = 0;
   for (const state of [
@@ -150,7 +150,7 @@ test('download states, absent model and unsupported Arabic never start model cre
   assert.equal(probes, 0);
 });
 
-test('model cannot rewrite values, choose inactive fields, change source or grant approval', async () => {
+void test('model cannot rewrite values, choose inactive fields, change source or grant approval', async () => {
   const { file, mapping, output } = await fixture();
   for (const answer of [
     { ...output, approved: true },
@@ -175,7 +175,7 @@ test('model cannot rewrite values, choose inactive fields, change source or gran
   }
 });
 
-test('stale mapping, recut PDF, and even edits beyond the sample invalidate outstanding advice', async () => {
+void test('stale mapping, recut PDF, and even edits beyond the sample invalidate outstanding advice', async () => {
   for (const change of ['mapping', 'rows', 'pdf']) {
     const { file, mapping, output } = await fixture();
     const response = await askLocalImportModel(
@@ -199,7 +199,7 @@ test('stale mapping, recut PDF, and even edits beyond the sample invalidate outs
   }
 });
 
-test('abort before creation or during prompting discards advice and destroys the session', async () => {
+void test('abort before creation or during prompting discards advice and destroys the session', async () => {
   for (const stage of ['before', 'availability', 'prompt']) {
     const { file, mapping, output } = await fixture();
     const controller = new AbortController();
@@ -232,7 +232,7 @@ test('abort before creation or during prompting discards advice and destroys the
   }
 });
 
-test('unparseable, oversized, thrown and unavailable responses fall back without changing the source', async () => {
+void test('unparseable, oversized, thrown and unavailable responses fall back without changing the source', async () => {
   const { file, mapping } = await fixture();
   for (const raw of [
     'not JSON',
@@ -262,7 +262,7 @@ test('unparseable, oversized, thrown and unavailable responses fall back without
   }
 });
 
-test('numeric plausibility does not promote Quantity-as-Amount into verified semantics', async () => {
+void test('numeric plausibility does not promote Quantity-as-Amount into verified semantics', async () => {
   const { file, mapping, output } = await fixture();
   const result = await askLocalImportModel(
     file,

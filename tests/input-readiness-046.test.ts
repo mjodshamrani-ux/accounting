@@ -32,7 +32,7 @@ const fixture = (rows: string[][]): SourceFile => ({
   sheets: [{ name: 'Data', rows, formulaRows: [], hiddenRows: [] }],
 });
 
-test('046 invalid PDF layout cannot use a default locale to emit a silently scaled KWD row even after confirmation', async () => {
+void test('046 invalid PDF layout cannot use a default locale to emit a silently scaled KWD row even after confirmation', async () => {
   // A real PDF glyph run crosses the bad boundary. The comma-only first amount
   // establishes the locale; the second token alone supports two interpretations.
   const bytes = syntheticPdf([
@@ -96,7 +96,7 @@ test('046 invalid PDF layout cannot use a default locale to emit a silently scal
   );
 });
 
-test('046 input readiness preserves native Excel value semantics and legitimate empty-period balances', () => {
+void test('046 input readiness preserves native Excel value semantics and legitimate empty-period balances', () => {
   const native = fixture([
     ['Date', 'Reference', 'Amount'],
     ['2026-07-01', 'INV-001', '1,234'],
@@ -145,7 +145,7 @@ test('046 input readiness preserves native Excel value semantics and legitimate 
   assert.equal(source.closing, 100000);
 });
 
-test('046 an explicit choice for ambiguous valid formats remains valid but impossible dates do not', () => {
+void test('046 an explicit choice for ambiguous valid formats remains valid but impossible dates do not', () => {
   const file = fixture([
     ['Date', 'Reference', 'Amount'],
     ['01/02/2026', 'INV-046', '1,234'],
@@ -208,7 +208,7 @@ test('046 an explicit choice for ambiguous valid formats remains valid but impos
   );
 });
 
-test('046 real worker entry rejects invalid formats for reconcile, compare and export before returning financial values', async () => {
+void test('046 real worker entry rejects invalid formats for reconcile, compare and export before returning financial values', async () => {
   const bytes = syntheticPdf([
     [
       ['Date', 'Reference', 'Amount'],

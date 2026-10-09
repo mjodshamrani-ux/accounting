@@ -11,8 +11,9 @@ import {
   demoMappings,
   demoScope,
 } from '../lib/reconciliation/demo.ts';
+import type { Scope, Mapping } from '../lib/reconciliation/types.ts';
 const scope = { ...demoScope, confirmed: true, coverageConfirmed: true };
-test('ambiguous column meanings are left unmapped instead of selecting the first header', () => {
+void test('ambiguous column meanings are left unmapped instead of selecting the first header', () => {
   const file = {
     name: 'synthetic.csv',
     sheets: [
@@ -40,7 +41,7 @@ test('ambiguous column meanings are left unmapped instead of selecting the first
   assert.equal(mapping.amount, -1);
   assert.throws(() => normalizeSource(file, mapping, scope, 'supplier'));
 });
-test('exact summation does not depend on ordering of large offsetting entries', () => {
+void test('exact summation does not depend on ordering of large offsetting entries', () => {
   for (const values of [
     [1e14, 1, -1e14],
     [1, 1e14, -1e14],
@@ -51,10 +52,10 @@ test('exact summation does not depend on ordering of large offsetting entries', 
   assert.throws(() => safeSum([1e14, 1]));
   assert.throws(() => safeSum([1e14 + 1, -1e14]));
 });
-test('truthy non-boolean confirmations cannot create verified balance evidence', () => {
+void test('truthy non-boolean confirmations cannot create verified balance evidence', () => {
   for (const field of ['confirmed', 'coverageConfirmed'])
     for (const value of ['false', 'true', 1, {}, null]) {
-      const invalid = { ...scope, [field]: value } as any;
+      const invalid = { ...scope, [field]: value } as unknown as Scope;
       assert.throws(() =>
         compare(
           normalizeSource(demoFiles[0], demoMappings[0], invalid, 'supplier'),
@@ -64,7 +65,7 @@ test('truthy non-boolean confirmations cannot create verified balance evidence',
       );
     }
 });
-test('unknown and out-of-range exclusions cannot silently masquerade as reviewed rows', () => {
+void test('unknown and out-of-range exclusions cannot silently masquerade as reviewed rows', () => {
   for (const excluded of [
     { '999': 'out of range' },
     { '2.5': 'fractional row' },
@@ -75,7 +76,7 @@ test('unknown and out-of-range exclusions cannot silently masquerade as reviewed
     assert.throws(() =>
       normalizeSource(
         demoFiles[0],
-        { ...demoMappings[0], excluded } as any,
+        { ...demoMappings[0], excluded } as unknown as Mapping,
         scope,
         'supplier',
       ),

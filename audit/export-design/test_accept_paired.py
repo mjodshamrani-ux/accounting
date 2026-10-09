@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from accept_paired import bundle_sha256, evaluate  # noqa: E402
 
 
-ARCHIVE = Path(__file__).resolve().parents[1] / "sol-cycle-2/paired-run.json"
+ARCHIVE = Path(__file__).resolve().parents[1] / "public-fixtures/paired-measurements.json"
 
 
 class PairedAcceptanceTests(unittest.TestCase):

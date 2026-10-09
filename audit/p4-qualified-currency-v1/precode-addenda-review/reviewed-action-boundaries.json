@@ -1,0 +1,196 @@
+{
+  "version": "INDEPENDENT_REVIEWED_ACTION_BOUNDARIES_V1",
+  "acceptanceClaim": "Precode executable boundary interpretation; future tests not yet run.",
+  "actions": [
+    {
+      "id": "missing-original-dot-acknowledgement",
+      "boundary": "recordReviewerDecision new ambiguous-original acknowledgement admission",
+      "reviewerInterpretation": "Missing/false acknowledgement with otherwise valid current original choice fails before new currency receipt mint.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "false-original-dot-acknowledgement",
+      "boundary": "recordReviewerDecision new ambiguous-original acknowledgement admission",
+      "reviewerInterpretation": "Missing/false acknowledgement with otherwise valid current original choice fails before new currency receipt mint.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "missing-original-choice",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "forged-choice-source-hash",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-value-comma",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-amount-column",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-header-row",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-sheet",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-exponent",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-missing-candidate",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-extra-candidate",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-duplicate-candidate",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-cuts",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-exclusion",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-balance-input",
+      "boundary": "original Mapping formatChoice / fresh native admission",
+      "reviewerInterpretation": "Offer the changed choice before owned entry snapshot and compare each context field plus exact freshly reconstructed candidate set; refuse before currency receipt mint. No partial source conversion or metadata authority.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-extraction-revision",
+      "boundary": "current extractionRevision / recordReviewerDecision / replaceSource",
+      "reviewerInterpretation": "Offer stale reviewedExtractionRevision or replace live source/reading revision after review; reject stale current context. A brand-new review under a different declared revision is not itself forgery.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-extraction-hash",
+      "boundary": "recordReviewerDecision",
+      "reviewerInterpretation": "Offer mismatched reviewedExtractionHash with otherwise current valid choice/decision; reject current reviewer context. Do not mutate a returned private-selection clone and assume it changes owned state.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-swap-during-replay",
+      "boundary": "live-session replaceSource",
+      "reviewerInterpretation": "While Apply awaits original replay, replace reading with changed choice through replaceSource; generation changes, suppress pending artifact.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "acknowledgement-cleared-during-replay",
+      "boundary": "live-session updateReviewer or new reviewer operation",
+      "reviewerInterpretation": "Invalidate through existing live session mutator; mutation of old caller acknowledgement alone must remain ignored.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "derived-choice-original-hash-reuse",
+      "boundary": "private-copy generated choice fault before publication",
+      "reviewerInterpretation": "Fault generated rebound choice inside isolated future construction/replay path; compare owned original and fresh CSV facts and suppress whole artifact. Do not invent a public supplied-derived-choice API.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "derived-choice-precision",
+      "boundary": "private-copy generated choice fault before publication",
+      "reviewerInterpretation": "Fault generated rebound choice inside isolated future construction/replay path; compare owned original and fresh CSV facts and suppress whole artifact. Do not invent a public supplied-derived-choice API.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "derived-choice-amount-column",
+      "boundary": "private-copy generated choice fault before publication",
+      "reviewerInterpretation": "Fault generated rebound choice inside isolated future construction/replay path; compare owned original and fresh CSV facts and suppress whole artifact. Do not invent a public supplied-derived-choice API.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "derived-choice-candidate-tamper",
+      "boundary": "private-copy generated choice fault before publication",
+      "reviewerInterpretation": "Fault generated rebound choice inside isolated future construction/replay path; compare owned original and fresh CSV facts and suppress whole artifact. Do not invent a public supplied-derived-choice API.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "derived-choice-pdf-cuts",
+      "boundary": "private-copy generated choice fault before publication",
+      "reviewerInterpretation": "Fault generated rebound choice inside isolated future construction/replay path; compare owned original and fresh CSV facts and suppress whole artifact. Do not invent a public supplied-derived-choice API.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "provenance-without-original-review",
+      "boundary": "product owned Apply and independent download checker, separately",
+      "reviewerInterpretation": "Apply without current live owned receipt refuses. Edited downloaded provenance fails independent artifact checker. No product sidecar input.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-getter",
+      "boundary": "new choice/ack descriptors before private copying",
+      "reviewerInterpretation": "Present accessor on admitted caller choice/context; reject before invocation, counter stays zero.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    },
+    {
+      "id": "choice-over-budget",
+      "boundary": "new choice/ack metadata before private copying",
+      "reviewerInterpretation": "Present metadata exceeding declared operation budgets; reject before expensive clone/read, preserve resource/cancellation guards.",
+      "futureExecutionRequired": true,
+      "expectedFinancialApproval": false
+    }
+  ],
+  "ownershipControls": "Existing post-snapshot caller mutation ignores volatile data. Explicit session replaceSource/updateReviewer advances generation. Copied/deserialized opaque receipts fail WeakMap ownership."
+}

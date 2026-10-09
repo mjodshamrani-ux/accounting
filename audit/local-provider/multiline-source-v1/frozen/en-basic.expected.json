@@ -1,0 +1,81 @@
+{
+  "outcome": "candidate",
+  "fields": {
+    "date": "2026-09-10",
+    "reference": "INV-410",
+    "amount": "125.00",
+    "currency": "SAR"
+  },
+  "normalizedCurrency": "SAR",
+  "amountMinor": "12500",
+  "evidence": {
+    "date": {
+      "value": {
+        "startUtf16": 36,
+        "endUtf16": 46,
+        "startByte": 36,
+        "endByte": 46,
+        "literal": "2026-09-10"
+      },
+      "role": {
+        "startUtf16": 24,
+        "endUtf16": 34,
+        "startByte": 24,
+        "endByte": 34,
+        "literal": "Issue date"
+      }
+    },
+    "reference": {
+      "value": {
+        "startUtf16": 16,
+        "endUtf16": 23,
+        "startByte": 16,
+        "endByte": 23,
+        "literal": "INV-410"
+      },
+      "role": {
+        "startUtf16": 0,
+        "endUtf16": 14,
+        "startByte": 0,
+        "endByte": 14,
+        "literal": "Invoice number"
+      }
+    },
+    "amount": {
+      "value": {
+        "startUtf16": 62,
+        "endUtf16": 68,
+        "startByte": 62,
+        "endByte": 68,
+        "literal": "125.00"
+      },
+      "role": {
+        "startUtf16": 47,
+        "endUtf16": 60,
+        "startByte": 47,
+        "endByte": 60,
+        "literal": "Invoice total"
+      }
+    },
+    "currency": {
+      "value": {
+        "startUtf16": 69,
+        "endUtf16": 72,
+        "startByte": 69,
+        "endByte": 72,
+        "literal": "SAR"
+      },
+      "role": {
+        "startUtf16": 47,
+        "endUtf16": 60,
+        "startByte": 47,
+        "endByte": 60,
+        "literal": "Invoice total"
+      }
+    }
+  },
+  "originalSha256": "595c230a5b9e1691ed823f6913fadd975a685bff81fdd63ca4a4dcd7d1b4dc20",
+  "extractionRevision": "synthetic-text-extraction-v1",
+  "synthetic": true,
+  "fieldValidation": false
+}

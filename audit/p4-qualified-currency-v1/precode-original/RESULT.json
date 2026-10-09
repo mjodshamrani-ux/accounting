@@ -1,0 +1,61 @@
+{
+  "version": "QUALIFIED_CURRENCY_INDEPENDENT_PRECODE_REVIEW_V1",
+  "outcome": "PASS-ORIGINAL-INPUTS-NATIVE-ACCEPTED",
+  "implementationAccepted": false,
+  "fieldAcceptance": false,
+  "financialApproval": false,
+  "repositoryHead": "6fb757ec704aa84c690b4fcbddaabbd033aa4963",
+  "repositoryBranch": "codex/p2-main-allocation-p4-families",
+  "freezeSha256": "1b9612a623e3055fe6fa369eb4b7b175da67ab04e07f0895e42b112fb251c7c4",
+  "draftManifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+  "contractSha256": "72229fbd43fbd378cb2da09ce515a7c043e79ba261d80864f7f9dfe63f8098ba",
+  "freezeAuthorScriptSha256": "7bcd5ef56aa4e037b933914b9c16404448990d31913376f369bc8895a78864a9",
+  "productPins": {
+    "lib/reconciliation/io.ts": "ca41d0ec67886974c307700b207377cb4cb51bd5d813404bea5004184520dddf",
+    "lib/reconciliation/pdf.ts": "237411daa0bc194527ec96a0c03627ff8b7d1f58cb51245789173255dd379155",
+    "lib/reconciliation/section-continuation.ts": "d4d07e327fc7ed3cf92ed97e67f67891968c1dd52ca902d214c6e4b7639e082f",
+    "lib/reconciliation/section-derived-reading.ts": "2044589ac8f00562da9b722230895f5acbec54cc5e2e60588ff1dd35e327bc03",
+    "lib/reconciliation/input-readiness.ts": "c2fce46cce026b4c1169006cd844fb22d28d65d5be248c74094b1ca9142070f6",
+    "lib/reconciliation/source-preparation.ts": "0bdad42a622704e489ab2ebbc3b6a98287d973dcb0abc46fff093cb8b9409435",
+    "lib/reconciliation/core.ts": "bb0369e77df4db94cf8f5c15b2656b22b411f493f4c1b7c4f3087936f3f1b1c5",
+    "lib/reconciliation/currency-precision.ts": "0fe50c4defabb899df96c5341512f76a210baea7ea4b337de31a999882a77eec",
+    "lib/reconciliation/scope-inference.ts": "5d69b796235f021fe2088b73ffb3af6a1cfad1da731f3d63288d351090e76a5f",
+    "lib/reconciliation/types.ts": "0fcc048c401c97000c7e669b5339b5f90c77957c8f4bed90795f0565a132c4b3"
+  },
+  "evidence": {
+    "nativeResults": "native-results-second.json",
+    "nativeChecks": 119,
+    "nativeOriginalPDFs": 27,
+    "originalPages": 34,
+    "originalRows": 123,
+    "nativeIssueFree": true,
+    "qualifiedCurrentEngineRefusals": 25,
+    "legacyBareControlsAccepted": 2,
+    "pdfOperatorGeometryTruth": "operators-results.json",
+    "csvBytesAndDecimalCases": 9,
+    "blockedFactsAndActions": "refusals-results.json",
+    "manualBlockedCaseFacts": 16,
+    "refusalActionDefinitionsReviewed": 18,
+    "failedFirstAttemptPreserved": [
+      "independent-native.mjs",
+      "native-run.log"
+    ]
+  },
+  "finding": {
+    "code": "KWD_REQUIRES_BOUND_DOT_REVIEW",
+    "severity": "future-implementation-plan-requirement",
+    "originalTruthAccepted": true,
+    "details": "All three original KWD CSVs cause current FORMAT_AMBIGUOUS_UNRESOLVED despite numberFormat dot. Existing bound numberFormat formatChoice gives exact [-12500,2005,0] under KWD3 with scope.confirmed false. Original failed proof/log preserved. Future family must carry explicit narrow original dot review into freshly source-bound CSV choice without inventing approval or silently bypassing ambiguity. Current boundedReading forbids formatChoice, so this needs deliberate narrow implementation and tamper coverage. Separate author addendum is being prepared; its review is not included in this original bundle."
+  },
+  "limits": [
+    "Future qualified implementation not present or accepted.",
+    "18 future refusal actions are specified/reviewed, not yet executed through nonexistent qualified implementation.",
+    "No browser or downloads tested for future family.",
+    "No frozen inputs, generator, expected truth, product or tests modified by this review."
+  ],
+  "publicProjection": {
+    "type": "public-metadata-projection",
+    "localEvidence": "Original historical manifests and raw local-path reports remain outside this public tree.",
+    "changes": "Local runtime locators are redacted; metadata identity pins now seal these public representations. Accounting truth, source PDFs, refusal/control facts and historical results are preserved. This projection is not a new experiment or a claim that original historical bytes changed."
+  }
+}

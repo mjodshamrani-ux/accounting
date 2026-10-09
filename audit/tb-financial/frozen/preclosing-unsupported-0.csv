@@ -1,0 +1,8 @@
+Account ID,Complete dimensions,Account label,Account class,Debit,Credit,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+001,none,Cash,current-asset,1000.00,0.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+002,none,Receivables,current-asset,600.00,0.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+003,none,Allowance,current-asset,0.00,100.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+004,none,Equipment,noncurrent-asset,500.00,0.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+101,none,Payables,current-liability,0.00,800.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+102,none,Loan,noncurrent-liability,0.00,200.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing
+201,none,Capital,equity,0.00,1000.00,Synthetic Financial Owner,Primary Book,SAR,functional,posted,actual,2026-09-01,2026-09-30,2026-09-30,CHART-1,MAP-1,pre-closing

@@ -13,6 +13,7 @@
 // has no English, when an entry no longer exists in the engine, or when the
 // slots do not correspond.
 export const engineCatalog: Record<string, string> = {
+  'حد الخلية غير مدعوم': 'Unsupported cell text limit',
   'تعذر التحقق من مصدر الصورة المراجع أو تغير سياقه. راجع العناوين والقيم والنطاق.':
     'The reviewed image source could not be verified or its context changed. Check the headers, values and scope.',
   'صف صورة غير مقروء: ${…}': 'Unreadable image row: {0}',
@@ -227,6 +228,13 @@ export const engineCatalog: Record<string, string> = {
   'لم أجد في النتيجة ما يتيح الإجابة عن هذا السؤال. يمكنك السؤال عن فرق الأرصدة، أو ما لم يُتحقق منه، أو ما ينبغي مراجعته الآن. للسؤال عن فاتورة، اختر «اشرح هذه الحركة» أو اكتب مرجعها الأصلي. يعمل هذا المساعد محليًا بقواعد محددة، وليس نموذج ذكاء اصطناعي توليديًا، ولا يقدم رأيًا محاسبيًا عامًا.':
     'I could not find anything in the result that answers this question. You can ask about the balance difference, what has not been verified, or what to review next. To ask about an invoice, choose “Explain this transaction” or type its original reference. This assistant runs locally with defined rules; it is not a generative AI model and does not give general accounting advice.',
   // cases.ts
+  'اعتماد بشري كامل لمكوّن الفواتير يثبت تكافؤ المجموعة؛ لا توزيع زوجي للمبالغ.':
+    'A human review of the complete invoice component establishes group equivalence; it does not allocate amounts between individual rows.',
+  'المراجع: ${…}؛ ${…}': 'Reviewer: {0}; {1}',
+  'دليل التجميع المعتمد لا يطابق العضوية والقرار الحاليين.':
+    'The reviewed group evidence does not match the current members and decision.',
+  'دليل التجميع في سجل المطابقات لا يطابق الحالة الحالية.':
+    'The group evidence in the match log does not match the current case.',
   'نوعا المستند مختلفان: ${…} / ${…}': 'The document types differ: {0} / {1}',
   'أمرا الشراء مختلفان: ${…} / ${…}': 'The purchase orders differ: {0} / {1}',
   'تعارض هوية الدفعة (${…}): ${…} / ${…}':

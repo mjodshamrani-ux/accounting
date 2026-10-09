@@ -36,8 +36,18 @@ const refsOf = (text) =>
     .split(/[\n,;|]+/)
     .map((part) => part.trim())
     .filter(Boolean);
+/** @param {string | number | boolean | bigint | null | undefined} first
+ * @param {string | number | boolean | bigint | null | undefined} second */
+const compareReferenceText = (first, second) => {
+  const a = String(first),
+    b = String(second);
+  return a < b ? -1 : a > b ? 1 : 0;
+};
 const linkKey = (supplier, ledger) =>
-  JSON.stringify([[...supplier].sort(), [...ledger].sort()]);
+  JSON.stringify([
+    [...supplier].sort(compareReferenceText),
+    [...ledger].sort(compareReferenceText),
+  ]);
 
 /** @param {Uint8Array} bytes downloaded workbook
  *  @param {object} expected declared reference results for one case */
@@ -143,7 +153,7 @@ export async function verifyAcceptanceExport(bytes, expected, decimals = 2) {
       'audit/reliability/verify-workbook.mjs readOutputWorkbook (OOXML ZIP + SAX + BigInt, no ExcelJS)',
     acceptedLinks: matches.length,
     unmatchedRows: unmatched.length,
-    reviewReferences: [...reviewRefs].length,
+    reviewReferences: reviewRefs.size,
     problems,
     verified: problems.length === 0,
   };

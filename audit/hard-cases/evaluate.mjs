@@ -460,6 +460,7 @@ export async function evaluateHardCase(
         }))
     : [];
   const same = (g, m) =>
+    // oxlint-disable-next-line typescript/require-array-sort-compare -- Fixture membership/verdict canonicalization intentionally retains native UTF-16 and ToString ordering.
     JSON.stringify([[...g.a].sort(), [...g.b].sort()]) ===
     JSON.stringify([m.a, m.b]);
   const overlaps = (g, m) =>
@@ -467,8 +468,10 @@ export async function evaluateHardCase(
   for (const g of spec.oracle.approved) {
     if (g.control) c.controlsExpected++;
     else c.approvedExpected++;
-    if (matched.some((m) => same(g, m)))
-      g.control ? c.controlsAchieved++ : c.approvedAchieved++;
+    if (matched.some((m) => same(g, m))) {
+      if (g.control) c.controlsAchieved++;
+      else c.approvedAchieved++;
+    }
   }
   for (const m of matched)
     if (!spec.oracle.approved.some((g) => same(g, m))) {

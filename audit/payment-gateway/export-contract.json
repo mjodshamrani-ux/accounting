@@ -1,0 +1,146 @@
+{
+  "version": "payment-gateway-batch-1",
+  "sheets": {
+    "Summary": [
+      "Field",
+      "Value"
+    ],
+    "Transactions": [
+      "Record ID",
+      "Source",
+      "Source row",
+      "Transaction ID",
+      "Kind",
+      "Posting date",
+      "Amount",
+      "Reference"
+    ],
+    "Fee evidence": [
+      "Record ID",
+      "Source",
+      "Source row",
+      "Evidence ID",
+      "Fee ID",
+      "Amount",
+      "Reference",
+      "Valid from",
+      "Valid to"
+    ],
+    "Settlement": [
+      "Record ID",
+      "Source",
+      "Source row",
+      "Settlement ID",
+      "Settlement date",
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Payout ID",
+      "Reference"
+    ],
+    "Payout": [
+      "Record ID",
+      "Source",
+      "Source row",
+      "Payout ID",
+      "Value date",
+      "Credit",
+      "Reference"
+    ],
+    "Totals": [
+      "Gross sales",
+      "Refunds",
+      "Evidenced fees",
+      "Calculated net"
+    ],
+    "Residuals": [
+      "Gross sales",
+      "Refunds",
+      "Fees",
+      "Net",
+      "Bank credit"
+    ],
+    "Missing": [
+      "Kind"
+    ],
+    "Issues": [
+      "Code",
+      "Source",
+      "Source row",
+      "Key"
+    ],
+    "Cell evidence": [
+      "Source",
+      "Hash",
+      "Sheet",
+      "Sheet name",
+      "Source row",
+      "Column",
+      "Header",
+      "Value"
+    ],
+    "Inventory": [
+      "Source",
+      "Hash",
+      "Source row",
+      "Kind",
+      "Errors"
+    ],
+    "Reading": [
+      "Source",
+      "Sheet",
+      "Role",
+      "Family",
+      "Confirmed"
+    ],
+    "Events": [
+      "Sequence",
+      "Event ID",
+      "Type",
+      "Batch ID",
+      "UTC time",
+      "Reference",
+      "Note",
+      "Context"
+    ],
+    "Event members": [
+      "Sequence",
+      "Event ID",
+      "Record ID"
+    ],
+    "Sources": [
+      "Source",
+      "Name",
+      "Hash",
+      "Chunk",
+      "Original base64"
+    ]
+  },
+  "summary": [
+    "Domain",
+    "Version",
+    "Claim",
+    "Status",
+    "Review",
+    "Decimals",
+    "Context",
+    "entity",
+    "gateway",
+    "merchantAccount",
+    "bankAccount",
+    "dimensions",
+    "currency",
+    "currencyBasis",
+    "fxPolicy",
+    "start",
+    "end",
+    "asOf",
+    "policyVersion",
+    "batchId",
+    "Scope confirmed",
+    "Completeness confirmed",
+    "Completeness reference",
+    "Completeness reason"
+  ]
+}

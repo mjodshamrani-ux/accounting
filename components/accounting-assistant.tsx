@@ -25,27 +25,46 @@ export function AccountingAssistant({
   const { t, engineText } = useI18n();
   const [busy, setBusy] = useState(false);
   const active = useRef<AbortController | null>(null);
-  const currentResult = useRef(result);
-  currentResult.current = result;
-  const mounted = useRef(true);
+  const mounted = useRef(false);
   useEffect(() => {
     mounted.current = true;
     return () => {
       mounted.current = false;
       active.current?.abort();
+      active.current = null;
     };
   }, [result]);
   const [question, setQuestion] = useState('');
   // A preset is kept by name, so the question reads in the current language;
   // a typed question is the accountant's own words and is kept as typed.
-  const [history, setHistory] = useState<
-    { question: string; preset?: Preset; answer: EvidenceAnswer }[]
-  >([]);
-  const [snapshot, setSnapshot] = useState(result);
+  type HistoryEntry = {
+    question: string;
+    preset?: Preset;
+    answer: EvidenceAnswer;
+  };
+  const [historyState, setHistoryState] = useState<{
+    result: Comparison;
+    entries: HistoryEntry[];
+  }>({ result, entries: [] });
+  const history = historyState.result === result ? historyState.entries : [];
+  const setHistory = (
+    update: HistoryEntry[] | ((entries: HistoryEntry[]) => HistoryEntry[]),
+  ) => {
+    setHistoryState((previous) =>
+      previous.result !== result
+        ? previous
+        : {
+            result,
+            entries:
+              typeof update === 'function' ? update(previous.entries) : update,
+          },
+    );
+  };
   // Clear previous explanations synchronously when a reviewed decision changes the result.
-  if (snapshot !== result) {
-    setSnapshot(result);
-    setHistory([]);
+  if (historyState.result !== result) {
+    setHistoryState({ result, entries: [] });
+    setBusy(false);
+    setQuestion('');
   }
   const ask = async (q: string, id?: string, preset?: Preset) => {
     if (!q.trim() || active.current) return;
@@ -72,7 +91,11 @@ export function AccountingAssistant({
               ),
             ])
           : null;
-      if (mounted.current && currentResult.current === result) {
+      if (
+        mounted.current &&
+        active.current === controller &&
+        !controller.signal.aborted
+      ) {
         setHistory((h) => [
           ...h.slice(-9),
           { question: q, preset, answer: enhanced ?? local },
@@ -81,8 +104,8 @@ export function AccountingAssistant({
       }
     } finally {
       clearTimeout(timer);
-      active.current = null;
-      setBusy(false);
+      if (mounted.current && active.current === controller) setBusy(false);
+      if (active.current === controller) active.current = null;
     }
   };
   return (
@@ -141,7 +164,9 @@ export function AccountingAssistant({
               }}
             >
               <strong>
-                {entry.preset ? t.assistant.presets[entry.preset] : entry.question}
+                {entry.preset
+                  ? t.assistant.presets[entry.preset]
+                  : entry.question}
               </strong>
               <p style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>
                 {engineText(entry.answer.text)}

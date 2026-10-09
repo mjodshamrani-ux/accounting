@@ -27,7 +27,7 @@ const fixture = (index: number) =>
 const codes = (r: Awaited<ReturnType<typeof evaluateCase>>) =>
   r.failures.map((f: { code: string }) => f.code);
 
-test('P2 capability requires nine proved groups across the 20 existing focused files with independent workbook verification', async () => {
+void test('P2 capability requires nine proved groups across the 20 existing focused files with independent workbook verification', async () => {
   const engine = await enginePromise;
   let groups = 0;
   for (const d of focusedManifest().filter(
@@ -57,7 +57,7 @@ test('P2 capability requires nine proved groups across the 20 existing focused f
   );
 });
 
-test('P2 oracle migration keeps the default 046 N:M rejection and the same visible source facts', async () => {
+void test('P2 oracle migration keeps the default 046 N:M rejection and the same visible source facts', async () => {
   const descriptor = focusedManifest().find((d) => d.id === 'G046-016')!;
   const legacy = generateFocusedCase(descriptor);
   const upgraded = generateFocusedCase(descriptor, {
@@ -95,7 +95,7 @@ test('P2 oracle migration keeps the default 046 N:M rejection and the same visib
   );
 });
 
-test('P2 N:M permission requires visible complete identity and does not reward abstention or equal totals alone', async () => {
+void test('P2 N:M permission requires visible complete identity and does not reward abstention or equal totals alone', async () => {
   const descriptor = focusedManifest().find((d) => d.id === 'G046-016')!;
   const spec = generateFocusedCase(descriptor, {
     groupCapability: P2_GROUP_CAPABILITY,
@@ -184,7 +184,7 @@ test('P2 N:M permission requires visible complete identity and does not reward a
   assert.ok(codes(record).includes('AUTO_COMPLETION_GAP'));
 });
 
-test('disabling every group fails required completion and cannot be counted as success', async () => {
+void test('disabling every group fails required completion and cannot be counted as success', async () => {
   const engine = await enginePromise,
     spec = fixture(0);
   const record = await evaluateCase(
@@ -212,7 +212,7 @@ test('disabling every group fails required completion and cannot be counted as s
   assert.equal(record.falseMatches, 0);
 });
 
-test('forcing a group on equal sums without bank or receipt proof is a false match', async () => {
+void test('forcing a group on equal sums without bank or receipt proof is a false match', async () => {
   const engine = await enginePromise,
     spec = fixture(5);
   const record = await evaluateCase(
@@ -240,7 +240,7 @@ test('forcing a group on equal sums without bank or receipt proof is a false mat
   assert.equal(record.safetyPass, false);
 });
 
-test('hidden metadata changes after rendering cannot change any engine input', async () => {
+void test('hidden metadata changes after rendering cannot change any engine input', async () => {
   const engine = await enginePromise,
     spec = fixture(0),
     rendered = await renderCase(spec);
@@ -275,7 +275,7 @@ test('hidden metadata changes after rendering cannot change any engine input', a
   assert.deepEqual(first.inputTrace, second.inputTrace);
 });
 
-test('ambiguous decimal convention stays unresolved without outside information and is labelled external when provided', async () => {
+void test('ambiguous decimal convention stays unresolved without outside information and is labelled external when provided', async () => {
   const engine = await enginePromise,
     spec = generateCase(foundationManifest()[0]),
     rendered = await renderCase(spec);
@@ -309,7 +309,7 @@ test('ambiguous decimal convention stays unresolved without outside information 
   );
 });
 
-test('the workbook verifier rejects accepted groups outside an independently supplied permission set', async () => {
+void test('the workbook verifier rejects accepted groups outside an independently supplied permission set', async () => {
   const engine = await enginePromise,
     spec = fixture(0),
     rendered = await renderCase(spec);
@@ -329,7 +329,7 @@ test('the workbook verifier rejects accepted groups outside an independently sup
   );
 });
 
-test('a diagnostic result with source errors is never labelled a completed comparison', async () => {
+void test('a diagnostic result with source errors is never labelled a completed comparison', async () => {
   const engine = await enginePromise,
     spec = fixture(0);
   const record = await evaluateCase(
@@ -360,7 +360,7 @@ test('a diagnostic result with source errors is never labelled a completed compa
   );
 });
 
-test('invalid format inference records an unproven implicit default even when downstream parsing returns values', async () => {
+void test('invalid format inference records an unproven implicit default even when downstream parsing returns values', async () => {
   const engine = await enginePromise,
     spec = fixture(0);
   const record = await evaluateCase(

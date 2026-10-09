@@ -23,7 +23,7 @@ const english = [
 ];
 const arabic = ['التاريخ', 'المرجع', 'المبلغ', 'مدين', 'دائن', 'الوصف'];
 
-test('date-window boundaries hold across leap days, year changes and either source order', async () => {
+void test('date-window boundaries hold across leap days, year changes and either source order', async () => {
   const cases = [
     ['2024-02-28', '2024-03-01', 2],
     ['2024-02-29', '2024-03-01', 1],
@@ -110,7 +110,7 @@ for (const extension of ['csv', 'xlsx'] as const)
       for (const comma of [false, true])
         for (const ar of [false, true]) {
           const name = `${extension}/${places}/${mode}/${comma ? 'comma' : 'dot'}/${ar ? 'Arabic-reversed' : 'English'}`;
-          test(`supplier layout end-to-end oracle: ${name}`, async () => {
+          void test(`supplier layout end-to-end oracle: ${name}`, async () => {
             const order = ar ? [5, 4, 1, 3, 0, 2] : [1, 0, 5, 2, 4, 3];
             const scope: Scope = {
               supplier: 'Supplier مورد',
@@ -293,7 +293,7 @@ for (const extension of ['csv', 'xlsx'] as const)
               events: [],
             });
             const reopened = new ExcelJS.Workbook();
-            await reopened.xlsx.load(output as any);
+            await reopened.xlsx.load(output);
             // Check exported numeric cells against the authored oracle, not engine formatting.
             for (const [sheetName, expected] of [
               ['Supplier transactions', supplierMinor],

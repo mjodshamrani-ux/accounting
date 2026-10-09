@@ -45,13 +45,13 @@ const read = (stream: string, resources = '', extraObjects: string[] = []) =>
   readFile('visibility.pdf', pdf(stream, resources, extraObjects), [25, 45]);
 const gs = (definition: string) => `/ExtGState << /GS1 << ${definition} >> >>`;
 
-test('native visible PDF transaction text retains signs and exact cells', async () => {
+void test('native visible PDF transaction text retains signs and exact cells', async () => {
   const file = await read(text);
   assert.deepEqual(file.sheets[0].rows, rows);
   assert.deepEqual(file.sheets[0].rowIssues, {});
 });
 
-test('actual PDF rejects transparent and partially transparent fill/stroke text', async () => {
+void test('actual PDF rejects transparent and partially transparent fill/stroke text', async () => {
   for (const opacity of [0, 0.5]) {
     for (const mode of [0, 1, 2]) {
       await assert.rejects(
@@ -62,13 +62,13 @@ test('actual PDF rejects transparent and partially transparent fill/stroke text'
   }
 });
 
-test('actual PDF rejects white text in RGB, gray and CMYK color spaces', async () => {
+void test('actual PDF rejects white text in RGB, gray and CMYK color spaces', async () => {
   for (const color of ['1 1 1 rg', '1 g', '0 0 0 0 k'])
     await assert.rejects(read(`${color} ${text}`), /أبيض/);
   await assert.rejects(read(`1 1 1 RG 1 Tr ${text}`), /أبيض/);
 });
 
-test('restoring or explicitly resetting color and alpha permits subsequent visible text', async () => {
+void test('restoring or explicitly resetting color and alpha permits subsequent visible text', async () => {
   for (const prefix of [
     'q /GS1 gs 1 1 1 rg 3 Tr Q',
     '/GS1 gs 1 1 1 rg /GS2 gs 0 0 0 rg',
@@ -86,7 +86,7 @@ test('restoring or explicitly resetting color and alpha permits subsequent visib
   );
 });
 
-test('actual PDF rejects clipped transaction text and text clipping modes', async () => {
+void test('actual PDF rejects clipped transaction text and text clipping modes', async () => {
   for (const clip of ['W', 'W*'])
     await assert.rejects(read(`q 0 0 10 10 re ${clip} n ${text} Q`), /قص/);
   for (const mode of [4, 5, 6])
@@ -95,7 +95,7 @@ test('actual PDF rejects clipped transaction text and text clipping modes', asyn
     await assert.rejects(read(`${mode} Tr ${text}`), /OCR/);
 });
 
-test('clipping restored before transaction text does not reject visible data', async () => {
+void test('clipping restored before transaction text does not reject visible data', async () => {
   const file = await read(`q 0 0 10 10 re W n Q ${text}`);
   assert.deepEqual(file.sheets[0].rows, rows);
 });
@@ -106,21 +106,21 @@ const softMask = streamObject(
 );
 const softMaskResources =
   '/ExtGState << /GS1 << /SMask << /S /Luminosity /G 6 0 R >> >> /GS2 << /SMask /None >> >>';
-test('actual PDF soft masks reject text rather than trusting an invisible text layer', async () => {
+void test('actual PDF soft masks reject text rather than trusting an invisible text layer', async () => {
   await assert.rejects(
     read(`/GS1 gs ${text}`, softMaskResources, [softMask]),
     /إعدادات إظهار محتواه/,
   );
 });
 
-test('a disabled soft mask no longer marks later plain text as masked', async () => {
+void test('a disabled soft mask no longer marks later plain text as masked', async () => {
   const file = await read(`/GS1 gs /GS2 gs ${text}`, softMaskResources, [
     softMask,
   ]);
   assert.deepEqual(file.sheets[0].rows, rows);
 });
 
-test('unsupported blending rejects active text but a restored blend does not leak', async () => {
+void test('unsupported blending rejects active text but a restored blend does not leak', async () => {
   await assert.rejects(
     read(`/GS1 gs ${text}`, gs('/BM /Multiply')),
     /إعدادات إظهار محتواه/,
@@ -131,7 +131,7 @@ test('unsupported blending rejects active text but a restored blend does not lea
   );
 });
 
-test('actual inline raster images reject regardless of area or neighboring native text', async () => {
+void test('actual inline raster images reject regardless of area or neighboring native text', async () => {
   for (const [width, height] of [
     [1, 1],
     [30, 30],
@@ -143,7 +143,7 @@ test('actual inline raster images reject regardless of area or neighboring nativ
   }
 });
 
-test('actual image XObjects and solid image masks cannot bypass the raster guard', async () => {
+void test('actual image XObjects and solid image masks cannot bypass the raster guard', async () => {
   const image = streamObject(
     'X',
     '/Type /XObject /Subtype /Image /Width 1 /Height 1 /ColorSpace /DeviceGray /BitsPerComponent 8',
@@ -158,7 +158,7 @@ test('actual image XObjects and solid image masks cannot bypass the raster guard
   await assert.rejects(read(text + '\n' + mask), /صورة/);
 });
 
-test('unsupported Form XObject clipping rejects extracted text with an explicit error', async () => {
+void test('unsupported Form XObject clipping rejects extracted text with an explicit error', async () => {
   const form = streamObject(
     text,
     '/Type /XObject /Subtype /Form /BBox [0 0 600 800] /Resources << /Font << /F1 3 0 R >> >>',

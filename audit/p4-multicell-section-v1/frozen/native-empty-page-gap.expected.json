@@ -1,0 +1,70 @@
+{
+  "outcome": "native-import-blocked",
+  "originalSha256": "4928c1826efed826b8379f3c770c482c28c591862c520d0403fc4cb740aec8f6",
+  "originalByteLength": 2091,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 3,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 3,
+      "values": [
+        "Continued invoice",
+        "INV-271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 6,
+      "page": 3,
+      "values": [
+        "2026-10-01",
+        "",
+        "second",
+        "-12.50"
+      ]
+    }
+  ],
+  "proposals": [],
+  "links": [],
+  "nativeIssueCode": "PDF_NO_EXTRACTABLE_TEXT"
+}

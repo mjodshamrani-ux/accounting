@@ -13,6 +13,7 @@ import { explainResult } from '@/lib/reconciliation/assistant';
 import { money } from '@/lib/reconciliation/core';
 import type { Comparison, Decision } from '@/lib/reconciliation/types';
 import { useI18n } from '@/lib/i18n/context';
+import { invoiceOverlapIntegratedCopy } from '@/lib/i18n/invoice-overlap-review';
 export function TransactionReview({
   result,
   id,
@@ -21,6 +22,7 @@ export function TransactionReview({
   onLink,
   onUnlink,
   onReview,
+  onGroupReview,
 }: {
   result: Comparison;
   id: string;
@@ -29,8 +31,9 @@ export function TransactionReview({
   onLink: (d: Decision) => void;
   onUnlink: (supplierId: string, ledgerId: string, note: string) => void;
   onReview: (id: string, note: string) => void;
+  onGroupReview?: () => void;
 }) {
-  const { t: m, engineText } = useI18n();
+  const { t: m, engineText, lang } = useI18n();
   const [query, setQuery] = useState(''),
     [candidate, setCandidate] = useState(''),
     [note, setNote] = useState('');
@@ -126,7 +129,11 @@ export function TransactionReview({
         onChange={(e) => setNote(e.target.value)}
       />
       <div className="actions">
-        {match ? (
+        {match?.reviewedAggregate ? (
+          <Button variant="outline" disabled={busy || !onGroupReview} onClick={onGroupReview}>
+            {invoiceOverlapIntegratedCopy(lang).wholeComponentUndo}
+          </Button>
+        ) : match ? (
           <Button
             variant="outline"
             disabled={busy || !note.trim()}

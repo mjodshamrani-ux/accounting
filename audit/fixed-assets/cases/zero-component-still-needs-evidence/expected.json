@@ -1,0 +1,3330 @@
+{
+  "version": "fixed-assets-posted-components-gl-1",
+  "scope": {
+    "entity": "Synthetic Asset Owner",
+    "assetLedger": "ASSET-BOOK",
+    "glLedger": "GL-BOOK",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "Current",
+    "asOf": "2026-09-30",
+    "chartVersion": "CHART-1",
+    "mapVersion": "MAP-1",
+    "componentPolicyVersion": "provided-components-1",
+    "assetAccountSetVersion": "ASSET-SET-1"
+  },
+  "decimals": 2,
+  "kind": "missing",
+  "records": [
+    [
+      {
+        "source": 0,
+        "row": 2,
+        "asset": "A",
+        "dimensions": "site=01",
+        "cost": 100000,
+        "depreciation": 20000,
+        "impairment": 5000,
+        "carrying": 75000,
+        "valuation": "V-A"
+      },
+      {
+        "source": 0,
+        "row": 3,
+        "asset": "B",
+        "dimensions": "site=02",
+        "cost": 40000,
+        "depreciation": 10000,
+        "impairment": 0,
+        "carrying": 30000,
+        "valuation": "V-B"
+      }
+    ],
+    [
+      {
+        "source": 1,
+        "row": 2,
+        "id": "MAP-A-cost",
+        "asset": "A",
+        "dimensions": "site=01",
+        "component": "cost",
+        "account": "GL-cost",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-cost"
+      },
+      {
+        "source": 1,
+        "row": 3,
+        "id": "MAP-A-depreciation",
+        "asset": "A",
+        "dimensions": "site=01",
+        "component": "depreciation",
+        "account": "GL-depreciation",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-depreciation"
+      },
+      {
+        "source": 1,
+        "row": 4,
+        "id": "MAP-A-impairment",
+        "asset": "A",
+        "dimensions": "site=01",
+        "component": "impairment",
+        "account": "GL-impairment",
+        "glDimensions": "branch=01",
+        "evidence": "POL-A-impairment"
+      },
+      {
+        "source": 1,
+        "row": 5,
+        "id": "MAP-B-cost",
+        "asset": "B",
+        "dimensions": "site=02",
+        "component": "cost",
+        "account": "GL-cost",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-cost"
+      },
+      {
+        "source": 1,
+        "row": 6,
+        "id": "MAP-B-depreciation",
+        "asset": "B",
+        "dimensions": "site=02",
+        "component": "depreciation",
+        "account": "GL-depreciation",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-depreciation"
+      },
+      {
+        "source": 1,
+        "row": 7,
+        "id": "MAP-B-impairment",
+        "asset": "B",
+        "dimensions": "site=02",
+        "component": "impairment",
+        "account": "GL-impairment",
+        "glDimensions": "branch=01",
+        "evidence": "POL-B-impairment"
+      }
+    ],
+    [
+      {
+        "source": 2,
+        "row": 2,
+        "id": "POL-A-cost",
+        "asset": "A",
+        "dimensions": "site=01",
+        "component": "cost",
+        "valuation": "V-A",
+        "account": "GL-cost",
+        "glDimensions": "branch=01",
+        "accountClass": "fixed-asset-cost",
+        "sign": "debit-positive",
+        "basis": "provided-posted-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-cost"
+      },
+      {
+        "source": 2,
+        "row": 3,
+        "id": "POL-A-depreciation",
+        "asset": "A",
+        "dimensions": "site=01",
+        "component": "depreciation",
+        "valuation": "V-A",
+        "account": "GL-depreciation",
+        "glDimensions": "branch=01",
+        "accountClass": "accumulated-depreciation",
+        "sign": "credit-positive",
+        "basis": "provided-posted-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-depreciation"
+      },
+      {
+        "source": 2,
+        "row": 4,
+        "id": "POL-A-impairment",
+        "asset": "A",
+        "dimensions": "site=01",
+        "component": "impairment",
+        "valuation": "V-A",
+        "account": "GL-impairment",
+        "glDimensions": "branch=01",
+        "accountClass": "accumulated-impairment",
+        "sign": "credit-positive",
+        "basis": "provided-posted-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-A-impairment"
+      },
+      {
+        "source": 2,
+        "row": 5,
+        "id": "POL-B-cost",
+        "asset": "B",
+        "dimensions": "site=02",
+        "component": "cost",
+        "valuation": "V-B",
+        "account": "GL-cost",
+        "glDimensions": "branch=01",
+        "accountClass": "fixed-asset-cost",
+        "sign": "debit-positive",
+        "basis": "provided-posted-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-cost"
+      },
+      {
+        "source": 2,
+        "row": 6,
+        "id": "POL-B-depreciation",
+        "asset": "B",
+        "dimensions": "site=02",
+        "component": "depreciation",
+        "valuation": "V-B",
+        "account": "GL-depreciation",
+        "glDimensions": "branch=01",
+        "accountClass": "accumulated-depreciation",
+        "sign": "credit-positive",
+        "basis": "provided-posted-component",
+        "validFrom": "2026-01-01",
+        "validTo": "2026-12-31",
+        "reference": "SYN-POL-B-depreciation"
+      }
+    ],
+    [
+      {
+        "source": 3,
+        "row": 2,
+        "account": "GL-cost",
+        "glDimensions": "branch=01",
+        "accountClass": "fixed-asset-cost",
+        "component": "cost",
+        "debit": 140000,
+        "credit": 0,
+        "normal": 140000
+      },
+      {
+        "source": 3,
+        "row": 3,
+        "account": "GL-depreciation",
+        "glDimensions": "branch=01",
+        "accountClass": "accumulated-depreciation",
+        "component": "depreciation",
+        "debit": 0,
+        "credit": 30000,
+        "normal": 30000
+      },
+      {
+        "source": 3,
+        "row": 4,
+        "account": "GL-impairment",
+        "glDimensions": "branch=01",
+        "accountClass": "accumulated-impairment",
+        "component": "impairment",
+        "debit": 0,
+        "credit": 5000,
+        "normal": 5000
+      }
+    ]
+  ],
+  "issues": [],
+  "missing": [
+    {
+      "reason": "evidence",
+      "source": 1,
+      "row": 7,
+      "component": "impairment"
+    }
+  ],
+  "comparisons": [
+    {
+      "account": "GL-cost",
+      "dimensions": "branch=01",
+      "component": "cost",
+      "register": 140000,
+      "gl": 140000,
+      "difference": 0,
+      "glRow": 2,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-depreciation",
+      "dimensions": "branch=01",
+      "component": "depreciation",
+      "register": 30000,
+      "gl": 30000,
+      "difference": 0,
+      "glRow": 3,
+      "registerRows": [
+        2,
+        3
+      ]
+    },
+    {
+      "account": "GL-impairment",
+      "dimensions": "branch=01",
+      "component": "impairment",
+      "register": 5000,
+      "gl": 5000,
+      "difference": 0,
+      "glRow": 4,
+      "registerRows": [
+        2
+      ]
+    }
+  ],
+  "totals": {
+    "register": {
+      "cost": 140000,
+      "depreciation": 30000,
+      "impairment": 5000,
+      "carrying": 105000
+    },
+    "gl": {
+      "cost": 140000,
+      "depreciation": 30000,
+      "impairment": 5000,
+      "carrying": 105000
+    }
+  },
+  "cells": [
+    [
+      0,
+      1,
+      1,
+      "Asset ID",
+      "Asset ID"
+    ],
+    [
+      0,
+      1,
+      2,
+      "Asset dimensions",
+      "Asset dimensions"
+    ],
+    [
+      0,
+      1,
+      3,
+      "Cost",
+      "Cost"
+    ],
+    [
+      0,
+      1,
+      4,
+      "Accumulated depreciation",
+      "Accumulated depreciation"
+    ],
+    [
+      0,
+      1,
+      5,
+      "Impairment",
+      "Impairment"
+    ],
+    [
+      0,
+      1,
+      6,
+      "Carrying amount",
+      "Carrying amount"
+    ],
+    [
+      0,
+      1,
+      7,
+      "Valuation reference",
+      "Valuation reference"
+    ],
+    [
+      0,
+      1,
+      8,
+      "Entity",
+      "Entity"
+    ],
+    [
+      0,
+      1,
+      9,
+      "Asset ledger",
+      "Asset ledger"
+    ],
+    [
+      0,
+      1,
+      10,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      0,
+      1,
+      11,
+      "Currency",
+      "Currency"
+    ],
+    [
+      0,
+      1,
+      12,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      0,
+      1,
+      13,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      0,
+      1,
+      14,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      0,
+      1,
+      15,
+      "As of",
+      "As of"
+    ],
+    [
+      0,
+      1,
+      16,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      0,
+      1,
+      17,
+      "Map version",
+      "Map version"
+    ],
+    [
+      0,
+      1,
+      18,
+      "Component policy version",
+      "Component policy version"
+    ],
+    [
+      0,
+      1,
+      19,
+      "Asset account set version",
+      "Asset account set version"
+    ],
+    [
+      0,
+      2,
+      1,
+      "Asset ID",
+      "A"
+    ],
+    [
+      0,
+      2,
+      2,
+      "Asset dimensions",
+      "site=01"
+    ],
+    [
+      0,
+      2,
+      3,
+      "Cost",
+      "1000"
+    ],
+    [
+      0,
+      2,
+      4,
+      "Accumulated depreciation",
+      "200"
+    ],
+    [
+      0,
+      2,
+      5,
+      "Impairment",
+      "50"
+    ],
+    [
+      0,
+      2,
+      6,
+      "Carrying amount",
+      "750"
+    ],
+    [
+      0,
+      2,
+      7,
+      "Valuation reference",
+      "V-A"
+    ],
+    [
+      0,
+      2,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      0,
+      2,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      0,
+      2,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      0,
+      2,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      0,
+      2,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      0,
+      2,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      0,
+      2,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      0,
+      2,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      0,
+      2,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      0,
+      2,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      0,
+      2,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      0,
+      2,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      0,
+      3,
+      1,
+      "Asset ID",
+      "B"
+    ],
+    [
+      0,
+      3,
+      2,
+      "Asset dimensions",
+      "site=02"
+    ],
+    [
+      0,
+      3,
+      3,
+      "Cost",
+      "400"
+    ],
+    [
+      0,
+      3,
+      4,
+      "Accumulated depreciation",
+      "100"
+    ],
+    [
+      0,
+      3,
+      5,
+      "Impairment",
+      "0"
+    ],
+    [
+      0,
+      3,
+      6,
+      "Carrying amount",
+      "300"
+    ],
+    [
+      0,
+      3,
+      7,
+      "Valuation reference",
+      "V-B"
+    ],
+    [
+      0,
+      3,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      0,
+      3,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      0,
+      3,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      0,
+      3,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      0,
+      3,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      0,
+      3,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      0,
+      3,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      0,
+      3,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      0,
+      3,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      0,
+      3,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      0,
+      3,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      0,
+      3,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      1,
+      1,
+      1,
+      "Mapping ID",
+      "Mapping ID"
+    ],
+    [
+      1,
+      1,
+      2,
+      "Asset ID",
+      "Asset ID"
+    ],
+    [
+      1,
+      1,
+      3,
+      "Asset dimensions",
+      "Asset dimensions"
+    ],
+    [
+      1,
+      1,
+      4,
+      "Component",
+      "Component"
+    ],
+    [
+      1,
+      1,
+      5,
+      "GL account",
+      "GL account"
+    ],
+    [
+      1,
+      1,
+      6,
+      "GL dimensions",
+      "GL dimensions"
+    ],
+    [
+      1,
+      1,
+      7,
+      "Evidence ID",
+      "Evidence ID"
+    ],
+    [
+      1,
+      1,
+      8,
+      "Entity",
+      "Entity"
+    ],
+    [
+      1,
+      1,
+      9,
+      "Asset ledger",
+      "Asset ledger"
+    ],
+    [
+      1,
+      1,
+      10,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      1,
+      1,
+      11,
+      "Currency",
+      "Currency"
+    ],
+    [
+      1,
+      1,
+      12,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      1,
+      1,
+      13,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      1,
+      1,
+      14,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      1,
+      1,
+      15,
+      "As of",
+      "As of"
+    ],
+    [
+      1,
+      1,
+      16,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      1,
+      1,
+      17,
+      "Map version",
+      "Map version"
+    ],
+    [
+      1,
+      1,
+      18,
+      "Component policy version",
+      "Component policy version"
+    ],
+    [
+      1,
+      1,
+      19,
+      "Asset account set version",
+      "Asset account set version"
+    ],
+    [
+      1,
+      2,
+      1,
+      "Mapping ID",
+      "MAP-A-cost"
+    ],
+    [
+      1,
+      2,
+      2,
+      "Asset ID",
+      "A"
+    ],
+    [
+      1,
+      2,
+      3,
+      "Asset dimensions",
+      "site=01"
+    ],
+    [
+      1,
+      2,
+      4,
+      "Component",
+      "cost"
+    ],
+    [
+      1,
+      2,
+      5,
+      "GL account",
+      "GL-cost"
+    ],
+    [
+      1,
+      2,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      2,
+      7,
+      "Evidence ID",
+      "POL-A-cost"
+    ],
+    [
+      1,
+      2,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      1,
+      2,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      1,
+      2,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      2,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      2,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      2,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      2,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      2,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      1,
+      2,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      2,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      2,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      1,
+      2,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      1,
+      3,
+      1,
+      "Mapping ID",
+      "MAP-A-depreciation"
+    ],
+    [
+      1,
+      3,
+      2,
+      "Asset ID",
+      "A"
+    ],
+    [
+      1,
+      3,
+      3,
+      "Asset dimensions",
+      "site=01"
+    ],
+    [
+      1,
+      3,
+      4,
+      "Component",
+      "depreciation"
+    ],
+    [
+      1,
+      3,
+      5,
+      "GL account",
+      "GL-depreciation"
+    ],
+    [
+      1,
+      3,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      3,
+      7,
+      "Evidence ID",
+      "POL-A-depreciation"
+    ],
+    [
+      1,
+      3,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      1,
+      3,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      1,
+      3,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      3,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      3,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      3,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      3,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      3,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      1,
+      3,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      3,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      3,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      1,
+      3,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      1,
+      4,
+      1,
+      "Mapping ID",
+      "MAP-A-impairment"
+    ],
+    [
+      1,
+      4,
+      2,
+      "Asset ID",
+      "A"
+    ],
+    [
+      1,
+      4,
+      3,
+      "Asset dimensions",
+      "site=01"
+    ],
+    [
+      1,
+      4,
+      4,
+      "Component",
+      "impairment"
+    ],
+    [
+      1,
+      4,
+      5,
+      "GL account",
+      "GL-impairment"
+    ],
+    [
+      1,
+      4,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      4,
+      7,
+      "Evidence ID",
+      "POL-A-impairment"
+    ],
+    [
+      1,
+      4,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      1,
+      4,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      1,
+      4,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      4,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      4,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      4,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      4,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      4,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      1,
+      4,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      4,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      4,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      1,
+      4,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      1,
+      5,
+      1,
+      "Mapping ID",
+      "MAP-B-cost"
+    ],
+    [
+      1,
+      5,
+      2,
+      "Asset ID",
+      "B"
+    ],
+    [
+      1,
+      5,
+      3,
+      "Asset dimensions",
+      "site=02"
+    ],
+    [
+      1,
+      5,
+      4,
+      "Component",
+      "cost"
+    ],
+    [
+      1,
+      5,
+      5,
+      "GL account",
+      "GL-cost"
+    ],
+    [
+      1,
+      5,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      5,
+      7,
+      "Evidence ID",
+      "POL-B-cost"
+    ],
+    [
+      1,
+      5,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      1,
+      5,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      1,
+      5,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      5,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      5,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      5,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      5,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      5,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      1,
+      5,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      5,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      5,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      1,
+      5,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      1,
+      6,
+      1,
+      "Mapping ID",
+      "MAP-B-depreciation"
+    ],
+    [
+      1,
+      6,
+      2,
+      "Asset ID",
+      "B"
+    ],
+    [
+      1,
+      6,
+      3,
+      "Asset dimensions",
+      "site=02"
+    ],
+    [
+      1,
+      6,
+      4,
+      "Component",
+      "depreciation"
+    ],
+    [
+      1,
+      6,
+      5,
+      "GL account",
+      "GL-depreciation"
+    ],
+    [
+      1,
+      6,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      6,
+      7,
+      "Evidence ID",
+      "POL-B-depreciation"
+    ],
+    [
+      1,
+      6,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      1,
+      6,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      1,
+      6,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      6,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      6,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      6,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      6,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      6,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      1,
+      6,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      6,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      6,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      1,
+      6,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      1,
+      7,
+      1,
+      "Mapping ID",
+      "MAP-B-impairment"
+    ],
+    [
+      1,
+      7,
+      2,
+      "Asset ID",
+      "B"
+    ],
+    [
+      1,
+      7,
+      3,
+      "Asset dimensions",
+      "site=02"
+    ],
+    [
+      1,
+      7,
+      4,
+      "Component",
+      "impairment"
+    ],
+    [
+      1,
+      7,
+      5,
+      "GL account",
+      "GL-impairment"
+    ],
+    [
+      1,
+      7,
+      6,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      1,
+      7,
+      7,
+      "Evidence ID",
+      "POL-B-impairment"
+    ],
+    [
+      1,
+      7,
+      8,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      1,
+      7,
+      9,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      1,
+      7,
+      10,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      1,
+      7,
+      11,
+      "Currency",
+      "SAR"
+    ],
+    [
+      1,
+      7,
+      12,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      1,
+      7,
+      13,
+      "Posting status",
+      "posted"
+    ],
+    [
+      1,
+      7,
+      14,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      1,
+      7,
+      15,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      1,
+      7,
+      16,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      1,
+      7,
+      17,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      1,
+      7,
+      18,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      1,
+      7,
+      19,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      2,
+      1,
+      1,
+      "Evidence ID",
+      "Evidence ID"
+    ],
+    [
+      2,
+      1,
+      2,
+      "Asset ID",
+      "Asset ID"
+    ],
+    [
+      2,
+      1,
+      3,
+      "Asset dimensions",
+      "Asset dimensions"
+    ],
+    [
+      2,
+      1,
+      4,
+      "Component",
+      "Component"
+    ],
+    [
+      2,
+      1,
+      5,
+      "Valuation reference",
+      "Valuation reference"
+    ],
+    [
+      2,
+      1,
+      6,
+      "GL account",
+      "GL account"
+    ],
+    [
+      2,
+      1,
+      7,
+      "GL dimensions",
+      "GL dimensions"
+    ],
+    [
+      2,
+      1,
+      8,
+      "Account class",
+      "Account class"
+    ],
+    [
+      2,
+      1,
+      9,
+      "Sign",
+      "Sign"
+    ],
+    [
+      2,
+      1,
+      10,
+      "Value basis",
+      "Value basis"
+    ],
+    [
+      2,
+      1,
+      11,
+      "Valid from",
+      "Valid from"
+    ],
+    [
+      2,
+      1,
+      12,
+      "Valid to",
+      "Valid to"
+    ],
+    [
+      2,
+      1,
+      13,
+      "Reference",
+      "Reference"
+    ],
+    [
+      2,
+      1,
+      14,
+      "Entity",
+      "Entity"
+    ],
+    [
+      2,
+      1,
+      15,
+      "Asset ledger",
+      "Asset ledger"
+    ],
+    [
+      2,
+      1,
+      16,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      2,
+      1,
+      17,
+      "Currency",
+      "Currency"
+    ],
+    [
+      2,
+      1,
+      18,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      2,
+      1,
+      19,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      2,
+      1,
+      20,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      2,
+      1,
+      21,
+      "As of",
+      "As of"
+    ],
+    [
+      2,
+      1,
+      22,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      2,
+      1,
+      23,
+      "Map version",
+      "Map version"
+    ],
+    [
+      2,
+      1,
+      24,
+      "Component policy version",
+      "Component policy version"
+    ],
+    [
+      2,
+      1,
+      25,
+      "Asset account set version",
+      "Asset account set version"
+    ],
+    [
+      2,
+      2,
+      1,
+      "Evidence ID",
+      "POL-A-cost"
+    ],
+    [
+      2,
+      2,
+      2,
+      "Asset ID",
+      "A"
+    ],
+    [
+      2,
+      2,
+      3,
+      "Asset dimensions",
+      "site=01"
+    ],
+    [
+      2,
+      2,
+      4,
+      "Component",
+      "cost"
+    ],
+    [
+      2,
+      2,
+      5,
+      "Valuation reference",
+      "V-A"
+    ],
+    [
+      2,
+      2,
+      6,
+      "GL account",
+      "GL-cost"
+    ],
+    [
+      2,
+      2,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      2,
+      8,
+      "Account class",
+      "fixed-asset-cost"
+    ],
+    [
+      2,
+      2,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      2,
+      10,
+      "Value basis",
+      "provided-posted-component"
+    ],
+    [
+      2,
+      2,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      2,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      2,
+      13,
+      "Reference",
+      "SYN-POL-A-cost"
+    ],
+    [
+      2,
+      2,
+      14,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      2,
+      2,
+      15,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      2,
+      2,
+      16,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      2,
+      17,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      2,
+      18,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      2,
+      19,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      2,
+      20,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      2,
+      21,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      2,
+      2,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      2,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      2,
+      24,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      2,
+      2,
+      25,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      2,
+      3,
+      1,
+      "Evidence ID",
+      "POL-A-depreciation"
+    ],
+    [
+      2,
+      3,
+      2,
+      "Asset ID",
+      "A"
+    ],
+    [
+      2,
+      3,
+      3,
+      "Asset dimensions",
+      "site=01"
+    ],
+    [
+      2,
+      3,
+      4,
+      "Component",
+      "depreciation"
+    ],
+    [
+      2,
+      3,
+      5,
+      "Valuation reference",
+      "V-A"
+    ],
+    [
+      2,
+      3,
+      6,
+      "GL account",
+      "GL-depreciation"
+    ],
+    [
+      2,
+      3,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      3,
+      8,
+      "Account class",
+      "accumulated-depreciation"
+    ],
+    [
+      2,
+      3,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      3,
+      10,
+      "Value basis",
+      "provided-posted-component"
+    ],
+    [
+      2,
+      3,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      3,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      3,
+      13,
+      "Reference",
+      "SYN-POL-A-depreciation"
+    ],
+    [
+      2,
+      3,
+      14,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      2,
+      3,
+      15,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      2,
+      3,
+      16,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      3,
+      17,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      3,
+      18,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      3,
+      19,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      3,
+      20,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      3,
+      21,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      2,
+      3,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      3,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      3,
+      24,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      2,
+      3,
+      25,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      2,
+      4,
+      1,
+      "Evidence ID",
+      "POL-A-impairment"
+    ],
+    [
+      2,
+      4,
+      2,
+      "Asset ID",
+      "A"
+    ],
+    [
+      2,
+      4,
+      3,
+      "Asset dimensions",
+      "site=01"
+    ],
+    [
+      2,
+      4,
+      4,
+      "Component",
+      "impairment"
+    ],
+    [
+      2,
+      4,
+      5,
+      "Valuation reference",
+      "V-A"
+    ],
+    [
+      2,
+      4,
+      6,
+      "GL account",
+      "GL-impairment"
+    ],
+    [
+      2,
+      4,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      4,
+      8,
+      "Account class",
+      "accumulated-impairment"
+    ],
+    [
+      2,
+      4,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      4,
+      10,
+      "Value basis",
+      "provided-posted-component"
+    ],
+    [
+      2,
+      4,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      4,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      4,
+      13,
+      "Reference",
+      "SYN-POL-A-impairment"
+    ],
+    [
+      2,
+      4,
+      14,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      2,
+      4,
+      15,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      2,
+      4,
+      16,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      4,
+      17,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      4,
+      18,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      4,
+      19,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      4,
+      20,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      4,
+      21,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      2,
+      4,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      4,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      4,
+      24,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      2,
+      4,
+      25,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      2,
+      5,
+      1,
+      "Evidence ID",
+      "POL-B-cost"
+    ],
+    [
+      2,
+      5,
+      2,
+      "Asset ID",
+      "B"
+    ],
+    [
+      2,
+      5,
+      3,
+      "Asset dimensions",
+      "site=02"
+    ],
+    [
+      2,
+      5,
+      4,
+      "Component",
+      "cost"
+    ],
+    [
+      2,
+      5,
+      5,
+      "Valuation reference",
+      "V-B"
+    ],
+    [
+      2,
+      5,
+      6,
+      "GL account",
+      "GL-cost"
+    ],
+    [
+      2,
+      5,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      5,
+      8,
+      "Account class",
+      "fixed-asset-cost"
+    ],
+    [
+      2,
+      5,
+      9,
+      "Sign",
+      "debit-positive"
+    ],
+    [
+      2,
+      5,
+      10,
+      "Value basis",
+      "provided-posted-component"
+    ],
+    [
+      2,
+      5,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      5,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      5,
+      13,
+      "Reference",
+      "SYN-POL-B-cost"
+    ],
+    [
+      2,
+      5,
+      14,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      2,
+      5,
+      15,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      2,
+      5,
+      16,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      5,
+      17,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      5,
+      18,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      5,
+      19,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      5,
+      20,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      5,
+      21,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      2,
+      5,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      5,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      5,
+      24,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      2,
+      5,
+      25,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      2,
+      6,
+      1,
+      "Evidence ID",
+      "POL-B-depreciation"
+    ],
+    [
+      2,
+      6,
+      2,
+      "Asset ID",
+      "B"
+    ],
+    [
+      2,
+      6,
+      3,
+      "Asset dimensions",
+      "site=02"
+    ],
+    [
+      2,
+      6,
+      4,
+      "Component",
+      "depreciation"
+    ],
+    [
+      2,
+      6,
+      5,
+      "Valuation reference",
+      "V-B"
+    ],
+    [
+      2,
+      6,
+      6,
+      "GL account",
+      "GL-depreciation"
+    ],
+    [
+      2,
+      6,
+      7,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      2,
+      6,
+      8,
+      "Account class",
+      "accumulated-depreciation"
+    ],
+    [
+      2,
+      6,
+      9,
+      "Sign",
+      "credit-positive"
+    ],
+    [
+      2,
+      6,
+      10,
+      "Value basis",
+      "provided-posted-component"
+    ],
+    [
+      2,
+      6,
+      11,
+      "Valid from",
+      "2026-01-01"
+    ],
+    [
+      2,
+      6,
+      12,
+      "Valid to",
+      "2026-12-31"
+    ],
+    [
+      2,
+      6,
+      13,
+      "Reference",
+      "SYN-POL-B-depreciation"
+    ],
+    [
+      2,
+      6,
+      14,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      2,
+      6,
+      15,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      2,
+      6,
+      16,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      2,
+      6,
+      17,
+      "Currency",
+      "SAR"
+    ],
+    [
+      2,
+      6,
+      18,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      2,
+      6,
+      19,
+      "Posting status",
+      "posted"
+    ],
+    [
+      2,
+      6,
+      20,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      2,
+      6,
+      21,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      2,
+      6,
+      22,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      2,
+      6,
+      23,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      2,
+      6,
+      24,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      2,
+      6,
+      25,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      3,
+      1,
+      1,
+      "GL account",
+      "GL account"
+    ],
+    [
+      3,
+      1,
+      2,
+      "GL dimensions",
+      "GL dimensions"
+    ],
+    [
+      3,
+      1,
+      3,
+      "Account class",
+      "Account class"
+    ],
+    [
+      3,
+      1,
+      4,
+      "Debit",
+      "Debit"
+    ],
+    [
+      3,
+      1,
+      5,
+      "Credit",
+      "Credit"
+    ],
+    [
+      3,
+      1,
+      6,
+      "Entity",
+      "Entity"
+    ],
+    [
+      3,
+      1,
+      7,
+      "Asset ledger",
+      "Asset ledger"
+    ],
+    [
+      3,
+      1,
+      8,
+      "GL ledger",
+      "GL ledger"
+    ],
+    [
+      3,
+      1,
+      9,
+      "Currency",
+      "Currency"
+    ],
+    [
+      3,
+      1,
+      10,
+      "Currency basis",
+      "Currency basis"
+    ],
+    [
+      3,
+      1,
+      11,
+      "Posting status",
+      "Posting status"
+    ],
+    [
+      3,
+      1,
+      12,
+      "Posting layer",
+      "Posting layer"
+    ],
+    [
+      3,
+      1,
+      13,
+      "As of",
+      "As of"
+    ],
+    [
+      3,
+      1,
+      14,
+      "Chart version",
+      "Chart version"
+    ],
+    [
+      3,
+      1,
+      15,
+      "Map version",
+      "Map version"
+    ],
+    [
+      3,
+      1,
+      16,
+      "Component policy version",
+      "Component policy version"
+    ],
+    [
+      3,
+      1,
+      17,
+      "Asset account set version",
+      "Asset account set version"
+    ],
+    [
+      3,
+      2,
+      1,
+      "GL account",
+      "GL-cost"
+    ],
+    [
+      3,
+      2,
+      2,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      2,
+      3,
+      "Account class",
+      "fixed-asset-cost"
+    ],
+    [
+      3,
+      2,
+      4,
+      "Debit",
+      "1400"
+    ],
+    [
+      3,
+      2,
+      5,
+      "Credit",
+      "0"
+    ],
+    [
+      3,
+      2,
+      6,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      3,
+      2,
+      7,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      3,
+      2,
+      8,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      2,
+      9,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      2,
+      10,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      2,
+      11,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      2,
+      12,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      2,
+      13,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      3,
+      2,
+      14,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      2,
+      15,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      2,
+      16,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      3,
+      2,
+      17,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      3,
+      3,
+      1,
+      "GL account",
+      "GL-depreciation"
+    ],
+    [
+      3,
+      3,
+      2,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      3,
+      3,
+      "Account class",
+      "accumulated-depreciation"
+    ],
+    [
+      3,
+      3,
+      4,
+      "Debit",
+      "0"
+    ],
+    [
+      3,
+      3,
+      5,
+      "Credit",
+      "300"
+    ],
+    [
+      3,
+      3,
+      6,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      3,
+      3,
+      7,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      3,
+      3,
+      8,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      3,
+      9,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      3,
+      10,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      3,
+      11,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      3,
+      12,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      3,
+      13,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      3,
+      3,
+      14,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      3,
+      15,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      3,
+      16,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      3,
+      3,
+      17,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ],
+    [
+      3,
+      4,
+      1,
+      "GL account",
+      "GL-impairment"
+    ],
+    [
+      3,
+      4,
+      2,
+      "GL dimensions",
+      "branch=01"
+    ],
+    [
+      3,
+      4,
+      3,
+      "Account class",
+      "accumulated-impairment"
+    ],
+    [
+      3,
+      4,
+      4,
+      "Debit",
+      "0"
+    ],
+    [
+      3,
+      4,
+      5,
+      "Credit",
+      "50"
+    ],
+    [
+      3,
+      4,
+      6,
+      "Entity",
+      "Synthetic Asset Owner"
+    ],
+    [
+      3,
+      4,
+      7,
+      "Asset ledger",
+      "ASSET-BOOK"
+    ],
+    [
+      3,
+      4,
+      8,
+      "GL ledger",
+      "GL-BOOK"
+    ],
+    [
+      3,
+      4,
+      9,
+      "Currency",
+      "SAR"
+    ],
+    [
+      3,
+      4,
+      10,
+      "Currency basis",
+      "functional"
+    ],
+    [
+      3,
+      4,
+      11,
+      "Posting status",
+      "posted"
+    ],
+    [
+      3,
+      4,
+      12,
+      "Posting layer",
+      "Current"
+    ],
+    [
+      3,
+      4,
+      13,
+      "As of",
+      "2026-09-30"
+    ],
+    [
+      3,
+      4,
+      14,
+      "Chart version",
+      "CHART-1"
+    ],
+    [
+      3,
+      4,
+      15,
+      "Map version",
+      "MAP-1"
+    ],
+    [
+      3,
+      4,
+      16,
+      "Component policy version",
+      "provided-components-1"
+    ],
+    [
+      3,
+      4,
+      17,
+      "Asset account set version",
+      "ASSET-SET-1"
+    ]
+  ],
+  "inventory": [
+    [
+      0,
+      1,
+      "header"
+    ],
+    [
+      0,
+      2,
+      "data"
+    ],
+    [
+      0,
+      3,
+      "data"
+    ],
+    [
+      1,
+      1,
+      "header"
+    ],
+    [
+      1,
+      2,
+      "data"
+    ],
+    [
+      1,
+      3,
+      "data"
+    ],
+    [
+      1,
+      4,
+      "data"
+    ],
+    [
+      1,
+      5,
+      "data"
+    ],
+    [
+      1,
+      6,
+      "data"
+    ],
+    [
+      1,
+      7,
+      "data"
+    ],
+    [
+      2,
+      1,
+      "header"
+    ],
+    [
+      2,
+      2,
+      "data"
+    ],
+    [
+      2,
+      3,
+      "data"
+    ],
+    [
+      2,
+      4,
+      "data"
+    ],
+    [
+      2,
+      5,
+      "data"
+    ],
+    [
+      2,
+      6,
+      "data"
+    ],
+    [
+      3,
+      1,
+      "header"
+    ],
+    [
+      3,
+      2,
+      "data"
+    ],
+    [
+      3,
+      3,
+      "data"
+    ],
+    [
+      3,
+      4,
+      "data"
+    ]
+  ],
+  "members": [
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      1,
+      7
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ],
+    [
+      3,
+      4
+    ]
+  ],
+  "hashes": [
+    "b4b3d18b076517d1df87b038ae8ed5db9be16bde5b8175387cda2d4a953703f0",
+    "780fd69c58a6e0ca89d5407c615cdf206d1fe960c781e171ebbc9df6be5a4ead",
+    "01e69215f81c4ddb49723cc6b20406da4bd5410196001ae502d29f289ad613fc",
+    "6558e8eaec4895afffc41feccdba0ed449bd116a79dd3d01c16de3a873c22fd8"
+  ]
+}

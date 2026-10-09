@@ -1,0 +1,21 @@
+{
+  "baseline": "a1fee779ca597694b2e8227be1cea37891c0bae9",
+  "kind": "independent-preimplementation-workflow-and-economic-truth",
+  "synthetic": true,
+  "moneyUnit": "integer-minor-units",
+  "allocateArrayMeaning": "Each entry is a separate atomic decision in event order",
+  "financialAuthorityFromHandoff": false,
+  "carriedFields": ["sourceNamesAndHashes", "unconfirmedScopeHints"],
+  "forbiddenFields": ["sourceBytes", "transactions", "capacities", "amounts", "allocationLinks", "events", "approvedReceipts"],
+  "requirements": [
+    {"id": "H1", "action": "handoff-only", "expectedAllocationEvents": 0, "expectedFiles": 0, "expectedFinancialResult": null, "supplierComparisonUnchanged": true},
+    {"id": "H2", "action": "new-handoff-after-prior-allocation", "expectedAllocationEvents": 0, "expectedFiles": 0, "expectedFinancialResult": null},
+    {"id": "H3", "action": "use-comparison-or-interpretation-as-capacity", "expected": "reject"},
+    {"id": "H4", "paymentOriginal": 1000, "paymentAvailable": 600, "invoiceOriginal": 1000, "invoiceAvailable": 1000, "allocate": [600], "paymentRemaining": 0, "invoiceRemaining": 400},
+    {"id": "H5", "paymentOriginal": 1000, "paymentAvailable": 1000, "invoiceOriginal": 1000, "invoiceAvailable": 1000, "allocate": [400, 350], "paymentRemaining": 250, "invoiceRemaining": 250, "nextAllocate": 700, "nextExpected": "reject-atomically"},
+    {"id": "H6", "paymentOriginal": 1000, "paymentAvailable": 1000, "invoiceOriginal": 1000, "invoiceAvailable": 600, "allocate": [700], "expected": "reject-atomically"},
+    {"id": "H7", "actions": ["duplicate-identity", "source-error", "reused-remittance", "substituted-equal-money-member"], "expected": "reject"},
+    {"id": "H8", "paymentAvailable": 1000, "invoiceAvailable": 1000, "allocate": [400, 350], "undoDecisionIndex": 0, "paymentRemaining": 650, "invoiceRemaining": 650},
+    {"id": "H9", "actions": ["change-source-during-read", "change-mapping-during-read", "change-events-during-read", "cancel-before-publication", "leave-workspace-during-operation"], "expected": "no-stale-publication"}
+  ]
+}

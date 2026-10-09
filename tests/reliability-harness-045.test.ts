@@ -26,7 +26,7 @@ type AuditRecord = {
 const enginePromise = loadEngine(
   fileURLToPath(new URL('../', import.meta.url)),
 );
-test('a completed-balance flag cannot replace a missing verified bridge', async () => {
+void test('a completed-balance flag cannot replace a missing verified bridge', async () => {
   const engine = await enginePromise;
   // Use valid source files so the mutation exercises the result invariant.
   // Invalid monetary files now stop earlier at the product entry gate.
@@ -129,7 +129,7 @@ function requireFailure(
   );
 }
 
-test('independent evaluator accepts healthy exact matches and a controlled invalid-source rejection', async () => {
+void test('independent evaluator accepts healthy exact matches and a controlled invalid-source rejection', async () => {
   for (const anchor of [1, 7, 37] as const) {
     const record = await run(anchor);
     assert.equal(
@@ -145,7 +145,7 @@ test('independent evaluator accepts healthy exact matches and a controlled inval
   }
 });
 
-test('evaluator independently checks source totals against source transactions', async () => {
+void test('evaluator independently checks source totals against source transactions', async () => {
   const engine = await enginePromise;
   const record = await run(1, {
     normalizeSource: (...args: Parameters<Normalize>) => {
@@ -156,7 +156,7 @@ test('evaluator independently checks source totals against source transactions',
   requireFailure(record, 'SOURCE_TOTAL_CHANGED');
 });
 
-test('evaluator rejects disagreement between accepted cases and the public match list', async () => {
+void test('evaluator rejects disagreement between accepted cases and the public match list', async () => {
   const record = await run(
     1,
     await wrappedComparison((result) => {
@@ -171,7 +171,7 @@ test('evaluator rejects disagreement between accepted cases and the public match
   );
 });
 
-test('evaluator does not reward abstaining from every provable automatic match', async () => {
+void test('evaluator does not reward abstaining from every provable automatic match', async () => {
   const record = await run(
     7,
     await wrappedComparison((result) => {
@@ -196,7 +196,7 @@ test('evaluator does not reward abstaining from every provable automatic match',
   assert.equal(record.falseMatches, 0);
 });
 
-test('runtime errors and cancellation on corrupt input are failures rather than valid rejections', async () => {
+void test('runtime errors and cancellation on corrupt input are failures rather than valid rejections', async () => {
   const engine = await enginePromise;
   for (const error of [
     new TypeError("Cannot read properties of undefined (reading 'sheets')"),
@@ -215,7 +215,7 @@ test('runtime errors and cancellation on corrupt input are failures rather than 
   }
 });
 
-test('equal-valued invoices with swapped counterparties are false matches even when counts and arithmetic agree', async () => {
+void test('equal-valued invoices with swapped counterparties are false matches even when counts and arithmetic agree', async () => {
   const record = await run(
     7,
     await wrappedComparison((result) => {

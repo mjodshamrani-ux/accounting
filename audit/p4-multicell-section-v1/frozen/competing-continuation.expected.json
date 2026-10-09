@@ -1,0 +1,69 @@
+{
+  "outcome": "blocked",
+  "originalSha256": "d2376d562c42f79ca33a70882277287cbc5bf47793eaa88b81684cdacc30049f",
+  "originalByteLength": 1868,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "values": [
+        "Invoice No",
+        "INV-271",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "values": [
+        "2026-10-01",
+        "",
+        "first line",
+        "-12.50"
+      ]
+    },
+    {
+      "row": 4,
+      "page": 2,
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Amount"
+      ]
+    },
+    {
+      "row": 5,
+      "page": 2,
+      "values": [
+        "Continued invoice",
+        "INV-999",
+        "",
+        ""
+      ]
+    },
+    {
+      "row": 6,
+      "page": 2,
+      "values": [
+        "2026-10-01",
+        "",
+        "second",
+        "-12.50"
+      ]
+    }
+  ],
+  "proposals": [],
+  "links": []
+}

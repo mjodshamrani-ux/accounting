@@ -24,7 +24,7 @@ const text =
   'BT /F1 10 Tf 1 0 0 1 40 730 Tm (2026-08-01) Tj ET\nBT /F1 10 Tf 1 0 0 1 170 730 Tm (INV-100) Tj ET\nBT /F1 10 Tf 1 0 0 1 300 730 Tm (1250.00) Tj ET';
 const read = (stream: string) =>
   readFile('synthetic.pdf', pdf(stream), [25, 45]);
-test('PDF cannot read covered amount text through an opaque vector rectangle', async () => {
+void test('PDF cannot read covered amount text through an opaque vector rectangle', async () => {
   await assert.rejects(
     read(text + '\nq 1 g 298 725 60 20 re f Q'),
     /رسوم|يغطي/,
@@ -34,13 +34,13 @@ test('PDF cannot read covered amount text through an opaque vector rectangle', a
     /رسوم|يغطي/,
   );
 });
-test('PDF black background cannot silently conceal black transaction text', async () => {
+void test('PDF black background cannot silently conceal black transaction text', async () => {
   await assert.rejects(
     read('q 0 g 298 725 60 20 re f Q\n' + text),
     /رسوم|يغطي|تباين/,
   );
 });
-test('ordinary white backgrounds and disjoint table lines preserve actual text', async () => {
+void test('ordinary white backgrounds and disjoint table lines preserve actual text', async () => {
   for (const decoration of [
     'q 1 g 0 0 600 800 re f Q\n' + text,
     text + '\nq 0 G 1 w 30 715 m 500 715 l S Q',
@@ -52,7 +52,7 @@ test('ordinary white backgrounds and disjoint table lines preserve actual text',
   }
 });
 
-test('bordered supplier tables paint edges, not a solid rectangle over every amount', async () => {
+void test('bordered supplier tables paint edges, not a solid rectangle over every amount', async () => {
   const grids = [
     '30 715 470 35 re S',
     '30 715 m 500 715 l 500 750 l 30 750 l h S',
@@ -78,7 +78,7 @@ test('bordered supplier tables paint edges, not a solid rectangle over every amo
   }
 });
 
-test('separate underlines do not connect into an imaginary painted area', async () => {
+void test('separate underlines do not connect into an imaginary painted area', async () => {
   const result = await read(
     text +
       '\nq 0.5 w 38 725 m 103 725 l 167 744 m 230 744 l 298 725 m 348 725 l S Q',
@@ -88,7 +88,7 @@ test('separate underlines do not connect into an imaginary painted area', async 
   ]);
 });
 
-test('stroke width and actual crossing lines still reject covered transaction text', async () => {
+void test('stroke width and actual crossing lines still reject covered transaction text', async () => {
   for (const path of [
     '1 w 295 733 m 350 733 l S',
     '1 w 295 727 m 350 744 l S',
@@ -99,7 +99,7 @@ test('stroke width and actual crossing lines still reject covered transaction te
     await assert.rejects(read(text + '\nq ' + path + ' Q'), /رسوم|يغطي/);
 });
 
-test('thin filled rectangles used as supplier table borders stay separate', async () => {
+void test('thin filled rectangles used as supplier table borders stay separate', async () => {
   const borders =
     '30 715 470 0.5 re 30 750 470 0.5 re 30 715 0.5 35 re 150 715 0.5 35 re 270 715 0.5 35 re 500 715 0.5 35 re f';
   for (const stream of [
@@ -116,7 +116,7 @@ test('thin filled rectangles used as supplier table borders stay separate', asyn
   );
 });
 
-test('implicit close strokes and curved paths cannot conceal an amount', async () => {
+void test('implicit close strokes and curved paths cannot conceal an amount', async () => {
   await assert.rejects(
     read(text + '\nq 2 w 295 726 m 350 744 l 350 750 l s Q'),
     /رسوم|يغطي/,

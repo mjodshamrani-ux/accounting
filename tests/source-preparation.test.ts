@@ -81,7 +81,7 @@ const attemptAsync = async (run: () => Promise<unknown>) => {
   }
 };
 
-test('one source: a guarded reading becomes a normalised source', () => {
+void test('one source: a guarded reading becomes a normalised source', () => {
   const { mappings, sources } = prepareVerifiedSources(
     [files[0]],
     [proven[0]],
@@ -109,7 +109,7 @@ test('one source: a guarded reading becomes a normalised source', () => {
     );
 });
 
-test('two sources: the same boundary the supplier recompute uses', () => {
+void test('two sources: the same boundary the supplier recompute uses', () => {
   const prepared = prepareVerifiedSources(files, proven, gateScope, [
     'supplier',
     'ledger',
@@ -127,7 +127,7 @@ test('two sources: the same boundary the supplier recompute uses', () => {
   );
 });
 
-test('an edited explanation of a proven direction comes back canonical', () => {
+void test('an edited explanation of a proven direction comes back canonical', () => {
   const edited: Mapping = {
     ...proven[1],
     directionEvidence: {
@@ -148,7 +148,7 @@ for (const supplierFault of SOURCE_FAULTS)
   for (const ledgerFault of SOURCE_FAULTS) {
     const faults = [supplierFault, ledgerFault];
     const want = expected(faults);
-    test(`first refusal on every path: ${supplierFault} | ${ledgerFault} → ${want}`, async () => {
+    void test(`first refusal on every path: ${supplierFault} | ${ledgerFault} → ${want}`, async () => {
       const mappings = [reading(0, supplierFault), reading(1, ledgerFault)] as [
         Mapping,
         Mapping,
@@ -219,7 +219,7 @@ for (const supplierFault of SOURCE_FAULTS)
     });
   }
 
-test('a reading that is not an object is named as such first', async () => {
+void test('a reading that is not an object is named as such first', async () => {
   const broken = [null, proven[1]] as unknown as Mapping[];
   assert.throws(
     () =>
@@ -234,7 +234,7 @@ test('a reading that is not an object is named as such first', async () => {
   assert.equal(reply.error, NOT_A_READING);
 });
 
-test('after the gates, scope, currency and cutoff stay with normalisation', async () => {
+void test('after the gates, scope, currency and cutoff stay with normalisation', async () => {
   // A scope the reading refuses: the gates pass, normalisation refuses it.
   assert.throws(
     () =>
@@ -300,7 +300,7 @@ test('after the gates, scope, currency and cutoff stay with normalisation', asyn
   );
 });
 
-test('an export of a proven direction with an edited explanation still succeeds', async () => {
+void test('an export of a proven direction with an edited explanation still succeeds', async () => {
   const edited: Mapping = {
     ...proven[1],
     directionEvidence: {
@@ -321,7 +321,7 @@ test('an export of a proven direction with an edited explanation still succeeds'
   );
 });
 
-test('the gates are assembled in one place', () => {
+void test('the gates are assembled in one place', () => {
   // io.ts keeps the name for its importers; the proof itself is not copied.
   assert.equal(fromIo, verifyDirectionEvidence);
   const read = (file: string) =>

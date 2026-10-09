@@ -175,7 +175,7 @@ function replaceCell(xml: string, address: string, body: string, type = 'n') {
   return xml.replace(pattern, `<c r="${address}" t="${type}">${body}</c>`);
 }
 
-test('bounded performance export verifier accepts native dates, negative credits and explicit payment bank identity', async () => {
+void test('bounded performance export verifier accepts native dates, negative credits and explicit payment bank identity', async () => {
   const result = await verifyPerformanceExport(
     await fixturePromise,
     sources,
@@ -187,21 +187,21 @@ test('bounded performance export verifier accepts native dates, negative credits
   });
 });
 
-test('bounded performance export verifier detects a reversed amount sign', async () => {
+void test('bounded performance export verifier detects a reversed amount sign', async () => {
   const bytes = await corrupt('Supplier transactions', (xml) =>
     replaceCell(xml, 'H2', '<v>-1100</v>'),
   );
   await assert.rejects(verifyPerformanceExport(bytes, sources, totals));
 });
 
-test('bounded performance export verifier detects a forged reference despite unchanged financial totals', async () => {
+void test('bounded performance export verifier detects a forged reference despite unchanged financial totals', async () => {
   const bytes = await corrupt('Ledger transactions', (xml) =>
     replaceCell(xml, 'E4', '<is><t>BANK-WRONG-00090789</t></is>', 'inlineStr'),
   );
   await assert.rejects(verifyPerformanceExport(bytes, sources, totals));
 });
 
-test('bounded performance export verifier detects a native Excel date shifted by one day', async () => {
+void test('bounded performance export verifier detects a native Excel date shifted by one day', async () => {
   const expectedSerial =
     (Date.UTC(2026, 6, 14) - Date.UTC(1899, 11, 30)) / 86400000;
   const bytes = await corrupt('Supplier transactions', (xml) =>
@@ -210,14 +210,14 @@ test('bounded performance export verifier detects a native Excel date shifted by
   await assert.rejects(verifyPerformanceExport(bytes, sources, totals));
 });
 
-test('bounded performance export verifier detects a missing exported row', async () => {
+void test('bounded performance export verifier detects a missing exported row', async () => {
   const bytes = await corrupt('Ledger transactions', (xml) =>
     xml.replace(/<row\b[^>]*r="4"[^>]*>[\s\S]*?<\/row>/, ''),
   );
   await assert.rejects(verifyPerformanceExport(bytes, sources, totals));
 });
 
-test('bounded performance export verifier rejects a formula even with its original correct cached amount', async () => {
+void test('bounded performance export verifier rejects a formula even with its original correct cached amount', async () => {
   const bytes = await corrupt('Supplier transactions', (xml) =>
     replaceCell(xml, 'H2', '<f>-1100</f><v>1100</v>'),
   );

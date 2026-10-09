@@ -2,7 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { normalizeSource, compare } from '../../lib/reconciliation/core.ts';
 import { exportWorkbook } from '../../lib/reconciliation/io.ts';
 import { defaultMapping } from '../../lib/reconciliation/types.ts';
-await mkdir('audit/stress/workbooks', { recursive: true });
+await mkdir('work/stress/workbooks', { recursive: true });
 const manifest = [];
 for (const decimals of [0, 2, 3])
   for (const language of ['ar', 'en', 'mixed'])
@@ -71,7 +71,7 @@ for (const decimals of [0, 2, 3])
       );
       const name = `${decimals}-${language}-${mode}.xlsx`;
       await writeFile(
-        'audit/stress/workbooks/' + name,
+        'work/stress/workbooks/' + name,
         new Uint8Array(
           await exportWorkbook(r, files, {
             checked: false,
@@ -112,7 +112,7 @@ for (const decimals of [0, 2, 3])
       });
     }
 await writeFile(
-  'audit/stress/workbooks/manifest.json',
+  'work/stress/workbooks/manifest.json',
   JSON.stringify(manifest, null, 2),
 );
 console.log(`${manifest.length} independent-check workbooks generated`);

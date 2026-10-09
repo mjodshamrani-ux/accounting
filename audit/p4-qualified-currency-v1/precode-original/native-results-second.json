@@ -1,0 +1,5013 @@
+{
+  "outcome": "PASS",
+  "claims": "Independent native precode extraction and current unsupported-family boundary only; no future implementation acceptance or financial approval.",
+  "contractFreezeSha256": "1b9612a623e3055fe6fa369eb4b7b175da67ab04e07f0895e42b112fb251c7c4",
+  "checks": [
+    {
+      "name": "sar-on-page: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "sar-on-page: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "sar-on-page: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "sar-on-page: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "sar-on-page: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "sar-cross-page: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "sar-cross-page: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "sar-cross-page: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "sar-cross-page: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "sar-cross-page: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "sar-own-reference: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "sar-own-reference: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "sar-own-reference: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "sar-own-reference: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "sar-own-reference: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "jpy-on-page: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "jpy-on-page: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "jpy-on-page: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "jpy-on-page: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "jpy-on-page: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "jpy-cross-page: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "jpy-cross-page: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "jpy-cross-page: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "jpy-cross-page: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "jpy-cross-page: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "jpy-own-reference: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "jpy-own-reference: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "jpy-own-reference: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "jpy-own-reference: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "jpy-own-reference: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "kwd-on-page: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "kwd-on-page: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "kwd-on-page: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "kwd-on-page: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "kwd-on-page: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "kwd-cross-page: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "kwd-cross-page: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "kwd-cross-page: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "kwd-cross-page: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "kwd-cross-page: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "kwd-own-reference: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "kwd-own-reference: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "kwd-own-reference: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "kwd-own-reference: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "kwd-own-reference: native CSV exact/header/movements/no approval",
+      "pass": true
+    },
+    {
+      "name": "changed-page-currency: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "changed-page-currency: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "changed-page-currency: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "changed-page-currency: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "missing-page-qualification: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "missing-page-qualification: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "missing-page-qualification: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "missing-page-qualification: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "contradictory-currency-row: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "contradictory-currency-row: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "contradictory-currency-row: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "contradictory-currency-row: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "double-currency-header: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "double-currency-header: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "double-currency-header: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "double-currency-header: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "unknown-currency-header: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "unknown-currency-header: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "unknown-currency-header: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "unknown-currency-header: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "lowercase-qualifier: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "lowercase-qualifier: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "lowercase-qualifier: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "lowercase-qualifier: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "symbol-qualifier: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "symbol-qualifier: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "symbol-qualifier: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "symbol-qualifier: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "ambiguous-qualifier: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "ambiguous-qualifier: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "ambiguous-qualifier: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "ambiguous-qualifier: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "jpy-fractional: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "jpy-fractional: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "jpy-fractional: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "jpy-fractional: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "sar-excess-fraction: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "sar-excess-fraction: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "sar-excess-fraction: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "sar-excess-fraction: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "kwd-excess-fraction: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "kwd-excess-fraction: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "kwd-excess-fraction: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "kwd-excess-fraction: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "late-corrupt-amount: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "late-corrupt-amount: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "late-corrupt-amount: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "late-corrupt-amount: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "changed-page-reference-role: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "changed-page-reference-role: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "changed-page-reference-role: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "changed-page-reference-role: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "extra-balance-column: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "extra-balance-column: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "extra-balance-column: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "extra-balance-column: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "missing-continuation: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "missing-continuation: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "missing-continuation: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "missing-continuation: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "late-unknown-row: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "late-unknown-row: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "late-unknown-row: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "late-unknown-row: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "bare-existing-family: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "bare-existing-family: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "bare-existing-family: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "bare-existing-family: legacy bare family accepted without new currency context",
+      "pass": true
+    },
+    {
+      "name": "bare-existing-family: current preimplementation boundary",
+      "pass": true
+    },
+    {
+      "name": "description-code-only: source/owned bytes",
+      "pass": true
+    },
+    {
+      "name": "description-code-only: native inventory and metadata",
+      "pass": true
+    },
+    {
+      "name": "description-code-only: extraction issues",
+      "pass": true
+    },
+    {
+      "name": "description-code-only: legacy bare family accepted without new currency context",
+      "pass": true
+    },
+    {
+      "name": "description-code-only: current preimplementation boundary",
+      "pass": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "sar-on-page",
+      "outcome": "derived",
+      "sha256": "668097cd48fbbe565a14735dcc003e93709ffde614abbfc133e3eae4c4da754b",
+      "originalByteLength": 1469,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "line, \"one\"",
+              "-12.50"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "second",
+              "+2.05"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "zero",
+              "0.00"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (SAR)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "line, \"one\"",
+                "-12.50"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "second",
+                "+2.05"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "zero",
+                "0.00"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "42667a9fb186baa0472cfb00193d720872165814cbd88a8921967cd72114e5cb",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "SAR",
+          "decimals": 2,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "line, \"one\"",
+              "amount": -1250,
+              "amountMinor": -1250,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12.50"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 205,
+              "amountMinor": 205,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2.05"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0.00"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (SAR)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -1045,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {}
+          },
+          "sourceName": "sar-on-page.csv",
+          "sourceHash": "42667a9fb186baa0472cfb00193d720872165814cbd88a8921967cd72114e5cb",
+          "sourceOrigin": "42667a9fb186baa0472cfb00193d720872165814cbd88a8921967cd72114e5cb#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "sar-cross-page",
+      "outcome": "derived",
+      "sha256": "3a894b9660f69ddda37d60f8b47cd05ea9ecd41d01ce60c42fb3a1bffa467a8f",
+      "originalByteLength": 2080,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 2
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Continued invoice",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-02",
+              "",
+              "second",
+              "+2.05"
+            ],
+            [
+              "2026-10-03",
+              "",
+              "zero",
+              "0.00"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2,
+            "7": 2
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (SAR)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "first line",
+                "-12.50"
+              ],
+              [
+                "2026-10-02",
+                "INV-000271",
+                "second",
+                "+2.05"
+              ],
+              [
+                "2026-10-03",
+                "INV-000271",
+                "zero",
+                "0.00"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "dd1aeedaedbd2b1413b6d48f3ee5df5e5600040e186183f1f60073ca580045a1",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "SAR",
+          "decimals": 2,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "first line",
+              "amount": -1250,
+              "amountMinor": -1250,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12.50"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-02",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 205,
+              "amountMinor": 205,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2.05"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-03",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0.00"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (SAR)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -1045,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {}
+          },
+          "sourceName": "sar-cross-page.csv",
+          "sourceHash": "dd1aeedaedbd2b1413b6d48f3ee5df5e5600040e186183f1f60073ca580045a1",
+          "sourceOrigin": "dd1aeedaedbd2b1413b6d48f3ee5df5e5600040e186183f1f60073ca580045a1#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "sar-own-reference",
+      "outcome": "derived",
+      "sha256": "71514097fa13388ca3b93fe58cd46acc55c67f019e0afd27c636bc5efa988c31",
+      "originalByteLength": 1478,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "INV-000271",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "second",
+              "+2.05"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "zero",
+              "0.00"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (SAR)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "first line",
+                "-12.50"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "second",
+                "+2.05"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "zero",
+                "0.00"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "SAR",
+          "decimals": 2,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "first line",
+              "amount": -1250,
+              "amountMinor": -1250,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12.50"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 205,
+              "amountMinor": 205,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2.05"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "SAR",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0.00"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (SAR)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -1045,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {}
+          },
+          "sourceName": "sar-own-reference.csv",
+          "sourceHash": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59",
+          "sourceOrigin": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "jpy-on-page",
+      "outcome": "derived",
+      "sha256": "71b282a98a55a034d83fedf3d06b09738ab51266f79364325ac76cbccd4ad659",
+      "originalByteLength": 1460,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (JPY)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "line, \"one\"",
+              "-12"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "second",
+              "+2"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "zero",
+              "0"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (JPY)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "line, \"one\"",
+                "-12"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "second",
+                "+2"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "zero",
+                "0"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "eebe0bd84fe65b863b5deb8851283569222ed3ea5a183411c46982680855076e",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "JPY",
+          "decimals": 0,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "line, \"one\"",
+              "amount": -12,
+              "amountMinor": -12,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 2,
+              "amountMinor": 2,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (JPY)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -10,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {}
+          },
+          "sourceName": "jpy-on-page.csv",
+          "sourceHash": "eebe0bd84fe65b863b5deb8851283569222ed3ea5a183411c46982680855076e",
+          "sourceOrigin": "eebe0bd84fe65b863b5deb8851283569222ed3ea5a183411c46982680855076e#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "jpy-cross-page",
+      "outcome": "derived",
+      "sha256": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83",
+      "originalByteLength": 2071,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 2
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (JPY)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12"
+            ],
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (JPY)"
+            ],
+            [
+              "Continued invoice",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-02",
+              "",
+              "second",
+              "+2"
+            ],
+            [
+              "2026-10-03",
+              "",
+              "zero",
+              "0"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2,
+            "7": 2
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (JPY)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "first line",
+                "-12"
+              ],
+              [
+                "2026-10-02",
+                "INV-000271",
+                "second",
+                "+2"
+              ],
+              [
+                "2026-10-03",
+                "INV-000271",
+                "zero",
+                "0"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "JPY",
+          "decimals": 0,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "first line",
+              "amount": -12,
+              "amountMinor": -12,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-02",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 2,
+              "amountMinor": 2,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-03",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (JPY)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -10,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {}
+          },
+          "sourceName": "jpy-cross-page.csv",
+          "sourceHash": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41",
+          "sourceOrigin": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "jpy-own-reference",
+      "outcome": "derived",
+      "sha256": "e6f519f14041a233ee7634efa3f26853b433a337b20d7d51da22769dc00fd812",
+      "originalByteLength": 1469,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (JPY)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "INV-000271",
+              "first line",
+              "-12"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "second",
+              "+2"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "zero",
+              "0"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (JPY)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "first line",
+                "-12"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "second",
+                "+2"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "zero",
+                "0"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "729eb878a4cc452cd2559b59dbeadda57de2d90f6aae10ce6de413a16e679293",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "JPY",
+          "decimals": 0,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {}
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "first line",
+              "amount": -12,
+              "amountMinor": -12,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 2,
+              "amountMinor": 2,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "JPY",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (JPY)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -10,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {}
+          },
+          "sourceName": "jpy-own-reference.csv",
+          "sourceHash": "729eb878a4cc452cd2559b59dbeadda57de2d90f6aae10ce6de413a16e679293",
+          "sourceOrigin": "729eb878a4cc452cd2559b59dbeadda57de2d90f6aae10ce6de413a16e679293#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "kwd-on-page",
+      "outcome": "derived",
+      "sha256": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+      "originalByteLength": 1472,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (KWD)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "line, \"one\"",
+              "-12.500"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "second",
+              "+2.005"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "zero",
+              "0.000"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (KWD)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "line, \"one\"",
+                "-12.500"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "second",
+                "+2.005"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "zero",
+                "0.000"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "KWD",
+          "decimals": 3,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {},
+          "formatChoice": {
+            "numberFormat": {
+              "value": "dot",
+              "sourceHash": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+              "sheet": 0,
+              "header": 0,
+              "columns": [
+                3
+              ],
+              "decimals": 3,
+              "candidates": [
+                "dot",
+                "comma"
+              ],
+              "cuts": [],
+              "excludedRows": [],
+              "balanceInputs": [
+                "",
+                ""
+              ]
+            }
+          }
+        },
+        "ambiguityBeforeBoundChoice": {
+          "code": "FORMAT_AMBIGUOUS_UNRESOLVED",
+          "source": "kwd-on-page.csv",
+          "field": "numberFormat",
+          "candidates": [
+            "dot",
+            "comma"
+          ]
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "line, \"one\"",
+              "amount": -12500,
+              "amountMinor": -12500,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12.500"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 2005,
+              "amountMinor": 2005,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2.005"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0.000"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (KWD)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -10495,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {},
+            "formatChoice": {
+              "numberFormat": {
+                "value": "dot",
+                "sourceHash": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+                "sheet": 0,
+                "header": 0,
+                "columns": [
+                  3
+                ],
+                "decimals": 3,
+                "candidates": [
+                  "dot",
+                  "comma"
+                ],
+                "cuts": [],
+                "excludedRows": [],
+                "balanceInputs": [
+                  "",
+                  ""
+                ]
+              }
+            }
+          },
+          "sourceName": "kwd-on-page.csv",
+          "sourceHash": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+          "sourceOrigin": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "kwd-cross-page",
+      "outcome": "derived",
+      "sha256": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0",
+      "originalByteLength": 2083,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 2
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (KWD)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.500"
+            ],
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (KWD)"
+            ],
+            [
+              "Continued invoice",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-02",
+              "",
+              "second",
+              "+2.005"
+            ],
+            [
+              "2026-10-03",
+              "",
+              "zero",
+              "0.000"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2,
+            "7": 2
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (KWD)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "first line",
+                "-12.500"
+              ],
+              [
+                "2026-10-02",
+                "INV-000271",
+                "second",
+                "+2.005"
+              ],
+              [
+                "2026-10-03",
+                "INV-000271",
+                "zero",
+                "0.000"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "KWD",
+          "decimals": 3,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {},
+          "formatChoice": {
+            "numberFormat": {
+              "value": "dot",
+              "sourceHash": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+              "sheet": 0,
+              "header": 0,
+              "columns": [
+                3
+              ],
+              "decimals": 3,
+              "candidates": [
+                "dot",
+                "comma"
+              ],
+              "cuts": [],
+              "excludedRows": [],
+              "balanceInputs": [
+                "",
+                ""
+              ]
+            }
+          }
+        },
+        "ambiguityBeforeBoundChoice": {
+          "code": "FORMAT_AMBIGUOUS_UNRESOLVED",
+          "source": "kwd-cross-page.csv",
+          "field": "numberFormat",
+          "candidates": [
+            "dot",
+            "comma"
+          ]
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "first line",
+              "amount": -12500,
+              "amountMinor": -12500,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12.500"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-02",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 2005,
+              "amountMinor": 2005,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2.005"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-03",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0.000"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (KWD)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -10495,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {},
+            "formatChoice": {
+              "numberFormat": {
+                "value": "dot",
+                "sourceHash": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+                "sheet": 0,
+                "header": 0,
+                "columns": [
+                  3
+                ],
+                "decimals": 3,
+                "candidates": [
+                  "dot",
+                  "comma"
+                ],
+                "cuts": [],
+                "excludedRows": [],
+                "balanceInputs": [
+                  "",
+                  ""
+                ]
+              }
+            }
+          },
+          "sourceName": "kwd-cross-page.csv",
+          "sourceHash": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+          "sourceOrigin": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "kwd-own-reference",
+      "outcome": "derived",
+      "sha256": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7",
+      "originalByteLength": 1481,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (KWD)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "INV-000271",
+              "first line",
+              "-12.500"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "second",
+              "+2.005"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "zero",
+              "0.000"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      },
+      "csvProof": {
+        "source": [
+          {
+            "name": "CSV",
+            "rows": [
+              [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (KWD)"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "first line",
+                "-12.500"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "second",
+                "+2.005"
+              ],
+              [
+                "2026-10-01",
+                "INV-000271",
+                "zero",
+                "0.000"
+              ]
+            ],
+            "formulaRows": [],
+            "hiddenRows": []
+          }
+        ],
+        "sha256": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+        "scope": {
+          "supplier": "",
+          "entity": "",
+          "account": "",
+          "currency": "KWD",
+          "decimals": 3,
+          "cutoff": "2100-12-31",
+          "dateWindow": 0,
+          "confirmed": false,
+          "coverageConfirmed": false
+        },
+        "csvMapping": {
+          "sheet": 0,
+          "header": 0,
+          "date": 0,
+          "reference": 1,
+          "description": 2,
+          "amount": 3,
+          "debit": -1,
+          "credit": -1,
+          "currencyColumn": -1,
+          "mode": "signed",
+          "multiplier": 1,
+          "numberFormat": "dot",
+          "dateFormat": "ymd",
+          "reportType": "transactions",
+          "opening": "",
+          "closing": "",
+          "periodStart": "",
+          "excluded": {},
+          "formatChoice": {
+            "numberFormat": {
+              "value": "dot",
+              "sourceHash": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+              "sheet": 0,
+              "header": 0,
+              "columns": [
+                3
+              ],
+              "decimals": 3,
+              "candidates": [
+                "dot",
+                "comma"
+              ],
+              "cuts": [],
+              "excludedRows": [],
+              "balanceInputs": [
+                "",
+                ""
+              ]
+            }
+          }
+        },
+        "ambiguityBeforeBoundChoice": {
+          "code": "FORMAT_AMBIGUOUS_UNRESOLVED",
+          "source": "kwd-own-reference.csv",
+          "field": "numberFormat",
+          "candidates": [
+            "dot",
+            "comma"
+          ]
+        },
+        "prepared": {
+          "transactions": [
+            {
+              "id": "supplier:0:2",
+              "side": "supplier",
+              "row": 2,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "first line",
+              "amount": -12500,
+              "amountMinor": -12500,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "-12.500"
+            },
+            {
+              "id": "supplier:0:3",
+              "side": "supplier",
+              "row": 3,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "second",
+              "amount": 2005,
+              "amountMinor": 2005,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "+2.005"
+            },
+            {
+              "id": "supplier:0:4",
+              "side": "supplier",
+              "row": 4,
+              "sheet": "CSV",
+              "date": "2026-10-01",
+              "reference": "INV-000271",
+              "normalizedReference": "INV000271",
+              "description": "zero",
+              "amount": 0,
+              "amountMinor": 0,
+              "currency": "KWD",
+              "chosenReference": "INV-000271",
+              "chosenReferenceEvidence": {
+                "role": "document-reference",
+                "header": "Reference",
+                "column": 2
+              },
+              "statedReference": "INV-000271",
+              "primaryReference": "INV-000271",
+              "documentReference": "",
+              "voucherReference": "",
+              "poReference": "",
+              "bankReference": "",
+              "receiptReference": "",
+              "paymentIdentityFields": [],
+              "documentType": "Unknown",
+              "referenceEvidenceIssues": [],
+              "originalAmount": "0.000"
+            }
+          ],
+          "excluded": [
+            {
+              "row": 1,
+              "reason": "صف العناوين المؤكد",
+              "kind": "non-movement",
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Signed amount (KWD)"
+              ]
+            }
+          ],
+          "errors": [],
+          "warnings": [],
+          "total": -10495,
+          "opening": null,
+          "closing": null,
+          "balanceValid": false,
+          "rowCount": 3,
+          "mapping": {
+            "sheet": 0,
+            "header": 0,
+            "date": 0,
+            "reference": 1,
+            "description": 2,
+            "amount": 3,
+            "debit": -1,
+            "credit": -1,
+            "currencyColumn": -1,
+            "mode": "signed",
+            "multiplier": 1,
+            "numberFormat": "dot",
+            "dateFormat": "ymd",
+            "reportType": "transactions",
+            "opening": "",
+            "closing": "",
+            "periodStart": "",
+            "excluded": {},
+            "formatChoice": {
+              "numberFormat": {
+                "value": "dot",
+                "sourceHash": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+                "sheet": 0,
+                "header": 0,
+                "columns": [
+                  3
+                ],
+                "decimals": 3,
+                "candidates": [
+                  "dot",
+                  "comma"
+                ],
+                "cuts": [],
+                "excludedRows": [],
+                "balanceInputs": [
+                  "",
+                  ""
+                ]
+              }
+            }
+          },
+          "sourceName": "kwd-own-reference.csv",
+          "sourceHash": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+          "sourceOrigin": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f#0",
+          "metadata": {
+            "openingBalance": null,
+            "closingBalance": null,
+            "periodStart": "",
+            "periodEnd": "",
+            "supplierStatementAccount": "",
+            "supplierCode": "",
+            "apControlAccount": "",
+            "supplierName": "",
+            "entityName": "",
+            "currency": "",
+            "balanceRowReference": {},
+            "evidence": [],
+            "warnings": []
+          },
+          "balanceArithmeticStatus": "BALANCE_ROW_NOT_FOUND",
+          "periodStatus": "PERIOD_NOT_DETECTED",
+          "coverageStatus": "PERIOD_COVERAGE_UNCONFIRMED"
+        }
+      }
+    },
+    {
+      "id": "changed-page-currency",
+      "outcome": "blocked",
+      "sha256": "414240c09f79ae466a8b777fcab21c35378a8bafcc69f10ea9ca262866ac5ea0",
+      "originalByteLength": 1904,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 2
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.00"
+            ],
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (JPY)"
+            ],
+            [
+              "Continued invoice",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "+2"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "missing-page-qualification",
+      "outcome": "blocked",
+      "sha256": "588858ba99a622b3637beeec07c20dda9256ca6c7dd56ba75ba8c4c1ae995c45",
+      "originalByteLength": 1899,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 2
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount"
+            ],
+            [
+              "Continued invoice",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "+2.05"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "contradictory-currency-row",
+      "outcome": "blocked",
+      "sha256": "b71faabd4c0e376ff839ab54c39740698a1fac5bc6e14890ad2cc713b879ceb0",
+      "originalByteLength": 1281,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Currency",
+              "JPY",
+              "",
+              ""
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "double-currency-header",
+      "outcome": "blocked",
+      "sha256": "9a5476ebf2d2ef214cfd1080fcb23d7886699afd4de2d112113560989ad5e3e3",
+      "originalByteLength": 1118,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR) (JPY)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "unknown-currency-header",
+      "outcome": "blocked",
+      "sha256": "193fcebe11d4c0937d65b0c70265b4c95ab8a46db288dcf5f7d66be7d1c1c327",
+      "originalByteLength": 1110,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (ZZZ)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "lowercase-qualifier",
+      "outcome": "blocked",
+      "sha256": "ca8210cf7228598ae862f9133e2d06330d741fea3b65837d916747f592ed5c7a",
+      "originalByteLength": 1110,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (sar)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "symbol-qualifier",
+      "outcome": "blocked",
+      "sha256": "06dbaa8a9c18b6fb788e9a702097e41fb7fe7d2cdd17ff4b93b68f12bb29ed46",
+      "originalByteLength": 1108,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount ($)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "ambiguous-qualifier",
+      "outcome": "blocked",
+      "sha256": "551ff60fec75f4b29528cf05a6038be81b21fc41309ee54dd7781cf7c52babf7",
+      "originalByteLength": 1114,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR/JPY)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "jpy-fractional",
+      "outcome": "blocked",
+      "sha256": "b1e4efe3b55b3894a5e2632d373307c872a99f9bc68b908c5c20e9ccd0dd54b2",
+      "originalByteLength": 1296,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (JPY)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "late fractional",
+              "+2.5"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "sar-excess-fraction",
+      "outcome": "blocked",
+      "sha256": "b994dc2921a007d5f2273252a940f1b353786c04888cf00d445b7f3f6fbc2324",
+      "originalByteLength": 1310,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "late excessive precision",
+              "+2.001"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "kwd-excess-fraction",
+      "outcome": "blocked",
+      "sha256": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+      "originalByteLength": 1312,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (KWD)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.500"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "late excessive precision",
+              "+2.0001"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "late-corrupt-amount",
+      "outcome": "blocked",
+      "sha256": "ecb2e77c2ba0f2cb3396eaf0877f9be46f9f89f6e66e0552d7323fb888ddd496",
+      "originalByteLength": 1298,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "late corrupt",
+              "BROKEN"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "changed-page-reference-role",
+      "outcome": "blocked",
+      "sha256": "b6e0df22098b8172a2d27fc20f7e6630b5b9ed69c7309f50d4d72c50d008c0b3",
+      "originalByteLength": 1912,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 2
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "Date",
+              "Purchase Order",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Continued invoice",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "+2.05"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2,
+            "6": 2
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "extra-balance-column",
+      "outcome": "blocked",
+      "sha256": "e8eebea63a0850b5bad2411fa50bf22e376dbacf379b750e6566807845b041cb",
+      "originalByteLength": 1244,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70,
+          87
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)",
+              "Balance"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50",
+              "100.00"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "missing-continuation",
+      "outcome": "blocked",
+      "sha256": "a748a276f24a2fd252880c65c62bd5630f67ac1518db37f1fe94a142c1925620",
+      "originalByteLength": 1721,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 2
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "+2.05"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 2,
+            "5": 2
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "late-unknown-row",
+      "outcome": "blocked",
+      "sha256": "237333edfe31617dd8e4ae43945011b0fbad254c05b78f5014c2c57a7a7899e2",
+      "originalByteLength": 1466,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Signed amount (SAR)"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "-12.50"
+            ],
+            [
+              "",
+              "",
+              "unknown note",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "first line",
+              "+2.05"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1,
+            "4": 1,
+            "5": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": false,
+        "error": "Unsupported original header, monetary context or source issues prevent section derivation.",
+        "state": "empty"
+      }
+    },
+    {
+      "id": "bare-existing-family",
+      "outcome": "outside-new-family",
+      "sha256": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+      "originalByteLength": 1106,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Amount"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "plain original family",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": true,
+        "review": {
+          "version": "P4_SECTION_CONTINUATION_V1",
+          "authority": "structural-review-only",
+          "sourceVerified": true,
+          "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+          "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+          "extractionRevision": "independent-precode-qualified-currency-native-v1",
+          "sheet": 1,
+          "rows": [
+            {
+              "row": 1,
+              "page": 1,
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Amount"
+              ],
+              "amounts": [],
+              "kind": "header"
+            },
+            {
+              "row": 2,
+              "page": 1,
+              "values": [
+                "Invoice No",
+                "INV-000271",
+                "",
+                ""
+              ],
+              "amounts": [],
+              "kind": "parent"
+            },
+            {
+              "row": 3,
+              "page": 1,
+              "values": [
+                "2026-10-01",
+                "",
+                "plain original family",
+                "-12.50"
+              ],
+              "amounts": [
+                {
+                  "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                  "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 4,
+                  "literal": "-12.50"
+                }
+              ],
+              "kind": "movement"
+            }
+          ],
+          "proposals": [
+            {
+              "id": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae:3",
+              "reference": "INV-000271",
+              "target": {
+                "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                "sheet": 1,
+                "row": 3,
+                "page": 1,
+                "column": 2,
+                "literal": ""
+              },
+              "parent": {
+                "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                "sheet": 1,
+                "row": 2,
+                "page": 1,
+                "column": 2,
+                "literal": "INV-000271"
+              },
+              "continuation": [],
+              "headers": [],
+              "parentSpan": [
+                {
+                  "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                  "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 2,
+                  "page": 1,
+                  "column": 1,
+                  "literal": "Invoice No"
+                },
+                {
+                  "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                  "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 2,
+                  "page": 1,
+                  "column": 2,
+                  "literal": "INV-000271"
+                }
+              ],
+              "continuationSpans": [],
+              "rule": "explicit-section-reference",
+              "authority": "structural-review-only"
+            }
+          ],
+          "questions": []
+        },
+        "artifact": {
+          "csv": "Date,Reference,Description,Amount\r\n2026-10-01,INV-000271,plain original family,-12.50\r\n",
+          "provenance": {
+            "version": "P4_SECTION_DERIVED_V1",
+            "kind": "explicitly-derived-section-csv",
+            "financialApproval": false,
+            "originalName": "bare-existing-family.pdf",
+            "originalSha256": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+            "derivedName": "bare-existing-family.section-derived.csv",
+            "derivedSha256": "98fdf40dc23d4a613da4483c88d65bdbb4d1f8256244438655dc0273d1224112",
+            "extractionRevision": "independent-precode-qualified-currency-native-v1",
+            "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+            "selectionHash": "d58ab7cdcfea6b3338e7d933cfcedc7b736f47fbf662fa9b8e9618d9d86c7744",
+            "selectedProposalIds": [
+              "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae:3"
+            ],
+            "originalReading": {
+              "sheet": 0,
+              "header": 0,
+              "date": 0,
+              "reference": 1,
+              "description": 2,
+              "amount": 3,
+              "debit": -1,
+              "credit": -1,
+              "currencyColumn": -1,
+              "mode": "signed",
+              "multiplier": 1,
+              "numberFormat": "dot",
+              "dateFormat": "ymd",
+              "reportType": "transactions",
+              "opening": "",
+              "closing": "",
+              "periodStart": "",
+              "excluded": {},
+              "pdfReviewed": true
+            },
+            "derivedReading": {
+              "sheet": 0,
+              "header": 0,
+              "date": 0,
+              "reference": 1,
+              "description": 2,
+              "amount": 3,
+              "debit": -1,
+              "credit": -1,
+              "currencyColumn": -1,
+              "mode": "signed",
+              "multiplier": 1,
+              "numberFormat": "dot",
+              "dateFormat": "ymd",
+              "reportType": "transactions",
+              "opening": "",
+              "closing": "",
+              "periodStart": "",
+              "excluded": {}
+            },
+            "decimals": 2,
+            "reviewer": {
+              "label": "Independent synthetic precode reviewer",
+              "rationale": "Reviewed original synthetic inventory, source roles and literal amount. No field or financial approval.",
+              "acknowledgements": {
+                "originalRowsReviewed": true,
+                "referenceRolesReviewed": true,
+                "signedAmountsPreserved": true,
+                "derivedSourceUnderstood": true
+              },
+              "reviewerHash": "8b3330531bc30969ccf774c49d3868a25766218a207240278c27966ab01552d2"
+            },
+            "inventory": [
+              {
+                "originalRow": 1,
+                "page": 1,
+                "values": [
+                  "Date",
+                  "Reference",
+                  "Description",
+                  "Amount"
+                ],
+                "kind": "header",
+                "derivedRow": null
+              },
+              {
+                "originalRow": 2,
+                "page": 1,
+                "values": [
+                  "Invoice No",
+                  "INV-000271",
+                  "",
+                  ""
+                ],
+                "kind": "parent",
+                "derivedRow": null
+              },
+              {
+                "originalRow": 3,
+                "page": 1,
+                "values": [
+                  "2026-10-01",
+                  "",
+                  "plain original family",
+                  "-12.50"
+                ],
+                "kind": "movement",
+                "derivedRow": 2
+              }
+            ],
+            "links": [
+              {
+                "originalRow": 3,
+                "page": 1,
+                "derivedRow": 2,
+                "referenceOrigin": "accepted-section-proposal",
+                "reference": "INV-000271",
+                "referenceEvidence": {
+                  "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                  "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 2,
+                  "page": 1,
+                  "column": 2,
+                  "literal": "INV-000271"
+                },
+                "proposal": {
+                  "id": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae:3",
+                  "reference": "INV-000271",
+                  "target": {
+                    "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                    "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                    "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                    "sheet": 1,
+                    "row": 3,
+                    "page": 1,
+                    "column": 2,
+                    "literal": ""
+                  },
+                  "parent": {
+                    "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                    "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                    "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                    "sheet": 1,
+                    "row": 2,
+                    "page": 1,
+                    "column": 2,
+                    "literal": "INV-000271"
+                  },
+                  "continuation": [],
+                  "headers": [],
+                  "parentSpan": [
+                    {
+                      "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                      "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                      "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                      "sheet": 1,
+                      "row": 2,
+                      "page": 1,
+                      "column": 1,
+                      "literal": "Invoice No"
+                    },
+                    {
+                      "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                      "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                      "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                      "sheet": 1,
+                      "row": 2,
+                      "page": 1,
+                      "column": 2,
+                      "literal": "INV-000271"
+                    }
+                  ],
+                  "continuationSpans": [],
+                  "rule": "explicit-section-reference",
+                  "authority": "structural-review-only"
+                },
+                "dateEvidence": {
+                  "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                  "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 1,
+                  "literal": "2026-10-01"
+                },
+                "descriptionEvidence": {
+                  "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                  "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 3,
+                  "literal": "plain original family"
+                },
+                "amountEvidence": {
+                  "sourceHash": "eba7f060d1ed7c2da477c99a681e65e4d2c9457f1f4d5579ebfb2371624b7976",
+                  "extractionHash": "0acfa2ba73629e56b7ef759e509c238fdff537a7757b8ff4038b1d57ef2ec2ae",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 4,
+                  "literal": "-12.50"
+                }
+              }
+            ]
+          },
+          "financialApproval": false,
+          "nativeSourceHash": "98fdf40dc23d4a613da4483c88d65bdbb4d1f8256244438655dc0273d1224112"
+        }
+      }
+    },
+    {
+      "id": "description-code-only",
+      "outcome": "outside-new-family",
+      "sha256": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+      "originalByteLength": 1116,
+      "pdf": {
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "pages": 1
+      },
+      "sheets": [
+        {
+          "name": "PDF",
+          "rows": [
+            [
+              "Date",
+              "Reference",
+              "Description",
+              "Amount"
+            ],
+            [
+              "Invoice No",
+              "INV-000271",
+              "",
+              ""
+            ],
+            [
+              "2026-10-01",
+              "",
+              "SAR appears only in description",
+              "-12.50"
+            ]
+          ],
+          "formulaRows": [],
+          "hiddenRows": [],
+          "rowIssues": {},
+          "rowPages": {
+            "1": 1,
+            "2": 1,
+            "3": 1
+          }
+        }
+      ],
+      "boundary": {
+        "stage": "inspect",
+        "accepted": true,
+        "review": {
+          "version": "P4_SECTION_CONTINUATION_V1",
+          "authority": "structural-review-only",
+          "sourceVerified": true,
+          "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+          "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+          "extractionRevision": "independent-precode-qualified-currency-native-v1",
+          "sheet": 1,
+          "rows": [
+            {
+              "row": 1,
+              "page": 1,
+              "values": [
+                "Date",
+                "Reference",
+                "Description",
+                "Amount"
+              ],
+              "amounts": [],
+              "kind": "header"
+            },
+            {
+              "row": 2,
+              "page": 1,
+              "values": [
+                "Invoice No",
+                "INV-000271",
+                "",
+                ""
+              ],
+              "amounts": [],
+              "kind": "parent"
+            },
+            {
+              "row": 3,
+              "page": 1,
+              "values": [
+                "2026-10-01",
+                "",
+                "SAR appears only in description",
+                "-12.50"
+              ],
+              "amounts": [
+                {
+                  "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                  "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 4,
+                  "literal": "-12.50"
+                }
+              ],
+              "kind": "movement"
+            }
+          ],
+          "proposals": [
+            {
+              "id": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15:3",
+              "reference": "INV-000271",
+              "target": {
+                "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                "sheet": 1,
+                "row": 3,
+                "page": 1,
+                "column": 2,
+                "literal": ""
+              },
+              "parent": {
+                "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                "sheet": 1,
+                "row": 2,
+                "page": 1,
+                "column": 2,
+                "literal": "INV-000271"
+              },
+              "continuation": [],
+              "headers": [],
+              "parentSpan": [
+                {
+                  "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                  "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 2,
+                  "page": 1,
+                  "column": 1,
+                  "literal": "Invoice No"
+                },
+                {
+                  "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                  "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 2,
+                  "page": 1,
+                  "column": 2,
+                  "literal": "INV-000271"
+                }
+              ],
+              "continuationSpans": [],
+              "rule": "explicit-section-reference",
+              "authority": "structural-review-only"
+            }
+          ],
+          "questions": []
+        },
+        "artifact": {
+          "csv": "Date,Reference,Description,Amount\r\n2026-10-01,INV-000271,SAR appears only in description,-12.50\r\n",
+          "provenance": {
+            "version": "P4_SECTION_DERIVED_V1",
+            "kind": "explicitly-derived-section-csv",
+            "financialApproval": false,
+            "originalName": "description-code-only.pdf",
+            "originalSha256": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+            "derivedName": "description-code-only.section-derived.csv",
+            "derivedSha256": "d6d2d83e667090032e9012afe52c0cbd5cbe17f428babd7b2ba0f9e7a696c663",
+            "extractionRevision": "independent-precode-qualified-currency-native-v1",
+            "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+            "selectionHash": "88e63f548fad43062b46d303d0cc2bffa6ac8f9d1272d5266cd223080128f1a9",
+            "selectedProposalIds": [
+              "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15:3"
+            ],
+            "originalReading": {
+              "sheet": 0,
+              "header": 0,
+              "date": 0,
+              "reference": 1,
+              "description": 2,
+              "amount": 3,
+              "debit": -1,
+              "credit": -1,
+              "currencyColumn": -1,
+              "mode": "signed",
+              "multiplier": 1,
+              "numberFormat": "dot",
+              "dateFormat": "ymd",
+              "reportType": "transactions",
+              "opening": "",
+              "closing": "",
+              "periodStart": "",
+              "excluded": {},
+              "pdfReviewed": true
+            },
+            "derivedReading": {
+              "sheet": 0,
+              "header": 0,
+              "date": 0,
+              "reference": 1,
+              "description": 2,
+              "amount": 3,
+              "debit": -1,
+              "credit": -1,
+              "currencyColumn": -1,
+              "mode": "signed",
+              "multiplier": 1,
+              "numberFormat": "dot",
+              "dateFormat": "ymd",
+              "reportType": "transactions",
+              "opening": "",
+              "closing": "",
+              "periodStart": "",
+              "excluded": {}
+            },
+            "decimals": 2,
+            "reviewer": {
+              "label": "Independent synthetic precode reviewer",
+              "rationale": "Reviewed original synthetic inventory, source roles and literal amount. No field or financial approval.",
+              "acknowledgements": {
+                "originalRowsReviewed": true,
+                "referenceRolesReviewed": true,
+                "signedAmountsPreserved": true,
+                "derivedSourceUnderstood": true
+              },
+              "reviewerHash": "25e31a71bbefd6af5892153d73795df59fd19f7ca34b25dd818dae87d65ef9a0"
+            },
+            "inventory": [
+              {
+                "originalRow": 1,
+                "page": 1,
+                "values": [
+                  "Date",
+                  "Reference",
+                  "Description",
+                  "Amount"
+                ],
+                "kind": "header",
+                "derivedRow": null
+              },
+              {
+                "originalRow": 2,
+                "page": 1,
+                "values": [
+                  "Invoice No",
+                  "INV-000271",
+                  "",
+                  ""
+                ],
+                "kind": "parent",
+                "derivedRow": null
+              },
+              {
+                "originalRow": 3,
+                "page": 1,
+                "values": [
+                  "2026-10-01",
+                  "",
+                  "SAR appears only in description",
+                  "-12.50"
+                ],
+                "kind": "movement",
+                "derivedRow": 2
+              }
+            ],
+            "links": [
+              {
+                "originalRow": 3,
+                "page": 1,
+                "derivedRow": 2,
+                "referenceOrigin": "accepted-section-proposal",
+                "reference": "INV-000271",
+                "referenceEvidence": {
+                  "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                  "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 2,
+                  "page": 1,
+                  "column": 2,
+                  "literal": "INV-000271"
+                },
+                "proposal": {
+                  "id": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15:3",
+                  "reference": "INV-000271",
+                  "target": {
+                    "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                    "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                    "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                    "sheet": 1,
+                    "row": 3,
+                    "page": 1,
+                    "column": 2,
+                    "literal": ""
+                  },
+                  "parent": {
+                    "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                    "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                    "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                    "sheet": 1,
+                    "row": 2,
+                    "page": 1,
+                    "column": 2,
+                    "literal": "INV-000271"
+                  },
+                  "continuation": [],
+                  "headers": [],
+                  "parentSpan": [
+                    {
+                      "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                      "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                      "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                      "sheet": 1,
+                      "row": 2,
+                      "page": 1,
+                      "column": 1,
+                      "literal": "Invoice No"
+                    },
+                    {
+                      "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                      "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                      "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                      "sheet": 1,
+                      "row": 2,
+                      "page": 1,
+                      "column": 2,
+                      "literal": "INV-000271"
+                    }
+                  ],
+                  "continuationSpans": [],
+                  "rule": "explicit-section-reference",
+                  "authority": "structural-review-only"
+                },
+                "dateEvidence": {
+                  "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                  "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 1,
+                  "literal": "2026-10-01"
+                },
+                "descriptionEvidence": {
+                  "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                  "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 3,
+                  "literal": "SAR appears only in description"
+                },
+                "amountEvidence": {
+                  "sourceHash": "338d690a6f22196af9efa0c272543772f7f7efea9704f1279b6dd0beacec0ca5",
+                  "extractionHash": "fce9f195721d2bbbcc9cc84a4d882dd51ce49513b0e2e14d5dbfba6ce22f1b15",
+                  "extractionRevision": "independent-precode-qualified-currency-native-v1",
+                  "sheet": 1,
+                  "row": 3,
+                  "page": 1,
+                  "column": 4,
+                  "literal": "-12.50"
+                }
+              }
+            ]
+          },
+          "financialApproval": false,
+          "nativeSourceHash": "d6d2d83e667090032e9012afe52c0cbd5cbe17f428babd7b2ba0f9e7a696c663"
+        }
+      }
+    }
+  ]
+}

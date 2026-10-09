@@ -1,6 +1,0 @@
-Already up to date
-Done in 147ms using pnpm v11.19.0
-audit/local-provider/run.mjs:26:64: warning typescript(restrict-template-expressions): Invalid type used in template literal expression.
-audit/local-provider/run.mjs:36:58: warning typescript(no-base-to-string): 'args[0]' may use Object's default stringification format ('[object Object]') when stringified. help: Consider picking a property (e.g. `user.name`), using a formatter (or `JSON.stringify`), or implementing a custom `toString()`/`toLocaleString()` on the type.
-audit/local-provider/run-v2.mjs:26:64: warning typescript(restrict-template-expressions): Invalid type used in template literal expression.
-audit/local-provider/run-v2.mjs:36:58: warning typescript(no-base-to-string): 'args[0]' may use Object's default stringification format ('[object Object]') when stringified. help: Consider picking a property (e.g. `user.name`), using a formatter (or `JSON.stringify`), or implementing a custom `toString()`/`toLocaleString()` on the type.

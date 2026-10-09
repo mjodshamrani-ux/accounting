@@ -56,7 +56,7 @@ async function input(a: string[][], b: string[][], h = headers) {
 const reconcile = (p: Awaited<ReturnType<typeof input>>) =>
   reconcileSupplierStatement(p).result;
 
-test('unmapped reference conflicts veto a document match while agreeing and absent references still match', async () => {
+void test('unmapped reference conflicts veto a document match while agreeing and absent references still match', async () => {
   for (const label of ['Reference', 'Ref.', 'المرجع']) {
     const h = [...headers];
     h[2] = label;
@@ -81,7 +81,7 @@ test('unmapped reference conflicts veto a document match while agreeing and abse
   }
 });
 
-test('choosing Document No does not discard a conflicting explicit Reference column', async () => {
+void test('choosing Document No does not discard a conflicting explicit Reference column', async () => {
   const p = await input([row('SR-8001')], [row('LR-8001')]);
   p.mappings = p.mappings.map((m) => ({ ...m, reference: 1 })) as [
     Mapping,
@@ -90,7 +90,7 @@ test('choosing Document No does not discard a conflicting explicit Reference col
   assert.equal(reconcile(p).caseCounts.autoMatchedCases, 0);
 });
 
-test('a secondary reference is retained with its source header and never supplies positive matching evidence', async () => {
+void test('a secondary reference is retained with its source header and never supplies positive matching evidence', async () => {
   const p = await input(
     [row('SHARED-8001', 'INV-4011')],
     [row('SHARED-8001', 'INV-4012')],
@@ -110,7 +110,7 @@ test('a secondary reference is retained with its source header and never supplie
   }
 });
 
-test('ambiguous or unsafe unselected reference evidence cannot be silently ignored', async () => {
+void test('ambiguous or unsafe unselected reference evidence cannot be silently ignored', async () => {
   const duplicate = await input(
     [[...row('SR-8001'), 'X-1001']],
     [[...row('LR-8001'), 'X-1001']],
@@ -126,7 +126,7 @@ test('ambiguous or unsafe unselected reference evidence cannot be silently ignor
   }
 });
 
-test('reference conflicts in one invoice-group member veto the whole group', async () => {
+void test('reference conflicts in one invoice-group member veto the whole group', async () => {
   const one = [...row('SR-8001'), 'PO-4011'];
   one[5] = '300.00';
   const part1 = [...row('SR-8001'), 'PO-4011'];
@@ -147,7 +147,7 @@ test('reference conflicts in one invoice-group member veto the whole group', asy
   );
 });
 
-test('payment and journal identities remain independent of per-book reference columns', async () => {
+void test('payment and journal identities remain independent of per-book reference columns', async () => {
   for (const [identity, type, value] of [
     ['Bank Ref', 'Payment', 'BANK-8001'],
     ['Voucher No', 'Journal', 'JV-8001'],
@@ -170,7 +170,7 @@ test('payment and journal identities remain independent of per-book reference co
   }
 });
 
-test('reference evidence survives restore and verified export, and permits an explicit accountant decision', async () => {
+void test('reference evidence survives restore and verified export, and permits an explicit accountant decision', async () => {
   const p = await input([row('SR-8001')], [row('LR-8001')]);
   const r = reconcile(p);
   const review = { name: 'Reviewer', notes: '', checked: true };

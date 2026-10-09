@@ -1,0 +1,30 @@
+{
+  "outcome": "PASS-PINS-MANUAL-MATRIX",
+  "sealedInputs": {
+    "p4-qualified-currency-v1": {
+      "manifestSha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+      "files": 72
+    },
+    "p4-qualified-currency-format-addendum-v1": {
+      "manifestSha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "files": 7
+    },
+    "p4-qualified-currency-boundary-clarification-v1": {
+      "manifestSha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
+      "files": 5
+    },
+    "p4-qualified-currency-browser-v1": {
+      "manifestSha256": "94dffd30f325de9e0c755204c22b7a8dfa800f7a69715da58abeccf690518c0d",
+      "files": 94
+    }
+  },
+  "positiveLanguageCases": 18,
+  "targetedRefusalLanguageCases": 12,
+  "primaryWidths": 132,
+  "sourceSnapshotsByteExact": true,
+  "formatRefusalActions": 27,
+  "boundaryReinterpretations": 12,
+  "ownershipSuccessfulControls": 3,
+  "generationRefusals": 2,
+  "separateNativeFormatFinding": "KWD excess-precision fixture is ambiguous and needs explicit acknowledged original dot choice before intended late Apply refusal."
+}

@@ -45,10 +45,12 @@ export function VisualReader({
   candidate,
   scope,
   onSource,
+  active = true,
 }: {
   candidate?: File | null;
   scope?: Scope;
   onSource?: VisualSourceTransfer;
+  active?: boolean;
 }) {
   const { t, say } = useI18n();
   const v = t.visualReader;
@@ -513,6 +515,7 @@ export function VisualReader({
                 key={review.source.sha256}
                 sourceSha256={review.source.sha256}
                 disabled={!!busy || tableBusy || contextBusy}
+                active={active}
               >
                 <div className="visual-review-record stack">
                   <h3>{t.visualReview.title}</h3>

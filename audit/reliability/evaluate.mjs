@@ -115,6 +115,7 @@ function probeAnsweredAmbiguity(
       : 'blocked-by-other-field';
   }
 }
+// oxlint-disable-next-line typescript/require-array-sort-compare -- Fixture membership/verdict canonicalization intentionally retains native UTF-16 and ToString ordering.
 const groupKey = (a, b) => JSON.stringify([[...a].sort(), [...b].sort()]);
 const sum = (values) => Number(values.reduce((a, b) => a + BigInt(b), 0n));
 const arrayBuffer = (b) =>
@@ -1047,8 +1048,10 @@ export async function evaluateCase(
   );
   record.needsChosenInterpretation =
     record.unprovenFormatDefaults.length > 0 ||
+    // oxlint-disable-next-line unicorn/prefer-string-starts-ends-with -- Preserve native regex ToString and final-line-terminator behavior for historical fixture fields.
     record.unresolvedInputs.some((a) => /Format$/.test(a.field)) ||
     record.interventionActions.some(
+      // oxlint-disable-next-line unicorn/prefer-string-starts-ends-with -- Preserve native regex ToString and final-line-terminator behavior for historical fixture fields.
       (a) => a.origin === 'explicit-external-input' && /Format$/.test(a.field),
     );
   record.externalFacts = record.interventionActions.filter(

@@ -1,0 +1,3 @@
+Evidence ID,Fee ID,Amount,Reference,Valid from,Valid to,Entity,Gateway,Merchant account,Bank account,Complete dimensions,Currency,Currency basis,FX policy,Period start,Period end,As of,Policy version,Batch ID
+E-001,F-001,2.00,Independent fee detail 1,2026-09-01,2026-09-30,Synthetic Merchant,Gateway example,001,BANK-01,department=01,ZZZ,functional,same-currency-no-conversion,2026-09-01,2026-09-30,2026-09-30,PG-1,BATCH-001
+E-002,F-002,1.00,Independent fee detail 2,2026-09-01,2026-09-30,Synthetic Merchant,Gateway example,001,BANK-01,department=01,ZZZ,functional,same-currency-no-conversion,2026-09-01,2026-09-30,2026-09-30,PG-1,BATCH-001

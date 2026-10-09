@@ -1,0 +1,1094 @@
+{
+  "outcome": "PASS-FORMAT-CONTEXT-COMPARISON",
+  "claims": "Native format observations only; financial truth remains independently frozen.",
+  "cases": [
+    {
+      "id": "sar-on-page",
+      "originalSha256": "668097cd48fbbe565a14735dcc003e93709ffde614abbfc133e3eae4c4da754b",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd",
+          "numberFormat": "dot"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في المبالغ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "dot"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "668097cd48fbbe565a14735dcc003e93709ffde614abbfc133e3eae4c4da754b",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 2,
+        "candidates": [
+          "dot"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "42667a9fb186baa0472cfb00193d720872165814cbd88a8921967cd72114e5cb",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd",
+            "numberFormat": "dot"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم المبالغ (3 قيمة).",
+            "candidates": [
+              "dot"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "42667a9fb186baa0472cfb00193d720872165814cbd88a8921967cd72114e5cb",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 2,
+          "candidates": [
+            "dot"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "sar-cross-page",
+      "originalSha256": "3a894b9660f69ddda37d60f8b47cd05ea9ecd41d01ce60c42fb3a1bffa467a8f",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd",
+          "numberFormat": "dot"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2,
+            5
+          ]
+        },
+        "numberFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في المبالغ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "dot"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2,
+            5
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "3a894b9660f69ddda37d60f8b47cd05ea9ecd41d01ce60c42fb3a1bffa467a8f",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 2,
+        "candidates": [
+          "dot"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "dd1aeedaedbd2b1413b6d48f3ee5df5e5600040e186183f1f60073ca580045a1",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd",
+            "numberFormat": "dot"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم المبالغ (3 قيمة).",
+            "candidates": [
+              "dot"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "dd1aeedaedbd2b1413b6d48f3ee5df5e5600040e186183f1f60073ca580045a1",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 2,
+          "candidates": [
+            "dot"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "sar-own-reference",
+      "originalSha256": "71514097fa13388ca3b93fe58cd46acc55c67f019e0afd27c636bc5efa988c31",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd",
+          "numberFormat": "dot"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في المبالغ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "dot"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "71514097fa13388ca3b93fe58cd46acc55c67f019e0afd27c636bc5efa988c31",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 2,
+        "candidates": [
+          "dot"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd",
+            "numberFormat": "dot"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم المبالغ (3 قيمة).",
+            "candidates": [
+              "dot"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "4b7527859d1f0d43b17c17dd6c50eb890d07a0801328e4056bb47ad60a815c59",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 2,
+          "candidates": [
+            "dot"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "jpy-on-page",
+      "originalSha256": "71b282a98a55a034d83fedf3d06b09738ab51266f79364325ac76cbccd4ad659",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd",
+          "numberFormat": "dot"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في المبالغ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "71b282a98a55a034d83fedf3d06b09738ab51266f79364325ac76cbccd4ad659",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 0,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "eebe0bd84fe65b863b5deb8851283569222ed3ea5a183411c46982680855076e",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd",
+            "numberFormat": "dot"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم المبالغ (3 قيمة).",
+            "candidates": [
+              "dot",
+              "comma"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "eebe0bd84fe65b863b5deb8851283569222ed3ea5a183411c46982680855076e",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 0,
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "jpy-cross-page",
+      "originalSha256": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd",
+          "numberFormat": "dot"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2,
+            5
+          ]
+        },
+        "numberFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في المبالغ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2,
+            5
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "1f8d9cc4b133c962bc32fff9208f57e424e140087835ccf11b8a242cb090ff83",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 0,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd",
+            "numberFormat": "dot"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم المبالغ (3 قيمة).",
+            "candidates": [
+              "dot",
+              "comma"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "7b7469cc393a707aa66c6147711ab43c93ace9f6b0499535aea48905b2673b41",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 0,
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "jpy-own-reference",
+      "originalSha256": "e6f519f14041a233ee7634efa3f26853b433a337b20d7d51da22769dc00fd812",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd",
+          "numberFormat": "dot"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في المبالغ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "e6f519f14041a233ee7634efa3f26853b433a337b20d7d51da22769dc00fd812",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 0,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "729eb878a4cc452cd2559b59dbeadda57de2d90f6aae10ce6de413a16e679293",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd",
+            "numberFormat": "dot"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم المبالغ (3 قيمة).",
+            "candidates": [
+              "dot",
+              "comma"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "729eb878a4cc452cd2559b59dbeadda57de2d90f6aae10ce6de413a16e679293",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 0,
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "kwd-on-page",
+      "originalSha256": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "ambiguous",
+          "reason": "يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "9abc2fee517547d5bac880c43337ef687492fc37d23353850f4799d72e5199d9",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "ambiguous",
+            "reason": "يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.",
+            "candidates": [
+              "dot",
+              "comma"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "389b963d72a1a89feb357728ce545ea0082c038e48c7d7b7e0596ff637ca9d6a",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 3,
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "kwd-cross-page",
+      "originalSha256": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2,
+            5
+          ]
+        },
+        "numberFormat": {
+          "status": "ambiguous",
+          "reason": "يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2,
+            5
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "d2e22d2c106bcbe39e9c1a34584da8b7b35b6d62e19dcd6127f0d80d19175dd0",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "ambiguous",
+            "reason": "يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.",
+            "candidates": [
+              "dot",
+              "comma"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "d991ddcf03ec87dadc230d8c9804f49248a16cea143b21af777411255b565b0a",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 3,
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "kwd-own-reference",
+      "originalSha256": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (3 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "ambiguous",
+          "reason": "يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 3,
+          "unreadRows": [
+            2
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "773193be7ae0b60104e8a632873e8a84ef0b994f5aaf371ee6aa32c56781e5f7",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      },
+      "csvContext": {
+        "sha256": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+        "formats": {
+          "patch": {
+            "dateFormat": "ymd"
+          },
+          "dateFormat": {
+            "status": "proven",
+            "reason": "تفسير واحد لجميع قيم التاريخ (3 قيمة).",
+            "candidates": [
+              "ymd",
+              "dmy",
+              "mdy"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          },
+          "numberFormat": {
+            "status": "ambiguous",
+            "reason": "يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.",
+            "candidates": [
+              "dot",
+              "comma"
+            ],
+            "checkedValues": 3,
+            "unreadRows": []
+          }
+        },
+        "choice": {
+          "value": "dot",
+          "sourceHash": "50b57374a16404ed3a5a25c9d29f73a23d16f6b160cd63487001f9bc3b2b0a4f",
+          "sheet": 0,
+          "header": 0,
+          "columns": [
+            3
+          ],
+          "decimals": 3,
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "cuts": [],
+          "excludedRows": [],
+          "balanceInputs": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "jpy-fractional",
+      "originalSha256": "b1e4efe3b55b3894a5e2632d373307c872a99f9bc68b908c5c20e9ccd0dd54b2",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd",
+          "numberFormat": "dot"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (2 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 2,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في المبالغ (1 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 1,
+          "unreadRows": [
+            2,
+            4
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "b1e4efe3b55b3894a5e2632d373307c872a99f9bc68b908c5c20e9ccd0dd54b2",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 0,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      }
+    },
+    {
+      "id": "kwd-excess-fraction",
+      "originalSha256": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+      "originalFormat": {
+        "patch": {
+          "dateFormat": "ymd"
+        },
+        "dateFormat": {
+          "status": "proven",
+          "reason": "تفسير متفق للقيم المقروءة في التاريخ (2 قيمة). تبقى القيم التي تعذرت قراءتها ظاهرة للمراجعة.",
+          "candidates": [
+            "ymd",
+            "dmy",
+            "mdy"
+          ],
+          "checkedValues": 2,
+          "unreadRows": [
+            2
+          ]
+        },
+        "numberFormat": {
+          "status": "ambiguous",
+          "reason": "يمكن قراءة قيم المبالغ بأكثر من طريقة. اختر الصيغة التي تطابق المصدر.",
+          "candidates": [
+            "dot",
+            "comma"
+          ],
+          "checkedValues": 1,
+          "unreadRows": [
+            2,
+            4
+          ]
+        }
+      },
+      "originalChoice": {
+        "value": "dot",
+        "sourceHash": "f0a46630f96660883c23ae3b5dbbfc9acaec4ba2fc7522037d5da885c7bca3cf",
+        "sheet": 0,
+        "header": 0,
+        "columns": [
+          3
+        ],
+        "decimals": 3,
+        "candidates": [
+          "dot",
+          "comma"
+        ],
+        "cuts": [
+          25,
+          45,
+          70
+        ],
+        "excludedRows": [],
+        "balanceInputs": [
+          "",
+          ""
+        ]
+      }
+    }
+  ]
+}

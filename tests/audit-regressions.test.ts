@@ -52,7 +52,7 @@ async function excel(
     new Uint8Array(await book.xlsx.writeBuffer()).buffer,
   );
 }
-test('A02: native Excel 1.234 never matches native 1234 under comma locale', async () => {
+void test('A02: native Excel 1.234 never matches native 1234 under comma locale', async () => {
   const [a, b] = await Promise.all([excel(1.234), excel(1234)]);
   const m = { ...map, numberFormat: 'comma' as const },
     s = { ...scope, decimals: 3 };
@@ -65,7 +65,7 @@ test('A02: native Excel 1.234 never matches native 1234 under comma locale', asy
   assert.equal(r.ledger.transactions[0].amount, 1234000);
   assert.equal(r.matches.length, 0);
 });
-test('native/text × dot/comma × 0/2/3 decimal matrix preserves expected minor units', async () => {
+void test('native/text × dot/comma × 0/2/3 decimal matrix preserves expected minor units', async () => {
   for (const dp of [0, 2, 3])
     for (const format of ['dot', 'comma'] as const)
       for (const native of [true, false]) {
@@ -91,7 +91,7 @@ test('native/text × dot/comma × 0/2/3 decimal matrix preserves expected minor 
         );
       }
 });
-test('native percentages and excess precision block rather than reinterpret or round', async () => {
+void test('native percentages and excess precision block rather than reinterpret or round', async () => {
   for (const [v, fmt] of [
     [0.5, '0%'],
     [1.234, '0.000'],
@@ -101,7 +101,7 @@ test('native percentages and excess precision block rather than reinterpret or r
     assert.equal(r.transactions.length, 0);
   }
 });
-test('A01: references and row IDs must match whole tokens, never prefixes', () => {
+void test('A01: references and row IDs must match whole tokens, never prefixes', () => {
   for (const [query, id, expected] of [
     ['INV-001999', 'INV-001', false],
     ['supplier:0:20', 'supplier:0:2', false],
@@ -115,7 +115,7 @@ test('A01: references and row IDs must match whole tokens, never prefixes', () =
   assert.equal(answer.kind, 'unsupported');
   assert.deepEqual(answer.sourceIds, []);
 });
-test('model cannot route a question to an unrelated but existing document', () => {
+void test('model cannot route a question to an unrelated but existing document', () => {
   assert.equal(
     interpretModelOutput(
       baseline(),
@@ -125,7 +125,7 @@ test('model cannot route a question to an unrelated but existing document', () =
     null,
   );
 });
-test('Arabic AI path declines before invoking unsupported model API', async () => {
+void test('Arabic AI path declines before invoking unsupported model API', async () => {
   let calls = 0;
   const result = await askLocalModel(
     baseline(),
@@ -144,7 +144,7 @@ test('Arabic AI path declines before invoking unsupported model API', async () =
   assert.equal(result, null);
   assert.equal(calls, 0);
 });
-test('original bytes and fingerprint survive import; reparsing blocks a corrupted numeric interpretation on export', async () => {
+void test('original bytes and fingerprint survive import; reparsing blocks a corrupted numeric interpretation on export', async () => {
   const f = await excel(1.234);
   assert.ok(f.original);
   assert.match(f.sha256!, /^[a-f0-9]{64}$/);
@@ -159,7 +159,7 @@ test('original bytes and fingerprint survive import; reparsing blocks a corrupte
     /إعادة الحساب/,
   );
 });
-test('title merge and errors on unrelated worksheet do not contaminate selected clean data', async () => {
+void test('title merge and errors on unrelated worksheet do not contaminate selected clean data', async () => {
   const book = new ExcelJS.Workbook();
   const other = book.addWorksheet('Instructions');
   other.mergeCells('A1:B1');
@@ -207,13 +207,13 @@ function craftedZip(payload: Uint8Array, declared: number) {
     Buffer.concat([local, name, packed, central, name, end]),
   ).buffer;
 }
-test('A04: actual decompressed bytes cannot exceed falsified declared size', async () => {
+void test('A04: actual decompressed bytes cannot exceed falsified declared size', async () => {
   await assert.rejects(
     () => validateZipContents(craftedZip(new Uint8Array(1024 * 1024), 1)),
     /الفعلي/,
   );
 });
-test('actual 33 MB expansion stops at 32 MB budget even when index underreports', async () => {
+void test('actual 33 MB expansion stops at 32 MB budget even when index underreports', async () => {
   await assert.rejects(
     () =>
       validateZipContents(
@@ -222,14 +222,14 @@ test('actual 33 MB expansion stops at 32 MB budget even when index underreports'
     /الفعلي/,
   );
 });
-test('ZIP integrity rejects bad CRC and truncated index', async () => {
+void test('ZIP integrity rejects bad CRC and truncated index', async () => {
   await assert.rejects(
     () => validateZipContents(craftedZip(new Uint8Array([1, 2, 3]), 3)),
     /تالف/,
   );
   await assert.rejects(() => validateZipContents(new ArrayBuffer(10)), /تالف/);
 });
-test('session roundtrip reparses originals and never restores reviewer approval', async () => {
+void test('session roundtrip reparses originals and never restores reviewer approval', async () => {
   const bytes = await saveSession({
     files: demoFiles,
     mappings: demoMappings,
@@ -245,7 +245,7 @@ test('session roundtrip reparses originals and never restores reviewer approval'
   assert.equal(saved.review.notes, 'ملاحظة');
   assert.ok(saved.files[0].sha256);
 });
-test('session tampered fingerprint, unknown version and invalid decisions are rejected', async () => {
+void test('session tampered fingerprint, unknown version and invalid decisions are rejected', async () => {
   const bytes = await saveSession({
     files: demoFiles,
     mappings: demoMappings,
@@ -257,13 +257,13 @@ test('session tampered fingerprint, unknown version and invalid decisions are re
   });
   const original = JSON.parse(new TextDecoder().decode(bytes));
   for (const mutate of [
-    (p: any) => {
+    (p: { files: { sha256: string }[]; engine: string; decisions: { supplierId: string; ledgerId: string; note: string }[] }) => {
       p.files[0].sha256 = 'fake';
     },
-    (p: any) => {
+    (p: { files: { sha256: string }[]; engine: string; decisions: { supplierId: string; ledgerId: string; note: string }[] }) => {
       p.engine = 'unknown';
     },
-    (p: any) => {
+    (p: { files: { sha256: string }[]; engine: string; decisions: { supplierId: string; ledgerId: string; note: string }[] }) => {
       p.decisions = [{ supplierId: 'fake', ledgerId: 'fake', note: 'claim' }];
     },
   ]) {
@@ -276,7 +276,7 @@ test('session tampered fingerprint, unknown version and invalid decisions are re
 });
 
 // Exercise the ExcelJS path that imports uuid for conditional-formatting extension records.
-test('patched UUID dependency remains compatible with Excel conditional-formatting export', async()=>{
+void test('patched UUID dependency remains compatible with Excel conditional-formatting export', async()=>{
  const book=new ExcelJS.Workbook();const sheet=book.addWorksheet('Data');sheet.addRow([1]);sheet.addConditionalFormatting({ref:'A1',rules:[{type:'iconSet',iconSet:'3Stars',priority:1,cfvo:[{type:'percent',value:0},{type:'percent',value:33},{type:'percent',value:67}]}]});
  const bytes=await book.xlsx.writeBuffer();const reopened=new ExcelJS.Workbook();await reopened.xlsx.load(bytes);assert.equal(reopened.getWorksheet('Data')!.getCell('A1').value,1);
 });

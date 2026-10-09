@@ -1,0 +1,326 @@
+{
+  "version": "p5-structured-proposal-chat-v2",
+  "synthetic": true,
+  "holdout": false,
+  "fieldValidation": false,
+  "runtimeVersion": "4.3.0",
+  "threads": 4,
+  "maxNewTokens": 160,
+  "softCaseDeadlineMs": 15000,
+  "hardCaseDeadlineMs": 20000,
+  "loadDeadlineMs": 60000,
+  "rssLimitBytes": 6442450944,
+  "seeds": [
+    173,
+    947
+  ],
+  "sampling": {
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20,
+    "do_sample": true
+  },
+  "productEnabled": false,
+  "cases": [
+    {
+      "id": "extract-en-1",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-1.txt",
+      "expected": "extract-en-1.expected.json"
+    },
+    {
+      "id": "extract-en-2",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-2.txt",
+      "expected": "extract-en-2.expected.json"
+    },
+    {
+      "id": "extract-en-3",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-3.txt",
+      "expected": "extract-en-3.expected.json"
+    },
+    {
+      "id": "extract-en-4",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-4.txt",
+      "expected": "extract-en-4.expected.json"
+    },
+    {
+      "id": "extract-en-5",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-5.txt",
+      "expected": "extract-en-5.expected.json"
+    },
+    {
+      "id": "extract-en-6",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-6.txt",
+      "expected": "extract-en-6.expected.json"
+    },
+    {
+      "id": "extract-en-7",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-7.txt",
+      "expected": "extract-en-7.expected.json"
+    },
+    {
+      "id": "extract-en-8",
+      "task": "extract",
+      "language": "en",
+      "supported": true,
+      "input": "extract-en-8.txt",
+      "expected": "extract-en-8.expected.json"
+    },
+    {
+      "id": "extract-ar-1",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-1.txt",
+      "expected": "extract-ar-1.expected.json"
+    },
+    {
+      "id": "extract-ar-2",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-2.txt",
+      "expected": "extract-ar-2.expected.json"
+    },
+    {
+      "id": "extract-ar-3",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-3.txt",
+      "expected": "extract-ar-3.expected.json"
+    },
+    {
+      "id": "extract-ar-4",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-4.txt",
+      "expected": "extract-ar-4.expected.json"
+    },
+    {
+      "id": "extract-ar-5",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-5.txt",
+      "expected": "extract-ar-5.expected.json"
+    },
+    {
+      "id": "extract-ar-6",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-6.txt",
+      "expected": "extract-ar-6.expected.json"
+    },
+    {
+      "id": "extract-ar-7",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-7.txt",
+      "expected": "extract-ar-7.expected.json"
+    },
+    {
+      "id": "extract-ar-8",
+      "task": "extract",
+      "language": "ar",
+      "supported": true,
+      "input": "extract-ar-8.txt",
+      "expected": "extract-ar-8.expected.json"
+    },
+    {
+      "id": "extract-refuse-1",
+      "task": "extract",
+      "language": "en",
+      "supported": false,
+      "input": "extract-refuse-1.txt",
+      "expected": "extract-refuse-1.expected.json"
+    },
+    {
+      "id": "extract-refuse-2",
+      "task": "extract",
+      "language": "ar",
+      "supported": false,
+      "input": "extract-refuse-2.txt",
+      "expected": "extract-refuse-2.expected.json"
+    },
+    {
+      "id": "extract-refuse-3",
+      "task": "extract",
+      "language": "en",
+      "supported": false,
+      "input": "extract-refuse-3.txt",
+      "expected": "extract-refuse-3.expected.json"
+    },
+    {
+      "id": "extract-refuse-4",
+      "task": "extract",
+      "language": "ar",
+      "supported": false,
+      "input": "extract-refuse-4.txt",
+      "expected": "extract-refuse-4.expected.json"
+    },
+    {
+      "id": "extract-refuse-5",
+      "task": "extract",
+      "language": "en",
+      "supported": false,
+      "input": "extract-refuse-5.txt",
+      "expected": "extract-refuse-5.expected.json"
+    },
+    {
+      "id": "extract-refuse-6",
+      "task": "extract",
+      "language": "ar",
+      "supported": false,
+      "input": "extract-refuse-6.txt",
+      "expected": "extract-refuse-6.expected.json"
+    },
+    {
+      "id": "extract-refuse-7",
+      "task": "extract",
+      "language": "en",
+      "supported": false,
+      "input": "extract-refuse-7.txt",
+      "expected": "extract-refuse-7.expected.json"
+    },
+    {
+      "id": "extract-refuse-8",
+      "task": "extract",
+      "language": "ar",
+      "supported": false,
+      "input": "extract-refuse-8.txt",
+      "expected": "extract-refuse-8.expected.json"
+    },
+    {
+      "id": "chat-matched-en",
+      "task": "chat",
+      "language": "en",
+      "supported": true,
+      "input": "chat-matched-en.txt",
+      "expected": "chat-matched-en.expected.json"
+    },
+    {
+      "id": "chat-matched-ar",
+      "task": "chat",
+      "language": "ar",
+      "supported": true,
+      "input": "chat-matched-ar.txt",
+      "expected": "chat-matched-ar.expected.json"
+    },
+    {
+      "id": "chat-amount-difference-en",
+      "task": "chat",
+      "language": "en",
+      "supported": true,
+      "input": "chat-amount-difference-en.txt",
+      "expected": "chat-amount-difference-en.expected.json"
+    },
+    {
+      "id": "chat-amount-difference-ar",
+      "task": "chat",
+      "language": "ar",
+      "supported": true,
+      "input": "chat-amount-difference-ar.txt",
+      "expected": "chat-amount-difference-ar.expected.json"
+    },
+    {
+      "id": "chat-missing-ledger-en",
+      "task": "chat",
+      "language": "en",
+      "supported": true,
+      "input": "chat-missing-ledger-en.txt",
+      "expected": "chat-missing-ledger-en.expected.json"
+    },
+    {
+      "id": "chat-missing-ledger-ar",
+      "task": "chat",
+      "language": "ar",
+      "supported": true,
+      "input": "chat-missing-ledger-ar.txt",
+      "expected": "chat-missing-ledger-ar.expected.json"
+    },
+    {
+      "id": "chat-refuse-1",
+      "task": "chat",
+      "language": "en",
+      "supported": false,
+      "input": "chat-refuse-1.txt",
+      "expected": "chat-refuse-1.expected.json"
+    },
+    {
+      "id": "chat-refuse-2",
+      "task": "chat",
+      "language": "ar",
+      "supported": false,
+      "input": "chat-refuse-2.txt",
+      "expected": "chat-refuse-2.expected.json"
+    }
+  ],
+  "gate": {
+    "extractExactAtLeast": 15,
+    "extractPerLanguageAtLeast": 7,
+    "extractExplicitRefusals": 8,
+    "chatExact": 6,
+    "chatExplicitRefusals": 2,
+    "wrongAcceptedProposals": 0,
+    "wrongUnsupportedRoutes": 0,
+    "browserInferenceRequired": true,
+    "weakerDeviceRequired": true,
+    "fieldBenefitRequired": true
+  },
+  "arms": [
+    {
+      "id": "qwen3-revised-greedy",
+      "model": "qwen3",
+      "sample": false,
+      "seed": 173
+    },
+    {
+      "id": "qwen3-revised-sampling",
+      "model": "qwen3",
+      "sample": true,
+      "seed": 173
+    },
+    {
+      "id": "qwen25-alternative-seed173",
+      "model": "qwen25",
+      "sample": true,
+      "seed": 173
+    },
+    {
+      "id": "qwen25-alternative-seed947",
+      "model": "qwen25",
+      "sample": true,
+      "seed": 947
+    }
+  ],
+  "sourcePreflight": {
+    "chat-missing-ledger-en": "expected native source scope refusal; target utility remains unmet",
+    "chat-missing-ledger-ar": "expected native source scope refusal; target utility remains unmet"
+  },
+  "closureOf": "de3d91bba66537296cae8f605e22ec07cf6c996f",
+  "noteFamily": "only the 16 explicit natural-note grammars; arbitrary prose unsupported; no measured semantic advantage"
+}

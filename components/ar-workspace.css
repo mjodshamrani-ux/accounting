@@ -1,0 +1,18 @@
+.ar-workspace > *,
+.ar-workspace section,
+.ar-workspace fieldset,
+.ar-workspace article,
+.ar-workspace label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.ar-workspace select {
+  min-width: 0;
+}
+.ar-workspace article {
+  padding-block: 1rem;
+  border-bottom: 1px solid #e1e6ed;
+}
+.ar-workspace ul {
+  padding-inline-start: 1.2rem;
+}

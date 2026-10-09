@@ -1,0 +1,170 @@
+{
+  "domain": "tb-financial-position",
+  "version": "tb-financial-position-1",
+  "sheets": {
+    "Summary": [
+      "Property",
+      "Value"
+    ],
+    "Accounts": [
+      "ID",
+      "Source row",
+      "Account ID",
+      "Complete dimensions",
+      "Label",
+      "Class",
+      "Debit minor units",
+      "Credit minor units",
+      "Net minor units"
+    ],
+    "Mappings": [
+      "ID",
+      "Source row",
+      "Mapping ID",
+      "Account ID",
+      "Complete dimensions",
+      "Line ID",
+      "Sign",
+      "Evidence ID"
+    ],
+    "Evidence": [
+      "ID",
+      "Source row",
+      "Evidence ID",
+      "Account ID",
+      "Complete dimensions",
+      "Account class",
+      "Line ID",
+      "Line label",
+      "Line class",
+      "Sign",
+      "Valid from",
+      "Valid to",
+      "Evidence reference"
+    ],
+    "Lines": [
+      "ID",
+      "Source row",
+      "Line ID",
+      "Label",
+      "Class",
+      "Calculated minor units",
+      "Reported minor units",
+      "Difference minor units",
+      "Review"
+    ],
+    "Line members": [
+      "Line ID",
+      "Mapping ID",
+      "Account record",
+      "Mapping record",
+      "Evidence record",
+      "Account ID",
+      "Complete dimensions",
+      "Evidence ID",
+      "Debit minor units",
+      "Credit minor units",
+      "Net minor units",
+      "Contribution minor units"
+    ],
+    "Totals": [
+      "Basis",
+      "Class",
+      "Amount minor units"
+    ],
+    "Grand totals": [
+      "Basis",
+      "Assets minor units",
+      "Liabilities minor units",
+      "Equity minor units",
+      "Equation minor units"
+    ],
+    "Missing": [
+      "Kind",
+      "Key"
+    ],
+    "Issues": [
+      "Code",
+      "Source",
+      "Row",
+      "Key",
+      "Related"
+    ],
+    "Cell evidence": [
+      "Source",
+      "ID",
+      "Source row",
+      "Field",
+      "Source column",
+      "Original text"
+    ],
+    "Inventory": [
+      "Source",
+      "ID",
+      "Source row",
+      "Kind",
+      "Errors",
+      "Original cells"
+    ],
+    "Reading": [
+      "Source",
+      "Sheet index",
+      "Role",
+      "Family",
+      "Confirmed"
+    ],
+    "Events": [
+      "Index",
+      "ID",
+      "Type",
+      "Context",
+      "Line ID",
+      "Device UTC",
+      "Evidence reference",
+      "Reason"
+    ],
+    "Event members": [
+      "Decision",
+      "Mapping ID"
+    ],
+    "Sources": [
+      "Source",
+      "Name",
+      "SHA256",
+      "Chunk index",
+      "Base64"
+    ]
+  },
+  "money": "signed integer minor units; explicit decimals/currency in Summary; no display truncation",
+  "nulls": "empty Excel cells only; no numeric zero substitution",
+  "originalChunkSize": 30000,
+  "uniqueVisibleWorksheetNameIdRelationship": true,
+  "noProductImports": true,
+  "summaryKeys": [
+    "Domain",
+    "Version",
+    "Claim",
+    "Status",
+    "Decimals",
+    "Context",
+    "entity",
+    "ledger",
+    "currency",
+    "currencyBasis",
+    "postingStatus",
+    "postingLayer",
+    "start",
+    "end",
+    "asOf",
+    "chartVersion",
+    "mapVersion",
+    "closingBasis",
+    "Scope confirmed",
+    "Completeness confirmed",
+    "Completeness reference",
+    "Completeness reason",
+    "TB debit minor units",
+    "TB credit minor units",
+    "TB residual minor units"
+  ]
+}
