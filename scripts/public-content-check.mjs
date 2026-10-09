@@ -81,7 +81,10 @@ function scanDecoded(bytes) {
   try { utf8 = decoder.decode(bytes); } catch { /* Binary may not be UTF-8. */ }
   if (utf8 !== undefined) scanText(utf8);
   scanText(bytes.toString('latin1'));
-  scanText(bytes.toString('utf16le'));
+  // UTF-16LE contains complete two-byte units; Buffer decoding already drops
+  // an incomplete final byte. Pass only those units to avoid Node 24.19's
+  // native copy overflow for odd-length, unaligned buffer views.
+  scanText(bytes.toString('utf16le', 0, bytes.length - bytes.length % 2));
   scanText(new TextDecoder('utf-16be').decode(bytes));
 }
 

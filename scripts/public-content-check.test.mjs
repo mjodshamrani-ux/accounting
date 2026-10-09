@@ -253,6 +253,37 @@ void test('PNG compressed text metadata is scanned; unknown chunks and broken CR
   await assert.rejects(checkPublicContent(broken), /checksum differs/);
 });
 
+void test('odd-length PNG metadata remains reviewable without native buffer overrun', async t => {
+  // This payload starts at the odd PNG byte offset 41 and exceeds the native
+  // decoder's stack buffer. It must retain its exact bytes and pass inspection.
+  const image = png([['tEXt', Buffer.concat([Buffer.from('Comment\0'), Buffer.alloc(1025, 65)])]]);
+  const f = await fixture(t, [['synthetic.png', image, true]]);
+  assert.deepEqual(await checkPublicContent(f), { scope: 'source', files: 1, bytes: image.length });
+});
+
+void test('odd trailing bytes cannot hide complete UTF-16 privacy material in PNG metadata', async t => {
+  const home = ['/', 'Users/', 'private-person/', 'source.csv'].join('');
+  const secret = ['ghp_', 'A'.repeat(36)].join('');
+  for (const text of [home, secret]) {
+    const le = Buffer.from(' '.repeat(300) + text, 'utf16le');
+    const be = Buffer.from(le).swap16();
+    for (const encoded of [le, be]) {
+      const payload = Buffer.concat([Buffer.from('Comment\0'), encoded, Buffer.from([0xff])]);
+      const image = png([['tEXt', payload]]);
+      const f = await fixture(t, [['synthetic.png', image, true]]);
+      await assert.rejects(checkPublicContent(f), /machine path|Secret credential/);
+    }
+  }
+  // The final ASCII byte completes the rule's minimum token length. It must
+  // still be checked by the full-input UTF-8/Latin1 scans, even when LE omits
+  // that incomplete code unit.
+  const lastByteRequired = Buffer.from(' '.repeat(599) + ['ghp_', 'A'.repeat(30)].join(''));
+  assert.equal(lastByteRequired.length % 2, 1);
+  const finalByteImage = png([['tEXt', Buffer.concat([Buffer.from('Comment\0'), lastByteRequired])]]);
+  const finalByte = await fixture(t, [['synthetic.png', finalByteImage, true]]);
+  await assert.rejects(checkPublicContent(finalByte), /Secret credential/);
+});
+
 void test('distribution checks every file, hidden files and binary hashes before upload', async t => {
   const image = png();
   const f = await fixture(t, [], [['index.html', Buffer.from('<html></html>')], ['.nojekyll', Buffer.from('')],
