@@ -1,7 +1,12 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState } from 'react';
-import { BrandMark, BrandWordmark } from './brand';
-import { LanguageSwitcher } from './language-switcher';
+import {
+  WorkspaceHeader,
+  WorkspaceIntro,
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask, prepareWorker } from '@/lib/reconciliation/client';
@@ -212,37 +217,16 @@ export function ClearingWorkspace({
   if (!active) return null;
   return (
     <>
-      <header className="topbar clearing-topbar">
-        <a className="brand" href="#clearing">
-          <BrandMark />
-          <BrandWordmark />
-        </a>
-        <div className="topbar-actions">
-          <LanguageSwitcher />
-          <Button variant="outline" onClick={onBack} disabled={busy}>
-            {t.back}
-          </Button>
-        </div>
-      </header>
-      <main className="workspace clearing-workspace" id="clearing">
-        <section className="surface pad stack">
-          <h1 tabIndex={-1}>{t.title}</h1>
-          <p>{t.intro}</p>
-          <p className="muted">{t.limits}</p>
-          <div className="clearing-actions">
-            <label>
-              {t.upload}
-              <input
-                type="file"
-                accept=".csv,.xlsx"
-                disabled={busy}
-                onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f) void upload(f);
-                  e.target.value = '';
-                }}
-              />
-            </label>
+      <main
+        className="workspace clearing-workspace reconciliation-workspace"
+        id="clearing"
+      >
+        <WorkspaceHeader onBack={onBack} backLabel={t.back} disabled={busy} />
+        <WorkspaceIntro title={t.title} intro={t.intro}>
+          <p>{t.limits}</p>
+        </WorkspaceIntro>
+        <section className="surface pad stack workspace-preparation">
+          <div className="clearing-actions workspace-toolbar">
             <Button
               variant="outline"
               disabled={busy || !!file}
@@ -295,6 +279,25 @@ export function ClearingWorkspace({
               />
             </label>
           </div>
+          <section className="workspace-source">
+            <h2>
+              <WorkspaceSourceHeading>{t.upload}</WorkspaceSourceHeading>
+            </h2>
+            <label>
+              {t.upload}
+              <WorkspaceFileInput
+                aria-label={t.upload}
+                type="file"
+                accept=".csv,.xlsx"
+                disabled={busy}
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) void upload(f);
+                  e.target.value = '';
+                }}
+              />
+            </label>
+          </section>
           {error && <p role="alert">{t.error}</p>}
           {busy && (
             <output>
@@ -389,31 +392,34 @@ export function ClearingWorkspace({
                   ] as (keyof ClearingReading)[]
                 ).map(col)}
               </div>
-              <div className="clearing-grid">
-                {(
-                  [
-                    'entity',
-                    'ledger',
-                    'account',
-                    'currency',
-                    'start',
-                    'end',
-                  ] as (keyof ClearingScope)[]
-                ).map((key) => (
-                  <div key={key}>{field(key)}</div>
-                ))}
-              </div>
-              <label className="clearing-confirm">
-                <input
-                  type="checkbox"
-                  checked={scope.confirmed}
-                  onChange={(e) => {
-                    invalidate();
-                    setScope({ ...scope, confirmed: e.target.checked });
-                  }}
-                />
-                {t.confirm}
-              </label>
+              <section className="workspace-scope">
+                <WorkspaceGroupTitle kind="scope" />
+                <div className="clearing-grid">
+                  {(
+                    [
+                      'entity',
+                      'ledger',
+                      'account',
+                      'currency',
+                      'start',
+                      'end',
+                    ] as (keyof ClearingScope)[]
+                  ).map((key) => (
+                    <div key={key}>{field(key)}</div>
+                  ))}
+                </div>
+                <label className="clearing-confirm">
+                  <input
+                    type="checkbox"
+                    checked={scope.confirmed}
+                    onChange={(e) => {
+                      invalidate();
+                      setScope({ ...scope, confirmed: e.target.checked });
+                    }}
+                  />
+                  {t.confirm}
+                </label>
+              </section>
             </fieldset>
             <Button
               disabled={busy || !scope.confirmed}
@@ -458,7 +464,11 @@ export function ClearingWorkspace({
             aria-labelledby="clearing-result-title"
           >
             <h2 id="clearing-result-title">{t.results}</h2>
-            <DomainEvidenceAssistant result={result} snapshot={() => ({ domain: "clearing", input: input(), result })} busy={busy} />
+            <DomainEvidenceAssistant
+              result={result}
+              snapshot={() => ({ domain: 'clearing', input: input(), result })}
+              busy={busy}
+            />
             <div className="clearing-grid" data-testid="clearing-metrics">
               {[
                 [t.valid, result.rows.length],

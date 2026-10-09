@@ -1,8 +1,13 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { BrandMark, BrandWordmark } from '@/components/brand';
-import { LanguageSwitcher } from '@/components/language-switcher';
+import {
+  WorkspaceHeader,
+  WorkspaceIntro,
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -144,21 +149,17 @@ export function GlTbWorkspace({
   const rowById = new Map(result?.rows.map((r) => [`${r.side}:${r.row}`, r]));
   if (!active) return null;
   return (
-    <main className="app-shell gl-tb-workspace" aria-busy={busy}>
-      <header className="gl-tb-actions">
-        <BrandMark />
-        <BrandWordmark />
-        <LanguageSwitcher />
-        <Button variant="outline" disabled={busy} onClick={onBack}>
-          {t.back}
-        </Button>
-      </header>
-      <h1 tabIndex={-1}>{t.title}</h1>
-      <p>{t.intro}</p>
-      <p>{t.limits}</p>
-      <p>{t.claim}</p>
+    <main
+      className="app-shell gl-tb-workspace reconciliation-workspace"
+      aria-busy={busy}
+    >
+      <WorkspaceHeader onBack={onBack} backLabel={t.back} disabled={busy} />
+      <WorkspaceIntro title={t.title} intro={t.intro}>
+        <p>{t.limits}</p>
+        <p>{t.claim}</p>
+      </WorkspaceIntro>
       <fieldset disabled={busy}>
-        <div className="gl-tb-actions">
+        <div className="gl-tb-actions workspace-toolbar">
           <Button
             onClick={() =>
               perform(async (signal) => {
@@ -205,13 +206,21 @@ export function GlTbWorkspace({
             />
           </label>
         </div>
-        <div className="gl-tb-grid">
+        <WorkspaceGroupTitle kind="sources" />
+        <div className="gl-tb-grid workspace-sources">
           {([0, 1] as const).map((side) => (
-            <section key={side} data-testid={`gl-tb-source-${side}`}>
-              <h2>{t.sides[side]}</h2>
+            <section
+              className="workspace-source"
+              key={side}
+              data-testid={`gl-tb-source-${side}`}
+            >
+              <h2>
+                <WorkspaceSourceHeading>{t.sides[side]}</WorkspaceSourceHeading>
+              </h2>
               <label>
                 {t.sides[side]}
-                <input
+                <WorkspaceFileInput
+                  aria-label={t.sides[side]}
                   type="file"
                   accept=".csv,.xlsx"
                   onChange={(event) => {
@@ -272,7 +281,8 @@ export function GlTbWorkspace({
             </section>
           ))}
         </div>
-        <section>
+        <section className="workspace-scope">
+          <WorkspaceGroupTitle kind="scope" />
           <div className="gl-tb-grid">
             {GL_SCOPE_FIELDS.map((key) => (
               <label key={key}>
@@ -331,7 +341,11 @@ export function GlTbWorkspace({
       {result && (
         <section data-testid="gl-tb-result">
           <h2>{t.result}</h2>
-          <DomainEvidenceAssistant result={result} snapshot={() => ({ domain: "gl-tb", input: input(), result })} busy={busy} />
+          <DomainEvidenceAssistant
+            result={result}
+            snapshot={() => ({ domain: 'gl-tb', input: input(), result })}
+            busy={busy}
+          />
           <p data-testid="gl-tb-status">{t.status[result.status]}</p>
           <p>
             {t.glBridge}: <strong>{formatted(result.glBridge)}</strong>

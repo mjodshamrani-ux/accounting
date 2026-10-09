@@ -45,8 +45,8 @@
     },
     {
       "path": "app/globals.css",
-      "bytes": 45126,
-      "sha256": "1c7774a2216b324f5a37d6545f03a1085dde25244eb49d308d00d92a0a17fd86",
+      "bytes": 43681,
+      "sha256": "abd828daa27147c39601872ac8631d9196cd41b68b780b55ff455cc05cf6383e",
       "kind": "text"
     },
     {
@@ -57,8 +57,8 @@
     },
     {
       "path": "app/page.tsx",
-      "bytes": 130490,
-      "sha256": "8aa75c0e38f7c56827e8d6ea1c5d185aa6dcdc064180aa094ebb574b8eb20614",
+      "bytes": 130523,
+      "sha256": "1fdc45dab1698b609808e18fd45f7624fe709497e67db3320d1251748dea6563",
       "kind": "text"
     },
     {
@@ -23511,8 +23511,8 @@
     },
     {
       "path": "components/allocation-workspace.tsx",
-      "bytes": 27413,
-      "sha256": "97ed19fcf62aaab9848f2c2d0ec3da1c18c639253ece82a664c62b71cfc92738",
+      "bytes": 27800,
+      "sha256": "cbee3ba4776be099eed2b7318ce1c34c630bdd59d9da72b9ca253908dc7d51b9",
       "kind": "text"
     },
     {
@@ -23523,8 +23523,8 @@
     },
     {
       "path": "components/ar-workspace.tsx",
-      "bytes": 20917,
-      "sha256": "ed240b4a682f8f79e531dfba997c77b4901897b88610aae18f92a0dbeb045a6f",
+      "bytes": 21707,
+      "sha256": "5ac8a40287866e8e7085efe65153b1723c2f35a7758076072993b9de93125a60",
       "kind": "text"
     },
     {
@@ -23535,8 +23535,8 @@
     },
     {
       "path": "components/bank-adjustment-workspace.tsx",
-      "bytes": 26942,
-      "sha256": "e7c8a422adeaab771a6c884e5ec3521a15b4aec56da2c519ea28d1df1c0bdc1e",
+      "bytes": 27449,
+      "sha256": "028c5d4b554e8ce4c0c235312095ece7aa8e1060133557e84a314aa0e2f66a61",
       "kind": "text"
     },
     {
@@ -23547,8 +23547,8 @@
     },
     {
       "path": "components/bank-workspace.tsx",
-      "bytes": 24966,
-      "sha256": "04e7daf73ee521468b2eb62ffa60f17e81f8c2e55e21b6ebc2f41f48d4a874be",
+      "bytes": 25524,
+      "sha256": "1e15a3030dabbb3d62e76b6b4e2437123c3dffd919907ee9fa459916dbcc5a0b",
       "kind": "text"
     },
     {
@@ -23565,8 +23565,8 @@
     },
     {
       "path": "components/clearing-workspace.tsx",
-      "bytes": 22937,
-      "sha256": "9c8688e3564f3e8aaa26dcd612cb036102889c5981951feea7a3051220e660ed",
+      "bytes": 23225,
+      "sha256": "98c5fda0f6c4c2a643456f730d1b41b19a3690897d188dad4b4e92d1afa17020",
       "kind": "text"
     },
     {
@@ -23595,8 +23595,8 @@
     },
     {
       "path": "components/fixed-assets-workspace.tsx",
-      "bytes": 22375,
-      "sha256": "5c186f9b649572c2a0758b7ff43c628650ba9cbc4ec6fa704e79a00164d435dd",
+      "bytes": 22692,
+      "sha256": "9af748f0a0579aab03dd47d84dc0dfe6257476703296b680454109c3e748da54",
       "kind": "text"
     },
     {
@@ -23607,8 +23607,8 @@
     },
     {
       "path": "components/gl-tb-workspace.tsx",
-      "bytes": 16102,
-      "sha256": "5659b68fb42bec6fa4eabe4202b88dba58373b329441e2e6c0a15214ac889f81",
+      "bytes": 16446,
+      "sha256": "559c7587ce1751fe5e64b7a4bcbffe28c337e701e691ee4f480bc01012883cc7",
       "kind": "text"
     },
     {
@@ -23619,14 +23619,14 @@
     },
     {
       "path": "components/intercompany-workspace.tsx",
-      "bytes": 22197,
-      "sha256": "1f319c17ef542f4c0ec95e7e374856c27fa9efdd3c0991b29b00f28311a53a71",
+      "bytes": 22631,
+      "sha256": "97dc59b288d669b6fcad174ab9659fbfef34400e7083771fe6b37de40338fd4e",
       "kind": "text"
     },
     {
       "path": "components/inventory-register-workspace.tsx",
-      "bytes": 21045,
-      "sha256": "4ea405de4bf24686aa0e89b8f07a6725f72a5b29735737227ef81d029706d998",
+      "bytes": 21362,
+      "sha256": "4f1bd553a4379840740dbe4685b3602be6fb50edc85b1488897d2ac1591a8fc0",
       "kind": "text"
     },
     {
@@ -23655,14 +23655,14 @@
     },
     {
       "path": "components/payment-gateway-workspace.tsx",
-      "bytes": 19962,
-      "sha256": "984e83f62c70836bc50435fa04ec3ae7e16d4ac97d87d5062b234134171c47a3",
+      "bytes": 20333,
+      "sha256": "b67f1b31fa9394f46f0f1693704bb25b3754ee2ac02497c8abed82ed03ee050d",
       "kind": "text"
     },
     {
       "path": "components/payroll-workspace.tsx",
-      "bytes": 23248,
-      "sha256": "96a84fe7bec1ff2acb602f5b024a23492cf68308a7cb25a1991c9b7dc2325d91",
+      "bytes": 23565,
+      "sha256": "21d024e3c6e354c9199ba8b84bcfe91a52d5a9467cbb6869b6f70d466083acb8",
       "kind": "text"
     },
     {
@@ -23672,9 +23672,15 @@
       "kind": "text"
     },
     {
+      "path": "components/reconciliation-directory.css",
+      "bytes": 8318,
+      "sha256": "adad84a1b5a4ab3d648b103948d0d0e89f3bb11bcf4b80c8b1c6d4a1cf98d6e6",
+      "kind": "text"
+    },
+    {
       "path": "components/reconciliation-directory.tsx",
-      "bytes": 1563,
-      "sha256": "ada8b76b773d8b6eec7957943b74d772b4fe618fd49893b8b9d3528bba6de977",
+      "bytes": 7016,
+      "sha256": "b174fa3d4ed7c86fb8c7153ed73442cfdb52f766e975408727040f7ce0fa17da",
       "kind": "text"
     },
     {
@@ -23697,8 +23703,8 @@
     },
     {
       "path": "components/tb-financial-workspace.tsx",
-      "bytes": 24604,
-      "sha256": "d478d9553778ef4d8b57a30f6b05f2e84da3405af7232c7ab1e5143b70dad8bc",
+      "bytes": 25048,
+      "sha256": "a5d8e73fc812e417a3a1d794e937d91f4d4e29adf767caa11be8e7ae44075151",
       "kind": "text"
     },
     {
@@ -24110,6 +24116,18 @@
       "kind": "text"
     },
     {
+      "path": "components/workspace-chrome.css",
+      "bytes": 16218,
+      "sha256": "230619023fa04f583e93733889bd0ff34ca8620e905ffcde8253355f8cf68e12",
+      "kind": "text"
+    },
+    {
+      "path": "components/workspace-chrome.tsx",
+      "bytes": 2879,
+      "sha256": "2095960d8c403e28e6750407771fe002c019479a3198bea76eade4ccbfcad305",
+      "kind": "text"
+    },
+    {
       "path": "docs/CURRENT-PLAN.ar.md",
       "bytes": 4152,
       "sha256": "052cd2e3adaff1bd73e08a4cf74dc243de784a2c622f854ed036367ec92da088",
@@ -24299,8 +24317,8 @@
     },
     {
       "path": "lib/i18n/reconciliation-directory.ts",
-      "bytes": 5631,
-      "sha256": "f9c57d169fe367078eb62b03f65864eba4a88f5c22288ea02dc9c79473a80a99",
+      "bytes": 7568,
+      "sha256": "cb71101dfad04a87f04e6e76e6178e324d6fdd20f4532fc9d78ac3b287d92406",
       "kind": "text"
     },
     {
@@ -24319,6 +24337,12 @@
       "path": "lib/i18n/text.ts",
       "bytes": 1470,
       "sha256": "b7c74b19f7fa4411142b0c26a91000723b21486e9f3f6f9291d21f4dc2da1024",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/workspace.ts",
+      "bytes": 282,
+      "sha256": "57a7592878e8b6d7a82f8874439ad5cd2da09a527aaa100b41f59c7e1c7f48ec",
       "kind": "text"
     },
     {
@@ -25149,14 +25173,14 @@
     },
     {
       "path": "scripts/allocation-browser-cases.mjs",
-      "bytes": 10229,
-      "sha256": "48197104bf604a6c38f556402ed5cd295d424bfc41c73fbc1bad2aec6ccea5be",
+      "bytes": 10345,
+      "sha256": "a4cec5cae2f453abcb3e0616218c559ed288954746ada2e1ce142f68a64ccaa2",
       "kind": "text"
     },
     {
       "path": "scripts/ar-browser-cases.mjs",
-      "bytes": 11599,
-      "sha256": "97bdb42722c3f34f8fd478120bc9fcbcbcdbe58a60b4a31898c554df2e765427",
+      "bytes": 11752,
+      "sha256": "54e3d28bd4d26f96df9e7cff7120a0b94f34049be90b8be3d2ec05953b562054",
       "kind": "text"
     },
     {
@@ -25173,14 +25197,14 @@
     },
     {
       "path": "scripts/bank-browser-cases.mjs",
-      "bytes": 10115,
-      "sha256": "c1fa50efc13bde8509df7bbf043d31a25abcbfd9aaf93ed5871aa0f4dc581122",
+      "bytes": 10207,
+      "sha256": "ece39ebc3c1fe86f5d81c3d5502d1344432d631653005e93c31e223d936bc7cd",
       "kind": "text"
     },
     {
       "path": "scripts/brand-browser-cases.mjs",
-      "bytes": 41626,
-      "sha256": "812556651fd2e7331df021c009f63d8d56c38e086cdf7e63d945c35be9bae24a",
+      "bytes": 42403,
+      "sha256": "25ff71f149663cbab196a7106a0b590bc6f48c5dca5bfe465883dc0eb862a033",
       "kind": "text"
     },
     {
@@ -25215,8 +25239,8 @@
     },
     {
       "path": "scripts/clearing-browser-cases.mjs",
-      "bytes": 8783,
-      "sha256": "06af5889afdc872b785f87e1522711a57af2c147291eb317835760d842df8c68",
+      "bytes": 8897,
+      "sha256": "d412dae1ec36732a491ede200e14dc1750cae35da60ad4db712638f96d4f5509",
       "kind": "text"
     },
     {
@@ -25241,6 +25265,12 @@
       "path": "scripts/domain-navigation-browser.mjs",
       "bytes": 12391,
       "sha256": "fc6e095ae4129f8583aa00b0b1124b765e45b0d294339e2bfbfe5b0f493236bd",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/domain-navigation-support.mjs",
+      "bytes": 263,
+      "sha256": "ed8e8e52078e0e2680846de2db8f2050844502fe0093bbd577abcef331051553",
       "kind": "text"
     },
     {
@@ -25293,8 +25323,8 @@
     },
     {
       "path": "scripts/gl-tb-browser-cases.mjs",
-      "bytes": 10668,
-      "sha256": "1ae35b8214dee679d8522645eceee429e6f3d8db9cf940e29bddabef4f14da28",
+      "bytes": 10818,
+      "sha256": "94025cdb029bedc67ac36c6ca1f41e0c28291a355888bf01fd725139c5324b68",
       "kind": "text"
     },
     {
@@ -25335,8 +25365,8 @@
     },
     {
       "path": "scripts/language-browser-cases.mjs",
-      "bytes": 10173,
-      "sha256": "59085c34b8b19d81c43c5c071344b9b0d0ea81a697025d30ae67e317a873770f",
+      "bytes": 11546,
+      "sha256": "641fc386661025feb2faeb2ac7166fcaab576efd75caafc3f48f944b5c218ee7",
       "kind": "text"
     },
     {
@@ -25491,8 +25521,8 @@
     },
     {
       "path": "scripts/reconciliation-entry-browser.mjs",
-      "bytes": 7588,
-      "sha256": "9979c537934451f88ace882f6213a6efcdf0b34cf0fce0f93743ee6ce3f8ba35",
+      "bytes": 10299,
+      "sha256": "8d583643bb359e46d70c35a7358b30f502822d89460f2357d4b081dabbad8f0d",
       "kind": "text"
     },
     {
@@ -25503,8 +25533,8 @@
     },
     {
       "path": "scripts/review-effort-browser-cases.mjs",
-      "bytes": 11921,
-      "sha256": "be205e07fdaafc0d0b28035bc1a3d0bb51fdda41a5d31c8abe1c3b2d37b31b19",
+      "bytes": 12056,
+      "sha256": "9495009d2735dc2dbbea12e54815d3c73a0136482e898c4ca7fcdd212e26d822",
       "kind": "text"
     },
     {
@@ -26876,20 +26906,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-CM_BCvE5.css",
-      "bytes": 245127,
-      "sha256": "8b799cd681a59bff77a300e362974d483a96f794849ca4dfccd597d26ec4d1c1",
-      "kind": "text"
-    },
-    {
-      "path": "assets/index-HTFBPm7M.js",
-      "bytes": 5809246,
-      "sha256": "39c20e8337f71ffc8091394bc1e44652040808a5ec47a31cb4e17989cf1fab97",
+      "path": "assets/index-BxMCo0ZG.js",
+      "bytes": 5820638,
+      "sha256": "39fa0746048c0ea63164f8646b86b89ce870bc860b4e1f7e27cf882e54b2c7a4",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Application bundle compiled locally from the bounded export-text verification fixes and existing pinned pnpm-lock.yaml. Locked ZIP/XML parser literals include control bytes. Full decoded privacy scans remain required. Exact source tree, build lineage and these bytes await independent review before publication."
+        "description": "Application bundle compiled locally from the reconciliation workspace presentation changes and unchanged pinned pnpm-lock.yaml. Locked ZIP/XML parser literals include control bytes. Full decoded privacy scans remain required. Exact build lineage and UI-only source delta are independently reviewed before publication."
       }
+    },
+    {
+      "path": "assets/index-DtDXm73_.css",
+      "bytes": 264492,
+      "sha256": "0821059e4f73b9d6c8ba7185850fe18a208c866e5e0e9790737c41fc55e60bdc",
+      "kind": "text"
     },
     {
       "path": "assets/pdfjs-BvlvQ5M7.js",
@@ -26914,9 +26944,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/visual-renderer-BZWMf7-G.js",
+      "path": "assets/visual-renderer-ChqHyvlB.js",
       "bytes": 6542,
-      "sha256": "1ff243204e068bcb2872756f5fc4ac793f5963a0ad5ea18b2e3b8f56c41948cd",
+      "sha256": "589589269546ccdad8e9ef6c97966b770071bbcec6de71817b478500d32dc158",
       "kind": "text"
     },
     {
@@ -26992,7 +27022,7 @@
     {
       "path": "index.html",
       "bytes": 3359,
-      "sha256": "27ed6672dd1cd2198d25289ae64509b38cbd2a9660b89796e18eb1f799d67d68",
+      "sha256": "b5c4ac3d56a19e76df292f7dbef4a811b585678b97fd7868518294968071d3cd",
       "kind": "text"
     },
     {

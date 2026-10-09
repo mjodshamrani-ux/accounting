@@ -3,8 +3,13 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import type { AllocationWorkflowHandoff } from '@/lib/reconciliation/allocation-workflow-handoff';
 import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
 import { Button } from '@/components/ui/button';
-import { BrandMark, BrandWordmark } from '@/components/brand';
-import { LanguageSwitcher } from '@/components/language-switcher';
+import {
+  WorkspaceHeader,
+  WorkspaceIntro,
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { money, parseMoney } from '@/lib/reconciliation/core';
@@ -325,32 +330,26 @@ export function AllocationWorkspace({
     slice = <T,>(v: T[]) => v.slice(page * 50, page * 50 + 50);
   return (
     <main
-      className="app-shell gl-tb-workspace"
+      className="app-shell gl-tb-workspace reconciliation-workspace"
       data-allocation-workspace
       aria-busy={busy}
     >
-      <header className="gl-tb-actions">
-        <BrandMark />
-        <BrandWordmark />
-        <LanguageSwitcher />
-        <Button
-          variant="outline"
-          onClick={() => {
-            cancelPending();
-            onBack();
-          }}
-        >
-          {t.backToSuppliers}
-        </Button>
+      <WorkspaceHeader
+        backLabel={t.backToSuppliers}
+        onBack={() => {
+          cancelPending();
+          onBack();
+        }}
+      >
         {busy && (
           <Button variant="outline" onClick={cancelPending}>
             {h.cancel}
           </Button>
         )}
-      </header>
-      <h1 tabIndex={-1}>{t.paymentAllocation}</h1>
-      <p>{t.intro}</p>
-      <p>{t.limits}</p>
+      </WorkspaceHeader>
+      <WorkspaceIntro title={t.paymentAllocation} intro={t.intro}>
+        <p>{t.limits}</p>
+      </WorkspaceIntro>
       {handoff && (
         <section
           className="panel stack"
@@ -371,7 +370,7 @@ export function AllocationWorkspace({
         </section>
       )}
       <fieldset disabled={busy}>
-        <div className="gl-tb-actions">
+        <div className="gl-tb-actions workspace-toolbar">
           <Button onClick={() => void openDemo()}>
             {t.openSyntheticAllocationExample}
           </Button>
@@ -388,13 +387,21 @@ export function AllocationWorkspace({
             />
           </label>
         </div>
-        <div className="gl-tb-grid">
+        <WorkspaceGroupTitle kind="sources" />
+        <div className="gl-tb-grid workspace-sources">
           {([0, 1, 2] as const).map((side) => (
-            <section key={side} data-testid={`allocation-source-${side}`}>
-              <h2>{sides[side]}</h2>
+            <section
+              className="workspace-source"
+              key={side}
+              data-testid={`allocation-source-${side}`}
+            >
+              <h2>
+                <WorkspaceSourceHeading>{sides[side]}</WorkspaceSourceHeading>
+              </h2>
               <label>
                 {sides[side]}
-                <input
+                <WorkspaceFileInput
+                  aria-label={sides[side]}
                   type="file"
                   accept=".csv,.xlsx"
                   onChange={(e) => {
@@ -452,37 +459,40 @@ export function AllocationWorkspace({
             </section>
           ))}
         </div>
-        <div className="gl-tb-grid">
-          {ALLOCATION_SCOPE_FIELDS.map((key, i) => (
-            <label key={key}>
-              {labels[i]}
-              <input
-                type={key === 'cutoff' ? 'date' : 'text'}
-                readOnly={key === 'basis'}
-                value={scope[key]}
-                onChange={(e) => {
-                  setScope({
-                    ...scope,
-                    [key]: e.target.value,
-                    confirmed: false,
-                  });
-                  invalidate();
-                }}
-              />
-            </label>
-          ))}
-        </div>
-        <label>
-          <input
-            type="checkbox"
-            checked={scope.confirmed}
-            onChange={(e) => {
-              setScope({ ...scope, confirmed: e.target.checked });
-              invalidate();
-            }}
-          />
-          {t.scopeConfirm}
-        </label>
+        <section className="workspace-scope">
+          <WorkspaceGroupTitle kind="scope" />
+          <div className="gl-tb-grid">
+            {ALLOCATION_SCOPE_FIELDS.map((key, i) => (
+              <label key={key}>
+                {labels[i]}
+                <input
+                  type={key === 'cutoff' ? 'date' : 'text'}
+                  readOnly={key === 'basis'}
+                  value={scope[key]}
+                  onChange={(e) => {
+                    setScope({
+                      ...scope,
+                      [key]: e.target.value,
+                      confirmed: false,
+                    });
+                    invalidate();
+                  }}
+                />
+              </label>
+            ))}
+          </div>
+          <label>
+            <input
+              type="checkbox"
+              checked={scope.confirmed}
+              onChange={(e) => {
+                setScope({ ...scope, confirmed: e.target.checked });
+                invalidate();
+              }}
+            />
+            {t.scopeConfirm}
+          </label>
+        </section>
         <Button
           disabled={
             !files.every(Boolean) ||

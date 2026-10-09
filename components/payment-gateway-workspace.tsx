@@ -1,7 +1,13 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { LanguageSwitcher } from '@/components/language-switcher';
+import {
+  WorkspaceHeader,
+  WorkspaceIntro,
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -285,21 +291,20 @@ export function GatewayWorkspace({
   return (
     <div hidden={!active}>
       <section
-        className="app-shell gl-tb-workspace"
+        className="app-shell gl-tb-workspace reconciliation-workspace"
         data-gateway-workspace
         aria-busy={busy}
       >
-        <div className="gl-tb-actions">
-          <Button variant="outline" disabled={busy} onClick={onBack}>
-            {copy.back}
-          </Button>
-          <LanguageSwitcher />
-        </div>
-        <h2 tabIndex={-1}>{copy.title}</h2>
-        <p>{copy.intro}</p>
-        <p>{copy.claim}</p>
-        <p>{copy.family}</p>
-        <div className="gl-tb-actions">
+        <WorkspaceHeader
+          onBack={onBack}
+          backLabel={copy.back}
+          disabled={busy}
+        />
+        <WorkspaceIntro title={copy.title} intro={copy.intro}>
+          <p>{copy.claim}</p>
+          <p>{copy.family}</p>
+        </WorkspaceIntro>
+        <div className="gl-tb-actions workspace-toolbar">
           <Button disabled={busy} onClick={() => void demo()}>
             {copy.demo}
           </Button>
@@ -333,11 +338,14 @@ export function GatewayWorkspace({
             </Button>
           )}
         </div>
-        <div className="gl-tb-grid">
+        <WorkspaceGroupTitle kind="sources" />
+        <div className="gl-tb-grid workspace-sources">
           {PG_ROLES.map((role, i) => (
-            <fieldset key={role} disabled={busy}>
-              <legend>{copy.roles[i]}</legend>
-              <input
+            <fieldset key={role} disabled={busy} className="workspace-source">
+              <legend>
+                <WorkspaceSourceHeading>{copy.roles[i]}</WorkspaceSourceHeading>
+              </legend>
+              <WorkspaceFileInput
                 aria-label={copy.roles[i]}
                 type="file"
                 accept=".csv,.xlsx"
@@ -432,7 +440,7 @@ export function GatewayWorkspace({
             />
           </label>
         </fieldset>
-        <div className="gl-tb-actions">
+        <div className="gl-tb-actions workspace-run-actions">
           <Button
             disabled={busy || !ready}
             onClick={() =>
@@ -497,9 +505,13 @@ export function GatewayWorkspace({
           </p>
         )}
         {result && (
-          <>
+          <section className="workspace-results">
             <h2 data-gateway-status>{status(result.status)}</h2>
-            <DomainEvidenceAssistant result={result} snapshot={() => ({ domain: "gateway", input: state(), result })} busy={busy} />
+            <DomainEvidenceAssistant
+              result={result}
+              snapshot={() => ({ domain: 'gateway', input: state(), result })}
+              busy={busy}
+            />
             <p>
               {copy.units}: {result.decimals} · {result.scope.currency}
             </p>
@@ -644,7 +656,7 @@ export function GatewayWorkspace({
                 ])}
               />
             </details>
-          </>
+          </section>
         )}
       </section>
     </div>

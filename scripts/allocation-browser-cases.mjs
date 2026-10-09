@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { revealDomainEntry } from './domain-navigation-support.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import ExcelJS from 'exceljs';
 export async function verifyAllocation(page, url, out = 'work/qa') {
@@ -127,6 +128,7 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Back to suppliers', exact: true })
     .click();
+  await revealDomainEntry(page, 'allocation');
   await page
     .getByRole('button', { name: 'Payment allocation', exact: true })
     .click();

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { revealDomainEntry } from './domain-navigation-support.mjs';
 export async function verifyAr(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
@@ -127,6 +128,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
+  await revealDomainEntry(page, 'clearing');
   await page
     .getByRole('button', { name: 'Single-account clearing', exact: true })
     .click();
@@ -143,6 +145,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
+  await revealDomainEntry(page, 'ar');
   await page
     .getByRole('button', { name: 'Customer AR reconciliation', exact: true })
     .click();

@@ -880,18 +880,39 @@ export async function verifyNarrowLayouts(page, stage) {
   }
 }
 
+async function verifyVisiblePageTitle(page, message) {
+  assert.equal(await page.locator('h1:visible').count(), 1, message);
+  assert.equal(
+    await page
+      .locator('h1:not(:visible)')
+      .evaluateAll((headings) =>
+        headings.every((heading) =>
+          heading.closest('[data-domain-panel][hidden]'),
+        ),
+      ),
+    true,
+    'only inactive domain panels may contain hidden page titles',
+  );
+}
+
 export async function verifyBrandLanding(page) {
   const plainTitle = (await page.title()).replace(
     /[\u0640\u064b-\u065f\u0670]/g,
     '',
   );
   assert.equal(plainTitle, 'تراصف — تسويات محاسبية محلية');
+  const domainIds = await page
+    .locator('[data-domain-entry]')
+    .evaluateAll((entries) =>
+      entries.map((entry) => entry.dataset.domainEntry),
+    );
+  assert.equal(
+    new Set(domainIds).size,
+    domainIds.length,
+    'workflow entries are unique',
+  );
   assert.deepEqual(
-    await page
-      .locator('[data-domain-entry]')
-      .evaluateAll((entries) =>
-        entries.map((entry) => entry.dataset.domainEntry),
-      ),
+    [...domainIds].sort((a, b) => a.localeCompare(b)),
     [
       'supplier',
       'clearing',
@@ -905,8 +926,13 @@ export async function verifyBrandLanding(page) {
       'stock',
       'assets',
       'payroll',
-    ],
+    ].sort((a, b) => a.localeCompare(b)),
     'the landing offers all twelve approved reconciliation workflows',
+  );
+  assert.equal(
+    await page.locator('.directory-group').count(),
+    4,
+    'workflows are organized in four groups',
   );
   assert.equal(
     await page.locator('#reconciliation-types-title').innerText(),
@@ -917,7 +943,7 @@ export async function verifyBrandLanding(page) {
       await page.locator(selector).getAttribute('href'),
       '#reconciliation-types',
     );
-  assert.equal(await page.locator('h1').count(), 1);
+  await verifyVisiblePageTitle(page, 'the landing has one visible page title');
   assert.equal(
     await page.locator('.brand-wordmark-latin').count(),
     0,
@@ -969,7 +995,7 @@ export async function verifyBrandLanding(page) {
   for (const id of ['heroLine1', 'heroLine2', 'upload', 'process', 'privacy']) {
     await verifyNativeHeading(page, id);
   }
-  const wordmarks = page.locator('.brand-wordmark-arabic');
+  const wordmarks = page.locator('.brand-wordmark-arabic:visible');
   assert.ok(await wordmarks.count(), 'the native Arabic wordmark is present');
   for (const wordmark of await wordmarks.all()) {
     const lettering = await wordmark.evaluate((element) => {
@@ -1106,10 +1132,9 @@ export async function verifyWorkflowBrand(page, step) {
   const name = workflowHeadings[step];
   assert.ok(name, 'known workflow step');
   await page.getByRole('heading', { level: 1, name, exact: true }).waitFor();
-  assert.equal(
-    await page.locator('h1').count(),
-    1,
-    `${step}: one semantic page title`,
+  await verifyVisiblePageTitle(
+    page,
+    `${step}: one visible semantic page title`,
   );
   assert.equal(
     await page.locator('.landing-intro').count(),
