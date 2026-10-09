@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 18095,
-      "sha256": "8fb79a5708cc72b0908f7a2cb49d544de3c0748f5bfdb9be50cec6b014892619",
+      "bytes": 18338,
+      "sha256": "0a508b761946727c75400c58a414c9c8f81c39edad74478e2a83a1758a0f3f3f",
       "kind": "text"
     },
     {
@@ -3620,6 +3620,12 @@
       "bytes": 12748,
       "sha256": "be231794c23fcd4012cff5d696bef105b5d6e9d7d328e07803ffc67e66cc41d1",
       "kind": "text"
+    },
+    {
+      "path": "audit/build/reviewed.css",
+      "kind": "text",
+      "bytes": 241170,
+      "sha256": "187016ccc7a3b9f0a86393cd2ea6e982940635d149167cbe02aea632228e9e7b"
     },
     {
       "path": "audit/clearing/check_export.py",
@@ -25220,6 +25226,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/compare-reviewed-css.mjs",
+      "kind": "text",
+      "bytes": 1306,
+      "sha256": "2db77acc67289da5c2b208824bfec4fd3931a39e0f8e44c08e75f07bb67ec944"
+    },
+    {
       "path": "scripts/domain-assistant-browser-cases.mjs",
       "bytes": 5598,
       "sha256": "c35c3718a18c5575174170399ff6bcc43232c0f6b5e0c39f676e761956c10d72",
@@ -25599,8 +25611,8 @@
     },
     {
       "path": "scripts/test-mutations.mjs",
-      "bytes": 62331,
-      "sha256": "9c629364263d069245f6068ba7ba637e6e7d6f2bfe798a403d113e3c77309826",
+      "bytes": 62503,
+      "sha256": "0755266d517811804a3ad02db12b2538c139e59378f236a18c8d7410e37602c5",
       "kind": "text"
     },
     {

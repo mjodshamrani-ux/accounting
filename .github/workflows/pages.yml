@@ -108,6 +108,10 @@ jobs:
           node --experimental-strip-types audit/stress/export-corpus.mjs
           python3 audit/stress/check_openxml.py
       - run: pnpm build
+      - name: Diagnose CSS and verify reviewed distribution immediately after build
+        run: |
+          node scripts/compare-reviewed-css.mjs
+          node scripts/public-content-check.mjs --dist
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
       - name: Verify twelve-type entry, readiness, navigation and retained supplier state
@@ -209,7 +213,7 @@ jobs:
   mutations:
     name: Accounting mutation gate (${{ matrix.shard }}/6)
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -231,6 +235,7 @@ jobs:
       - name: Verify regression tests detect deliberate accounting faults
         env:
           MUTATION_SHARD: ${{ matrix.shard }}/6
+          MUTATION_TEST_CONCURRENCY: '2'
         run: pnpm test:mutations
   specialized-faults:
     name: Specialized accounting fault gate

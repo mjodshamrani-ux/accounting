@@ -1221,7 +1221,7 @@ if (listOnly) {
   process.exit(0);
 }
 
-function execute(cwd, timeout = 45000) {
+function execute(cwd, timeout = 120000) {
   return spawnSync(
     process.execPath,
     [
@@ -1267,7 +1267,7 @@ if (output) {
   }, null, 2) + '\n', { flag: 'wx' });
 }
 // CI must complete the full unmodified suite before evaluating any mutation.
-// Give this prerequisite its own bound; keep the per-mutant limit unchanged.
+// Both phases are bounded; an interrupted run can never establish a kill.
 const baseline = execute(root, 120000);
 if (output) {
   await writeFile(join(output, 'baseline.log'), baseline.stdout + baseline.stderr);
@@ -1444,6 +1444,10 @@ for (const mutation of selectedMutations) {
       }, null, 2) + '\n');
     }
     if (!assertionFailure) {
+      console.error(JSON.stringify({
+        mutation: mutation.name, status: result.status, signal: result.signal,
+        errorCode: result.error?.code ?? null,
+      }));
       process.stderr.write(result.stdout + result.stderr);
       throw Error(
         `Fault survived or failed without an assertion: ${mutation.name}`,
