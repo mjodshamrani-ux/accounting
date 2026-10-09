@@ -1221,7 +1221,7 @@ if (listOnly) {
   process.exit(0);
 }
 
-function execute(cwd) {
+function execute(cwd, timeout = 45000) {
   return spawnSync(
     process.execPath,
     [
@@ -1237,7 +1237,7 @@ function execute(cwd) {
     {
       cwd,
       encoding: 'utf8',
-      timeout: 45000,
+      timeout,
       maxBuffer: 8 * 1024 * 1024,
     },
   );
@@ -1266,7 +1266,9 @@ if (output) {
     mutations: selectedMutations.map(({ name, file }) => ({ name, file })),
   }, null, 2) + '\n', { flag: 'wx' });
 }
-const baseline = execute(root);
+// CI must complete the full unmodified suite before evaluating any mutation.
+// Give this prerequisite its own bound; keep the per-mutant limit unchanged.
+const baseline = execute(root, 120000);
 if (output) {
   await writeFile(join(output, 'baseline.log'), baseline.stdout + baseline.stderr);
   await writeFile(join(output, 'baseline.json'), JSON.stringify({
