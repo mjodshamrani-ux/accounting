@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { revealDomainEntry } from './domain-navigation-support.mjs';
 import { mkdir, readFile, copyFile } from 'node:fs/promises';
 export async function verifyBank(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
@@ -94,6 +95,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
+  await revealDomainEntry(page, 'bank');
   await page
     .getByRole('button', { name: 'Bank movements', exact: true })
     .click();
@@ -237,13 +239,11 @@ export async function verifyBank(page, url, out = 'work/qa') {
     .setInputFiles(`${out}/bank-native-session.json`);
   await page.getByTestId('bank-result').waitFor();
   await exportFile('bank-native-restored.xlsx');
-  await page
-    .getByLabel('Bank statement', { exact: true })
-    .setInputFiles({
-      name: 'unsupported.pdf',
-      mimeType: 'application/pdf',
-      buffer: Buffer.from('synthetic rejected extension'),
-    });
+  await page.getByLabel('Bank statement', { exact: true }).setInputFiles({
+    name: 'unsupported.pdf',
+    mimeType: 'application/pdf',
+    buffer: Buffer.from('synthetic rejected extension'),
+  });
   await page.getByRole('alert').waitFor();
   assert.equal(await rows('Original movements').count(), 4);
   assert.ok(

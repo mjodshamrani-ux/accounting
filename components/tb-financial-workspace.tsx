@@ -1,7 +1,13 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { LanguageSwitcher } from '@/components/language-switcher';
+import {
+  WorkspaceHeader,
+  WorkspaceIntro,
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -301,25 +307,27 @@ export function FinancialWorkspace({
   return (
     <div hidden={!active}>
       <section
-        className="app-shell gl-tb-workspace"
+        className="app-shell gl-tb-workspace reconciliation-workspace"
         data-financial-workspace
         aria-busy={busy}
       >
-        <div className="gl-tb-actions">
-          <Button variant="outline" disabled={busy} onClick={onBack}>
-            {t.financial.back}
-          </Button>
-          <LanguageSwitcher />
-        </div>
-        <h2 tabIndex={-1}>{t.financial.trialBalanceAndFinancialPosition}</h2>
-        <p>
-          {t.financial.reviewAccountsDimensionsMappingSignsPeriodAndCurrency}
-        </p>
-        <p>
-          {t.financial.theResultIsConsistencyWithSuppliedPresentationEvidence}
-        </p>
-        <p>{t.financial.currentFamilyWholePostClosingTrialBalanceOne}</p>
-        <div className="gl-tb-actions">
+        <WorkspaceHeader
+          onBack={onBack}
+          backLabel={t.financial.back}
+          disabled={busy}
+        />
+        <WorkspaceIntro
+          title={t.financial.trialBalanceAndFinancialPosition}
+          intro={
+            t.financial.reviewAccountsDimensionsMappingSignsPeriodAndCurrency
+          }
+        >
+          <p>
+            {t.financial.theResultIsConsistencyWithSuppliedPresentationEvidence}
+          </p>
+          <p>{t.financial.currentFamilyWholePostClosingTrialBalanceOne}</p>
+        </WorkspaceIntro>
+        <div className="gl-tb-actions workspace-toolbar">
           <Button disabled={busy} onClick={() => void demo()}>
             {t.financial.syntheticExample}
           </Button>
@@ -354,11 +362,16 @@ export function FinancialWorkspace({
             </Button>
           )}
         </div>
-        <div className="gl-tb-grid">
+        <WorkspaceGroupTitle kind="sources" />
+        <div className="gl-tb-grid workspace-sources">
           {FINANCIAL_ROLES.map((role, i) => (
-            <fieldset key={role} disabled={busy}>
-              <legend>{t.financial.roles[i]}</legend>
-              <input
+            <fieldset key={role} disabled={busy} className="workspace-source">
+              <legend>
+                <WorkspaceSourceHeading>
+                  {t.financial.roles[i]}
+                </WorkspaceSourceHeading>
+              </legend>
+              <WorkspaceFileInput
                 aria-label={t.financial.roles[i]}
                 type="file"
                 accept=".csv,.xlsx"
@@ -456,7 +469,7 @@ export function FinancialWorkspace({
             />
           </label>
         </fieldset>
-        <div className="gl-tb-actions">
+        <div className="gl-tb-actions workspace-run-actions">
           <Button
             disabled={busy || !ready}
             onClick={() =>
@@ -521,9 +534,13 @@ export function FinancialWorkspace({
           </p>
         )}
         {result && (
-          <>
+          <section className="workspace-results">
             <h2 data-financial-status>{status(result.status)}</h2>
-            <DomainEvidenceAssistant result={result} snapshot={() => ({ domain: "financial", input: state(), result })} busy={busy} />
+            <DomainEvidenceAssistant
+              result={result}
+              snapshot={() => ({ domain: 'financial', input: state(), result })}
+              busy={busy}
+            />
             <p>
               {t.financial.accounts}: {result.accounts.length} ·{' '}
               {t.financial.statementLines}: {result.lines.length} ·{' '}
@@ -756,7 +773,7 @@ export function FinancialWorkspace({
                 ])}
               />
             </details>
-          </>
+          </section>
         )}
       </section>
     </div>

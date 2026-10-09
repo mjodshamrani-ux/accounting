@@ -1,3 +1,8 @@
+import {
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import './bank-adjustment-workspace.css';
@@ -303,7 +308,7 @@ export function BankAdjustmentWorkspace({
       <p>{t.intro}</p>
       <p>{t.claim}</p>
       <fieldset disabled={locked}>
-        <div className="gl-tb-actions">
+        <div className="gl-tb-actions workspace-toolbar">
           <Button
             onClick={() =>
               perform(async (signal) => {
@@ -397,13 +402,22 @@ export function BankAdjustmentWorkspace({
             />
           </label>
         </div>
-        <div className="gl-tb-grid">
+        <WorkspaceGroupTitle kind="sources" />
+        <div className="gl-tb-grid workspace-sources">
           {files.map((file, index) => (
-            <section key={index} data-testid={`balance-source-${index}`}>
-              <h3>{t.sources[index]}</h3>
+            <section
+              className="workspace-source"
+              key={index}
+              data-testid={`balance-source-${index}`}
+            >
+              <h3>
+                <WorkspaceSourceHeading>
+                  {t.sources[index]}
+                </WorkspaceSourceHeading>
+              </h3>
               <label>
                 {t.sources[index]}
-                <input
+                <WorkspaceFileInput
                   type="file"
                   aria-label={t.sources[index]}
                   accept=".csv,.xlsx"
@@ -562,7 +576,15 @@ export function BankAdjustmentWorkspace({
       {result && (
         <>
           <h3 data-testid="bank-balance-result">{t.status[result.status]}</h3>
-          <DomainEvidenceAssistant result={result} snapshot={() => ({ domain: "bank-adjustment", input: input(), result })} busy={locked} />
+          <DomainEvidenceAssistant
+            result={result}
+            snapshot={() => ({
+              domain: 'bank-adjustment',
+              input: input(),
+              result,
+            })}
+            busy={locked}
+          />
           <p>
             {t.pending}: {result.unresolved.length}
           </p>

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { revealDomainEntry } from './domain-navigation-support.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -101,6 +102,7 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
+  await revealDomainEntry(page, 'clearing');
   await page
     .getByRole('button', { name: 'Single-account clearing', exact: true })
     .click();

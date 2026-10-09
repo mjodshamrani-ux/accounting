@@ -2,8 +2,13 @@ import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant'
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
-import { BrandMark, BrandWordmark } from '@/components/brand';
-import { LanguageSwitcher } from '@/components/language-switcher';
+import {
+  WorkspaceHeader,
+  WorkspaceIntro,
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -241,23 +246,20 @@ export function BankWorkspace({
     <>
       {active && (
         <main
-          className="app-shell gl-tb-workspace bank-workspace"
+          className="app-shell gl-tb-workspace bank-workspace reconciliation-workspace"
           aria-busy={locked}
         >
-          <header className="gl-tb-actions">
-            <BrandMark />
-            <BrandWordmark />
-            <LanguageSwitcher />
-            <Button variant="outline" disabled={locked} onClick={onBack}>
-              {t.back}
-            </Button>
-          </header>
-          <h1 tabIndex={-1}>{t.title}</h1>
-          <p>{t.intro}</p>
-          <p>{t.limits}</p>
-          <p>{t.claim}</p>
+          <WorkspaceHeader
+            onBack={onBack}
+            backLabel={t.back}
+            disabled={locked}
+          />
+          <WorkspaceIntro title={t.title} intro={t.intro}>
+            <p>{t.limits}</p>
+            <p>{t.claim}</p>
+          </WorkspaceIntro>
           <fieldset disabled={locked}>
-            <div className="gl-tb-actions">
+            <div className="gl-tb-actions workspace-toolbar">
               <Button
                 onClick={() =>
                   perform(async (signal) => {
@@ -308,11 +310,20 @@ export function BankWorkspace({
                 />
               </label>
             </div>
-            <div className="gl-tb-grid">
+            <WorkspaceGroupTitle kind="sources" />
+            <div className="gl-tb-grid workspace-sources">
               {([0, 1] as const).map((side) => (
-                <section key={side} data-testid={`bank-source-${side}`}>
-                  <h2>{t.sides[side]}</h2>
-                  <input
+                <section
+                  className="workspace-source"
+                  key={side}
+                  data-testid={`bank-source-${side}`}
+                >
+                  <h2>
+                    <WorkspaceSourceHeading>
+                      {t.sides[side]}
+                    </WorkspaceSourceHeading>
+                  </h2>
+                  <WorkspaceFileInput
                     type="file"
                     accept=".csv,.xlsx"
                     aria-label={t.sides[side]}
@@ -374,40 +385,43 @@ export function BankWorkspace({
                 </section>
               ))}
             </div>
-            <div className="gl-tb-grid">
-              {BANK_SCOPE_FIELDS.map((key) => (
-                <label key={key}>
-                  {t.fields[key]}
-                  <input
-                    aria-label={t.fields[key]}
-                    type={key === 'start' || key === 'end' ? 'date' : 'text'}
-                    value={scope[key]}
-                    onChange={(e) => {
-                      setScope((previous) => ({
-                        ...previous,
-                        [key]: e.target.value,
-                        confirmed: false,
-                      }));
-                      invalidate();
-                    }}
-                  />
-                </label>
-              ))}
-            </div>
-            <label>
-              <input
-                type="checkbox"
-                checked={scope.confirmed}
-                onChange={(e) => {
-                  setScope((previous) => ({
-                    ...previous,
-                    confirmed: e.target.checked,
-                  }));
-                  invalidate();
-                }}
-              />
-              {t.scopeConfirm}
-            </label>
+            <section className="workspace-scope">
+              <WorkspaceGroupTitle kind="scope" />
+              <div className="gl-tb-grid">
+                {BANK_SCOPE_FIELDS.map((key) => (
+                  <label key={key}>
+                    {t.fields[key]}
+                    <input
+                      aria-label={t.fields[key]}
+                      type={key === 'start' || key === 'end' ? 'date' : 'text'}
+                      value={scope[key]}
+                      onChange={(e) => {
+                        setScope((previous) => ({
+                          ...previous,
+                          [key]: e.target.value,
+                          confirmed: false,
+                        }));
+                        invalidate();
+                      }}
+                    />
+                  </label>
+                ))}
+              </div>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={scope.confirmed}
+                  onChange={(e) => {
+                    setScope((previous) => ({
+                      ...previous,
+                      confirmed: e.target.checked,
+                    }));
+                    invalidate();
+                  }}
+                />
+                {t.scopeConfirm}
+              </label>
+            </section>
             <Button
               disabled={
                 !files.every(Boolean) ||
@@ -440,7 +454,11 @@ export function BankWorkspace({
           {result && (
             <>
               <h2 data-testid="bank-result">{t.status[result.status]}</h2>
-              <DomainEvidenceAssistant result={result} snapshot={() => ({ domain: "bank", input: input(), result })} busy={locked} />
+              <DomainEvidenceAssistant
+                result={result}
+                snapshot={() => ({ domain: 'bank', input: input(), result })}
+                busy={locked}
+              />
               <fieldset disabled={locked}>
                 <div className="gl-tb-actions">
                   <Button
@@ -725,7 +743,7 @@ export function BankWorkspace({
         </main>
       )}
       <div
-        className="app-shell gl-tb-workspace bank-workspace"
+        className="app-shell gl-tb-workspace bank-workspace reconciliation-workspace workspace-bank-continuation"
         hidden={!active}
         style={{ display: active ? undefined : 'none' }}
       >

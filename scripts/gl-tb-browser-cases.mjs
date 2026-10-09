@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import ExcelJS from 'exceljs';
+import { revealDomainEntry } from './domain-navigation-support.mjs';
 export async function verifyGlTb(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
@@ -146,6 +147,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
+  await revealDomainEntry(page, 'ar');
   await page
     .getByRole('button', { name: 'Customer AR reconciliation', exact: true })
     .click();
@@ -156,6 +158,7 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
+  await revealDomainEntry(page, 'gl-tb');
   await page
     .getByRole('button', { name: 'GL / Trial balance', exact: true })
     .click();

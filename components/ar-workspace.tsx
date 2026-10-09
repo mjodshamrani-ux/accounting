@@ -1,7 +1,12 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState } from 'react';
-import { BrandMark, BrandWordmark } from './brand';
-import { LanguageSwitcher } from './language-switcher';
+import {
+  WorkspaceHeader,
+  WorkspaceIntro,
+  WorkspaceSourceHeading,
+  WorkspaceGroupTitle,
+  WorkspaceFileInput,
+} from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
@@ -206,24 +211,15 @@ export function ArWorkspace({
   if (!active) return null;
   return (
     <main
-      className="app-shell clearing-workspace ar-workspace"
+      className="app-shell clearing-workspace ar-workspace reconciliation-workspace"
       aria-busy={busy}
     >
-      <header className="clearing-actions">
-        <BrandMark />
-        <BrandWordmark />
-        <LanguageSwitcher />
-        <Button variant="outline" disabled={busy} onClick={onBack}>
-          {t.back}
-        </Button>
-      </header>
-      <section>
-        <h1 tabIndex={-1}>{t.title}</h1>
-        <p>{t.intro}</p>
+      <WorkspaceHeader onBack={onBack} backLabel={t.back} disabled={busy} />
+      <WorkspaceIntro title={t.title} intro={t.intro}>
         <p>{t.limits}</p>
-      </section>
+      </WorkspaceIntro>
       <fieldset disabled={busy}>
-        <div className="clearing-actions">
+        <div className="clearing-actions workspace-toolbar">
           <Button
             onClick={() =>
               perform(async (signal) => {
@@ -274,134 +270,152 @@ export function ArWorkspace({
             />
           </label>
         </div>
-        {[0, 1].map((value) => {
-          const side = value as 0 | 1,
-            source = files[side],
-            r = readings[side];
-          return (
-            <section key={side} data-testid={`ar-source-${side}`}>
-              <h2>{t.sides[side]}</h2>
-              <label>
-                {t.sides[side]}
+        <WorkspaceGroupTitle kind="sources" />
+        <div className="clearing-grid workspace-sources">
+          {[0, 1].map((value) => {
+            const side = value as 0 | 1,
+              source = files[side],
+              r = readings[side];
+            return (
+              <section
+                className="workspace-source"
+                key={side}
+                data-testid={`ar-source-${side}`}
+              >
+                <h2>
+                  <WorkspaceSourceHeading>
+                    {t.sides[side]}
+                  </WorkspaceSourceHeading>
+                </h2>
+                <label>
+                  {t.sides[side]}
+                  <WorkspaceFileInput
+                    aria-label={t.sides[side]}
+                    type="file"
+                    accept=".csv,.xlsx"
+                    onChange={(event) => {
+                      const file = event.target.files?.[0];
+                      event.target.value = '';
+                      if (file) void upload(side, file);
+                    }}
+                  />
+                </label>
+                {source && (
+                  <>
+                    <h3>{source.name}</h3>
+                    <label>
+                      {t.sides[side]}: {t.sheet}
+                      <select
+                        aria-label={`${t.sides[side]}: ${t.sheet}`}
+                        value={r.sheet}
+                        onChange={(event) => {
+                          const next = [...readings] as typeof readings;
+                          next[side] = {
+                            ...freshReading(side),
+                            sheet: Number(event.target.value),
+                          };
+                          setReadings(next);
+                          setScope({ ...scope, confirmed: false });
+                          invalidate();
+                        }}
+                      >
+                        {source.sheets.map((sheet, index) => (
+                          <option key={index} value={index}>
+                            {sheet.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <div className="clearing-grid">
+                      {columns.map((key) => (
+                        <label key={key}>
+                          {t.sides[side]}: {t.fields[key]}
+                          <select
+                            aria-label={`${t.sides[side]}: ${t.fields[key]}`}
+                            value={r[key]}
+                            onChange={(event) => {
+                              const next = [...readings] as typeof readings;
+                              next[side] = {
+                                ...r,
+                                [key]: Number(event.target.value),
+                                confirmed: false,
+                              };
+                              setReadings(next);
+                              setScope({ ...scope, confirmed: false });
+                              invalidate();
+                            }}
+                          >
+                            <option value={-1}>
+                              {key === 'related' || key === 'description'
+                                ? t.optional
+                                : t.column}
+                            </option>
+                            {source.sheets[r.sheet].rows[0].map(
+                              (heading, index) => (
+                                <option key={index} value={index}>
+                                  {index + 1}: {heading}
+                                </option>
+                              ),
+                            )}
+                          </select>
+                        </label>
+                      ))}
+                    </div>
+                    <label className="clearing-confirm">
+                      <input
+                        type="checkbox"
+                        checked={r.confirmed}
+                        onChange={(event) => {
+                          const next = [...readings] as typeof readings;
+                          next[side] = {
+                            ...r,
+                            confirmed: event.target.checked,
+                          };
+                          setReadings(next);
+                          invalidate();
+                        }}
+                      />
+                      {t.sides[side]}: {t.readingConfirm}
+                    </label>
+                  </>
+                )}
+              </section>
+            );
+          })}
+        </div>
+        <section className="workspace-scope">
+          <WorkspaceGroupTitle kind="scope" />
+          <div className="clearing-grid">
+            {scopeFields.map((key) => (
+              <label key={key}>
+                {key === 'start' || key === 'end' ? t[key] : t.fields[key]}
                 <input
-                  type="file"
-                  accept=".csv,.xlsx"
+                  type={key === 'start' || key === 'end' ? 'date' : 'text'}
+                  value={scope[key]}
                   onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    event.target.value = '';
-                    if (file) void upload(side, file);
+                    setScope({
+                      ...scope,
+                      [key]: event.target.value,
+                      confirmed: false,
+                    });
+                    invalidate();
                   }}
                 />
               </label>
-              {source && (
-                <>
-                  <h3>{source.name}</h3>
-                  <label>
-                    {t.sides[side]}: {t.sheet}
-                    <select
-                      aria-label={`${t.sides[side]}: ${t.sheet}`}
-                      value={r.sheet}
-                      onChange={(event) => {
-                        const next = [...readings] as typeof readings;
-                        next[side] = {
-                          ...freshReading(side),
-                          sheet: Number(event.target.value),
-                        };
-                        setReadings(next);
-                        setScope({ ...scope, confirmed: false });
-                        invalidate();
-                      }}
-                    >
-                      {source.sheets.map((sheet, index) => (
-                        <option key={index} value={index}>
-                          {sheet.name}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <div className="clearing-grid">
-                    {columns.map((key) => (
-                      <label key={key}>
-                        {t.sides[side]}: {t.fields[key]}
-                        <select
-                          aria-label={`${t.sides[side]}: ${t.fields[key]}`}
-                          value={r[key]}
-                          onChange={(event) => {
-                            const next = [...readings] as typeof readings;
-                            next[side] = {
-                              ...r,
-                              [key]: Number(event.target.value),
-                              confirmed: false,
-                            };
-                            setReadings(next);
-                            setScope({ ...scope, confirmed: false });
-                            invalidate();
-                          }}
-                        >
-                          <option value={-1}>
-                            {key === 'related' || key === 'description'
-                              ? t.optional
-                              : t.column}
-                          </option>
-                          {source.sheets[r.sheet].rows[0].map(
-                            (heading, index) => (
-                              <option key={index} value={index}>
-                                {index + 1}: {heading}
-                              </option>
-                            ),
-                          )}
-                        </select>
-                      </label>
-                    ))}
-                  </div>
-                  <label className="clearing-confirm">
-                    <input
-                      type="checkbox"
-                      checked={r.confirmed}
-                      onChange={(event) => {
-                        const next = [...readings] as typeof readings;
-                        next[side] = { ...r, confirmed: event.target.checked };
-                        setReadings(next);
-                        invalidate();
-                      }}
-                    />
-                    {t.sides[side]}: {t.readingConfirm}
-                  </label>
-                </>
-              )}
-            </section>
-          );
-        })}
-        <div className="clearing-grid">
-          {scopeFields.map((key) => (
-            <label key={key}>
-              {key === 'start' || key === 'end' ? t[key] : t.fields[key]}
-              <input
-                type={key === 'start' || key === 'end' ? 'date' : 'text'}
-                value={scope[key]}
-                onChange={(event) => {
-                  setScope({
-                    ...scope,
-                    [key]: event.target.value,
-                    confirmed: false,
-                  });
-                  invalidate();
-                }}
-              />
-            </label>
-          ))}
-        </div>
-        <label className="clearing-confirm">
-          <input
-            type="checkbox"
-            checked={scope.confirmed}
-            onChange={(event) => {
-              setScope({ ...scope, confirmed: event.target.checked });
-              invalidate();
-            }}
-          />
-          {t.scopeConfirm}
-        </label>
+            ))}
+          </div>
+          <label className="clearing-confirm">
+            <input
+              type="checkbox"
+              checked={scope.confirmed}
+              onChange={(event) => {
+                setScope({ ...scope, confirmed: event.target.checked });
+                invalidate();
+              }}
+            />
+            {t.scopeConfirm}
+          </label>
+        </section>
         <Button
           disabled={
             !files[0] ||
@@ -426,7 +440,11 @@ export function ArWorkspace({
       {result && (
         <section>
           <h2>{t.results}</h2>
-          <DomainEvidenceAssistant result={result} snapshot={() => ({ domain: "ar", input: input(), result })} busy={busy} />
+          <DomainEvidenceAssistant
+            result={result}
+            snapshot={() => ({ domain: 'ar', input: input(), result })}
+            busy={busy}
+          />
           <p>{t.coverage}</p>
           <div className="clearing-grid" data-testid="ar-metrics">
             {[

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { demoFiles, demoScope } from '../lib/reconciliation/demo.ts';
+import { revealDomainEntry } from './domain-navigation-support.mjs';
 
 const ARABIC = /[؀-ۿ]/;
 // Arabic that stays Arabic in English mode: the sample documents' own text
@@ -29,31 +30,42 @@ const allowedLatin = new Set(
 // FIFO is the approved accounting acronym in this exact inventory limitation,
 // not a general exception for English anywhere in the Arabic interface.
 const stockNotice = 'لا احتساب FIFO أو تكلفة، ولا إثبات ملكية المخزون.';
-const stockNoticeSelector = '.reconciliation-choice:has([data-domain-entry="stock"]) .reconciliation-choice-limit';
+const stockNoticeSelector =
+  '.reconciliation-choice:has([data-domain-entry="stock"]) .reconciliation-choice-limit';
 
 async function visibleText(page, approvedStockNotice) {
-  return page.evaluate(({ approvedStockNotice, stockNoticeSelector }) => {
-    const out = [];
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-      const element = node.parentElement;
-      if (!element || element.closest('script, style, [hidden]')) continue;
-      const style = getComputedStyle(element);
-      if (style.display === 'none' || style.visibility === 'hidden') continue;
-      let text = node.textContent.trim();
-      if (approvedStockNotice && element.matches(stockNoticeSelector) && text === approvedStockNotice)
-        text = text.replace(/\bFIFO\b/g, '');
-      if (text) out.push(text);
-    }
-    for (const element of document.querySelectorAll(
-      '[aria-label], [placeholder], [alt], [title]',
-    ))
-      for (const name of ['aria-label', 'placeholder', 'alt', 'title']) {
-        const value = element.getAttribute(name);
-        if (value?.trim()) out.push(value.trim());
+  return page.evaluate(
+    ({ approvedStockNotice, stockNoticeSelector }) => {
+      const out = [];
+      const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+      );
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        const element = node.parentElement;
+        if (!element || element.closest('script, style, [hidden]')) continue;
+        const style = getComputedStyle(element);
+        if (style.display === 'none' || style.visibility === 'hidden') continue;
+        let text = node.textContent.trim();
+        if (
+          approvedStockNotice &&
+          element.matches(stockNoticeSelector) &&
+          text === approvedStockNotice
+        )
+          text = text.replace(/\bFIFO\b/g, '');
+        if (text) out.push(text);
       }
-    return out;
-  }, { approvedStockNotice, stockNoticeSelector });
+      for (const element of document.querySelectorAll(
+        '[aria-label], [placeholder], [alt], [title]',
+      ))
+        for (const name of ['aria-label', 'placeholder', 'alt', 'title']) {
+          const value = element.getAttribute(name);
+          if (value?.trim()) out.push(value.trim());
+        }
+      return out;
+    },
+    { approvedStockNotice, stockNoticeSelector },
+  );
 }
 
 async function assertNoArabic(page, where) {
@@ -67,28 +79,71 @@ async function assertNoArabic(page, where) {
 
 async function assertNoStrayEnglish(page, where) {
   const stockLimit = page.locator(stockNoticeSelector);
-  assert.equal(await stockLimit.count(), 1, 'one inventory-directory limitation');
-  assert.equal(await stockLimit.innerText(), stockNotice, 'the exact approved Arabic inventory boundary remains visible');
-  const words = (await visibleText(page, stockNotice))
-    // Source row IDs (supplier:0:2) and the sample's own Latin data are data,
-    // not interface copy.
-    .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
-    .flatMap((text) => text.match(/[A-Za-z]{2,}/g) ?? [])
-    .filter((word) => !allowedLatin.has(word));
-  const sampleLatin = new Set(
-    demoFiles.flatMap((file) =>
-      file.sheets.flatMap((sheet) =>
-        [sheet.name, ...sheet.rows.flat()].flatMap(
-          (text) => text.match(/[A-Za-z]{2,}/g) ?? [],
+  assert.equal(
+    await stockLimit.count(),
+    1,
+    'one inventory-directory limitation',
+  );
+  const directoryWasVisible = await page
+    .locator('[data-domain-navigation]')
+    .isVisible();
+  await revealDomainEntry(page, 'stock');
+  const stockSummary = page.locator(
+    '.reconciliation-choice:has([data-domain-entry="stock"]) details > summary',
+  );
+  assert.equal(
+    await stockLimit.isVisible(),
+    false,
+    'inventory scope starts collapsed',
+  );
+  await stockSummary.click();
+  try {
+    assert.equal(
+      await stockLimit.isVisible(),
+      true,
+      'inventory scope opens on demand',
+    );
+    assert.equal(
+      await stockLimit.innerText(),
+      stockNotice,
+      'the exact approved Arabic inventory boundary remains visible',
+    );
+    const words = (await visibleText(page, stockNotice))
+      // Source row IDs (supplier:0:2) and the sample's own Latin data are data,
+      // not interface copy.
+      .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
+      .flatMap((text) => text.match(/[A-Za-z]{2,}/g) ?? [])
+      .filter((word) => !allowedLatin.has(word));
+    const sampleLatin = new Set(
+      demoFiles.flatMap((file) =>
+        file.sheets.flatMap((sheet) =>
+          [sheet.name, ...sheet.rows.flat()].flatMap(
+            (text) => text.match(/[A-Za-z]{2,}/g) ?? [],
+          ),
         ),
       ),
-    ),
-  );
-  assert.deepEqual(
-    [...new Set(words.filter((word) => !sampleLatin.has(word)))],
-    [],
-    `English words in Arabic mode (${where})`,
-  );
+    );
+    assert.deepEqual(
+      [...new Set(words.filter((word) => !sampleLatin.has(word)))],
+      [],
+      `English words in Arabic mode (${where})`,
+    );
+  } finally {
+    await stockSummary.click();
+    assert.equal(
+      await stockLimit.isVisible(),
+      false,
+      'inventory scope closes again',
+    );
+    if (!directoryWasVisible) {
+      await page.locator('.directory-switch:visible').click();
+      assert.equal(
+        await page.locator('[data-domain-navigation]').isVisible(),
+        false,
+        'supplier session keeps the directory compact',
+      );
+    }
+  }
 }
 
 async function documentLanguage(page) {
@@ -106,7 +161,9 @@ async function metrics(page) {
 
 async function switchTo(page, code) {
   await page
-    .getByRole('group', { name: code === 'en' ? 'لغة الواجهة' : 'Interface language' })
+    .getByRole('group', {
+      name: code === 'en' ? 'لغة الواجهة' : 'Interface language',
+    })
     .getByRole('button', { name: new RegExp(`^${code.toUpperCase()}\\b`) })
     .click();
   await page.waitForFunction(
@@ -139,12 +196,16 @@ export async function verifyLanguages(page, url) {
   await page.getByRole('button', { name: 'جرّب المثال', exact: true }).click();
   await page.getByRole('button', { name: 'تحقق وقارن', exact: true }).click();
   await page.getByRole('heading', { name: 'مساحة المراجعة' }).waitFor();
-  await page.getByRole('button', { name: 'مساعد فهم النتيجة', exact: true }).click();
+  await page
+    .getByRole('button', { name: 'مساعد فهم النتيجة', exact: true })
+    .click();
   await page
     .getByRole('button', { name: 'لماذا يوجد فرق في الأرصدة؟', exact: true })
     .click();
   await page.getByText('فرق الأرصدة الفعلي', { exact: false }).waitFor();
-  await page.getByRole('tab', { name: 'يحتاج مراجعة (2)', exact: true }).click();
+  await page
+    .getByRole('tab', { name: 'يحتاج مراجعة (2)', exact: true })
+    .click();
   const arabicMetrics = await metrics(page);
   const arabicRows = await page.locator('tbody tr').count();
   await assertNoStrayEnglish(page, 'Arabic review');
@@ -158,15 +219,24 @@ export async function verifyLanguages(page, url) {
   );
   assert.equal(english.title, 'Tarasuf — Local Accounting Reconciliation');
   await page.getByRole('heading', { name: 'Review workspace' }).waitFor();
-  assert.deepEqual(await metrics(page), arabicMetrics, 'same result in English');
+  assert.deepEqual(
+    await metrics(page),
+    arabicMetrics,
+    'same result in English',
+  );
   assert.equal(await page.locator('tbody tr').count(), arabicRows);
   assert.equal(
-    await page.getByRole('tab', { name: 'Needs Review (2)', exact: true }).getAttribute('aria-selected'),
+    await page
+      .getByRole('tab', { name: 'Needs Review (2)', exact: true })
+      .getAttribute('aria-selected'),
     'true',
     'the selected tab survives the switch',
   );
   const answer = await page.locator('[aria-live="polite"]').innerText();
-  assert.ok(answer.includes('Why is there a difference in the balances?'), answer);
+  assert.ok(
+    answer.includes('Why is there a difference in the balances?'),
+    answer,
+  );
   assert.ok(answer.includes('Actual balance difference'), answer);
   assert.ok(answer.includes('3,500.00'), answer);
   await assertNoArabic(page, 'review');
@@ -184,7 +254,10 @@ export async function verifyLanguages(page, url) {
   await page.setViewportSize({ width: 1440, height: 1050 });
 
   // Case details and the workpaper flow work in English.
-  await page.getByRole('button', { name: 'Case details', exact: true }).first().click();
+  await page
+    .getByRole('button', { name: 'Case details', exact: true })
+    .first()
+    .click();
   await page.getByRole('region', { name: 'Transaction review' }).waitFor();
   await assertNoArabic(page, 'case details');
   await page.getByRole('button', { name: 'Prepare the workpaper' }).click();
@@ -199,22 +272,32 @@ export async function verifyLanguages(page, url) {
   // The workpaper is the same audit record in either language.
   assert.equal(workbook.worksheets[0].name, 'Summary');
   assert.equal(workbook.getWorksheet('Matches').rowCount, 3);
-  await page.getByRole('status').filter({ hasText: 'The workpaper is ready' }).waitFor();
+  await page
+    .getByRole('status')
+    .filter({ hasText: 'The workpaper is ready' })
+    .waitFor();
 
   // Right to left again, with the notes and step intact.
   await switchTo(page, 'ar');
   assert.equal((await documentLanguage(page)).dir, 'rtl');
   assert.equal(
-    await page.getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true }).inputValue(),
+    await page
+      .getByRole('textbox', { name: 'ملاحظات المراجعة', exact: true })
+      .inputValue(),
     'Synthetic test — English',
   );
-  await page.getByRole('status').filter({ hasText: 'ورقة العمل جاهزة' }).waitFor();
+  await page
+    .getByRole('status')
+    .filter({ hasText: 'ورقة العمل جاهزة' })
+    .waitFor();
 
   // The choice is remembered, and the landing reads fully in English.
   await switchTo(page, 'en');
   page.once('dialog', (dialog) => dialog.accept());
   await page.reload();
-  await page.getByRole('button', { name: 'Try the sample', exact: true }).waitFor();
+  await page
+    .getByRole('button', { name: 'Try the sample', exact: true })
+    .waitFor();
   assert.deepEqual(
     { ...(await documentLanguage(page)), title: undefined },
     { lang: 'en', dir: 'ltr', stored: 'en', title: undefined },

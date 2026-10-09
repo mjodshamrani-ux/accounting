@@ -1535,6 +1535,7 @@ export default function App() {
       <main>
         {showLanding && <LandingIntro />}
         <ReconciliationDirectory
+          compact={!showLanding}
           disabled={!!busy || !engineReady}
           entries={[
             { id: 'supplier', title: reconciliationDirectoryCopy[dir === 'rtl' ? 'ar' : 'en'].supplierTitle },
