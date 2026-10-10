@@ -13,11 +13,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    env:
-      RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
-      RUNNING_REPORT_DIR: ${{ runner.temp }}/running-balance-proof
-      RUNNING_MUTATION_REPORT_DIR: ${{ runner.temp }}/running-balance-mutations
-      RUNNING_BROWSER_REPORT_DIR: ${{ runner.temp }}/running-balance-browser
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
@@ -36,6 +31,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+        env:
+          RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
       - run: pnpm test:mutation-runner
       - name: Independently verify bank movements, gross/net roles, complete reversals and retained timing
         run: |
@@ -113,6 +110,10 @@ jobs:
           node --experimental-strip-types audit/stress/export-corpus.mjs
           python3 audit/stress/check_openxml.py
       - name: Verify running-balance native inputs, authority, limits, literal exports and semantic mutations
+        env:
+          RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
+          RUNNING_REPORT_DIR: ${{ runner.temp }}/running-balance-proof
+          RUNNING_MUTATION_REPORT_DIR: ${{ runner.temp }}/running-balance-mutations
         run: |
           pnpm test:running-balance
           pnpm test:running-balance:proof
@@ -156,6 +157,7 @@ jobs:
       - name: Verify running-balance review UI and independently check Arabic and English downloads
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
+          RUNNING_BROWSER_REPORT_DIR: ${{ runner.temp }}/running-balance-browser
         run: |
           test -x "$MIZAN_CHROMIUM"
           pnpm test:running-balance:browser
