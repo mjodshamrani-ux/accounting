@@ -5,7 +5,7 @@ const en = {
   claim:
     'Consistency within supplied confirmed evidence only. No posting, revenue recognition, fee legitimacy, source authenticity or completeness opinion.',
   family:
-    'Four comma CSV/XLSX originals; one table per original, one batch and the same functional currency without conversion. CSV supports SAR, JPY and KWD. Native XLSX uses plain visible cells and two decimal places.',
+    'Four originals: comma-delimited CSV or the supported native XLSX family, with the exact role headers shown in the synthetic example. One table per original, one batch and the same functional currency. CSV supports SAR, JPY and KWD. Native XLSX requires plain visible cells and two decimal places. Taxes, chargebacks and currency conversion are outside this family; their amounts or roles are never inferred.',
   back: 'Back to supplier workspace',
   demo: 'Open a synthetic gateway example',
   restore: 'Restore gateway session',
@@ -131,7 +131,7 @@ const ar: typeof en = {
   claim:
     'اتساق ضمن الأدلة المورّدة والمؤكدة فقط؛ لا قيد أو اعتراف بالإيراد أو إثبات مشروعية الرسم أو أصالة المصدر أو اكتماله.',
   family:
-    'أربعة أصول CSV بفاصل فاصلة أو XLSX، جدول لكل أصل ودفعة واحدة وعملة وظيفية واحدة بلا تحويل. يدعم CSV العملات SAR وJPY وKWD. يتطلب Excel خلايا بسيطة ظاهرة وأموالًا بمنزلتين عشريتين.',
+    'أربعة أصول: CSV بفاصل فاصلة أو عائلة XLSX الأصلية المدعومة، بعناوين الأدوار الدقيقة الموضحة في المثال الاصطناعي. جدول لكل أصل ودفعة واحدة وعملة وظيفية واحدة. يدعم CSV العملات SAR وJPY وKWD. يتطلب Excel خلايا بسيطة ظاهرة وأموالًا بمنزلتين عشريتين. الضرائب وعمليات الاعتراض على الدفع وتحويل العملات خارج هذه العائلة؛ لا نخمن مبالغها أو أدوارها.',
   back: 'العودة إلى مساحة المورد',
   demo: 'فتح مثال اصطناعي لبوابة الدفع',
   restore: 'استعادة جلسة بوابة الدفع',

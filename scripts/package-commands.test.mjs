@@ -22,4 +22,12 @@ void test('every concrete package script entry exists, and performance aliases u
     pkg.scripts['test:reliability:performance'],
     pkg.scripts['test:browser:performance'],
   );
+  assert.equal(
+    pkg.scripts['test:mutations'],
+    'node scripts/test-mutations.mjs && node scripts/test-source-display-faults.mjs',
+  );
+  assert.equal(
+    pkg.scripts['test:source-display-faults'],
+    'node scripts/test-source-display-faults.mjs',
+  );
 });

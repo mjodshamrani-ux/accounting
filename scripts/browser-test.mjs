@@ -303,6 +303,8 @@ try {
       'Unmatched',
       'Reconciliation Bridge',
       'Review Sign-off',
+      'Parsed Supplier Source',
+      'Parsed Ledger Source',
     ],
   );
   assert.ok(wb.getWorksheet('Review History').rowCount >= 3);

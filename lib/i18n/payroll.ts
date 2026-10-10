@@ -31,7 +31,7 @@ const en = {
   claim:
     'This checks supplied payroll evidence. It does not calculate tax or contributions, create postings or payments, authenticate beneficiaries, prove each employee was paid or certify payroll completeness.',
   family:
-    'Five comma UTF-8 CSV originals. SAR / JPY / KWD in the same functional currency; explicit closed period, posting and payment dates (0001–9999). 8 MiB each, 32 MiB combined and 20,000 physical data rows total. One posted bank outflow.',
+    'Five comma UTF-8 CSV originals. SAR / JPY / KWD in the same functional currency; explicit closed period, posting and payment dates (0001–9999). 8 MiB each, 32 MiB combined and 20,000 physical data rows total. For the payroll phase, GL Posting reference equals Payroll run and Entry date equals Payroll posting date. For disbursement, they equal Payout reference and Payment date. One strictly positive posted bank outflow is required. Zero-net runs and split payouts are unsupported; individual zero deductions or contributions within a paid run remain supported.',
   demo: 'Open a synthetic payroll example',
   syntheticRef: 'SYN-COMPLETE',
   syntheticNote: 'Synthetic complete selected payroll accounts and bank payout',
@@ -224,7 +224,7 @@ const ar: typeof en = {
   claim:
     'هذا فحص أدلة الرواتب المقدمة. لا يحتسب ضريبة أو اشتراكًا ولا ينشئ قيدًا أو تحويلًا ولا يوثق المستفيدين أو يثبت قبض كل موظف أو يشهد باكتمال الرواتب.',
   family:
-    'خمسة أصول CSV بفاصلة وUTF-8. SAR / JPY / KWD بالعملة الوظيفية نفسها، وفترة مغلقة ويوم قيد وصرف ميلادي صريح (0001–9999). 8 ميبيبايت لكل أصل و32 إجمالًا و20ألف صف بيانات فيزيائي. حركة صرف بنكي مرحلة واحدة.',
+    'خمسة أصول CSV بفاصلة وUTF-8. SAR / JPY / KWD بالعملة الوظيفية نفسها، وفترة مغلقة ويوم قيد وصرف ميلادي صريح (0001–9999). 8 ميبيبايت لكل أصل و32 إجمالًا و20ألف صف بيانات فيزيائي. في مرحلة إثبات الرواتب، يساوي مرجع قيد الأستاذ معرف المسير، ويوافق تاريخه يوم قيد الرواتب. في مرحلة الصرف، يساوي المرجع مرجع دفعة الصرف، ويوافق التاريخ يوم الصرف. يلزم صرف بنكي مرحل واحد موجب. المسير بصافي صفري وتجزئة الصرف غير مدعومين؛ تبقى الخصومات أو المساهمات الفردية الصفرية داخل مسير مدفوع مدعومة.',
   demo: 'افتح مثال رواتب اصطناعي',
   syntheticRef: 'SYN-COMPLETE',
   syntheticNote: 'تصريح اصطناعي لحسابات الرواتب والصرف المحددة',

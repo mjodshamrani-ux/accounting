@@ -1,5 +1,6 @@
 import { latinDigits, parseDate, parseMoney, safeSum } from './core.ts';
 import { currencyPrecision } from './currency-precision.ts';
+import { nativeDisplayIssue } from './xlsx-display.ts';
 import { assertSourceFile } from './protocol.ts';
 import type { SourceFile } from './types.ts';
 
@@ -285,7 +286,8 @@ export function reconcileClearing(input: ClearingInput): ClearingResult {
         row,
         kind: 'error',
         values,
-        error: error instanceof Error ? error.message : 'CLEARING_CELL',
+        error: nativeDisplayIssue(sheet, row, selected) ??
+          (error instanceof Error ? error.message : 'CLEARING_CELL'),
       });
     }
   }

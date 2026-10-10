@@ -398,6 +398,8 @@ void test('public synthetic audit workbook uses native cells, unique case sheets
       'Unmatched',
       'Reconciliation Bridge',
       'Review Sign-off',
+      'Parsed Supplier Source',
+      'Parsed Ledger Source',
     ];
     assert.deepEqual(
       book.worksheets.filter((s) => s.state === 'visible').map((s) => s.name),

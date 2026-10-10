@@ -16,7 +16,7 @@ export async function assertFinancialNative(
 ) {
   if (!/\.xlsx$/i.test(file.name)) return;
   if (decimals !== 2 || !(file.original instanceof ArrayBuffer)) fail();
-  await assertBankNativeDisplay(file);
+  await assertBankNativeDisplay(file, 'TB_FIN_NATIVE_DISPLAY');
   const zip = await JSZip.loadAsync(file.original!);
   const worksheets = Object.values(zip.files).filter((f) =>
     /^xl\/worksheets\/[^/]+\.xml$/i.test(f.name),

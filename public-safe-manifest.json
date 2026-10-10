@@ -33,8 +33,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3395,
-      "sha256": "1880f7a1cb45a8fd57ce1890aef758182c869a5672513b1dce5c711595fa7443",
+      "bytes": 5124,
+      "sha256": "e781c694dfd9dc9691d093ff6b08be0b332213a0287e89ffa6b5749707589354",
       "kind": "text"
     },
     {
@@ -20803,8 +20803,8 @@
     },
     {
       "path": "audit/reliability/verify-workbook.mjs",
-      "bytes": 32292,
-      "sha256": "268a553efca982a208006833c4c70ee8b5df3f23907755b28ae163187ee6fd00",
+      "bytes": 32350,
+      "sha256": "7beb33b8bc0e0f9f00c2dea896cc81f2d50800e6793fb7cb69c4fcadb26e7e0d",
       "kind": "text"
     },
     {
@@ -21321,8 +21321,8 @@
     },
     {
       "path": "audit/stress/check_openxml.py",
-      "bytes": 8386,
-      "sha256": "a1d1cf13f16633c8aca0b6e6b896eaa8a455816a32312db989157d73b33dde42",
+      "bytes": 8440,
+      "sha256": "802ec2110228b1c7342bd9e0d9c1b6ccc4ca417ad814f30d4117eb7ba8f580bd",
       "kind": "text"
     },
     {
@@ -23547,8 +23547,8 @@
     },
     {
       "path": "components/bank-workspace.tsx",
-      "bytes": 25524,
-      "sha256": "1e15a3030dabbb3d62e76b6b4e2437123c3dffd919907ee9fa459916dbcc5a0b",
+      "bytes": 25823,
+      "sha256": "d9d116c510fd05fd23857a611a391c4f8ecfd7a0fbc1685b4bfa3cd8d6abb2da",
       "kind": "text"
     },
     {
@@ -24129,8 +24129,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 4152,
-      "sha256": "052cd2e3adaff1bd73e08a4cf74dc243de784a2c622f854ed036367ec92da088",
+      "bytes": 3844,
+      "sha256": "a87bcca028a2423d62216812b2b8d207021459e1e39221514a5493efdbbf2c6e",
       "kind": "text"
     },
     {
@@ -24149,6 +24149,12 @@
       "path": "docs/PUBLIC-SOURCE-POLICY.ar.md",
       "bytes": 3619,
       "sha256": "79211b50241c312a8611f08b3faa119eac7f023bcb2b0be4bd4d0c5cf269ae3d",
+      "kind": "text"
+    },
+    {
+      "path": "docs/RELEASE-0.4.39.ar.md",
+      "bytes": 3592,
+      "sha256": "c09f5b79a84d03c74733865b6a3da9b189b9a0706f1f523fc6fd78d81f6d2599",
       "kind": "text"
     },
     {
@@ -24210,7 +24216,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "11e0b8a7c7282c30a85f59f0f5880412ccb628cd22ef18b4157360486f7daccb",
+      "sha256": "08ffbd58fb31d47b783dae4d6e27730c8853732eb3bfde8bf0f7b2ee771833aa",
       "kind": "text"
     },
     {
@@ -24239,8 +24245,8 @@
     },
     {
       "path": "lib/i18n/engine-catalog.ts",
-      "bytes": 106640,
-      "sha256": "3ad489a1b768fab0d1ceec3c8dd24fcd272110a951d9a1428542eb43126ccfca",
+      "bytes": 107825,
+      "sha256": "977fa8992e09d529659807d4825e6510bb46eac94b560135731f58b4507196a6",
       "kind": "text"
     },
     {
@@ -24281,14 +24287,14 @@
     },
     {
       "path": "lib/i18n/locales/ar.ts",
-      "bytes": 97198,
-      "sha256": "36b0e9f945ace268ac14162a4177214569dae7f46681343da28f60b09087a6df",
+      "bytes": 97550,
+      "sha256": "24c6317c0c247610807857db102c22bae9b19cf3a028ba9ed65484d6734865e0",
       "kind": "text"
     },
     {
       "path": "lib/i18n/locales/en.ts",
-      "bytes": 77652,
-      "sha256": "54b84b76574cd9a0be901f895cf29a241e24c1880f303d04eebe61eac3a9316d",
+      "bytes": 77928,
+      "sha256": "189e414c3702aed1c861f7ab264338ffdefa962d0f4ea6e43cf6627246309359",
       "kind": "text"
     },
     {
@@ -24305,14 +24311,14 @@
     },
     {
       "path": "lib/i18n/payment-gateway.ts",
-      "bytes": 9450,
-      "sha256": "0e0d9df1bddac38b24de7411ebcd366b1d10af396deb2d2a64b706bada1cc747",
+      "bytes": 9948,
+      "sha256": "a855900038e6ea61d7cc5a1d751a4a5efbca964e7d3aa03cb05b0b8a789f1565",
       "kind": "text"
     },
     {
       "path": "lib/i18n/payroll.ts",
-      "bytes": 17540,
-      "sha256": "5922e7b3112dc3fac69a9870f5cc00bd064675001ef124aa64ced443ac5bc1db",
+      "bytes": 18376,
+      "sha256": "015916e0f84be9c488539b2e7a632af6ad00302df08823f62a6079663364f0a7",
       "kind": "text"
     },
     {
@@ -24371,8 +24377,8 @@
     },
     {
       "path": "lib/reconciliation/allocation.ts",
-      "bytes": 15661,
-      "sha256": "e115a461cc852b4a59667a8e0e226d2d7b5f77d26b798f8c7e40b514799d028b",
+      "bytes": 15831,
+      "sha256": "64311453a08eecb5306c3f7706764d59f6d4fcd3fdb7bfdbc16cc3dde7bcc7fa",
       "kind": "text"
     },
     {
@@ -24389,8 +24395,8 @@
     },
     {
       "path": "lib/reconciliation/ar.ts",
-      "bytes": 16425,
-      "sha256": "67b9743d17d4882bc038e053531929394cdbd514cd94033bfec6e4ec0a3f79bf",
+      "bytes": 16615,
+      "sha256": "3677cacc1eed4fa637cf405a5001ed9fdb189c7e8854b5cf6554e0fa6c79bf5c",
       "kind": "text"
     },
     {
@@ -24437,14 +24443,14 @@
     },
     {
       "path": "lib/reconciliation/bank-io.ts",
-      "bytes": 8879,
-      "sha256": "47d8ab60e7b038f060c367f5c0046328d4f144d19e91a47d3cbfb987e49573ae",
+      "bytes": 8988,
+      "sha256": "70d11e908805aecde618ef1b62a8e3a5f3b8ade6a7aeb9e7f02cfb116d2f7b9a",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/bank-native-display.ts",
-      "bytes": 7284,
-      "sha256": "e6fff1810d9e2133b0e8a4e16849fc83e77c44743aa561a06b84aa216c4166b9",
+      "bytes": 7945,
+      "sha256": "893bd977a865e2926bcea2ca41e5beb6679fc2def9c2e7189acddb6b2daab158",
       "kind": "text"
     },
     {
@@ -24473,14 +24479,14 @@
     },
     {
       "path": "lib/reconciliation/clearing-io.ts",
-      "bytes": 7807,
-      "sha256": "5bd64067cb7b752f3f49ec519844daec49f9d0a1113a58c7476201b1903ae57e",
+      "bytes": 7996,
+      "sha256": "cc9d767045fcaba910b7b3b3da90513a3dbd4ec7a2dee1023db5386cdce2b862",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/clearing.ts",
-      "bytes": 13139,
-      "sha256": "56c8a93625ef799449064f8ada823f3b0fe72a2e3625f44de91e3d466ca99efb",
+      "bytes": 13251,
+      "sha256": "4cd3e82584da5f1b7f2acfdd4e9ec7b8dfda83a920d969aced45c603ef9ce22c",
       "kind": "text"
     },
     {
@@ -24569,8 +24575,8 @@
     },
     {
       "path": "lib/reconciliation/gl-tb.ts",
-      "bytes": 13839,
-      "sha256": "01a0f7bdf9a7f063c25de3824cc17757c8b48f6241cd72004416bd1f96940897",
+      "bytes": 14027,
+      "sha256": "119c6823bb0a8f66e053d4a47f39406d8ca3360d0d2adf5f4d7b406f4a6b7fe4",
       "kind": "text"
     },
     {
@@ -24635,8 +24641,8 @@
     },
     {
       "path": "lib/reconciliation/intercompany.ts",
-      "bytes": 29939,
-      "sha256": "1d57b94aaa7e539dcd4950de8de896ead1f6ccbd5eb31e8e5c3cb3e0bb1c815a",
+      "bytes": 30001,
+      "sha256": "3f725b3c1c6f791aef6d0c5838c71ad893e9d201481b93269b3eea4d83e9381e",
       "kind": "text"
     },
     {
@@ -24683,8 +24689,8 @@
     },
     {
       "path": "lib/reconciliation/io.ts",
-      "bytes": 43238,
-      "sha256": "ca41d0ec67886974c307700b207377cb4cb51bd5d813404bea5004184520dddf",
+      "bytes": 48297,
+      "sha256": "c16b169cbc5d59d5c62f2999a638f41f984cb056efe09cb761b7e8a950a29fde",
       "kind": "text"
     },
     {
@@ -24929,8 +24935,8 @@
     },
     {
       "path": "lib/reconciliation/tb-financial-native.ts",
-      "bytes": 4298,
-      "sha256": "33b391d14c711717539babfbb6d752e465560290bcd11c424f391b9161da83b1",
+      "bytes": 4323,
+      "sha256": "19d6edbb1551dfecf06548ab6064da5e05bd3a1fd7df1792bbbd332932ec150e",
       "kind": "text"
     },
     {
@@ -25024,6 +25030,12 @@
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/xlsx-display.ts",
+      "bytes": 15773,
+      "sha256": "1703bb4a24d5892ddb16f72fd43114c9c6e8810c9623f1c330d6dd35413c5159",
+      "kind": "text"
+    },
+    {
       "path": "lib/reconciliation/xlsx-namespaces.ts",
       "bytes": 20684,
       "sha256": "03fa1e563a57200892cc37c82166bae68a28d5c8940187999cdf33e88cc6efc4",
@@ -25055,8 +25067,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 3878,
-      "sha256": "3be56bb9e0ca55882aadf98f1d13f72f02fed1c235842589df9e6bd8693dc4e1",
+      "bytes": 4006,
+      "sha256": "7f40b822f8e1f7b6beeb8262b2838def09d8408cf503c6d3f443a5715ab21e06",
       "kind": "text"
     },
     {
@@ -25233,8 +25245,8 @@
     },
     {
       "path": "scripts/browser-test.mjs",
-      "bytes": 77567,
-      "sha256": "d0002b19b601358fc0f10fa401368221e4f643c7d107b426b3d730da58d0b643",
+      "bytes": 77629,
+      "sha256": "bb31356a6ef3836e6938ee23cb201568dc2953185b48b74b37d4ee1d0ee92a14",
       "kind": "text"
     },
     {
@@ -25437,8 +25449,8 @@
     },
     {
       "path": "scripts/package-commands.test.mjs",
-      "bytes": 894,
-      "sha256": "67e5ce1c2c8dc6c1cf775461d0dad0f4c45ebd5665d1d4abe8aef988609a80c0",
+      "bytes": 1155,
+      "sha256": "d4b2a3881c984aac9766a4aef5b0a36a116791853d9c2a49513b13c4602eaf66",
       "kind": "text"
     },
     {
@@ -25652,6 +25664,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/test-source-display-faults.mjs",
+      "bytes": 4425,
+      "sha256": "b51157c33502532230b1eaaeaf22294996b82cf2c525d1d12b68678ebe48f4fe",
+      "kind": "text"
+    },
+    {
       "path": "scripts/test-specialized-faults.mjs",
       "bytes": 1353,
       "sha256": "fc864c65ac7d2a5987e146a064b71e9478d82b0c0d867a71846d6451105dfb28",
@@ -25797,8 +25815,8 @@
     },
     {
       "path": "tests/bank-adjustment.test.ts",
-      "bytes": 21782,
-      "sha256": "e6a3fc4cbcc9c6973cb423c1712e5312075f0d34632e6f020cea7e7ec8711650",
+      "bytes": 22353,
+      "sha256": "e3c8fb66a6f6f0588aafb1c6dbe83c2198413b54338a86290138d40e4990c3df",
       "kind": "text"
     },
     {
@@ -25841,6 +25859,12 @@
       "path": "tests/core.test.ts",
       "bytes": 11040,
       "sha256": "e71441d76d5e88439554c40adff61730666e0f4e2df70b2df64a2f57c3746a0f",
+      "kind": "text"
+    },
+    {
+      "path": "tests/date-snapshot-boundaries.test.ts",
+      "bytes": 17095,
+      "sha256": "a2b3301792ef0ab5d766159ea231383e48843f431469bc5b71957b170749d5a2",
       "kind": "text"
     },
     {
@@ -26185,8 +26209,8 @@
     },
     {
       "path": "tests/import-selection.test.ts",
-      "bytes": 9214,
-      "sha256": "77eb2ce38efae17477558c8d570b07795c08ae36d18483d9fa26116c2e869c3c",
+      "bytes": 9452,
+      "sha256": "4dd0bfc8da8beaf3c7cf52899ce53b5920c3b178ebad4ed5457eedfd22c26f3a",
       "kind": "text"
     },
     {
@@ -26319,6 +26343,12 @@
       "path": "tests/multiline-source-review-ui.test.ts",
       "bytes": 9205,
       "sha256": "fe36d51108869af66a8f74637806239d77a64d0493bde09df1b3d694bbb6f9fc",
+      "kind": "text"
+    },
+    {
+      "path": "tests/native-display-mapping.test.ts",
+      "bytes": 29556,
+      "sha256": "91fad0eb4684f5e7b29ffda5af9142fbee4d35cdcf311d00b29004f38b09966f",
       "kind": "text"
     },
     {
@@ -26694,6 +26724,12 @@
       "kind": "text"
     },
     {
+      "path": "tests/source-display-entry.test.ts",
+      "bytes": 17592,
+      "sha256": "0920c288517d5d474bd057773de74e13b5066cf81004eaa6ac52f31dcce748ba",
+      "kind": "text"
+    },
+    {
       "path": "tests/source-preparation.test.ts",
       "bytes": 11110,
       "sha256": "2fcece743a4421f9fcb7b449101534e95fcc8dcde48f15f0087cb33d5e693fad",
@@ -26743,8 +26779,8 @@
     },
     {
       "path": "tests/synthetic-native-regression.test.ts",
-      "bytes": 16594,
-      "sha256": "cd7fd21f9e6a82830b5ae08189a88bcb42cc942f8d111cb2d4782b9481cf2521",
+      "bytes": 16656,
+      "sha256": "bc29b6b1bdaea66bffa32a64258f99886d950ee29e2c9302d1fa0c817ac5991f",
       "kind": "text"
     },
     {
@@ -26906,13 +26942,13 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-BxMCo0ZG.js",
-      "bytes": 5820638,
-      "sha256": "39fa0746048c0ea63164f8646b86b89ce870bc860b4e1f7e27cf882e54b2c7a4",
+      "path": "assets/index-Dgi0i2Zz.js",
+      "bytes": 5841393,
+      "sha256": "a00bb6668ef80145a96cb294d744f601d58c822190b211f240e58c7b0e2e4032",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Application bundle compiled locally from the reconciliation workspace presentation changes and unchanged pinned pnpm-lock.yaml. Locked ZIP/XML parser literals include control bytes. Full decoded privacy scans remain required. Exact build lineage and UI-only source delta are independently reviewed before publication."
+        "description": "Application bundle compiled locally from the independently reviewed source-display, date-validation, input-snapshot and diagnostic changes. Pinned pnpm-lock.yaml is unchanged. Locked ZIP/XML parser literals include control bytes; full decoded privacy scans remain required. Exact source and build hashes require independent review before publication."
       }
     },
     {
@@ -26944,9 +26980,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/visual-renderer-ChqHyvlB.js",
+      "path": "assets/visual-renderer-DLOAUP3A.js",
       "bytes": 6542,
-      "sha256": "589589269546ccdad8e9ef6c97966b770071bbcec6de71817b478500d32dc158",
+      "sha256": "6e39fa6eaabdf540a74411e592897bd13be5dfe7a31e2938aa9c4085a8b2c34f",
       "kind": "text"
     },
     {
@@ -27022,7 +27058,7 @@
     {
       "path": "index.html",
       "bytes": 3359,
-      "sha256": "b5c4ac3d56a19e76df292f7dbef4a811b585678b97fd7868518294968071d3cd",
+      "sha256": "4e7b22b5b7d00c085bc405f8c3ae354efa60af3c8fe6669864504d3aeb3d710a",
       "kind": "text"
     },
     {

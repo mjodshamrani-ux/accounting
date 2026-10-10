@@ -343,6 +343,8 @@ export async function verifyWorkbook(bytes, expected) {
     'Reconciliation Bridge',
     'Review Sign-off',
     ...(readingIssues.length ? ['Reading Issues'] : []),
+    'Parsed Supplier Source',
+    'Parsed Ledger Source',
   ];
   assert.deepEqual(
     [...sheets.values()]

@@ -10,7 +10,7 @@ root = Path('work/stress/workbooks')
 ns = {'x': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 cases = json.loads((root / 'manifest.json').read_text())
 checks = date_checks = formula_checks = 0
-visible = ['Summary', 'Matches', 'Needs Review', 'Unmatched', 'Reconciliation Bridge', 'Review Sign-off']
+visible = ['Summary', 'Matches', 'Needs Review', 'Unmatched', 'Reconciliation Bridge', 'Review Sign-off', 'Parsed Supplier Source', 'Parsed Ledger Source']
 for case in cases:
     with ZipFile(root / case['name']) as z:
         assert z.testzip() is None
@@ -33,7 +33,7 @@ for case in cases:
             path = target.lstrip('/') if target.startswith('/') else 'xl/' + target
             sheets[sh.attrib['name']] = ET.fromstring(z.read(path))
             states[sh.attrib['name']] = sh.attrib.get('state', 'visible')
-        assert list(sheets)[:6] == visible
+        assert list(sheets)[:6] == visible[:6]
         assert [name for name, state in states.items() if state == 'visible'] == visible
         assert all(state == 'hidden' for name, state in states.items() if name not in visible)
 

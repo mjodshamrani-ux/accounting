@@ -71,7 +71,7 @@ export function BankWorkspace({
     [result, setResult] = useState<BankResult | null>(null),
     [busy, setBusy] = useState(false),
     [balanceBusy, setBalanceBusy] = useState(false),
-    [failed, setFailed] = useState(false),
+    [failed, setFailed] = useState<'general' | 'native-display' | null>(null),
     [page, setPage] = useState(0),
     [reference, setReference] = useState(''),
     [note, setNote] = useState(''),
@@ -90,7 +90,7 @@ export function BankWorkspace({
   function invalidate() {
     setResult(null);
     setEvents([]);
-    setFailed(false);
+    setFailed(null);
     setPage(0);
     setBankId('');
     setCashId('');
@@ -122,12 +122,17 @@ export function BankWorkspace({
       control = new AbortController();
     controller.current = control;
     setBusy(true);
-    setFailed(false);
+    setFailed(null);
     try {
       await prepareWorker();
       if (!control.signal.aborted) await work(control.signal);
-    } catch {
-      if (id === serial.current && !control.signal.aborted) setFailed(true);
+    } catch (error) {
+      if (id === serial.current && !control.signal.aborted)
+        setFailed(
+          error instanceof Error && error.message === 'BANK_NATIVE_DISPLAY'
+            ? 'native-display'
+            : 'general',
+        );
     } finally {
       if (id === serial.current) {
         setBusy(false);
@@ -137,7 +142,7 @@ export function BankWorkspace({
   }
   async function upload(side: 0 | 1, blob: File) {
     if (blob.size > MAX_FILE_BYTES || !/\.(csv|xlsx)$/i.test(blob.name)) {
-      setFailed(true);
+      setFailed('general');
       return;
     }
     await perform(async (signal) => {
@@ -294,7 +299,7 @@ export function BankWorkspace({
                     e.target.value = '';
                     if (!blob) return;
                     if (blob.size > 32 * 1024 * 1024) {
-                      setFailed(true);
+                      setFailed('general');
                       return;
                     }
                     void perform(async (signal) =>
@@ -450,7 +455,11 @@ export function BankWorkspace({
               {t.cancel}
             </Button>
           )}
-          {failed && <p role="alert">{t.failed}</p>}
+          {failed && (
+            <p role="alert">
+              {failed === 'native-display' ? t.displayFailed : t.failed}
+            </p>
+          )}
           {result && (
             <>
               <h2 data-testid="bank-result">{t.status[result.status]}</h2>

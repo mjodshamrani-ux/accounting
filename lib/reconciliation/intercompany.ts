@@ -302,7 +302,12 @@ function text(v: string, limit = 500, identity = true) {
   return v;
 }
 function date(v: string) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(v) || parseDate(v, 'ymd') !== v) fail('DATE');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) fail('DATE');
+  try {
+    if (parseDate(v, 'ymd') !== v) fail('DATE');
+  } catch {
+    fail('DATE');
+  }
   return v;
 }
 function amount(raw: string, decimals: number, signed = false) {

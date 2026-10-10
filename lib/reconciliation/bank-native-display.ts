@@ -86,7 +86,10 @@ const trueFlag = (v: string | undefined) => {
 // Call only after readFile has bounded/validated the ZIP and its XML. This
 // canonical bank family supports known plain fonts, backgrounds and dimensions,
 // not arbitrary Excel display layers. Source bytes are never rewritten.
-export async function assertBankNativeDisplay(file: SourceFile) {
+export async function assertBankNativeDisplay(
+  file: SourceFile,
+  plainTextError = 'BANK_NATIVE_DISPLAY',
+) {
   if (!/\.xlsx$/i.test(file.name)) return;
   if (!(file.original instanceof ArrayBuffer)) fail();
   const zip = await JSZip.loadAsync(file.original);
@@ -176,12 +179,28 @@ export async function assertBankNativeDisplay(file: SourceFile) {
     'extLst',
     'oleObjects',
     'controls',
+    // The plain bank family has no run-level font/display contract. CellXfs
+    // alone cannot prove visibility of shared or inline rich text.
   ]);
+  const plainText = (name: string) => {
+    if (name === 'r' || name === 'rPr') throw Error(plainTextError);
+  };
+  const shared = zip.file('xl/sharedStrings.xml');
+  if (shared) {
+    const parser = new SaxesParser({ xmlns: true });
+    parser.on('doctype', fail);
+    parser.on('opentag', (tag) => {
+      plainText(tag.local);
+      if (overlays.has(tag.local)) fail();
+    });
+    parser.write(await shared.async('string')).close();
+  }
   for (const entry of Object.values(zip.files)) {
     if (!/^xl\/worksheets\/[^/]+\.xml$/i.test(entry.name)) continue;
     const parser = new SaxesParser({ xmlns: true });
     parser.on('doctype', fail);
     parser.on('opentag', (tag) => {
+      plainText(tag.local);
       if (overlays.has(tag.local)) fail();
       const a: Record<string, string> = {};
       for (const value of Object.values(tag.attributes))

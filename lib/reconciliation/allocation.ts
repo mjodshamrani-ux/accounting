@@ -1,5 +1,6 @@
 import { latinDigits, parseDate, parseMoney, safeSum } from './core.ts';
 import { currencyPrecision } from './currency-precision.ts';
+import { nativeDisplayIssue } from './xlsx-display.ts';
 import { assertSourceFile } from './protocol.ts';
 import type { SourceFile } from './types.ts';
 
@@ -213,7 +214,7 @@ function readSource(input: AllocationInput, side: 0 | 1 | 2, decimals: number) {
   if (
     !s?.rows.length ||
     s.hiddenRows.includes(1) ||
-    s.rowIssues?.['1']?.length ||
+    s.rowIssues?.['1']?.some((issue) => !issue.startsWith('XLSX_NATIVE_DISPLAY:')) ||
     s.xlsxHeaders?.hiddenColumns.length ||
     s.xlsxHeaders?.merges.length ||
     [s.cellIssues, s.referenceIssues].some((m) =>
@@ -316,7 +317,8 @@ function readSource(input: AllocationInput, side: 0 | 1 | 2, decimals: number) {
         row,
         kind: 'error',
         values,
-        error: e instanceof Error ? e.message : 'ALLOCATION_ROW',
+        error: nativeDisplayIssue(s, row, Object.values(col)) ??
+          (e instanceof Error ? e.message : 'ALLOCATION_ROW'),
       });
     }
   }
