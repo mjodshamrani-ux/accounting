@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.41",
+  "version": "0.4.42",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -29,7 +29,7 @@
     "test:split-section": "node --experimental-strip-types --test tests/split-section-classifier.test.ts tests/split-section-session.test.ts",
     "test:split-section:mutations": "node scripts/test-split-section-mutations.mjs",
     "test:split-section:browser": "node scripts/split-section-browser.mjs",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm test:native-pdf:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:split-section:browser",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm test:native-pdf:mutations && pnpm test:running-balance && pnpm test:running-balance:proof && pnpm test:running-balance:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:split-section:browser && pnpm test:running-balance:browser",
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
     "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
@@ -40,7 +40,11 @@
     "test:reliability:performance": "node scripts/performance-check.mjs",
     "postinstall": "node scripts/prepare-native-pdf.mjs",
     "prepare:native-pdf": "node scripts/prepare-native-pdf.mjs",
-    "test:native-pdf:mutations": "node scripts/test-native-pdf-mutations.mjs"
+    "test:native-pdf:mutations": "node scripts/test-native-pdf-mutations.mjs",
+    "test:running-balance": "RUNNING_SESSION_REPORT_DIR=\"${RUNNING_SESSION_REPORT_DIR:-work/running-balance-session}\" node --experimental-strip-types --test tests/running-balance-classifier.test.ts tests/running-balance-session.test.ts tests/running-balance-authority.test.ts tests/running-balance-native-regression.test.ts",
+    "test:running-balance:mutations": "RUNNING_MUTATION_REPORT_DIR=\"${RUNNING_MUTATION_REPORT_DIR:-work/running-balance-mutations}\" node scripts/test-running-balance-mutations.mjs",
+    "test:running-balance:proof": "RUNNING_REPORT_DIR=\"${RUNNING_REPORT_DIR:-work/running-balance-proof}\" node --experimental-strip-types scripts/running-balance-proof.mjs && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_REPORT_DIR:-work/running-balance-proof}\"",
+    "test:running-balance:browser": "RUNNING_BROWSER_REPORT_DIR=\"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}\" node --experimental-strip-types scripts/running-balance-browser.mjs && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}/ar\" && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}/en\""
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 19074,
-      "sha256": "65389043ab964e41187e853293c50c877c6e26ac4b8df295409757b1b25b8201",
+      "bytes": 19890,
+      "sha256": "a5b64fff4d3cbc11ad2c1bbb9d435741fe551e9a30098a3cbbe614ed14a93490",
       "kind": "text"
     },
     {
@@ -57,8 +57,8 @@
     },
     {
       "path": "app/page.tsx",
-      "bytes": 130724,
-      "sha256": "cb588c20e39055c50ebbe94ccc7455c90653768c39e1bcbb7a89120896c32688",
+      "bytes": 130911,
+      "sha256": "ae443a069b9f4913e9abbacdf39f8f490be754dbcdfa2f4841e364a842e8aff9",
       "kind": "text"
     },
     {
@@ -21070,6 +21070,798 @@
       "kind": "text"
     },
     {
+      "path": "audit/running-balance/ACTION-TRUTHS.json",
+      "bytes": 4350,
+      "sha256": "ba1fde2c912f99f0a72f8b1f5e1b25e4b6bd53eacfd8a94ba621e9062c784f68",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/README.md",
+      "bytes": 4344,
+      "sha256": "8cb4655b65e028fb1eb5c290aa06658b7bcaf08e61b9a971cca81fc597ab40c5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/INPUT-MANIFEST.json",
+      "bytes": 16498,
+      "sha256": "76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N01-wrong-running-balance/facts.json",
+      "bytes": 5258,
+      "sha256": "790c2b8fc5a70bda22f173cce3d6a3ef1bb9f5766d8467fddd567f54bfe7931d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N01-wrong-running-balance/source.pdf",
+      "bytes": 5419,
+      "sha256": "a8bb89a8a2b03400ba199c489bdd3301afd3f9c1e82901d10b1bf1934dd6fd5c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N02-wrong-opening/facts.json",
+      "bytes": 5242,
+      "sha256": "71bb51af07c721af4b775addfa19125bbc4ec595b058b1b2474d3efcf56d0460",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N02-wrong-opening/source.pdf",
+      "bytes": 5418,
+      "sha256": "7b7178976236be39b09d2d98688773f5daa6e652a1d4387b59a04b0cb736c227",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N03-wrong-closing/facts.json",
+      "bytes": 5259,
+      "sha256": "5bef7c617f6fb2b1bc97bf6054ef5117ecea575c0617cd30309cacd43848395c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N03-wrong-closing/source.pdf",
+      "bytes": 5419,
+      "sha256": "4ff7663b50e3f06bb118f68f597243c97c55f672ad434f286bd4d0b3c11c9f4c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N04-wrong-carried/facts.json",
+      "bytes": 5244,
+      "sha256": "48d93576d9b9577197fde5665db854bceeb3a645665f6725ab85e1f12e70610c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N04-wrong-carried/source.pdf",
+      "bytes": 5419,
+      "sha256": "a313fcd53dce21b7793308fb1be8d3e7ee5c435946c607992f4e829afbb17143",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N05-wrong-brought/facts.json",
+      "bytes": 5250,
+      "sha256": "761fd44bd09a6f283622ef68674d4a678bec515c0a414745ac2ca6c19984a56b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N05-wrong-brought/source.pdf",
+      "bytes": 5419,
+      "sha256": "7f2068a7c423284d0139bbeacfad6d4b8bf95289b4f0d242c839d9e3bbce76d4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N06-reordered-pages/facts.json",
+      "bytes": 5254,
+      "sha256": "aff78c560ab0f171a06d25e052b987eade62f932c0faf10b7351756c53330808",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N06-reordered-pages/source.pdf",
+      "bytes": 5419,
+      "sha256": "55c82335fd33d001b1791a94e833fcac466a925532f3534404f3d3538e9341e1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N07-missing-page/facts.json",
+      "bytes": 3382,
+      "sha256": "0b7b5645f49a2ffc72b1905bd1decca6edd6312c470308d2112591a271244907",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N07-missing-page/source.pdf",
+      "bytes": 3315,
+      "sha256": "fd2cd58e3938a33b430548a88a72a2da4af04c5e64d3f8f22d2d3d917c8d8983",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N08-duplicate-page/facts.json",
+      "bytes": 7124,
+      "sha256": "c3c66cc2ac8f94f6b11bbaea31df5837b81e6cff5108bbcbea6f26c190e4badd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N08-duplicate-page/source.pdf",
+      "bytes": 7525,
+      "sha256": "0f83366c72ab70dd7feae7a9c93ea45d01267ca4ffae9bbbe94d65c5df3db0f4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N09-wrong-continuation/facts.json",
+      "bytes": 5242,
+      "sha256": "f19b3db6c1d026f5f57385d7bfa0723b18188bdda3cff5dceb16b9c530aa7532",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N09-wrong-continuation/source.pdf",
+      "bytes": 5419,
+      "sha256": "274f4c77f539b6208bc769083bda994565d30b9f3862a1d13958816ae96e6238",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N10-basis-flips-on-page/facts.json",
+      "bytes": 5248,
+      "sha256": "f7665beac89fd7615d0e442c8e45c2d6ed46d7630e67c4d4b87a39d5fdb63520",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N10-basis-flips-on-page/source.pdf",
+      "bytes": 5419,
+      "sha256": "f29b2cc19599b4d42a8e3c20497f1f431ea8efd21b3d667f1275740c7f9c19f4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N11-account-flips-on-page/facts.json",
+      "bytes": 5229,
+      "sha256": "aa2c5f8839eb75e0c3609541294ac37b3223735202c20cf416d0faf474dda424",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N11-account-flips-on-page/source.pdf",
+      "bytes": 5419,
+      "sha256": "d8abec55b48f88c54cbdeeba3f741f100f63db5f0924198cff514a3d7fbc0a53",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N12-missing-movement/facts.json",
+      "bytes": 5118,
+      "sha256": "182e3dfae93e481965967f78e53e052d6871cc1554ac44acc6908b772e3eb611",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N12-missing-movement/source.pdf",
+      "bytes": 5085,
+      "sha256": "6d6e69859669d4be9d7ac1f5e0307300e1802a97ab7434323e7ceba9fc6507c0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N13-duplicate-movement/facts.json",
+      "bytes": 5409,
+      "sha256": "22d1f557a1fe5eeb9266198c30a7c71d2ca7f2988278d03aab28f1feeefde9e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N13-duplicate-movement/source.pdf",
+      "bytes": 5751,
+      "sha256": "b280515b5f9ded4b23319f1161365dde9375a0ebd05d7f685e90e0a7d757aceb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N14-swapped-movements/facts.json",
+      "bytes": 5248,
+      "sha256": "7eb8c9d67d0ae4a4ade5538e3549088ca26797c98557b4b783b5dd829c921de7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N14-swapped-movements/source.pdf",
+      "bytes": 5419,
+      "sha256": "34105570979070184c302e1a6f722cb3300f3665ad7be30a6d71fd0d20758189",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N15-equal-net-two-movements-lost/facts.json",
+      "bytes": 3184,
+      "sha256": "9db364e9f7a5cea278f5e7870b33996b9a770dbe8a57417a3159f9d80b14ffed",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N15-equal-net-two-movements-lost/source.pdf",
+      "bytes": 2978,
+      "sha256": "a86225a6b420feebdf9d4f0ef57ddf610041667a418264c1a51b62046a9b3fb9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N16-missing-zero-movement/facts.json",
+      "bytes": 3293,
+      "sha256": "8234934f6defa277acb57df2eb93dd1307ce4910ec88870984ede23a860a4d1a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N16-missing-zero-movement/source.pdf",
+      "bytes": 3246,
+      "sha256": "37cdbbb4bac26af3bbde0eb7b65b1eaf66e637389067079d663c92b4c37b70f2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N17-duplicate-page-total/facts.json",
+      "bytes": 5386,
+      "sha256": "5d605a9b1dac9b3d09a2fcdfe12840187a7b5dbe4bf2622e65e045681a3d4fee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N17-duplicate-page-total/source.pdf",
+      "bytes": 5562,
+      "sha256": "2e873a725b03974cb6af01642799ccbdafc08c1c1972cf430c9764a1ef57c136",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N18-balance-used-as-debit/facts.json",
+      "bytes": 5272,
+      "sha256": "8998c009d7d499d1349e350ca47319a8560021f2574ef6ed2c0b8fa2ef85ea3f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N18-balance-used-as-debit/source.pdf",
+      "bytes": 5419,
+      "sha256": "f96b3057ca1ba39a21d704bf22e571aa4212a51de94ee6bab208ebf2a20427bd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N19-missing-balance/facts.json",
+      "bytes": 5240,
+      "sha256": "7a25eed0a82defb8cfd83efe8bdc62825e0fac60e373eba7e183ca3eb47613e4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N19-missing-balance/source.pdf",
+      "bytes": 5371,
+      "sha256": "f18ce4862191d072e75db7eaa9b52f11ab19472c25228d30ec5b9b567f5bb42c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N20-unknown-amount-column/facts.json",
+      "bytes": 5265,
+      "sha256": "d35344e7b681d47e0c63d72cb61e75121592e414b6ab13a54d6b5ea878726130",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N20-unknown-amount-column/source.pdf",
+      "bytes": 5420,
+      "sha256": "63d5beefb72530e0979d26266e37666a20ff17ffb69e52bb4ef2a9488966cd69",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N21-both-components-positive/facts.json",
+      "bytes": 5253,
+      "sha256": "2949caeb25c8a8d32be051a45c8c2b121c0d224a3888cf720a87c70a4ca6e478",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N21-both-components-positive/source.pdf",
+      "bytes": 5422,
+      "sha256": "86602612c80e8ed739a07ce293b459e22ad1fccec52e6bdee15e80b5106f78ac",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N22-signed-debit/facts.json",
+      "bytes": 5248,
+      "sha256": "04da9b4fad5aac91a70efbc31fa818b7ea31168a5b7e242bf7dd07ba30d72a56",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N22-signed-debit/source.pdf",
+      "bytes": 5420,
+      "sha256": "5359218c163b6b40e9c2f531ecdcd567aef8cd3a920165eed674442fe265ee06",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N23-missing-component/facts.json",
+      "bytes": 5235,
+      "sha256": "758118c83a08cf7874c08acda3b8b2639b9d8d42cf29251812a6fe4fd74e236c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N23-missing-component/source.pdf",
+      "bytes": 5376,
+      "sha256": "404ed3e6986ae95c92daed423a5eaef5706c18c0336f5aba908d3ef92b69c91b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N24-opening-as-movement/facts.json",
+      "bytes": 5281,
+      "sha256": "759bef40a764b83870d1759f3c92d0ea96c2fb80ab46b3342103ec447be5cc47",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N24-opening-as-movement/source.pdf",
+      "bytes": 5467,
+      "sha256": "303f7c63b27864c866edda743aa211b6695bd7c817c555a343c0f74ddfe795c1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N25-section-reset-balance/facts.json",
+      "bytes": 5253,
+      "sha256": "864a6a9a33b7e2942c05ce6b86d9c0181414c48c9c5a2f7f7637ef28b934fa9d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N25-section-reset-balance/source.pdf",
+      "bytes": 5418,
+      "sha256": "d008ce76f18a03d8905330ee02caa480c4fe34cd425957c18242d1dfc1a10381",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N26-wrong-page-total/facts.json",
+      "bytes": 5271,
+      "sha256": "fdfff3c2ddbb64ee1c3a922d64db9c19d730e2a10aef89e1cdb92274213d09fa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N26-wrong-page-total/source.pdf",
+      "bytes": 5419,
+      "sha256": "1e0f94398d25d62f9e1c05f8cfe5b25c996915dc615decfd6184e95e59524c7f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N27-count-mismatch/facts.json",
+      "bytes": 5247,
+      "sha256": "4245665d26b0d7473f078020ab1672a358b9e8e21d0d9ebfce7e8492151e61be",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N27-count-mismatch/source.pdf",
+      "bytes": 5419,
+      "sha256": "64f1c6e4260aeb615b58b9d6169ba464680b091059bf3a9b2c6ac685724210f2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N28-late-unknown-row/facts.json",
+      "bytes": 5362,
+      "sha256": "5b3bbe7c4d2d12c839768ee4aff0b995d29378c90245c10f7ad7de9407f8fe71",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N28-late-unknown-row/source.pdf",
+      "bytes": 5475,
+      "sha256": "26caca420b7c389bea1df687895f1225be9a6feb63d1ebf3685f168431c4a6ce",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N29-missing-opening/facts.json",
+      "bytes": 5109,
+      "sha256": "2be5f4673d6f62023a6de2bd2932494fb814b6418e30c349cc31708dee9b2693",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N29-missing-opening/source.pdf",
+      "bytes": 5265,
+      "sha256": "881502bcb9632762fcca139817027d1927a3a5737ba9a70f0c08d1491ff39cd3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N30-missing-closing/facts.json",
+      "bytes": 5110,
+      "sha256": "0508b2ca2c94d7d9269eab4d026b59b0b923480b2dbd1abc9f6887eae7afee06",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N30-missing-closing/source.pdf",
+      "bytes": 5268,
+      "sha256": "0ef07d5ccc0e73555fda1d4d181117b2bfdb169ee19cfc83a38116a545982616",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N31-money-limit-plus-cent/facts.json",
+      "bytes": 2993,
+      "sha256": "10c0d26b283164ecbea5944b3765e8a0ed29c0d3134413b6e219b3ba5a796ddb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N31-money-limit-plus-cent/source.pdf",
+      "bytes": 2877,
+      "sha256": "be38c9a049b9f346211db20f1007e170b8724651887f05a095df4cade87332a8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N32-negative-zero-balance/facts.json",
+      "bytes": 3416,
+      "sha256": "d4ad4064314bde30717b4ca1557322d8c464ab2b519f7dca359e3c99b04263f3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N32-negative-zero-balance/source.pdf",
+      "bytes": 3528,
+      "sha256": "d5c2f3ffbf2582e4d7662d64932717d1c2b7fdbb1980f7a1b6c4115237eb12ca",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N33-third-decimal/facts.json",
+      "bytes": 5237,
+      "sha256": "0b3f48318c1ff34a41c69ccb4b749cd67943351e95e0298c716986c8e8cea47e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N33-third-decimal/source.pdf",
+      "bytes": 5420,
+      "sha256": "e97f4c3642cf10d82dbdb0b22585f32d28473c8d6ba84847b87e13c32c74310f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N34-movement-after-footer/facts.json",
+      "bytes": 5401,
+      "sha256": "14e9917dceeebec0caead1c752d79bd1b3785155bb2a60a42b84b7ed69a1629b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N34-movement-after-footer/source.pdf",
+      "bytes": 5751,
+      "sha256": "e9b9502e5c3d085dc5d30a13a9b2f6f943630e3a062b0058a3b378b876b5d855",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N35-closing-date-wrong/facts.json",
+      "bytes": 5247,
+      "sha256": "ab1322cc91fdd4a04c4a8f7890afb4d849c2e88493d685d9a7d3d60f4697cdac",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N35-closing-date-wrong/source.pdf",
+      "bytes": 5419,
+      "sha256": "1c9b7ad8e911aeb5c546f6c70438d7c1cbee62eac39f7f40b2f15b14e66706eb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/N36-reference-conflict/facts.json",
+      "bytes": 5260,
+      "sha256": "1e5a588d68e79df08e435b18ca1be8fc358643385ad25e631af62166fc0f5ade",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/N36-reference-conflict/source.pdf",
+      "bytes": 5419,
+      "sha256": "0e1190ccb21579fc73d1b2861a494f94a762e9361de79697a14396923e357631",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P01-two-pages-two-sections/expected.csv",
+      "bytes": 320,
+      "sha256": "124a9ebd8f3c8e6fb12067d0d6cf35dd021829381b61328c1344dc4e8fc3e3a1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P01-two-pages-two-sections/facts.json",
+      "bytes": 5252,
+      "sha256": "9680ad21257db816e6602e4038d52b7f1e626fb7efa4549ae5c2f0c5f92c5ae9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P01-two-pages-two-sections/source.pdf",
+      "bytes": 5419,
+      "sha256": "4f26156d8d536b46f6b4a5b25f98e910f92f161db89ff28d4ee6ffa974ed5e2e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P02-three-pages-sign-crossing/expected.csv",
+      "bytes": 191,
+      "sha256": "9dd885ab2c4a2495fde0bd0ddd888a5a27a8f25e3c5b3d59291e9d30c3ddc5df",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P02-three-pages-sign-crossing/facts.json",
+      "bytes": 6164,
+      "sha256": "e34be4431b0de3485e585a21fbd06cd2291e8e54ce93bcbaa75f89f638a38232",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P02-three-pages-sign-crossing/source.pdf",
+      "bytes": 5912,
+      "sha256": "e48eb6844c7a8a841f070932792821ce02169432805e905e3996f78145c41e79",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P03-zero-and-identical-movements/expected.csv",
+      "bytes": 245,
+      "sha256": "b423b07b9f330901539f24a4d2ee05a98a24082c92c0fa478976b5d34ee63f24",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P03-zero-and-identical-movements/facts.json",
+      "bytes": 3406,
+      "sha256": "7184eb76ec49da517c0d55add271300db70efaf9fae41275f53626c23db03849",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P03-zero-and-identical-movements/source.pdf",
+      "bytes": 3527,
+      "sha256": "17745c111f81e909ab42ccd522b3d2ccb6b2981adc1f1e8c2798ef2ed4d44e53",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P04-posting-order-not-date-order/expected.csv",
+      "bytes": 192,
+      "sha256": "453924db166dbd62f758784bf1a975a8f9483ff91e9ece2e2f68c07a97aa6648",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P04-posting-order-not-date-order/facts.json",
+      "bytes": 3049,
+      "sha256": "eb31090b139cf66234ed8e7270d3c5cf914b4243f071a2aa4d36df10c4e3b1fb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P04-posting-order-not-date-order/source.pdf",
+      "bytes": 3196,
+      "sha256": "ef2e798014a57a084ba8c03c14f83a2d52b4e6a1b56c14626f80cd2b182c6c37",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P05-page-boundary-between-sections/expected.csv",
+      "bytes": 142,
+      "sha256": "d1fcc2aebfa7a2260c710aee2372f7642ca54b16e16246999b46b7915a19ef45",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P05-page-boundary-between-sections/facts.json",
+      "bytes": 4554,
+      "sha256": "b886bdae88cfe065815bbafb38316628c22c783169be5693bfe4e7c1afe1d504",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P05-page-boundary-between-sections/source.pdf",
+      "bytes": 4422,
+      "sha256": "c53919c60b38399d074c1afbf8c453a35771b00f625fd48e9ea2749a5b9ee613",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P06-inclusive-money-limit/expected.csv",
+      "bytes": 177,
+      "sha256": "23d22ec40a9afc39b8417eb96ca49c8838aebbfcbc68bb60351af5333f057fbc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P06-inclusive-money-limit/facts.json",
+      "bytes": 2962,
+      "sha256": "9190ffa230222eff75502a6bc67edc37e1577e8c3b2083ee797cb22f64317db1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P06-inclusive-money-limit/source.pdf",
+      "bytes": 2874,
+      "sha256": "93ecf6bb29b85e787c4af524a50cfe3facbdad4ae418a0750527143860aa62b6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P07-zero-only-negative-opening/expected.csv",
+      "bytes": 101,
+      "sha256": "c8a14abd3bbba102d588f312ca6664cabf5d8a27714d230f5480a8640382eaf0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P07-zero-only-negative-opening/facts.json",
+      "bytes": 2696,
+      "sha256": "e292c6c643b1c352fce5894508be4dbf225bf4130245b3b627758357e98926eb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P07-zero-only-negative-opening/source.pdf",
+      "bytes": 2502,
+      "sha256": "08ccffb64cc77bf10f842cf964abc0ef78469d6d9d2bc61b45d0738315b0c701",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/frozen/P08-literal-decimal-forms/expected.csv",
+      "bytes": 152,
+      "sha256": "da54fc92e1a33d54694045ea605ad9b46436e3d1b81e86e5a0493aab1bcf529d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P08-literal-decimal-forms/facts.json",
+      "bytes": 2880,
+      "sha256": "dc2cd85d38eed2bcf16e51d8fb11a80e2ede85cd3ad57b9f28dfd5c0a9ce16b6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/frozen/P08-literal-decimal-forms/source.pdf",
+      "bytes": 2803,
+      "sha256": "02f388b43ba046e3f529168ad4a42bb59dd99b6ec586451fe4ca47cf67884c1e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Synthetic fixed seven-field running-balance PDF. Exact original, source facts and positive CSV frozen before implementation under INPUT-MANIFEST SHA256 76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552 and precode package seal 31b872c53f09623e86199857e8545937348efcbb13326ee8c006df9417d014f6. Proposed bytes require independent final publication review."
+      }
+    },
+    {
+      "path": "audit/running-balance/unicode/expected.csv",
+      "bytes": 88,
+      "sha256": "639c99b98b632f2dffcf90a89ddfa404d56c2063c458eec856209acb09bbddd7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/unicode/facts.json",
+      "bytes": 2689,
+      "sha256": "3884d342d05b49ca83b41f3119d3b4c985b4e0a0c1c4bb11b2fbffd87bda288e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/running-balance/unicode/source.pdf",
+      "bytes": 4095,
+      "sha256": "87293d91a460d571f8f0eb15899551c3e231e7a4e1fcd9f8afdb2a3e2f66056b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Separately authored synthetic postimplementation Unicode regression PDF with complete ASCII ToUnicode map and supplementary U+1F600. Facts and expected CSV authored before product observation; independent pypdf and pdfminer readings verified. Not a precode holdout or field sample. Proposed bytes require independent final publication review."
+      }
+    },
+    {
       "path": "audit/section-continuation-v1/freeze.py",
       "bytes": 5738,
       "sha256": "7f087b8f305367bd9388ee19d23f11b5ff0367b8450164c21d3e95b08631fed1",
@@ -24972,6 +25764,18 @@
       "kind": "text"
     },
     {
+      "path": "components/running-balance-review.css",
+      "bytes": 5785,
+      "sha256": "2cfc432f6afa7d63a86490dd497f3fe7b447a2d2cfcacaade1c39831a006a573",
+      "kind": "text"
+    },
+    {
+      "path": "components/running-balance-review.tsx",
+      "bytes": 34344,
+      "sha256": "9f1364fdf231f806c141ec78d8f8deb774636fabdb956cc934642a4d0d77ccd8",
+      "kind": "text"
+    },
+    {
       "path": "components/section-derived-review.tsx",
       "bytes": 24969,
       "sha256": "051c2b6ef0f3e0d192b16f7e36b69ec411bbcb480766d5246e705587c6983d5f",
@@ -25434,6 +26238,12 @@
       "kind": "text"
     },
     {
+      "path": "docs/P4-RUNNING-BALANCE.ar.md",
+      "bytes": 9472,
+      "sha256": "2bef89e336068af42a0ae5af818c8753b3241dca1741d8af87da6673309978fb",
+      "kind": "text"
+    },
+    {
       "path": "docs/P4-SPLIT-SECTION-IMPLEMENTATION.ar.md",
       "bytes": 9511,
       "sha256": "6a81083d2ebe7987c3fa1925f8520a4bfaddda58f30cecfaf2f2aba47cd91cfb",
@@ -25528,7 +26338,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "f0ae90e774f6bf834e3fd881cb133369ae78976a0812aba247ee16c91bc07238",
+      "sha256": "f658003875a2fe98db0363f0de136fe4685331546e1111b42554228cb1124818",
       "kind": "text"
     },
     {
@@ -25637,6 +26447,12 @@
       "path": "lib/i18n/reconciliation-directory.ts",
       "bytes": 7568,
       "sha256": "cb71101dfad04a87f04e6e76e6178e324d6fdd20f4532fc9d78ac3b287d92406",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/running-balance-review.ts",
+      "bytes": 10938,
+      "sha256": "98181000aac7664704ea73bfa41f8aa898ca6bd66144bdc9b1914684c1971505",
       "kind": "text"
     },
     {
@@ -26186,6 +27002,18 @@
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/running-balance-session.ts",
+      "bytes": 38854,
+      "sha256": "2579eb36f9138771a27c4dc2d329b27a26a9824129a7464ae146418d3994a2e5",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/running-balance.ts",
+      "bytes": 41518,
+      "sha256": "dc3532ecb1336e518488d33278ea11147bff1bc23081bc46311574247a08cc69",
+      "kind": "text"
+    },
+    {
       "path": "lib/reconciliation/scope-inference.ts",
       "bytes": 15129,
       "sha256": "5d69b796235f021fe2088b73ffb3af6a1cfad1da731f3d63288d351090e76a5f",
@@ -26415,8 +27243,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 4735,
-      "sha256": "a759b9ff48a22fcd44c1d95778b415da9f792d610dc9bd1744999502b628f203",
+      "bytes": 6114,
+      "sha256": "9fc9091495832afe15484b8b743e2c1eec7806de871934912da70722cdcba904",
       "kind": "text"
     },
     {
@@ -26595,6 +27423,12 @@
       "path": "scripts/browser-test.mjs",
       "bytes": 77629,
       "sha256": "bb31356a6ef3836e6938ee23cb201568dc2953185b48b74b37d4ee1d0ee92a14",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/check-running-balance-exports.py",
+      "bytes": 13395,
+      "sha256": "f80685dc8edfa8fbf1de10c1942f205ed4ea189c9bbfd046813b8cb1240afe69",
       "kind": "text"
     },
     {
@@ -26910,6 +27744,18 @@
       "kind": "text"
     },
     {
+      "path": "scripts/running-balance-browser.mjs",
+      "bytes": 16098,
+      "sha256": "eb94e922b089aa4946a171eeea9a5e2a02bf1d6d7c4a4ce0ce5baabc144f2b47",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/running-balance-proof.mjs",
+      "bytes": 7136,
+      "sha256": "3c25efb921706c863973da3ad4472119f3fe6b97ea70d49f545c72645af29f98",
+      "kind": "text"
+    },
+    {
       "path": "scripts/section-families-browser.mjs",
       "bytes": 33917,
       "sha256": "7128e9267798ec733e6343995806036b23a574a26f55d6b997c04e63d0a90ee3",
@@ -27033,6 +27879,12 @@
       "path": "scripts/test-review-effort-browser.mjs",
       "bytes": 1428,
       "sha256": "e4219db0e21ef65d5a44890503e5d43f651e0172ace810bc34fea34a548fbf8e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-running-balance-mutations.mjs",
+      "bytes": 8152,
+      "sha256": "1b9ab6468bc4d2f5488dbfc3c655f099151fdf6510804eb0f60a1e2d289debe5",
       "kind": "text"
     },
     {
@@ -28030,6 +28882,36 @@
       "kind": "text"
     },
     {
+      "path": "tests/running-balance-authority.test.ts",
+      "bytes": 3164,
+      "sha256": "50ff02d3b28b8ef9f7d5e58eda555220398d19e0f6595763999ff27ee219142f",
+      "kind": "text"
+    },
+    {
+      "path": "tests/running-balance-classifier.test.ts",
+      "bytes": 19715,
+      "sha256": "330ee550a56d10f7f20a38b0b8d9b2e597f800c965fc39e35db70ffb2cf2b802",
+      "kind": "text"
+    },
+    {
+      "path": "tests/running-balance-native-regression.test.ts",
+      "bytes": 5797,
+      "sha256": "98c51bc9ad1fcbbbe8385dfc1132619a036d453e3b448e2ce3c9ce2d076a2f3a",
+      "kind": "text"
+    },
+    {
+      "path": "tests/running-balance-session.test.ts",
+      "bytes": 47902,
+      "sha256": "5c4ce5fcd0ad2c6c7b09c711bfed4b70cb5eb785e8499efb7175eb1caa6cfb69",
+      "kind": "text"
+    },
+    {
+      "path": "tests/running-balance-test-helper.ts",
+      "bytes": 2424,
+      "sha256": "3b972768878c1089cc5b3f4fdefac11683d4e2fbe209bf7270acdf28f4392f76",
+      "kind": "text"
+    },
+    {
       "path": "tests/same-source.test.ts",
       "bytes": 7106,
       "sha256": "903c9b9f19d3ab7545d2e296aa275c3791531b33b3dced623e9b9fc479c68a0b",
@@ -28338,20 +29220,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-CXZ77Laj.js",
-      "bytes": 7513524,
-      "sha256": "a4086d07b548596c1cee8eb2bdd2d562e6f868fc964377d9db32cd2c44ab6137",
+      "path": "assets/index-C8r67aEM.css",
+      "bytes": 269147,
+      "sha256": "4d05f5154ab9e9c1fef1934899ece47cbb4ad3378731c067508c7cab57c0a49b",
+      "kind": "text"
+    },
+    {
+      "path": "assets/index-RON2SP76.js",
+      "bytes": 7575911,
+      "sha256": "012646859725d9c447ef3b9bb1f85cf482c15c0fa3266d6d3d479a496bc81eb9",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Locally compiled proposed application asset with locked dependencies unchanged. Parser control literals require decoded privacy scans. Exact source and build hashes require independent candidate review before publication."
+        "description": "Locally compiled proposed application asset from unchanged locked dependencies. Parser control literals remain subject to decoded privacy scans. Exact source and distribution require independent final review before publication."
       }
-    },
-    {
-      "path": "assets/index-DtDXm73_.css",
-      "bytes": 264492,
-      "sha256": "0821059e4f73b9d6c8ba7185850fe18a208c866e5e0e9790737c41fc55e60bdc",
-      "kind": "text"
     },
     {
       "path": "assets/pdfjs-BvlvQ5M7.js",
@@ -28386,9 +29268,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/visual-renderer-BKul6jdi.js",
+      "path": "assets/visual-renderer--IwuYZnM.js",
       "bytes": 6542,
-      "sha256": "ccf27ccdeb3810d04cdbabee31ccf1124ecb9777bef81dfb702122f7fefc1dd4",
+      "sha256": "c3fcee6dddbc4299e7f241b4ec9eb8f5b96f618959d317947a24dc9a9581d9f1",
       "kind": "text"
     },
     {
@@ -28464,7 +29346,7 @@
     {
       "path": "index.html",
       "bytes": 3359,
-      "sha256": "c05468d17cb7de9540f6c6d498290e7182ee7508099a81f19662b122e60c4caa",
+      "sha256": "8068ab39ad92093792b313a9361c268ea1f86b435ef4c243b3f1db66d6bcb140",
       "kind": "text"
     },
     {

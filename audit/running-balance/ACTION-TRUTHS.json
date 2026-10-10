@@ -1,0 +1,128 @@
+{
+  "contract": "P4_RUNNING_BALANCE_SAR2_V1",
+  "status": "future product acceptance obligations; not executed",
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "actions": [
+    {
+      "id": "A01",
+      "action": "Change original byte after inspect",
+      "expected": "stale-source; no receipt/artifact"
+    },
+    {
+      "id": "A02",
+      "action": "Change row/page map while retaining original byte hash",
+      "expected": "reject mismatched native replay; never reorder"
+    },
+    {
+      "id": "A03",
+      "action": "Swap a balance and debit mapping",
+      "expected": "reject monetary role context; no inferred movement"
+    },
+    {
+      "id": "A04",
+      "action": "Change period/account/perspective/currency/precision after review",
+      "expected": "invalidate live receipt and pending publication"
+    },
+    {
+      "id": "A05",
+      "action": "Unselect a zero movement",
+      "expected": "block whole derivation"
+    },
+    {
+      "id": "A06",
+      "action": "Unselect a required inherited-reference proposal",
+      "expected": "block whole derivation"
+    },
+    {
+      "id": "A07",
+      "action": "Change reviewer label/rationale/acknowledgements",
+      "expected": "invalidate receipt"
+    },
+    {
+      "id": "A08",
+      "action": "Clone/serialize/cross-session reuse a receipt",
+      "expected": "reject authority"
+    },
+    {
+      "id": "A09",
+      "action": "Apply the same receipt twice, including first failed/aborted apply",
+      "expected": "only first consumption attempt; subsequent reject"
+    },
+    {
+      "id": "A10",
+      "action": "Restore a saved valid archive",
+      "expected": "exact source/balances/money/sequence; historical only, no apply authority"
+    },
+    {
+      "id": "A11",
+      "action": "Tamper opening/carry/closing or evidence span in archive",
+      "expected": "reject native replay or exact evidence check"
+    },
+    {
+      "id": "A12",
+      "action": "Tamper derived CSV Balance/Seq, or original inventory, while preserving net",
+      "expected": "reject entire restore/export"
+    },
+    {
+      "id": "A13",
+      "action": "Abort before invocation, at next PDF page, at row yield256, or before publish",
+      "expected": "no receipt/artifact; bounded retained state"
+    },
+    {
+      "id": "A14",
+      "action": "Replace session source while verification is pending",
+      "expected": "old generation cannot publish"
+    },
+    {
+      "id": "A15",
+      "action": "Mutate caller input after owned snapshot",
+      "expected": "snapshot remains exact; no aliasing of evidence"
+    },
+    {
+      "id": "A16",
+      "action": "Getters/non-plain data/unbounded descriptors before clone",
+      "expected": "reject without executing getter"
+    },
+    {
+      "id": "A17",
+      "action": "Exercise all PDF/page/row/cell/evidence/proposal/data/CSV caps at boundary and +1",
+      "expected": "bounded rejection; no truncation or oversized successful artifact"
+    },
+    {
+      "id": "A18",
+      "action": "Re-export after restoration",
+      "expected": "all seven literal fields, all controls and exact PDF bytes; no formulas"
+    },
+    {
+      "id": "A19",
+      "action": "Set opening/closing from this artifact in an unrelated comparison automatically",
+      "expected": "must not occur in this family"
+    },
+    {
+      "id": "A20",
+      "action": "Uniformly rename all source statement/account/parent IDs using valid grammar",
+      "expected": "same financial truth; evidence/hash/context newly bound; no supplier-specific rule"
+    },
+    {
+      "id": "A21",
+      "action": "Uniformly shift period and all movement/opening/closing dates within allowed range",
+      "expected": "same financial truth and source order; new evidence binding"
+    },
+    {
+      "id": "A22",
+      "action": "Invalid ID/canonical Seq/page/count syntax or out-of-period date",
+      "expected": "reject before accepted artifact"
+    },
+    {
+      "id": "A23",
+      "action": "Create valid maximal source whose repeated evidence exceeds artifact data budget",
+      "expected": "refuse before delivering artifact; successful artifact must be saveable/exportable"
+    },
+    {
+      "id": "A24",
+      "action": "Reduce configured resource budgets",
+      "expected": "reject at reduced cap; never allow option to raise contract maxima"
+    }
+  ]
+}

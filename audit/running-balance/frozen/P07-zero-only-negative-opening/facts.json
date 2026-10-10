@@ -1,0 +1,187 @@
+{
+  "id": "P07-zero-only-negative-opening",
+  "accepted": true,
+  "requiredDiagnostic": null,
+  "reason": "A supplied zero movement remains a row; no opening movement fabricated.",
+  "pages": [
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 1 of 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Opening balance",
+        "2026-10-01",
+        "",
+        "",
+        "",
+        "",
+        "-1.25"
+      ],
+      [
+        "Invoice: INV-Z",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "1",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "0",
+        "0",
+        "-1.25"
+      ],
+      [
+        "Section total: INV-Z",
+        "",
+        "",
+        "",
+        "0",
+        "0",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "0",
+        "0",
+        ""
+      ],
+      [
+        "Page count: 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Closing balance",
+        "2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "-1.25"
+      ],
+      [
+        "Statement total",
+        "",
+        "",
+        "",
+        "0",
+        "0",
+        ""
+      ],
+      [
+        "Statement count: 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "expected": {
+    "openingMinor": -125,
+    "debitMinor": 0,
+    "creditMinor": 0,
+    "closingMinor": -125,
+    "count": 1,
+    "balancesMinor": [
+      -125
+    ],
+    "references": [
+      "INV-Z"
+    ]
+  },
+  "syntheticOnly": true,
+  "sourceSha256": "08ccffb64cc77bf10f842cf964abc0ef78469d6d9d2bc61b45d0738315b0c701",
+  "cuts": [
+    10,
+    25,
+    40,
+    65,
+    77,
+    88
+  ],
+  "productImported": false
+}

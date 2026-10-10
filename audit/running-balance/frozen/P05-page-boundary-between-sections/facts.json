@@ -1,0 +1,326 @@
+{
+  "id": "P05-page-boundary-between-sections",
+  "accepted": true,
+  "requiredDiagnostic": null,
+  "reason": "Closed section at page break; no inherited active parent; balance still carries.",
+  "pages": [
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 1 of 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Opening balance",
+        "2026-10-01",
+        "",
+        "",
+        "",
+        "",
+        "10"
+      ],
+      [
+        "Invoice: INV-A",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "1",
+        "2026-10-10",
+        "INV-A",
+        "provided movement",
+        "2",
+        "0",
+        "12"
+      ],
+      [
+        "Section total: INV-A",
+        "",
+        "",
+        "",
+        "2",
+        "0",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "2",
+        "0",
+        ""
+      ],
+      [
+        "Page count: 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Carried balance",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "12"
+      ]
+    ],
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 2 of 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Brought balance",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "12"
+      ],
+      [
+        "Invoice: INV-B",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "2",
+        "2026-10-10",
+        "INV-B",
+        "provided movement",
+        "0",
+        "5",
+        "7"
+      ],
+      [
+        "Section total: INV-B",
+        "",
+        "",
+        "",
+        "0",
+        "5",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "0",
+        "5",
+        ""
+      ],
+      [
+        "Page count: 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Closing balance",
+        "2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "7"
+      ],
+      [
+        "Statement total",
+        "",
+        "",
+        "",
+        "2",
+        "5",
+        ""
+      ],
+      [
+        "Statement count: 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "expected": {
+    "openingMinor": 1000,
+    "debitMinor": 200,
+    "creditMinor": 500,
+    "closingMinor": 700,
+    "count": 2,
+    "balancesMinor": [
+      1200,
+      700
+    ],
+    "references": [
+      "INV-A",
+      "INV-B"
+    ]
+  },
+  "syntheticOnly": true,
+  "sourceSha256": "c53919c60b38399d074c1afbf8c453a35771b00f625fd48e9ea2749a5b9ee613",
+  "cuts": [
+    10,
+    25,
+    40,
+    65,
+    77,
+    88
+  ],
+  "productImported": false
+}

@@ -35,6 +35,7 @@ import { InvoiceOverlapReview } from '@/components/invoice-overlap-review';
 import { SupplierInvoiceOverlapReview, type SupplierMainReviewInput } from '@/lib/reconciliation/supplier-overlap-review';
 import { SectionDerivedReview } from '@/components/section-derived-review';
 import { SplitSectionReview } from '@/components/split-section-review';
+import { RunningBalanceReview } from '@/components/running-balance-review';
 import { APP_VERSION } from '@/lib/brand';
 import { TransactionReview } from '@/components/transaction-review';
 import { PdfReview } from '@/components/pdf-review';
@@ -2146,6 +2147,7 @@ export default function App() {
               )}
               <SectionDerivedReview files={files} mappings={mappings} scope={scope} />
               <SplitSectionReview files={files} mappings={mappings} scope={scope} extractionRevision={mainExtractionRevision} />
+              <RunningBalanceReview files={files} scope={scope} extractionRevision={mainExtractionRevision} />
               <section className="surface pad stack">
                 {pdfReviewPending && (
                   <p className="hint warn">{t.app.compare.pdfPending}</p>

@@ -1,0 +1,198 @@
+{
+  "id": "P08-literal-decimal-forms",
+  "accepted": true,
+  "requiredDiagnostic": null,
+  "reason": "Numeric equality of supplied controls while all literal forms remain intact.",
+  "pages": [
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 1 of 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Opening balance",
+        "2026-10-01",
+        "",
+        "",
+        "",
+        "",
+        "0.00"
+      ],
+      [
+        "Invoice: INV-D",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "1",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "12.3",
+        "0",
+        "12.30"
+      ],
+      [
+        "2",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "0",
+        "0.30",
+        "12"
+      ],
+      [
+        "Section total: INV-D",
+        "",
+        "",
+        "",
+        "12.30",
+        "0.3",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "12.30",
+        "0.30",
+        ""
+      ],
+      [
+        "Page count: 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Closing balance",
+        "2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "12.00"
+      ],
+      [
+        "Statement total",
+        "",
+        "",
+        "",
+        "12.3",
+        "0.30",
+        ""
+      ],
+      [
+        "Statement count: 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "expected": {
+    "openingMinor": 0,
+    "debitMinor": 1230,
+    "creditMinor": 30,
+    "closingMinor": 1200,
+    "count": 2,
+    "balancesMinor": [
+      1230,
+      1200
+    ],
+    "references": [
+      "INV-D",
+      "INV-D"
+    ]
+  },
+  "syntheticOnly": true,
+  "sourceSha256": "02f388b43ba046e3f529168ad4a42bb59dd99b6ec586451fe4ca47cf67884c1e",
+  "cuts": [
+    10,
+    25,
+    40,
+    65,
+    77,
+    88
+  ],
+  "productImported": false
+}

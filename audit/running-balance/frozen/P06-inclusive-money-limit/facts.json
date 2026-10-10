@@ -1,0 +1,198 @@
+{
+  "id": "P06-inclusive-money-limit",
+  "accepted": true,
+  "requiredDiagnostic": null,
+  "reason": "Inclusive component, aggregate and running-balance limits.",
+  "pages": [
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 1 of 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Opening balance",
+        "2026-10-01",
+        "",
+        "",
+        "",
+        "",
+        "0"
+      ],
+      [
+        "Invoice: INV-L",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "1",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "1000000000000",
+        "0",
+        "1000000000000"
+      ],
+      [
+        "2",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "0",
+        "1000000000000",
+        "0"
+      ],
+      [
+        "Section total: INV-L",
+        "",
+        "",
+        "",
+        "1000000000000",
+        "1000000000000",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "1000000000000",
+        "1000000000000",
+        ""
+      ],
+      [
+        "Page count: 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Closing balance",
+        "2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "0"
+      ],
+      [
+        "Statement total",
+        "",
+        "",
+        "",
+        "1000000000000",
+        "1000000000000",
+        ""
+      ],
+      [
+        "Statement count: 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "expected": {
+    "openingMinor": 0,
+    "debitMinor": 100000000000000,
+    "creditMinor": 100000000000000,
+    "closingMinor": 0,
+    "count": 2,
+    "balancesMinor": [
+      100000000000000,
+      0
+    ],
+    "references": [
+      "INV-L",
+      "INV-L"
+    ]
+  },
+  "syntheticOnly": true,
+  "sourceSha256": "93ecf6bb29b85e787c4af524a50cfe3facbdad4ae418a0750527143860aa62b6",
+  "cuts": [
+    10,
+    25,
+    40,
+    65,
+    77,
+    88
+  ],
+  "productImported": false
+}

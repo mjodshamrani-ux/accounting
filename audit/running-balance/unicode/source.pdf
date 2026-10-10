@@ -1,0 +1,186 @@
+%PDF-1.7
+% SYNTHETIC ONLY running-balance Unicode regression
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier /ToUnicode 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1460 >>
+stream
+/CIDInit /ProcSet findresource begin
+12 dict begin
+begincmap
+/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def
+/CMapName /SyntheticUTF16 def
+/CMapType 2 def
+1 begincodespacerange
+<00> <FF>
+endcodespacerange
+95 beginbfchar
+<20> <0020>
+<21> <0021>
+<22> <0022>
+<23> <0023>
+<24> <0024>
+<25> <0025>
+<26> <0026>
+<27> <0027>
+<28> <0028>
+<29> <0029>
+<2A> <002A>
+<2B> <002B>
+<2C> <002C>
+<2D> <002D>
+<2E> <002E>
+<2F> <002F>
+<30> <0030>
+<31> <0031>
+<32> <0032>
+<33> <0033>
+<34> <0034>
+<35> <0035>
+<36> <0036>
+<37> <0037>
+<38> <0038>
+<39> <0039>
+<3A> <003A>
+<3B> <003B>
+<3C> <003C>
+<3D> <003D>
+<3E> <003E>
+<3F> <003F>
+<40> <D83DDE00>
+<41> <0041>
+<42> <0042>
+<43> <0043>
+<44> <0044>
+<45> <0045>
+<46> <0046>
+<47> <0047>
+<48> <0048>
+<49> <0049>
+<4A> <004A>
+<4B> <004B>
+<4C> <004C>
+<4D> <004D>
+<4E> <004E>
+<4F> <004F>
+<50> <0050>
+<51> <0051>
+<52> <0052>
+<53> <0053>
+<54> <0054>
+<55> <0055>
+<56> <0056>
+<57> <0057>
+<58> <0058>
+<59> <0059>
+<5A> <005A>
+<5B> <005B>
+<5C> <005C>
+<5D> <005D>
+<5E> <005E>
+<5F> <005F>
+<60> <0060>
+<61> <0061>
+<62> <0062>
+<63> <0063>
+<64> <0064>
+<65> <0065>
+<66> <0066>
+<67> <0067>
+<68> <0068>
+<69> <0069>
+<6A> <006A>
+<6B> <006B>
+<6C> <006C>
+<6D> <006D>
+<6E> <006E>
+<6F> <006F>
+<70> <0070>
+<71> <0071>
+<72> <0072>
+<73> <0073>
+<74> <0074>
+<75> <0075>
+<76> <0076>
+<77> <0077>
+<78> <0078>
+<79> <0079>
+<7A> <007A>
+<7B> <007B>
+<7C> <007C>
+<7D> <007D>
+<7E> <007E>
+endbfchar
+endcmap
+CMapName currentdict /CMap defineresource pop
+end
+end
+endstream
+endobj
+5 0 obj
+<< /Length 1947 >>
+stream
+BT /F1 8 Tf 1 0 0 1 20 1500 Tm (SYNTHETIC ONLY) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1465 Tm (Statement: ST-U) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1430 Tm (Account: ACCT-U) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1395 Tm (Period: 2026-10-01/2026-10-31) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1360 Tm (Currency: SAR) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1325 Tm (Balance basis: debit-minus-credit) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1290 Tm (Page: 1 of 1) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1255 Tm (Seq) Tj ET
+BT /F1 8 Tf 1 0 0 1 220 1255 Tm (Date) Tj ET
+BT /F1 8 Tf 1 0 0 1 520 1255 Tm (Reference) Tj ET
+BT /F1 8 Tf 1 0 0 1 820 1255 Tm (Description) Tj ET
+BT /F1 8 Tf 1 0 0 1 1320 1255 Tm (Debit) Tj ET
+BT /F1 8 Tf 1 0 0 1 1560 1255 Tm (Credit) Tj ET
+BT /F1 8 Tf 1 0 0 1 1780 1255 Tm (Balance) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1220 Tm (Opening balance) Tj ET
+BT /F1 8 Tf 1 0 0 1 220 1220 Tm (2026-10-01) Tj ET
+BT /F1 8 Tf 1 0 0 1 1780 1220 Tm (-1.25) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1185 Tm (Invoice: INV-U) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1150 Tm (1) Tj ET
+BT /F1 8 Tf 1 0 0 1 220 1150 Tm (2026-10-15) Tj ET
+BT /F1 8 Tf 1 0 0 1 520 1150 Tm (INV-U) Tj ET
+BT /F1 8 Tf 1 0 0 1 820 1150 Tm (@) Tj ET
+BT /F1 8 Tf 1 0 0 1 1320 1150 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 1560 1150 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 1780 1150 Tm (-1.25) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1115 Tm (Section total: INV-U) Tj ET
+BT /F1 8 Tf 1 0 0 1 1320 1115 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 1560 1115 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1080 Tm (Page total) Tj ET
+BT /F1 8 Tf 1 0 0 1 1320 1080 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 1560 1080 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1045 Tm (Page count: 1) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 1010 Tm (Closing balance) Tj ET
+BT /F1 8 Tf 1 0 0 1 220 1010 Tm (2026-10-31) Tj ET
+BT /F1 8 Tf 1 0 0 1 1780 1010 Tm (-1.25) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 975 Tm (Statement total) Tj ET
+BT /F1 8 Tf 1 0 0 1 1320 975 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 1560 975 Tm (0) Tj ET
+BT /F1 8 Tf 1 0 0 1 20 940 Tm (Statement count: 1) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 2000 1600] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000061 00000 n 
+0000000110 00000 n 
+0000000167 00000 n 
+0000000252 00000 n 
+0000001764 00000 n 
+0000003763 00000 n 
+trailer << /Size 7 /Root 1 0 R >>
+startxref
+3891
+%%EOF
