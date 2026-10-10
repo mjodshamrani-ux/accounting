@@ -1,0 +1,287 @@
+{
+  "case": "MAP-complete-three-pages",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": true,
+  "expectedCode": null,
+  "expectedStage": "ready-for-review",
+  "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+  "sourceBytes": 2758,
+  "cuts": [
+    22,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 3,
+  "inventory": [
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 1,
+      "page": 1
+    },
+    {
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 2,
+      "page": 1
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 3,
+      "page": 1
+    },
+    {
+      "kind": "parent",
+      "values": [
+        "Invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 4,
+      "page": 1
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2026-09-01",
+        "",
+        "Independent synthetic movement",
+        "10.00",
+        "0.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 5,
+      "page": 1
+    },
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 6,
+      "page": 2
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 7,
+      "page": 2
+    },
+    {
+      "kind": "continuation",
+      "values": [
+        "Continued invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 8,
+      "page": 2
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2026-09-02",
+        "",
+        "Independent synthetic movement",
+        "0.00",
+        "2.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 9,
+      "page": 2
+    },
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 10,
+      "page": 3
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 11,
+      "page": 3
+    },
+    {
+      "kind": "continuation",
+      "values": [
+        "Continued invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 12,
+      "page": 3
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2026-09-03",
+        "",
+        "Independent synthetic movement",
+        "3.00",
+        "0.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 13,
+      "page": 3
+    }
+  ],
+  "movements": [
+    {
+      "originalRow": 5,
+      "page": 1,
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "DATE-BOUND",
+      "date": "2026-09-01",
+      "description": "Independent synthetic movement",
+      "debitText": "10.00",
+      "creditText": "0.00",
+      "debitMinor": 1000,
+      "creditMinor": 0,
+      "netMinor": 1000,
+      "derivedRow": 2
+    },
+    {
+      "originalRow": 9,
+      "page": 2,
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "DATE-BOUND",
+      "date": "2026-09-02",
+      "description": "Independent synthetic movement",
+      "debitText": "0.00",
+      "creditText": "2.00",
+      "debitMinor": 0,
+      "creditMinor": 200,
+      "netMinor": -200,
+      "derivedRow": 3
+    },
+    {
+      "originalRow": 13,
+      "page": 3,
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "DATE-BOUND",
+      "date": "2026-09-03",
+      "description": "Independent synthetic movement",
+      "debitText": "3.00",
+      "creditText": "0.00",
+      "debitMinor": 300,
+      "creditMinor": 0,
+      "netMinor": 300,
+      "derivedRow": 4
+    }
+  ],
+  "sections": {
+    "DATE-BOUND": {
+      "debitMinor": 1300,
+      "creditMinor": 200,
+      "rows": [
+        5,
+        9,
+        13
+      ]
+    }
+  },
+  "pageTotals": [
+    {
+      "page": 1,
+      "debitMinor": 1000,
+      "creditMinor": 0
+    },
+    {
+      "page": 2,
+      "debitMinor": 0,
+      "creditMinor": 200
+    },
+    {
+      "page": 3,
+      "debitMinor": 300,
+      "creditMinor": 0
+    }
+  ],
+  "totals": {
+    "debitMinor": 1300,
+    "creditMinor": 200,
+    "netMinor": 1100
+  },
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": true,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": "Future explicit review required; no product acceptance",
+  "sourcePhysicalPageCountFact": 3,
+  "expectedCsvSha256": "f055aa39274dfc8c738cff06fb19ecb1cf8be6d3d3cfe27dcb6fe8ce4c2847d7"
+}

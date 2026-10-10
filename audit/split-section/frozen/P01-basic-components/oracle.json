@@ -1,0 +1,234 @@
+{
+  "case": "P01-basic-components",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": true,
+  "expectedStage": "ready-for-review",
+  "expectedCode": null,
+  "sourceSha256": "8ca136688cdd164c0b5e25191bd70d6cb0646c2538abb7a0016bc3cd731cbc29",
+  "sourceBytes": 1975,
+  "cuts": [
+    18,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 1,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "kind": "parent",
+      "values": [
+        "Invoice: A-101",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 5,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "",
+        "Supplied movement",
+        "123.45",
+        "0.00"
+      ],
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "row": 6,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "",
+        "Supplied movement",
+        "0.00",
+        "2.37"
+      ],
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "row": 7,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "",
+        "Supplied movement",
+        "4.50",
+        "0.00"
+      ],
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "row": 8,
+      "page": 1,
+      "kind": "section-total",
+      "values": [
+        "Section total: A-101",
+        "",
+        "",
+        "127.95",
+        "2.37"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 9,
+      "page": 1,
+      "kind": "page-total",
+      "values": [
+        "Page total",
+        "",
+        "",
+        "127.95",
+        "2.37"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 10,
+      "page": 1,
+      "kind": "grand-total",
+      "values": [
+        "Grand total",
+        "",
+        "",
+        "127.95",
+        "2.37"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    }
+  ],
+  "movements": [
+    {
+      "originalRow": 5,
+      "page": 1,
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "A-101",
+      "date": "2026-09-17",
+      "description": "Supplied movement",
+      "debitText": "123.45",
+      "creditText": "0.00",
+      "debitMinor": 12345,
+      "creditMinor": 0,
+      "netMinor": 12345,
+      "derivedRow": 2
+    },
+    {
+      "originalRow": 6,
+      "page": 1,
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "A-101",
+      "date": "2026-09-17",
+      "description": "Supplied movement",
+      "debitText": "0.00",
+      "creditText": "2.37",
+      "debitMinor": 0,
+      "creditMinor": 237,
+      "netMinor": -237,
+      "derivedRow": 3
+    },
+    {
+      "originalRow": 7,
+      "page": 1,
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "A-101",
+      "date": "2026-09-17",
+      "description": "Supplied movement",
+      "debitText": "4.50",
+      "creditText": "0.00",
+      "debitMinor": 450,
+      "creditMinor": 0,
+      "netMinor": 450,
+      "derivedRow": 4
+    }
+  ],
+  "pageTotals": [
+    {
+      "page": 1,
+      "debitMinor": 12795,
+      "creditMinor": 237
+    }
+  ],
+  "sections": {
+    "A-101": {
+      "debitMinor": 12795,
+      "creditMinor": 237,
+      "rows": [
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  "totals": {
+    "debitMinor": 12795,
+    "creditMinor": 237,
+    "netMinor": 12558
+  },
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": true,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": "Explicit review required; this is expected future output, not product output",
+  "expectedCsvSha256": "2155b3e7b591e40b2c733c503fe0c684e8a9de38fc8f1a7ba11a9e82bc599e23"
+}

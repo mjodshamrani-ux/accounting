@@ -1,0 +1,215 @@
+{
+  "case": "P07-next-page-new-parent",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": true,
+  "expectedStage": "ready-for-review",
+  "expectedCode": null,
+  "sourceSha256": "979ccf65f58da9c04d4d3994e85387f71f15a5c81222829594f1046bda340cfc",
+  "sourceBytes": 1914,
+  "cuts": [
+    18,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 2,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "kind": "parent",
+      "values": [
+        "Invoice: A-101",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 5,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "",
+        "Supplied movement",
+        "123.45",
+        "0.00"
+      ],
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "row": 6,
+      "page": 2,
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 7,
+      "page": 2,
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 8,
+      "page": 2,
+      "kind": "parent",
+      "values": [
+        "Invoice: B-202",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 9,
+      "page": 2,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "",
+        "Supplied movement",
+        "0.00",
+        "7.01"
+      ],
+      "section": "B-202",
+      "referenceOrigin": "accepted-section-proposal"
+    }
+  ],
+  "movements": [
+    {
+      "originalRow": 5,
+      "page": 1,
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "A-101",
+      "date": "2026-09-17",
+      "description": "Supplied movement",
+      "debitText": "123.45",
+      "creditText": "0.00",
+      "debitMinor": 12345,
+      "creditMinor": 0,
+      "netMinor": 12345,
+      "derivedRow": 2
+    },
+    {
+      "originalRow": 9,
+      "page": 2,
+      "section": "B-202",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "B-202",
+      "date": "2026-09-17",
+      "description": "Supplied movement",
+      "debitText": "0.00",
+      "creditText": "7.01",
+      "debitMinor": 0,
+      "creditMinor": 701,
+      "netMinor": -701,
+      "derivedRow": 3
+    }
+  ],
+  "pageTotals": [
+    {
+      "page": 1,
+      "debitMinor": 12345,
+      "creditMinor": 0
+    },
+    {
+      "page": 2,
+      "debitMinor": 0,
+      "creditMinor": 701
+    }
+  ],
+  "sections": {
+    "A-101": {
+      "debitMinor": 12345,
+      "creditMinor": 0,
+      "rows": [
+        5
+      ]
+    },
+    "B-202": {
+      "debitMinor": 0,
+      "creditMinor": 701,
+      "rows": [
+        9
+      ]
+    }
+  },
+  "totals": {
+    "debitMinor": 12345,
+    "creditMinor": 701,
+    "netMinor": 11644
+  },
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": true,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": "Explicit review required; this is expected future output, not product output",
+  "expectedCsvSha256": "eb7938ec7a0c218c347f97eab4aa7bb7db2085c0c3626196ec229f5ff5d96dd1"
+}

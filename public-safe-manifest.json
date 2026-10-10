@@ -3,14 +3,14 @@
   "source": [
     {
       "path": ".gitattributes",
-      "bytes": 119,
-      "sha256": "57c1cb1f91b98452f779a4a21cf36be3fbc70e612c31d1c0e6ccddeb375873b9",
+      "bytes": 341,
+      "sha256": "796514dcb1f66d22e22fc03aa5b1244c56711d97600306ea34cbb1e8fd449aa1",
       "kind": "text"
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 18261,
-      "sha256": "72b6dd9cb9ab7c2aae731de21a66923d80a0e6998f45822c13c882bfc104a43f",
+      "bytes": 19033,
+      "sha256": "09a11920b68883172c77ea46bf706f3719b78868ff23e532465f0358a9ed4f5a",
       "kind": "text"
     },
     {
@@ -57,8 +57,8 @@
     },
     {
       "path": "app/page.tsx",
-      "bytes": 130523,
-      "sha256": "1fdc45dab1698b609808e18fd45f7624fe709497e67db3320d1251748dea6563",
+      "bytes": 130724,
+      "sha256": "cb588c20e39055c50ebbe94ccc7455c90653768c39e1bcbb7a89120896c32688",
       "kind": "text"
     },
     {
@@ -21320,6 +21320,1044 @@
       "kind": "text"
     },
     {
+      "path": "audit/split-section/INPUT-MANIFEST.json",
+      "bytes": 24156,
+      "sha256": "ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/README.md",
+      "bytes": 2527,
+      "sha256": "ac258ec38eb08aed5ffc318163be46e1e6339f50eb7c20d6feffd101e988ad6d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/SOURCE-FACTS.json",
+      "bytes": 139316,
+      "sha256": "084c9ffcb8598c225356b9dbace1fe6157a121937d9159133ea5c10e7406bfbd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/capacity-regression/19/expected.csv",
+      "bytes": 33101,
+      "sha256": "0fad4ad133d9f3a2e896fcd58bfe68c62f75f6bbff3b88dd6734f87c4a59185b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/capacity-regression/19/source.pdf",
+      "bytes": 133063,
+      "sha256": "124b7c42e78b2d94a4896706b4fd1d8586d628151aa6eddc9158fd0ae8784b9f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/capacity-regression/60/expected.csv",
+      "bytes": 104441,
+      "sha256": "964800692d50af818f5a3c020654aa1d780e7360bbb38d94158882a4fa831c1c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/capacity-regression/60/source.pdf",
+      "bytes": 419089,
+      "sha256": "e85683bcf48a78b388d0b03f12fb856d3df16b7d8a0be49065ea0702929f9619",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/capacity-regression/INPUTS.json",
+      "bytes": 1075,
+      "sha256": "cdcdd661c9d24c539a0778109576eeaaac6648f556e8dddca076225eea37699e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/capacity-regression/README.md",
+      "bytes": 1171,
+      "sha256": "5b927e3583845470c49e3b74f6187ed74a8f997025dc30b44a015a757f5f01ab",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/check_oracle.py",
+      "bytes": 13851,
+      "sha256": "055a3d7cff1ffb6011f81b42341e8a2a22eca92b8448dcf0bcb0cafcda23d65e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/CASES.json",
+      "bytes": 9797,
+      "sha256": "8b495ebce563f72c288586e4c4cbc1c85a6aac87cc8182d0e9661a51c6f7ba67",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-1899/oracle.json",
+      "bytes": 2131,
+      "sha256": "285bcfbd6dae713d0daa8e528bd6f7279c6036aa9b07ebb5a2b62c803e3f7ad8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-1899/source.pdf",
+      "bytes": 1395,
+      "sha256": "3c070e6c56bbabdbac975652165f72f3f6960bf67e054d2fee4bf2f2a3bc09f7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-1900/expected.csv",
+      "bytes": 170,
+      "sha256": "03cfafe2390556d445024fc31e77e6bb9f9d9c4f86f4c5342894c03a81ef6aaf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-1900/oracle.json",
+      "bytes": 3364,
+      "sha256": "522d6ec9118c4a96849c716e3d6fd01891c03530e1a4064a57f8c210e9ee9c1c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-1900/source.pdf",
+      "bytes": 1395,
+      "sha256": "dfbcf9e0963554c07cf91edefce45e8fd868c9238f1ea0d3df5025998afb7af4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-2100/expected.csv",
+      "bytes": 170,
+      "sha256": "00cf8d660312145dada1cc7fd48e9726b88dcc680600d8915119e92703d5cdb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-2100/oracle.json",
+      "bytes": 3364,
+      "sha256": "5dccdff93955d276b0bafa2f1cae5a0d19190325dbe8be0232b8e6d7f95e4d9e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-2100/source.pdf",
+      "bytes": 1395,
+      "sha256": "b5d25738a9fe0415dbb4fe9bb5cb8a3afcc99fce22d2b8140b6adb703a6d9458",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-2101/oracle.json",
+      "bytes": 2131,
+      "sha256": "16908f4bb840bb27fd62c96c4faef1cf7505d7497b0c5bf52e37ac370d0a3783",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/DATE-2101/source.pdf",
+      "bytes": 1395,
+      "sha256": "447b4dc59843d633626911e4a1b586375abebf1b976ced24183a9a58d36d325d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-complete-three-pages/expected.csv",
+      "bytes": 234,
+      "sha256": "f055aa39274dfc8c738cff06fb19ecb1cf8be6d3d3cfe27dcb6fe8ce4c2847d7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-complete-three-pages/oracle.json",
+      "bytes": 5672,
+      "sha256": "cdc10dce1d64ff1b3e18ab40283c2f4070298896e0f318ce34c33b9255c36af9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-complete-three-pages/source.pdf",
+      "bytes": 2758,
+      "sha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-count-inconsistent-with-original/oracle.json",
+      "bytes": 2880,
+      "sha256": "59554abd56592d69bbfaa22bd2874b74f455d4b6f3d8afd89459f81aae798cca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-count-inconsistent-with-original/source.pdf",
+      "bytes": 2758,
+      "sha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-duplicate-original-row/oracle.json",
+      "bytes": 3878,
+      "sha256": "d9ce90546fd91215523c091be78a58dc4aff34887ff59939d75b47a0e216e033",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-duplicate-original-row/source.pdf",
+      "bytes": 2758,
+      "sha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-missing-physical-page-two/oracle.json",
+      "bytes": 2877,
+      "sha256": "31f4c6cf5d0564fe257aa88693a82acd9dc502602825657996b799ace3bef056",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-missing-physical-page-two/source.pdf",
+      "bytes": 2758,
+      "sha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-original-row-order/oracle.json",
+      "bytes": 3874,
+      "sha256": "59c0da86c03bcee182904d3b2c089697464b6c850a26448812fb1e1c71775bc7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-original-row-order/source.pdf",
+      "bytes": 2758,
+      "sha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-reordered-page-blocks/oracle.json",
+      "bytes": 3877,
+      "sha256": "f7e14d89394b7573a861208231ad9db6810195f26df5b9def1d3d03f1f04acc1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/MAP-reordered-page-blocks/source.pdf",
+      "bytes": 2758,
+      "sha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N01-double-positive/oracle.json",
+      "bytes": 3061,
+      "sha256": "ba369df761f233007d2820d17ffe11b9b14d27e22bfad568a00768388ccd2ca6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N01-double-positive/source.pdf",
+      "bytes": 1975,
+      "sha256": "260656e1794b455a91a382f4c266d93720c79f670c94fed0dd20c98f14012411",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N02-missing-credit/oracle.json",
+      "bytes": 3055,
+      "sha256": "439b96271147b87aafd2179b5a1a9e1409c2fea0e3b2a162978421db4ef0f7d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N02-missing-credit/source.pdf",
+      "bytes": 1931,
+      "sha256": "3de6be198642af4b524bef15c757b80a1eb66e385c458700784b1f556ccff832",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N03-both-money-empty/oracle.json",
+      "bytes": 3051,
+      "sha256": "279f7047e0dd681b956e14571748b08c7f13f939c40852cd4ec9f36a4808278c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N03-both-money-empty/source.pdf",
+      "bytes": 1885,
+      "sha256": "0f9ade2e9aeb832006c1f093bf270da867f8e0bac10c69cd5267aba1b2d95e84",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N04-negative-debit/oracle.json",
+      "bytes": 3060,
+      "sha256": "1f9e784772672ba0e069c91d2f0d0d45f582be68da68f12e04bea74850ae0c6f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N04-negative-debit/source.pdf",
+      "bytes": 1976,
+      "sha256": "4a1799850dd66713fdc49ed161681588bb0ca14894198ee19bd944a9d82702bd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N05-excess-precision/oracle.json",
+      "bytes": 3065,
+      "sha256": "1259e8546f3459f2907eb31dfd10e95f3708cc063d7cfd9adec5cdda41806bfb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N05-excess-precision/source.pdf",
+      "bytes": 1976,
+      "sha256": "6438329b24e467f9bba697c4606658d62457d5975c5ef55d5933ca6ded08e1c1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N06-decimal-comma/oracle.json",
+      "bytes": 3058,
+      "sha256": "be6398d3d6595de6e9291b7c5c8089d31db7b49f7d864eabbe3bfbc36e2ba1fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N06-decimal-comma/source.pdf",
+      "bytes": 1975,
+      "sha256": "1ed29fcca47dfd1d91cff547ba99d3fcde5673a37648068a1fc440dfde129693",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N07-formula-money/oracle.json",
+      "bytes": 3059,
+      "sha256": "8ce570dd18af1a64c58225b1b7b46bcfb48da60b6f4c5aee9cc209f13e31f139",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N07-formula-money/source.pdf",
+      "bytes": 1976,
+      "sha256": "7475e4b76ace0d1e7583eb581dbf90622e874ceec0594498861a143a1f79a934",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N08-competing-reference/oracle.json",
+      "bytes": 3079,
+      "sha256": "70e87fccf2f39a0082f7287cca3ea83a8714141be332709d1947f4c687345fde",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N08-competing-reference/source.pdf",
+      "bytes": 2020,
+      "sha256": "75ee0bed4f9d9d3212c32186e63b3855aae648a3afc711c9f94dbf0f2060bd98",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N09-duplicate-parent/oracle.json",
+      "bytes": 3293,
+      "sha256": "5507b56047f4c7b18ac783f8619acc34e78e4f1c681709814d808bd856ed199c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N09-duplicate-parent/source.pdf",
+      "bytes": 2028,
+      "sha256": "de0400b755969804fc9470d603981628e097ae48718af520a177ea38d75afc21",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N10-movement-without-parent/oracle.json",
+      "bytes": 2845,
+      "sha256": "b5e6698d3cb0185ebaadfac73a9a1c406e017d4f4fb9c83b07c0aa9f75a0b62e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N10-movement-without-parent/source.pdf",
+      "bytes": 1922,
+      "sha256": "7b298b27d10f4155d2f4b80b6a1c5a1339dbcb44b23fff3729851b7c62a58b5b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N11-after-separator/oracle.json",
+      "bytes": 3277,
+      "sha256": "de7024fedb8ee3c5affb02d957ba54b2300378411ca66402229c400dc2d6365d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N11-after-separator/source.pdf",
+      "bytes": 2017,
+      "sha256": "feef79e1e74966f7a2eca053a594d83ec17182d6536bee2196bf008054aaf442",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N12-after-section-total/oracle.json",
+      "bytes": 3338,
+      "sha256": "9ad371adc5622b5879ee7c0d5f15423acedaf9a2a9faf02db4e89a1acadcf0cd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N12-after-section-total/source.pdf",
+      "bytes": 2169,
+      "sha256": "165a5f9061e041b243c957d9702eccf16d70748007f2a9ea39a0f560a79cc25f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N13-changed-repeated-header/oracle.json",
+      "bytes": 3309,
+      "sha256": "2a4eed6a39cfd1bf9c556f1ce10f95d5918c4acf938603c3efd0cb0690c9f0e9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N13-changed-repeated-header/source.pdf",
+      "bytes": 2268,
+      "sha256": "62660d43e2ac30f88f7186d791bd9e72dc2d25c3637488923e327302dd981293",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N14-wrong-continuation/oracle.json",
+      "bytes": 3309,
+      "sha256": "e904e826e20eab26554f90e9a2c1c5fcd1f614efa8a5f61eb11568273ce83d57",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N14-wrong-continuation/source.pdf",
+      "bytes": 2267,
+      "sha256": "feb3c6f9f6754a012bf66c68500b19f9d04a040c0b1a5cea03075b3aa34417f6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N15-missing-continuation/oracle.json",
+      "bytes": 3071,
+      "sha256": "b16f5d821266eadae253e9fe3ad81e9cc15aadece846e2d826bd4360d4b5b6d7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N15-missing-continuation/source.pdf",
+      "bytes": 2204,
+      "sha256": "b83b13616d87d9f7969db9be52449b14f38aecbd35a4cc5de9e662885a65f9bd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N16-intervening-page/oracle.json",
+      "bytes": 3533,
+      "sha256": "9f2e9216d36c1ca524262530f59c2cc9fa8f0e0b30addd124b2b4868e61071ef",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N16-intervening-page/source.pdf",
+      "bytes": 2543,
+      "sha256": "6f346098ddabbc654f9b6e4a75a1764d893fca992eef8a03ac145151b51eb91f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N17-wrapped-description/oracle.json",
+      "bytes": 3308,
+      "sha256": "61ff545602f1822e6f1d345026a3c9605b6340635530039cc8bd0a07e401dc76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N17-wrapped-description/source.pdf",
+      "bytes": 2045,
+      "sha256": "510022d5d5cd78c460a3d4261639f9f209237561ea75b28d12cf3a52b28207b4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N18-missing-date/oracle.json",
+      "bytes": 3039,
+      "sha256": "a2776851a4935ff20b05077ddde1fbd5d554df81aaef82ee185f8c944ede311a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N18-missing-date/source.pdf",
+      "bytes": 1926,
+      "sha256": "a92e68c7fe3a6280709012fefd046f489ee690943ef66754b434c6bab99b7ae8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N19-impossible-date/oracle.json",
+      "bytes": 3052,
+      "sha256": "2e83567e78b209db1f39aad02e708f8c2624d731467c9253759e63a93cff0356",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N19-impossible-date/source.pdf",
+      "bytes": 1975,
+      "sha256": "be929631e2c9d67a1387dd63e1486d39574b7afd0e193bf98320c616112af087",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N20-zero-year/oracle.json",
+      "bytes": 3046,
+      "sha256": "8c8240a01ca253e091ca170e9bfb383d5302d3b9631473ddc934f6c0e05442db",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N20-zero-year/source.pdf",
+      "bytes": 1975,
+      "sha256": "f8ed924d693c6b55a3da7d9bec921e3bc3d90d825be57620430302509438a8ac",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N21-section-total-offsetting/oracle.json",
+      "bytes": 3074,
+      "sha256": "cd22d6aa77434e43bf836498b151ed5b6caa286b1cf5a82e556b9650242c390c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N21-section-total-offsetting/source.pdf",
+      "bytes": 1975,
+      "sha256": "a146a93d83f1b94fb2aa0e8d72615c7249220f986f5c3726c3e7639e10ba90c0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N22-page-total-wrong/oracle.json",
+      "bytes": 3063,
+      "sha256": "0d8add05904816cb76bf7100be2de7374d4ed31501a642a7e3eb25d4bdf3c5ef",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N22-page-total-wrong/source.pdf",
+      "bytes": 1975,
+      "sha256": "19fba70c99289c7a0ad4dd7a286228e63ad6a6e74e6120e2c7521300f6636ab8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N23-grand-total-wrong/oracle.json",
+      "bytes": 3065,
+      "sha256": "547917b36553996fd185f6e2ebe359349afd2bb10217d52928fa001fff6ab332",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N23-grand-total-wrong/source.pdf",
+      "bytes": 1975,
+      "sha256": "dfcb1f1876d2aee5853ac5f9205fa8ef1d01e98157f9c1eb9720cafff04a8aa1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N24-carried-total-wrong/oracle.json",
+      "bytes": 4483,
+      "sha256": "3fbcee5a2d06f7af8e909d8f287fc9c18dc6f711d87dcb835c15471e04ab24bb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N24-carried-total-wrong/source.pdf",
+      "bytes": 2973,
+      "sha256": "7fa04eb135ced4f1af810f255381ff6f8dbef9a8af29e7cce45a7c57718c93dc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N25-brought-total-wrong/oracle.json",
+      "bytes": 4483,
+      "sha256": "c5dfd6689c3cab26a01343bf2e62ff74a50a6dfc9c9299deb48ede81ee1cd6df",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N25-brought-total-wrong/source.pdf",
+      "bytes": 2973,
+      "sha256": "d57e509471c7ef3362635408f22d21f9e667d2d63957907d1e0fe300d6250819",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N26-orphan-carry/oracle.json",
+      "bytes": 3297,
+      "sha256": "213ff72a44edabe30f42b36e2a903b36a2aeb76dea242769c6d0ae3113d7360e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N26-orphan-carry/source.pdf",
+      "bytes": 2119,
+      "sha256": "eda0b56dd11c0c756df9e75f4d5789e3adf686ef5b09a770b3ab9617a06a5282",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N27-brought-without-carried/oracle.json",
+      "bytes": 3550,
+      "sha256": "42ef185dbff91325b2f30c9406dc9fb62906e96cafc08fa834f8ae7b020e026a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N27-brought-without-carried/source.pdf",
+      "bytes": 2412,
+      "sha256": "80909fcb4eb5eea2d9a85bc4209cd30ec3ed7daa14730300ec4bd1c60c8f804c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N28-opening-balance-row/oracle.json",
+      "bytes": 3322,
+      "sha256": "e2cf294359d80476b9acb4790467af361db0e65c87f7aa392c0d39833a526ab0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N28-opening-balance-row/source.pdf",
+      "bytes": 2118,
+      "sha256": "f6c1a0a4de4fc9b692a04cc29ace6ddf7d02a4cbe4da3b8537a9d9ead6b9acde",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N29-closing-balance-row/oracle.json",
+      "bytes": 3323,
+      "sha256": "22902fa64b9d0cfd01c364f192bf5e54412e043c2499fc3753de188c81cc5de6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N29-closing-balance-row/source.pdf",
+      "bytes": 2119,
+      "sha256": "77c8ab15fffe55bf79376e1a746de1805abe735aab79cf02d47e7da9baa79311",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N30-unknown-currency/oracle.json",
+      "bytes": 3061,
+      "sha256": "ea40e5c815b9a3c641f29b82f9de302a3415a10d82beb4a2b0b92bd42f2ebcb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N30-unknown-currency/source.pdf",
+      "bytes": 1975,
+      "sha256": "dbf7152d91665f3668a24ba9f2f5bc6975b040d4ef463d1d4c22213e45906c26",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N31-missing-currency/oracle.json",
+      "bytes": 2836,
+      "sha256": "76ae6aa6c29685eacd6755635e9fa1e04d3922246ce2c36f227c6436ad6b9fe1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N31-missing-currency/source.pdf",
+      "bytes": 1923,
+      "sha256": "2cfe2bc969d53c6813cafaabb1dc45e7d38a4f2b111a93831cd1bef5be45f6e7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N32-duplicate-header-role/oracle.json",
+      "bytes": 3063,
+      "sha256": "7f8df7ce8abeba006728230229aec1369bcda6e4f5a6f27336150d5851a9fb44",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N32-duplicate-header-role/source.pdf",
+      "bytes": 1974,
+      "sha256": "8afc42507c686544a0da4896be4acdd7dc807f1353c60a43badc7766278a245e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N33-late-unknown-row/oracle.json",
+      "bytes": 3295,
+      "sha256": "c435cb17eabec0f898ba697ae37bc84aa786d289fa1cb0e8097513793f6b6a8f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N33-late-unknown-row/source.pdf",
+      "bytes": 2114,
+      "sha256": "83780e613ab6fcbcd9da9c4c45262cc631daeac3bffec76d6b7215524f36091e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N34-sixth-balance-column/oracle.json",
+      "bytes": 3293,
+      "sha256": "a94702168c9b0868e704fe2a52c685b9167e1f66db32fecc06bccd1122e09fee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N34-sixth-balance-column/source.pdf",
+      "bytes": 2162,
+      "sha256": "8ea62bc90f7086f4a28a09199b69331536d6a40564f1e9e8d2494b1fe579f95d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N35-after-grand-total/oracle.json",
+      "bytes": 3295,
+      "sha256": "fc818c3337c39053fa29b65e1fab6fc42b1aa79430d21731948d16086c27d744",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N35-after-grand-total/source.pdf",
+      "bytes": 2028,
+      "sha256": "76014eb2d4c5ab63f27f24fce14c871f9e2374dd4d956099c8ee90179a92eed5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/N36-after-page-total/oracle.json",
+      "bytes": 3342,
+      "sha256": "6dfa3362978f9adc5aef7b6bd444869a8a4d3a98e3d98347bd0817eaa253dfa5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/N36-after-page-total/source.pdf",
+      "bytes": 2169,
+      "sha256": "5b0997fa1ff94fe4d498ea77df98d4f90572277d7e4fbaa52043df431536b281",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P01-basic-components/expected.csv",
+      "bytes": 181,
+      "sha256": "2155b3e7b591e40b2c733c503fe0c684e8a9de38fc8f1a7ba11a9e82bc599e23",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P01-basic-components/oracle.json",
+      "bytes": 4656,
+      "sha256": "fff120cd189ff8d085c93c0ce5148704e0bcc66884278c3c6562e310cde9796b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P01-basic-components/source.pdf",
+      "bytes": 1975,
+      "sha256": "8ca136688cdd164c0b5e25191bd70d6cb0646c2538abb7a0016bc3cd731cbc29",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P02-zero-and-separated-sections/expected.csv",
+      "bytes": 181,
+      "sha256": "5838267b325e6d737a0d32a694e479ce6ab82b31cc4e255151c0ea5f81798f69",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P02-zero-and-separated-sections/oracle.json",
+      "bytes": 4959,
+      "sha256": "88218398fd9e9ed86505680026cd5e48a9e36404b8f0a330db2dc34f95a9ab25",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P02-zero-and-separated-sections/source.pdf",
+      "bytes": 1929,
+      "sha256": "450fc5f1c7ab05d7686abcbd8d9b4a9ca7dd0414eb7129e528b77e98ddec0cb0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P03-repeated-header-same-page/expected.csv",
+      "bytes": 135,
+      "sha256": "c3df49f22e50a2bcda54e58dcf388054a34f50cbbfdb3d587b78f4e38d5e38f1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P03-repeated-header-same-page/oracle.json",
+      "bytes": 3763,
+      "sha256": "7fb15181de537711eb346a1521f92199917b00638a3b65e574458ddadafcfd9a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P03-repeated-header-same-page/source.pdf",
+      "bytes": 1726,
+      "sha256": "826e91d092c6f1996b96cbf4de76fb9f96e355dda8c4864d3554ef660e03a887",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P04-direct-continuation/expected.csv",
+      "bytes": 181,
+      "sha256": "2155b3e7b591e40b2c733c503fe0c684e8a9de38fc8f1a7ba11a9e82bc599e23",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P04-direct-continuation/oracle.json",
+      "bytes": 4981,
+      "sha256": "852f8bc925e5a96e86c4d9da4ee18ddb0b6510c4e2bdee3b3578bfaf71b005fa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P04-direct-continuation/source.pdf",
+      "bytes": 2267,
+      "sha256": "4387bc1a707e5a01e13f57a340cdd41912434a3d2fe4c9d26e8cd938dd60aca9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P05-carry-and-component-totals/expected.csv",
+      "bytes": 181,
+      "sha256": "2155b3e7b591e40b2c733c503fe0c684e8a9de38fc8f1a7ba11a9e82bc599e23",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P05-carry-and-component-totals/oracle.json",
+      "bytes": 6162,
+      "sha256": "24994efd1f8a3b60f350b00d68bbf5b66cb11f867646bd6affe01c77e1b707e6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P05-carry-and-component-totals/source.pdf",
+      "bytes": 2973,
+      "sha256": "0d6ee7643d6bb54278ecac8f0041b994cf62b5f39a3df346a010ac2c46cae7d8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P06-explicit-reference-and-literal-description/expected.csv",
+      "bytes": 139,
+      "sha256": "23dab9dd5599b460c90a94baaa427d5962de1856607a5ddc589ecd17c906128c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P06-explicit-reference-and-literal-description/oracle.json",
+      "bytes": 3518,
+      "sha256": "e1eeda56d45e0df90f7900bfbed604a340c65b2f884a2094fc435a1a46259a7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P06-explicit-reference-and-literal-description/source.pdf",
+      "bytes": 1583,
+      "sha256": "dba8b9c69fb95531a92c84693464078f13443d80d35be00f69e5d90f53e8fdd8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P07-next-page-new-parent/expected.csv",
+      "bytes": 135,
+      "sha256": "eb7938ec7a0c218c347f97eab4aa7bb7db2085c0c3626196ec229f5ff5d96dd1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P07-next-page-new-parent/oracle.json",
+      "bytes": 4142,
+      "sha256": "3a7a47e157e370b9a89e4742e62156af62d74a0668b68a2a83277a21124a1cf9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P07-next-page-new-parent/source.pdf",
+      "bytes": 1914,
+      "sha256": "979ccf65f58da9c04d4d3994e85387f71f15a5c81222829594f1046bda340cfc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/P08-complete-zero-section/expected.csv",
+      "bytes": 87,
+      "sha256": "03dc7fd2ce22e73808603821dd7ba699891c2e3f0a656738340847e5f1b470ae",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P08-complete-zero-section/oracle.json",
+      "bytes": 3291,
+      "sha256": "a1de356e8b6477c3df56f6588f037d59bc9d32847f1d50838a61e553a463f908",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/P08-complete-zero-section/source.pdf",
+      "bytes": 1579,
+      "sha256": "071c8e1668a5debefacdb0fd72392f2d30f8f01fba6558279187c3d7a8d6b24c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/frozen/R01-nine-pages-270-movements/expected.csv",
+      "bytes": 12083,
+      "sha256": "10c872083c2b3b6f5a6759854feb0030b82259bac53bbe5e6ea2016727f333e5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/R01-nine-pages-270-movements/oracle.json",
+      "bytes": 195113,
+      "sha256": "65715216f0b22163d2411e6ce2b0d261ff60241886cd9b024dcf3f8169fed4c0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/frozen/R01-nine-pages-270-movements/source.pdf",
+      "bytes": 61442,
+      "sha256": "0648752d63d08b6fcd505561afac4d3cb5005d2e7e286f7783b839bbd33960d3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public synthetic literal PDF from independently frozen P4 split-section inputs. Canonical input manifest ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c; regenerated exact bytes by standalone Python recipe. Declared provenance pending independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/split-section/generate_sources.py",
+      "bytes": 3528,
+      "sha256": "e83fdb0b8780f6e32305d23c934077f51bcc403e99f4166d2eef0cb19b43b113",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/verify_inputs.py",
+      "bytes": 1877,
+      "sha256": "c40a76da00f39abd1b545cf7fde780f2f20d854ca1d699e7361a81dbe1dde0dd",
+      "kind": "text"
+    },
+    {
       "path": "audit/stress/check_openxml.py",
       "bytes": 8440,
       "sha256": "802ec2110228b1c7342bd9e0d9c1b6ccc4ca417ad814f30d4117eb7ba8f580bd",
@@ -23702,6 +24740,12 @@
       "kind": "text"
     },
     {
+      "path": "components/split-section-review.tsx",
+      "bytes": 28200,
+      "sha256": "cad736d0d99cbdc28fd0bcdf45271be418e0d9efae8a10a1604cc92c73a9820a",
+      "kind": "text"
+    },
+    {
       "path": "components/tb-financial-workspace.tsx",
       "bytes": 25048,
       "sha256": "a5d8e73fc812e417a3a1d794e937d91f4d4e29adf767caa11be8e7ae44075151",
@@ -24129,14 +25173,20 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 3844,
-      "sha256": "a87bcca028a2423d62216812b2b8d207021459e1e39221514a5493efdbbf2c6e",
+      "bytes": 3962,
+      "sha256": "5af29b2d0f6e2b14037aae48b5ef8ec9172a5e3fbb3f7155ee72892030d09d89",
       "kind": "text"
     },
     {
       "path": "docs/P4-RAW-SIGNED-HEADER-CONTRACT.ar.md",
       "bytes": 7842,
       "sha256": "6b8704da72b8fe344795f6e66bf366a99a15b064d4c19b352256a471eb197ce8",
+      "kind": "text"
+    },
+    {
+      "path": "docs/P4-SPLIT-SECTION-IMPLEMENTATION.ar.md",
+      "bytes": 9511,
+      "sha256": "6a81083d2ebe7987c3fa1925f8520a4bfaddda58f30cecfaf2f2aba47cd91cfb",
       "kind": "text"
     },
     {
@@ -24155,6 +25205,12 @@
       "path": "docs/RELEASE-0.4.39.ar.md",
       "bytes": 3592,
       "sha256": "c09f5b79a84d03c74733865b6a3da9b189b9a0706f1f523fc6fd78d81f6d2599",
+      "kind": "text"
+    },
+    {
+      "path": "docs/RELEASE-0.4.40.ar.md",
+      "bytes": 2216,
+      "sha256": "81a91d5fe5b15f9867dd9aa47fd08bd4ef7de4f1e45dbf46f2389a9921062620",
       "kind": "text"
     },
     {
@@ -24216,7 +25272,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "08ffbd58fb31d47b783dae4d6e27730c8853732eb3bfde8bf0f7b2ee771833aa",
+      "sha256": "6e53f77cb3803ca40ddc6f0a9b97b571fdcd937f5cc99ea58d8a55587a24f3d7",
       "kind": "text"
     },
     {
@@ -24337,6 +25393,12 @@
       "path": "lib/i18n/source-structure-review.ts",
       "bytes": 7804,
       "sha256": "79aadfa1bc5a6a6938f76404068a213f7c1038539f7d3686f623ada40b995d7a",
+      "kind": "text"
+    },
+    {
+      "path": "lib/i18n/split-section-review.ts",
+      "bytes": 14206,
+      "sha256": "ec12b940dbd27b229a30e80d14d0ee37d4ffb983b83f521f0043e0aabab47b5e",
       "kind": "text"
     },
     {
@@ -24689,8 +25751,8 @@
     },
     {
       "path": "lib/reconciliation/io.ts",
-      "bytes": 48297,
-      "sha256": "c16b169cbc5d59d5c62f2999a638f41f984cb056efe09cb761b7e8a950a29fde",
+      "bytes": 48306,
+      "sha256": "74494c7eb890633704cf7f14b0952d4e78a2d9cdd7be7f29c1cf3d64dfb97ef3",
       "kind": "text"
     },
     {
@@ -24898,6 +25960,18 @@
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/split-section-session.ts",
+      "bytes": 32127,
+      "sha256": "2f992bb7bbb39088a1ee3bd86e5cf223f87f1beb760df6d6ff21ae440833790d",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/split-section.ts",
+      "bytes": 31138,
+      "sha256": "058a202b50f2107f8a46ef4f0507227396e61f46c40b66954bb09046a1419b7a",
+      "kind": "text"
+    },
+    {
       "path": "lib/reconciliation/statement-direction.ts",
       "bytes": 11070,
       "sha256": "3d5ee4dfe913317e1f32dbc5848da2eb6e070b916f26a4ca4a2230f47f3d55b6",
@@ -25067,8 +26141,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 4006,
-      "sha256": "7f40b822f8e1f7b6beeb8262b2838def09d8408cf503c6d3f443a5715ab21e06",
+      "bytes": 4382,
+      "sha256": "43939530c672ffce9b39a7ca590e561d4e2c7b985341417f4e59d4e79fe44029",
       "kind": "text"
     },
     {
@@ -25247,6 +26321,12 @@
       "path": "scripts/browser-test.mjs",
       "bytes": 77629,
       "sha256": "bb31356a6ef3836e6938ee23cb201568dc2953185b48b74b37d4ee1d0ee92a14",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/check-split-section-exports.py",
+      "bytes": 15327,
+      "sha256": "755a4bef1f582a723b145436a6353086ade5f34e4931e8d2ee6fb5beff592dd0",
       "kind": "text"
     },
     {
@@ -25610,6 +26690,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/split-section-browser.mjs",
+      "bytes": 17250,
+      "sha256": "a1034e011fa186dc1d6ac3b97d023e70a95322cfdf103ee6a9473f00ca1a46e0",
+      "kind": "text"
+    },
+    {
       "path": "scripts/startup-readiness-browser.mjs",
       "bytes": 8083,
       "sha256": "7826e2880aef8e5f6a957ec77eda6a9ecce3c3ac40b24c05c692fc74d32e6ce2",
@@ -25673,6 +26759,12 @@
       "path": "scripts/test-specialized-faults.mjs",
       "bytes": 1353,
       "sha256": "fc864c65ac7d2a5987e146a064b71e9478d82b0c0d867a71846d6451105dfb28",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-split-section-mutations.mjs",
+      "bytes": 6576,
+      "sha256": "95616987ffbc857c52c7cac60c976c4d56ec7fe3e11c39143e3cc46a548ef4f2",
       "kind": "text"
     },
     {
@@ -26748,6 +27840,18 @@
       "kind": "text"
     },
     {
+      "path": "tests/split-section-classifier.test.ts",
+      "bytes": 15980,
+      "sha256": "fd470978b9258485ab2c5b91712e803d217cee636a20ae5bac17a8005011456a",
+      "kind": "text"
+    },
+    {
+      "path": "tests/split-section-session.test.ts",
+      "bytes": 37158,
+      "sha256": "9e6ec9abf17806ad27f7524a7d16d9d7ece4721b2a0fea8d8671a0418eef8b0d",
+      "kind": "text"
+    },
+    {
       "path": "tests/statement-direction.test.ts",
       "bytes": 10660,
       "sha256": "ff7ff0edff272c714087f2eee3f8286647010b951443a67f59be9f0a8a5505cb",
@@ -26942,13 +28046,13 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-Dgi0i2Zz.js",
-      "bytes": 5841393,
-      "sha256": "a00bb6668ef80145a96cb294d744f601d58c822190b211f240e58c7b0e2e4032",
+      "path": "assets/index-B5nj0SVv.js",
+      "bytes": 5897818,
+      "sha256": "b39eeb5bfd86549836d663a30d87ff1ff19b0b509c56806010a7574723ca283c",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Application bundle compiled locally from the independently reviewed source-display, date-validation, input-snapshot and diagnostic changes. Pinned pnpm-lock.yaml is unchanged. Locked ZIP/XML parser literals include control bytes; full decoded privacy scans remain required. Exact source and build hashes require independent review before publication."
+        "description": "Locally compiled proposed application asset with locked dependencies unchanged. Parser control literals require decoded privacy scans. Exact source and build hashes require independent candidate review before publication."
       }
     },
     {
@@ -26980,9 +28084,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/visual-renderer-DLOAUP3A.js",
+      "path": "assets/visual-renderer-7miyp3xb.js",
       "bytes": 6542,
-      "sha256": "6e39fa6eaabdf540a74411e592897bd13be5dfe7a31e2938aa9c4085a8b2c34f",
+      "sha256": "2702c9899ebc2d23fc8d5820e5a8f1fcf7c2af0c893d372c1b361717497064c5",
       "kind": "text"
     },
     {
@@ -27058,7 +28162,7 @@
     {
       "path": "index.html",
       "bytes": 3359,
-      "sha256": "4e7b22b5b7d00c085bc405f8c3ae354efa60af3c8fe6669864504d3aeb3d710a",
+      "sha256": "08fc12bd9c64e23919397e478c7207e17226565676e3b1636190c00d0411a48b",
       "kind": "text"
     },
     {

@@ -1,0 +1,7320 @@
+{
+  "description": "Literal synthetic source recipes transcribed from accepted preparatory inventories. Financial expected output is never derived from product. Five metadata negatives intentionally share corrected complete MAP source recipe.",
+  "productImports": false,
+  "cases": [
+    {
+      "id": "P01-basic-components",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "8ca136688cdd164c0b5e25191bd70d6cb0646c2538abb7a0016bc3cd731cbc29",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "P02-zero-and-separated-sections",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "---",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Invoice: B-202",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "7.01"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "0.00"
+          ],
+          [
+            "Section total: B-202",
+            "",
+            "",
+            "0.00",
+            "7.01"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "123.45",
+            "7.01"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "450fc5f1c7ab05d7686abcbd8d9b4a9ca7dd0414eb7129e528b77e98ddec0cb0",
+      "sourceBytes": 1929
+    },
+    {
+      "id": "P03-repeated-header-same-page",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "826e91d092c6f1996b96cbf4de76fb9f96e355dda8c4864d3554ef660e03a887",
+      "sourceBytes": 1726
+    },
+    {
+      "id": "P04-direct-continuation",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "4387bc1a707e5a01e13f57a340cdd41912434a3d2fe4c9d26e8cd938dd60aca9",
+      "sourceBytes": 2267
+    },
+    {
+      "id": "P05-carry-and-component-totals",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "0d6ee7643d6bb54278ecac8f0041b994cf62b5f39a3df346a010ac2c46cae7d8",
+      "sourceBytes": 2973
+    },
+    {
+      "id": "P06-explicit-reference-and-literal-description",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: C-003",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "C-003",
+            "Grand total",
+            "9.07",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "C-003",
+            "Value, \"quoted\" (literal)",
+            "0.00",
+            "1.03"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "9.07",
+            "1.03"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "dba8b9c69fb95531a92c84693464078f13443d80d35be00f69e5d90f53e8fdd8",
+      "sourceBytes": 1583
+    },
+    {
+      "id": "P07-next-page-new-parent",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: B-202",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "7.01"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "979ccf65f58da9c04d4d3994e85387f71f15a5c81222829594f1046bda340cfc",
+      "sourceBytes": 1914
+    },
+    {
+      "id": "P08-complete-zero-section",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: B-202",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "0.00"
+          ],
+          [
+            "Section total: B-202",
+            "",
+            "",
+            "0.00",
+            "0.00"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "0.00",
+            "0.00"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "0.00",
+            "0.00"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "071c8e1668a5debefacdb0fd72392f2d30f8f01fba6558279187c3d7a8d6b24c",
+      "sourceBytes": 1579
+    },
+    {
+      "id": "N01-double-positive",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "1.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "260656e1794b455a91a382f4c266d93720c79f670c94fed0dd20c98f14012411",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N02-missing-credit",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "3de6be198642af4b524bef15c757b80a1eb66e385c458700784b1f556ccff832",
+      "sourceBytes": 1931
+    },
+    {
+      "id": "N03-both-money-empty",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "0f9ade2e9aeb832006c1f093bf270da867f8e0bac10c69cd5267aba1b2d95e84",
+      "sourceBytes": 1885
+    },
+    {
+      "id": "N04-negative-debit",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "-123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "4a1799850dd66713fdc49ed161681588bb0ca14894198ee19bd944a9d82702bd",
+      "sourceBytes": 1976
+    },
+    {
+      "id": "N05-excess-precision",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.451",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "6438329b24e467f9bba697c4606658d62457d5975c5ef55d5933ca6ded08e1c1",
+      "sourceBytes": 1976
+    },
+    {
+      "id": "N06-decimal-comma",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123,45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "1ed29fcca47dfd1d91cff547ba99d3fcde5673a37648068a1fc440dfde129693",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N07-formula-money",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "=123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "7475e4b76ace0d1e7583eb581dbf90622e874ceec0594498861a143a1f79a934",
+      "sourceBytes": 1976
+    },
+    {
+      "id": "N08-competing-reference",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "B-202",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "75ee0bed4f9d9d3212c32186e63b3855aae648a3afc711c9f94dbf0f2060bd98",
+      "sourceBytes": 2020
+    },
+    {
+      "id": "N09-duplicate-parent",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "de0400b755969804fc9470d603981628e097ae48718af520a177ea38d75afc21",
+      "sourceBytes": 2028
+    },
+    {
+      "id": "N10-movement-without-parent",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "7b298b27d10f4155d2f4b80b6a1c5a1339dbcb44b23fff3729851b7c62a58b5b",
+      "sourceBytes": 1922
+    },
+    {
+      "id": "N11-after-separator",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "---",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "feef79e1e74966f7a2eca053a594d83ec17182d6536bee2196bf008054aaf442",
+      "sourceBytes": 2017
+    },
+    {
+      "id": "N12-after-section-total",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.01",
+            "0.00"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "165a5f9061e041b243c957d9702eccf16d70748007f2a9ea39a0f560a79cc25f",
+      "sourceBytes": 2169
+    },
+    {
+      "id": "N13-changed-repeated-header",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Balance"
+          ],
+          [
+            "Continued invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "62660d43e2ac30f88f7186d791bd9e72dc2d25c3637488923e327302dd981293",
+      "sourceBytes": 2268
+    },
+    {
+      "id": "N14-wrong-continuation",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: B-202",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "feb3c6f9f6754a012bf66c68500b19f9d04a040c0b1a5cea03075b3aa34417f6",
+      "sourceBytes": 2267
+    },
+    {
+      "id": "N15-missing-continuation",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "b83b13616d87d9f7969db9be52449b14f38aecbd35a4cc5de9e662885a65f9bd",
+      "sourceBytes": 2204
+    },
+    {
+      "id": "N16-intervening-page",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "6f346098ddabbc654f9b6e4a75a1764d893fca992eef8a03ac145151b51eb91f",
+      "sourceBytes": 2543
+    },
+    {
+      "id": "N17-wrapped-description",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "",
+            "",
+            "Wrapped standalone description",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "510022d5d5cd78c460a3d4261639f9f209237561ea75b28d12cf3a52b28207b4",
+      "sourceBytes": 2045
+    },
+    {
+      "id": "N18-missing-date",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "a92e68c7fe3a6280709012fefd046f489ee690943ef66754b434c6bab99b7ae8",
+      "sourceBytes": 1926
+    },
+    {
+      "id": "N19-impossible-date",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-02-30",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "be929631e2c9d67a1387dd63e1486d39574b7afd0e193bf98320c616112af087",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N20-zero-year",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "0000-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "f8ed924d693c6b55a3da7d9bec921e3bc3d90d825be57620430302509438a8ac",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N21-section-total-offsetting",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.96",
+            "2.38"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "a146a93d83f1b94fb2aa0e8d72615c7249220f986f5c3726c3e7639e10ba90c0",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N22-page-total-wrong",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.94",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "19fba70c99289c7a0ad4dd7a286228e63ad6a6e74e6120e2c7521300f6636ab8",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N23-grand-total-wrong",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.38"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "dfcb1f1876d2aee5853ac5f9205fa8ef1d01e98157f9c1eb9720cafff04a8aa1",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N24-carried-total-wrong",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "123.46",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "7fa04eb135ced4f1af810f255381ff6f8dbef9a8af29e7cce45a7c57718c93dc",
+      "sourceBytes": 2973
+    },
+    {
+      "id": "N25-brought-total-wrong",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "123.45",
+            "2.37"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "123.45",
+            "2.38"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "d57e509471c7ef3362635408f22d21f9e667d2d63957907d1e0fe300d6250819",
+      "sourceBytes": 2973
+    },
+    {
+      "id": "N26-orphan-carry",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "eda0b56dd11c0c756df9e75f4d5789e3adf686ef5b09a770b3ab9617a06a5282",
+      "sourceBytes": 2119
+    },
+    {
+      "id": "N27-brought-without-carried",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "80909fcb4eb5eea2d9a85bc4209cd30ec3ed7daa14730300ec4bd1c60c8f804c",
+      "sourceBytes": 2412
+    },
+    {
+      "id": "N28-opening-balance-row",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Opening balance",
+            "",
+            "",
+            "0.00",
+            "10.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "f6c1a0a4de4fc9b692a04cc29ace6ddf7d02a4cbe4da3b8537a9d9ead6b9acde",
+      "sourceBytes": 2118
+    },
+    {
+      "id": "N29-closing-balance-row",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Closing balance",
+            "",
+            "",
+            "117.95",
+            "0.00"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "77c8ab15fffe55bf79376e1a746de1805abe735aab79cf02d47e7da9baa79311",
+      "sourceBytes": 2119
+    },
+    {
+      "id": "N30-unknown-currency",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: USD",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "dbf7152d91665f3668a24ba9f2f5bc6975b040d4ef463d1d4c22213e45906c26",
+      "sourceBytes": 1975
+    },
+    {
+      "id": "N31-missing-currency",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "2cfe2bc969d53c6813cafaabb1dc45e7d38a4f2b111a93831cd1bef5be45f6e7",
+      "sourceBytes": 1923
+    },
+    {
+      "id": "N32-duplicate-header-role",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Debit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "8afc42507c686544a0da4896be4acdd7dc807f1353c60a43badc7766278a245e",
+      "sourceBytes": 1974
+    },
+    {
+      "id": "N33-late-unknown-row",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Unclassified",
+            "",
+            "",
+            "1.00",
+            "0.00"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "83780e613ab6fcbcd9da9c4c45262cc631daeac3bffec76d6b7215524f36091e",
+      "sourceBytes": 2114
+    },
+    {
+      "id": "N34-sixth-balance-column",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit",
+            "Running balance"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37",
+            ""
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37",
+            ""
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37",
+            ""
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 760,
+      "columns": [
+        20,
+        145,
+        270,
+        450,
+        550,
+        650
+      ],
+      "sourceSha256": "8ea62bc90f7086f4a28a09199b69331536d6a40564f1e9e8d2494b1fe579f95d",
+      "sourceBytes": 2162
+    },
+    {
+      "id": "N35-after-grand-total",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Invoice: B-202",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "76014eb2d4c5ab63f27f24fce14c871f9e2374dd4d956099c8ee90179a92eed5",
+      "sourceBytes": 2028
+    },
+    {
+      "id": "N36-after-page-total",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: A-101",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "123.45",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.00",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "4.50",
+            "0.00"
+          ],
+          [
+            "Section total: A-101",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Supplied movement",
+            "0.01",
+            "0.00"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "127.95",
+            "2.37"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "5b0997fa1ff94fe4d498ea77df98d4f90572277d7e4fbaa52043df431536b281",
+      "sourceBytes": 2169
+    },
+    {
+      "id": "R01-nine-pages-270-movements",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 1",
+            "0.00",
+            "2.03"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 2",
+            "1.02",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 3",
+            "1.03",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 4",
+            "1.04",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 5",
+            "0.00",
+            "2.07"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 6",
+            "1.06",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 7",
+            "1.07",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 8",
+            "1.08",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 9",
+            "0.00",
+            "2.11"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 10",
+            "1.10",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 11",
+            "1.11",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 12",
+            "1.12",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 13",
+            "0.00",
+            "2.15"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 14",
+            "1.14",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 15",
+            "1.15",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 16",
+            "1.16",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 17",
+            "0.00",
+            "2.19"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 18",
+            "1.18",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 19",
+            "1.19",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 20",
+            "1.20",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 21",
+            "0.00",
+            "2.23"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 22",
+            "1.22",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 23",
+            "1.23",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 24",
+            "1.24",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 25",
+            "0.00",
+            "2.27"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 26",
+            "1.26",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 27",
+            "1.27",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 28",
+            "1.28",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 29",
+            "0.00",
+            "2.31"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 30",
+            "1.30",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "25.45",
+            "17.36"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "25.45",
+            "17.36"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "25.45",
+            "17.36"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 31",
+            "1.31",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 32",
+            "1.32",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 33",
+            "0.00",
+            "2.35"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 34",
+            "1.34",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 35",
+            "1.35",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 36",
+            "1.36",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 37",
+            "0.00",
+            "2.39"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 38",
+            "1.38",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 39",
+            "1.39",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 40",
+            "1.40",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 41",
+            "0.00",
+            "2.43"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 42",
+            "1.42",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 43",
+            "1.43",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 44",
+            "1.44",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 45",
+            "0.00",
+            "2.47"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 46",
+            "1.46",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 47",
+            "1.47",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 48",
+            "1.48",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 49",
+            "0.00",
+            "2.51"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 50",
+            "1.50",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 51",
+            "1.51",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 52",
+            "1.52",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 53",
+            "0.00",
+            "2.55"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 54",
+            "1.54",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 55",
+            "1.55",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 56",
+            "1.56",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 57",
+            "0.00",
+            "2.59"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 58",
+            "1.58",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 59",
+            "1.59",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 60",
+            "1.60",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "58.95",
+            "34.65"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "33.50",
+            "17.29"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "58.95",
+            "34.65"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 61",
+            "0.00",
+            "2.63"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 62",
+            "1.62",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 63",
+            "1.63",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 64",
+            "1.64",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 65",
+            "0.00",
+            "2.67"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 66",
+            "1.66",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 67",
+            "1.67",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 68",
+            "1.68",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 69",
+            "0.00",
+            "2.71"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 70",
+            "1.70",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 71",
+            "1.71",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 72",
+            "1.72",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 73",
+            "0.00",
+            "2.75"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 74",
+            "1.74",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 75",
+            "1.75",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 76",
+            "1.76",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 77",
+            "0.00",
+            "2.79"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 78",
+            "1.78",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 79",
+            "1.79",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 80",
+            "1.80",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 81",
+            "0.00",
+            "2.83"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 82",
+            "1.82",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 83",
+            "1.83",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 84",
+            "1.84",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 85",
+            "0.00",
+            "2.87"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 86",
+            "1.86",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 87",
+            "1.87",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 88",
+            "1.88",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 89",
+            "0.00",
+            "2.91"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 90",
+            "1.90",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "97.60",
+            "56.81"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "38.65",
+            "22.16"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "97.60",
+            "56.81"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 91",
+            "1.91",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 92",
+            "1.92",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 93",
+            "0.00",
+            "2.95"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 94",
+            "1.94",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 95",
+            "1.95",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 96",
+            "1.96",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 97",
+            "0.00",
+            "2.99"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 98",
+            "1.98",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 99",
+            "1.99",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 100",
+            "2.00",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 101",
+            "0.00",
+            "3.03"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 102",
+            "2.02",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 103",
+            "2.03",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 104",
+            "2.04",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 105",
+            "0.00",
+            "3.07"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 106",
+            "2.06",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 107",
+            "2.07",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 108",
+            "2.08",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 109",
+            "0.00",
+            "3.11"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 110",
+            "2.10",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 111",
+            "2.11",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 112",
+            "2.12",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 113",
+            "0.00",
+            "3.15"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 114",
+            "2.14",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 115",
+            "2.15",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 116",
+            "2.16",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 117",
+            "0.00",
+            "3.19"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 118",
+            "2.18",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 119",
+            "2.19",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 120",
+            "2.20",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "144.90",
+            "78.30"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "47.30",
+            "21.49"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "144.90",
+            "78.30"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 121",
+            "0.00",
+            "3.23"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 122",
+            "2.22",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 123",
+            "2.23",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 124",
+            "2.24",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 125",
+            "0.00",
+            "3.27"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 126",
+            "2.26",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 127",
+            "2.27",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 128",
+            "2.28",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 129",
+            "0.00",
+            "3.31"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 130",
+            "2.30",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 131",
+            "2.31",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 132",
+            "2.32",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 133",
+            "0.00",
+            "3.35"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 134",
+            "2.34",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 135",
+            "2.35",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 136",
+            "2.36",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 137",
+            "0.00",
+            "3.39"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 138",
+            "2.38",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 139",
+            "2.39",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 140",
+            "2.40",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 141",
+            "0.00",
+            "3.43"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 142",
+            "2.42",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 143",
+            "2.43",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 144",
+            "2.44",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 145",
+            "0.00",
+            "3.47"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 146",
+            "2.46",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 147",
+            "2.47",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 148",
+            "2.48",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 149",
+            "0.00",
+            "3.51"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 150",
+            "2.50",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "196.75",
+            "105.26"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "51.85",
+            "26.96"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "196.75",
+            "105.26"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 151",
+            "2.51",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 152",
+            "2.52",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 153",
+            "0.00",
+            "3.55"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 154",
+            "2.54",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 155",
+            "2.55",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 156",
+            "2.56",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 157",
+            "0.00",
+            "3.59"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 158",
+            "2.58",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 159",
+            "2.59",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 160",
+            "2.60",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 161",
+            "0.00",
+            "3.63"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 162",
+            "2.62",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 163",
+            "2.63",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 164",
+            "2.64",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 165",
+            "0.00",
+            "3.67"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 166",
+            "2.66",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 167",
+            "2.67",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 168",
+            "2.68",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 169",
+            "0.00",
+            "3.71"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 170",
+            "2.70",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 171",
+            "2.71",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 172",
+            "2.72",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 173",
+            "0.00",
+            "3.75"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 174",
+            "2.74",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 175",
+            "2.75",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 176",
+            "2.76",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 177",
+            "0.00",
+            "3.79"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 178",
+            "2.78",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 179",
+            "2.79",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 180",
+            "2.80",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "257.85",
+            "130.95"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "61.10",
+            "25.69"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "257.85",
+            "130.95"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 181",
+            "0.00",
+            "3.83"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 182",
+            "2.82",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 183",
+            "2.83",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 184",
+            "2.84",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 185",
+            "0.00",
+            "3.87"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 186",
+            "2.86",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 187",
+            "2.87",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 188",
+            "2.88",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 189",
+            "0.00",
+            "3.91"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 190",
+            "2.90",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 191",
+            "2.91",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 192",
+            "2.92",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 193",
+            "0.00",
+            "3.95"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 194",
+            "2.94",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 195",
+            "2.95",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 196",
+            "2.96",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 197",
+            "0.00",
+            "3.99"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 198",
+            "2.98",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 199",
+            "2.99",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 200",
+            "3.00",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 201",
+            "0.00",
+            "4.03"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 202",
+            "3.02",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 203",
+            "3.03",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 204",
+            "3.04",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 205",
+            "0.00",
+            "4.07"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 206",
+            "3.06",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 207",
+            "3.07",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 208",
+            "3.08",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 209",
+            "0.00",
+            "4.11"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 210",
+            "3.10",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "322.90",
+            "162.71"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "65.05",
+            "31.76"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "322.90",
+            "162.71"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 211",
+            "3.11",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 212",
+            "3.12",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 213",
+            "0.00",
+            "4.15"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 214",
+            "3.14",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 215",
+            "3.15",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 216",
+            "3.16",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 217",
+            "0.00",
+            "4.19"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 218",
+            "3.18",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 219",
+            "3.19",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 220",
+            "3.20",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 221",
+            "0.00",
+            "4.23"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 222",
+            "3.22",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 223",
+            "3.23",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 224",
+            "3.24",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 225",
+            "0.00",
+            "4.27"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 226",
+            "3.26",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 227",
+            "3.27",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 228",
+            "3.28",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 229",
+            "0.00",
+            "4.31"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 230",
+            "3.30",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 231",
+            "3.31",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 232",
+            "3.32",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 233",
+            "0.00",
+            "4.35"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 234",
+            "3.34",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 235",
+            "3.35",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 236",
+            "3.36",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 237",
+            "0.00",
+            "4.39"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 238",
+            "3.38",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 239",
+            "3.39",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 240",
+            "3.40",
+            "0.00"
+          ],
+          [
+            "Carried forward",
+            "",
+            "",
+            "397.80",
+            "192.60"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "74.90",
+            "29.89"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: R-270",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Brought forward",
+            "",
+            "",
+            "397.80",
+            "192.60"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 241",
+            "0.00",
+            "4.43"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 242",
+            "3.42",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 243",
+            "3.43",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 244",
+            "3.44",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 245",
+            "0.00",
+            "4.47"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 246",
+            "3.46",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 247",
+            "3.47",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 248",
+            "3.48",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 249",
+            "0.00",
+            "4.51"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 250",
+            "3.50",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 251",
+            "3.51",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 252",
+            "3.52",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 253",
+            "0.00",
+            "4.55"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 254",
+            "3.54",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 255",
+            "3.55",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 256",
+            "3.56",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 257",
+            "0.00",
+            "4.59"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 258",
+            "3.58",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 259",
+            "3.59",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 260",
+            "3.60",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 261",
+            "0.00",
+            "4.63"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 262",
+            "3.62",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 263",
+            "3.63",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 264",
+            "3.64",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 265",
+            "0.00",
+            "4.67"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 266",
+            "3.66",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 267",
+            "3.67",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 268",
+            "3.68",
+            "0.00"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 269",
+            "0.00",
+            "4.71"
+          ],
+          [
+            "2026-09-17",
+            "",
+            "Resource row 270",
+            "3.70",
+            "0.00"
+          ],
+          [
+            "Section total: R-270",
+            "",
+            "",
+            "476.05",
+            "229.16"
+          ],
+          [
+            "Page total",
+            "",
+            "",
+            "78.25",
+            "36.56"
+          ],
+          [
+            "Grand total",
+            "",
+            "",
+            "476.05",
+            "229.16"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC PRECODE ONLY",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "0648752d63d08b6fcd505561afac4d3cb5005d2e7e286f7783b839bbd33960d3",
+      "sourceBytes": 61442
+    },
+    {
+      "id": "DATE-1900",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "1900-01-01",
+            "",
+            "Independent synthetic movement",
+            "12.34",
+            "0.00"
+          ],
+          [
+            "1900-12-31",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.34"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "dfbcf9e0963554c07cf91edefce45e8fd868c9238f1ea0d3df5025998afb7af4",
+      "sourceBytes": 1395
+    },
+    {
+      "id": "DATE-2100",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2100-01-01",
+            "",
+            "Independent synthetic movement",
+            "12.34",
+            "0.00"
+          ],
+          [
+            "2100-12-31",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.34"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "b5d25738a9fe0415dbb4fe9bb5cb8a3afcc99fce22d2b8140b6adb703a6d9458",
+      "sourceBytes": 1395
+    },
+    {
+      "id": "DATE-1899",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "1899-01-01",
+            "",
+            "Independent synthetic movement",
+            "12.34",
+            "0.00"
+          ],
+          [
+            "1899-12-31",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.34"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "3c070e6c56bbabdbac975652165f72f3f6960bf67e054d2fee4bf2f2a3bc09f7",
+      "sourceBytes": 1395
+    },
+    {
+      "id": "DATE-2101",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2101-01-01",
+            "",
+            "Independent synthetic movement",
+            "12.34",
+            "0.00"
+          ],
+          [
+            "2101-12-31",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.34"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        145,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "447b4dc59843d633626911e4a1b586375abebf1b976ced24183a9a58d36d325d",
+      "sourceBytes": 1395
+    },
+    {
+      "id": "MAP-complete-three-pages",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-01",
+            "",
+            "Independent synthetic movement",
+            "10.00",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-02",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-03",
+            "",
+            "Independent synthetic movement",
+            "3.00",
+            "0.00"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        165,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "sourceBytes": 2758
+    },
+    {
+      "id": "MAP-missing-physical-page-two",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-01",
+            "",
+            "Independent synthetic movement",
+            "10.00",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-02",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-03",
+            "",
+            "Independent synthetic movement",
+            "3.00",
+            "0.00"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        165,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "sourceBytes": 2758
+    },
+    {
+      "id": "MAP-count-inconsistent-with-original",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-01",
+            "",
+            "Independent synthetic movement",
+            "10.00",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-02",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-03",
+            "",
+            "Independent synthetic movement",
+            "3.00",
+            "0.00"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        165,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "sourceBytes": 2758
+    },
+    {
+      "id": "MAP-reordered-page-blocks",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-01",
+            "",
+            "Independent synthetic movement",
+            "10.00",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-02",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-03",
+            "",
+            "Independent synthetic movement",
+            "3.00",
+            "0.00"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        165,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "sourceBytes": 2758
+    },
+    {
+      "id": "MAP-duplicate-original-row",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-01",
+            "",
+            "Independent synthetic movement",
+            "10.00",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-02",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-03",
+            "",
+            "Independent synthetic movement",
+            "3.00",
+            "0.00"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        165,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "sourceBytes": 2758
+    },
+    {
+      "id": "MAP-original-row-order",
+      "pages": [
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Currency: SAR",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-01",
+            "",
+            "Independent synthetic movement",
+            "10.00",
+            "0.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-02",
+            "",
+            "Independent synthetic movement",
+            "0.00",
+            "2.00"
+          ]
+        ],
+        [
+          [
+            "SYNTHETIC ONLY",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "Date",
+            "Reference",
+            "Description",
+            "Debit",
+            "Credit"
+          ],
+          [
+            "Continued invoice: DATE-BOUND",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2026-09-03",
+            "",
+            "Independent synthetic movement",
+            "3.00",
+            "0.00"
+          ]
+        ]
+      ],
+      "banner": "SYNTHETIC ONLY INDEPENDENT REVISION",
+      "width": 700,
+      "columns": [
+        20,
+        165,
+        270,
+        500,
+        600
+      ],
+      "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+      "sourceBytes": 2758
+    }
+  ]
+}

@@ -127,6 +127,21 @@ jobs:
           test -x "$MIZAN_CHROMIUM"
           pnpm test:browser:section-families
           pnpm test:browser:section-currency
+      - name: Verify split-section native inputs, lifecycle, text XLSX and semantic mutations
+        env:
+          P4_REPORT_DIR: ${{ runner.temp }}/split-section-lifecycle
+          P4_MUTATION_REPORT_DIR: ${{ runner.temp }}/split-section-mutations
+        run: |
+          python3 -B audit/split-section/verify_inputs.py
+          python3 -B audit/split-section/check_oracle.py
+          pnpm test:split-section
+          python3 -B scripts/check-split-section-exports.py "$P4_REPORT_DIR"
+          pnpm test:split-section:mutations
+      - name: Verify split-section review UI in native Chrome
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          P4_REPORT_DIR: ${{ runner.temp }}/split-section-browser
+        run: pnpm test:split-section:browser
       - name: Independently verify human clearing and reopened memberships after UI and session replay
         run: |
           python3 audit/clearing/check_export.py --cleared 7 work/qa/clearing-manual.xlsx
