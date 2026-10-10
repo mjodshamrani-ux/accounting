@@ -1,0 +1,112 @@
+{
+  "case": "DATE-2101",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": false,
+  "expectedCode": "SPLIT_DATE",
+  "expectedStage": "money",
+  "sourceSha256": "447b4dc59843d633626911e4a1b586375abebf1b976ced24183a9a58d36d325d",
+  "sourceBytes": 1395,
+  "cuts": [
+    18,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 1,
+  "inventory": [
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 1,
+      "page": 1
+    },
+    {
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 2,
+      "page": 1
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 3,
+      "page": 1
+    },
+    {
+      "kind": "parent",
+      "values": [
+        "Invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 4,
+      "page": 1
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2101-01-01",
+        "",
+        "Independent synthetic movement",
+        "12.34",
+        "0.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 5,
+      "page": 1
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2101-12-31",
+        "",
+        "Independent synthetic movement",
+        "0.00",
+        "2.34"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 6,
+      "page": 1
+    }
+  ],
+  "movements": [],
+  "sections": null,
+  "pageTotals": null,
+  "totals": null,
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": false,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": null,
+  "sourcePhysicalPageCountFact": 1
+}

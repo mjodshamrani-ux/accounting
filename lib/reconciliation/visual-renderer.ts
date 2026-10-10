@@ -1,4 +1,4 @@
-import { getResolvedPDFJS } from 'unpdf';
+import { getNativePDFJS as getResolvedPDFJS } from './pdfjs-native.ts';
 import { guardPdfOperatorStreams } from './pdf-stream-integrity.ts';
 
 export type VisualPdfPage = {

@@ -1,0 +1,176 @@
+{
+  "case": "P06-explicit-reference-and-literal-description",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": true,
+  "expectedStage": "ready-for-review",
+  "expectedCode": null,
+  "sourceSha256": "dba8b9c69fb95531a92c84693464078f13443d80d35be00f69e5d90f53e8fdd8",
+  "sourceBytes": 1583,
+  "cuts": [
+    18,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 1,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "kind": "parent",
+      "values": [
+        "Invoice: C-003",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 5,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "C-003",
+        "Grand total",
+        "9.07",
+        "0.00"
+      ],
+      "section": "C-003",
+      "referenceOrigin": "explicit-source-cell"
+    },
+    {
+      "row": 6,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "C-003",
+        "Value, \"quoted\" (literal)",
+        "0.00",
+        "1.03"
+      ],
+      "section": "C-003",
+      "referenceOrigin": "explicit-source-cell"
+    },
+    {
+      "row": 7,
+      "page": 1,
+      "kind": "grand-total",
+      "values": [
+        "Grand total",
+        "",
+        "",
+        "9.07",
+        "1.03"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    }
+  ],
+  "movements": [
+    {
+      "originalRow": 5,
+      "page": 1,
+      "section": "C-003",
+      "referenceOrigin": "explicit-source-cell",
+      "reference": "C-003",
+      "date": "2026-09-17",
+      "description": "Grand total",
+      "debitText": "9.07",
+      "creditText": "0.00",
+      "debitMinor": 907,
+      "creditMinor": 0,
+      "netMinor": 907,
+      "derivedRow": 2
+    },
+    {
+      "originalRow": 6,
+      "page": 1,
+      "section": "C-003",
+      "referenceOrigin": "explicit-source-cell",
+      "reference": "C-003",
+      "date": "2026-09-17",
+      "description": "Value, \"quoted\" (literal)",
+      "debitText": "0.00",
+      "creditText": "1.03",
+      "debitMinor": 0,
+      "creditMinor": 103,
+      "netMinor": -103,
+      "derivedRow": 3
+    }
+  ],
+  "pageTotals": [
+    {
+      "page": 1,
+      "debitMinor": 907,
+      "creditMinor": 103
+    }
+  ],
+  "sections": {
+    "C-003": {
+      "debitMinor": 907,
+      "creditMinor": 103,
+      "rows": [
+        5,
+        6
+      ]
+    }
+  },
+  "totals": {
+    "debitMinor": 907,
+    "creditMinor": 103,
+    "netMinor": 804
+  },
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": true,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": "Explicit review required; this is expected future output, not product output",
+  "expectedCsvSha256": "23dab9dd5599b460c90a94baaa427d5962de1856607a5ddc589ecd17c906128c"
+}

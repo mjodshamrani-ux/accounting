@@ -1,0 +1,210 @@
+{
+  "case": "MAP-reordered-page-blocks",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": false,
+  "expectedCode": "SPLIT_PAGE_MAP",
+  "expectedStage": "structure",
+  "sourceSha256": "60cb222e4f2307eb086474a8aa591ea410fb8b505d78161ca07e59c0c245a8d6",
+  "sourceBytes": 2758,
+  "cuts": [
+    22,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 3,
+  "inventory": [
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 6,
+      "page": 2
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 7,
+      "page": 2
+    },
+    {
+      "kind": "continuation",
+      "values": [
+        "Continued invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 8,
+      "page": 2
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2026-09-02",
+        "",
+        "Independent synthetic movement",
+        "0.00",
+        "2.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 9,
+      "page": 2
+    },
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 1,
+      "page": 1
+    },
+    {
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 2,
+      "page": 1
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 3,
+      "page": 1
+    },
+    {
+      "kind": "parent",
+      "values": [
+        "Invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 4,
+      "page": 1
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2026-09-01",
+        "",
+        "Independent synthetic movement",
+        "10.00",
+        "0.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 5,
+      "page": 1
+    },
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 10,
+      "page": 3
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 11,
+      "page": 3
+    },
+    {
+      "kind": "continuation",
+      "values": [
+        "Continued invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 12,
+      "page": 3
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "2026-09-03",
+        "",
+        "Independent synthetic movement",
+        "3.00",
+        "0.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 13,
+      "page": 3
+    }
+  ],
+  "movements": [],
+  "sections": null,
+  "pageTotals": null,
+  "totals": null,
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": false,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": null,
+  "sourcePhysicalPageCountFact": 3
+}

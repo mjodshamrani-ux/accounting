@@ -1,0 +1,163 @@
+{
+  "case": "DATE-1900",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": true,
+  "expectedCode": null,
+  "expectedStage": "ready-for-review",
+  "sourceSha256": "dfbcf9e0963554c07cf91edefce45e8fd868c9238f1ea0d3df5025998afb7af4",
+  "sourceBytes": 1395,
+  "cuts": [
+    18,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 1,
+  "inventory": [
+    {
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 1,
+      "page": 1
+    },
+    {
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 2,
+      "page": 1
+    },
+    {
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 3,
+      "page": 1
+    },
+    {
+      "kind": "parent",
+      "values": [
+        "Invoice: DATE-BOUND",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null,
+      "row": 4,
+      "page": 1
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "1900-01-01",
+        "",
+        "Independent synthetic movement",
+        "12.34",
+        "0.00"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 5,
+      "page": 1
+    },
+    {
+      "kind": "movement",
+      "values": [
+        "1900-12-31",
+        "",
+        "Independent synthetic movement",
+        "0.00",
+        "2.34"
+      ],
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "row": 6,
+      "page": 1
+    }
+  ],
+  "movements": [
+    {
+      "originalRow": 5,
+      "page": 1,
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "DATE-BOUND",
+      "date": "1900-01-01",
+      "description": "Independent synthetic movement",
+      "debitText": "12.34",
+      "creditText": "0.00",
+      "debitMinor": 1234,
+      "creditMinor": 0,
+      "netMinor": 1234,
+      "derivedRow": 2
+    },
+    {
+      "originalRow": 6,
+      "page": 1,
+      "section": "DATE-BOUND",
+      "referenceOrigin": "accepted-section-proposal",
+      "reference": "DATE-BOUND",
+      "date": "1900-12-31",
+      "description": "Independent synthetic movement",
+      "debitText": "0.00",
+      "creditText": "2.34",
+      "debitMinor": 0,
+      "creditMinor": 234,
+      "netMinor": -234,
+      "derivedRow": 3
+    }
+  ],
+  "sections": {
+    "DATE-BOUND": {
+      "debitMinor": 1234,
+      "creditMinor": 234,
+      "rows": [
+        5,
+        6
+      ]
+    }
+  },
+  "pageTotals": [
+    {
+      "page": 1,
+      "debitMinor": 1234,
+      "creditMinor": 234
+    }
+  ],
+  "totals": {
+    "debitMinor": 1234,
+    "creditMinor": 234,
+    "netMinor": 1000
+  },
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": true,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": "Future explicit review required; no product acceptance",
+  "sourcePhysicalPageCountFact": 1,
+  "expectedCsvSha256": "03cfafe2390556d445024fc31e77e6bb9f9d9c4f86f4c5342894c03a81ef6aaf"
+}

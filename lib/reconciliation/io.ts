@@ -344,7 +344,7 @@ export async function readFile(
       for (const row of s.rows)
         for (const cell of row) {
           validateCellText(cell);
-          if (cell.length > 4096)
+          if (cell.length > cellTextLimit)
             throw new Error(
               'نص إحدى خلايا PDF يتجاوز الحد المسموح. تحقق من حدود الأعمدة.',
             );

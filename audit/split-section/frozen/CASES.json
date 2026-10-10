@@ -1,0 +1,332 @@
+[
+  {
+    "id": "P01-basic-components",
+    "oracle": "P01-basic-components/oracle.json",
+    "source": "P01-basic-components/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "P02-zero-and-separated-sections",
+    "oracle": "P02-zero-and-separated-sections/oracle.json",
+    "source": "P02-zero-and-separated-sections/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "P03-repeated-header-same-page",
+    "oracle": "P03-repeated-header-same-page/oracle.json",
+    "source": "P03-repeated-header-same-page/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "P04-direct-continuation",
+    "oracle": "P04-direct-continuation/oracle.json",
+    "source": "P04-direct-continuation/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "P05-carry-and-component-totals",
+    "oracle": "P05-carry-and-component-totals/oracle.json",
+    "source": "P05-carry-and-component-totals/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "P06-explicit-reference-and-literal-description",
+    "oracle": "P06-explicit-reference-and-literal-description/oracle.json",
+    "source": "P06-explicit-reference-and-literal-description/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "P07-next-page-new-parent",
+    "oracle": "P07-next-page-new-parent/oracle.json",
+    "source": "P07-next-page-new-parent/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "P08-complete-zero-section",
+    "oracle": "P08-complete-zero-section/oracle.json",
+    "source": "P08-complete-zero-section/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N01-double-positive",
+    "oracle": "N01-double-positive/oracle.json",
+    "source": "N01-double-positive/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N02-missing-credit",
+    "oracle": "N02-missing-credit/oracle.json",
+    "source": "N02-missing-credit/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N03-both-money-empty",
+    "oracle": "N03-both-money-empty/oracle.json",
+    "source": "N03-both-money-empty/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N04-negative-debit",
+    "oracle": "N04-negative-debit/oracle.json",
+    "source": "N04-negative-debit/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N05-excess-precision",
+    "oracle": "N05-excess-precision/oracle.json",
+    "source": "N05-excess-precision/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N06-decimal-comma",
+    "oracle": "N06-decimal-comma/oracle.json",
+    "source": "N06-decimal-comma/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N07-formula-money",
+    "oracle": "N07-formula-money/oracle.json",
+    "source": "N07-formula-money/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N08-competing-reference",
+    "oracle": "N08-competing-reference/oracle.json",
+    "source": "N08-competing-reference/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N09-duplicate-parent",
+    "oracle": "N09-duplicate-parent/oracle.json",
+    "source": "N09-duplicate-parent/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N10-movement-without-parent",
+    "oracle": "N10-movement-without-parent/oracle.json",
+    "source": "N10-movement-without-parent/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N11-after-separator",
+    "oracle": "N11-after-separator/oracle.json",
+    "source": "N11-after-separator/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N12-after-section-total",
+    "oracle": "N12-after-section-total/oracle.json",
+    "source": "N12-after-section-total/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N13-changed-repeated-header",
+    "oracle": "N13-changed-repeated-header/oracle.json",
+    "source": "N13-changed-repeated-header/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N14-wrong-continuation",
+    "oracle": "N14-wrong-continuation/oracle.json",
+    "source": "N14-wrong-continuation/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N15-missing-continuation",
+    "oracle": "N15-missing-continuation/oracle.json",
+    "source": "N15-missing-continuation/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N16-intervening-page",
+    "oracle": "N16-intervening-page/oracle.json",
+    "source": "N16-intervening-page/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N17-wrapped-description",
+    "oracle": "N17-wrapped-description/oracle.json",
+    "source": "N17-wrapped-description/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N18-missing-date",
+    "oracle": "N18-missing-date/oracle.json",
+    "source": "N18-missing-date/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N19-impossible-date",
+    "oracle": "N19-impossible-date/oracle.json",
+    "source": "N19-impossible-date/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N20-zero-year",
+    "oracle": "N20-zero-year/oracle.json",
+    "source": "N20-zero-year/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N21-section-total-offsetting",
+    "oracle": "N21-section-total-offsetting/oracle.json",
+    "source": "N21-section-total-offsetting/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N22-page-total-wrong",
+    "oracle": "N22-page-total-wrong/oracle.json",
+    "source": "N22-page-total-wrong/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N23-grand-total-wrong",
+    "oracle": "N23-grand-total-wrong/oracle.json",
+    "source": "N23-grand-total-wrong/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N24-carried-total-wrong",
+    "oracle": "N24-carried-total-wrong/oracle.json",
+    "source": "N24-carried-total-wrong/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N25-brought-total-wrong",
+    "oracle": "N25-brought-total-wrong/oracle.json",
+    "source": "N25-brought-total-wrong/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N26-orphan-carry",
+    "oracle": "N26-orphan-carry/oracle.json",
+    "source": "N26-orphan-carry/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N27-brought-without-carried",
+    "oracle": "N27-brought-without-carried/oracle.json",
+    "source": "N27-brought-without-carried/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N28-opening-balance-row",
+    "oracle": "N28-opening-balance-row/oracle.json",
+    "source": "N28-opening-balance-row/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N29-closing-balance-row",
+    "oracle": "N29-closing-balance-row/oracle.json",
+    "source": "N29-closing-balance-row/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N30-unknown-currency",
+    "oracle": "N30-unknown-currency/oracle.json",
+    "source": "N30-unknown-currency/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N31-missing-currency",
+    "oracle": "N31-missing-currency/oracle.json",
+    "source": "N31-missing-currency/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N32-duplicate-header-role",
+    "oracle": "N32-duplicate-header-role/oracle.json",
+    "source": "N32-duplicate-header-role/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N33-late-unknown-row",
+    "oracle": "N33-late-unknown-row/oracle.json",
+    "source": "N33-late-unknown-row/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N34-sixth-balance-column",
+    "oracle": "N34-sixth-balance-column/oracle.json",
+    "source": "N34-sixth-balance-column/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N35-after-grand-total",
+    "oracle": "N35-after-grand-total/oracle.json",
+    "source": "N35-after-grand-total/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "N36-after-page-total",
+    "oracle": "N36-after-page-total/oracle.json",
+    "source": "N36-after-page-total/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "R01-nine-pages-270-movements",
+    "oracle": "R01-nine-pages-270-movements/oracle.json",
+    "source": "R01-nine-pages-270-movements/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "DATE-1900",
+    "oracle": "DATE-1900/oracle.json",
+    "source": "DATE-1900/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "DATE-2100",
+    "oracle": "DATE-2100/oracle.json",
+    "source": "DATE-2100/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "DATE-1899",
+    "oracle": "DATE-1899/oracle.json",
+    "source": "DATE-1899/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "DATE-2101",
+    "oracle": "DATE-2101/oracle.json",
+    "source": "DATE-2101/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "MAP-complete-three-pages",
+    "oracle": "MAP-complete-three-pages/oracle.json",
+    "source": "MAP-complete-three-pages/source.pdf",
+    "metadataMutation": false
+  },
+  {
+    "id": "MAP-missing-physical-page-two",
+    "oracle": "MAP-missing-physical-page-two/oracle.json",
+    "source": "MAP-missing-physical-page-two/source.pdf",
+    "metadataMutation": true
+  },
+  {
+    "id": "MAP-count-inconsistent-with-original",
+    "oracle": "MAP-count-inconsistent-with-original/oracle.json",
+    "source": "MAP-count-inconsistent-with-original/source.pdf",
+    "metadataMutation": true
+  },
+  {
+    "id": "MAP-reordered-page-blocks",
+    "oracle": "MAP-reordered-page-blocks/oracle.json",
+    "source": "MAP-reordered-page-blocks/source.pdf",
+    "metadataMutation": true
+  },
+  {
+    "id": "MAP-duplicate-original-row",
+    "oracle": "MAP-duplicate-original-row/oracle.json",
+    "source": "MAP-duplicate-original-row/source.pdf",
+    "metadataMutation": true
+  },
+  {
+    "id": "MAP-original-row-order",
+    "oracle": "MAP-original-row-order/oracle.json",
+    "source": "MAP-original-row-order/source.pdf",
+    "metadataMutation": true
+  }
+]

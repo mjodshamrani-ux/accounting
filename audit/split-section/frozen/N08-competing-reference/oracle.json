@@ -1,0 +1,167 @@
+{
+  "case": "N08-competing-reference",
+  "family": "P4_SPLIT_SECTION_SAR2_V1",
+  "accepted": false,
+  "expectedStage": "structure",
+  "expectedCode": "SPLIT_REFERENCE_CONFLICT",
+  "sourceSha256": "75ee0bed4f9d9d3212c32186e63b3855aae648a3afc711c9f94dbf0f2060bd98",
+  "sourceBytes": 2020,
+  "cuts": [
+    18,
+    36,
+    69,
+    83
+  ],
+  "pageCount": 1,
+  "inventory": [
+    {
+      "row": 1,
+      "page": 1,
+      "kind": "synthetic",
+      "values": [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 2,
+      "page": 1,
+      "kind": "currency",
+      "values": [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 3,
+      "page": 1,
+      "kind": "header",
+      "values": [
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 4,
+      "page": 1,
+      "kind": "parent",
+      "values": [
+        "Invoice: A-101",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 5,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "",
+        "Supplied movement",
+        "123.45",
+        "0.00"
+      ],
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "row": 6,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "B-202",
+        "Supplied movement",
+        "0.00",
+        "2.37"
+      ],
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "row": 7,
+      "page": 1,
+      "kind": "movement",
+      "values": [
+        "2026-09-17",
+        "",
+        "Supplied movement",
+        "4.50",
+        "0.00"
+      ],
+      "section": "A-101",
+      "referenceOrigin": "accepted-section-proposal"
+    },
+    {
+      "row": 8,
+      "page": 1,
+      "kind": "section-total",
+      "values": [
+        "Section total: A-101",
+        "",
+        "",
+        "127.95",
+        "2.37"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 9,
+      "page": 1,
+      "kind": "page-total",
+      "values": [
+        "Page total",
+        "",
+        "",
+        "127.95",
+        "2.37"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    },
+    {
+      "row": 10,
+      "page": 1,
+      "kind": "grand-total",
+      "values": [
+        "Grand total",
+        "",
+        "",
+        "127.95",
+        "2.37"
+      ],
+      "section": null,
+      "referenceOrigin": null
+    }
+  ],
+  "movements": [],
+  "pageTotals": null,
+  "sections": null,
+  "totals": null,
+  "financialApproval": false,
+  "scopeConfirmed": false,
+  "csvAvailableAfterFutureExplicitApply": false,
+  "newAuthorityBeforeApply": false,
+  "negativeArtifact": null
+}

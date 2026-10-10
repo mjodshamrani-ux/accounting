@@ -647,6 +647,8 @@ export const engineCatalog: Record<string, string> = {
   'نص PDF لم يُربط بالكامل بمصدره المرئي':
     'The PDF text is not fully linked to its visible source',
   // pdf-stream-integrity.ts
+  'تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel':
+    'The text of a PDF font could not be verified; request a valid copy or Excel.',
   'تعذر التحقق من اكتمال تعليمات عرض PDF؛ اطلب نسخة سليمة أو Excel':
     'The completeness of the PDF display instructions could not be verified; request an intact copy or Excel',
   // pdf.ts

@@ -1,0 +1,43 @@
+{
+  "syntheticOnly": true,
+  "productImports": false,
+  "newFieldAcceptance": false,
+  "cases": [
+    {
+      "id": "19",
+      "pages": 19,
+      "movementCount": 570,
+      "grossDebitMinor": "570",
+      "grossCreditMinor": "0",
+      "netMinor": "570",
+      "sourceSha256": "124b7c42e78b2d94a4896706b4fd1d8586d628151aa6eddc9158fd0ae8784b9f",
+      "sourceBytes": 133063,
+      "expectedCsvSha256": "0fad4ad133d9f3a2e896fcd58bfe68c62f75f6bbff3b88dd6734f87c4a59185b",
+      "expectedCsvBytes": 33101,
+      "cuts": [
+        18,
+        36,
+        69,
+        83
+      ]
+    },
+    {
+      "id": "60",
+      "pages": 60,
+      "movementCount": 1800,
+      "grossDebitMinor": "1800",
+      "grossCreditMinor": "0",
+      "netMinor": "1800",
+      "sourceSha256": "e85683bcf48a78b388d0b03f12fb856d3df16b7d8a0be49065ea0702929f9619",
+      "sourceBytes": 419089,
+      "expectedCsvSha256": "964800692d50af818f5a3c020654aa1d780e7360bbb38d94158882a4fa831c1c",
+      "expectedCsvBytes": 104441,
+      "cuts": [
+        18,
+        36,
+        69,
+        83
+      ]
+    }
+  ]
+}
