@@ -1,0 +1,209 @@
+{
+  "id": "P04-posting-order-not-date-order",
+  "accepted": true,
+  "requiredDiagnostic": null,
+  "reason": "Earlier transaction date must not cause reorder; explicit source order governs.",
+  "pages": [
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 1 of 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Opening balance",
+        "2026-10-01",
+        "",
+        "",
+        "",
+        "",
+        "100"
+      ],
+      [
+        "Invoice: INV-A",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "1",
+        "2026-10-20",
+        "INV-A",
+        "provided movement",
+        "10",
+        "0",
+        "110"
+      ],
+      [
+        "2",
+        "2026-10-10",
+        "INV-A",
+        "provided movement",
+        "0",
+        "1",
+        "109"
+      ],
+      [
+        "3",
+        "2026-10-10",
+        "INV-A",
+        "provided movement",
+        "0",
+        "1",
+        "108"
+      ],
+      [
+        "Section total: INV-A",
+        "",
+        "",
+        "",
+        "10",
+        "2",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "10",
+        "2",
+        ""
+      ],
+      [
+        "Page count: 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Closing balance",
+        "2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "108"
+      ],
+      [
+        "Statement total",
+        "",
+        "",
+        "",
+        "10",
+        "2",
+        ""
+      ],
+      [
+        "Statement count: 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "expected": {
+    "openingMinor": 10000,
+    "debitMinor": 1000,
+    "creditMinor": 200,
+    "closingMinor": 10800,
+    "count": 3,
+    "balancesMinor": [
+      11000,
+      10900,
+      10800
+    ],
+    "references": [
+      "INV-A",
+      "INV-A",
+      "INV-A"
+    ]
+  },
+  "syntheticOnly": true,
+  "sourceSha256": "ef2e798014a57a084ba8c03c14f83a2d52b4e6a1b56c14626f80cd2b182c6c37",
+  "cuts": [
+    10,
+    25,
+    40,
+    65,
+    77,
+    88
+  ],
+  "productImported": false
+}

@@ -1,0 +1,239 @@
+{
+  "id": "N32-negative-zero-balance",
+  "accepted": false,
+  "requiredDiagnostic": "MONEY",
+  "reason": "Ambiguous negative zero is outside the explicit literal policy.",
+  "pages": [
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 1 of 1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Opening balance",
+        "2026-10-01",
+        "",
+        "",
+        "",
+        "",
+        "-0"
+      ],
+      [
+        "Invoice: INV-A",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "1",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "5",
+        "0",
+        "5"
+      ],
+      [
+        "2",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "0",
+        "5",
+        "0"
+      ],
+      [
+        "Section total: INV-A",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        ""
+      ],
+      [
+        "Invoice: INV-B",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "3",
+        "2026-10-10",
+        "",
+        "legitimate identical zero",
+        "0",
+        "0",
+        "0"
+      ],
+      [
+        "4",
+        "2026-10-10",
+        "",
+        "legitimate identical zero",
+        "0",
+        "0",
+        "0"
+      ],
+      [
+        "Section total: INV-B",
+        "",
+        "",
+        "",
+        "0",
+        "0",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        ""
+      ],
+      [
+        "Page count: 4",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Closing balance",
+        "2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "0"
+      ],
+      [
+        "Statement total",
+        "",
+        "",
+        "",
+        "5",
+        "5",
+        ""
+      ],
+      [
+        "Statement count: 4",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "expected": null,
+  "referenceTruth": {
+    "openingMinor": 0,
+    "debitMinor": 500,
+    "creditMinor": 500,
+    "closingMinor": 0,
+    "count": 4,
+    "balancesMinor": [
+      500,
+      0,
+      0,
+      0
+    ],
+    "references": [
+      "INV-A",
+      "INV-A",
+      "INV-B",
+      "INV-B"
+    ]
+  },
+  "syntheticOnly": true,
+  "sourceSha256": "d5c2f3ffbf2582e4d7662d64932717d1c2b7fdbb1980f7a1b6c4115237eb12ca",
+  "cuts": [
+    10,
+    25,
+    40,
+    65,
+    77,
+    88
+  ],
+  "productImported": false
+}

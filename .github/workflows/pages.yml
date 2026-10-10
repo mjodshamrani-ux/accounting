@@ -31,6 +31,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+        env:
+          RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
       - run: pnpm test:mutation-runner
       - name: Independently verify bank movements, gross/net roles, complete reversals and retained timing
         run: |
@@ -107,6 +109,15 @@ jobs:
         run: |
           node --experimental-strip-types audit/stress/export-corpus.mjs
           python3 audit/stress/check_openxml.py
+      - name: Verify running-balance native inputs, authority, limits, literal exports and semantic mutations
+        env:
+          RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
+          RUNNING_REPORT_DIR: ${{ runner.temp }}/running-balance-proof
+          RUNNING_MUTATION_REPORT_DIR: ${{ runner.temp }}/running-balance-mutations
+        run: |
+          pnpm test:running-balance
+          pnpm test:running-balance:proof
+          pnpm test:running-balance:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
@@ -143,6 +154,13 @@ jobs:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
           P4_REPORT_DIR: ${{ runner.temp }}/split-section-browser
         run: pnpm test:split-section:browser
+      - name: Verify running-balance review UI and independently check Arabic and English downloads
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          RUNNING_BROWSER_REPORT_DIR: ${{ runner.temp }}/running-balance-browser
+        run: |
+          test -x "$MIZAN_CHROMIUM"
+          pnpm test:running-balance:browser
       - name: Independently verify human clearing and reopened memberships after UI and session replay
         run: |
           python3 audit/clearing/check_export.py --cleared 7 work/qa/clearing-manual.xlsx

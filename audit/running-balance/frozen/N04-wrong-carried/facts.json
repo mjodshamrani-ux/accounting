@@ -1,0 +1,369 @@
+{
+  "id": "N04-wrong-carried",
+  "accepted": false,
+  "requiredDiagnostic": "CARRY",
+  "reason": "Carry is supplied balance, not turnover.",
+  "pages": [
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 1 of 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Opening balance",
+        "2026-10-01",
+        "",
+        "",
+        "",
+        "",
+        "100.00"
+      ],
+      [
+        "Invoice: INV-A",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "1",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "120.00",
+        "0",
+        "220.00"
+      ],
+      [
+        "2",
+        "2026-10-10",
+        "INV-A",
+        "provided movement",
+        "0",
+        "50.00",
+        "170.00"
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "120.00",
+        "50.00",
+        ""
+      ],
+      [
+        "Page count: 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Carried balance",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "120.00"
+      ]
+    ],
+    [
+      [
+        "SYNTHETIC ONLY",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Statement: ST-001",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Account: ACCT-1",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Period: 2026-10-01/2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Currency: SAR",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Balance basis: debit-minus-credit",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Page: 2 of 2",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Seq",
+        "Date",
+        "Reference",
+        "Description",
+        "Debit",
+        "Credit",
+        "Balance"
+      ],
+      [
+        "Brought balance",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "170.00"
+      ],
+      [
+        "Continued invoice: INV-A",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "3",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "80.00",
+        "0",
+        "250.00"
+      ],
+      [
+        "4",
+        "2026-10-10",
+        "INV-A",
+        "provided movement",
+        "0",
+        "100.00",
+        "150.00"
+      ],
+      [
+        "Section total: INV-A",
+        "",
+        "",
+        "",
+        "200.00",
+        "150.00",
+        ""
+      ],
+      [
+        "Invoice: INV-B",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "5",
+        "2026-10-10",
+        "",
+        "provided movement",
+        "20.00",
+        "0",
+        "170.00"
+      ],
+      [
+        "Section total: INV-B",
+        "",
+        "",
+        "",
+        "20.00",
+        "0",
+        ""
+      ],
+      [
+        "Page total",
+        "",
+        "",
+        "",
+        "100.00",
+        "100.00",
+        ""
+      ],
+      [
+        "Page count: 3",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "Closing balance",
+        "2026-10-31",
+        "",
+        "",
+        "",
+        "",
+        "170.00"
+      ],
+      [
+        "Statement total",
+        "",
+        "",
+        "",
+        "220.00",
+        "150.00",
+        ""
+      ],
+      [
+        "Statement count: 5",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  ],
+  "expected": null,
+  "referenceTruth": {
+    "openingMinor": 10000,
+    "debitMinor": 22000,
+    "creditMinor": 15000,
+    "closingMinor": 17000,
+    "count": 5,
+    "balancesMinor": [
+      22000,
+      17000,
+      25000,
+      15000,
+      17000
+    ],
+    "references": [
+      "INV-A",
+      "INV-A",
+      "INV-A",
+      "INV-A",
+      "INV-B"
+    ]
+  },
+  "syntheticOnly": true,
+  "sourceSha256": "a313fcd53dce21b7793308fb1be8d3e7ee5c435946c607992f4e829afbb17143",
+  "cuts": [
+    10,
+    25,
+    40,
+    65,
+    77,
+    88
+  ],
+  "productImported": false
+}
