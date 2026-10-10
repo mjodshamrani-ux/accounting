@@ -53,6 +53,8 @@ export const en: Messages = {
     cancel: 'Cancel operation',
     failed:
       'Operation rejected. Review source and evidence; the previous state was retained.',
+    displayFailed:
+      'The original Excel display cannot be accepted: hidden content, unreadable formatting or a format outside the supported bank family. Review the original file and provide a visible, supported table; no movement from the rejected source was approved.',
     fields: {
       entity: 'Entity',
       ledger: 'Ledger',

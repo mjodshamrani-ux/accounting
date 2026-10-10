@@ -1,7 +1,13 @@
 import { validateZipContents } from './zip.ts';
 import { assertNativeAccountingSource } from './source-boundary.ts';
-import { isReviewedVisualSource, replayReviewedVisualSource, readVisualAccountingSource, VISUAL_SOURCE_SUFFIX } from './visual-accounting-source.ts';
+import {
+  isReviewedVisualSource,
+  replayReviewedVisualSource,
+  readVisualAccountingSource,
+  VISUAL_SOURCE_SUFFIX,
+} from './visual-accounting-source.ts';
 import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
+import { xlsxDisplayContext } from './xlsx-display.ts';
 import { readPdf } from './pdf.ts';
 import {
   registerNativeHeaderSource,
@@ -113,10 +119,10 @@ function transparentTextFormat(format: string): boolean {
 // range syntax is conservatively treated as applicable, never silently ignored.
 function rangeContains(ref: string, row: number, column: number): boolean {
   const colIndex = (letters: string) =>
-    letters.toUpperCase().split('').reduce(
-      (n, letter) => n * 26 + letter.charCodeAt(0) - 64,
-      0,
-    );
+    letters
+      .toUpperCase()
+      .split('')
+      .reduce((n, letter) => n * 26 + letter.charCodeAt(0) - 64, 0);
   return ref.split(/\s+/).some((range) => {
     const clean = range.replace(/\$/g, '');
     const cells = /^([A-Z]+)(\d+)(?::([A-Z]+)(\d+))?$/i.exec(clean);
@@ -153,11 +159,15 @@ export function validateCellText(text: string): void {
 function displayOnlyCellText(value: ExcelJS.CellValue): string {
   if (value === null || value === undefined) return '';
   if (typeof value === 'string') return value;
-  if (typeof value === 'number' || typeof value === 'boolean') return String(value);
+  if (typeof value === 'number' || typeof value === 'boolean')
+    return String(value);
   if (value instanceof Date) return value.toString();
   return '[object Object]';
 }
-export function parseCSV(text: string, cellTextLimit: 4096 | 32767 = 4096): string[][] {
+export function parseCSV(
+  text: string,
+  cellTextLimit: 4096 | 32767 = 4096,
+): string[][] {
   if (cellTextLimit !== 4096 && cellTextLimit !== 32767)
     throw new Error('حد الخلية غير مدعوم');
   class CsvLimitError extends Error {}
@@ -296,7 +306,8 @@ export async function readFile(
   // The stored original, its hash and parsed cells must describe one snapshot.
   buffer = buffer.slice(0);
   pdfCuts = pdfCuts?.slice();
-  if (name.toLowerCase().endsWith(VISUAL_SOURCE_SUFFIX)) return readVisualAccountingSource(name, buffer);
+  if (name.toLowerCase().endsWith(VISUAL_SOURCE_SUFFIX))
+    return readVisualAccountingSource(name, buffer);
   const sha256 = Array.from(
     new Uint8Array(await crypto.subtle.digest('SHA-256', buffer)),
     (b) => b.toString(16).padStart(2, '0'),
@@ -313,7 +324,12 @@ export async function readFile(
       original: buffer.slice(0),
       sha256,
       sheets: [
-        { name: 'CSV', rows: parseCSV(text, cellTextLimit), formulaRows: [], hiddenRows: [] },
+        {
+          name: 'CSV',
+          rows: parseCSV(text, cellTextLimit),
+          formulaRows: [],
+          hiddenRows: [],
+        },
       ],
     };
   }
@@ -344,9 +360,9 @@ export async function readFile(
     string,
     import('./xlsx-namespaces.ts').NumericLexemeIssue[]
   >();
-  await workbook.xlsx.load(
-    await prepareXlsxForExcelJs(buffer, numericLexemeIssues),
-  );
+  const compatible = await prepareXlsxForExcelJs(buffer, numericLexemeIssues);
+  const display = await xlsxDisplayContext(buffer);
+  await workbook.xlsx.load(compatible);
   if (workbook.worksheets.length > MAX_SHEETS)
     throw new Error(`الحد ${MAX_SHEETS} ورقة في الملف`);
   if (
@@ -355,12 +371,14 @@ export async function readFile(
   )
     throw new Error('إجمالي خلايا المصنف يتجاوز مليون خلية');
   const sheets: SheetData[] = workbook.worksheets.map((sheet, sheetIndex) => {
+    const visibility = display.sheets.get(sheet.name);
     // ExcelJS computes columnCount by scanning every row. Read immutable sheet
     // dimensions once; calling it for every cell makes large imports quadratic.
     const rowCount = sheet.rowCount;
     const columnCount = sheet.columnCount;
     const numericCells: NonNullable<SheetData['numericCells']> = {};
     const cellIssues: Record<string, string[]> = {};
+    const rowIssues: Record<string, string[]> = {};
     const cellNotes: Record<string, string[]> = {};
     const referenceIssues: Record<string, string[]> = {};
     const issue = (row: number, column: number, message: string) => {
@@ -373,10 +391,9 @@ export async function readFile(
       const coordinate = /^([A-Z]+)([1-9]\d*)$/.exec(raw.cell);
       if (!coordinate)
         throw new Error('إحداثيات القيمة الرقمية الأصلية غير مدعومة');
-      const column = coordinate[1].split('').reduce(
-        (n, char) => n * 26 + char.charCodeAt(0) - 64,
-        0,
-      );
+      const column = coordinate[1]
+        .split('')
+        .reduce((n, char) => n * 26 + char.charCodeAt(0) - 64, 0);
       issue(
         Number(coordinate[2]),
         column,
@@ -405,11 +422,108 @@ export async function readFile(
     for (let r = 1; r <= rowCount; r++) {
       const row = sheet.getRow(r),
         values: string[] = [];
-      if (row.hidden) hiddenRows.push(r);
+      if (
+        row.hidden ||
+        visibility?.zeroRows.has(r) ||
+        (visibility?.zeroDefaultRows && !visibility.positiveRows.has(r))
+      )
+        hiddenRows.push(r);
+      if (visibility?.hidden)
+        rowIssues[String(r)] = [
+          `XLSX_NATIVE_DISPLAY: ${sheet.name}: ورقة مخفية؛ لا يمكن اعتماد عرض المصدر الأصلي.`,
+        ];
       for (let c = 1; c <= columnCount; c++) {
         const cell = row.getCell(c);
         let text = '';
         const value = cell.value;
+        const effective = display.effectiveStyle(
+          sheet.name,
+          r,
+          c,
+          cell.address,
+          cell.font,
+          cell.fill,
+        );
+        const displayFont = display.formatFont(
+          effective.font,
+          effective.numberFormat ?? cell.numFmt,
+          value,
+        );
+        if (value !== null && value !== undefined) {
+          if (
+            visibility?.zeroRows.has(r) ||
+            (visibility?.zeroDefaultRows && !visibility.positiveRows.has(r))
+          )
+            note(
+              r,
+              c,
+              `XLSX_NATIVE_DISPLAY: ${sheet.name}!${cell.address}: ارتفاع صف صفري أو صف غير ظاهر افتراضيًا.`,
+            );
+          if (
+            visibility?.zeroColumns.has(c) ||
+            visibility?.hiddenColumns.has(c) ||
+            (visibility?.zeroDefaultColumns &&
+              !visibility.positiveColumns.has(c))
+          )
+            issue(
+              r,
+              c,
+              `XLSX_NATIVE_DISPLAY: ${sheet.name}!${cell.address}: عمود مخفي أو عرض صفري.`,
+            );
+          if (!effective.valid || !display.visible(displayFont, effective.fill))
+            issue(
+              r,
+              c,
+              `XLSX_NATIVE_DISPLAY: ${sheet.name}!${cell.address}: خط أو خلفية لا يتيحان قراءة الخلية.`,
+            );
+          if (
+            value &&
+            typeof value === 'object' &&
+            'richText' in value &&
+            value.richText.some(
+              (part) =>
+                !display.visible(
+                  { ...displayFont, ...part.font },
+                  effective.fill,
+                ),
+            )
+          )
+            issue(
+              r,
+              c,
+              `XLSX_NATIVE_DISPLAY: ${sheet.name}!${cell.address}: نص منسق غير ظاهر.`,
+            );
+          if (visibility?.hideZeros && value === 0)
+            issue(
+              r,
+              c,
+              `XLSX_NATIVE_DISPLAY: ${sheet.name}!${cell.address}: قيمة صفرية غير ظاهرة.`,
+            );
+          const conditionalDisplay = formats
+            .filter((format) => rangeContains(format.ref, r, c))
+            .flatMap((format) => format.rules);
+          if (
+            conditionalDisplay.some(
+              (rule) =>
+                rule.style &&
+                !display.visible(
+                  display.formatFont(
+                    { ...displayFont, ...rule.style.font },
+                    rule.style.numFmt
+                      ? conditionalFormatCode(rule.style.numFmt)
+                      : (effective.numberFormat ?? cell.numFmt),
+                    value,
+                  ),
+                  rule.style.fill ?? effective.fill,
+                ),
+            )
+          )
+            issue(
+              r,
+              c,
+              `XLSX_NATIVE_DISPLAY: ${sheet.name}!${cell.address}: تنسيق شرطي قد يخفي الخلية.`,
+            );
+        }
         const textValue =
           typeof value === 'string'
             ? value
@@ -427,9 +541,10 @@ export async function readFile(
           );
         if (
           textValue &&
-          [cell.numFmt ?? '', ...applicableFormats].some(
-            (format) => !transparentTextFormat(format),
-          )
+          [
+            effective.numberFormat ?? cell.numFmt ?? '',
+            ...applicableFormats,
+          ].some((format) => !transparentTextFormat(format))
         )
           issue(
             r,
@@ -456,9 +571,19 @@ export async function readFile(
         if (typeof value === 'number')
           numericCells[`${r}:${c}`] = { value, format: cell.numFmt ?? '' };
         if (typeof value === 'number') {
-          const reference = numericReference(cell.numFmt ?? '', value);
+          const reference = numericReference(
+            effective.numberFormat ?? cell.numFmt ?? '',
+            value,
+          );
+          const parsedReference =
+            /^0{2,}$/.test(cell.numFmt ?? '') &&
+            Number.isInteger(value) &&
+            value >= 0
+              ? String(value).padStart(cell.numFmt.length, '0')
+              : String(value);
           if (
             reference === null ||
+            reference !== parsedReference ||
             applicableFormats.some(
               (format) => numericReference(format, value) !== reference,
             )
@@ -469,7 +594,10 @@ export async function readFile(
         }
         if (
           typeof value === 'number' &&
-          !transparentNumericFormat(cell.numFmt ?? '', value)
+          !transparentNumericFormat(
+            effective.numberFormat ?? cell.numFmt ?? '',
+            value,
+          )
         )
           issue(
             r,
@@ -518,7 +646,9 @@ export async function readFile(
               c,
               `صيغة Excel في ${cell.address}؛ استخدم قيمة ثابتة موثوقة في العمود المختار أو استبعد الصف مع سبب`,
             );
-            text = displayOnlyCellText('result' in value ? (value.result ?? '') : '');
+            text = displayOnlyCellText(
+              'result' in value ? (value.result ?? '') : '',
+            );
           } else if ('richText' in value)
             text = value.richText.map((t) => t.text).join('');
           else if ('text' in value) text = String(value.text);
@@ -546,6 +676,7 @@ export async function readFile(
       numericCells,
       formulaCells,
       cellIssues,
+      ...(Object.keys(rowIssues).length ? { rowIssues } : {}),
       cellNotes,
       referenceIssues,
       rows,
@@ -561,7 +692,9 @@ export async function readFile(
           const parts = /^([A-Z]+)([1-9]\d*):([A-Z]+)([1-9]\d*)$/.exec(address);
           if (!parts) throw new Error('نطاق دمج Excel غير صالح');
           const column = (letters: string) =>
-            letters.split('').reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0);
+            letters
+              .split('')
+              .reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0);
           const bounds = {
             top: Number(parts[2]),
             left: column(parts[1]),
@@ -614,17 +747,32 @@ export async function exportWorkbook(
   },
   observeStage?: (stage: string, milliseconds: number) => void,
 ): Promise<ArrayBuffer> {
-  if (result.matches.some((m) => m.reviewedAggregate ||
-    (m.kind === 'manual' && ((m.supplierIds?.length ?? 1) > 1 || (m.ledgerIds?.length ?? 1) > 1))) ||
-    result.cases.some((c) => c.reviewedAggregate || c.matchingRule === 'REVIEWED_INVOICE_AGGREGATE_V1'))
-    throw new Error('Reviewed invoice aggregates require their live supplier review coordinator to export.');
+  if (
+    result.matches.some(
+      (m) =>
+        m.reviewedAggregate ||
+        (m.kind === 'manual' &&
+          ((m.supplierIds?.length ?? 1) > 1 || (m.ledgerIds?.length ?? 1) > 1)),
+    ) ||
+    result.cases.some(
+      (c) =>
+        c.reviewedAggregate ||
+        c.matchingRule === 'REVIEWED_INVOICE_AGGREGATE_V1',
+    )
+  )
+    throw new Error(
+      'Reviewed invoice aggregates require their live supplier review coordinator to export.',
+    );
   let stageStarted = performance.now();
   const measured = (stage: string) => {
     const now = performance.now();
     observeStage?.(stage, now - stageStarted);
     stageStarted = now;
   };
-  files = [await replayReviewedVisualSource(files[0]), await replayReviewedVisualSource(files[1])];
+  files = [
+    await replayReviewedVisualSource(files[0]),
+    await replayReviewedVisualSource(files[1]),
+  ];
   files.forEach(assertNativeAccountingSource);
   // Re-read both complete originals, one at a time. Concurrent PDF/XLSX
   // parsers multiply peak memory while preserving no additional evidence.
@@ -732,26 +880,70 @@ export async function exportWorkbook(
     ...sourceReadingIssues(result.supplier, verifiedFiles[0], 'supplier'),
     ...sourceReadingIssues(result.ledger, verifiedFiles[1], 'ledger'),
   ];
-  const visualFiles = verifiedFiles.flatMap((file, side) => file.visual ? [{file, side}] : []);
+  const visualFiles = verifiedFiles.flatMap((file, side) =>
+    file.visual ? [{ file, side }] : [],
+  );
   if (visualFiles.length) {
-    add('Visual Source Proof', ['Side','Record SHA-256','PNG SHA-256','Pixel SHA-256','Basis','Context','Interpretation receipt','Table coverage'],
-      visualFiles.map(({file,side}) => [side===0?'supplier':'ledger',file.sha256!,file.visual!.table.image.source.sha256,file.visual!.table.image.pixelSha256,
-        file.visual!.basis,JSON.stringify(file.visual!.context),JSON.stringify(file.visual!.review),JSON.stringify(file.visual!.table.coverage)]));
+    add(
+      'Visual Source Proof',
+      [
+        'Side',
+        'Record SHA-256',
+        'PNG SHA-256',
+        'Pixel SHA-256',
+        'Basis',
+        'Context',
+        'Interpretation receipt',
+        'Table coverage',
+      ],
+      visualFiles.map(({ file, side }) => [
+        side === 0 ? 'supplier' : 'ledger',
+        file.sha256!,
+        file.visual!.table.image.source.sha256,
+        file.visual!.table.image.pixelSha256,
+        file.visual!.basis,
+        JSON.stringify(file.visual!.context),
+        JSON.stringify(file.visual!.review),
+        JSON.stringify(file.visual!.table.coverage),
+      ]),
+    );
     // Carry the complete original record, not a flattened CSV or an OCR-only
     // summary. Bounded chunks are text cells and preserve all omitted rows,
     // raw observations, crop positions, reviewed literals and receipts.
-    add('Visual Source Record', ['Side','Part','Original JSON text'],visualFiles.flatMap(({file,side}) => {
-      const text=new TextDecoder('utf-8',{fatal:true}).decode(file.original!);
-      const points=Array.from(text), parts:(string|number)[][]=[];
-      for(let n=0;n<points.length;n+=3000) parts.push([side===0?'supplier':'ledger',parts.length+1,points.slice(n,n+3000).join('')]);
-      return parts;
-    }));
-    for (const {file,side} of visualFiles) {
-      const page=file.visual!.table.image.draft.pages[0];
-      const image=book.addImage({base64:file.visual!.table.image.source.originalPng,extension:'png'});
-      const sheet=add(`Visual ${side===0?'supplier':'ledger'} PNG`,['Original PNG; human-reviewed transactions only'],[[file.visual!.table.image.source.sha256]]);
-      const scale=Math.min(1,600/page.width,800/page.height);
-      sheet.addImage(image,{tl:{col:0,row:3},ext:{width:page.width*scale,height:page.height*scale}});
+    add(
+      'Visual Source Record',
+      ['Side', 'Part', 'Original JSON text'],
+      visualFiles.flatMap(({ file, side }) => {
+        const text = new TextDecoder('utf-8', { fatal: true }).decode(
+          file.original!,
+        );
+        const points = Array.from(text),
+          parts: (string | number)[][] = [];
+        for (let n = 0; n < points.length; n += 3000)
+          parts.push([
+            side === 0 ? 'supplier' : 'ledger',
+            parts.length + 1,
+            points.slice(n, n + 3000).join(''),
+          ]);
+        return parts;
+      }),
+    );
+    for (const { file, side } of visualFiles) {
+      const page = file.visual!.table.image.draft.pages[0];
+      const image = book.addImage({
+        base64: file.visual!.table.image.source.originalPng,
+        extension: 'png',
+      });
+      const sheet = add(
+        `Visual ${side === 0 ? 'supplier' : 'ledger'} PNG`,
+        ['Original PNG; human-reviewed transactions only'],
+        [[file.visual!.table.image.source.sha256]],
+      );
+      const scale = Math.min(1, 600 / page.width, 800 / page.height);
+      sheet.addImage(image, {
+        tl: { col: 0, row: 3 },
+        ext: { width: page.width * scale, height: page.height * scale },
+      });
     }
   }
   add(
@@ -999,7 +1191,7 @@ export async function exportWorkbook(
     const sheet =
       file.sheets[(i === 0 ? result.supplier : result.ledger).mapping.sheet];
     const width = Math.max(1, ...sheet.rows.map((r) => r.length));
-    add(
+    const sourceCopy = add(
       i === 0 ? 'Parsed Supplier Source' : 'Parsed Ledger Source',
       [
         'صف المصدر',
@@ -1007,6 +1199,9 @@ export async function exportWorkbook(
       ],
       sheet.rows.map((row, r) => [r + 1, ...row]),
     );
+    // These literal copies are offered for reimport. Keep their evidence
+    // visible so the same source-display rule applies to generated workpapers.
+    sourceCopy.state = 'visible';
   });
   add(
     'PDF Row Origins',

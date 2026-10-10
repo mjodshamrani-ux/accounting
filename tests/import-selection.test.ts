@@ -154,6 +154,10 @@ void test('a real synthetic export reimports the appropriate source copy and doe
     name: 'Synthetic reviewer',
     notes: 'Synthetic import regression',
   });
+  const exported = new ExcelJS.Workbook();
+  await exported.xlsx.load(Buffer.from(bytes) as never);
+  for (const name of ['Parsed Supplier Source', 'Parsed Ledger Source'])
+    assert.equal(exported.getWorksheet(name)?.state, 'visible');
   const file = await readFile('synthetic-workpaper.xlsx', bytes);
   assert.ok(file.sheets.length > 12);
   for (const side of ['supplier', 'ledger'] as const) {

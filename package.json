@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.38",
+  "version": "0.4.39",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -22,7 +22,8 @@
     "test:browser:section-families": "node --experimental-strip-types scripts/section-families-browser.mjs",
     "test:browser:section-currency": "node --experimental-strip-types scripts/section-qualified-currency-browser.mjs",
     "test:browser:performance": "node scripts/performance-check.mjs",
-    "test:mutations": "node scripts/test-mutations.mjs",
+    "test:mutations": "node scripts/test-mutations.mjs && node scripts/test-source-display-faults.mjs",
+    "test:source-display-faults": "node scripts/test-source-display-faults.mjs",
     "test:mutation-runner": "node --test scripts/mutation-runner-support.test.mjs scripts/specialized-faults.test.mjs scripts/package-commands.test.mjs",
     "test:specialized-faults": "node scripts/test-specialized-faults.mjs",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry",

@@ -1,5 +1,6 @@
 import { latinDigits, parseDate, parseMoney, safeSum } from './core.ts';
 import { currencyPrecision } from './currency-precision.ts';
+import { nativeDisplayIssue } from './xlsx-display.ts';
 import { assertSourceFile } from './protocol.ts';
 import type { SourceFile } from './types.ts';
 
@@ -244,7 +245,7 @@ function validate(input: ArInput) {
       selected.some((c) => c < 0 || c >= header.length || !header[c].trim()) ||
       new Set(selected).size !== selected.length ||
       sheet.hiddenRows.includes(1) ||
-      sheet.rowIssues?.['1']?.length ||
+      sheet.rowIssues?.['1']?.some((issue) => !issue.startsWith('XLSX_NATIVE_DISPLAY:')) ||
       sheet.xlsxHeaders?.hiddenColumns.length ||
       // Every header contributes to role uniqueness, including unmapped columns.
       Object.entries(sheet.cellIssues ?? {}).some(
@@ -373,7 +374,8 @@ export function reconcileAr(input: ArInput): ArResult {
           row,
           kind: 'error',
           values,
-          error: error instanceof Error ? error.message : 'AR_CELL',
+          error: nativeDisplayIssue(sheet, row, [...selected, ...relatedColumns]) ??
+            (error instanceof Error ? error.message : 'AR_CELL'),
         });
       }
     }

@@ -13,6 +13,20 @@
 // has no English, when an entry no longer exists in the engine, or when the
 // slots do not correspond.
 export const engineCatalog: Record<string, string> = {
+  'XLSX_NATIVE_DISPLAY: ${…}: ورقة مخفية؛ لا يمكن اعتماد عرض المصدر الأصلي.':
+    'XLSX_NATIVE_DISPLAY: {0}: hidden sheet; the original source display cannot be verified.',
+  'XLSX_NATIVE_DISPLAY: ${…}!${…}: ارتفاع صف صفري أو صف غير ظاهر افتراضيًا.':
+    'XLSX_NATIVE_DISPLAY: {0}!{1}: zero row height or a row hidden by default.',
+  'XLSX_NATIVE_DISPLAY: ${…}!${…}: عمود مخفي أو عرض صفري.':
+    'XLSX_NATIVE_DISPLAY: {0}!{1}: hidden column or zero width.',
+  'XLSX_NATIVE_DISPLAY: ${…}!${…}: خط أو خلفية لا يتيحان قراءة الخلية.':
+    'XLSX_NATIVE_DISPLAY: {0}!{1}: the font or background prevents reading the cell.',
+  'XLSX_NATIVE_DISPLAY: ${…}!${…}: نص منسق غير ظاهر.':
+    'XLSX_NATIVE_DISPLAY: {0}!{1}: invisible rich text.',
+  'XLSX_NATIVE_DISPLAY: ${…}!${…}: قيمة صفرية غير ظاهرة.':
+    'XLSX_NATIVE_DISPLAY: {0}!{1}: a zero value is hidden.',
+  'XLSX_NATIVE_DISPLAY: ${…}!${…}: تنسيق شرطي قد يخفي الخلية.':
+    'XLSX_NATIVE_DISPLAY: {0}!{1}: conditional formatting may hide the cell.',
   'حد الخلية غير مدعوم': 'Unsupported cell text limit',
   'تعذر التحقق من مصدر الصورة المراجع أو تغير سياقه. راجع العناوين والقيم والنطاق.':
     'The reviewed image source could not be verified or its context changed. Check the headers, values and scope.',

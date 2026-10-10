@@ -632,7 +632,18 @@ void test('B2.2 rejects the independently accepted native visibility originals a
       `${kind}.xlsx`,
       Uint8Array.from(data).buffer,
     );
-    const result = reconcileBankAdjustments(state);
+    // Reproduce the previously accepted cache. The current generic reader also
+    // diagnoses native display hazards; stale parsed metadata cannot replace
+    // the original bytes at replay, save, restore or export.
+    const oldCache = structuredClone(state);
+    for (const sheet of oldCache.files[1].sheets) {
+      for (const issues of [sheet.cellIssues, sheet.rowIssues])
+        for (const [key, messages] of Object.entries(issues ?? {}))
+          issues![key] = messages.filter(
+            (m) => !m.startsWith('XLSX_NATIVE_DISPLAY:'),
+          );
+    }
+    const result = reconcileBankAdjustments(oldCache);
     assert.notEqual(result.status, 'source-error');
     for (const operation of [
       () => replayBankAdjustments(state),

@@ -1,5 +1,6 @@
 import { latinDigits, parseDate, parseMoney, safeSum } from './core.ts';
 import { currencyPrecision } from './currency-precision.ts';
+import { nativeDisplayIssue } from './xlsx-display.ts';
 import { assertSourceFile } from './protocol.ts';
 import type { SourceFile, SheetData } from './types.ts';
 
@@ -185,7 +186,7 @@ function amount(raw: string, decimals: number) {
 function badHeader(sheet: SheetData) {
   return (
     sheet.hiddenRows.includes(1) ||
-    sheet.rowIssues?.['1']?.length ||
+    sheet.rowIssues?.['1']?.some((issue) => !issue.startsWith('XLSX_NATIVE_DISPLAY:')) ||
     sheet.xlsxHeaders?.hiddenColumns.length ||
     sheet.xlsxHeaders?.merges.length ||
     [sheet.cellIssues, sheet.referenceIssues].some((m) =>
@@ -316,7 +317,9 @@ function readSource(
         row,
         kind: 'error',
         values,
-        error: e instanceof Error ? e.message : 'GL_TB_ROW',
+        error:
+          nativeDisplayIssue(sheet, row, Object.values(columns)) ??
+          (e instanceof Error ? e.message : 'GL_TB_ROW'),
       });
     }
   }

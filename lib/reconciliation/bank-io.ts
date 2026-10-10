@@ -1,5 +1,6 @@
 import ExcelJS from 'exceljs';
 import { readFile } from './io.ts';
+import { assertBankNativeDisplay } from './bank-native-display.ts';
 import { validateExportText, excelExportText } from './export-text.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 import {
@@ -57,6 +58,7 @@ export async function replayBank(input: BankInput) {
     bytes(source.original);
     const file = await readFile(source.name, source.original);
     if (file.sha256 !== source.sha256) throw new Error('BANK_SOURCE_HASH');
+    await assertBankNativeDisplay(file);
     files.push(file);
   }
   const state: BankInput = {

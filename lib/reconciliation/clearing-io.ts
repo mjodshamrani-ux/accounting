@@ -29,14 +29,22 @@ export async function replayClearing(input: ClearingInput) {
   )
     throw new Error('CLEARING_SOURCE');
   buffer(input.file.original);
-  const file = await readFile(input.file.name, input.file.original);
-  if (file.sha256 !== input.file.sha256)
-    throw new Error('CLEARING_SOURCE_HASH');
-  const state = {
-    file,
+  const source = {
+    name: input.file.name,
+    sha256: input.file.sha256,
+    original: input.file.original.slice(0),
+  };
+  const metadata = structuredClone({
     reading: input.reading,
     scope: input.scope,
     events: input.events,
+  });
+  const file = await readFile(source.name, source.original);
+  if (file.sha256 !== source.sha256)
+    throw new Error('CLEARING_SOURCE_HASH');
+  const state: ClearingInput = {
+    file,
+    ...metadata,
   };
   return { state, result: reconcileClearing(state) };
 }
