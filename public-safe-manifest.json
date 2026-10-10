@@ -9,14 +9,14 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 19033,
-      "sha256": "09a11920b68883172c77ea46bf706f3719b78868ff23e532465f0358a9ed4f5a",
+      "bytes": 19074,
+      "sha256": "65389043ab964e41187e853293c50c877c6e26ac4b8df295409757b1b25b8201",
       "kind": "text"
     },
     {
       "path": ".gitignore",
-      "bytes": 971,
-      "sha256": "914a6dc2c7acd6f47b4c74b47f4f442f18894e0000c24060e94a42544dd456f4",
+      "bytes": 1098,
+      "sha256": "208ebeb90f53c9712a4944f9465979305255c5fd44186ec72ae917b0cf702341",
       "kind": "text"
     },
     {
@@ -10679,6 +10679,256 @@
       "path": "audit/local-provider/test_check_results.py",
       "bytes": 2158,
       "sha256": "6e38d4631723a4b63cf134b58f24ce905fc1298e0295544e37455966964d4b66",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/compressed.csv",
+      "bytes": 142,
+      "sha256": "997c165db55a6f6ef803353dadc1c9444f60ff8378db4edfde59876ffd64ab6c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/compressed.json",
+      "bytes": 756,
+      "sha256": "401e59ed2e1c1baec1d24dfe28009aebce076b7321fee521b0404df8fff8e8d4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/compressed.pdf",
+      "bytes": 2899,
+      "sha256": "bac4fab30f24cc910ef7b1345864171cdb908656c4114e07030ff6bab76ec000",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-double-high.json",
+      "bytes": 757,
+      "sha256": "e7a626e81f7a961eb1228791e9e2717a60a87ed8068290c7af7a73dd4d9a73f8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-double-high.pdf",
+      "bytes": 3436,
+      "sha256": "78f0d9768f0aa668f3ab722a402888989b0ca3c2537c441869a24ea2f0b5c483",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-high-ascii.json",
+      "bytes": 756,
+      "sha256": "42850b80bf7ea1fcc2a262f3ddb7c25034a6a04ed34a3f386435094fe261dc20",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-high-ascii.pdf",
+      "bytes": 3436,
+      "sha256": "b308e838112729d0b2bdc4133ad9d23810f9156764417d3bee0357d9fba6d987",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-high-only.json",
+      "bytes": 755,
+      "sha256": "d49df48da8bbe78fe09221254a13edbe52dab6876c910cc054ae94ab9c4d9906",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-high-only.pdf",
+      "bytes": 3432,
+      "sha256": "fdb8c355f1c8a8c9114e0249d513d4b04ad4b9c73b4d529e320ad779076d4b28",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-low-only.json",
+      "bytes": 754,
+      "sha256": "48b0db66ba4ec5119967aa62c908530f8390f476d613b14a80e9417e05c77d30",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-low-only.pdf",
+      "bytes": 3432,
+      "sha256": "f88e14ffddaf47bfe245d7e43dd8178e908e2781ff0ec70df41b2cfdbf77563a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-mixed-font.json",
+      "bytes": 746,
+      "sha256": "4f12d9f336d596bdf5b4e93bec4bfb6bd3b40d038293bcc5e2476f0c20049285",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-mixed-font.pdf",
+      "bytes": 3258,
+      "sha256": "a086222b0d7f969a61f3f31184341e7edbff18d276162e763bb8d30a4639b25a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-odd-byte.json",
+      "bytes": 754,
+      "sha256": "af7cee87fe333a7a826e210a0c62e2e139ad363ba1c9d8892a254b54137b11a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-odd-byte.pdf",
+      "bytes": 3434,
+      "sha256": "f64b1d8155bc5873914f572e40d2224f8bb60662191fbd5e7597d98c82528697",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-reversed.json",
+      "bytes": 754,
+      "sha256": "76828254a1dcab541a11a3bcac2758e63159fb04798225d98230fa6eba2368b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-reversed.pdf",
+      "bytes": 3436,
+      "sha256": "531ea7a28191e426abc55c294b7ba40a6cc923f6b143a5e32c9fa3751e0ee548",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/letters.csv",
+      "bytes": 144,
+      "sha256": "a2830609597e6c125e8f04258097a14bc9ef55906529b5c98480e9c562fcd15f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/letters.json",
+      "bytes": 755,
+      "sha256": "57ce014193b2c6e68328a02167852116672b03e697129563350de785c6f60cfa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/letters.pdf",
+      "bytes": 3472,
+      "sha256": "0626df636309ced998472b6a936cbeeb13fb8e19e28999754d0abb6bf5446e34",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/multi-map.csv",
+      "bytes": 138,
+      "sha256": "cf1d76e0627ad9a4ae4ffa883067667443e4820a0534270ba4ee5883898e5b66",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/multi-map.json",
+      "bytes": 751,
+      "sha256": "2c6d273e78f416da0274de05beb94345b9da022254c0ead133fca17d44903e34",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/multi-map.pdf",
+      "bytes": 3454,
+      "sha256": "1d271e478670916b381680927ffa5e39733de0821f20ec27dec72c2bce2bf3a0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/private-use.csv",
+      "bytes": 137,
+      "sha256": "92edd0358f6136d4b3d14a37bdbe194ea3917e3c7c0798d98a97b4517bfdee22",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/private-use.json",
+      "bytes": 752,
+      "sha256": "b2419c8017088f7f70b426894230df943f3c0c73ed5b81e4efb714eec656bb0d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/private-use.pdf",
+      "bytes": 3456,
+      "sha256": "69e8946bfcf2751e580e53c63d2fc8435a738f7dc38353d1af6c7d4d0b58757c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/ranged.csv",
+      "bytes": 138,
+      "sha256": "5ca2ccec353dcfe9bc0c327cbd76ba4135002cf4bf834aec69dc38a482d317f8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/ranged.json",
+      "bytes": 748,
+      "sha256": "a79edcc1fcc0e3091679b2b1389ff6e892f5e5702a85e4a35ecf144dbef45204",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/ranged.pdf",
+      "bytes": 3885,
+      "sha256": "5c0f7b02b7486a966d4d10498936d1e7d0c0aa45a6f547605c05609933fc4fc5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/unicode-reference.csv",
+      "bytes": 155,
+      "sha256": "9e15177ccd9c38755982d366c910408fc5272ea3527f08232d1cebeb17b30185",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/unicode-reference.json",
+      "bytes": 776,
+      "sha256": "57718a9e009383d894d9434c9a437fa5a71a4a05b3beacd8cce9b3a22e4b435d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/unicode-reference.pdf",
+      "bytes": 3462,
+      "sha256": "8610dc56e60a333d55fb6fa5e71b05dd667fefd8ab349d32c61488fb3f79d4be",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/generate.py",
+      "bytes": 4856,
+      "sha256": "92d6cb594364bc850d689445e0985466478325562cdfcefdb947b1431aafddfa",
       "kind": "text"
     },
     {
@@ -25173,8 +25423,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 3962,
-      "sha256": "5af29b2d0f6e2b14037aae48b5ef8ec9172a5e3fbb3f7155ee72892030d09d89",
+      "bytes": 4146,
+      "sha256": "f2b7e8ba3183aae8361c54d25690354798d907a06ab832ab9f334b316a8eaffe",
       "kind": "text"
     },
     {
@@ -25211,6 +25461,12 @@
       "path": "docs/RELEASE-0.4.40.ar.md",
       "bytes": 2216,
       "sha256": "81a91d5fe5b15f9867dd9aa47fd08bd4ef7de4f1e45dbf46f2389a9921062620",
+      "kind": "text"
+    },
+    {
+      "path": "docs/RELEASE-0.4.41.ar.md",
+      "bytes": 2133,
+      "sha256": "880bc1d37c2fc13c904eb3e184d8e1056b14322f70d0f4b6fd306fd8a2e22f3c",
       "kind": "text"
     },
     {
@@ -25272,7 +25528,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "6e53f77cb3803ca40ddc6f0a9b97b571fdcd937f5cc99ea58d8a55587a24f3d7",
+      "sha256": "f0ae90e774f6bf834e3fd881cb133369ae78976a0812aba247ee16c91bc07238",
       "kind": "text"
     },
     {
@@ -25301,8 +25557,8 @@
     },
     {
       "path": "lib/i18n/engine-catalog.ts",
-      "bytes": 107825,
-      "sha256": "977fa8992e09d529659807d4825e6510bb46eac94b560135731f58b4507196a6",
+      "bytes": 108008,
+      "sha256": "4f905f12fd6790771a5e1938616ebfc2bd89e96546c376c17fdbc23dc3366efa",
       "kind": "text"
     },
     {
@@ -25864,6 +26120,12 @@
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/pdf-font-integrity.ts",
+      "bytes": 1659,
+      "sha256": "146be6373343598ce7150e9ee49b256b08ff79a82d212686504fefaad34cf040",
+      "kind": "text"
+    },
+    {
       "path": "lib/reconciliation/pdf-paint-order.ts",
       "bytes": 5277,
       "sha256": "967e9495fd93be35d1762c357e54cbf628298de2a4dc43945e6227210ed5bdea",
@@ -25877,8 +26139,20 @@
     },
     {
       "path": "lib/reconciliation/pdf.ts",
-      "bytes": 39467,
-      "sha256": "237411daa0bc194527ec96a0c03627ff8b7d1f58cb51245789173255dd379155",
+      "bytes": 39726,
+      "sha256": "2294c67b0146e0efb2f0abbcdf6f80ee97f41423af52cfe6af98b897753733da",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/pdfjs-native.generated.d.mts",
+      "bytes": 29,
+      "sha256": "ec8ed1831c65338f2888e7693c5abdf488f85f2d7d1af1ca054a363087a0b9c3",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/pdfjs-native.ts",
+      "bytes": 436,
+      "sha256": "8d6649152a7b23cc548c3d0690e5ba1537e4b548dab0e8201057148a9be1057c",
       "kind": "text"
     },
     {
@@ -26075,8 +26349,8 @@
     },
     {
       "path": "lib/reconciliation/visual-renderer.ts",
-      "bytes": 15350,
-      "sha256": "ffc1470f59d99e7273d9a0ee0fa1b893f8bd115355eebf20417c8b0943404c33",
+      "bytes": 15380,
+      "sha256": "4e3da16b27de8e73a94272ef293ddd172b52a5abfc82c684c4af44593183c43a",
       "kind": "text"
     },
     {
@@ -26141,8 +26415,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 4382,
-      "sha256": "43939530c672ffce9b39a7ca590e561d4e2c7b985341417f4e59d4e79fe44029",
+      "bytes": 4735,
+      "sha256": "a759b9ff48a22fcd44c1d95778b415da9f792d610dc9bd1744999502b628f203",
       "kind": "text"
     },
     {
@@ -26576,6 +26850,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/prepare-native-pdf.mjs",
+      "bytes": 2439,
+      "sha256": "b4012f65eef6557a987b12205cd627cda0c71d197ba38401ed4557cbbd921e58",
+      "kind": "text"
+    },
+    {
       "path": "scripts/prepare-ocr-assets.mjs",
       "bytes": 3751,
       "sha256": "c7e4c90c890bf065e6cf49c2749b09210fb109ab27aa44214f600b4825eeeddd",
@@ -26691,8 +26971,8 @@
     },
     {
       "path": "scripts/split-section-browser.mjs",
-      "bytes": 17250,
-      "sha256": "a1034e011fa186dc1d6ac3b97d023e70a95322cfdf103ee6a9473f00ca1a46e0",
+      "bytes": 17893,
+      "sha256": "292934a6632806d449ebcd6dc253048d3b0710c7d7bced86e89941d7921d917b",
       "kind": "text"
     },
     {
@@ -26729,6 +27009,12 @@
       "path": "scripts/test-mutations.mjs",
       "bytes": 62503,
       "sha256": "0755266d517811804a3ad02db12b2538c139e59378f236a18c8d7410e37602c5",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-native-pdf-mutations.mjs",
+      "bytes": 3992,
+      "sha256": "c0b7830e429ac6d919617cdfde2d117991316e265703635f1f7094b62b8d305e",
       "kind": "text"
     },
     {
@@ -27564,6 +27850,12 @@
       "kind": "text"
     },
     {
+      "path": "tests/pdf-native-unicode.test.ts",
+      "bytes": 5676,
+      "sha256": "faafe3d8bbf6dbe5b209c1f2bf7449ee774772141f5a39c720df490b384404ff",
+      "kind": "text"
+    },
+    {
       "path": "tests/pdf-page-banner-046.test.ts",
       "bytes": 15166,
       "sha256": "7dad51fa24df0c631f469ed84e29d5b563266e67d54d3dafab83bf5b29e067ef",
@@ -28046,9 +28338,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-B5nj0SVv.js",
-      "bytes": 5897818,
-      "sha256": "b39eeb5bfd86549836d663a30d87ff1ff19b0b509c56806010a7574723ca283c",
+      "path": "assets/index-CXZ77Laj.js",
+      "bytes": 7513524,
+      "sha256": "a4086d07b548596c1cee8eb2bdd2d562e6f868fc964377d9db32cd2c44ab6137",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -28072,6 +28364,16 @@
       }
     },
     {
+      "path": "assets/pdfjs-native.generated-WcpcQPdT.js",
+      "bytes": 1602155,
+      "sha256": "b177d4f4601805e743ed786c1c48713c87ebbb59c4d9a4a0b33c35b2da7c3e8f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "public-design",
+        "description": "Locally compiled proposed application asset with locked dependencies unchanged. Parser control literals require decoded privacy scans. Exact source and build hashes require independent candidate review before publication."
+      }
+    },
+    {
       "path": "assets/visual-image-CaZsk65l.js",
       "bytes": 3067,
       "sha256": "89baabb69a9137223699f3bfbb7f73fb527fb0d9181ddcc901e53963063d6841",
@@ -28084,9 +28386,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/visual-renderer-7miyp3xb.js",
+      "path": "assets/visual-renderer-BKul6jdi.js",
       "bytes": 6542,
-      "sha256": "2702c9899ebc2d23fc8d5820e5a8f1fcf7c2af0c893d372c1b361717497064c5",
+      "sha256": "ccf27ccdeb3810d04cdbabee31ccf1124ecb9777bef81dfb702122f7fefc1dd4",
       "kind": "text"
     },
     {
@@ -28162,7 +28464,7 @@
     {
       "path": "index.html",
       "bytes": 3359,
-      "sha256": "08fc12bd9c64e23919397e478c7207e17226565676e3b1636190c00d0411a48b",
+      "sha256": "c05468d17cb7de9540f6c6d498290e7182ee7508099a81f19662b122e60c4caa",
       "kind": "text"
     },
     {

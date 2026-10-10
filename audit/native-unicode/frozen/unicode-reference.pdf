@@ -1,0 +1,119 @@
+%PDF-1.7
+% synthetic-native-unicode
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [8 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type0 /BaseFont /Helvetica /Encoding /Identity-H /DescendantFonts [4 0 R] /ToUnicode 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /CIDFontType2 /BaseFont /Helvetica /CIDSystemInfo << /Registry (Adobe) /Ordering (Identity) /Supplement 0 >> /FontDescriptor 5 0 R /DW 500 >>
+endobj
+5 0 obj
+<< /Type /FontDescriptor /FontName /Helvetica /Flags 32 /FontBBox [0 -200 1000 900] /ItalicAngle 0 /Ascent 800 /Descent -200 /CapHeight 700 /StemV 80 >>
+endobj
+6 0 obj
+<< /Length 1028 >>
+stream
+/CIDInit /ProcSet findresource begin 12 dict begin begincmap
+/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def
+/CMapName /SyntheticUnicode def /CMapType 2 def
+1 begincodespacerange <0000> <FFFF> endcodespacerange
+49 beginbfchar
+<0001> <0020>
+<0002> <002D>
+<0003> <002E>
+<0004> <0030>
+<0005> <0031>
+<0006> <0032>
+<0007> <0033>
+<0008> <0034>
+<0009> <0035>
+<000A> <0036>
+<000B> <0038>
+<000C> <0039>
+<000D> <003A>
+<000E> <0041>
+<000F> <0043>
+<0010> <0044>
+<0011> <0045>
+<0012> <0046>
+<0013> <0048>
+<0014> <0049>
+<0015> <004C>
+<0016> <004E>
+<0017> <004F>
+<0018> <0052>
+<0019> <0053>
+<001A> <0054>
+<001B> <0055>
+<001C> <0059>
+<001D> <0061>
+<001E> <0062>
+<001F> <0063>
+<0020> <0064>
+<0021> <0065>
+<0022> <0066>
+<0023> <0069>
+<0024> <006E>
+<0025> <006F>
+<0026> <0070>
+<0027> <0072>
+<0028> <0073>
+<0029> <0074>
+<002A> <0075>
+<002B> <0076>
+<002C> <0079>
+<002D> <D801DC00>
+<002E> <D801DC28>
+<002F> <D835DC00>
+<0030> <D835DC9C>
+<0031> <D840DC00>
+endbfchar
+endcmap CMapName currentdict /CMap defineresource pop end end
+endstream
+endobj
+7 0 obj
+<< /Length 1333 >>
+stream
+BT /F1 1 Tf 1 0 0 1 20 1190 Tm <0019001C0016001A00130011001A0014000F0001001700160015001C> Tj ET
+BT /F1 1 Tf 1 0 0 1 20 1185 Tm <000F002A0027002700210024001F002C000D00010019000E0018> Tj ET
+BT /F1 1 Tf 1 0 0 1 20 1180 Tm <0010001D00290021> Tj ET
+BT /F1 1 Tf 1 0 0 1 420 1180 Tm <0018002100220021002700210024001F0021> Tj ET
+BT /F1 1 Tf 1 0 0 1 820 1180 Tm <001000210028001F0027002300260029002300250024> Tj ET
+BT /F1 1 Tf 1 0 0 1 1420 1180 Tm <00100021001E00230029> Tj ET
+BT /F1 1 Tf 1 0 0 1 1720 1180 Tm <000F00270021002000230029> Tj ET
+BT /F1 1 Tf 1 0 0 1 20 1175 Tm <00140024002B00250023001F0021000D0001001B00160014000200080005> Tj ET
+BT /F1 1 Tf 1 0 0 1 20 1170 Tm <000600040006000A00020005000400020004000B> Tj ET
+BT /F1 1 Tf 1 0 0 1 420 1170 Tm <0018001100120002002D0002002F00020031> Tj ET
+BT /F1 1 Tf 1 0 0 1 820 1170 Tm <0027002100220021002700210024001F00210001002D> Tj ET
+BT /F1 1 Tf 1 0 0 1 1420 1170 Tm <00050006000300070008> Tj ET
+BT /F1 1 Tf 1 0 0 1 1720 1170 Tm <0004> Tj ET
+BT /F1 1 Tf 1 0 0 1 20 1165 Tm <000600040006000A00020005000400020004000C> Tj ET
+BT /F1 1 Tf 1 0 0 1 420 1165 Tm <0018001100120002002D0002002F00020031> Tj ET
+BT /F1 1 Tf 1 0 0 1 820 1165 Tm <001F002700210020002300290001002E0001003000010031> Tj ET
+BT /F1 1 Tf 1 0 0 1 1420 1165 Tm <0004> Tj ET
+BT /F1 1 Tf 1 0 0 1 1720 1165 Tm <000400030009000A> Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 2000 1200] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000036 00000 n 
+0000000085 00000 n 
+0000000142 00000 n 
+0000000276 00000 n 
+0000000457 00000 n 
+0000000625 00000 n 
+0000001705 00000 n 
+0000003090 00000 n 
+trailer << /Size 9 /Root 1 0 R >>
+startxref
+3218
+%%EOF

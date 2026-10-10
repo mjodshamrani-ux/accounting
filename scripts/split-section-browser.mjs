@@ -21,10 +21,29 @@ const ids = [
   'P02-zero-and-separated-sections',
   'P06-explicit-reference-and-literal-description',
   'N01-double-positive',
+  'U01-supplementary-literal',
 ];
 const fixtures = new Map();
 const frozen = {};
 for (const id of ids) {
+  if (id === 'U01-supplementary-literal') {
+    const base = 'audit/native-unicode/frozen/letters';
+    const bytes = await readFile(`${base}.pdf`);
+    const expected = JSON.parse(await readFile(`${base}.json`, 'utf8'));
+    assert.equal(hash(bytes), expected.sourceSha256);
+    frozen[`${base}.pdf`] = hash(bytes);
+    const truth = {
+      accepted: true,
+      cuts: expected.cuts,
+      inventory: expected.rows.map((values, index) => ({
+        row: index + 1,
+        page: 1,
+        values,
+      })),
+    };
+    fixtures.set(id, { bytes, truth, csv: await readFile(`${base}.csv`) });
+    continue;
+  }
   const base = `audit/split-section/frozen/${id}`;
   const bytes = await readFile(`${base}/source.pdf`);
   const truth = JSON.parse(await readFile(`${base}/oracle.json`, 'utf8'));

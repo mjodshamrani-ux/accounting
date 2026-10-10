@@ -48,6 +48,9 @@ tsconfig.tsbuildinfo
 # Static OCR assets generated from locked packages
 /public/ocr/
 
+# Reproduced from the hash-pinned native PDF dependency at install/build/test.
+/lib/reconciliation/pdfjs-native.generated.mjs
+
 /audit/visual-accounting/__pycache__/
 
 /audit/clearing/__pycache__/

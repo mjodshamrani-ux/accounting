@@ -1,4 +1,5 @@
-import { getResolvedPDFJS } from 'unpdf';
+import { getNativePDFJS } from './pdfjs-native.ts';
+import { guardPdfFontIntegrity } from './pdf-font-integrity.ts';
 import type { SheetData } from './types.ts';
 import { MAX_FILE_BYTES, MAX_PDF_PAGES, MAX_ROWS } from './types.ts';
 import type { ProcessingProgress } from './processing-progress.ts';
@@ -797,7 +798,7 @@ export async function readPdf(
     throw new Error('حجم الملف يتجاوز 8 MB');
   if (new TextDecoder().decode(buffer.slice(0, 5)) !== '%PDF-')
     throw new Error('محتوى الملف ليس PDF صالحًا');
-  const { getDocument, version, OPS } = await getResolvedPDFJS();
+  const { getDocument, version, OPS } = await getNativePDFJS();
   const loading = getDocument({
     data: new Uint8Array(buffer.slice(0)),
     useWorkerFetch: false,
@@ -809,9 +810,11 @@ export async function readPdf(
     enableXfa: false,
   });
   let streamGuard: ReturnType<typeof guardPdfOperatorStreams> | undefined;
+  let fontGuard: ReturnType<typeof guardPdfFontIntegrity> | undefined;
   try {
     const doc = await loading.promise;
     streamGuard = guardPdfOperatorStreams(doc, version);
+    fontGuard = guardPdfFontIntegrity(doc, version);
     if (doc.numPages < 1 || doc.numPages > MAX_PDF_PAGES)
       throw new Error(
         'الحد الحالي لملف PDF النصي هو 100 صفحة. استخدم Excel للملفات الأكبر؛ لن تُقرأ نسخة جزئية.',
@@ -890,6 +893,7 @@ export async function readPdf(
         }
         const operators = await page.getOperatorList();
         await streamGuard.assertComplete();
+        fontGuard.assertComplete();
         const imagePaints = operators.fnArray.reduce(
           (count, op) => count + Number(isImagePaint(OPS, op)),
           0,
@@ -1066,6 +1070,7 @@ export async function readPdf(
       },
     };
   } finally {
+    fontGuard?.restore();
     streamGuard?.restore();
     await loading.destroy();
   }

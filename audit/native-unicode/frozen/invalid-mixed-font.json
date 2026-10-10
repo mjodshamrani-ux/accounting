@@ -1,0 +1,56 @@
+{
+  "synthetic": true,
+  "name": "invalid-mixed-font",
+  "sourceSha256": "a086222b0d7f969a61f3f31184341e7edbff18d276162e763bb8d30a4639b25a",
+  "cuts": [
+    20,
+    40,
+    70,
+    85
+  ],
+  "rows": [
+    [
+      "SYNTHETIC ONLY",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Currency: SAR",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Debit",
+      "Credit"
+    ],
+    [
+      "Invoice: UNI-41",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "2026-10-08",
+      "UNI-41",
+      "invalid § value",
+      "12.34",
+      "0"
+    ],
+    [
+      "2026-10-09",
+      "UNI-41",
+      "credit good",
+      "0",
+      "0.56"
+    ]
+  ],
+  "accepted": false
+}

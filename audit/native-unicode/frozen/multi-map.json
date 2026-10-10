@@ -1,0 +1,56 @@
+{
+  "synthetic": true,
+  "name": "multi-map",
+  "sourceSha256": "1d271e478670916b381680927ffa5e39733de0821f20ec27dec72c2bce2bf3a0",
+  "cuts": [
+    20,
+    40,
+    70,
+    85
+  ],
+  "rows": [
+    [
+      "SYNTHETIC ONLY",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Currency: SAR",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Debit",
+      "Credit"
+    ],
+    [
+      "Invoice: UNI-41",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "2026-10-08",
+      "UNI-41",
+      "multi 𐐀A😀 value",
+      "12.34",
+      "0"
+    ],
+    [
+      "2026-10-09",
+      "UNI-41",
+      "credit 𐐨 𝒜 𠀀",
+      "0",
+      "0.56"
+    ]
+  ],
+  "accepted": true
+}

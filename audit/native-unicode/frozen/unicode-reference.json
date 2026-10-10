@@ -1,0 +1,56 @@
+{
+  "synthetic": true,
+  "name": "unicode-reference",
+  "sourceSha256": "8610dc56e60a333d55fb6fa5e71b05dd667fefd8ab349d32c61488fb3f79d4be",
+  "cuts": [
+    20,
+    40,
+    70,
+    85
+  ],
+  "rows": [
+    [
+      "SYNTHETIC ONLY",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Currency: SAR",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Debit",
+      "Credit"
+    ],
+    [
+      "Invoice: UNI-41",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "2026-10-08",
+      "REF-𐐀-𝐀-𠀀",
+      "reference 𐐀",
+      "12.34",
+      "0"
+    ],
+    [
+      "2026-10-09",
+      "REF-𐐀-𝐀-𠀀",
+      "credit 𐐨 𝒜 𠀀",
+      "0",
+      "0.56"
+    ]
+  ],
+  "accepted": true
+}

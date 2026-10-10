@@ -1,18 +1,18 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.40",
+  "version": "0.4.41",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "node scripts/prepare-ocr-assets.mjs && vite --host 127.0.0.1",
-    "build": "node scripts/prepare-ocr-assets.mjs && vite build --configLoader runner && node scripts/harden-build.mjs",
+    "dev": "node scripts/prepare-native-pdf.mjs && node scripts/prepare-ocr-assets.mjs && vite --host 127.0.0.1",
+    "build": "node scripts/prepare-native-pdf.mjs && node scripts/prepare-ocr-assets.mjs && vite build --configLoader runner && node scripts/harden-build.mjs",
     "start": "vite preview --host 127.0.0.1",
     "lint": "node scripts/lint-check.mjs",
     "format": "oxfmt",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "test": "node scripts/prepare-native-pdf.mjs && node --experimental-strip-types --test tests/*.test.ts",
     "preview": "vite preview --host 127.0.0.1",
     "test:browser": "node --experimental-strip-types scripts/prepare-browser-fixtures.mjs && node --experimental-strip-types scripts/browser-test.mjs",
     "test:browser:main-integration": "node --experimental-strip-types scripts/supplier-main-overlap-browser.mjs",
@@ -29,7 +29,7 @@
     "test:split-section": "node --experimental-strip-types --test tests/split-section-classifier.test.ts tests/split-section-session.test.ts",
     "test:split-section:mutations": "node scripts/test-split-section-mutations.mjs",
     "test:split-section:browser": "node scripts/split-section-browser.mjs",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:split-section:browser",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm test:native-pdf:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:split-section:browser",
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
     "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
@@ -37,7 +37,10 @@
     "test:reliability:partial": "node scripts/test-partial-contracts.mjs",
     "test:reliability": "node --experimental-strip-types audit/reliability/run.mjs --split development,validation,final --frozen",
     "test:reliability:development": "node --experimental-strip-types audit/reliability/run.mjs",
-    "test:reliability:performance": "node scripts/performance-check.mjs"
+    "test:reliability:performance": "node scripts/performance-check.mjs",
+    "postinstall": "node scripts/prepare-native-pdf.mjs",
+    "prepare:native-pdf": "node scripts/prepare-native-pdf.mjs",
+    "test:native-pdf:mutations": "node scripts/test-native-pdf-mutations.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

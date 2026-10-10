@@ -137,6 +137,7 @@ jobs:
           pnpm test:split-section
           python3 -B scripts/check-split-section-exports.py "$P4_REPORT_DIR"
           pnpm test:split-section:mutations
+          pnpm test:native-pdf:mutations
       - name: Verify split-section review UI in native Chrome
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
