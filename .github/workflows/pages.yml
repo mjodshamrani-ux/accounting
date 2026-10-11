@@ -157,11 +157,28 @@ jobs:
           pnpm test:fixed-assets-long:oracle
           pnpm test:fixed-assets-long:proof
           pnpm test:fixed-assets-long:mutations
+      - name: Verify explicit signed-kind gateway originals, lifecycle, independent exports and mutations
+        env:
+          PG_SIGNED_PROOF_DIR: ${{ runner.temp }}/payment-gateway-signed-proof
+          PG_SIGNED_EXPORT_CHECK_DIR: ${{ runner.temp }}/payment-gateway-signed-export-check
+          PG_SIGNED_ORACLE_DIR: ${{ runner.temp }}/payment-gateway-signed-oracle
+          PG_SIGNED_MUTATION_REPORT_DIR: ${{ runner.temp }}/payment-gateway-signed-mutations
+        run: |
+          pnpm test:payment-gateway-signed
+          pnpm test:payment-gateway-signed:oracle
+          pnpm test:payment-gateway-signed:proof
+          pnpm test:payment-gateway-signed:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Verify signed-kind gateway actual Worker, Arabic and English mobile downloads independently
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          PG_SIGNED_BROWSER_DIR: ${{ runner.temp }}/payment-gateway-signed-browser
+          PG_SIGNED_BROWSER_CHECK_DIR: ${{ runner.temp }}/payment-gateway-signed-browser-check
+        run: pnpm test:payment-gateway-signed:browser
       - name: Verify twelve-type entry, readiness, navigation and retained supplier state
         run: |
           pnpm test:browser:reconciliation-entry

@@ -89,6 +89,11 @@ for (const job of Object.values(workflow.jobs))
       assert(existsSync(path.join(root, m[0])), m[0]);
   }
 const required = [
+  'test:payment-gateway-signed',
+  'test:payment-gateway-signed:oracle',
+  'test:payment-gateway-signed:proof',
+  'test:payment-gateway-signed:mutations',
+  'test:payment-gateway-signed:browser',
   'test:gl-tb-vertical',
   'test:gl-tb-vertical:proof',
   'test:gl-tb-vertical:mutations',

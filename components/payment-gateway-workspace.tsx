@@ -13,6 +13,7 @@ import { workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   PG_VERSION,
+  PG_SIGNED_VERSION,
   PG_ROLES,
   PG_SCOPE_FIELDS,
   type GatewayInput,
@@ -24,6 +25,10 @@ import {
   gatewayDemo,
   gatewayDemoScope,
 } from '@/lib/reconciliation/payment-gateway-demo';
+import {
+  gatewaySignedDemo,
+  gatewaySignedDemoScope,
+} from '@/lib/reconciliation/payment-gateway-signed-demo';
 import { gatewayCopy } from '@/lib/i18n/payment-gateway';
 import './gl-tb-workspace.css';
 const emptyScope = (): GatewayScope =>
@@ -224,7 +229,7 @@ export function GatewayWorkspace({
       },
     );
   }
-  async function demo() {
+  async function demo(signed = false) {
     await perform(async (signal) => {
       const f: SourceFile[] = [];
       for (let i = 0; i < 4; i++)
@@ -232,19 +237,25 @@ export function GatewayWorkspace({
           await workerTask<SourceFile>(
             'gateway-read',
             {
-              name: `pending-${i}.csv`,
-              buffer: new TextEncoder().encode(gatewayDemo[i]).buffer,
+              name: `${signed ? 'signed' : 'pending'}-${i}.csv`,
+              buffer: new TextEncoder().encode(
+                (signed ? gatewaySignedDemo : gatewayDemo)[i],
+              ).buffer,
             },
             signal,
           ),
         );
       const s: GatewayInput = {
         files: f as GatewayInput['files'],
-        readings: readings().map((r) => ({
+        readings: readings().map((r, i) => ({
           ...r,
+          family: signed && i === 0 ? PG_SIGNED_VERSION : PG_VERSION,
           confirmed: true,
         })) as GatewayInput['readings'],
-        scope: { ...gatewayDemoScope, confirmed: true },
+        scope: {
+          ...(signed ? gatewaySignedDemoScope : gatewayDemoScope),
+          confirmed: true,
+        },
         completeness: {
           confirmed: true,
           reference: 'Synthetic inventory attestation',
@@ -308,6 +319,13 @@ export function GatewayWorkspace({
           <Button disabled={busy} onClick={() => void demo()}>
             {copy.demo}
           </Button>
+          <Button
+            variant="outline"
+            disabled={busy}
+            onClick={() => void demo(true)}
+          >
+            {copy.signedDemo}
+          </Button>
           <label>
             {copy.restore}
             <input
@@ -356,6 +374,40 @@ export function GatewayWorkspace({
                 }}
               />
               <p>{files[i]?.name ?? copy.empty}</p>
+              {i === 0 && (
+                <label>
+                  {copy.amountFamily}
+                  <select
+                    aria-label={copy.amountFamily}
+                    value={reading[0].family}
+                    onChange={(e) => {
+                      const r = [...reading] as GatewayInput['readings'];
+                      r[0] = {
+                        sheet: 0,
+                        role: 'transactions',
+                        family:
+                          e.target.value === PG_SIGNED_VERSION
+                            ? PG_SIGNED_VERSION
+                            : PG_VERSION,
+                        confirmed: false,
+                      };
+                      setReading(r);
+                      setComplete({ ...complete, confirmed: false });
+                      invalidate();
+                    }}
+                  >
+                    <option value={PG_VERSION}>{copy.unsignedFamily}</option>
+                    <option value={PG_SIGNED_VERSION}>
+                      {copy.signedFamily}
+                    </option>
+                  </select>
+                  {reading[0].family === PG_SIGNED_VERSION && (
+                    <span className="workspace-field-help">
+                      {copy.signedHelp}
+                    </span>
+                  )}
+                </label>
+              )}
               <label>
                 <input
                   type="checkbox"
@@ -568,7 +620,11 @@ export function GatewayWorkspace({
                   {copy.roles[i]} ({records.length})
                 </summary>
                 <Table
-                  headers={copy.records[i]}
+                  headers={
+                    i === 0 && result.readings[0].family === PG_SIGNED_VERSION
+                      ? copy.signedRecords
+                      : copy.records[i]
+                  }
                   rows={records.map((e) => [
                     e.row,
                     ...e.values.map((v, j) =>
@@ -576,8 +632,13 @@ export function GatewayWorkspace({
                         ? v === 'sale'
                           ? copy.sale
                           : copy.refund
-                        : v,
+                        : i === 0 && j === 3 && e.signedAmount
+                          ? e.signedAmount.raw
+                          : v,
                     ),
+                    ...(e.signedAmount
+                      ? [e.signedAmount.signedMinor, e.signedAmount.magnitude]
+                      : []),
                   ])}
                 />
               </details>
@@ -618,7 +679,8 @@ export function GatewayWorkspace({
               <Table
                 headers={copy.issueHeaders}
                 rows={result.issues.map((e) => [
-                  e.code,
+                  (copy.issueReasons as Record<string, string>)[e.code] ??
+                    e.code,
                   copy.roles[e.source],
                   e.row || copy.aggregate,
                   e.key,

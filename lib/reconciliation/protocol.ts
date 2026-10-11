@@ -11,7 +11,12 @@ import {
   reconcileFinancialPosition,
   type FinancialInput,
 } from './tb-financial.ts';
-import { ENGINE_VERSION, MAX_ROWS, MAX_SHEETS } from './types.ts';
+import {
+  ENGINE_VERSION,
+  MAX_ROWS,
+  MAX_SHEETS,
+  MAX_FILE_BYTES,
+} from './types.ts';
 import type { SourceFile } from './types.ts';
 import {
   registerNativeHeaderSource,
@@ -385,6 +390,7 @@ export function validateWorkerValue(
   if (action === 'gateway-reconcile' || action === 'gateway-restore') {
     if (
       !isRecord(value) ||
+      Object.keys(value).sort().join('|') !== 'result|state' ||
       !isRecord(value.state) ||
       !isRecord(value.result) ||
       value.result.version !== 'payment-gateway-batch-1' ||
@@ -402,6 +408,8 @@ export function validateWorkerValue(
       assertSourceFile(file);
       if (
         !(file.original instanceof ArrayBuffer) ||
+        !file.original.byteLength ||
+        file.original.byteLength > MAX_FILE_BYTES ||
         !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
       )
         throw new Error(

@@ -1,0 +1,736 @@
+{
+  "sar-mixed": {
+    "structure": "3 interleaved sale/refund movements; 2 independent fee rows",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      15000,
+      2000,
+      300,
+      12700
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-one-sale-header-fees": {
+    "structure": "one sale; fee original is header-only; explicit settlement fees 0",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      700,
+      0,
+      0,
+      700
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-zero-kinds": {
+    "structure": "4 zero-valued movements across both explicit kinds; explicit zero fee row",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "jpy-many-fees": {
+    "structure": "zero-decimal currency; 5 mixed movements; 3 fee rows",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      125,
+      5,
+      4,
+      116
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "kwd-three-decimal": {
+    "structure": "3-decimal currency; 4 movements including explicit refund +0; 1 fee",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      12346,
+      345,
+      1,
+      12000
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-arabic-persian": {
+    "structure": "Arabic and Persian digits with Arabic decimal separator in all money roles",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      1250,
+      250,
+      50,
+      950
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-blank-row-permutation": {
+    "structure": "row permutation with 4 blank transaction records, blank fee and settlement records",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      15000,
+      2000,
+      300,
+      12700
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-component-cancellation": {
+    "structure": "gross/refund discrepancies cancel exactly in net; component differences remain",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "difference",
+    "totalsMinor": [
+      10000,
+      2000,
+      300,
+      7700
+    ],
+    "residualsMinor": [
+      -100,
+      -100,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-fee-component-difference": {
+    "structure": "independent fee 3 vs summary 4; retain fee and net residuals",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "difference",
+    "totalsMinor": [
+      10000,
+      0,
+      300,
+      9700
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      -100,
+      100,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-bank-credit-difference": {
+    "structure": "one-cent payout discrepancy with exact settlement components",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "difference",
+    "totalsMinor": [
+      1000,
+      0,
+      0,
+      1000
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-inclusive-bound": {
+    "structure": "one movement exactly at inherited inclusive 1e14-minor-unit bound",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      100000000000000,
+      0,
+      0,
+      100000000000000
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "sar-refund-only-difference": {
+    "structure": "refund-only population; derived negative net vs nonnegative supplied net",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "difference",
+    "totalsMinor": [
+      0,
+      500,
+      0,
+      -500
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      -500,
+      0
+    ],
+    "issueCodes": [],
+    "missing": []
+  },
+  "format-sar-mixed-inline-xlsx": {
+    "structure": "FORMAT CHECK ONLY: native inlineStr OOXML paired to sar-mixed",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      15000,
+      2000,
+      300,
+      12700
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": [],
+    "formatEquivalentTo": "sar-mixed"
+  },
+  "format-sar-blank-shared-numeric-xlsx": {
+    "structure": "FORMAT CHECK ONLY: shared identity strings, numeric money fmt2, explicit blank rows paired to SAR",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "ready",
+    "totalsMinor": [
+      15000,
+      2000,
+      300,
+      12700
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "issueCodes": [],
+    "missing": [],
+    "formatEquivalentTo": "sar-blank-row-permutation"
+  },
+  "negative-sale-negative": {
+    "structure": "negative lexical/kind case: sale-negative",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "SIGN_KIND"
+    ]
+  },
+  "negative-refund-positive": {
+    "structure": "negative lexical/kind case: refund-positive",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "SIGN_KIND"
+    ]
+  },
+  "negative-refund-unsigned-positive": {
+    "structure": "negative lexical/kind case: refund-unsigned-positive",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "SIGN_KIND"
+    ]
+  },
+  "negative-sale-negative-zero": {
+    "structure": "negative lexical/kind case: sale-negative-zero",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "NEGATIVE_ZERO"
+    ]
+  },
+  "negative-refund-negative-zero": {
+    "structure": "negative lexical/kind case: refund-negative-zero",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "NEGATIVE_ZERO"
+    ]
+  },
+  "negative-missing-kind": {
+    "structure": "negative lexical/kind case: missing-kind",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "KIND"
+    ]
+  },
+  "negative-chargeback-kind": {
+    "structure": "negative lexical/kind case: chargeback-kind",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "KIND"
+    ]
+  },
+  "negative-sar-excess-precision": {
+    "structure": "negative lexical/kind case: sar-excess-precision",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT_PRECISION"
+    ]
+  },
+  "negative-unicode-minus": {
+    "structure": "negative lexical/kind case: unicode-minus",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-accounting-parentheses": {
+    "structure": "negative lexical/kind case: accounting-parentheses",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-scientific-money": {
+    "structure": "negative lexical/kind case: scientific-money",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-sign-whitespace": {
+    "structure": "negative lexical/kind case: sign-whitespace",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-individual-bound": {
+    "structure": "negative lexical/kind case: individual-bound",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT_BOUND"
+    ]
+  },
+  "negative-identity-bidi-cf": {
+    "structure": "Unicode/UTF16 boundary: identity-bidi-cf",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "IDENTITY"
+    ]
+  },
+  "negative-identity-c1-control": {
+    "structure": "Unicode/UTF16 boundary: identity-c1-control",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "IDENTITY"
+    ]
+  },
+  "negative-identity-astral-501-units": {
+    "structure": "Unicode/UTF16 boundary: identity-astral-501-units",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "IDENTITY"
+    ]
+  },
+  "negative-reference-astral-2002-units": {
+    "structure": "Unicode/UTF16 boundary: reference-astral-2002-units",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "IDENTITY"
+    ]
+  },
+  "negative-cell-astral-32768-units": {
+    "structure": "Unicode/UTF16 boundary: cell-astral-32768-units",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "CELL_LIMIT"
+    ]
+  },
+  "negative-precision-jpy": {
+    "structure": "excess lexical fractional digits for currency precision",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT_PRECISION"
+    ]
+  },
+  "negative-precision-kwd": {
+    "structure": "excess lexical fractional digits for currency precision",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT_PRECISION"
+    ]
+  },
+  "negative-duplicate-transaction-even-invalid": {
+    "structure": "duplicate Transaction ID across valid sale and invalid negative-zero refund",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "DUPLICATE"
+    ]
+  },
+  "negative-duplicate-fee-id": {
+    "structure": "distinct evidence IDs but duplicate fee ID",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "DUPLICATE"
+    ]
+  },
+  "missing-positive-fee-detail": {
+    "structure": "header-only fee original with positive summary fee; never infer 3 from summary or net",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "missing",
+    "totalsMinor": [
+      15000,
+      2000,
+      0,
+      13000
+    ],
+    "residualsMinor": [
+      0,
+      0,
+      -300,
+      300,
+      0
+    ],
+    "issueCodes": [],
+    "missing": [
+      "fee-evidence"
+    ]
+  },
+  "negative-multiple-batch": {
+    "structure": "second batch in one refund transaction original",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "ROW_SCOPE"
+    ]
+  },
+  "negative-multiple-payout": {
+    "structure": "two distinct bank credits; splitting/netting out of scope",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "CARDINALITY"
+    ]
+  },
+  "negative-multiple-settlement": {
+    "structure": "two settlement rows; combining batches out of scope",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "CARDINALITY"
+    ]
+  },
+  "negative-canonical-fee": {
+    "structure": "canonical other-role money grammar remains unsigned: fee",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-canonical-settlement-net": {
+    "structure": "canonical other-role money grammar remains unsigned: settlement-net",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-canonical-bank-credit": {
+    "structure": "canonical other-role money grammar remains unsigned: bank-credit",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-canonical-fee-plus": {
+    "structure": "plus permission applies only to signed transaction family",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "AMOUNT"
+    ]
+  },
+  "negative-aggregate-bound": {
+    "structure": "two individually bounded sales sum above inherited bound",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "TOTAL_BOUND"
+    ]
+  },
+  "negative-unsupported-currency": {
+    "structure": "four internally consistent originals but unsupported currency",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "CURRENCY"
+    ]
+  },
+  "negative-canonical-header-signed-reading": {
+    "structure": "canonical Amount header cannot satisfy Signed amount family",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "COLUMNS"
+    ]
+  },
+  "negative-signed-header-canonical-reading": {
+    "structure": "Signed amount header requires explicit signed family reading",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "READING"
+    ]
+  },
+  "negative-native-cache-mismatch": {
+    "structure": "actual raw numeric XLSX remains +100.00; supplied parsed grid falsely claims 999.00",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "NATIVE_CACHE_MISMATCH"
+    ]
+  },
+  "negative-native-negative-zero": {
+    "structure": "raw numeric v=-0.00 must be rejected before coercion loses minus sign",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "NEGATIVE_ZERO"
+    ]
+  },
+  "negative-native-exponent": {
+    "structure": "raw monetary exponent is rejected despite numerically representable value",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_MONEY_LEXEME"
+    ]
+  },
+  "negative-native-arabic-numeric": {
+    "structure": "native numeric XML monetary lexemes must be ASCII; CSV Arabic normalization is separate",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_MONEY_LEXEME"
+    ]
+  },
+  "negative-native-jpy-scope": {
+    "structure": "JPY allowed in CSV only; native guard remains SAR/2-decimal",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_CURRENCY"
+    ]
+  },
+  "negative-native-formula-cache": {
+    "structure": "formula cell with plausible stale cache; raw formula remains disallowed",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_FORMULA"
+    ]
+  },
+  "negative-native-relationship-type": {
+    "structure": "independent source-identity negative: relationship-type",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_RELATIONSHIP"
+    ]
+  },
+  "negative-native-duplicate-relationship-id": {
+    "structure": "independent source-identity negative: duplicate-relationship-id",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_RELATIONSHIP"
+    ]
+  },
+  "negative-native-relationship-namespace": {
+    "structure": "independent source-identity negative: relationship-namespace",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_RELATIONSHIP"
+    ]
+  },
+  "negative-native-worksheet-namespace": {
+    "structure": "independent source-identity negative: worksheet-namespace",
+    "provenance": "hand-declared synthetic truth",
+    "financial": "source-error",
+    "totalsMinor": null,
+    "residualsMinor": null,
+    "requiredIssueCodes": [
+      "XLSX_NAMESPACE"
+    ]
+  }
+}
