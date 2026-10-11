@@ -32668,7 +32668,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "e8ef9dade458d8172b655a85bbea8f8f298480559fa6e655262a22ab103b2a6f",
+      "sha256": "adc7963816e437c65b6b4a7ec709e28b7c49537076a5a04fbe3de8a0c4ab1c44",
       "kind": "text"
     },
     {
@@ -34063,8 +34063,8 @@
     },
     {
       "path": "scripts/payment-gateway-signed-browser.mjs",
-      "bytes": 14130,
-      "sha256": "1227bd1f5855741c9550e5db90f9b67caf40f505ca7b706c6c067a6bfbcabe64",
+      "bytes": 14485,
+      "sha256": "634ee70a0686b9b9dd31680685e2efb665ae6063f4cbd81c024e7e712eb121d7",
       "kind": "text"
     },
     {
@@ -34461,6 +34461,12 @@
       "path": "tests/ambiguity-gate-acceptance-047.test.ts",
       "bytes": 9359,
       "sha256": "0f3176d9e2ee602278909b708395b86fd737697bc60dd9d0d326b8a308b2a2a7",
+      "kind": "text"
+    },
+    {
+      "path": "tests/app-version.test.ts",
+      "bytes": 511,
+      "sha256": "ee882ea79613f5fe67c898bb933fcbf9550645e658bf7733109e3d55b4bd1b2c",
       "kind": "text"
     },
     {
@@ -36446,15 +36452,15 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-1cvCVfd9.js",
+      "path": "assets/bank-adjustment-io-87xpW-tH.js",
       "bytes": 12101,
-      "sha256": "05239d9526d40639a988fd0b4e956f4315836a769ab8468e0c7edbfcde0c36be",
+      "sha256": "43c807c727a4b88d73c5d919ea745f02b6e62d2b9594b1874553dc56e59e6059",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-CSfTLc1k.js",
+      "path": "assets/bank-io-BKPGyY-H.js",
       "bytes": 6331,
-      "sha256": "2198043f9f48c096149932afbfd264d335755abec0da7d1a45063400b5fcac0d",
+      "sha256": "0a10461dcc73839c56109f2f981b6e7d3dcdfd8965081de104e64e7b8e8ebfbf",
       "kind": "text"
     },
     {
@@ -36490,32 +36496,32 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-DVAZVCWX.js",
+      "path": "assets/fixed-assets-io-CD6x_K4n.js",
       "bytes": 9830,
-      "sha256": "627c590f6557f18ef80bc63a700f5d6de2ac77f73ec1b6f8ba830cd8d239dcde",
+      "sha256": "046a031486ffe3d503c77edb2a5df89dfe9db6edca15611fd032cb95f6b10997",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-DSHWP2oX.js",
+      "path": "assets/gl-tb-io-CqSOz0kO.js",
       "bytes": 2184,
-      "sha256": "efdc63efc523c989f5c719d9d665f9d044e660258963fc0485b6478ecbb43387",
+      "sha256": "5245634315bdbef4565ea3def80d5583084475ca414e4c6d70727e58d4b3765a",
       "kind": "text"
+    },
+    {
+      "path": "assets/index-BGNptm-m.js",
+      "bytes": 6231995,
+      "sha256": "56f00d8ed587358a3a6ac054b71a6033ad72fce3c779663617b8249a3caa0f8d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "public-design",
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
+      }
     },
     {
       "path": "assets/index-aIr2uz9D.css",
       "bytes": 273220,
       "sha256": "f9227a32a28fac98ad1f057cf04cde011ab8cb2d3e04574955146e6e7d3cb51d",
       "kind": "text"
-    },
-    {
-      "path": "assets/index-t6s_0V1M.js",
-      "bytes": 6231995,
-      "sha256": "bde6a30d2071d44ece447e2e588c3a623cdd812f677c6a790abdd32f56b8bdbb",
-      "kind": "approved-binary",
-      "provenance": {
-        "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
-      }
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -36674,7 +36680,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "eccbe790738b1d6abc51a1d99f397eadfa84ca5ff3281718d5e07de5f3d0543c",
+      "sha256": "1b92083453aae5c5e91e3d885de6b2bc07782795bf7a607efa84b0def9317ce9",
       "kind": "text"
     },
     {

@@ -6,6 +6,10 @@ import { chromium } from 'playwright';
 import { gatewayCopy } from '../lib/i18n/payment-gateway.ts';
 
 const root = path.resolve('dist');
+const expectedAppVersion = JSON.parse(
+  await readFile(path.resolve('package.json'), 'utf8'),
+).version;
+assert.equal(typeof expectedAppVersion, 'string');
 const output = path.resolve(
   process.env.PG_SIGNED_BROWSER_DIR || 'work/payment-gateway-signed/browser',
 );
@@ -109,6 +113,10 @@ try {
         await page
           .getByRole('button', { name: 'EN English', exact: true })
           .click();
+      const displayedAppVersion = (
+        await page.locator('footer.footnote').innerText()
+      ).trim().split('·').at(-1)?.trim();
+      assert.equal(displayedAppVersion, expectedAppVersion);
       const copy = gatewayCopy[lang];
       await page.getByRole('button', { name: copy.title, exact: true }).click();
       const w = page.locator('[data-gateway-workspace]'),
