@@ -29,6 +29,8 @@ export const en: Messages = {
       'Period start': 'Period start',
       'Period end': 'Period end',
       Amount: 'Amount',
+      Withdrawal: 'Withdrawal',
+      Deposit: 'Deposit',
     },
     entry: 'Bank movements',
     title: 'Bank and cashbook movements',
@@ -38,13 +40,24 @@ export const en: Messages = {
     claim:
       'This compares movements only. Opening and closing balances, a balance bridge, source authenticity and period completeness remain separate. Matching a movement keeps its outside-period value-date item.',
     limits:
-      'First family: CSV/XLSX with the exact English role headers in the synthetic example. Inflow and outflow use the company’s cash perspective on both sides. Bank rows are booked; cashbook rows are posted. No inferred fees or tax rates, currency conversion, partial reversal or subset of a source settlement.',
+      'CSV/XLSX with an amount and explicit direction, or withdrawal and deposit columns, and the specified English role headers. Inflow and outflow use the company’s cash perspective on both sides. Bank rows are booked; cashbook rows are posted. No inferred fees or tax rates, currency conversion, partial reversal or subset of a source settlement.',
     sample: 'Open synthetic bank movement example',
     restore: 'Restore bank movement session',
     save: 'Save bank movement session',
     export: 'Download bank movement workpaper',
     sides: ['Bank statement', 'Cashbook'],
     sheet: 'Sheet',
+    sourceFamily: 'Source amount structure',
+    amountDirection: 'Amount and explicit cash direction',
+    withdrawalDeposit: 'Withdrawal and deposit columns',
+    withdrawalDepositHint:
+      'Withdrawal reduces company cash; deposit increases it. Exactly one column must contain a positive amount and the other a written zero or blank cell. Review this meaning in the original source.',
+    cashCellState: 'Money cell role',
+    cashCellStates: {
+      active: 'Active amount',
+      'blank-inactive': 'Inactive side blank in the original',
+      'explicit-zero-inactive': 'Written zero on the inactive side',
+    },
     sourceConfirm:
       'I reviewed this table’s source roles, company cash directions, booked or posted status, settlement identities and fee or reversal evidence.',
     scopeConfirm:
@@ -268,10 +281,19 @@ export const en: Messages = {
     intro:
       'Verify one account in a declared scope. Opening balances, period debit and credit, and closing balances remain separate in each source. Files stay local.',
     limits:
-      'First source family: CSV/XLSX with the exact English role headers shown by the synthetic example. GL has opening, movement and closing records; TB has six balance columns. First row is the header. ISO dates, explicit nonnegative decimals, written zeros, functional currency and posted records only. No unknown columns, net-only amounts or balances borrowed from the other source.',
+      'CSV/XLSX with exact English role headers. GL has opening, movement and closing records. Choose the TB layout: six balance columns, or three opening, period and closing rows with one snapshot ID and explicit debit and credit in each row. First row is the header. ISO dates, explicit nonnegative decimals, written zeros, functional currency and posted records only. No unknown columns, net-only amounts or balances borrowed from the other source.',
     claim:
       'This verifies internal consistency of the supplied details and summary. It does not establish source authenticity, period completeness or fair presentation of financial statements.',
     sample: 'Open synthetic GL/TB example',
+    sampleVertical: 'Open three-row TB example',
+    family: 'Trial balance layout',
+    horizontalFamily: 'Horizontal · six balance columns',
+    verticalFamily: 'Vertical · opening, period and closing',
+    verticalEvidence: 'Original trial balance evidence',
+    snapshot: 'Snapshot ID',
+    debit: 'Original debit',
+    credit: 'Original credit',
+    cancel: 'Cancel processing',
     sides: ['GL detail and balances', 'Trial balance source'],
     sheet: 'Sheet',
     sourceConfirm:
@@ -321,6 +343,9 @@ export const en: Messages = {
       'gl-opening': 'GL opening balance',
       'gl-closing': 'GL closing balance',
       'tb-balance': 'Trial balance account',
+      'tb-opening': 'TB opening balance',
+      'tb-period': 'TB period debit and credit',
+      'tb-closing': 'TB closing balance',
     },
     inventory: 'Original row inventory',
     row: 'Source row',
@@ -335,6 +360,7 @@ export const en: Messages = {
       blank: 'Blank',
       opening: 'Opening balance',
       movement: 'Period movement',
+      period: 'Period debit and credit',
       closing: 'Closing balance',
       balance: 'Balance source row',
       error: 'Reading error',
@@ -348,6 +374,7 @@ export const en: Messages = {
       GL_TB_KIND: 'Unknown record role',
       GL_TB_IDENTITY: 'Invalid record identity',
       GL_TB_COLUMNS: 'Unexpected extra data',
+      GL_TB_SNAPSHOT: 'More than one balance snapshot in the source',
     },
     failure:
       'Cannot complete this operation under the GL/TB source policy. Check native source roles, readable headers, explicit amounts and the confirmed scope. The previous source remains available if upload fails.',

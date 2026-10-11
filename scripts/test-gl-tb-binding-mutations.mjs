@@ -51,8 +51,8 @@ const mutations = [
   ],
   [
     'exact-source-bytes',
-    'a.some((byte, offset) => byte !== b[offset])',
-    'false',
+    "a.some((byte, offset) => byte !== b[offset])\n              )\n                throw Error('GL_TB_WORKER_BINDING');",
+    "false\n              )\n                throw Error('GL_TB_WORKER_BINDING');",
   ],
   [
     'install-request-reread',
@@ -76,7 +76,9 @@ try {
         '--experimental-strip-types',
         '--test',
         '--test-reporter=tap',
+        '--test-name-pattern=^binding:',
         'tests/gl-tb-binding.test.ts',
+        'tests/gl-tb-binding-envelope.test.ts',
       ],
       {
         cwd: temp,

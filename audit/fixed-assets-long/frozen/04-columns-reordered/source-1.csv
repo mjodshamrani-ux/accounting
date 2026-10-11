@@ -1,0 +1,7 @@
+Asset account set version,Component policy version,Map version,Chart version,As of,Posting layer,Posting status,Currency basis,Currency,GL ledger,Asset ledger,Entity,Evidence ID,GL dimensions,GL account,Component,Asset dimensions,Asset ID,Mapping ID
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,SYN-E-0-0,BOOK,1600,cost,SITE-A,001,SYN-M-0-0
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,SYN-E-0-1,BOOK,1690,depreciation,SITE-A,001,SYN-M-0-1
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,SYN-E-0-2,BOOK,1695,impairment,SITE-A,001,SYN-M-0-2
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,SYN-E-1-0,BOOK,1600,cost,SITE-A,1,SYN-M-1-0
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,SYN-E-1-1,BOOK,1690,depreciation,SITE-A,1,SYN-M-1-1
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,SYN-E-1-2,BOOK,1695,impairment,SITE-A,1,SYN-M-1-2

@@ -16,6 +16,7 @@ import { DocumentScene } from '@/components/document-scene';
 import { FeatureArt } from '@/components/feature-art';
 import { ForwardArrow, ForwardDownArrow } from '@/components/direction';
 import { useI18n } from '@/lib/i18n/context';
+import { navigateToReconciliationDirectory } from '@/components/reconciliation-directory';
 import '@/app/landing-details.css';
 
 /** Sections stay readable when motion or intersection observation is unavailable. */
@@ -132,7 +133,11 @@ export function LandingIntro() {
             {l.descriptionLine2}
           </p>
           <div className="hero-actions">
-            <a href="#reconciliation-types" className="primary-link">
+            <a
+              href="#reconciliation-types"
+              className="primary-link"
+              onClick={navigateToReconciliationDirectory}
+            >
               {l.start} <ForwardArrow size={19} />
             </a>
             <a href="#how-it-works" className="quiet-link">

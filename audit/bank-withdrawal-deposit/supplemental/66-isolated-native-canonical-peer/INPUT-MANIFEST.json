@@ -1,0 +1,21 @@
+{
+  "case": 66,
+  "files": [
+    {
+      "path": "bank.xlsx",
+      "sha256": "cab465a9788e31e8a8df6c53736ebc58ac043472a329c13d0f31d6b54ed83aa5",
+      "bytes": 7070
+    },
+    {
+      "path": "cash.xlsx",
+      "sha256": "63a131cb67a017a4858953dd7d761eaea6a3f701fa99ae79c5e34b917a84fbb4",
+      "bytes": 7207
+    },
+    {
+      "path": "facts.json",
+      "sha256": "ed8803ac51ef56aba60e05c10894da2356d7b714d23613546dea258539d6e54a",
+      "bytes": 619
+    }
+  ],
+  "frozenPriorInputsChanged": false
+}

@@ -1,0 +1,211 @@
+{
+  "purpose": "Supplemental manual diagnostic assertions after P2 clarification; initial 54 frozen truths unchanged",
+  "derivedFromProduct": false,
+  "derivedFromProducerOracle": false,
+  "frozenManifestSha256": "a466e5375aeb97cf9787e46a39dc3af5e0a969a062b771905c2d86796c5faaf7",
+  "cases": {
+    "29-missing-zero-mapping": {
+      "financial": "missing",
+      "comparisons": [
+        {
+          "account": "1600",
+          "dimensions": "BOOK",
+          "component": "cost",
+          "register": 140000,
+          "gl": 140000,
+          "difference": 0
+        },
+        {
+          "account": "1690",
+          "dimensions": "BOOK",
+          "component": "depreciation",
+          "register": 30000,
+          "gl": 30000,
+          "difference": 0
+        },
+        {
+          "account": "1695",
+          "dimensions": "BOOK",
+          "component": "impairment",
+          "register": 5000,
+          "gl": 5000,
+          "difference": 0
+        }
+      ]
+    },
+    "30-missing-policy": {
+      "financial": "missing",
+      "comparisons": [
+        {
+          "account": "1600",
+          "dimensions": "BOOK",
+          "component": "cost",
+          "register": 40000,
+          "gl": 140000,
+          "difference": -100000
+        },
+        {
+          "account": "1690",
+          "dimensions": "BOOK",
+          "component": "depreciation",
+          "register": 30000,
+          "gl": 30000,
+          "difference": 0
+        },
+        {
+          "account": "1695",
+          "dimensions": "BOOK",
+          "component": "impairment",
+          "register": 5000,
+          "gl": 5000,
+          "difference": 0
+        }
+      ]
+    },
+    "31-policy-valuation-mismatch": {
+      "financial": "missing",
+      "comparisons": [
+        {
+          "account": "1600",
+          "dimensions": "BOOK",
+          "component": "cost",
+          "register": 40000,
+          "gl": 140000,
+          "difference": -100000
+        },
+        {
+          "account": "1690",
+          "dimensions": "BOOK",
+          "component": "depreciation",
+          "register": 30000,
+          "gl": 30000,
+          "difference": 0
+        },
+        {
+          "account": "1695",
+          "dimensions": "BOOK",
+          "component": "impairment",
+          "register": 5000,
+          "gl": 5000,
+          "difference": 0
+        }
+      ]
+    },
+    "48-numeric-identity-distinction-mismatch": {
+      "financial": "missing",
+      "comparisons": [
+        {
+          "account": "1600",
+          "dimensions": "BOOK",
+          "component": "cost",
+          "register": 40000,
+          "gl": 140000,
+          "difference": -100000
+        },
+        {
+          "account": "1690",
+          "dimensions": "BOOK",
+          "component": "depreciation",
+          "register": 30000,
+          "gl": 30000,
+          "difference": 0
+        },
+        {
+          "account": "1695",
+          "dimensions": "BOOK",
+          "component": "impairment",
+          "register": 5000,
+          "gl": 5000,
+          "difference": 0
+        }
+      ]
+    },
+    "49-whole-asset-absent-with-orphans": {
+      "financial": "missing",
+      "comparisons": [
+        {
+          "account": "1600",
+          "dimensions": "BOOK",
+          "component": "cost",
+          "register": 40000,
+          "gl": 140000,
+          "difference": -100000
+        },
+        {
+          "account": "1690",
+          "dimensions": "BOOK",
+          "component": "depreciation",
+          "register": 10000,
+          "gl": 30000,
+          "difference": -20000
+        },
+        {
+          "account": "1695",
+          "dimensions": "BOOK",
+          "component": "impairment",
+          "register": 0,
+          "gl": 5000,
+          "difference": -5000
+        }
+      ]
+    },
+    "50-empty-register": {
+      "financial": "missing",
+      "comparisons": [
+        {
+          "account": "1600",
+          "dimensions": "BOOK",
+          "component": "cost",
+          "register": 0,
+          "gl": 140000,
+          "difference": -140000
+        },
+        {
+          "account": "1690",
+          "dimensions": "BOOK",
+          "component": "depreciation",
+          "register": 0,
+          "gl": 30000,
+          "difference": -30000
+        },
+        {
+          "account": "1695",
+          "dimensions": "BOOK",
+          "component": "impairment",
+          "register": 0,
+          "gl": 5000,
+          "difference": -5000
+        }
+      ]
+    },
+    "52-cross-component-account-policy-conflict": {
+      "financial": "missing",
+      "comparisons": [
+        {
+          "account": "1600",
+          "dimensions": "BOOK",
+          "component": "cost",
+          "register": 40000,
+          "gl": 140000,
+          "difference": -100000
+        },
+        {
+          "account": "1690",
+          "dimensions": "BOOK",
+          "component": "depreciation",
+          "register": 30000,
+          "gl": 30000,
+          "difference": 0
+        },
+        {
+          "account": "1695",
+          "dimensions": "BOOK",
+          "component": "impairment",
+          "register": 5000,
+          "gl": 5000,
+          "difference": 0
+        }
+      ]
+    }
+  }
+}

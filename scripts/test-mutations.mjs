@@ -135,7 +135,7 @@ const mutations = [
   {"name": "gl-tb-ignore-source-errors", "file": "lib/reconciliation/gl-tb.ts", "changes": [["inventory.some((i) => i.kind === 'error')", "false"]]},
   {"name": "gl-tb-hide-unreadable-header", "file": "lib/reconciliation/gl-tb.ts", "changes": [["badHeader(sheet)", "false"]]},
   {"name": "gl-tb-hide-formula-blank-row", "file": "lib/reconciliation/gl-tb.ts", "changes": [["    try {\n      if (", "    if (!values.some(v=>v.trim())) {inventory.push({side,row,kind:'blank',values});continue;}\n    try {\n      if ("]]},
-  {"name": "gl-tb-trust-parsed-cache", "file": "lib/reconciliation/gl-tb-io.ts", "changes": [["const file = await readFile(source.name, source.original);", "const file = source;"]]},
+  {"name": "gl-tb-trust-parsed-cache", "file": "lib/reconciliation/gl-tb-io.ts", "changes": [["const file = await readFile(source.name, source.original);", "const file = input.files[files.length];"]]},
   {"name": "gl-tb-accept-stale-export", "file": "lib/reconciliation/gl-tb-io.ts", "changes": [["if (JSON.stringify(result) !== JSON.stringify(expected))", "if (false)"]]},
 
   {"name": "ar-hide-unreadable-header", "file": "lib/reconciliation/ar.ts", "changes": [["cell.startsWith('1:') && issues.length > 0", "false"], ["Object.keys(sheet.formulaCells ?? {}).some((cell) =>\n        cell.startsWith('1:'),\n      )", "false"]]},

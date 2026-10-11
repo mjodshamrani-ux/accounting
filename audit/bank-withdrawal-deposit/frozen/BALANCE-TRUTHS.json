@@ -1,0 +1,267 @@
+[
+  {
+    "id": "B2-positive",
+    "movementCase": "01-bank-wd-cash-canonical",
+    "opening": [
+      100000,
+      100000
+    ],
+    "movement": [
+      8475,
+      8475
+    ],
+    "closing": [
+      108475,
+      108475
+    ],
+    "expectedResidual": [
+      0,
+      0
+    ],
+    "expectedDifferences": [
+      0,
+      0
+    ],
+    "status": "balances-consistent"
+  },
+  {
+    "id": "B2-negative-explicit",
+    "movementCase": "01-bank-wd-cash-canonical",
+    "opening": [
+      -20000,
+      -20000
+    ],
+    "movement": [
+      8475,
+      8475
+    ],
+    "closing": [
+      -11525,
+      -11525
+    ],
+    "expectedResidual": [
+      0,
+      0
+    ],
+    "expectedDifferences": [
+      0,
+      0
+    ],
+    "status": "balances-consistent"
+  },
+  {
+    "id": "B2-zero-explicit",
+    "movementCase": "50-full-reversal",
+    "opening": [
+      0,
+      0
+    ],
+    "movement": [
+      0,
+      0
+    ],
+    "closing": [
+      0,
+      0
+    ],
+    "expectedResidual": [
+      0,
+      0
+    ],
+    "expectedDifferences": [
+      0,
+      0
+    ],
+    "status": "balances-consistent"
+  },
+  {
+    "id": "B2-independent-openings",
+    "movementCase": "01-bank-wd-cash-canonical",
+    "opening": [
+      100000,
+      100100
+    ],
+    "movement": [
+      8475,
+      8475
+    ],
+    "closing": [
+      108475,
+      108575
+    ],
+    "expectedResidual": [
+      0,
+      0
+    ],
+    "expectedDifferences": [
+      -100,
+      -100
+    ],
+    "status": "inconsistent"
+  },
+  {
+    "id": "B2-bank-broken-bridge",
+    "movementCase": "01-bank-wd-cash-canonical",
+    "opening": [
+      100000,
+      100000
+    ],
+    "movement": [
+      8475,
+      8475
+    ],
+    "closing": [
+      108474,
+      108475
+    ],
+    "expectedResidual": [
+      1,
+      0
+    ],
+    "expectedDifferences": [
+      0,
+      -1
+    ],
+    "status": "inconsistent"
+  },
+  {
+    "id": "B2-missing-opening",
+    "movementCase": "01-bank-wd-cash-canonical",
+    "opening": [
+      null,
+      100000
+    ],
+    "movement": [
+      8475,
+      8475
+    ],
+    "closing": [
+      108475,
+      108475
+    ],
+    "expectedResidual": [
+      null,
+      0
+    ],
+    "expectedDifferences": [
+      null,
+      0
+    ],
+    "status": "missing"
+  },
+  {
+    "id": "B2-unmatched-still-in-movement",
+    "movementCase": "57-missing-counterpart-retained",
+    "opening": [
+      100000,
+      100000
+    ],
+    "movement": [
+      8475,
+      21015
+    ],
+    "closing": [
+      108475,
+      121015
+    ],
+    "expectedResidual": [
+      0,
+      0
+    ],
+    "expectedDifferences": [
+      0,
+      -12540
+    ],
+    "status": "inconsistent"
+  },
+  {
+    "id": "B2-error-not-zero",
+    "movementCase": "35-late-invalid-unrelated",
+    "opening": [
+      100000,
+      100000
+    ],
+    "movement": [
+      null,
+      null
+    ],
+    "closing": [
+      108475,
+      108475
+    ],
+    "expectedResidual": [
+      null,
+      null
+    ],
+    "expectedDifferences": [
+      null,
+      null
+    ],
+    "status": "source-error"
+  },
+  {
+    "id": "B2-final-limit",
+    "movementCase": "09-max-individual",
+    "opening": [
+      0,
+      0
+    ],
+    "movement": [
+      100000000000000,
+      100000000000000
+    ],
+    "closing": [
+      100000000000000,
+      100000000000000
+    ],
+    "expectedResidual": [
+      0,
+      0
+    ],
+    "expectedDifferences": [
+      0,
+      0
+    ],
+    "status": "balances-consistent"
+  },
+  {
+    "id": "B2-final-overflow",
+    "opening": [
+      100000000000000,
+      0
+    ],
+    "movement": [
+      1,
+      0
+    ],
+    "closing": [
+      0,
+      0
+    ],
+    "expectedIssue": "limit"
+  },
+  {
+    "id": "B2-intermediate-cancellation",
+    "opening": [
+      100000000000000,
+      100000000000000
+    ],
+    "movement": [
+      1,
+      1
+    ],
+    "closing": [
+      100000000000000,
+      100000000000000
+    ],
+    "expectedResidual": [
+      1,
+      1
+    ],
+    "expectedDifferences": [
+      0,
+      0
+    ],
+    "status": "inconsistent"
+  }
+]

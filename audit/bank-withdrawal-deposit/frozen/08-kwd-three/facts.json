@@ -1,0 +1,44 @@
+{
+  "id": "08-kwd-three",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "KWD",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "canonical"
+  ],
+  "expected": {
+    "status": "movements-consistent",
+    "signedMinor": [
+      [
+        1234
+      ],
+      [
+        1234
+      ]
+    ],
+    "netMinor": [
+      1234,
+      1234
+    ],
+    "groups": {
+      "SK": "matched-evidence"
+    }
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "files": [
+    "bank.csv",
+    "cash.csv"
+  ],
+  "canonicalControls": [
+    "canonical-0.csv",
+    "canonical-1.csv"
+  ]
+}

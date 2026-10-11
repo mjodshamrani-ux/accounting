@@ -25,6 +25,9 @@ export type SheetData = {
     }[];
   };
   numericCells?: Record<string, { value: number; format: string }>;
+  // Effective and potentially applicable number formats from original XLSX
+  // bytes, retained for families that require literal displayed precision.
+  numericDisplayFormats?: Record<string, string[]>;
   formulaCells?: Record<string, { formula: string }>;
   rowIssues?: Record<string, string[]>;
   // Excel issues are scoped to cells (one-based row:column), then checked against

@@ -2,6 +2,7 @@ import type { ComponentProps, ReactNode } from 'react';
 import {
   ArrowLeft,
   FileSpreadsheet,
+  GitCompareArrows,
   SlidersHorizontal,
   Upload,
 } from 'lucide-react';
@@ -54,6 +55,9 @@ export function WorkspaceIntro({
   return (
     <section className="workspace-intro">
       <div className="workspace-intro__heading">
+        <span className="workspace-intro__emblem" aria-hidden="true">
+          <GitCompareArrows strokeWidth={1.5} />
+        </span>
         <h1 tabIndex={-1} lang={lang} dir={dir}>
           {title}
         </h1>
@@ -103,8 +107,11 @@ export function WorkspaceGroupTitle({ kind }: { kind: 'sources' | 'scope' }) {
   const title = workspaceCopy[lang][kind];
   return (
     <h2 className="workspace-group-title">
-      <Icon aria-hidden="true" />
+      <span className="workspace-group-title__icon">
+        <Icon aria-hidden="true" />
+      </span>
       {title}
+      <span className="workspace-group-title__rule" aria-hidden="true" />
     </h2>
   );
 }

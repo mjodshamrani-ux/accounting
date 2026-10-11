@@ -5,6 +5,8 @@ import { assertSourceFile } from './protocol.ts';
 import type { SourceFile, SheetData } from './types.ts';
 
 export const GL_TB_VERSION = 'gl-tb-canonical-1';
+export const GL_TB_VERTICAL_FAMILY = 'GL_TB_VERTICAL_BALANCES_V1';
+export type GlTbFamily = typeof GL_TB_VERSION | typeof GL_TB_VERTICAL_FAMILY;
 export const BALANCE_FIELDS = [
   'openingDebit',
   'openingCredit',
@@ -32,7 +34,7 @@ export type GlTbScope = Record<GlScopeField, string> & { confirmed: boolean };
 export type GlTbReading = {
   sheet: number;
   role: 'gl-detail' | 'trial-balance';
-  family: typeof GL_TB_VERSION;
+  family: GlTbFamily;
   confirmed: boolean;
 };
 export type GlTbInput = {
@@ -51,7 +53,7 @@ export type GlRecord = {
   side: 0 | 1;
   row: number;
   record: string;
-  kind: 'opening' | 'movement' | 'closing' | 'balance';
+  kind: 'opening' | 'movement' | 'closing' | 'balance' | 'period';
   date: string;
   amounts: number[];
   trace: GlTrace[];
@@ -88,7 +90,14 @@ export type GlTbResult = {
     | 'source-error';
   rows: GlRecord[];
   inventory: GlInventory[];
-  missing: ('gl-opening' | 'gl-closing' | 'tb-balance')[];
+  missing: (
+    | 'gl-opening'
+    | 'gl-closing'
+    | 'tb-balance'
+    | 'tb-opening'
+    | 'tb-period'
+    | 'tb-closing'
+  )[];
   gl: BalanceAmounts | null;
   tb: BalanceAmounts | null;
   glBridge: number | null;
@@ -132,6 +141,14 @@ export const TB_HEADERS = [
   'Closing debit',
   'Closing credit',
 ];
+export const TB_VERTICAL_HEADERS = [
+  'Snapshot ID',
+  'Balance role',
+  ...scopeHeaders,
+  'Debit',
+  'Credit',
+];
+const balanceRoles = ['opening', 'period', 'closing'] as const;
 const roles = ['gl-detail', 'trial-balance'] as const;
 function fail(code: string): never {
   throw new Error(`GL_TB_${code}`);
@@ -183,10 +200,38 @@ function amount(raw: string, decimals: number) {
   if (n === undefined || !Number.isSafeInteger(n) || n < 0) fail('AMOUNT');
   return n;
 }
+function assertNativeNumericPrecision(
+  sheet: SheetData,
+  row: number,
+  column: number,
+  minor: number,
+  decimals: number,
+) {
+  const address = `${row}:${column}`,
+    native = sheet.numericCells?.[address];
+  if (!native) return;
+  // The native reader rejects other misleading display semantics. Here we
+  // additionally require each permitted fixed format to show supplied cents.
+  for (const format of sheet.numericDisplayFormats?.[address] ?? [
+    native.format,
+  ]) {
+    if (!format || /^general$/i.test(format)) continue;
+    const sections = format.split(';'),
+      section = sections[minor === 0 && sections.length > 2 ? 2 : 0]
+        .replace(/"[^"]*"|\[[^\]]*\]|_.|\*.|\\./gu, '')
+        .trim();
+    if (/^general$/i.test(section)) continue;
+    const places = /\.([0#?]+)/.exec(section)?.[1].length ?? 0;
+    if (places < decimals && minor % 10 ** (decimals - places) !== 0)
+      fail('CELL');
+  }
+}
 function badHeader(sheet: SheetData) {
   return (
     sheet.hiddenRows.includes(1) ||
-    sheet.rowIssues?.['1']?.some((issue) => !issue.startsWith('XLSX_NATIVE_DISPLAY:')) ||
+    sheet.rowIssues?.['1']?.some(
+      (issue) => !issue.startsWith('XLSX_NATIVE_DISPLAY:'),
+    ) ||
     sheet.xlsxHeaders?.hiddenColumns.length ||
     sheet.xlsxHeaders?.merges.length ||
     [sheet.cellIssues, sheet.referenceIssues].some((m) =>
@@ -202,6 +247,7 @@ function readSource(
   reading: GlTbReading,
   scope: GlTbScope,
   side: 0 | 1,
+  strictPrecision = false,
 ): GlReadSource {
   const decimals = validateScope(scope);
   if (
@@ -215,15 +261,18 @@ function readSource(
   if (
     !plain(reading) ||
     !keys(reading, ['sheet', 'role', 'family', 'confirmed']) ||
-    reading.family !== GL_TB_VERSION ||
+    (reading.family !== GL_TB_VERSION &&
+      !(side === 1 && reading.family === GL_TB_VERTICAL_FAMILY)) ||
     reading.role !== roles[side] ||
     reading.confirmed !== true ||
     !Number.isSafeInteger(reading.sheet) ||
     reading.sheet < 0
   )
     fail('READING');
+  const vertical = side === 1 && reading.family === GL_TB_VERTICAL_FAMILY;
   const sheet = file.sheets[reading.sheet],
-    headers = side === 0 ? GL_HEADERS : TB_HEADERS;
+    headers =
+      side === 0 ? GL_HEADERS : vertical ? TB_VERTICAL_HEADERS : TB_HEADERS;
   if (!sheet || !sheet.rows.length || badHeader(sheet)) fail('COLUMNS');
   const header = sheet.rows[0].map((v) => v.trim());
   if (
@@ -242,6 +291,9 @@ function readSource(
   const rows: GlRecord[] = [],
     inventory: GlInventory[] = [],
     hidden = new Set(sheet.hiddenRows);
+  // Identity membership is independent of financial validity, so a malformed
+  // duplicate cannot leave the first occurrence usable.
+  const verticalUnits: { row: number; snapshot: string; role: string }[] = [];
   for (const [index, original] of sheet.rows.entries()) {
     const row = index + 1,
       values = [...original];
@@ -273,6 +325,12 @@ function readSource(
       )
         fail('COLUMNS');
       const get = (h: string) => (values[columns[h]] ?? '').trim();
+      if (vertical) {
+        const snapshot = identity(get('Snapshot ID')),
+          role = get('Balance role');
+        if (!balanceRoles.some((r) => r === role)) fail('KIND');
+        verticalUnits.push({ row, snapshot, role });
+      }
       for (const [i, k] of GL_SCOPE_FIELDS.entries())
         if (get(scopeHeaders[i]) !== scope[k]) fail('ROW_SCOPE');
       const record = identity(get(side === 0 ? 'Record ID' : 'Snapshot ID'));
@@ -290,15 +348,21 @@ function readSource(
           (kind === 'closing' && postingDate !== scope.end)
         )
           fail('DATE');
-      }
+      } else if (vertical) kind = get('Balance role') as GlRecord['kind'];
       const moneyHeaders =
-        side === 0 ? ['Debit', 'Credit'] : TB_HEADERS.slice(-6);
-      const trace = moneyHeaders.map((h) => ({
-        field: h,
-        column: columns[h] + 1,
-        text: values[columns[h]] ?? '',
-        amount: amount(get(h), decimals),
-      }));
+        side === 0 || vertical ? ['Debit', 'Credit'] : TB_HEADERS.slice(-6);
+      const trace = moneyHeaders.map((h) => {
+        const column = columns[h] + 1,
+          minor = amount(get(h), decimals);
+        if (vertical || strictPrecision)
+          assertNativeNumericPrecision(sheet, row, column, minor, decimals);
+        return {
+          field: h,
+          column,
+          text: values[columns[h]] ?? '',
+          amount: minor,
+        };
+      });
       const item: GlRecord = {
         id: `${side}:${file.sha256}:${reading.sheet}:${row}`,
         side,
@@ -323,7 +387,7 @@ function readSource(
       });
     }
   }
-  // Purge every occurrence of a repeated record ID or balance role, without selecting a winner.
+  // Purge every occurrence of a repeated identity unit or balance role.
   const counts = new Map<string, number>(),
     kinds = new Map<string, number>();
   for (const r of rows) {
@@ -334,15 +398,31 @@ function readSource(
     rows
       .filter(
         (r) =>
-          counts.get(r.record)! > 1 ||
-          (r.kind !== 'movement' && kinds.get(r.kind)! > 1),
+          !vertical &&
+          (counts.get(r.record)! > 1 ||
+            (r.kind !== 'movement' && kinds.get(r.kind)! > 1)),
       )
       .map((r) => r.row),
   );
+  const secondSnapshot =
+    vertical && new Set(verticalUnits.map((u) => u.snapshot)).size > 1;
+  if (vertical) {
+    const units = new Map<string, number>();
+    for (const u of verticalUnits) {
+      const key = JSON.stringify([u.snapshot, u.role]);
+      units.set(key, (units.get(key) ?? 0) + 1);
+    }
+    for (const u of verticalUnits)
+      if (
+        secondSnapshot ||
+        units.get(JSON.stringify([u.snapshot, u.role]))! > 1
+      )
+        invalid.add(u.row);
+  }
   for (const entry of inventory)
     if (invalid.has(entry.row)) {
       entry.kind = 'error';
-      entry.error = 'GL_TB_DUPLICATE';
+      entry.error = secondSnapshot ? 'GL_TB_SNAPSHOT' : 'GL_TB_DUPLICATE';
     }
   return { rows: rows.filter((r) => !invalid.has(r.row)), inventory, columns };
 }
@@ -350,10 +430,11 @@ export function readGlDetail(
   file: SourceFile,
   reading: GlTbReading,
   scope: GlTbScope,
+  strictPrecision = false,
 ) {
-  return readSource(file, reading, scope, 0);
+  return readSource(file, reading, scope, 0, strictPrecision);
 }
-/** Balance-source rows retain all six balance cells; they are never Transaction objects. */
+/** Balance rows retain supplied cells and physical roles; they are never Transaction objects. */
 export function readBalanceSource(
   file: SourceFile,
   reading: GlTbReading,
@@ -382,8 +463,9 @@ export function reconcileGlTb(input: GlTbInput): GlTbResult {
   )
     fail('INPUT');
   const decimals = validateScope(input.scope),
+    vertical = input.readings[1]?.family === GL_TB_VERTICAL_FAMILY,
     [left, right] = [
-      readGlDetail(input.files[0], input.readings[0], input.scope),
+      readGlDetail(input.files[0], input.readings[0], input.scope, vertical),
       readBalanceSource(input.files[1], input.readings[1], input.scope),
     ];
   if (input.files[0].sha256 === input.files[1].sha256) fail('SAME_SOURCE');
@@ -396,7 +478,13 @@ export function reconcileGlTb(input: GlTbInput): GlTbResult {
   const missing: GlTbResult['missing'] = [];
   if (!opening) missing.push('gl-opening');
   if (!closing) missing.push('gl-closing');
-  if (!balance) missing.push('tb-balance');
+  const tbRoles = balanceRoles.map((role) =>
+    right.rows.find((r) => r.kind === role),
+  );
+  if (vertical) {
+    for (const [i, role] of balanceRoles.entries())
+      if (!tbRoles[i]) missing.push(`tb-${role}`);
+  } else if (!balance) missing.push('tb-balance');
   const components: GlTbResult['components'] = [];
   const gl =
     opening && closing
@@ -418,16 +506,18 @@ export function reconcileGlTb(input: GlTbInput): GlTbResult {
           }),
         ) as BalanceAmounts)
       : null;
-  const tb = balance
+  const tb = (vertical ? tbRoles.every((r) => r !== undefined) : !!balance)
     ? (Object.fromEntries(
         BALANCE_FIELDS.map((field, i) => {
+          const record = vertical ? tbRoles[Math.floor(i / 2)]! : balance!,
+            cell = vertical ? i % 2 : i;
           components.push({
             side: 1,
             field,
-            amount: balance.amounts[i],
-            cells: [{ id: balance.id, column: balance.trace[i].column }],
+            amount: record.amounts[cell],
+            cells: [{ id: record.id, column: record.trace[cell].column }],
           });
-          return [field, balance.amounts[i]];
+          return [field, record.amounts[cell]];
         }),
       ) as BalanceAmounts)
     : null;

@@ -13,6 +13,7 @@ import { workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   ASSET_VERSION,
+  ASSET_LONG_FAMILY,
   ASSET_ROLES,
   ASSET_FIELDS,
   ASSET_COMPONENTS,
@@ -359,6 +360,34 @@ export function AssetWorkspace({
               <legend>
                 <WorkspaceSourceHeading>{copy.roles[i]}</WorkspaceSourceHeading>
               </legend>
+              {i === 0 && (
+                <label>
+                  {copy.registerFormat}
+                  <select
+                    aria-label={copy.registerFormat}
+                    value={reading[0].family}
+                    onChange={(e) => {
+                      const family = e.target.value;
+                      if (
+                        family !== ASSET_VERSION &&
+                        family !== ASSET_LONG_FAMILY
+                      )
+                        return;
+                      const next = [...reading] as AssetInput['readings'];
+                      next[0] = { ...next[0], family, confirmed: false };
+                      setReading(next);
+                      setComplete({ ...complete, confirmed: false });
+                      invalidate();
+                    }}
+                  >
+                    <option value={ASSET_VERSION}>
+                      {copy.horizontalFormat}
+                    </option>
+                    <option value={ASSET_LONG_FAMILY}>{copy.longFormat}</option>
+                  </select>
+                  <span>{copy.registerFormatHint}</span>
+                </label>
+              )}
               <WorkspaceFileInput
                 aria-label={copy.roles[i]}
                 type="file"
@@ -627,9 +656,13 @@ export function AssetWorkspace({
             </fieldset>
             {detail(
               copy.roles[0],
-              copy.records[0],
+              result.readings[0].family === ASSET_LONG_FAMILY
+                ? [copy.physicalRows, ...copy.records[0].slice(1)]
+                : copy.records[0],
               result.records[0].map((v) => [
-                v.row,
+                v.representation === 'long-components'
+                  ? v.componentEvidence!.map((e) => e.row).join(', ')
+                  : v.row,
                 v.asset,
                 v.dimensions,
                 v.cost,
@@ -639,6 +672,27 @@ export function AssetWorkspace({
                 v.valuation,
               ]),
             )}
+            {result.componentEvidence &&
+              detail(
+                copy.componentEvidence,
+                copy.componentEvidenceHeaders,
+                result.componentEvidence.map((v) => [
+                  v.row,
+                  v.column,
+                  v.asset,
+                  v.dimensions,
+                  copy.components[
+                    v.component as keyof typeof copy.components
+                  ] ?? v.component,
+                  v.present ? copy.presentCell : copy.absentCell,
+                  v.present && v.text === '' ? copy.emptyCell : v.text,
+                  v.minor,
+                  v.valuation,
+                  v.memberId,
+                  v.sourceHash,
+                  v.context,
+                ]),
+              )}
             {detail(
               copy.roles[1],
               copy.records[1],

@@ -1,0 +1,47 @@
+{
+  "id": "42-value-date-outside",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "canonical"
+  ],
+  "expected": {
+    "status": "needs-review",
+    "signedMinor": [
+      [
+        -12540,
+        21015
+      ],
+      [
+        -12540,
+        21015
+      ]
+    ],
+    "netMinor": [
+      8475,
+      8475
+    ],
+    "groups": {
+      "PAY-OUT": "needs-review",
+      "PAY-IN": "matched-evidence"
+    }
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "files": [
+    "bank.csv",
+    "cash.csv"
+  ],
+  "canonicalControls": [
+    "canonical-0.csv",
+    "canonical-1.csv"
+  ]
+}

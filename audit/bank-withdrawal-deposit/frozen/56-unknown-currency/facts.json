@@ -1,0 +1,26 @@
+{
+  "id": "56-unknown-currency",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "ZZZ",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "canonical"
+  ],
+  "expected": {
+    "status": "structural-refusal",
+    "issue": "currency"
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "files": [
+    "bank.csv",
+    "cash.csv"
+  ]
+}

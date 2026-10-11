@@ -1,0 +1,4 @@
+Record ID,Record kind,Posting date,Entity,Ledger,Account,Complete dimensions,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,Debit,Credit
+G-OPEN,opening,2026-10-01,Synthetic Diversification Co,General Ledger,001100,CostCentre=CC07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,200.00,500.00
+G-M1,movement,2026-10-10,Synthetic Diversification Co,General Ledger,001100,CostCentre=CC07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,40.00,100.00
+G-CLOSE,closing,2026-10-31,Synthetic Diversification Co,General Ledger,001100,CostCentre=CC07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,140.00,500.00

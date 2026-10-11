@@ -1,0 +1,177 @@
+{
+  "id": "N08-empty-credit-not-zero",
+  "syntheticOnly": true,
+  "authoredBeforeProductObservation": true,
+  "family": "GL_TB_VERTICAL_BALANCES_V1",
+  "scope": {
+    "entity": "Synthetic Diversification Co",
+    "ledger": "General Ledger",
+    "account": "001100",
+    "dimensions": "CostCentre=CC07|Project=PR09",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "Current",
+    "start": "2026-10-01",
+    "end": "2026-10-31",
+    "confirmed": true
+  },
+  "decimals": 2,
+  "requiredStatus": "source-error",
+  "requiredDiagnostics": [
+    "AMOUNT"
+  ],
+  "glComponentsMinor": {
+    "openingDebit": "7500",
+    "openingCredit": "0",
+    "periodDebit": "0",
+    "periodCredit": "0",
+    "closingDebit": "7500",
+    "closingCredit": "0"
+  },
+  "tbAuthoredComponentsMinor": {
+    "openingDebit": "7500",
+    "openingCredit": "0",
+    "periodDebit": "0",
+    "periodCredit": "0",
+    "closingDebit": "7500",
+    "closingCredit": "0"
+  },
+  "glBridgeMinor": "0",
+  "tbBridgeMinor": "0",
+  "componentDifferencesMinor": {
+    "openingDebit": "0",
+    "openingCredit": "0",
+    "periodDebit": "0",
+    "periodCredit": "0",
+    "closingDebit": "0",
+    "closingCredit": "0"
+  },
+  "financialExpectationsApplicable": false,
+  "inventory": {
+    "gl": [
+      [
+        "Record ID",
+        "Record kind",
+        "Posting date",
+        "Entity",
+        "Ledger",
+        "Account",
+        "Complete dimensions",
+        "Currency",
+        "Currency basis",
+        "Posting status",
+        "Posting layer",
+        "Period start",
+        "Period end",
+        "Debit",
+        "Credit"
+      ],
+      [
+        "G-OPEN",
+        "opening",
+        "2026-10-01",
+        "Synthetic Diversification Co",
+        "General Ledger",
+        "001100",
+        "CostCentre=CC07|Project=PR09",
+        "SAR",
+        "functional",
+        "posted",
+        "Current",
+        "2026-10-01",
+        "2026-10-31",
+        "75.00",
+        "0.00"
+      ],
+      [
+        "G-CLOSE",
+        "closing",
+        "2026-10-31",
+        "Synthetic Diversification Co",
+        "General Ledger",
+        "001100",
+        "CostCentre=CC07|Project=PR09",
+        "SAR",
+        "functional",
+        "posted",
+        "Current",
+        "2026-10-01",
+        "2026-10-31",
+        "75.00",
+        "0.00"
+      ]
+    ],
+    "tb": [
+      [
+        "Snapshot ID",
+        "Balance role",
+        "Entity",
+        "Ledger",
+        "Account",
+        "Complete dimensions",
+        "Currency",
+        "Currency basis",
+        "Posting status",
+        "Posting layer",
+        "Period start",
+        "Period end",
+        "Debit",
+        "Credit"
+      ],
+      [
+        "TB-SNAP-01",
+        "opening",
+        "Synthetic Diversification Co",
+        "General Ledger",
+        "001100",
+        "CostCentre=CC07|Project=PR09",
+        "SAR",
+        "functional",
+        "posted",
+        "Current",
+        "2026-10-01",
+        "2026-10-31",
+        "75.00",
+        "0.00"
+      ],
+      [
+        "TB-SNAP-01",
+        "period",
+        "Synthetic Diversification Co",
+        "General Ledger",
+        "001100",
+        "CostCentre=CC07|Project=PR09",
+        "SAR",
+        "functional",
+        "posted",
+        "Current",
+        "2026-10-01",
+        "2026-10-31",
+        "0.00",
+        ""
+      ],
+      [
+        "TB-SNAP-01",
+        "closing",
+        "Synthetic Diversification Co",
+        "General Ledger",
+        "001100",
+        "CostCentre=CC07|Project=PR09",
+        "SAR",
+        "functional",
+        "posted",
+        "Current",
+        "2026-10-01",
+        "2026-10-31",
+        "75.00",
+        "0.00"
+      ]
+    ]
+  },
+  "sourceSha256": {
+    "gl.csv": "e10912e252b9bd7fa18dbbf5e679d870fd25b85ee0bf2bdb0dd57324ec19b67c",
+    "tb-vertical.csv": "7d11c8d5c0d491985a1f937e88c21e717e061cb1b0b7c5d9dfdfd711e03486a6"
+  },
+  "note": "For malformed/missing TB, authored component vector describes the pre-mutation source only; it is not a usable missing-value fallback."
+}

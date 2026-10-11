@@ -1,0 +1,23 @@
+{
+  "name": "50-empty-register",
+  "syntheticOnly": true,
+  "sourceFamily": "fixed-assets-long-components-gl-1",
+  "scope": {
+    "entity": "SYN-ENTITY",
+    "assetLedger": "SYN-ASSET-BOOK",
+    "glLedger": "SYN-GL",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "actual",
+    "asOf": "2026-09-30",
+    "chartVersion": "SYN-CHART-1",
+    "mapVersion": "SYN-MAP-1",
+    "componentPolicyVersion": "SYN-POLICY-1",
+    "assetAccountSetVersion": "SYN-ACCOUNTS-1",
+    "confirmed": true
+  },
+  "expectedFinancial": "missing",
+  "assertions": {},
+  "structuralPurpose": "long-four-components"
+}

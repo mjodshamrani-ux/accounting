@@ -1,0 +1,46 @@
+{
+  "id": "47-incoming-net-components",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "wd"
+  ],
+  "expected": {
+    "status": "movements-consistent",
+    "signedMinor": [
+      [
+        98275
+      ],
+      [
+        100000,
+        -1500,
+        -225
+      ]
+    ],
+    "netMinor": [
+      98275,
+      98275
+    ],
+    "groups": {
+      "FEES": "matched-evidence"
+    }
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "files": [
+    "bank.csv",
+    "cash.csv"
+  ],
+  "canonicalControls": [
+    "canonical-0.csv",
+    "canonical-1.csv"
+  ]
+}

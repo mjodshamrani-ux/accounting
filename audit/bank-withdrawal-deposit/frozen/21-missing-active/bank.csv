@@ -1,0 +1,3 @@
+Record ID,Settlement ID,Movement date,Value date,Role,Parent payment ID,Reverses record ID,Policy,Status,Entity,Ledger,Bank account,Currency,Period start,Period end,Withdrawal,Deposit
+B-OUT,PAY-OUT,2026-09-15,2026-09-16,principal,,,individual,booked,Synthetic Owner WD,Synthetic Cash Book,SYN-BANK-001,SAR,2026-09-01,2026-09-30,,0
+B-IN,PAY-IN,2026-09-15,2026-09-16,principal,,,individual,booked,Synthetic Owner WD,Synthetic Cash Book,SYN-BANK-001,SAR,2026-09-01,2026-09-30,,210.15

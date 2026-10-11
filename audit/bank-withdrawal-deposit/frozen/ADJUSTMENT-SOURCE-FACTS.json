@@ -1,0 +1,50 @@
+[
+  {
+    "recordId": "C-TIMING",
+    "side": "cashbook",
+    "withdrawal": "125.40",
+    "deposit": ""
+  },
+  {
+    "recordId": "C-DEPOSIT",
+    "side": "cashbook",
+    "withdrawal": "",
+    "deposit": "210.15"
+  },
+  {
+    "recordId": "B-FEE",
+    "side": "bank",
+    "withdrawal": "15",
+    "deposit": ""
+  },
+  {
+    "recordId": "B-DEPOSIT",
+    "side": "bank",
+    "withdrawal": "",
+    "deposit": "50"
+  },
+  {
+    "recordId": "C-WAIT",
+    "side": "cashbook",
+    "withdrawal": "125.40",
+    "deposit": ""
+  },
+  {
+    "recordId": "C-BAD",
+    "side": "cashbook",
+    "withdrawal": "125.40",
+    "deposit": ""
+  },
+  {
+    "recordId": "C-SAME",
+    "side": "cashbook",
+    "withdrawal": "125.40",
+    "deposit": ""
+  },
+  {
+    "recordId": "C-PART",
+    "side": "cashbook",
+    "withdrawal": "125.40",
+    "deposit": ""
+  }
+]

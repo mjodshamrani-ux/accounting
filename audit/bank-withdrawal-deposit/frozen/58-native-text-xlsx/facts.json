@@ -1,0 +1,43 @@
+{
+  "id": "58-native-text-xlsx",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "wd"
+  ],
+  "expected": {
+    "status": "movements-consistent",
+    "signedMinor": [
+      [
+        -12540,
+        21015
+      ],
+      [
+        -12540,
+        21015
+      ]
+    ],
+    "netMinor": [
+      8475,
+      8475
+    ],
+    "groups": {
+      "PAY-OUT": "matched-evidence",
+      "PAY-IN": "matched-evidence"
+    }
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "files": [
+    "bank.xlsx",
+    "cash.xlsx"
+  ]
+}

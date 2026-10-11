@@ -3,8 +3,10 @@ import { readFile } from './io.ts';
 import { assertBankNativeDisplay } from './bank-native-display.ts';
 import { validateExportText, excelExportText } from './export-text.ts';
 import { MAX_FILE_BYTES } from './types.ts';
+import { currencyPrecision } from './currency-precision.ts';
 import {
   BANK_VERSION,
+  BANK_WD_FAMILY,
   BANK_SCOPE_FIELDS,
   reconcileBank,
   type BankInput,
@@ -58,9 +60,18 @@ export async function replayBank(input: BankInput) {
     bytes(source.original);
     const file = await readFile(source.name, source.original);
     if (file.sha256 !== source.sha256) throw new Error('BANK_SOURCE_HASH');
-    await assertBankNativeDisplay(file);
     files.push(file);
   }
+  // A mixed WD/canonical pair has one shared display contract. Inspect both
+  // originals after rereading them; caller-controlled parsed caches are unused.
+  const strictMovementDisplay =
+    Array.isArray(input.readings) &&
+    input.readings.some((r) => r?.family === BANK_WD_FAMILY);
+  for (const file of files)
+    await assertBankNativeDisplay(file, 'BANK_NATIVE_DISPLAY', {
+      strictMovementDisplay,
+      decimals: currencyPrecision(input.scope?.currency),
+    });
   const state: BankInput = {
     files: files as BankInput['files'],
     readings: input.readings,
@@ -140,6 +151,9 @@ export async function exportBank(
   if (JSON.stringify(result) !== JSON.stringify(expected))
     throw new Error('BANK_STALE_RESULT');
   const book = new ExcelJS.Workbook();
+  const hasWithdrawalDeposit = result.readings.some(
+    (r) => r.family === BANK_WD_FAMILY,
+  );
   book.creator = 'Tarasuf';
   function table(name: string, headers: string[], rows: (string | number)[][]) {
     for (const row of [headers, ...rows])
@@ -180,14 +194,18 @@ export async function exportBank(
       'Settlement',
       'Movement date',
       'Value date',
-      'Cash direction',
+      hasWithdrawalDeposit ? 'Calculated cash direction' : 'Cash direction',
       'Role',
       'Parent payment',
       'Reverses',
       'Policy',
       'Status',
-      'Amount minor units',
-      'Signed minor units',
+      hasWithdrawalDeposit
+        ? 'Calculated amount minor units'
+        : 'Amount minor units',
+      hasWithdrawalDeposit
+        ? 'Calculated signed minor units'
+        : 'Signed minor units',
     ],
     result.records.map((r) => [
       r.id,
@@ -207,6 +225,49 @@ export async function exportBank(
       r.signed,
     ]),
   );
+  if (hasWithdrawalDeposit)
+    table(
+      'Withdrawal Deposit evidence',
+      [
+        'ID',
+        'Side',
+        'Source family',
+        'Sheet index',
+        'Source row',
+        'Field',
+        'Source column',
+        'Original text',
+        'Cell state',
+        'Minor units',
+        'Amount present',
+        'Native numeric value',
+        'Native number format',
+        'Native numeric present',
+      ],
+      result.records.flatMap((r) => {
+        const evidence = r.withdrawalDeposit;
+        if (!evidence) return [];
+        return (['withdrawal', 'deposit'] as const).map((field) => {
+          const cell = evidence[field];
+          return [
+            r.id,
+            r.side,
+            result.readings[r.side].family,
+            result.readings[r.side].sheet,
+            r.row,
+            field === 'withdrawal' ? 'Withdrawal' : 'Deposit',
+            cell.column,
+            cell.text,
+            cell.state,
+            cell.minor ?? '',
+            String(cell.minor !== null),
+            cell.numeric?.value ?? '',
+            cell.numeric?.format ?? '',
+            String(!!cell.numeric),
+          ];
+        });
+      }),
+    );
   table(
     'Cell evidence',
     ['ID', 'Side', 'Source row', 'Field', 'Source column', 'Original text'],
