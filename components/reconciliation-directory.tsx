@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useId, useState, type MouseEvent } from 'react';
 import {
   ArrowLeftRight,
   BookOpen,
@@ -25,6 +25,66 @@ import {
   type ReconciliationDomain,
 } from '@/lib/i18n/reconciliation-directory';
 import './reconciliation-directory.css';
+
+let directoryAlignmentFrame: number | undefined;
+let directoryAlignmentGeneration = 0;
+
+export function navigateToReconciliationDirectory(
+  event: MouseEvent<HTMLAnchorElement>,
+) {
+  if (
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey ||
+    event.currentTarget.hasAttribute('download') ||
+    (event.currentTarget.target &&
+      event.currentTarget.target.toLowerCase() !== '_self')
+  )
+    return;
+  const target = document.getElementById('reconciliation-types');
+  if (!target) return;
+  event.preventDefault();
+  const generation = ++directoryAlignmentGeneration;
+  if (directoryAlignmentFrame !== undefined)
+    window.cancelAnimationFrame(directoryAlignmentFrame);
+  const oldURL = window.location.href;
+  const changed = window.location.hash !== '#reconciliation-types';
+  if (changed)
+    window.history.pushState(
+      window.history.state,
+      '',
+      '#reconciliation-types',
+    );
+  // Native fragment focus can override an ongoing smooth scroll on this tall
+  // section. Align once after focus, cancelling the previous motion.
+  target.focus({ preventScroll: true });
+  target.scrollIntoView({ block: 'start', behavior: 'instant' });
+  if (changed)
+    window.dispatchEvent(
+      new HashChangeEvent('hashchange', {
+        oldURL,
+        newURL: window.location.href,
+      }),
+    );
+  // Link-focus motion can reach the compositor after the synchronous alignment.
+  // Give it two frames, then align once if this activation still owns focus.
+  directoryAlignmentFrame = window.requestAnimationFrame(() => {
+    if (generation !== directoryAlignmentGeneration) return;
+    directoryAlignmentFrame = window.requestAnimationFrame(() => {
+      if (generation !== directoryAlignmentGeneration) return;
+      directoryAlignmentFrame = undefined;
+      if (
+        target.isConnected &&
+        window.location.hash === '#reconciliation-types' &&
+        document.activeElement === target
+      )
+        target.scrollIntoView({ block: 'start', behavior: 'instant' });
+    });
+  });
+}
 
 const groups = [
   {

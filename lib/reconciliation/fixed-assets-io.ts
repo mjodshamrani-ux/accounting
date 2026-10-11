@@ -2,6 +2,7 @@ import ExcelJS from 'exceljs';
 import { assetCSV } from './fixed-assets-csv.ts';
 import {
   ASSET_VERSION,
+  ASSET_LONG_FAMILY,
   ASSET_FIELDS,
   ASSET_VALUES,
   ASSET_COMPONENTS,
@@ -11,6 +12,7 @@ import {
   type AssetInput,
   type AssetResult,
 } from './fixed-assets.ts';
+import { snapshotAsset } from './fixed-assets-envelope.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 const LIMIT = 64 * 1024 * 1024;
 const plain = (v: unknown): v is Record<string, unknown> =>
@@ -60,24 +62,15 @@ function decode(v: unknown) {
   if (encode(data) !== v) throw Error('ASSET_SESSION');
   return data;
 }
+export { snapshotAsset } from './fixed-assets-envelope.ts';
 export async function replayAsset(input: AssetInput) {
-  // Prevalidate sizes/metadata/event members before any metadata clone, then
-  // capture every original and every decision field before the first await.
-  reconcileAsset(input);
-  const snapshots = input.files.map((f) => ({
-    name: f.name,
-    sha256: f.sha256,
-    original: f.original!.slice(0),
-  }));
-  const metadata = structuredClone({
-    readings: input.readings,
-    scope: input.scope,
-    completeness: input.completeness,
-    events: input.events,
-  });
+  const snapshot = snapshotAsset(input);
+  const snapshots = snapshot.files;
+  const { readings, scope, completeness, events } = snapshot;
+  const metadata = { readings, scope, completeness, events };
   const files = [];
   for (const f of snapshots) {
-    const file = await readAssetFile(f.name, f.original);
+    const file = await readAssetFile(f.name, f.original!);
     if (file.sha256 !== f.sha256) throw Error('ASSET_SOURCE_HASH');
     files.push(file);
   }
@@ -148,7 +141,7 @@ export async function restoreAsset(original: ArrayBuffer) {
   });
   const files = [];
   for (const f of snapshots) {
-    const file = await readAssetFile(f.name, f.original);
+    const file = await readAssetFile(f.name, f.original!);
     if (file.sha256 !== f.sha256) throw Error('ASSET_SOURCE_HASH');
     files.push(file);
   }
@@ -206,13 +199,15 @@ export async function exportAsset(input: AssetInput, expected: AssetResult) {
     Debit: 'Debit minor',
     Credit: 'Credit minor',
   };
+  const long = r.readings[0].family === ASSET_LONG_FAMILY;
   table(
     'Assets',
     [
-      'Record ID',
+      long ? 'First physical member ID' : 'Record ID',
       'Source',
-      'Source row',
+      long ? 'First component row' : 'Source row',
       ...ASSET_VALUES[0].map((h) => units[h] ?? h),
+      ...(long ? ['Representation'] : []),
     ],
     r.records[0].map((v) => [
       v.memberId,
@@ -225,8 +220,95 @@ export async function exportAsset(input: AssetInput, expected: AssetResult) {
       v.impairment,
       v.carrying,
       v.valuation,
+      ...(long ? [v.representation ?? ''] : []),
     ]),
   );
+  if (long) {
+    table(
+      'Long component evidence',
+      [
+        'Member ID',
+        'Source',
+        'Role',
+        'SHA256',
+        'Sheet',
+        'Source row',
+        'Column',
+        'Field',
+        'Present',
+        'Text',
+        'Minor',
+        'Component',
+        'Component column',
+        'Asset ID',
+        'Asset dimensions',
+        'Valuation reference',
+        'Context',
+      ],
+      (r.componentEvidence ?? []).map((v) => [
+        v.memberId,
+        v.source,
+        v.role,
+        v.sourceHash,
+        v.sheet,
+        v.row,
+        v.column,
+        v.header,
+        String(v.present),
+        v.text,
+        v.minor,
+        v.component,
+        v.componentColumn,
+        v.asset,
+        v.dimensions,
+        v.valuation,
+        v.context,
+      ]),
+    );
+    table(
+      'Asset component members',
+      [
+        'Asset ID',
+        'Asset dimensions',
+        'Representation',
+        'Member ID',
+        'Source',
+        'Source row',
+        'Component',
+        'Amount column',
+        'Present',
+        'Text',
+        'Minor',
+      ],
+      r.records[0].flatMap((v) =>
+        (v.componentEvidence ?? []).map((e) => [
+          v.asset,
+          v.dimensions,
+          v.representation ?? '',
+          e.memberId,
+          e.source,
+          e.row,
+          e.component,
+          e.column,
+          String(e.present),
+          e.text,
+          e.minor,
+        ]),
+      ),
+    );
+    const rawRows = state.files[0].sheets[0].rows.slice(1);
+    const width = rawRows.reduce((n, row) => Math.max(n, row.length), 0);
+    table(
+      'Original register rows',
+      [
+        'Source',
+        'Source row',
+        'Cell count',
+        ...Array.from({ length: width }, (_, i) => `Cell ${i + 1}`),
+      ],
+      rawRows.map((row, i) => [0, i + 2, row.length, ...row]),
+    );
+  }
   table(
     'Mapping',
     ['Record ID', 'Source', 'Source row', ...ASSET_VALUES[1]],
@@ -398,4 +480,92 @@ export async function exportAsset(input: AssetInput, expected: AssetResult) {
     for (const row of t.rows) sheet.addRow(row);
   }
   return new Uint8Array(await book.xlsx.writeBuffer()).buffer;
+}
+
+/** Independently reread worker output and bind it to the captured request. */
+export async function validateAssetWorkerResponse(
+  action: string,
+  value: unknown,
+  payload: unknown,
+) {
+  const same = (a: unknown, b: unknown) =>
+    JSON.stringify(a) === JSON.stringify(b);
+  const originalsEqual = (a: AssetInput, b: AssetInput) =>
+    a.files.every((f, i) => {
+      const x = new Uint8Array(f.original!),
+        y = new Uint8Array(b.files[i].original!);
+      return x.length === y.length && x.every((v, j) => v === y[j]);
+    });
+  const equalState = (a: AssetInput, b: AssetInput) =>
+    same(a, b) && originalsEqual(a, b);
+  if (!plain(payload)) throw Error('ASSET_ENVELOPE');
+  if (action === 'asset-read') {
+    if (
+      !plain(value) ||
+      !(payload.buffer instanceof ArrayBuffer) ||
+      typeof payload.name !== 'string'
+    )
+      throw Error('ASSET_ENVELOPE');
+    const fresh = await readAssetFile(payload.name, payload.buffer);
+    if (
+      !same(value, fresh) ||
+      !(value.original instanceof ArrayBuffer) ||
+      !new Uint8Array(fresh.original).every(
+        (v, i) => v === new Uint8Array(value.original as ArrayBuffer)[i],
+      ) ||
+      value.original.byteLength !== fresh.original.byteLength
+    )
+      throw Error('ASSET_ENVELOPE');
+    return fresh;
+  }
+  if (action === 'asset-reconcile' || action === 'asset-restore') {
+    if (
+      !plain(value) ||
+      !keys(value, ['state', 'result']) ||
+      !plain(value.state)
+    )
+      throw Error('ASSET_ENVELOPE');
+    const fresh = await replayAsset(value.state as unknown as AssetInput);
+    if (JSON.stringify(fresh.result) !== JSON.stringify(value.result))
+      throw Error('ASSET_ENVELOPE');
+    if (!equalState(fresh.state, value.state as unknown as AssetInput))
+      throw Error('ASSET_ENVELOPE');
+    const requested =
+      action === 'asset-reconcile'
+        ? await replayAsset(payload as unknown as AssetInput)
+        : await restoreAsset(payload.buffer as ArrayBuffer);
+    if (
+      !equalState(fresh.state, requested.state) ||
+      !same(fresh.result, requested.result)
+    )
+      throw Error('ASSET_REQUEST_BINDING');
+    return fresh;
+  }
+  if (!(value instanceof ArrayBuffer)) throw Error('ASSET_ENVELOPE');
+  if (action === 'asset-save') {
+    const saved = await restoreAsset(value),
+      requested = await replayAsset(payload as unknown as AssetInput);
+    if (
+      !equalState(saved.state, requested.state) ||
+      !same(saved.result, requested.result)
+    )
+      throw Error('ASSET_REQUEST_BINDING');
+  } else if (action === 'asset-export') {
+    // Compare native cell values, since ZIP metadata is not an accounting identity.
+    const expected = await exportAsset(
+      payload.state as AssetInput,
+      payload.result as AssetResult,
+    );
+    const inspect = async (buffer: ArrayBuffer) => {
+      const book = new ExcelJS.Workbook();
+      await book.xlsx.load(buffer);
+      return book.worksheets.map((sheet) => ({
+        name: sheet.name,
+        rows: sheet.getSheetValues(),
+      }));
+    };
+    if (!same(await inspect(value), await inspect(expected)))
+      throw Error('ASSET_REQUEST_BINDING');
+  }
+  return value;
 }

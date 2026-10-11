@@ -1,5 +1,5 @@
 import { reconciliationDirectoryCopy } from '@/lib/i18n/reconciliation-directory';
-import { ReconciliationDirectory } from '@/components/reconciliation-directory';
+import { ReconciliationDirectory, navigateToReconciliationDirectory } from '@/components/reconciliation-directory';
 import {PayrollWorkspace} from '@/components/payroll-workspace';
 import {payrollCopy} from '@/lib/i18n/payroll';
 import {AssetWorkspace} from '@/components/fixed-assets-workspace';
@@ -1528,7 +1528,7 @@ export default function App() {
             <ShieldCheck size={16} /> <span>{t.app.shell.localPill}</span>
           </button>
           {showLanding && (
-            <a className="nav-start" href="#reconciliation-types">
+            <a className="nav-start" href="#reconciliation-types" onClick={navigateToReconciliationDirectory}>
               {t.app.shell.navStart} <ForwardArrow size={15} />
             </a>
           )}

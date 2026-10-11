@@ -2,6 +2,8 @@ import {
   GL_HEADERS,
   TB_HEADERS,
   GL_TB_VERSION,
+  GL_TB_VERTICAL_FAMILY,
+  TB_VERTICAL_HEADERS,
   type GlTbScope,
   type GlTbReading,
 } from './gl-tb.ts';
@@ -22,7 +24,7 @@ export const glDemoReadings: [GlTbReading, GlTbReading] = [
   { sheet: 0, role: 'gl-detail', family: GL_TB_VERSION, confirmed: true },
   { sheet: 0, role: 'trial-balance', family: GL_TB_VERSION, confirmed: true },
 ];
-export function glTbDemo() {
+export function glTbDemo(vertical = false) {
   const s = glDemoScope,
     meta = [
       s.entity,
@@ -44,10 +46,17 @@ export function glTbDemo() {
       ['G-C1', 'movement', '2026-09-16', ...meta, '0', '100'],
       ['G-CLOSE', 'closing', s.end, ...meta, '1200', '0'],
     ],
-    [
-      TB_HEADERS,
-      ['T-SNAPSHOT', ...meta, '1000', '0', '300', '100', '1200', '0'],
-    ],
+    vertical
+      ? [
+          TB_VERTICAL_HEADERS,
+          ['T-SNAPSHOT', 'opening', ...meta, '1000', '0'],
+          ['T-SNAPSHOT', 'period', ...meta, '300', '100'],
+          ['T-SNAPSHOT', 'closing', ...meta, '1200', '0'],
+        ]
+      : [
+          TB_HEADERS,
+          ['T-SNAPSHOT', ...meta, '1000', '0', '300', '100', '1200', '0'],
+        ],
   ];
   return rows.map((table, side) => ({
     name: side === 0 ? 'synthetic-gl.csv' : 'synthetic-tb.csv',
@@ -56,3 +65,7 @@ export function glTbDemo() {
     ).buffer,
   }));
 }
+export const glVerticalDemoReadings: [GlTbReading, GlTbReading] = [
+  glDemoReadings[0],
+  { ...glDemoReadings[1], family: GL_TB_VERTICAL_FAMILY },
+];

@@ -1,0 +1,44 @@
+{
+  "id": "07-jpy-whole",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "JPY",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "canonical"
+  ],
+  "expected": {
+    "status": "movements-consistent",
+    "signedMinor": [
+      [
+        -125
+      ],
+      [
+        -125
+      ]
+    ],
+    "netMinor": [
+      -125,
+      -125
+    ],
+    "groups": {
+      "SJ": "matched-evidence"
+    }
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "files": [
+    "bank.csv",
+    "cash.csv"
+  ],
+  "canonicalControls": [
+    "canonical-0.csv",
+    "canonical-1.csv"
+  ]
+}

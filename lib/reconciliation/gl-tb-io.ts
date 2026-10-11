@@ -4,6 +4,7 @@ import { validateExportText, excelExportText } from './export-text.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 import {
   GL_TB_VERSION,
+  GL_TB_VERTICAL_FAMILY,
   GL_SCOPE_FIELDS,
   BALANCE_FIELDS,
   reconcileGlTb,
@@ -45,8 +46,24 @@ export async function replayGlTb(input: GlTbInput) {
     input.files.length !== 2
   )
     throw new Error('GL_TB_INPUT');
+  // Capture the declared context and original bytes before asynchronous parsing.
+  // Parsed sheets are intentionally excluded: they never authorize a result.
+  const context = structuredClone({
+    readings: input.readings,
+    scope: input.scope,
+  });
+  const originals = input.files.map((source) => {
+    if (!plain(source)) throw new Error('GL_TB_SOURCE');
+    bytes(source.original);
+    return {
+      name: source.name,
+      kind: source.kind,
+      sha256: source.sha256,
+      original: source.original.slice(0),
+    };
+  });
   const files = [];
-  for (const source of input.files) {
+  for (const source of originals) {
     if (
       !plain(source) ||
       source.kind !== undefined ||
@@ -62,8 +79,8 @@ export async function replayGlTb(input: GlTbInput) {
   }
   const state: GlTbInput = {
     files: files as GlTbInput['files'],
-    readings: input.readings,
-    scope: input.scope,
+    readings: context.readings,
+    scope: context.scope,
   };
   return { state, result: reconcileGlTb(state) };
 }
@@ -181,6 +198,42 @@ export async function exportGlTb(
       result.differences?.[f] ?? 'missing',
     ]),
   );
+  const expandedEvidence = result.readings[1].family === GL_TB_VERTICAL_FAMILY;
+  const records = new Map(result.rows.map((row) => [row.id, row]));
+  const inventories = new Map(
+    result.inventory.map((row) => [`${row.side}:${row.row}`, row.values]),
+  );
+  function sourceEvidence(row: GlTbResult['rows'][number]) {
+    if (!expandedEvidence) return [];
+    const source = result.sources[row.side],
+      reading = result.readings[row.side],
+      headers = state.files[row.side].sheets[reading.sheet].rows[0],
+      values = inventories.get(`${row.side}:${row.row}`)!;
+    const original = (header: string) => {
+      const column = headers.findIndex((value) => value.trim() === header);
+      return column < 0 ? '' : (values[column] ?? '');
+    };
+    return [
+      source.hash,
+      source.sheet,
+      reading.family,
+      original(row.side === 0 ? 'Record ID' : 'Snapshot ID'),
+      original(row.side === 0 ? 'Record kind' : 'Balance role'),
+      original('Snapshot ID'),
+      original('Balance role'),
+    ];
+  }
+  const sourceEvidenceHeaders = expandedEvidence
+    ? [
+        'Source SHA-256',
+        'Sheet',
+        'Family',
+        'Original identity',
+        'Original role',
+        'Snapshot ID',
+        'Balance role',
+      ]
+    : [];
   table(
     'Records',
     [
@@ -191,6 +244,7 @@ export async function exportGlTb(
       'Kind',
       'Posting date',
       'Amounts minor units JSON',
+      ...sourceEvidenceHeaders,
     ],
     result.rows.map((r) => [
       r.id,
@@ -200,6 +254,7 @@ export async function exportGlTb(
       r.kind,
       r.date,
       JSON.stringify(r.amounts),
+      ...sourceEvidence(r),
     ]),
   );
   table(
@@ -212,6 +267,7 @@ export async function exportGlTb(
       'Source column',
       'Original text',
       'Amount minor units',
+      ...sourceEvidenceHeaders,
     ],
     result.rows.flatMap((r) =>
       r.trace.map((t) => [
@@ -222,6 +278,7 @@ export async function exportGlTb(
         t.column,
         t.text,
         t.amount,
+        ...sourceEvidence(r),
       ]),
     ),
   );
@@ -232,9 +289,32 @@ export async function exportGlTb(
   );
   table(
     'Component members',
-    ['Side', 'Component', 'Record ID', 'Source column'],
+    [
+      'Side',
+      'Component',
+      'Record ID',
+      'Source column',
+      ...(expandedEvidence
+        ? ['Source row', 'Original text', ...sourceEvidenceHeaders]
+        : []),
+    ],
     result.components.flatMap((c) =>
-      c.cells.map((cell) => [c.side, c.field, cell.id, cell.column]),
+      c.cells.map((cell) => {
+        if (!expandedEvidence) return [c.side, c.field, cell.id, cell.column];
+        const row = records.get(cell.id),
+          trace = row?.trace.find((value) => value.column === cell.column);
+        if (!row || !trace || row.side !== c.side)
+          throw new Error('GL_TB_EXPORT_EVIDENCE');
+        return [
+          c.side,
+          c.field,
+          cell.id,
+          cell.column,
+          row.row,
+          trace.text,
+          ...sourceEvidence(row),
+        ];
+      }),
     ),
   );
   for (const side of [0, 1] as const) {
@@ -270,6 +350,7 @@ export async function exportGlTb(
         s.sheet,
         chunk,
         raw.slice(i, i + 30000),
+        ...(expandedEvidence ? [result.readings[side].family] : []),
       ]);
   });
   table(
@@ -282,6 +363,7 @@ export async function exportGlTb(
       'Sheet',
       'Chunk',
       'Original bytes base64',
+      ...(expandedEvidence ? ['Family'] : []),
     ],
     sources,
   );

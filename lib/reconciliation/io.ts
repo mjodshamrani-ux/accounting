@@ -378,6 +378,7 @@ export async function readFile(
     const columnCount = sheet.columnCount;
     const numericCells: NonNullable<SheetData['numericCells']> = {};
     const cellIssues: Record<string, string[]> = {};
+    const numericDisplayFormats: Record<string, string[]> = {};
     const rowIssues: Record<string, string[]> = {};
     const cellNotes: Record<string, string[]> = {};
     const referenceIssues: Record<string, string[]> = {};
@@ -568,8 +569,13 @@ export async function readFile(
             c,
             `تنسيق أرقام شرطي في ${cell.address} قد يغيّر عرض القيمة. استخدم تنسيق أرقام ثابتًا وموثوقًا لهذه الخلية.`,
           );
-        if (typeof value === 'number')
+        if (typeof value === 'number') {
           numericCells[`${r}:${c}`] = { value, format: cell.numFmt ?? '' };
+          numericDisplayFormats[`${r}:${c}`] = [
+            effective.numberFormat ?? cell.numFmt ?? '',
+            ...applicableFormats,
+          ];
+        }
         if (typeof value === 'number') {
           const reference = numericReference(
             effective.numberFormat ?? cell.numFmt ?? '',
@@ -676,6 +682,7 @@ export async function readFile(
       numericCells,
       formulaCells,
       cellIssues,
+      numericDisplayFormats,
       ...(Object.keys(rowIssues).length ? { rowIssues } : {}),
       cellNotes,
       referenceIssues,

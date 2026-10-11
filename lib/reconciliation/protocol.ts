@@ -1,8 +1,12 @@
-import {reconcilePayroll,type PayrollInput} from './payroll.ts';
-import {reconcileAsset,type AssetInput} from './fixed-assets.ts';
+import { reconcilePayroll, type PayrollInput } from './payroll.ts';
+import { reconcileGlTb, type GlTbInput } from './gl-tb.ts';
+import { reconcileAsset, type AssetInput } from './fixed-assets.ts';
 import { reconcileStock, type StockInput } from './inventory-register.ts';
 import { reconcileGateway, type GatewayInput } from './payment-gateway.ts';
-import { reconcileIntercompany, type IntercompanyInput } from './intercompany.ts';
+import {
+  reconcileIntercompany,
+  type IntercompanyInput,
+} from './intercompany.ts';
 import {
   reconcileFinancialPosition,
   type FinancialInput,
@@ -137,18 +141,89 @@ export function validateWorkerValue(
       value.engine !== ENGINE_VERSION)
   )
     throw new Error('إصدار قارئ الملفات لا يطابق إصدار الصفحة. أعد فتح الموقع.');
+  if (action === 'gl-tb-save' || action === 'gl-tb-export') {
+    if (
+      !(value instanceof ArrayBuffer) ||
+      !value.byteLength ||
+      value.byteLength > (action === 'gl-tb-save' ? 32 : 96) * 1024 * 1024
+    )
+      throw new Error('GL_TB_ENVELOPE');
+  }
+  if (action === 'gl-tb-reconcile' || action === 'gl-tb-restore') {
+    try {
+      if (
+        !isRecord(value) ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        !Array.isArray(value.state.files) ||
+        value.state.files.length !== 2
+      )
+        throw new Error('invalid');
+      for (const file of value.state.files) {
+        assertSourceFile(file);
+        if (
+          !(file.original instanceof ArrayBuffer) ||
+          !file.original.byteLength ||
+          file.original.byteLength > 8 * 1024 * 1024 ||
+          !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
+        )
+          throw new Error('invalid');
+      }
+      if (
+        JSON.stringify(reconcileGlTb(value.state as unknown as GlTbInput)) !==
+        JSON.stringify(value.result)
+      )
+        throw new Error('invalid');
+      if (action === 'gl-tb-reconcile') {
+        if (
+          !isRecord(payload) ||
+          !Array.isArray(payload.files) ||
+          payload.files.length !== 2 ||
+          JSON.stringify(value.state.readings) !==
+            JSON.stringify(payload.readings) ||
+          JSON.stringify(value.state.scope) !== JSON.stringify(payload.scope)
+        )
+          throw new Error('invalid');
+        for (const [side, source] of value.state.files.entries()) {
+          const supplied = payload.files[side];
+          if (
+            !isRecord(supplied) ||
+            source.name !== supplied.name ||
+            source.sha256 !== supplied.sha256 ||
+            !(supplied.original instanceof ArrayBuffer) ||
+            supplied.original.byteLength !== source.original!.byteLength
+          )
+            throw new Error('invalid');
+          const suppliedBytes = new Uint8Array(supplied.original);
+          if (
+            new Uint8Array(source.original!).some(
+              (byte, index) => byte !== suppliedBytes[index],
+            )
+          )
+            throw new Error('invalid');
+        }
+      }
+    } catch {
+      throw new Error('GL_TB_ENVELOPE');
+    }
+  }
   if (
     action === 'gateway-save' ||
-    action === 'payroll-save' || action === 'payroll-export' ||
-    action === 'asset-save' || action === 'asset-export' ||
-    action === 'stock-save' || action === 'stock-export' ||
+    action === 'payroll-save' ||
+    action === 'payroll-export' ||
+    action === 'asset-save' ||
+    action === 'asset-export' ||
+    action === 'stock-save' ||
+    action === 'stock-export' ||
     action === 'gateway-export' ||
     action === 'intercompany-save' ||
     action === 'intercompany-export' ||
     action === 'tb-financial-save' ||
     action === 'tb-financial-export' ||
     action === 'bank-adjustment-save' ||
-    action === 'bank-adjustment-export'
+    action === 'bank-adjustment-export' ||
+    action === 'bank-save' ||
+    action === 'bank-export'
   ) {
     if (
       !(value instanceof ArrayBuffer) ||
@@ -156,6 +231,31 @@ export function validateWorkerValue(
       value.byteLength > 96 * 1024 * 1024
     )
       throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+  }
+  if (action === 'bank-reconcile' || action === 'bank-restore') {
+    if (
+      !isRecord(value) ||
+      !isRecord(value.state) ||
+      !isRecord(value.result) ||
+      value.result.version !== 'bank-cash-movements-1' ||
+      typeof value.result.context !== 'string' ||
+      !Array.isArray(value.result.records) ||
+      !Array.isArray(value.result.cases) ||
+      !Array.isArray(value.result.events) ||
+      !Array.isArray(value.state.files) ||
+      value.state.files.length !== 2
+    )
+      throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+    for (const file of value.state.files) {
+      assertSourceFile(file);
+      if (
+        !(file.original instanceof ArrayBuffer) ||
+        !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
+      )
+        throw new Error(
+          'استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.',
+        );
+    }
   }
   if (
     action === 'bank-adjustment-reconcile' ||
@@ -282,10 +382,7 @@ export function validateWorkerValue(
       throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
     }
   }
-  if (
-    action === 'gateway-reconcile' ||
-    action === 'gateway-restore'
-  ) {
+  if (action === 'gateway-reconcile' || action === 'gateway-restore') {
     if (
       !isRecord(value) ||
       !isRecord(value.state) ||
@@ -326,18 +423,57 @@ export function validateWorkerValue(
     }
   }
   if (action === 'payroll-reconcile' || action === 'payroll-restore') {
-    try { if (!isRecord(value) || !isRecord(value.state) || !isRecord(value.result) || JSON.stringify(reconcilePayroll(value.state as unknown as PayrollInput)) !== JSON.stringify(value.result)) throw Error('PAYROLL_ENVELOPE'); }
-    catch { throw Error('PAYROLL_ENVELOPE'); }
+    try {
+      if (
+        !isRecord(value) ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        JSON.stringify(
+          reconcilePayroll(value.state as unknown as PayrollInput),
+        ) !== JSON.stringify(value.result)
+      )
+        throw Error('PAYROLL_ENVELOPE');
+    } catch {
+      throw Error('PAYROLL_ENVELOPE');
+    }
   }
   if (action === 'asset-reconcile' || action === 'asset-restore') {
-    try { if (!isRecord(value) || !isRecord(value.state) || !isRecord(value.result) || JSON.stringify(reconcileAsset(value.state as unknown as AssetInput)) !== JSON.stringify(value.result)) throw Error('ASSET_ENVELOPE'); }
-    catch { throw Error('ASSET_ENVELOPE'); }
+    try {
+      if (
+        !isRecord(value) ||
+        Object.keys(value).sort().join('|') !== 'result|state' ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        JSON.stringify(reconcileAsset(value.state as unknown as AssetInput)) !==
+          JSON.stringify(value.result)
+      )
+        throw Error('ASSET_ENVELOPE');
+    } catch {
+      throw Error('ASSET_ENVELOPE');
+    }
   }
   if (action === 'stock-reconcile' || action === 'stock-restore') {
-    try { if (!isRecord(value) || !isRecord(value.state) || !isRecord(value.result) || JSON.stringify(reconcileStock(value.state as unknown as StockInput)) !== JSON.stringify(value.result)) throw Error('STOCK_ENVELOPE'); }
-    catch { throw Error('STOCK_ENVELOPE'); }
+    try {
+      if (
+        !isRecord(value) ||
+        !isRecord(value.state) ||
+        !isRecord(value.result) ||
+        JSON.stringify(reconcileStock(value.state as unknown as StockInput)) !==
+          JSON.stringify(value.result)
+      )
+        throw Error('STOCK_ENVELOPE');
+    } catch {
+      throw Error('STOCK_ENVELOPE');
+    }
   }
-  if (action === 'read' || action === 'intercompany-read' || action === 'gateway-read' || action === 'stock-read' || action === 'asset-read' || action === 'payroll-read') {
+  if (
+    action === 'read' ||
+    action === 'intercompany-read' ||
+    action === 'gateway-read' ||
+    action === 'stock-read' ||
+    action === 'asset-read' ||
+    action === 'payroll-read'
+  ) {
     assertSourceFile(value);
     if (
       !isRecord(payload) ||

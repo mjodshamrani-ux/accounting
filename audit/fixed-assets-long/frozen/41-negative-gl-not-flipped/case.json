@@ -1,0 +1,29 @@
+{
+  "name": "41-negative-gl-not-flipped",
+  "syntheticOnly": true,
+  "sourceFamily": "fixed-assets-long-components-gl-1",
+  "scope": {
+    "entity": "SYN-ENTITY",
+    "assetLedger": "SYN-ASSET-BOOK",
+    "glLedger": "SYN-GL",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "actual",
+    "asOf": "2026-09-30",
+    "chartVersion": "SYN-CHART-1",
+    "mapVersion": "SYN-MAP-1",
+    "componentPolicyVersion": "SYN-POLICY-1",
+    "assetAccountSetVersion": "SYN-ACCOUNTS-1",
+    "confirmed": true
+  },
+  "expectedFinancial": "difference",
+  "assertions": {
+    "differences": {
+      "1600|BOOK|cost": 140100,
+      "1690|BOOK|depreciation": 0,
+      "1695|BOOK|impairment": 0
+    }
+  },
+  "structuralPurpose": "long-four-components"
+}

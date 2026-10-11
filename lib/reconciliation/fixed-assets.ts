@@ -4,6 +4,7 @@ import { MAX_ROWS, MAX_FILE_BYTES, type SourceFile } from './types.ts';
 
 // Pure asset component accounting; public IO must re-read/hash original sources.
 export const ASSET_VERSION = 'fixed-assets-posted-components-gl-1';
+export const ASSET_LONG_FAMILY = 'fixed-assets-long-components-gl-1';
 export const ASSET_ROLES = [
   'register',
   'mapping',
@@ -39,6 +40,8 @@ export const ASSET_SCOPE_HEADERS = [
   'Asset account set version',
 ];
 export const ASSET_COMPONENTS = ['cost', 'depreciation', 'impairment'] as const;
+export const ASSET_LONG_COMPONENTS = [...ASSET_COMPONENTS, 'carrying'] as const;
+export type AssetLongComponent = (typeof ASSET_LONG_COMPONENTS)[number];
 export type AssetComponent = (typeof ASSET_COMPONENTS)[number];
 export const ASSET_CLASSES = [
   'fixed-asset-cost',
@@ -90,13 +93,21 @@ export const ASSET_HEADERS = ASSET_VALUES.map((v) => [
   ...v,
   ...ASSET_SCOPE_HEADERS,
 ]);
+export const ASSET_LONG_HEADERS = [
+  'Asset ID',
+  'Asset dimensions',
+  'Component',
+  'Amount',
+  'Valuation reference',
+  ...ASSET_SCOPE_HEADERS,
+];
 export type AssetScope = Record<(typeof ASSET_FIELDS)[number], string> & {
   confirmed: boolean;
 };
 export type AssetReading = {
   sheet: number;
   role: (typeof ASSET_ROLES)[number];
-  family: typeof ASSET_VERSION;
+  family: typeof ASSET_VERSION | typeof ASSET_LONG_FAMILY;
   confirmed: boolean;
 };
 export type AssetEvent = {
@@ -124,6 +135,30 @@ export type AssetRegisterRow = Physical & {
   impairment: number;
   carrying: number;
   valuation: string;
+  // For a long register, row and memberId anchor an actual first member; the
+  // logical aggregate has no invented horizontal source row or member ID.
+  representation?: 'long-components';
+  memberIds?: string[];
+  componentEvidence?: AssetLongComponentEvidence[];
+};
+export type AssetLongComponentEvidence = {
+  source: 0;
+  role: 'register';
+  sourceHash: string;
+  sheet: 0;
+  row: number;
+  column: number;
+  header: 'Amount';
+  present: boolean;
+  text: string | null;
+  minor: number | null;
+  component: string | null;
+  componentColumn: number;
+  asset: string | null;
+  dimensions: string | null;
+  valuation: string | null;
+  memberId: string;
+  context: string;
 };
 export type AssetMappingRow = Physical & {
   id: string;
@@ -214,6 +249,7 @@ export type AssetResult = {
     | 'difference'
     | 'needs-review'
     | 'consistent-with-evidence';
+  componentEvidence?: AssetLongComponentEvidence[];
 };
 const plain = (v: unknown): v is Record<string, unknown> =>
   !!v && typeof v === 'object' && !Array.isArray(v);
@@ -308,7 +344,8 @@ export function reconcileAsset(input: AssetInput): AssetResult {
       !keys(r, ['sheet', 'role', 'family', 'confirmed']) ||
       r.sheet !== 0 ||
       r.role !== ASSET_ROLES[i] ||
-      r.family !== ASSET_VERSION ||
+      (r.family !== ASSET_VERSION &&
+        !(i === 0 && r.family === ASSET_LONG_FAMILY)) ||
       r.confirmed !== true
     )
       fail('READING');
@@ -373,6 +410,7 @@ export function reconcileAsset(input: AssetInput): AssetResult {
     scope,
     completeness,
   ]);
+  const long = readings[0].family === ASSET_LONG_FAMILY;
   const result: AssetResult = {
     version: ASSET_VERSION,
     context,
@@ -392,6 +430,7 @@ export function reconcileAsset(input: AssetInput): AssetResult {
     financial: 'ready',
     review: 'needs-review',
     status: 'needs-review',
+    ...(long ? { componentEvidence: [] } : {}),
   };
   const problem = (source: number, row: number, code: string) =>
     result.issues.push({ source, row, code });
@@ -411,15 +450,32 @@ export function reconcileAsset(input: AssetInput): AssetResult {
     if (!ASSET_COMPONENTS.includes(value as AssetComponent)) fail('COMPONENT');
     return value as AssetComponent;
   };
+  let validLongComponents = 0;
   input.files.forEach((f, source) => {
     const rows = f.sheets[0].rows,
       header = rows[0] ?? [],
-      desired = ASSET_HEADERS[source];
+      desired =
+        source === 0 && long ? ASSET_LONG_HEADERS : ASSET_HEADERS[source];
+    const longParsed = new Map<
+      number,
+      {
+        asset: string;
+        dimensions: string;
+        valuation: string;
+        component: AssetLongComponent;
+        amount: number;
+      }
+    >();
     const good =
       header.length === desired.length &&
       new Set(header).size === desired.length &&
       desired.every((h) => header.includes(h));
     const positions = Object.fromEntries(header.map((h, i) => [h, i]));
+    const observableLongAmount =
+      source === 0 &&
+      long &&
+      header.filter((h) => h === 'Amount').length === 1 &&
+      header.filter((h) => h === 'Component').length === 1;
     if (!rows.length) problem(source, 1, 'COLUMNS');
     rows.forEach((raw, index) => {
       const row = index + 1,
@@ -445,6 +501,37 @@ export function reconcileAsset(input: AssetInput): AssetResult {
         return;
       }
       if (blank) return;
+      if (observableLongAmount && (good || positions.Amount < raw.length)) {
+        const column = positions.Amount + 1,
+          present = positions.Amount < raw.length;
+        let minor: number | null = null;
+        if (present) {
+          try {
+            minor = scaled(raw[positions.Amount], decimals);
+          } catch {
+            /* Keep unread amounts as null evidence. */
+          }
+        }
+        result.componentEvidence!.push({
+          source: 0,
+          role: 'register',
+          sourceHash: f.sha256!,
+          sheet: 0,
+          row,
+          column,
+          header: 'Amount',
+          present,
+          text: present ? raw[positions.Amount] : null,
+          minor,
+          component: raw[positions.Component] ?? null,
+          componentColumn: positions.Component + 1,
+          asset: raw[positions['Asset ID']] ?? null,
+          dimensions: raw[positions['Asset dimensions']] ?? null,
+          valuation: raw[positions['Valuation reference']] ?? null,
+          memberId,
+          context,
+        });
+      }
       if (!good || raw.length !== header.length) {
         problem(source, row, 'COLUMNS');
         return;
@@ -457,6 +544,21 @@ export function reconcileAsset(input: AssetInput): AssetResult {
         )
           fail('ROW_SCOPE');
         if (source === 0) {
+          if (long) {
+            const asset = text(get('Asset ID')),
+              dimensions = text(get('Asset dimensions')),
+              c = get('Component');
+            if (!ASSET_LONG_COMPONENTS.includes(c as AssetLongComponent))
+              fail('COMPONENT');
+            longParsed.set(row, {
+              asset,
+              dimensions,
+              component: c as AssetLongComponent,
+              valuation: text(get('Valuation reference')),
+              amount: scaled(get('Amount'), decimals),
+            });
+            return;
+          }
           const cost = scaled(get('Cost'), decimals),
             depreciation = scaled(get('Accumulated depreciation'), decimals),
             impairment = scaled(get('Impairment'), decimals),
@@ -560,7 +662,9 @@ export function reconcileAsset(input: AssetInput): AssetResult {
     };
     detect(
       source === 0
-        ? ['Asset ID', 'Asset dimensions']
+        ? long
+          ? ['Asset ID', 'Asset dimensions', 'Component']
+          : ['Asset ID', 'Asset dimensions']
         : source === 1
           ? ['Asset ID', 'Asset dimensions', 'Component']
           : source === 2
@@ -569,10 +673,81 @@ export function reconcileAsset(input: AssetInput): AssetResult {
       'DUPLICATE',
     );
     if (source === 1) detect(['Mapping ID'], 'DUPLICATE_MAPPING_ID');
+    if (source === 0 && long && good) {
+      validLongComponents = longParsed.size;
+      const groups = new Map<string, { row: number; raw: string[] }[]>();
+      rows.slice(1).forEach((raw, index) => {
+        if (!raw.some((v) => v.trim())) return;
+        const k = JSON.stringify([
+            raw[positions['Asset ID']] ?? '',
+            raw[positions['Asset dimensions']] ?? '',
+          ]),
+          group = groups.get(k) ?? [];
+        group.push({ row: index + 2, raw });
+        groups.set(k, group);
+      });
+      const evidenceByRow = new Map(
+        result.componentEvidence!.map((e) => [e.row, e]),
+      );
+      for (const members of groups.values()) {
+        if (
+          members.length !== 4 ||
+          ASSET_LONG_COMPONENTS.some(
+            (c) =>
+              members.filter(({ raw }) => raw[positions.Component] === c)
+                .length !== 1,
+          )
+        ) {
+          for (const { row } of members) problem(0, row, 'COMPONENT_SET');
+          continue;
+        }
+        if (
+          new Set(
+            members.map(({ raw }) => raw[positions['Valuation reference']]),
+          ).size !== 1
+        ) {
+          for (const { row } of members) problem(0, row, 'VALUATION_REFERENCE');
+          continue;
+        }
+        if (members.some(({ row }) => !longParsed.has(row))) continue;
+        const components = Object.fromEntries(
+          members.map(({ row }) => {
+            const parsed = longParsed.get(row)!;
+            return [parsed.component, parsed.amount];
+          }),
+        ) as Record<AssetLongComponent, number>;
+        if (
+          BigInt(components.cost) -
+            BigInt(components.depreciation) -
+            BigInt(components.impairment) !==
+          BigInt(components.carrying)
+        ) {
+          for (const { row } of members) problem(0, row, 'CARRYING_EQUATION');
+          continue;
+        }
+        const first = longParsed.get(members[0].row)!,
+          evidence = members.map(({ row }) => evidenceByRow.get(row)!);
+        result.records[0].push({
+          source: 0,
+          row: members[0].row,
+          memberId: evidence[0].memberId,
+          asset: first.asset,
+          dimensions: first.dimensions,
+          valuation: first.valuation,
+          ...components,
+          representation: 'long-components',
+          memberIds: evidence.map((e) => e.memberId),
+          componentEvidence: evidence,
+        });
+      }
+    }
   });
   const [register, mapping, policies, gls] = result.records;
   const key = (v: { asset: string; dimensions: string }) =>
     JSON.stringify([v.asset, v.dimensions]);
+  const componentRow = (item: AssetRegisterRow, component: AssetComponent) =>
+    item.componentEvidence?.find((e) => e.component === component)?.row ??
+    item.row;
   const accountKey = (v: { account: string; glDimensions: string }) =>
     JSON.stringify([v.account, v.glDimensions]);
   const mappingIndex = new Map<string, AssetMappingRow[]>(),
@@ -605,7 +780,7 @@ export function reconcileAsset(input: AssetInput): AssetResult {
     for (const c of ASSET_COMPONENTS) {
       const group = mappingIndex.get(JSON.stringify([key(item), c])) ?? [];
       if (group.length !== 1) {
-        absent('mapping', 0, item.row, c);
+        absent('mapping', 0, componentRow(item, c), c);
         continue;
       }
       const m = group[0];
@@ -677,7 +852,9 @@ export function reconcileAsset(input: AssetInput): AssetResult {
       difference:
         value <= 100000000000000n ? Number(value - BigInt(g.normal)) : null,
       glRow: g.row,
-      registerRows: assigned.map(({ item }) => item.row),
+      registerRows: assigned.map(({ item, component }) =>
+        componentRow(item, component),
+      ),
     });
   }
   glTotals.carrying =
@@ -688,7 +865,8 @@ export function reconcileAsset(input: AssetInput): AssetResult {
   )
     problem(3, 0, 'AGGREGATE_BOUND');
   result.records.forEach((r, i) => {
-    if (!r.length) absent('empty-source', i, 0);
+    if (i === 0 && long ? !validLongComponents : !r.length)
+      absent('empty-source', i, 0);
   });
   if (result.issues.length) {
     for (const c of result.comparisons)

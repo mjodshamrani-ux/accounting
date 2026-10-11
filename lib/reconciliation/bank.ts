@@ -4,6 +4,7 @@ import { assertSourceFile } from './protocol.ts';
 import type { SourceFile } from './types.ts';
 
 export const BANK_VERSION = 'bank-cash-movements-1';
+export const BANK_WD_FAMILY = 'bank-withdrawal-deposit-1';
 export const BANK_SCOPE_FIELDS = [
   'entity',
   'ledger',
@@ -32,13 +33,18 @@ export const BANK_HEADERS = [
   'Period end',
   'Amount',
 ];
+export const BANK_WD_HEADERS = [
+  ...BANK_HEADERS.filter((h) => h !== 'Amount' && h !== 'Cash direction'),
+  'Withdrawal',
+  'Deposit',
+];
 export type BankScope = Record<(typeof BANK_SCOPE_FIELDS)[number], string> & {
   confirmed: boolean;
 };
 export type BankReading = {
   sheet: number;
   role: (typeof BANK_ROLES)[number];
-  family: typeof BANK_VERSION;
+  family: typeof BANK_VERSION | typeof BANK_WD_FAMILY;
   perspective: 'company-cash';
   confirmed: boolean;
 };
@@ -87,6 +93,17 @@ export type BankRecord = {
   amount: number;
   signed: number;
   traces: { field: string; column: number; text: string }[];
+  withdrawalDeposit?: {
+    withdrawal: BankMoneyCell;
+    deposit: BankMoneyCell;
+  };
+};
+export type BankMoneyCell = {
+  column: number;
+  text: string;
+  state: 'active' | 'blank-inactive' | 'explicit-zero-inactive';
+  minor: number | null;
+  numeric?: { value: number; format: string };
 };
 export type BankInventory = {
   id: string;
@@ -195,6 +212,45 @@ function amount(v: string, decimals: number): number {
     fail('AMOUNT');
   return n;
 }
+function withdrawalDeposit(
+  values: string[],
+  col: Record<string, number>,
+  decimals: number,
+  numericCells: SourceFile['sheets'][number]['numericCells'],
+  row: number,
+): NonNullable<BankRecord['withdrawalDeposit']> {
+  const cell = (field: string): BankMoneyCell => {
+    const column = col[field] + 1,
+      text = values[column - 1] ?? '';
+    if (text === '')
+      return { column, text, state: 'blank-inactive', minor: null };
+    // Only ordinary outer spaces are tolerated. An empty physical cell is
+    // distinct from a whitespace string, and from a stated zero.
+    const s = latinDigits(text.replace(/^ +| +$/g, '')).replace(/٫/g, '.');
+    if (/[\p{Cc}\p{Cf}]/u.test(text) || !/^\d+(?:\.\d+)?$/.test(s))
+      fail('AMOUNT');
+    const n = parseMoney(s, 'dot', decimals);
+    if (n === undefined || !Number.isSafeInteger(n) || n < 0 || n > 1e14)
+      fail('AMOUNT');
+    const numeric = numericCells?.[`${row}:${column}`];
+    return {
+      column,
+      text,
+      state: n === 0 ? 'explicit-zero-inactive' : 'active',
+      minor: n,
+      ...(numeric ? { numeric: { ...numeric } } : {}),
+    };
+  };
+  const withdrawal = cell('Withdrawal'),
+    deposit = cell('Deposit');
+  if (
+    Number(withdrawal.state === 'active') +
+      Number(deposit.state === 'active') !==
+    1
+  )
+    fail('DIRECTION');
+  return { withdrawal, deposit };
+}
 function sum(values: number[]): number {
   try {
     return safeSum(values);
@@ -229,7 +285,7 @@ function readSource(input: BankInput, side: 0 | 1, decimals: number) {
   if (
     !plain(reading) ||
     !keys(reading, ['sheet', 'role', 'family', 'perspective', 'confirmed']) ||
-    reading.family !== BANK_VERSION ||
+    ![BANK_VERSION, BANK_WD_FAMILY].includes(reading.family) ||
     reading.role !== BANK_ROLES[side] ||
     reading.perspective !== 'company-cash' ||
     reading.confirmed !== true ||
@@ -250,17 +306,23 @@ function readSource(input: BankInput, side: 0 | 1, decimals: number) {
     Object.keys(sheet.formulaCells ?? {}).some((k) => k.startsWith('1:'))
   )
     fail('COLUMNS');
-  const head = sheet.rows[0].map((v) => v.trim());
+  const headers =
+      reading.family === BANK_WD_FAMILY ? BANK_WD_HEADERS : BANK_HEADERS,
+    head = sheet.rows[0].map((v) => v.trim());
   if (
-    head.length !== BANK_HEADERS.length ||
+    head.length !== headers.length ||
     new Set(head).size !== head.length ||
-    BANK_HEADERS.some((h) => !head.includes(h))
+    headers.some((h) => !head.includes(h))
   )
     fail('COLUMNS');
-  const col = Object.fromEntries(BANK_HEADERS.map((h) => [h, head.indexOf(h)])),
-    identityCols = BANK_HEADERS.filter(
-      (h) => h !== 'Amount' && !/date$|^Period /i.test(h),
-    ).map((h) => col[h]);
+  const col = Object.fromEntries(headers.map((h) => [h, head.indexOf(h)])),
+    identityCols = headers
+      .filter(
+        (h) =>
+          !['Amount', 'Withdrawal', 'Deposit'].includes(h) &&
+          !/date$|^Period /i.test(h),
+      )
+      .map((h) => col[h]);
   const records: BankRecord[] = [],
     inventory: BankInventory[] = [],
     hidden = new Set(sheet.hiddenRows);
@@ -290,8 +352,7 @@ function readSource(input: BankInput, side: 0 | 1, decimals: number) {
         inventory.push({ id, side, row, kind: 'blank', values });
         continue;
       }
-      if (values.slice(BANK_HEADERS.length).some((v) => v.trim()))
-        fail('COLUMNS');
+      if (values.slice(headers.length).some((v) => v.trim())) fail('COLUMNS');
       const get = (h: string) => (values[col[h]] ?? '').trim();
       for (const [i, h] of [
         'Entity',
@@ -302,17 +363,29 @@ function readSource(input: BankInput, side: 0 | 1, decimals: number) {
         'Period end',
       ].entries())
         if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');
+      const money =
+        reading.family === BANK_WD_FAMILY
+          ? withdrawalDeposit(values, col, decimals, sheet.numericCells, row)
+          : undefined;
       const reference = identity(get('Record ID')),
         settlement = optional(get('Settlement ID')),
         movementDate = date(get('Movement date')),
         valueDate = date(get('Value date')),
-        direction = get('Cash direction'),
+        direction = money
+          ? money.deposit.state === 'active'
+            ? 'inflow'
+            : 'outflow'
+          : get('Cash direction'),
         role = get('Role'),
         policy = get('Policy'),
         status = get('Status'),
         parent = optional(get('Parent payment ID')),
         reverses = optional(get('Reverses record ID')),
-        n = amount(get('Amount'), decimals);
+        n = money
+          ? (money.deposit.state === 'active'
+              ? money.deposit.minor
+              : money.withdrawal.minor)!
+          : amount(get('Amount'), decimals);
       if (movementDate < input.scope.start || movementDate > input.scope.end)
         fail('PERIOD');
       if (direction !== 'inflow' && direction !== 'outflow') fail('DIRECTION');
@@ -358,7 +431,8 @@ function readSource(input: BankInput, side: 0 | 1, decimals: number) {
         status: status as BankRecord['status'],
         amount: n,
         signed: direction === 'inflow' ? n : -n,
-        traces: BANK_HEADERS.map((field) => ({
+        ...(money ? { withdrawalDeposit: money } : {}),
+        traces: headers.map((field) => ({
           field,
           column: col[field] + 1,
           text: values[col[field]] ?? '',

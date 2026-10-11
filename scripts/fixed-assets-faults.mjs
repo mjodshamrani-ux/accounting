@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { runSpecializedFaults } from './specialized-faults.mjs';
 const engine = 'lib/reconciliation/fixed-assets.ts',
-  io = 'lib/reconciliation/fixed-assets-io.ts';
+  envelope = 'lib/reconciliation/fixed-assets-envelope.ts';
 const tests = ['tests/fixed-assets.test.ts', 'tests/fixed-assets-io.test.ts'];
 const faults = [
   [
@@ -13,8 +13,8 @@ const faults = [
   [
     'carrying-equation-ignored',
     engine,
-    "fail('CARRYING_EQUATION');",
-    'void 0;',
+    "BigInt(carrying)\n          )\n            fail('CARRYING_EQUATION');",
+    'BigInt(carrying)\n          )\n            void 0;',
   ],
   [
     'contra-negative-sign-flipped',
@@ -55,15 +55,15 @@ const faults = [
   ['year-zero-admitted', engine, "    value.slice(0, 4) === '0000' ||\n", ''],
   [
     'alias-original-before-await',
-    io,
-    'original: f.original!.slice(0),',
-    'original: f.original!,',
+    envelope,
+    'original: f.original.slice(0),',
+    'original: f.original,',
   ],
   [
     'alias-metadata-before-await',
-    io,
-    'const metadata = structuredClone({',
-    'const metadata = ({',
+    envelope,
+    '...structuredClone({',
+    '...({',
   ],
 ];
 const specific = {

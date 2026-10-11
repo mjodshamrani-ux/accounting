@@ -15,6 +15,8 @@ import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { money } from '@/lib/reconciliation/core';
 import {
   BANK_SCOPE_FIELDS,
+  BANK_VERSION,
+  BANK_WD_FAMILY,
   type BankInput,
   type BankScope,
   type BankReading,
@@ -367,6 +369,37 @@ export function BankWorkspace({
                         </select>
                       </label>
                       <label>
+                        {t.sourceFamily}
+                        <select
+                          aria-label={`${t.sides[side]} ${t.sourceFamily}`}
+                          value={readings[side].family}
+                          onChange={(e) => {
+                            setReadings((previous) => {
+                              const next = [...previous] as typeof readings;
+                              next[side] = {
+                                ...next[side],
+                                family: e.target.value as BankReading['family'],
+                                confirmed: false,
+                              };
+                              return next;
+                            });
+                            invalidate();
+                          }}
+                        >
+                          <option value={BANK_VERSION}>
+                            {t.amountDirection}
+                          </option>
+                          <option value={BANK_WD_FAMILY}>
+                            {t.withdrawalDeposit}
+                          </option>
+                        </select>
+                      </label>
+                      {readings[side].family === BANK_WD_FAMILY && (
+                        <p className="bank-source-basis">
+                          {t.withdrawalDepositHint}
+                        </p>
+                      )}
+                      <label>
                         <input
                           type="checkbox"
                           aria-label={`${t.sides[side]} ${t.sourceConfirm}`}
@@ -657,6 +690,9 @@ export function BankWorkspace({
                             <th>{t.field}</th>
                             <th>{t.column}</th>
                             <th>{t.original}</th>
+                            {evidence.withdrawalDeposit && (
+                              <th>{t.cashCellState}</th>
+                            )}
                           </tr>
                         </thead>
                         <tbody>
@@ -671,6 +707,20 @@ export function BankWorkspace({
                               </td>
                               <td>{c.column}</td>
                               <td>{c.text}</td>
+                              {evidence.withdrawalDeposit && (
+                                <td>
+                                  {c.field === 'Withdrawal' ||
+                                  c.field === 'Deposit'
+                                    ? t.cashCellStates[
+                                        evidence.withdrawalDeposit[
+                                          c.field === 'Withdrawal'
+                                            ? 'withdrawal'
+                                            : 'deposit'
+                                        ].state
+                                      ]
+                                    : ''}
+                                </td>
+                              )}
                             </tr>
                           ))}
                         </tbody>

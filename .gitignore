@@ -65,5 +65,10 @@ audit/bank/__pycache__/
 /audit/inventory-register/__pycache__/
 
 /audit/fixed-assets/__pycache__/
+/audit/fixed-assets-long/__pycache__/
 
 audit/payroll/__pycache__/
+
+# Local Python execution caches
+__pycache__/
+*.pyc

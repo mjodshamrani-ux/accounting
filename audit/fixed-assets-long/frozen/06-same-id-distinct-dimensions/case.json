@@ -1,0 +1,39 @@
+{
+  "name": "06-same-id-distinct-dimensions",
+  "syntheticOnly": true,
+  "sourceFamily": "fixed-assets-long-components-gl-1",
+  "scope": {
+    "entity": "SYN-ENTITY",
+    "assetLedger": "SYN-ASSET-BOOK",
+    "glLedger": "SYN-GL",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "actual",
+    "asOf": "2026-09-30",
+    "chartVersion": "SYN-CHART-1",
+    "mapVersion": "SYN-MAP-1",
+    "componentPolicyVersion": "SYN-POLICY-1",
+    "assetAccountSetVersion": "SYN-ACCOUNTS-1",
+    "confirmed": true
+  },
+  "expectedFinancial": "ready",
+  "assertions": {
+    "physicalMembers": 23,
+    "totals": {
+      "register": {
+        "cost": 140000,
+        "depreciation": 30000,
+        "impairment": 5000,
+        "carrying": 105000
+      },
+      "gl": {
+        "cost": 140000,
+        "depreciation": 30000,
+        "impairment": 5000,
+        "carrying": 105000
+      }
+    }
+  },
+  "structuralPurpose": "long-four-components"
+}

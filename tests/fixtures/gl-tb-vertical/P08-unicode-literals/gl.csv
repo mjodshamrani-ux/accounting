@@ -1,0 +1,4 @@
+Record ID,Record kind,Posting date,Entity,Ledger,Account,Complete dimensions,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,Debit,Credit
+G-OPEN,opening,2026-10-01,Synthetic منشأة 😀,General Ledger,001100,CostCentre=مركز07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,١٠٠٫٠٠,٢٠٫٠٠
+G-M1,movement,2026-10-10,Synthetic منشأة 😀,General Ledger,001100,CostCentre=مركز07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,٧٠٫٠٠,١٥٫٠٠
+G-CLOSE,closing,2026-10-31,Synthetic منشأة 😀,General Ledger,001100,CostCentre=مركز07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,١٥٠٫٠٠,١٥٫٠٠

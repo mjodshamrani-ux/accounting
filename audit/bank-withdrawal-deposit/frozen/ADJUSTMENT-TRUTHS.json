@@ -1,0 +1,145 @@
+[
+  {
+    "id": "A-cash-withdrawal-timing",
+    "sourceSide": "cashbook",
+    "movementRef": "C-TIMING",
+    "signed": -12540,
+    "raw": [
+      121015,
+      108475
+    ],
+    "adjustSide": "bank",
+    "item": -12540,
+    "expectedAdjusted": [
+      108475,
+      108475
+    ],
+    "expectedDifference": 0,
+    "accepted": true,
+    "note": "Independent endpoint example bound to ADJUSTMENT-SOURCE-FACTS.json; not a full B2.2 lifecycle."
+  },
+  {
+    "id": "A-cash-deposit-timing",
+    "sourceSide": "cashbook",
+    "movementRef": "C-DEPOSIT",
+    "signed": 21015,
+    "raw": [
+      100000,
+      121015
+    ],
+    "adjustSide": "bank",
+    "item": 21015,
+    "expectedAdjusted": [
+      121015,
+      121015
+    ],
+    "expectedDifference": 0,
+    "accepted": true
+  },
+  {
+    "id": "A-bank-withdrawal-timing",
+    "sourceSide": "bank",
+    "movementRef": "B-FEE",
+    "signed": -1500,
+    "raw": [
+      98500,
+      100000
+    ],
+    "adjustSide": "cashbook",
+    "item": -1500,
+    "expectedAdjusted": [
+      98500,
+      98500
+    ],
+    "expectedDifference": 0,
+    "accepted": true
+  },
+  {
+    "id": "A-bank-deposit-timing",
+    "sourceSide": "bank",
+    "movementRef": "B-DEPOSIT",
+    "signed": 5000,
+    "raw": [
+      105000,
+      100000
+    ],
+    "adjustSide": "cashbook",
+    "item": 5000,
+    "expectedAdjusted": [
+      105000,
+      105000
+    ],
+    "expectedDifference": 0,
+    "accepted": true
+  },
+  {
+    "id": "A-no-accept-no-adjustment",
+    "sourceSide": "cashbook",
+    "movementRef": "C-WAIT",
+    "signed": -12540,
+    "raw": [
+      121015,
+      108475
+    ],
+    "adjustSide": "bank",
+    "item": -12540,
+    "expectedAdjusted": [
+      121015,
+      108475
+    ],
+    "expectedDifference": 12540,
+    "accepted": false
+  },
+  {
+    "id": "A-flipped-sign-refuse",
+    "sourceSide": "cashbook",
+    "movementRef": "C-BAD",
+    "signed": -12540,
+    "raw": [
+      121015,
+      108475
+    ],
+    "adjustSide": "bank",
+    "item": 12540,
+    "expectedIssue": "direction"
+  },
+  {
+    "id": "A-same-side-refuse",
+    "sourceSide": "cashbook",
+    "movementRef": "C-SAME",
+    "signed": -12540,
+    "raw": [
+      121015,
+      108475
+    ],
+    "adjustSide": "cashbook",
+    "item": -12540,
+    "expectedIssue": "side"
+  },
+  {
+    "id": "A-partial-refuse",
+    "sourceSide": "cashbook",
+    "movementRef": "C-PART",
+    "signed": -12540,
+    "raw": [
+      121015,
+      108475
+    ],
+    "adjustSide": "bank",
+    "item": -12500,
+    "expectedIssue": "direction"
+  },
+  {
+    "id": "A-difference-without-proof",
+    "sourceSide": "cashbook",
+    "movementRef": "",
+    "signed": null,
+    "raw": [
+      121015,
+      108475
+    ],
+    "adjustSide": "bank",
+    "item": -12540,
+    "expectedIssue": "proof"
+  }
+]

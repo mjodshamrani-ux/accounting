@@ -1,0 +1,26 @@
+{
+  "id": "66-isolated-native-canonical-peer",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "canonical"
+  ],
+  "expected": {
+    "status": "structural-refusal",
+    "issue": "native-display"
+  },
+  "syntheticOnly": true,
+  "note": "Supplement: isolates rounded canonical peer; bank stylesheet contains only allowed formats. Original case64 preserved unchanged.",
+  "files": [
+    "bank.xlsx",
+    "cash.xlsx"
+  ]
+}

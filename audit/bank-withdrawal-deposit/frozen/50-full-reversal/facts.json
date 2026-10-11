@@ -1,0 +1,47 @@
+{
+  "id": "50-full-reversal",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "wd"
+  ],
+  "expected": {
+    "status": "movements-consistent",
+    "signedMinor": [
+      [
+        -5000,
+        5000
+      ],
+      [
+        -5000,
+        5000
+      ]
+    ],
+    "netMinor": [
+      0,
+      0
+    ],
+    "groups": {
+      "ORIG": "matched-evidence",
+      "REV": "matched-evidence"
+    }
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "files": [
+    "bank.csv",
+    "cash.csv"
+  ],
+  "canonicalControls": [
+    "canonical-0.csv",
+    "canonical-1.csv"
+  ]
+}

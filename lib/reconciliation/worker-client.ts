@@ -1,3 +1,6 @@
+import { snapshotAsset } from './fixed-assets-envelope.ts';
+import { MAX_FILE_BYTES } from './types.ts';
+import type { AssetInput } from './fixed-assets.ts';
 import { WORKER_CHANNEL, isRecord, validateWorkerValue } from './protocol.ts';
 import { isNextProcessingProgress } from './processing-progress.ts';
 import type { ProcessingProgress } from './processing-progress.ts';
@@ -54,6 +57,39 @@ export function createWorkerClient(
       if (action.startsWith('gl-tb-')) {
         try {
           payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      // Bind bank validation to the caller's sources and context at submission.
+      if (action.startsWith('bank-')) {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      // Capture authoritative asset sources and every choice synchronously.
+      if (action.startsWith('asset-')) {
+        try {
+          if (action === 'asset-reconcile' || action === 'asset-save')
+            payload = snapshotAsset(payload as AssetInput);
+          else if (action === 'asset-export' && isRecord(payload))
+            payload = {
+              state: snapshotAsset(payload.state as AssetInput),
+              result: structuredClone(payload.result),
+            };
+          else if (action === 'asset-read' || action === 'asset-restore') {
+            if (
+              !isRecord(payload) ||
+              !(payload.buffer instanceof ArrayBuffer) ||
+              !payload.buffer.byteLength ||
+              payload.buffer.byteLength >
+                (action === 'asset-read' ? MAX_FILE_BYTES : 64 * 1024 * 1024)
+            )
+              throw Error('ASSET_SOURCE');
+            payload = { ...payload, buffer: payload.buffer.slice(0) };
+          }
         } catch (error) {
           return reject(error);
         }
@@ -162,7 +198,25 @@ export function createWorkerClient(
           );
         }
         try {
-          validateWorkerValue(action, response.value, payload);
+          // Check raw transport types before replay; parsed caches remain disposable.
+          if (['gl-tb-reconcile', 'gl-tb-restore'].includes(action)) {
+            const value = response.value;
+            if (
+              !isRecord(value) ||
+              !isRecord(value.state) ||
+              !isRecord(value.result) ||
+              !Array.isArray(value.state.files) ||
+              value.state.files.length !== 2 ||
+              value.state.files.some(
+                (file) =>
+                  !isRecord(file) ||
+                  !(file.original instanceof ArrayBuffer) ||
+                  !file.original.byteLength ||
+                  file.original.byteLength > MAX_FILE_BYTES,
+              )
+            )
+              throw Error('GL_TB_WORKER_BINDING');
+          }
           if (action === 'gl-tb-reconcile' || action === 'gl-tb-restore') {
             const { replayGlTb, restoreGlTb } = await import('./gl-tb-io.ts');
             const requested =
@@ -199,13 +253,106 @@ export function createWorkerClient(
             // Install only sheets re-read from this request's originals.
             response.value = requested;
           }
-          if (action === 'read' && isRecord(response.value) && response.value.kind === 'reviewed-visual-source') {
-            const { replayReviewedVisualSource } = await import('./visual-accounting-source.ts');
-            response.value = await replayReviewedVisualSource(response.value as import('./types.ts').SourceFile);
+          validateWorkerValue(action, response.value, payload);
+          if (
+            [
+              'bank-reconcile',
+              'bank-restore',
+              'bank-adjustment-reconcile',
+              'bank-adjustment-restore',
+            ].includes(action)
+          ) {
+            const value = response.value as {
+              state:
+                | import('./bank.ts').BankInput
+                | import('./bank-adjustment.ts').BankAdjustmentInput;
+              result: unknown;
+            };
+            const adjustment = action.startsWith('bank-adjustment-');
+            const io = adjustment
+              ? await import('./bank-adjustment-io.ts')
+              : await import('./bank-io.ts');
+            const replay =
+              'replayBank' in io ? io.replayBank : io.replayBankAdjustments;
+            const restore =
+              'restoreBank' in io ? io.restoreBank : io.restoreBankAdjustments;
+            const fresh = await replay(value.state as never);
+            if (JSON.stringify(fresh.result) !== JSON.stringify(value.result))
+              throw Error('BANK_WORKER_RESULT');
+            // Bind the returned originals and context to this request. A valid
+            // envelope from another family/session cannot replace this result.
+            if (action.endsWith('-restore')) {
+              const requested = await restore(
+                (payload as { buffer: ArrayBuffer }).buffer,
+              );
+              if (
+                JSON.stringify(requested.result) !==
+                JSON.stringify(fresh.result)
+              )
+                throw Error('BANK_WORKER_BINDING');
+            } else {
+              const identity = (input: unknown): string =>
+                JSON.stringify(input, (key, v) =>
+                  key === 'sheets'
+                    ? undefined
+                    : v instanceof ArrayBuffer
+                      ? { sourceBytes: v.byteLength }
+                      : v,
+                );
+              if (identity(fresh.state) !== identity(payload))
+                throw Error('BANK_WORKER_BINDING');
+              const originals = (input: typeof value.state) =>
+                'balance' in input
+                  ? [
+                      ...input.balance.bank.files,
+                      ...input.balance.files,
+                      ...input.files,
+                    ]
+                  : input.files;
+              const returned = originals(fresh.state),
+                requested = originals(payload as typeof value.state);
+              for (const [index, file] of returned.entries()) {
+                const a = new Uint8Array(file.original!),
+                  b = new Uint8Array(requested[index].original!);
+                if (
+                  a.length !== b.length ||
+                  a.some((byte, offset) => byte !== b[offset])
+                )
+                  throw Error('BANK_WORKER_BINDING');
+              }
+            }
+            response.value = fresh;
           }
-          if (action === 'restore-session' && isRecord(response.value) && Array.isArray(response.value.files)) {
-            const { replayReviewedVisualSource } = await import('./visual-accounting-source.ts');
-            response.value.files = await Promise.all(response.value.files.map(replayReviewedVisualSource));
+          if (action.startsWith('asset-')) {
+            const { validateAssetWorkerResponse } =
+              await import('./fixed-assets-io.ts');
+            response.value = await validateAssetWorkerResponse(
+              action,
+              response.value,
+              payload,
+            );
+          }
+          if (
+            action === 'read' &&
+            isRecord(response.value) &&
+            response.value.kind === 'reviewed-visual-source'
+          ) {
+            const { replayReviewedVisualSource } =
+              await import('./visual-accounting-source.ts');
+            response.value = await replayReviewedVisualSource(
+              response.value as import('./types.ts').SourceFile,
+            );
+          }
+          if (
+            action === 'restore-session' &&
+            isRecord(response.value) &&
+            Array.isArray(response.value.files)
+          ) {
+            const { replayReviewedVisualSource } =
+              await import('./visual-accounting-source.ts');
+            response.value.files = await Promise.all(
+              response.value.files.map(replayReviewedVisualSource),
+            );
           }
         } catch (error) {
           fail(error);

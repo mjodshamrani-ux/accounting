@@ -1,4 +1,4 @@
-import { stockCopy } from './inventory-register';
+import { stockCopy } from './inventory-register.ts';
 // Only generic table/review controls are shared; asset component facts and claims are independent.
 const controls = (c: typeof stockCopy.en) => ({
   back: c.back,
@@ -33,6 +33,30 @@ const en = {
   family:
     'Four comma UTF-8 CSV originals; ASCII decimals. SAR / JPY / KWD in the same functional currency at one Gregorian date (0001–9999). 8 MiB per original, 20,000 physical data rows total.',
   demo: 'Open a synthetic asset example',
+  registerFormat: 'Register layout',
+  horizontalFormat: 'One row per asset — supplied component columns',
+  longFormat: 'Four rows per asset — one supplied component per row',
+  registerFormatHint:
+    'Select the actual register layout before confirming its reading. Long registers require explicit cost, depreciation, impairment and carrying rows, including zero amounts. Mapping, policy and GL keep their existing layouts.',
+  physicalRows: 'Original component rows',
+  componentEvidence: 'Original supplied component cells',
+  componentEvidenceHeaders: [
+    'Source row',
+    'Amount column',
+    'Asset ID',
+    'Asset dimensions',
+    'Component',
+    'Cell presence',
+    'Original amount text',
+    'Minor units',
+    'Valuation reference',
+    'Original member ID',
+    'Source SHA-256',
+    'Review context',
+  ],
+  presentCell: 'Present',
+  absentCell: 'Absent',
+  emptyCell: 'Present, empty text',
   syntheticRef: 'SYN-COMPLETE',
   syntheticNote: 'Synthetic complete selected asset accounts',
   restore: 'Restore asset session',
@@ -173,6 +197,10 @@ const en = {
     VALIDITY: 'Gregorian date or policy validity',
     CLASS: 'Asset component account class',
     DUPLICATE: 'Competing identity',
+    COMPONENT_SET:
+      'Exactly one supplied row for each of the four asset components is required',
+    VALUATION_REFERENCE:
+      'The four component rows must share one valuation reference',
     DUPLICATE_MAPPING_ID: 'Competing mapping ID',
     AGGREGATE_BOUND: 'Signed intermediate or total bound',
   },
@@ -188,6 +216,30 @@ const ar: typeof en = {
   family:
     'أربعة أصول CSV بفاصلة وUTF-8 وأعداد لاتينية عشرية. SAR / JPY / KWD بالعملة الوظيفية نفسها وتاريخ ميلادي واحد (0001–9999). 8 ميبيبايت لكل أصل و20ألف صف بيانات فيزيائي إجمالًا.',
   demo: 'افتح مثال أصول اصطناعي',
+  registerFormat: 'تنسيق سجل الأصول',
+  horizontalFormat: 'صف لكل أصل — أعمدة المكونات المقدمة',
+  longFormat: 'أربعة صفوف لكل أصل — مكون مقدم في كل صف',
+  registerFormatHint:
+    'اختر تنسيق السجل الفعلي قبل تأكيد قراءته. يتطلب السجل الطويل صفوف الكلفة والاستهلاك والانخفاض والصافي صراحةً، بما فيها القيم الصفرية. تبقى تنسيقات الخريطة والسياسة والأستاذ الحالية.',
+  physicalRows: 'صفوف المكونات الأصلية',
+  componentEvidence: 'خلايا المكونات المقدمة الأصلية',
+  componentEvidenceHeaders: [
+    'صف المصدر',
+    'عمود المبلغ',
+    'معرف الأصل',
+    'أبعاد الأصل',
+    'المكون',
+    'وجود الخلية',
+    'نص المبلغ الأصلي',
+    'وحدات صغرى',
+    'مرجع القيمة',
+    'معرف العضو الأصلي',
+    'بصمة المصدر SHA-256',
+    'سياق المراجعة',
+  ],
+  presentCell: 'موجودة',
+  absentCell: 'غائبة',
+  emptyCell: 'موجودة بنص فارغ',
   syntheticRef: 'SYN-COMPLETE',
   syntheticNote: 'تصريح اصطناعي لحسابات الأصول المحددة',
   restore: 'استعد جلسة الأصول',
@@ -327,6 +379,8 @@ const ar: typeof en = {
     VALIDITY: 'التاريخ الميلادي أو صلاحية الدليل',
     CLASS: 'تصنيف حساب مكونات الأصول',
     DUPLICATE: 'هوية متنافسة',
+    COMPONENT_SET: 'يلزم صف مقدم واحد بالضبط لكل مكون من مكونات الأصل الأربعة',
+    VALUATION_REFERENCE: 'يجب أن تشترك صفوف المكونات الأربعة في مرجع قيمة واحد',
     DUPLICATE_MAPPING_ID: 'معرف خريطة متنافس',
     AGGREGATE_BOUND: 'حد الإجمالي أو المجموع الجاري الموقع',
   },

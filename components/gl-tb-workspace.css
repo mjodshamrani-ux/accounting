@@ -70,3 +70,47 @@
 .gl-tb-table td:last-child {
   max-width: 25rem;
 }
+.gl-tb-role-evidence {
+  margin-block: 1.5rem;
+}
+.gl-tb-role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 0.85rem;
+}
+.gl-tb-role-card {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem 1.15rem;
+  background: var(--card);
+  box-shadow: 0 2px 12px rgb(15 23 42 / 4%);
+}
+.gl-tb-role-card h4 {
+  margin-block: 0 0.75rem;
+  font-weight: 700;
+}
+.gl-tb-role-card p {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+.gl-tb-role-card dl > div {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-block-start: 0.7rem;
+}
+.gl-tb-role-card dt {
+  font-size: 0.85rem;
+}
+.gl-tb-role-card dd {
+  margin: 0;
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+.gl-tb-role-card small {
+  display: block;
+  margin-block-start: 0.15rem;
+  color: var(--muted-foreground);
+}

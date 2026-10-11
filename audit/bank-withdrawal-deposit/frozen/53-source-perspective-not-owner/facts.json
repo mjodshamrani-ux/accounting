@@ -1,0 +1,27 @@
+{
+  "id": "53-source-perspective-not-owner",
+  "scope": {
+    "entity": "Synthetic Owner WD",
+    "ledger": "Synthetic Cash Book",
+    "account": "SYN-BANK-001",
+    "currency": "SAR",
+    "start": "2026-09-01",
+    "end": "2026-09-30",
+    "confirmed": true
+  },
+  "families": [
+    "wd",
+    "canonical"
+  ],
+  "expected": {
+    "status": "structural-refusal",
+    "issue": "perspective"
+  },
+  "syntheticOnly": true,
+  "note": "",
+  "perspective": "bank-books",
+  "files": [
+    "bank.csv",
+    "cash.csv"
+  ]
+}

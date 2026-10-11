@@ -1,0 +1,39 @@
+{
+  "name": "09-kwd-three-decimals",
+  "syntheticOnly": true,
+  "sourceFamily": "fixed-assets-long-components-gl-1",
+  "scope": {
+    "entity": "SYN-ENTITY",
+    "assetLedger": "SYN-ASSET-BOOK",
+    "glLedger": "SYN-GL",
+    "currency": "KWD",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "actual",
+    "asOf": "2026-09-30",
+    "chartVersion": "SYN-CHART-1",
+    "mapVersion": "SYN-MAP-1",
+    "componentPolicyVersion": "SYN-POLICY-1",
+    "assetAccountSetVersion": "SYN-ACCOUNTS-1",
+    "confirmed": true
+  },
+  "expectedFinancial": "ready",
+  "assertions": {
+    "physicalMembers": 23,
+    "totals": {
+      "register": {
+        "cost": 1400001,
+        "depreciation": 300000,
+        "impairment": 50000,
+        "carrying": 1050001
+      },
+      "gl": {
+        "cost": 1400001,
+        "depreciation": 300000,
+        "impairment": 50000,
+        "carrying": 1050001
+      }
+    }
+  },
+  "structuralPurpose": "long-four-components"
+}

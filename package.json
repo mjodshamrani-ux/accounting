@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.43",
+  "version": "0.4.44",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -29,7 +29,7 @@
     "test:split-section": "node --experimental-strip-types --test tests/split-section-classifier.test.ts tests/split-section-session.test.ts",
     "test:split-section:mutations": "node scripts/test-split-section-mutations.mjs",
     "test:split-section:browser": "node scripts/split-section-browser.mjs",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm test:native-pdf:mutations && pnpm test:running-balance && pnpm test:running-balance:proof && pnpm test:running-balance:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:split-section:browser && pnpm test:running-balance:browser",
+    "check": "pnpm test:source-families:ci && pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm test:native-pdf:mutations && pnpm test:running-balance && pnpm test:running-balance:proof && pnpm test:running-balance:mutations && pnpm test:fixed-assets-long && pnpm test:fixed-assets-long:oracle && pnpm test:fixed-assets-long:proof && pnpm test:fixed-assets-long:mutations && pnpm test:gl-tb-vertical && pnpm test:gl-tb-vertical:proof && pnpm test:gl-tb-vertical:mutations && pnpm test:bank-wd:proof && pnpm test:bank-wd:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:split-section:browser && pnpm test:running-balance:browser && pnpm test:gl-tb-vertical:browser && pnpm test:bank-wd:browser && pnpm test:fixed-assets-long:browser",
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
     "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
@@ -44,7 +44,20 @@
     "test:running-balance": "RUNNING_SESSION_REPORT_DIR=\"${RUNNING_SESSION_REPORT_DIR:-work/running-balance-session}\" node --experimental-strip-types --test tests/running-balance-classifier.test.ts tests/running-balance-session.test.ts tests/running-balance-authority.test.ts tests/running-balance-native-regression.test.ts",
     "test:running-balance:mutations": "RUNNING_MUTATION_REPORT_DIR=\"${RUNNING_MUTATION_REPORT_DIR:-work/running-balance-mutations}\" node scripts/test-running-balance-mutations.mjs",
     "test:running-balance:proof": "RUNNING_REPORT_DIR=\"${RUNNING_REPORT_DIR:-work/running-balance-proof}\" node --experimental-strip-types scripts/running-balance-proof.mjs && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_REPORT_DIR:-work/running-balance-proof}\"",
-    "test:running-balance:browser": "RUNNING_BROWSER_REPORT_DIR=\"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}\" node --experimental-strip-types scripts/running-balance-browser.mjs && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}/ar\" && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}/en\""
+    "test:running-balance:browser": "RUNNING_BROWSER_REPORT_DIR=\"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}\" node --experimental-strip-types scripts/running-balance-browser.mjs && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}/ar\" && python3 -B scripts/check-running-balance-exports.py \"${RUNNING_BROWSER_REPORT_DIR:-work/running-balance-browser}/en\"",
+    "test:gl-tb-vertical": "node --experimental-strip-types --test tests/gl-tb-vertical-core.test.ts tests/gl-tb-vertical-session.test.ts tests/gl-tb-vertical-worker.test.ts",
+    "test:gl-tb-vertical:proof": "node --experimental-strip-types scripts/gl-tb-vertical-proof.mjs && python3 -B scripts/check-gl-tb-vertical-exports.py \"${GL_TB_VERTICAL_REPORT_DIR:-work/gl-tb-vertical-proof}\"",
+    "test:gl-tb-vertical:mutations": "node scripts/test-gl-tb-vertical-mutations.mjs",
+    "test:gl-tb-vertical:browser": "node --experimental-strip-types scripts/gl-tb-vertical-browser.mjs",
+    "test:bank-wd:mutations": "node scripts/test-bank-wd-mutations.mjs",
+    "test:bank-wd:proof": "node --experimental-strip-types audit/bank-withdrawal-deposit/prove.mjs && node --experimental-strip-types audit/bank-withdrawal-deposit/lifecycle-proof.mjs",
+    "test:bank-wd:browser": "node --experimental-strip-types scripts/bank-wd-browser.mjs",
+    "test:fixed-assets-long": "node --experimental-strip-types --test tests/fixed-assets-long.test.ts tests/fixed-assets-long-io.test.ts tests/fixed-assets-long-worker.test.ts",
+    "test:fixed-assets-long:proof": "ASSET_LONG_REPORT_DIR=\"${ASSET_LONG_REPORT_DIR:-work/fixed-assets-long-proof}\" node --experimental-strip-types scripts/prove-fixed-assets-long.mjs && python3 -B audit/fixed-assets-long/check-evidence.py \"${ASSET_LONG_REPORT_DIR:-work/fixed-assets-long-proof}\"",
+    "test:fixed-assets-long:mutations": "node scripts/test-fixed-assets-long-mutations.mjs",
+    "test:fixed-assets-long:oracle": "python3 -B -m unittest discover -s audit/fixed-assets-long/oracle -p test_oracle.py -v && python3 -B scripts/check-fixed-assets-long-oracle.py",
+    "test:fixed-assets-long:browser": "node --experimental-strip-types scripts/fixed-assets-long-browser.mjs",
+    "test:source-families:ci": "node scripts/check-source-family-ci.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

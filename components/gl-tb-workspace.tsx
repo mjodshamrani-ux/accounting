@@ -14,6 +14,8 @@ import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { money } from '@/lib/reconciliation/core';
 import {
   BALANCE_FIELDS,
+  GL_TB_VERSION,
+  GL_TB_VERTICAL_FAMILY,
   GL_SCOPE_FIELDS,
   type GlTbInput,
   type GlTbReading,
@@ -24,6 +26,7 @@ import {
 import {
   glDemoScope,
   glDemoReadings,
+  glVerticalDemoReadings,
   glTbDemo,
 } from '@/lib/reconciliation/gl-tb-demo';
 import './gl-tb-workspace.css';
@@ -147,6 +150,7 @@ export function GlTbWorkspace({
   const formatted = (n: number | null | undefined) =>
     n === null || n === undefined ? t.missing : money(n, result!.decimals);
   const rowById = new Map(result?.rows.map((r) => [`${r.side}:${r.row}`, r]));
+  const tbRoles = ['opening', 'period', 'closing'] as const;
   if (!active) return null;
   return (
     <main
@@ -181,6 +185,29 @@ export function GlTbWorkspace({
             }
           >
             {t.sample}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() =>
+              perform(async (signal) => {
+                const source: SourceFile[] = [];
+                for (const demo of glTbDemo(true))
+                  source.push(await workerTask('read', demo, signal));
+                install(
+                  await workerTask(
+                    'gl-tb-reconcile',
+                    {
+                      files: source,
+                      readings: glVerticalDemoReadings,
+                      scope: glDemoScope,
+                    },
+                    signal,
+                  ),
+                );
+              })
+            }
+          >
+            {t.sampleVertical}
           </Button>
           <label>
             {t.restore}
@@ -233,6 +260,33 @@ export function GlTbWorkspace({
               {files[side] && (
                 <>
                   <h3>{files[side]!.name}</h3>
+                  {side === 1 && (
+                    <label>
+                      {t.family}
+                      <select
+                        data-testid="gl-tb-family"
+                        aria-label={t.family}
+                        value={readings[side].family}
+                        onChange={(event) => {
+                          const next = [...readings] as typeof readings;
+                          next[side] = {
+                            ...readings[side],
+                            family: event.target.value as GlTbReading['family'],
+                            confirmed: false,
+                          };
+                          setReadings(next);
+                          invalidate();
+                        }}
+                      >
+                        <option value={GL_TB_VERSION}>
+                          {t.horizontalFamily}
+                        </option>
+                        <option value={GL_TB_VERTICAL_FAMILY}>
+                          {t.verticalFamily}
+                        </option>
+                      </select>
+                    </label>
+                  )}
                   <label>
                     {t.sides[side]}: {t.sheet}
                     <select
@@ -289,6 +343,7 @@ export function GlTbWorkspace({
                 {t.fields[key]}
                 {key === 'currencyBasis' || key === 'postingStatus' ? (
                   <select
+                    aria-label={t.fields[key]}
                     value={scope[key]}
                     onChange={(event) => updateScope(key, event.target.value)}
                   >
@@ -302,6 +357,7 @@ export function GlTbWorkspace({
                   </select>
                 ) : (
                   <input
+                    aria-label={t.fields[key]}
                     type={key === 'start' || key === 'end' ? 'date' : 'text'}
                     value={scope[key]}
                     onChange={(event) => updateScope(key, event.target.value)}
@@ -337,6 +393,20 @@ export function GlTbWorkspace({
           {t.compare}
         </Button>
       </fieldset>
+      {busy && (
+        <Button
+          variant="outline"
+          onClick={() => {
+            serial.current++;
+            controller.current?.abort();
+            controller.current = null;
+            setBusy(false);
+            invalidate();
+          }}
+        >
+          {t.cancel}
+        </Button>
+      )}
       {failed && <p role="alert">{t.failure}</p>}
       {result && (
         <section data-testid="gl-tb-result">
@@ -358,6 +428,51 @@ export function GlTbWorkspace({
               {t.missing}:{' '}
               {result.missing.map((k) => t.missingLabels[k]).join(' / ')}
             </p>
+          )}
+          {result.readings[1].family === GL_TB_VERTICAL_FAMILY && (
+            <section
+              className="gl-tb-role-evidence"
+              data-testid="gl-tb-role-evidence"
+            >
+              <h3>{t.verticalEvidence}</h3>
+              <div className="gl-tb-role-grid">
+                {tbRoles.map((role) => {
+                  const row = result.rows.find(
+                    (r) => r.side === 1 && r.kind === role,
+                  );
+                  return (
+                    <article className="gl-tb-role-card" key={role}>
+                      <h4>{t.kinds[role]}</h4>
+                      {row ? (
+                        <>
+                          <p>
+                            {t.snapshot}: <bdi>{row.record}</bdi>
+                          </p>
+                          <p>
+                            {t.row}: <bdi>{row.row}</bdi>
+                          </p>
+                          <dl>
+                            {row.trace.map((cell, index) => (
+                              <div key={cell.column}>
+                                <dt>{index === 0 ? t.debit : t.credit}</dt>
+                                <dd>
+                                  <bdi>{cell.text}</bdi>
+                                  <small>
+                                    {t.column} {cell.column}
+                                  </small>
+                                </dd>
+                              </div>
+                            ))}
+                          </dl>
+                        </>
+                      ) : (
+                        <p>{t.missing}</p>
+                      )}
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
           )}
           <div className="gl-tb-table">
             <table data-testid="gl-tb-balances">

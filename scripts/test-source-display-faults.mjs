@@ -42,8 +42,8 @@ const faults = [
   [
     'bank-native-guard',
     'lib/reconciliation/bank-io.ts',
-    '    await assertBankNativeDisplay(file);',
-    '    // deliberately omit native replay verification',
+    /    await assertBankNativeDisplay\(file, 'BANK_NATIVE_DISPLAY', \{[\s\S]*?\n    \}\);/,
+    '    void file; // deliberately omit native replay verification',
   ],
   [
     'raw-row-inheritance',

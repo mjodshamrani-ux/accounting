@@ -260,6 +260,7 @@ async function noOutput(panel, t) {
 }
 // Hold a genuine WebCrypto reply for this exact original. No accepted data is fabricated.
 function installDigestHold() {
+  if (!globalThis.crypto?.subtle) return;
   const original = crypto.subtle.digest.bind(crypto.subtle);
   const state = { armedHash: null, heldHash: null, release: null, events: [] };
   window.__qualifiedDigestHold = state;

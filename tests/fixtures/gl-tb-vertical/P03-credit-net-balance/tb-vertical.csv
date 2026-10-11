@@ -1,0 +1,4 @@
+Snapshot ID,Balance role,Entity,Ledger,Account,Complete dimensions,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,Debit,Credit
+TB-SNAP-01,opening,Synthetic Diversification Co,General Ledger,001100,CostCentre=CC07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,200.00,500.00
+TB-SNAP-01,period,Synthetic Diversification Co,General Ledger,001100,CostCentre=CC07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,40.00,100.00
+TB-SNAP-01,closing,Synthetic Diversification Co,General Ledger,001100,CostCentre=CC07|Project=PR09,SAR,functional,posted,Current,2026-10-01,2026-10-31,140.00,500.00

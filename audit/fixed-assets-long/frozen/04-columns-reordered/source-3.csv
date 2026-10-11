@@ -1,0 +1,4 @@
+Asset account set version,Component policy version,Map version,Chart version,As of,Posting layer,Posting status,Currency basis,Currency,GL ledger,Asset ledger,Entity,Credit,Debit,Account class,GL dimensions,GL account
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,0.00,1400.00,fixed-asset-cost,BOOK,1600
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,300.00,0.00,accumulated-depreciation,BOOK,1690
+SYN-ACCOUNTS-1,SYN-POLICY-1,SYN-MAP-1,SYN-CHART-1,2026-09-30,actual,posted,functional,SAR,SYN-GL,SYN-ASSET-BOOK,SYN-ENTITY,50.00,0.00,accumulated-impairment,BOOK,1695

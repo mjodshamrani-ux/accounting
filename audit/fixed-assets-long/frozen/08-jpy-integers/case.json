@@ -1,0 +1,39 @@
+{
+  "name": "08-jpy-integers",
+  "syntheticOnly": true,
+  "sourceFamily": "fixed-assets-long-components-gl-1",
+  "scope": {
+    "entity": "SYN-ENTITY",
+    "assetLedger": "SYN-ASSET-BOOK",
+    "glLedger": "SYN-GL",
+    "currency": "JPY",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "actual",
+    "asOf": "2026-09-30",
+    "chartVersion": "SYN-CHART-1",
+    "mapVersion": "SYN-MAP-1",
+    "componentPolicyVersion": "SYN-POLICY-1",
+    "assetAccountSetVersion": "SYN-ACCOUNTS-1",
+    "confirmed": true
+  },
+  "expectedFinancial": "ready",
+  "assertions": {
+    "physicalMembers": 23,
+    "totals": {
+      "register": {
+        "cost": 1400,
+        "depreciation": 300,
+        "impairment": 50,
+        "carrying": 1050
+      },
+      "gl": {
+        "cost": 1400,
+        "depreciation": 300,
+        "impairment": 50,
+        "carrying": 1050
+      }
+    }
+  },
+  "structuralPurpose": "long-four-components"
+}
