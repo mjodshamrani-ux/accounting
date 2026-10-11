@@ -50,6 +50,14 @@ export function createWorkerClient(
     return new Promise((resolve, reject) => {
       if (signal?.aborted) return reject(new Error('أُلغيت العملية'));
       if (inUse) return reject(new Error('انتظر انتهاء العملية الحالية'));
+      // Capture the requested originals and context before validation can yield.
+      if (action.startsWith('gl-tb-')) {
+        try {
+          payload = structuredClone(payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       if (!cached) cached = create();
       const worker = cached,
         id = ++serial;
@@ -155,6 +163,42 @@ export function createWorkerClient(
         }
         try {
           validateWorkerValue(action, response.value, payload);
+          if (action === 'gl-tb-reconcile' || action === 'gl-tb-restore') {
+            const { replayGlTb, restoreGlTb } = await import('./gl-tb-io.ts');
+            const requested =
+              action === 'gl-tb-restore'
+                ? await restoreGlTb((payload as { buffer: ArrayBuffer }).buffer)
+                : await replayGlTb(payload as import('./gl-tb.ts').GlTbInput);
+            const returned = response.value as typeof requested;
+            const identity = (state: typeof requested.state) =>
+              JSON.stringify({
+                scope: state.scope,
+                readings: state.readings,
+                files: state.files.map((file) => ({
+                  name: file.name,
+                  kind: file.kind,
+                  sha256: file.sha256,
+                  originalBytes: file.original!.byteLength,
+                })),
+              });
+            if (
+              identity(returned.state) !== identity(requested.state) ||
+              JSON.stringify(returned.result) !==
+                JSON.stringify(requested.result)
+            )
+              throw Error('GL_TB_WORKER_BINDING');
+            for (const [index, file] of returned.state.files.entries()) {
+              const a = new Uint8Array(file.original!),
+                b = new Uint8Array(requested.state.files[index].original!);
+              if (
+                a.length !== b.length ||
+                a.some((byte, offset) => byte !== b[offset])
+              )
+                throw Error('GL_TB_WORKER_BINDING');
+            }
+            // Install only sheets re-read from this request's originals.
+            response.value = requested;
+          }
           if (action === 'read' && isRecord(response.value) && response.value.kind === 'reviewed-visual-source') {
             const { replayReviewedVisualSource } = await import('./visual-accounting-source.ts');
             response.value = await replayReviewedVisualSource(response.value as import('./types.ts').SourceFile);
