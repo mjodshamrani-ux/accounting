@@ -2,14 +2,10 @@
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
-import { createRequire } from 'node:module';
+import yaml from 'js-yaml';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 const root = path.resolve(import.meta.dirname, '..');
-const require = createRequire(import.meta.url);
-const yaml = require(
-  path.join(root, 'node_modules/.pnpm/js-yaml@4.3.2/node_modules/js-yaml'),
-);
 const load = (name) => yaml.load(readFileSync(path.join(root, name), 'utf8'));
 assert.equal(
   createHash('sha256')
