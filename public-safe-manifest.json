@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 20004,
-      "sha256": "ec3e89f24aeafb36e8c5c39047a39f2b5a82cd7519075f0258e72ce053e3b638",
+      "bytes": 20533,
+      "sha256": "5160955c7de1384fc9fcead63c355ce84cc2bfd397ed7560d8db423bcb2c4936",
       "kind": "text"
     },
     {
@@ -5568,6 +5568,30 @@
       "bytes": 13091,
       "sha256": "17f64b0815a4668bda39946fe833150a264d3faf7d09e896ddfaf24cb9741759",
       "kind": "text"
+    },
+    {
+      "path": "audit/gl-tb-binding/check_exports.py",
+      "kind": "text",
+      "bytes": 5939,
+      "sha256": "37766482c0e218b4aa4c81107050ff568734f5429afa740aaff2c4feb7ab3bc3"
+    },
+    {
+      "path": "audit/gl-tb-binding/frozen/gl.csv",
+      "kind": "text",
+      "bytes": 647,
+      "sha256": "2298b96aac0be0a47c35ca932bb28735a328df6812b9675d37977c007dec9192"
+    },
+    {
+      "path": "audit/gl-tb-binding/frozen/tb.csv",
+      "kind": "text",
+      "bytes": 387,
+      "sha256": "8699e6e9fe5ab3b251b351440a099602cf63daa6ca59636c9604e688b5e35d0a"
+    },
+    {
+      "path": "audit/gl-tb-binding/frozen/truth.json",
+      "kind": "text",
+      "bytes": 1293,
+      "sha256": "342f165ab6469bdf13ba6137a0908a5c4a08e4067bd618ce39ceaa60f2f65e5d"
     },
     {
       "path": "audit/gl-tb/check_export.py",
@@ -26232,6 +26256,12 @@
       "kind": "text"
     },
     {
+      "path": "docs/GL-TB-REQUEST-BINDING-HOTFIX.ar.md",
+      "kind": "text",
+      "bytes": 3029,
+      "sha256": "2767be448f2b380759637a86e50af3f703582821d96b6a32acf0b903a17694b6"
+    },
+    {
       "path": "docs/P4-RAW-SIGNED-HEADER-CONTRACT.ar.md",
       "bytes": 7842,
       "sha256": "6b8704da72b8fe344795f6e66bf366a99a15b064d4c19b352256a471eb197ce8",
@@ -26278,6 +26308,12 @@
       "bytes": 2133,
       "sha256": "880bc1d37c2fc13c904eb3e184d8e1056b14322f70d0f4b6fd306fd8a2e22f3c",
       "kind": "text"
+    },
+    {
+      "path": "docs/RELEASE-0.4.43.ar.md",
+      "kind": "text",
+      "bytes": 1561,
+      "sha256": "e762eb1c3fb1b73b61af7ac75821ceeec415c058f32dc0faf651c519d6e88aa2"
     },
     {
       "path": "docs/VERIFICATION-FIXES.ar.md",
@@ -26338,7 +26374,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "f658003875a2fe98db0363f0de136fe4685331546e1111b42554228cb1124818",
+      "sha256": "2f625bef4593c0e6eff65b9ac2b9a7cf9d2a64503f7c749bf3fb69d1f250699d",
       "kind": "text"
     },
     {
@@ -27195,8 +27231,8 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 7149,
-      "sha256": "73ede2e0d06e2c1a15a54ab3c8268557c99e613ce195a38d18ef51c526d02252",
+      "bytes": 9081,
+      "sha256": "6c27657c9b7d8fa763b5e83264cc2da4b42cb2cd251c2e49ee644da9da825117",
       "kind": "text"
     },
     {
@@ -27244,7 +27280,7 @@
     {
       "path": "package.json",
       "bytes": 6114,
-      "sha256": "9fc9091495832afe15484b8b743e2c1eec7806de871934912da70722cdcba904",
+      "sha256": "0f2f496269fb3b7c39e85462104eeb404e14efd43f8f955fa3a59bbc214f0a0d",
       "kind": "text"
     },
     {
@@ -27852,6 +27888,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/test-gl-tb-binding-mutations.mjs",
+      "kind": "text",
+      "bytes": 4642,
+      "sha256": "033056355f1c36cddcfe94cb2aa5deb4a51c9a1fbab28d95cfe0e36dcbf490b7"
+    },
+    {
       "path": "scripts/test-mutations.mjs",
       "bytes": 62503,
       "sha256": "0755266d517811804a3ad02db12b2538c139e59378f236a18c8d7410e37602c5",
@@ -28336,6 +28378,12 @@
       "kind": "text"
     },
     {
+      "path": "tests/gl-tb-binding.test.ts",
+      "kind": "text",
+      "bytes": 13931,
+      "sha256": "0b02c10de03b5dbcd73de24aecc33005b901467a4bef60638c351ff4821f28bf"
+    },
+    {
       "path": "tests/gl-tb.test.ts",
       "bytes": 14920,
       "sha256": "9ec09440d19ae1e6f9df6983d2b32803ca88d07e13f028d75ff0945f998330a9",
@@ -28376,6 +28424,18 @@
       "bytes": 3528,
       "sha256": "f1729bc24203502b826d3f595dea70e34087e165d90a878a00d0337a4b26712a",
       "kind": "text"
+    },
+    {
+      "path": "tests/helpers/gl-tb-binding-port.ts",
+      "kind": "text",
+      "bytes": 1697,
+      "sha256": "c2c9ba8f215db1ac13f8ed6a014caa7882ba118b5a9ca5211c8ec298826efc36"
+    },
+    {
+      "path": "tests/helpers/gl-tb-binding-worker.mjs",
+      "kind": "text",
+      "bytes": 444,
+      "sha256": "283f0adef99c4d1476a2fee0ed0aff338573150edc62c801b3a5ab389b8c74dd"
     },
     {
       "path": "tests/helpers/i18n-not-shown.ts",
@@ -29220,19 +29280,25 @@
       "kind": "text"
     },
     {
+      "path": "assets/gl-tb-io-dt9IAky8.js",
+      "kind": "text",
+      "bytes": 1861,
+      "sha256": "3ca6f1da8073e24c354fe81ea0ac8de2fe49d98b82985aeab6200c6d560ace56"
+    },
+    {
       "path": "assets/index-C8r67aEM.css",
       "bytes": 269147,
       "sha256": "4d05f5154ab9e9c1fef1934899ece47cbb4ad3378731c067508c7cab57c0a49b",
       "kind": "text"
     },
     {
-      "path": "assets/index-RON2SP76.js",
-      "bytes": 7575911,
-      "sha256": "012646859725d9c447ef3b9bb1f85cf482c15c0fa3266d6d3d479a496bc81eb9",
+      "path": "assets/index-DchW9yjC.js",
       "kind": "approved-binary",
+      "bytes": 7576808,
+      "sha256": "2e89917832092015be7883600478974428e217c5597618b018c0cc5e0b6650d1",
       "provenance": {
-        "type": "public-design",
-        "description": "Locally compiled proposed application asset from unchanged locked dependencies. Parser control literals remain subject to decoded privacy scans. Exact source and distribution require independent final review before publication."
+        "type": "synthetic",
+        "description": "Reviewed generated distribution from the limited GL-TB hotfix and unchanged pinned dependencies."
       }
     },
     {
@@ -29268,10 +29334,10 @@
       "kind": "text"
     },
     {
-      "path": "assets/visual-renderer--IwuYZnM.js",
-      "bytes": 6542,
-      "sha256": "c3fcee6dddbc4299e7f241b4ec9eb8f5b96f618959d317947a24dc9a9581d9f1",
-      "kind": "text"
+      "path": "assets/visual-renderer-u-_NJOBM.js",
+      "kind": "text",
+      "bytes": 6547,
+      "sha256": "fc27ea9e2ed08db14d45581997c63d8ee0938f5e76239095cef3738dc00b69d4"
     },
     {
       "path": "brand/apple-touch-icon.png",
@@ -29346,7 +29412,7 @@
     {
       "path": "index.html",
       "bytes": 3359,
-      "sha256": "8068ab39ad92093792b313a9361c268ea1f86b435ef4c243b3f1db66d6bcb140",
+      "sha256": "c944d4c42f146bae6f2ee13bb8dc76d181bf6a69811a3132c2ed41be5ade6ca7",
       "kind": "text"
     },
     {

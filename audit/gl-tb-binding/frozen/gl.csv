@@ -1,0 +1,4 @@
+Record ID,Record kind,Posting date,Entity,Ledger,Account,Complete dimensions,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,Debit,Credit
+NEW-O,opening,2026-10-01,Independent Integration Entity,Actual GL,000781,Site=ZZ|CostCentre=019,SAR,functional,posted,Current,2026-10-01,2026-10-31,91.07,11.03
+NEW-M,movement,2026-10-17,Independent Integration Entity,Actual GL,000781,Site=ZZ|CostCentre=019,SAR,functional,posted,Current,2026-10-01,2026-10-31,9.13,3.17
+NEW-C,closing,2026-10-31,Independent Integration Entity,Actual GL,000781,Site=ZZ|CostCentre=019,SAR,functional,posted,Current,2026-10-01,2026-10-31,100.20,14.20

@@ -1,0 +1,50 @@
+{
+  "authoredBeforeProductObservation": true,
+  "source": "Python stdlib raw CSV and Decimal; no product imports or author oracle",
+  "scope": {
+    "entity": "Independent Integration Entity",
+    "ledger": "Actual GL",
+    "account": "000781",
+    "dimensions": "Site=ZZ|CostCentre=019",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "Current",
+    "start": "2026-10-01",
+    "end": "2026-10-31",
+    "confirmed": true
+  },
+  "tb": {
+    "status": "consistent",
+    "gl": {
+      "openingDebit": 9107,
+      "openingCredit": 1103,
+      "periodDebit": 913,
+      "periodCredit": 317,
+      "closingDebit": 10020,
+      "closingCredit": 1420
+    },
+    "tb": {
+      "openingDebit": 9107,
+      "openingCredit": 1103,
+      "periodDebit": 913,
+      "periodCredit": 317,
+      "closingDebit": 10020,
+      "closingCredit": 1420
+    },
+    "differences": {
+      "openingDebit": 0,
+      "openingCredit": 0,
+      "periodDebit": 0,
+      "periodCredit": 0,
+      "closingDebit": 0,
+      "closingCredit": 0
+    },
+    "glBridge": 0,
+    "tbBridge": 0
+  },
+  "attacks": {
+    "coherentParsedCache": "reject; original money is unchanged",
+    "foreignSessionRestore": "reject; response originals differ from requested session"
+  }
+}

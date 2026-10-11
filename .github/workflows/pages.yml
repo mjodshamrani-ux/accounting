@@ -34,6 +34,14 @@ jobs:
         env:
           RUNNING_SESSION_REPORT_DIR: ${{ runner.temp }}/running-balance-session
       - run: pnpm test:mutation-runner
+      - name: Verify GL-TB request source and session binding with independent exports and guard faults
+        env:
+          GL_TB_BINDING_REPORT_DIR: ${{ runner.temp }}/gl-tb-binding-exports
+          GL_TB_BINDING_MUTATION_DIR: ${{ runner.temp }}/gl-tb-binding-mutations
+        run: |
+          node --experimental-strip-types --test --test-reporter=tap tests/gl-tb-binding.test.ts
+          python3 -B audit/gl-tb-binding/check_exports.py "$GL_TB_BINDING_REPORT_DIR"
+          node scripts/test-gl-tb-binding-mutations.mjs
       - name: Independently verify bank movements, gross/net roles, complete reversals and retained timing
         run: |
           node --experimental-strip-types audit/bank/export-fixture.mjs
