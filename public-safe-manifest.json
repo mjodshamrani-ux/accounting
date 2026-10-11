@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 23216,
-      "sha256": "73e309a8a42c80d819fa11afac1b95f9533eb7f367fbcd31d7d4af5fec064d3c",
+      "bytes": 24291,
+      "sha256": "a85c1eb24e64221393d6d68f625831f7579b81359df81693b870e1904198b352",
       "kind": "text"
     },
     {
@@ -18858,6 +18858,2976 @@
       "kind": "text"
     },
     {
+      "path": "audit/payment-gateway-signed/PROVENANCE.json",
+      "bytes": 357,
+      "sha256": "c479c6a7041cb7c77bc26ad13f0877349d65ce411f69035d51a4d0f32b1174a1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/README.md",
+      "bytes": 1183,
+      "sha256": "53bcf813ccd189d0579f48d16d98ebac87cfa624ca5b3b3a97daeea3d2833dc5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/build_fixtures.py",
+      "bytes": 23216,
+      "sha256": "2aa79f45783a1df863b53d11dc06e092acb8bac13469c9e6e7472c1ca74c6a33",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/falsify_naive_candidates.py",
+      "bytes": 6378,
+      "sha256": "977dbf24e5a67c1649bf8071cad5629997d3612732aa719233490fde4831aefb",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-blank-shared-numeric-xlsx/0.xlsx",
+      "bytes": 2911,
+      "sha256": "afc3b2c236189af6a8e51ed3f360cd0730f7f5883cd7684b3a7e02c032033d00",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-blank-shared-numeric-xlsx/1.xlsx",
+      "bytes": 2848,
+      "sha256": "43d0a3cf1e50faf6ec1a0b7d476ce286a64c845f60cd0de10cdb6129846c7ece",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-blank-shared-numeric-xlsx/2.xlsx",
+      "bytes": 2805,
+      "sha256": "51ff8ed0e98c1a297d9686814b3c183d51811180d14fbc59154d803ccbe8aa05",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-blank-shared-numeric-xlsx/3.xlsx",
+      "bytes": 2734,
+      "sha256": "6441e6da96c885d4b33f29a7d9ed411b6380e28aa193d1911f339f0ee22cf652",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-blank-shared-numeric-xlsx/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-mixed-inline-xlsx/0.xlsx",
+      "bytes": 2598,
+      "sha256": "5aefe68b7ffe1fefd8e9448b6d0d0d2a112394e7ffbdd77a85a3971a91c72db6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-mixed-inline-xlsx/1.xlsx",
+      "bytes": 2520,
+      "sha256": "64fafef06178a2b499be30148d76e949588337c756f03764f52df67b109db7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-mixed-inline-xlsx/2.xlsx",
+      "bytes": 2462,
+      "sha256": "186ded0a3b0a3b90e5c061ca7dc4470e037928b7ea4f2bf404e404060d5a1b82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-mixed-inline-xlsx/3.xlsx",
+      "bytes": 2404,
+      "sha256": "dc42c4fdee1584dfd4c9af1c34eded7d9208361bab201158100858ef870eaf7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/format-sar-mixed-inline-xlsx/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/jpy-many-fees/0.csv",
+      "bytes": 1425,
+      "sha256": "dddd413b41a6a4b99acd3f571e9692209c6058c1249b62505eac2399394b8a4f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/jpy-many-fees/1.csv",
+      "bytes": 977,
+      "sha256": "350c0aaa891e0dd2c6fc1c66ac021939a57ad6b53546062c9021e358a326c922",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/jpy-many-fees/2.csv",
+      "bytes": 506,
+      "sha256": "b09fd682027cbb45df8d45cc9cc3670096bfcb238f67485c53e537e634b2f9af",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/jpy-many-fees/3.csv",
+      "bytes": 438,
+      "sha256": "b525ac41c15a839a13505b888e673b8310bcb6762bfb5f78ba4264847560d2e8",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/jpy-many-fees/bundle.json",
+      "bytes": 746,
+      "sha256": "0e8d8378bfad923023a6eaa3d3c1d87a4a6223c90a2051eb723252ca163ceac1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/kwd-three-decimal/0.csv",
+      "bytes": 1194,
+      "sha256": "446ad4dc7625c4f0aaee7f6603a826189aa3ada69439cf9b873f364215c2f071",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/kwd-three-decimal/1.csv",
+      "bytes": 469,
+      "sha256": "7a5e94e2230d8bd0b0d96f5c46f94a6480ac75119bc49e7887c4b0d99c1a6c7d",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/kwd-three-decimal/2.csv",
+      "bytes": 520,
+      "sha256": "ee6b149b958b36bdc17dc7eebdceefdfe37468eeac28dd498803c25fee7fe138",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/kwd-three-decimal/3.csv",
+      "bytes": 441,
+      "sha256": "85908fb0d18b116fd501b063fbf93e1f713f02f35dcc58acb30a288ba08cc894",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/kwd-three-decimal/bundle.json",
+      "bytes": 746,
+      "sha256": "074cb5ad781ad22d4a705882976c51cbee20761cf9344a4f303f5ca1a4aa9e2a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/missing-positive-fee-detail/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/missing-positive-fee-detail/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/missing-positive-fee-detail/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/missing-positive-fee-detail/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/missing-positive-fee-detail/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-accounting-parentheses/0.csv",
+      "bytes": 455,
+      "sha256": "e42001ac756d7ffe5f5cf9dec6d0d547f90de4d94a1abc3907e10ad03305439e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-accounting-parentheses/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-accounting-parentheses/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-accounting-parentheses/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-accounting-parentheses/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-aggregate-bound/0.csv",
+      "bytes": 711,
+      "sha256": "558d33e20b6d02363c709f71fcd0307ecbda15683ed7843de72dcb5ac2281fa9",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-aggregate-bound/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-aggregate-bound/2.csv",
+      "bytes": 532,
+      "sha256": "badcf1b22ca6f1f92d334d5b50fa0c0fa33f28864f1697900df4c75ecadec908",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-aggregate-bound/3.csv",
+      "bytes": 451,
+      "sha256": "70f1379edfc2020a0171aa10d8107ec6bb56ae0b5ae60f1e62da1f4d2649f46d",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-aggregate-bound/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-bank-credit/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-bank-credit/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-bank-credit/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-bank-credit/3.csv",
+      "bytes": 437,
+      "sha256": "1a80c933ef74e99b8061f79d0b4a26e94d322a4a847b43a98a5071af51334324",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-bank-credit/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee-plus/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee-plus/1.csv",
+      "bytes": 725,
+      "sha256": "d68f404b69e2eab2d85091236e223d62f624c5dcbf6611610480ebef6000de6f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee-plus/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee-plus/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee-plus/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee/1.csv",
+      "bytes": 725,
+      "sha256": "488e5e73c6eb9e7a166c7436c2c8032dda6414c2c5ec71c69d49ba0c00580a2b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-fee/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-header-signed-reading/0.csv",
+      "bytes": 940,
+      "sha256": "9270ae87380e7aab5b891379cd0b83d94a2fe271f61b7690655d815ae44dadbd",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-header-signed-reading/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-header-signed-reading/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-header-signed-reading/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-header-signed-reading/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-settlement-net/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-settlement-net/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-settlement-net/2.csv",
+      "bytes": 515,
+      "sha256": "dcc9e127fd8d9c129b84f75f43f47eaf53a752ee2828f9439f54ab51b7a75871",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-settlement-net/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-canonical-settlement-net/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-cell-astral-32768-units/0.csv",
+      "bytes": 65963,
+      "sha256": "c577c15c92d7d93e51a93c3a8ad38615c11173cc573dfa6fa6f43cc4868afe4b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-cell-astral-32768-units/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-cell-astral-32768-units/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-cell-astral-32768-units/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-cell-astral-32768-units/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-chargeback-kind/0.csv",
+      "bytes": 460,
+      "sha256": "a267d14295fe8482519e3e534a9b7b4f66a692dd48cfbc30dce68f437b879136",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-chargeback-kind/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-chargeback-kind/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-chargeback-kind/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-chargeback-kind/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-fee-id/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-fee-id/1.csv",
+      "bytes": 727,
+      "sha256": "36146f20e8fe9bea54952840055a1704d05f80c8e45898f4ea89bca116ec43c3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-fee-id/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-fee-id/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-fee-id/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-transaction-even-invalid/0.csv",
+      "bytes": 1191,
+      "sha256": "59d15f02758c71fa56d3429d9dcc136ba7eabf04ad323f745e4d8c6a124aa11b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-transaction-even-invalid/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-transaction-even-invalid/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-transaction-even-invalid/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-duplicate-transaction-even-invalid/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-astral-501-units/0.csv",
+      "bytes": 1453,
+      "sha256": "fe6806aab8b35d9a1897bfa89c93cc1ec7e0f9b20041526b7e0babb58315cd6d",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-astral-501-units/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-astral-501-units/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-astral-501-units/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-astral-501-units/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-bidi-cf/0.csv",
+      "bytes": 459,
+      "sha256": "d7787220107ef164321465d2d98e27fbb5dc31ad81b90e0f94f139678f52dd61",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-bidi-cf/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-bidi-cf/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-bidi-cf/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-bidi-cf/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-c1-control/0.csv",
+      "bytes": 458,
+      "sha256": "ae6824aae61367b1ff7b31d0383515e7b9b2fe570b1655dbc662fcc769a0edfd",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-c1-control/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-c1-control/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-c1-control/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-identity-c1-control/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-individual-bound/0.csv",
+      "bytes": 466,
+      "sha256": "1133db2d5c9226c7f59489be6b574f5555389800d0fa751ad9789543bd3349fa",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-individual-bound/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-individual-bound/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-individual-bound/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-individual-bound/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-missing-kind/0.csv",
+      "bytes": 449,
+      "sha256": "374259bddc1f4c3f819927917b91b3850e70a53d733e49705843bf067bead629",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-missing-kind/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-missing-kind/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-missing-kind/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-missing-kind/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-batch/0.csv",
+      "bytes": 951,
+      "sha256": "3ad06088c890fb38a7d425e55421c254eab98efcee7c1b4ae847e969c9d4c2e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-batch/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-batch/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-batch/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-batch/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-payout/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-payout/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-payout/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-payout/3.csv",
+      "bytes": 693,
+      "sha256": "a0dbd6e3ed2197ac03a9d091d306b55ed303238425de587ff78ef20bf0046023",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-payout/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-settlement/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-settlement/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-settlement/2.csv",
+      "bytes": 789,
+      "sha256": "bc27f752b050641bcb62fd0fab279f73e126515d7af816d9d2db6c6753b1fd91",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-settlement/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-multiple-settlement/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-arabic-numeric/0.xlsx",
+      "bytes": 2426,
+      "sha256": "1f9bc462e3f6c738bd5ffe6e54e117737684568932adff0dd32e2b5d77b73841",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-arabic-numeric/1.xlsx",
+      "bytes": 2216,
+      "sha256": "fd5f2877a1ca586b9c72af751df245b7616a9746f20ed253acf9c54d3fb22f8e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-arabic-numeric/2.xlsx",
+      "bytes": 2452,
+      "sha256": "1b8ee7ef0feadbbfc272bf335e39889ae6d4223fd4490551698369598618cbb1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-arabic-numeric/3.xlsx",
+      "bytes": 2400,
+      "sha256": "f8cec968f258a43525eaba7e50b5b804b1a27395a8890a06da7b12f3baad3627",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-arabic-numeric/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-cache-mismatch/0.xlsx",
+      "bytes": 2598,
+      "sha256": "5aefe68b7ffe1fefd8e9448b6d0d0d2a112394e7ffbdd77a85a3971a91c72db6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-cache-mismatch/1.xlsx",
+      "bytes": 2520,
+      "sha256": "64fafef06178a2b499be30148d76e949588337c756f03764f52df67b109db7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-cache-mismatch/2.xlsx",
+      "bytes": 2462,
+      "sha256": "186ded0a3b0a3b90e5c061ca7dc4470e037928b7ea4f2bf404e404060d5a1b82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-cache-mismatch/3.xlsx",
+      "bytes": 2404,
+      "sha256": "dc42c4fdee1584dfd4c9af1c34eded7d9208361bab201158100858ef870eaf7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-cache-mismatch/bundle.json",
+      "bytes": 5893,
+      "sha256": "a32ca0f93d77b54e897e668188c38df23ec1413ac062e5e571d3f79aa9cd1df6",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-duplicate-relationship-id/0.xlsx",
+      "bytes": 2592,
+      "sha256": "ac0071612c92cc0927ac7f39c9ccfc3d3748b306feea4c4d44814e849ae83c09",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-duplicate-relationship-id/1.xlsx",
+      "bytes": 2520,
+      "sha256": "64fafef06178a2b499be30148d76e949588337c756f03764f52df67b109db7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-duplicate-relationship-id/2.xlsx",
+      "bytes": 2462,
+      "sha256": "186ded0a3b0a3b90e5c061ca7dc4470e037928b7ea4f2bf404e404060d5a1b82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-duplicate-relationship-id/3.xlsx",
+      "bytes": 2404,
+      "sha256": "dc42c4fdee1584dfd4c9af1c34eded7d9208361bab201158100858ef870eaf7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-duplicate-relationship-id/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-exponent/0.xlsx",
+      "bytes": 2747,
+      "sha256": "139b702c3830ad8b0dbdafa15e3226b5f7ce47ae54623d719864f7479547eb6f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-exponent/1.xlsx",
+      "bytes": 2531,
+      "sha256": "23817253d65913936cd745698bc1b83fc9b8b64ececa2da4beb08d289ded50bf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-exponent/2.xlsx",
+      "bytes": 2789,
+      "sha256": "d5c9d4a64da7821face662c66960275149b8f1ddafa9eec820e0d1db17eb5c25",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-exponent/3.xlsx",
+      "bytes": 2730,
+      "sha256": "88b364694e2e9d23fee152f2904b01cc274d4266bf11e6326134b430e6fbce18",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-exponent/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-formula-cache/0.xlsx",
+      "bytes": 2603,
+      "sha256": "70a4e8b5e9dbceeeee4b429b5b2fed0382cd385abb797b9064a7de628de2aeb3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-formula-cache/1.xlsx",
+      "bytes": 2520,
+      "sha256": "64fafef06178a2b499be30148d76e949588337c756f03764f52df67b109db7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-formula-cache/2.xlsx",
+      "bytes": 2462,
+      "sha256": "186ded0a3b0a3b90e5c061ca7dc4470e037928b7ea4f2bf404e404060d5a1b82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-formula-cache/3.xlsx",
+      "bytes": 2404,
+      "sha256": "dc42c4fdee1584dfd4c9af1c34eded7d9208361bab201158100858ef870eaf7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-formula-cache/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-jpy-scope/0.xlsx",
+      "bytes": 2750,
+      "sha256": "7e5204965b4341be4f35963d29af404962ff7f9dd90ebfffb278028182cc14b8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-jpy-scope/1.xlsx",
+      "bytes": 2608,
+      "sha256": "bbeb28aa082ee5dd96b6894a1948e47584aa404b6aa093ed854085470388ec20",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-jpy-scope/2.xlsx",
+      "bytes": 2460,
+      "sha256": "194a59aa4f23e998bedb18ae6416dd59c9c4fb1bf5866e2e11ea35bc4a96a727",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-jpy-scope/3.xlsx",
+      "bytes": 2402,
+      "sha256": "9003c7b761d46e236a18e047a1225f67ddb155a533beefb8a17554924a0b0f7b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-jpy-scope/bundle.json",
+      "bytes": 750,
+      "sha256": "61bd70819bcf09e2b984c8979e4814c565b3ceb82a0320d5d5516af88f42a918",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-negative-zero/0.xlsx",
+      "bytes": 2411,
+      "sha256": "52aee4e92ba1d9123dfdd7254fb4238266c6927adf5d5bb5798902d04b9da049",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-negative-zero/1.xlsx",
+      "bytes": 2216,
+      "sha256": "fd5f2877a1ca586b9c72af751df245b7616a9746f20ed253acf9c54d3fb22f8e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-negative-zero/2.xlsx",
+      "bytes": 2452,
+      "sha256": "1b8ee7ef0feadbbfc272bf335e39889ae6d4223fd4490551698369598618cbb1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-negative-zero/3.xlsx",
+      "bytes": 2400,
+      "sha256": "f8cec968f258a43525eaba7e50b5b804b1a27395a8890a06da7b12f3baad3627",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-negative-zero/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-namespace/0.xlsx",
+      "bytes": 2618,
+      "sha256": "e63f24cfa2aa63c019325dbacdac637a0310b9466cf7439b34eceaeb6b9b501d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-namespace/1.xlsx",
+      "bytes": 2520,
+      "sha256": "64fafef06178a2b499be30148d76e949588337c756f03764f52df67b109db7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-namespace/2.xlsx",
+      "bytes": 2462,
+      "sha256": "186ded0a3b0a3b90e5c061ca7dc4470e037928b7ea4f2bf404e404060d5a1b82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-namespace/3.xlsx",
+      "bytes": 2404,
+      "sha256": "dc42c4fdee1584dfd4c9af1c34eded7d9208361bab201158100858ef870eaf7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-namespace/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-type/0.xlsx",
+      "bytes": 2593,
+      "sha256": "1a62b88d0b2e9ecef259f7c1d27fac6424128d36e7743a001179bac662eb3f21",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-type/1.xlsx",
+      "bytes": 2520,
+      "sha256": "64fafef06178a2b499be30148d76e949588337c756f03764f52df67b109db7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-type/2.xlsx",
+      "bytes": 2462,
+      "sha256": "186ded0a3b0a3b90e5c061ca7dc4470e037928b7ea4f2bf404e404060d5a1b82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-type/3.xlsx",
+      "bytes": 2404,
+      "sha256": "dc42c4fdee1584dfd4c9af1c34eded7d9208361bab201158100858ef870eaf7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-relationship-type/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-worksheet-namespace/0.xlsx",
+      "bytes": 2619,
+      "sha256": "fcc971bde4c2d3345d205fe991d9ac93ff5e0c5ead3a9123c23f8adbcc07c598",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-worksheet-namespace/1.xlsx",
+      "bytes": 2520,
+      "sha256": "64fafef06178a2b499be30148d76e949588337c756f03764f52df67b109db7c6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-worksheet-namespace/2.xlsx",
+      "bytes": 2462,
+      "sha256": "186ded0a3b0a3b90e5c061ca7dc4470e037928b7ea4f2bf404e404060d5a1b82",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-worksheet-namespace/3.xlsx",
+      "bytes": 2404,
+      "sha256": "dc42c4fdee1584dfd4c9af1c34eded7d9208361bab201158100858ef870eaf7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-native-worksheet-namespace/bundle.json",
+      "bytes": 750,
+      "sha256": "29862c8632021654c7df6e41170af3553fe43a53616cf92fdaae751298017ea2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-jpy/0.csv",
+      "bytes": 454,
+      "sha256": "6486a2d0f38fb3f6db179a0f5dfb18fabd67cc98cbce3e52829b2ba7029e28ad",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-jpy/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-jpy/2.csv",
+      "bytes": 502,
+      "sha256": "a4c116324c862bd60322a50e54edf339fdaebdda8a5259527990f508374bc5c3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-jpy/3.csv",
+      "bytes": 436,
+      "sha256": "da0f60d5544b958bc7f8998cfe17ab80c9ab9ccc9727c93fea6e6cae20e87e77",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-jpy/bundle.json",
+      "bytes": 746,
+      "sha256": "0e8d8378bfad923023a6eaa3d3c1d87a4a6223c90a2051eb723252ca163ceac1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-kwd/0.csv",
+      "bytes": 457,
+      "sha256": "65cd45a7d694f1fd6c7ade886943671e0865e5163d4af3fa4791ccad280ff980",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-kwd/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-kwd/2.csv",
+      "bytes": 502,
+      "sha256": "a0e5477fa61a7cc26bac1a1ef30cc7ccd7eea34cde572db121900b3c93cf6d06",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-kwd/3.csv",
+      "bytes": 436,
+      "sha256": "cd95d10585e5d5cd2806ada28ba39daae8178bf8fdaa90919a09b35d21e659ef",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-precision-kwd/bundle.json",
+      "bytes": 746,
+      "sha256": "074cb5ad781ad22d4a705882976c51cbee20761cf9344a4f303f5ca1a4aa9e2a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-reference-astral-2002-units/0.csv",
+      "bytes": 4431,
+      "sha256": "e2df1313100c9959e7168b7fd37a085c639b53422b3af7e856243df42c9af4bc",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-reference-astral-2002-units/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-reference-astral-2002-units/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-reference-astral-2002-units/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-reference-astral-2002-units/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-negative-zero/0.csv",
+      "bytes": 461,
+      "sha256": "759908d524ead9899dae34f0b4c5d82a4c492ea3fee06520daa7cb5e034f2ced",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-negative-zero/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-negative-zero/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-negative-zero/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-negative-zero/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-positive/0.csv",
+      "bytes": 456,
+      "sha256": "df17803610a37c5917f2d5b5392ba5d79837278538e46d09028acef19ea8f34f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-positive/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-positive/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-positive/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-positive/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-unsigned-positive/0.csv",
+      "bytes": 455,
+      "sha256": "658b7bcc8081187d67abaf5c7faffb000046063c3a5e8a23b08f7133c4273527",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-unsigned-positive/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-unsigned-positive/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-unsigned-positive/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-refund-unsigned-positive/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative-zero/0.csv",
+      "bytes": 455,
+      "sha256": "3b8a5eec47a90615477252941a3692d2f75bbac8d9d5d7daf5ab1e5bf54f92e3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative-zero/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative-zero/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative-zero/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative-zero/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative/0.csv",
+      "bytes": 454,
+      "sha256": "af2ce047e232d682af2f0eba46717bd53bd2c520197099b5583fce3576f7f12c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sale-negative/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sar-excess-precision/0.csv",
+      "bytes": 456,
+      "sha256": "d5ce7ca5b861739dff678f7bb360542d401fcc506dd77550bb820eb218e78731",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sar-excess-precision/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sar-excess-precision/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sar-excess-precision/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sar-excess-precision/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-scientific-money/0.csv",
+      "bytes": 453,
+      "sha256": "794fc21d65c048177c8bd4916957cab4510d5dee115afc68ae2caa3155a4467b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-scientific-money/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-scientific-money/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-scientific-money/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-scientific-money/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sign-whitespace/0.csv",
+      "bytes": 453,
+      "sha256": "9381cbb7c4b161e4500d4e104d866b27124331ca0d4b63751927020b3812f5dc",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sign-whitespace/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sign-whitespace/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sign-whitespace/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-sign-whitespace/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-signed-header-canonical-reading/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-signed-header-canonical-reading/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-signed-header-canonical-reading/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-signed-header-canonical-reading/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-signed-header-canonical-reading/bundle.json",
+      "bytes": 740,
+      "sha256": "81329345c239055b5cc2d5b678be51ba271fa82a2129ba2e068a531f2bad202e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unicode-minus/0.csv",
+      "bytes": 456,
+      "sha256": "b7549c909be268baa046dd93a2b64de62690a3ee2903ef4b3780ab62f486bcd3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unicode-minus/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unicode-minus/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unicode-minus/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unicode-minus/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unsupported-currency/0.csv",
+      "bytes": 947,
+      "sha256": "590b5e98ee4dda88cf25c731809b77f7ddb658efc563a620128215c8994e1740",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unsupported-currency/1.csv",
+      "bytes": 727,
+      "sha256": "f8a39ca068fbfab4b085caf1115ea64692ce02a1354f7dadff0954e93b3db1c7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unsupported-currency/2.csv",
+      "bytes": 519,
+      "sha256": "264f968b5d70ce3bf0dc5e0f88b6f879fe46d5a0ede6496ab1796dc0c03a9cdb",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unsupported-currency/3.csv",
+      "bytes": 441,
+      "sha256": "75cbe0fb2d5f5fc809a3629836677f145a570a59658114a068a0409714f26fc1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/negative-unsupported-currency/bundle.json",
+      "bytes": 746,
+      "sha256": "4fb51c685658d699dfd9c0315b229275da65d817e2ef23c4f6ce40e4e80aa730",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-arabic-persian/0.csv",
+      "bytes": 712,
+      "sha256": "43e454830ec27136873789e5a8541199356279dda19c91e0102418f70d1b2776",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-arabic-persian/1.csv",
+      "bytes": 472,
+      "sha256": "bd1b64db9280fd64ee7d12ad28a0f921ff85e5c7dbe60f577d553ee94118bb30",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-arabic-persian/2.csv",
+      "bytes": 532,
+      "sha256": "1ec7a2cf2b1aca89f01cc1e4424e4cb4daef1a0a8f00b296381c224965a5b85f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-arabic-persian/3.csv",
+      "bytes": 443,
+      "sha256": "e313b4472d796912356493f8ab0d7454c2fadfaf474d97c4d464fed45f74e157",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-arabic-persian/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-bank-credit-difference/0.csv",
+      "bytes": 452,
+      "sha256": "1f1fe21af90cc5a3a767d3eb4c1993bd96446f078b0ded394a0b3e4b2d1f7ad6",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-bank-credit-difference/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-bank-credit-difference/2.csv",
+      "bytes": 504,
+      "sha256": "ffe89f0daade1206b39e7bb505814491982b85d379c048976a1ff83c430e9ef0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-bank-credit-difference/3.csv",
+      "bytes": 439,
+      "sha256": "02e15973a713d7a23a7a79783f9b6e7d479c05d9fadaa5347b6b1845dc9aad2b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-bank-credit-difference/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-blank-row-permutation/0.csv",
+      "bytes": 950,
+      "sha256": "85ce296b567938249e637fccef6ee16a630d413628a863ed214e1909447cfcd8",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-blank-row-permutation/1.csv",
+      "bytes": 728,
+      "sha256": "1aae4e7b85dad462e33467c25b3b2af4f809343af92c43f5d3138e71766b2043",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-blank-row-permutation/2.csv",
+      "bytes": 520,
+      "sha256": "d79af09fba1efbd7f53797bf393f82ad672f55e357851f5e535150d62b1ffaf4",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-blank-row-permutation/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-blank-row-permutation/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-component-cancellation/0.csv",
+      "bytes": 698,
+      "sha256": "7c704832df05052bbb5bdb45284990dfe8033cb049fe4318e98be97d075117e7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-component-cancellation/1.csv",
+      "bytes": 465,
+      "sha256": "5c2ce09d87dc8796faf6e4f76b7ad26e5d87a7ef2d45fb37a955d970d2270090",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-component-cancellation/2.csv",
+      "bytes": 506,
+      "sha256": "7e6fc3802ddc9211d18e6ac23e86a7310926340183f40581cf150c23c8b4a56e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-component-cancellation/3.csv",
+      "bytes": 437,
+      "sha256": "299fde0bc376af4fe0cc0edb66f5a71d3ff2fa914b0de97b3e5bf702caf99a42",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-component-cancellation/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-fee-component-difference/0.csv",
+      "bytes": 454,
+      "sha256": "1ebe68714dbd2887fadf400195fed7a80c62aa41461b45b6e00040cba260d48b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-fee-component-difference/1.csv",
+      "bytes": 465,
+      "sha256": "5c2ce09d87dc8796faf6e4f76b7ad26e5d87a7ef2d45fb37a955d970d2270090",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-fee-component-difference/2.csv",
+      "bytes": 505,
+      "sha256": "1edaad8c6541362b61088c7891a91016cc036d822618bbdad9290639a6e2c7e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-fee-component-difference/3.csv",
+      "bytes": 437,
+      "sha256": "95b0866cbf00c6e6413e62b4559c740d197d1f23e255b54cb4b762319ad6cca7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-fee-component-difference/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-inclusive-bound/0.csv",
+      "bytes": 467,
+      "sha256": "5b3b59fad4b169b3bef69afc4745cf6c77b1f0ffed0f39820f7fd9f573dde54b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-inclusive-bound/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-inclusive-bound/2.csv",
+      "bytes": 532,
+      "sha256": "badcf1b22ca6f1f92d334d5b50fa0c0fa33f28864f1697900df4c75ecadec908",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-inclusive-bound/3.csv",
+      "bytes": 451,
+      "sha256": "70f1379edfc2020a0171aa10d8107ec6bb56ae0b5ae60f1e62da1f4d2649f46d",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-inclusive-bound/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-mixed/0.csv",
+      "bytes": 947,
+      "sha256": "8372c5b4f083210dd3b79698a5baff11d43f5371721b3feb76f211ea099a2786",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-mixed/1.csv",
+      "bytes": 727,
+      "sha256": "594b422dcb7326d9b1b21a7d46e6ffe5bb68628d4a2bea4430bd180e2bc1c434",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-mixed/2.csv",
+      "bytes": 519,
+      "sha256": "cfed932d1aaa49370390aac08ed675e5e2df40bcbda9919957fb30c02ef5c408",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-mixed/3.csv",
+      "bytes": 441,
+      "sha256": "0df4362c80a16672c4b8ab48268cb005bde60a5cffbeb28a5485165aa8b87059",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-mixed/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-one-sale-header-fees/0.csv",
+      "bytes": 451,
+      "sha256": "3728f0ca02c634484785861f1865d47d0e2ce8fbd076494ff1c178e4c1d67a31",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-one-sale-header-fees/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-one-sale-header-fees/2.csv",
+      "bytes": 502,
+      "sha256": "9f145dfde8c91bbfa355dcc9d4421f322bab355677f3e623f1d132edabe8a0e5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-one-sale-header-fees/3.csv",
+      "bytes": 436,
+      "sha256": "b85a9f3db5a72b1b869977e4a3b4e8db72a984595d309bf3a5c9a4e8361c42f7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-one-sale-header-fees/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-refund-only-difference/0.csv",
+      "bytes": 454,
+      "sha256": "32dccb951220a80c1e51d307a4fe75d64cc2a354f08b07863ad977c8c0e25ba2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-refund-only-difference/1.csv",
+      "bytes": 209,
+      "sha256": "39c79fe99d3a2fbc0e48045fe879540fb245f4457d573b5444f4fa8d76696298",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-refund-only-difference/2.csv",
+      "bytes": 502,
+      "sha256": "1420e011ba6d56f4530411a725d39e61dd7147a586a4ce9dce5cd0cbf08c56c6",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-refund-only-difference/3.csv",
+      "bytes": 436,
+      "sha256": "0667f76d78679b884a75486f1124bdfd580f06168be2c01054a1b455eb2f2574",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-refund-only-difference/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-zero-kinds/0.csv",
+      "bytes": 1187,
+      "sha256": "55cd56d736e2300d83a2b6072df88b65a6c08a64311e04f3847d66526725484a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-zero-kinds/1.csv",
+      "bytes": 465,
+      "sha256": "538a339d081b09ae09cf3c61384001ecd773aa4705ca6269aa163d994cf905bd",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-zero-kinds/2.csv",
+      "bytes": 502,
+      "sha256": "cd30b29ea1191fa400f8acff905ed042cd5314f4b820fde745d02470989399f2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-zero-kinds/3.csv",
+      "bytes": 436,
+      "sha256": "0667f76d78679b884a75486f1124bdfd580f06168be2c01054a1b455eb2f2574",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/fixtures/sar-zero-kinds/bundle.json",
+      "bytes": 746,
+      "sha256": "9a9662c6c6f7ed63ddb691bc73bf4d4632a5553af4ca49aa5a928ee840b0a262",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/handcrafted_truths.json",
+      "bytes": 19276,
+      "sha256": "84fd4aea15a944308c79d320ee93bd540790740ae71797230e40520b0cbab94e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/oracle.py",
+      "bytes": 17469,
+      "sha256": "c153ad4bfb35181c514baa149ca339c837cc3e44be3e6cf9c90ce681d35030c6",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/run_assertions.py",
+      "bytes": 7202,
+      "sha256": "dff5e55a547ca63a39a13161132f358bec9c9030438c4ea9b222f3fc4a78a620",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
       "path": "audit/payment-gateway/comma-provenance/expected.json",
       "bytes": 2045,
       "sha256": "09511df3cd72954a523bf263394751f59609b37355ea84bce6c46c47e85657af",
@@ -29043,8 +32013,8 @@
     },
     {
       "path": "components/payment-gateway-workspace.tsx",
-      "bytes": 20333,
-      "sha256": "b67f1b31fa9394f46f0f1693704bb25b3754ee2ac02497c8abed82ed03ee050d",
+      "bytes": 22757,
+      "sha256": "8463ded8e9e1848b4002098c1354505db4f59df290599ee2a04c4d302dd56c63",
       "kind": "text"
     },
     {
@@ -29541,8 +32511,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 3605,
-      "sha256": "ffa4cf9b01e93770e247d8272a3997cc9ad1b883f31d6b744687debaefcca080",
+      "bytes": 3623,
+      "sha256": "41c4a9a40173f834c2f6d4fc2f8533aad543d8d42f230b88f6d04ae55a9ae028",
       "kind": "text"
     },
     {
@@ -29626,6 +32596,12 @@
         "type": "public-design",
         "description": "Public release scope authored for this local integration; independent final review remains required."
       }
+    },
+    {
+      "path": "docs/RELEASE-0.4.45.ar.md",
+      "bytes": 3288,
+      "sha256": "7beca07a80f281341c203fc480f788d445f13f7e80a8f7ab27055a89c3668e80",
+      "kind": "text"
     },
     {
       "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
@@ -29787,8 +32763,8 @@
     },
     {
       "path": "lib/i18n/payment-gateway.ts",
-      "bytes": 9948,
-      "sha256": "a855900038e6ea61d7cc5a1d751a4a5efbca964e7d3aa03cb05b0b8a789f1565",
+      "bytes": 12114,
+      "sha256": "1f9a50e614e65344f22e49c29c0ab57e288fca258f69f028f221fca67ea0b1c2",
       "kind": "text"
     },
     {
@@ -30237,26 +33213,44 @@
     },
     {
       "path": "lib/reconciliation/payment-gateway-io.ts",
-      "bytes": 10074,
-      "sha256": "40f93d50fb87c3dac083e9b2dc5c7d3a58c3ea84560ee3bdc597333a3573537f",
+      "bytes": 11178,
+      "sha256": "dd02a8a41585e73627c3aefafabecf80592e88cb1d11c9996b8ca4a2f9de6138",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/payment-gateway-native.ts",
-      "bytes": 5073,
-      "sha256": "d7dd314276381b00953b391b6b692e4591d35fcdf33ad077f1701298c6184312",
+      "bytes": 10487,
+      "sha256": "4dc5ac65a401bf56e9a8b5cd28eed23ba2525ccac2e4bbe714db4abf5f91f968",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/payment-gateway-signed-demo.ts",
+      "bytes": 954,
+      "sha256": "6d8345c980d494a51f83beda325567d74ba83dd1d9af44190be6e9af3212cb40",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/payment-gateway-signed.ts",
+      "bytes": 1897,
+      "sha256": "6d700f630a99577bb5eac5451ab1b594157e47d05fb0661c744c0d076b5fa68d",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/payment-gateway-source.ts",
-      "bytes": 1947,
-      "sha256": "1ef5e6814e6332f3d2f76d4f55b2ca4100c210670080cf9f60b35eefa92040ee",
+      "bytes": 2886,
+      "sha256": "6b4911bd9b9e0d97c0aae28595171b36feb1a9bc9ff4593ff36d948f01a4d916",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/payment-gateway-worker-binding.ts",
+      "bytes": 8783,
+      "sha256": "e158bb1dc876a99f9328783bd7a4326f46d7714e2f06a5f478b833ca4ef75bec",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/payment-gateway.ts",
-      "bytes": 18251,
-      "sha256": "43b567b932f1c9b8acd57f2ece40b34ca910bdadc3999d0213b34bef72f8735c",
+      "bytes": 19675,
+      "sha256": "a420a355c8a06abb3fc791ed2b09bc38d880f76f50801668aa7c6e0b28ccd70a",
       "kind": "text"
     },
     {
@@ -30339,8 +33333,8 @@
     },
     {
       "path": "lib/reconciliation/protocol.ts",
-      "bytes": 16850,
-      "sha256": "717feeb83d3e19bf0f962d291481886d9d3e4813a77987ad789d9bb69f3fd62c",
+      "bytes": 17029,
+      "sha256": "61d218c8e68c12258cdbe84ad91f4fd816c09c28485d2fd78a015579e1c5544f",
       "kind": "text"
     },
     {
@@ -30555,8 +33549,8 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 14778,
-      "sha256": "7cfb5de6e21263ec5c4fd45afbf60ca8585559f0c4c0b9fcdc63b1f01889d021",
+      "bytes": 15386,
+      "sha256": "5cb16406728db62cac76edf6fed13d59071f5d3acc2dc01f1add11411e8be7c5",
       "kind": "text"
     },
     {
@@ -30603,8 +33597,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 8454,
-      "sha256": "16c4f57c2f414e3dc891b2b49636846b05c6a8545b19103498cd4bc674fe1826",
+      "bytes": 9833,
+      "sha256": "e49265cd49667eceb2155e40cda957f2931e43b90b0558835476facc35e65a09",
       "kind": "text"
     },
     {
@@ -30810,6 +33804,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/check-payment-gateway-signed-exports.py",
+      "bytes": 37801,
+      "sha256": "eb18ac7c5b2d2f7822dab1ceba7939b57034dd0db32234f8ecb8929b4a13c48a",
+      "kind": "text"
+    },
+    {
       "path": "scripts/check-running-balance-exports.py",
       "bytes": 13395,
       "sha256": "f80685dc8edfa8fbf1de10c1942f205ed4ea189c9bbfd046813b8cb1240afe69",
@@ -30817,8 +33817,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 5772,
-      "sha256": "b1e54ce0a104e841df8508649b6d37386e57b2e7f375b45e5207d76d44832080",
+      "bytes": 5968,
+      "sha256": "c775e462a7694d36a70e6fb3af10effaa8f6b8534ce3150bc1dc819b08ed693f",
       "kind": "text"
     },
     {
@@ -31059,6 +34059,18 @@
       "path": "scripts/payment-gateway-browser-test.mjs",
       "bytes": 2570,
       "sha256": "7beda6c9c38a033109e3bdeb52c282c1427893db04762a1bcd3a52393f05bbe4",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/payment-gateway-signed-browser.mjs",
+      "bytes": 14130,
+      "sha256": "1227bd1f5855741c9550e5db90f9b67caf40f505ca7b706c6c067a6bfbcabe64",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/payment-gateway-signed-proof.mjs",
+      "bytes": 6123,
+      "sha256": "14772080417b66f129bf1786ca660b286bcbd37298a3546502be89175f70380a",
       "kind": "text"
     },
     {
@@ -31311,6 +34323,12 @@
       "path": "scripts/test-partial-contracts.mjs",
       "bytes": 1416,
       "sha256": "b7f9c3b089145a060e01b539d57efe51ca00e49fbf3beed55c330f0feafe1ff9",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-payment-gateway-signed-mutations.mjs",
+      "bytes": 14070,
+      "sha256": "e2837059e74b227f19074b937276c7faa59a7445ceac70f358f88de7fcbb01db",
       "kind": "text"
     },
     {
@@ -32832,6 +35850,18 @@
       "kind": "text"
     },
     {
+      "path": "tests/payment-gateway-signed.test.ts",
+      "bytes": 31179,
+      "sha256": "5a1061ab2c79e0d50d31c99bdc65786858a22aa8d5697035eec976b761b17eaa",
+      "kind": "text"
+    },
+    {
+      "path": "tests/payment-gateway-worker-binding.test.ts",
+      "bytes": 13853,
+      "sha256": "dc765cf205df84683b2194caa528b918f6fe401b4301d7250736f4f2339f3baf",
+      "kind": "text"
+    },
+    {
       "path": "tests/payment-gateway.test.ts",
       "bytes": 7108,
       "sha256": "babcd8af4a8be5825ec5a671a4af64657af19388864b5d2b8a0492a921b6682a",
@@ -33416,53 +36446,97 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-C0Imst25.js",
-      "bytes": 11984,
-      "sha256": "5d6e62a7e092b2bb5a5f8ee0dbbdaad706eb0245b23f0cc89072124c929040b7",
+      "path": "assets/bank-adjustment-io-1cvCVfd9.js",
+      "bytes": 12101,
+      "sha256": "05239d9526d40639a988fd0b4e956f4315836a769ab8468e0c7edbfcde0c36be",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-CoTNGGTv.js",
-      "bytes": 12238,
-      "sha256": "6a6118be97f4b6f3ca987748bba903db4fc300e3de4aae09377d9f9c9495a814",
+      "path": "assets/bank-io-CSfTLc1k.js",
+      "bytes": 6331,
+      "sha256": "2198043f9f48c096149932afbfd264d335755abec0da7d1a45063400b5fcac0d",
       "kind": "text"
     },
     {
-      "path": "assets/core-BexMr9di.js",
-      "bytes": 1298516,
-      "sha256": "d6367701a633bde21814903db39c9c223365ef2dc8766fa63e2208135c6e463e",
+      "path": "assets/bank-native-display-CxIcFVtJ.js",
+      "bytes": 6148,
+      "sha256": "92b65ccbdae0ef1c7f02478f57a3ac7a459498ba8ab9471a51bfeb209047d15e",
+      "kind": "text"
+    },
+    {
+      "path": "assets/chunk-aKtaBQYM.js",
+      "bytes": 1084,
+      "sha256": "cb2fb01f2064eb36487466778d2ffc4c97ad86af89be1635209de18f0b5b2236",
+      "kind": "text"
+    },
+    {
+      "path": "assets/core-BdLJsSex.js",
+      "bytes": 271686,
+      "sha256": "7f65e420b290b926d3c709dd407a291ff7e54b7edefdb1b669063e043b1cc935",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Application compiled from this integration source and unchanged locked dependencies. Parser control literals require decoded privacy scans. Exact source/build hashes await independent integration review."
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
       }
     },
     {
-      "path": "assets/fixed-assets-io-CufZXjSA.js",
-      "bytes": 9760,
-      "sha256": "3fa7a6bfc97e26b231f55f0768e2fbc7d26c98677c42e34e04b29649fa378813",
-      "kind": "text"
-    },
-    {
-      "path": "assets/gl-tb-io-Dsc1i0wY.js",
-      "bytes": 2123,
-      "sha256": "c1fa9a9ea72e1313ce5a4aa453543ef0d60c74510554c35ef5e9daf978983606",
-      "kind": "text"
-    },
-    {
-      "path": "assets/index-CZKkqJpi.js",
-      "bytes": 6216046,
-      "sha256": "34cf90dd107bbd79e3941ee66f65a108202805bc4ccef6c31691c91dbd76daee",
+      "path": "assets/exceljs.min-CVvXZrgy.js",
+      "bytes": 929908,
+      "sha256": "03138dbe92c871fc26355c491e5eb721b31bc4e1f100b7f5fef7e1261967f6c0",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Application compiled from this integration source and unchanged locked dependencies. Parser control literals require decoded privacy scans. Exact source/build hashes await independent integration review."
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
       }
+    },
+    {
+      "path": "assets/fixed-assets-io-DVAZVCWX.js",
+      "bytes": 9830,
+      "sha256": "627c590f6557f18ef80bc63a700f5d6de2ac77f73ec1b6f8ba830cd8d239dcde",
+      "kind": "text"
+    },
+    {
+      "path": "assets/gl-tb-io-DSHWP2oX.js",
+      "bytes": 2184,
+      "sha256": "efdc63efc523c989f5c719d9d665f9d044e660258963fc0485b6478ecbb43387",
+      "kind": "text"
     },
     {
       "path": "assets/index-aIr2uz9D.css",
       "bytes": 273220,
       "sha256": "f9227a32a28fac98ad1f057cf04cde011ab8cb2d3e04574955146e6e7d3cb51d",
+      "kind": "text"
+    },
+    {
+      "path": "assets/index-t6s_0V1M.js",
+      "bytes": 6231995,
+      "sha256": "bde6a30d2071d44ece447e2e588c3a623cdd812f677c6a790abdd32f56b8bdbb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "public-design",
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "assets/jszip.min-Lqf3Qs4v.js",
+      "bytes": 95869,
+      "sha256": "395dde9670f49abd5ec3798ff814e5abf3583ff2d9efc0b5335e4de60df3cbfa",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "public-design",
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "assets/payment-gateway-io-CAIusA47.js",
+      "bytes": 6391,
+      "sha256": "c54ee48604c37e193943c5ee9f13d58b0a0a302d9c800a854724c8a55047f4d7",
+      "kind": "text"
+    },
+    {
+      "path": "assets/payment-gateway-source-Be_yUQ78.js",
+      "bytes": 6798,
+      "sha256": "739248515a5fc03457d7e20e82c89fd6e96a42adf604bd8adc631d7c9089980f",
       "kind": "text"
     },
     {
@@ -33492,33 +36566,21 @@
       }
     },
     {
-      "path": "assets/protocol-2hQ8dbSB.js",
-      "bytes": 86358,
-      "sha256": "c9061b29ef80a8f9ea33db0fe2532655a23e33ac0b3ba8b3dd8c08050fee0e7a",
+      "path": "assets/protocol-CpuIsUhK.js",
+      "bytes": 87750,
+      "sha256": "bc08be7cc6796ba98dff4f32d3ef4c8378710ac213799a620559d57317f90a83",
       "kind": "text"
     },
     {
-      "path": "assets/visual-assets-B7RVKmoa.js",
-      "bytes": 549,
-      "sha256": "17c4768afa268d8899fc7844d6a58ecd3971c6443447587c9fe16a26c1236dbf",
+      "path": "assets/visual-assets-BArFzWtf.js",
+      "bytes": 623,
+      "sha256": "85288ce8a855c61c8ec75e59f7bb99b3deaaeaf974c95ee592b02c4f8e95031a",
       "kind": "text"
     },
     {
-      "path": "assets/visual-assets-Bbe2KTln.js",
-      "bytes": 75,
-      "sha256": "d9a505e5cff6b7af836d2daae2d504803dd51ad513b33e0a32b043c6d06ec0dd",
-      "kind": "text"
-    },
-    {
-      "path": "assets/visual-draft-B-hN-n_L.js",
-      "bytes": 149,
-      "sha256": "1e9d364d18ce01066b969d39d2e7e4996d8caa6970862da0e22a6870c1b66967",
-      "kind": "text"
-    },
-    {
-      "path": "assets/visual-draft-CTP4dr9d.js",
-      "bytes": 5591,
-      "sha256": "906f2c69addd715acb889db03dec84f0fd0de4066fb59769947bda541446a1f4",
+      "path": "assets/visual-draft-W_zhfo3F.js",
+      "bytes": 5714,
+      "sha256": "d1a161cb1e6acdecbc6f67ac7b9719d2c0c6f5e443e3a3749ce2ab0f600952f2",
       "kind": "text"
     },
     {
@@ -33611,8 +36673,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 3776,
-      "sha256": "ebf1d349f0c29e950788c2d054a4c28786a29b4e3dc2d9b2a27f648ed2990370",
+      "bytes": 4017,
+      "sha256": "eccbe790738b1d6abc51a1d99f397eadfa84ca5ff3281718d5e07de5f3d0543c",
       "kind": "text"
     },
     {

@@ -4,6 +4,8 @@ import { MAX_FILE_BYTES } from './types.ts';
 import { assertGatewayNative } from './payment-gateway-native.ts';
 import {
   PG_VERSION,
+  PG_SIGNED_VERSION,
+  PG_SIGNED_VALUE_HEADERS,
   PG_SESSION_LIMIT,
   PG_SCOPE_FIELDS,
   PG_VALUE_HEADERS,
@@ -71,6 +73,7 @@ export async function replayGateway(input: GatewayInput) {
     completeness: input.completeness,
     events: input.events,
   });
+  const signedBatch = metadata.readings?.[0]?.family === PG_SIGNED_VERSION;
   const files = [];
   for (const old of snapshots) {
     const hash = Array.from(
@@ -78,7 +81,7 @@ export async function replayGateway(input: GatewayInput) {
       (n) => n.toString(16).padStart(2, '0'),
     ).join('');
     if (hash !== old.sha256) throw Error('PG_SOURCE_HASH');
-    const file = await readGatewayFile(old.name, old.original);
+    const file = await readGatewayFile(old.name, old.original, signedBatch);
     if (file.sha256 !== old.sha256) throw Error('PG_SOURCE_HASH');
     files.push(file);
   }
@@ -88,7 +91,7 @@ export async function replayGateway(input: GatewayInput) {
   };
   const result = reconcileGateway(state);
   for (let i = 0; i < files.length; i++)
-    await assertGatewayNative(files[i], i, result.decimals);
+    await assertGatewayNative(files[i], i, result.decimals, signedBatch);
   for (const file of files) {
     const after = Array.from(
       new Uint8Array(await crypto.subtle.digest('SHA-256', file.original!)),
@@ -179,6 +182,7 @@ export async function exportGateway(
   ];
   if (counts.some((n) => n + 1 > 1_048_576)) throw Error('PG_EXPORT_ROWS');
   const tables: Table[] = [];
+  const signed = r.readings[0].family === PG_SIGNED_VERSION;
   const table = (name: string, headers: string[], rows: Value[][]) =>
     tables.push({ name, headers, rows });
   table(
@@ -187,6 +191,7 @@ export async function exportGateway(
     [
       ['Domain', 'payment-gateway-batch'],
       ['Version', r.version],
+      ...(signed ? [['Transaction family', PG_SIGNED_VERSION]] : []),
       ['Claim', r.claim],
       ['Status', r.status],
       ['Review', r.review],
@@ -202,8 +207,40 @@ export async function exportGateway(
   ['Transactions', 'Fee evidence', 'Settlement', 'Payout'].forEach((name, i) =>
     table(
       name,
-      ['Record ID', 'Source', 'Source row', ...PG_VALUE_HEADERS[i]],
-      r.records[i].map((e) => [e.id, e.source, e.row, ...e.values]),
+      [
+        'Record ID',
+        'Source',
+        'Source row',
+        ...(signed && i === 0
+          ? [
+              ...PG_SIGNED_VALUE_HEADERS,
+              'Signed minor units',
+              'Canonical magnitude minor units',
+              'Original sign',
+              'Normalized signed amount',
+              'Representation',
+            ]
+          : PG_VALUE_HEADERS[i]),
+      ],
+      r.records[i].map((e) =>
+        signed && i === 0
+          ? [
+              e.id,
+              e.source,
+              e.row,
+              e.values[0],
+              e.values[1],
+              e.values[2],
+              e.signedAmount!.raw,
+              e.values[4],
+              e.signedAmount!.signedMinor,
+              e.signedAmount!.magnitude,
+              e.signedAmount!.sign,
+              e.signedAmount!.normalized,
+              e.signedAmount!.representation,
+            ]
+          : [e.id, e.source, e.row, ...e.values],
+      ),
     ),
   );
   table(

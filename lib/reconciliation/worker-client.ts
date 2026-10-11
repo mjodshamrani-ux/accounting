@@ -1,4 +1,5 @@
 import { snapshotAsset } from './fixed-assets-envelope.ts';
+import { snapshotGatewayRequest } from './payment-gateway-worker-binding.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 import type { AssetInput } from './fixed-assets.ts';
 import { WORKER_CHANNEL, isRecord, validateWorkerValue } from './protocol.ts';
@@ -53,6 +54,13 @@ export function createWorkerClient(
     return new Promise((resolve, reject) => {
       if (signal?.aborted) return reject(new Error('أُلغيت العملية'));
       if (inUse) return reject(new Error('انتظر انتهاء العملية الحالية'));
+      if (action.startsWith('gateway-')) {
+        try {
+          payload = snapshotGatewayRequest(action, payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       // Capture the requested originals and context before validation can yield.
       if (action.startsWith('gl-tb-')) {
         try {
@@ -327,6 +335,15 @@ export function createWorkerClient(
             const { validateAssetWorkerResponse } =
               await import('./fixed-assets-io.ts');
             response.value = await validateAssetWorkerResponse(
+              action,
+              response.value,
+              payload,
+            );
+          }
+          if (action.startsWith('gateway-')) {
+            const { validateGatewayWorkerResponse } =
+              await import('./payment-gateway-worker-binding.ts');
+            response.value = await validateGatewayWorkerResponse(
               action,
               response.value,
               payload,

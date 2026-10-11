@@ -5,9 +5,33 @@ const en = {
   claim:
     'Consistency within supplied confirmed evidence only. No posting, revenue recognition, fee legitimacy, source authenticity or completeness opinion.',
   family:
-    'Four originals: comma-delimited CSV or the supported native XLSX family, with the exact role headers shown in the synthetic example. One table per original, one batch and the same functional currency. CSV supports SAR, JPY and KWD. Native XLSX requires plain visible cells and two decimal places. Taxes, chargebacks and currency conversion are outside this family; their amounts or roles are never inferred.',
+    'Review four originals with the exact role headers shown in the examples. Choose the signed or unsigned transaction amount format explicitly. Each original contains one table, with one batch and one functional currency. CSV supports SAR, JPY and KWD; supported native XLSX uses SAR with two decimal places and plain visible cells. Taxes, chargebacks and currency conversion require a separate scope.',
   back: 'Back to supplier workspace',
   demo: 'Open a synthetic gateway example',
+  signedDemo: 'Open a synthetic signed amount example',
+  amountFamily: 'Transaction amount format',
+  unsignedFamily: 'Unsigned amount with an explicit type',
+  signedFamily: 'Signed amount with an explicit type',
+  signedHelp:
+    'Sales are positive or zero; refunds are negative or zero. A negative zero and a conflicting type require correction in the original. Zero records remain visible.',
+  signedRecords: [
+    'Source row',
+    'Transaction ID',
+    'Kind',
+    'Posting date',
+    'Original signed amount',
+    'Reference',
+    'Signed minor units',
+    'Canonical magnitude minor units',
+  ],
+  issueReasons: {
+    SIGN_KIND: 'The amount sign conflicts with the explicit transaction type.',
+    NEGATIVE_ZERO:
+      'A negative zero is not supported; correct the original amount.',
+    AMOUNT:
+      'The amount is missing or does not use the supported numeric format.',
+    KIND: 'The original must explicitly identify a sale or refund.',
+  },
   restore: 'Restore gateway session',
   save: 'Save gateway session',
   export: 'Export gateway evidence',
@@ -131,9 +155,31 @@ const ar: typeof en = {
   claim:
     'اتساق ضمن الأدلة المورّدة والمؤكدة فقط؛ لا قيد أو اعتراف بالإيراد أو إثبات مشروعية الرسم أو أصالة المصدر أو اكتماله.',
   family:
-    'أربعة أصول: CSV بفاصل فاصلة أو عائلة XLSX الأصلية المدعومة، بعناوين الأدوار الدقيقة الموضحة في المثال الاصطناعي. جدول لكل أصل ودفعة واحدة وعملة وظيفية واحدة. يدعم CSV العملات SAR وJPY وKWD. يتطلب Excel خلايا بسيطة ظاهرة وأموالًا بمنزلتين عشريتين. الضرائب وعمليات الاعتراض على الدفع وتحويل العملات خارج هذه العائلة؛ لا نخمن مبالغها أو أدوارها.',
+    'راجع الأصول الأربعة بعناوين الأدوار الدقيقة الموضحة في الأمثلة، واختر صيغة مبلغ المعاملات الموقّعة أو غير الموقّعة صراحة. جدول لكل أصل ودفعة واحدة وعملة وظيفية واحدة. يدعم CSV العملات SAR وJPY وKWD؛ يستخدم Excel المدعوم عملة SAR بمنزلتين عشريتين وخلايا بسيطة ظاهرة. الضرائب وعمليات الاعتراض على الدفع وتحويل العملات تحتاج نطاقًا مستقلًا.',
   back: 'العودة إلى مساحة المورد',
   demo: 'فتح مثال اصطناعي لبوابة الدفع',
+  signedDemo: 'فتح مثال اصطناعي لمبلغ موقّع',
+  amountFamily: 'صيغة مبلغ المعاملات',
+  unsignedFamily: 'مبلغ غير موقّع مع نوع صريح',
+  signedFamily: 'مبلغ موقّع مع نوع صريح',
+  signedHelp:
+    'المبيعات موجبة أو صفر، والمرتجعات سالبة أو صفر. الصفر السالب أو تعارض النوع يحتاج تصحيحًا في الأصل. تبقى سجلات الصفر ظاهرة.',
+  signedRecords: [
+    'صف الأصل',
+    'معرف المعاملة',
+    'النوع',
+    'تاريخ التسجيل',
+    'المبلغ الموقّع الأصلي',
+    'المرجع',
+    'الوحدات الصغرى الموقّعة',
+    'مقدار الوحدات الصغرى للحساب',
+  ],
+  issueReasons: {
+    SIGN_KIND: 'إشارة المبلغ لا توافق نوع المعاملة الصريح.',
+    NEGATIVE_ZERO: 'الصفر السالب غير مدعوم؛ صحح مبلغ الأصل.',
+    AMOUNT: 'المبلغ مفقود أو لا يستخدم الصيغة العددية المدعومة.',
+    KIND: 'يجب أن يحدد الأصل بيعًا أو مرتجعًا صراحة.',
+  },
   restore: 'استعادة جلسة بوابة الدفع',
   save: 'حفظ جلسة بوابة الدفع',
   export: 'تصدير أدلة بوابة الدفع',

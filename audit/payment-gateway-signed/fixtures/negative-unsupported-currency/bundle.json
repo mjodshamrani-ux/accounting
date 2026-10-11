@@ -1,0 +1,30 @@
+{
+  "provenance": "synthetic; no real field data available",
+  "scope": {
+    "entity": "Synthetic Example Entity",
+    "gateway": "Synthetic Gateway",
+    "merchantAccount": "00017",
+    "bankAccount": "00029",
+    "dimensions": "region=TEST;channel=synthetic",
+    "currency": "USD",
+    "currencyBasis": "functional",
+    "fxPolicy": "same-currency-no-conversion",
+    "start": "2026-10-01",
+    "end": "2026-10-05",
+    "asOf": "2026-10-05",
+    "policyVersion": "synthetic-policy-1",
+    "batchId": "SYNTH-BATCH-01"
+  },
+  "readings": [
+    "payment-gateway-signed-kind-1",
+    "payment-gateway-batch-1",
+    "payment-gateway-batch-1",
+    "payment-gateway-batch-1"
+  ],
+  "files": [
+    "0.csv",
+    "1.csv",
+    "2.csv",
+    "3.csv"
+  ]
+}

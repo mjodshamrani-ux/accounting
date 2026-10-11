@@ -1,7 +1,12 @@
 import { currencyPrecision } from './currency-precision.ts';
 import { assertSourceFile } from './protocol.ts';
 import { MAX_ROWS, MAX_FILE_BYTES, type SourceFile } from './types.ts';
+import {
+  signedGatewayMoney,
+  type GatewaySignedAmount,
+} from './payment-gateway-signed.ts';
 export const PG_VERSION = 'payment-gateway-batch-1';
+export const PG_SIGNED_VERSION = 'payment-gateway-signed-kind-1';
 export const PG_SESSION_LIMIT = 64 * 1024 * 1024;
 export const PG_ROLES = [
   'transactions',
@@ -58,6 +63,17 @@ export const PG_HEADERS = PG_VALUE_HEADERS.map((h) => [
   ...h,
   ...PG_SCOPE_HEADERS,
 ]);
+export const PG_SIGNED_VALUE_HEADERS = [
+  'Transaction ID',
+  'Kind',
+  'Posting date',
+  'Signed amount',
+  'Reference',
+] as const;
+export const PG_SIGNED_HEADERS = [
+  ...PG_SIGNED_VALUE_HEADERS,
+  ...PG_SCOPE_HEADERS,
+];
 export const PG_CLAIM =
   'Consistency of supplied sales, refunds and independently evidenced fees with one gateway settlement and bank credit only; no posting, revenue recognition, fee legitimacy, source authenticity or completeness opinion';
 export type GatewayScope = Record<(typeof PG_SCOPE_FIELDS)[number], string> & {
@@ -65,10 +81,17 @@ export type GatewayScope = Record<(typeof PG_SCOPE_FIELDS)[number], string> & {
 };
 export type GatewayReading = {
   sheet: number;
-  role: (typeof PG_ROLES)[number];
-  family: typeof PG_VERSION;
   confirmed: boolean;
-};
+} & (
+  | {
+      role: 'transactions';
+      family: typeof PG_VERSION | typeof PG_SIGNED_VERSION;
+    }
+  | {
+      role: Exclude<(typeof PG_ROLES)[number], 'transactions'>;
+      family: typeof PG_VERSION;
+    }
+);
 export type GatewayEvent = {
   id: string;
   type: 'accept' | 'reject' | 'undo';
@@ -91,6 +114,7 @@ export type GatewayRecord = {
   source: number;
   row: number;
   values: (string | number)[];
+  signedAmount?: GatewaySignedAmount;
 };
 export type GatewayIssue = {
   code: string;
@@ -188,6 +212,7 @@ function sheetUnsafe(
   sheet: SourceFile['sheets'][number],
   row: number,
   header: boolean,
+  signed = false,
 ) {
   const prefix = row + ':';
   const typed = new Set([
@@ -206,6 +231,7 @@ function sheetUnsafe(
     'Period end',
     'As of',
   ]);
+  if (signed) typed.add('Signed amount');
   return (
     sheet.hiddenRows.includes(row) ||
     sheet.formulaRows.includes(row) ||
@@ -300,7 +326,10 @@ export function reconcileGateway(input: GatewayInput): GatewayResult {
       !keys(r, ['sheet', 'role', 'family', 'confirmed']) ||
       r.sheet !== 0 ||
       r.role !== PG_ROLES[i] ||
-      r.family !== PG_VERSION ||
+      !(
+        r.family === PG_VERSION ||
+        (i === 0 && r.family === PG_SIGNED_VERSION)
+      ) ||
       r.confirmed !== true
     )
       fail('READING');
@@ -344,10 +373,11 @@ export function reconcileGateway(input: GatewayInput): GatewayResult {
   const id = (src: number, row: number) =>
     JSON.stringify([PG_VERSION, src, input.files[src].sha256, 0, row]);
   input.files.forEach((f, source) => {
+    const signed = source === 0 && readings[0].family === PG_SIGNED_VERSION;
     const rows = f.sheets[0].rows,
       head = rows[0] ?? [],
-      want = PG_HEADERS[source];
-    const headerUnsafe = sheetUnsafe(f.sheets[0], 1, true);
+      want = signed ? PG_SIGNED_HEADERS : PG_HEADERS[source];
+    const headerUnsafe = sheetUnsafe(f.sheets[0], 1, true, signed);
     const ok =
       head.length === want.length &&
       new Set(head).size === want.length &&
@@ -379,23 +409,36 @@ export function reconcileGateway(input: GatewayInput): GatewayResult {
       }
       if (i === 0 || blank) continue;
       try {
-        if (sheetUnsafe(f.sheets[0], row, false)) fail('CELL');
+        if (sheetUnsafe(f.sheets[0], row, false, signed)) fail('CELL');
         if (raw.length !== head.length) fail('COLUMNS');
         const get = (h: string) => raw[col[h]];
         if (
           PG_SCOPE_FIELDS.some((k, j) => get(PG_SCOPE_HEADERS[j]) !== scope[k])
         )
           fail('ROW_SCOPE');
-        const v: (string | number)[] = PG_VALUE_HEADERS[source].map((h) =>
-          get(h),
-        );
+        const v: (string | number)[] = (
+          signed ? PG_SIGNED_VALUE_HEADERS : PG_VALUE_HEADERS[source]
+        ).map((h) => get(h));
+        let signedAmount: GatewaySignedAmount | undefined;
         const str = (j: number) => v[j] as string;
         if (source === 0) {
           text(v[0]);
           text(v[4], 2000, false);
           if (v[1] !== 'sale' && v[1] !== 'refund') fail('KIND');
           if (day(str(2)) < scope.start || str(2) > scope.end) fail('PERIOD');
-          v[3] = money(str(3), decimals);
+          if (signed) {
+            signedAmount = {
+              ...signedGatewayMoney(
+                str(3),
+                decimals,
+                str(1),
+                !/\.xlsx$/i.test(f.name),
+              ),
+              physicalRow: row,
+              representation: /\.xlsx$/i.test(f.name) ? 'xlsx' : 'csv',
+            };
+            v[3] = signedAmount.magnitude;
+          } else v[3] = money(str(3), decimals);
         } else if (source === 1) {
           text(v[0]);
           text(v[1]);
@@ -419,7 +462,13 @@ export function reconcileGateway(input: GatewayInput): GatewayResult {
           if (day(str(1)) < scope.start || str(1) > scope.end) fail('PERIOD');
           v[2] = money(str(2), decimals);
         }
-        records[source].push({ id: id(source, row), source, row, values: v });
+        records[source].push({
+          id: id(source, row),
+          source,
+          row,
+          values: v,
+          ...(signedAmount ? { signedAmount } : {}),
+        });
       } catch (e) {
         if (!(e instanceof Error) || !e.message.startsWith('PG_')) throw e;
         problem(e.message.slice(3), source, row);

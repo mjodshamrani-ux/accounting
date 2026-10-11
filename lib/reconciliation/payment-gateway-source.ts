@@ -1,10 +1,19 @@
-import { assertGatewayNative } from './payment-gateway-native.ts';
+import {
+  assertGatewayNative,
+  gatewayNativeMoneyLexemes,
+} from './payment-gateway-native.ts';
+import { validateZipContents } from './zip.ts';
+import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
 import { readFile } from './io.ts';
 import { gatewayCSV } from './payment-gateway-csv.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 // The one-batch gateway family declares the Excel cell capacity explicitly.
 // Other readers retain their existing4096 limit. No source bytes are rewritten.
-export async function readGatewayFile(name: string, original: ArrayBuffer) {
+export async function readGatewayFile(
+  name: string,
+  original: ArrayBuffer,
+  strictSignedBatch = false,
+) {
   if (
     typeof name !== 'string' ||
     name.length > 255 ||
@@ -16,6 +25,12 @@ export async function readGatewayFile(name: string, original: ArrayBuffer) {
     throw Error('PG_SOURCE');
   try {
     const snapshot = original.slice(0);
+    let lexemes = new Map<string, string>();
+    if (/\.xlsx$/i.test(name)) {
+      await validateZipContents(snapshot);
+      lexemes = await gatewayNativeMoneyLexemes(snapshot, strictSignedBatch);
+      await prepareXlsxForExcelJs(snapshot);
+    }
     // CSV has a declared comma grammar. Delimiter inference must not discard
     // malformed physical records before the domain engine can inventory them.
     const file = /\.csv$/i.test(name)
@@ -36,7 +51,18 @@ export async function readGatewayFile(name: string, original: ArrayBuffer) {
           ).join(''),
         }
       : await readFile(name, snapshot, undefined, false, undefined, 32767);
-    await assertGatewayNative(file);
+    // Preserve the source XML spelling in the signed column itself. Header
+    // recognition retains evidence; only the explicit reading selects a family.
+    for (const [position, lexeme] of lexemes) {
+      const [row, column] = position.split(':').map(Number);
+      if (
+        !file.sheets[0].rows[row - 1] ||
+        column > file.sheets[0].rows[0].length
+      )
+        throw Error('PG_NATIVE_DISPLAY');
+      file.sheets[0].rows[row - 1][column - 1] = lexeme;
+    }
+    await assertGatewayNative(file, undefined, 2, strictSignedBatch);
     const after = Array.from(
       new Uint8Array(await crypto.subtle.digest('SHA-256', snapshot)),
       (n) => n.toString(16).padStart(2, '0'),
