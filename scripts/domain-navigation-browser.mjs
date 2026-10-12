@@ -69,6 +69,56 @@ const cases = [];
 const external = [];
 const errors = [];
 let failure;
+async function assertLanguageFocus(page, language) {
+  // Let native layout apply aria-pressed styles before checking focus. A hidden
+  // clicked button can retain focus briefly until the browser paints.
+  await page.evaluate(
+    () =>
+      new Promise((resolve) =>
+        requestAnimationFrame(() => requestAnimationFrame(resolve)),
+      ),
+  );
+  assert.equal(
+    await page.locator('.topbar .language-switch button:visible').count(),
+    2,
+    'both global language controls stay visible',
+  );
+  const clicked = page.locator(
+    `.topbar .language-switch button[lang="${language}"]`,
+  );
+  assert.equal(
+    await clicked.isVisible(),
+    true,
+    'clicked language stays visible',
+  );
+  assert.equal(
+    await clicked.evaluate((element) => document.activeElement === element),
+    true,
+    'the exact clicked language control keeps focus after layout',
+  );
+  return { language, focusedVisible: true, visibleButtons: 2 };
+}
+async function assertHeaderBounds(page) {
+  const geometry = await page.locator('.topbar').evaluate((header) => {
+    const bounds = header.getBoundingClientRect();
+    const style = getComputedStyle(header);
+    return {
+      left: bounds.left + parseFloat(style.paddingLeft),
+      right: bounds.right - parseFloat(style.paddingRight),
+      children: [
+        ...header.querySelectorAll(':scope > .brand, :scope > .topbar-actions'),
+      ].map((element) => element.getBoundingClientRect().toJSON()),
+    };
+  });
+  assert.ok(
+    geometry.children.every(
+      (bounds) =>
+        bounds.left >= geometry.left - 1 && bounds.right <= geometry.right + 1,
+    ),
+    `header actions fit inside their padding: ${JSON.stringify(geometry)}`,
+  );
+  return geometry;
+}
 try {
   for (const width of baseline ? [1440] : [1440, 320]) {
     for (const language of baseline ? ['ar'] : ['ar', 'en']) {
@@ -96,6 +146,7 @@ try {
           .locator(`.language-switch button[lang="${language}"]:visible`)
           .first()
           .click();
+      await assertHeaderBounds(page);
       const type = page.locator(
         'select[data-reconciliation-type-select]:visible',
       );
@@ -216,6 +267,7 @@ try {
           await page.evaluate(() => document.documentElement.lang),
           other,
         );
+        evidence.languageFocus = [await assertLanguageFocus(page, other)];
         assert.equal(
           await page.evaluate(() =>
             document.activeElement?.getAttribute('lang'),
@@ -232,6 +284,8 @@ try {
           await page.evaluate(() => document.documentElement.dir),
           language === 'ar' ? 'rtl' : 'ltr',
         );
+        evidence.languageFocus.push(await assertLanguageFocus(page, language));
+        evidence.headerBounds = await assertHeaderBounds(page);
         assert.equal(
           await page.evaluate(
             () => document.documentElement.scrollWidth > innerWidth + 2,

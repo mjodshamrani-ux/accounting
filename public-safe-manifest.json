@@ -45,8 +45,8 @@
     },
     {
       "path": "app/globals.css",
-      "bytes": 44391,
-      "sha256": "f0077231117281edd8dffcdd06275aabebfb04a769a20197c39597e32a25bdeb",
+      "bytes": 44019,
+      "sha256": "64718f8f0736b39e4c5b245f97b9dfb14b91f3f4610d1b06d269a489766d0952",
       "kind": "text"
     },
     {
@@ -64,8 +64,8 @@
     {
       "path": "app/reconciliation-shell.css",
       "kind": "text",
-      "bytes": 1764,
-      "sha256": "714a4829fa5224b6b21916a0307bf64221cf8fde1bd5f7a1f750e3ec0131544b"
+      "bytes": 1872,
+      "sha256": "8a18475045fe2702e72f8f09e3777c4464928d44cdf70eeba5522f15fe17f8cf"
     },
     {
       "path": "audit/allocation-handoff-v1/frozen/expected.json",
@@ -35114,8 +35114,8 @@
     {
       "path": "docs/RELEASE-0.4.47.ar.md",
       "kind": "text",
-      "bytes": 4869,
-      "sha256": "b76240a0103a1f43719a3574ef8206b5afb42686324f3e3c5e0e7535a4323bdf"
+      "bytes": 5281,
+      "sha256": "6a2c3e03e51ddafb348365c6627b92f33b61ebc7880d47ca0615069affb5945a"
     },
     {
       "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
@@ -36437,8 +36437,8 @@
     },
     {
       "path": "scripts/domain-navigation-browser.mjs",
-      "bytes": 17964,
-      "sha256": "a1d1bc77ba1d095db7993e951d02d720a8b03ad4f340a1df08024ae8a7e8d1f5",
+      "bytes": 19931,
+      "sha256": "830fedd2fe5ca3a79610fe4514ec20ee02bfe1bb48fabe30457b8c83bbfe9d81",
       "kind": "text"
     },
     {
@@ -39072,21 +39072,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-CMvWxo7x.js",
+      "path": "assets/ar-io-BVvgCk0J.js",
       "bytes": 11377,
-      "sha256": "90bd67acb57b91cbab9216a227a78114925bb00da0e0fb3988cdc5ff7d5bd604",
+      "sha256": "a56d9fc56eeaad39e1c472e2c4a09fc04f3e3148d821a3b65566b2c591ec4457",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-4iCRxL0z.js",
+      "path": "assets/bank-adjustment-io-Cl5MXbnk.js",
       "bytes": 12101,
-      "sha256": "ce4b8e7822be99c4b41a50e59d5f7460736e5b3cd0d61cdee0d8eb6ee434749e",
+      "sha256": "816aea99b39ecf1822658d440875ec4b722a38917f30f508083df1017194036d",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-BHzytwMA.js",
+      "path": "assets/bank-io-BusgSmPX.js",
       "bytes": 6331,
-      "sha256": "3f966f69c29147406175792bed8f27a6b6dfc1e1f9d92cea3f03b591c8a4ec35",
+      "sha256": "ac931404a2a0d07362543cc8fd509da9b4a4f68788c4ba0ca21d3d8b432c5c42",
       "kind": "text"
     },
     {
@@ -39122,27 +39122,27 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-DUlpEin_.js",
+      "path": "assets/fixed-assets-io-DGRQzdiG.js",
       "bytes": 9830,
-      "sha256": "e6ec0d52656db1e44daa0fecca43287d0743ba6d456d46612f2fb39040797de4",
+      "sha256": "76bddeb8ec0dbe9a4bc1f3459540bb2c3d3907d8b2c5a4e506ac7b56b9f72192",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-DTCOqHxw.js",
+      "path": "assets/gl-tb-io-BBdaL_FL.js",
       "bytes": 2184,
-      "sha256": "81435dda4bc6e45dff2b1289242f33224b777532f1fcd8179cf559b7f57f7d51",
+      "sha256": "f6c0d791fd679c4507e8a54d5ea3866bbd50a388c1e7c3083bf9e133e19953b4",
       "kind": "text"
     },
     {
-      "path": "assets/index-DD1xYCF4.css",
-      "bytes": 273450,
-      "sha256": "6c8e3a155785e2e260232c9f41de6fa89970898e1a15de3a2a101a0168a7a1d2",
+      "path": "assets/index-BZhMFknL.css",
+      "bytes": 273333,
+      "sha256": "a15c46e03d2e35056b089f3adefd01983184f025ff8de1654942c16b42f9a0ce",
       "kind": "text"
     },
     {
-      "path": "assets/index-DgiEzMWp.js",
+      "path": "assets/index-BvPJaaxK.js",
       "bytes": 6287354,
-      "sha256": "7d504fe760056af76dd2d82b873747578d9655e0826fb8fdcad7a61d6423cec4",
+      "sha256": "01c7011567a6595cf452ce0c536ee9671f2abe670379685d0556d5e08edf3f75",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -39328,7 +39328,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "91be3597be62beef703b9e4214f4dfe7f0fc3fa7fef9bfd0766ffa2a222a9b20",
+      "sha256": "80449e54a074e5dd18320fdaf5c26a3207f1a9d98c57f7d93ee9f2831cebeb79",
       "kind": "text"
     },
     {

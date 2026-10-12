@@ -2341,21 +2341,9 @@ td {
     padding-inline: 0;
   }
 }
-/* At 320px there is room for one language button: the switcher offers the
-   other language only, and the pill keeps its single line. */
+/* Both language buttons remain visible after a switch, so the clicked button
+   keeps keyboard focus. Compact spacing leaves room for the start action. */
 @media (max-width: 360px) {
-  .in-session .language-switch button[aria-pressed='true'],
-  .in-session .language-switch__divider {
-    display: none;
-  }
-}
-/* At the narrowest widths the switcher gives up spacing, never the header's
-   one-line "start" action. */
-@media (max-width: 360px) {
-  .has-landing .language-switch button[aria-pressed='true'],
-  .has-landing .language-switch__divider {
-    display: none;
-  }
   .has-landing .topbar-actions {
     gap: 6px;
   }
@@ -2368,6 +2356,6 @@ td {
   .nav-start {
     white-space: nowrap;
     gap: 6px;
-    padding-inline: 9px;
+    padding-inline: 6px;
   }
 }

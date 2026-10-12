@@ -73,3 +73,9 @@
     min-height: 150px;
   }
 }
+@media (max-width: 360px) {
+  .reconciliation-shell .topbar {
+    padding-inline: 12px;
+    gap: 8px;
+  }
+}
