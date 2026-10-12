@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import path from 'node:path';
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
+import { allocationWorkflowHandoffCopy } from '../lib/i18n/allocation-workflow-handoff.ts';
 export function holdOriginalWorkerReplies() {
   const descriptor = Object.getOwnPropertyDescriptor(
     Worker.prototype,
@@ -87,8 +89,9 @@ export async function verifyActualAllocationPending(
         .first()
         .click();
       const t = catalogs[lang].allocation;
+      const h = allocationWorkflowHandoffCopy(lang);
       const button = (p, n) => p.getByRole('button', { name: n, exact: true });
-      await button(page, t.entry).click();
+      await openDomainWorkspace(page, 'allocation');
       const workspace = () => page.locator('[data-allocation-workspace]');
       await workspace().waitFor();
       const idle = () =>
@@ -98,7 +101,29 @@ export async function verifyActualAllocationPending(
               .querySelector('[data-allocation-workspace]')
               ?.getAttribute('aria-busy') === 'false',
         );
-      // Real native File bytes are read first; only delivery is held. Leave retains this direct workspace mounted but inactive.
+      const navigationBlockedBeforeCancel = [];
+      const cancelThenLeave = async (phase) => {
+        await page.waitForFunction(
+          () =>
+            document
+              .querySelector('[data-allocation-workspace]')
+              ?.getAttribute('aria-busy') === 'true' &&
+            document.querySelector('select[data-reconciliation-type-select]')
+              ?.disabled,
+        );
+        const back = button(workspace(), t.backToSuppliers);
+        assert.equal(await back.isDisabled(), true);
+        assert.equal(
+          await page.locator('select[data-reconciliation-type-select]').isDisabled(),
+          true,
+        );
+        navigationBlockedBeforeCancel.push(phase);
+        await button(workspace(), h.cancel).click();
+        await idle();
+        assert.equal(await back.isDisabled(), false);
+        await back.click();
+      };
+      // Real native File bytes are read first; only delivery is held. Explicit cancellation then leave retains this direct workspace mounted but inactive.
       await page
         .getByTestId('allocation-source-0')
         .getByLabel(t.sides[0], { exact: true })
@@ -106,11 +131,11 @@ export async function verifyActualAllocationPending(
       await page.waitForFunction(
         () => globalThis.heldOriginalFileReads.length === 1,
       );
-      await button(workspace(), t.backToSuppliers).click();
+      await cancelThenLeave('native-file');
       await page.evaluate(() =>
         globalThis.heldOriginalFileReads.splice(0).forEach((r) => r()),
       );
-      await button(page, t.entry).click();
+      await openDomainWorkspace(page, 'allocation');
       await idle();
       assert.equal(
         await page.getByTestId('allocation-source-0').locator('h3').count(),
@@ -179,11 +204,11 @@ export async function verifyActualAllocationPending(
       await page.waitForFunction(
         () => globalThis.heldOriginalWorkerReplies.length === 1,
       );
-      await button(workspace(), t.backToSuppliers).click();
+      await cancelThenLeave('worker-decision');
       await page.evaluate(() =>
         globalThis.heldOriginalWorkerReplies.splice(0).forEach((r) => r()),
       );
-      await button(page, t.entry).click();
+      await openDomainWorkspace(page, 'allocation');
       await idle();
       assert.equal(await page.getByTestId('allocation-event').count(), 0);
       assert.deepEqual(await rows(), baseline);
@@ -196,11 +221,11 @@ export async function verifyActualAllocationPending(
       await page.waitForFunction(
         () => globalThis.heldOriginalWorkerReplies.length === 1,
       );
-      await button(workspace(), t.backToSuppliers).click();
+      await cancelThenLeave('worker-save');
       await page.evaluate(() =>
         globalThis.heldOriginalWorkerReplies.splice(0).forEach((r) => r()),
       );
-      await button(page, t.entry).click();
+      await openDomainWorkspace(page, 'allocation');
       await idle();
       assert.deepEqual(downloads, []);
       assert.deepEqual(errors, []);
@@ -210,9 +235,10 @@ export async function verifyActualAllocationPending(
       });
       results.push({
         lang,
-        pendingNativeFileDeliveryLeaveCancelled: true,
-        originalWorkerDecisionDeliveryLeaveCancelled: true,
-        originalWorkerSaveDeliveryLeaveNoDownload: true,
+        pendingNativeFileDeliveryCancelledThenLeave: true,
+        originalWorkerDecisionDeliveryCancelledThenLeave: true,
+        originalWorkerSaveDeliveryCancelledThenLeaveNoDownload: true,
+        navigationBlockedBeforeCancel,
         pageErrors: errors,
         timingBoundary:
           'native Worker transport before client protocol validation; untouched actual event and value',

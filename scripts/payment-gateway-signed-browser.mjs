@@ -4,6 +4,10 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { gatewayCopy } from '../lib/i18n/payment-gateway.ts';
+import {
+  openDomainWorkspace,
+  workspaceSource,
+} from './domain-navigation-support.mjs';
 
 const root = path.resolve('dist');
 const expectedAppVersion = JSON.parse(
@@ -111,6 +115,7 @@ try {
       await page.goto(url);
       if (lang === 'en')
         await page
+          .locator('header.topbar .language-switch')
           .getByRole('button', { name: 'EN English', exact: true })
           .click();
       const displayedAppVersion = (
@@ -118,7 +123,7 @@ try {
       ).trim().split('·').at(-1)?.trim();
       assert.equal(displayedAppVersion, expectedAppVersion);
       const copy = gatewayCopy[lang];
-      await page.getByRole('button', { name: copy.title, exact: true }).click();
+      await openDomainWorkspace(page, 'gateway');
       const w = page.locator('[data-gateway-workspace]'),
         status = w.locator('[data-gateway-status]');
       const button = (name) => w.getByRole('button', { name, exact: true });
@@ -150,9 +155,7 @@ try {
         return session;
       };
       const attestSource = async (source) => {
-        await w
-          .locator('fieldset:has(input[type="file"])')
-          .nth(source)
+        await workspaceSource(w, copy.roles[source])
           .getByRole('checkbox')
           .check();
         await w.getByLabel(copy.complete, { exact: true }).check();
@@ -244,9 +247,7 @@ try {
             `audit/payment-gateway-signed/fixtures/sar-zero-kinds/${source}.csv`,
           );
         await wait();
-        await w
-          .locator('fieldset:has(input[type="file"])')
-          .nth(source)
+        await workspaceSource(w, copy.roles[source])
           .getByRole('checkbox')
           .check();
       }

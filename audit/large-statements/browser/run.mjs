@@ -166,8 +166,8 @@ async function open(lang) {
   await page.goto(url);
   await page.waitForFunction(() => !document.querySelector('.notice.loading'));
   if (lang === 'en') await switchLanguage(page, lang);
-  // The current directory explicitly opens the retained supplier workflow.
-  await page.locator('[data-domain-entry="supplier"]').click();
+  // The native type selector explicitly opens the retained supplier workflow.
+  await page.locator('[data-reconciliation-type-select]').selectOption('supplier');
   await page.locator('.workflow-title:visible').waitFor({ state: 'visible' });
   assert.match(
     await page
