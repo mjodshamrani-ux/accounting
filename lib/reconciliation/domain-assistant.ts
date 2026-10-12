@@ -299,7 +299,7 @@ export function askDomainEvidence(
       currency = v.scope.currency;
       decimals = v.decimals;
       if (kind !== 'amounts') {
-        if ('status' in v) add('status', v.status);
+        if ('status' in v && v.status !== undefined) add('status', v.status);
         add('errors', v.inventory.filter((x) => x.kind === 'error').length);
         if ('missing' in v) add('missing', v.missing.length);
         if ('issues' in v) add('diagnostics', v.issues.length);

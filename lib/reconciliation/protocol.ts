@@ -101,6 +101,8 @@ export function isRequest(value: unknown): value is {
     Number.isSafeInteger(value.id) &&
     (value.id as number) > 0 &&
     WORKER_ACTIONS.includes(value.action as WorkerAction) &&
+    (!(typeof value.action === 'string' && value.action.startsWith('ar-')) ||
+      Object.keys(value).sort().join('|') === 'action|channel|id|payload') &&
     Object.hasOwn(value, 'payload')
   );
 }
@@ -139,6 +141,50 @@ export function validateWorkerValue(
 ) {
   if (value === undefined || value === null)
     throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+  if (action === 'ar-save' || action === 'ar-export') {
+    if (
+      !(value instanceof ArrayBuffer) ||
+      !value.byteLength ||
+      value.byteLength > (action === 'ar-save' ? 32 : 96) * 1024 * 1024
+    )
+      throw Error('AR_WORKER_ENVELOPE');
+  }
+  if (action === 'ar-reconcile' || action === 'ar-restore') {
+    if (
+      !isRecord(value) ||
+      Object.keys(value).sort().join('|') !== 'result|state' ||
+      !isRecord(value.state) ||
+      !isRecord(value.result) ||
+      !['ar-limited-1', 'ar-scope-details-1'].includes(
+        value.result.version as string,
+      ) ||
+      typeof value.result.context !== 'string' ||
+      value.result.context.length > 65536 ||
+      !Array.isArray(value.state.files) ||
+      value.state.files.length !== 2 ||
+      !Array.isArray(value.state.readings) ||
+      value.state.readings.length !== 2 ||
+      !Array.isArray(value.state.events) ||
+      value.state.events.length > 1000 ||
+      !Array.isArray(value.result.rows) ||
+      value.result.rows.length > 2 * MAX_ROWS ||
+      !Array.isArray(value.result.inventory) ||
+      value.result.inventory.length > 2 * (MAX_ROWS + 30) ||
+      !Array.isArray(value.result.cases) ||
+      value.result.cases.length > 2 * MAX_ROWS
+    )
+      throw Error('AR_WORKER_ENVELOPE');
+    for (const file of value.state.files) {
+      assertSourceFile(file);
+      if (
+        !(file.original instanceof ArrayBuffer) ||
+        !file.original.byteLength ||
+        file.original.byteLength > MAX_FILE_BYTES ||
+        !/^[a-f0-9]{64}$/.test(file.sha256 ?? '')
+      )
+        throw Error('AR_WORKER_ENVELOPE');
+    }
+  }
   if (
     action === 'ready' &&
     (!isRecord(value) ||

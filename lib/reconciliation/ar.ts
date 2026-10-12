@@ -3,11 +3,36 @@ import { currencyPrecision } from './currency-precision.ts';
 import { nativeDisplayIssue } from './xlsx-display.ts';
 import { assertSourceFile } from './protocol.ts';
 import type { SourceFile } from './types.ts';
+import {
+  AR_SCOPE_DETAILS_VERSION,
+  arScopeReadingKeys,
+  arIssueCategory,
+  arCsvSpans,
+  isArScopeReading,
+  parseArScopeDetails,
+} from './ar-scope-details.ts';
+import type {
+  ArScopeDetailsReading,
+  ArSourceCell,
+  ArSourceIssue,
+  ArSourceScope,
+} from './ar-scope-details.ts';
+export {
+  AR_SCOPE_DETAILS_VERSION,
+  isArScopeReading,
+  suggestArScopeReading,
+} from './ar-scope-details.ts';
+export type {
+  ArScopeDetailsReading,
+  ArSourceCell,
+  ArSourceIssue,
+  ArSourceScope,
+} from './ar-scope-details.ts';
 
 export const AR_VERSION = 'ar-limited-1';
 export type ArKind = 'invoice' | 'credit-note' | 'receipt';
 export type ArRole = 'company-ar-ledger' | 'company-issued-customer-statement';
-export type ArReading = {
+export type ArLegacyReading = {
   sheet: number;
   header: number;
   posting: number;
@@ -27,6 +52,7 @@ export type ArReading = {
   basis: 'original-movement';
   confirmed: boolean;
 };
+export type ArReading = ArLegacyReading | ArScopeDetailsReading;
 export type ArScope = {
   entity: string;
   ledger: string;
@@ -49,6 +75,12 @@ export type ArRow = {
   related: string;
   relatedEvidence: string[];
   description: string;
+  originalRaw?: string;
+  openBalanceRaw?: string;
+  openBalanceRole?: 'descriptive-unverified';
+  parentScopeId?: string;
+  parentCell?: string;
+  inheritedSourceCells?: Record<string, ArSourceCell>;
 };
 export type ArInventory = {
   side: 0 | 1;
@@ -56,15 +88,30 @@ export type ArInventory = {
   kind: 'header' | 'blank' | 'movement' | 'error';
   values: string[];
   error?: string;
+  inventoryId?: string;
+  classification?:
+    | 'scope-marker'
+    | 'scope-header'
+    | 'details-marker'
+    | 'detail-header'
+    | 'end-marker'
+    | 'blank'
+    | 'detail'
+    | 'movement'
+    | 'error'
+    | 'legacy-header';
+  errors?: string[];
+  lineSpan?: [number, number];
 };
 export type ArCase = {
   id: string;
   ids: string[];
-  kind: ArKind;
+  kind: ArKind | 'scope';
   document: string;
   status: 'matched' | 'review';
   basis: 'own-document' | 'human-confirmation' | 'none';
   reason:
+    | 'empty-source'
     | 'exact-own-document'
     | 'source-errors'
     | 'duplicate-document'
@@ -100,7 +147,13 @@ export type ArResult = {
   rows: ArRow[];
   inventory: ArInventory[];
   cases: ArCase[];
-  totals: [number, number];
+  totals: [number | null, number | null];
+  status?: 'matched' | 'review' | 'source-error';
+  sourceIssues?: ArSourceIssue[];
+  errorInventoryRefs?: string[];
+  sourceScopes?: ArSourceScope[];
+  receiptAllocations?: never[];
+  financialCompletenessAsserted?: false;
 };
 function fail(code: string): never {
   throw new Error(`AR_${code}`);
@@ -221,6 +274,15 @@ function validate(input: ArInput) {
       fail('SOURCE');
     assertSourceFile(file);
     const r = input.readings[side];
+    if (isArScopeReading(r)) {
+      const parsed = parseArScopeDetails(file, side as 0 | 1, r, s, decimals!);
+      return {
+        sheet: parsed.sheet,
+        selected: [] as number[],
+        relatedColumns: [] as number[],
+        parsed,
+      };
+    }
     if (
       !plain(r) ||
       !sameKeys(r, readingKeys) ||
@@ -245,7 +307,9 @@ function validate(input: ArInput) {
       selected.some((c) => c < 0 || c >= header.length || !header[c].trim()) ||
       new Set(selected).size !== selected.length ||
       sheet.hiddenRows.includes(1) ||
-      sheet.rowIssues?.['1']?.some((issue) => !issue.startsWith('XLSX_NATIVE_DISPLAY:')) ||
+      sheet.rowIssues?.['1']?.some(
+        (issue) => !issue.startsWith('XLSX_NATIVE_DISPLAY:'),
+      ) ||
       sheet.xlsxHeaders?.hiddenColumns.length ||
       // Every header contributes to role uniqueness, including unmapped columns.
       Object.entries(sheet.cellIssues ?? {}).some(
@@ -280,19 +344,47 @@ function validate(input: ArInput) {
 }
 /** AR document comparison in the seller perspective, never AP matching or receipt allocation. */
 export function reconcileAr(input: ArInput): ArResult {
-  const { sheets, decimals } = validate(input);
+  const newFamily =
+    Array.isArray(input?.readings) && input.readings.some(isArScopeReading);
+  let validated: ReturnType<typeof validate>;
+  try {
+    validated = validate(input);
+  } catch (cause) {
+    const code = cause instanceof Error ? cause.message : 'AR_INPUT';
+    if (!newFamily || !['AR_SCOPE', 'AR_SAME_SOURCE'].includes(code))
+      throw cause;
+    return invalidScopeResult(input, code);
+  }
+  const { sheets, decimals } = validated;
+  const version = newFamily ? AR_SCOPE_DETAILS_VERSION : AR_VERSION;
   const context = JSON.stringify([
-    AR_VERSION,
+    version,
     input.files.map((f) => f.sha256),
-    input.readings.map((r) => readingKeys.map((k) => r[k as keyof ArReading])),
+    input.readings.map((r) =>
+      isArScopeReading(r)
+        ? arScopeReadingKeys.map((k) => r[k])
+        : readingKeys.map((k) => r[k as keyof ArLegacyReading]),
+    ),
     scopeKeys.map((k) => input.scope[k as keyof ArScope]),
   ]);
   const rows: ArRow[] = [],
     inventory: ArInventory[] = [];
+  const sourceIssues: ArSourceIssue[] = [];
+  const sourceScopes: ArSourceScope[] = [];
+  const structuralSides = new Set<number>();
   for (const side of [0, 1] as const) {
     const { sheet, selected, relatedColumns } = sheets[side],
       r = input.readings[side],
       s = input.scope;
+    if (isArScopeReading(r)) {
+      const parsed = sheets[side].parsed!;
+      rows.push(...parsed.rows);
+      inventory.push(...parsed.inventory);
+      sourceIssues.push(...parsed.issues);
+      if (parsed.sourceScope) sourceScopes.push(parsed.sourceScope);
+      if (parsed.structural) structuralSides.add(side);
+      continue;
+    }
     const hiddenRows = new Set(sheet.hiddenRows);
     for (const [index, original] of sheet.rows.entries()) {
       const row = index + 1,
@@ -374,7 +466,8 @@ export function reconcileAr(input: ArInput): ArResult {
           row,
           kind: 'error',
           values,
-          error: nativeDisplayIssue(sheet, row, [...selected, ...relatedColumns]) ??
+          error:
+            nativeDisplayIssue(sheet, row, [...selected, ...relatedColumns]) ??
             (error instanceof Error ? error.message : 'AR_CELL'),
         });
       }
@@ -400,9 +493,54 @@ export function reconcileAr(input: ArInput): ArResult {
     const item = inventoryByRow.get(`${row.side}:${row.row}`)!;
     item.kind = 'error';
     item.error = 'AR_DUPLICATE_POSTING';
+    if (newFamily) {
+      item.classification = 'error';
+      item.errors = ['AR_DUPLICATE_POSTING'];
+    }
   }
   const valid = rows.filter((r) => !duplicateIds.has(r.id));
-  const errors = inventory.some((r) => r.kind === 'error');
+  const issueInventoryIds = new Set(
+    sourceIssues.flatMap((issue) => issue.inventoryIds),
+  );
+  if (newFamily)
+    for (const item of inventory) {
+      item.inventoryId ??= `${item.side}:${input.files[item.side].sha256}:${input.readings[item.side].sheet}:inventory:${item.row}`;
+      item.classification ??=
+        item.kind === 'header' ? 'legacy-header' : item.kind;
+      if (item.kind === 'error' && !issueInventoryIds.has(item.inventoryId!)) {
+        item.errors ??= [item.error ?? 'AR_CELL'];
+        sourceIssues.push({
+          side: item.side,
+          code: item.error ?? 'AR_CELL',
+          category: arIssueCategory(item.error ?? 'AR_CELL'),
+          inventoryIds: [item.inventoryId],
+        });
+      }
+    }
+  const totals = newFamily
+    ? ([0, 1].map((side) => {
+        if (newFamily && structuralSides.has(side)) return null;
+        try {
+          return safeSum(
+            valid.filter((r) => r.side === side).map((r) => r.amount),
+          );
+        } catch (cause) {
+          if (!newFamily) throw cause;
+          sourceIssues.push({
+            side: side as 0 | 1,
+            code: 'AR_TOTAL_BOUND',
+            category: 'total-bound',
+            inventoryIds: inventory
+              .filter((i) => i.side === side && i.kind === 'movement')
+              .map((i) => i.inventoryId!),
+          });
+          return null;
+        }
+      }) as [number | null, number | null])
+    : undefined;
+  const errors =
+    (newFamily && sourceIssues.length > 0) ||
+    inventory.some((r) => r.kind === 'error');
   const buckets = new Map<string, ArRow[]>();
   for (const row of valid) {
     const key = JSON.stringify([row.kind, row.document]);
@@ -410,10 +548,12 @@ export function reconcileAr(input: ArInput): ArResult {
     if (bucket) bucket.push(row);
     else buckets.set(key, [row]);
   }
-  const documentRole = input.readings.every((r, side) =>
-    /^(Own document number|رقم المستند الأصلي)$/i.test(
-      sheets[side].sheet.rows[0][r.document].trim(),
-    ),
+  const documentRole = input.readings.every(
+    (r, side) =>
+      isArScopeReading(r) ||
+      /^(Own document number|رقم المستند الأصلي)$/i.test(
+        sheets[side].sheet.rows[0][r.document].trim(),
+      ),
   );
   const cases: ArCase[] = [];
   const eligible = new Set<string>();
@@ -465,6 +605,17 @@ export function reconcileAr(input: ArInput): ArResult {
       note: '',
     });
   }
+  if (newFamily && cases.length === 0)
+    cases.push({
+      id: 'ar:scope',
+      ids: [],
+      kind: 'scope',
+      document: '',
+      status: 'review',
+      basis: 'none',
+      reason: errors ? 'source-errors' : 'empty-source',
+      note: '',
+    });
   const owner = new Map(
     cases.flatMap((c) => c.ids.map((id) => [id, c] as const)),
   );
@@ -514,7 +665,7 @@ export function reconcileAr(input: ArInput): ArResult {
   )
     fail('OWNERSHIP');
   return {
-    version: AR_VERSION,
+    version,
     context,
     sources: input.files.map((f, side) => ({
       hash: f.sha256!,
@@ -528,9 +679,113 @@ export function reconcileAr(input: ArInput): ArResult {
     rows: valid,
     inventory,
     cases,
-    totals: [
+    totals: totals ?? [
       safeSum(valid.filter((r) => r.side === 0).map((r) => r.amount)),
       safeSum(valid.filter((r) => r.side === 1).map((r) => r.amount)),
     ],
+    ...(newFamily
+      ? {
+          status: errors
+            ? ('source-error' as const)
+            : cases.every((c) => c.status === 'matched')
+              ? ('matched' as const)
+              : ('review' as const),
+          sourceIssues,
+          errorInventoryRefs: [
+            ...new Set(sourceIssues.flatMap((issue) => issue.inventoryIds)),
+          ],
+          sourceScopes,
+          receiptAllocations: [] as never[],
+          financialCompletenessAsserted: false as const,
+        }
+      : {}),
+  };
+}
+
+/** A malformed externally confirmed scope cannot grant financial authority.
+ * Preserve its original inventory so callers can render a bounded source error. */
+function invalidScopeResult(input: ArInput, code: string): ArResult {
+  const inventory: ArInventory[] = [];
+  for (const side of [0, 1] as const) {
+    const file = input.files[side];
+    assertSourceFile(file);
+    const sheetIndex = Number.isSafeInteger(input.readings[side]?.sheet)
+      ? input.readings[side].sheet
+      : 0;
+    const sheet = file.sheets[sheetIndex] ?? file.sheets[0];
+    const spans = isArScopeReading(input.readings[side])
+      ? arCsvSpans(file)
+      : undefined;
+    sheet.rows.forEach((values, index) =>
+      inventory.push({
+        side,
+        row: index + 1,
+        kind: 'error',
+        values: [...values],
+        error: code,
+        errors: [code],
+        classification: 'error',
+        inventoryId: `${side}:${file.sha256}:${sheetIndex}:inventory:${index + 1}`,
+        ...(spans?.[index] ? { lineSpan: spans[index] } : {}),
+      }),
+    );
+  }
+  const sourceIssues = [0, 1].map((side) => ({
+    side: side as 0 | 1,
+    code,
+    category: arIssueCategory(code),
+    inventoryIds: inventory
+      .filter((item) => item.side === side)
+      .map((item) => item.inventoryId!),
+  }));
+  if (input.events.length) fail('DECISION');
+  return {
+    version: AR_SCOPE_DETAILS_VERSION,
+    context: JSON.stringify([
+      AR_SCOPE_DETAILS_VERSION,
+      input.files.map((file) => file.sha256),
+      input.readings.map((reading) =>
+        isArScopeReading(reading)
+          ? arScopeReadingKeys.map((key) => reading[key])
+          : readingKeys.map((key) => reading[key as keyof ArLegacyReading]),
+      ),
+      scopeKeys.map((key) => input.scope?.[key as keyof ArScope]),
+    ]),
+    sources: input.files.map((file, side) => ({
+      hash: file.sha256!,
+      name: file.name,
+      sheet: (file.sheets[input.readings[side].sheet] ?? file.sheets[0]).name,
+      role: roles[side],
+    })),
+    readings: input.readings.map((reading) => ({ ...reading })) as [
+      ArReading,
+      ArReading,
+    ],
+    scope: { ...input.scope },
+    decimals:
+      typeof input.scope?.currency === 'string'
+        ? (currencyPrecision(input.scope.currency) ?? 2)
+        : 2,
+    rows: [],
+    inventory,
+    cases: [
+      {
+        id: 'ar:scope',
+        ids: [],
+        kind: 'scope',
+        document: '',
+        status: 'review',
+        basis: 'none',
+        reason: 'source-errors',
+        note: '',
+      },
+    ],
+    totals: [null, null],
+    status: 'source-error',
+    sourceIssues,
+    errorInventoryRefs: sourceIssues.flatMap((issue) => issue.inventoryIds),
+    sourceScopes: [],
+    receiptAllocations: [],
+    financialCompletenessAsserted: false,
   };
 }

@@ -168,6 +168,16 @@ jobs:
           pnpm test:payment-gateway-signed:oracle
           pnpm test:payment-gateway-signed:proof
           pnpm test:payment-gateway-signed:mutations
+      - name: Verify AR scope headers, original amounts, sessions, independent exports and semantic mutations
+        env:
+          AR_SCOPE_DETAILS_REPORT_DIR: ${{ runner.temp }}/ar-scope-details-proof
+          AR_SCOPE_CHECK_DIR: ${{ runner.temp }}/ar-scope-details-check
+          AR_SCOPE_MUTATION_DIR: ${{ runner.temp }}/ar-scope-details-mutations
+        run: |
+          pnpm test:ar-scope-details
+          pnpm test:ar-scope-details:oracle
+          pnpm test:ar-scope-details:proof
+          pnpm test:ar-scope-details:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
@@ -179,6 +189,12 @@ jobs:
           PG_SIGNED_BROWSER_DIR: ${{ runner.temp }}/payment-gateway-signed-browser
           PG_SIGNED_BROWSER_CHECK_DIR: ${{ runner.temp }}/payment-gateway-signed-browser-check
         run: pnpm test:payment-gateway-signed:browser
+      - name: Verify AR scope details in actual Workers with Arabic and English mobile downloads
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          AR_SCOPE_BROWSER_DIR: ${{ runner.temp }}/ar-scope-details-browser
+          AR_SCOPE_CHECK_DIR: ${{ runner.temp }}/ar-scope-details-browser-check
+        run: pnpm test:ar-scope-details:browser
       - name: Verify twelve-type entry, readiness, navigation and retained supplier state
         run: |
           pnpm test:browser:reconciliation-entry

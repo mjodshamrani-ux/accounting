@@ -1,0 +1,4 @@
+Posting ID,Document type,Own document number,Posting date,Original signed amount,Entity,Ledger,Customer,Account,Currency,Related invoice,Description,Open balance
+1-P-I01-invoice,invoice,I01,2026-10-02,100,Synthetic Seller,AR Book,00017,1200,SAR,,Synthetic preparation only,40
+1-P-CN1-credit-note,credit-note,CN1,2026-10-02,-25,Synthetic Seller,AR Book,00017,1200,SAR,I01,Synthetic preparation only,0
+1-P-RC1-receipt,receipt,RC1,2026-10-02,-40,Synthetic Seller,AR Book,00017,1200,SAR,I01,Synthetic preparation only,0

@@ -21,6 +21,7 @@ import {
 } from './allocation-io.ts';
 import { replayGlTb, saveGlTb, restoreGlTb, exportGlTb } from './gl-tb-io.ts';
 import { replayAr, saveAr, restoreAr, exportAr } from './ar-io.ts';
+import { snapshotArRequest } from './ar-worker-binding.ts';
 import { assertInputFormats } from './input-readiness.ts';
 import { saveSession, restoreSession } from './session.ts';
 import { readFile, exportWorkbook, replayNativeHeaderSource } from './io.ts';
@@ -40,7 +41,8 @@ import {
 self.onmessage = async (event: MessageEvent) => {
   const input: unknown = event.data;
   if (!isRequest(input)) return;
-  const { id, action, payload } = event.data;
+  const { id, action } = event.data;
+  let { payload } = event.data;
   const reply = { channel: WORKER_CHANNEL, id, action };
   // Durations only: no source content, persistence, or network telemetry.
   const timings: Record<string, number> = {};
@@ -51,6 +53,7 @@ self.onmessage = async (event: MessageEvent) => {
     started = now;
   };
   try {
+    if (action.startsWith('ar-')) payload = snapshotArRequest(action, payload);
     let value: unknown;
     if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
     else if (action === 'bank-adjustment-reconcile')

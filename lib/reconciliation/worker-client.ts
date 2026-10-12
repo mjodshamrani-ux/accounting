@@ -1,5 +1,6 @@
 import { snapshotAsset } from './fixed-assets-envelope.ts';
 import { snapshotGatewayRequest } from './payment-gateway-worker-binding.ts';
+import { snapshotArRequest, assertArWorkerReply } from './ar-worker-binding.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 import type { AssetInput } from './fixed-assets.ts';
 import { WORKER_CHANNEL, isRecord, validateWorkerValue } from './protocol.ts';
@@ -54,6 +55,13 @@ export function createWorkerClient(
     return new Promise((resolve, reject) => {
       if (signal?.aborted) return reject(new Error('أُلغيت العملية'));
       if (inUse) return reject(new Error('انتظر انتهاء العملية الحالية'));
+      if (action.startsWith('ar-')) {
+        try {
+          payload = snapshotArRequest(action, payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       if (action.startsWith('gateway-')) {
         try {
           payload = snapshotGatewayRequest(action, payload);
@@ -150,7 +158,7 @@ export function createWorkerClient(
       }
       worker.onmessage = async (event) => {
         if (settled) return;
-        const response = event.data as unknown;
+        let response = event.data as unknown;
         // Library messages and delayed replies are not accounting results.
         if (
           !isRecord(response) ||
@@ -164,6 +172,18 @@ export function createWorkerClient(
               'استجابة قارئ الملفات غير صالحة. أُعيد تجهيز القارئ لتتمكن من المحاولة مجددًا.',
             ),
           );
+        if (action.startsWith('ar-')) {
+          try {
+            assertArWorkerReply(response);
+            if (response.ok === true)
+              validateWorkerValue(action, response.value, payload);
+            response = structuredClone(response);
+          } catch (error) {
+            fail(error);
+            return;
+          }
+        }
+        if (!isRecord(response)) return invalidResponse();
         if (response.action !== action) return invalidResponse();
         if (
           Object.hasOwn(response, 'kind') ||
@@ -262,6 +282,15 @@ export function createWorkerClient(
             response.value = requested;
           }
           validateWorkerValue(action, response.value, payload);
+          if (action.startsWith('ar-')) {
+            const { validateArWorkerResponse } =
+              await import('./ar-worker-binding.ts');
+            response.value = await validateArWorkerResponse(
+              action,
+              response.value,
+              payload,
+            );
+          }
           if (
             [
               'bank-reconcile',

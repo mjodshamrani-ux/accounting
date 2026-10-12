@@ -1,0 +1,1651 @@
+{
+  "one-invoice-open-differs": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ]
+    },
+    "topology": "one invoice, unequal unverified open balances",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "f7e2f6062b6308951f6b435128aeec81c109fd29bf63af2d7c171b6414ee2c03"
+    ]
+  },
+  "three-document-kinds": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        3500,
+        3500
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "invoice + credit note + receipt, independent own identities",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "595ba3fcff91e106d1a0fcc6173600ac9756dc7e9348eeb0c23c2c077e916b52",
+      "54e8645879bed2b00a56a41cba1a7db7a1e9f3f4d299057139572d61f496b2c2"
+    ]
+  },
+  "two-invoices-reordered": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 2,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        16000,
+        16000
+      ],
+      "validRowCounts": [
+        2,
+        2
+      ]
+    },
+    "topology": "two invoices, counterparty order differs",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "bc5ea2b81fad3ae518f240412edba0b35cab599d274e61dbd32d1933dbccfa0e",
+      "c4d47e6de2b376bdeebf4b21f0930b42c34145783272b3a1f082744461b0e92b"
+    ]
+  },
+  "two-receipts-no-allocation": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        11000,
+        11000
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "one invoice and two independent receipt documents; no allocation inference",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "8f7d3670233cb7ea3481bc70d685bc4aeec8dc01f6a476ef4e189a0e6d4f45a1",
+      "debb9005a0070382be7561cc45accf36480927305aca241dc161f89f55bcb1c3"
+    ]
+  },
+  "two-credit-notes": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        25000,
+        25000
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "one invoice and two own credit notes",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "6c2b4ca7bc6789b2a4fb6174b3992e18dab654c30d999fb7e705963a5a3d9d46",
+      "b6d8d34790b16a7eb5d54b51b3c5516052d94b3e9ce1fbf4edf6b19b51d1b50a"
+    ]
+  },
+  "own-number-shared-across-kinds": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        7000,
+        7000
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "same literal own number, three distinct document types",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "413b5d4847ec93fdbb3025b8bfa3bb7bdfe091796aba02998eb867a3a172ba31",
+      "7c6f6420919953dccae7c1fd5d9cbd5f6c3af887179e95cd9ad365e3d1d1d0d6"
+    ]
+  },
+  "receipt-only-no-invoice-authority": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        -5500,
+        -5500
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ]
+    },
+    "topology": "receipt-only population, related invoice absent from originals",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "338796f5a83c5af25d18684f6e0ec9513b69c6465bb76a4e8695cc5fb3919ee3",
+      "ed52bf1878a12c59c7d4b89ee8b793d95b29feb6687560b2051fb6023c269dd3"
+    ]
+  },
+  "negative-original-net": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 2,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        -2000,
+        -2000
+      ],
+      "validRowCounts": [
+        2,
+        2
+      ]
+    },
+    "topology": "invoice plus larger receipt; negative original sum is not allocation",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "db3fa3030fec724bd090e388a294051f9965d9188bb52ae052045f8a71554ba7",
+      "4885bfa2e9ffbc0f166091e7ef7ff4749504fba15ed60f7c0c577032e98dbc43"
+    ]
+  },
+  "blanks-and-multiline-description": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ]
+    },
+    "topology": "blank records plus quoted multiline cell, preserve both record and line span",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "afca080bde33e887f8c0b672ea19143073d7e9d2dfc3bcb91fc1ab4bf37f2c98",
+      "3f2c830233faeecbf3d18c9979ed6efe4a6e171ba874a43f646f513c6ee86c7a"
+    ]
+  },
+  "jpy-invoice-credit": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 2,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        98,
+        98
+      ],
+      "validRowCounts": [
+        2,
+        2
+      ]
+    },
+    "topology": "zero-decimal two-document population",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "7f472c08fe29db13889b6e79c4edf0efc3718326fe0d94bfc4ecd151a38a10c1",
+      "b9988b09d487e3853e3ea02f658f17738bbfd05ec8182bf005e236aef88107f0"
+    ]
+  },
+  "kwd-three-decimal": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        11999,
+        11999
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "three-decimal monetary boundary in each type",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "041bd3feaa70ee96a453d49682a09e6a8d1c77c8f195cf74ddae4369de81a26b",
+      "e34330af9dc8b2efb45f4e6045523b079e590d3dcd9951fda58cbf0c74f0afdb"
+    ]
+  },
+  "arabic-persian-raw": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 2,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        1000,
+        1000
+      ],
+      "validRowCounts": [
+        2,
+        2
+      ]
+    },
+    "topology": "representation: Arabic/Persian digits and explicit kind",
+    "representationControl": true,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "eb571e0273f0e58b259bc6016368600dfe3339447dfd2bcc3dccdc3cdfb1f2d9",
+      "6397ea3ea6e707361cc1cc39505996071aadd83f6fb95fe2f6faf4e1f0cf394c"
+    ]
+  },
+  "open-literal-unverified": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ]
+    },
+    "topology": "unverified descriptive open value cannot enter money",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ff0c634a2fa474889c10a88c6d0b2303178f416bda05bf6559851edab40f5c97",
+      "f066485b8b90ab50cef6f02f260d208eb189f0ffec79e3b0a60fe45532fc3ebc"
+    ]
+  },
+  "header-order": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ]
+    },
+    "topology": "header-order",
+    "representationControl": true,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "dbc814463e0fa8735281212b78cd1489b8c79524958018219e1a394d7d72d272",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "detail-column-order": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ]
+    },
+    "topology": "detail-column-order",
+    "representationControl": true,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "b8cb72afec528f6481c0775f4f7897451bf8431a77802801554477249e4eb06a",
+      "0417d38fb46cb6d953bd5d422be902753c086f2efb9b32fc9f852a493bb77bf9"
+    ]
+  },
+  "mixed-new-canonical": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        3500,
+        3500
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "new head/details paired with old row-scoped canonical",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "595ba3fcff91e106d1a0fcc6173600ac9756dc7e9348eeb0c23c2c077e916b52",
+      "079796d94185b64540cbfe516912b1da8ee1ebf0a361af96354e10bfce6f6bd0"
+    ]
+  },
+  "inclusive-amount-bound": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        100000000000000,
+        100000000000000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ]
+    },
+    "topology": "inclusive current original-amount and total bound",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ac034c329b5355a51a6dcf7b01c21a057b3953c99f29e233e4bb3357b7eba837",
+      "d59dffe87a2a111a137ab307094d97b697b7ff9cb4078dde58d1d5947749b0b8"
+    ]
+  },
+  "native-inline-three-kinds": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        3500,
+        3500
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "native-inline-three-kinds",
+    "representationControl": true,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "debfb45cabf2c7201b8712bba05db2011722cee8cd7f198e871201b73a5edf77",
+      "53503dade254c9b47bae9844ae3ffc2e61e2b00682d34982b4703803dad12abf"
+    ]
+  },
+  "native-shared-three-kinds": {
+    "expected": {
+      "status": "matched",
+      "matchedPairCount": 3,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        3500,
+        3500
+      ],
+      "validRowCounts": [
+        3,
+        3
+      ]
+    },
+    "topology": "native-shared-three-kinds",
+    "representationControl": true,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "6d093fb575d2efc73d1e817f05b007bc0ce0e6c5501fc768b7027a7ba9b9ff78",
+      "c5379e560b03dd2ef12fc0a1a79b8aafa6267d3916b05fb2c56b7e951f8d4f85"
+    ]
+  },
+  "empty-source-review": {
+    "expected": {
+      "status": "review",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        0
+      ],
+      "validRowCounts": [
+        0,
+        0
+      ],
+      "requiredReasons": [
+        "empty-source"
+      ]
+    },
+    "topology": "explicit empty details, no completeness assertion",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "c5f0baffbbfb5f62259f7e04c14426e2723979b21f8e2cb156c5bfa8383aad0f",
+      "37632ac60218c83175308fb289abca7e2403d5f48f7ff958faa5da209abe088e"
+    ]
+  },
+  "missing-counterpart": {
+    "expected": {
+      "status": "review",
+      "matchedPairCount": 1,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        16000,
+        10000
+      ],
+      "validRowCounts": [
+        2,
+        1
+      ],
+      "requiredReasons": [
+        "missing-counterpart"
+      ]
+    },
+    "topology": "missing-counterpart",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "bc5ea2b81fad3ae518f240412edba0b35cab599d274e61dbd32d1933dbccfa0e",
+      "552c1c514be71a86dea81f6cc3c87677aad659b8e2f6a1b16a59e69303041935"
+    ]
+  },
+  "same-open-different-original": {
+    "expected": {
+      "status": "review",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        9000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ],
+      "requiredReasons": [
+        "amount-difference"
+      ]
+    },
+    "topology": "same-open-different-original",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "5fbb644521c3f922e23fb194600a0262b8f53218383c553f70e9a9f445bc26b5",
+      "3d1b77e2a2125c255387a4c5d17954d69b90fc6a7858c808c73043c5fe36a414"
+    ]
+  },
+  "related-conflict": {
+    "expected": {
+      "status": "review",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        -4000,
+        -4000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ],
+      "requiredReasons": [
+        "related-conflict"
+      ]
+    },
+    "topology": "related-conflict",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "08d396da078bd809c646d9c86d44f14ee1a503a74dd094ea87caf32eb6155cd3",
+      "36b9dd15f883b606e2724763daf6ca302eccc5599e2043135d42b00e2de33f38"
+    ]
+  },
+  "date-difference": {
+    "expected": {
+      "status": "review",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ],
+      "requiredReasons": [
+        "date-difference"
+      ]
+    },
+    "topology": "date-difference",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "ceeb9a6d0aab0d8690c8aec73c830672fa1b65b3dae9782a8261d256761d07e8"
+    ]
+  },
+  "duplicate-own-document": {
+    "expected": {
+      "status": "review",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        20000,
+        10000
+      ],
+      "validRowCounts": [
+        2,
+        1
+      ],
+      "requiredReasons": [
+        "duplicate-document"
+      ]
+    },
+    "topology": "duplicate-own-document",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9db84b124a8f1658390c61f4f0779561a44a4ddfb7c36ee0f4dda3a1cb8bf073",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "invoice-v-receipt-reference": {
+    "expected": {
+      "status": "review",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        -10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ],
+      "requiredReasons": [
+        "missing-counterpart"
+      ]
+    },
+    "topology": "invoice-v-receipt-reference",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9a615ca2309692ce9931d05d716e4c9d38d21943f076d11e25f4899a17b6d373",
+      "7150ac1a683010bcf3405dd1c90ac584c4f5d829117ca428f71560a547caf163"
+    ]
+  },
+  "missing-original": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "invalid-amount"
+      ]
+    },
+    "topology": "missing-original",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "bcf726752f7d7897c42b00989c3b2020a3fc52cf3e64a015638370205b448dcc",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "negative-invoice": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "amount-sign"
+      ]
+    },
+    "topology": "negative-invoice",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "af59aa91491f571cdf8a15d3a0a454007c5731c6012e5f1e1b74f488a42f3456",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "zero-original": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "zero-amount"
+      ]
+    },
+    "topology": "zero-original",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "de5e6b6faa402da9c20ddee7a70f4e7c6fe01ef1209c5de9c8912daccae17310",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "negative-zero": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "zero-amount"
+      ]
+    },
+    "topology": "negative-zero",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "e641a8dbdc0f4e78526e9c68ee1e6368cbab4178e7daa9093cbfba67107915dc",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "positive-zero": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "zero-amount"
+      ]
+    },
+    "topology": "positive-zero",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "7fd8cab9530671ada6f3217b6953f285bf49bd93cd510489081333e9f7739727",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "excess-precision": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "amount-precision"
+      ]
+    },
+    "topology": "excess-precision",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "16ebb929fd267ccc3f1261865a3cac950457ea8f5bf523854f9fdefd884df9ee",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "amount-over-bound": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "amount-bound"
+      ]
+    },
+    "topology": "amount-over-bound",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "d43237abeaa95ec83ddfbb640a67cfea0273e1a8bb317e093ccfb525a1b2510b",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "scientific-amount": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "invalid-amount"
+      ]
+    },
+    "topology": "scientific-amount",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "7236b52ec92d093bb29f3d4db8c12a41d44d1773c3b43cf003e354623fdca21a",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "grouped-amount": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "invalid-amount"
+      ]
+    },
+    "topology": "grouped-amount",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "00530bb36e5991c284223a83c62bf3fb61087cad9a67c99e3056e52e5d62a157",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "positive-credit": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        -1000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "amount-sign"
+      ]
+    },
+    "topology": "positive-credit",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "6d3248f55d85b873b4d08fd5d2c7ffef94cb89aa28029939d65bb2da7db178ad",
+      "e7cc7ae00beb07a5e70ef3eb18e1d6b001e6d4743ddd62290252d95e47f5ec7c"
+    ]
+  },
+  "positive-receipt": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        -1000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "amount-sign"
+      ]
+    },
+    "topology": "positive-receipt",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "2c4a4c1e2c2ffab19cebac106366963cbf8448d49da1bb7ecf994645181a2237",
+      "039f467c6704081fd16c2fda0ef89946e6b0ba6bb46c1e25b3759a2ab798b9ec"
+    ]
+  },
+  "invalid-calendar-date": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "invalid-date"
+      ]
+    },
+    "topology": "invalid-calendar-date",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "1936aadc4d228a9224d080ea5995424c781b3cb53d687f31ab6168b066b8b3fd",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "outside-period": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "date-outside-period"
+      ]
+    },
+    "topology": "outside-period",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ea2655e90e29d2bb38c466220b27c17f23b01317779ff54fc3f490f038eecc4f",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "late-invalid-competitor": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        10000,
+        10000
+      ],
+      "validRowCounts": [
+        1,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "invalid-amount"
+      ]
+    },
+    "topology": "late-invalid-competitor",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "759739e3fbe83ec4c2df6f12453a3c896d6453ac45e9b607767fa58326a52831",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "duplicate-posting": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        20000
+      ],
+      "validRowCounts": [
+        0,
+        2
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "duplicate-posting-id"
+      ]
+    },
+    "topology": "duplicate-posting",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "a247640dfc80cbffbcb050598091cd2b9633ed0fcceccc680321e4915f3ccafb",
+      "53af65e424110a2ebe3c2be5054f2b6cd72aca6a42a2bb921a88480372d360cc"
+    ]
+  },
+  "missing-parent": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "missing-identity"
+      ]
+    },
+    "topology": "missing-parent",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ae5a49240bd91d89bceb9f3c03cd5db06a9312d7af58de0ff908c7907b379486",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "foreign-parent": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "parent-scope-mismatch"
+      ]
+    },
+    "topology": "foreign-parent",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "23985cb1fe007701ce8318b0bd23ba8868fd2f9876f0ce18f7faf12a4ca60209",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "missing-own-number": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "missing-identity"
+      ]
+    },
+    "topology": "missing-own-number",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "3cb2e2db8a543501a9eac96593855c9a1461eddcf9acfa6279cdcffa971b3218",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "missing-posting": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "missing-identity"
+      ]
+    },
+    "topology": "missing-posting",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "d428e1023f41b13a435cbac4ec01165b8a8393e0c3491d7ca8722177dd3eac93",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "missing-kind": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "totalsMinor": [
+        0,
+        10000
+      ],
+      "validRowCounts": [
+        0,
+        1
+      ],
+      "requiredReasons": [
+        "source-errors"
+      ],
+      "requiredIssueCategories": [
+        "invalid-document-type"
+      ]
+    },
+    "topology": "missing-kind",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "fd8630ff03c3adb5086f5679239a8c5c63467315828f92140a26bf0adedc001b",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "wrong-customer": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "scope-header-mismatch"
+      ]
+    },
+    "topology": "wrong-customer",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "3f20aa6644d3f1a5d44f38cdab8979f25ac059dc292424371cb6ab63b01050b0",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "wrong-currency": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "scope-header-mismatch"
+      ]
+    },
+    "topology": "wrong-currency",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "54ec7b50dc79993d272961c9328f8b45335b26893df4034459ff112fe1c292ae",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "wrong-role": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "scope-header-mismatch"
+      ]
+    },
+    "topology": "wrong-role",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "5f6e2cbb018d27ca43949f6bb484b021692fd213221eb4fd321b12ebfb2edc75",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "buyer-perspective": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "scope-header-mismatch"
+      ]
+    },
+    "topology": "buyer-perspective",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "220627471fb78f52d7ff6bcdee7ba3c0a4f79d5cb7d7676d545cbb80e88e3c99",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "open-basis": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "scope-header-mismatch"
+      ]
+    },
+    "topology": "open-basis",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "a89a7f77ea7163ff36ce56d6a9c471d1be71e3e307457b1ac23c76919a39a212",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "wrong-period": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "scope-header-mismatch"
+      ]
+    },
+    "topology": "wrong-period",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "b0bdb2dc9667ccbfb05307cc222a7c16d13443ac1163176c4dd703550ef4d7ad",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "missing-original-header": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "missing-detail-column",
+        "unknown-detail-column"
+      ]
+    },
+    "topology": "missing-original-header",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "45e948dbdae9364516eaffaaaf1551877d9ee3c53cf5c5d00e381f3d9f58c99a",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "map-open-as-original": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "original-amount-role-required"
+      ]
+    },
+    "topology": "map-open-as-original",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "duplicate-scope-key": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "duplicate-scope-key"
+      ]
+    },
+    "topology": "duplicate-scope-key",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "4575916012ec5d82ab54bfc7d8a887f86a32303d1f4ce5efc2cad1686e981614",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "unknown-scope-key": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "unknown-scope-key"
+      ]
+    },
+    "topology": "unknown-scope-key",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "b51125ccddcdcfaf22a867058ff4b8397502117b9be7e516266448ad39854490",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "missing-scope-key": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "missing-scope-key"
+      ]
+    },
+    "topology": "missing-scope-key",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ee65e0eb910f050e5a6d32105cd2bf26996a57bf288557594d3eff6b8b9b5fcf",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "second-scope-header": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "data-after-end"
+      ]
+    },
+    "topology": "second-scope-header",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "3b603714556615526201b7d6f4bf2ff3dfacd57f3f6f85544bd264a9d551621e",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "duplicate-details-marker": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "repeated-or-late-header"
+      ]
+    },
+    "topology": "duplicate-details-marker",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "6d311db9cb1edc5205ae6a59af37fb1e41cf763129e5d7be541cd6d6f43988a2",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "missing-end-marker": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "missing-end-details"
+      ]
+    },
+    "topology": "missing-end-marker",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "5290910a0746ca6bce1c9caa54a77f311ac4f77b9eabe31cc2ff5a71c8901338",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "detail-after-end": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "data-after-end"
+      ]
+    },
+    "topology": "detail-after-end",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ef96143934018a5c2e59366eaabadaa27d4865c6aa81ea9079610e2789828629",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "detail-before-header": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "unknown-scope-key"
+      ]
+    },
+    "topology": "detail-before-header",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ecfef01bf29301d8414f4984319d66c419885e40c0bf2331cf3376debac504dd",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "duplicate-original-role": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "duplicate-detail-column"
+      ]
+    },
+    "topology": "duplicate-original-role",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "ca08c5a884246fafc0672997520ab5faec1118a48d89159f86d44d06acb63012",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "generic-own-role": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "missing-detail-column",
+        "unknown-detail-column"
+      ]
+    },
+    "topology": "generic-own-role",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "2634eb8e9bd4c633eeff842fe5c77e2ac329c1fd05be8e87f33d7d90e6b85fd0",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "related-as-own-role": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "missing-detail-column",
+        "duplicate-detail-column"
+      ]
+    },
+    "topology": "related-as-own-role",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "db37b1f4b2a56e157819b6b3847d8bd59361664d6bb58236d45c1c4decea5948",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "unknown-detail-column": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "unknown-detail-column"
+      ]
+    },
+    "topology": "unknown-detail-column",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "f5c90d817eb4d9d5d371d3e96b79dedee5f3a546e1f6326afd2f1e05e1cb244a",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "unconfirmed-reading": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "reading-unconfirmed"
+      ]
+    },
+    "topology": "unconfirmed-reading",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "unconfirmed-scope": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "scope-unconfirmed"
+      ]
+    },
+    "topology": "unconfirmed-scope",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1"
+    ]
+  },
+  "same-original-bytes": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "identical-source-hashes"
+      ]
+    },
+    "topology": "same-original-bytes",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c"
+    ]
+  },
+  "native-open-formula": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "formula-cell"
+      ]
+    },
+    "topology": "native-open-formula",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "61ca7fdf175e5ec0d20f1e9c5612e14bda8f7c81e845b29cc4934fb4bb781f71",
+      "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f"
+    ]
+  },
+  "native-hidden-row": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "hidden-row"
+      ]
+    },
+    "topology": "native-hidden-row",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "c4024352c8ee82e3595be01ea3dec21f9209189009441889e159395c89a008bd",
+      "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f"
+    ]
+  },
+  "native-hidden-column": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "hidden-column"
+      ]
+    },
+    "topology": "native-hidden-column",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "37fe729a3ce29ce8552d45add817fa82fa5c04f95383ada3d9639d603c357e5f",
+      "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f"
+    ]
+  },
+  "native-merge": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "merged-cells"
+      ]
+    },
+    "topology": "native-merge",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "525aa47c66555b62f87578289f2c6a52d62884d67ee9ef8b98a7b79c9820f620",
+      "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f"
+    ]
+  },
+  "native-amount-error": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "error-cell"
+      ]
+    },
+    "topology": "native-amount-error",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "c6ec146459fd3700dc6f94d5969a2f2e06e1a8a3e8c8fc69dc11eabcd6660194",
+      "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f"
+    ]
+  },
+  "aggregate-over-bound": {
+    "expected": {
+      "status": "source-error",
+      "matchedPairCount": 0,
+      "allocationAuthority": false,
+      "requiredIssueCategories": [
+        "total-bound"
+      ]
+    },
+    "topology": "each original bounded, aggregate exceeds inherited bound",
+    "representationControl": false,
+    "authorship": "AI-authored literal synthetic expectation, independent of oracle/product output",
+    "sourceHashes": [
+      "5a532d978c17937355d54eaece2193e5475da1228ecdc93372b86ae0d29b6655",
+      "8f76164fae1597376599519d90c31d88639883237437da7d0e74c69eca0d6088"
+    ]
+  }
+}
