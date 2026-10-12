@@ -1,4 +1,11 @@
-import type { ComponentProps, ReactNode } from 'react';
+import {
+  Children,
+  useEffect,
+  useRef,
+  useState,
+  type ComponentProps,
+  type ReactNode,
+} from 'react';
 import {
   ArrowLeft,
   FileSpreadsheet,
@@ -11,27 +18,52 @@ import { LanguageSwitcher } from './language-switcher';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { workspaceCopy } from '@/lib/i18n/workspace';
+import {
+  useReconciliationNavigation,
+  useWorkspaceIdentity,
+} from './reconciliation-navigation';
 import './workspace-chrome.css';
 
 export function WorkspaceHeader({
   onBack,
   backLabel,
   disabled = false,
+  hasWork = false,
   children,
 }: {
   onBack: () => void;
   backLabel: string;
   disabled?: boolean;
+  hasWork?: boolean;
   children?: ReactNode;
 }) {
+  const navigation = useReconciliationNavigation();
+  const domain = useWorkspaceIdentity();
+  const reportActivity = navigation?.reportActivity;
+  const work = useRef(hasWork);
+  useEffect(() => {
+    work.current = hasWork;
+    if (domain) reportActivity?.(domain, { busy: disabled, hasWork });
+  }, [domain, reportActivity, disabled, hasWork]);
+  useEffect(
+    () => () => {
+      if (domain)
+        reportActivity?.(domain, { busy: false, hasWork: work.current });
+    },
+    [domain, reportActivity],
+  );
   return (
-    <header className="workspace-header">
-      <div className="brand workspace-header__brand">
-        <BrandMark />
-        <BrandWordmark />
-      </div>
+    <header
+      className={`workspace-header${navigation ? ' workspace-header--embedded' : ''}`}
+    >
+      {!navigation && (
+        <div className="brand workspace-header__brand">
+          <BrandMark />
+          <BrandWordmark />
+        </div>
+      )}
       <div className="workspace-header__actions">
-        <LanguageSwitcher />
+        {!navigation && <LanguageSwitcher />}
         <Button variant="outline" disabled={disabled} onClick={onBack}>
           <ArrowLeft className="workspace-back-icon" aria-hidden="true" />
           {backLabel}
@@ -39,6 +71,70 @@ export function WorkspaceHeader({
         {children}
       </div>
     </header>
+  );
+}
+
+/** Keep source order in the accounting input while grouping its rendered cards. */
+export function WorkspaceSources({
+  children,
+  primaryIndices = [0, 1],
+  primaryReady = false,
+}: {
+  children: ReactNode;
+  primaryIndices?: number[];
+  primaryReady?: boolean;
+}) {
+  const { lang } = useI18n();
+  const copy = workspaceCopy[lang];
+  const sources = Children.toArray(children);
+  const primary = primaryIndices.filter((index) => index < sources.length);
+  const supporting = sources.filter((_, index) => !primary.includes(index));
+  const [open, setOpen] = useState(primaryReady);
+  const previousReady = useRef(primaryReady);
+  useEffect(() => {
+    if (primaryReady && !previousReady.current) setOpen(true);
+    previousReady.current = primaryReady;
+  }, [primaryReady]);
+  return (
+    <div className="workspace-source-groups" data-workspace-sources>
+      <div className="workspace-sources workspace-primary-sources">
+        {primary.map((index) => sources[index])}
+      </div>
+      {supporting.length > 0 && (
+        <details
+          className="workspace-supporting-sources"
+          data-workspace-supporting
+          data-workspace-required-sources
+          open={open}
+          onToggle={(event) => setOpen(event.currentTarget.open)}
+        >
+          <summary>
+            <span>{copy.supporting}</span>
+            <span className="workspace-required-label">{copy.required}</span>
+          </summary>
+          <div className="workspace-supporting-content">
+            <p>{copy.supportingHint}</p>
+            <div className="workspace-sources">{supporting}</div>
+          </div>
+        </details>
+      )}
+    </div>
+  );
+}
+
+export function WorkspaceAdvanced({
+  children,
+  summary,
+}: {
+  children: ReactNode;
+  summary?: ReactNode;
+}) {
+  const { lang } = useI18n();
+  return (
+    <details className="workspace-advanced" data-workspace-advanced>
+      <summary>{summary ?? workspaceCopy[lang].advanced}</summary>
+      <div className="workspace-advanced__content">{children}</div>
+    </details>
   );
 }
 
@@ -63,7 +159,12 @@ export function WorkspaceIntro({
         </h1>
         <p>{intro}</p>
       </div>
-      {children && <div className="workspace-intro__context">{children}</div>}
+      {children && (
+        <details className="workspace-intro__context">
+          <summary>{workspaceCopy[lang].scopeDetails}</summary>
+          <div className="workspace-intro__context-content">{children}</div>
+        </details>
+      )}
     </section>
   );
 }

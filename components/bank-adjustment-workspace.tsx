@@ -2,6 +2,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
@@ -70,11 +72,13 @@ export function BankAdjustmentWorkspace({
   bank,
   disabled,
   onBusy,
+  onWorkChange,
   onRestoreBank,
 }: {
   bank: BankInput | null;
   disabled: boolean;
   onBusy: (busy: boolean) => void;
+  onWorkChange?: (hasWork: boolean) => void;
   onRestoreBank: (v: { state: BankInput; result: BankResult }) => void;
 }) {
   const { lang } = useI18n(),
@@ -105,6 +109,10 @@ export function BankAdjustmentWorkspace({
     lastBank = useRef(bankKey(bank)),
     key = bankKey(bank),
     locked = disabled || busy;
+  const hasWork = files.some(Boolean);
+  useEffect(() => {
+    onWorkChange?.(hasWork);
+  }, [hasWork, onWorkChange]);
   function invalidate() {
     setResult(null);
     setEvents([]);
@@ -308,102 +316,107 @@ export function BankAdjustmentWorkspace({
       <p>{t.intro}</p>
       <p>{t.claim}</p>
       <fieldset disabled={locked}>
-        <div className="gl-tb-actions workspace-toolbar">
-          <Button
-            onClick={() =>
-              perform(async (signal) => {
-                const f: SourceFile[] = [];
-                for (const [i, text] of adjustmentDemoSources.entries())
-                  f.push(
-                    await workerTask(
-                      'read',
-                      {
-                        name: `synthetic-balance-${i}.csv`,
-                        buffer: new TextEncoder().encode(text).buffer,
+        <WorkspaceAdvanced>
+          <div className="gl-tb-actions workspace-toolbar">
+            <Button
+              onClick={() =>
+                perform(async (signal) => {
+                  const f: SourceFile[] = [];
+                  for (const [i, text] of adjustmentDemoSources.entries())
+                    f.push(
+                      await workerTask(
+                        'read',
+                        {
+                          name: `synthetic-balance-${i}.csv`,
+                          buffer: new TextEncoder().encode(text).buffer,
+                        },
+                        signal,
+                      ),
+                    );
+                  const state: BankAdjustmentInput = {
+                    balance: {
+                      bank: {
+                        files: [f[0], f[1]],
+                        readings: bankDemoReadings,
+                        scope: bankDemoScope,
+                        events: [],
                       },
-                      signal,
-                    ),
-                  );
-                const state: BankAdjustmentInput = {
-                  balance: {
-                    bank: {
-                      files: [f[0], f[1]],
-                      readings: bankDemoReadings,
-                      scope: bankDemoScope,
-                      events: [],
+                      files: [f[2], f[3]],
+                      readings: BANK_BALANCE_ROLES.map((role) => ({
+                        role,
+                        sheet: 0,
+                        family: BANK_BALANCE_VERSION,
+                        perspective: 'company-cash',
+                        confirmed: true,
+                      })) as BankBalanceInput['readings'],
+                      coverage: {
+                        basis: 'movement-date',
+                        boundary: 'end-of-day',
+                        openingAsOf: '2026-08-31',
+                        closingAsOf: '2026-09-30',
+                        confirmed: true,
+                      },
                     },
-                    files: [f[2], f[3]],
-                    readings: BANK_BALANCE_ROLES.map((role) => ({
+                    files: [f[4], f[5]],
+                    readings: ADJUSTMENT_ROLES.map((role) => ({
                       role,
                       sheet: 0,
-                      family: BANK_BALANCE_VERSION,
+                      family: ADJUSTMENT_VERSION,
                       perspective: 'company-cash',
                       confirmed: true,
-                    })) as BankBalanceInput['readings'],
-                    coverage: {
-                      basis: 'movement-date',
-                      boundary: 'end-of-day',
-                      openingAsOf: '2026-08-31',
-                      closingAsOf: '2026-09-30',
+                    })) as BankAdjustmentInput['readings'],
+                    completeness: {
                       confirmed: true,
+                      reference: 'SYNTHETIC coverage',
+                      note: 'Supplied original synthetic endpoint inventory reviewed; no field validation',
                     },
-                  },
-                  files: [f[4], f[5]],
-                  readings: ADJUSTMENT_ROLES.map((role) => ({
-                    role,
-                    sheet: 0,
-                    family: ADJUSTMENT_VERSION,
-                    perspective: 'company-cash',
-                    confirmed: true,
-                  })) as BankAdjustmentInput['readings'],
-                  completeness: {
-                    confirmed: true,
-                    reference: 'SYNTHETIC coverage',
-                    note: 'Supplied original synthetic endpoint inventory reviewed; no field validation',
-                  },
-                  events: [],
-                };
-                const v = await workerTask<{
-                  state: BankAdjustmentInput;
-                  result: BankAdjustmentResult;
-                }>('bank-adjustment-reconcile', state, signal);
-                if (!signal.aborted) install(v);
-              })
-            }
-          >
-            {t.demo}
-          </Button>
-          <label>
-            {t.restore}
-            <input
-              type="file"
-              accept=".json"
-              aria-label={t.restore}
-              onChange={(e) => {
-                const blob = e.target.files?.[0];
-                e.target.value = '';
-                if (!blob) return;
-                if (blob.size > ADJUSTMENT_SESSION_LIMIT) {
-                  setFailed(true);
-                  return;
-                }
-                void perform(async (signal) => {
+                    events: [],
+                  };
                   const v = await workerTask<{
                     state: BankAdjustmentInput;
                     result: BankAdjustmentResult;
-                  }>(
-                    'bank-adjustment-restore',
-                    { buffer: await blob.arrayBuffer() },
-                    signal,
-                  );
+                  }>('bank-adjustment-reconcile', state, signal);
                   if (!signal.aborted) install(v);
-                });
-              }}
-            />
-          </label>
-        </div>
+                })
+              }
+            >
+              {t.demo}
+            </Button>
+            <label>
+              {t.restore}
+              <input
+                type="file"
+                accept=".json"
+                aria-label={t.restore}
+                onChange={(e) => {
+                  const blob = e.target.files?.[0];
+                  e.target.value = '';
+                  if (!blob) return;
+                  if (blob.size > ADJUSTMENT_SESSION_LIMIT) {
+                    setFailed(true);
+                    return;
+                  }
+                  void perform(async (signal) => {
+                    const v = await workerTask<{
+                      state: BankAdjustmentInput;
+                      result: BankAdjustmentResult;
+                    }>(
+                      'bank-adjustment-restore',
+                      { buffer: await blob.arrayBuffer() },
+                      signal,
+                    );
+                    if (!signal.aborted) install(v);
+                  });
+                }}
+              />
+            </label>
+          </div>
+        </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
-        <div className="gl-tb-grid workspace-sources">
+        <WorkspaceSources
+          primaryIndices={[0, 1]}
+          primaryReady={!!(files[0] && files[1])}
+        >
           {files.map((file, index) => (
             <section
               className="workspace-source"
@@ -482,7 +495,7 @@ export function BankAdjustmentWorkspace({
               )}
             </section>
           ))}
-        </div>
+        </WorkspaceSources>
         {bank && (
           <p>
             {bank.scope.account} · {bank.scope.currency} ·{' '}

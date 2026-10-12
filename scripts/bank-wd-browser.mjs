@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import ExcelJS from 'exceljs';
 import { chromium } from 'playwright';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
 import { readFile as readNativeFile } from '../lib/reconciliation/io.ts';
@@ -192,16 +192,23 @@ async function responsive(page, directory, phase) {
     await panel.waitFor({ state: 'visible' });
     const visiblePanels = await panel.count();
     assert.equal(visiblePanels, 1, 'one visible native bank workspace');
-    const sizes = await page.evaluate((element) => ({
-      viewport: window.innerWidth,
-      panel: element.getBoundingClientRect().width,
-      panelHeight: element.getBoundingClientRect().height,
-      panelTag: element.tagName,
-      panelClass: element.getAttribute('class'),
-      document: document.documentElement.scrollWidth,
-      body: document.body.scrollWidth,
-    }), await panel.elementHandle());
-    Object.assign(sizes, { visiblePanels, visible: await panel.isVisible(), selector: 'main.bank-workspace:visible' });
+    const sizes = await page.evaluate(
+      (element) => ({
+        viewport: window.innerWidth,
+        panel: element.getBoundingClientRect().width,
+        panelHeight: element.getBoundingClientRect().height,
+        panelTag: element.tagName,
+        panelClass: element.getAttribute('class'),
+        document: document.documentElement.scrollWidth,
+        body: document.body.scrollWidth,
+      }),
+      await panel.elementHandle(),
+    );
+    Object.assign(sizes, {
+      visiblePanels,
+      visible: await panel.isVisible(),
+      selector: 'main.bank-workspace:visible',
+    });
     assertBankGeometry(width, sizes);
     await page.screenshot({
       path: path.join(directory, `${phase}-${width}.png`),
@@ -567,14 +574,7 @@ try {
             .locator(`.language-switch button[lang="${lang}"]:visible`)
             .first()
             .click();
-        await revealDomainEntry(page, 'bank');
-        const entry = page.locator('[data-domain-entry="bank"]');
-        await entry.waitFor();
-        await page.waitForFunction(
-          () => !document.querySelector('[data-domain-entry="bank"]').disabled,
-        );
-        await entry.focus();
-        await page.keyboard.press('Enter');
+        await openDomainWorkspace(page, 'bank');
         const panel = page.locator('main.bank-workspace:visible').first();
         await panel
           .getByRole('heading', { name: t.title, exact: true })

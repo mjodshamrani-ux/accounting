@@ -1,3 +1,4 @@
+import { openDomainWorkspace, workspaceSource } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyFinancial(
@@ -8,12 +9,7 @@ export async function verifyFinancial(
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', {
-      name: 'Trial balance and financial position',
-      exact: true,
-    })
-    .click();
+  await openDomainWorkspace(page, 'tb-financial');
   const w = page.locator('[data-financial-workspace]'),
     status = w.locator('[data-financial-status]');
   const wait = () =>
@@ -89,7 +85,7 @@ export async function verifyFinancial(
     .setInputFiles('audit/tb-financial/frozen/wrong-lines-equal-totals-1.csv');
   await wait();
   assert.equal(await status.count(), 0);
-  const original = w.locator('fieldset:has(input[type="file"])').nth(1);
+  const original = workspaceSource(w, 'Proposed mapping');
   await original.getByRole('checkbox').check();
   await w
     .getByLabel(
@@ -104,7 +100,7 @@ export async function verifyFinancial(
   // Whole-line and two-column controls remain usable on mobile, both languages.
   for (const width of [320, 390]) {
     await page.setViewportSize({ width, height: 900 });
-    await w.getByRole('button', { name: 'AR العربية', exact: true }).click();
+    await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
     await page.screenshot({ path: `${out}/ar-${width}.png`, fullPage: true });
     assert.ok(
       await page.evaluate(
@@ -112,7 +108,7 @@ export async function verifyFinancial(
       ),
       'Arabic page must not overflow',
     );
-    await w.getByRole('button', { name: 'EN English', exact: true }).click();
+    await page.getByRole('button', { name: 'EN English', exact: true }).click();
     await page.screenshot({ path: `${out}/en-${width}.png`, fullPage: true });
     assert.ok(
       await page.evaluate(

@@ -15,7 +15,7 @@ import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { chromium } from 'playwright';
 import { assetCopy } from '../lib/i18n/fixed-assets.ts';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 assert.equal(process.argv.length, 2, 'No bypass/preflight/routed-assets mode');
 const repo = path.resolve(import.meta.dirname, '..');
 const dist = await realpath(
@@ -262,8 +262,7 @@ try {
             (value) => document.documentElement.lang === value,
             lang,
           );
-          await revealDomainEntry(page, 'assets');
-          await page.locator('[data-domain-entry="assets"]').click();
+          await openDomainWorkspace(page, 'assets');
           const panel = page.locator('[data-asset-workspace]:visible'),
             copy = assetCopy[lang];
           await panel.waitFor();
@@ -591,18 +590,31 @@ try {
           await panel.waitFor({ state: 'visible' });
           const visiblePanels = await panel.count();
           assert.equal(visiblePanels, 1, 'one visible native asset workspace');
-          const dimensions = await page.evaluate((element) => ({
-            viewport: window.innerWidth,
-            document: document.documentElement.scrollWidth,
-            body: document.body.scrollWidth,
-            panel: element.getBoundingClientRect().width,
-            panelHeight: element.getBoundingClientRect().height,
-            panelTag: element.tagName,
-            panelClass: element.getAttribute('class'),
-          }), await panel.elementHandle());
-          Object.assign(dimensions, { visiblePanels, visible: await panel.isVisible(), selector: '[data-asset-workspace]:visible' });
+          const dimensions = await page.evaluate(
+            (element) => ({
+              viewport: window.innerWidth,
+              document: document.documentElement.scrollWidth,
+              body: document.body.scrollWidth,
+              panel: element.getBoundingClientRect().width,
+              panelHeight: element.getBoundingClientRect().height,
+              panelTag: element.tagName,
+              panelClass: element.getAttribute('class'),
+            }),
+            await panel.elementHandle(),
+          );
+          Object.assign(dimensions, {
+            visiblePanels,
+            visible: await panel.isVisible(),
+            selector: '[data-asset-workspace]:visible',
+          });
           assertAssetGeometry(width, dimensions);
-          report.geometry.push({ lang, width, id, phase: 'result-before-family-reset', ...dimensions });
+          report.geometry.push({
+            lang,
+            width,
+            id,
+            phase: 'result-before-family-reset',
+            ...dimensions,
+          });
           await page.screenshot({
             path: path.join(out, `${folderName}.png`),
             fullPage: true,

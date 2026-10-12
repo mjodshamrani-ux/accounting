@@ -8,6 +8,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { gatewayCopy } from '../lib/i18n/payment-gateway.ts';
 import { holdOriginalWorkerReplies } from './supplier-main-pending-browser.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 const repo = path.resolve(import.meta.dirname, '..');
 const dist = path.resolve(
   process.env.MIZAN_DIST_DIR ?? path.join(repo, 'dist'),
@@ -111,17 +112,31 @@ try {
       () => globalThis.heldOriginalWorkerReplies.length === 1,
     );
     const nav = page.locator('[data-domain-navigation]');
-    const buttons = nav.getByRole('button');
-    assert.equal(await buttons.count(), 12);
-    const disabled = [];
-    for (const button of await buttons.all()) {
-      assert.equal(await button.isDisabled(), true);
-      disabled.push(await button.innerText());
-      await button.evaluate((el) => el.click());
-    }
+    const selector = nav.locator('select[data-reconciliation-type-select]');
+    const options = selector.locator('option[value]:not([value=""])');
+    assert.equal(await selector.count(), 1);
+    assert.equal(await options.count(), 12);
+    assert.equal(
+      await selector.isDisabled(),
+      true,
+      'all twelve choices are gated by the disabled native selector',
+    );
+    const disabled = await options.allInnerTexts();
+    const initialDomain = await selector.inputValue();
+    await selector.evaluate((element) => element.click());
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+    assert.equal(
+      await selector.inputValue(),
+      initialDomain,
+      'click and keyboard attempts cannot change the disabled selector',
+    );
     // App preserves mounted domain state in hidden workspaces. A disabled
     // navigation click must not expose a workspace or publish visible metrics.
-    assert.equal(await page.locator('[data-gateway-workspace]:visible').count(), 0);
+    assert.equal(
+      await page.locator('[data-gateway-workspace]:visible').count(),
+      0,
+    );
     assert.equal(await page.locator('.metric:visible').count(), 0);
     const heldRequests = await page.evaluate(() => globalThis.startupRequests);
     assert.deepEqual(
@@ -137,16 +152,20 @@ try {
         .splice(0)
         .forEach((release) => release()),
     );
-    await buttons.first().waitFor();
-    await page.waitForFunction(() =>
-      Array.from(
-        document.querySelectorAll('[data-domain-navigation] button'),
-      ).every((b) => !b.disabled),
+    await selector.waitFor();
+    await page.waitForFunction(
+      () =>
+        !document.querySelector('select[data-reconciliation-type-select]')
+          ?.disabled,
     );
-    for (const button of await buttons.all())
-      assert.equal(await button.isEnabled(), true);
+    assert.equal(await selector.isEnabled(), true);
+    assert.equal(
+      await options.count(),
+      12,
+      'all twelve choices remain available after the real ready reply',
+    );
     const copy = gatewayCopy[lang];
-    await nav.getByRole('button', { name: copy.title, exact: true }).click();
+    await openDomainWorkspace(page, 'gateway');
     const workspace = page.locator('[data-gateway-workspace]');
     await workspace
       .getByRole('button', { name: copy.demo, exact: true })

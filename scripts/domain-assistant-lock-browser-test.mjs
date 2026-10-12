@@ -3,6 +3,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 const root = path.resolve('dist'),
   out = path.resolve(
     process.argv.find((a) => a.startsWith('--out='))?.slice(6) ??
@@ -75,12 +76,7 @@ try {
   });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', {
-      name: 'Payment gateway batch evidence',
-      exact: true,
-    })
-    .click();
+  await openDomainWorkspace(page, 'gateway');
   const demo = page.getByRole('button', {
     name: 'Open a synthetic gateway example',
     exact: true,
@@ -127,9 +123,7 @@ try {
   checks.invalidScopeUnmounts = true;
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', { name: 'Bank movements', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'bank', { balanceFlow: true });
   await page
     .getByRole('button', {
       name: 'Open synthetic bank movement example',

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
@@ -7,9 +7,7 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
-  await page
-    .getByRole('button', { name: 'مقاصة داخل حساب', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'clearing');
   await page
     .getByRole('heading', { name: 'مقاصة داخل حساب واحد', exact: true })
     .waitFor();
@@ -102,10 +100,7 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
-  await revealDomainEntry(page, 'clearing');
-  await page
-    .getByRole('button', { name: 'Single-account clearing', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'clearing');
   assert.deepEqual(await metric().allTextContents(), ['9', '4', '0', '10.00']);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
   await page
@@ -127,9 +122,7 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   });
   // A fresh page re-reads the saved native bytes and replays both decisions.
   await page.reload();
-  await page
-    .getByRole('button', { name: 'Single-account clearing', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'clearing');
   await page
     .getByLabel('Restore clearing session', { exact: true })
     .setInputFiles(`${out}/clearing-session.json`);

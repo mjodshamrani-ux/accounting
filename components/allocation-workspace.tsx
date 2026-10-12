@@ -9,6 +9,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
@@ -335,11 +337,13 @@ export function AllocationWorkspace({
       aria-busy={busy}
     >
       <WorkspaceHeader
+        disabled={busy}
         backLabel={t.backToSuppliers}
         onBack={() => {
           cancelPending();
           onBack();
         }}
+        hasWork={files.some(Boolean)}
       >
         {busy && (
           <Button variant="outline" onClick={cancelPending}>
@@ -370,25 +374,30 @@ export function AllocationWorkspace({
         </section>
       )}
       <fieldset disabled={busy}>
-        <div className="gl-tb-actions workspace-toolbar">
-          <Button onClick={() => void openDemo()}>
-            {t.openSyntheticAllocationExample}
-          </Button>
-          <label>
-            {t.restoreAllocationSession}
-            <input
-              type="file"
-              accept=".json"
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                e.target.value = '';
-                if (f) void restoreSession(f);
-              }}
-            />
-          </label>
-        </div>
+        <WorkspaceAdvanced>
+          <div className="gl-tb-actions workspace-toolbar">
+            <Button onClick={() => void openDemo()}>
+              {t.openSyntheticAllocationExample}
+            </Button>
+            <label>
+              {t.restoreAllocationSession}
+              <input
+                type="file"
+                accept=".json"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  e.target.value = '';
+                  if (f) void restoreSession(f);
+                }}
+              />
+            </label>
+          </div>
+        </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
-        <div className="gl-tb-grid workspace-sources">
+        <WorkspaceSources
+          primaryIndices={[0, 1]}
+          primaryReady={!!(files[0] && files[1])}
+        >
           {([0, 1, 2] as const).map((side) => (
             <section
               className="workspace-source"
@@ -436,11 +445,13 @@ export function AllocationWorkspace({
                       ))}
                     </select>
                   </label>
-                  <pre dir="ltr">
-                    {files[side]!.sheets[readings[side].sheet]?.rows[0]?.join(
-                      ' | ',
-                    )}
-                  </pre>
+                  <WorkspaceAdvanced>
+                    <pre dir="ltr">
+                      {files[side]!.sheets[readings[side].sheet]?.rows[0]?.join(
+                        ' | ',
+                      )}
+                    </pre>
+                  </WorkspaceAdvanced>
                   <label>
                     <input
                       type="checkbox"
@@ -458,8 +469,8 @@ export function AllocationWorkspace({
               )}
             </section>
           ))}
-        </div>
-        <section className="workspace-scope">
+        </WorkspaceSources>
+        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
           <WorkspaceGroupTitle kind="scope" />
           <div className="gl-tb-grid">
             {ALLOCATION_SCOPE_FIELDS.map((key, i) => (

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { demoFiles, demoScope } from '../lib/reconciliation/demo.ts';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const ARABIC = /[؀-ۿ]/;
 // Arabic that stays Arabic in English mode: the sample documents' own text
@@ -30,22 +30,47 @@ const allowedLatin = new Set(
 // FIFO is the approved accounting acronym in this exact inventory limitation,
 // not a general exception for English anywhere in the Arabic interface.
 const stockNotice = 'لا احتساب FIFO أو تكلفة، ولا إثبات ملكية المخزون.';
-const stockNoticeSelector =
-  '.reconciliation-choice:has([data-domain-entry="stock"]) .reconciliation-choice-limit';
+const stockNoticeSelector = '.directory-selected-scope > div > p:first-of-type';
 
 async function visibleText(page, approvedStockNotice) {
   return page.evaluate(
     ({ approvedStockNotice, stockNoticeSelector }) => {
       const out = [];
+      const rendered = (element) => {
+        if (!element || element.closest('script, style, template'))
+          return false;
+        if (element instanceof HTMLOptionElement) {
+          const select = element.closest('select');
+          return element.selected && select && rendered(select);
+        }
+        for (
+          let ancestor = element;
+          ancestor;
+          ancestor = ancestor.parentElement
+        ) {
+          if (ancestor.hasAttribute('hidden')) return false;
+          const style = getComputedStyle(ancestor);
+          if (
+            style.display === 'none' ||
+            ['hidden', 'collapse'].includes(style.visibility)
+          )
+            return false;
+          if (ancestor instanceof HTMLDetailsElement && !ancestor.open) {
+            const summary = ancestor.querySelector(':scope > summary');
+            if (!summary?.contains(element)) return false;
+          }
+        }
+        return [...element.getClientRects()].some(
+          (rect) => rect.width > 0 && rect.height > 0,
+        );
+      };
       const walker = document.createTreeWalker(
         document.body,
         NodeFilter.SHOW_TEXT,
       );
       for (let node = walker.nextNode(); node; node = walker.nextNode()) {
         const element = node.parentElement;
-        if (!element || element.closest('script, style, [hidden]')) continue;
-        const style = getComputedStyle(element);
-        if (style.display === 'none' || style.visibility === 'hidden') continue;
+        if (!rendered(element)) continue;
         let text = node.textContent.trim();
         if (
           approvedStockNotice &&
@@ -57,11 +82,13 @@ async function visibleText(page, approvedStockNotice) {
       }
       for (const element of document.querySelectorAll(
         '[aria-label], [placeholder], [alt], [title]',
-      ))
+      )) {
+        if (!rendered(element)) continue;
         for (const name of ['aria-label', 'placeholder', 'alt', 'title']) {
           const value = element.getAttribute(name);
           if (value?.trim()) out.push(value.trim());
         }
+      }
       return out;
     },
     { approvedStockNotice, stockNoticeSelector },
@@ -78,19 +105,20 @@ async function assertNoArabic(page, where) {
 }
 
 async function assertNoStrayEnglish(page, where) {
+  const originalDomain = await page
+    .locator('select[data-reconciliation-type-select]')
+    .inputValue();
+  await openDomainWorkspace(page, 'stock', {
+    advanced: false,
+    requiredSources: false,
+  });
   const stockLimit = page.locator(stockNoticeSelector);
   assert.equal(
     await stockLimit.count(),
     1,
     'one inventory-directory limitation',
   );
-  const directoryWasVisible = await page
-    .locator('[data-domain-navigation]')
-    .isVisible();
-  await revealDomainEntry(page, 'stock');
-  const stockSummary = page.locator(
-    '.reconciliation-choice:has([data-domain-entry="stock"]) details > summary',
-  );
+  const stockSummary = page.locator('.directory-selected-scope > summary');
   assert.equal(
     await stockLimit.isVisible(),
     false,
@@ -135,15 +163,36 @@ async function assertNoStrayEnglish(page, where) {
       false,
       'inventory scope closes again',
     );
-    if (!directoryWasVisible) {
-      await page.locator('.directory-switch:visible').click();
-      assert.equal(
-        await page.locator('[data-domain-navigation]').isVisible(),
-        false,
-        'supplier session keeps the directory compact',
-      );
-    }
+    await openDomainWorkspace(page, originalDomain, {
+      advanced: false,
+      requiredSources: false,
+    });
   }
+  // Also inspect the original live supplier/review view after returning; its
+  // session and selected tab must survive the stock boundary inspection.
+  const originalWords = (await visibleText(page))
+    .map((text) => text.replace(/\b(?:supplier|ledger):\d+:\d+\b/g, ''))
+    .flatMap((text) => text.match(/[A-Za-z]{2,}/g) ?? []);
+  const sampleLatin = new Set(
+    demoFiles.flatMap((file) =>
+      file.sheets.flatMap((sheet) =>
+        [sheet.name, ...sheet.rows.flat()].flatMap(
+          (text) => text.match(/[A-Za-z]{2,}/g) ?? [],
+        ),
+      ),
+    ),
+  );
+  assert.deepEqual(
+    [
+      ...new Set(
+        originalWords.filter(
+          (word) => !allowedLatin.has(word) && !sampleLatin.has(word),
+        ),
+      ),
+    ],
+    [],
+    `English words in original Arabic mode (${where})`,
+  );
 }
 
 async function documentLanguage(page) {

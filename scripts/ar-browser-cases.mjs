@@ -1,14 +1,12 @@
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 export async function verifyAr(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
-  await page
-    .getByRole('button', { name: 'تسوية ذمم العملاء', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'ar');
   await page
     .getByRole('heading', { name: 'مستندات ذمم العملاء', exact: true })
     .waitFor();
@@ -128,10 +126,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
-  await revealDomainEntry(page, 'clearing');
-  await page
-    .getByRole('button', { name: 'Single-account clearing', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'clearing');
   await page
     .getByRole('button', {
       name: 'Open synthetic clearing example',
@@ -145,10 +140,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
-  await revealDomainEntry(page, 'ar');
-  await page
-    .getByRole('button', { name: 'Customer AR reconciliation', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'ar');
   assert.deepEqual(await metrics().allTextContents(), [
     '6',
     '2',
@@ -179,9 +171,7 @@ export async function verifyAr(page, url, out = 'work/qa') {
     ),
   );
   await page.goto(url);
-  await page
-    .getByRole('button', { name: 'Customer AR reconciliation', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'ar');
   await page
     .getByLabel('Restore AR session', { exact: true })
     .setInputFiles(`${out}/ar-session.json`);

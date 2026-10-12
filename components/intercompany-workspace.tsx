@@ -7,6 +7,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -319,47 +321,53 @@ export function IntercompanyWorkspace({
           onBack={onBack}
           backLabel={copy.back}
           disabled={busy}
+          hasWork={files.some(Boolean)}
         />
         <WorkspaceIntro title={copy.title} intro={copy.intro}>
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>
-        <div className="gl-tb-actions workspace-toolbar">
-          <Button disabled={busy} onClick={() => void demo()}>
-            {copy.demo}
-          </Button>
-          <label>
-            {copy.restore}
-            <input
-              type="file"
-              accept=".json"
-              disabled={busy}
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                e.target.value = '';
-                if (f)
-                  void perform(async (signal) => {
-                    if (f.size > 64 * 1024 * 1024) throw Error('IC_SESSION');
-                    return workerTask<{
-                      state: IntercompanyInput;
-                      result: IntercompanyResult;
-                    }>(
-                      'intercompany-restore',
-                      { buffer: await f.arrayBuffer() },
-                      signal,
-                    );
-                  }, install);
-              }}
-            />
-          </label>
-          {busy && (
-            <Button variant="outline" onClick={cancel}>
-              {copy.cancel}
+        <WorkspaceAdvanced>
+          <div className="gl-tb-actions workspace-toolbar">
+            <Button disabled={busy} onClick={() => void demo()}>
+              {copy.demo}
             </Button>
-          )}
-        </div>
+            <label>
+              {copy.restore}
+              <input
+                type="file"
+                accept=".json"
+                disabled={busy}
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  e.target.value = '';
+                  if (f)
+                    void perform(async (signal) => {
+                      if (f.size > 64 * 1024 * 1024) throw Error('IC_SESSION');
+                      return workerTask<{
+                        state: IntercompanyInput;
+                        result: IntercompanyResult;
+                      }>(
+                        'intercompany-restore',
+                        { buffer: await f.arrayBuffer() },
+                        signal,
+                      );
+                    }, install);
+                }}
+              />
+            </label>
+            {busy && (
+              <Button variant="outline" onClick={cancel}>
+                {copy.cancel}
+              </Button>
+            )}
+          </div>
+        </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
-        <div className="gl-tb-grid workspace-sources">
+        <WorkspaceSources
+          primaryIndices={[0, 1]}
+          primaryReady={!!(files[0] && files[1])}
+        >
           {IC_ROLES.map((role, i) => (
             <fieldset key={role} disabled={busy} className="workspace-source">
               <legend>
@@ -392,8 +400,8 @@ export function IntercompanyWorkspace({
               </label>
             </fieldset>
           ))}
-        </div>
-        <fieldset disabled={busy}>
+        </WorkspaceSources>
+        <fieldset disabled={busy} hidden={!(files[0] && files[1])}>
           <legend>{copy.scopeTitle}</legend>
           <div className="gl-tb-grid">
             {IC_SCOPE_FIELDS.map((k, i) => (
@@ -426,40 +434,42 @@ export function IntercompanyWorkspace({
             {copy.scopeConfirm}
           </label>
         </fieldset>
-        <fieldset disabled={busy}>
-          <legend>{copy.completenessTitle}</legend>
-          <label>
-            <input
-              type="checkbox"
-              checked={complete.confirmed}
-              onChange={(e) => {
-                setComplete({ ...complete, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.complete}
-          </label>
-          <label>
-            {copy.completeReference}
-            <input
-              value={complete.reference}
-              onChange={(e) => {
-                setComplete({ ...complete, reference: e.target.value });
-                invalidate();
-              }}
-            />
-          </label>
-          <label>
-            {copy.completeNote}
-            <input
-              value={complete.note}
-              onChange={(e) => {
-                setComplete({ ...complete, note: e.target.value });
-                invalidate();
-              }}
-            />
-          </label>
-        </fieldset>
+        <WorkspaceAdvanced summary={copy.completenessTitle}>
+          <fieldset disabled={busy}>
+            <legend>{copy.completenessTitle}</legend>
+            <label>
+              <input
+                type="checkbox"
+                checked={complete.confirmed}
+                onChange={(e) => {
+                  setComplete({ ...complete, confirmed: e.target.checked });
+                  invalidate();
+                }}
+              />
+              {copy.complete}
+            </label>
+            <label>
+              {copy.completeReference}
+              <input
+                value={complete.reference}
+                onChange={(e) => {
+                  setComplete({ ...complete, reference: e.target.value });
+                  invalidate();
+                }}
+              />
+            </label>
+            <label>
+              {copy.completeNote}
+              <input
+                value={complete.note}
+                onChange={(e) => {
+                  setComplete({ ...complete, note: e.target.value });
+                  invalidate();
+                }}
+              />
+            </label>
+          </fieldset>
+        </WorkspaceAdvanced>
         <div className="gl-tb-actions workspace-run-actions">
           <Button
             disabled={busy || !ready}

@@ -1,3 +1,4 @@
+import { openDomainWorkspace, workspaceSource } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyAsset(
@@ -8,12 +9,7 @@ export async function verifyAsset(
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', {
-      name: 'Posted fixed assets / GL component evidence',
-      exact: true,
-    })
-    .click();
+  await openDomainWorkspace(page, 'assets');
   const w = page.locator('[data-asset-workspace]'),
     status = w.locator('[data-asset-status]'),
     button = (name) => w.getByRole('button', { name, exact: true });
@@ -111,7 +107,7 @@ export async function verifyAsset(
     );
   await wait();
   assert.equal(await status.count(), 0);
-  await w.locator('fieldset:has(input[type="file"])').nth(0).getByRole('checkbox').check();
+  await workspaceSource(w, 'Posted asset component register').getByRole('checkbox').check();
   await attestation().check();
   await button('Check asset components / GL').click();
   await wait();
@@ -130,7 +126,7 @@ export async function verifyAsset(
       'audit/fixed-assets/cases/unmapped-zero-cost-account-not-dropped/source-3.csv',
     );
   await wait();
-  await w.locator('fieldset:has(input[type="file"])').nth(3).getByRole('checkbox').check();
+  await workspaceSource(w, 'Selected asset GL balances').getByRole('checkbox').check();
   await attestation().check();
   await button('Check asset components / GL').click();
   await wait();
@@ -154,7 +150,7 @@ export async function verifyAsset(
         `audit/fixed-assets/cases/opposite-cost-differences-zero-grand/source-${i}.csv`,
       );
     await wait();
-    await w.locator('fieldset:has(input[type="file"])').nth(i).getByRole('checkbox').check();
+    await workspaceSource(w, roles[i]).getByRole('checkbox').check();
   }
   await attestation().check();
   await button('Check asset components / GL').click();
@@ -170,7 +166,7 @@ export async function verifyAsset(
         `audit/fixed-assets/cases/component-differences-masked-by-net/source-${i}.csv`,
       );
     await wait();
-    await w.locator('fieldset:has(input[type="file"])').nth(i).getByRole('checkbox').check();
+    await workspaceSource(w, roles[i]).getByRole('checkbox').check();
   }
   await attestation().check();
   await button('Check asset components / GL').click();

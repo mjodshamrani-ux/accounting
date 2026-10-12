@@ -394,16 +394,19 @@ export const en: Messages = {
     rowFamily: 'Scope repeated on each movement',
     scopeFamily: 'Scope header with linked details',
     scopeSample: 'Open scope header and details example',
-    scopeReading: 'Review the original scope header and each detail’s parent before confirming the reading.',
+    scopeReading:
+      'Review the original scope header and each detail’s parent before confirming the reading.',
     scopeHeader: 'Scope header from the original source',
     detailHeader: 'Detail header row',
     sourceEvidence: 'Document and scope cell evidence',
     inherited: 'Value inherited from the scope header',
     originalRaw: 'Original document amount text',
     openRaw: 'Open balance text',
-    openLimit: 'Descriptive and unverified; excluded from matching and receipt allocation.',
+    openLimit:
+      'Descriptive and unverified; excluded from matching and receipt allocation.',
     unavailableTotal: 'Unavailable because of a source defect',
-    sourceErrors: 'Source errors block automatic matching. Review the inventory and originals before continuing.',
+    sourceErrors:
+      'Source errors block automatic matching. Review the inventory and originals before continuing.',
     sourceStatus: 'Source status',
     sides: ['Company AR ledger', 'Company-issued customer statement'],
     sample: 'Open synthetic AR example',
@@ -475,7 +478,8 @@ export const en: Messages = {
       'exact-own-document':
         'Unique own document, type, date and signed amount agree',
       'source-errors': 'Reading errors block approval',
-      'empty-source': 'No details to compare; this does not prove statement completeness',
+      'empty-source':
+        'No details to compare; this does not prove statement completeness',
       'duplicate-document': 'Document identity has competing movements',
       'missing-counterpart':
         'No counterpart with the same own document and type',
@@ -1000,9 +1004,9 @@ export const en: Messages = {
   },
   landing: {
     eyebrow: 'Local accounting reconciliation',
-    descriptionLine1: 'Choose a reconciliation type and review its sources,',
+    descriptionLine1: 'Your reconciliations in one place',
     descriptionLine2:
-      'from movements and balances to result evidence and workpapers, within each workflow’s limits.',
+      'Add your files, compare records, and understand differences with the source of each result',
     start: 'Choose a reconciliation type',
     howItWorks: 'How to use Tarasuf',
     privacyNote: 'Processing happens on your device. No account needed.',
@@ -1030,7 +1034,7 @@ export const en: Messages = {
       },
       flow: {
         label: 'Straightforward steps',
-        title: 'Review both files in one place',
+        title: 'A clear path for each reconciliation',
         text: 'Upload the files and review the data, then compare transactions and download the result. The engine shows you what needs your review.',
         note: 'No account or technical setup needed',
       },
@@ -1043,12 +1047,12 @@ export const en: Messages = {
     },
     process: {
       intro:
-        'Supplier reconciliation example: upload the two files, review the differences, then save the results in a workpaper. Sources and steps vary with the reconciliation type selected above.',
+        'Choose a reconciliation type and add its files, then review the result and save the workpaper',
       steps: [
         {
           number: '1',
-          title: 'Upload the two files',
-          text: 'Upload the supplier statement and your AP report. The engine reads the data and shows you what needs confirmation or correction.',
+          title: 'Add your reconciliation files',
+          text: 'Add the records you want to compare. Each reconciliation shows its primary files and any supporting evidence it requires',
           detail: 'Start with the data you have',
         },
         {

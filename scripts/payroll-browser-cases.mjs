@@ -1,15 +1,11 @@
+import { openDomainWorkspace, workspaceSource } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyPayroll(page, url, out = 'work/payroll/browser') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', {
-      name: 'Posted payroll / GL and bank payout evidence',
-      exact: true,
-    })
-    .click();
+  await openDomainWorkspace(page, 'payroll');
   const w = page.locator('[data-payroll-workspace]'),
     status = w.locator('[data-payroll-status]'),
     button = (name) => w.getByRole('button', { name, exact: true });
@@ -107,7 +103,7 @@ export async function verifyPayroll(page, url, out = 'work/payroll/browser') {
     );
   await wait();
   assert.equal(await status.count(), 0);
-  await w.locator('fieldset:has(input[type="file"])').nth(0).getByRole('checkbox').check();
+  await workspaceSource(w, 'Posted employee payroll register').getByRole('checkbox').check();
   await attestation().check();
   await button('Check payroll components / GL / bank').click();
   await wait();
@@ -126,7 +122,7 @@ export async function verifyPayroll(page, url, out = 'work/payroll/browser') {
     })
     .setInputFiles('audit/payroll/cases/unmapped-zero-gl-visible/source-3.csv');
   await wait();
-  await w.locator('fieldset:has(input[type="file"])').nth(3).getByRole('checkbox').check();
+  await workspaceSource(w, 'Selected posted payroll and disbursement GL entries').getByRole('checkbox').check();
   await attestation().check();
   await button('Check payroll components / GL / bank').click();
   await wait();
@@ -151,7 +147,7 @@ export async function verifyPayroll(page, url, out = 'work/payroll/browser') {
         `audit/payroll/cases/opposed-account-differences-zero-grand/source-${i}.csv`,
       );
     await wait();
-    await w.locator('fieldset:has(input[type="file"])').nth(i).getByRole('checkbox').check();
+    await workspaceSource(w, roles[i]).getByRole('checkbox').check();
   }
   await attestation().check();
   await button('Check payroll components / GL / bank').click();
@@ -170,7 +166,7 @@ export async function verifyPayroll(page, url, out = 'work/payroll/browser') {
         `audit/payroll/cases/gross-deduction-differences-net-masked/source-${i}.csv`,
       );
     await wait();
-    await w.locator('fieldset:has(input[type="file"])').nth(i).getByRole('checkbox').check();
+    await workspaceSource(w, roles[i]).getByRole('checkbox').check();
   }
   await attestation().check();
   await button('Check payroll components / GL / bank').click();
@@ -188,7 +184,7 @@ export async function verifyPayroll(page, url, out = 'work/payroll/browser') {
         .getByLabel(roles[i], { exact: true })
         .setInputFiles(`audit/payroll/cases/${name}/source-${i}.csv`);
       await wait();
-      await w.locator('fieldset:has(input[type="file"])').nth(i).getByRole('checkbox').check();
+      await workspaceSource(w, roles[i]).getByRole('checkbox').check();
     }
     await attestation().check();
     await button('Check payroll components / GL / bank').click();

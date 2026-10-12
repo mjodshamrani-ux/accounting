@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 export async function verifyDomainAssistant(
   page,
   url,
@@ -52,7 +53,23 @@ export async function verifyDomainAssistant(
     console.log('Evidence assistant browser domain:', domain);
     await page.goto(url);
     await page.getByRole('button', { name: 'EN English', exact: true }).click();
-    await page.getByRole('button', { name: entry, exact: true }).click();
+    const nativeDomain =
+      domain === 'bank-adjustment'
+        ? 'bank'
+        : domain === 'financial'
+          ? 'tb-financial'
+          : domain;
+    assert.equal(
+      await page
+        .locator(
+          `select[data-reconciliation-type-select] option[value="${nativeDomain}"]`,
+        )
+        .innerText(),
+      entry,
+    );
+    await openDomainWorkspace(page, nativeDomain, {
+      balanceFlow: domain === 'bank-adjustment',
+    });
     const w =
       domain === 'bank-adjustment'
         ? page.getByTestId('bank-balance-workspace')

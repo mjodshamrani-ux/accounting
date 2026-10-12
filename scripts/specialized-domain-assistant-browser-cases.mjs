@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { openDomainWorkspace, workspaceSource } from './domain-navigation-support.mjs';
 const cases = [
   {
     domain: 'inventory-register',
@@ -86,7 +87,16 @@ export async function verifySpecializedDomainAssistant(page, url, out) {
     await page.setViewportSize({ width: 1200, height: 900 });
     await page.goto(url);
     await page.getByRole('button', { name: 'EN English', exact: true }).click();
-    await page.getByRole('button', { name: c.entry, exact: true }).click();
+    const nativeDomain = c.key === 'asset' ? 'assets' : c.key;
+    assert.equal(
+      await page
+        .locator(
+          `select[data-reconciliation-type-select] option[value="${nativeDomain}"]`,
+        )
+        .innerText(),
+      c.entry,
+    );
+    await openDomainWorkspace(page, nativeDomain);
     const w = page.locator(`[data-${c.key}-workspace]`);
     const a = w.locator('[data-domain-evidence-assistant]');
     const demo = w.getByRole('button', { name: c.demo, exact: true });
@@ -295,9 +305,7 @@ export async function verifySpecializedDomainAssistant(page, url, out) {
     assert.equal(await a.locator('[data-evidence-answer]').count(), 0);
     await ask('sources');
     // A different original CSV removes the assistant until an explicit new calculation.
-    await w
-      .locator('fieldset:has(input[type="file"])')
-      .first()
+    await workspaceSource(w, c.source)
       .locator('input[type="file"]')
       .setInputFiles(`audit/${c.domain}/cases/${c.malformed}/source-0.csv`);
     await idle();

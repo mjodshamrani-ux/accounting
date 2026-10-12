@@ -7,6 +7,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -296,13 +298,22 @@ export function PayrollWorkspace({
     title: string,
     headers: string[],
     rows: (string | number | null)[][],
+    fingerprint?: string,
   ) => (
-    <details>
-      <summary>
-        {title} ({rows.length})
-      </summary>
+    <WorkspaceAdvanced
+      summary={
+        <>
+          {title} ({rows.length})
+        </>
+      }
+    >
+      {fingerprint && (
+        <p>
+          <bdi>{fingerprint}</bdi>
+        </p>
+      )}
       <Table headers={headers} rows={rows} />
-    </details>
+    </WorkspaceAdvanced>
   );
   return (
     <div hidden={!active}>
@@ -315,48 +326,54 @@ export function PayrollWorkspace({
           onBack={onBack}
           backLabel={copy.back}
           disabled={busy}
+          hasWork={files.some(Boolean)}
         />
         <WorkspaceIntro title={copy.title} intro={copy.intro}>
           <p>{copy.claim}</p>
           <p>{copy.family}</p>
         </WorkspaceIntro>
-        <div className="gl-tb-actions workspace-toolbar">
-          <Button disabled={busy} onClick={() => void demo()}>
-            {copy.demo}
-          </Button>
-          <label>
-            {copy.restore}
-            <input
-              type="file"
-              accept=".json"
-              disabled={busy}
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                e.target.value = '';
-                if (f)
-                  void perform(async (signal) => {
-                    if (f.size > 64 * 1024 * 1024)
-                      throw Error('PAYROLL_SESSION');
-                    return workerTask<{
-                      state: PayrollInput;
-                      result: PayrollResult;
-                    }>(
-                      'payroll-restore',
-                      { buffer: await f.arrayBuffer() },
-                      signal,
-                    );
-                  }, install);
-              }}
-            />
-          </label>
-          {busy && (
-            <Button variant="outline" onClick={cancel}>
-              {copy.cancel}
+        <WorkspaceAdvanced>
+          <div className="gl-tb-actions workspace-toolbar">
+            <Button disabled={busy} onClick={() => void demo()}>
+              {copy.demo}
             </Button>
-          )}
-        </div>
+            <label>
+              {copy.restore}
+              <input
+                type="file"
+                accept=".json"
+                disabled={busy}
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  e.target.value = '';
+                  if (f)
+                    void perform(async (signal) => {
+                      if (f.size > 64 * 1024 * 1024)
+                        throw Error('PAYROLL_SESSION');
+                      return workerTask<{
+                        state: PayrollInput;
+                        result: PayrollResult;
+                      }>(
+                        'payroll-restore',
+                        { buffer: await f.arrayBuffer() },
+                        signal,
+                      );
+                    }, install);
+                }}
+              />
+            </label>
+            {busy && (
+              <Button variant="outline" onClick={cancel}>
+                {copy.cancel}
+              </Button>
+            )}
+          </div>
+        </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
-        <div className="gl-tb-grid workspace-sources">
+        <WorkspaceSources
+          primaryIndices={[0, 3]}
+          primaryReady={!!(files[0] && files[3])}
+        >
           {PAYROLL_ROLES.map((role, i) => (
             <fieldset key={role} disabled={busy} className="workspace-source">
               <legend>
@@ -377,9 +394,6 @@ export function PayrollWorkspace({
                   <p>
                     <bdi>{files[i]!.name}</bdi>
                   </p>
-                  <p style={{ overflowWrap: 'anywhere' }}>
-                    <bdi>{files[i]!.sha256}</bdi>
-                  </p>
                   <label>
                     <input
                       type="checkbox"
@@ -397,13 +411,14 @@ export function PayrollWorkspace({
                     copy.roles[i],
                     files[i]!.sheets[0].rows[0] ?? [],
                     files[i]!.sheets[0].rows.slice(1),
+                    files[i]!.sha256,
                   )}
                 </>
               )}
             </fieldset>
           ))}
-        </div>
-        <fieldset disabled={busy}>
+        </WorkspaceSources>
+        <fieldset disabled={busy} hidden={!(files[0] && files[3])}>
           <legend>{copy.scopeTitle}</legend>
           <div className="gl-tb-grid">
             {PAYROLL_FIELDS.map((k) => (
@@ -437,42 +452,44 @@ export function PayrollWorkspace({
             {copy.scopeConfirm}
           </label>
         </fieldset>
-        <fieldset disabled={busy}>
-          <legend>{copy.completeTitle}</legend>
-          <label>
-            <input
-              type="checkbox"
-              checked={complete.confirmed}
-              onChange={(e) => {
-                setComplete({ ...complete, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {copy.complete}
-          </label>
-          <label>
-            {copy.completeReference}
-            <input
-              maxLength={2000}
-              value={complete.reference}
-              onChange={(e) => {
-                setComplete({ ...complete, reference: e.target.value });
-                invalidate();
-              }}
-            />
-          </label>
-          <label>
-            {copy.completeNote}
-            <input
-              maxLength={2000}
-              value={complete.note}
-              onChange={(e) => {
-                setComplete({ ...complete, note: e.target.value });
-                invalidate();
-              }}
-            />
-          </label>
-        </fieldset>
+        <WorkspaceAdvanced summary={copy.completeTitle}>
+          <fieldset disabled={busy}>
+            <legend>{copy.completeTitle}</legend>
+            <label>
+              <input
+                type="checkbox"
+                checked={complete.confirmed}
+                onChange={(e) => {
+                  setComplete({ ...complete, confirmed: e.target.checked });
+                  invalidate();
+                }}
+              />
+              {copy.complete}
+            </label>
+            <label>
+              {copy.completeReference}
+              <input
+                maxLength={2000}
+                value={complete.reference}
+                onChange={(e) => {
+                  setComplete({ ...complete, reference: e.target.value });
+                  invalidate();
+                }}
+              />
+            </label>
+            <label>
+              {copy.completeNote}
+              <input
+                maxLength={2000}
+                value={complete.note}
+                onChange={(e) => {
+                  setComplete({ ...complete, note: e.target.value });
+                  invalidate();
+                }}
+              />
+            </label>
+          </fieldset>
+        </WorkspaceAdvanced>
         <div className="gl-tb-actions workspace-run-actions">
           <Button
             disabled={busy || !ready}

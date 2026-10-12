@@ -6,7 +6,7 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const root = path.resolve(import.meta.dirname, '..');
 assert(process.argv.slice(2).every((x) => x === '--quick'));
@@ -170,8 +170,7 @@ try {
           .trim(),
         version,
       );
-      await revealDomainEntry(page, 'ar');
-      await page.locator('[data-domain-entry="ar"]').click();
+      await openDomainWorkspace(page, 'ar');
       const w = page.locator('[data-ar-workspace]');
       const button = (name) => w.getByRole('button', { name, exact: true });
       const wait = () =>

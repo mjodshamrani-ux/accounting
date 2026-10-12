@@ -201,6 +201,8 @@ jobs:
           pnpm test:browser:startup-readiness
           pnpm test:browser:domain-navigation
           pnpm test:browser:main-integration
+      - name: Verify official fonts and unified workspace sources with retained work
+        run: pnpm test:browser:unified-workspace
       - name: Verify native Chrome section families and qualified currencies
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

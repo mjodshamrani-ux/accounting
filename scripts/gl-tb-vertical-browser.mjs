@@ -13,7 +13,10 @@ import path from 'node:path';
 import { chromium } from 'playwright';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import {
+  openDomainWorkspace,
+  openWorkspaceDisclosures,
+} from './domain-navigation-support.mjs';
 
 // Expectations are authored by the independent Python CSV/Decimal oracle.
 // No reconciliation implementation is imported into this browser proof.
@@ -195,16 +198,23 @@ async function measure(page, directory, phase, capture) {
     const panel = page.locator('main.gl-tb-workspace:visible');
     await panel.waitFor({ state: 'visible' });
     assert.equal(await panel.count(), 1, 'one visible native GL-TB workspace');
-    const dimensions = await page.evaluate((element) => ({
-      viewport: window.innerWidth,
-      panelTag: element.tagName,
-      panelClass: element.getAttribute('class'),
-      document: document.documentElement.scrollWidth,
-      body: document.body.scrollWidth,
-      panel: element.getBoundingClientRect().width,
-      panelHeight: element.getBoundingClientRect().height,
-    }), await panel.elementHandle());
-    Object.assign(dimensions, { visiblePanels: await panel.count(), visible: await panel.isVisible(), selector: 'main.gl-tb-workspace:visible' });
+    const dimensions = await page.evaluate(
+      (element) => ({
+        viewport: window.innerWidth,
+        panelTag: element.tagName,
+        panelClass: element.getAttribute('class'),
+        document: document.documentElement.scrollWidth,
+        body: document.body.scrollWidth,
+        panel: element.getBoundingClientRect().width,
+        panelHeight: element.getBoundingClientRect().height,
+      }),
+      await panel.elementHandle(),
+    );
+    Object.assign(dimensions, {
+      visiblePanels: await panel.count(),
+      visible: await panel.isVisible(),
+      selector: 'main.gl-tb-workspace:visible',
+    });
     assertGeometry(width, dimensions);
     if (capture)
       await page.screenshot({
@@ -474,20 +484,29 @@ try {
           }),
         );
         await page.goto(`${origin}/mizan-test/`);
-        await page.waitForFunction(() =>
-          [...document.querySelectorAll('[data-domain-entry]')].some(
-            (el) => !el.disabled,
-          ),
+        await page.waitForFunction(
+          () =>
+            !document.querySelector('select[data-reconciliation-type-select]')
+              ?.disabled,
         );
         if ((await page.evaluate(() => document.documentElement.lang)) !== lang)
           await page
             .locator(`.language-switch button[lang="${lang}"]:visible`)
             .first()
             .click();
-        await revealDomainEntry(page, 'gl-tb');
-        const entry = page.locator('[data-domain-entry="gl-tb"]');
+        const entry = page.locator(
+          'select[data-reconciliation-type-select]:visible',
+        );
         await entry.focus();
-        await entry.press('Enter');
+        assert.equal(
+          await entry.evaluate((element) => document.activeElement === element),
+          true,
+          'native reconciliation selector is keyboard reachable',
+        );
+        const panel = await openDomainWorkspace(page, 'gl-tb', {
+          advanced: false,
+          requiredSources: false,
+        });
         await page
           .getByRole('heading', { name: t.title, exact: true })
           .waitFor();
@@ -497,6 +516,7 @@ try {
             .evaluate((el) => document.activeElement === el),
           true,
         );
+        await openWorkspaceDisclosures(panel);
         await upload(page, t, id, format, facts);
         await evidence(page, t, facts);
         observation.measurements = await measure(
@@ -661,13 +681,19 @@ try {
                 (action) => action === 'gl-tb-reconcile',
               ).length;
               const terminations = window.__verticalWorkerTerminations;
-              [...document.querySelector('main.gl-tb-workspace').querySelectorAll('button')]
+              [
+                ...document
+                  .querySelector('main.gl-tb-workspace')
+                  .querySelectorAll('button'),
+              ]
                 .find((el) => el.textContent.trim() === label.compare)
                 .click();
               await new Promise((resolve) => setTimeout(resolve, 0));
-              const control = [...document.querySelector('main.gl-tb-workspace').querySelectorAll('button')].find(
-                (el) => el.textContent.trim() === label.cancel,
-              );
+              const control = [
+                ...document
+                  .querySelector('main.gl-tb-workspace')
+                  .querySelectorAll('button'),
+              ].find((el) => el.textContent.trim() === label.cancel);
               if (!control || !control.getClientRects().length)
                 return {
                   cancelled: false,

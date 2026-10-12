@@ -1,9 +1,19 @@
 import { reconciliationDirectoryCopy } from '@/lib/i18n/reconciliation-directory';
-import { ReconciliationDirectory, navigateToReconciliationDirectory } from '@/components/reconciliation-directory';
-import {PayrollWorkspace} from '@/components/payroll-workspace';
-import {payrollCopy} from '@/lib/i18n/payroll';
-import {AssetWorkspace} from '@/components/fixed-assets-workspace';
-import {assetCopy} from '@/lib/i18n/fixed-assets';
+import {
+  ReconciliationDirectory,
+  navigateToReconciliationDirectory,
+} from '@/components/reconciliation-directory';
+import {
+  ReconciliationNavigationProvider,
+  WorkspaceIdentityProvider,
+  type WorkspaceActivity,
+} from '@/components/reconciliation-navigation';
+import type { ReconciliationDomain } from '@/lib/i18n/reconciliation-directory';
+import './reconciliation-shell.css';
+import { PayrollWorkspace } from '@/components/payroll-workspace';
+import { payrollCopy } from '@/lib/i18n/payroll';
+import { AssetWorkspace } from '@/components/fixed-assets-workspace';
+import { assetCopy } from '@/lib/i18n/fixed-assets';
 import { StockWorkspace } from '@/components/inventory-register-workspace';
 import { stockCopy } from '@/lib/i18n/inventory-register';
 import { GatewayWorkspace } from '@/components/payment-gateway-workspace';
@@ -13,7 +23,10 @@ import { intercompanyCopy } from '@/lib/i18n/intercompany';
 import { FinancialWorkspace } from '@/components/tb-financial-workspace';
 import { BankWorkspace } from '@/components/bank-workspace';
 import { AllocationWorkspace } from '@/components/allocation-workspace';
-import { createAllocationWorkflowHandoff, type AllocationWorkflowHandoff } from '@/lib/reconciliation/allocation-workflow-handoff';
+import {
+  createAllocationWorkflowHandoff,
+  type AllocationWorkflowHandoff,
+} from '@/lib/reconciliation/allocation-workflow-handoff';
 import { allocationWorkflowHandoffCopy } from '@/lib/i18n/allocation-workflow-handoff';
 import { GlTbWorkspace } from '@/components/gl-tb-workspace';
 import { ArWorkspace } from '@/components/ar-workspace';
@@ -21,7 +34,10 @@ import { headerLabels } from '@/lib/reconciliation/header-view';
 import { ClearingWorkspace } from '@/components/clearing-workspace';
 import type { restoreSession } from '@/lib/reconciliation/session';
 import { VisualReader } from '@/components/visual-reader';
-import { visualAccountingMapping, VISUAL_SOURCE_INVALID, } from '@/lib/reconciliation/visual-accounting-source';
+import {
+  visualAccountingMapping,
+  VISUAL_SOURCE_INVALID,
+} from '@/lib/reconciliation/visual-accounting-source';
 import { BrandMark, BrandWordmark, DisplayHeading } from '@/components/brand';
 import {
   LandingIntro,
@@ -32,7 +48,10 @@ import { SourceUpload } from '@/components/source-upload';
 import { MultilineSourceReview } from '@/components/multiline-source-review';
 import { SourceStructureReview } from '@/components/source-structure-review';
 import { InvoiceOverlapReview } from '@/components/invoice-overlap-review';
-import { SupplierInvoiceOverlapReview, type SupplierMainReviewInput } from '@/lib/reconciliation/supplier-overlap-review';
+import {
+  SupplierInvoiceOverlapReview,
+  type SupplierMainReviewInput,
+} from '@/lib/reconciliation/supplier-overlap-review';
 import { SectionDerivedReview } from '@/components/section-derived-review';
 import { SplitSectionReview } from '@/components/split-section-review';
 import { RunningBalanceReview } from '@/components/running-balance-review';
@@ -52,7 +71,14 @@ import {
   uiText,
   type UiText,
 } from '@/lib/i18n/text';
-import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useEffectEvent,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import type { ReactNode } from 'react';
 import {
   ShieldCheck,
@@ -274,14 +300,13 @@ function ReadingIssueList({
       entries.flatMap(({ source, file, side }) =>
         sourceReadingIssues(source, file, side),
       ),
-    [
-      entries
-    ],
+    [entries],
   );
   const issueBinding = JSON.stringify(issues);
   const [pageBinding, setPageBinding] = useState(issueBinding);
   if (pageBinding !== issueBinding) {
-    setPageBinding(issueBinding); setPage(0);
+    setPageBinding(issueBinding);
+    setPage(0);
   }
   const current = Math.min(
     page,
@@ -378,9 +403,40 @@ function ReadingIssueList({
 
 export default function App() {
   const [domain, setDomain] = useState<
-    |'supplier' | 'clearing' | 'ar' | 'gl-tb' | 'allocation' | 'bank' | 'tb-financial' | 'intercompany' | 'gateway' | 'stock' | 'assets' | 'payroll'>('supplier');
+    | 'supplier'
+    | 'clearing'
+    | 'ar'
+    | 'gl-tb'
+    | 'allocation'
+    | 'bank'
+    | 'tb-financial'
+    | 'intercompany'
+    | 'gateway'
+    | 'stock'
+    | 'assets'
+    | 'payroll'
+  >('supplier');
   const { t, dir, say } = useI18n();
-  const [allocationHandoff, setAllocationHandoff] = useState<AllocationWorkflowHandoff | null>(null);
+  const [workspaceActivity, setWorkspaceActivity] = useState<
+    Partial<Record<ReconciliationDomain, WorkspaceActivity>>
+  >({});
+  const [workspaceDrafts, setWorkspaceDrafts] = useState<
+    Partial<Record<ReconciliationDomain, boolean>>
+  >({});
+  const reportActivity = useCallback(
+    (id: ReconciliationDomain, activity: WorkspaceActivity) => {
+      setWorkspaceActivity((previous) =>
+        previous[id]?.busy === activity.busy &&
+        previous[id]?.hasWork === activity.hasWork
+          ? previous
+          : { ...previous, [id]: activity },
+      );
+    },
+    [],
+  );
+
+  const [allocationHandoff, setAllocationHandoff] =
+    useState<AllocationWorkflowHandoff | null>(null);
   const allocationHandoffSerial = useRef(0);
   const [auditEvents, setAuditEvents] = useState<AuditEvent[]>([]);
   const [engineReady, setEngineReady] = useState(false);
@@ -396,17 +452,24 @@ export default function App() {
   const allocationHandoffReady = useMemo(() => {
     if (!files[0] || !files[1]) return false;
     try {
-      createAllocationWorkflowHandoff([files[0], files[1]], scope, 'eligibility-check');
+      createAllocationWorkflowHandoff(
+        [files[0], files[1]],
+        scope,
+        'eligibility-check',
+      );
       return true;
     } catch {
       return false;
     }
   }, [files, scope]);
-  const [ scopeEdited, setScopeEdited] = useState<
+  const [scopeEdited, setScopeEdited] = useState<
     Partial<Record<ScopeSuggestionField | 'decimals', boolean>>
   >({});
   const [formatChoices, setFormatChoices] = useState(freshFormatChoices);
-  const [ directionEdited, setDirectionEdited] = useState<[boolean, boolean]>([false, false,]);
+  const [directionEdited, setDirectionEdited] = useState<[boolean, boolean]>([
+    false,
+    false,
+  ]);
   const [pdfDrafts, setPdfDrafts] = useState<[boolean, boolean]>([
     false,
     false,
@@ -543,17 +606,18 @@ export default function App() {
     !!scope.currency &&
     currencyPrecision(scope.currency) === undefined &&
     !scopeEdited.decimals;
-    const precision = currencyPrecision(scope.currency);
-    if (precision !== undefined &&
-    ! scopeEdited.decimals &&
-    scope.decimals !== precision) {
-    setScope((previous) => ( {
-            ...previous,
-            decimals: precision,
-            confirmed: false,
-            coverageConfirmed: false,
-          })
-    );
+  const precision = currencyPrecision(scope.currency);
+  if (
+    precision !== undefined &&
+    !scopeEdited.decimals &&
+    scope.decimals !== precision
+  ) {
+    setScope((previous) => ({
+      ...previous,
+      decimals: precision,
+      confirmed: false,
+      coverageConfirmed: false,
+    }));
   }
   const scopeAutofillPending = scopeFields.some((field) => {
     if (scopeEdited[field]) return false;
@@ -666,7 +730,8 @@ export default function App() {
   const previousDomain = useRef(domain);
   const domainReturnFocus = useRef<HTMLElement | null>(null);
   const previousStep = useRef(step);
-  const showLanding = step === 0 && !files.some(Boolean);
+  const showLanding =
+    domain === 'supplier' && step === 0 && !files.some(Boolean);
   const previousLanding = useRef(showLanding);
   const privacyHeading = useRef<HTMLHeadingElement>(null);
   const privacyReturnFocus = useRef<HTMLElement | null>(null);
@@ -682,7 +747,8 @@ export default function App() {
     scopePanelTrigger.step !== step ||
     scopePanelTrigger.scopeNeedsInput !== scopeNeedsInput ||
     scopePanelTrigger.scopeConflict !== scopeConflict ||
-    scopePanelTrigger.preparationPending !== preparationPending) {
+    scopePanelTrigger.preparationPending !== preparationPending
+  ) {
     setScopePanelTrigger({
       step,
       scopeNeedsInput,
@@ -710,10 +776,17 @@ export default function App() {
   const [decisions, setDecisions] = useState<Decision[]>([]);
   const [rejected, setRejected] = useState<string[]>([]);
   const [mainReviewGeneration, setMainReviewGeneration] = useState(0);
-  const [mainOverlapReview, setMainOverlapReview] = useState(() => new SupplierInvoiceOverlapReview());
-  const [mainExtractionRevision, setMainExtractionRevision] = useState('native-overlap-reading-v1');
+  const [mainOverlapReview, setMainOverlapReview] = useState(
+    () => new SupplierInvoiceOverlapReview(),
+  );
+  const [mainExtractionRevision, setMainExtractionRevision] = useState(
+    'native-overlap-reading-v1',
+  );
   const [mainOverlapOpen, setMainOverlapOpen] = useState(false);
-  const mainReviewContext = useMemo(() => ({ generation: mainReviewGeneration, decisions, rejected }), [mainReviewGeneration, decisions, rejected]);
+  const mainReviewContext = useMemo(
+    () => ({ generation: mainReviewGeneration, decisions, rejected }),
+    [mainReviewGeneration, decisions, rejected],
+  );
   const [review, setReview] = useState({ checked: false, name: '', notes: '' });
   const [tab, setTab] = useState('exceptions');
   const [query, setQuery] = useState('');
@@ -735,13 +808,18 @@ export default function App() {
     return () => job.current?.controller.abort();
   }, []);
   useEffect(() => {
-    if (!files.some(Boolean)) return;
+    if (
+      !files.some(Boolean) &&
+      !Object.values(workspaceActivity).some((activity) => activity?.hasWork) &&
+      !Object.values(workspaceDrafts).some(Boolean)
+    )
+      return;
     const warn = (e: BeforeUnloadEvent) => {
       e.preventDefault();
     };
     window.addEventListener('beforeunload', warn);
     return () => window.removeEventListener('beforeunload', warn);
-  }, [files]);
+  }, [files, workspaceActivity, workspaceDrafts]);
   useEffect(() => {
     if (
       previousStep.current === step &&
@@ -750,21 +828,21 @@ export default function App() {
       return;
     previousStep.current = step;
     previousLanding.current = showLanding;
-    workflowHeading.current?.scrollIntoView({ block: 'start' });
-    workflowHeading.current?.focus({ preventScroll: true });
-  }, [step, showLanding]);
+    if (domain === 'supplier') {
+      workflowHeading.current?.scrollIntoView({ block: 'start' });
+      workflowHeading.current?.focus({ preventScroll: true });
+    }
+  }, [step, showLanding, domain]);
   useEffect(() => {
     if (previousDomain.current === domain) return;
     previousDomain.current = domain;
-    const origin = domainReturnFocus.current;
-    const target = domain === 'supplier'
-      ? origin?.isConnected && !origin.closest('[hidden]')
-        ? origin
-        : workflowHeading.current
-      : domainPanels.current
-          ?.querySelector(`[data-domain-panel="${domain}"]`)
-          ?.querySelector<HTMLElement>('h1, h2');
-    target?.scrollIntoView({ behavior: 'instant', block: domain === 'supplier' && target === origin ? 'center' : 'start' });
+    const target =
+      domain === 'supplier'
+        ? workflowHeading.current
+        : domainPanels.current
+            ?.querySelector(`[data-domain-panel="${domain}"]`)
+            ?.querySelector<HTMLElement>('h1, h2');
+    target?.scrollIntoView({ behavior: 'instant', block: 'start' });
     target?.focus({ preventScroll: true });
   }, [domain]);
   useEffect(() => {
@@ -806,9 +884,14 @@ export default function App() {
     generation = mainReviewGeneration,
   ): SupplierMainReviewInput {
     if (!files[0] || !files[1]) fail((m) => m.app.errors.filesMissing);
-    return { currentSourceFiles: [files[0], files[1]], mappings,
-      scope: nextScope, revision: mainExtractionRevision, signal,
-      main: { generation, decisions: nextDecisions, rejected: nextRejected } };
+    return {
+      currentSourceFiles: [files[0], files[1]],
+      mappings,
+      scope: nextScope,
+      revision: mainExtractionRevision,
+      signal,
+      main: { generation, decisions: nextDecisions, rejected: nextRejected },
+    };
   }
   function applyMainOverlapResult(next: Comparison) {
     job.current?.controller.abort();
@@ -826,9 +909,8 @@ export default function App() {
   function updateScope(p: Partial<Scope>) {
     setScopeEdited((previous) => {
       const next = { ...previous };
-    for (const field of scopeFields)
-      if (field in p) next[field] = true;
-    if ('currency' in p) next.decimals = false;
+      for (const field of scopeFields) if (field in p) next[field] = true;
+      if ('currency' in p) next.decimals = false;
       if ('decimals' in p) next.decimals = true;
       return next;
     });
@@ -867,9 +949,10 @@ export default function App() {
     if (readingChanged) {
       setDirectionEdited(
         (previous) =>
-          previous.map((value, index) => (index === i ? false : value)) as[
+          previous.map((value, index) => (index === i ? false : value)) as [
             boolean,
-            boolean,],
+            boolean,
+          ],
       );
       // A choice belongs to the reading it was made under. Changing the reading
       // drops it here as well as in formatChoices, so no later path can use it.
@@ -883,9 +966,10 @@ export default function App() {
     } else if ('multiplier' in p) {
       setDirectionEdited(
         (previous) =>
-          previous.map((value, index) => (index === i ? true : value)) as[
+          previous.map((value, index) => (index === i ? true : value)) as [
             boolean,
-            boolean,],
+            boolean,
+          ],
       );
       p = { ...p, directionEvidence: undefined };
     }
@@ -979,10 +1063,20 @@ export default function App() {
     setNotice(uiText((m) => m.app.notices.cancelled));
   }
   function navigateDomain(next: typeof domain) {
+    if (
+      next === domain ||
+      busy ||
+      workspaceActivity[domain]?.busy ||
+      !engineReady
+    )
+      return;
     if (domain === 'supplier' && next !== 'supplier') {
       const origin = document.activeElement;
-      domainReturnFocus.current = origin instanceof HTMLElement &&
-        origin.closest('[data-domain-navigation]') ? origin : null;
+      domainReturnFocus.current =
+        origin instanceof HTMLElement &&
+        origin.closest('[data-domain-navigation]')
+          ? origin
+          : null;
     }
     job.current?.controller.abort();
     job.current = null;
@@ -994,9 +1088,13 @@ export default function App() {
   }
   function openFreshAllocation() {
     if (!allocationHandoffReady || !files[0] || !files[1]) return;
-    setAllocationHandoff(createAllocationWorkflowHandoff(
-      [files[0], files[1]], scope, `supplier-handoff-${++allocationHandoffSerial.current}`,
-    ));
+    setAllocationHandoff(
+      createAllocationWorkflowHandoff(
+        [files[0], files[1]],
+        scope,
+        `supplier-handoff-${++allocationHandoffSerial.current}`,
+      ),
+    );
     navigateDomain('allocation');
   }
   function loadDemo() {
@@ -1005,8 +1103,8 @@ export default function App() {
     setVisualRevision((v) => v + 1);
     invalidate();
     setDemo(true);
-    setDirectionEdited( [true, true]);
-    setScopeEdited( {
+    setDirectionEdited([true, true]);
+    setScopeEdited({
       supplier: true,
       entity: true,
       account: true,
@@ -1047,17 +1145,36 @@ export default function App() {
           throw failure;
         }
         if (!alive()) return;
-        if (parsed.visual && parsed.visual.context.side !== (i === 0 ? 'supplier' : 'ledger'))
+        if (
+          parsed.visual &&
+          parsed.visual.context.side !== (i === 0 ? 'supplier' : 'ledger')
+        )
           throw new Error(VISUAL_SOURCE_INVALID);
         const other = files[1 - i]?.visual?.context;
-        if (parsed.visual && other && ['supplier','entity','account','currency','decimals','cutoff',].some(
-            (k) => parsed.visual!.context[k as keyof typeof other] !== other[k as keyof typeof other],))
+        if (
+          parsed.visual &&
+          other &&
+          [
+            'supplier',
+            'entity',
+            'account',
+            'currency',
+            'decimals',
+            'cutoff',
+          ].some(
+            (k) =>
+              parsed.visual!.context[k as keyof typeof other] !==
+              other[k as keyof typeof other],
+          )
+        )
           throw new Error(VISUAL_SOURCE_INVALID);
-        const selection = parsed.visual ? {mapping:visualAccountingMapping(parsed),notice:''} : selectImportMapping(parsed,i===0?'supplier':'ledger');
+        const selection = parsed.visual
+          ? { mapping: visualAccountingMapping(parsed), notice: '' }
+          : selectImportMapping(parsed, i === 0 ? 'supplier' : 'ledger');
         setDirectionEdited(
           (previous) =>
             previous.map((value, index) =>
-              index ===i ? !!parsed.visual : value,
+              index === i ? !!parsed.visual : value,
             ) as [boolean, boolean],
         );
         setPdfDrafts(
@@ -1069,7 +1186,9 @@ export default function App() {
         setFormatChoices(
           (previous) =>
             previous.map((choice, j) =>
-              j === i ? { dateFormat: !!parsed.visual, numberFormat: !!parsed.visual } : choice,
+              j === i
+                ? { dateFormat: !!parsed.visual, numberFormat: !!parsed.visual }
+                : choice,
             ) as [FormatChoices, FormatChoices],
         );
         setFiles(
@@ -1086,11 +1205,33 @@ export default function App() {
             ) as [Mapping, Mapping],
         );
         if (parsed.visual) {
-          const c=parsed.visual.context;
-          setScopeEdited({supplier:true,entity:true,account:true,currency:true,cutoff:true,decimals:true,});
+          const c = parsed.visual.context;
+          setScopeEdited({
+            supplier: true,
+            entity: true,
+            account: true,
+            currency: true,
+            cutoff: true,
+            decimals: true,
+          });
           setBalanceMode(false);
-          setScope((s)=>({...s,supplier:c.supplier,entity:c.entity,account:c.account,currency:c.currency,decimals:c.decimals,cutoff:c.cutoff,confirmed:false,coverageConfirmed:false,}));
-        } else setScope((s) => ({ ...s, confirmed: false, coverageConfirmed: false, }));
+          setScope((s) => ({
+            ...s,
+            supplier: c.supplier,
+            entity: c.entity,
+            account: c.account,
+            currency: c.currency,
+            decimals: c.decimals,
+            cutoff: c.cutoff,
+            confirmed: false,
+            coverageConfirmed: false,
+          }));
+        } else
+          setScope((s) => ({
+            ...s,
+            confirmed: false,
+            coverageConfirmed: false,
+          }));
         setNotice(selection.notice ? engineText(selection.notice) : null);
       },
     );
@@ -1113,9 +1254,10 @@ export default function App() {
         invalidate();
         setDirectionEdited(
           (previous) =>
-            previous.map((value, index) => (index === i ? false : value)) as[
+            previous.map((value, index) => (index === i ? false : value)) as [
               boolean,
-              boolean,],
+              boolean,
+            ],
         );
         setFormatChoices(
           (previous) =>
@@ -1167,19 +1309,36 @@ export default function App() {
           decisions: nextDecisions,
           rejected: nextRejected,
         };
-        const contextChanged = JSON.stringify([nextDecisions, nextRejected]) !== JSON.stringify([decisions, rejected]);
+        const contextChanged =
+          JSON.stringify([nextDecisions, nextRejected]) !==
+          JSON.stringify([decisions, rejected]);
         const nextGeneration = mainReviewGeneration + (contextChanged ? 1 : 0);
         mainOverlapReview.invalidatePending();
         const overlapState = mainOverlapReview.state;
-        const owned = overlapState.activeReceiptIds.length > 0
-          ? await mainOverlapReview.comparison(mainOverlapInput(signal, confirmed, nextDecisions, nextRejected, nextGeneration))
-          : null;
-        const computed = owned ? { a: owned.supplier, b: owned.ledger, result: owned } : await workerTask<{
-          a: SourceResult;
-          b: SourceResult;
-          result: Comparison | null;
-        }>('reconcile', payload, signal);
-        if (!alive() || mainOverlapReview.state.generation !== overlapState.generation) return;
+        const owned =
+          overlapState.activeReceiptIds.length > 0
+            ? await mainOverlapReview.comparison(
+                mainOverlapInput(
+                  signal,
+                  confirmed,
+                  nextDecisions,
+                  nextRejected,
+                  nextGeneration,
+                ),
+              )
+            : null;
+        const computed = owned
+          ? { a: owned.supplier, b: owned.ledger, result: owned }
+          : await workerTask<{
+              a: SourceResult;
+              b: SourceResult;
+              result: Comparison | null;
+            }>('reconcile', payload, signal);
+        if (
+          !alive() ||
+          mainOverlapReview.state.generation !== overlapState.generation
+        )
+          return;
         setValidated([computed.a, computed.b]);
         if (!computed.result) {
           setStep(1);
@@ -1215,21 +1374,26 @@ export default function App() {
     await task(
       uiText((m) => m.app.tasks.saveSession),
       async (signal, alive) => {
-        const buffer = mainOverlapReview.state.receipts.length || mainOverlapReview.archivedReviewDraft
-          ? await mainOverlapReview.saveSession(mainOverlapInput(signal), { review, events: auditEvents })
-          : await workerTask<ArrayBuffer>(
-          'save-session',
-          {
-            files,
-            mappings,
-            scope,
-            decisions,
-            rejected,
-            events: auditEvents,
-            review,
-          },
-          signal,
-        );
+        const buffer =
+          mainOverlapReview.state.receipts.length ||
+          mainOverlapReview.archivedReviewDraft
+            ? await mainOverlapReview.saveSession(mainOverlapInput(signal), {
+                review,
+                events: auditEvents,
+              })
+            : await workerTask<ArrayBuffer>(
+                'save-session',
+                {
+                  files,
+                  mappings,
+                  scope,
+                  decisions,
+                  rejected,
+                  events: auditEvents,
+                  review,
+                },
+                signal,
+              );
         if (!alive()) return;
         const url = URL.createObjectURL(
           new Blob([buffer], { type: 'application/json' }),
@@ -1258,21 +1422,33 @@ export default function App() {
         if (!alive()) return;
         const restoredOverlap = new SupplierInvoiceOverlapReview();
         if (saved.overlapArchive) {
-          await restoredOverlap.reimportSession({
-            currentSourceFiles: saved.files, mappings: saved.mappings, scope: saved.scope,
-            revision: saved.overlapArchive.revision, signal,
-            main: { generation: 0, decisions: saved.decisions, rejected: saved.rejected },
-          }, saved.overlapArchive.session);
+          await restoredOverlap.reimportSession(
+            {
+              currentSourceFiles: saved.files,
+              mappings: saved.mappings,
+              scope: saved.scope,
+              revision: saved.overlapArchive.revision,
+              signal,
+              main: {
+                generation: 0,
+                decisions: saved.decisions,
+                rejected: saved.rejected,
+              },
+            },
+            saved.overlapArchive.session,
+          );
           if (!alive()) return;
         }
         invalidate();
         setMainOverlapReview(restoredOverlap);
-        setMainExtractionRevision(saved.overlapArchive?.revision ?? 'native-overlap-reading-v1');
-        setDirectionEdited( [true, true]);
+        setMainExtractionRevision(
+          saved.overlapArchive?.revision ?? 'native-overlap-reading-v1',
+        );
+        setDirectionEdited([true, true]);
         setPdfDrafts([false, false]);
         setFiles(saved.files);
         setMappings(saved.mappings);
-        setScopeEdited( {
+        setScopeEdited({
           supplier: true,
           entity: true,
           account: true,
@@ -1290,7 +1466,11 @@ export default function App() {
         setRejected(saved.rejected);
         setResult(saved.result);
         setAuditEvents(saved.events);
-        setReview(saved.overlapArchive ? { ...saved.review, checked: false } : saved.review);
+        setReview(
+          saved.overlapArchive
+            ? { ...saved.review, checked: false }
+            : saved.review,
+        );
         setDemo(false);
         setStep(2);
         setNotice(uiText((m) => m.app.notices.sessionRestored));
@@ -1303,12 +1483,15 @@ export default function App() {
       uiText((m) => m.app.tasks.export),
       async (signal, alive) => {
         const buffer = result.matches.some((match) => match.reviewedAggregate)
-          ? await mainOverlapReview.exportWorkbook(mainOverlapInput(signal), { ...review, events: auditEvents })
+          ? await mainOverlapReview.exportWorkbook(mainOverlapInput(signal), {
+              ...review,
+              events: auditEvents,
+            })
           : await workerTask<ArrayBuffer>(
-          'export',
-          { result, files, review: { ...review, events: auditEvents } },
-          signal,
-        );
+              'export',
+              { result, files, review: { ...review, events: auditEvents } },
+              signal,
+            );
         if (!alive()) return;
         const url = URL.createObjectURL(
           new Blob([buffer], {
@@ -1436,1348 +1619,1645 @@ export default function App() {
     cancel();
     invalidate();
     setFiles([null, null]);
-    setDirectionEdited( [false, false]);
+    setDirectionEdited([false, false]);
     setPdfDrafts([false, false]);
     setMappings([defaultMapping(), defaultMapping()]);
-    setScopeEdited( {});
+    setScopeEdited({});
     setFormatChoices(freshFormatChoices());
     setBalanceMode(false);
     setScope(initialScope);
     setDemo(false);
     setStep(0);
     setNotice(null);
+    setWorkspaceDrafts((previous) => ({ ...previous, supplier: false }));
   }
   return (
-    <>
-    <div ref={domainPanels} hidden={domain === 'supplier'}>
-      <div data-domain-panel="payroll" hidden={domain !== 'payroll'}>
-        <PayrollWorkspace active={domain === 'payroll'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="assets" hidden={domain !== 'assets'}>
-        <AssetWorkspace active={domain === 'assets'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="stock" hidden={domain !== 'stock'}>
-        <StockWorkspace active={domain === 'stock'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="gateway" hidden={domain !== 'gateway'}>
-        <GatewayWorkspace active={domain === 'gateway'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="intercompany" hidden={domain !== 'intercompany'}>
-        <IntercompanyWorkspace active={domain === 'intercompany'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="tb-financial" hidden={domain !== 'tb-financial'}>
-        <FinancialWorkspace active={domain === 'tb-financial'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="bank" hidden={domain !== 'bank'}>
-        <BankWorkspace active={domain === 'bank'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="allocation" hidden={domain !== 'allocation'}>
-        <AllocationWorkspace key={allocationHandoff?.revision ?? 'direct-allocation'} handoff={allocationHandoff ?? undefined} active={domain === 'allocation'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="gl-tb" hidden={domain !== 'gl-tb'}>
-        <GlTbWorkspace active={domain === 'gl-tb'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="ar" hidden={domain !== 'ar'}>
-        <ArWorkspace active={domain === 'ar'} onBack={() => navigateDomain('supplier')} />
-      </div>
-      <div data-domain-panel="clearing" hidden={domain !== 'clearing'}>
-        <ClearingWorkspace active={domain === 'clearing'} onBack={() => navigateDomain('supplier')} />
-      </div>
-    </div>
-    <div hidden={domain !== 'supplier'} className={`app-shell ${showLanding ? 'has-landing' : 'in-session'}`}>
-      <a className="skip-link" href="#reconciliation">
-        {t.app.shell.skipLink}
-      </a>
-      <AlertDialog open={resetOpen} onOpenChange={setResetOpen}>
-        <AlertDialogContent dir={dir}>
-          <AlertDialogTitle>{t.app.shell.resetTitle}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {t.app.shell.resetDescription}
-          </AlertDialogDescription>
-          <AlertDialogFooter>
-            <AlertDialogCancel>{t.app.shell.resetCancel}</AlertDialogCancel>
-            <AlertDialogAction onClick={reset}>
-              {t.app.shell.resetConfirm}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      <header className="topbar">
+    <ReconciliationNavigationProvider value={{ domain, reportActivity }}>
+      <div
+        className={`app-shell reconciliation-shell ${showLanding ? 'has-landing' : 'in-session'}`}
+        onChange={(event) => {
+          const target = event.target;
+          if (
+            target instanceof HTMLElement &&
+            target.closest(`[data-domain-panel="${domain}"]`) &&
+            target.matches(
+              'textarea, input:not([type="file"]), select:not([data-reconciliation-type-select])',
+            )
+          )
+            setWorkspaceDrafts((previous) =>
+              previous[domain] ? previous : { ...previous, [domain]: true },
+            );
+        }}
+      >
         <a
-          className="brand"
-          href={showLanding ? '#top' : '#reconciliation'}
-          aria-label={t.app.shell.brandHome}
+          className="skip-link"
+          href={
+            domain === 'supplier' ? '#reconciliation' : '#reconciliation-types'
+          }
         >
-          <BrandMark />
-          <BrandWordmark />
+          {t.app.shell.skipLink}
         </a>
-        {showLanding && (
-          <nav className="site-nav" aria-label={t.app.shell.mainNav}>
-            <a href="#how-it-works">{t.app.shell.navHow}</a>
-            <a href="#privacy">{t.app.shell.navPrivacy}</a>
-          </nav>
-        )}
-        <div className="topbar-actions">
-          <LanguageSwitcher />
-          <button
-            className="local-pill"
-            aria-expanded={privacy}
-            aria-controls={privacy ? 'privacy-info' : undefined}
-            onClick={togglePrivacy}
-          >
-            <ShieldCheck size={16} /> <span>{t.app.shell.localPill}</span>
-          </button>
-          {showLanding && (
-            <a className="nav-start" href="#reconciliation-types" onClick={navigateToReconciliationDirectory}>
-              {t.app.shell.navStart} <ForwardArrow size={15} />
-            </a>
-          )}
-        </div>
-      </header>
-      <main>
-        {showLanding && <LandingIntro />}
-        <ReconciliationDirectory
-          compact={!showLanding}
-          disabled={!!busy || !engineReady}
-          entries={[
-            { id: 'supplier', title: reconciliationDirectoryCopy[dir === 'rtl' ? 'ar' : 'en'].supplierTitle },
-            { id: 'clearing', title: t.clearing.entry },
-            { id: 'ar', title: t.arDocuments.entry },
-            { id: 'gl-tb', title: t.glTb.entry },
-            { id: 'allocation', title: t.allocation.entry },
-            { id: 'bank', title: t.bank.entry },
-            { id: 'tb-financial', title: t.financial.trialBalanceAndFinancialPosition },
-            { id: 'intercompany', title: intercompanyCopy[dir === 'rtl' ? 'ar' : 'en'].title },
-            { id: 'gateway', title: gatewayCopy[dir === 'rtl' ? 'ar' : 'en'].title },
-            { id: 'stock', title: stockCopy[dir === 'rtl' ? 'ar' : 'en'].title },
-            { id: 'assets', title: assetCopy[dir === 'rtl' ? 'ar' : 'en'].title },
-            { id: 'payroll', title: payrollCopy[dir === 'rtl' ? 'ar' : 'en'].title },
-          ]}
-          onSelect={(next) => {
-            if (next === 'supplier') {
-              workflowHeading.current?.scrollIntoView({ behavior: 'instant', block: 'start' });
-              workflowHeading.current?.focus({ preventScroll: true });
-              return;
+        <AlertDialog open={resetOpen} onOpenChange={setResetOpen}>
+          <AlertDialogContent dir={dir}>
+            <AlertDialogTitle>{t.app.shell.resetTitle}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t.app.shell.resetDescription}
+            </AlertDialogDescription>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t.app.shell.resetCancel}</AlertDialogCancel>
+              <AlertDialogAction onClick={reset}>
+                {t.app.shell.resetConfirm}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        <header className="topbar">
+          <a
+            className="brand"
+            href={
+              showLanding
+                ? '#top'
+                : domain === 'supplier'
+                  ? '#reconciliation'
+                  : '#reconciliation-types'
             }
-            if (next === 'allocation') setAllocationHandoff(null);
-            navigateDomain(next);
-          }}
-        />
-        {showLanding && <LandingBenefits />}
-        <div className="workspace" id="reconciliation">
-
-          {privacy && (
-            <section
-              className="surface pad stack"
-              id="privacy-info"
-              aria-labelledby="privacy-detail-title"
-            >
-              <div className="section-heading" style={{ padding: 0 }}>
-                <h2
-                  ref={privacyHeading}
-                  tabIndex={-1}
-                  id="privacy-detail-title"
-                >
-                  {t.app.shell.privacyTitle}
-                </h2>
-                <Button
-                  aria-label={t.app.shell.privacyClose}
-                  variant="ghost"
-                  onClick={() => setPrivacy(false)}
-                >
-                  <X />
-                </Button>
-              </div>
-              <p className="muted">{t.app.shell.privacyProcessing}</p>
-              <p className="muted">{t.app.shell.privacyStorage}</p>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  try {
-                    localStorage.removeItem('mizan.mapping.0.v1');
-                    localStorage.removeItem('mizan.mapping.1.v1');
-                    setNotice(uiText((m) => m.app.notices.templatesCleared));
-                  } catch {
-                    setError(uiText((m) => m.app.errors.templatesUnavailable),);
-                  }
-                }}
-              >
-                {t.app.shell.clearTemplates}
-              </Button>
-            </section>
+            aria-label={t.app.shell.brandHome}
+          >
+            <BrandMark />
+            <BrandWordmark />
+          </a>
+          {showLanding && (
+            <nav className="site-nav" aria-label={t.app.shell.mainNav}>
+              <a href="#how-it-works">{t.app.shell.navHow}</a>
+              <a href="#privacy">{t.app.shell.navPrivacy}</a>
+            </nav>
           )}
-          <div className="page-heading">
-            <div>
-              <div className="eyebrow">
-                <span className="eyebrow-line" /> {t.app.shell.eyebrow}
-              </div>
-              {showLanding ? (
-                <h2
-                  className="workflow-title"
-                  ref={workflowHeading}
-                  tabIndex={-1}
-                >
-                  <DisplayHeading id="upload" />
-                </h2>
-              ) : (
-                <h1
-                  className="workflow-title"
-                  ref={workflowHeading}
-                  tabIndex={-1}
-                >
-                  <DisplayHeading
-                    id={
-                      step === 0
-                        ? 'upload'
-                        : step === 1
-                          ? 'confirm'
-                          : step === 2
-                            ? 'review'
-                            : 'export'
-                    }
-                  />
-                </h1>
-              )}
-              <p>{t.app.shell.stepIntro[Math.min(step, 3)]}</p>
-            </div>
-            <div className="stack">
-              <span className="version-badge">
-                {`${t.app.shell.beta} `}
-                <bdi>{APP_VERSION}</bdi>
-              </span>
-              {files.some(Boolean) && (
+          <div className="topbar-actions">
+            <LanguageSwitcher />
+            <button
+              className="local-pill"
+              aria-expanded={privacy}
+              aria-controls={privacy ? 'privacy-info' : undefined}
+              onClick={togglePrivacy}
+            >
+              <ShieldCheck size={16} /> <span>{t.app.shell.localPill}</span>
+            </button>
+            {showLanding && (
+              <a
+                className="nav-start"
+                href="#reconciliation-types"
+                onClick={navigateToReconciliationDirectory}
+              >
+                {t.app.shell.navStart} <ForwardArrow size={15} />
+              </a>
+            )}
+          </div>
+        </header>
+        <main>
+          {showLanding && <LandingIntro />}
+          <ReconciliationDirectory
+            activeDomain={domain}
+            disabled={
+              !!busy || !!workspaceActivity[domain]?.busy || !engineReady
+            }
+            entries={[
+              {
+                id: 'supplier',
+                title:
+                  reconciliationDirectoryCopy[dir === 'rtl' ? 'ar' : 'en']
+                    .supplierTitle,
+              },
+              { id: 'clearing', title: t.clearing.entry },
+              { id: 'ar', title: t.arDocuments.entry },
+              { id: 'gl-tb', title: t.glTb.entry },
+              { id: 'allocation', title: t.allocation.entry },
+              { id: 'bank', title: t.bank.entry },
+              {
+                id: 'tb-financial',
+                title: t.financial.trialBalanceAndFinancialPosition,
+              },
+              {
+                id: 'intercompany',
+                title: intercompanyCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+              },
+              {
+                id: 'gateway',
+                title: gatewayCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+              },
+              {
+                id: 'stock',
+                title: stockCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+              },
+              {
+                id: 'assets',
+                title: assetCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+              },
+              {
+                id: 'payroll',
+                title: payrollCopy[dir === 'rtl' ? 'ar' : 'en'].title,
+              },
+            ]}
+            onSelect={(next) => {
+              if (next === 'supplier' && domain === 'supplier') {
+                workflowHeading.current?.scrollIntoView({
+                  behavior: 'instant',
+                  block: 'start',
+                });
+                workflowHeading.current?.focus({ preventScroll: true });
+                return;
+              }
+              navigateDomain(next);
+            }}
+          />
+          <div className="global-privacy-panel">
+            {privacy && (
+              <section
+                className="surface pad stack"
+                id="privacy-info"
+                aria-labelledby="privacy-detail-title"
+              >
+                <div className="section-heading" style={{ padding: 0 }}>
+                  <h2
+                    ref={privacyHeading}
+                    tabIndex={-1}
+                    id="privacy-detail-title"
+                  >
+                    {t.app.shell.privacyTitle}
+                  </h2>
+                  <Button
+                    aria-label={t.app.shell.privacyClose}
+                    variant="ghost"
+                    onClick={() => setPrivacy(false)}
+                  >
+                    <X />
+                  </Button>
+                </div>
+                <p className="muted">{t.app.shell.privacyProcessing}</p>
+                <p className="muted">{t.app.shell.privacyStorage}</p>
                 <Button
-                  variant="ghost"
-                  onClick={() => setResetOpen(true)}
-                  disabled={!!busy}
+                  variant="outline"
+                  onClick={() => {
+                    try {
+                      localStorage.removeItem('mizan.mapping.0.v1');
+                      localStorage.removeItem('mizan.mapping.1.v1');
+                      setNotice(uiText((m) => m.app.notices.templatesCleared));
+                    } catch {
+                      setError(
+                        uiText((m) => m.app.errors.templatesUnavailable),
+                      );
+                    }
+                  }}
                 >
-                  <RotateCcw size={15} />
-                  {t.app.shell.newReconciliation}
+                  {t.app.shell.clearTemplates}
                 </Button>
-              )}
+              </section>
+            )}
+          </div>
+          <div ref={domainPanels} hidden={domain === 'supplier'}>
+            <div data-domain-panel="payroll" hidden={domain !== 'payroll'}>
+              <WorkspaceIdentityProvider domain="payroll">
+                <PayrollWorkspace
+                  active={domain === 'payroll'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div data-domain-panel="assets" hidden={domain !== 'assets'}>
+              <WorkspaceIdentityProvider domain="assets">
+                <AssetWorkspace
+                  active={domain === 'assets'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div data-domain-panel="stock" hidden={domain !== 'stock'}>
+              <WorkspaceIdentityProvider domain="stock">
+                <StockWorkspace
+                  active={domain === 'stock'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div data-domain-panel="gateway" hidden={domain !== 'gateway'}>
+              <WorkspaceIdentityProvider domain="gateway">
+                <GatewayWorkspace
+                  active={domain === 'gateway'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div
+              data-domain-panel="intercompany"
+              hidden={domain !== 'intercompany'}
+            >
+              <WorkspaceIdentityProvider domain="intercompany">
+                <IntercompanyWorkspace
+                  active={domain === 'intercompany'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div
+              data-domain-panel="tb-financial"
+              hidden={domain !== 'tb-financial'}
+            >
+              <WorkspaceIdentityProvider domain="tb-financial">
+                <FinancialWorkspace
+                  active={domain === 'tb-financial'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div data-domain-panel="bank" hidden={domain !== 'bank'}>
+              <WorkspaceIdentityProvider domain="bank">
+                <BankWorkspace
+                  active={domain === 'bank'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div
+              data-domain-panel="allocation"
+              hidden={domain !== 'allocation'}
+            >
+              <WorkspaceIdentityProvider domain="allocation">
+                <AllocationWorkspace
+                  key={allocationHandoff?.revision ?? 'direct-allocation'}
+                  handoff={allocationHandoff ?? undefined}
+                  active={domain === 'allocation'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div data-domain-panel="gl-tb" hidden={domain !== 'gl-tb'}>
+              <WorkspaceIdentityProvider domain="gl-tb">
+                <GlTbWorkspace
+                  active={domain === 'gl-tb'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div data-domain-panel="ar" hidden={domain !== 'ar'}>
+              <WorkspaceIdentityProvider domain="ar">
+                <ArWorkspace
+                  active={domain === 'ar'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
+            </div>
+            <div data-domain-panel="clearing" hidden={domain !== 'clearing'}>
+              <WorkspaceIdentityProvider domain="clearing">
+                <ClearingWorkspace
+                  active={domain === 'clearing'}
+                  onBack={() => navigateDomain('supplier')}
+                />
+              </WorkspaceIdentityProvider>
             </div>
           </div>
-          <nav className="steps" aria-label={t.app.shell.stepsNav}>
-            <ol>
-              {t.app.shell.steps.map((label, index) => (
-                <li
-                  key={index}
-                  className={
-                    index === step ? 'active' : index < step ? 'complete' : ''
-                  }
-                  aria-current={index === step ? 'step' : undefined}
-                >
-                  <span className="step-number" aria-hidden="true">
-                    {index < step ? <Check size={16} /> : index + 1}
-                  </span>
-                  <span className="step-label">
-                    {label}
-                    <span className="sr-only">
-                      {index < step
-                        ? t.app.shell.stepDone
-                        : index === step
-                          ? t.app.shell.stepCurrent
-                          : t.app.shell.stepLater}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </nav>
-          {demo && (
-            <div className="notice">
-              <FlaskConical
-                size={17}
-                style={{ display: 'inline', marginInlineEnd: 8 }}
-              />
-              {t.app.shell.demoBanner}
-            </div>
-          )}
-          {!engineReady && !!error && (
-            <Button
-              variant="outline"
-              onClick={() => {
-                setError(null);
-                void prepareWorker()
-                  .then(() => setEngineReady(true))
-                  .catch(() =>
-                    setError(uiText((m) => m.app.errors.engineRestart)),
-                  );
-              }}
-            >
-              {t.app.shell.restartEngine}
-            </Button>
-          )}
-          {!engineReady && !error && (
-            <output style={{ display: 'block' }} className="notice loading">
-              <LoaderCircle className="spin" size={17} />
-              {t.app.shell.engineLoading}
-            </output>
-          )}
-          {error && (
-            <div className="notice error" role="alert">
-              <div>
-                <p>{say(error)}</p>
-                {importDiagnosis && (
-                  <p className="hint" style={{ marginTop: 8 }}>
-                    {t.app.importStop.at(
-                      importDiagnosis.page,
-                      importDiagnosis.totalPages,
-                    )}
-                    {importDiagnosis.contentKind === 'mixed'
-                      ? t.app.importStop.mixed
-                      : importDiagnosis.contentKind === 'image-only'
-                        ? t.app.importStop.imageOnly
-                        : importDiagnosis.contentKind === 'native-text'
-                          ? t.app.importStop.nativeText
-                          : t.app.importStop.unknown}{' '}
-                    {t.app.importStop.advice}
-                  </p>
-                )}
-              </div>
-            </div>
-          )}
-          {notice && (
-            <output style={{ display: 'block' }} className="notice success">
-              {say(notice)}
-            </output>
-          )}
-          {busy && (
-            <output style={{ display: 'block' }} className="notice loading">
-              <LoaderCircle className="spin" size={20} />
-              {processingProgress
-                ? processingProgress.completed === 0
-                  ? processingProgress.stage === 'pdf-read'
-                    ? t.app.processing.preparingRead
-                    : t.app.processing.preparingLayout
-                  : processingProgress.stage === 'pdf-read'
-                    ? t.app.processing.readingPage(
-                        processingProgress.completed,
-                        processingProgress.total,
-                      )
-                    : t.app.processing.layoutPage(
-                        processingProgress.completed,
-                        processingProgress.total,
-                      )
-                : say(busy)}
-              <Button variant="ghost" onClick={cancel}>
-                {t.common.cancel}
-              </Button>
-            </output>
-          )}
-          {step === 0 && (
-            <>
-              <section className="surface upload-surface">
-                <div className="section-heading">
-                  <div>
-                    <h2>{t.app.upload.heading}</h2>
-                    <p>{t.app.upload.constraints}</p>
-                  </div>
-                  <FileSpreadsheet size={23} />
-                </div>
-                <div className="file-grid">
-                  {t.app.sides.map((label, side) => (
-                    <SourceUpload
-                      key={side}
-                      side={side}
-                      label={label}
-                      filename={files[side]?.name}
-                      busy={!!busy}
-                      ready={engineReady}
-                      onFile={(file) => {
-                        void loadFile(file, side);
-                      }}
-                      onError={(message) => {
-                        setImportDiagnosis(null);
-                        setError(message);
-                      }}
-                    />
-                  ))}
-                </div>
-                <p className="source-file-limits" id="source-file-limits">
-                  <span>
-                    <bdi>XLSX</bdi> · <bdi>CSV</bdi> ·{' '}{t.app.upload.pdfBefore}
-                    <bdi>PDF</bdi>
-                    {t.app.upload.pdfAfter}
-                  </span>
-                  <span>
-                    {t.app.upload.upTo}
-                    <bdi>8 MB</bdi>
-                    {t.app.upload.perFile}
-                    <bdi>{MAX_PDF_PAGES}</bdi>
-                    {t.app.upload.pagesPer}
-                    <bdi>PDF</bdi>
-                  </span>
-                  <span>{t.app.upload.imageHint}</span>
-                </p>
-                <div className="surface-footer">
-                  <span>
-                    <LockKeyhole size={16} />
-                    {t.app.upload.noServer}
-                  </span>
-                  <Button
-                    disabled={!files.every(Boolean) || !!busy}
-                    onClick={() => setStep(1)}
-                  >
-                    {t.app.upload.next}
-                    <ForwardArrow size={17} />
-                  </Button>
-                </div>
-              </section>
-              <MultilineSourceReview />
-              <VisualReader
-                key={`${visualRevision}:${visualCandidate ? `${visualCandidate.name}:${visualCandidate.lastModified}` : 'visual'}`}
-                candidate={visualCandidate}
-                scope={scope}
-                onSource={loadFile}
-                active={domain === 'supplier'}
-              />
-              <div className="demo-strip">
+
+          <div hidden={domain !== 'supplier'} data-domain-panel="supplier">
+            <div className="workspace" id="reconciliation">
+              <div className="page-heading">
                 <div>
-                  <FlaskConical size={23} />
-                  <div>
-                    <strong>{t.app.upload.demoTitle}</strong>
-                    <p>{t.app.upload.demoText}</p>
+                  <div className="eyebrow">
+                    <span className="eyebrow-line" /> {t.app.shell.eyebrow}
                   </div>
-                </div>
-                <Button
-                  variant="outline"
-                  onClick={loadDemo}
-                  disabled={!!busy || !engineReady}
-                >
-                  {t.app.upload.demoButton}
-                </Button>
-              </div>
-            </>
-          )}
-          {step === 1 && (
-            <fieldset
-              disabled={!!busy}
-              className="stack"
-              style={{ border: 0, padding: 0, minWidth: 0 }}
-            >
-              <section className="surface pad stack">
-                <div className="summary-head">
-                  <div>
-                    <h2>{t.app.scope.heading}</h2>
-                    <p className="summary-line">
-                      {t.app.scope.until}{' '}
-                      {scope.cutoff ? (
-                        <strong>
-                          <bdi dir="ltr">{scope.cutoff}</bdi>
-                        </strong>
-                      ) : (
-                        <span className="gap">{t.app.scope.setDate}</span>
-                      )}{' '}
-                      ·{' '}
-                      {scope.currency ? (
-                        <strong>
-                          <bdi dir="ltr">{scope.currency}</bdi>
-                        </strong>
-                      ) : (
-                        <span className="gap">{t.app.scope.setCurrency}</span>
-                      )}{' '}
-                      {t.app.scope.dateWindow(scope.dateWindow)}
-                    </p>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    onClick={() => setScopeOpen(!scopeOpen)}
-                    aria-expanded={scopeOpen}
-                    aria-label={t.app.scope.edit}
-                  >
-                    <Pencil size={14} />
-                    {scopeOpen ? t.app.scope.close : t.app.scope.advanced}
-                  </Button>
-                </div>
-                {scopeNeedsInput && !scopeOpen && (
-                  <p className="hint">
-                    {!scope.cutoff && !scope.currency
-                      ? t.app.scope.needBoth
-                      : !scope.cutoff
-                        ? t.app.scope.needCutoff
-                        : !scope.currency
-                          ? t.app.scope.needCurrency
-                          : t.app.scope.needPrecision}
-                  </p>
-                )}
-                {scopeConflict && !scopeOpen && (
-                  <output style={{ display: 'block' }} className="hint warn">
-                    {t.app.scope.conflict(
-                      unresolvedScope.map((field) => t.app.scopeFields[field],),
-                    )}
-                  </output>
-                )}
-                {scopeOpen && (
-                  <div className="panel stack">
-                    {files.some((f)=>f?.visual) && ( <p className="hint">{t.visualAccounting.locked}</p>
-                      )}
-                    <div className="form-grid">
-                      <Field
-                        label={t.app.scope.cutoffField}
-                        hint={
-                          scopeSuggestions.fields.cutoff.status === 'suggested'
-                            ? t.app.scope.cutoffFrom(
-                                scopeSuggestions.fields.cutoff.evidence[0]
-                                  .side === 'supplier'
-                                  ? 0
-                                  : 1,
-                                scopeSuggestions.fields.cutoff.evidence[0].row,
-                              )
-                            : scope.cutoff && scope.cutoff === latestDate
-                              ? t.app.scope.cutoffLatest
-                              : t.app.scope.cutoffNote
-                        }
-                      >
-                        <Input
-                          disabled={files.some((f)=>f?.visual)}
-                          type="date"
-                          aria-label={t.app.scope.cutoffLabel}
-                          value={scope.cutoff}
-                          onChange={(e) =>
-                            updateScope({ cutoff: e.target.value })
-                          }
-                        />
-                      </Field>
-                      <Field
-                        label={t.app.scope.currencyField}
-                        hint={
-                          scopeSuggestions.fields.currency.status ===
-                          'suggested'
-                            ? t.app.scope.currencyRead
-                            : t.app.scope.currencyHint
-                        }
-                      >
-                        <Input
-                          disabled={files.some((f)=>f?.visual)}
-                          aria-label={t.app.scope.currencyLabel}
-                          maxLength={3}
-                          dir="ltr"
-                          placeholder="SAR"
-                          value={scope.currency}
-                          onChange={(e) =>
-                            updateScope({
-                              currency: e.target.value.toUpperCase(),
-                            })
-                          }
-                        />
-                      </Field>
-                      <Choice
-                        label={t.app.scope.decimals}
-                        disabled={files.some((f)=>f?.visual)}
-                        value={precisionMissing ? '' : String(scope.decimals)}
-                        onChange={(v) => {
-                          if (v) updateScope({ decimals: Number(v) });
-                        }}
-                        options={[
-                          ...(precisionMissing
-                            ? ([['', t.app.scope.decimalsChoose]] as [
-                                string,
-                                string,
-                              ][])
-                            : []),
-                          ['0', t.app.scope.decimalsZero],
-                          ['2', t.app.scope.decimalsTwo],
-                          ['3', t.app.scope.decimalsThree],
-                        ]}
-                      />
-                      <Choice
-                        label={t.app.scope.dateWindowField}
-                        value={String(scope.dateWindow)}
-                        onChange={(v) => updateScope({ dateWindow: Number(v) })}
-                        options={Array.from(
-                          { length: 8 },
-                          (_, i) =>
-                            [String(i), t.app.scope.days(i)] as [
-                              string,
-                              string,
-                            ],
-                        )}
-                      />
-                    </div>
-                    {!files.some((f)=>f?.visual) && ( <Tick
-                      checked={balanceMode}
-                      onChange={(value) => {
-                        setBalanceMode(value);
-                        updateScope({
-                          coverageConfirmed: false,
-                          confirmed: false,
-                        });
-                        if (!value) {
-                          setMappings(
-                            (previous) =>
-                              previous.map((m) => ({
-                                ...m,
-                                opening: '',
-                                closing: '',
-                                periodStart: '',
-                              })) as [Mapping, Mapping],
-                          );
-                          setFormatChoices(freshFormatChoices());
-                        }
-                      }}
+                  {showLanding ? (
+                    <h2
+                      className="workflow-title"
+                      ref={workflowHeading}
+                      tabIndex={-1}
                     >
-                      {t.app.scope.balanceMode}
-                    </Tick>
-                      )}
-                    {(balanceMode ||
-                      unresolvedScope.some((field) =>
-                        ['supplier', 'entity', 'account'].includes(field),
-                      )) && (
-                      <div className="form-grid">
-                        <Field label={t.app.scope.supplierField}>
-                          <Input
-                          disabled={files.some((f)=>f?.visual)}
-                            aria-label={t.app.scope.supplierLabel}
-                            value={scope.supplier}
-                            onChange={(e) =>
-                              updateScope({ supplier: e.target.value })
-                            }
-                          />
-                        </Field>
-                        <Field label={t.app.scope.entityField}>
-                          <Input
-                          disabled={files.some((f)=>f?.visual)}
-                            aria-label={t.app.scope.entityLabel}
-                            value={scope.entity}
-                            onChange={(e) =>
-                              updateScope({ entity: e.target.value })
-                            }
-                          />
-                        </Field>
-                        <Field label={t.app.scope.accountField}>
-                          <Input
-                          disabled={files.some((f)=>f?.visual)}
-                            aria-label={t.app.scope.accountLabel}
-                            value={scope.account}
-                            onChange={(e) =>
-                              updateScope({ account: e.target.value })
-                            }
-                          />
-                        </Field>
-                      </div>
-                    )}
-                    {scopeFields.some(
-                      (field) => scopeSuggestions.fields[field].evidence.length,
-                    ) && (
-                      <details>
-                        <summary>{t.app.scope.sources}</summary>
-                        <div className="stack" style={{ marginTop: 12 }}>
-                          {scopeFields.map(
-                            (field) =>
-                              scopeSuggestions.fields[field].evidence.length >
-                                0 && (
-                                <div key={field}>
-                                  <strong>
-                                    {t.app.scopeFields[field]}
-                                    {scopeSuggestions.fields[field].status ===
-                                    'conflict'
-                                      ? t.app.scope.conflictMark
-                                      : ''}
-                                  </strong>
-                                  {scopeSuggestions.fields[field].evidence.map(
-                                    (item, i) => (
-                                      <p className="muted" key={i}>
-                                        <bdi>{item.value}</bdi>
-                                        {' —'}{' '}
-                                        {
-                                          t.app.sides[
-                                            item.side === 'supplier' ? 0 : 1
-                                          ]
-                                        }
-                                        {t.app.scope.evidenceSeparator}
-                                        <bdi>{item.sheet}</bdi>
-                                        {t.app.scope.evidenceRow}
-                                        {item.row}
-                                      </p>
-                                    )
-                                  )}
-                                </div>
-                              ),
-                          )}
-                        </div>
-                      </details>
-                    )}
-                  </div>
-                )}
-              </section>
-              {files.map(
-                (file, i) =>
-                  file && (
-                    <SourceConfiguration
-                      key={i}
-                      file={file}
-                      mapping={mappings[i]}
-                      proposalScopeKey={JSON.stringify(scope)}
-                      side={i}
-                      onChange={(p) => updateMapping(i, p)}
-                      validation={validated?.[i]}
-                      onNotice={setNotice}
-                      onError={setError}
-                      onPdfApply={(cuts) => void configurePdf(i, cuts)}
-                      formats={formatSuggestions[i] ?? undefined}
-                      formatChoices={formatChoices[i]}
-                      onFormatChange={(field, value) =>
-                        updateFormat(i, field, value)
-                      }
-                      balanceMode={balanceMode}
-                      directionConfirmed={
-                        directionEdited[i] || !!directionProofs[i]
-                      }
-                      onPdfDraftChange={(pending) => {
-                        mainOverlapReview.invalidatePending();
-                        setPdfDrafts((previous) =>
-                          previous[i] === pending
-                            ? previous
-                            : (previous.map((v, j) =>
-                                j === i ? pending : v,
-                              ) as [boolean, boolean]),
-                        );
-                      }}
-                    />
-                  ),
-              )}
-              <SourceStructureReview files={files} mappings={mappings} scope={scope} />
-              <InvoiceOverlapReview files={files} mappings={mappings} scope={scope} extractionRevision={mainExtractionRevision} open={mainOverlapOpen} onOpenChange={setMainOverlapOpen} mainReview={{ coordinator: mainOverlapReview, context: mainReviewContext, onResult: applyMainOverlapResult, blockedReason: blocked || (busy ? t.app.blocked.preparing : '') }} />
-              <Button type="button" variant="outline" data-testid="allocation-workflow-handoff" className="h-auto whitespace-normal text-start" disabled={!!busy || !allocationHandoffReady} aria-describedby={!allocationHandoffReady && files.every(Boolean) ? 'allocation-handoff-source-required' : undefined} onClick={openFreshAllocation}>{allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').open}</Button>
-              {!allocationHandoffReady && files.every(Boolean) && (
-                <p id="allocation-handoff-source-required" className="hint">
-                  {allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').requiresSources}
-                </p>
-              )}
-              <SectionDerivedReview files={files} mappings={mappings} scope={scope} />
-              <SplitSectionReview files={files} mappings={mappings} scope={scope} extractionRevision={mainExtractionRevision} />
-              <RunningBalanceReview files={files} scope={scope} extractionRevision={mainExtractionRevision} />
-              <section className="surface pad stack">
-                {pdfReviewPending && (
-                  <p className="hint warn">{t.app.compare.pdfPending}</p>
-                )}
-                {balanceMode && (
-                  <Tick
-                    checked={scope.coverageConfirmed}
-                    onChange={(v) => updateScope({ coverageConfirmed: v })}
-                  >
-                    {t.app.compare.coverage}
-                  </Tick>
-                )}
-                <div className="actions">
-                  <Button onClick={() => void reconcile()} disabled={!!blocked}>
-                    {t.app.compare.run}
-                    <ForwardArrow size={16} />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      invalidate();
-                      setStep(0);
-                    }}
-                  >
-                    {t.app.compare.backToFiles}
-                  </Button>
+                      <DisplayHeading id="upload" />
+                    </h2>
+                  ) : (
+                    <h1
+                      className="workflow-title"
+                      ref={workflowHeading}
+                      tabIndex={-1}
+                    >
+                      <DisplayHeading
+                        id={
+                          step === 0
+                            ? 'upload'
+                            : step === 1
+                              ? 'confirm'
+                              : step === 2
+                                ? 'review'
+                                : 'export'
+                        }
+                      />
+                    </h1>
+                  )}
+                  <p>{t.app.shell.stepIntro[Math.min(step, 3)]}</p>
                 </div>
-                <p className="hint">{blocked || t.app.compare.attestation}</p>
-              </section>
-            </fieldset>
-          )}
-          {step === 0 && !files.some(Boolean) && (
-            <section className="surface pad">
-              <label>
-                {t.app.upload.resume}{' '}
-                <input
-                  type="file"
-                  aria-label={t.app.upload.resumeLabel}
-                  accept=".json"
-                  disabled={!!busy || !engineReady}
-                  onChange={(e) => {
-                    void loadSession(e.target.files?.[0]);
-                    e.target.value = '';
-                  }}
-                />
-              </label>
-              <p className="muted">{t.app.upload.resumeNote}</p>
-            </section>
-          )}
-          {result && step >= 2 && (
-            <>
-              <div className="actions">
+                <div className="stack">
+                  <span className="version-badge">
+                    {`${t.app.shell.beta} `}
+                    <bdi>{APP_VERSION}</bdi>
+                  </span>
+                  {files.some(Boolean) && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => setResetOpen(true)}
+                      disabled={!!busy}
+                    >
+                      <RotateCcw size={15} />
+                      {t.app.shell.newReconciliation}
+                    </Button>
+                  )}
+                </div>
+              </div>
+              <nav className="steps" aria-label={t.app.shell.stepsNav}>
+                <ol>
+                  {t.app.shell.steps.map((label, index) => (
+                    <li
+                      key={index}
+                      className={
+                        index === step
+                          ? 'active'
+                          : index < step
+                            ? 'complete'
+                            : ''
+                      }
+                      aria-current={index === step ? 'step' : undefined}
+                    >
+                      <span className="step-number" aria-hidden="true">
+                        {index < step ? <Check size={16} /> : index + 1}
+                      </span>
+                      <span className="step-label">
+                        {label}
+                        <span className="sr-only">
+                          {index < step
+                            ? t.app.shell.stepDone
+                            : index === step
+                              ? t.app.shell.stepCurrent
+                              : t.app.shell.stepLater}
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+              {demo && (
+                <div className="notice">
+                  <FlaskConical
+                    size={17}
+                    style={{ display: 'inline', marginInlineEnd: 8 }}
+                  />
+                  {t.app.shell.demoBanner}
+                </div>
+              )}
+              {!engineReady && !!error && (
                 <Button
                   variant="outline"
-                  disabled={!!busy}
-                  onClick={() => void storeSession()}
+                  onClick={() => {
+                    setError(null);
+                    void prepareWorker()
+                      .then(() => setEngineReady(true))
+                      .catch(() =>
+                        setError(uiText((m) => m.app.errors.engineRestart)),
+                      );
+                  }}
                 >
-                  {t.app.results.saveSession}
+                  {t.app.shell.restartEngine}
                 </Button>
-                <span className="muted">{t.app.results.sessionWarning}</span>
-              </div>
-              <div className="metric-grid">
-                <Metric
-                  label={t.app.results.autoMatches}
-                  value={String(
-                    result.matches.filter((m) => m.kind === 'auto').length,
-                  )}
-                  hint={t.app.results.autoMatchesHint}
-                />
-                <Metric
-                  label={t.app.results.manualMatches}
-                  value={String(
-                    result.matches.filter((m) => m.kind === 'manual').length,
-                  )}
-                  hint={t.app.results.manualMatchesHint}
-                />
-                <Metric
-                  label={t.app.results.unmatchedCases}
-                  value={String(result.caseCounts.unmatchedCases)}
-                  hint={t.app.results.unmatchedRows(
-                    result.caseCounts.unmatchedSourceRows,
-                  )}
-                />
-                {result.scope.coverageConfirmed || result.bridge ? (
-                  <Metric
-                    label={t.app.results.balanceDifference}
-                    value={
-                      result.bridge
-                        ? money(result.bridge.delta, scope.decimals)
-                        : '—'
-                    }
-                    hint={
-                      result.bridge
-                        ? scope.currency
-                        : t.app.results.balancesUnverified
-                    }
-                  />
-                ) : (
-                  // With balances not requested, the number that matters is how
-                  // much of the source never made it into the comparison.
-                  <Metric
-                    label={t.app.results.skippedRows}
-                    value={String(skippedRows)}
-                    hint={
-                      reading.partial
-                        ? t.app.readingIssues.partialHint
-                        : t.app.results.noSkippedRows
-                    }
-                  />
-                )}
-              </div>
-              {!!sameSource.length && (
+              )}
+              {!engineReady && !error && (
+                <output style={{ display: 'block' }} className="notice loading">
+                  <LoaderCircle className="spin" size={17} />
+                  {t.app.shell.engineLoading}
+                </output>
+              )}
+              {error && (
                 <div className="notice error" role="alert">
-                  {sameSource.map((d, i) => (
-                    <p key={i}>{say(engineText(d.message))}</p>
-                  ))}
+                  <div>
+                    <p>{say(error)}</p>
+                    {importDiagnosis && (
+                      <p className="hint" style={{ marginTop: 8 }}>
+                        {t.app.importStop.at(
+                          importDiagnosis.page,
+                          importDiagnosis.totalPages,
+                        )}
+                        {importDiagnosis.contentKind === 'mixed'
+                          ? t.app.importStop.mixed
+                          : importDiagnosis.contentKind === 'image-only'
+                            ? t.app.importStop.imageOnly
+                            : importDiagnosis.contentKind === 'native-text'
+                              ? t.app.importStop.nativeText
+                              : t.app.importStop.unknown}{' '}
+                        {t.app.importStop.advice}
+                      </p>
+                    )}
+                  </div>
                 </div>
               )}
-              {reading.partial && (
-                <output style={{ display: 'block' }} className="notice">
-                  <strong>{t.app.readingIssues.partial}</strong>
-                  <p>
-                    {t.app.readingIssues.counts(
-                      reading.processedRows,
-                      reading.unreadRows,
-                    )}
-                  </p>
-                  {reading.balanceIssues > 0 && (
-                    <p>
-                      {t.app.readingIssues.balanceCount(reading.balanceIssues,)}
-                    </p>
-                  )}
-                  {reading.sourceIssues > 0 && (
-                    <p>
-                      {t.app.readingIssues.sourceCount(reading.sourceIssues)}
-                    </p>
-                  )}
-                  <p>{t.app.readingIssues.partialHint}</p>
-                  {result.diagnostics
-                    .filter((d) => d.code === 'SKIPPED_ROWS')
-                    .map((d, i) => (
-                      <p key={i}>{say(engineText(d.message))}</p>
-                    ))}
-                  <p>{t.app.results.skippedAdvice}</p>
+              {notice && (
+                <output style={{ display: 'block' }} className="notice success">
+                  {say(notice)}
                 </output>
               )}
-              {reading.partial && files[0] && files[1] && (
-                <ReadingIssueList
-                  entries={[
-                    {
-                      source: result.supplier,
-                      file: files[0],
-                      side: 'supplier',
-                    },
-                    { source: result.ledger, file: files[1], side: 'ledger' },
-                  ]}
-                />
-              )}
-              {result.scope.coverageConfirmed && !result.balanceComparable && (
-                <div className="notice">{t.app.results.transactionsOnly}</div>
-              )}
-              {!!onScreenDiagnostics.length && (
-                <output style={{ display: 'block' }} className="notice">
-                  {onScreenDiagnostics.map((d, i) => (
-                    <p key={i}>{say(engineText(d.message))}</p>
-                  ))}
+              {busy && (
+                <output style={{ display: 'block' }} className="notice loading">
+                  <LoaderCircle className="spin" size={20} />
+                  {processingProgress
+                    ? processingProgress.completed === 0
+                      ? processingProgress.stage === 'pdf-read'
+                        ? t.app.processing.preparingRead
+                        : t.app.processing.preparingLayout
+                      : processingProgress.stage === 'pdf-read'
+                        ? t.app.processing.readingPage(
+                            processingProgress.completed,
+                            processingProgress.total,
+                          )
+                        : t.app.processing.layoutPage(
+                            processingProgress.completed,
+                            processingProgress.total,
+                          )
+                    : say(busy)}
+                  <Button variant="ghost" onClick={cancel}>
+                    {t.common.cancel}
+                  </Button>
                 </output>
               )}
-              <AccountingAssistant
-                result={result}
-                selectedId={selected || undefined}
-              />
-              {step === 2 && (
+              {step === 0 && (
                 <>
-                  <InvoiceOverlapReview files={files} mappings={mappings} scope={scope} extractionRevision={mainExtractionRevision} open={mainOverlapOpen} onOpenChange={setMainOverlapOpen} mainReview={{ coordinator: mainOverlapReview, context: mainReviewContext, onResult: applyMainOverlapResult, blockedReason: blocked || (busy ? t.app.blocked.preparing : '') }} />
-                  <Button type="button" variant="outline" data-testid="allocation-workflow-handoff" className="h-auto whitespace-normal text-start" disabled={!!busy || !allocationHandoffReady} aria-describedby={!allocationHandoffReady && files.every(Boolean) ? 'allocation-handoff-source-required' : undefined} onClick={openFreshAllocation}>{allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').open}</Button>
-              {!allocationHandoffReady && files.every(Boolean) && (
-                <p id="allocation-handoff-source-required" className="hint">
-                  {allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en').requiresSources}
-                </p>
-              )}
-                  <section className="surface">
+                  <section className="surface upload-surface">
                     <div className="section-heading">
                       <div>
-                        <h2>{t.app.results.workspace}</h2>
-                        <p>{t.app.results.workspaceIntro}</p>
+                        <h2>{t.app.upload.heading}</h2>
+                        <p>{t.app.upload.constraints}</p>
                       </div>
-                      <Button
-                        variant="outline"
-                        disabled={!!busy}
-                        onClick={() => {
-                          invalidate();
-                          setStep(1);
-                        }}
-                      >
-                        {t.app.results.editSettings}
-                      </Button>
+                      <FileSpreadsheet size={23} />
                     </div>
-                    <div className="pad" style={{ paddingTop: 0 }}>
-                      <div
-                        className="actions"
-                        style={{ justifyContent: 'space-between' }}
-                      >
-                        <Tabs
-                          value={tab}
-                          onValueChange={(v) => {
-                            setTab(String(v));
-                            setPage(0);
-                            setSelected('');
+                    <div className="file-grid">
+                      {t.app.sides.map((label, side) => (
+                        <SourceUpload
+                          key={side}
+                          side={side}
+                          label={label}
+                          filename={files[side]?.name}
+                          busy={!!busy}
+                          ready={engineReady}
+                          onFile={(file) => {
+                            void loadFile(file, side);
                           }}
-                        >
-                          <TabsList aria-label={t.app.results.filter}>
-                            <TabsTrigger value="exceptions">
-                              {t.app.results.tabUnmatched}
-                            </TabsTrigger>
-                            <TabsTrigger value="matches">
-                              {t.app.results.tabMatched}
-                            </TabsTrigger>
-                            <TabsTrigger value="ambiguities">
-                              {t.app.results.tabReview(
-                                result.caseCounts.needsReviewCases,
-                              )}
-                            </TabsTrigger>
-                          </TabsList>
-                        </Tabs>
-                        <div className="actions">
-                          <Search size={16} />
-                          <Input
-                            style={{ width: 190 }}
-                            aria-label={t.app.results.search}
-                            placeholder={t.app.results.searchPlaceholder}
-                            value={query}
-                            onChange={(e) => {
-                              setQuery(e.target.value);
-                              setPage(0);
-                            }}
-                          />
-                        </div>
-                      </div>
+                          onError={(message) => {
+                            setImportDiagnosis(null);
+                            setError(message);
+                          }}
+                        />
+                      ))}
                     </div>
-                    <div style={{ overflowX: 'auto' }}>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            {t.app.results.columns.map((h, i) => (
-                              <TableHead key={i}>{h}</TableHead>
-                            ))}
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {rows.slice(page * 30, (page + 1) * 30).map((tx) => {
-                            const activeCase = result.cases.find((c) =>
-                              c.sourceTrace.some(
-                                (trace) => trace.sourceRowId === tx.id,
-                              ),
-                            )!;
-                            const match =
-                              tx.side === 'supplier'
-                                ? matchedBySupplier.get(tx.id)
-                                : undefined;
-                            return (
-                              <TableRow key={tx.id}>
-                                <TableCell>
-                                  {t.app.sideShort[tx.side]} · {tx.row}
-                                </TableCell>
-                                <TableCell className="mono">
-                                  {tx.date}
-                                </TableCell>
-                                <TableCell>
-                                  <bdi>
-                                    {tx.reference || t.app.results.noReference}
-                                  </bdi>
-                                  <div className="muted">
-                                    {tx.description.slice(0, 55)}
-                                  </div>
-                                </TableCell>
-                                <TableCell className="mono">
-                                  {money(
-                                    activeCase.supplierMembers.length
-                                      ? activeCase.supplierTotal
-                                      : activeCase.ledgerTotal,
-                                    scope.decimals,
-                                  )}
-                                  <div className="muted">
-                                    {activeCase.supplierMembers.length}:
-                                    {activeCase.ledgerMembers.length}
-                                    {t.app.results.caseMembers}
-                                  </div>
-                                </TableCell>
-                                <TableCell>
-                                  <span
-                                    className={`status ${match ? 'good' : 'warn'}`}
-                                  >
-                                    {
-                                      t.app.results.status[
-                                        match
-                                          ? match.kind === 'auto'
-                                            ? 'auto'
-                                            : 'manual'
-                                          : activeCase.classification ===
-                                              'AMOUNT_VARIANCE'
-                                            ? 'amountVariance'
-                                            : activeCase.classification ===
-                                                'PAYMENT_CANDIDATE'
-                                              ? 'paymentCandidate'
-                                              : activeCase.status === 'Rejected'
-                                                ? 'rejected'
-                                                : activeCase.status ===
-                                                    'Needs Review'
-                                                  ? 'needsReview'
-                                                  : 'unmatched'
-                                      ]
-                                    }
-                                  </span>
-                                </TableCell>
-                                <TableCell>
-                                  <Button
-                                    size="sm"
-                                    variant="outline"
-                                    disabled={!!busy}
-                                    onClick={() => setSelected(tx.id)}
-                                  >
-                                    {t.app.results.caseDetails}
-                                  </Button>
-                                  {auditEvents.some(
-                                    (e) =>
-                                      e.action === 'review' &&
-                                      e.ids.includes(tx.id),
-                                  ) && (
-                                    <small>
-                                      {t.app.results.reviewedStillOpen}
-                                    </small>
-                                  )}
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
-                        </TableBody>
-                      </Table>
-                    </div>
-                    {!rows.length && (
-                      <div className="empty">{t.app.results.empty}</div>
-                    )}
+                    <p className="source-file-limits" id="source-file-limits">
+                      <span>
+                        <bdi>XLSX</bdi> · <bdi>CSV</bdi> ·{' '}
+                        {t.app.upload.pdfBefore}
+                        <bdi>PDF</bdi>
+                        {t.app.upload.pdfAfter}
+                      </span>
+                      <span>
+                        {t.app.upload.upTo}
+                        <bdi>8 MB</bdi>
+                        {t.app.upload.perFile}
+                        <bdi>{MAX_PDF_PAGES}</bdi>
+                        {t.app.upload.pagesPer}
+                        <bdi>PDF</bdi>
+                      </span>
+                      <span>{t.app.upload.imageHint}</span>
+                    </p>
                     <div className="surface-footer">
                       <span>
-                        {t.app.results.pageSummary(
-                          rows.length,
-                          page + 1,
-                          Math.max(1, Math.ceil(rows.length / 30)),
-                        )}
+                        <LockKeyhole size={16} />
+                        {t.app.upload.noServer}
                       </span>
-                      <Pagination
-                        aria-label={t.app.results.pagination}
-                        style={{ width: 'auto', margin: 0 }}
+                      <Button
+                        disabled={!files.every(Boolean) || !!busy}
+                        onClick={() => setStep(1)}
                       >
-                        <PaginationContent>
-                          <PaginationItem>
-                            <Button
-                              variant="ghost"
-                              aria-label={t.app.results.previousPage}
-                              disabled={page === 0}
-                              onClick={() => setPage((p) => p - 1)}
-                            >
-                              <BackArrow size={16} />
-                            </Button>
-                          </PaginationItem>
-                          <PaginationItem>
-                            <Button
-                              variant="ghost"
-                              aria-label={t.app.results.nextPage}
-                              disabled={(page + 1) * 30 >= rows.length}
-                              onClick={() => setPage((p) => p + 1)}
-                            >
-                              <ForwardArrow size={16} />
-                            </Button>
-                          </PaginationItem>
-                        </PaginationContent>
-                      </Pagination>
+                        {t.app.upload.next}
+                        <ForwardArrow size={17} />
+                      </Button>
                     </div>
                   </section>
-                  {selected && (
-                    <TransactionReview
-                      key={selected}
-                      result={result}
-                      id={selected}
-                      busy={!!busy}
-                      onClose={() => setSelected('')}
-                      onLink={(d) =>
-                        void reconcile([...decisions, d], rejected, {
-                          action: 'link',
-                          ids: [d.supplierId, d.ledgerId],
-                          note: d.note,
-                        })
-                      }
-                      onUnlink={(a, b, note) => {
-                        const match = result.matches.find(
-                          (m) => m.supplierId === a && m.ledgerId === b,
-                        );
-                        if (match?.reviewedAggregate) {
-                          setSelected('');
-                          setMainOverlapOpen(true);
-                          return;
-                        }
-                        const ids = match
-                          ? [
-                              ...(match.supplierIds ?? [a]),
-                              ...(match.ledgerIds ?? [b]),
-                            ]
-                          : [a, b];
-                        void reconcile(
-                          decisions.filter((d) => d.supplierId !== a),
-                          [...rejected, `${a}|${b}`],
-                          { action: 'unlink', ids, note },
-                        );
-                      }}
-                      onGroupReview={() => { setSelected(''); setMainOverlapOpen(true); }}
-                      onReview={(id, note) => {
-                        setAuditEvents((events) => [
-                          ...events,
-                          {
-                            time: new Date().toISOString(),
-                            action: 'review',
-                            ids: [id],
-                            note,
-                          },
-                        ]);
-                        setReview((r) => ({ ...r, checked: false }));
-                        setNotice(uiText((m) => m.app.notices.reviewRecorded),);
-                      }}
-                    />
-                  )}
-                  <div
-                    className="actions"
-                    style={{ justifyContent: 'flex-end', marginTop: 20 }}
-                  >
-                    <Button disabled={!!busy} onClick={() => setStep(3)}>
-                      {t.app.results.prepareWorkpaper}
-                      <ForwardArrow size={16} />
+                  <MultilineSourceReview />
+                  <VisualReader
+                    key={`${visualRevision}:${visualCandidate ? `${visualCandidate.name}:${visualCandidate.lastModified}` : 'visual'}`}
+                    candidate={visualCandidate}
+                    scope={scope}
+                    onSource={loadFile}
+                    active={domain === 'supplier'}
+                  />
+                  <div className="demo-strip">
+                    <div>
+                      <FlaskConical size={23} />
+                      <div>
+                        <strong>{t.app.upload.demoTitle}</strong>
+                        <p>{t.app.upload.demoText}</p>
+                      </div>
+                    </div>
+                    <Button
+                      variant="outline"
+                      onClick={loadDemo}
+                      disabled={!!busy || !engineReady}
+                    >
+                      {t.app.upload.demoButton}
                     </Button>
                   </div>
                 </>
               )}
-              {step === 3 && (
-                <div className="stack">
-                  {result.scope.coverageConfirmed || result.bridge ? (
-                    <section className="surface pad stack">
-                      <div className="section-heading" style={{ padding: 0 }}>
-                        <h2>{t.app.finish.balancesHeading}</h2>
-                        <FileCheck2 size={23} />
+              {step === 1 && (
+                <fieldset
+                  disabled={!!busy}
+                  className="stack"
+                  style={{ border: 0, padding: 0, minWidth: 0 }}
+                >
+                  <section className="surface pad stack">
+                    <div className="summary-head">
+                      <div>
+                        <h2>{t.app.scope.heading}</h2>
+                        <p className="summary-line">
+                          {t.app.scope.until}{' '}
+                          {scope.cutoff ? (
+                            <strong>
+                              <bdi dir="ltr">{scope.cutoff}</bdi>
+                            </strong>
+                          ) : (
+                            <span className="gap">{t.app.scope.setDate}</span>
+                          )}{' '}
+                          ·{' '}
+                          {scope.currency ? (
+                            <strong>
+                              <bdi dir="ltr">{scope.currency}</bdi>
+                            </strong>
+                          ) : (
+                            <span className="gap">
+                              {t.app.scope.setCurrency}
+                            </span>
+                          )}{' '}
+                          {t.app.scope.dateWindow(scope.dateWindow)}
+                        </p>
                       </div>
-                      <div className="balance-lines">
-                        <div>
-                          <span>{t.app.finish.supplierBalance}</span>
-                          <bdi>
-                            {result.supplier.closing === null
-                              ? t.app.finish.notAvailable
-                              : money(result.supplier.closing, scope.decimals,)}
-                          </bdi>
+                      <Button
+                        variant="ghost"
+                        onClick={() => setScopeOpen(!scopeOpen)}
+                        aria-expanded={scopeOpen}
+                        aria-label={t.app.scope.edit}
+                      >
+                        <Pencil size={14} />
+                        {scopeOpen ? t.app.scope.close : t.app.scope.advanced}
+                      </Button>
+                    </div>
+                    {scopeNeedsInput && !scopeOpen && (
+                      <p className="hint">
+                        {!scope.cutoff && !scope.currency
+                          ? t.app.scope.needBoth
+                          : !scope.cutoff
+                            ? t.app.scope.needCutoff
+                            : !scope.currency
+                              ? t.app.scope.needCurrency
+                              : t.app.scope.needPrecision}
+                      </p>
+                    )}
+                    {scopeConflict && !scopeOpen && (
+                      <output
+                        style={{ display: 'block' }}
+                        className="hint warn"
+                      >
+                        {t.app.scope.conflict(
+                          unresolvedScope.map(
+                            (field) => t.app.scopeFields[field],
+                          ),
+                        )}
+                      </output>
+                    )}
+                    {scopeOpen && (
+                      <div className="panel stack">
+                        {files.some((f) => f?.visual) && (
+                          <p className="hint">{t.visualAccounting.locked}</p>
+                        )}
+                        <div className="form-grid">
+                          <Field
+                            label={t.app.scope.cutoffField}
+                            hint={
+                              scopeSuggestions.fields.cutoff.status ===
+                              'suggested'
+                                ? t.app.scope.cutoffFrom(
+                                    scopeSuggestions.fields.cutoff.evidence[0]
+                                      .side === 'supplier'
+                                      ? 0
+                                      : 1,
+                                    scopeSuggestions.fields.cutoff.evidence[0]
+                                      .row,
+                                  )
+                                : scope.cutoff && scope.cutoff === latestDate
+                                  ? t.app.scope.cutoffLatest
+                                  : t.app.scope.cutoffNote
+                            }
+                          >
+                            <Input
+                              disabled={files.some((f) => f?.visual)}
+                              type="date"
+                              aria-label={t.app.scope.cutoffLabel}
+                              value={scope.cutoff}
+                              onChange={(e) =>
+                                updateScope({ cutoff: e.target.value })
+                              }
+                            />
+                          </Field>
+                          <Field
+                            label={t.app.scope.currencyField}
+                            hint={
+                              scopeSuggestions.fields.currency.status ===
+                              'suggested'
+                                ? t.app.scope.currencyRead
+                                : t.app.scope.currencyHint
+                            }
+                          >
+                            <Input
+                              disabled={files.some((f) => f?.visual)}
+                              aria-label={t.app.scope.currencyLabel}
+                              maxLength={3}
+                              dir="ltr"
+                              placeholder="SAR"
+                              value={scope.currency}
+                              onChange={(e) =>
+                                updateScope({
+                                  currency: e.target.value.toUpperCase(),
+                                })
+                              }
+                            />
+                          </Field>
+                          <Choice
+                            label={t.app.scope.decimals}
+                            disabled={files.some((f) => f?.visual)}
+                            value={
+                              precisionMissing ? '' : String(scope.decimals)
+                            }
+                            onChange={(v) => {
+                              if (v) updateScope({ decimals: Number(v) });
+                            }}
+                            options={[
+                              ...(precisionMissing
+                                ? ([['', t.app.scope.decimalsChoose]] as [
+                                    string,
+                                    string,
+                                  ][])
+                                : []),
+                              ['0', t.app.scope.decimalsZero],
+                              ['2', t.app.scope.decimalsTwo],
+                              ['3', t.app.scope.decimalsThree],
+                            ]}
+                          />
+                          <Choice
+                            label={t.app.scope.dateWindowField}
+                            value={String(scope.dateWindow)}
+                            onChange={(v) =>
+                              updateScope({ dateWindow: Number(v) })
+                            }
+                            options={Array.from(
+                              { length: 8 },
+                              (_, i) =>
+                                [String(i), t.app.scope.days(i)] as [
+                                  string,
+                                  string,
+                                ],
+                            )}
+                          />
                         </div>
-                        <div>
-                          <span>{t.app.finish.ledgerBalance}</span>
-                          <bdi>
-                            {result.ledger.closing === null
-                              ? t.app.finish.notAvailable
-                              : money(result.ledger.closing, scope.decimals)}
-                          </bdi>
-                        </div>
-                        <div>
-                          <span>{t.app.finish.balanceCheck}</span>
-                          <span>
-                            {result.bridge
-                              ? result.balanceComparable
-                                ? t.app.finish.consistentConfirmed
-                                : t.app.finish.consistentUnconfirmed
-                              : t.app.finish.notProven}
-                          </span>
-                        </div>
-                        {result.bridge && (
-                          <>
-                            <hr className="divider" />
-                            <div>
-                              <span>{t.app.finish.openingAdjustment}</span>
-                              <bdi>
-                                {money(
-                                  result.bridge.openingAdjustment,
-                                  scope.decimals,
-                                )}
-                              </bdi>
+                        {!files.some((f) => f?.visual) && (
+                          <Tick
+                            checked={balanceMode}
+                            onChange={(value) => {
+                              setBalanceMode(value);
+                              updateScope({
+                                coverageConfirmed: false,
+                                confirmed: false,
+                              });
+                              if (!value) {
+                                setMappings(
+                                  (previous) =>
+                                    previous.map((m) => ({
+                                      ...m,
+                                      opening: '',
+                                      closing: '',
+                                      periodStart: '',
+                                    })) as [Mapping, Mapping],
+                                );
+                                setFormatChoices(freshFormatChoices());
+                              }
+                            }}
+                          >
+                            {t.app.scope.balanceMode}
+                          </Tick>
+                        )}
+                        {(balanceMode ||
+                          unresolvedScope.some((field) =>
+                            ['supplier', 'entity', 'account'].includes(field),
+                          )) && (
+                          <div className="form-grid">
+                            <Field label={t.app.scope.supplierField}>
+                              <Input
+                                disabled={files.some((f) => f?.visual)}
+                                aria-label={t.app.scope.supplierLabel}
+                                value={scope.supplier}
+                                onChange={(e) =>
+                                  updateScope({ supplier: e.target.value })
+                                }
+                              />
+                            </Field>
+                            <Field label={t.app.scope.entityField}>
+                              <Input
+                                disabled={files.some((f) => f?.visual)}
+                                aria-label={t.app.scope.entityLabel}
+                                value={scope.entity}
+                                onChange={(e) =>
+                                  updateScope({ entity: e.target.value })
+                                }
+                              />
+                            </Field>
+                            <Field label={t.app.scope.accountField}>
+                              <Input
+                                disabled={files.some((f) => f?.visual)}
+                                aria-label={t.app.scope.accountLabel}
+                                value={scope.account}
+                                onChange={(e) =>
+                                  updateScope({ account: e.target.value })
+                                }
+                              />
+                            </Field>
+                          </div>
+                        )}
+                        {scopeFields.some(
+                          (field) =>
+                            scopeSuggestions.fields[field].evidence.length,
+                        ) && (
+                          <details>
+                            <summary>{t.app.scope.sources}</summary>
+                            <div className="stack" style={{ marginTop: 12 }}>
+                              {scopeFields.map(
+                                (field) =>
+                                  scopeSuggestions.fields[field].evidence
+                                    .length > 0 && (
+                                    <div key={field}>
+                                      <strong>
+                                        {t.app.scopeFields[field]}
+                                        {scopeSuggestions.fields[field]
+                                          .status === 'conflict'
+                                          ? t.app.scope.conflictMark
+                                          : ''}
+                                      </strong>
+                                      {scopeSuggestions.fields[
+                                        field
+                                      ].evidence.map((item, i) => (
+                                        <p className="muted" key={i}>
+                                          <bdi>{item.value}</bdi>
+                                          {' —'}{' '}
+                                          {
+                                            t.app.sides[
+                                              item.side === 'supplier' ? 0 : 1
+                                            ]
+                                          }
+                                          {t.app.scope.evidenceSeparator}
+                                          <bdi>{item.sheet}</bdi>
+                                          {t.app.scope.evidenceRow}
+                                          {item.row}
+                                        </p>
+                                      ))}
+                                    </div>
+                                  ),
+                              )}
                             </div>
-                            <div>
-                              <span>{t.app.finish.itemAdjustment}</span>
-                              <bdi>
-                                {money(
-                                  result.bridge.itemAdjustment,
-                                  scope.decimals,
-                                )}
-                              </bdi>
-                            </div>
-                            <div>
-                              <span>{t.app.finish.adjusted}</span>
-                              <bdi>
-                                {money(result.bridge.adjusted, scope.decimals,)}
-                              </bdi>
-                            </div>
-                            <div>
-                              <span>{t.app.finish.residual}</span>
-                              <bdi>
-                                {money(result.bridge.residual, scope.decimals,)}
-                              </bdi>
-                            </div>
-                          </>
+                          </details>
                         )}
                       </div>
-                      <div className="notice">
-                        {t.app.finish.bridgeLead}{' '}
-                        {result.supplierOnly.length + result.ledgerOnly.length}{' '}
-                        {t.app.finish.bridgeTrail}
-                      </div>
-                    </section>
-                  ) : (
-                    <p className="hint">{t.app.finish.noBalances}</p>
+                    )}
+                  </section>
+                  {files.map(
+                    (file, i) =>
+                      file && (
+                        <SourceConfiguration
+                          key={i}
+                          file={file}
+                          mapping={mappings[i]}
+                          proposalScopeKey={JSON.stringify(scope)}
+                          side={i}
+                          onChange={(p) => updateMapping(i, p)}
+                          validation={validated?.[i]}
+                          onNotice={setNotice}
+                          onError={setError}
+                          onPdfApply={(cuts) => void configurePdf(i, cuts)}
+                          formats={formatSuggestions[i] ?? undefined}
+                          formatChoices={formatChoices[i]}
+                          onFormatChange={(field, value) =>
+                            updateFormat(i, field, value)
+                          }
+                          balanceMode={balanceMode}
+                          directionConfirmed={
+                            directionEdited[i] || !!directionProofs[i]
+                          }
+                          onPdfDraftChange={(pending) => {
+                            mainOverlapReview.invalidatePending();
+                            setPdfDrafts((previous) =>
+                              previous[i] === pending
+                                ? previous
+                                : (previous.map((v, j) =>
+                                    j === i ? pending : v,
+                                  ) as [boolean, boolean]),
+                            );
+                          }}
+                        />
+                      ),
                   )}
+                  <SourceStructureReview
+                    files={files}
+                    mappings={mappings}
+                    scope={scope}
+                  />
+                  <InvoiceOverlapReview
+                    files={files}
+                    mappings={mappings}
+                    scope={scope}
+                    extractionRevision={mainExtractionRevision}
+                    open={mainOverlapOpen}
+                    onOpenChange={setMainOverlapOpen}
+                    mainReview={{
+                      coordinator: mainOverlapReview,
+                      context: mainReviewContext,
+                      onResult: applyMainOverlapResult,
+                      blockedReason:
+                        blocked || (busy ? t.app.blocked.preparing : ''),
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    data-testid="allocation-workflow-handoff"
+                    className="h-auto whitespace-normal text-start"
+                    disabled={!!busy || !allocationHandoffReady}
+                    aria-describedby={
+                      !allocationHandoffReady && files.every(Boolean)
+                        ? 'allocation-handoff-source-required'
+                        : undefined
+                    }
+                    onClick={openFreshAllocation}
+                  >
+                    {
+                      allocationWorkflowHandoffCopy(dir === 'rtl' ? 'ar' : 'en')
+                        .open
+                    }
+                  </Button>
+                  {!allocationHandoffReady && files.every(Boolean) && (
+                    <p id="allocation-handoff-source-required" className="hint">
+                      {
+                        allocationWorkflowHandoffCopy(
+                          dir === 'rtl' ? 'ar' : 'en',
+                        ).requiresSources
+                      }
+                    </p>
+                  )}
+                  <SectionDerivedReview
+                    files={files}
+                    mappings={mappings}
+                    scope={scope}
+                  />
+                  <SplitSectionReview
+                    files={files}
+                    mappings={mappings}
+                    scope={scope}
+                    extractionRevision={mainExtractionRevision}
+                  />
+                  <RunningBalanceReview
+                    files={files}
+                    scope={scope}
+                    extractionRevision={mainExtractionRevision}
+                  />
                   <section className="surface pad stack">
-                    <h2>{t.app.finish.notesHeading}</h2>
-                    <Field label={t.app.finish.reviewerField}>
-                      <Input
-                        aria-label={t.app.finish.reviewerLabel}
-                        value={review.name}
-                        onChange={(e) =>
-                          setReview((r) => ({
-                            ...r,
-                            name: e.target.value,
-                            checked: false,
-                          }))
-                        }
-                      />
-                    </Field>
-                    <Field label={t.app.finish.notesField}>
-                      <Textarea
-                        aria-label={t.app.finish.notesLabel}
-                        value={review.notes}
-                        maxLength={3000}
-                        onChange={(e) =>
-                          setReview((r) => ({
-                            ...r,
-                            notes: e.target.value,
-                            checked: false,
-                          }))
-                        }
-                      />
-                    </Field>
-                    <Tick
-                      checked={review.checked}
-                      onChange={(v) => {
-                        if (v && !review.name.trim()) {
-                          setError(
-                            uiText((m) => m.app.errors.reviewerRequired),
-                          );
-                          return;
-                        }
-                        setReview((r) => ({ ...r, checked: v }));
-                      }}
-                    >
-                      {t.app.finish.attestation}
-                    </Tick>
-                    <p className="muted">{t.app.finish.contents}</p>
+                    {pdfReviewPending && (
+                      <p className="hint warn">{t.app.compare.pdfPending}</p>
+                    )}
+                    {balanceMode && (
+                      <Tick
+                        checked={scope.coverageConfirmed}
+                        onChange={(v) => updateScope({ coverageConfirmed: v })}
+                      >
+                        {t.app.compare.coverage}
+                      </Tick>
+                    )}
                     <div className="actions">
-                      <Button onClick={() => void download()} disabled={!!busy}>
-                        <Download size={17} />
-                        {reading.partial
-                          ? t.app.finish.downloadPartial
-                          : review.checked
-                            ? t.app.finish.download
-                            : t.app.finish.downloadDraft}
+                      <Button
+                        onClick={() => void reconcile()}
+                        disabled={!!blocked}
+                      >
+                        {t.app.compare.run}
+                        <ForwardArrow size={16} />
                       </Button>
                       <Button
                         variant="outline"
-                        onClick={() => setStep(2)}
-                        disabled={!!busy}
+                        onClick={() => {
+                          invalidate();
+                          setStep(0);
+                        }}
                       >
-                        {t.app.finish.backToReview}
+                        {t.app.compare.backToFiles}
                       </Button>
                     </div>
+                    <p className="hint">
+                      {blocked || t.app.compare.attestation}
+                    </p>
                   </section>
-                </div>
+                </fieldset>
               )}
-            </>
-          )}
-          <footer className="footnote">
-            {t.app.shell.footnote}
-            <br />
-            <button
-              onClick={togglePrivacy}
-              aria-expanded={privacy}
-              style={{ textDecoration: 'underline', marginTop: 8 }}
-            >
-              <CircleHelp
-                size={13}
-                style={{ display: 'inline', marginInlineEnd: 5 }}
-              />
-              {t.app.shell.footnotePrivacy}
-            </button>{' '}
-            · {APP_VERSION}
-          </footer>
-        </div>
-        {showLanding && <LandingDetails />}
-      </main>
-      <footer className="site-footer">
-        <a
-          className="brand footer-brand"
-          href={showLanding ? '#top' : '#reconciliation'}
-          aria-label={t.brand.name}
-        >
-          <BrandMark />
-          <BrandWordmark />
-        </a>
-        <p>{t.app.shell.tagline}</p>
-        {showLanding ? (
-          <a className="footer-privacy-link" href="#privacy-details">
-            {t.app.shell.footerPrivacy}
+              {step === 0 && !files.some(Boolean) && (
+                <section className="surface pad">
+                  <label>
+                    {t.app.upload.resume}{' '}
+                    <input
+                      type="file"
+                      aria-label={t.app.upload.resumeLabel}
+                      accept=".json"
+                      disabled={!!busy || !engineReady}
+                      onChange={(e) => {
+                        void loadSession(e.target.files?.[0]);
+                        e.target.value = '';
+                      }}
+                    />
+                  </label>
+                  <p className="muted">{t.app.upload.resumeNote}</p>
+                </section>
+              )}
+              {result && step >= 2 && (
+                <>
+                  <div className="actions">
+                    <Button
+                      variant="outline"
+                      disabled={!!busy}
+                      onClick={() => void storeSession()}
+                    >
+                      {t.app.results.saveSession}
+                    </Button>
+                    <span className="muted">
+                      {t.app.results.sessionWarning}
+                    </span>
+                  </div>
+                  <div className="metric-grid">
+                    <Metric
+                      label={t.app.results.autoMatches}
+                      value={String(
+                        result.matches.filter((m) => m.kind === 'auto').length,
+                      )}
+                      hint={t.app.results.autoMatchesHint}
+                    />
+                    <Metric
+                      label={t.app.results.manualMatches}
+                      value={String(
+                        result.matches.filter((m) => m.kind === 'manual')
+                          .length,
+                      )}
+                      hint={t.app.results.manualMatchesHint}
+                    />
+                    <Metric
+                      label={t.app.results.unmatchedCases}
+                      value={String(result.caseCounts.unmatchedCases)}
+                      hint={t.app.results.unmatchedRows(
+                        result.caseCounts.unmatchedSourceRows,
+                      )}
+                    />
+                    {result.scope.coverageConfirmed || result.bridge ? (
+                      <Metric
+                        label={t.app.results.balanceDifference}
+                        value={
+                          result.bridge
+                            ? money(result.bridge.delta, scope.decimals)
+                            : '—'
+                        }
+                        hint={
+                          result.bridge
+                            ? scope.currency
+                            : t.app.results.balancesUnverified
+                        }
+                      />
+                    ) : (
+                      // With balances not requested, the number that matters is how
+                      // much of the source never made it into the comparison.
+                      <Metric
+                        label={t.app.results.skippedRows}
+                        value={String(skippedRows)}
+                        hint={
+                          reading.partial
+                            ? t.app.readingIssues.partialHint
+                            : t.app.results.noSkippedRows
+                        }
+                      />
+                    )}
+                  </div>
+                  {!!sameSource.length && (
+                    <div className="notice error" role="alert">
+                      {sameSource.map((d, i) => (
+                        <p key={i}>{say(engineText(d.message))}</p>
+                      ))}
+                    </div>
+                  )}
+                  {reading.partial && (
+                    <output style={{ display: 'block' }} className="notice">
+                      <strong>{t.app.readingIssues.partial}</strong>
+                      <p>
+                        {t.app.readingIssues.counts(
+                          reading.processedRows,
+                          reading.unreadRows,
+                        )}
+                      </p>
+                      {reading.balanceIssues > 0 && (
+                        <p>
+                          {t.app.readingIssues.balanceCount(
+                            reading.balanceIssues,
+                          )}
+                        </p>
+                      )}
+                      {reading.sourceIssues > 0 && (
+                        <p>
+                          {t.app.readingIssues.sourceCount(
+                            reading.sourceIssues,
+                          )}
+                        </p>
+                      )}
+                      <p>{t.app.readingIssues.partialHint}</p>
+                      {result.diagnostics
+                        .filter((d) => d.code === 'SKIPPED_ROWS')
+                        .map((d, i) => (
+                          <p key={i}>{say(engineText(d.message))}</p>
+                        ))}
+                      <p>{t.app.results.skippedAdvice}</p>
+                    </output>
+                  )}
+                  {reading.partial && files[0] && files[1] && (
+                    <ReadingIssueList
+                      entries={[
+                        {
+                          source: result.supplier,
+                          file: files[0],
+                          side: 'supplier',
+                        },
+                        {
+                          source: result.ledger,
+                          file: files[1],
+                          side: 'ledger',
+                        },
+                      ]}
+                    />
+                  )}
+                  {result.scope.coverageConfirmed &&
+                    !result.balanceComparable && (
+                      <div className="notice">
+                        {t.app.results.transactionsOnly}
+                      </div>
+                    )}
+                  {!!onScreenDiagnostics.length && (
+                    <output style={{ display: 'block' }} className="notice">
+                      {onScreenDiagnostics.map((d, i) => (
+                        <p key={i}>{say(engineText(d.message))}</p>
+                      ))}
+                    </output>
+                  )}
+                  <AccountingAssistant
+                    result={result}
+                    selectedId={selected || undefined}
+                  />
+                  {step === 2 && (
+                    <>
+                      <InvoiceOverlapReview
+                        files={files}
+                        mappings={mappings}
+                        scope={scope}
+                        extractionRevision={mainExtractionRevision}
+                        open={mainOverlapOpen}
+                        onOpenChange={setMainOverlapOpen}
+                        mainReview={{
+                          coordinator: mainOverlapReview,
+                          context: mainReviewContext,
+                          onResult: applyMainOverlapResult,
+                          blockedReason:
+                            blocked || (busy ? t.app.blocked.preparing : ''),
+                        }}
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        data-testid="allocation-workflow-handoff"
+                        className="h-auto whitespace-normal text-start"
+                        disabled={!!busy || !allocationHandoffReady}
+                        aria-describedby={
+                          !allocationHandoffReady && files.every(Boolean)
+                            ? 'allocation-handoff-source-required'
+                            : undefined
+                        }
+                        onClick={openFreshAllocation}
+                      >
+                        {
+                          allocationWorkflowHandoffCopy(
+                            dir === 'rtl' ? 'ar' : 'en',
+                          ).open
+                        }
+                      </Button>
+                      {!allocationHandoffReady && files.every(Boolean) && (
+                        <p
+                          id="allocation-handoff-source-required"
+                          className="hint"
+                        >
+                          {
+                            allocationWorkflowHandoffCopy(
+                              dir === 'rtl' ? 'ar' : 'en',
+                            ).requiresSources
+                          }
+                        </p>
+                      )}
+                      <section className="surface">
+                        <div className="section-heading">
+                          <div>
+                            <h2>{t.app.results.workspace}</h2>
+                            <p>{t.app.results.workspaceIntro}</p>
+                          </div>
+                          <Button
+                            variant="outline"
+                            disabled={!!busy}
+                            onClick={() => {
+                              invalidate();
+                              setStep(1);
+                            }}
+                          >
+                            {t.app.results.editSettings}
+                          </Button>
+                        </div>
+                        <div className="pad" style={{ paddingTop: 0 }}>
+                          <div
+                            className="actions"
+                            style={{ justifyContent: 'space-between' }}
+                          >
+                            <Tabs
+                              value={tab}
+                              onValueChange={(v) => {
+                                setTab(String(v));
+                                setPage(0);
+                                setSelected('');
+                              }}
+                            >
+                              <TabsList aria-label={t.app.results.filter}>
+                                <TabsTrigger value="exceptions">
+                                  {t.app.results.tabUnmatched}
+                                </TabsTrigger>
+                                <TabsTrigger value="matches">
+                                  {t.app.results.tabMatched}
+                                </TabsTrigger>
+                                <TabsTrigger value="ambiguities">
+                                  {t.app.results.tabReview(
+                                    result.caseCounts.needsReviewCases,
+                                  )}
+                                </TabsTrigger>
+                              </TabsList>
+                            </Tabs>
+                            <div className="actions">
+                              <Search size={16} />
+                              <Input
+                                style={{ width: 190 }}
+                                aria-label={t.app.results.search}
+                                placeholder={t.app.results.searchPlaceholder}
+                                value={query}
+                                onChange={(e) => {
+                                  setQuery(e.target.value);
+                                  setPage(0);
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ overflowX: 'auto' }}>
+                          <Table>
+                            <TableHeader>
+                              <TableRow>
+                                {t.app.results.columns.map((h, i) => (
+                                  <TableHead key={i}>{h}</TableHead>
+                                ))}
+                              </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                              {rows
+                                .slice(page * 30, (page + 1) * 30)
+                                .map((tx) => {
+                                  const activeCase = result.cases.find((c) =>
+                                    c.sourceTrace.some(
+                                      (trace) => trace.sourceRowId === tx.id,
+                                    ),
+                                  )!;
+                                  const match =
+                                    tx.side === 'supplier'
+                                      ? matchedBySupplier.get(tx.id)
+                                      : undefined;
+                                  return (
+                                    <TableRow key={tx.id}>
+                                      <TableCell>
+                                        {t.app.sideShort[tx.side]} · {tx.row}
+                                      </TableCell>
+                                      <TableCell className="mono">
+                                        {tx.date}
+                                      </TableCell>
+                                      <TableCell>
+                                        <bdi>
+                                          {tx.reference ||
+                                            t.app.results.noReference}
+                                        </bdi>
+                                        <div className="muted">
+                                          {tx.description.slice(0, 55)}
+                                        </div>
+                                      </TableCell>
+                                      <TableCell className="mono">
+                                        {money(
+                                          activeCase.supplierMembers.length
+                                            ? activeCase.supplierTotal
+                                            : activeCase.ledgerTotal,
+                                          scope.decimals,
+                                        )}
+                                        <div className="muted">
+                                          {activeCase.supplierMembers.length}:
+                                          {activeCase.ledgerMembers.length}
+                                          {t.app.results.caseMembers}
+                                        </div>
+                                      </TableCell>
+                                      <TableCell>
+                                        <span
+                                          className={`status ${match ? 'good' : 'warn'}`}
+                                        >
+                                          {
+                                            t.app.results.status[
+                                              match
+                                                ? match.kind === 'auto'
+                                                  ? 'auto'
+                                                  : 'manual'
+                                                : activeCase.classification ===
+                                                    'AMOUNT_VARIANCE'
+                                                  ? 'amountVariance'
+                                                  : activeCase.classification ===
+                                                      'PAYMENT_CANDIDATE'
+                                                    ? 'paymentCandidate'
+                                                    : activeCase.status ===
+                                                        'Rejected'
+                                                      ? 'rejected'
+                                                      : activeCase.status ===
+                                                          'Needs Review'
+                                                        ? 'needsReview'
+                                                        : 'unmatched'
+                                            ]
+                                          }
+                                        </span>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Button
+                                          size="sm"
+                                          variant="outline"
+                                          disabled={!!busy}
+                                          onClick={() => setSelected(tx.id)}
+                                        >
+                                          {t.app.results.caseDetails}
+                                        </Button>
+                                        {auditEvents.some(
+                                          (e) =>
+                                            e.action === 'review' &&
+                                            e.ids.includes(tx.id),
+                                        ) && (
+                                          <small>
+                                            {t.app.results.reviewedStillOpen}
+                                          </small>
+                                        )}
+                                      </TableCell>
+                                    </TableRow>
+                                  );
+                                })}
+                            </TableBody>
+                          </Table>
+                        </div>
+                        {!rows.length && (
+                          <div className="empty">{t.app.results.empty}</div>
+                        )}
+                        <div className="surface-footer">
+                          <span>
+                            {t.app.results.pageSummary(
+                              rows.length,
+                              page + 1,
+                              Math.max(1, Math.ceil(rows.length / 30)),
+                            )}
+                          </span>
+                          <Pagination
+                            aria-label={t.app.results.pagination}
+                            style={{ width: 'auto', margin: 0 }}
+                          >
+                            <PaginationContent>
+                              <PaginationItem>
+                                <Button
+                                  variant="ghost"
+                                  aria-label={t.app.results.previousPage}
+                                  disabled={page === 0}
+                                  onClick={() => setPage((p) => p - 1)}
+                                >
+                                  <BackArrow size={16} />
+                                </Button>
+                              </PaginationItem>
+                              <PaginationItem>
+                                <Button
+                                  variant="ghost"
+                                  aria-label={t.app.results.nextPage}
+                                  disabled={(page + 1) * 30 >= rows.length}
+                                  onClick={() => setPage((p) => p + 1)}
+                                >
+                                  <ForwardArrow size={16} />
+                                </Button>
+                              </PaginationItem>
+                            </PaginationContent>
+                          </Pagination>
+                        </div>
+                      </section>
+                      {selected && (
+                        <TransactionReview
+                          key={selected}
+                          result={result}
+                          id={selected}
+                          busy={!!busy}
+                          onClose={() => setSelected('')}
+                          onLink={(d) =>
+                            void reconcile([...decisions, d], rejected, {
+                              action: 'link',
+                              ids: [d.supplierId, d.ledgerId],
+                              note: d.note,
+                            })
+                          }
+                          onUnlink={(a, b, note) => {
+                            const match = result.matches.find(
+                              (m) => m.supplierId === a && m.ledgerId === b,
+                            );
+                            if (match?.reviewedAggregate) {
+                              setSelected('');
+                              setMainOverlapOpen(true);
+                              return;
+                            }
+                            const ids = match
+                              ? [
+                                  ...(match.supplierIds ?? [a]),
+                                  ...(match.ledgerIds ?? [b]),
+                                ]
+                              : [a, b];
+                            void reconcile(
+                              decisions.filter((d) => d.supplierId !== a),
+                              [...rejected, `${a}|${b}`],
+                              { action: 'unlink', ids, note },
+                            );
+                          }}
+                          onGroupReview={() => {
+                            setSelected('');
+                            setMainOverlapOpen(true);
+                          }}
+                          onReview={(id, note) => {
+                            setAuditEvents((events) => [
+                              ...events,
+                              {
+                                time: new Date().toISOString(),
+                                action: 'review',
+                                ids: [id],
+                                note,
+                              },
+                            ]);
+                            setReview((r) => ({ ...r, checked: false }));
+                            setNotice(
+                              uiText((m) => m.app.notices.reviewRecorded),
+                            );
+                          }}
+                        />
+                      )}
+                      <div
+                        className="actions"
+                        style={{ justifyContent: 'flex-end', marginTop: 20 }}
+                      >
+                        <Button disabled={!!busy} onClick={() => setStep(3)}>
+                          {t.app.results.prepareWorkpaper}
+                          <ForwardArrow size={16} />
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                  {step === 3 && (
+                    <div className="stack">
+                      {result.scope.coverageConfirmed || result.bridge ? (
+                        <section className="surface pad stack">
+                          <div
+                            className="section-heading"
+                            style={{ padding: 0 }}
+                          >
+                            <h2>{t.app.finish.balancesHeading}</h2>
+                            <FileCheck2 size={23} />
+                          </div>
+                          <div className="balance-lines">
+                            <div>
+                              <span>{t.app.finish.supplierBalance}</span>
+                              <bdi>
+                                {result.supplier.closing === null
+                                  ? t.app.finish.notAvailable
+                                  : money(
+                                      result.supplier.closing,
+                                      scope.decimals,
+                                    )}
+                              </bdi>
+                            </div>
+                            <div>
+                              <span>{t.app.finish.ledgerBalance}</span>
+                              <bdi>
+                                {result.ledger.closing === null
+                                  ? t.app.finish.notAvailable
+                                  : money(
+                                      result.ledger.closing,
+                                      scope.decimals,
+                                    )}
+                              </bdi>
+                            </div>
+                            <div>
+                              <span>{t.app.finish.balanceCheck}</span>
+                              <span>
+                                {result.bridge
+                                  ? result.balanceComparable
+                                    ? t.app.finish.consistentConfirmed
+                                    : t.app.finish.consistentUnconfirmed
+                                  : t.app.finish.notProven}
+                              </span>
+                            </div>
+                            {result.bridge && (
+                              <>
+                                <hr className="divider" />
+                                <div>
+                                  <span>{t.app.finish.openingAdjustment}</span>
+                                  <bdi>
+                                    {money(
+                                      result.bridge.openingAdjustment,
+                                      scope.decimals,
+                                    )}
+                                  </bdi>
+                                </div>
+                                <div>
+                                  <span>{t.app.finish.itemAdjustment}</span>
+                                  <bdi>
+                                    {money(
+                                      result.bridge.itemAdjustment,
+                                      scope.decimals,
+                                    )}
+                                  </bdi>
+                                </div>
+                                <div>
+                                  <span>{t.app.finish.adjusted}</span>
+                                  <bdi>
+                                    {money(
+                                      result.bridge.adjusted,
+                                      scope.decimals,
+                                    )}
+                                  </bdi>
+                                </div>
+                                <div>
+                                  <span>{t.app.finish.residual}</span>
+                                  <bdi>
+                                    {money(
+                                      result.bridge.residual,
+                                      scope.decimals,
+                                    )}
+                                  </bdi>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                          <div className="notice">
+                            {t.app.finish.bridgeLead}{' '}
+                            {result.supplierOnly.length +
+                              result.ledgerOnly.length}{' '}
+                            {t.app.finish.bridgeTrail}
+                          </div>
+                        </section>
+                      ) : (
+                        <p className="hint">{t.app.finish.noBalances}</p>
+                      )}
+                      <section className="surface pad stack">
+                        <h2>{t.app.finish.notesHeading}</h2>
+                        <Field label={t.app.finish.reviewerField}>
+                          <Input
+                            aria-label={t.app.finish.reviewerLabel}
+                            value={review.name}
+                            onChange={(e) =>
+                              setReview((r) => ({
+                                ...r,
+                                name: e.target.value,
+                                checked: false,
+                              }))
+                            }
+                          />
+                        </Field>
+                        <Field label={t.app.finish.notesField}>
+                          <Textarea
+                            aria-label={t.app.finish.notesLabel}
+                            value={review.notes}
+                            maxLength={3000}
+                            onChange={(e) =>
+                              setReview((r) => ({
+                                ...r,
+                                notes: e.target.value,
+                                checked: false,
+                              }))
+                            }
+                          />
+                        </Field>
+                        <Tick
+                          checked={review.checked}
+                          onChange={(v) => {
+                            if (v && !review.name.trim()) {
+                              setError(
+                                uiText((m) => m.app.errors.reviewerRequired),
+                              );
+                              return;
+                            }
+                            setReview((r) => ({ ...r, checked: v }));
+                          }}
+                        >
+                          {t.app.finish.attestation}
+                        </Tick>
+                        <p className="muted">{t.app.finish.contents}</p>
+                        <div className="actions">
+                          <Button
+                            onClick={() => void download()}
+                            disabled={!!busy}
+                          >
+                            <Download size={17} />
+                            {reading.partial
+                              ? t.app.finish.downloadPartial
+                              : review.checked
+                                ? t.app.finish.download
+                                : t.app.finish.downloadDraft}
+                          </Button>
+                          <Button
+                            variant="outline"
+                            onClick={() => setStep(2)}
+                            disabled={!!busy}
+                          >
+                            {t.app.finish.backToReview}
+                          </Button>
+                        </div>
+                      </section>
+                    </div>
+                  )}
+                </>
+              )}
+              <footer className="footnote">
+                {t.app.shell.footnote}
+                <br />
+                <button
+                  onClick={togglePrivacy}
+                  aria-expanded={privacy}
+                  style={{ textDecoration: 'underline', marginTop: 8 }}
+                >
+                  <CircleHelp
+                    size={13}
+                    style={{ display: 'inline', marginInlineEnd: 5 }}
+                  />
+                  {t.app.shell.footnotePrivacy}
+                </button>{' '}
+                · {APP_VERSION}
+              </footer>
+            </div>
+          </div>
+          {showLanding && <LandingBenefits />}
+          {showLanding && <LandingDetails />}
+        </main>
+        <footer className="site-footer">
+          <a
+            className="brand footer-brand"
+            href={
+              showLanding
+                ? '#top'
+                : domain === 'supplier'
+                  ? '#reconciliation'
+                  : '#reconciliation-types'
+            }
+            aria-label={t.brand.name}
+          >
+            <BrandMark />
+            <BrandWordmark />
           </a>
-        ) : (
-          <button className="footer-privacy-link" onClick={togglePrivacy}>
-            {t.app.shell.footerPrivacy}
-          </button>
-        )}
-      </footer>
-    </div></>
+          <p>{t.app.shell.tagline}</p>
+          {showLanding ? (
+            <a className="footer-privacy-link" href="#privacy-details">
+              {t.app.shell.footerPrivacy}
+            </a>
+          ) : (
+            <button className="footer-privacy-link" onClick={togglePrivacy}>
+              {t.app.shell.footerPrivacy}
+            </button>
+          )}
+        </footer>
+      </div>
+    </ReconciliationNavigationProvider>
   );
 }
+
 function Metric({
   label,
   value,
@@ -2883,24 +3363,54 @@ function SourceConfiguration({
     );
   }
   if (file.visual) {
-    return ( <section className="surface pad stack visual-accounting-bound">
-      <h2>{t.app.sides[side]}</h2>
-      <p className="summary-line"><bdi>{file.name}</bdi></p>
-      <strong>{t.visualAccounting.loaded}</strong>
-      <p className="hint">{t.visualAccounting.locked}</p>
-      <p className="hint">{t.visualAccounting.limits}</p>
-      {importIssues.length > 0 && ( <output style={{ display: 'block' }} className="hint warn">
-        <strong>{c.readingNotes(importIssues.length)}</strong>
-        {importIssues.slice(0,5).map((issue,index)=> (<p key={index}>{c.issueAt(issue.row,issue.column)}{issue.messages.map((message)=>say(engineText(message))).join(t.common.listSeparator)}</p>))}
-      </output>
+    return (
+      <section className="surface pad stack visual-accounting-bound">
+        <h2>{t.app.sides[side]}</h2>
+        <p className="summary-line">
+          <bdi>{file.name}</bdi>
+        </p>
+        <strong>{t.visualAccounting.loaded}</strong>
+        <p className="hint">{t.visualAccounting.locked}</p>
+        <p className="hint">{t.visualAccounting.limits}</p>
+        {importIssues.length > 0 && (
+          <output style={{ display: 'block' }} className="hint warn">
+            <strong>{c.readingNotes(importIssues.length)}</strong>
+            {importIssues.slice(0, 5).map((issue, index) => (
+              <p key={index}>
+                {c.issueAt(issue.row, issue.column)}
+                {issue.messages
+                  .map((message) => say(engineText(message)))
+                  .join(t.common.listSeparator)}
+              </p>
+            ))}
+          </output>
         )}
-      <details><summary>{t.visualAccounting.details}</summary>
-        <div className="table-scroll"><table><thead><tr>{header.map((h,i)=> (<th key={i}>{h}</th>
-                  ))}</tr></thead>
-          <tbody>{sheet.rows.slice(1).map((row,i)=> (<tr key={i}>{row.map((cell,j)=> (<td key={j}><bdi>{cell}</bdi></td>))}</tr>
-                ))}</tbody></table></div>
-      </details>
-    </section>
+        <details>
+          <summary>{t.visualAccounting.details}</summary>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  {header.map((h, i) => (
+                    <th key={i}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sheet.rows.slice(1).map((row, i) => (
+                  <tr key={i}>
+                    {row.map((cell, j) => (
+                      <td key={j}>
+                        <bdi>{cell}</bdi>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </section>
     );
   }
   if (!sheet) {
@@ -3088,7 +3598,10 @@ function SourceConfiguration({
         .filter((field) => formats?.[field].status === 'invalid')
         .map((field) => (
           <output
-            style={{ display: 'block' }} className="hint warn" key={field}>
+            style={{ display: 'block' }}
+            className="hint warn"
+            key={field}
+          >
             {say(engineText(formats![field].reason))}
           </output>
         ))}

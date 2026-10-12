@@ -102,49 +102,55 @@ try {
           .locator(`.language-switch button[lang="${language}"]:visible`)
           .first()
           .click();
-      await page.waitForFunction(() =>
-        [...document.querySelectorAll('[data-domain-entry]')].every(
-          (x) => !x.disabled,
-        ),
+      const type = page.locator(
+        'select[data-reconciliation-type-select]:visible',
+      );
+      await type.waitFor();
+      await page.waitForFunction(
+        () =>
+          !document.querySelector('select[data-reconciliation-type-select]')
+            ?.disabled,
       );
       await page.evaluate(() => document.fonts.ready);
       const result = { width, language };
       report.cases.push(result);
+      assert.equal(
+        await type.count(),
+        1,
+        'one native reconciliation type control is visible',
+      );
+      result.options = await type.locator('option').evaluateAll((options) =>
+        options.map((option) => ({
+          id: option.value,
+          title: option.textContent.trim(),
+        })),
+      );
       assert.deepEqual(
-        await page
-          .locator('[data-domain-entry]')
-          .evaluateAll((xs) =>
-            xs
-              .map((x) => x.dataset.domainEntry)
-              .sort((a, b) => a.localeCompare(b)),
-          ),
+        result.options
+          .map((option) => option.id)
+          .sort((a, b) => a.localeCompare(b)),
         [...ids].sort((a, b) => a.localeCompare(b)),
       );
-      result.cards = await page
-        .locator('.reconciliation-choice')
-        .evaluateAll((xs) => xs.map((x) => x.innerText));
-      assert.equal(result.cards.length, 12);
-      for (const card of await page.locator('.reconciliation-choice').all()) {
-        assert.equal(
-          await card.locator('[data-domain-entry]').getAttribute('aria-label'),
-          (await card.locator('.directory-choice-title').innerText()).trim(),
-          'the accessible workflow name matches its visible title',
-        );
-        assert.ok(
-          (
-            await card.locator('.directory-choice-description').innerText()
-          ).trim(),
-          'every workflow explains its purpose',
-        );
-        const scope = card.locator('details');
-        await scope.locator('summary').click();
-        assert.ok(
-          await scope.locator('p').isVisible(),
-          'workflow scope stays available before entry',
-        );
-        assert.ok((await scope.locator('p').innerText()).trim());
-        await scope.locator('summary').click();
-      }
+      assert.equal(result.options.length, 12);
+      assert.ok(
+        result.options.every((option) => option.title),
+        'every workflow retains its visible name',
+      );
+      assert.ok(
+        (await type.getAttribute('aria-label')) ||
+          (await type.evaluate((element) => element.labels.length > 0)),
+        'type control has an accessible name',
+      );
+      assert.equal(
+        await page.locator('.reconciliation-choice:visible').count(),
+        0,
+        'type choice uses a compact native control',
+      );
+      assert.equal(
+        await page.locator('.source-card:visible').count(),
+        2,
+        'supplier source entry retains exactly two upload cards',
+      );
       const overflow = () =>
         page.evaluate(() => ({
           width: innerWidth,
@@ -203,17 +209,35 @@ try {
       await page.screenshot({
         path: path.join(out, `${language}-${width}-directory.png`),
       });
-      const supplier = page.locator('[data-domain-entry="supplier"]');
-      await supplier.focus();
-      await page.keyboard.press('Enter');
+      await type.focus();
+      await type.selectOption('bank');
+      const bankHeading = page.locator(
+        '[data-domain-panel="bank"]:visible .workspace-intro h1',
+      );
+      await bankHeading.waitFor();
       assert.equal(
-        await page
-          .locator('.workflow-title:visible')
-          .evaluate((x) => document.activeElement === x),
+        await bankHeading.evaluate(
+          (element) => document.activeElement === element,
+        ),
         true,
+        'type selection focuses the requested workflow',
+      );
+      await type.selectOption('supplier');
+      const supplierHeading = page.locator('.workflow-title:visible').first();
+      await supplierHeading.waitFor();
+      assert.equal(
+        await supplierHeading.evaluate(
+          (element) => document.activeElement === element,
+        ),
+        true,
+        'return focuses supplier source entry',
       );
       assert.equal(
-        await page.locator('[data-domain-panel]:visible').count(),
+        await page
+          .locator(
+            '[data-domain-panel]:visible:not([data-domain-panel="supplier"])',
+          )
+          .count(),
         0,
       );
       await page
@@ -225,7 +249,8 @@ try {
       await page.locator('.in-session .workflow-title:visible').waitFor();
       await page.waitForFunction(
         () =>
-          !document.querySelector('[data-domain-entry="supplier"]')?.disabled,
+          !document.querySelector('select[data-reconciliation-type-select]')
+            ?.disabled,
       );
       const state = () =>
         page.evaluate(() => ({
@@ -246,26 +271,20 @@ try {
       result.beforeSupplier = await state();
       assert.equal(
         await page.locator('[data-domain-navigation]').isVisible(),
-        false,
-        'directory is compact during supplier work',
-      );
-      await page.locator('.directory-switch').click();
-      assert.equal(
-        await page.locator('[data-domain-navigation]').isVisible(),
         true,
-        'workflow switch opens on demand',
+        'type selector remains available during supplier work',
       );
-      await supplier.focus();
-      await page.keyboard.press('Enter');
+      await type.focus();
+      await type.selectOption('supplier');
       result.afterSupplier = await state();
       assert.deepEqual(
         result.afterSupplier,
         result.beforeSupplier,
-        'supplier card retains active session state',
+        'choosing the current type retains active supplier session state',
       );
       assert.equal(
         await page
-          .locator('.in-session .workflow-title:visible')
+          .locator('select[data-reconciliation-type-select]:visible')
           .evaluate((x) => document.activeElement === x),
         true,
       );

@@ -1,3 +1,4 @@
+import { openDomainWorkspace, workspaceSource } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyStock(
@@ -8,12 +9,7 @@ export async function verifyStock(
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', {
-      name: 'Posted inventory register / GL evidence',
-      exact: true,
-    })
-    .click();
+  await openDomainWorkspace(page, 'stock');
   const w = page.locator('[data-stock-workspace]'),
     status = w.locator('[data-stock-status]'),
     button = (name) => w.getByRole('button', { name, exact: true });
@@ -115,7 +111,7 @@ export async function verifyStock(
     );
   await wait();
   assert.equal(await status.count(), 0);
-  await w.locator('fieldset:has(input[type="file"])').nth(0).getByRole('checkbox').check();
+  await workspaceSource(w, 'Posted inventory register').getByRole('checkbox').check();
   await attestation().check();
   await button('Check inventory / GL').click();
   await wait();
@@ -137,7 +133,7 @@ export async function verifyStock(
       'audit/inventory-register/cases/unmapped-zero-gl-not-dropped/source-3.csv',
     );
   await wait();
-  await w.locator('fieldset:has(input[type="file"])').nth(3).getByRole('checkbox').check();
+  await workspaceSource(w, 'Selected inventory GL balances').getByRole('checkbox').check();
   await attestation().check();
   await button('Check inventory / GL').click();
   await wait();
@@ -164,7 +160,7 @@ export async function verifyStock(
         `audit/inventory-register/cases/opposite-account-differences-zero-grand/source-${i}.csv`,
       );
     await wait();
-    await w.locator('fieldset:has(input[type="file"])').nth(i).getByRole('checkbox').check();
+    await workspaceSource(w, roles[i]).getByRole('checkbox').check();
   }
   await attestation().check();
   await button('Check inventory / GL').click();

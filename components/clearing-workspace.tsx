@@ -6,6 +6,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
@@ -221,83 +223,92 @@ export function ClearingWorkspace({
         className="workspace clearing-workspace reconciliation-workspace"
         id="clearing"
       >
-        <WorkspaceHeader onBack={onBack} backLabel={t.back} disabled={busy} />
+        <WorkspaceHeader
+          onBack={onBack}
+          backLabel={t.back}
+          disabled={busy}
+          hasWork={!!file}
+        />
         <WorkspaceIntro title={t.title} intro={t.intro}>
           <p>{t.limits}</p>
         </WorkspaceIntro>
         <section className="surface pad stack workspace-preparation">
-          <div className="clearing-actions workspace-toolbar">
-            <Button
-              variant="outline"
-              disabled={busy || !!file}
-              onClick={() =>
-                void perform(async (signal) => {
-                  const f: SourceFile = await workerTask(
-                    'read',
-                    {
-                      name: 'synthetic-clearing.csv',
-                      buffer: new TextEncoder().encode(clearingDemo).buffer,
-                    },
-                    signal,
-                  );
-                  if (signal.aborted) return;
-                  invalidate();
-                  setFile(f);
-                  setReading({ ...clearingDemoReading });
-                  setScope({ ...clearingDemoScope });
-                })
-              }
-            >
-              {t.sample}
-            </Button>
-            <label>
-              {t.restore}
-              <input
-                type="file"
-                accept=".json"
-                disabled={busy}
-                onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f)
-                    void perform(async (signal) => {
-                      if (f.size > 16 * 1024 * 1024) throw new Error('size');
-                      const restored = await workerTask<{
-                        state: ClearingInput;
-                        result: ClearingResult;
-                      }>(
-                        'clearing-restore',
-                        { buffer: await f.arrayBuffer() },
-                        signal,
-                      );
-                      if (!signal.aborted) {
-                        invalidate();
-                        install(restored);
-                      }
-                    });
-                  e.target.value = '';
-                }}
-              />
-            </label>
-          </div>
-          <section className="workspace-source">
-            <h2>
-              <WorkspaceSourceHeading>{t.upload}</WorkspaceSourceHeading>
-            </h2>
-            <label>
-              {t.upload}
-              <WorkspaceFileInput
-                aria-label={t.upload}
-                type="file"
-                accept=".csv,.xlsx"
-                disabled={busy}
-                onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f) void upload(f);
-                  e.target.value = '';
-                }}
-              />
-            </label>
-          </section>
+          <WorkspaceAdvanced>
+            <div className="clearing-actions workspace-toolbar">
+              <Button
+                variant="outline"
+                disabled={busy || !!file}
+                onClick={() =>
+                  void perform(async (signal) => {
+                    const f: SourceFile = await workerTask(
+                      'read',
+                      {
+                        name: 'synthetic-clearing.csv',
+                        buffer: new TextEncoder().encode(clearingDemo).buffer,
+                      },
+                      signal,
+                    );
+                    if (signal.aborted) return;
+                    invalidate();
+                    setFile(f);
+                    setReading({ ...clearingDemoReading });
+                    setScope({ ...clearingDemoScope });
+                  })
+                }
+              >
+                {t.sample}
+              </Button>
+              <label>
+                {t.restore}
+                <input
+                  type="file"
+                  accept=".json"
+                  disabled={busy}
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f)
+                      void perform(async (signal) => {
+                        if (f.size > 16 * 1024 * 1024) throw new Error('size');
+                        const restored = await workerTask<{
+                          state: ClearingInput;
+                          result: ClearingResult;
+                        }>(
+                          'clearing-restore',
+                          { buffer: await f.arrayBuffer() },
+                          signal,
+                        );
+                        if (!signal.aborted) {
+                          invalidate();
+                          install(restored);
+                        }
+                      });
+                    e.target.value = '';
+                  }}
+                />
+              </label>
+            </div>
+          </WorkspaceAdvanced>
+          <WorkspaceSources primaryIndices={[0]} primaryReady={!!file}>
+            <section className="workspace-source">
+              <h2>
+                <WorkspaceSourceHeading>{t.upload}</WorkspaceSourceHeading>
+              </h2>
+              <label>
+                {t.upload}
+                <WorkspaceFileInput
+                  aria-label={t.upload}
+                  type="file"
+                  accept=".csv,.xlsx"
+                  disabled={busy}
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) void upload(f);
+                    e.target.value = '';
+                  }}
+                />
+              </label>
+            </section>
+          </WorkspaceSources>
           {error && <p role="alert">{t.error}</p>}
           {busy && (
             <output>
@@ -427,8 +438,7 @@ export function ClearingWorkspace({
             >
               {t.run}
             </Button>
-            <details>
-              <summary>{t.source}</summary>
+            <WorkspaceAdvanced summary={t.source}>
               <div className="clearing-scroll">
                 <table>
                   <thead>
@@ -455,7 +465,7 @@ export function ClearingWorkspace({
                   </tbody>
                 </table>
               </div>
-            </details>
+            </WorkspaceAdvanced>
           </section>
         )}
         {result && (

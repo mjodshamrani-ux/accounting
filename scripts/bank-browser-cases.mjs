@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { mkdir, readFile, copyFile } from 'node:fs/promises';
 export async function verifyBank(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
-  await page.getByRole('button', { name: 'حركات البنك', exact: true }).click();
+  await openDomainWorkspace(page, 'bank');
   await page
     .getByRole('heading', { name: 'حركات البنك ودفتر النقدية', exact: true })
     .waitFor();
@@ -95,10 +95,7 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Supplier reconciliation', exact: true })
     .click();
-  await revealDomainEntry(page, 'bank');
-  await page
-    .getByRole('button', { name: 'Bank movements', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'bank');
   assert.equal(await rows('Original movements').count(), 4);
   await page
     .getByLabel('Restore bank movement session', { exact: true })

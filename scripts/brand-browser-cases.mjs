@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import { readdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 const workflowHeadings = {
   confirm: 'راجع البيانات قبل المقارنة',
@@ -8,55 +9,65 @@ const workflowHeadings = {
 };
 
 const displayFontFamilies = [
-  'Geeza Pro',
-  'Traditional Arabic',
-  'Tahoma',
-  'Arial',
+  'Thmanyah Serif Display',
+  'Noto Sans Arabic',
   'serif',
 ];
-const displayFontStack =
-  '"Geeza Pro", "Traditional Arabic", Tahoma, Arial, serif';
+const displayFontStack = '"Thmanyah Serif Display", "Noto Sans Arabic", serif';
+const latinDisplayFontFamilies = ['Arial', 'Helvetica', 'sans-serif'];
+const displayFontSha256 =
+  'd36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce';
 const fontFamilies = (value) =>
   value.split(',').map((family) => family.trim().replace(/^["']|["']$/g, ''));
 const narrowWorkflowType = new WeakMap();
 const layoutWidths = [320, 390, 768, 820, 1024, 1280];
 
-async function verifyForbiddenDisplayDistribution(page) {
+async function verifyLocalDisplayDistribution(page) {
   for (const directory of ['../public/fonts/', '../dist/fonts/'])
-    assert.deepEqual(
-      (await readdir(new URL(directory, import.meta.url))).filter((name) =>
-        /thmanyah/i.test(name),
-      ),
-      [],
-      `${directory}: the unresolved display font and its distribution metadata are absent`,
+    assert.equal(
+      createHash('sha256')
+        .update(
+          await readFile(
+            new URL(
+              `${directory}thmanyah-serif-display-bold.woff2`,
+              import.meta.url,
+            ),
+          ),
+        )
+        .digest('hex'),
+      displayFontSha256,
+      `${directory}: the authentic restored font bytes are unchanged`,
     );
-  const assets = await page.evaluate(() => {
+  const assets = await page.evaluate(async () => {
+    await document.fonts.ready;
     const rules = [...document.styleSheets].flatMap((sheet) => [
       ...sheet.cssRules,
     ]);
     return {
-      forbiddenRules: rules
-        .filter((rule) => /thmanyah/i.test(rule.cssText))
-        .map((rule) => rule.cssText),
-      forbiddenFaces: [...document.fonts]
-        .filter((face) => /thmanyah/i.test(face.family))
-        .map((face) => face.family),
-      embeddedSystemFaces: rules
+      displayRules: rules
         .filter(
           (rule) =>
             rule instanceof CSSFontFaceRule &&
-            /Geeza Pro|Traditional Arabic|Tahoma|Arial/i.test(
-              rule.style.fontFamily,
-            ),
+            /Thmanyah Serif Display/i.test(rule.style.fontFamily),
         )
-        .map((rule) => rule.cssText),
-      forbiddenLinks: [...document.querySelectorAll('link[href]')]
-        .filter((link) => /thmanyah/i.test(link.href))
-        .map((link) => link.href),
-      forbiddenRequests: performance
+        .map((rule) => ({
+          src: rule.style.src,
+          weight: rule.style.fontWeight,
+        })),
+      loadedDisplayFaces: [...document.fonts]
+        .filter((face) => /Thmanyah Serif Display/i.test(face.family))
+        .map((face) => ({ status: face.status, weight: face.weight })),
+      displayRequests: performance
         .getEntriesByType('resource')
-        .filter((entry) => /thmanyah/i.test(entry.name))
-        .map((entry) => entry.name),
+        .filter((entry) =>
+          new URL(entry.name).pathname.endsWith(
+            '/fonts/thmanyah-serif-display-bold.woff2',
+          ),
+        )
+        .map((entry) => ({
+          origin: new URL(entry.name).origin,
+          transferSize: entry.decodedBodySize,
+        })),
       externalFontRequests: performance
         .getEntriesByType('resource')
         .filter(
@@ -68,21 +79,39 @@ async function verifyForbiddenDisplayDistribution(page) {
       outlinedPreloads: document.querySelectorAll(
         'link[rel="preload"][as="image"][href*="/brand/type/"]',
       ).length,
+      origin: location.origin,
     };
   });
-  for (const key of [
-    'forbiddenRules',
-    'forbiddenFaces',
-    'embeddedSystemFaces',
-    'forbiddenLinks',
-    'forbiddenRequests',
-    'externalFontRequests',
-  ])
-    assert.deepEqual(
-      assets[key],
-      [],
-      `${key}: display text uses installed system fonts without unresolved or remote font distribution`,
-    );
+  assert.equal(
+    assets.displayRules.length,
+    1,
+    'one authentic bold display face is declared',
+  );
+  assert.match(
+    assets.displayRules[0].src,
+    /\/fonts\/thmanyah-serif-display-bold\.woff2/,
+  );
+  assert.equal(assets.displayRules[0].weight, '700');
+  assert.deepEqual(
+    assets.loadedDisplayFaces,
+    [{ status: 'loaded', weight: '700' }],
+    'the local authentic face must finish loading; a fallback is insufficient',
+  );
+  assert.ok(
+    assets.displayRequests.length > 0,
+    'the authentic local font file was requested',
+  );
+  assert.ok(
+    assets.displayRequests.every(
+      (entry) => entry.origin === assets.origin && entry.transferSize > 0,
+    ),
+    'display font requests return bytes from the application origin',
+  );
+  assert.deepEqual(
+    assets.externalFontRequests,
+    [],
+    'all font requests stay on the application origin',
+  );
   assert.equal(
     assets.outlinedPreloads,
     0,
@@ -90,12 +119,12 @@ async function verifyForbiddenDisplayDistribution(page) {
   );
 }
 
-// System fonts differ by host. Assert the declared fallback contract and actual
-// rendered bounds, not a downloaded face identity or one font's pixel metrics.
-export async function verifySystemDisplayFont(page) {
+// Verify the authentic local face, intentional Latin stack and natural text
+// bounds without relying on one host's pixel metrics.
+export async function verifyDisplayTypography(page) {
   const viewport = page.viewportSize();
   try {
-    await verifyForbiddenDisplayDistribution(page);
+    await verifyLocalDisplayDistribution(page);
     for (const width of [320, 390, 1440]) {
       await page.setViewportSize({ width, height: 1050 });
       const layout = await page.evaluate(async () => {
@@ -154,6 +183,9 @@ export async function verifySystemDisplayFont(page) {
               lang: element.getAttribute('lang'),
               dir: element.getAttribute('dir'),
               nativeHeading: element.hasAttribute('data-display-heading'),
+              language:
+                element.closest('[lang]')?.getAttribute('lang') ??
+                document.documentElement.lang,
             };
           });
         return {
@@ -174,13 +206,15 @@ export async function verifySystemDisplayFont(page) {
       );
       assert.ok(
         layout.headings.length > 0,
-        'system-font text is actually rendered',
+        'native display text is actually rendered',
       );
       for (const heading of layout.headings) {
         assert.deepEqual(
           fontFamilies(heading.family),
-          displayFontFamilies,
-          `${heading.text}: exact system display fallback stack`,
+          heading.language === 'ar'
+            ? displayFontFamilies
+            : latinDisplayFontFamilies,
+          `${heading.text}: intentional language display stack`,
         );
         assert.equal(heading.weight, '700');
         assert.ok(
@@ -205,7 +239,7 @@ export async function verifySystemDisplayFont(page) {
         assert.deepEqual(
           heading.clipped,
           [],
-          `${layout.lang}/${width}: system-font text is not clipped`,
+          `${layout.lang}/${width}: display text is not clipped`,
         );
         if (heading.nativeHeading) {
           assert.equal(heading.lang, layout.lang);
@@ -732,7 +766,7 @@ async function verifyNativeHeading(page, id) {
   assert.equal(
     rendered.available,
     true,
-    `${id}: the system fallback stack renders native text even offline`,
+    `${id}: the authentic local face renders native text`,
   );
   assert.ok(
     ['normal', '0px'].includes(rendered.letterSpacing),
@@ -823,7 +857,7 @@ async function verifyNarrowWorkflowTypography(page, step) {
       );
       assert.ok(
         typography.lines >= (typography.requiresWrap ? 2 : 1),
-        'the export heading wraps when its actual system-font text exceeds the available width',
+        'the export heading wraps when its authentic display text exceeds the available width',
       );
     }
   } finally {
@@ -902,9 +936,9 @@ export async function verifyBrandLanding(page) {
   );
   assert.equal(plainTitle, 'تراصف — تسويات محاسبية محلية');
   const domainIds = await page
-    .locator('[data-domain-entry]')
+    .locator('select[data-reconciliation-type-select] option')
     .evaluateAll((entries) =>
-      entries.map((entry) => entry.dataset.domainEntry),
+      entries.map((entry) => entry.value).filter(Boolean),
     );
   assert.equal(
     new Set(domainIds).size,
@@ -930,13 +964,16 @@ export async function verifyBrandLanding(page) {
     'the landing offers all twelve approved reconciliation workflows',
   );
   assert.equal(
-    await page.locator('.directory-group').count(),
-    4,
-    'workflows are organized in four groups',
+    await page.locator('select[data-reconciliation-type-select]').count(),
+    1,
+    'one native type selector offers the approved workflows',
   );
   assert.equal(
-    await page.locator('#reconciliation-types-title').innerText(),
-    'اختر نوع التسوية',
+    await page
+      .getByRole('combobox', { name: 'اختر نوع التسوية', exact: true })
+      .count(),
+    1,
+    'the native type selector has its visible Arabic label',
   );
   for (const selector of ['.primary-link', '.nav-start'])
     assert.equal(
@@ -1021,7 +1058,7 @@ export async function verifyBrandLanding(page) {
     assert.equal(lettering.synthesis, 'none');
   }
 
-  await verifyForbiddenDisplayDistribution(page);
+  await verifyLocalDisplayDistribution(page);
 
   await verifyPrivacyNavigation(page);
 
@@ -1123,7 +1160,7 @@ export async function verifyBrandLanding(page) {
     'all sections remain readable when motion preference changes at runtime',
   );
   await verifyNarrowLayouts(page, 'landing');
-  await verifySystemDisplayFont(page);
+  await verifyDisplayTypography(page);
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 }
@@ -1162,5 +1199,5 @@ export async function verifyWorkflowBrand(page, step) {
   );
   await verifyNativeHeading(page, step);
   await verifyNarrowWorkflowTypography(page, step);
-  await verifySystemDisplayFont(page);
+  await verifyDisplayTypography(page);
 }

@@ -7,6 +7,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
@@ -157,84 +159,94 @@ export function GlTbWorkspace({
       className="app-shell gl-tb-workspace reconciliation-workspace"
       aria-busy={busy}
     >
-      <WorkspaceHeader onBack={onBack} backLabel={t.back} disabled={busy} />
+      <WorkspaceHeader
+        onBack={onBack}
+        backLabel={t.back}
+        disabled={busy}
+        hasWork={files.some(Boolean)}
+      />
       <WorkspaceIntro title={t.title} intro={t.intro}>
         <p>{t.limits}</p>
         <p>{t.claim}</p>
       </WorkspaceIntro>
       <fieldset disabled={busy}>
-        <div className="gl-tb-actions workspace-toolbar">
-          <Button
-            onClick={() =>
-              perform(async (signal) => {
-                const source: SourceFile[] = [];
-                for (const demo of glTbDemo())
-                  source.push(await workerTask('read', demo, signal));
-                install(
-                  await workerTask(
-                    'gl-tb-reconcile',
-                    {
-                      files: source,
-                      readings: glDemoReadings,
-                      scope: glDemoScope,
-                    },
-                    signal,
-                  ),
-                );
-              })
-            }
-          >
-            {t.sample}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() =>
-              perform(async (signal) => {
-                const source: SourceFile[] = [];
-                for (const demo of glTbDemo(true))
-                  source.push(await workerTask('read', demo, signal));
-                install(
-                  await workerTask(
-                    'gl-tb-reconcile',
-                    {
-                      files: source,
-                      readings: glVerticalDemoReadings,
-                      scope: glDemoScope,
-                    },
-                    signal,
-                  ),
-                );
-              })
-            }
-          >
-            {t.sampleVertical}
-          </Button>
-          <label>
-            {t.restore}
-            <input
-              type="file"
-              accept=".json"
-              onChange={(event) => {
-                const file = event.target.files?.[0];
-                event.target.value = '';
-                if (file)
-                  void perform(async (signal) => {
-                    if (file.size > 32 * 1024 * 1024)
-                      throw Error('GL_TB_SESSION');
-                    install(
-                      await workerTask(
-                        'gl-tb-restore',
-                        { buffer: await file.arrayBuffer() },
-                        signal,
-                      ),
-                    );
-                  });
-              }}
-            />
-          </label>
-        </div>
+        <WorkspaceAdvanced>
+          <div className="gl-tb-actions workspace-toolbar">
+            <Button
+              onClick={() =>
+                perform(async (signal) => {
+                  const source: SourceFile[] = [];
+                  for (const demo of glTbDemo())
+                    source.push(await workerTask('read', demo, signal));
+                  install(
+                    await workerTask(
+                      'gl-tb-reconcile',
+                      {
+                        files: source,
+                        readings: glDemoReadings,
+                        scope: glDemoScope,
+                      },
+                      signal,
+                    ),
+                  );
+                })
+              }
+            >
+              {t.sample}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() =>
+                perform(async (signal) => {
+                  const source: SourceFile[] = [];
+                  for (const demo of glTbDemo(true))
+                    source.push(await workerTask('read', demo, signal));
+                  install(
+                    await workerTask(
+                      'gl-tb-reconcile',
+                      {
+                        files: source,
+                        readings: glVerticalDemoReadings,
+                        scope: glDemoScope,
+                      },
+                      signal,
+                    ),
+                  );
+                })
+              }
+            >
+              {t.sampleVertical}
+            </Button>
+            <label>
+              {t.restore}
+              <input
+                type="file"
+                accept=".json"
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  event.target.value = '';
+                  if (file)
+                    void perform(async (signal) => {
+                      if (file.size > 32 * 1024 * 1024)
+                        throw Error('GL_TB_SESSION');
+                      install(
+                        await workerTask(
+                          'gl-tb-restore',
+                          { buffer: await file.arrayBuffer() },
+                          signal,
+                        ),
+                      );
+                    });
+                }}
+              />
+            </label>
+          </div>
+        </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
-        <div className="gl-tb-grid workspace-sources">
+        <WorkspaceSources
+          primaryIndices={[0, 1]}
+          primaryReady={!!(files[0] && files[1])}
+        >
           {([0, 1] as const).map((side) => (
             <section
               className="workspace-source"
@@ -309,11 +321,13 @@ export function GlTbWorkspace({
                       ))}
                     </select>
                   </label>
-                  <pre dir="ltr">
-                    {files[side]!.sheets[readings[side].sheet]?.rows[0]?.join(
-                      ' | ',
-                    )}
-                  </pre>
+                  <WorkspaceAdvanced>
+                    <pre dir="ltr">
+                      {files[side]!.sheets[readings[side].sheet]?.rows[0]?.join(
+                        ' | ',
+                      )}
+                    </pre>
+                  </WorkspaceAdvanced>
                   <label>
                     <input
                       type="checkbox"
@@ -334,8 +348,8 @@ export function GlTbWorkspace({
               )}
             </section>
           ))}
-        </div>
-        <section className="workspace-scope">
+        </WorkspaceSources>
+        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
           <WorkspaceGroupTitle kind="scope" />
           <div className="gl-tb-grid">
             {GL_SCOPE_FIELDS.map((key) => (

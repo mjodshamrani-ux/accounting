@@ -40,6 +40,78 @@
 .workspace-header__brand {
   gap: 12px;
 }
+.reconciliation-workspace .workspace-header--embedded {
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  justify-content: flex-end;
+}
+.workspace-source-groups {
+  display: grid;
+  gap: 16px;
+}
+.reconciliation-workspace .workspace-scope[hidden],
+.reconciliation-workspace > fieldset[hidden] {
+  display: none !important;
+}
+.workspace-source-groups .workspace-sources {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.workspace-primary-sources > :only-child {
+  grid-column: 1 / -1;
+}
+.workspace-supporting-sources > summary {
+  display: list-item;
+}
+.workspace-required-label {
+  display: inline-block;
+  margin-inline-start: 12px;
+  padding: 2px 9px;
+  border-radius: 6px;
+  background: #eee8fb;
+  color: #6540a4;
+  font-size: 12px;
+}
+.workspace-supporting-content,
+.workspace-advanced__content {
+  display: grid;
+  gap: 16px;
+}
+.workspace-supporting-content > p {
+  color: #637088;
+  font-size: 13px;
+  line-height: 1.9;
+}
+.workspace-advanced__content > fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.workspace-advanced__content > fieldset > legend {
+  padding: 0;
+  margin-bottom: 16px;
+  font-weight: 650;
+}
+.reconciliation-workspace .workspace-advanced .workspace-toolbar {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.reconciliation-workspace .workspace-advanced__content > .workspace-toolbar {
+  margin: 0;
+}
+.workspace-source .workspace-advanced {
+  width: 100%;
+}
 .workspace-header .brand-mark {
   width: 30px;
   height: 43px;
@@ -66,9 +138,9 @@
   border-radius: 16px;
   box-shadow: 0 4px 20px #0a1b2e03;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  grid-template-columns: 1fr;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
 }
 .reconciliation-workspace
   .workspace-intro:not(:has(.workspace-intro__context)) {
@@ -115,17 +187,27 @@
   line-height: 1.95;
 }
 .workspace-intro__context {
-  padding: 18px 20px;
-  border: 1px solid var(--border);
-  border-inline-start: 2px solid #c2ace8;
-  border-radius: 12px;
-  background: #f8f9fc;
   color: #637088;
   font-size: 12px;
   line-height: 1.95;
+  grid-column: 1 / -1;
+  align-self: start;
+}
+.reconciliation-workspace details.workspace-intro__context {
+  padding: 0;
+  border-inline-start: 2px solid #c2ace8;
+}
+.reconciliation-workspace .workspace-intro__context > summary {
+  padding: 10px 14px;
+  font-size: 12px;
+}
+.workspace-intro__context-content {
   display: grid;
   gap: 8px;
-  align-self: center;
+}
+.reconciliation-workspace .workspace-bank-balance-flow > summary {
+  padding: 14px 18px;
+  font-size: 14px;
 }
 .reconciliation-workspace > fieldset:not(.language-switch) {
   margin: 0;
@@ -720,6 +802,9 @@
   }
 }
 @media (max-width: 600px) {
+  .workspace-source-groups .workspace-sources {
+    grid-template-columns: 1fr;
+  }
   .app-shell.reconciliation-workspace,
   .workspace.reconciliation-workspace {
     --workspace-gutter: 16px;

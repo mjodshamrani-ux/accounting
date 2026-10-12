@@ -8,8 +8,11 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
+import { workspaceCopy } from '@/lib/i18n/workspace';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import { money } from '@/lib/reconciliation/core';
@@ -58,7 +61,7 @@ export function BankWorkspace({
   active: boolean;
   onBack: () => void;
 }) {
-  const { t: catalogue } = useI18n(),
+  const { t: catalogue, lang } = useI18n(),
     t = catalogue.bank;
   const [files, setFiles] = useState<[SourceFile | null, SourceFile | null]>([
       null,
@@ -73,6 +76,7 @@ export function BankWorkspace({
     [result, setResult] = useState<BankResult | null>(null),
     [busy, setBusy] = useState(false),
     [balanceBusy, setBalanceBusy] = useState(false),
+    [balanceHasWork, setBalanceHasWork] = useState(false),
     [failed, setFailed] = useState<'general' | 'native-display' | null>(null),
     [page, setPage] = useState(0),
     [reference, setReference] = useState(''),
@@ -260,65 +264,71 @@ export function BankWorkspace({
             onBack={onBack}
             backLabel={t.back}
             disabled={locked}
+            hasWork={files.some(Boolean) || balanceHasWork}
           />
           <WorkspaceIntro title={t.title} intro={t.intro}>
             <p>{t.limits}</p>
             <p>{t.claim}</p>
           </WorkspaceIntro>
           <fieldset disabled={locked}>
-            <div className="gl-tb-actions workspace-toolbar">
-              <Button
-                onClick={() =>
-                  perform(async (signal) => {
-                    const sources: SourceFile[] = [];
-                    for (const demo of bankDemo())
-                      sources.push(await workerTask('read', demo, signal));
-                    install(
-                      await workerTask(
-                        'bank-reconcile',
-                        {
-                          files: sources,
-                          readings: bankDemoReadings,
-                          scope: bankDemoScope,
-                          events: [],
-                        },
-                        signal,
-                      ),
-                    );
-                  })
-                }
-              >
-                {t.sample}
-              </Button>
-              <label>
-                {t.restore}
-                <input
-                  type="file"
-                  accept=".json"
-                  aria-label={t.restore}
-                  onChange={(e) => {
-                    const blob = e.target.files?.[0];
-                    e.target.value = '';
-                    if (!blob) return;
-                    if (blob.size > 32 * 1024 * 1024) {
-                      setFailed('general');
-                      return;
-                    }
-                    void perform(async (signal) =>
+            <WorkspaceAdvanced>
+              <div className="gl-tb-actions workspace-toolbar">
+                <Button
+                  onClick={() =>
+                    perform(async (signal) => {
+                      const sources: SourceFile[] = [];
+                      for (const demo of bankDemo())
+                        sources.push(await workerTask('read', demo, signal));
                       install(
                         await workerTask(
-                          'bank-restore',
-                          { buffer: await blob.arrayBuffer() },
+                          'bank-reconcile',
+                          {
+                            files: sources,
+                            readings: bankDemoReadings,
+                            scope: bankDemoScope,
+                            events: [],
+                          },
                           signal,
                         ),
-                      ),
-                    );
-                  }}
-                />
-              </label>
-            </div>
+                      );
+                    })
+                  }
+                >
+                  {t.sample}
+                </Button>
+                <label>
+                  {t.restore}
+                  <input
+                    type="file"
+                    accept=".json"
+                    aria-label={t.restore}
+                    onChange={(e) => {
+                      const blob = e.target.files?.[0];
+                      e.target.value = '';
+                      if (!blob) return;
+                      if (blob.size > 32 * 1024 * 1024) {
+                        setFailed('general');
+                        return;
+                      }
+                      void perform(async (signal) =>
+                        install(
+                          await workerTask(
+                            'bank-restore',
+                            { buffer: await blob.arrayBuffer() },
+                            signal,
+                          ),
+                        ),
+                      );
+                    }}
+                  />
+                </label>
+              </div>
+            </WorkspaceAdvanced>
             <WorkspaceGroupTitle kind="sources" />
-            <div className="gl-tb-grid workspace-sources">
+            <WorkspaceSources
+              primaryIndices={[0, 1]}
+              primaryReady={!!(files[0] && files[1])}
+            >
               {([0, 1] as const).map((side) => (
                 <section
                   className="workspace-source"
@@ -422,8 +432,11 @@ export function BankWorkspace({
                   )}
                 </section>
               ))}
-            </div>
-            <section className="workspace-scope">
+            </WorkspaceSources>
+            <section
+              className="workspace-scope"
+              hidden={!(files[0] && files[1])}
+            >
               <WorkspaceGroupTitle kind="scope" />
               <div className="gl-tb-grid">
                 {BANK_SCOPE_FIELDS.map((key) => (
@@ -806,12 +819,16 @@ export function BankWorkspace({
         hidden={!active}
         style={{ display: active ? undefined : 'none' }}
       >
-        <BankAdjustmentWorkspace
-          bank={result ? input() : null}
-          disabled={busy}
-          onBusy={setBalanceBusy}
-          onRestoreBank={install}
-        />
+        <details className="workspace-bank-balance-flow" data-bank-balance-flow>
+          <summary>{workspaceCopy[lang].bankBalanceFlow}</summary>
+          <BankAdjustmentWorkspace
+            bank={result ? input() : null}
+            disabled={busy}
+            onBusy={setBalanceBusy}
+            onWorkChange={setBalanceHasWork}
+            onRestoreBank={install}
+          />
+        </details>
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile, mkdir } from 'node:fs/promises';
 import { ar } from '../lib/i18n/locales/ar.ts';
 import { en } from '../lib/i18n/locales/en.ts';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import {
   restoreReviewEffort,
   summarizeReviewEffort,
@@ -277,13 +277,7 @@ export async function verifyReviewEffort(page, baseUrl) {
       await meter
         .getByRole('button', { name: next.start, exact: true })
         .click();
-      await revealDomainEntry(page, 'clearing');
-      await page
-        .getByRole('button', {
-          name: messages[otherLang].clearing.entry,
-          exact: true,
-        })
-        .click();
+      await openDomainWorkspace(page, 'clearing');
       await page.clock.runFor(10000);
       await page
         .getByRole('button', {

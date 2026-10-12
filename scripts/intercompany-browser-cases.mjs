@@ -1,3 +1,4 @@
+import { openDomainWorkspace, workspaceSource } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyIntercompany(
@@ -8,12 +9,7 @@ export async function verifyIntercompany(
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', {
-      name: 'Intercompany transaction evidence',
-      exact: true,
-    })
-    .click();
+  await openDomainWorkspace(page, 'intercompany');
   const w = page.locator('[data-intercompany-workspace]'),
     status = w.locator('[data-intercompany-status]');
   const wait = () =>
@@ -109,7 +105,7 @@ export async function verifyIntercompany(
     );
   await wait();
   assert.equal(await status.count(), 0);
-  await w.locator('fieldset:has(input[type="file"])').nth(2).getByRole('checkbox').check();
+  await workspaceSource(w, 'Independent relationship evidence').getByRole('checkbox').check();
   await w
     .getByLabel(
       'I reviewed the complete supplied transactions, relationships and timing evidence.',
@@ -130,7 +126,7 @@ export async function verifyIntercompany(
       'audit/intercompany/frozen/malformed-duplicate-contender-0.csv',
     );
   await wait();
-  await w.locator('fieldset:has(input[type="file"])').nth(0).getByRole('checkbox').check();
+  await workspaceSource(w, 'Left entity ledger').getByRole('checkbox').check();
   await w
     .getByLabel(
       'I reviewed the complete supplied transactions, relationships and timing evidence.',
@@ -174,7 +170,7 @@ export async function verifyIntercompany(
   await status.waitFor();
   for (const width of [320, 390]) {
     await page.setViewportSize({ width, height: 900 });
-    await w.getByRole('button', { name: 'AR العربية', exact: true }).click();
+    await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
     assert.equal(await page.locator('html').getAttribute('dir'), 'rtl');
     await page.screenshot({ path: `${out}/ar-${width}.png`, fullPage: true });
     assert.ok(
@@ -183,7 +179,7 @@ export async function verifyIntercompany(
       ),
       'Arabic page overflow',
     );
-    await w.getByRole('button', { name: 'EN English', exact: true }).click();
+    await page.getByRole('button', { name: 'EN English', exact: true }).click();
     assert.equal(await page.locator('html').getAttribute('dir'), 'ltr');
     await page.screenshot({ path: `${out}/en-${width}.png`, fullPage: true });
     assert.ok(

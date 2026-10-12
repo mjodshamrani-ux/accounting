@@ -52,6 +52,12 @@ async function activeScenarioPage(context, label) {
   return next;
 }
 
+// Count accounting choices inside their supplier workspace. The persistent
+// native type selector belongs to the shared navigation above this panel.
+function supplierPanel(page) {
+  return page.locator('[data-domain-panel="supplier"]:visible');
+}
+
 async function waitForScopeInputs(page) {
   // These paths are missing an essential value, so the app opens this panel in
   // an effect (or it was already opened in the demo). A visibility check followed
@@ -1074,14 +1080,14 @@ try {
   // nothing: no entry field and no attestation box stand between the accountant
   // and the comparison.
   assert.equal(
-    await quickPage
+    await supplierPanel(quickPage)
       .locator('input:not([type=checkbox]):not([aria-hidden=true]):visible')
       .count(),
     0,
     'a fully inferred scope must present no entry field to fill',
   );
   assert.equal(
-    await quickPage.getByRole('checkbox').count(),
+    await supplierPanel(quickPage).getByRole('checkbox').count(),
     0,
     'the default path must not ask for any attestation',
   );
@@ -1472,13 +1478,16 @@ try {
     assert.equal(
       // BaseUI Selects render clipped aria-hidden transport inputs. The sign
       // choices are asserted separately below; only actual entry fields count.
-      await directionPage
+      await supplierPanel(directionPage)
         .locator('input:not([type=checkbox]):not([aria-hidden=true]):visible')
         .count(),
       0,
       `${directionPhase}: known metadata and native numeric cells need no typed fields`,
     );
-    assert.equal(await directionPage.getByRole('checkbox').count(), 0);
+    assert.equal(
+      await supplierPanel(directionPage).getByRole('checkbox').count(),
+      0,
+    );
     const directionQuestion = 'أي عمود يزيد المبلغ المستحق للمورد؟';
     if (formulas) {
       assert.equal(
@@ -1529,7 +1538,7 @@ try {
       }
     } else {
       assert.equal(
-        await directionPage.getByRole('combobox').count(),
+        await supplierPanel(directionPage).getByRole('combobox').count(),
         0,
         `${directionPhase}: every required choice is established by source evidence`,
       );

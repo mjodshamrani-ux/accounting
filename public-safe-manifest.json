@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 25195,
-      "sha256": "c0305300f5719af53fbc7c707fa3ee2998dfe865db1d5ad7e5e2f96d4cf322f2",
+      "bytes": 25329,
+      "sha256": "080b349cca09a2904fb1c49e0199960e06fc26e0eae1f1a4615a47a261bb56d1",
       "kind": "text"
     },
     {
@@ -33,8 +33,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5124,
-      "sha256": "e781c694dfd9dc9691d093ff6b08be0b332213a0287e89ffa6b5749707589354",
+      "bytes": 5881,
+      "sha256": "1ffed9972ac91985108d34d2fcc50e3c77e45d4f62745d45f30c6b1fa4bccc1a",
       "kind": "text"
     },
     {
@@ -45,21 +45,27 @@
     },
     {
       "path": "app/globals.css",
-      "bytes": 43681,
-      "sha256": "abd828daa27147c39601872ac8631d9196cd41b68b780b55ff455cc05cf6383e",
+      "bytes": 44104,
+      "sha256": "11210ae1b66cebfba5fce7e5c156c7815c9f7d0580d4fa232fa865dc738f40f7",
       "kind": "text"
     },
     {
       "path": "app/landing-details.css",
-      "bytes": 20742,
-      "sha256": "c54f9cc13e6085c61d24f3ec40d99eef6728d9104f884fd61ed12f3860eed7d0",
+      "bytes": 20670,
+      "sha256": "acec0ae3a9272fc280decced0fddb00da872578983d7c88793fe31cc02c52ce4",
       "kind": "text"
     },
     {
       "path": "app/page.tsx",
-      "bytes": 130990,
-      "sha256": "8533a0f793d03065ef909a21e2e6371ecd6b4285aa41f81996428c1fe5e8804d",
+      "bytes": 147218,
+      "sha256": "1fd1edf10914b635b5e4a95f83d458028f30aa942536739600dd06fdd249ba24",
       "kind": "text"
+    },
+    {
+      "path": "app/reconciliation-shell.css",
+      "kind": "text",
+      "bytes": 1739,
+      "sha256": "9136b6dc0ec9bdf99bf087d782dc9cbb1b40c170eac469fab78d9c44ea42cb57"
     },
     {
       "path": "audit/allocation-handoff-v1/frozen/expected.json",
@@ -34359,8 +34365,8 @@
     },
     {
       "path": "components/allocation-workspace.tsx",
-      "bytes": 27800,
-      "sha256": "cbee3ba4776be099eed2b7318ce1c34c630bdd59d9da72b9ca253908dc7d51b9",
+      "bytes": 28192,
+      "sha256": "24372b6910b43d0ed45d0ef457a4dfd6f53d4808cd534333cdd9fed87200c246",
       "kind": "text"
     },
     {
@@ -34371,8 +34377,8 @@
     },
     {
       "path": "components/ar-workspace.tsx",
-      "bytes": 31497,
-      "sha256": "92a6104b7c187f50706a7826fa3fbef4dc454e89d513191d4ac8e05c109cd253",
+      "bytes": 31863,
+      "sha256": "052385f62548ddd7bd512b395d9a7de4fa0820516539cdf3a8940f004b9e3373",
       "kind": "text"
     },
     {
@@ -34383,8 +34389,8 @@
     },
     {
       "path": "components/bank-adjustment-workspace.tsx",
-      "bytes": 27449,
-      "sha256": "028c5d4b554e8ce4c0c235312095ece7aa8e1060133557e84a314aa0e2f66a61",
+      "bytes": 27993,
+      "sha256": "5867a31c577380e0494fbd97d01340caa867940c479087d5ba8d58d142fbc65d",
       "kind": "text"
     },
     {
@@ -34395,8 +34401,8 @@
     },
     {
       "path": "components/bank-workspace.tsx",
-      "bytes": 28155,
-      "sha256": "58e4144218486bec5e4cee7c40e9e2a757753b7b2121864d7d6c7ba7482e530d",
+      "bytes": 28930,
+      "sha256": "0fdcd9cbaa2ad62611912f1658facc50b975364eec7a0623577860a74c7a8b2e",
       "kind": "text"
     },
     {
@@ -34413,8 +34419,8 @@
     },
     {
       "path": "components/clearing-workspace.tsx",
-      "bytes": 23225,
-      "sha256": "98c5fda0f6c4c2a643456f730d1b41b19a3690897d188dad4b4e92d1afa17020",
+      "bytes": 23633,
+      "sha256": "8acf84b030ca5c1bec07a64423a3451236a1758f6d6675a251c05a2e1e6777e2",
       "kind": "text"
     },
     {
@@ -34443,8 +34449,8 @@
     },
     {
       "path": "components/fixed-assets-workspace.tsx",
-      "bytes": 24920,
-      "sha256": "be463ef9470025ce458771bd9b8a3aa604bd5134fab0f6af2e909b82f35b2547",
+      "bytes": 25485,
+      "sha256": "6d5033b75e8025a0e570562a3908dfdd74ca13ccf9a9c06ca3a30d63385d4503",
       "kind": "text"
     },
     {
@@ -34455,8 +34461,8 @@
     },
     {
       "path": "components/gl-tb-workspace.tsx",
-      "bytes": 20620,
-      "sha256": "aab982341814ddc7bb6f45a203818d457d7467dd50e7afeb632e4aa0de5cf2d6",
+      "bytes": 21124,
+      "sha256": "eac196580ae3c623cf3773611ca269a58dc0719f1e361c0a8c96a27959c4e199",
       "kind": "text"
     },
     {
@@ -34467,14 +34473,14 @@
     },
     {
       "path": "components/intercompany-workspace.tsx",
-      "bytes": 22631,
-      "sha256": "97dc59b288d669b6fcad174ab9659fbfef34400e7083771fe6b37de40338fd4e",
+      "bytes": 23106,
+      "sha256": "8ba16ebfa79c4abf2a12aeb8dd53b0d937e332b45ff46a1e65d0d166bb918bd0",
       "kind": "text"
     },
     {
       "path": "components/inventory-register-workspace.tsx",
-      "bytes": 21362,
-      "sha256": "4f1bd553a4379840740dbe4685b3602be6fb50edc85b1488897d2ac1591a8fc0",
+      "bytes": 21927,
+      "sha256": "638a791d659623eceee326969ed388ac58e29bc7956dc14f30c4d925c36f1cc8",
       "kind": "text"
     },
     {
@@ -34503,14 +34509,14 @@
     },
     {
       "path": "components/payment-gateway-workspace.tsx",
-      "bytes": 22757,
-      "sha256": "8463ded8e9e1848b4002098c1354505db4f59df290599ee2a04c4d302dd56c63",
+      "bytes": 23246,
+      "sha256": "2c4774747ef07953c59db2002f6df4b1da65fe1218e2fe0c84bd3ac77549ce3c",
       "kind": "text"
     },
     {
       "path": "components/payroll-workspace.tsx",
-      "bytes": 23565,
-      "sha256": "21d024e3c6e354c9199ba8b84bcfe91a52d5a9467cbb6869b6f70d466083acb8",
+      "bytes": 24108,
+      "sha256": "2c2bd6a21ec2ab2907f502a0effb1a5aba015a1d63ada990a9ab8001adcab8b6",
       "kind": "text"
     },
     {
@@ -34521,15 +34527,21 @@
     },
     {
       "path": "components/reconciliation-directory.css",
-      "bytes": 9598,
-      "sha256": "edd2219e0d3f82822239a6c48b9f7b46f829e45585c6a5d7dbf437c6b2de9eed",
+      "bytes": 3697,
+      "sha256": "a08aa1c4c804dedbd023cbdf80a5e847f16f7dd8da07c8ad5ebbc02e79412952",
       "kind": "text"
     },
     {
       "path": "components/reconciliation-directory.tsx",
-      "bytes": 9132,
-      "sha256": "ed27b05946b9918838edc71ac1346c278c73936dc57e79ecc83d7513af536de7",
+      "bytes": 6550,
+      "sha256": "a420d2614dd22d9678c94dd293e1ee36267e964662ff84465b95ad9b7f1d5ca6",
       "kind": "text"
+    },
+    {
+      "path": "components/reconciliation-navigation.tsx",
+      "kind": "text",
+      "bytes": 1203,
+      "sha256": "ba20aa49e70c5b73ecd8d0a839451296a62a5d25bd4a472d931031b1f28badb7"
     },
     {
       "path": "components/running-balance-review.css",
@@ -34569,8 +34581,8 @@
     },
     {
       "path": "components/tb-financial-workspace.tsx",
-      "bytes": 25048,
-      "sha256": "a5d8e73fc812e417a3a1d794e937d91f4d4e29adf767caa11be8e7ae44075151",
+      "bytes": 25549,
+      "sha256": "6197118a9cc97646f5647437d1f3f7b203848b6e6cffda1efe34c78d54fb97a4",
       "kind": "text"
     },
     {
@@ -34983,14 +34995,14 @@
     },
     {
       "path": "components/workspace-chrome.css",
-      "bytes": 20269,
-      "sha256": "da6d55e9095b5689af7633381e55ad8a3b58cbdc4b26cf840d1a944eb101c3f0",
+      "bytes": 22127,
+      "sha256": "3bc2c7df44388d70125eb0450899ad444d2d83dc7b92fb42c4154e87a43ad19e",
       "kind": "text"
     },
     {
       "path": "components/workspace-chrome.tsx",
-      "bytes": 3177,
-      "sha256": "e1e26dbb4a0a77e4e569c02c4f26bceacdd7b87ae6b4071e1e378025812f2d32",
+      "bytes": 6215,
+      "sha256": "62ac9af87026950a93538454e37f817c68d7ba463fa9d3ab0cac34ffb6cc380e",
       "kind": "text"
     },
     {
@@ -35100,6 +35112,12 @@
       "kind": "text"
     },
     {
+      "path": "docs/RELEASE-0.4.47.ar.md",
+      "kind": "text",
+      "bytes": 4018,
+      "sha256": "59010704239849d3ffafb170c8a50ac8432fadae6ec815b907e48e8a6738f48c"
+    },
+    {
       "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
       "bytes": 3044,
       "sha256": "7f313eefb2776c3f1d5e9d61940928042ea74d18279de00ec7f81c4784140671",
@@ -35110,6 +35128,12 @@
       "bytes": 10448,
       "sha256": "391a609d3fe742823fed6f4a8cf7031fa52c2f6e5f228d2963c8cf9fce1c7e0f",
       "kind": "text"
+    },
+    {
+      "path": "docs/WORKSPACE-IDENTITY.ar.md",
+      "kind": "text",
+      "bytes": 4579,
+      "sha256": "fff8d3b4dcb7e3d78c89504d55f0d9728ff891cc6e3ef028c8370aed546fe521"
     },
     {
       "path": "examples/ledger-demo.csv",
@@ -35164,7 +35188,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "b2bb990fa3e1c03eb29c41ec60f39bab3f62c029af54bfbb5e899511f9c0b2f8",
+      "sha256": "732e8b6b7813f36cf6fd6cc7b95bb65191d668839581815379675cdc1f13288a",
       "kind": "text"
     },
     {
@@ -35235,14 +35259,14 @@
     },
     {
       "path": "lib/i18n/locales/ar.ts",
-      "bytes": 100669,
-      "sha256": "a2735fd752105686deb8a9f00d65d857009d0ad33bc54f1d0f9bcbe28441bd95",
+      "bytes": 100507,
+      "sha256": "f40550bf3796db96a44a0704068c977245582acdb0c532ab70e8d6a173f88986",
       "kind": "text"
     },
     {
       "path": "lib/i18n/locales/en.ts",
-      "bytes": 80430,
-      "sha256": "f3b35fb29ecd7635af689b9af7c71cbf79243b78d14bc69bae998cc966ba14ca",
+      "bytes": 80348,
+      "sha256": "292dd5b2c0005119204e8616ae1cdb1aa20138d94540b02cfcddcc8c9084606e",
       "kind": "text"
     },
     {
@@ -35307,8 +35331,8 @@
     },
     {
       "path": "lib/i18n/workspace.ts",
-      "bytes": 282,
-      "sha256": "57a7592878e8b6d7a82f8874439ad5cd2da09a527aaa100b41f59c7e1c7f48ec",
+      "bytes": 1089,
+      "sha256": "18af9325c1d39cfbb520112466d40d2a5096db77e04c2985636a6a46a697bc8d",
       "kind": "text"
     },
     {
@@ -36117,8 +36141,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 10761,
-      "sha256": "a0206f567c4d40680c4ba8418d99f82389901650c09bb1fc94cfcc736a6420f3",
+      "bytes": 10884,
+      "sha256": "e7850f5d3aa10cfac5183e59ac954311ccc69195300253d1097cbb57f9a29419",
       "kind": "text"
     },
     {
@@ -36189,9 +36213,21 @@
     },
     {
       "path": "public/fonts/README.txt",
-      "bytes": 801,
-      "sha256": "7044d3bf3967e88058df17dc8dff777bc732e4d14ef725c05e283830df8228e3",
+      "bytes": 1793,
+      "sha256": "11cb45a5b44a8ed5cf5685fcbf0427b699e564c130d1896720486b850832f4a2",
       "kind": "text"
+    },
+    {
+      "path": "public/fonts/Thmanyah-LICENSE.txt",
+      "kind": "text",
+      "bytes": 21291,
+      "sha256": "457beedc8ae2b9d21d3ebbcac33f0730b6c2b3b1cc02943d5ed88f14e6fc9876"
+    },
+    {
+      "path": "public/fonts/Thmanyah-PROVENANCE.txt",
+      "kind": "text",
+      "bytes": 1136,
+      "sha256": "55cd0db49a2fd08cb6b991c58f53fa224ae5e0538bb700fa28e1f480b0c19cd5"
     },
     {
       "path": "public/fonts/noto-sans-arabic-variable.woff2",
@@ -36202,6 +36238,16 @@
         "type": "licensed-vendor",
         "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
       }
+    },
+    {
+      "path": "public/fonts/thmanyah-serif-display-bold.woff2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Authentic Thmanyah Serif Display Bold webfont restored byte-for-byte from the previously verified project release b3a46dc. Project owner explicitly confirmed webfont self-hosting authorization. Original notices and historical OTF/webfont identity retained in public/fonts/Thmanyah-LICENSE.txt and Thmanyah-PROVENANCE.txt. This approval does not grant third-party redistribution rights."
+      },
+      "bytes": 81988,
+      "sha256": "d36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce"
     },
     {
       "path": "scripts/acceptance-ar-pixel-diff.mjs",
@@ -36235,20 +36281,20 @@
     },
     {
       "path": "scripts/allocation-browser-cases.mjs",
-      "bytes": 10345,
-      "sha256": "a4cec5cae2f453abcb3e0616218c559ed288954746ada2e1ce142f68a64ccaa2",
+      "bytes": 10197,
+      "sha256": "30e95cc4e4432db1992ae2c9a08e75bb7a0486a3cb68c5fa3161acb9c0b0ba1c",
       "kind": "text"
     },
     {
       "path": "scripts/ar-browser-cases.mjs",
-      "bytes": 11752,
-      "sha256": "54e3d28bd4d26f96df9e7cff7120a0b94f34049be90b8be3d2ec05953b562054",
+      "bytes": 11417,
+      "sha256": "571c8b723fddaf3eda86b2f20a9a90a58aaaccaf15c5fbbaa28472ef7361300c",
       "kind": "text"
     },
     {
       "path": "scripts/ar-scope-details-browser.mjs",
-      "bytes": 15312,
-      "sha256": "de283bbe5e7c126968902681c076204ec1c7ac4529fad446ae700ac631570854",
+      "bytes": 15254,
+      "sha256": "c62388d11076064cfdaa1b7c0c4e2855d59ca896ae08bf2094f049a6526e868d",
       "kind": "text"
     },
     {
@@ -36271,26 +36317,26 @@
     },
     {
       "path": "scripts/bank-adjustment-browser-cases.mjs",
-      "bytes": 13238,
-      "sha256": "74d0450dcdb709957188d2792de2e58595906bf36183382bec5f81512d6c8dfb",
+      "bytes": 13282,
+      "sha256": "dcb5ce79660b475e2a1454da0eaf00f5844d7efda3d88727020ed90a277c5a96",
       "kind": "text"
     },
     {
       "path": "scripts/bank-browser-cases.mjs",
-      "bytes": 10207,
-      "sha256": "ece39ebc3c1fe86f5d81c3d5502d1344432d631653005e93c31e223d936bc7cd",
+      "bytes": 10071,
+      "sha256": "cdacebd8b417ea57229e75f4e7f8b3d4ece1955784c83adb236054cd684cadc4",
       "kind": "text"
     },
     {
       "path": "scripts/bank-wd-browser.mjs",
-      "bytes": 34459,
-      "sha256": "8641c840e14d382e4d13b78b7db8589093fd1118cf437657d696637dcad9d388",
+      "bytes": 34224,
+      "sha256": "5fb21df7199bf44a762b69a5e626124742f146838160ef28af1bcc180b758855",
       "kind": "text"
     },
     {
       "path": "scripts/brand-browser-cases.mjs",
-      "bytes": 42403,
-      "sha256": "25ff71f149663cbab196a7106a0b590bc6f48c5dca5bfe465883dc0eb862a033",
+      "bytes": 43619,
+      "sha256": "da43760c3c777815fa0cc3a09fb9cb234a0f332039b06c989ed8c42fc1b7452a",
       "kind": "text"
     },
     {
@@ -36319,8 +36365,8 @@
     },
     {
       "path": "scripts/browser-test.mjs",
-      "bytes": 77629,
-      "sha256": "bb31356a6ef3836e6938ee23cb201568dc2953185b48b74b37d4ee1d0ee92a14",
+      "bytes": 77973,
+      "sha256": "b58857e7fbdfc576b5ffead20191dbcc8e946325d43ccb4d6dce61f61ffce4b4",
       "kind": "text"
     },
     {
@@ -36367,14 +36413,14 @@
     },
     {
       "path": "scripts/clearing-browser-cases.mjs",
-      "bytes": 8897,
-      "sha256": "d412dae1ec36732a491ede200e14dc1750cae35da60ad4db712638f96d4f5509",
+      "bytes": 8684,
+      "sha256": "ee6588fdcbb4a658599e26e2c786fb1c3d6d109487f6e4e727b3185c75fb7a10",
       "kind": "text"
     },
     {
       "path": "scripts/domain-assistant-browser-cases.mjs",
-      "bytes": 5598,
-      "sha256": "c35c3718a18c5575174170399ff6bcc43232c0f6b5e0c39f676e761956c10d72",
+      "bytes": 6051,
+      "sha256": "51a7a4c3c6a96e7f943e64d47ae205a32039f086723532c99f7ac12d43aac79b",
       "kind": "text"
     },
     {
@@ -36385,20 +36431,20 @@
     },
     {
       "path": "scripts/domain-assistant-lock-browser-test.mjs",
-      "bytes": 7004,
-      "sha256": "77de8e4c5920abc5c943ab71e6dc632394a1c7ebf4ad43cc40f8e4489626a0a7",
+      "bytes": 6968,
+      "sha256": "75f5909a4a44aff74216fd715fc82dc1cbf7fa5aa87afa651292c29b4fcaf4bd",
       "kind": "text"
     },
     {
       "path": "scripts/domain-navigation-browser.mjs",
-      "bytes": 12391,
-      "sha256": "fc6e095ae4129f8583aa00b0b1124b765e45b0d294339e2bfbfe5b0f493236bd",
+      "bytes": 17964,
+      "sha256": "a1d1bc77ba1d095db7993e951d02d720a8b03ad4f340a1df08024ae8a7e8d1f5",
       "kind": "text"
     },
     {
       "path": "scripts/domain-navigation-support.mjs",
-      "bytes": 263,
-      "sha256": "ed8e8e52078e0e2680846de2db8f2050844502fe0093bbd577abcef331051553",
+      "bytes": 2248,
+      "sha256": "96387b33d990838a8f742c23a89f3ffb4c3bcb02e8adc85b097ba3c316f140cf",
       "kind": "text"
     },
     {
@@ -36415,8 +36461,8 @@
     },
     {
       "path": "scripts/fixed-assets-browser-cases.mjs",
-      "bytes": 8493,
-      "sha256": "d3703e36c8f9dfcd8b3acdc881df52e1ab712eeec4722cbf754b7c019bf8e617",
+      "bytes": 8436,
+      "sha256": "2722aa69331707cc9439590c2d1cc240514a68ef63c05c457e2e1047f2abc01f",
       "kind": "text"
     },
     {
@@ -36433,8 +36479,8 @@
     },
     {
       "path": "scripts/fixed-assets-long-browser.mjs",
-      "bytes": 24155,
-      "sha256": "89a6c4cbd7432ddfbb43a72fda702702cabe8098d697878ad648eefa08c94268",
+      "bytes": 24260,
+      "sha256": "18e28b0a161b2821f71737afd3db78ea970c17b42282bde3333204cc549f67d6",
       "kind": "text"
     },
     {
@@ -36457,14 +36503,14 @@
     },
     {
       "path": "scripts/gl-tb-browser-cases.mjs",
-      "bytes": 10818,
-      "sha256": "94025cdb029bedc67ac36c6ca1f41e0c28291a355888bf01fd725139c5324b68",
+      "bytes": 10490,
+      "sha256": "4d843e4ce3487440bb2c726bdacc5293add09e9ea7549c7728f88f413c3d71f4",
       "kind": "text"
     },
     {
       "path": "scripts/gl-tb-vertical-browser.mjs",
-      "bytes": 31196,
-      "sha256": "b72f1d2ac2019c573aacaba1ff7ae5d94b8445f31331a0a70474dda3b7fe9b03",
+      "bytes": 31733,
+      "sha256": "50162d914840c6793bbd7a494e5caf1c816a84b0c2df1981b68fdc6c04c318aa",
       "kind": "text"
     },
     {
@@ -36481,8 +36527,8 @@
     },
     {
       "path": "scripts/intercompany-browser-cases.mjs",
-      "bytes": 7790,
-      "sha256": "017ee6f132fe26eab2c69bb5fb482694e2fcbf5bccd55ee97d4fc72083f61838",
+      "bytes": 7797,
+      "sha256": "21f5d487db35064cd04e5c8c6c3dd606d6c032ada5a224f9ac766c9da5387e98",
       "kind": "text"
     },
     {
@@ -36493,8 +36539,8 @@
     },
     {
       "path": "scripts/inventory-register-browser-cases.mjs",
-      "bytes": 7846,
-      "sha256": "c84f3a20ae7834061ee1dcdc10d847c7df25e1ae16f5c6c29521891d8f94c40d",
+      "bytes": 7814,
+      "sha256": "3f9b72de118e7cd03baf495d3f775f19a211102fc04a96dc82640f6ca0a16a30",
       "kind": "text"
     },
     {
@@ -36511,8 +36557,8 @@
     },
     {
       "path": "scripts/language-browser-cases.mjs",
-      "bytes": 11546,
-      "sha256": "641fc386661025feb2faeb2ac7166fcaab576efd75caafc3f48f944b5c218ee7",
+      "bytes": 13133,
+      "sha256": "eeea3058010f2b4c43346c1bd495c631f387f59a6bcc8704727bb0ee5cf88c42",
       "kind": "text"
     },
     {
@@ -36589,8 +36635,8 @@
     },
     {
       "path": "scripts/payment-gateway-browser-cases.mjs",
-      "bytes": 9309,
-      "sha256": "fa33f92523c45af9d7fd6e4315189becce75085a2616b3a1a4145ac2d63c3bd5",
+      "bytes": 9364,
+      "sha256": "1a8b2da515b4605b7c355d900689a6fa50937c5fb33a477349586e16eb220072",
       "kind": "text"
     },
     {
@@ -36613,8 +36659,8 @@
     },
     {
       "path": "scripts/payroll-browser-cases.mjs",
-      "bytes": 10167,
-      "sha256": "38185f09bfd7e5b502407556e9760ddf66e20b7f5a542cb68b1d3fa930688daa",
+      "bytes": 10112,
+      "sha256": "3a24cdc0e7c4dda3d29f2f37dea776cb5f79396f1c13857ec6cfd49a87f7375c",
       "kind": "text"
     },
     {
@@ -36691,8 +36737,8 @@
     },
     {
       "path": "scripts/reconciliation-entry-browser.mjs",
-      "bytes": 10299,
-      "sha256": "8d583643bb359e46d70c35a7358b30f502822d89460f2357d4b081dabbad8f0d",
+      "bytes": 10712,
+      "sha256": "b63179f0e2d714fe0cd2b56a5b1a898e166bf365b9ef9bf1f58bc5c900b009f8",
       "kind": "text"
     },
     {
@@ -36703,8 +36749,8 @@
     },
     {
       "path": "scripts/review-effort-browser-cases.mjs",
-      "bytes": 12056,
-      "sha256": "9495009d2735dc2dbbea12e54815d3c73a0136482e898c4ca7fcdd212e26d822",
+      "bytes": 11908,
+      "sha256": "8f28e57eef964776202a8371692e593e229b109dd96dacf05ad0cd15741e5f88",
       "kind": "text"
     },
     {
@@ -36757,8 +36803,8 @@
     },
     {
       "path": "scripts/specialized-domain-assistant-browser-cases.mjs",
-      "bytes": 12269,
-      "sha256": "947700380749af92c7e385460f296df1228bb35a78c7b9451411d536e3e349e2",
+      "bytes": 12548,
+      "sha256": "485cefe57fc89379942ccfb744903e34d2c3bfc0045f5ec457d15da5b057d2d1",
       "kind": "text"
     },
     {
@@ -36787,8 +36833,8 @@
     },
     {
       "path": "scripts/startup-readiness-browser.mjs",
-      "bytes": 8083,
-      "sha256": "7826e2880aef8e5f6a957ec77eda6a9ecce3c3ac40b24c05c692fc74d32e6ce2",
+      "bytes": 8673,
+      "sha256": "977e9eb3ef663ac889df1faa4dcc2231f2e8e7f906c32ef86ec781030b8d0e37",
       "kind": "text"
     },
     {
@@ -36805,8 +36851,8 @@
     },
     {
       "path": "scripts/tb-financial-browser-cases.mjs",
-      "bytes": 4965,
-      "sha256": "2a1c639869818575ceb40691ad929769bcc858ec8666edab9512b8cf9a23d6fa",
+      "bytes": 4964,
+      "sha256": "45ccb0058e294eb35931320d895a2ac3646681cf05f5929a5a0918a3e96e0a9b",
       "kind": "text"
     },
     {
@@ -36904,6 +36950,12 @@
       "bytes": 6576,
       "sha256": "95616987ffbc857c52c7cac60c976c4d56ec7fe3e11c39143e3cc46a548ef4f2",
       "kind": "text"
+    },
+    {
+      "path": "scripts/unified-workspace-browser.mjs",
+      "kind": "text",
+      "bytes": 30836,
+      "sha256": "366e4e5c853243c9073d6cf98cd8e9c91481deef1c7d5533ccd007f19f92487c"
     },
     {
       "path": "scripts/unknown-credit-browser-cases.mjs",
@@ -39020,21 +39072,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-CHkFtQm7.js",
+      "path": "assets/ar-io-CvF_7O3J.js",
       "bytes": 11377,
-      "sha256": "b43523c4945241d6662f4183d12052dbe2050e946ef9006519d4abbd937c4221",
+      "sha256": "87699d4b4f7caa098951c49f7d33889afdd880491af7c3d9221ff1f6168af379",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-CRR--Oqf.js",
+      "path": "assets/bank-adjustment-io-CSnBkXS_.js",
       "bytes": 12101,
-      "sha256": "3f6638f559faf1ca5fbbeafcc344636d8c44dfd931dd5d2f46efe22a72dd27f3",
+      "sha256": "0fe222b5dea988fdc9201611d60c5e6b85af46b12f007782f985665ab56bef9c",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-B2KhwV5L.js",
+      "path": "assets/bank-io-BhzoK-3B.js",
       "bytes": 6331,
-      "sha256": "38c923ae396536100b588a3ebc426872262f041ead67db154197428ec2527c33",
+      "sha256": "6224872a9b039da2989ece5fb2582adf738ed58ed779fdbcfcb47d4d36c113ba",
       "kind": "text"
     },
     {
@@ -39070,32 +39122,32 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-FLt76qfm.js",
+      "path": "assets/fixed-assets-io-D22Jjty_.js",
       "bytes": 9830,
-      "sha256": "b40ad734a92e0a7e5c5ca93f39ec77447dce65cc97b90f1f9fb50238ebf0497b",
+      "sha256": "8b5e0c6dde5f7047a5180f159ba42352d8567940cf66527b843993999fe6483f",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-BCkEzCCE.js",
+      "path": "assets/gl-tb-io-BmP5bLdQ.js",
       "bytes": 2184,
-      "sha256": "29ab5672b05edea6e73fab6228bc9ba6e76277e42c901ffc7a2a1c6269fec785",
+      "sha256": "bab919feadce32c2b51a1a25ef133160c4ec455edb7b681e2493bd7a3ef77bf7",
       "kind": "text"
     },
     {
-      "path": "assets/index-BPic_Rvu.js",
-      "bytes": 6284048,
-      "sha256": "492b8c58bdd04d0267737a33b602549f4e0161cc0a4da133a46afb677c910096",
+      "path": "assets/index-DcRvqgW_.css",
+      "bytes": 275028,
+      "sha256": "127184934a807e58dff1f5eb55dca0d0deec362ef036bbc804ed55608da56595",
+      "kind": "text"
+    },
+    {
+      "path": "assets/index-ohnjCIFT.js",
+      "bytes": 6287228,
+      "sha256": "f0ae30cdeec40ace42681ab8b24b145c05aa85d79589631c25364828baee0b63",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
         "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
       }
-    },
-    {
-      "path": "assets/index-CKlHHeUp.css",
-      "bytes": 276348,
-      "sha256": "a3b35b8b806f6b1541f317306a8e0107c228fae9608a25f698c86663b93bd695",
-      "kind": "text"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -39237,9 +39289,21 @@
     },
     {
       "path": "fonts/README.txt",
-      "bytes": 801,
-      "sha256": "7044d3bf3967e88058df17dc8dff777bc732e4d14ef725c05e283830df8228e3",
+      "bytes": 1793,
+      "sha256": "11cb45a5b44a8ed5cf5685fcbf0427b699e564c130d1896720486b850832f4a2",
       "kind": "text"
+    },
+    {
+      "path": "fonts/Thmanyah-LICENSE.txt",
+      "kind": "text",
+      "bytes": 21291,
+      "sha256": "457beedc8ae2b9d21d3ebbcac33f0730b6c2b3b1cc02943d5ed88f14e6fc9876"
+    },
+    {
+      "path": "fonts/Thmanyah-PROVENANCE.txt",
+      "kind": "text",
+      "bytes": 1136,
+      "sha256": "55cd0db49a2fd08cb6b991c58f53fa224ae5e0538bb700fa28e1f480b0c19cd5"
     },
     {
       "path": "fonts/noto-sans-arabic-variable.woff2",
@@ -39252,9 +39316,19 @@
       }
     },
     {
+      "path": "fonts/thmanyah-serif-display-bold.woff2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Authentic Thmanyah Serif Display Bold webfont restored byte-for-byte from the previously verified project release b3a46dc. Project owner explicitly confirmed webfont self-hosting authorization. Original notices and historical OTF/webfont identity retained in public/fonts/Thmanyah-LICENSE.txt and Thmanyah-PROVENANCE.txt. This approval does not grant third-party redistribution rights."
+      },
+      "bytes": 81988,
+      "sha256": "d36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce"
+    },
+    {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "229ef366b4d606a74bae3261890e8cfb5567ba2f765e0508432cc52ee58db9e6",
+      "sha256": "cb5cfb54fa2529c8f67c0fb524fe6718b964e6d59760c82ad4eb4f9d5b3aa7a0",
       "kind": "text"
     },
     {

@@ -1,3 +1,4 @@
+import { openDomainWorkspace, workspaceSource } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyGateway(
@@ -8,12 +9,7 @@ export async function verifyGateway(
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', {
-      name: 'Payment gateway batch evidence',
-      exact: true,
-    })
-    .click();
+  await openDomainWorkspace(page, 'gateway');
   const w = page.locator('[data-gateway-workspace]'),
     status = w.locator('[data-gateway-status]');
   const wait = () =>
@@ -104,7 +100,7 @@ export async function verifyGateway(
     );
   await wait();
   assert.equal(await status.count(), 0);
-  await w.locator('fieldset:has(input[type="file"])').nth(0).getByRole('checkbox').check();
+  await workspaceSource(w, 'Gateway sales and refunds').getByRole('checkbox').check();
   await w
     .getByLabel(
       'I reviewed all supplied transactions, independent fee detail, settlement and bank credit.',
@@ -130,7 +126,7 @@ export async function verifyGateway(
     .getByLabel('Independent fee evidence', { exact: true })
     .setInputFiles('audit/payment-gateway/frozen/fee-proof-missing-1.csv');
   await wait();
-  await w.locator('fieldset:has(input[type="file"])').nth(1).getByRole('checkbox').check();
+  await workspaceSource(w, 'Independent fee evidence').getByRole('checkbox').check();
   await w
     .getByLabel(
       'I reviewed all supplied transactions, independent fee detail, settlement and bank credit.',
@@ -150,7 +146,7 @@ export async function verifyGateway(
       'audit/payment-gateway/frozen/gross-errors-net-cancels-2.csv',
     );
   await wait();
-  await w.locator('fieldset:has(input[type="file"])').nth(2).getByRole('checkbox').check();
+  await workspaceSource(w, 'Gateway settlement summary').getByRole('checkbox').check();
   await w
     .getByLabel(
       'I reviewed all supplied transactions, independent fee detail, settlement and bank credit.',
@@ -168,8 +164,15 @@ export async function verifyGateway(
   await wait();
   await w.getByLabel('Gateway sales and refunds', { exact: true }).setInputFiles('audit/payment-gateway/comma-provenance/source-0.csv');
   await wait();
-  await w.locator('fieldset:has(input[type="file"])').nth(0).getByRole('checkbox').check();
-  await w.getByLabel('I reviewed all supplied transactions, independent fee detail, settlement and bank credit.', { exact: true }).check();
+  await workspaceSource(w, 'Gateway sales and refunds')
+    .getByRole('checkbox')
+    .check();
+  await w
+    .getByLabel(
+      'I reviewed all supplied transactions, independent fee detail, settlement and bank credit.',
+      { exact: true },
+    )
+    .check();
   await button('Check gateway batch').click();
   await wait();
   assert.equal(await status.innerText(), 'Source evidence is invalid');
@@ -177,8 +180,13 @@ export async function verifyGateway(
   await button('Reject whole batch').click();
   await wait();
   await download('Export gateway evidence', 'ui-declared-comma-reject.xlsx');
-  await download('Save gateway session', 'ui-declared-comma-reject-session.json');
-  const declared = JSON.parse(await readFile(`${out}/ui-declared-comma-reject-session.json`, 'utf8'));
+  await download(
+    'Save gateway session',
+    'ui-declared-comma-reject-session.json',
+  );
+  const declared = JSON.parse(
+    await readFile(`${out}/ui-declared-comma-reject-session.json`, 'utf8'),
+  );
   assert.equal(declared.events[0].memberIds.length, 11);
   await w.getByLabel('Restore gateway session', { exact: true }).setInputFiles(`${out}/ui-declared-comma-reject-session.json`);
   await wait();
@@ -193,7 +201,7 @@ export async function verifyGateway(
   await status.waitFor();
   for (const width of [320, 390]) {
     await page.setViewportSize({ width, height: 900 });
-    await w.getByRole('button', { name: 'AR العربية', exact: true }).click();
+    await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
     assert.equal(await page.locator('html').getAttribute('dir'), 'rtl');
     await page.screenshot({ path: `${out}/ar-${width}.png`, fullPage: true });
     assert.ok(
@@ -202,7 +210,7 @@ export async function verifyGateway(
       ),
       'Arabic overflow',
     );
-    await w.getByRole('button', { name: 'EN English', exact: true }).click();
+    await page.getByRole('button', { name: 'EN English', exact: true }).click();
     assert.equal(await page.locator('html').getAttribute('dir'), 'ltr');
     await page.screenshot({ path: `${out}/en-${width}.png`, fullPage: true });
     assert.ok(

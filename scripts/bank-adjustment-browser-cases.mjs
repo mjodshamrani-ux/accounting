@@ -1,3 +1,4 @@
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 export async function verifyBankAdjustments(
@@ -8,9 +9,7 @@ export async function verifyBankAdjustments(
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'EN English', exact: true }).click();
-  await page
-    .getByRole('button', { name: 'Bank movements', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'bank', { balanceFlow: true });
   const section = page.getByTestId('bank-balance-workspace');
   const status = page.getByTestId('bank-balance-result');
   const endpoints = page.getByTestId('bank-balance-endpoints');

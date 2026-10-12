@@ -1,0 +1,75 @@
+.reconciliation-shell > main {
+  min-width: 0;
+}
+.global-privacy-panel {
+  width: min(1120px, calc(100% - 48px));
+  margin: 24px auto;
+}
+.global-privacy-panel:empty {
+  display: none;
+}
+.reconciliation-shell [data-domain-panel][hidden],
+.reconciliation-shell [hidden] {
+  display: none !important;
+}
+.reconciliation-shell .app-shell.reconciliation-workspace,
+.reconciliation-shell .workspace.reconciliation-workspace {
+  min-height: 0;
+  background: transparent;
+  padding-top: 18px;
+}
+.reconciliation-shell .workspace-header--embedded {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  margin-bottom: 2px;
+}
+.reconciliation-shell .workspace-header--embedded button {
+  font-size: 11px;
+  color: #7b7290;
+  border-color: transparent;
+  background: transparent;
+  padding: 4px 8px;
+  min-height: 32px;
+}
+.reconciliation-shell .workspace {
+  width: min(1120px, calc(100% - 48px));
+  margin: 24px auto;
+}
+.reconciliation-shell .page-heading {
+  padding: 0 0 20px;
+}
+.reconciliation-shell .session-upload {
+  min-width: 0;
+}
+.reconciliation-shell input[type='file'] {
+  min-width: 0;
+  max-width: 100%;
+}
+.reconciliation-shell .workspace-intro__context {
+  font-size: 11px;
+}
+.reconciliation-shell .workspace-file-input {
+  min-height: 170px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #fdfcff, #fafcff);
+}
+@media (max-width: 650px) {
+  .reconciliation-shell .workspace {
+    width: calc(100% - 32px);
+    margin: 20px auto;
+  }
+  .reconciliation-shell .topbar {
+    padding-inline: 16px;
+  }
+  .reconciliation-shell .session-upload {
+    flex-wrap: wrap;
+  }
+  .reconciliation-shell .session-upload label {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .reconciliation-shell .workspace-file-input {
+    min-height: 150px;
+  }
+}

@@ -8,6 +8,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Thmanyah Serif Display';
+  src: url('/fonts/thmanyah-serif-display-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -24,7 +31,9 @@
   --color-accent-foreground: #5d32b5;
   --color-destructive: #b43e42;
   --radius-lg: 10px;
-  --font-display: 'Geeza Pro', 'Traditional Arabic', Tahoma, Arial, serif;
+  --font-display: 'Thmanyah Serif Display', 'Noto Sans Arabic', serif;
+  --font-display-arabic: 'Thmanyah Serif Display', 'Noto Sans Arabic', serif;
+  --font-display-latin: Arial, Helvetica, sans-serif;
   --font-sans: 'Noto Sans Arabic', Arial, sans-serif;
 }
 :root {
@@ -36,6 +45,9 @@
   color: var(--foreground);
   background: var(--background);
   font-synthesis: none;
+}
+:root:lang(en) {
+  --font-display: var(--font-display-latin);
 }
 * {
   box-sizing: border-box;
@@ -818,7 +830,7 @@ th {
   }
 }
 
-/* Tarasuf: quiet white surfaces, native display lettering, legible evidence. */
+/* Tarasuf: quiet white surfaces, authentic native display text, legible evidence. */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 106px;
@@ -986,7 +998,7 @@ body {
 }
 .display-heading,
 .brand-wordmark-arabic {
-  font-family: 'Geeza Pro', 'Traditional Arabic', Tahoma, Arial, serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-style: normal;
   font-synthesis: none;
@@ -994,6 +1006,9 @@ body {
   font-feature-settings: normal;
   letter-spacing: normal;
   word-spacing: normal;
+}
+.brand-wordmark-arabic {
+  font-family: var(--font-display-arabic);
 }
 .display-heading {
   display: block;

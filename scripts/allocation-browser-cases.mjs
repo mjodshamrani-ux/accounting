@@ -1,14 +1,12 @@
 import assert from 'node:assert/strict';
-import { revealDomainEntry } from './domain-navigation-support.mjs';
+import { openDomainWorkspace } from './domain-navigation-support.mjs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import ExcelJS from 'exceljs';
 export async function verifyAllocation(page, url, out = 'work/qa') {
   await mkdir(out, { recursive: true });
   await page.goto(url);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();
-  await page
-    .getByRole('button', { name: 'تخصيص الدفعات', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'allocation');
   await page
     .getByRole('heading', { name: 'تخصيص الدفعات', exact: true })
     .waitFor();
@@ -128,10 +126,7 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
   await page
     .getByRole('button', { name: 'Back to suppliers', exact: true })
     .click();
-  await revealDomainEntry(page, 'allocation');
-  await page
-    .getByRole('button', { name: 'Payment allocation', exact: true })
-    .click();
+  await openDomainWorkspace(page, 'allocation');
   assert.equal((await moneyRows())[0][4], '1,000.00');
   await page
     .getByLabel('Restore allocation session', { exact: true })

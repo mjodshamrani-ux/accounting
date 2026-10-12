@@ -6,6 +6,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
@@ -240,83 +242,93 @@ export function ArWorkspace({
       data-ar-workspace
       aria-busy={busy}
     >
-      <WorkspaceHeader onBack={onBack} backLabel={t.back} disabled={busy} />
+      <WorkspaceHeader
+        onBack={onBack}
+        backLabel={t.back}
+        disabled={busy}
+        hasWork={files.some(Boolean)}
+      />
       <WorkspaceIntro title={t.title} intro={t.intro}>
         <p>{t.limits}</p>
       </WorkspaceIntro>
       <fieldset disabled={busy}>
-        <div className="clearing-actions workspace-toolbar">
-          <Button
-            onClick={() =>
-              perform(async (signal) => {
-                const source: SourceFile[] = [];
-                for (const demo of arDemo())
-                  source.push(await workerTask('read', demo, signal));
-                install(
-                  await workerTask(
-                    'ar-reconcile',
-                    {
-                      files: source,
-                      readings: arDemoReadings,
-                      scope: arDemoScope,
-                      events: [],
-                    },
-                    signal,
-                  ),
-                );
-              })
-            }
-          >
-            {t.sample}
-          </Button>
-          <Button
-            variant="outline"
-            onClick={() =>
-              perform(async (signal) => {
-                const sources: SourceFile[] = [];
-                for (const demo of arScopeDemo())
-                  sources.push(await workerTask('read', demo, signal));
-                setFiles(sources as ArInput['files']);
-                setReadings([
-                  suggestArScopeReading(sources[0], 0),
-                  suggestArScopeReading(sources[1], 1),
-                ]);
-                setScope({ ...arScopeDemoScope });
-                invalidate();
-              })
-            }
-          >
-            {t.scopeSample}
-          </Button>
-          <label>
-            {t.restore}
-            <input
-              type="file"
-              accept=".json"
-              onChange={(event) => {
-                const file = event.target.files?.[0];
-                event.target.value = '';
-                if (file) {
-                  if (file.size > 32 * 1024 * 1024) {
-                    setError(true);
-                    return;
-                  }
-                  void perform(async (signal) =>
-                    install(
-                      await workerTask(
-                        'ar-restore',
-                        { buffer: await file.arrayBuffer() },
-                        signal,
-                      ),
+        <WorkspaceAdvanced>
+          <div className="clearing-actions workspace-toolbar">
+            <Button
+              onClick={() =>
+                perform(async (signal) => {
+                  const source: SourceFile[] = [];
+                  for (const demo of arDemo())
+                    source.push(await workerTask('read', demo, signal));
+                  install(
+                    await workerTask(
+                      'ar-reconcile',
+                      {
+                        files: source,
+                        readings: arDemoReadings,
+                        scope: arDemoScope,
+                        events: [],
+                      },
+                      signal,
                     ),
                   );
-                }
-              }}
-            />
-          </label>
-        </div>
+                })
+              }
+            >
+              {t.sample}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() =>
+                perform(async (signal) => {
+                  const sources: SourceFile[] = [];
+                  for (const demo of arScopeDemo())
+                    sources.push(await workerTask('read', demo, signal));
+                  setFiles(sources as ArInput['files']);
+                  setReadings([
+                    suggestArScopeReading(sources[0], 0),
+                    suggestArScopeReading(sources[1], 1),
+                  ]);
+                  setScope({ ...arScopeDemoScope });
+                  invalidate();
+                })
+              }
+            >
+              {t.scopeSample}
+            </Button>
+            <label>
+              {t.restore}
+              <input
+                type="file"
+                accept=".json"
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  event.target.value = '';
+                  if (file) {
+                    if (file.size > 32 * 1024 * 1024) {
+                      setError(true);
+                      return;
+                    }
+                    void perform(async (signal) =>
+                      install(
+                        await workerTask(
+                          'ar-restore',
+                          { buffer: await file.arrayBuffer() },
+                          signal,
+                        ),
+                      ),
+                    );
+                  }
+                }}
+              />
+            </label>
+          </div>
+        </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
-        <div className="clearing-grid workspace-sources">
+        <WorkspaceSources
+          primaryIndices={[0, 1]}
+          primaryReady={!!(files[0] && files[1])}
+        >
           {[0, 1].map((value) => {
             const side = value as 0 | 1,
               source = files[side],
@@ -426,8 +438,7 @@ export function ArWorkspace({
                             }}
                           />
                         </label>
-                        <details className="ar-source-evidence">
-                          <summary>{t.scopeHeader}</summary>
+                        <WorkspaceAdvanced summary={t.scopeHeader}>
                           <div className="clearing-scroll">
                             <table>
                               <thead>
@@ -448,7 +459,7 @@ export function ArWorkspace({
                               </tbody>
                             </table>
                           </div>
-                        </details>
+                        </WorkspaceAdvanced>
                       </>
                     )}
                     <div className="clearing-grid">
@@ -512,8 +523,8 @@ export function ArWorkspace({
               </section>
             );
           })}
-        </div>
-        <section className="workspace-scope">
+        </WorkspaceSources>
+        <section className="workspace-scope" hidden={!(files[0] && files[1])}>
           <WorkspaceGroupTitle kind="scope" />
           <div className="clearing-grid">
             {scopeFields.map((key) => (

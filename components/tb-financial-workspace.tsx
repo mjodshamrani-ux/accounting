@@ -7,6 +7,8 @@ import {
   WorkspaceSourceHeading,
   WorkspaceGroupTitle,
   WorkspaceFileInput,
+  WorkspaceSources,
+  WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
 import { workerTask } from '@/lib/reconciliation/client';
@@ -315,6 +317,7 @@ export function FinancialWorkspace({
           onBack={onBack}
           backLabel={t.financial.back}
           disabled={busy}
+          hasWork={files.some(Boolean)}
         />
         <WorkspaceIntro
           title={t.financial.trialBalanceAndFinancialPosition}
@@ -327,43 +330,48 @@ export function FinancialWorkspace({
           </p>
           <p>{t.financial.currentFamilyWholePostClosingTrialBalanceOne}</p>
         </WorkspaceIntro>
-        <div className="gl-tb-actions workspace-toolbar">
-          <Button disabled={busy} onClick={() => void demo()}>
-            {t.financial.syntheticExample}
-          </Button>
-          <label>
-            {t.financial.restoreSession}
-            <input
-              type="file"
-              accept=".json"
-              disabled={busy}
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                e.target.value = '';
-                if (f)
-                  void perform(
-                    async (signal) =>
-                      workerTask<{
-                        state: FinancialInput;
-                        result: FinancialResult;
-                      }>(
-                        'tb-financial-restore',
-                        { buffer: await f.arrayBuffer() },
-                        signal,
-                      ),
-                    install,
-                  );
-              }}
-            />
-          </label>
-          {busy && (
-            <Button variant="outline" onClick={cancel}>
-              {t.financial.cancelOperation}
+        <WorkspaceAdvanced>
+          <div className="gl-tb-actions workspace-toolbar">
+            <Button disabled={busy} onClick={() => void demo()}>
+              {t.financial.syntheticExample}
             </Button>
-          )}
-        </div>
+            <label>
+              {t.financial.restoreSession}
+              <input
+                type="file"
+                accept=".json"
+                disabled={busy}
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  e.target.value = '';
+                  if (f)
+                    void perform(
+                      async (signal) =>
+                        workerTask<{
+                          state: FinancialInput;
+                          result: FinancialResult;
+                        }>(
+                          'tb-financial-restore',
+                          { buffer: await f.arrayBuffer() },
+                          signal,
+                        ),
+                      install,
+                    );
+                }}
+              />
+            </label>
+            {busy && (
+              <Button variant="outline" onClick={cancel}>
+                {t.financial.cancelOperation}
+              </Button>
+            )}
+          </div>
+        </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
-        <div className="gl-tb-grid workspace-sources">
+        <WorkspaceSources
+          primaryIndices={[0, 3]}
+          primaryReady={!!(files[0] && files[3])}
+        >
           {FINANCIAL_ROLES.map((role, i) => (
             <fieldset key={role} disabled={busy} className="workspace-source">
               <legend>
@@ -398,8 +406,8 @@ export function FinancialWorkspace({
               </label>
             </fieldset>
           ))}
-        </div>
-        <fieldset disabled={busy}>
+        </WorkspaceSources>
+        <fieldset disabled={busy} hidden={!(files[0] && files[3])}>
           <legend>{t.financial.confirmedComparisonScope}</legend>
           <div className="gl-tb-grid">
             {FINANCIAL_SCOPE_FIELDS.map((k, i) => (
@@ -432,43 +440,45 @@ export function FinancialWorkspace({
             {t.financial.iConfirmTheScopeAgreesAcrossAllFour}
           </label>
         </fieldset>
-        <fieldset disabled={busy}>
-          <legend>{t.financial.suppliedInventoryAttestation}</legend>
-          <label>
-            <input
-              type="checkbox"
-              checked={complete.confirmed}
-              onChange={(e) => {
-                setComplete({ ...complete, confirmed: e.target.checked });
-                invalidate();
-              }}
-            />
-            {
-              t.financial
-                .iReviewedCompletenessOfSuppliedAccountsDimensionsMappings
-            }
-          </label>
-          <label>
-            {t.financial.attestationReference}
-            <input
-              value={complete.reference}
-              onChange={(e) => {
-                setComplete({ ...complete, reference: e.target.value });
-                invalidate();
-              }}
-            />
-          </label>
-          <label>
-            {t.financial.attestationReason}
-            <input
-              value={complete.note}
-              onChange={(e) => {
-                setComplete({ ...complete, note: e.target.value });
-                invalidate();
-              }}
-            />
-          </label>
-        </fieldset>
+        <WorkspaceAdvanced summary={t.financial.suppliedInventoryAttestation}>
+          <fieldset disabled={busy}>
+            <legend>{t.financial.suppliedInventoryAttestation}</legend>
+            <label>
+              <input
+                type="checkbox"
+                checked={complete.confirmed}
+                onChange={(e) => {
+                  setComplete({ ...complete, confirmed: e.target.checked });
+                  invalidate();
+                }}
+              />
+              {
+                t.financial
+                  .iReviewedCompletenessOfSuppliedAccountsDimensionsMappings
+              }
+            </label>
+            <label>
+              {t.financial.attestationReference}
+              <input
+                value={complete.reference}
+                onChange={(e) => {
+                  setComplete({ ...complete, reference: e.target.value });
+                  invalidate();
+                }}
+              />
+            </label>
+            <label>
+              {t.financial.attestationReason}
+              <input
+                value={complete.note}
+                onChange={(e) => {
+                  setComplete({ ...complete, note: e.target.value });
+                  invalidate();
+                }}
+              />
+            </label>
+          </fieldset>
+        </WorkspaceAdvanced>
         <div className="gl-tb-actions workspace-run-actions">
           <Button
             disabled={busy || !ready}
