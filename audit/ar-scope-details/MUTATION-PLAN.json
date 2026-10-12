@@ -1,0 +1,165 @@
+{
+  "stage": "planned-product-faults-not-executed",
+  "productMutantsExecuted": 0,
+  "baselineRequired": true,
+  "assertionFailureRequired": true,
+  "timeoutImportSyntaxAreNotKills": true,
+  "mutations": [
+    {
+      "id": "amount-open-substitution",
+      "surface": "محول المصدر/المحرك",
+      "fault": "استبدال original بـOpen balance",
+      "requiredAssertion": "same-original-different-open يبقي الأصل؛ same-open-different-original لا يطابق"
+    },
+    {
+      "id": "invent-receipt-allocation",
+      "surface": "نتيجة المقارنة",
+      "fault": "استنتاج تخصيص من original−open أو related invoice",
+      "requiredAssertion": "receipt-only وtwo-receipts لا تنتجان أي تخصيص"
+    },
+    {
+      "id": "parent-forward-fill",
+      "surface": "قارئ التفاصيل",
+      "fault": "ملء Parent scope ID الفارغ من الرأس",
+      "requiredAssertion": "missing-parent يبقى خطأ محفوظًا"
+    },
+    {
+      "id": "foreign-parent",
+      "surface": "قارئ التفاصيل",
+      "fault": "قبول أب مختلف",
+      "requiredAssertion": "foreign-parent يمنع الاعتماد"
+    },
+    {
+      "id": "scope-overwrite",
+      "surface": "قارئ الرأس",
+      "fault": "استبدال نطاق رأس المصدر بالنطاق المؤكد دون المقارنة",
+      "requiredAssertion": "wrong-customer/wrong-currency يرفضان"
+    },
+    {
+      "id": "late-header-bleed",
+      "surface": "حدود المصدر",
+      "fault": "توريث رأس ثان أو صف بعد النهاية",
+      "requiredAssertion": "second-scope-header/detail-after-end مرفوضان"
+    },
+    {
+      "id": "invent-own-identity",
+      "surface": "بناء الحركة",
+      "fault": "ملء own number من Scope ID أو الصف",
+      "requiredAssertion": "missing-own-number لا يتحول إلى حركة"
+    },
+    {
+      "id": "drop-late-invalid-competitor",
+      "surface": "الجرد والمقارنة",
+      "fault": "حذف الصف المتأخر المعيب",
+      "requiredAssertion": "late-invalid-competitor يحجب الزوج كله ويبقى في الجرد"
+    },
+    {
+      "id": "zero-is-original",
+      "surface": "سياسة AR",
+      "fault": "السماح بالصفر في أي نوع",
+      "requiredAssertion": "0/+0/-0 تحفظ كأخطاء ولا تستبدل بالمفتوح"
+    },
+    {
+      "id": "sign-kind-mismatch",
+      "surface": "سياسة AR",
+      "fault": "تجاهل علامة الفاتورة/الإشعار/القبض",
+      "requiredAssertion": "سوالب العلامة تفشل بالفعل"
+    },
+    {
+      "id": "round-precision",
+      "surface": "قارئ الأموال",
+      "fault": "تقريب الكسور أو تجاوز 1e14",
+      "requiredAssertion": "excess-precision/amount-over-bound/aggregate-over-bound ترفض"
+    },
+    {
+      "id": "related-as-own",
+      "surface": "هوية المستند",
+      "fault": "ترقية Related invoice إلى رقم المستند",
+      "requiredAssertion": "invoice-v-receipt-reference لا يطابق"
+    },
+    {
+      "id": "duplicate-document-choice",
+      "surface": "تجميع الحالات",
+      "fault": "اختيار أول مرشح عند التكرار",
+      "requiredAssertion": "duplicate-own-document يبقى review دون اختيار"
+    },
+    {
+      "id": "ignore-parent-context",
+      "surface": "سياق القرار",
+      "fault": "استثناء رأس/أب/حدود القراءة من context",
+      "requiredAssertion": "تغيير الرأس أو parent يبطل الحدث المحفوظ"
+    },
+    {
+      "id": "ignore-open-raw-context",
+      "surface": "سياق المصدر",
+      "fault": "قبول حدث قديم بعد تغيير بايتات Open balance",
+      "requiredAssertion": "hash/context مختلف رغم عدم سلطة الرصيد المالية"
+    },
+    {
+      "id": "trust-derived-cache",
+      "surface": "استعادة الجلسة",
+      "fault": "تفضيل صفوف أو مبالغ cached على الأصل",
+      "requiredAssertion": "تعديل cache فقط لا يغير النتيجة الأصلية أو يُرفض بالشكل الصريح"
+    },
+    {
+      "id": "late-request-capture",
+      "surface": "عميل العامل",
+      "fault": "نسخ الطلب بعد factory/await",
+      "requiredAssertion": "تعديل buffer/reading/events قبل yield لا يغير الطلب الملتقط"
+    },
+    {
+      "id": "coherent-foreign-response",
+      "surface": "حارس رد العامل",
+      "fault": "قبول زوج أجنبي صحيح ذاتيًا",
+      "requiredAssertion": "أصل/رأس/سياق/أحداث غريبة ترفض حتى لو تطابق الرد مع نفسه"
+    },
+    {
+      "id": "foreign-restored-session",
+      "surface": "حارس الاستعادة",
+      "fault": "إرجاع جلسة أخرى صحيحة",
+      "requiredAssertion": "الرد مرتبط ببايتات جلسة restore المطلوبة"
+    },
+    {
+      "id": "late-result-after-cancel",
+      "surface": "دورة العامل",
+      "fault": "تنصيب رد بعد الإلغاء أو بعد طلب أحدث",
+      "requiredAssertion": "الإلغاء ينهي العامل ويحفظ الحالة السابقة والرد المتأخر مهمل"
+    },
+    {
+      "id": "export-source-corruption",
+      "surface": "Excel Sources",
+      "fault": "حذف جزء أصل أو تعديل بايتاته",
+      "requiredAssertion": "المدقق المستقل يعيد base64 ويرفض hash المختلف"
+    },
+    {
+      "id": "export-parent-provenance-drop",
+      "surface": "Excel lineage",
+      "fault": "إسقاط أصل قيمة موروثة أو Parent scope ID",
+      "requiredAssertion": "كل عضو يحتفظ بعلاقة الرأس وخلاياها"
+    },
+    {
+      "id": "export-inventory-drop",
+      "surface": "Excel inventory",
+      "fault": "إسقاط صف blank/error/header أو عضو صالح",
+      "requiredAssertion": "الجرد الكامل والعضوية والصفر المرفوض لا تختفي"
+    },
+    {
+      "id": "native-open-formula",
+      "surface": "حارس native",
+      "fault": "تجاهل صيغة في Open balance باعتباره غير مالي",
+      "requiredAssertion": "الصيغة/cache أو الخفاء/الدمج لا يمر كقيمة حرفية"
+    },
+    {
+      "id": "legacy-session-break",
+      "surface": "التوافق",
+      "fault": "إلزام legacy بالرأس الجديد أو تبديل سياقها",
+      "requiredAssertion": "حفظ/استعادة قراءات ar-limited-1 وقراراتها دون تحويل صامت"
+    },
+    {
+      "id": "export-original-open-swap",
+      "surface": "Excel money role",
+      "fault": "وضع open في عمود original مع مجموع متماسك",
+      "requiredAssertion": "المدقق يعيد original من المصدر ويرفض الاستبدال"
+    }
+  ]
+}

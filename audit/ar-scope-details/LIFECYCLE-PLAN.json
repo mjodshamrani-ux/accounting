@@ -1,0 +1,69 @@
+{
+  "stage": "planned-not-executed",
+  "newFamilyProductImplemented": false,
+  "cases": [
+    {
+      "id": "read-originals",
+      "requiredProof": "CSV/native/زوج مختلط، الرأس وخلايا الأصل والجرد كامل"
+    },
+    {
+      "id": "reconcile-source-error",
+      "requiredProof": "صف معيب متأخر يمنع جميع المطابقات مع حفظ الأعضاء"
+    },
+    {
+      "id": "save-restore",
+      "requiredProof": "الأصول والقراءات والرأس والنطاق والأحداث تحفظ ثم تعاد القراءة دون cache موثوق"
+    },
+    {
+      "id": "open-change",
+      "requiredProof": "تعديل open الخام يغير hash/context ويبطل حدثًا قديمًا دون استخدامه كمبلغ"
+    },
+    {
+      "id": "parent-change",
+      "requiredProof": "تغيير Scope ID/parent/header/end يبطل السياق أو يرفض البنية"
+    },
+    {
+      "id": "decision-reopen",
+      "requiredProof": "إعادة فتح زوج مطابق ثم قبول مبرر فقط وفق شروط AR الأصلية"
+    },
+    {
+      "id": "request-capture",
+      "requiredProof": "تغيير المصدر/options/events من factory وقبل وبعدawait"
+    },
+    {
+      "id": "coherent-foreign-worker",
+      "requiredProof": "رد من مصدرين آخرين متماسكين ماليًا لا يثبت الطلب الأصلي"
+    },
+    {
+      "id": "cancel-before-await",
+      "requiredProof": "إلغاء قبل التحضير لا ينصب حالة"
+    },
+    {
+      "id": "cancel-after-await",
+      "requiredProof": "إنهاء العامل والاحتفاظ بالحالة السابقة، رد متأخر مهمل"
+    },
+    {
+      "id": "retry-new-worker",
+      "requiredProof": "عامل جديد وهوية طلب جديدة بعد الإلغاء أو الرد التالف"
+    },
+    {
+      "id": "restore-foreign-session",
+      "requiredProof": "مقارنة بايتات الجلسة المطلوبة ومحتواها مع الاستعادة المعادة"
+    },
+    {
+      "id": "save-export-bounds",
+      "requiredProof": "8MiB/20000/4096UTF16/32MiB/1000events وحدود رد التصدير المقررة"
+    },
+    {
+      "id": "export-raw-independent",
+      "requiredProof": "تنزيل workbook/session حقيقي ثم قراءة rawOOXML/base64 والأصل والجرد والحالات"
+    },
+    {
+      "id": "navigation-retained-state",
+      "requiredProof": "العربية/الإنجليزية والمقاسات الثلاثة وحفظ موردين/AR عند التنقل"
+    }
+  ],
+  "productBrowserRuns": 0,
+  "remoteCIRuns": 0,
+  "publications": 0
+}

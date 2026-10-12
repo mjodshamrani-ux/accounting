@@ -1,0 +1,30 @@
+{
+  "files": [
+    "ledger.csv",
+    "statement.csv"
+  ],
+  "families": [
+    "ar-scope-details-1",
+    "ar-scope-details-1"
+  ],
+  "scope": {
+    "entity": "Synthetic Seller",
+    "ledger": "AR Book",
+    "customer": "00017",
+    "account": "1200",
+    "currency": "KWD",
+    "start": "2026-10-01",
+    "end": "2026-10-31",
+    "confirmed": true
+  },
+  "readingConfirmed": [
+    true,
+    true
+  ],
+  "sheets": [
+    0,
+    0
+  ],
+  "synthetic": true,
+  "fieldOriginals": 0
+}

@@ -146,7 +146,7 @@ const mutations = [
   {"name": "ar-ignore-source-errors", "file": "lib/reconciliation/ar.ts", "changes": [["const reason: ArCase['reason'] = errors", "const reason: ArCase['reason'] = false"]]},
   {"name": "ar-ignore-document-role", "file": "lib/reconciliation/ar.ts", "changes": [[": !documentRole", ": false"]]},
   {"name": "ar-ignore-duplicate-documents", "file": "lib/reconciliation/ar.ts", "changes": [[": left.length > 1 || right.length > 1", ": false"]]},
-  {"name": "ar-accept-stale-export", "file": "lib/reconciliation/ar-io.ts", "changes": [["if (JSON.stringify(result) !== JSON.stringify(expected))", "if (false)"]]},
+  {"name": "ar-accept-stale-export", "file": "lib/reconciliation/ar-io.ts", "changes": [["if (JSON.stringify(result) !== JSON.stringify(capturedExpected))", "if (false)"]]},
   {"name": "ar-accept-stale-decisions", "file": "lib/reconciliation/ar.ts", "changes": [["event.context !== context ||", "false ||"]]},
   {"name": "ar-ignore-document-type", "file": "lib/reconciliation/ar.ts", "changes": [["JSON.stringify([row.kind, row.document])", "JSON.stringify([row.document])"]]},
   {

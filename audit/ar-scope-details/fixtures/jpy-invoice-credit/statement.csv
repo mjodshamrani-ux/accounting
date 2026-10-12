@@ -1,0 +1,18 @@
+AR_SCOPE,1
+Scope ID,SCOPE-RIGHT
+Source role,company-issued-customer-statement
+Perspective,seller-receivable
+Amount basis,original-movement
+Entity,Synthetic Seller
+Ledger,AR Book
+Customer,00017
+Account,1200
+Currency,JPY
+Period start,2026-10-01
+Period end,2026-10-31
+Scope reference,Synthetic scope reference 1
+DETAILS
+Parent scope ID,Posting ID,Document type,Own document number,Posting date,Original signed amount,Related invoice,Open balance,Description
+SCOPE-RIGHT,1-P-I-invoice,invoice,I,2026-10-02,101,,40,Synthetic preparation only
+SCOPE-RIGHT,1-P-C-credit-note,credit-note,C,2026-10-02,-3,,40,Synthetic preparation only
+END_DETAILS

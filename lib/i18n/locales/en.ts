@@ -390,6 +390,21 @@ export const en: Messages = {
       'Compare a company AR ledger with its company-issued customer statement in the seller receivable perspective. Files stay local; no postings or payment allocations are created.',
     limits:
       'Two CSV/XLSX tables with a header in the first row. Compare original signed movements, not open balances. Invoice is positive; receipt and credit note are negative. ISO dates and plain decimals without thousands separators. One entity, ledger, customer, account, currency and period. Buyer-side AP statements are outside this policy. This first source family requires one matching role header for each field shown below; a related invoice or generic reference is not an own document number.',
+    family: 'Source structure',
+    rowFamily: 'Scope repeated on each movement',
+    scopeFamily: 'Scope header with linked details',
+    scopeSample: 'Open scope header and details example',
+    scopeReading: 'Review the original scope header and each detail’s parent before confirming the reading.',
+    scopeHeader: 'Scope header from the original source',
+    detailHeader: 'Detail header row',
+    sourceEvidence: 'Document and scope cell evidence',
+    inherited: 'Value inherited from the scope header',
+    originalRaw: 'Original document amount text',
+    openRaw: 'Open balance text',
+    openLimit: 'Descriptive and unverified; excluded from matching and receipt allocation.',
+    unavailableTotal: 'Unavailable because of a source defect',
+    sourceErrors: 'Source errors block automatic matching. Review the inventory and originals before continuing.',
+    sourceStatus: 'Source status',
     sides: ['Company AR ledger', 'Company-issued customer statement'],
     sample: 'Open synthetic AR example',
     restore: 'Restore AR session',
@@ -409,6 +424,8 @@ export const en: Messages = {
       currency: 'Currency',
       related: 'Related invoice',
       description: 'Description',
+      parent: 'Parent scope ID',
+      open: 'Descriptive open balance',
     },
     readingConfirm:
       'I reviewed this source: seller receivable perspective, original movements, and the selected column meanings. Related invoice is not the own document number.',
@@ -446,6 +463,7 @@ export const en: Messages = {
       invoice: 'Invoice',
       'credit-note': 'Credit note',
       receipt: 'Receipt',
+      scope: 'Scope',
     },
     inventoryKind: {
       header: 'Table header',
@@ -457,6 +475,7 @@ export const en: Messages = {
       'exact-own-document':
         'Unique own document, type, date and signed amount agree',
       'source-errors': 'Reading errors block approval',
+      'empty-source': 'No details to compare; this does not prove statement completeness',
       'duplicate-document': 'Document identity has competing movements',
       'missing-counterpart':
         'No counterpart with the same own document and type',

@@ -1,0 +1,17 @@
+AR_SCOPE,1
+Scope reference,Synthetic scope reference 0
+Period end,2026-10-31
+Period start,2026-10-01
+Currency,SAR
+Account,1200
+Customer,00017
+Ledger,AR Book
+Entity,Synthetic Seller
+Amount basis,original-movement
+Perspective,seller-receivable
+Source role,company-ar-ledger
+Scope ID,SCOPE-LEFT
+DETAILS
+Parent scope ID,Posting ID,Document type,Own document number,Posting date,Original signed amount,Related invoice,Open balance,Description
+SCOPE-LEFT,0-P-I01-invoice,invoice,I01,2026-10-02,100,,40,Synthetic preparation only
+END_DETAILS

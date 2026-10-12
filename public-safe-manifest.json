@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 24291,
-      "sha256": "a85c1eb24e64221393d6d68f625831f7579b81359df81693b870e1904198b352",
+      "bytes": 25195,
+      "sha256": "c0305300f5719af53fbc7c707fa3ee2998dfe865db1d5ad7e5e2f96d4cf322f2",
       "kind": "text"
     },
     {
@@ -624,6 +624,2496 @@
       "bytes": 2243,
       "sha256": "3755026ae6e8c0ec7d91dd8226312b796fefc4a9cb04a377761f864c81ace851",
       "kind": "text"
+    },
+    {
+      "path": "audit/ar-scope-details/CONTRACT.ar.md",
+      "bytes": 19433,
+      "sha256": "990fa646de607b3b849cedc1a2c5bc1d6a4001a100aa0be694a82b72aef34f40",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/EXPORT-SCHEMA.md",
+      "bytes": 10932,
+      "sha256": "0865b3b9ca39f07d27c41783c0588ba18ce644aae53421bf813b8bf98c1bef84",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/IMPLEMENTATION-PLAN.ar.md",
+      "bytes": 7490,
+      "sha256": "94fed4c34fdaedad938498bdb890e0d83aa72cb97b5616506e9b5ff5f25b84b0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/LIFECYCLE-PLAN.json",
+      "bytes": 2716,
+      "sha256": "1caf1f4badeeac99720d0de34053ec54ffd2fdf50d246d63766e4855a9cdb111",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/MUTATION-PLAN.json",
+      "bytes": 7129,
+      "sha256": "cc556fd891c4cf2e80a68acaeb1888d48db27e5c211c7f1960489672a0056f93",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/PRECODE-ACCEPTANCE.json",
+      "bytes": 521,
+      "sha256": "1d239e572aacff7cf4e19648a2db9fa28caf392edd4db36392ebabd0ca4e5c25",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/checker/README.md",
+      "bytes": 6372,
+      "sha256": "07864843de9392acee777ecf13da7098254bfe78a62b93821a27effc6daaf093",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/checker/check_export.py",
+      "bytes": 38438,
+      "sha256": "4a185a41584fa5334bdbdfe12d3cb826cfe3a4afa5a7f2eaab716390024e086c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/checker/check_exports.py",
+      "bytes": 4853,
+      "sha256": "e3d86be92918c16483b85c4c290f00f4537c60bd2a81beb595a38e987ecf9fa9",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/checker/self_check.py",
+      "bytes": 2152,
+      "sha256": "bd4576d1a15789a6ba04e76281da36e65df12ace28694fe2437f78a1478914d7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/checker/test_check_export.py",
+      "bytes": 12544,
+      "sha256": "8c5778da5b4ff3bd782a1d8903e6d0c273e4ab157d24330ce3c97d442165350a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/TRUTHS.json",
+      "bytes": 48686,
+      "sha256": "554b124b899c5566c03f63bdb029c09052734cd7e112f7b9abe12b8bf293ff9f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/aggregate-over-bound/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/aggregate-over-bound/ledger.csv",
+      "bytes": 624,
+      "sha256": "5a532d978c17937355d54eaece2193e5475da1228ecdc93372b86ae0d29b6655",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/aggregate-over-bound/statement.csv",
+      "bytes": 643,
+      "sha256": "8f76164fae1597376599519d90c31d88639883237437da7d0e74c69eca0d6088",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/amount-over-bound/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/amount-over-bound/ledger.csv",
+      "bytes": 549,
+      "sha256": "d43237abeaa95ec83ddfbb640a67cfea0273e1a8bb317e093ccfb525a1b2510b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/amount-over-bound/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/arabic-persian-raw/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/arabic-persian-raw/ledger.csv",
+      "bytes": 676,
+      "sha256": "eb571e0273f0e58b259bc6016368600dfe3339447dfd2bcc3dccdc3cdfb1f2d9",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/arabic-persian-raw/statement.csv",
+      "bytes": 695,
+      "sha256": "6397ea3ea6e707361cc1cc39505996071aadd83f6fb95fe2f6faf4e1f0cf394c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/blanks-and-multiline-description/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/blanks-and-multiline-description/ledger.csv",
+      "bytes": 530,
+      "sha256": "afca080bde33e887f8c0b672ea19143073d7e9d2dfc3bcb91fc1ab4bf37f2c98",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/blanks-and-multiline-description/statement.csv",
+      "bytes": 557,
+      "sha256": "3f2c830233faeecbf3d18c9979ed6efe4a6e171ba874a43f646f513c6ee86c7a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/buyer-perspective/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/buyer-perspective/ledger.csv",
+      "bytes": 531,
+      "sha256": "220627471fb78f52d7ff6bcdee7ba3c0a4f79d5cb7d7676d545cbb80e88e3c99",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/buyer-perspective/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/date-difference/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/date-difference/ledger.csv",
+      "bytes": 535,
+      "sha256": "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/date-difference/statement.csv",
+      "bytes": 553,
+      "sha256": "ceeb9a6d0aab0d8690c8aec73c830672fa1b65b3dae9782a8261d256761d07e8",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-after-end/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-after-end/ledger.csv",
+      "bytes": 620,
+      "sha256": "ef96143934018a5c2e59366eaabadaa27d4865c6aa81ea9079610e2789828629",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-after-end/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-before-header/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-before-header/ledger.csv",
+      "bytes": 620,
+      "sha256": "ecfef01bf29301d8414f4984319d66c419885e40c0bf2331cf3376debac504dd",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-before-header/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-column-order/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-column-order/ledger.csv",
+      "bytes": 535,
+      "sha256": "b8cb72afec528f6481c0775f4f7897451bf8431a77802801554477249e4eb06a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/detail-column-order/statement.csv",
+      "bytes": 553,
+      "sha256": "0417d38fb46cb6d953bd5d422be902753c086f2efb9b32fc9f852a493bb77bf9",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-details-marker/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-details-marker/ledger.csv",
+      "bytes": 543,
+      "sha256": "6d311db9cb1edc5205ae6a59af37fb1e41cf763129e5d7be541cd6d6f43988a2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-details-marker/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-original-role/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-original-role/ledger.csv",
+      "bytes": 545,
+      "sha256": "ca08c5a884246fafc0672997520ab5faec1118a48d89159f86d44d06acb63012",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-original-role/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-own-document/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-own-document/ledger.csv",
+      "bytes": 598,
+      "sha256": "9db84b124a8f1658390c61f4f0779561a44a4ddfb7c36ee0f4dda3a1cb8bf073",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-own-document/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-posting/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-posting/ledger.csv",
+      "bytes": 600,
+      "sha256": "a247640dfc80cbffbcb050598091cd2b9633ed0fcceccc680321e4915f3ccafb",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-posting/statement.csv",
+      "bytes": 635,
+      "sha256": "53af65e424110a2ebe3c2be5054f2b6cd72aca6a42a2bb921a88480372d360cc",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-scope-key/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-scope-key/ledger.csv",
+      "bytes": 559,
+      "sha256": "4575916012ec5d82ab54bfc7d8a887f86a32303d1f4ce5efc2cad1686e981614",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/duplicate-scope-key/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/empty-source-review/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/empty-source-review/ledger.csv",
+      "bytes": 450,
+      "sha256": "c5f0baffbbfb5f62259f7e04c14426e2723979b21f8e2cb156c5bfa8383aad0f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/empty-source-review/statement.csv",
+      "bytes": 467,
+      "sha256": "37632ac60218c83175308fb289abca7e2403d5f48f7ff958faa5da209abe088e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/excess-precision/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/excess-precision/ledger.csv",
+      "bytes": 538,
+      "sha256": "16ebb929fd267ccc3f1261865a3cac950457ea8f5bf523854f9fdefd884df9ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/excess-precision/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/foreign-parent/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/foreign-parent/ledger.csv",
+      "bytes": 530,
+      "sha256": "23985cb1fe007701ce8318b0bd23ba8868fd2f9876f0ce18f7faf12a4ca60209",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/foreign-parent/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/generic-own-role/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/generic-own-role/ledger.csv",
+      "bytes": 531,
+      "sha256": "2634eb8e9bd4c633eeff842fe5c77e2ac329c1fd05be8e87f33d7d90e6b85fd0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/generic-own-role/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/grouped-amount/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/grouped-amount/ledger.csv",
+      "bytes": 540,
+      "sha256": "00530bb36e5991c284223a83c62bf3fb61087cad9a67c99e3056e52e5d62a157",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/grouped-amount/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/header-order/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/header-order/ledger.csv",
+      "bytes": 535,
+      "sha256": "dbc814463e0fa8735281212b78cd1489b8c79524958018219e1a394d7d72d272",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/header-order/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/inclusive-amount-bound/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/inclusive-amount-bound/ledger.csv",
+      "bytes": 545,
+      "sha256": "ac034c329b5355a51a6dcf7b01c21a057b3953c99f29e233e4bb3357b7eba837",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/inclusive-amount-bound/statement.csv",
+      "bytes": 563,
+      "sha256": "d59dffe87a2a111a137ab307094d97b697b7ff9cb4078dde58d1d5947749b0b8",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/invalid-calendar-date/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/invalid-calendar-date/ledger.csv",
+      "bytes": 535,
+      "sha256": "1936aadc4d228a9224d080ea5995424c781b3cb53d687f31ab6168b066b8b3fd",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/invalid-calendar-date/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/invoice-v-receipt-reference/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/invoice-v-receipt-reference/ledger.csv",
+      "bytes": 533,
+      "sha256": "9a615ca2309692ce9931d05d716e4c9d38d21943f076d11e25f4899a17b6d373",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/invoice-v-receipt-reference/statement.csv",
+      "bytes": 553,
+      "sha256": "7150ac1a683010bcf3405dd1c90ac584c4f5d829117ca428f71560a547caf163",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/jpy-invoice-credit/bundle.json",
+      "bytes": 477,
+      "sha256": "53349f2385274aa4062062afff057e149dab2d58faab7a737f5d9ac667a6264a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/jpy-invoice-credit/ledger.csv",
+      "bytes": 619,
+      "sha256": "7f472c08fe29db13889b6e79c4edf0efc3718326fe0d94bfc4ecd151a38a10c1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/jpy-invoice-credit/statement.csv",
+      "bytes": 638,
+      "sha256": "b9988b09d487e3853e3ea02f658f17738bbfd05ec8182bf005e236aef88107f0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/kwd-three-decimal/bundle.json",
+      "bytes": 477,
+      "sha256": "997073553949d402c142988864c3a8c5b11152e426ac1aaa89f4ced244a94874",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/kwd-three-decimal/ledger.csv",
+      "bytes": 710,
+      "sha256": "041bd3feaa70ee96a453d49682a09e6a8d1c77c8f195cf74ddae4369de81a26b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/kwd-three-decimal/statement.csv",
+      "bytes": 730,
+      "sha256": "e34330af9dc8b2efb45f4e6045523b079e590d3dcd9951fda58cbf0c74f0afdb",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/late-invalid-competitor/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/late-invalid-competitor/ledger.csv",
+      "bytes": 615,
+      "sha256": "759739e3fbe83ec4c2df6f12453a3c896d6453ac45e9b607767fa58326a52831",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/late-invalid-competitor/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/map-open-as-original/bundle.json",
+      "bytes": 560,
+      "sha256": "9f10b1b2e1377ae8a6b33c503ff9a12921ce324b14a29fa1b1615225b1e9576f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/map-open-as-original/ledger.csv",
+      "bytes": 535,
+      "sha256": "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/map-open-as-original/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-counterpart/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-counterpart/ledger.csv",
+      "bytes": 615,
+      "sha256": "bc5ea2b81fad3ae518f240412edba0b35cab599d274e61dbd32d1933dbccfa0e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-counterpart/statement.csv",
+      "bytes": 551,
+      "sha256": "552c1c514be71a86dea81f6cc3c87677aad659b8e2f6a1b16a59e69303041935",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-end-marker/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-end-marker/ledger.csv",
+      "bytes": 523,
+      "sha256": "5290910a0746ca6bce1c9caa54a77f311ac4f77b9eabe31cc2ff5a71c8901338",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-end-marker/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-kind/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-kind/ledger.csv",
+      "bytes": 528,
+      "sha256": "fd8630ff03c3adb5086f5679239a8c5c63467315828f92140a26bf0adedc001b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-kind/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-original-header/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-original-header/ledger.csv",
+      "bytes": 529,
+      "sha256": "45e948dbdae9364516eaffaaaf1551877d9ee3c53cf5c5d00e381f3d9f58c99a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-original-header/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-original/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-original/ledger.csv",
+      "bytes": 533,
+      "sha256": "bcf726752f7d7897c42b00989c3b2020a3fc52cf3e64a015638370205b448dcc",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-original/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-own-number/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-own-number/ledger.csv",
+      "bytes": 532,
+      "sha256": "3cb2e2db8a543501a9eac96593855c9a1461eddcf9acfa6279cdcffa971b3218",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-own-number/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-parent/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-parent/ledger.csv",
+      "bytes": 525,
+      "sha256": "ae5a49240bd91d89bceb9f3c03cd5db06a9312d7af58de0ff908c7907b379486",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-parent/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-posting/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-posting/ledger.csv",
+      "bytes": 520,
+      "sha256": "d428e1023f41b13a435cbac4ec01165b8a8393e0c3491d7ca8722177dd3eac93",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-posting/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-scope-key/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-scope-key/ledger.csv",
+      "bytes": 515,
+      "sha256": "ee65e0eb910f050e5a6d32105cd2bf26996a57bf288557594d3eff6b8b9b5fcf",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/missing-scope-key/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/mixed-new-canonical/bundle.json",
+      "bytes": 471,
+      "sha256": "abbc518b1a25bbcbfb53150cd23082c8e79b7b8734bc137ab77c739f2c03707e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/mixed-new-canonical/ledger.csv",
+      "bytes": 717,
+      "sha256": "595ba3fcff91e106d1a0fcc6173600ac9756dc7e9348eeb0c23c2c077e916b52",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/mixed-new-canonical/statement.csv",
+      "bytes": 516,
+      "sha256": "079796d94185b64540cbfe516912b1da8ee1ebf0a361af96354e10bfce6f6bd0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-amount-error/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-amount-error/ledger.xlsx",
+      "bytes": 2597,
+      "sha256": "c6ec146459fd3700dc6f94d5969a2f2e06e1a8a3e8c8fc69dc11eabcd6660194",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-amount-error/statement.xlsx",
+      "bytes": 2598,
+      "sha256": "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-hidden-column/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-hidden-column/ledger.xlsx",
+      "bytes": 2627,
+      "sha256": "37fe729a3ce29ce8552d45add817fa82fa5c04f95383ada3d9639d603c357e5f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-hidden-column/statement.xlsx",
+      "bytes": 2598,
+      "sha256": "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-hidden-row/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-hidden-row/ledger.xlsx",
+      "bytes": 2595,
+      "sha256": "c4024352c8ee82e3595be01ea3dec21f9209189009441889e159395c89a008bd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-hidden-row/statement.xlsx",
+      "bytes": 2598,
+      "sha256": "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-inline-three-kinds/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-inline-three-kinds/ledger.xlsx",
+      "bytes": 2719,
+      "sha256": "debfb45cabf2c7201b8712bba05db2011722cee8cd7f198e871201b73a5edf77",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-inline-three-kinds/statement.xlsx",
+      "bytes": 2727,
+      "sha256": "53503dade254c9b47bae9844ae3ffc2e61e2b00682d34982b4703803dad12abf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-merge/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-merge/ledger.xlsx",
+      "bytes": 2617,
+      "sha256": "525aa47c66555b62f87578289f2c6a52d62884d67ee9ef8b98a7b79c9820f620",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-merge/statement.xlsx",
+      "bytes": 2598,
+      "sha256": "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-open-formula/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-open-formula/ledger.xlsx",
+      "bytes": 2600,
+      "sha256": "61ca7fdf175e5ec0d20f1e9c5612e14bda8f7c81e845b29cc4934fb4bb781f71",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-open-formula/statement.xlsx",
+      "bytes": 2598,
+      "sha256": "9f54d8afe100858f46da3316df3ac4f1b61489c25e7a3582ec7823148399e51f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-shared-three-kinds/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-shared-three-kinds/ledger.xlsx",
+      "bytes": 3051,
+      "sha256": "6d093fb575d2efc73d1e817f05b007bc0ce0e6c5501fc768b7027a7ba9b9ff78",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/native-shared-three-kinds/statement.xlsx",
+      "bytes": 3060,
+      "sha256": "c5379e560b03dd2ef12fc0a1a79b8aafa6267d3916b05fb2c56b7e951f8d4f85",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-invoice/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-invoice/ledger.csv",
+      "bytes": 537,
+      "sha256": "af59aa91491f571cdf8a15d3a0a454007c5731c6012e5f1e1b74f488a42f3456",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-invoice/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-original-net/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-original-net/ledger.csv",
+      "bytes": 615,
+      "sha256": "db3fa3030fec724bd090e388a294051f9965d9188bb52ae052045f8a71554ba7",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-original-net/statement.csv",
+      "bytes": 634,
+      "sha256": "4885bfa2e9ffbc0f166091e7ef7ff4749504fba15ed60f7c0c577032e98dbc43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-zero/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-zero/ledger.csv",
+      "bytes": 535,
+      "sha256": "e641a8dbdc0f4e78526e9c68ee1e6368cbab4178e7daa9093cbfba67107915dc",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/negative-zero/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/one-invoice-open-differs/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/one-invoice-open-differs/ledger.csv",
+      "bytes": 535,
+      "sha256": "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/one-invoice-open-differs/statement.csv",
+      "bytes": 553,
+      "sha256": "f7e2f6062b6308951f6b435128aeec81c109fd29bf63af2d7c171b6414ee2c03",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/open-basis/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/open-basis/ledger.csv",
+      "bytes": 530,
+      "sha256": "a89a7f77ea7163ff36ce56d6a9c471d1be71e3e307457b1ac23c76919a39a212",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/open-basis/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/open-literal-unverified/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/open-literal-unverified/ledger.csv",
+      "bytes": 545,
+      "sha256": "ff0c634a2fa474889c10a88c6d0b2303178f416bda05bf6559851edab40f5c97",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/open-literal-unverified/statement.csv",
+      "bytes": 551,
+      "sha256": "f066485b8b90ab50cef6f02f260d208eb189f0ffec79e3b0a60fe45532fc3ebc",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/outside-period/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/outside-period/ledger.csv",
+      "bytes": 535,
+      "sha256": "ea2655e90e29d2bb38c466220b27c17f23b01317779ff54fc3f490f038eecc4f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/outside-period/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/own-number-shared-across-kinds/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/own-number-shared-across-kinds/ledger.csv",
+      "bytes": 719,
+      "sha256": "413b5d4847ec93fdbb3025b8bfa3bb7bdfe091796aba02998eb867a3a172ba31",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/own-number-shared-across-kinds/statement.csv",
+      "bytes": 739,
+      "sha256": "7c6f6420919953dccae7c1fd5d9cbd5f6c3af887179e95cd9ad365e3d1d1d0d6",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-credit/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-credit/ledger.csv",
+      "bytes": 538,
+      "sha256": "6d3248f55d85b873b4d08fd5d2c7ffef94cb89aa28029939d65bb2da7db178ad",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-credit/statement.csv",
+      "bytes": 557,
+      "sha256": "e7cc7ae00beb07a5e70ef3eb18e1d6b001e6d4743ddd62290252d95e47f5ec7c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-receipt/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-receipt/ledger.csv",
+      "bytes": 530,
+      "sha256": "2c4a4c1e2c2ffab19cebac106366963cbf8448d49da1bb7ecf994645181a2237",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-receipt/statement.csv",
+      "bytes": 549,
+      "sha256": "039f467c6704081fd16c2fda0ef89946e6b0ba6bb46c1e25b3759a2ab798b9ec",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-zero/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-zero/ledger.csv",
+      "bytes": 535,
+      "sha256": "7fd8cab9530671ada6f3217b6953f285bf49bd93cd510489081333e9f7739727",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/positive-zero/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/receipt-only-no-invoice-authority/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/receipt-only-no-invoice-authority/ledger.csv",
+      "bytes": 554,
+      "sha256": "338796f5a83c5af25d18684f6e0ec9513b69c6465bb76a4e8695cc5fb3919ee3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/receipt-only-no-invoice-authority/statement.csv",
+      "bytes": 572,
+      "sha256": "ed52bf1878a12c59c7d4b89ee8b793d95b29feb6687560b2051fb6023c269dd3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/related-as-own-role/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/related-as-own-role/ledger.csv",
+      "bytes": 531,
+      "sha256": "db37b1f4b2a56e157819b6b3847d8bd59361664d6bb58236d45c1c4decea5948",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/related-as-own-role/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/related-conflict/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/related-conflict/ledger.csv",
+      "bytes": 533,
+      "sha256": "08d396da078bd809c646d9c86d44f14ee1a503a74dd094ea87caf32eb6155cd3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/related-conflict/statement.csv",
+      "bytes": 551,
+      "sha256": "36b9dd15f883b606e2724763daf6ca302eccc5599e2043135d42b00e2de33f38",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/same-open-different-original/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/same-open-different-original/ledger.csv",
+      "bytes": 535,
+      "sha256": "5fbb644521c3f922e23fb194600a0262b8f53218383c553f70e9a9f445bc26b5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/same-open-different-original/statement.csv",
+      "bytes": 552,
+      "sha256": "3d1b77e2a2125c255387a4c5d17954d69b90fc6a7858c808c73043c5fe36a414",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/same-original-bytes/bundle.json",
+      "bytes": 474,
+      "sha256": "f76c144332f85e0a58d51f100dde86aba1d94f938f550a7361925ae3e99bd254",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/same-original-bytes/ledger.csv",
+      "bytes": 535,
+      "sha256": "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/same-original-bytes/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/scientific-amount/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/scientific-amount/ledger.csv",
+      "bytes": 536,
+      "sha256": "7236b52ec92d093bb29f3d4db8c12a41d44d1773c3b43cf003e354623fdca21a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/scientific-amount/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/second-scope-header/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/second-scope-header/ledger.csv",
+      "bytes": 1070,
+      "sha256": "3b603714556615526201b7d6f4bf2ff3dfacd57f3f6f85544bd264a9d551621e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/second-scope-header/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/three-document-kinds/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/three-document-kinds/ledger.csv",
+      "bytes": 717,
+      "sha256": "595ba3fcff91e106d1a0fcc6173600ac9756dc7e9348eeb0c23c2c077e916b52",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/three-document-kinds/statement.csv",
+      "bytes": 737,
+      "sha256": "54e8645879bed2b00a56a41cba1a7db7a1e9f3f4d299057139572d61f496b2c2",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-credit-notes/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-credit-notes/ledger.csv",
+      "bytes": 717,
+      "sha256": "6c2b4ca7bc6789b2a4fb6174b3992e18dab654c30d999fb7e705963a5a3d9d46",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-credit-notes/statement.csv",
+      "bytes": 737,
+      "sha256": "b6d8d34790b16a7eb5d54b51b3c5516052d94b3e9ce1fbf4edf6b19b51d1b50a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-invoices-reordered/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-invoices-reordered/ledger.csv",
+      "bytes": 615,
+      "sha256": "bc5ea2b81fad3ae518f240412edba0b35cab599d274e61dbd32d1933dbccfa0e",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-invoices-reordered/statement.csv",
+      "bytes": 634,
+      "sha256": "c4d47e6de2b376bdeebf4b21f0930b42c34145783272b3a1f082744461b0e92b",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-receipts-no-allocation/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-receipts-no-allocation/ledger.csv",
+      "bytes": 702,
+      "sha256": "8f7d3670233cb7ea3481bc70d685bc4aeec8dc01f6a476ef4e189a0e6d4f45a1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/two-receipts-no-allocation/statement.csv",
+      "bytes": 722,
+      "sha256": "debb9005a0070382be7561cc45accf36480927305aca241dc161f89f55bcb1c3",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unconfirmed-reading/bundle.json",
+      "bytes": 478,
+      "sha256": "808c29cfb3a1cb11795b063b8c44be3983e92a4c9bf4fcb211bcb8532c9c0132",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unconfirmed-reading/ledger.csv",
+      "bytes": 535,
+      "sha256": "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unconfirmed-reading/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unconfirmed-scope/bundle.json",
+      "bytes": 478,
+      "sha256": "c1ce5f725849162815953607efb7337e9e7019a0db74cca12fa9c6f9914d4500",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unconfirmed-scope/ledger.csv",
+      "bytes": 535,
+      "sha256": "9e0bd2e87e02293e6e6536a58aef353d0d3e44c707d7f69ca3dd60394729f67c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unconfirmed-scope/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unknown-detail-column/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unknown-detail-column/ledger.csv",
+      "bytes": 549,
+      "sha256": "f5c90d817eb4d9d5d371d3e96b79dedee5f3a546e1f6326afd2f1e05e1cb244a",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unknown-detail-column/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unknown-scope-key/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unknown-scope-key/ledger.csv",
+      "bytes": 549,
+      "sha256": "b51125ccddcdcfaf22a867058ff4b8397502117b9be7e516266448ad39854490",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/unknown-scope-key/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-currency/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-currency/ledger.csv",
+      "bytes": 535,
+      "sha256": "54ec7b50dc79993d272961c9328f8b45335b26893df4034459ff112fe1c292ae",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-currency/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-customer/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-customer/ledger.csv",
+      "bytes": 535,
+      "sha256": "3f20aa6644d3f1a5d44f38cdab8979f25ac059dc292424371cb6ab63b01050b0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-customer/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-period/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-period/ledger.csv",
+      "bytes": 535,
+      "sha256": "b0bdb2dc9667ccbfb05307cc222a7c16d13443ac1163176c4dd703550ef4d7ad",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-period/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-role/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-role/ledger.csv",
+      "bytes": 526,
+      "sha256": "5f6e2cbb018d27ca43949f6bb484b021692fd213221eb4fd321b12ebfb2edc75",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/wrong-role/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/zero-original/bundle.json",
+      "bytes": 477,
+      "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/zero-original/ledger.csv",
+      "bytes": 534,
+      "sha256": "de5e6b6faa402da9c20ddee7a70f4e7c6fe01ef1209c5de9c8912daccae17310",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/fixtures/zero-original/statement.csv",
+      "bytes": 553,
+      "sha256": "f798695e2fd7daf8e4106b664949c3867b09a42db69828d28a30768180d1bed1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/hidden-text-format/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/hidden-text-format/ledger.xlsx",
+      "bytes": 2687,
+      "sha256": "1179e00b25562dc7536cba23c1ff9e42ac2933b6dfa4c14d3085f5d8ceee309c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/hidden-text-format/statement.xlsx",
+      "bytes": 2727,
+      "sha256": "53503dade254c9b47bae9844ae3ffc2e61e2b00682d34982b4703803dad12abf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/zero-height-row/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/zero-height-row/ledger.xlsx",
+      "bytes": 2699,
+      "sha256": "4a1d4ff1beb6d805fa8b897e724d29ad40ef2e37f3317a70b991049ca13e6a37",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/zero-height-row/statement.xlsx",
+      "bytes": 2727,
+      "sha256": "53503dade254c9b47bae9844ae3ffc2e61e2b00682d34982b4703803dad12abf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/zero-width-column/bundle.json",
+      "bytes": 479,
+      "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/zero-width-column/ledger.xlsx",
+      "bytes": 2722,
+      "sha256": "1e4c1d6f6825b35fc12973ccdf9035c46d5e310a0559a293c7c0756eb7e39c85",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/native-controls/zero-width-column/statement.xlsx",
+      "bytes": 2727,
+      "sha256": "53503dade254c9b47bae9844ae3ffc2e61e2b00682d34982b4703803dad12abf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/oracle/README.md",
+      "bytes": 9764,
+      "sha256": "f9676bbc1d54f0965f75200de47b1c5556abfee5b03b3ed4224a3cdaba6a7260",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/oracle/ar_oracle.py",
+      "bytes": 35350,
+      "sha256": "dc499c2ee24b278d0733e122abb5749adbc9b2e4237a9fe93a0d0bfe8a8a5326",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/oracle/test_oracle.py",
+      "bytes": 28331,
+      "sha256": "469bc5ffb2ad4e3e22559a22c6c0ed043634127cc6f515aa25072618607eaf1c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
     },
     {
       "path": "audit/assistant-evidence/check_export.py",
@@ -31875,14 +34365,14 @@
     },
     {
       "path": "components/ar-workspace.css",
-      "bytes": 335,
-      "sha256": "b04694d5d1064c825ee98aee18e30587a341bc1eff76c44404ea4e941061c5f9",
+      "bytes": 2107,
+      "sha256": "f75ec764cbaa6aa3716de44653fe0a3c2b66aa999c82911e25e18aa2e2c13542",
       "kind": "text"
     },
     {
       "path": "components/ar-workspace.tsx",
-      "bytes": 21707,
-      "sha256": "5ac8a40287866e8e7085efe65153b1723c2f35a7758076072993b9de93125a60",
+      "bytes": 31497,
+      "sha256": "92a6104b7c187f50706a7826fa3fbef4dc454e89d513191d4ac8e05c109cd253",
       "kind": "text"
     },
     {
@@ -32493,8 +34983,8 @@
     },
     {
       "path": "components/workspace-chrome.css",
-      "bytes": 18552,
-      "sha256": "f08633d92d676638117b28c61e05743a77f5a1e308abbf63563fd77562179e9e",
+      "bytes": 20269,
+      "sha256": "da6d55e9095b5689af7633381e55ad8a3b58cbdc4b26cf840d1a944eb101c3f0",
       "kind": "text"
     },
     {
@@ -32511,8 +35001,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 3623,
-      "sha256": "41c4a9a40173f834c2f6d4fc2f8533aad543d8d42f230b88f6d04ae55a9ae028",
+      "bytes": 3695,
+      "sha256": "14df175687aa1331565677631350a55c079da0eb3a13450507a2e17f65630b65",
       "kind": "text"
     },
     {
@@ -32604,6 +35094,12 @@
       "kind": "text"
     },
     {
+      "path": "docs/RELEASE-0.4.46.ar.md",
+      "bytes": 4169,
+      "sha256": "d920e78d4b7a9c9fff8880eb72e6db03e4f1e9d647c434fd29015d69df2da354",
+      "kind": "text"
+    },
+    {
       "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
       "bytes": 3044,
       "sha256": "7f313eefb2776c3f1d5e9d61940928042ea74d18279de00ec7f81c4784140671",
@@ -32668,7 +35164,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "adc7963816e437c65b6b4a7ec709e28b7c49537076a5a04fbe3de8a0c4ab1c44",
+      "sha256": "b2bb990fa3e1c03eb29c41ec60f39bab3f62c029af54bfbb5e899511f9c0b2f8",
       "kind": "text"
     },
     {
@@ -32739,14 +35235,14 @@
     },
     {
       "path": "lib/i18n/locales/ar.ts",
-      "bytes": 99254,
-      "sha256": "6c3f4565311b1ed6085d1e7e9061660c7a352d766885e831dd2c240c9661bd40",
+      "bytes": 100669,
+      "sha256": "a2735fd752105686deb8a9f00d65d857009d0ad33bc54f1d0f9bcbe28441bd95",
       "kind": "text"
     },
     {
       "path": "lib/i18n/locales/en.ts",
-      "bytes": 79339,
-      "sha256": "01b9f110883c020ae4d372f729722b26de4312c981a617885bd0fa561b788133",
+      "bytes": 80430,
+      "sha256": "f3b35fb29ecd7635af689b9af7c71cbf79243b78d14bc69bae998cc966ba14ca",
       "kind": "text"
     },
     {
@@ -32853,14 +35349,38 @@
     },
     {
       "path": "lib/reconciliation/ar-io.ts",
-      "bytes": 9337,
-      "sha256": "6ef921d13ae0bc7741f63c3c26654dfb38449141e106ca9142351b06d3cd88db",
+      "bytes": 14406,
+      "sha256": "2e021ba3f722708ae928d5a82ad3fcefc01d4b46ff1419b1f92d03c5e3c1bdb9",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/ar-scope-demo.ts",
+      "bytes": 2271,
+      "sha256": "ba9eab91c86a81ee2387230c162a241c0d37fa166bc0697e6bab650cb26c9698",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/ar-scope-details.ts",
+      "bytes": 19277,
+      "sha256": "a3e52f9a8653b79ec27396a3377eebfececa9e4501df4b05812aed57c950536f",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/ar-source.ts",
+      "bytes": 9312,
+      "sha256": "874249206c5398d39fd125566b9695383838dc8efbd900b74fe3ef83e670799c",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/ar-worker-binding.ts",
+      "bytes": 16084,
+      "sha256": "9decb339093ec64863333a08a1c25ac6831dbca5bd8a4c62a603c4acc13fce48",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/ar.ts",
-      "bytes": 16615,
-      "sha256": "3677cacc1eed4fa637cf405a5001ed9fdb189c7e8854b5cf6554e0fa6c79bf5c",
+      "bytes": 24481,
+      "sha256": "b333badea3a315ce2dfc6101453b69bf234f7c1eb1180b081eaf6474ad8fb647",
       "kind": "text"
     },
     {
@@ -32985,8 +35505,8 @@
     },
     {
       "path": "lib/reconciliation/domain-assistant.ts",
-      "bytes": 14775,
-      "sha256": "d825c37820d0db528e17289e2c32373b4a7685530c22b54f34159ceeb5f8965f",
+      "bytes": 14801,
+      "sha256": "1541b302ac66f09db7718bf08bae02964acb0cca15f019c7478e75184b80db99",
       "kind": "text"
     },
     {
@@ -33333,8 +35853,8 @@
     },
     {
       "path": "lib/reconciliation/protocol.ts",
-      "bytes": 17029,
-      "sha256": "61d218c8e68c12258cdbe84ad91f4fd816c09c28485d2fd78a015579e1c5544f",
+      "bytes": 18803,
+      "sha256": "76e6049a28f37bed1bb2ec9655fc6ac8321b7123b41f74a061bcaf2804f3e6de",
       "kind": "text"
     },
     {
@@ -33549,14 +36069,14 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 15386,
-      "sha256": "5cb16406728db62cac76edf6fed13d59071f5d3acc2dc01f1add11411e8be7c5",
+      "bytes": 16366,
+      "sha256": "7b8f44ad7bf7db9f657f919850178e1d437cb134536300e4c7055bf63c0899b6",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/worker.ts",
-      "bytes": 10365,
-      "sha256": "55ed74794465634e802eb76e65d0efc3001884f1563b08ad2c776f3cc68d2c52",
+      "bytes": 10528,
+      "sha256": "09a0e30dfa7681dac0c4177471ea5547a2ae7fef1533e46c493146f856a72ef7",
       "kind": "text"
     },
     {
@@ -33597,8 +36117,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 9833,
-      "sha256": "e49265cd49667eceb2155e40cda957f2931e43b90b0558835476facc35e65a09",
+      "bytes": 10761,
+      "sha256": "a0206f567c4d40680c4ba8418d99f82389901650c09bb1fc94cfcc736a6420f3",
       "kind": "text"
     },
     {
@@ -33726,6 +36246,24 @@
       "kind": "text"
     },
     {
+      "path": "scripts/ar-scope-details-browser.mjs",
+      "bytes": 15312,
+      "sha256": "de283bbe5e7c126968902681c076204ec1c7ac4529fad446ae700ac631570854",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ar-scope-details-check.mjs",
+      "bytes": 1549,
+      "sha256": "2daf5a19c5b9f9dc6ab294732918044092bc2d1bfff107eaa35c76b520580511",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ar-scope-details-proof.mjs",
+      "bytes": 11609,
+      "sha256": "896eb5d27cdff5138a45d6b712f403ddba5e91978dc8843109cc16b38142e68e",
+      "kind": "text"
+    },
+    {
       "path": "scripts/assistant-evidence-browser-cases.mjs",
       "bytes": 6613,
       "sha256": "54b42602f93d1d50b7cba333d09b1b6072d3c0b249e50bf32ea926ed181556a8",
@@ -33817,8 +36355,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 5968,
-      "sha256": "c775e462a7694d36a70e6fb3af10effaa8f6b8534ce3150bc1dc819b08ed693f",
+      "bytes": 6134,
+      "sha256": "e1d8ca2268bbd8f1645d0f8b89fa14641f91db1eef21d72a673ccf4042934d73",
       "kind": "text"
     },
     {
@@ -34278,6 +36816,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/test-ar-scope-details-mutations.mjs",
+      "bytes": 19715,
+      "sha256": "fef77461d902904cc5baf7114f3fe58949227b1fe8dc8d08addea4e85cbc8eb3",
+      "kind": "text"
+    },
+    {
       "path": "scripts/test-bank-wd-mutations.mjs",
       "bytes": 7366,
       "sha256": "bb6061d865731a90b35a66b0c86d4fc7a6833fb64e9eec64a02dd37d96158130",
@@ -34303,8 +36847,8 @@
     },
     {
       "path": "scripts/test-mutations.mjs",
-      "bytes": 62522,
-      "sha256": "9e5b4922871f6d4b31587fee242d1608f40c8d041dbcb00cf8c68fe4120eeb63",
+      "bytes": 62530,
+      "sha256": "30beab4c81d1c89e1aa6a2e3df479b264330eb5d95cb34e8824100d2a00bdbeb",
       "kind": "text"
     },
     {
@@ -34473,6 +37017,30 @@
       "path": "tests/ar-export-text.test.ts",
       "bytes": 6016,
       "sha256": "478ab8aa2e3079b7d3161d76e2a0438ffb461fd72c5551360e5ebd4383f24f88",
+      "kind": "text"
+    },
+    {
+      "path": "tests/ar-scope-details-core.test.ts",
+      "bytes": 12295,
+      "sha256": "7699453a8ff481db393386d77ac371575cdeac6fa45d35d5ddd8fc217a4bb7cc",
+      "kind": "text"
+    },
+    {
+      "path": "tests/ar-scope-details-io.test.ts",
+      "bytes": 18077,
+      "sha256": "603bbb9fbf15fb369f3556078d47c4541340847e7d8ba471b4d90115d22877c5",
+      "kind": "text"
+    },
+    {
+      "path": "tests/ar-scope-details-mutation-witness.test.ts",
+      "bytes": 9789,
+      "sha256": "fc0c19e9b247f1d94761d7e46fbe36b63627c34d12a2deb9f9bee62fd1243abf",
+      "kind": "text"
+    },
+    {
+      "path": "tests/ar-worker-binding.test.ts",
+      "bytes": 22104,
+      "sha256": "93d4c154f32e9d94670c1a766842422a0822190386c9d3563fd0fb87e5546ae3",
       "kind": "text"
     },
     {
@@ -36452,15 +39020,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-87xpW-tH.js",
-      "bytes": 12101,
-      "sha256": "43c807c727a4b88d73c5d919ea745f02b6e62d2b9594b1874553dc56e59e6059",
+      "path": "assets/ar-io-CHkFtQm7.js",
+      "bytes": 11377,
+      "sha256": "b43523c4945241d6662f4183d12052dbe2050e946ef9006519d4abbd937c4221",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-BKPGyY-H.js",
+      "path": "assets/bank-adjustment-io-CRR--Oqf.js",
+      "bytes": 12101,
+      "sha256": "3f6638f559faf1ca5fbbeafcc344636d8c44dfd931dd5d2f46efe22a72dd27f3",
+      "kind": "text"
+    },
+    {
+      "path": "assets/bank-io-B2KhwV5L.js",
       "bytes": 6331,
-      "sha256": "0a10461dcc73839c56109f2f981b6e7d3dcdfd8965081de104e64e7b8e8ebfbf",
+      "sha256": "38c923ae396536100b588a3ebc426872262f041ead67db154197428ec2527c33",
       "kind": "text"
     },
     {
@@ -36496,21 +39070,21 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-CD6x_K4n.js",
+      "path": "assets/fixed-assets-io-FLt76qfm.js",
       "bytes": 9830,
-      "sha256": "046a031486ffe3d503c77edb2a5df89dfe9db6edca15611fd032cb95f6b10997",
+      "sha256": "b40ad734a92e0a7e5c5ca93f39ec77447dce65cc97b90f1f9fb50238ebf0497b",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-CqSOz0kO.js",
+      "path": "assets/gl-tb-io-BCkEzCCE.js",
       "bytes": 2184,
-      "sha256": "5245634315bdbef4565ea3def80d5583084475ca414e4c6d70727e58d4b3765a",
+      "sha256": "29ab5672b05edea6e73fab6228bc9ba6e76277e42c901ffc7a2a1c6269fec785",
       "kind": "text"
     },
     {
-      "path": "assets/index-BGNptm-m.js",
-      "bytes": 6231995,
-      "sha256": "56f00d8ed587358a3a6ac054b71a6033ad72fce3c779663617b8249a3caa0f8d",
+      "path": "assets/index-BPic_Rvu.js",
+      "bytes": 6284048,
+      "sha256": "492b8c58bdd04d0267737a33b602549f4e0161cc0a4da133a46afb677c910096",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -36518,9 +39092,9 @@
       }
     },
     {
-      "path": "assets/index-aIr2uz9D.css",
-      "bytes": 273220,
-      "sha256": "f9227a32a28fac98ad1f057cf04cde011ab8cb2d3e04574955146e6e7d3cb51d",
+      "path": "assets/index-CKlHHeUp.css",
+      "bytes": 276348,
+      "sha256": "a3b35b8b806f6b1541f317306a8e0107c228fae9608a25f698c86663b93bd695",
       "kind": "text"
     },
     {
@@ -36534,15 +39108,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-CAIusA47.js",
+      "path": "assets/payment-gateway-io-BSIyEmZu.js",
       "bytes": 6391,
-      "sha256": "c54ee48604c37e193943c5ee9f13d58b0a0a302d9c800a854724c8a55047f4d7",
+      "sha256": "31730df601ba3a6056009978ea4b4cd6d971c48bb7aa737a939e99047a0e5146",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-Be_yUQ78.js",
+      "path": "assets/payment-gateway-source-RsdgOfAP.js",
       "bytes": 6798,
-      "sha256": "739248515a5fc03457d7e20e82c89fd6e96a42adf604bd8adc631d7c9089980f",
+      "sha256": "3d123962aa8e69cc31f7c1dfec9a83c6130a75b0caf3ed5c00a9e076b4c6d024",
       "kind": "text"
     },
     {
@@ -36572,9 +39146,9 @@
       }
     },
     {
-      "path": "assets/protocol-CpuIsUhK.js",
-      "bytes": 87750,
-      "sha256": "bc08be7cc6796ba98dff4f32d3ef4c8378710ac213799a620559d57317f90a83",
+      "path": "assets/protocol-Bljt6Grb.js",
+      "bytes": 88775,
+      "sha256": "99a37b5d920a3ee31ebc8435407293f3949c8a7007aa627cbb7035a3bcb4e3ef",
       "kind": "text"
     },
     {
@@ -36680,7 +39254,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "1b92083453aae5c5e91e3d885de6b2bc07782795bf7a607efa84b0def9317ce9",
+      "sha256": "229ef366b4d606a74bae3261890e8cfb5567ba2f765e0508432cc52ee58db9e6",
       "kind": "text"
     },
     {

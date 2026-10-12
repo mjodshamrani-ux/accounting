@@ -21,6 +21,14 @@ import type {
   ArCase,
 } from '@/lib/reconciliation/ar';
 import {
+  isArScopeReading,
+  suggestArScopeReading,
+} from '@/lib/reconciliation/ar';
+import {
+  arScopeDemo,
+  arScopeDemoScope,
+} from '@/lib/reconciliation/ar-scope-demo';
+import {
   arDemo,
   arDemoReadings,
   arDemoScope,
@@ -41,6 +49,21 @@ const columns = [
   'related',
   'description',
 ] as const;
+const scopeColumns = [
+  'parent',
+  'posting',
+  'kind',
+  'document',
+  'date',
+  'amount',
+  'related',
+  'open',
+  'description',
+] as const;
+const readingColumn = (reading: ArReading, key: string) => {
+  const value: unknown = Reflect.get(reading, key);
+  return typeof value === 'number' ? value : -1;
+};
 const scopeFields = [
   'entity',
   'ledger',
@@ -174,7 +197,9 @@ export function ArWorkspace({
       setFiles(next);
       setReadings((previous) => {
         const next = [...previous] as typeof readings;
-        next[side] = freshReading(side);
+        next[side] = isArScopeReading(previous[side])
+          ? suggestArScopeReading(source, side)
+          : freshReading(side);
         return next;
       });
       setScope((previous) => ({ ...previous, confirmed: false }));
@@ -212,6 +237,7 @@ export function ArWorkspace({
   return (
     <main
       className="app-shell clearing-workspace ar-workspace reconciliation-workspace"
+      data-ar-workspace
       aria-busy={busy}
     >
       <WorkspaceHeader onBack={onBack} backLabel={t.back} disabled={busy} />
@@ -242,6 +268,25 @@ export function ArWorkspace({
             }
           >
             {t.sample}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() =>
+              perform(async (signal) => {
+                const sources: SourceFile[] = [];
+                for (const demo of arScopeDemo())
+                  sources.push(await workerTask('read', demo, signal));
+                setFiles(sources as ArInput['files']);
+                setReadings([
+                  suggestArScopeReading(sources[0], 0),
+                  suggestArScopeReading(sources[1], 1),
+                ]);
+                setScope({ ...arScopeDemoScope });
+                invalidate();
+              })
+            }
+          >
+            {t.scopeSample}
           </Button>
           <label>
             {t.restore}
@@ -304,16 +349,48 @@ export function ArWorkspace({
                   <>
                     <h3>{source.name}</h3>
                     <label>
+                      {t.sides[side]}: {t.family}
+                      <select
+                        aria-label={`${t.sides[side]}: ${t.family}`}
+                        value={
+                          isArScopeReading(r)
+                            ? 'ar-scope-details-1'
+                            : 'ar-limited-1'
+                        }
+                        onChange={(event) => {
+                          const next = [...readings] as typeof readings;
+                          next[side] =
+                            event.target.value === 'ar-scope-details-1'
+                              ? suggestArScopeReading(source, side, r.sheet)
+                              : { ...freshReading(side), sheet: r.sheet };
+                          setReadings(next);
+                          setScope({ ...scope, confirmed: false });
+                          invalidate();
+                        }}
+                      >
+                        <option value="ar-limited-1">{t.rowFamily}</option>
+                        <option value="ar-scope-details-1">
+                          {t.scopeFamily}
+                        </option>
+                      </select>
+                    </label>
+                    <label>
                       {t.sides[side]}: {t.sheet}
                       <select
                         aria-label={`${t.sides[side]}: ${t.sheet}`}
                         value={r.sheet}
                         onChange={(event) => {
                           const next = [...readings] as typeof readings;
-                          next[side] = {
-                            ...freshReading(side),
-                            sheet: Number(event.target.value),
-                          };
+                          next[side] = isArScopeReading(r)
+                            ? suggestArScopeReading(
+                                source,
+                                side,
+                                Number(event.target.value),
+                              )
+                            : {
+                                ...freshReading(side),
+                                sheet: Number(event.target.value),
+                              };
                           setReadings(next);
                           setScope({ ...scope, confirmed: false });
                           invalidate();
@@ -326,41 +403,94 @@ export function ArWorkspace({
                         ))}
                       </select>
                     </label>
-                    <div className="clearing-grid">
-                      {columns.map((key) => (
-                        <label key={key}>
-                          {t.sides[side]}: {t.fields[key]}
-                          <select
-                            aria-label={`${t.sides[side]}: ${t.fields[key]}`}
-                            value={r[key]}
+                    {isArScopeReading(r) && (
+                      <>
+                        <p>{t.scopeReading}</p>
+                        <label>
+                          {t.sides[side]}: {t.detailHeader}
+                          <input
+                            aria-label={`${t.sides[side]}: ${t.detailHeader}`}
+                            type="number"
+                            min={1}
+                            max={20030}
+                            value={r.header + 1}
                             onChange={(event) => {
                               const next = [...readings] as typeof readings;
                               next[side] = {
                                 ...r,
-                                [key]: Number(event.target.value),
+                                header: Number(event.target.value) - 1,
                                 confirmed: false,
                               };
                               setReadings(next);
-                              setScope({ ...scope, confirmed: false });
                               invalidate();
                             }}
-                          >
-                            <option value={-1}>
-                              {key === 'related' || key === 'description'
-                                ? t.optional
-                                : t.column}
-                            </option>
-                            {source.sheets[r.sheet].rows[0].map(
-                              (heading, index) => (
+                          />
+                        </label>
+                        <details className="ar-source-evidence">
+                          <summary>{t.scopeHeader}</summary>
+                          <div className="clearing-scroll">
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>{t.row}</th>
+                                  <th>{t.sourceEvidence}</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {source.sheets[r.sheet]?.rows
+                                  .slice(0, Math.max(0, Math.min(r.header, 30)))
+                                  .map((values, index) => (
+                                    <tr key={index}>
+                                      <td>{index + 1}</td>
+                                      <td>{values.join(' | ')}</td>
+                                    </tr>
+                                  ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </details>
+                      </>
+                    )}
+                    <div className="clearing-grid">
+                      {(isArScopeReading(r) ? scopeColumns : columns).map(
+                        (key) => (
+                          <label key={key}>
+                            {t.sides[side]}: {t.fields[key]}
+                            <select
+                              aria-label={`${t.sides[side]}: ${t.fields[key]}`}
+                              value={readingColumn(r, key)}
+                              onChange={(event) => {
+                                const next = [...readings] as typeof readings;
+                                next[side] = {
+                                  ...r,
+                                  [key]: Number(event.target.value),
+                                  confirmed: false,
+                                } as ArReading;
+                                setReadings(next);
+                                setScope({ ...scope, confirmed: false });
+                                invalidate();
+                              }}
+                            >
+                              <option value={-1}>
+                                {key === 'related' ||
+                                key === 'description' ||
+                                key === 'open'
+                                  ? t.optional
+                                  : t.column}
+                              </option>
+                              {(
+                                source.sheets[r.sheet]?.rows[r.header] ?? []
+                              ).map((heading, index) => (
                                 <option key={index} value={index}>
                                   {index + 1}: {heading}
                                 </option>
-                              ),
-                            )}
-                          </select>
-                        </label>
-                      ))}
+                              ))}
+                            </select>
+                          </label>
+                        ),
+                      )}
                     </div>
+                    {isArScopeReading(r) && <p>{t.openLimit}</p>}
                     <label className="clearing-confirm">
                       <input
                         type="checkbox"
@@ -446,6 +576,9 @@ export function ArWorkspace({
             busy={busy}
           />
           <p>{t.coverage}</p>
+          {result.status === 'source-error' && (
+            <output data-ar-status>{t.sourceErrors}</output>
+          )}
           <div className="clearing-grid" data-testid="ar-metrics">
             {[
               [t.valid, result.rows.length],
@@ -457,8 +590,18 @@ export function ArWorkspace({
                 t.errors,
                 result.inventory.filter((i) => i.kind === 'error').length,
               ],
-              [t.ledgerTotal, money(result.totals[0], result.decimals)],
-              [t.statementTotal, money(result.totals[1], result.decimals)],
+              [
+                t.ledgerTotal,
+                result.totals[0] === null
+                  ? t.unavailableTotal
+                  : money(result.totals[0], result.decimals),
+              ],
+              [
+                t.statementTotal,
+                result.totals[1] === null
+                  ? t.unavailableTotal
+                  : money(result.totals[1], result.decimals),
+              ],
             ].map(([label, value]) => (
               <div key={String(label)}>
                 <span>{label}</span>
@@ -470,6 +613,7 @@ export function ArWorkspace({
             <label>
               {t.note}
               <textarea
+                aria-label={t.note}
                 maxLength={200}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
@@ -508,19 +652,23 @@ export function ArWorkspace({
               </Button>
             </div>
             {result.cases.slice(page * 50, (page + 1) * 50).map((c) => (
-              <article key={c.id} data-testid="ar-case">
-                <h3>
-                  {t.kind[c.kind]}: {c.document}
-                </h3>
-                <p>
-                  {c.status === 'matched'
-                    ? c.basis === 'human-confirmation'
-                      ? t.human
-                      : t.automatic
-                    : t.review}{' '}
-                  · {t.reason[c.reason]}
-                </p>
-                <ul>
+              <article key={c.id} data-testid="ar-case" className="ar-case">
+                <div className="ar-case-heading">
+                  <h3>
+                    {t.kind[c.kind]}: {c.document}
+                  </h3>
+                  <span
+                    className={`status ${c.status === 'matched' ? 'good' : 'warn'}`}
+                  >
+                    {c.status === 'matched'
+                      ? c.basis === 'human-confirmation'
+                        ? t.human
+                        : t.automatic
+                      : t.review}{' '}
+                    · {t.reason[c.reason]}
+                  </span>
+                </div>
+                <ul className="ar-case-members">
                   {c.ids
                     .slice(
                       (memberPages[c.id] ?? 0) * 50,
@@ -530,9 +678,85 @@ export function ArWorkspace({
                       const r = rowById.get(id)!;
                       return (
                         <li key={id}>
-                          {t.sides[r.side]} · {t.row} {r.row} · {r.posting} ·{' '}
-                          {r.date} · {money(r.amount, result.decimals)} ·{' '}
-                          {r.related} · {r.description}
+                          <div className="ar-member-heading">
+                            <span>{t.sides[r.side]}</span>
+                            <span className="ar-member-amount" dir="ltr">
+                              {money(r.amount, result.decimals)}
+                            </span>
+                          </div>
+                          <dl className="ar-member-meta">
+                            <div>
+                              <dt>{t.row}</dt>
+                              <dd>{r.row}</dd>
+                            </div>
+                            <div>
+                              <dt>{t.fields.posting}</dt>
+                              <dd>{r.posting}</dd>
+                            </div>
+                            <div>
+                              <dt>{t.fields.date}</dt>
+                              <dd>
+                                <bdi>{r.date}</bdi>
+                              </dd>
+                            </div>
+                            {r.related && (
+                              <div>
+                                <dt>{t.fields.related}</dt>
+                                <dd>{r.related}</dd>
+                              </div>
+                            )}
+                          </dl>
+                          {r.description && (
+                            <p className="ar-member-description">
+                              {r.description}
+                            </p>
+                          )}
+                          {r.originalRaw !== undefined && (
+                            <details className="ar-source-evidence">
+                              <summary>{t.sourceEvidence}</summary>
+                              <dl>
+                                <dt>{t.originalRaw}</dt>
+                                <dd>{r.originalRaw}</dd>
+                                <dt>{t.openRaw}</dt>
+                                <dd>{r.openBalanceRaw || '—'}</dd>
+                                <dt>{t.fields.parent}</dt>
+                                <dd>{r.parentScopeId ?? '—'}</dd>
+                              </dl>
+                              <p>{t.openLimit}</p>
+                              {r.inheritedSourceCells &&
+                              Object.keys(r.inheritedSourceCells).length ? (
+                                <div className="clearing-scroll">
+                                  <table>
+                                    <thead>
+                                      <tr>
+                                        <th>{t.inherited}</th>
+                                        <th>{t.sourceEvidence}</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {Object.entries(
+                                        r.inheritedSourceCells,
+                                      ).map(([field, cell]) => (
+                                        <tr key={field}>
+                                          <td>
+                                            {t.fields[
+                                              field as keyof typeof t.fields
+                                            ] ?? field}
+                                            : {cell.raw}
+                                          </td>
+                                          <td>
+                                            {cell.sheetName} · {t.row}{' '}
+                                            {cell.row} · {t.column}{' '}
+                                            {cell.column}
+                                          </td>
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                </div>
+                              ) : null}
+                            </details>
+                          )}
                         </li>
                       );
                     })}
