@@ -13,5 +13,10 @@ export default defineConfig({
     format: 'es',
     rolldownOptions: { output: { codeSplitting: false } },
   },
-  build: { target: 'es2022', sourcemap: false },
+  build: {
+    target: 'es2022',
+    sourcemap: false,
+    // Parallel graph discovery must not reorder reviewed preload bytes.
+    modulePreload: { resolveDependencies: (_url, dependencies) => [...dependencies].sort() },
+  },
 });

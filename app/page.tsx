@@ -173,6 +173,17 @@ import {
   selectImportMapping,
 } from '@/lib/reconciliation/import-selection';
 import { demoFiles, demoMappings, demoScope } from '@/lib/reconciliation/demo';
+// These existing workspaces supply their own native main landmark. Keep the
+// shared content element stable; changing its tag on navigation would remount
+// the accounting work stored beneath it.
+const nativeMainDomains = new Set<ReconciliationDomain>([
+  'clearing',
+  'ar',
+  'gl-tb',
+  'allocation',
+  'bank',
+]);
+
 const initialScope: Scope = {
   supplier: '',
   entity: '',
@@ -1713,7 +1724,10 @@ export default function App() {
             )}
           </div>
         </header>
-        <main>
+        <div
+          data-reconciliation-content
+          role={nativeMainDomains.has(domain) ? undefined : 'main'}
+        >
           {showLanding && <LandingIntro />}
           <ReconciliationDirectory
             activeDomain={domain}
@@ -3226,7 +3240,7 @@ export default function App() {
           </div>
           {showLanding && <LandingBenefits />}
           {showLanding && <LandingDetails />}
-        </main>
+        </div>
         <footer className="site-footer">
           <a
             className="brand footer-brand"

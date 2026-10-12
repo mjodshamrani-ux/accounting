@@ -45,8 +45,8 @@
     },
     {
       "path": "app/globals.css",
-      "bytes": 44104,
-      "sha256": "11210ae1b66cebfba5fce7e5c156c7815c9f7d0580d4fa232fa865dc738f40f7",
+      "bytes": 44391,
+      "sha256": "f0077231117281edd8dffcdd06275aabebfb04a769a20197c39597e32a25bdeb",
       "kind": "text"
     },
     {
@@ -57,15 +57,15 @@
     },
     {
       "path": "app/page.tsx",
-      "bytes": 147218,
-      "sha256": "1fd1edf10914b635b5e4a95f83d458028f30aa942536739600dd06fdd249ba24",
+      "bytes": 147651,
+      "sha256": "31c91ae0a502233e14da506378d6c056d95cb1d9287e47dd5991713d267019fc",
       "kind": "text"
     },
     {
       "path": "app/reconciliation-shell.css",
       "kind": "text",
-      "bytes": 1739,
-      "sha256": "9136b6dc0ec9bdf99bf087d782dc9cbb1b40c170eac469fab78d9c44ea42cb57"
+      "bytes": 1764,
+      "sha256": "714a4829fa5224b6b21916a0307bf64221cf8fde1bd5f7a1f750e3ec0131544b"
     },
     {
       "path": "audit/allocation-handoff-v1/frozen/expected.json",
@@ -35114,8 +35114,8 @@
     {
       "path": "docs/RELEASE-0.4.47.ar.md",
       "kind": "text",
-      "bytes": 4018,
-      "sha256": "59010704239849d3ffafb170c8a50ac8432fadae6ec815b907e48e8a6738f48c"
+      "bytes": 4869,
+      "sha256": "b76240a0103a1f43719a3574ef8206b5afb42686324f3e3c5e0e7535a4323bdf"
     },
     {
       "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
@@ -35132,8 +35132,8 @@
     {
       "path": "docs/WORKSPACE-IDENTITY.ar.md",
       "kind": "text",
-      "bytes": 4579,
-      "sha256": "fff8d3b4dcb7e3d78c89504d55f0d9728ff891cc6e3ef028c8370aed546fe521"
+      "bytes": 5126,
+      "sha256": "59c36ba449025efd28c78bccefe18b5409ef3c4020b619159889940576db4408"
     },
     {
       "path": "examples/ledger-demo.csv",
@@ -36954,8 +36954,8 @@
     {
       "path": "scripts/unified-workspace-browser.mjs",
       "kind": "text",
-      "bytes": 30836,
-      "sha256": "366e4e5c853243c9073d6cf98cd8e9c91481deef1c7d5533ccd007f19f92487c"
+      "bytes": 31227,
+      "sha256": "d3025e1f178d6064f34174460017dcc4629cb7608f41d97497ef3b60c9ea7704"
     },
     {
       "path": "scripts/unknown-credit-browser-cases.mjs",
@@ -39059,8 +39059,8 @@
     },
     {
       "path": "vite.config.ts",
-      "bytes": 687,
-      "sha256": "02d6861ec4c69167886bc3ff4274886c7465ba8b76c70f2ad5e0950dad885fed",
+      "bytes": 865,
+      "sha256": "902aeec1b7b297f7809c843ffd62111ea2f8d9b3135bcee5256366e1190825ef",
       "kind": "text"
     }
   ],
@@ -39072,21 +39072,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-CvF_7O3J.js",
+      "path": "assets/ar-io-CMvWxo7x.js",
       "bytes": 11377,
-      "sha256": "87699d4b4f7caa098951c49f7d33889afdd880491af7c3d9221ff1f6168af379",
+      "sha256": "90bd67acb57b91cbab9216a227a78114925bb00da0e0fb3988cdc5ff7d5bd604",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-CSnBkXS_.js",
+      "path": "assets/bank-adjustment-io-4iCRxL0z.js",
       "bytes": 12101,
-      "sha256": "0fe222b5dea988fdc9201611d60c5e6b85af46b12f007782f985665ab56bef9c",
+      "sha256": "ce4b8e7822be99c4b41a50e59d5f7460736e5b3cd0d61cdee0d8eb6ee434749e",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-BhzoK-3B.js",
+      "path": "assets/bank-io-BHzytwMA.js",
       "bytes": 6331,
-      "sha256": "6224872a9b039da2989ece5fb2582adf738ed58ed779fdbcfcb47d4d36c113ba",
+      "sha256": "3f966f69c29147406175792bed8f27a6b6dfc1e1f9d92cea3f03b591c8a4ec35",
       "kind": "text"
     },
     {
@@ -39122,27 +39122,27 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-D22Jjty_.js",
+      "path": "assets/fixed-assets-io-DUlpEin_.js",
       "bytes": 9830,
-      "sha256": "8b5e0c6dde5f7047a5180f159ba42352d8567940cf66527b843993999fe6483f",
+      "sha256": "e6ec0d52656db1e44daa0fecca43287d0743ba6d456d46612f2fb39040797de4",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-BmP5bLdQ.js",
+      "path": "assets/gl-tb-io-DTCOqHxw.js",
       "bytes": 2184,
-      "sha256": "bab919feadce32c2b51a1a25ef133160c4ec455edb7b681e2493bd7a3ef77bf7",
+      "sha256": "81435dda4bc6e45dff2b1289242f33224b777532f1fcd8179cf559b7f57f7d51",
       "kind": "text"
     },
     {
-      "path": "assets/index-DcRvqgW_.css",
-      "bytes": 275028,
-      "sha256": "127184934a807e58dff1f5eb55dca0d0deec362ef036bbc804ed55608da56595",
+      "path": "assets/index-DD1xYCF4.css",
+      "bytes": 273450,
+      "sha256": "6c8e3a155785e2e260232c9f41de6fa89970898e1a15de3a2a101a0168a7a1d2",
       "kind": "text"
     },
     {
-      "path": "assets/index-ohnjCIFT.js",
-      "bytes": 6287228,
-      "sha256": "f0ae30cdeec40ace42681ab8b24b145c05aa85d79589631c25364828baee0b63",
+      "path": "assets/index-DgiEzMWp.js",
+      "bytes": 6287354,
+      "sha256": "7d504fe760056af76dd2d82b873747578d9655e0826fb8fdcad7a61d6423cec4",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -39328,7 +39328,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "cb5cfb54fa2529c8f67c0fb524fe6718b964e6d59760c82ad4eb4f9d5b3aa7a0",
+      "sha256": "91be3597be62beef703b9e4214f4dfe7f0fc3fa7fef9bfd0766ffa2a222a9b20",
       "kind": "text"
     },
     {

@@ -1,6 +1,15 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
 @import 'tw-animate-css';
 @import '../styles/vendor/shadcn-4.18.0.tailwind.css';
+
+/* Only runtime templates contribute utilities; audit outputs never alter the build. */
+@source './**/*.tsx';
+@source '../components/**/*.tsx';
+@source '../hooks/**/*.ts';
+@source '../lib/**/*.ts';
+@source '../lib/**/*.tsx';
+@source '../main.tsx';
+@source '../index.html';
 @font-face {
   font-family: 'Noto Sans Arabic';
   src: url('/fonts/noto-sans-arabic-variable.woff2') format('woff2');

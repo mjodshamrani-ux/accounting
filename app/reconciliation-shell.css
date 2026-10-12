@@ -1,4 +1,4 @@
-.reconciliation-shell > main {
+.reconciliation-shell > [data-reconciliation-content] {
   min-width: 0;
 }
 .global-privacy-panel {

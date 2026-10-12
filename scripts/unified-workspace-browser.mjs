@@ -214,6 +214,12 @@ async function capture(page, name) {
   await page.screenshot({ path: path.join(out, name), fullPage: true });
 }
 
+async function assertMainLandmark(page, domain, evidence) {
+  const count = await page.getByRole('main').count();
+  evidence.push({ domain, count });
+  assert.equal(count, 1, `${domain}: exactly one main landmark is exposed`);
+}
+
 async function snapshot(panel) {
   return panel.evaluate((element) => ({
     sources: [
@@ -420,7 +426,7 @@ try {
             ?.disabled,
         selector,
       );
-      const result = { width, language, domains: [] };
+      const result = { width, language, domains: [], mainLandmarks: [] };
       report.cases.push(result);
       const type = page.locator(selector);
       assert.equal(
@@ -475,12 +481,14 @@ try {
         2,
         'supplier entry keeps exactly two upload cards',
       );
+      await assertMainLandmark(page, 'supplier', result.mainLandmarks);
       result.initialBounds = await bounds(page, 'supplier source entry');
       result.fonts = await fontProof(page, language);
       await capture(page, `${language}-${width}-supplier-entry.png`);
 
       for (const domain of domains.slice(1)) {
         await selectType(page, domain);
+        await assertMainLandmark(page, domain, result.mainLandmarks);
         const panel = page.locator(`[data-domain-panel="${domain}"]:visible`);
         assert.equal(
           await page.locator('[data-domain-panel]:visible').count(),
