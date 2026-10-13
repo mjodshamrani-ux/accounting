@@ -33,14 +33,14 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 4139,
-      "sha256": "00c0b4278937f0da0e2fd5c2b18c6cb42420274504bc234cf0de2befc67c8443",
+      "bytes": 4550,
+      "sha256": "2e21b4ca38ed6502e2d79683a5b5e2d4f4cef9daf71a5798d6b9820021238d3f",
       "kind": "text"
     },
     {
       "path": "CLAUDE.md",
-      "bytes": 1739,
-      "sha256": "23585f75e48347ab27cdcb168e1890fc5ee6044133e26af64915ec0af1876b59",
+      "bytes": 2372,
+      "sha256": "9b7b4c99140e07912e164f27776c3e7f71d06cd05dbff09871bf1c6d74f6edcb",
       "kind": "text"
     },
     {
@@ -35025,8 +35025,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 8203,
-      "sha256": "11816c111de8bc9b7da542c676bbd1d854856a42af55b87bebc4f239ef90b855",
+      "bytes": 8964,
+      "sha256": "2b5170263a0eb6535b65f771c7489cb79f9aaa51c7bdc35eaf1c78bb7d325c0b",
       "kind": "text"
     },
     {
@@ -35079,8 +35079,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 6208,
-      "sha256": "fc1611172893a068c150e3d3b6a04199b2855f566903a5276a7e3a7743de62f6",
+      "bytes": 7178,
+      "sha256": "1d772b4f0db6cb9d3d03bfca01d96938bfd5060d6d70143c2f1e46bc2ebd3721",
       "kind": "text"
     },
     {
@@ -35180,8 +35180,8 @@
     {
       "path": "docs/reference/CHALLENGES.ar.md",
       "kind": "text",
-      "bytes": 56565,
-      "sha256": "13f3a071b2430e6aee3c080c93a97c105d0cc9eeeac071e96309d5a7d5c39d6f"
+      "bytes": 57109,
+      "sha256": "ecfb77929ff21ee33108add9588387063a611ff05dd237a40b3655f8ab756cd8"
     },
     {
       "path": "docs/reference/DELIVERY.ar.md",
@@ -35196,15 +35196,21 @@
       "kind": "text"
     },
     {
+      "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
+      "kind": "text",
+      "bytes": 41945,
+      "sha256": "a9df1b06a63f069a825a6873ce8312e4544a25879476b01e7b605e245fcf2c88"
+    },
+    {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 8562,
-      "sha256": "822c397665b5e700980140b82cb523c20eb7cc5d251eabf931479b954e6dc4a8",
+      "bytes": 9000,
+      "sha256": "5a964c67bc823eacde69eca0fbccc4c6b9ac01ef4a89527d2310a73710fb6747",
       "kind": "text"
     },
     {
       "path": "docs/reference/QUALITY.ar.md",
-      "bytes": 10073,
-      "sha256": "e8f3bef51869f9f1e635500c7fc147672ff3873f3f3f6fd9546e79d3c7a363c0",
+      "bytes": 11403,
+      "sha256": "b5f7ecd5dc34c104f2d17c0e4b1ee8574cfb39ddb2c7bf9c55f68cdbf558ec7a",
       "kind": "text"
     },
     {
@@ -35221,8 +35227,8 @@
     },
     {
       "path": "docs/roadmap/README.ar.md",
-      "bytes": 6059,
-      "sha256": "244a6540803283c236a4ecccfca061753e7bae946b3219f21089ca55fb1ce9e2",
+      "bytes": 6564,
+      "sha256": "3a799bebdd2dff7d52c7934072f425123040c8b81fc45869884ef2e3aae84821",
       "kind": "text"
     },
     {
@@ -35257,8 +35263,8 @@
     },
     {
       "path": "docs/roadmap/common.ar.md",
-      "bytes": 7698,
-      "sha256": "f260781bad45309a13e21d7d676ed12d8e62d9a3f35e7abe60328e35cd3a381b",
+      "bytes": 8424,
+      "sha256": "f9898df03512626904310f7b27de0a84c250011310162dd42234224f87909225",
       "kind": "text"
     },
     {
@@ -35296,6 +35302,12 @@
       "bytes": 3524,
       "sha256": "20cb3d7558cb09c2bc893170d9aa696716e103a26f646ccfefc66005587578de",
       "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/source-diversity.ar.md",
+      "kind": "text",
+      "bytes": 25388,
+      "sha256": "4635510c0b7359bb839a3168b9cdae846ad5c5aa14b75d558b380e6915daf350"
     },
     {
       "path": "docs/roadmap/supplier.ar.md",
