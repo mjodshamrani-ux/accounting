@@ -361,7 +361,9 @@ export async function readFile(
     import('./xlsx-namespaces.ts').NumericLexemeIssue[]
   >();
   const compatible = await prepareXlsxForExcelJs(buffer, numericLexemeIssues);
-  const display = await xlsxDisplayContext(buffer);
+  // Use the same validated addresses for values and native display evidence.
+  // `buffer` remains the source of the retained original and its hash.
+  const display = await xlsxDisplayContext(compatible);
   await workbook.xlsx.load(compatible);
   if (workbook.worksheets.length > MAX_SHEETS)
     throw new Error(`الحد ${MAX_SHEETS} ورقة في الملف`);
