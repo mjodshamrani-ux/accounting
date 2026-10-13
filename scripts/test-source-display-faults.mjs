@@ -37,8 +37,21 @@ await mkdir(out, { recursive: true });
 const tests = [
   'tests/source-display-entry.test.ts',
   'tests/native-display-mapping.test.ts',
+  'tests/xlsx-coordinate-display.test.ts',
 ];
 const faults = [
+  [
+    'coordinate-display-source',
+    'lib/reconciliation/io.ts',
+    'const display = await xlsxDisplayContext(compatible);',
+    'const display = await xlsxDisplayContext(buffer);',
+  ],
+  [
+    'coordinate-materialization',
+    'lib/reconciliation/xlsx-namespaces.ts',
+    'resolvedCellAddress = address;',
+    'resolvedCellAddress = undefined;',
+  ],
   [
     'bank-native-guard',
     'lib/reconciliation/bank-io.ts',

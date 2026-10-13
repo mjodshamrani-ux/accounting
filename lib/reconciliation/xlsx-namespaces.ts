@@ -57,7 +57,13 @@ const criticalNames = new Set([
   'Relationship',
 ]);
 const escapeText = (value: string) =>
-  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    // A decoded &#13; must stay an entity. A literal CR is normalized to LF
+    // by the next XML parser, changing the original identifier or description.
+    .replace(/\r/g, '&#13;');
 const escapeAttribute = (value: string) =>
   escapeText(value)
     .replace(/"/g, '&quot;')
@@ -109,8 +115,8 @@ function supportedPart(path: string): Part | undefined {
 
 /**
  * ExcelJS matches literal tag names, although x:worksheet and worksheet are
- * equivalent when their resolved namespace is SpreadsheetML. Canonicalize only
- * the XML vocabulary, never the text/numbers/formulas held inside those tags.
+ * equivalent when their resolved namespace is SpreadsheetML. Canonicalize the
+ * vocabulary and validated cell addresses, never cell text/numbers/formulas.
  */
 function compatibleXml(
   xml: string,
@@ -239,6 +245,7 @@ function compatibleXml(
       Object.values(tag.attributes).find(
         (value) => value.local === local && value.uri === uri,
       )?.value ?? '';
+    let resolvedCellAddress: string | undefined;
     if (
       part.root === 'styleSheet' &&
       canonical === 'numFmt' &&
@@ -340,13 +347,12 @@ function compatibleXml(
         ? `${coordinate[1]}${Number(coordinate[2])}`
         : rawAddress;
       if (coordinate)
-        previousColumn = coordinate[1].split('').reduce(
-          (n, char) => n * 26 + char.charCodeAt(0) - 64,
-          0,
-        );
+        previousColumn = coordinate[1]
+          .split('')
+          .reduce((n, char) => n * 26 + char.charCodeAt(0) - 64, 0);
       else if (!rawAddress && previousColumn && rowAddress) {
-        // ExcelJS supports an omitted r after an explicit cell by taking the
-        // next column. Include that same deterministic address in uniqueness.
+        // Resolve every cell, including empty <c/>, before either consumer
+        // reads values or styles. Library handling of empty cells may differ.
         let column = ++previousColumn;
         let letters = '';
         while (column) {
@@ -367,6 +373,11 @@ function compatibleXml(
         throw new Error(
           `موضع خلية Excel ${address} لا يطابق صف المصدر ${rowAddress}`,
         );
+      // Display checks and ExcelJS must refer to the same physical cell. An
+      // omitted r (or C02 instead of C2) cannot detach a style from its value.
+      // This compatibility copy never replaces the retained original bytes.
+      resolvedCellAddress = address;
+      if (rawAddress !== address) changed = true;
       cell = {
         address,
         type: attribute('t') || 'n',
@@ -446,15 +457,22 @@ function compatibleXml(
         changed = true;
       bind(qualified, attribute.uri, true);
       const value =
-        part.root === 'worksheet' &&
-        canonical === 'c' &&
-        attribute.local === 't' &&
-        !attribute.uri &&
-        attribute.value === 'd'
-          ? 'str'
-          : attribute.value;
+        resolvedCellAddress && attribute.local === 'r' && !attribute.uri
+          ? resolvedCellAddress
+          : part.root === 'worksheet' &&
+              canonical === 'c' &&
+              attribute.local === 't' &&
+              !attribute.uri &&
+              attribute.value === 'd'
+            ? 'str'
+            : attribute.value;
       attributes.push(`${qualified}="${escapeAttribute(value)}"`);
     }
+    if (
+      resolvedCellAddress &&
+      !Object.values(tag.attributes).some((a) => a.local === 'r' && !a.uri)
+    )
+      attributes.push(`r="${resolvedCellAddress}"`);
     const namespaces = Array.from(
       declarations,
       ([prefix, uri]) =>
