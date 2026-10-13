@@ -12,6 +12,8 @@ Tarasuf (تَـراصُـف) is a local-first reconciliation application, not a 
 
 ## Non-negotiable engineering boundaries
 
+For visual implementation, use the [scene construction and motion reference](docs/reference/VISUAL-IMPLEMENTATION.ar.md): exact component sources, SVG layering/A4/clipping, shared upload behavior, CSS perspective, reveal logic, provenance and existing browser checks. Reuse the source artwork and real input controls. Do not infer live 3D physics, cursor parallax or financial progress from decorative layer names or animation.
+
 - Deterministic, source-bound accounting is authoritative. Equal sums alone do not prove document identity, group membership, completeness or full balance reconciliation.
 - Preserve source bytes, hashes, physical rows/cells/pages, rejected rows, reasons, decisions and remaining differences. Do not discard competitors to manufacture uniqueness. Keep partial useful results when isolation is proven; preserve existing stricter domain gates until a separately tested contract changes them.
 - AI can propose interpretation; it cannot invent money, rewrite evidence, approve a match, hide a difference or certify completeness. A runtime/model being present does not prove useful inference.

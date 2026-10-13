@@ -19,6 +19,7 @@
 | كيف نثبت صحة النتيجة وكفاءة الحل                     | [الاختبار ومعايير القبول](reference/QUALITY.ar.md)                                      |
 | ما دور الذكاء الاصطناعي والصور                       | [خطة AI وOCR وحدودهما](reference/AI-AND-OCR.ar.md)                                      |
 | كيف نحافظ على الشعار والخط والبساطة                  | [دليل الهوية والتصميم](reference/DESIGN.ar.md) و[عقد الواجهة](WORKSPACE-IDENTITY.ar.md) |
+| كيف بنينا الورق وعمق 3D والمسح والحركة السلسة        | [دليل بناء المشاهد ومصادرها](reference/VISUAL-IMPLEMENTATION.ar.md)                     |
 | كيف وصلنا إلى هنا                                    | [تاريخ القرارات والتنفيذ](reference/HISTORY.ar.md)                                      |
 | كيف نطور ونرفع دون إفساد الأدلة                      | [التسليم والعمل في السحابة](reference/DELIVERY.ar.md)                                   |
 | ما الحدود الحالية للملفات والنطاق                    | [نطاق المنتج](PRODUCT-SCOPE.ar.md) و[سياسة النشر العام](PUBLIC-SOURCE-POLICY.ar.md)     |
