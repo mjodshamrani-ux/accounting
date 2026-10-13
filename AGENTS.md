@@ -1,0 +1,26 @@
+# Working on Tarasuf
+
+Tarasuf (تَـراصُـف) is a local-first reconciliation application, not a generic matching demo. Start at [the project portal](docs/README.ar.md). These instructions apply across this repository; direct user instructions take precedence.
+
+## Read before changing code
+
+1. [Current execution queue](docs/CURRENT-PLAN.ar.md) and [verified baseline and gaps](docs/reference/STATE.ar.md).
+2. [Vision and product decisions](docs/reference/VISION.ar.md), [accounting boundaries](docs/reference/ACCOUNTING-CONTRACT.ar.md), [architecture](docs/reference/ARCHITECTURE.ar.md), and the relevant [domain plan](docs/roadmap/README.ar.md).
+3. [Quality and evidence rules](docs/reference/QUALITY.ar.md). For UI work also read [design](docs/reference/DESIGN.ar.md) and [workspace identity](docs/WORKSPACE-IDENTITY.ar.md). For AI/OCR read [AI boundaries](docs/reference/AI-AND-OCR.ar.md).
+4. Inspect the actual implementation, domain contract, existing tests and Git state. Do not infer completion from a plan, a release-note title, a demo or an old passing run.
+
+## Non-negotiable engineering boundaries
+
+- Deterministic, source-bound accounting is authoritative. Equal sums alone do not prove document identity, group membership, completeness or full balance reconciliation.
+- Preserve source bytes, hashes, physical rows/cells/pages, rejected rows, reasons, decisions and remaining differences. Do not discard competitors to manufacture uniqueness. Keep partial useful results when isolation is proven; preserve existing stricter domain gates until a separately tested contract changes them.
+- AI can propose interpretation; it cannot invent money, rewrite evidence, approve a match, hide a difference or certify completeness. A runtime/model being present does not prove useful inference.
+- Financial files stay local. Do not add telemetry, remote financial processing, external fonts or automatic model downloads. Session/workbook downloads contain user data and are not encrypted by this app. Never publish user files, raw local proofs, personal paths or secrets.
+- Retain original supplier upload SVG, shared page sections, one type selector, genuine licensed Thmanyah headings, local fonts, AR/EN, reduced motion, accessibility and state retention. Visual source order must not change financial source-array order.
+- App version, engine version and session/protocol versions are separate. Branding changes must not silently migrate evidence formats or rename protocol identifiers such as `mizan-accounting-v1`.
+- Never weaken a frozen oracle, expected amounts/members, mutation gate, publication guard or source contract to get green tests. Retain failures as historical failures; create a fresh holdout after learning from a case.
+
+## Delivery
+
+Use [delivery guidance](docs/reference/DELIVERY.ar.md). Keep changes scoped, inspect concurrent changes, and run checks appropriate to the change plus the unchanged required CI gates. Update documentation in the same change when behavior or scope changes. The exact public allowlist must include reviewed documentation changes too; do not bulk-approve unknown files or regenerate distribution hashes for a docs-only change.
+
+Report what changed, what actually ran, what failed or remains unverified, and the exact commit/run when available. Do not claim universal accuracy, field validation, measured time savings or a successful deployment without corresponding evidence. An old run belongs to its old commit. A documentation update does not change the application release number.

@@ -32,9 +32,21 @@
       "kind": "text"
     },
     {
+      "path": "AGENTS.md",
+      "bytes": 3547,
+      "sha256": "9e4e84579820dcd32b05b46cf1b23eacf5349ce66ef8a1581e21769d6bbf1d8f",
+      "kind": "text"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 829,
+      "sha256": "3d6a3e73e868db1ed77d40a3b90f02af0da9725c34400c5845cc1e301a63421a",
+      "kind": "text"
+    },
+    {
       "path": "README.md",
-      "bytes": 6488,
-      "sha256": "9d28804c3893b83cbdc30d941651227af0bdcb600ddecea4d569433f4505b9eb",
+      "bytes": 6998,
+      "sha256": "5393139ab1b64132b56188f241341474b4a8ec2807fa05dc8b2c7d7cb3569dbc",
       "kind": "text"
     },
     {
@@ -35013,8 +35025,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 3695,
-      "sha256": "14df175687aa1331565677631350a55c079da0eb3a13450507a2e17f65630b65",
+      "bytes": 6035,
+      "sha256": "efea39f8aec776a60e62cd2f48dda460e2d58315c02837fcc6affba05be3e6d3",
       "kind": "text"
     },
     {
@@ -35063,6 +35075,12 @@
       "path": "docs/PUBLIC-SOURCE-POLICY.ar.md",
       "bytes": 3619,
       "sha256": "79211b50241c312a8611f08b3faa119eac7f023bcb2b0be4bd4d0c5cf269ae3d",
+      "kind": "text"
+    },
+    {
+      "path": "docs/README.ar.md",
+      "bytes": 5009,
+      "sha256": "1fdc1e102a2ce0f8facc28f1dd77b98efa29d52a7ca985b17ab91e72419d5fc2",
       "kind": "text"
     },
     {
@@ -35140,6 +35158,144 @@
       "kind": "text",
       "bytes": 6773,
       "sha256": "8749860371350ae2b51fe0fd43715217e5277b029bdc69c26ba3c1c27a16cdc7"
+    },
+    {
+      "path": "docs/reference/ACCOUNTING-CONTRACT.ar.md",
+      "bytes": 7040,
+      "sha256": "c262c3ea14ffdd47542e2deb0109dc7ae714eba30f5665afeb4533a7e830cad1",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/AI-AND-OCR.ar.md",
+      "bytes": 7623,
+      "sha256": "e7239dadd4b3bfeadf16f92a6e4be9f92e386db590365eb867c79cf0438e6d0b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/ARCHITECTURE.ar.md",
+      "bytes": 9238,
+      "sha256": "a40dd696438ed9728e1bed1c59fd2c949507b838775f9a6badf5808468eb882d",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/DELIVERY.ar.md",
+      "bytes": 6170,
+      "sha256": "a8df498495af21c0f42136c27a5dbc099983c127d56c8c0e9949baaa1ad4950f",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/DESIGN.ar.md",
+      "bytes": 9698,
+      "sha256": "45b0de9610c002fb28eefbfca90db7efae28a4bdc2071b5a0e1eb559d592b803",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/HISTORY.ar.md",
+      "bytes": 8562,
+      "sha256": "822c397665b5e700980140b82cb523c20eb7cc5d251eabf931479b954e6dc4a8",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/QUALITY.ar.md",
+      "bytes": 10073,
+      "sha256": "e8f3bef51869f9f1e635500c7fc147672ff3873f3f3f6fd9546e79d3c7a363c0",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/STATE.ar.md",
+      "bytes": 10694,
+      "sha256": "f00fc4eb873ca510e6f29171a80874404bea64a04bb5d2efbfc5ebef912e702c",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/VISION.ar.md",
+      "bytes": 7029,
+      "sha256": "f6084c1db97c9298c3d5022bac0728dee5e0bff3c7cb943b8539c14e75389845",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/README.ar.md",
+      "bytes": 4936,
+      "sha256": "431426025e69c3aa578d0db874936a0a18b7f954ec194a44e7c8113b9cb9f417",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/allocation.ar.md",
+      "bytes": 3267,
+      "sha256": "bf743d040de2439c357332d672ac122b5a1514811cfa0713f5df015c0ac94b93",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/ar.ar.md",
+      "bytes": 3422,
+      "sha256": "309627305ccf916529b616ce054a6ece8c60c68f9d5ad77e8d4fbb81c81336cb",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/bank.ar.md",
+      "bytes": 4339,
+      "sha256": "fc739720c716fbc185e2158a7adc07a0706238eebae0aa7cfd8fcdcb230303f0",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/clearing.ar.md",
+      "bytes": 2765,
+      "sha256": "bbf07af8853d8ae73a6c65e5b9454fc86e29fb0d95f63175b414db3440cfa2b3",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/common.ar.md",
+      "bytes": 7132,
+      "sha256": "1bb0de3b800cf0e7103178ac5b062f38443df55a33d375b01eba5395890080fb",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/fixed-assets.ar.md",
+      "bytes": 3130,
+      "sha256": "991e3e6c10ff799a5de3fc7eed01ef2aead8607cbf00e96e54afad0b8ba9da82",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/gl-tb.ar.md",
+      "bytes": 3360,
+      "sha256": "39f17e3ae3c48eb1a572892e7f2c651a8f03daf54070ef2e27fcfc8a2a583ed2",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/intercompany.ar.md",
+      "bytes": 3117,
+      "sha256": "4c4a112f1e2a013472b7fdad48b82f72ca1ef8a2ade526216d012c3a45831442",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/inventory.ar.md",
+      "bytes": 3215,
+      "sha256": "c5e2425961d1b0bfe1cbf9d1489e2623890a629a634e4b0f244e070f24916fb9",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/payment-gateway.ar.md",
+      "bytes": 3217,
+      "sha256": "a2d7906b1b781c8a7953050ac6e55c1906ad4e8976b90c5c74160b65889086b8",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/payroll.ar.md",
+      "bytes": 3524,
+      "sha256": "20cb3d7558cb09c2bc893170d9aa696716e103a26f646ccfefc66005587578de",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/supplier.ar.md",
+      "bytes": 4446,
+      "sha256": "6523c0034c2d163297900f48d99789043f73333b3fb723deb929d42fce6f3573",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/tb-financial.ar.md",
+      "bytes": 3490,
+      "sha256": "effd8e27fb9e7bdb459c4eeb9b3375ce68d25546cc3ee9c9196c648d1caee515",
+      "kind": "text"
     },
     {
       "path": "examples/ledger-demo.csv",
