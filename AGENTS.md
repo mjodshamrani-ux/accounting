@@ -8,6 +8,7 @@ Tarasuf (تَـراصُـف) is a local-first reconciliation application, not a 
 2. [Vision and product decisions](docs/reference/VISION.ar.md), [accounting boundaries](docs/reference/ACCOUNTING-CONTRACT.ar.md), [architecture](docs/reference/ARCHITECTURE.ar.md), and the relevant [domain plan](docs/roadmap/README.ar.md). For engine work, map the task to the [accountant and engine challenge register](docs/reference/CHALLENGES.ar.md); its acceptance families are proposals, not newly passed tests.
 3. [Quality and evidence rules](docs/reference/QUALITY.ar.md). For UI work also read [design](docs/reference/DESIGN.ar.md) and [workspace identity](docs/WORKSPACE-IDENTITY.ar.md). For AI/OCR read [AI boundaries](docs/reference/AI-AND-OCR.ar.md).
 4. Inspect the actual implementation, domain contract, existing tests and Git state. Do not infer completion from a plan, a release-note title, a demo or an old passing run.
+5. For future accounts, owner statistics, organizations, trials or billing, read the [private-data boundaries and commercial roadmap](docs/roadmap/accounts-privacy-business.ar.md). It is planned work, not permission to enable tracking now. GitHub remains the source repository; a commercial account service requires suitable production hosting, a minimal metadata contract and its security gates before activation.
 
 ## Non-negotiable engineering boundaries
 
