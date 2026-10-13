@@ -207,6 +207,24 @@ async function bounds(page, label) {
 }
 
 async function capture(page, name) {
+  // Exercise the real scroll-reveal path before a full-page capture. A browser
+  // screenshot alone does not bring offscreen sections into the viewport.
+  for (const element of await page.locator('[data-reveal]').all()) {
+    if ((await element.getAttribute('class'))?.includes('is-revealed'))
+      continue;
+    await element.scrollIntoViewIfNeeded();
+    await element
+      .page()
+      .waitForFunction(
+        (node) => node.classList.contains('is-revealed'),
+        await element.elementHandle(),
+      );
+  }
+  await page.waitForFunction(() =>
+    [...document.querySelectorAll('[data-reveal]')].every(
+      (element) => getComputedStyle(element).opacity === '1',
+    ),
+  );
   // A full-page capture taken after heading focus otherwise records sticky
   // chrome at the old scroll offset, including an offscreen skip link.
   await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
@@ -218,6 +236,143 @@ async function assertMainLandmark(page, domain, evidence) {
   const count = await page.getByRole('main').count();
   evidence.push({ domain, count });
   assert.equal(count, 1, `${domain}: exactly one main landmark is exposed`);
+}
+
+async function sharedPageSnapshot(page, initialSections, domain) {
+  const evidence = await page.evaluate((initial) => {
+    const selectors = [
+      '.landing-intro',
+      '.document-scene',
+      '.tarasuf-benefits-wrap',
+      '#how-it-works',
+      '#privacy',
+      '#privacy-details',
+      '.site-footer',
+    ];
+    return {
+      sections: selectors.map((selector, index) => {
+        const nodes = document.querySelectorAll(selector);
+        return {
+          selector,
+          count: nodes.length,
+          retained: nodes[0] === initial[index],
+          rendered: !!nodes[0]?.getClientRects().length,
+        };
+      }),
+      titles: [...document.querySelectorAll('h1')].filter(
+        (heading) =>
+          heading.getClientRects().length && !heading.closest('[hidden]'),
+      ).length,
+      brandTarget: document
+        .querySelector('.topbar .brand')
+        ?.getAttribute('href'),
+      privacyTarget: document
+        .querySelector('.site-footer .footer-privacy-link')
+        ?.getAttribute('href'),
+      documentHeight: document.documentElement.scrollHeight,
+      viewportHeight: innerHeight,
+    };
+  }, initialSections);
+  assert.equal(
+    evidence.sections.every(
+      ({ count, retained, rendered }) => count === 1 && retained && rendered,
+    ),
+    true,
+    `${domain}: the hero, features, process, privacy and footer stay on one page`,
+  );
+  assert.equal(evidence.titles, 1, `${domain}: one visible page title`);
+  assert.equal(evidence.brandTarget, '#top');
+  assert.equal(evidence.privacyTarget, '#privacy-details');
+  assert.ok(
+    evidence.documentHeight > evidence.viewportHeight,
+    `${domain}: shared page content remains scrollable`,
+  );
+  return evidence;
+}
+
+async function illustrationGeometry(svg) {
+  return svg.evaluate((element) => ({
+    viewBox: element.getAttribute('viewBox'),
+    shapes: [...element.querySelectorAll('path, rect, circle, ellipse')].map(
+      (shape) => ({
+        tag: shape.tagName,
+        geometry: Object.fromEntries(
+          ['d', 'x', 'y', 'width', 'height', 'cx', 'cy', 'r', 'rx', 'ry']
+            .filter((name) => shape.hasAttribute(name))
+            .map((name) => [name, shape.getAttribute(name)]),
+        ),
+      }),
+    ),
+    localPaints: [...element.querySelectorAll('[fill], [stroke]')]
+      .flatMap((shape) =>
+        ['fill', 'stroke'].map((name) => shape.getAttribute(name) ?? ''),
+      )
+      .filter((paint) => paint.startsWith('url(#'))
+      .every((paint) => {
+        const target = document.getElementById(paint.slice(5, -1));
+        return target && element.contains(target);
+      }),
+  }));
+}
+
+async function assertSharedUploadInteraction(control, domain) {
+  const input = control.locator('input[type="file"]');
+  const paper = control.locator('.source-card__paper');
+  assert.equal(await input.isEnabled(), true);
+  const resting = await paper.evaluate(
+    (element) => getComputedStyle(element).transform,
+  );
+  await input.focus();
+  const paperElement = await paper.elementHandle();
+  try {
+    await paper.page().waitForFunction((element) => {
+      const matrix = new DOMMatrixReadOnly(getComputedStyle(element).transform);
+      return Math.abs(matrix.b) < 0.001 && Math.abs(matrix.f + 4) < 0.001;
+    }, paperElement);
+  } finally {
+    await paperElement.dispose();
+  }
+  const focused = await paper.evaluate(
+    (element) => getComputedStyle(element).transform,
+  );
+  assert.notEqual(
+    focused,
+    resting,
+    `${domain}: keyboard focus animates the same paper affordance`,
+  );
+  assert.equal(
+    await input.evaluate((element) => document.activeElement === element),
+    true,
+    `${domain}: the original native file input keeps keyboard focus`,
+  );
+  await input.evaluate((element) => element.blur());
+  const dataTransfer = await input.page().evaluateHandle(() => {
+    const transfer = new DataTransfer();
+    transfer.items.add(new File([''], 'visual-drag-only.csv'));
+    return transfer;
+  });
+  try {
+    await control.dispatchEvent('dragenter', { dataTransfer });
+    assert.equal(
+      await control.getAttribute('data-drag-active'),
+      'true',
+      `${domain}: file drag receives the shared visual response`,
+    );
+    assert.equal(
+      await input.evaluate((element) => element.files.length),
+      0,
+      `${domain}: drag feedback does not import a file`,
+    );
+    await control.dispatchEvent('dragleave', { dataTransfer });
+    assert.equal(await control.getAttribute('data-drag-active'), 'false');
+  } finally {
+    await dataTransfer.dispose();
+  }
+  return {
+    focusChangesPaper: true,
+    dragChangesPaper: true,
+    nativeFileCount: 0,
+  };
 }
 
 async function snapshot(panel) {
@@ -428,6 +583,17 @@ try {
       );
       const result = { width, language, domains: [], mainLandmarks: [] };
       report.cases.push(result);
+      const sharedSections = await page.evaluateHandle(() =>
+        [
+          '.landing-intro',
+          '.document-scene',
+          '.tarasuf-benefits-wrap',
+          '#how-it-works',
+          '#privacy',
+          '#privacy-details',
+          '.site-footer',
+        ].map((selector) => document.querySelector(selector)),
+      );
       const type = page.locator(selector);
       assert.equal(
         await type.count(),
@@ -482,6 +648,16 @@ try {
         'supplier entry keeps exactly two upload cards',
       );
       await assertMainLandmark(page, 'supplier', result.mainLandmarks);
+      result.sharedPage = await sharedPageSnapshot(
+        page,
+        sharedSections,
+        'supplier',
+      );
+      const sharedIllustration = await illustrationGeometry(
+        page.locator('.source-card:visible .source-card__drawing').first(),
+      );
+      assert.equal(sharedIllustration.localPaints, true);
+      assert.equal(sharedIllustration.viewBox, '0 0 180 126');
       result.initialBounds = await bounds(page, 'supplier source entry');
       result.fonts = await fontProof(page, language);
       await capture(page, `${language}-${width}-supplier-entry.png`);
@@ -575,6 +751,19 @@ try {
             ).trim(),
             `${domain}: source role has visible text`,
           );
+          const illustration = card.locator(
+            '.workspace-file-input .source-card__drawing',
+          );
+          assert.equal(
+            await illustration.count(),
+            1,
+            `${domain}: every source role uses the original interactive paper art`,
+          );
+          assert.deepEqual(
+            await illustrationGeometry(illustration),
+            sharedIllustration,
+            `${domain}: the paper, table, base and local paints match the supplier artwork`,
+          );
         }
         const evidence = {
           domain,
@@ -591,7 +780,12 @@ try {
               inputs.map((input) => input.getAttribute('aria-label')),
             ),
           bounds: await bounds(page, domain),
+          sharedPage: await sharedPageSnapshot(page, sharedSections, domain),
         };
+        evidence.uploadInteraction = await assertSharedUploadInteraction(
+          workspace.locator('.workspace-file-input:visible').first(),
+          domain,
+        );
         result.domains.push(evidence);
         await capture(page, `${language}-${width}-${domain}-entry.png`);
         if (sourceCounts[domain] > 2) {
@@ -677,8 +871,14 @@ try {
         );
         evidence.draftRetained = true;
         await capture(page, `${language}-${width}-${domain}-retained.png`);
+        evidence.retainedSharedPage = await sharedPageSnapshot(
+          page,
+          sharedSections,
+          `${domain} after source and draft retention`,
+        );
         await selectType(page, 'supplier');
       }
+      await sharedSections.dispose();
 
       // Separate fresh pages prevent a previous scope draft from masking a
       // missing warning for the uploaded bank or supplier source itself.

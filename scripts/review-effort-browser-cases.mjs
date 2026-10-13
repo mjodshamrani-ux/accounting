@@ -280,11 +280,8 @@ export async function verifyReviewEffort(page, baseUrl) {
       await openDomainWorkspace(page, 'clearing');
       await page.clock.runFor(10000);
       await page
-        .getByRole('button', {
-          name: messages[otherLang].clearing.back,
-          exact: true,
-        })
-        .click();
+        .locator('select[data-reconciliation-type-select]')
+        .selectOption('supplier');
       await meter.getByText(next.paused.hidden, { exact: true }).waitFor();
       await meter
         .getByRole('button', { name: next.finish, exact: true })

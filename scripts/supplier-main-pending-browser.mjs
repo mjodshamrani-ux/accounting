@@ -111,17 +111,24 @@ export async function verifyActualAllocationPending(
             document.querySelector('select[data-reconciliation-type-select]')
               ?.disabled,
         );
-        const back = button(workspace(), t.backToSuppliers);
-        assert.equal(await back.isDisabled(), true);
+        const type = page.locator('select[data-reconciliation-type-select]');
         assert.equal(
-          await page.locator('select[data-reconciliation-type-select]').isDisabled(),
+          await page
+            .locator('select[data-reconciliation-type-select]')
+            .isDisabled(),
           true,
         );
         navigationBlockedBeforeCancel.push(phase);
         await button(workspace(), h.cancel).click();
         await idle();
-        assert.equal(await back.isDisabled(), false);
-        await back.click();
+        // The parent navigation lock clears after the workspace reports idle.
+        await page.waitForFunction(
+          () =>
+            document.querySelector('select[data-reconciliation-type-select]')
+              ?.disabled === false,
+        );
+        assert.equal(await type.isDisabled(), false);
+        await type.selectOption('supplier');
       };
       // Real native File bytes are read first; only delivery is held. Explicit cancellation then leave retains this direct workspace mounted but inactive.
       await page

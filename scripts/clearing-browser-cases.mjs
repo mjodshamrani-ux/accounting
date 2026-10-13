@@ -98,8 +98,8 @@ export async function verifyClearing(page, url, out = 'work/qa') {
   await save('Download clearing workpaper', `${out}/clearing-reopened.xlsx`);
   // Both domain workspaces retain their local state across navigation.
   await page
-    .getByRole('button', { name: 'Supplier reconciliation', exact: true })
-    .click();
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await openDomainWorkspace(page, 'clearing');
   assert.deepEqual(await metric().allTextContents(), ['9', '4', '0', '10.00']);
   await page.getByRole('button', { name: 'AR العربية', exact: true }).click();

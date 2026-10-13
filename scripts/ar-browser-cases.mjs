@@ -124,8 +124,8 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .click();
   await (await sessionRequest).saveAs(`${out}/ar-session.json`);
   await page
-    .getByRole('button', { name: 'Supplier reconciliation', exact: true })
-    .click();
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await openDomainWorkspace(page, 'clearing');
   await page
     .getByRole('button', {
@@ -138,8 +138,8 @@ export async function verifyAr(page, url, out = 'work/qa') {
     .click();
   await page.getByTestId('clearing-metrics').waitFor();
   await page
-    .getByRole('button', { name: 'Supplier reconciliation', exact: true })
-    .click();
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await openDomainWorkspace(page, 'ar');
   assert.deepEqual(await metrics().allTextContents(), [
     '6',

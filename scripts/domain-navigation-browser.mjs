@@ -227,13 +227,13 @@ try {
         const hasDraft = (await draft.count()) > 0;
         const note = `navigation-${domain}-${language}-${width}`;
         if (hasDraft) await draft.fill(note);
-        const back = page
-          .getByRole('button', {
-            name: /^(?:Back$|Back to|Supplier reconciliation$|تسوية المورد|العودة$|العودة إلى|عد إلى)/i,
-          })
-          .first();
-        await back.focus();
-        await page.keyboard.press('Enter');
+        await type.focus();
+        assert.equal(
+          await type.evaluate((element) => document.activeElement === element),
+          true,
+          'the shared native type selector receives keyboard focus',
+        );
+        await type.selectOption('supplier');
         const supplierHeading = page.locator('.workflow-title:visible').first();
         await supplierHeading.waitFor();
         assert.equal(
@@ -293,7 +293,7 @@ try {
           false,
           'no horizontal document overflow',
         );
-        await back.click();
+        await type.selectOption('supplier');
         assert.equal(
           await supplierHeading.evaluate(
             (element) => document.activeElement === element,
@@ -520,20 +520,16 @@ try {
             path: path.join(out, `${language}-${width}-handoff.png`),
             fullPage: true,
           });
-        await allocation
-          .getByRole('button', {
-            name:
-              language === 'ar' ? 'العودة إلى الموردين' : 'Back to suppliers',
-            exact: true,
-          })
-          .click();
+        await page
+          .locator('select[data-reconciliation-type-select]')
+          .selectOption('supplier');
         await supplierHeading.waitFor();
         assert.equal(
           await supplierHeading.evaluate(
             (element) => document.activeElement === element,
           ),
           true,
-          'non-navigation origin returns to supplier workflow heading',
+          'shared type selection returns to the retained supplier workflow heading',
         );
         assert.equal(
           await page.locator('.in-session:visible').innerText(),

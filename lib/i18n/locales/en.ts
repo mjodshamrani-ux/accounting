@@ -991,9 +991,9 @@ export const en: Messages = {
       'The review record could not be opened or saved. No values were added to reconciliation.',
   },
   scene: {
-    supplierPaper: 'Supplier statement',
-    ledgerPaper: 'AP ledger',
-    caption: 'Illustration — supplier reconciliation example',
+    supplierPaper: 'First record',
+    ledgerPaper: 'Second record',
+    caption: 'Illustration of reading and comparing records',
     motionReducedLabel:
       'Animation is off because of your reduced-motion setting',
     playLabel: 'Play the illustration animation',
@@ -1068,8 +1068,8 @@ export const en: Messages = {
           detail: 'Keep the results and details',
         },
       ],
-      supplier: 'Supplier statement',
-      ledger: 'AP ledger',
+      supplier: 'First record',
+      ledger: 'Second record',
       confirmed: 'Supported match',
       difference: 'Identified difference',
       review: 'Needs Review',

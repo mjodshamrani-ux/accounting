@@ -114,6 +114,78 @@ try {
       await page.evaluate(() => document.fonts.ready);
       const result = { width, language };
       report.cases.push(result);
+      const sharedSections = await page.evaluateHandle(() =>
+        [
+          '.landing-intro',
+          '.document-scene',
+          '.tarasuf-benefits-wrap',
+          '#how-it-works',
+          '#privacy',
+          '#privacy-details',
+          '.site-footer',
+        ].map((selector) => document.querySelector(selector)),
+      );
+      async function sharedPage(stage) {
+        const evidence = await page.evaluate((initial) => {
+          const selectors = [
+            '.landing-intro',
+            '.document-scene',
+            '.tarasuf-benefits-wrap',
+            '#how-it-works',
+            '#privacy',
+            '#privacy-details',
+            '.site-footer',
+          ];
+          return {
+            sections: selectors.map((selector, index) => {
+              const nodes = document.querySelectorAll(selector);
+              return {
+                selector,
+                count: nodes.length,
+                retained: nodes[0] === initial[index],
+                rendered: !!nodes[0]?.getClientRects().length,
+              };
+            }),
+            visibleTitles: [...document.querySelectorAll('h1')].filter(
+              (heading) =>
+                heading.getClientRects().length && !heading.closest('[hidden]'),
+            ).length,
+            brandTarget: document
+              .querySelector('.topbar .brand')
+              ?.getAttribute('href'),
+            privacyTarget: document
+              .querySelector('.site-footer .footer-privacy-link')
+              ?.getAttribute('href'),
+            papers: [
+              ...document.querySelectorAll('.document-scene__paper-title'),
+            ].map((paper) => paper.textContent.trim()),
+            caption: document.querySelector('.document-scene__caption')
+              ?.textContent,
+          };
+        }, sharedSections);
+        assert.equal(
+          evidence.sections.every(
+            ({ count, retained, rendered }) =>
+              count === 1 && retained && rendered,
+          ),
+          true,
+          `${stage}: one continuous page keeps every shared section mounted`,
+        );
+        assert.equal(evidence.visibleTitles, 1, `${stage}: one visible h1`);
+        assert.equal(evidence.brandTarget, '#top');
+        assert.equal(evidence.privacyTarget, '#privacy-details');
+        assert.equal(evidence.papers.length, 2);
+        assert.ok(evidence.papers.every((title) => title.length > 0));
+        assert.equal(
+          /supplier|AP ledger|المورد/i.test(
+            evidence.papers.join(' ') + evidence.caption,
+          ),
+          false,
+          `${stage}: the shared illustration describes reconciliation generally`,
+        );
+        return evidence;
+      }
+      result.sharedPage = [await sharedPage('initial supplier entry')];
       assert.equal(
         await type.count(),
         1,
@@ -222,6 +294,23 @@ try {
         true,
         'type selection focuses the requested workflow',
       );
+      result.sharedPage.push(await sharedPage('bank entry'));
+      await page.locator('.topbar .brand').click();
+      await page.waitForFunction(() => window.scrollY < 2);
+      assert.equal(await type.inputValue(), 'bank');
+      await page.locator('.site-footer .footer-privacy-link').click();
+      await page.waitForFunction(() => location.hash === '#privacy-details');
+      await page.waitForFunction(() => {
+        const bounds = document
+          .getElementById('privacy-details')
+          .getBoundingClientRect();
+        return bounds.bottom > 0 && bounds.top < window.innerHeight;
+      });
+      assert.equal(
+        await type.inputValue(),
+        'bank',
+        'scrolling through the shared page keeps the selected reconciliation',
+      );
       await type.selectOption('supplier');
       const supplierHeading = page.locator('.workflow-title:visible').first();
       await supplierHeading.waitFor();
@@ -295,9 +384,11 @@ try {
       );
       assert.equal(
         await page.locator('#how-it-works').count(),
-        0,
-        'supplier example belongs to landing',
+        1,
+        'the shared process remains available during supplier work',
       );
+      result.sharedPage.push(await sharedPage('active supplier session'));
+      await sharedSections.dispose();
       result.status = 'PASS';
       await context.close();
     }

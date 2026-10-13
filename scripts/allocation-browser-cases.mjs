@@ -124,8 +124,8 @@ export async function verifyAllocation(page, url, out = 'work/qa') {
   await download('Download allocation workpaper', 'allocation-direct.xlsx');
   await download('Save allocation session', 'allocation-session.json');
   await page
-    .getByRole('button', { name: 'Back to suppliers', exact: true })
-    .click();
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await openDomainWorkspace(page, 'allocation');
   assert.equal((await moneyRows())[0][4], '1,000.00');
   await page

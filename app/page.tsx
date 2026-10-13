@@ -1645,7 +1645,7 @@ export default function App() {
   return (
     <ReconciliationNavigationProvider value={{ domain, reportActivity }}>
       <div
-        className={`app-shell reconciliation-shell ${showLanding ? 'has-landing' : 'in-session'}`}
+        className={`app-shell reconciliation-shell has-landing${showLanding ? '' : ' in-session'}`}
         onChange={(event) => {
           const target = event.target;
           if (
@@ -1683,26 +1683,14 @@ export default function App() {
           </AlertDialogContent>
         </AlertDialog>
         <header className="topbar">
-          <a
-            className="brand"
-            href={
-              showLanding
-                ? '#top'
-                : domain === 'supplier'
-                  ? '#reconciliation'
-                  : '#reconciliation-types'
-            }
-            aria-label={t.app.shell.brandHome}
-          >
+          <a className="brand" href="#top" aria-label={t.app.shell.brandHome}>
             <BrandMark />
             <BrandWordmark />
           </a>
-          {showLanding && (
-            <nav className="site-nav" aria-label={t.app.shell.mainNav}>
-              <a href="#how-it-works">{t.app.shell.navHow}</a>
-              <a href="#privacy">{t.app.shell.navPrivacy}</a>
-            </nav>
-          )}
+          <nav className="site-nav" aria-label={t.app.shell.mainNav}>
+            <a href="#how-it-works">{t.app.shell.navHow}</a>
+            <a href="#privacy">{t.app.shell.navPrivacy}</a>
+          </nav>
           <div className="topbar-actions">
             <LanguageSwitcher />
             <button
@@ -1713,22 +1701,20 @@ export default function App() {
             >
               <ShieldCheck size={16} /> <span>{t.app.shell.localPill}</span>
             </button>
-            {showLanding && (
-              <a
-                className="nav-start"
-                href="#reconciliation-types"
-                onClick={navigateToReconciliationDirectory}
-              >
-                {t.app.shell.navStart} <ForwardArrow size={15} />
-              </a>
-            )}
+            <a
+              className="nav-start"
+              href="#reconciliation-types"
+              onClick={navigateToReconciliationDirectory}
+            >
+              {t.app.shell.navStart} <ForwardArrow size={15} />
+            </a>
           </div>
         </header>
         <div
           data-reconciliation-content
           role={nativeMainDomains.has(domain) ? undefined : 'main'}
         >
-          {showLanding && <LandingIntro />}
+          <LandingIntro primaryHeading={showLanding} />
           <ReconciliationDirectory
             activeDomain={domain}
             disabled={
@@ -3238,34 +3224,22 @@ export default function App() {
               </footer>
             </div>
           </div>
-          {showLanding && <LandingBenefits />}
-          {showLanding && <LandingDetails />}
+          <LandingBenefits />
+          <LandingDetails />
         </div>
         <footer className="site-footer">
           <a
             className="brand footer-brand"
-            href={
-              showLanding
-                ? '#top'
-                : domain === 'supplier'
-                  ? '#reconciliation'
-                  : '#reconciliation-types'
-            }
+            href="#top"
             aria-label={t.brand.name}
           >
             <BrandMark />
             <BrandWordmark />
           </a>
           <p>{t.app.shell.tagline}</p>
-          {showLanding ? (
-            <a className="footer-privacy-link" href="#privacy-details">
-              {t.app.shell.footerPrivacy}
-            </a>
-          ) : (
-            <button className="footer-privacy-link" onClick={togglePrivacy}>
-              {t.app.shell.footerPrivacy}
-            </button>
-          )}
+          <a className="footer-privacy-link" href="#privacy-details">
+            {t.app.shell.footerPrivacy}
+          </a>
         </footer>
       </div>
     </ReconciliationNavigationProvider>

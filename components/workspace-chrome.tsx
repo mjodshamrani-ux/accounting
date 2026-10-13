@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { BrandMark, BrandWordmark } from './brand';
 import { LanguageSwitcher } from './language-switcher';
+import { UploadIllustration } from './source-upload';
 import { Button } from './ui/button';
 import { useI18n } from '@/lib/i18n/context';
 import { workspaceCopy } from '@/lib/i18n/workspace';
@@ -64,10 +65,12 @@ export function WorkspaceHeader({
       )}
       <div className="workspace-header__actions">
         {!navigation && <LanguageSwitcher />}
-        <Button variant="outline" disabled={disabled} onClick={onBack}>
-          <ArrowLeft className="workspace-back-icon" aria-hidden="true" />
-          {backLabel}
-        </Button>
+        {!navigation && (
+          <Button variant="outline" disabled={disabled} onClick={onBack}>
+            <ArrowLeft className="workspace-back-icon" aria-hidden="true" />
+            {backLabel}
+          </Button>
+        )}
         {children}
       </div>
     </header>
@@ -172,9 +175,6 @@ export function WorkspaceIntro({
 export function WorkspaceSourceHeading({ children }: { children: ReactNode }) {
   return (
     <span className="workspace-source-heading">
-      <span className="workspace-source-icon">
-        <FileSpreadsheet aria-hidden="true" />
-      </span>
       <span>{children}</span>
     </span>
   );
@@ -184,15 +184,45 @@ export function WorkspaceFileInput(
   props: ComponentProps<'input'> & { 'aria-label': string },
 ) {
   const { lang } = useI18n();
+  const [dragging, setDragging] = useState(false);
+  const dragDepth = useRef(0);
   const formats = props.accept
     ?.split(',')
     .map((format) => format.trim().replace(/^\./, '').toUpperCase())
     .join(' / ');
   return (
-    <span className="workspace-file-input">
+    <span
+      className="workspace-file-input"
+      data-source-document-upload
+      data-drag-active={dragging ? 'true' : 'false'}
+      onDragEnter={(event) => {
+        if (
+          !Array.from(event.dataTransfer.types).includes('Files') ||
+          event.currentTarget.querySelector('input')?.matches(':disabled')
+        )
+          return;
+        dragDepth.current += 1;
+        setDragging(true);
+      }}
+      onDragLeave={() => {
+        dragDepth.current = Math.max(0, dragDepth.current - 1);
+        if (!dragDepth.current) setDragging(false);
+      }}
+      onDrop={() => {
+        // Native file input performs selection; decoration never dispatches a
+        // synthetic change or bypasses the workspace's existing file reader.
+        dragDepth.current = 0;
+        setDragging(false);
+      }}
+    >
       <span className="workspace-file-input__content" aria-hidden="true">
-        <Upload />
-        <span>{workspaceCopy[lang].chooseFile}</span>
+        <span className="source-card__art workspace-file-input__art">
+          <UploadIllustration />
+        </span>
+        <span className="workspace-file-input__choose">
+          <Upload size={16} />
+          <span>{workspaceCopy[lang].chooseFile}</span>
+        </span>
         <span className="workspace-file-input__formats" dir="ltr">
           {formats}
         </span>

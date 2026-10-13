@@ -303,49 +303,32 @@
   align-items: stretch;
 }
 .reconciliation-workspace .workspace-source {
+  --source-ink: #3373c9;
+  --source-tint: #f4f8ff;
   position: relative;
   padding: 24px;
   margin: 0;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--background);
+  border: 1px solid #dbe4f2;
+  border-radius: 17px;
+  background: linear-gradient(155deg, #fff 10%, var(--source-tint));
   box-shadow: 0 4px 20px #0a1b2e03;
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
-.reconciliation-workspace
-  .workspace-source:nth-child(even)
-  .workspace-source-icon {
-  background: #ecf2fb;
-  border-color: #dce7f6;
-  color: #426da6;
-}
 .reconciliation-workspace .workspace-source:nth-child(even) {
-  background: #fcfbfe;
+  --source-ink: #7944c7;
+  --source-tint: #f8f5ff;
+  border-color: #e4dcf0;
 }
 .workspace-source-heading {
   display: flex;
   align-items: center;
-  gap: 13px;
-  font-size: 16px;
-  font-weight: 700;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 650;
+  color: #142a44;
   line-height: 1.7;
-}
-.workspace-source-icon {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 48px;
-  flex: 0 0 auto;
-  border: 1px solid #e5def5;
-  border-radius: 12px;
-  background: #f2eefb;
-  color: #7043c5;
-}
-.workspace-source-icon svg {
-  width: 23px;
-  height: 23px;
 }
 .reconciliation-workspace .workspace-source legend {
   float: inline-start;
@@ -399,51 +382,69 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 132px;
-  padding: 24px 18px;
-  border: 1px dashed #cbd3e5;
-  border-radius: 12px;
-  background: #fafbfe;
+  min-height: 226px;
+  padding: 8px 12px 16px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: transparent;
   transition:
-    border-color 0.15s,
-    background-color 0.15s;
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
-.reconciliation-workspace .workspace-file-input:hover {
-  border-color: #9773d9;
-  background: #fbf9ff;
+.reconciliation-workspace
+  .workspace-file-input:not(:has(input:disabled))[data-drag-active='true'] {
+  border-color: var(--source-ink);
+  background: #ffffffa8;
 }
 .reconciliation-workspace .workspace-file-input:focus-within {
-  outline: 3px solid #8a69dc;
-  outline-offset: 3px;
+  outline: 3px solid #8060cf;
+  outline-offset: 4px;
 }
 .reconciliation-workspace .workspace-file-input:has(input:disabled) {
-  opacity: 0.55;
+  opacity: 0.65;
 }
 .workspace-file-input__content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  color: #5f409a;
+  gap: 12px;
+  color: #283f60;
   font-size: 13px;
-  font-weight: 650;
+  font-weight: 600;
+  pointer-events: none;
 }
-.workspace-file-input__content > svg {
-  box-sizing: content-box;
-  width: 23px;
-  height: 23px;
-  padding: 12px;
-  border: 1px solid #e4dcf3;
-  border-radius: 13px;
+.workspace-file-input__art.source-card__art {
+  margin: 0;
+}
+.workspace-file-input__choose {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 11px 20px;
+  border: 1px solid #ced9eb;
+  border-radius: 10px;
   background: #fff;
-  color: #8866c6;
-  box-shadow: 0 4px 10px #6a49a909;
+  box-shadow: 0 3px 12px #263b6504;
+}
+.workspace-file-input__choose > svg {
+  flex: none;
+}
+.workspace-source:nth-child(even) .source-card__paper {
+  transform: rotate(5deg) translateY(2px);
+}
+.workspace-file-input:not(:has(input:disabled)):focus-within
+  .source-card__paper,
+.workspace-file-input:not(:has(input:disabled))[data-drag-active='true']
+  .source-card__paper {
+  transform: rotate(0) translateY(-4px);
 }
 .workspace-file-input__formats {
-  color: #7a8699;
-  font-size: 11px;
+  color: #61718a;
+  font-size: 12px;
   font-weight: 450;
-  letter-spacing: 0.4px;
+  line-height: 1.9;
 }
 .reconciliation-workspace
   .workspace-file-input
@@ -461,6 +462,15 @@
 }
 .reconciliation-workspace .workspace-file-input > input:disabled {
   cursor: not-allowed;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .workspace-file-input:not(:has(input:disabled)):hover .source-card__paper {
+    transform: rotate(0) translateY(-4px);
+  }
+  .workspace-file-input:not(:has(input:disabled)):hover
+    .workspace-file-input__choose {
+    border-color: var(--source-ink);
+  }
 }
 .reconciliation-workspace .workspace-group-title {
   display: flex;
@@ -917,6 +927,15 @@
 @media (prefers-reduced-motion: reduce) {
   .reconciliation-workspace button,
   .reconciliation-workspace .workspace-file-input {
+    transition: none;
+  }
+  .workspace-file-input .source-card__paper,
+  .workspace-source:nth-child(even) .source-card__paper,
+  .workspace-file-input:not(:has(input:disabled)):focus-within
+    .source-card__paper,
+  .workspace-file-input:not(:has(input:disabled))[data-drag-active='true']
+    .source-card__paper {
+    transform: none;
     transition: none;
   }
 }

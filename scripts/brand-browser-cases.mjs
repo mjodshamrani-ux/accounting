@@ -1175,8 +1175,8 @@ export async function verifyWorkflowBrand(page, step) {
   );
   assert.equal(
     await page.locator('.landing-intro').count(),
-    0,
-    'the hero leaves the active accounting workflow',
+    1,
+    'the shared hero remains available above the active accounting workflow',
   );
   const steps = page.getByRole('navigation', {
     name: 'خطوات التسوية',

@@ -1,6 +1,9 @@
 .reconciliation-shell > [data-reconciliation-content] {
   min-width: 0;
 }
+.reconciliation-shell.in-session {
+  background: #fff;
+}
 .global-privacy-panel {
   width: min(1120px, calc(100% - 48px));
   margin: 24px auto;
@@ -24,6 +27,10 @@
   border: 0;
   margin-bottom: 2px;
 }
+.reconciliation-shell
+  .workspace-header--embedded:has(.workspace-header__actions:empty) {
+  display: none;
+}
 .reconciliation-shell .workspace-header--embedded button {
   font-size: 11px;
   color: #7b7290;
@@ -35,6 +42,17 @@
 .reconciliation-shell .workspace {
   width: min(1120px, calc(100% - 48px));
   margin: 24px auto;
+}
+.reconciliation-shell [data-domain-panel] .reconciliation-workspace {
+  --workspace-gutter: 0px;
+  width: min(1120px, calc(100% - 48px));
+  max-width: none;
+  margin: 24px auto;
+  padding: 40px;
+  border: 1px solid #ecedf5;
+  border-bottom: 0;
+  border-radius: 28px 28px 0 0;
+  background: linear-gradient(180deg, #f7f8fc, #fafbfe 85%, #fff);
 }
 .reconciliation-shell .page-heading {
   padding: 0 0 20px;
@@ -55,6 +73,12 @@
   background: linear-gradient(145deg, #fdfcff, #fafcff);
 }
 @media (max-width: 650px) {
+  .reconciliation-shell [data-domain-panel] .reconciliation-workspace {
+    width: calc(100% - 32px);
+    margin: 20px auto;
+    padding: 28px 14px;
+    border-radius: 18px 18px 0 0;
+  }
   .reconciliation-shell .workspace {
     width: calc(100% - 32px);
     margin: 20px auto;

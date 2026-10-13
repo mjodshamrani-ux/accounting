@@ -113,9 +113,14 @@ function useLandingReveal(root: RefObject<HTMLDivElement | null>) {
   }, [root]);
 }
 
-export function LandingIntro() {
+export function LandingIntro({
+  primaryHeading = true,
+}: {
+  primaryHeading?: boolean;
+}) {
   const { t } = useI18n();
   const l = t.landing;
+  const Heading = primaryHeading ? 'h1' : 'h2';
   return (
     <div className="landing-intro" id="top">
       <div className="hero-inner">
@@ -123,10 +128,10 @@ export function LandingIntro() {
           <div className="hero-eyebrow">
             <span /> {l.eyebrow}
           </div>
-          <h1 className="hero-title">
+          <Heading className="hero-title">
             <DisplayHeading id="heroLine1" />
             <DisplayHeading id="heroLine2" />
-          </h1>
+          </Heading>
           <p className="hero-description">
             {l.descriptionLine1}
             <br />

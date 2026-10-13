@@ -4,7 +4,7 @@ import { useI18n } from '@/lib/i18n/context';
 import { uiText, type UiText } from '@/lib/i18n/text';
 
 /** A visual affordance only; it never represents parsed or matched values. */
-function UploadIllustration() {
+export function UploadIllustration() {
   const id = `source-art-${useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
   return (
     <svg

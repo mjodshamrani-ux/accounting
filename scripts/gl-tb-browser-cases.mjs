@@ -143,16 +143,16 @@ export async function verifyGlTb(page, url, out = 'work/qa') {
     .click();
   await (await session).saveAs(out + '/gl-tb-session.json');
   await page
-    .getByRole('button', { name: 'Supplier reconciliation', exact: true })
-    .click();
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await openDomainWorkspace(page, 'ar');
   await page
     .getByRole('button', { name: 'Open synthetic AR example', exact: true })
     .click();
   await page.getByTestId('ar-metrics').waitFor();
   await page
-    .getByRole('button', { name: 'Supplier reconciliation', exact: true })
-    .click();
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await openDomainWorkspace(page, 'gl-tb');
   assert.equal(
     await page.getByTestId('gl-tb-status').innerText(),

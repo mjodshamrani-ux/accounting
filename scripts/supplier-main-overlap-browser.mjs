@@ -545,7 +545,9 @@ async function handoff(page, t, label) {
     0,
   );
   await responsive(page, label);
-  await button(workspace, t.allocation.backToSuppliers).click();
+  await page
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await page.locator('.metric').first().waitFor({ state: 'visible' });
 }
 try {

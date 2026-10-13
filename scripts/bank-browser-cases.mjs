@@ -93,8 +93,8 @@ export async function verifyBank(page, url, out = 'work/qa') {
   await exportFile('bank-direct.xlsx');
   await download('Save bank movement session', 'bank-session.json');
   await page
-    .getByRole('button', { name: 'Supplier reconciliation', exact: true })
-    .click();
+    .locator('select[data-reconciliation-type-select]')
+    .selectOption('supplier');
   await openDomainWorkspace(page, 'bank');
   assert.equal(await rows('Original movements').count(), 4);
   await page
