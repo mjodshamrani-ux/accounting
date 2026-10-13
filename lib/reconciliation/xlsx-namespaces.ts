@@ -1,7 +1,7 @@
 import JSZip from 'jszip';
 import { SaxesParser } from 'saxes';
 import type { SaxesTagNS } from 'saxes';
-import { MAX_ROWS } from './types.ts';
+import { MAX_ROWS, MAX_SHEETS } from './types.ts';
 
 const SPREADSHEET = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
 const RELATIONSHIP =
@@ -123,6 +123,7 @@ function compatibleXml(
   part: Part,
   render = false,
   inspection?: PartInspection,
+  relationshipTargets?: ReadonlyMap<string, string>,
 ): string | undefined {
   if (xml.length > MAX_XML_CHARS)
     throw new Error('جزء XML في Excel يتجاوز الحد المدعوم');
@@ -303,11 +304,28 @@ function compatibleXml(
       part.root === 'Relationships' &&
       canonical === 'Relationship' &&
       attribute('Type').endsWith('/worksheet')
-    )
+    ) {
+      const targetMode = Object.values(tag.attributes).find(
+        (value) => value.local === 'TargetMode' && !value.uri,
+      );
+      if (targetMode && targetMode.value !== 'Internal')
+        throw new Error(
+          'رابط ورقة Excel خارجي أو نمطه غير صالح؛ لا يمكن اعتباره جزءًا داخليًا',
+        );
       inspection?.relationships.push({
         id: attribute('Id'),
         target: attribute('Target'),
       });
+    }
+    const resolvedRelationshipTarget =
+      part.root === 'Relationships' && canonical === 'Relationship'
+        ? relationshipTargets?.get(attribute('Id'))
+        : undefined;
+    if (
+      resolvedRelationshipTarget !== undefined &&
+      resolvedRelationshipTarget !== attribute('Target')
+    )
+      changed = true;
     if (
       part.root === 'worksheet' &&
       canonical === 'row' &&
@@ -459,13 +477,17 @@ function compatibleXml(
       const value =
         resolvedCellAddress && attribute.local === 'r' && !attribute.uri
           ? resolvedCellAddress
-          : part.root === 'worksheet' &&
-              canonical === 'c' &&
-              attribute.local === 't' &&
-              !attribute.uri &&
-              attribute.value === 'd'
-            ? 'str'
-            : attribute.value;
+          : resolvedRelationshipTarget !== undefined &&
+              attribute.local === 'Target' &&
+              !attribute.uri
+            ? resolvedRelationshipTarget
+            : part.root === 'worksheet' &&
+                canonical === 'c' &&
+                attribute.local === 't' &&
+                !attribute.uri &&
+                attribute.value === 'd'
+              ? 'str'
+              : attribute.value;
       attributes.push(`${qualified}="${escapeAttribute(value)}"`);
     }
     if (
@@ -519,7 +541,9 @@ function compatibleXml(
   parser.write(xml).close();
   if (!rootSeen || stack.length) throw new Error('جزء XML في Excel غير مكتمل');
   if (!changed) return undefined;
-  return render ? output.join('') : compatibleXml(xml, part, true);
+  return render
+    ? output.join('')
+    : compatibleXml(xml, part, true, undefined, relationshipTargets);
 }
 
 /** Call only after the original ZIP has passed size, path, CRC and content checks. */
@@ -549,9 +573,24 @@ export async function prepareXlsxForExcelJs(
   }
   {
     const sheets = inspections.get('xl/workbook.xml')?.sheets ?? [];
+    if (sheets.length > MAX_SHEETS)
+      throw new Error(`الحد ${MAX_SHEETS} ورقة في الملف`);
     const relationships =
       inspections.get('xl/_rels/workbook.xml.rels')?.relationships ?? [];
     const usedPaths = new Set<string>();
+    // ExcelJS recognizes sheetN.xml and associates its .rels by N, independently
+    // of the workbook's sheetId/r:id. Reserve every number its unanchored loader
+    // could recognize, including unreferenced parts, before choosing aliases.
+    const occupiedSheetNumbers = new Set<string>();
+    for (const path of Object.keys(archive.files)) {
+      const loaderPart = /xl\/worksheets\/(?:_rels\/)?sheet(\d+)[.]xml/.exec(
+        path,
+      );
+      if (loaderPart)
+        occupiedSheetNumbers.add(loaderPart[1].replace(/^0+/, '') || '0');
+    }
+    let nextSheetNumber = 1;
+    const relationshipTargets = new Map<string, string>();
     for (const sheet of sheets) {
       const target = relationships.find(
         (rel) => rel.id === sheet.relationship,
@@ -583,6 +622,47 @@ export async function prepareXlsxForExcelJs(
         );
       if (inspected.numericIssues.length)
         numericIssuesBySheet?.set(sheet.name, inspected.numericIssues);
+      let loaderPath = resolved;
+      if (!/^xl\/worksheets\/sheet\d+[.]xml$/.test(resolved)) {
+        while (occupiedSheetNumbers.has(String(nextSheetNumber)))
+          nextSheetNumber++;
+        const number = String(nextSheetNumber++);
+        occupiedSheetNumbers.add(number);
+        loaderPath = `xl/worksheets/sheet${number}.xml`;
+        // Read from the canonicalized source part, never from another alias.
+        // Keeping the directory preserves relative hyperlinks/table targets.
+        archive.file(
+          loaderPath,
+          await archive.file(resolved)!.async('uint8array'),
+        );
+        const sourceRelationships = archive.file(
+          `xl/worksheets/_rels/${resolved.slice('xl/worksheets/'.length)}.rels`,
+        );
+        if (sourceRelationships)
+          archive.file(
+            `xl/worksheets/_rels/sheet${number}.xml.rels`,
+            await sourceRelationships.async('uint8array'),
+          );
+        changed = true;
+      }
+      // Also normalize a valid ./ or absolute relationship path which ExcelJS
+      // would otherwise resolve differently from the validated source path.
+      relationshipTargets.set(sheet.relationship, loaderPath.slice(3));
+    }
+    const relationshipPath = 'xl/_rels/workbook.xml.rels';
+    const relationshipPart = archive.file(relationshipPath);
+    if (relationshipPart) {
+      const compatible = compatibleXml(
+        await relationshipPart.async('string'),
+        supportedPart(relationshipPath)!,
+        false,
+        undefined,
+        relationshipTargets,
+      );
+      if (compatible !== undefined) {
+        archive.file(relationshipPath, compatible);
+        changed = true;
+      }
     }
   }
   if (!changed) return original;

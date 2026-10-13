@@ -14988,6 +14988,48 @@
       "kind": "text"
     },
     {
+      "path": "audit/inventory-source-diversity-v1/INPUT-MANIFEST.json",
+      "kind": "text",
+      "bytes": 8181,
+      "sha256": "cce79811d5a9d28d3b7266b3597aac53a6a39c3065843df828c54502eedf0b0f"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/README.ar.md",
+      "kind": "text",
+      "bytes": 14663,
+      "sha256": "a1c1763051858c0eb46477907d7b1d6c796368a4e00761a0448d1192317028c6"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/check_control_export.py",
+      "kind": "text",
+      "bytes": 10963,
+      "sha256": "a2e6a04bc4c773df21dac97961dde6ab66eaad834ee7ed1dc6a6b7b824a7e55c"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/contract.json",
+      "kind": "text",
+      "bytes": 22305,
+      "sha256": "d7a6cfbf62c2e7392149eec7b14a679dd97067b76f6a18744b7bf846defa31de"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/generate.py",
+      "kind": "text",
+      "bytes": 9842,
+      "sha256": "4527bee5afa419ac80a215aafd9ec58ddce7d4d9ce4f8f9f316b8b3a9b1236fb"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/oracle.py",
+      "kind": "text",
+      "bytes": 20648,
+      "sha256": "4d274edf6356003e3db3c5c63cdca4611fe91605c9c0b66674b5c9845b85d116"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/test_oracle.py",
+      "kind": "text",
+      "bytes": 18455,
+      "sha256": "4f7d0e683d33934ed11888d03ebb3ac33374c1a84c4aaf75024b45740025077a"
+    },
+    {
       "path": "audit/invoice-group-search-v1/frozen-synthetic-truths.json",
       "bytes": 4376,
       "sha256": "3e037c50924bc90d23b0ed09f891f8509b938b4d2b7ff84186c385d6535da134",
@@ -35025,8 +35067,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 10108,
-      "sha256": "3a0c17ad6effd1f72e87265644cdc07df53f23ec98333695c55b608f3fa4eed6",
+      "bytes": 11333,
+      "sha256": "29c6d96d1cd9b393dbc2a9386b2af1040c5a10aa173cd7bb20d7b3b2af24e17c",
       "kind": "text"
     },
     {
@@ -35079,8 +35121,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 7981,
-      "sha256": "f1a39d2a8551a7fa183eec19c66c483f761c60570c255d59ce1997ad07c3110e",
+      "bytes": 8721,
+      "sha256": "d53771fcb7fce45a585b636e0e26d32afa66877612862bf08de30002b94e07c1",
       "kind": "text"
     },
     {
@@ -35162,8 +35204,14 @@
     {
       "path": "docs/audits/C0-SOURCE-DIVERSITY.ar.md",
       "kind": "text",
-      "bytes": 35881,
-      "sha256": "4db4af79f945bb5a6bdbe266df0455ba7195459a829759dca45a154619592b5c"
+      "bytes": 38383,
+      "sha256": "29909bad2b5a244e2096414ae6d472cdc7dbefb7f7e7484d5b9d5d1d3ca867ed"
+    },
+    {
+      "path": "docs/audits/INV1-SOURCE-FOUNDATION.ar.md",
+      "kind": "text",
+      "bytes": 10549,
+      "sha256": "a999ed199f01a30e8920cdca978f4b057e5ff24830d5cf6657a7d96aa19eae58"
     },
     {
       "path": "docs/reference/ACCOUNTING-CONTRACT.ar.md",
@@ -35204,8 +35252,8 @@
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
       "kind": "text",
-      "bytes": 45635,
-      "sha256": "ea52143bbc53df72b647821885291d60ad7a98385a600bdc537fbda3a9419ae7"
+      "bytes": 47462,
+      "sha256": "c75aadbef962a39133786926f1ee76667c559e9cf5370fe0b8b8518519bc6321"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
@@ -35221,8 +35269,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 13521,
-      "sha256": "087d2f8db2bff569ddc3c77554f5f9cacdcae876a59ee6f661315e94e8eb74d8",
+      "bytes": 18521,
+      "sha256": "749b069445642468c824f999958606010cf18a7382301f56e066dfc5a9b48e35",
       "kind": "text"
     },
     {
@@ -35299,8 +35347,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 3215,
-      "sha256": "c5e2425961d1b0bfe1cbf9d1489e2623890a629a634e4b0f244e070f24916fb9",
+      "bytes": 8062,
+      "sha256": "338b8095b22a9332dfe6c9694d4029a541fc157919f2cdb250a250081f938a89",
       "kind": "text"
     },
     {
@@ -35415,8 +35463,8 @@
     },
     {
       "path": "lib/i18n/engine-catalog.ts",
-      "bytes": 108008,
-      "sha256": "4f905f12fd6790771a5e1938616ebfc2bd89e96546c376c17fdbc23dc3366efa",
+      "bytes": 108506,
+      "sha256": "fafdafd93b700b1c908882d1ca9963fb70fcc8d66342734fff98db14de41ca66",
       "kind": "text"
     },
     {
@@ -35901,8 +35949,8 @@
     },
     {
       "path": "lib/reconciliation/io.ts",
-      "bytes": 48718,
-      "sha256": "b4922b02c9bf1a0d627d9c4b663a06dcb3598e2622674afbe0a613ddacd989ca",
+      "bytes": 49121,
+      "sha256": "6d3cf6de0bec97079ff2d9a08337ec7972ecff56f6899537ebe6ca58ce8c7088",
       "kind": "text"
     },
     {
@@ -36309,8 +36357,8 @@
     },
     {
       "path": "lib/reconciliation/xlsx-namespaces.ts",
-      "bytes": 21552,
-      "sha256": "2bdf74c9256fd7d73466356b0d7ad2738d0e4b7ee00d9d4c42bf02f588a3cca3",
+      "bytes": 24967,
+      "sha256": "90aa8444e2b4292ea84593edddef5280f080b7c83e1c2f52fc0e6f843b5e0e78",
       "kind": "text"
     },
     {
@@ -38518,6 +38566,12 @@
       "kind": "text"
     },
     {
+      "path": "tests/inventory-source-diversity-v1.test.ts",
+      "kind": "text",
+      "bytes": 13167,
+      "sha256": "6c6f18b3988525c3f71ee3405b7824d323ba6db2c383cc26f3b3389d91a0a26b"
+    },
+    {
       "path": "tests/invoice-group-search.test.ts",
       "bytes": 13366,
       "sha256": "636208fe3b85450bd25d4183cd51fe7dec536d247273b2be38b9a30c7ef3d1a5",
@@ -38675,8 +38729,8 @@
     },
     {
       "path": "tests/payment-gateway-signed.test.ts",
-      "bytes": 31179,
-      "sha256": "5a1061ab2c79e0d50d31c99bdc65786858a22aa8d5697035eec976b761b17eaa",
+      "bytes": 31355,
+      "sha256": "93a393f1d5f5bb7f1c5b269f79ec3788b46b12d9ba5b72c1584bb6f0c031a650",
       "kind": "text"
     },
     {
@@ -39256,6 +39310,12 @@
       "kind": "text"
     },
     {
+      "path": "tests/xlsx-worksheet-paths.test.ts",
+      "kind": "text",
+      "bytes": 11051,
+      "sha256": "ebc5a31bfcef1242b15705419d0ffd5488f7c01503aab00f05ecda9e44007d3d"
+    },
+    {
       "path": "tsconfig.json",
       "bytes": 701,
       "sha256": "0313c4cf43878018645ccca1d4a83c8afe8114b53da5270babbdfb2ff38ee363",
@@ -39276,27 +39336,27 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-5_FDHSlJ.js",
+      "path": "assets/ar-io-BVTE2D6a.js",
       "bytes": 11377,
-      "sha256": "5119ef95eba3f8402384677fd4572da59838266b62d898306852a9a4b405fccf",
+      "sha256": "72a85b26483e0d63c9f84d987c8294d761c878ba8cf6af59a0e97248c3b5fd1e",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-DafqIfvZ.js",
+      "path": "assets/bank-adjustment-io-CbJrrUB4.js",
       "bytes": 12101,
-      "sha256": "d877c76164480942a3862d6f6e7c577b900dc642f2c72c771adeb4b42f6ef31e",
+      "sha256": "e68708386fcf22b342d0d912edb6649baa3885a172c814bc5456895716b9a05f",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-DsKreb0s.js",
+      "path": "assets/bank-io-CFv9bxJ7.js",
       "bytes": 6331,
-      "sha256": "1e92b3060394d51b49c22f83a153913fef6afdb19ea049f097b25ab207c4a946",
+      "sha256": "e27172931806f31c4fcde3fc2b8a639b4a063ec14c7697fccc1295b0fa44aea4",
       "kind": "text"
     },
     {
-      "path": "assets/bank-native-display-Ck4h8AvH.js",
+      "path": "assets/bank-native-display-11TaCkds.js",
       "bytes": 6148,
-      "sha256": "8e537136582bb7a1d21776258a6b88ca1af244cd52283767c1fcf558eefa988c",
+      "sha256": "ae438ddd574b7334e22b90932e5d81a5bc15d4f59c243b5f3bc976f8d90e21d3",
       "kind": "text"
     },
     {
@@ -39306,9 +39366,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/core-CaIBc74n.js",
-      "bytes": 271839,
-      "sha256": "4f4855581aa2acadcfa7426b9b5b62e4075249ceb4e4d7e46c88b278683bc35b",
+      "path": "assets/core-ByuiytiH.js",
+      "bytes": 273222,
+      "sha256": "806376c6a542dd1ab29c0d09c8fcc375637cb3f22e071c75b2878a3d6b879ebb",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -39326,15 +39386,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-5l4vllWB.js",
+      "path": "assets/fixed-assets-io-C1oK5DEi.js",
       "bytes": 9830,
-      "sha256": "a20c21a6dd8df9a62a7b55296595cb83ecd4175dfb77d1aaf6d3c2db7bb8a39b",
+      "sha256": "627054d15c6caf15f45d10280bda3d7a229d69c7e88ee67dbba1bdf8167559a9",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-D1QXIb6t.js",
+      "path": "assets/gl-tb-io-fUXsolmP.js",
       "bytes": 2184,
-      "sha256": "6e727a54a11a090840413c7230b58f088574119a2a50703f40d5d840cdfd383a",
+      "sha256": "61654b46ba60a1e9a6e4e5aa49dcb1f876b0d82ec4dc1be620a20571c64e664a",
       "kind": "text"
     },
     {
@@ -39344,9 +39404,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-BJLrOw_O.js",
-      "bytes": 6287763,
-      "sha256": "fb51e2d64c59c45062d1c5ddc199cfce7897f491c077f9064a7886fbdbcdcb25",
+      "path": "assets/index-DoBBQt8u.js",
+      "bytes": 6289635,
+      "sha256": "9670c90caae685adf74e123a025e29f710c29dea58cb7970f07c4d688b6444ae",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -39364,15 +39424,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-Cu0ZNrl8.js",
+      "path": "assets/payment-gateway-io-DRwfwxPH.js",
       "bytes": 6391,
-      "sha256": "8ce468df96886e8ef9cdc4f1a45f4c9e79050e7e8bbdfdf97f210e9152b580f9",
+      "sha256": "779545c23edde14ac88a744bae8921a65306a64886f5f21d666a93c58fccf11b",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-DvYW3ith.js",
+      "path": "assets/payment-gateway-source-Ca-Q0uqo.js",
       "bytes": 6798,
-      "sha256": "9b2896994cd14f3add66369362e1801f7237fade69616287a2ef3c74324dccc1",
+      "sha256": "fb185deb16372895f88ff72b56f3c2db601f3b79d40f52c9c0811107979b5c50",
       "kind": "text"
     },
     {
@@ -39402,9 +39462,9 @@
       }
     },
     {
-      "path": "assets/protocol-pG2unYnb.js",
+      "path": "assets/protocol-DKZWcY4u.js",
       "bytes": 88775,
-      "sha256": "261719fb1516185f3e506ebb043d0e9495e9303d2554cc8331750bf162a6cc42",
+      "sha256": "f66e6d0c8caf0d932c9004bdab20ac08a544463f694f8ccd719843b1e7dffc74",
       "kind": "text"
     },
     {
@@ -39532,7 +39592,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "2bd33ece3b5fec0cd25330aebf918d2129f7bc13ef8e544f6e8ca741b0bc640d",
+      "sha256": "6ba8cc9b332554594b3d102d6e0852e796d7b89f0a06f6c4d5533a7396fa19b3",
       "kind": "text"
     },
     {

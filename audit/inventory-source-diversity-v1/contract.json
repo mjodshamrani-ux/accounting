@@ -1,0 +1,675 @@
+{
+  "schema": "tarasuf-inventory-source-diversity-foundation/1",
+  "stage": "INV-1A-foundation",
+  "recordedDate": "2026-10-14",
+  "status": "sealed-input-foundation-with-preserved-baseline-gaps",
+  "purpose": "Test a fixed source-visible inventory story across genuinely different evidence layouts before implementing another inventory input family.",
+  "legacyFamily": "inventory-posted-register-gl-1",
+  "candidateFamily": "inventory-section-components-1",
+  "runtime": {
+    "sectionFamilyImplemented": false,
+    "inventoryNativeInputs": [
+      "canonical CSV"
+    ],
+    "newXlsxInventoryEnabled": false,
+    "matrixEnabled": false,
+    "noProtocolMigration": true,
+    "applicationVersionChangedByThisPackage": false
+  },
+  "sourceRoles": [
+    "register",
+    "mapping",
+    "policy-evidence",
+    "gl"
+  ],
+  "changedRole": "register",
+  "counts": {
+    "economicStories": 1,
+    "layouts": 3,
+    "containers": 2,
+    "producerLineages": 1,
+    "sourceCases": 12,
+    "positivePresentations": 4,
+    "negativeInteractions": 8,
+    "sourceFiles": 48,
+    "csvFiles": 43,
+    "xlsxFiles": 5,
+    "newBoundedTargetFamilies": 1,
+    "exploratoryFamilies": 1,
+    "logicalRecordsPerPositive": [
+      4,
+      4,
+      4,
+      2
+    ],
+    "logicalRecordsTotalPerPositive": 14,
+    "caseCountIsNotFamilyCount": true
+  },
+  "provenance": {
+    "synthetic": true,
+    "customerData": false,
+    "division": "visible-development-regression",
+    "unseenHoldout": false,
+    "producerLineage": "hand-authored-python-stdlib-csv-literal-ooxml-1",
+    "containerWriters": [
+      "stdlib csv",
+      "literal OOXML ZIP_STORED"
+    ],
+    "independentReading": "Standalone csv.reader and ZIP/XML inspection with Decimal; no product or producer imports. The checker does not obtain truth from corpus.json.",
+    "sourceEmissionAndFinancialExpectedAreSeparate": true,
+    "independentlyAuthoredSourceProducerCount": 1,
+    "handTruthDraftSha256": "7377951b65bc64daa6acadf518033533338501138d4abf8a6e4658023659bf3a",
+    "handTruthWrittenBeforeProductEvaluation": true,
+    "publicContractRecordsTheAlreadyAuthoredTruthAfterBaseline": true,
+    "oracleOnlyFactIds": "I1-I4 describe expectations; actual item, literal dimensions, unit, precision and valuation reference must be visible in source rows."
+  },
+  "scope": {
+    "entity": "Synthetic INV1 Owner",
+    "inventoryLedger": "STOCK-BOOK",
+    "glLedger": "GL-BOOK",
+    "currency": "SAR",
+    "currencyBasis": "functional",
+    "postingStatus": "posted",
+    "postingLayer": "Current",
+    "asOf": "2026-09-30",
+    "chartVersion": "CHART-INV1",
+    "mapVersion": "MAP-INV1",
+    "valuationPolicyVersion": "provided-posted-values-1",
+    "inventoryAccountSetVersion": "INV-SET-1"
+  },
+  "decimals": 2,
+  "registerFacts": [
+    {
+      "factId": "I1",
+      "itemId": "0007",
+      "itemDimensions": "warehouse=W1;batch=B01",
+      "quantityText": "10",
+      "quantityUnits": 10,
+      "unit": "EA",
+      "quantityPrecision": 0,
+      "postedValueText": "600.00",
+      "postedValueMinor": 60000,
+      "valuationReference": "V-0007-W1-B01"
+    },
+    {
+      "factId": "I2",
+      "itemId": "0007",
+      "itemDimensions": "warehouse=W1;batch=B02",
+      "quantityText": "10",
+      "quantityUnits": 10,
+      "unit": "EA",
+      "quantityPrecision": 0,
+      "postedValueText": "400.00",
+      "postedValueMinor": 40000,
+      "valuationReference": "V-0007-W1-B02"
+    },
+    {
+      "factId": "I3",
+      "itemId": "0007",
+      "itemDimensions": "warehouse=W2;batch=B01",
+      "quantityText": "10",
+      "quantityUnits": 10,
+      "unit": "EA",
+      "quantityPrecision": 0,
+      "postedValueText": "500.00",
+      "postedValueMinor": 50000,
+      "valuationReference": "V-0007-W2-B01"
+    },
+    {
+      "factId": "I4",
+      "itemId": "0008",
+      "itemDimensions": "warehouse=W1;batch=B00",
+      "quantityText": "0",
+      "quantityUnits": 0,
+      "unit": "EA",
+      "quantityPrecision": 0,
+      "postedValueText": "0.00",
+      "postedValueMinor": 0,
+      "valuationReference": "V-0008-W1-B00"
+    }
+  ],
+  "mappingFacts": [
+    {
+      "mappingId": "MAP-I1",
+      "registerFact": "I1",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=01",
+      "evidenceId": "POL-I1"
+    },
+    {
+      "mappingId": "MAP-I2",
+      "registerFact": "I2",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=01",
+      "evidenceId": "POL-I2"
+    },
+    {
+      "mappingId": "MAP-I3",
+      "registerFact": "I3",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=02",
+      "evidenceId": "POL-I3"
+    },
+    {
+      "mappingId": "MAP-I4",
+      "registerFact": "I4",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=01",
+      "evidenceId": "POL-I4"
+    }
+  ],
+  "policyFacts": [
+    {
+      "evidenceId": "POL-I1",
+      "registerFact": "I1",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=01",
+      "accountClass": "inventory",
+      "sign": "debit-positive",
+      "valueBasis": "provided-posted-carrying-value",
+      "validFrom": "2026-01-01",
+      "validTo": "2026-12-31",
+      "reference": "SYN-POL-I1"
+    },
+    {
+      "evidenceId": "POL-I2",
+      "registerFact": "I2",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=01",
+      "accountClass": "inventory",
+      "sign": "debit-positive",
+      "valueBasis": "provided-posted-carrying-value",
+      "validFrom": "2026-01-01",
+      "validTo": "2026-12-31",
+      "reference": "SYN-POL-I2"
+    },
+    {
+      "evidenceId": "POL-I3",
+      "registerFact": "I3",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=02",
+      "accountClass": "inventory",
+      "sign": "debit-positive",
+      "valueBasis": "provided-posted-carrying-value",
+      "validFrom": "2026-01-01",
+      "validTo": "2026-12-31",
+      "reference": "SYN-POL-I3"
+    },
+    {
+      "evidenceId": "POL-I4",
+      "registerFact": "I4",
+      "glAccount": "INV-1",
+      "glDimensions": "branch=01",
+      "accountClass": "inventory",
+      "sign": "debit-positive",
+      "valueBasis": "provided-posted-carrying-value",
+      "validFrom": "2026-01-01",
+      "validTo": "2026-12-31",
+      "reference": "SYN-POL-I4"
+    }
+  ],
+  "glFacts": [
+    {
+      "glAccount": "INV-1",
+      "glDimensions": "branch=01",
+      "accountClass": "inventory",
+      "debitText": "1000.00",
+      "creditText": "0.00",
+      "debitMinor": 100000,
+      "creditMinor": 0
+    },
+    {
+      "glAccount": "INV-1",
+      "glDimensions": "branch=02",
+      "accountClass": "inventory",
+      "debitText": "500.00",
+      "creditText": "0.00",
+      "debitMinor": 50000,
+      "creditMinor": 0
+    }
+  ],
+  "baseExpected": {
+    "registerMinor": 150000,
+    "glMinor": 150000,
+    "logicalRegisterFacts": [
+      "I1",
+      "I2",
+      "I3",
+      "I4"
+    ],
+    "requiredComponentsPerFact": [
+      "Quantity",
+      "Posted value"
+    ],
+    "comparisons": [
+      {
+        "glAccount": "INV-1",
+        "glDimensions": "branch=01",
+        "registerFacts": [
+          "I1",
+          "I2",
+          "I4"
+        ],
+        "registerMinor": 100000,
+        "debitMinor": 100000,
+        "creditMinor": 0,
+        "glMinor": 100000,
+        "differenceMinor": 0
+      },
+      {
+        "glAccount": "INV-1",
+        "glDimensions": "branch=02",
+        "registerFacts": [
+          "I3"
+        ],
+        "registerMinor": 50000,
+        "debitMinor": 50000,
+        "creditMinor": 0,
+        "glMinor": 50000,
+        "differenceMinor": 0
+      }
+    ],
+    "financial": "ready",
+    "review": "needs-review",
+    "statusBeforeWholeScopeDecision": "needs-review",
+    "automaticAccountingApproval": false
+  },
+  "sourceVisibility": {
+    "factIdsAreOracleOnly": true,
+    "registerFactReferencesMustBeMaterialized": "The producer writes actual Item ID, Item dimensions, Unit, Quantity precision, and Valuation reference into mapping/policy rows; I1-I4 must not supply hidden relationships to the engine.",
+    "scopeMustAppearInEveryRequiredSource": true,
+    "dimensionsAreLiteral": true,
+    "dimensionsAreNotFuzzyMatchedOrConstructedFromHiddenFields": true,
+    "policyDatesAreNotMappingRowDates": true
+  },
+  "layouts": [
+    {
+      "id": "canonical-flat-csv-control",
+      "stage": "existing-control",
+      "containers": [
+        "csv"
+      ],
+      "registerRows": 5,
+      "allSourceRows": 18,
+      "physicalFactLocation": "One row per logical record; ordered role fields followed by twelve scope fields."
+    },
+    {
+      "id": "section-headers-components",
+      "stage": "bounded-target-not-implemented",
+      "containers": [
+        "csv",
+        "xlsx"
+      ],
+      "registerRows": 54,
+      "allSourceRows": 67,
+      "grammar": {
+        "format": [
+          "Format",
+          "INV1A-SECTIONS-1"
+        ],
+        "scopePrefix": "Twelve labeled Scope rows before any Section. No missing or late rebinding.",
+        "sectionStart": [
+          "Section"
+        ],
+        "identityFields": [
+          "Item ID",
+          "Item dimensions",
+          "Unit",
+          "Quantity precision",
+          "Valuation reference"
+        ],
+        "detailHeader": [
+          "Component",
+          "Value"
+        ],
+        "componentRoles": [
+          "Quantity",
+          "Posted value"
+        ],
+        "exactlyOneOfEachRole": true,
+        "identityCompleteBeforeComponents": true,
+        "noIdentityAfterComponents": true,
+        "sectionEnd": [
+          "End section"
+        ],
+        "reportEnd": [
+          "End report"
+        ],
+        "repeatHeader": "An exact repeated detail header preserves already seen roles.",
+        "controls": [
+          "Section subtotal",
+          "Report total"
+        ],
+        "controlRule": "Check supplied controls against Posted value, never treat totals as components or use them to fill missing values.",
+        "noInheritanceAcrossEnd": true,
+        "unknownOrMalformedRowsRemainEvidence": true
+      }
+    },
+    {
+      "id": "transposed-role-matrix",
+      "stage": "exploratory-unsupported",
+      "containers": [
+        "xlsx"
+      ],
+      "registerRows": 22,
+      "allSourceRows": 35,
+      "grammar": {
+        "format": [
+          "Format",
+          "INV1A-MATRIX-1"
+        ],
+        "headerRow": [
+          "Field",
+          "K-A",
+          "K-B",
+          "K-C",
+          "K-Z"
+        ],
+        "fieldsInRows": true,
+        "factsInColumns": true,
+        "noRuntimeImplementationCommitment": true
+      }
+    }
+  ],
+  "handFixedCoordinates": {
+    "coordinateBase": 1,
+    "flat": {
+      "headerRow": 1,
+      "firstFactRow": 2,
+      "sourceRoleFieldColumnsAreFixedIn": "test_oracle.py:COLUMNS",
+      "scopeColumns": "Immediately after the role fields, in scope order"
+    },
+    "sections": {
+      "scopeRows": [
+        2,
+        13
+      ],
+      "scopeLabelColumn": 2,
+      "scopeValueColumn": 3,
+      "factIndexBase": 0,
+      "sectionStart": "14+10*i",
+      "sectionEnd": "23+10*i",
+      "fieldRows": {
+        "Item ID": "15+10*i",
+        "Item dimensions": "16+10*i",
+        "Unit": "17+10*i",
+        "Quantity precision": "18+10*i",
+        "Valuation reference": "19+10*i",
+        "Quantity": "21+10*i",
+        "Posted value": "22+10*i"
+      },
+      "fieldValueColumn": 2,
+      "fieldLabelColumn": 1
+    },
+    "matrix": {
+      "scopeRows": [
+        2,
+        13
+      ],
+      "scopeValueColumn": 3,
+      "factColumns": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "fieldRows": {
+        "Item ID": 15,
+        "Item dimensions": 16,
+        "Quantity": 17,
+        "Unit": 18,
+        "Quantity precision": 19,
+        "Posted value": 20,
+        "Valuation reference": 21
+      }
+    },
+    "checks": "Every role, fact, raw/scope field and coordinate, including equal-text wrong-role and wrong-section citation counterexamples."
+  },
+  "actualFixtures": [
+    {
+      "id": "INV1A-P01",
+      "container": "csv",
+      "layout": "canonical-flat-csv-control",
+      "sourceRole": "register",
+      "registerPhysicalRows": 5,
+      "oracleFinancial": "ready",
+      "purpose": "Existing flat control",
+      "runtimeTarget": "existing"
+    },
+    {
+      "id": "INV1A-P02",
+      "container": "csv",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 54,
+      "oracleFinancial": "ready",
+      "purpose": "Complete source scope and section identity over typed component rows",
+      "runtimeTarget": "target-not-implemented"
+    },
+    {
+      "id": "INV1A-P03",
+      "container": "xlsx",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 54,
+      "oracleFinancial": "ready",
+      "purpose": "Same section semantics in literal native OOXML, worksheet report.xml",
+      "runtimeTarget": "target-not-implemented"
+    },
+    {
+      "id": "INV1A-P04",
+      "container": "xlsx",
+      "layout": "transposed-role-matrix",
+      "sourceRole": "register",
+      "registerPhysicalRows": 22,
+      "oracleFinancial": "ready",
+      "purpose": "Oracle-valid exploratory matrix, outside first native target",
+      "runtimeTarget": "exploratory-unsupported"
+    },
+    {
+      "id": "INV1A-N01",
+      "container": "csv",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 53,
+      "oracleFinancial": "source-error",
+      "purpose": "Remove original row36, Item dimensions of I3",
+      "runtimeTarget": "target-not-implemented",
+      "requiredDiagnostic": "MISSING_SECTION_FIELD"
+    },
+    {
+      "id": "INV1A-N02",
+      "container": "csv",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 54,
+      "oracleFinancial": "source-error",
+      "purpose": "Move original row22 Posted value after I1 End section",
+      "runtimeTarget": "target-not-implemented",
+      "requiredDiagnostic": "ORPHAN_COMPONENT"
+    },
+    {
+      "id": "INV1A-N03",
+      "container": "csv",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 53,
+      "oracleFinancial": "source-error",
+      "purpose": "Remove original row52 Posted value for I4; Quantity0 remains",
+      "runtimeTarget": "target-not-implemented",
+      "requiredDiagnostic": "MISSING_COMPONENT"
+    },
+    {
+      "id": "INV1A-N04",
+      "container": "csv",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 56,
+      "oracleFinancial": "source-error",
+      "purpose": "Insert repeated detail header and duplicate value before original row23",
+      "runtimeTarget": "target-not-implemented",
+      "requiredDiagnostic": "DUPLICATE_COMPONENT"
+    },
+    {
+      "id": "INV1A-N05",
+      "container": "csv",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 54,
+      "oracleFinancial": "missing",
+      "purpose": "Swap original B26 and B36; amounts unchanged but two policy bindings fail",
+      "runtimeTarget": "target-not-implemented",
+      "requiredDiagnostic": "POLICY_BINDING",
+      "requiredDiagnosticCount": 2
+    },
+    {
+      "id": "INV1A-N06",
+      "container": "xlsx",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 55,
+      "oracleFinancial": "source-error",
+      "purpose": "Insert Scope/Currency/USD before original row50 inside I4",
+      "runtimeTarget": "target-not-implemented",
+      "requiredDiagnostic": "SCOPE_CONFLICT"
+    },
+    {
+      "id": "INV1A-N07",
+      "container": "xlsx",
+      "layout": "section-headers-components",
+      "sourceRole": "register",
+      "registerPhysicalRows": 56,
+      "oracleFinancial": "source-error",
+      "purpose": "Insert subtotal1.00 before original row53; report total remains1500.00",
+      "runtimeTarget": "target-not-implemented",
+      "requiredDiagnostic": "CONTROL_MISMATCH"
+    },
+    {
+      "id": "INV1A-N08",
+      "container": "xlsx",
+      "layout": "transposed-role-matrix",
+      "sourceRole": "register",
+      "registerPhysicalRows": 23,
+      "oracleFinancial": "source-error",
+      "purpose": "Insert second Quantity row before original row18",
+      "runtimeTarget": "exploratory-unsupported",
+      "requiredDiagnostic": "DUPLICATE_FIELD"
+    }
+  ],
+  "authorityAndErrors": {
+    "policy": "Existing whole-scope inventory policy; no supplier-style partial approvals.",
+    "sourceError": {
+      "financial": "source-error",
+      "totals": null,
+      "allComparisonMoneyFields": null,
+      "acceptAllowed": false,
+      "physicalRowsPreserved": true
+    },
+    "missingBinding": "Keep the current missing state and diagnostic interpretation; no acceptance. Missing evidence is not permission to manufacture zero or silently discard a component.",
+    "completePositive": "ready means arithmetically and evidentially ready, not accepted. Acceptance still requires whole-scope completeness, all original physical members and a context-bound explicit event.",
+    "independentSectionError": "A readable separate section may remain inspectable, but an issue in another section still prevents whole-scope financial approval and clears financial totals under the current policy.",
+    "literalTextAndSource": "Retain original bytes, source hashes, cell text, presence state, physical coordinates and parent-header traces through review, save, restore and export.",
+    "logicalProjection": "A logical record assembled from header/component rows is a derived view, not a replacement original or a fictitious horizontal source row."
+  },
+  "readerLimits": {
+    "purpose": "Fixture-contract byte inspector, not a general secure workbook reader.",
+    "xlsx": "Exactly five known OOXML parts, visible styleless inline strings, explicit cell addresses, positive readable column widths, no formulas or merged cells.",
+    "rejectedFeatures": [
+      "duplicate ZIP/XML addresses",
+      "styles.xml including white style0",
+      "hidden rows or sheets",
+      "hidden or zero-width columns",
+      "sheetFormatPr",
+      "unknown worksheet features",
+      "non-inline-string payloads",
+      "formulas",
+      "merged cells"
+    ],
+    "csv": "Strict UTF-8 comma CSV under the declared flat/section grammar.",
+    "exportChecker": "P01 inventory export only. Checks financial integers, full original bytes/hashes, account membership, cells, context, scope and event absence. Not an arbitrary-workbook visual/security oracle."
+  },
+  "historicalBaseline": {
+    "productCommit": "da0875daa75df3ee3d9a1a60a3ac9674adc46b79",
+    "run": "INV-1A initial evaluation",
+    "oracleUnitTests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "productTests": {
+      "passed": 5,
+      "failed": 1,
+      "total": 6
+    },
+    "failure": {
+      "case": "INV1A-P03",
+      "layer": "shared XLSX reader before inventory parser",
+      "condition": "A valid worksheet relationship targets xl/worksheets/report.xml.",
+      "message": "الملف لا يحتوي أوراقًا",
+      "mustPreserve": "Keep this historical failure and source hashes after repair; do not rename the fixture part to sheet1.xml."
+    },
+    "control": "P01 canonical CSV: four stock keys, explicit zero, 14 logical members, per-branch truth, save/restore and independently checked Excel export passed.",
+    "limits": "The read-all-inputs loop stopped at P03. Native inventory still rejects XLSX with STOCK_SOURCE; P02 is source-error in the legacy flat family. Tests documenting these positive-case gaps do not count as target-family success."
+  },
+  "plannedNotDelivered": {
+    "catalogIsNotTheActualFixtureList": true,
+    "items": [
+      "Meaning-preserving section and component order permutations",
+      "Positive repeated detail header between components",
+      "Explicit zero with sparse blank rows",
+      "Correct section and report control totals",
+      "Duplicated section with malformed member",
+      "Inclusive and expired late-section policy validity",
+      "A separately authored structural producer or unseen holdout",
+      "Native section-family parser and source citations through sessions, worker, UI and export",
+      "Actual populated long-file capacity and resource measurements",
+      "Transposed matrix runtime support"
+    ],
+    "noClosureImpliedByNineOracleTests": true
+  },
+  "notInBoundedV1": [
+    "Summing arbitrary cost, freight, tax, rebate, impairment or movement components.",
+    "Opening/additions/issues/transfers/closing bridges, FIFO, weighted average or derived unit cost.",
+    "Inferring missing money from quantity, unit price, subtotal or GL difference.",
+    "Multiple currencies, FX, unposted operational inventory or fuzzy dimensions.",
+    "Partial financial approvals or event migration across old and new family contexts.",
+    "PDF import, OCR approval, generic layout inference or automatic model use.",
+    "Transposed matrix runtime support."
+  ],
+  "seals": {
+    "algorithm": "sha256",
+    "inputManifest": "INPUT-MANIFEST.json",
+    "inputManifestSha256": "cce79811d5a9d28d3b7266b3597aac53a6a39c3065843df828c54502eedf0b0f",
+    "inputManifestFiles": 49,
+    "sourceFiles": 48,
+    "additionalManifestEntry": "corpus.json",
+    "code": [
+      {
+        "path": "generate.py",
+        "bytes": 9842,
+        "sha256": "4527bee5afa419ac80a215aafd9ec58ddce7d4d9ce4f8f9f316b8b3a9b1236fb"
+      },
+      {
+        "path": "oracle.py",
+        "bytes": 20648,
+        "sha256": "4d274edf6356003e3db3c5c63cdca4611fe91605c9c0b66674b5c9845b85d116"
+      },
+      {
+        "path": "test_oracle.py",
+        "bytes": 18455,
+        "sha256": "4f7d0e683d33934ed11888d03ebb3ac33374c1a84c4aaf75024b45740025077a"
+      },
+      {
+        "path": "check_control_export.py",
+        "bytes": 10963,
+        "sha256": "a2e6a04bc4c773df21dac97961dde6ab66eaad834ee7ed1dc6a6b7b824a7e55c"
+      }
+    ]
+  },
+  "privacy": {
+    "networkRequired": false,
+    "telemetryAdded": false,
+    "remoteProcessing": false,
+    "originalFinancialSourcesStayLocal": true,
+    "publicPackageContains": "Only synthetic-source generator/checkers, hand-authored contract, documentation and relative-path SHA256 inventory. No customer files, raw execution proofs or personal absolute paths."
+  }
+}
