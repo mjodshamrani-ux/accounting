@@ -8,6 +8,14 @@ import {
   type StockSectionRowKind,
 } from './inventory-section-components.ts';
 export { STOCK_SECTION_FAMILY } from './inventory-section-components.ts';
+import {
+  assertInventoryMatrixLogicalBudget,
+  parseInventoryTransposedRegister,
+  STOCK_MATRIX_FAMILY,
+  type StockMatrixEvidence,
+  type StockMatrixRowKind,
+} from './inventory-transposed-register.ts';
+export { STOCK_MATRIX_FAMILY } from './inventory-transposed-register.ts';
 
 // Compare supplied posted values under declared source families; no valuation,
 // financial posting or completeness opinion is inferred by this pure engine.
@@ -92,7 +100,10 @@ export type StockScope = Record<(typeof STOCK_FIELDS)[number], string> & {
 export type StockReading = {
   sheet: number;
   role: (typeof STOCK_ROLES)[number];
-  family: typeof STOCK_VERSION | typeof STOCK_SECTION_FAMILY;
+  family:
+    | typeof STOCK_VERSION
+    | typeof STOCK_SECTION_FAMILY
+    | typeof STOCK_MATRIX_FAMILY;
   confirmed: boolean;
 };
 export type StockEvent = {
@@ -115,6 +126,7 @@ type RecordRow = {
   id: string;
   source: number;
   row: number;
+  column?: number;
   values: (string | number)[];
 };
 type Comparison = {
@@ -134,14 +146,19 @@ export type StockResult = {
   completeness: StockInput['completeness'];
   decimals: number;
   records: RecordRow[][];
-  issues: { source: number; row: number; code: string }[];
+  issues: { source: number; row: number; column?: number; code: string }[];
   missing: string[];
   comparisons: Comparison[];
   totals: { registerMinor: number; glMinor: number } | null;
   inventory: {
     source: number;
     row: number;
-    kind: 'header' | 'blank' | 'data' | StockSectionRowKind;
+    kind:
+      | 'header'
+      | 'blank'
+      | 'data'
+      | StockSectionRowKind
+      | StockMatrixRowKind;
   }[];
   cells: {
     source: number;
@@ -152,6 +169,7 @@ export type StockResult = {
   }[];
   memberIds: string[];
   sectionEvidence?: StockSectionEvidence;
+  matrixEvidence?: StockMatrixEvidence;
   events: StockEvent[];
   financial: 'source-error' | 'missing' | 'difference' | 'ready';
   review: 'needs-review' | 'accepted' | 'rejected';
@@ -260,14 +278,20 @@ export function reconcileStock(input: StockInput): StockResult {
       r.sheet !== 0 ||
       r.role !== STOCK_ROLES[i] ||
       (r.family !== STOCK_VERSION &&
-        !(i === 0 && r.family === STOCK_SECTION_FAMILY)) ||
+        !(
+          i === 0 &&
+          (r.family === STOCK_SECTION_FAMILY ||
+            r.family === STOCK_MATRIX_FAMILY)
+        )) ||
       r.confirmed !== true
     )
       fail('READING');
   });
   input.files.forEach((f, source) => {
     const sections =
-      source === 0 && input.readings[source].family === STOCK_SECTION_FAMILY;
+      source === 0 &&
+      (input.readings[source].family === STOCK_SECTION_FAMILY ||
+        input.readings[source].family === STOCK_MATRIX_FAMILY);
     assertSourceFile(f);
     const native = sections && /\.xlsx$/i.test(f.name);
     text(f.name, 255);
@@ -328,6 +352,20 @@ export function reconcileStock(input: StockInput): StockResult {
     ) > MAX_ROWS
   )
     fail('ROWS');
+  const matrixBudget =
+    MAX_ROWS -
+    input.files
+      .slice(1)
+      .reduce(
+        (sum, file) =>
+          sum +
+          file.sheets[0].rows
+            .slice(1)
+            .filter((row) => row.some((value) => value.trim())).length,
+        0,
+      );
+  if (input.readings[0].family === STOCK_MATRIX_FAMILY)
+    assertInventoryMatrixLogicalBudget(input.files[0], matrixBudget);
   const scope = {
       ...Object.fromEntries(STOCK_FIELDS.map((k) => [k, s[k]])),
       confirmed: true,
@@ -361,8 +399,18 @@ export function reconcileStock(input: StockInput): StockResult {
     review: 'needs-review',
     status: 'needs-review',
   };
-  const problem = (source: number, row: number, code: string) =>
-    result.issues.push({ source, row, code });
+  const problem = (
+    source: number,
+    row: number,
+    code: string,
+    column?: number,
+  ) =>
+    result.issues.push({
+      source,
+      row,
+      ...(column === undefined ? {} : { column }),
+      code,
+    });
   const absent = (key: string) => {
     if (!result.missing.includes(key)) result.missing.push(key);
   };
@@ -427,6 +475,78 @@ export function reconcileStock(input: StockInput): StockResult {
     }
   };
   input.files.forEach((f, source) => {
+    if (source === 0 && readings[source].family === STOCK_MATRIX_FAMILY) {
+      const parsed = parseInventoryTransposedRegister(
+        f,
+        scope,
+        decimals,
+        scaled,
+        matrixBudget,
+      );
+      const physicalId = (row: number) =>
+        JSON.stringify([STOCK_VERSION, source, f.sha256, 0, row]);
+      const id = (row: number, column: number) =>
+        JSON.stringify([STOCK_VERSION, source, f.sha256, 0, row, column]);
+      for (const row of parsed.inventory)
+        result.inventory.push({ source, ...row });
+      for (const cell of parsed.cells) result.cells.push({ source, ...cell });
+      const matrixIssueKeys = new Set(
+        parsed.issues.map((issue) =>
+          JSON.stringify([issue.row, issue.column, issue.code]),
+        ),
+      );
+      for (const issue of parsed.issues)
+        problem(source, issue.row, issue.code, issue.column);
+      result.memberIds.push(...parsed.memberRows.map(physicalId));
+      result.matrixEvidence = {
+        ...parsed.evidence,
+        bands: parsed.evidence.bands.map((band, index) => ({
+          ...band,
+          records: parsed.records
+            .filter((record) => record.band === index)
+            .map((record) => ({
+              recordId: id(record.row, record.column),
+              column: record.column,
+              anchor: record.anchor,
+              axis: record.axis,
+              fields: record.fields,
+            })),
+        })),
+      };
+      for (const record of parsed.records) {
+        let failureRow = record.row,
+          failureColumn = record.column;
+        try {
+          const values = interpretValues(
+            source,
+            (key) => record.raw[key],
+            (field) => {
+              failureRow = record.fields[field]?.value.row ?? record.row;
+              failureColumn =
+                record.fields[field]?.value.column ?? record.column;
+            },
+          );
+          result.records[source].push({
+            id: id(record.row, record.column),
+            source,
+            row: record.row,
+            column: record.column,
+            values,
+          });
+        } catch (error) {
+          if (!(error instanceof Error) || !error.message.startsWith('STOCK_'))
+            throw error;
+          const code = error.message.slice(6),
+            key = JSON.stringify([failureRow, failureColumn, code]);
+          if (!matrixIssueKeys.has(key)) {
+            problem(source, failureRow, code, failureColumn);
+            matrixIssueKeys.add(key);
+          }
+        }
+      }
+      if (!result.records[source].length) absent('source:' + source);
+      return;
+    }
     if (source === 0 && readings[source].family === STOCK_SECTION_FAMILY) {
       const parsed = parseInventorySectionComponents(
         f,

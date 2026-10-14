@@ -1,0 +1,483 @@
+{
+  "schema": "tarasuf-inv1c-source-proof-contract/1",
+  "status": "SOURCE-FROZEN-BEFORE-CANDIDATE",
+  "synthetic": true,
+  "priority": "Field-role rows and logical record columns; close real financial gap of frozen INV1A-P04 without altering that regression input/oracle",
+  "story": {
+    "currency": "KWD",
+    "currencyPrecision": 3,
+    "facts": [
+      {
+        "key": [
+          "0014",
+          "plant=P1;batch=K1"
+        ],
+        "quantity": "1.25",
+        "unit": "KG",
+        "quantityPrecision": 2,
+        "quantityUnits": 125,
+        "postedValue": "123.456",
+        "postedValueMinor": 123456,
+        "valuationReference": "VAL-0014-P1-K1",
+        "mappingID": "MAP-MX-A",
+        "evidenceID": "POL-MX-A",
+        "glAccount": "INV-RM",
+        "glDimensions": "plant=P1;branch=10"
+      },
+      {
+        "key": [
+          "0014",
+          "plant=P2;batch=K2"
+        ],
+        "quantity": "2.50",
+        "unit": "KG",
+        "quantityPrecision": 2,
+        "quantityUnits": 250,
+        "postedValue": "210.111",
+        "postedValueMinor": 210111,
+        "valuationReference": "VAL-0014-P2-K2",
+        "mappingID": "MAP-MX-B",
+        "evidenceID": "POL-MX-B",
+        "glAccount": "INV-RM",
+        "glDimensions": "plant=P2;branch=20"
+      },
+      {
+        "key": [
+          "014",
+          "plant=P1;batch=E1"
+        ],
+        "quantity": "3",
+        "unit": "EA",
+        "quantityPrecision": 0,
+        "quantityUnits": 3,
+        "postedValue": "333.567",
+        "postedValueMinor": 333567,
+        "valuationReference": "VAL-014-P1-E1",
+        "mappingID": "MAP-MX-C",
+        "evidenceID": "POL-MX-C",
+        "glAccount": "INV-PACK",
+        "glDimensions": "plant=P1;branch=10"
+      },
+      {
+        "key": [
+          "14",
+          "plant=P2;batch=Z0"
+        ],
+        "quantity": "0",
+        "unit": "EA",
+        "quantityPrecision": 0,
+        "quantityUnits": 0,
+        "postedValue": "0.000",
+        "postedValueMinor": 0,
+        "valuationReference": "VAL-14-P2-Z0",
+        "mappingID": "MAP-MX-D",
+        "evidenceID": "POL-MX-D",
+        "glAccount": "INV-PACK",
+        "glDimensions": "plant=P2;branch=20"
+      }
+    ],
+    "registerMinor": 667134,
+    "glMinor": 667134,
+    "recordCounts": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "glRows": [
+      [
+        "INV-RM",
+        "plant=P1;branch=10",
+        123456,
+        0
+      ],
+      [
+        "INV-RM",
+        "plant=P2;branch=20",
+        210111,
+        0
+      ],
+      [
+        "INV-PACK",
+        "plant=P1;branch=10",
+        333567,
+        0
+      ],
+      [
+        "INV-PACK",
+        "plant=P2;branch=20",
+        0,
+        0
+      ]
+    ],
+    "proofTrap": "A+B equals C and both GL account aggregates equal333567, so grand/account sum agreement does not establish warehouse/plant/member/quantity correctness"
+  },
+  "structuralVariants": [
+    {
+      "id": "direct-role-matrix",
+      "contract": "One visible Field axis with uniquely labelled active columns and exactly seven unique STOCK_VALUES[0] role rows. Direct literal Item dimensions in each column."
+    },
+    {
+      "id": "completed-split-bands",
+      "contract": "Multiple complete Field bands. A new Field is a real boundary only after all seven unique role rows and all active-column values are present. Axis keys unique per band may repeat after a completed band. No invented End band marker."
+    },
+    {
+      "id": "sparse-separator",
+      "contract": "Unlabelled separator column must be empty in every row of its active matrix band. Prefix scope cells belong to prefix metadata, not the column member. Populated unknown data must not be dropped."
+    },
+    {
+      "id": "meaning-preserving-permutation",
+      "contract": "Whole-column reorders and independent role-row reorders preserve all seven fields of each column; scope stays before axis and each band remains bounded. Permutation is a metamorphic case, not another semantic family."
+    }
+  ],
+  "evidence": {
+    "logicalID": [
+      "STOCK_VERSION",
+      "sourceIndex",
+      "originalSHA256",
+      "sheetIndex",
+      "Item-ID physical row",
+      "physical column"
+    ],
+    "physicalID": [
+      "STOCK_VERSION",
+      "sourceIndex",
+      "originalSHA256",
+      "sheetIndex",
+      "physical row"
+    ],
+    "logicalRecord": "Optional source column only for matrix projection; row points at actual Item-ID field row, never a fictional transposed CSV row",
+    "requiredPerRecord": [
+      "source SHA",
+      "sheet index/name",
+      "Item-ID anchor row/column",
+      "axis label cell",
+      "band Field-header/boundaries",
+      "seven exact role-label/value cell citations",
+      "prefix scope fact citations"
+    ],
+    "ownership": "Every field value belongs to the same original active column and its own labelled role row within its explicit band; same raw text from a neighbouring column is not a substitute",
+    "originals": "Retain true native CSV/XLSX bytes, hashes, every physical source row/cell and rejected unknown facts. No canonical CSV replacement.",
+    "matrixExportHeaders": [
+      "Record ID",
+      "Source",
+      "SHA256",
+      "Sheet index",
+      "Sheet",
+      "Source row",
+      "Column",
+      "Field",
+      "Text",
+      "Kind",
+      "Band header row",
+      "Fact column"
+    ],
+    "registerHeaders": [
+      "Record ID",
+      "Source",
+      "Source row",
+      "Source column",
+      "Item ID",
+      "Item dimensions",
+      "Quantity scaled integer",
+      "Unit",
+      "Quantity precision",
+      "Posted value minor",
+      "Valuation reference"
+    ],
+    "issueHeaders": [
+      "Source",
+      "Source row",
+      "Source column",
+      "Code"
+    ]
+  },
+  "independentPlan": {
+    "producer": "Separately authored literal stdlib CSV plus actual pinned openpyxl3.1.5/xlsxwriter3.2.9 originals; frozen archives recovered offline; no product/oracle imports",
+    "reader": "stdlib CSV and independently resolved OPC ZIP/XML, exact raw shared/inline/numeric cells, Decimal money/quantity; meaningful instrument mutations before product",
+    "truth": "Hand facts per original ItemID+dimensions and per GL account+plant/branch; do not derive expected source membership from candidate result or hidden producer group IDs",
+    "sessionExport": "Unapproved ready, complete explicit accept, foreign context rejection, undo, source conservation, original native XLSX bytes and exact same-column field evidence in independent export checker",
+    "exposure": "Original P04 known regression. Fresh story authored independently but visible to developers after proposal; do not label it blind holdout."
+  },
+  "boundaries": [
+    "No hierarchy/merge-derived warehouse/batch dimensions in first bounded family; these need separate provenance/inheritance contract",
+    "No PDF/OCR, valuation/FIFO/unit-price inference, partial source-error acceptance or generic table guessing",
+    "No source Quantity-consistency opinion: policy provides unit/precision, not actual Quantity; outputs must preserve the supplied value",
+    "Need explicit logical-record limit independent of physical-row budget; no large-capacity claim until measured"
+  ],
+  "freezeGate": [
+    "Agree source markers/band-end grammar/record ID and citation API with core",
+    "Select exact positive/negative case inventory and independently validate written bytes",
+    "Run independent instrument fault controls before evaluating product",
+    "Immutable inputs and independent truth frozen before candidate exposure; parent explicitly authorized separate-candidate work after PR21 merge while published49 verification uses an immutable snapshot"
+  ],
+  "boundaryGrammar": "Scope12 before first Field; exactly7unique roles per band; next Field/optional Report total/required End report are actual boundaries; no End band; no header-derived dimensions or merges",
+  "caps": "existing20k aggregate physical rows/100columns/8MiB and preflight20k aggregate potential matrix logical slots+other canonical nonblankdata before record allocation",
+  "cases": [
+    {
+      "id": "INV1C-P01",
+      "financial": "ready"
+    },
+    {
+      "id": "INV1C-P02",
+      "financial": "ready"
+    },
+    {
+      "id": "INV1C-P03",
+      "financial": "ready"
+    },
+    {
+      "id": "INV1C-P04",
+      "financial": "ready"
+    },
+    {
+      "id": "INV1C-P05",
+      "financial": "ready"
+    },
+    {
+      "id": "INV1C-P06",
+      "financial": "ready"
+    },
+    {
+      "id": "INV1C-N01",
+      "financial": "difference"
+    },
+    {
+      "id": "INV1C-N02",
+      "financial": "missing"
+    },
+    {
+      "id": "INV1C-N03",
+      "financial": "source-error"
+    },
+    {
+      "id": "INV1C-N04",
+      "financial": "source-error"
+    },
+    {
+      "id": "INV1C-N05",
+      "financial": "source-error"
+    },
+    {
+      "id": "INV1C-N06",
+      "financial": "source-error"
+    },
+    {
+      "id": "INV1C-N07",
+      "financial": "source-error"
+    },
+    {
+      "id": "INV1C-N08",
+      "financial": "source-error"
+    }
+  ],
+  "counts": {
+    "cases": 14,
+    "positive": 6,
+    "negative": 8,
+    "sources": 56,
+    "csv": 50,
+    "xlsx": 6,
+    "financialStories": 1,
+    "matrixSemanticFamily": 1,
+    "structureAxes": "single/split-completed bands; in-band blank separator; order permutations are metamorphic not another family",
+    "actualXlsxProducers": [
+      "openpyxl3.1.5",
+      "xlsxwriter3.2.9"
+    ]
+  },
+  "independentInstrument": {
+    "tests": 17,
+    "passed": 17,
+    "failed": 0,
+    "candidateEvaluationsAtFreeze": 0,
+    "boundedExportModes": "independent unapproved/difference/missing, fixed accept/undo and exact original UI-session control outputs"
+  },
+  "seals": {
+    "algorithm": "sha256",
+    "inputManifest": {
+      "files": 57,
+      "sha256": "7abb94bbc3ad9fb1b3cfd080be2bf8db4fadc70dbf0a929c8206be461336f8e0"
+    },
+    "code": [
+      {
+        "path": "generate.py",
+        "bytes": 9144,
+        "sha256": "260c322a6b907584b1a1a51977e6719cb48cb2667e0ca437325722bcc1f9afc9"
+      },
+      {
+        "path": "oracle.py",
+        "bytes": 33927,
+        "sha256": "4921b77c0787f166802f07d7295e06fd54431e479ed796133f55f2fca552a75c"
+      },
+      {
+        "path": "check_export.py",
+        "bytes": 15973,
+        "sha256": "b26eada01e8a1826debc291ae87cee41294859de2c357c675d1f9dc1072c64ce"
+      },
+      {
+        "path": "export_control.py",
+        "bytes": 6274,
+        "sha256": "81ac189b86f6edea1a6e508fdc638bb90a0abbf57b12e6e2e88ec3f6b07ed658"
+      },
+      {
+        "path": "test_oracle.py",
+        "bytes": 7749,
+        "sha256": "563c15c13cbc57182119d2e5eed47562b1387cb366c8dfb1b0a90b5b34293c59"
+      },
+      {
+        "path": "xlsx-originals.json",
+        "bytes": 161403,
+        "sha256": "b8063ff7131e5fc5efe33b445f6a2eb254cbc250298fb121f743ba461c2a700b"
+      }
+    ]
+  },
+  "preEvaluationAmendments": [
+    {
+      "timestampUTC": "2026-10-14T17:59:34.705486+00:00",
+      "reason": "Add fixed accept/undo and exact original UI session proof; clarify proposal superseded. No candidate exposure or input/financial truth changes.",
+      "independentInstrument": {
+        "tests": 17,
+        "passed": 17,
+        "failed": 0,
+        "productEvaluations": 0,
+        "log": "work/inv1c/instrument-fixed-events-first.log"
+      },
+      "code": [
+        {
+          "path": "check_export.py",
+          "bytes": 20009,
+          "sha256": "42c3d9e20d9e1a23cbac8e2fbb3122fccb54dd3edf6221fba9da4285bd8543dd"
+        },
+        {
+          "path": "export_control.py",
+          "bytes": 7992,
+          "sha256": "4235df423f673a47a77776a10ba99fd6da591e8cdb9c8991544ada141b7991f1"
+        },
+        {
+          "path": "test_oracle.py",
+          "bytes": 11126,
+          "sha256": "012f2b6742e87299b1e89f052127a09064db5dd3bd42ab4742f08870529cdd2a"
+        }
+      ],
+      "historicalFiles": "work/inv1c/*.pre-event-controls",
+      "inputManifestUnchanged": "7abb94bbc3ad9fb1b3cfd080be2bf8db4fadc70dbf0a929c8206be461336f8e0"
+    }
+  ],
+  "sourceFamily": "inventory-transposed-register-1",
+  "acceptedFormatTokens": [
+    "INV1A-MATRIX-1"
+  ],
+  "riskCatalog": [
+    {
+      "fault": "swap A/B posted values",
+      "expected": "difference",
+      "suppliedMinor": 667134,
+      "glMinor": 667134,
+      "accountTotalsRemainEqual": true,
+      "dimensionDifferences": {
+        "INV-RM plant=P1;branch=10": 86655,
+        "INV-RM plant=P2;branch=20": -86655
+      }
+    },
+    {
+      "fault": "swap A/B Item dimensions but keep refs in place",
+      "expected": "missing",
+      "suppliedMinor": 667134,
+      "supportedMinor": 333567,
+      "glMinor": 667134,
+      "reason": "Two policy/ref membership contradictions remain; cannot resolve from equal money"
+    },
+    {
+      "fault": "missing or repeated role including explicit-zero Posted value/Quantity",
+      "expected": "source-error",
+      "totals": null,
+      "allComparisonMoney": null
+    },
+    {
+      "fault": "same ItemID+dimensions repeated across bands",
+      "expected": "source-error",
+      "reason": "Global source-key duplicate even if axis names and amounts differ"
+    },
+    {
+      "fault": "repeated axis label inside one band",
+      "expected": "source-error",
+      "reason": "No silent first/last column selection"
+    },
+    {
+      "fault": "populated unknown column or partial extra column",
+      "expected": "source-error",
+      "reason": "Never ignore a late competitor because it lacks a known axis key"
+    },
+    {
+      "fault": "new Field axis before closing prior band or scope after first axis",
+      "expected": "source-error",
+      "reason": "No forward/backward ownership or late-scope borrowing"
+    },
+    {
+      "fault": "numeric Item ID cell disguised by display 0000 versus literal0014/014/14",
+      "expected": "source-error",
+      "reason": "Do not invent leading zeros/identity from formats"
+    },
+    {
+      "fault": "missing explicit zero GL member",
+      "expected": "missing",
+      "reason": "Proven source zero still requires correct dimension/account GL coverage"
+    }
+  ],
+  "instrumentFaultCatalog": [
+    "Swap output quantities across columns while all monetary totals remain correct",
+    "Borrow exact-zero raw value from precision/another column",
+    "Replace field citation with correct-text neighbouring-column citation",
+    "Delete dimensions/axis/band/scope citations",
+    "Change original embedded source/hash/column coordinate",
+    "Change supported subtotal label or reference/policy binding"
+  ],
+  "initialIndependentInstrument": {
+    "tests": 14,
+    "passed": 14,
+    "failed": 0,
+    "productEvaluations": 0,
+    "exportMode": "independent handcrafted control outputs for all6positive plus difference/missing; actual candidate/accept/session/browser exports not yet run",
+    "timestampUTC": "2026-10-14T17:49:16.002326+00:00"
+  },
+  "metadataProvenance": {
+    "xlsxwriterCreator": null,
+    "openpyxlCreator": "openpyxl",
+    "scope": "Synthetic INV1C Owner",
+    "explicitSyntheticScopeAndGenerator": true,
+    "customerDataIncluded": false
+  },
+  "currentCodeSeals": [
+    {
+      "path": "generate.py",
+      "bytes": 9144,
+      "sha256": "260c322a6b907584b1a1a51977e6719cb48cb2667e0ca437325722bcc1f9afc9"
+    },
+    {
+      "path": "oracle.py",
+      "bytes": 33927,
+      "sha256": "4921b77c0787f166802f07d7295e06fd54431e479ed796133f55f2fca552a75c"
+    },
+    {
+      "path": "check_export.py",
+      "bytes": 20009,
+      "sha256": "42c3d9e20d9e1a23cbac8e2fbb3122fccb54dd3edf6221fba9da4285bd8543dd"
+    },
+    {
+      "path": "export_control.py",
+      "bytes": 7992,
+      "sha256": "4235df423f673a47a77776a10ba99fd6da591e8cdb9c8991544ada141b7991f1"
+    },
+    {
+      "path": "test_oracle.py",
+      "bytes": 11126,
+      "sha256": "012f2b6742e87299b1e89f052127a09064db5dd3bd42ab4742f08870529cdd2a"
+    },
+    {
+      "path": "xlsx-originals.json",
+      "bytes": 161403,
+      "sha256": "b8063ff7131e5fc5efe33b445f6a2eb254cbc250298fb121f743ba461c2a700b"
+    }
+  ]
+}

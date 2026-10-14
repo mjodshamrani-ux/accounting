@@ -16,6 +16,7 @@ import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   STOCK_VERSION,
   STOCK_SECTION_FAMILY,
+  STOCK_MATRIX_FAMILY,
   STOCK_SCOPE_HEADERS,
   STOCK_ROLES,
   STOCK_FIELDS,
@@ -32,6 +33,7 @@ import {
   stockSectionCitationRows,
   stockSourceObservations,
 } from '@/lib/reconciliation/inventory-section-evidence';
+import { stockMatrixCitationRows } from '@/lib/reconciliation/inventory-matrix-evidence';
 import { stockCopy } from '@/lib/i18n/inventory-register';
 import './gl-tb-workspace.css';
 const emptyScope = (): StockScope =>
@@ -48,17 +50,21 @@ const readings = () =>
     family: STOCK_VERSION,
     confirmed: false,
   })) as StockInput['readings'];
-function sectioned(file: SourceFile) {
+function structured(file: SourceFile) {
   return (
     /\.xlsx$/i.test(file.name) ||
     (file.sheets[0]?.rows[0]?.[0] === 'Format' &&
-      file.sheets[0]?.rows[0]?.[1] === 'INV1A-SECTIONS-1')
+      ['INV1A-SECTIONS-1', 'INV1A-MATRIX-1'].includes(
+        file.sheets[0]?.rows[0]?.[1] ?? '',
+      ))
   );
 }
 function sourceScope(file: SourceFile): Partial<StockScope> | null {
   if (
     file.sheets[0]?.rows[0]?.[0] !== 'Format' ||
-    file.sheets[0]?.rows[0]?.[1] !== 'INV1A-SECTIONS-1'
+    !['INV1A-SECTIONS-1', 'INV1A-MATRIX-1'].includes(
+      file.sheets[0]?.rows[0]?.[1] ?? '',
+    )
   )
     return null;
   const scope: Partial<StockScope> = {};
@@ -66,7 +72,7 @@ function sourceScope(file: SourceFile): Partial<StockScope> | null {
     const row = [...original];
     while (row.at(-1) === '') row.pop();
     if (!row.length) continue;
-    if (row[0] === 'Section') break;
+    if (row[0] === 'Section' || row[0] === 'Field') break;
     const key = STOCK_FIELDS[STOCK_SCOPE_HEADERS.indexOf(row[1])];
     if (
       row.length !== 3 ||
@@ -265,17 +271,24 @@ export function StockWorkspace({
         r[source] = {
           ...r[source],
           family:
-            source === 0 && sectioned(value)
-              ? STOCK_SECTION_FAMILY
-              : STOCK_VERSION,
+            source === 0 && value.sheets[0]?.rows[0]?.[1] === 'INV1A-MATRIX-1'
+              ? STOCK_MATRIX_FAMILY
+              : source === 0 && structured(value)
+                ? STOCK_SECTION_FAMILY
+                : STOCK_VERSION,
           confirmed: false,
         };
-        if (source === 0 && sectioned(value)) {
+        if (source === 0 && structured(value)) {
           const suggested = sourceScope(value);
           if (suggested)
             setScope({ ...emptyScope(), ...suggested, confirmed: false });
           else setScope({ ...scope, confirmed: false });
-        } else if (source === 0 && reading[0].family === STOCK_SECTION_FAMILY)
+        } else if (
+          source === 0 &&
+          [STOCK_SECTION_FAMILY, STOCK_MATRIX_FAMILY].includes(
+            reading[0].family,
+          )
+        )
           setScope({ ...scope, confirmed: false });
         setReading(r);
         setComplete({ ...complete, confirmed: false });
@@ -459,10 +472,14 @@ export function StockWorkspace({
                     />
                     {copy.roleConfirm}
                   </label>
-                  {i === 0 && sectioned(files[i]!) && (
-                    <p>{copy.sectionsDetected}</p>
+                  {i === 0 && structured(files[i]!) && (
+                    <p>
+                      {reading[i].family === STOCK_MATRIX_FAMILY
+                        ? copy.matrixDetected
+                        : copy.sectionsDetected}
+                    </p>
                   )}
-                  {i === 0 && sectioned(files[i]!)
+                  {i === 0 && structured(files[i]!)
                     ? detail(
                         copy.roles[i],
                         [
@@ -663,7 +680,13 @@ export function StockWorkspace({
                 copy.sectionCitationHeaders,
                 stockSectionCitationRows(result.sectionEvidence),
               )}
-            {result.sectionEvidence &&
+            {result.matrixEvidence &&
+              detail(
+                copy.matrixCitations,
+                copy.matrixCitationHeaders,
+                stockMatrixCitationRows(result.matrixEvidence),
+              )}
+            {(result.sectionEvidence || result.matrixEvidence) &&
               stockSourceObservations(files).length > 0 &&
               detail(
                 copy.observations,
@@ -742,8 +765,20 @@ export function StockWorkspace({
               <div key={i}>
                 {detail(
                   copy.roles[i],
-                  copy.records[i],
-                  rows.map((v) => [v.row, ...v.values]),
+                  i === 0 && result.matrixEvidence
+                    ? [
+                        copy.records[i][0],
+                        copy.matrixSourceColumn,
+                        ...copy.records[i].slice(1),
+                      ]
+                    : copy.records[i],
+                  rows.map((v) => [
+                    v.row,
+                    ...(i === 0 && result.matrixEvidence
+                      ? [v.column ?? null]
+                      : []),
+                    ...v.values,
+                  ]),
                 )}
               </div>
             ))}
@@ -771,10 +806,18 @@ export function StockWorkspace({
             )}
             {detail(
               copy.issues,
-              copy.issueHeaders,
+              result.matrixEvidence
+                ? [
+                    copy.issueHeaders[0],
+                    copy.issueHeaders[1],
+                    copy.matrixSourceColumn,
+                    ...copy.issueHeaders.slice(2),
+                  ]
+                : copy.issueHeaders,
               result.issues.map((v) => [
                 copy.roles[v.source] ?? copy.title,
                 v.row,
+                ...(result.matrixEvidence ? [v.column ?? null] : []),
                 (copy.codes as Record<string, string>)[v.code] ?? copy.failed,
               ]),
             )}

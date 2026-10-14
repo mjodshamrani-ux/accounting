@@ -8,6 +8,10 @@ import {
   stockSourceObservations,
   STOCK_SOURCE_OBSERVATION_HEADERS,
 } from './inventory-section-evidence.ts';
+import {
+  stockMatrixCitationRows,
+  STOCK_MATRIX_CITATION_HEADERS,
+} from './inventory-matrix-evidence.ts';
 import { stockCSV } from './inventory-register-csv.ts';
 import {
   STOCK_VERSION,
@@ -206,7 +210,7 @@ export async function exportStock(input: StockInput, expected: StockResult) {
       ['Completeness reference', r.completeness.reference],
       ['Completeness note', r.completeness.note],
       ['Register minor', r.totals?.registerMinor ?? null],
-      ...(r.sectionEvidence
+      ...(r.sectionEvidence || r.matrixEvidence
         ? [
             [
               'Register minor basis',
@@ -230,9 +234,16 @@ export async function exportStock(input: StockInput, expected: StockResult) {
         'Record ID',
         'Source',
         'Source row',
+        ...(i === 0 && r.matrixEvidence ? ['Source column'] : []),
         ...STOCK_VALUES[i].map((h) => units[h] ?? h),
       ],
-      r.records[i].map((v) => [v.id, v.source, v.row, ...v.values]),
+      r.records[i].map((v) => [
+        v.id,
+        v.source,
+        v.row,
+        ...(i === 0 && r.matrixEvidence ? [v.column ?? null] : []),
+        ...v.values,
+      ]),
     ),
   );
   table(
@@ -263,8 +274,18 @@ export async function exportStock(input: StockInput, expected: StockResult) {
   );
   table(
     'Issues',
-    ['Source', 'Source row', 'Code'],
-    r.issues.map((v) => [v.source, v.row, v.code]),
+    [
+      'Source',
+      'Source row',
+      ...(r.matrixEvidence ? ['Source column'] : []),
+      'Code',
+    ],
+    r.issues.map((v) => [
+      v.source,
+      v.row,
+      ...(r.matrixEvidence ? [v.column ?? null] : []),
+      v.code,
+    ]),
   );
   table(
     'Cell evidence',
@@ -331,7 +352,13 @@ export async function exportStock(input: StockInput, expected: StockResult) {
       STOCK_SECTION_CITATION_HEADERS,
       stockSectionCitationRows(r.sectionEvidence),
     );
-  if (r.sectionEvidence) {
+  if (r.matrixEvidence)
+    table(
+      'Matrix citations',
+      STOCK_MATRIX_CITATION_HEADERS,
+      stockMatrixCitationRows(r.matrixEvidence),
+    );
+  if (r.sectionEvidence || r.matrixEvidence) {
     const observations = stockSourceObservations(state.files);
     if (observations.length)
       table(

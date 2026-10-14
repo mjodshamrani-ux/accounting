@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 26099,
-      "sha256": "84f93cc846aea782818de703fcd3969c4d7f0261fa67afe59a602d6b576e757b",
+      "bytes": 26856,
+      "sha256": "fedb918645439119a1c877f028bbe1c349a81bc75558e09e1cd79c0313c26421",
       "kind": "text"
     },
     {
@@ -15064,6 +15064,60 @@
       "kind": "text",
       "bytes": 18455,
       "sha256": "4f7d0e683d33934ed11888d03ebb3ac33374c1a84c4aaf75024b45740025077a"
+    },
+    {
+      "path": "audit/inventory-transposed-register/check_export.py",
+      "kind": "text",
+      "bytes": 20009,
+      "sha256": "42c3d9e20d9e1a23cbac8e2fbb3122fccb54dd3edf6221fba9da4285bd8543dd"
+    },
+    {
+      "path": "audit/inventory-transposed-register/contract.json",
+      "kind": "text",
+      "bytes": 16008,
+      "sha256": "b9135bc54c2b30e55e7d7879675ba28e51687ca23fea52ed98e56b196e31c693"
+    },
+    {
+      "path": "audit/inventory-transposed-register/export_control.py",
+      "kind": "text",
+      "bytes": 7992,
+      "sha256": "4235df423f673a47a77776a10ba99fd6da591e8cdb9c8991544ada141b7991f1"
+    },
+    {
+      "path": "audit/inventory-transposed-register/generate.py",
+      "kind": "text",
+      "bytes": 9144,
+      "sha256": "260c322a6b907584b1a1a51977e6719cb48cb2667e0ca437325722bcc1f9afc9"
+    },
+    {
+      "path": "audit/inventory-transposed-register/INPUT-MANIFEST.json",
+      "kind": "text",
+      "bytes": 9410,
+      "sha256": "7abb94bbc3ad9fb1b3cfd080be2bf8db4fadc70dbf0a929c8206be461336f8e0"
+    },
+    {
+      "path": "audit/inventory-transposed-register/oracle.py",
+      "kind": "text",
+      "bytes": 33927,
+      "sha256": "4921b77c0787f166802f07d7295e06fd54431e479ed796133f55f2fca552a75c"
+    },
+    {
+      "path": "audit/inventory-transposed-register/README.ar.md",
+      "kind": "text",
+      "bytes": 6981,
+      "sha256": "ffab2ca62ab690f49a06b902dfd21d6d0ca7b8bde02088622226442b82d3f112"
+    },
+    {
+      "path": "audit/inventory-transposed-register/test_oracle.py",
+      "kind": "text",
+      "bytes": 11126,
+      "sha256": "012f2b6742e87299b1e89f052127a09064db5dd3bd42ab4742f08870529cdd2a"
+    },
+    {
+      "path": "audit/inventory-transposed-register/xlsx-originals.json",
+      "kind": "text",
+      "bytes": 161403,
+      "sha256": "b8063ff7131e5fc5efe33b445f6a2eb254cbc250298fb121f743ba461c2a700b"
     },
     {
       "path": "audit/invoice-group-search-v1/frozen-synthetic-truths.json",
@@ -34575,8 +34629,8 @@
     },
     {
       "path": "components/inventory-register-workspace.tsx",
-      "bytes": 25252,
-      "sha256": "09e1d8764596235e4b4eedde05e32330b4df8560d9c64c81baabd01611a8dae3",
+      "bytes": 26871,
+      "sha256": "2f5ded23e53e9aa2aa32ffca727e0dc6dd86c2aea98c919cddc12a82db347e11",
       "kind": "text"
     },
     {
@@ -35110,14 +35164,20 @@
     {
       "path": "docs/audits/INV1-SECTION-COMPONENTS.ar.md",
       "kind": "text",
-      "bytes": 14150,
-      "sha256": "128f07c4b1acf2634b35e3bf4c468a05c8f92a6fa182a4349d2631054ae8400d"
+      "bytes": 15210,
+      "sha256": "dc181ecbc0139216ed18c4d5537ad7e78c6611554e75a57161b33546a10e2009"
     },
     {
       "path": "docs/audits/INV1-SOURCE-FOUNDATION.ar.md",
       "kind": "text",
       "bytes": 11777,
       "sha256": "cbcd2e57b5f57a057bb7d0cda1ccd6f15ffb46265d237da16cb9607ca82593c6"
+    },
+    {
+      "path": "docs/audits/INV1-TRANSPOSED-REGISTER.ar.md",
+      "kind": "text",
+      "bytes": 13122,
+      "sha256": "3ce9e13d7573960097760aeb466aa51517d6567488de41ce545c6c7215af3d7d"
     },
     {
       "path": "docs/BANK-WITHDRAWAL-DEPOSIT-SOURCE.ar.md",
@@ -35127,8 +35187,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 11939,
-      "sha256": "b9200a3e494917db6315bd1f30a6fd268d60c94ac20b018874ecad59d1b942f4",
+      "bytes": 12485,
+      "sha256": "b71ec43be5228b5b3d021699ff4106d31032c1b2c02f97881c0018058632e512",
       "kind": "text"
     },
     {
@@ -35181,8 +35241,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 9911,
-      "sha256": "d56981a3b7304c0096afa1878a535b00dea2113fed47e903c4663567b5ff56ac",
+      "bytes": 10101,
+      "sha256": "806dd2c56efc60f17cf5e696b88712f00efc518bbc2d0d29e17344b115c13776",
       "kind": "text"
     },
     {
@@ -35241,8 +35301,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 21701,
-      "sha256": "6c2197ef69e5aa6fc1c8d7c1fb3ad19f2653ea3c73cacb0e80d346f7a7877908",
+      "bytes": 25444,
+      "sha256": "fbf35b634c78ae23dd63ba0b695b602db8e8d9e5027c65c868b3c3625579b0ed",
       "kind": "text"
     },
     {
@@ -35377,8 +35437,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 8914,
-      "sha256": "c8897eb3e379c207959ff6aaaf1ba49fcaa870399ba4ec514ea0c4d0e2813e1d",
+      "bytes": 10155,
+      "sha256": "93807e57b62b47ed832b42f36e1b40488ff1d6ee8cc585fd356fe25386eddd03",
       "kind": "text"
     },
     {
@@ -35488,7 +35548,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "45999604610baf013e8a3e4f8db1261e816befcc7880918a1dfc4d569b6a8fa0",
+      "sha256": "c8a82416d1250bc4d4ec8a993bbc60f74c2870e79f6e5388ca666c219a1df4c1",
       "kind": "text"
     },
     {
@@ -35541,8 +35601,8 @@
     },
     {
       "path": "lib/i18n/inventory-register.ts",
-      "bytes": 20366,
-      "sha256": "9327921bcd30de58484397d9689cb675a4cb7ee5f9b67e1364c2d54a5ad32ba3",
+      "bytes": 22881,
+      "sha256": "0b401477d64674d927a16c797fe8a0cebc5b797da567be1cc02f7b78cc4c1b5a",
       "kind": "text"
     },
     {
@@ -35954,6 +36014,12 @@
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/inventory-matrix-evidence.ts",
+      "kind": "text",
+      "bytes": 2684,
+      "sha256": "fed8656985c0d6e9dc6a3fd6e62c3f0aa02f3d7eb62b69a72bbb3892406629fb"
+    },
+    {
       "path": "lib/reconciliation/inventory-register-csv.ts",
       "bytes": 1944,
       "sha256": "c92cb452ee669d4ed89068d0a6b82b88bc208e511ffbf7cc18b7d571c593a2c7",
@@ -35967,8 +36033,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-register-io.ts",
-      "bytes": 11065,
-      "sha256": "f3245a36d7aeb019ea65e4a862d3d8008b56431afb72593b892622f3ef2b3c42",
+      "bytes": 11704,
+      "sha256": "0ea14ec39b97ecd72d6edae2d66b14586741fcfd0d42c3e2f7d84a77f0a0dcdc",
       "kind": "text"
     },
     {
@@ -35985,8 +36051,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-register.ts",
-      "bytes": 23183,
-      "sha256": "35eb02c30e07dedf75d293c1cff1c334d5653d9506a3a846fae85eaf813fe284",
+      "bytes": 26929,
+      "sha256": "01b56eb0ca93aca304078f6eb9924f47dc9d3a556d82f3e68d6c48f2407431ba",
       "kind": "text"
     },
     {
@@ -36004,8 +36070,14 @@
     {
       "path": "lib/reconciliation/inventory-section-native.ts",
       "kind": "text",
-      "bytes": 20502,
-      "sha256": "a415d7dafea048ff9a4ea9b4b37495c235394bf6c9d17d0be649d1d6e7126ced"
+      "bytes": 20772,
+      "sha256": "cf5498ae343fd6541ab47080cf61f82c713e47edf2a935447328d1bd67f8e9fe"
+    },
+    {
+      "path": "lib/reconciliation/inventory-transposed-register.ts",
+      "kind": "text",
+      "bytes": 15549,
+      "sha256": "c994813e53f61d2dcf66e8298aab8aa53311b10a6daf544cfe2074d59b109ac4"
     },
     {
       "path": "lib/reconciliation/invoice-group-search.ts",
@@ -36471,8 +36543,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 11853,
-      "sha256": "a419cb40ea0388edc61bdd50ddac2a72789ddb63f149ae685bb809e0701b97ba",
+      "bytes": 12753,
+      "sha256": "303deee2c062accf5ea00ea3295d4bcbc168872b0103570b0d193ec45ad934aa",
       "kind": "text"
     },
     {
@@ -36737,8 +36809,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 6310,
-      "sha256": "687ebd238d4f3f89614d6653dbdccaadb58c368be34c5942b6814642f4f9031d",
+      "bytes": 6477,
+      "sha256": "6e14bbb81e1b45b8f6f955816395f1aae140df7f2c0b9bf595889ee1d8f0197f",
       "kind": "text"
     },
     {
@@ -36902,6 +36974,18 @@
       "kind": "text",
       "bytes": 8489,
       "sha256": "70696c577ee55b5dd3aa57fe9b5c3837821d9e7464db6a8a79ce1af1da5fa319"
+    },
+    {
+      "path": "scripts/inventory-transposed-register-browser.mjs",
+      "kind": "text",
+      "bytes": 15446,
+      "sha256": "1865e745dc928fcd048ee7127fde7a400b5404a50ee0357a5d462ac2c7e87791"
+    },
+    {
+      "path": "scripts/inventory-transposed-register-proof.mjs",
+      "kind": "text",
+      "bytes": 9173,
+      "sha256": "4ae4248dd9f84965d802e3473c98471df003ffca343ff8c5e51bada933977857"
     },
     {
       "path": "scripts/language-browser-cases.mjs",
@@ -37244,6 +37328,12 @@
       "kind": "text",
       "bytes": 7024,
       "sha256": "5f51ac983534c158456a65a7f22446521d8207b58528d54c4282fa7dacd02fcb"
+    },
+    {
+      "path": "scripts/test-inventory-transposed-register-mutations.mjs",
+      "kind": "text",
+      "bytes": 7193,
+      "sha256": "60fda95d5edd1173d0126ee9de3e646b1e2faa4ebaf899937c70aea6bebf2796"
     },
     {
       "path": "scripts/test-mutations.mjs",
@@ -38656,6 +38746,18 @@
       "kind": "text"
     },
     {
+      "path": "tests/inventory-matrix-binding.test.ts",
+      "kind": "text",
+      "bytes": 14428,
+      "sha256": "5af4da5e5ab25c154b775d9e600957a1302f0520e95b2800ce24ba92308594aa"
+    },
+    {
+      "path": "tests/inventory-matrix-native.test.ts",
+      "kind": "text",
+      "bytes": 11219,
+      "sha256": "a46d00207e0bf1874ed1234c37d9286c9d82826c978f7705aa84648680a492d4"
+    },
+    {
       "path": "tests/inventory-register-calendar.test.ts",
       "bytes": 3065,
       "sha256": "d342fb135bd718d8f4ab6cb2188a0c19f49edc26911c0c212611ce99ea57f4e9",
@@ -38706,8 +38808,20 @@
     {
       "path": "tests/inventory-source-diversity-v1.test.ts",
       "kind": "text",
-      "bytes": 18610,
-      "sha256": "e29915107cd35ed18b4c2b6eaa0a65bd5aa7a10d40d40b7d9c1ec60f84916a3e"
+      "bytes": 22861,
+      "sha256": "455d6f180953a26d17eb30ec5992e907c0690ec7465b5d3d308c6b75fc6dfa10"
+    },
+    {
+      "path": "tests/inventory-transposed-register-core.test.ts",
+      "kind": "text",
+      "bytes": 22026,
+      "sha256": "b6b01533516d3d6e3bc8e9a6e62281c35b55ab49305cc833b6051bf6004175ba"
+    },
+    {
+      "path": "tests/inventory-transposed-register-io.test.ts",
+      "kind": "text",
+      "bytes": 14875,
+      "sha256": "f029ab6697ad4cab3710c4d18721e388f2a51b01511d4b667e07d687bcd9f60b"
     },
     {
       "path": "tests/invoice-group-search.test.ts",
@@ -39474,21 +39588,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-xFe2-g6K.js",
+      "path": "assets/ar-io-1OJVmqI6.js",
       "bytes": 11377,
-      "sha256": "ae87d88475489dca5ee88f3cd35515b22b5d728f0469ff5dc7e332a82272de10",
+      "sha256": "63a6555ef0d473630295aae0582665e4c9a4a1159a8ed8f83f2a79ae7936aec0",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-CtHWGLsK.js",
+      "path": "assets/bank-adjustment-io-DuORjjSn.js",
       "bytes": 12101,
-      "sha256": "3d1a14db1275369fe261aa876f19fd209f68561e3da925db64b6b8435361c974",
+      "sha256": "df5547b657d97d6e9edf71131bdb242a42492e280f9552e48f641ca6d6370b78",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-yxWEt4-l.js",
+      "path": "assets/bank-io-C6znWq2s.js",
       "bytes": 6331,
-      "sha256": "4ae6de75faf5b855a79aff0fc74c55229d5466dc2a68e7d49035753a05c939d1",
+      "sha256": "4b02ebde0438ad759a232157769131a99b449786be18a6ac383b700eda05170a",
       "kind": "text"
     },
     {
@@ -39524,15 +39638,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-DG6WBgCO.js",
+      "path": "assets/fixed-assets-io-CqcZEXAU.js",
       "bytes": 9830,
-      "sha256": "b0db3e38c2e85fe34f3879b9927b37729502e10ef01c1ffd183f94b0236a5ebd",
+      "sha256": "e7fed02d5814f74be89a8990b71728f592e0421aa158ddf5ee77cb0b10dfe663",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-Dic6NeUv.js",
+      "path": "assets/gl-tb-io-DwLDO0NS.js",
       "bytes": 2184,
-      "sha256": "deaacc1542f44d8fcefacbbbee88b24e3703e0e76af80cbaeb64df6c0474254b",
+      "sha256": "cadabfe460a47793f88cee69da4339837122c28364dac539da133883c440de28",
       "kind": "text"
     },
     {
@@ -39542,20 +39656,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-9bWoV5Wi.js",
-      "bytes": 6329411,
-      "sha256": "be4b179b086c112ffc0f20e8d216434e3c216bcc4afa6dd6d9aebe3d1e850c8e",
+      "path": "assets/index-DlRLSD4i.js",
+      "bytes": 6342440,
+      "sha256": "53ac4e0903b5df0ae953a155a3ae0831362f9b7b7824f54ef3316b5c4556ec26",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data"
       }
     },
     {
-      "path": "assets/inventory-register-io-D_QaTDZL.js",
+      "path": "assets/inventory-register-io-BZzl6XN8.js",
       "kind": "text",
-      "bytes": 16261,
-      "sha256": "7d51e8fded33f6643199fa4d315a4515c3d19c5eb5b987283a119c27a35336c2"
+      "bytes": 16629,
+      "sha256": "99aa8bb228d8b719798c579a537403f9f3bf693f794b2d111ec5731b7dc352ff"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -39568,15 +39682,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-CM8YkE2-.js",
+      "path": "assets/payment-gateway-io-CXIQ407y.js",
       "bytes": 6391,
-      "sha256": "c77a90bba92a4afbdbec8f345a7a2d4936d1b3bcba3f718bdb36f9c73f39b9a0",
+      "sha256": "e428281777d056f182f8da93c200dd27c350bdde5797cd89aeb2a7d3426bb81e",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-Rxk2oPWT.js",
+      "path": "assets/payment-gateway-source-DJK5N1G8.js",
       "bytes": 6798,
-      "sha256": "4e514cb0d0a0ff387edd96be93b8fac36be1e7d1b4553ca8fa197addfe94e175",
+      "sha256": "20ef2b70483d17fff7c8e4d41008d9f301746cab397eb1e094d6473b1a64d255",
       "kind": "text"
     },
     {
@@ -39606,9 +39720,9 @@
       }
     },
     {
-      "path": "assets/protocol-DpGQDmCv.js",
-      "bytes": 96567,
-      "sha256": "ccd9ceb97b5cd2ba8b3669b6117b9b1bf6007af28ab101dcdc2019cd0fa4a371",
+      "path": "assets/protocol-Bq19voIJ.js",
+      "bytes": 104251,
+      "sha256": "9035ca4fb579ed6e837e57b03638e1611dcd6f71a03f4b3d7c0bb07c560b8517",
       "kind": "text"
     },
     {
@@ -39736,7 +39850,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "98b91657623e96362ff8551c86b5e657e944c2027b28f67704197125019e41a6",
+      "sha256": "95f7a362bcbf2c84b594a3c37f71c7b32fbe93408ba27a4e92b7cff21ea6484e",
       "kind": "text"
     },
     {
