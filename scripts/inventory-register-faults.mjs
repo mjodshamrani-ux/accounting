@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { runSpecializedFaults } from './specialized-faults.mjs';
 const engine = 'lib/reconciliation/inventory-register.ts',
-  io = 'lib/reconciliation/inventory-register-io.ts';
+  request = 'lib/reconciliation/inventory-register-request.ts';
 const tests = [
   'tests/inventory-register.test.ts',
   'tests/inventory-register-io.test.ts',
@@ -52,15 +52,15 @@ const faults = [
   ],
   [
     'alias-original-before-await',
-    io,
-    'original: f.original!.slice(0),',
-    'original: f.original!,',
+    request,
+    'original: file.original.slice(0),',
+    'original: file.original,',
   ],
   [
     'alias-metadata-before-await',
-    io,
-    'const metadata = structuredClone({',
-    'const metadata = ({',
+    request,
+    '...structuredClone({',
+    '...({',
   ],
 ];
 const specific = {

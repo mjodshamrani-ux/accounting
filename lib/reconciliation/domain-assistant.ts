@@ -204,7 +204,7 @@ export function askDomainEvidence(
         add('completeness', v.completeness.confirmed);
       } else if (snapshot.domain === 'inventory-register') {
         amount(
-          'carrying',
+          'supportedRegister',
           snapshot.result.totals?.registerMinor ?? null,
           'register',
         );

@@ -1,3 +1,5 @@
+import { snapshotStockRequest } from './inventory-register-request.ts';
+import { assertStockWorkerReply, validateStockWorkerResponse } from './inventory-register-worker-binding.ts';
 import { snapshotAsset } from './fixed-assets-envelope.ts';
 import { snapshotGatewayRequest } from './payment-gateway-worker-binding.ts';
 import { snapshotArRequest, assertArWorkerReply } from './ar-worker-binding.ts';
@@ -65,6 +67,13 @@ export function createWorkerClient(
       if (action.startsWith('gateway-')) {
         try {
           payload = snapshotGatewayRequest(action, payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
+      if (action.startsWith('stock-')) {
+        try {
+          payload = snapshotStockRequest(action, payload);
         } catch (error) {
           return reject(error);
         }
@@ -183,6 +192,18 @@ export function createWorkerClient(
             return;
           }
         }
+        if (action.startsWith('stock-')) {
+          try {
+            if (!isRecord(response)) throw Error('STOCK_WORKER_ENVELOPE');
+            assertStockWorkerReply(response);
+            // Copy the envelope before asynchronous original replay. Its value
+            // is owned synchronously by the stock validator below.
+            response = { ...response };
+          } catch (error) {
+            fail(error);
+            return;
+          }
+        }
         if (!isRecord(response)) return invalidResponse();
         if (response.action !== action) return invalidResponse();
         if (
@@ -280,6 +301,13 @@ export function createWorkerClient(
             }
             // Install only sheets re-read from this request's originals.
             response.value = requested;
+          }
+          if (action.startsWith('stock-')) {
+            response.value = await validateStockWorkerResponse(
+              action,
+              response.value,
+              payload,
+            );
           }
           validateWorkerValue(action, response.value, payload);
           if (action.startsWith('ar-')) {

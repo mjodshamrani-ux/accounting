@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 25329,
-      "sha256": "080b349cca09a2904fb1c49e0199960e06fc26e0eae1f1a4615a47a261bb56d1",
+      "bytes": 26099,
+      "sha256": "84f93cc846aea782818de703fcd3969c4d7f0261fa67afe59a602d6b576e757b",
       "kind": "text"
     },
     {
@@ -35,18 +35,6 @@
       "path": "AGENTS.md",
       "bytes": 4979,
       "sha256": "f5f34ae965a0752347e554390591cf2eaa387cd980f78cbb37ecc480c29f5f09",
-      "kind": "text"
-    },
-    {
-      "path": "CLAUDE.md",
-      "bytes": 2875,
-      "sha256": "e26b15a063d23cecd57f2ed5bab4e189a9e411792ad9420c65afe535b013f4f2",
-      "kind": "text"
-    },
-    {
-      "path": "README.md",
-      "bytes": 6998,
-      "sha256": "5393139ab1b64132b56188f241341474b4a8ec2807fa05dc8b2c7d7cb3569dbc",
       "kind": "text"
     },
     {
@@ -542,15 +530,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/ar-limited/check_export.py",
-      "bytes": 9600,
-      "sha256": "5d7676cb5db8aa9cd68c73f9f9c685c3b09c90990dfab66486a8e6144f1e89cc",
-      "kind": "text"
-    },
-    {
       "path": "audit/ar-limited/check_export_text.py",
       "bytes": 1683,
       "sha256": "1eb19609116388031eff446361ebefe79074cd356bd9479f66a3515427e2bd26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-limited/check_export.py",
+      "bytes": 9600,
+      "sha256": "5d7676cb5db8aa9cd68c73f9f9c685c3b09c90990dfab66486a8e6144f1e89cc",
       "kind": "text"
     },
     {
@@ -644,76 +632,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/ar-scope-details/CONTRACT.ar.md",
-      "bytes": 19433,
-      "sha256": "990fa646de607b3b849cedc1a2c5bc1d6a4001a100aa0be694a82b72aef34f40",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/EXPORT-SCHEMA.md",
-      "bytes": 10932,
-      "sha256": "0865b3b9ca39f07d27c41783c0588ba18ce644aae53421bf813b8bf98c1bef84",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/IMPLEMENTATION-PLAN.ar.md",
-      "bytes": 7490,
-      "sha256": "94fed4c34fdaedad938498bdb890e0d83aa72cb97b5616506e9b5ff5f25b84b0",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/LIFECYCLE-PLAN.json",
-      "bytes": 2716,
-      "sha256": "1caf1f4badeeac99720d0de34053ec54ffd2fdf50d246d63766e4855a9cdb111",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/MUTATION-PLAN.json",
-      "bytes": 7129,
-      "sha256": "cc556fd891c4cf2e80a68acaeb1888d48db27e5c211c7f1960489672a0056f93",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/PRECODE-ACCEPTANCE.json",
-      "bytes": 521,
-      "sha256": "1d239e572aacff7cf4e19648a2db9fa28caf392edd4db36392ebabd0ca4e5c25",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/checker/README.md",
-      "bytes": 6372,
-      "sha256": "07864843de9392acee777ecf13da7098254bfe78a62b93821a27effc6daaf093",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
       "path": "audit/ar-scope-details/checker/check_export.py",
       "bytes": 38438,
       "sha256": "4a185a41584fa5334bdbdfe12d3cb826cfe3a4afa5a7f2eaab716390024e086c",
@@ -727,6 +645,16 @@
       "path": "audit/ar-scope-details/checker/check_exports.py",
       "bytes": 4853,
       "sha256": "e3d86be92918c16483b85c4c290f00f4537c60bd2a81beb595a38e987ecf9fa9",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/checker/README.md",
+      "bytes": 6372,
+      "sha256": "07864843de9392acee777ecf13da7098254bfe78a62b93821a27effc6daaf093",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -754,9 +682,19 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/fixtures/TRUTHS.json",
-      "bytes": 48686,
-      "sha256": "554b124b899c5566c03f63bdb029c09052734cd7e112f7b9abe12b8bf293ff9f",
+      "path": "audit/ar-scope-details/CONTRACT.ar.md",
+      "bytes": 19433,
+      "sha256": "990fa646de607b3b849cedc1a2c5bc1d6a4001a100aa0be694a82b72aef34f40",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/EXPORT-SCHEMA.md",
+      "bytes": 10932,
+      "sha256": "0865b3b9ca39f07d27c41783c0588ba18ce644aae53421bf813b8bf98c1bef84",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -2654,6 +2592,16 @@
       }
     },
     {
+      "path": "audit/ar-scope-details/fixtures/TRUTHS.json",
+      "bytes": 48686,
+      "sha256": "554b124b899c5566c03f63bdb029c09052734cd7e112f7b9abe12b8bf293ff9f",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
       "path": "audit/ar-scope-details/fixtures/two-credit-notes/bundle.json",
       "bytes": 477,
       "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
@@ -3014,6 +2962,36 @@
       }
     },
     {
+      "path": "audit/ar-scope-details/IMPLEMENTATION-PLAN.ar.md",
+      "bytes": 7490,
+      "sha256": "94fed4c34fdaedad938498bdb890e0d83aa72cb97b5616506e9b5ff5f25b84b0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/LIFECYCLE-PLAN.json",
+      "bytes": 2716,
+      "sha256": "1caf1f4badeeac99720d0de34053ec54ffd2fdf50d246d63766e4855a9cdb111",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/MUTATION-PLAN.json",
+      "bytes": 7129,
+      "sha256": "cc556fd891c4cf2e80a68acaeb1888d48db27e5c211c7f1960489672a0056f93",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
       "path": "audit/ar-scope-details/native-controls/hidden-text-format/bundle.json",
       "bytes": 479,
       "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
@@ -3104,16 +3082,6 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/oracle/README.md",
-      "bytes": 9764,
-      "sha256": "f9676bbc1d54f0965f75200de47b1c5556abfee5b03b3ed4224a3cdaba6a7260",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
       "path": "audit/ar-scope-details/oracle/ar_oracle.py",
       "bytes": 35350,
       "sha256": "dc499c2ee24b278d0733e122abb5749adbc9b2e4237a9fe93a0d0bfe8a8a5326",
@@ -3124,9 +3092,29 @@
       }
     },
     {
+      "path": "audit/ar-scope-details/oracle/README.md",
+      "bytes": 9764,
+      "sha256": "f9676bbc1d54f0965f75200de47b1c5556abfee5b03b3ed4224a3cdaba6a7260",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
       "path": "audit/ar-scope-details/oracle/test_oracle.py",
       "bytes": 28331,
       "sha256": "469bc5ffb2ad4e3e22559a22c6c0ed043634127cc6f515aa25072618607eaf1c",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/PRECODE-ACCEPTANCE.json",
+      "bytes": 521,
+      "sha256": "1d239e572aacff7cf4e19648a2db9fa28caf392edd4db36392ebabd0ca4e5c25",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -5458,12 +5446,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/bank-withdrawal-deposit/ORIGIN.json",
-      "bytes": 304,
-      "sha256": "a2868c33330e307d0f06493f6ae1e6a3dcda95ea38d6ccb281dfab0bac445eeb",
-      "kind": "text"
-    },
-    {
       "path": "audit/bank-withdrawal-deposit/check-evidence.py",
       "bytes": 23322,
       "sha256": "446fdb4b078cf62260c6400004b13f37ace402f805246dfcc8429750d2e898b4",
@@ -6966,15 +6948,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/bank-withdrawal-deposit/prove.mjs",
-      "bytes": 7023,
-      "sha256": "df88d07f19bb583ad04663df67f86b7f0e5ab85722cfe1cd58e9f1fe8f0253b3",
+      "path": "audit/bank-withdrawal-deposit/ORIGIN.json",
+      "bytes": 304,
+      "sha256": "a2868c33330e307d0f06493f6ae1e6a3dcda95ea38d6ccb281dfab0bac445eeb",
       "kind": "text"
     },
     {
-      "path": "audit/bank-withdrawal-deposit/supplemental/66-isolated-native-canonical-peer/INPUT-MANIFEST.json",
-      "bytes": 503,
-      "sha256": "8e8d42d0657deba6300d9f82b02f5c63f521e172ba81ff300008fd2a5b913308",
+      "path": "audit/bank-withdrawal-deposit/prove.mjs",
+      "bytes": 7023,
+      "sha256": "df88d07f19bb583ad04663df67f86b7f0e5ab85722cfe1cd58e9f1fe8f0253b3",
       "kind": "text"
     },
     {
@@ -7001,6 +6983,12 @@
       "path": "audit/bank-withdrawal-deposit/supplemental/66-isolated-native-canonical-peer/facts.json",
       "bytes": 619,
       "sha256": "ed8803ac51ef56aba60e05c10894da2356d7b714d23613546dea258539d6e54a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-withdrawal-deposit/supplemental/66-isolated-native-canonical-peer/INPUT-MANIFEST.json",
+      "bytes": 503,
+      "sha256": "8e8d42d0657deba6300d9f82b02f5c63f521e172ba81ff300008fd2a5b913308",
       "kind": "text"
     },
     {
@@ -7776,6 +7764,18 @@
       "kind": "text"
     },
     {
+      "path": "audit/fixed-assets-long/accepted-oracle-results.json",
+      "bytes": 1603955,
+      "sha256": "7465d1924aa7a42672cd3b8a71e772dfbe9aa61fe85214d29cf413dfe0eda412",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-long/check-evidence.py",
+      "bytes": 19212,
+      "sha256": "d80c0d2fca676147e4c118a261f29285760bd9dcb7e394f24b2653f2d7ec28fc",
+      "kind": "text"
+    },
+    {
       "path": "audit/fixed-assets-long/CLARIFICATIONS-V1.ar.md",
       "bytes": 4806,
       "sha256": "570e61fc4e0c8050b0fe3c15fde0836f74f118de5eb5755186b04cca3c75a30a",
@@ -7791,36 +7791,6 @@
       "path": "audit/fixed-assets-long/CONTRACT.ar.md",
       "bytes": 10343,
       "sha256": "9986126ecd943bb5e9ad17cdc04ef35066da2a5cf6d6de4d736ad3ecc3dc1382",
-      "kind": "text"
-    },
-    {
-      "path": "audit/fixed-assets-long/LIFECYCLE-README.md",
-      "bytes": 4208,
-      "sha256": "2e28f97c15016bb7c1a39b126e72bea7256a0121d5145cb294918f9f05f1e3c9",
-      "kind": "text"
-    },
-    {
-      "path": "audit/fixed-assets-long/ORIGIN.json",
-      "bytes": 50717,
-      "sha256": "24d19a2340e4e911618a6ef685e5f435ce95ba1b0e52a48f13f1ecc0ee4afdce",
-      "kind": "text"
-    },
-    {
-      "path": "audit/fixed-assets-long/TEXT-POLICY.ar.md",
-      "bytes": 2998,
-      "sha256": "d3ddc9df5b9feadfc8b0fecbf49eeef66801bff55206ff4e51713d2d6218c1c4",
-      "kind": "text"
-    },
-    {
-      "path": "audit/fixed-assets-long/accepted-oracle-results.json",
-      "bytes": 1603955,
-      "sha256": "7465d1924aa7a42672cd3b8a71e772dfbe9aa61fe85214d29cf413dfe0eda412",
-      "kind": "text"
-    },
-    {
-      "path": "audit/fixed-assets-long/check-evidence.py",
-      "bytes": 19212,
-      "sha256": "d80c0d2fca676147e4c118a261f29285760bd9dcb7e394f24b2653f2d7ec28fc",
       "kind": "text"
     },
     {
@@ -9456,6 +9426,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/fixed-assets-long/LIFECYCLE-README.md",
+      "bytes": 4208,
+      "sha256": "2e28f97c15016bb7c1a39b126e72bea7256a0121d5145cb294918f9f05f1e3c9",
+      "kind": "text"
+    },
+    {
       "path": "audit/fixed-assets-long/oracle.py",
       "bytes": 18508,
       "sha256": "5d5e9abd877b4e758663af40c28863ff5375252b039d784a415e6cc9fb3babd0",
@@ -9480,6 +9456,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/fixed-assets-long/ORIGIN.json",
+      "bytes": 50717,
+      "sha256": "24d19a2340e4e911618a6ef685e5f435ce95ba1b0e52a48f13f1ecc0ee4afdce",
+      "kind": "text"
+    },
+    {
       "path": "audit/fixed-assets-long/supplemental/diagnostic-assertions.json",
       "bytes": 5183,
       "sha256": "cc8de1b325d063a73faa708a8a7198a48c213dc8a05bc481ebe92fc8c497a14f",
@@ -9489,6 +9471,12 @@
       "path": "audit/fixed-assets-long/test-evidence.py",
       "bytes": 6102,
       "sha256": "ff710d3122f916bd35ee252906aae5a8bff53fce5b2d47168b0a4b3f3b67b94b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-long/TEXT-POLICY.ar.md",
+      "bytes": 2998,
+      "sha256": "d3ddc9df5b9feadfc8b0fecbf49eeef66801bff55206ff4e51713d2d6218c1c4",
       "kind": "text"
     },
     {
@@ -14988,16 +14976,52 @@
       "kind": "text"
     },
     {
-      "path": "audit/inventory-source-diversity-v1/INPUT-MANIFEST.json",
+      "path": "audit/inventory-section-components/check_export.py",
       "kind": "text",
-      "bytes": 8181,
-      "sha256": "cce79811d5a9d28d3b7266b3597aac53a6a39c3065843df828c54502eedf0b0f"
+      "bytes": 20833,
+      "sha256": "4c41aa95f9b61e10850b744a70fe0c039324fa943c5748da7a8a2ed6259d44a8"
     },
     {
-      "path": "audit/inventory-source-diversity-v1/README.ar.md",
+      "path": "audit/inventory-section-components/contract.json",
       "kind": "text",
-      "bytes": 14663,
-      "sha256": "a1c1763051858c0eb46477907d7b1d6c796368a4e00761a0448d1192317028c6"
+      "bytes": 12821,
+      "sha256": "84f53dacc2a8bd4fbe09a69ab97a5f6faf8ca025b527c7af56e40990ed175f83"
+    },
+    {
+      "path": "audit/inventory-section-components/generate.py",
+      "kind": "text",
+      "bytes": 9530,
+      "sha256": "fd72a537731bfa0b0e40b01bbb2092a4441202ccb36244d8fdc5de249c084b05"
+    },
+    {
+      "path": "audit/inventory-section-components/INPUT-MANIFEST.json",
+      "kind": "text",
+      "bytes": 8153,
+      "sha256": "48579015099116df9ae770c9545e7045df5153a613d6c6213e6ea38dbe1daa92"
+    },
+    {
+      "path": "audit/inventory-section-components/oracle.py",
+      "kind": "text",
+      "bytes": 29902,
+      "sha256": "dbfa1c47f1add3af04d71e48aa9191753b97c8bdb8f22266fc42758f21c1f1ca"
+    },
+    {
+      "path": "audit/inventory-section-components/README.ar.md",
+      "kind": "text",
+      "bytes": 12322,
+      "sha256": "e7b2392ad7e5c72641ee9f2db23d3f254b66a99cd43188c3688df109cd56b5d2"
+    },
+    {
+      "path": "audit/inventory-section-components/test_oracle.py",
+      "kind": "text",
+      "bytes": 20273,
+      "sha256": "5da5d620a5806b0ec5134ddb63773c2453872764f3fc26f2144cba21e65f40c0"
+    },
+    {
+      "path": "audit/inventory-section-components/xlsx-originals.json",
+      "kind": "text",
+      "bytes": 181860,
+      "sha256": "3c35a724a251f867beb07229b5eafc0892d1af290f38459cf927648db4d77196"
     },
     {
       "path": "audit/inventory-source-diversity-v1/check_control_export.py",
@@ -15018,10 +15042,22 @@
       "sha256": "4527bee5afa419ac80a215aafd9ec58ddce7d4d9ce4f8f9f316b8b3a9b1236fb"
     },
     {
+      "path": "audit/inventory-source-diversity-v1/INPUT-MANIFEST.json",
+      "kind": "text",
+      "bytes": 8181,
+      "sha256": "cce79811d5a9d28d3b7266b3597aac53a6a39c3065843df828c54502eedf0b0f"
+    },
+    {
       "path": "audit/inventory-source-diversity-v1/oracle.py",
       "kind": "text",
       "bytes": 20648,
       "sha256": "4d274edf6356003e3db3c5c63cdca4611fe91605c9c0b66674b5c9845b85d116"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/README.ar.md",
+      "kind": "text",
+      "bytes": 14663,
+      "sha256": "a1c1763051858c0eb46477907d7b1d6c796368a4e00761a0448d1192317028c6"
     },
     {
       "path": "audit/inventory-source-diversity-v1/test_oracle.py",
@@ -15057,18 +15093,6 @@
       "path": "audit/large-statements/check_openxml.py",
       "bytes": 18126,
       "sha256": "73bc8656fbcfdb64420049fccf9fd882619030121eb9922ea7f3698c60be6efb",
-      "kind": "text"
-    },
-    {
-      "path": "audit/large-statements/frozen/README.md",
-      "bytes": 1933,
-      "sha256": "c30b589d8441a31ed8da29e9f393e07995a9195a35d8f8f81ab7409c790a3703",
-      "kind": "text"
-    },
-    {
-      "path": "audit/large-statements/frozen/SHA256SUMS",
-      "bytes": 1325,
-      "sha256": "97b9454ad63b2f26b64d742b90072230b7da3f36b6bb197aa0e5da1b2ec4c7a2",
       "kind": "text"
     },
     {
@@ -15178,9 +15202,21 @@
       }
     },
     {
+      "path": "audit/large-statements/frozen/README.md",
+      "bytes": 1933,
+      "sha256": "c30b589d8441a31ed8da29e9f393e07995a9195a35d8f8f81ab7409c790a3703",
+      "kind": "text"
+    },
+    {
       "path": "audit/large-statements/frozen/run.mjs",
       "bytes": 2618,
       "sha256": "c2b1d2f6878b885e735e9f1ccecb2253cd7c5d486c4e6d9f58b6142b66604ad6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/large-statements/frozen/SHA256SUMS",
+      "bytes": 1325,
+      "sha256": "97b9454ad63b2f26b64d742b90072230b7da3f36b6bb197aa0e5da1b2ec4c7a2",
       "kind": "text"
     },
     {
@@ -16942,15 +16978,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/p1v206-source-proof-v1/frozen/MANIFEST.json",
-      "bytes": 1467,
-      "sha256": "1a1b43c92a0c121e8fbe94abb85ae8a2359e82a80925ef73867fccb70d907cf9",
-      "kind": "text"
-    },
-    {
       "path": "audit/p1v206-source-proof-v1/frozen/contract.json",
       "bytes": 5067,
       "sha256": "03b19404323acae2e2054f1e190a97394de7e97e783d0a12bb52c70ce03e09d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p1v206-source-proof-v1/frozen/MANIFEST.json",
+      "bytes": 1467,
+      "sha256": "1a1b43c92a0c121e8fbe94abb85ae8a2359e82a80925ef73867fccb70d907cf9",
       "kind": "text"
     },
     {
@@ -16963,18 +16999,6 @@
       "path": "audit/p2-group-resolution/evaluator-v2/run-independent.mjs",
       "bytes": 3658,
       "sha256": "b19c8f34c75216d5317fb91e0236cf28fd77644ac92ffda5c4982d41a3ce96ba",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p2-group-resolution/holdout-v2/frozen/README.md",
-      "bytes": 1308,
-      "sha256": "8757e1fb0fa2ae6ec20e198dffc5584fa02dc80089363d60436834fb6c05549d",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p2-group-resolution/holdout-v2/frozen/SHA256SUMS",
-      "bytes": 1751,
-      "sha256": "cdd14c59253e6132843b7870f097f218ca69c93da22bf5016955757a24a59a39",
       "kind": "text"
     },
     {
@@ -17080,21 +17104,21 @@
       "kind": "text"
     },
     {
+      "path": "audit/p2-group-resolution/holdout-v2/frozen/README.md",
+      "bytes": 1308,
+      "sha256": "8757e1fb0fa2ae6ec20e198dffc5584fa02dc80089363d60436834fb6c05549d",
+      "kind": "text"
+    },
+    {
       "path": "audit/p2-group-resolution/holdout-v2/frozen/run.mjs",
       "bytes": 11806,
       "sha256": "337097aab86b9fccbbc93d1ec69c4b75a8ad22234f0027e7dcaa2beb44f759a6",
       "kind": "text"
     },
     {
-      "path": "audit/p2-group-resolution/holdout/frozen/README.md",
-      "bytes": 1383,
-      "sha256": "01a81d58de837456b4359a9393837c69bc0b769b709a7d4f1c4127ab6fa4a177",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p2-group-resolution/holdout/frozen/SHA256SUMS",
-      "bytes": 2091,
-      "sha256": "c9264375293d7c7080d971b6d3f19c15fed7a844b198784568d6a2b8d95c186d",
+      "path": "audit/p2-group-resolution/holdout-v2/frozen/SHA256SUMS",
+      "bytes": 1751,
+      "sha256": "cdd14c59253e6132843b7870f097f218ca69c93da22bf5016955757a24a59a39",
       "kind": "text"
     },
     {
@@ -17224,21 +17248,21 @@
       "kind": "text"
     },
     {
+      "path": "audit/p2-group-resolution/holdout/frozen/README.md",
+      "bytes": 1383,
+      "sha256": "01a81d58de837456b4359a9393837c69bc0b769b709a7d4f1c4127ab6fa4a177",
+      "kind": "text"
+    },
+    {
       "path": "audit/p2-group-resolution/holdout/frozen/run.mjs",
       "bytes": 11806,
       "sha256": "337097aab86b9fccbbc93d1ec69c4b75a8ad22234f0027e7dcaa2beb44f759a6",
       "kind": "text"
     },
     {
-      "path": "audit/p2-group-resolution/independent/frozen/README.md",
-      "bytes": 2630,
-      "sha256": "c9ce65b796d4b96975a6a3df646fb8c87579f65c31cd9de9bdbde3d2936c6f0e",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p2-group-resolution/independent/frozen/SHA256SUMS",
-      "bytes": 3765,
-      "sha256": "2e26c81894873d7909df401cdbe52a154e95809932b93c5f3cb60cea5f165f68",
+      "path": "audit/p2-group-resolution/holdout/frozen/SHA256SUMS",
+      "bytes": 2091,
+      "sha256": "c9264375293d7c7080d971b6d3f19c15fed7a844b198784568d6a2b8d95c186d",
       "kind": "text"
     },
     {
@@ -17476,9 +17500,21 @@
       "kind": "text"
     },
     {
+      "path": "audit/p2-group-resolution/independent/frozen/README.md",
+      "bytes": 2630,
+      "sha256": "c9ce65b796d4b96975a6a3df646fb8c87579f65c31cd9de9bdbde3d2936c6f0e",
+      "kind": "text"
+    },
+    {
       "path": "audit/p2-group-resolution/independent/frozen/run.mjs",
       "bytes": 11746,
       "sha256": "001b795cccc23c4edb047fb2e69a628b82e6a936dfa26ffb51ef29b74ae21025",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p2-group-resolution/independent/frozen/SHA256SUMS",
+      "bytes": 3765,
+      "sha256": "2e26c81894873d7909df401cdbe52a154e95809932b93c5f3cb60cea5f165f68",
       "kind": "text"
     },
     {
@@ -18900,12 +18936,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/boundaries/MANIFEST.json",
-      "bytes": 1445,
-      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/boundaries/boundary-actions.json",
       "bytes": 4814,
       "sha256": "a18d5d5e7646fae569f843a62633b261a7e873ffa93e157c9bf2c161673c8c05",
@@ -18915,6 +18945,12 @@
       "path": "audit/p4-qualified-currency-v1/boundaries/boundary-consistency.log",
       "bytes": 733,
       "sha256": "99514beb5a55343732cc41e9dafa915ead6df01232d3e15bce42e7a771d293b2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/boundaries/MANIFEST.json",
+      "bytes": 1445,
+      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
       "kind": "text"
     },
     {
@@ -18930,6 +18966,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/browser-clarification/clarification.json",
+      "bytes": 2141,
+      "sha256": "97dfdafe5c4b34f2dccae83fd6c0d32f097942a7246469f6fc35828f93bbcb6c",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/browser-clarification/CLARIFICATION.md",
       "bytes": 3707,
       "sha256": "b12225409ede0299003381bc5c7d3260eb16fef2c2af7c6ac537816b120e1a44",
@@ -18939,12 +18981,6 @@
       "path": "audit/p4-qualified-currency-v1/browser-clarification/MANIFEST.json",
       "bytes": 2344,
       "sha256": "5aca126df4fdd033b1773751e7c8f98a7a92e34f674ff92b1ba53dc02bc06a1c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/browser-clarification/clarification.json",
-      "bytes": 2141,
-      "sha256": "97dfdafe5c4b34f2dccae83fd6c0d32f097942a7246469f6fc35828f93bbcb6c",
       "kind": "text"
     },
     {
@@ -18994,33 +19030,27 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/ACCEPTANCE.md",
-      "bytes": 14397,
-      "sha256": "5a19019f9dbd7af6c54b0b748b95de7b8b9ff1db50510d1c6fddad8a643ce86c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/browser/MANIFEST.json",
-      "bytes": 20219,
-      "sha256": "94dffd30f325de9e0c755204c22b7a8dfa800f7a69715da58abeccf690518c0d",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/browser/STATUS.json",
-      "bytes": 267,
-      "sha256": "a1e33f99ddda9ebfe866c1ad90643285b30d8c766ddc3f2ff0cf976e65aa0f7c",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/acceptance-matrix.json",
       "bytes": 114414,
       "sha256": "b3d91022b2cfca7aae9eddcfa8d0e6a33437ddd6ff5a0ca8817c90ffe06428d8",
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/browser/ACCEPTANCE.md",
+      "bytes": 14397,
+      "sha256": "5a19019f9dbd7af6c54b0b748b95de7b8b9ff1db50510d1c6fddad8a643ce86c",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/browser/external-checker-spec.json",
       "bytes": 2352,
       "sha256": "01d3e852c18e3ad25fd1d5f1d302a5bcdb78a9fecdde7c8e1096c150096c0297",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/MANIFEST.json",
+      "bytes": 20219,
+      "sha256": "94dffd30f325de9e0c755204c22b7a8dfa800f7a69715da58abeccf690518c0d",
       "kind": "text"
     },
     {
@@ -19036,12 +19066,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/MANIFEST.json",
-      "bytes": 1445,
-      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/boundary-actions.json",
       "bytes": 4814,
       "sha256": "a18d5d5e7646fae569f843a62633b261a7e873ffa93e157c9bf2c161673c8c05",
@@ -19051,6 +19075,12 @@
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/boundary-consistency.log",
       "bytes": 733,
       "sha256": "99514beb5a55343732cc41e9dafa915ead6df01232d3e15bce42e7a771d293b2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/MANIFEST.json",
+      "bytes": 1445,
+      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
       "kind": "text"
     },
     {
@@ -19066,21 +19096,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/ADDENDUM.md",
-      "bytes": 5888,
-      "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/MANIFEST.json",
-      "bytes": 1914,
-      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/actions-addendum.json",
       "bytes": 7040,
       "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/ADDENDUM.md",
+      "bytes": 5888,
+      "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7",
       "kind": "text"
     },
     {
@@ -19102,6 +19126,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/MANIFEST.json",
+      "bytes": 1914,
+      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/manual-number-format-truth.json",
       "bytes": 6361,
       "sha256": "f05237e7a1fc910a70d7f53b1e58bd4da8c0e8db5a2f5a9d67061377bb06cb45",
@@ -19117,12 +19147,6 @@
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/CONTRACT.md",
       "bytes": 6213,
       "sha256": "72229fbd43fbd378cb2da09ce515a7c043e79ba261d80864f7f9dfe63f8098ba",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/MANIFEST.json",
-      "bytes": 12749,
-      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
       "kind": "text"
     },
     {
@@ -19648,6 +19672,12 @@
       }
     },
     {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/MANIFEST.json",
+      "bytes": 12749,
+      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/verify-draft-closure.py",
       "bytes": 4579,
       "sha256": "65444f10c16821987c299ecfb5d1935f8075ff8c7653720814b3da5b93345c87",
@@ -19666,6 +19696,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/browser/STATUS.json",
+      "bytes": 267,
+      "sha256": "a1e33f99ddda9ebfe866c1ad90643285b30d8c766ddc3f2ff0cf976e65aa0f7c",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/browser/verify-draft.py",
       "bytes": 5825,
       "sha256": "d9714079b90de9998dd6cbb5cf5ef8bbb5ec53c89e3fab8eb356b646e805dc8e",
@@ -19675,12 +19711,6 @@
       "path": "audit/p4-qualified-currency-v1/draft/CONTRACT.md",
       "bytes": 6213,
       "sha256": "72229fbd43fbd378cb2da09ce515a7c043e79ba261d80864f7f9dfe63f8098ba",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/draft/MANIFEST.json",
-      "bytes": 12749,
-      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
       "kind": "text"
     },
     {
@@ -20206,6 +20236,12 @@
       }
     },
     {
+      "path": "audit/p4-qualified-currency-v1/draft/MANIFEST.json",
+      "bytes": 12749,
+      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/draft/verify-draft-closure.py",
       "bytes": 4579,
       "sha256": "65444f10c16821987c299ecfb5d1935f8075ff8c7653720814b3da5b93345c87",
@@ -20218,21 +20254,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/format-addendum/ADDENDUM.md",
-      "bytes": 5888,
-      "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/format-addendum/MANIFEST.json",
-      "bytes": 1914,
-      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/format-addendum/actions-addendum.json",
       "bytes": 7040,
       "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/format-addendum/ADDENDUM.md",
+      "bytes": 5888,
+      "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7",
       "kind": "text"
     },
     {
@@ -20254,6 +20284,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/format-addendum/MANIFEST.json",
+      "bytes": 1914,
+      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/format-addendum/manual-number-format-truth.json",
       "bytes": 6361,
       "sha256": "f05237e7a1fc910a70d7f53b1e58bd4da8c0e8db5a2f5a9d67061377bb06cb45",
@@ -20266,18 +20302,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/MANIFEST.json",
-      "bytes": 2321,
-      "sha256": "2d1ee525fe4803e7fc8476ccfec542bd4aa4f7c888b2d57827b43077909020da",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/RESULT.json",
-      "bytes": 4443,
-      "sha256": "90db1b67fa2ab486bb36aeb8ebeb9858a5edc5257491544aeb8a2e5a5ffc0914",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/precode-addenda-review/independent-pins-matrix-second.py",
       "bytes": 7022,
       "sha256": "f593520deae670ef0e2f9a302af4864db389c626a39b47920c91bc9fe7255cfd",
@@ -20287,6 +20311,12 @@
       "path": "audit/p4-qualified-currency-v1/precode-addenda-review/independent-pins-matrix.py",
       "bytes": 7123,
       "sha256": "bfd9f3879bc54eacab637699c2305df8f329a64c229fb5ac5fb987a9a0b15686",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/MANIFEST.json",
+      "bytes": 2321,
+      "sha256": "2d1ee525fe4803e7fc8476ccfec542bd4aa4f7c888b2d57827b43077909020da",
       "kind": "text"
     },
     {
@@ -20332,9 +20362,21 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/RESULT.json",
+      "bytes": 4443,
+      "sha256": "90db1b67fa2ab486bb36aeb8ebeb9858a5edc5257491544aeb8a2e5a5ffc0914",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/precode-addenda-review/reviewed-action-boundaries.json",
       "bytes": 12100,
       "sha256": "f7f5e970707d065f2a153edfbf3417f6a707765e4d9366d3ebe7c4f7c52f1265",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/precode-closure/closure-run.log",
+      "bytes": 207,
+      "sha256": "a13596f6b697b0f41e04bff714a61b97b595002658dc3ddb5ba97f55c2dbfc78",
       "kind": "text"
     },
     {
@@ -20350,27 +20392,9 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/precode-closure/closure-run.log",
-      "bytes": 207,
-      "sha256": "a13596f6b697b0f41e04bff714a61b97b595002658dc3ddb5ba97f55c2dbfc78",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/precode-closure/verify-closure.py",
       "bytes": 8224,
       "sha256": "0f5ad02269eb6d754eeb39a16deceac7d460c2db966c97ac23ffe0d7088eba8e",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/precode-original/MANIFEST.json",
-      "bytes": 2431,
-      "sha256": "f4083b3236d61b971b5359298a6b901cc23aac6cb690a538c1cfe372c59cf561",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/precode-original/RESULT.json",
-      "bytes": 4058,
-      "sha256": "a35a97bc29a3a74c078bcb7ec2c11ef9550b537b63c3aa7c795b7e90d10e7a8e",
       "kind": "text"
     },
     {
@@ -20395,6 +20419,12 @@
       "path": "audit/p4-qualified-currency-v1/precode-original/independent-refusals.py",
       "bytes": 3505,
       "sha256": "de3ee7e44a6359df3f146b56fe295d1be24c661ecd0dcb38b04c8e580dc9bba1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/precode-original/MANIFEST.json",
+      "bytes": 2431,
+      "sha256": "f4083b3236d61b971b5359298a6b901cc23aac6cb690a538c1cfe372c59cf561",
       "kind": "text"
     },
     {
@@ -20437,6 +20467,12 @@
       "path": "audit/p4-qualified-currency-v1/precode-original/refusals-run.log",
       "bytes": 242,
       "sha256": "82acc81485c788d8fa34060f49cfc2bd68837d4f598485dc42cade18db8493ee",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/precode-original/RESULT.json",
+      "bytes": 4058,
+      "sha256": "a35a97bc29a3a74c078bcb7ec2c11ef9550b537b63c3aa7c795b7e90d10e7a8e",
       "kind": "text"
     },
     {
@@ -21190,18 +21226,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/partial-reconciliation/frozen/README.md",
-      "bytes": 3952,
-      "sha256": "31d1ccbb9e6aabcc8d026e85312a5e873c9e48cfe828293ee4e6b5df2e86cf62",
-      "kind": "text"
-    },
-    {
-      "path": "audit/partial-reconciliation/frozen/SHA256SUMS",
-      "bytes": 3091,
-      "sha256": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e",
-      "kind": "text"
-    },
-    {
       "path": "audit/partial-reconciliation/frozen/contracts.json",
       "bytes": 78990,
       "sha256": "bfd08fb1c316666b65fd5be45888233c44af67200bb91b11366723b3b0a5d956",
@@ -21402,30 +21426,22 @@
       "kind": "text"
     },
     {
+      "path": "audit/partial-reconciliation/frozen/README.md",
+      "bytes": 3952,
+      "sha256": "31d1ccbb9e6aabcc8d026e85312a5e873c9e48cfe828293ee4e6b5df2e86cf62",
+      "kind": "text"
+    },
+    {
       "path": "audit/partial-reconciliation/frozen/run.mjs",
       "bytes": 12433,
       "sha256": "4bf5a897a7d35fc8f92d405a3b97e0aa9cbb01035658227a6aa1942c1695d593",
       "kind": "text"
     },
     {
-      "path": "audit/payment-gateway-signed/PROVENANCE.json",
-      "bytes": 357,
-      "sha256": "c479c6a7041cb7c77bc26ad13f0877349d65ce411f69035d51a4d0f32b1174a1",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/payment-gateway-signed/README.md",
-      "bytes": 1183,
-      "sha256": "53bcf813ccd189d0579f48d16d98ebac87cfa624ca5b3b3a97daeea3d2833dc5",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
+      "path": "audit/partial-reconciliation/frozen/SHA256SUMS",
+      "bytes": 3091,
+      "sha256": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e",
+      "kind": "text"
     },
     {
       "path": "audit/payment-gateway-signed/build_fixtures.py",
@@ -24368,6 +24384,26 @@
       }
     },
     {
+      "path": "audit/payment-gateway-signed/PROVENANCE.json",
+      "bytes": 357,
+      "sha256": "c479c6a7041cb7c77bc26ad13f0877349d65ce411f69035d51a4d0f32b1174a1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/README.md",
+      "bytes": 1183,
+      "sha256": "53bcf813ccd189d0579f48d16d98ebac87cfa624ca5b3b3a97daeea3d2833dc5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
       "path": "audit/payment-gateway-signed/run_assertions.py",
       "bytes": 7202,
       "sha256": "dff5e55a547ca63a39a13161132f358bec9c9030438c4ea9b222f3fc4a78a620",
@@ -24387,6 +24423,12 @@
       "path": "audit/payment-gateway/comma-provenance/source-0.csv",
       "bytes": 817,
       "sha256": "b56fb286544a488c398c58ebead79392b8addb1dcb44ff15574b630c33b1b0e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway/currency-contracts/expected.json",
+      "bytes": 81408,
+      "sha256": "92b2cefa68d0d98679c9f89857016d89c8e7c3b278c6c434e7faa121cf6f4af4",
       "kind": "text"
     },
     {
@@ -24459,12 +24501,6 @@
       "path": "audit/payment-gateway/currency-contracts/USD-3.csv",
       "bytes": 387,
       "sha256": "468531e8f3c4696c977c23f2c14da32752b865cef1bc0f1fafa9a5063993e48c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/payment-gateway/currency-contracts/expected.json",
-      "bytes": 81408,
-      "sha256": "92b2cefa68d0d98679c9f89857016d89c8e7c3b278c6c434e7faa121cf6f4af4",
       "kind": "text"
     },
     {
@@ -29888,12 +29924,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/running-balance/README.md",
-      "bytes": 4344,
-      "sha256": "8cb4655b65e028fb1eb5c290aa06658b7bcaf08e61b9a971cca81fc597ab40c5",
-      "kind": "text"
-    },
-    {
       "path": "audit/running-balance/frozen/INPUT-MANIFEST.json",
       "bytes": 16498,
       "sha256": "76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552",
@@ -30652,6 +30682,12 @@
       }
     },
     {
+      "path": "audit/running-balance/README.md",
+      "bytes": 4344,
+      "sha256": "8cb4655b65e028fb1eb5c290aa06658b7bcaf08e61b9a971cca81fc597ab40c5",
+      "kind": "text"
+    },
+    {
       "path": "audit/running-balance/unicode/expected.csv",
       "bytes": 88,
       "sha256": "639c99b98b632f2dffcf90a89ddfa404d56c2063c458eec856209acb09bbddd7",
@@ -31188,24 +31224,6 @@
         "type": "public-design",
         "description": "Exact public Git workflow from published main 12a16bcbfa646595db433c28a67e3c1e104c6cb6 (release 0.4.43); no private execution evidence."
       }
-    },
-    {
-      "path": "audit/split-section/INPUT-MANIFEST.json",
-      "bytes": 24156,
-      "sha256": "ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/split-section/README.md",
-      "bytes": 2527,
-      "sha256": "ac258ec38eb08aed5ffc318163be46e1e6339f50eb7c20d6feffd101e988ad6d",
-      "kind": "text"
-    },
-    {
-      "path": "audit/split-section/SOURCE-FACTS.json",
-      "bytes": 139316,
-      "sha256": "084c9ffcb8598c225356b9dbace1fe6157a121937d9159133ea5c10e7406bfbd",
-      "kind": "text"
     },
     {
       "path": "audit/split-section/capacity-regression/19/expected.csv",
@@ -32219,6 +32237,24 @@
       "path": "audit/split-section/generate_sources.py",
       "bytes": 3528,
       "sha256": "e83fdb0b8780f6e32305d23c934077f51bcc403e99f4166d2eef0cb19b43b113",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/INPUT-MANIFEST.json",
+      "bytes": 24156,
+      "sha256": "ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/README.md",
+      "bytes": 2527,
+      "sha256": "ac258ec38eb08aed5ffc318163be46e1e6339f50eb7c20d6feffd101e988ad6d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/SOURCE-FACTS.json",
+      "bytes": 139316,
+      "sha256": "084c9ffcb8598c225356b9dbace1fe6157a121937d9159133ea5c10e7406bfbd",
       "kind": "text"
     },
     {
@@ -34406,6 +34442,12 @@
       "kind": "text"
     },
     {
+      "path": "CLAUDE.md",
+      "bytes": 2875,
+      "sha256": "e26b15a063d23cecd57f2ed5bab4e189a9e411792ad9420c65afe535b013f4f2",
+      "kind": "text"
+    },
+    {
       "path": "components.json",
       "bytes": 516,
       "sha256": "9928283696d86836422959a2c520df83a718d31ffbcab533a14ca8dca2c8d475",
@@ -34533,8 +34575,8 @@
     },
     {
       "path": "components/inventory-register-workspace.tsx",
-      "bytes": 21927,
-      "sha256": "638a791d659623eceee326969ed388ac58e29bc7956dc14f30c4d925c36f1cc8",
+      "bytes": 25252,
+      "sha256": "09e1d8764596235e4b4eedde05e32330b4df8560d9c64c81baabd01611a8dae3",
       "kind": "text"
     },
     {
@@ -35060,6 +35102,24 @@
       "kind": "text"
     },
     {
+      "path": "docs/audits/C0-SOURCE-DIVERSITY.ar.md",
+      "kind": "text",
+      "bytes": 38383,
+      "sha256": "29909bad2b5a244e2096414ae6d472cdc7dbefb7f7e7484d5b9d5d1d3ca867ed"
+    },
+    {
+      "path": "docs/audits/INV1-SECTION-COMPONENTS.ar.md",
+      "kind": "text",
+      "bytes": 14150,
+      "sha256": "128f07c4b1acf2634b35e3bf4c468a05c8f92a6fa182a4349d2631054ae8400d"
+    },
+    {
+      "path": "docs/audits/INV1-SOURCE-FOUNDATION.ar.md",
+      "kind": "text",
+      "bytes": 11777,
+      "sha256": "cbcd2e57b5f57a057bb7d0cda1ccd6f15ffb46265d237da16cb9607ca82593c6"
+    },
+    {
       "path": "docs/BANK-WITHDRAWAL-DEPOSIT-SOURCE.ar.md",
       "bytes": 4013,
       "sha256": "e61030475eadb8c321c32299a369e6bda35963aab06e2cb007ccf527fe817b5c",
@@ -35067,8 +35127,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 11333,
-      "sha256": "29c6d96d1cd9b393dbc2a9386b2af1040c5a10aa173cd7bb20d7b3b2af24e17c",
+      "bytes": 11396,
+      "sha256": "3d987bfb5ecf06bb3455132fda2b4772b5d918ed17020fe39dc14ae840bd7341",
       "kind": "text"
     },
     {
@@ -35121,9 +35181,81 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 8721,
-      "sha256": "d53771fcb7fce45a585b636e0e26d32afa66877612862bf08de30002b94e07c1",
+      "bytes": 9251,
+      "sha256": "7b7d40e05840e7e2c9010abb7b465fcf3bb2d6cfeafa85414ddc3e7866d25998",
       "kind": "text"
+    },
+    {
+      "path": "docs/reference/ACCOUNTING-CONTRACT.ar.md",
+      "bytes": 7040,
+      "sha256": "c262c3ea14ffdd47542e2deb0109dc7ae714eba30f5665afeb4533a7e830cad1",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/AI-AND-OCR.ar.md",
+      "bytes": 7623,
+      "sha256": "e7239dadd4b3bfeadf16f92a6e4be9f92e386db590365eb867c79cf0438e6d0b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/ARCHITECTURE.ar.md",
+      "bytes": 10285,
+      "sha256": "b1bae8edc68a8cf1d11b3c50dad8fa903b482c125ddf7b06b9c08025a33ca651",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/CHALLENGES.ar.md",
+      "kind": "text",
+      "bytes": 57109,
+      "sha256": "ecfb77929ff21ee33108add9588387063a611ff05dd237a40b3655f8ab756cd8"
+    },
+    {
+      "path": "docs/reference/DELIVERY.ar.md",
+      "bytes": 6657,
+      "sha256": "83dd590b910d36e9eda29ff4d1e1548cc931921f32eb6c272d2433653d8ec9fd",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/DESIGN.ar.md",
+      "bytes": 10253,
+      "sha256": "b46ce383a9d939812239f299ff87f89216355c82e00c0e77a22653e825b644ac",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
+      "kind": "text",
+      "bytes": 49868,
+      "sha256": "51fd2c2b3bf3f096152b2a7d3f644b293cf4f3d3dd502564cc672b4569adf0b6"
+    },
+    {
+      "path": "docs/reference/HISTORY.ar.md",
+      "bytes": 10083,
+      "sha256": "7d4c531d3536340fcc7f90af7a98f2e627c8ece6e96ebde4b5c3a936dd1e973b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/QUALITY.ar.md",
+      "bytes": 11403,
+      "sha256": "b5f7ecd5dc34c104f2d17c0e4b1ee8574cfb39ddb2c7bf9c55f68cdbf558ec7a",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/STATE.ar.md",
+      "bytes": 21701,
+      "sha256": "6c2197ef69e5aa6fc1c8d7c1fb3ad19f2653ea3c73cacb0e80d346f7a7877908",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/VISION.ar.md",
+      "bytes": 8227,
+      "sha256": "a0db03557b58e2ea6bea3a201a4db1a2fb3a288ae27ebc00bc79c45d419ba296",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/VISUAL-IMPLEMENTATION.ar.md",
+      "kind": "text",
+      "bytes": 39082,
+      "sha256": "46de720b23b282cb579e25a2cf8451ff6d3bc3455937c8b5834f6b51bd2cda5b"
     },
     {
       "path": "docs/RELEASE-0.4.39.ar.md",
@@ -35184,114 +35316,6 @@
       "sha256": "b37314bba1a52bedf24db214772314147c321d271ef0fa141368bfb816648a95"
     },
     {
-      "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
-      "bytes": 3044,
-      "sha256": "7f313eefb2776c3f1d5e9d61940928042ea74d18279de00ec7f81c4784140671",
-      "kind": "text"
-    },
-    {
-      "path": "docs/VERIFICATION-FIXES.ar.md",
-      "bytes": 10448,
-      "sha256": "391a609d3fe742823fed6f4a8cf7031fa52c2f6e5f228d2963c8cf9fce1c7e0f",
-      "kind": "text"
-    },
-    {
-      "path": "docs/WORKSPACE-IDENTITY.ar.md",
-      "kind": "text",
-      "bytes": 7157,
-      "sha256": "ba0112407472cca85fbbef9b8733b4e77cda99bb537c7ed3746e08b39e76d00b"
-    },
-    {
-      "path": "docs/audits/C0-SOURCE-DIVERSITY.ar.md",
-      "kind": "text",
-      "bytes": 38383,
-      "sha256": "29909bad2b5a244e2096414ae6d472cdc7dbefb7f7e7484d5b9d5d1d3ca867ed"
-    },
-    {
-      "path": "docs/audits/INV1-SOURCE-FOUNDATION.ar.md",
-      "kind": "text",
-      "bytes": 10549,
-      "sha256": "a999ed199f01a30e8920cdca978f4b057e5ff24830d5cf6657a7d96aa19eae58"
-    },
-    {
-      "path": "docs/reference/ACCOUNTING-CONTRACT.ar.md",
-      "bytes": 7040,
-      "sha256": "c262c3ea14ffdd47542e2deb0109dc7ae714eba30f5665afeb4533a7e830cad1",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/AI-AND-OCR.ar.md",
-      "bytes": 7623,
-      "sha256": "e7239dadd4b3bfeadf16f92a6e4be9f92e386db590365eb867c79cf0438e6d0b",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/ARCHITECTURE.ar.md",
-      "bytes": 10285,
-      "sha256": "b1bae8edc68a8cf1d11b3c50dad8fa903b482c125ddf7b06b9c08025a33ca651",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/CHALLENGES.ar.md",
-      "kind": "text",
-      "bytes": 57109,
-      "sha256": "ecfb77929ff21ee33108add9588387063a611ff05dd237a40b3655f8ab756cd8"
-    },
-    {
-      "path": "docs/reference/DELIVERY.ar.md",
-      "bytes": 6657,
-      "sha256": "83dd590b910d36e9eda29ff4d1e1548cc931921f32eb6c272d2433653d8ec9fd",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/DESIGN.ar.md",
-      "bytes": 10253,
-      "sha256": "b46ce383a9d939812239f299ff87f89216355c82e00c0e77a22653e825b644ac",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "kind": "text",
-      "bytes": 47462,
-      "sha256": "c75aadbef962a39133786926f1ee76667c559e9cf5370fe0b8b8518519bc6321"
-    },
-    {
-      "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 9412,
-      "sha256": "12273c0245f607cd034b754ef95a2eb3e86f0b8f5faa65fc7167dcc3bd0307d1",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/QUALITY.ar.md",
-      "bytes": 11403,
-      "sha256": "b5f7ecd5dc34c104f2d17c0e4b1ee8574cfb39ddb2c7bf9c55f68cdbf558ec7a",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/STATE.ar.md",
-      "bytes": 18521,
-      "sha256": "749b069445642468c824f999958606010cf18a7382301f56e066dfc5a9b48e35",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/VISION.ar.md",
-      "bytes": 8227,
-      "sha256": "a0db03557b58e2ea6bea3a201a4db1a2fb3a288ae27ebc00bc79c45d419ba296",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/VISUAL-IMPLEMENTATION.ar.md",
-      "kind": "text",
-      "bytes": 39082,
-      "sha256": "46de720b23b282cb579e25a2cf8451ff6d3bc3455937c8b5834f6b51bd2cda5b"
-    },
-    {
-      "path": "docs/roadmap/README.ar.md",
-      "bytes": 6564,
-      "sha256": "3a799bebdd2dff7d52c7934072f425123040c8b81fc45869884ef2e3aae84821",
-      "kind": "text"
-    },
-    {
       "path": "docs/roadmap/accounts-privacy-business.ar.md",
       "kind": "text",
       "bytes": 47786,
@@ -35347,8 +35371,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 8062,
-      "sha256": "338b8095b22a9332dfe6c9694d4029a541fc157919f2cdb250a250081f938a89",
+      "bytes": 8914,
+      "sha256": "c8897eb3e379c207959ff6aaaf1ba49fcaa870399ba4ec514ea0c4d0e2813e1d",
       "kind": "text"
     },
     {
@@ -35361,6 +35385,12 @@
       "path": "docs/roadmap/payroll.ar.md",
       "bytes": 3524,
       "sha256": "20cb3d7558cb09c2bc893170d9aa696716e103a26f646ccfefc66005587578de",
+      "kind": "text"
+    },
+    {
+      "path": "docs/roadmap/README.ar.md",
+      "bytes": 6564,
+      "sha256": "3a799bebdd2dff7d52c7934072f425123040c8b81fc45869884ef2e3aae84821",
       "kind": "text"
     },
     {
@@ -35380,6 +35410,24 @@
       "bytes": 3490,
       "sha256": "effd8e27fb9e7bdb459c4eeb9b3375ce68d25546cc3ee9c9196c648d1caee515",
       "kind": "text"
+    },
+    {
+      "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
+      "bytes": 3044,
+      "sha256": "7f313eefb2776c3f1d5e9d61940928042ea74d18279de00ec7f81c4784140671",
+      "kind": "text"
+    },
+    {
+      "path": "docs/VERIFICATION-FIXES.ar.md",
+      "bytes": 10448,
+      "sha256": "391a609d3fe742823fed6f4a8cf7031fa52c2f6e5f228d2963c8cf9fce1c7e0f",
+      "kind": "text"
+    },
+    {
+      "path": "docs/WORKSPACE-IDENTITY.ar.md",
+      "kind": "text",
+      "bytes": 7157,
+      "sha256": "ba0112407472cca85fbbef9b8733b4e77cda99bb537c7ed3746e08b39e76d00b"
     },
     {
       "path": "examples/ledger-demo.csv",
@@ -35434,7 +35482,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "bfb5850e2833214720003f2b273057b62e759bb1d855819b8bc23d64e410f708",
+      "sha256": "45999604610baf013e8a3e4f8db1261e816befcc7880918a1dfc4d569b6a8fa0",
       "kind": "text"
     },
     {
@@ -35457,8 +35505,8 @@
     },
     {
       "path": "lib/i18n/domain-evidence.ts",
-      "bytes": 10657,
-      "sha256": "450183bb1e2f5b8cfeaf9168cabf4f53bdc49d18da8bd95f245a48d9e8d6e14b",
+      "bytes": 10801,
+      "sha256": "97db28b56e6ae4d1b7166d196758eb2351ff29247566e0311b493e0d3a85492e",
       "kind": "text"
     },
     {
@@ -35487,8 +35535,8 @@
     },
     {
       "path": "lib/i18n/inventory-register.ts",
-      "bytes": 14069,
-      "sha256": "4f00c498e9138ae61c3e19f752b161e47416a47a1fa865458e6db45ef93af3e9",
+      "bytes": 20366,
+      "sha256": "9327921bcd30de58484397d9689cb675a4cb7ee5f9b67e1364c2d54a5ad32ba3",
       "kind": "text"
     },
     {
@@ -35579,12 +35627,6 @@
       "path": "lib/i18n/workspace.ts",
       "bytes": 1089,
       "sha256": "18af9325c1d39cfbb520112466d40d2a5096db77e04c2985636a6a46a697bc8d",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/PDF-BIDI-LICENSE.txt",
-      "bytes": 10174,
-      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
       "kind": "text"
     },
     {
@@ -35775,8 +35817,8 @@
     },
     {
       "path": "lib/reconciliation/domain-assistant.ts",
-      "bytes": 14801,
-      "sha256": "1541b302ac66f09db7718bf08bae02964acb0cca15f019c7478e75184b80db99",
+      "bytes": 14810,
+      "sha256": "0f39d8fd5642fbb32d16726d20ba1e563bbff659523a75c49788d15fe5136bc5",
       "kind": "text"
     },
     {
@@ -35919,15 +35961,45 @@
     },
     {
       "path": "lib/reconciliation/inventory-register-io.ts",
-      "bytes": 9774,
-      "sha256": "7eecff78f49afbddd1988faec2b11dcee43d9ad45efbd1855eae5aab4133f962",
+      "bytes": 11065,
+      "sha256": "f3245a36d7aeb019ea65e4a862d3d8008b56431afb72593b892622f3ef2b3c42",
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/inventory-register-request.ts",
+      "kind": "text",
+      "bytes": 6050,
+      "sha256": "65086c563c07f3250dc87dd079a6ce889628534801038b301eb78765844963c9"
+    },
+    {
+      "path": "lib/reconciliation/inventory-register-worker-binding.ts",
+      "kind": "text",
+      "bytes": 14682,
+      "sha256": "2a1158a26374bf8041bedd94579d4b9439e83db1adfb76ab73d036933a755851"
+    },
+    {
       "path": "lib/reconciliation/inventory-register.ts",
-      "bytes": 18643,
-      "sha256": "de395d8ebbdb6e5f39977c9bd77869ab028cfeb3612b23b2ae71aab3fb4493cf",
+      "bytes": 23183,
+      "sha256": "35eb02c30e07dedf75d293c1cff1c334d5653d9506a3a846fae85eaf813fe284",
       "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-section-components.ts",
+      "kind": "text",
+      "bytes": 13611,
+      "sha256": "ad43733bbdb453891ee483701861e91701db5db6284f01d25125757b256bc77c"
+    },
+    {
+      "path": "lib/reconciliation/inventory-section-evidence.ts",
+      "kind": "text",
+      "bytes": 3273,
+      "sha256": "4b7b8d3a0b6848e05465bfca4fb6f9c49198f812e6a35ebc05fe5b0cea683632"
+    },
+    {
+      "path": "lib/reconciliation/inventory-section-native.ts",
+      "kind": "text",
+      "bytes": 20502,
+      "sha256": "a415d7dafea048ff9a4ea9b4b37495c235394bf6c9d17d0be649d1d6e7126ced"
     },
     {
       "path": "lib/reconciliation/invoice-group-search.ts",
@@ -36065,6 +36137,12 @@
       "path": "lib/reconciliation/payroll.ts",
       "bytes": 29963,
       "sha256": "2db77cdb13fa2db07f929c6ff81003ed7d21919076c748a97742d97c07c1bb43",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/PDF-BIDI-LICENSE.txt",
+      "bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
       "kind": "text"
     },
     {
@@ -36339,8 +36417,8 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 16366,
-      "sha256": "7b8f44ad7bf7db9f657f919850178e1d437cb134536300e4c7055bf63c0899b6",
+      "bytes": 17412,
+      "sha256": "82a834e8db99a6f51b6f7f6896295323fc00075de1ade096f0816c4687db93ab",
       "kind": "text"
     },
     {
@@ -36387,8 +36465,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 10884,
-      "sha256": "d7ab6f2e9c08dfaff2aa1b17ce452642eae3d7b7039cec580f9e1d1820fdcafb",
+      "bytes": 11853,
+      "sha256": "a419cb40ea0388edc61bdd50ddac2a72789ddb63f149ae685bb809e0701b97ba",
       "kind": "text"
     },
     {
@@ -36452,6 +36530,16 @@
       "kind": "text"
     },
     {
+      "path": "public/fonts/noto-sans-arabic-variable.woff2",
+      "bytes": 361536,
+      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
+      }
+    },
+    {
       "path": "public/fonts/NotoSansArabic-OFL.txt",
       "bytes": 4382,
       "sha256": "07fc70bfeb985cc1a87a8587d0a0c80bab11c86c9dc3fd95b6f0cb332f983e96",
@@ -36476,16 +36564,6 @@
       "sha256": "55cd0db49a2fd08cb6b991c58f53fa224ae5e0538bb700fa28e1f480b0c19cd5"
     },
     {
-      "path": "public/fonts/noto-sans-arabic-variable.woff2",
-      "bytes": 361536,
-      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
-      "kind": "approved-binary",
-      "provenance": {
-        "type": "licensed-vendor",
-        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
-      }
-    },
-    {
       "path": "public/fonts/thmanyah-serif-display-bold.woff2",
       "kind": "approved-binary",
       "provenance": {
@@ -36494,6 +36572,12 @@
       },
       "bytes": 81988,
       "sha256": "d36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6998,
+      "sha256": "5393139ab1b64132b56188f241341474b4a8ec2807fa05dc8b2c7d7cb3569dbc",
+      "kind": "text"
     },
     {
       "path": "scripts/acceptance-ar-pixel-diff.mjs",
@@ -36647,8 +36731,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 6134,
-      "sha256": "e1d8ca2268bbd8f1645d0f8b89fa14641f91db1eef21d72a673ccf4042934d73",
+      "bytes": 6310,
+      "sha256": "687ebd238d4f3f89614d6653dbdccaadb58c368be34c5942b6814642f4f9031d",
       "kind": "text"
     },
     {
@@ -36797,9 +36881,21 @@
     },
     {
       "path": "scripts/inventory-register-faults.mjs",
-      "bytes": 4301,
-      "sha256": "8c572783ac2186e3950edc54715fa92ba8c5a262d867e19b7b5a61d64d14cbea",
+      "bytes": 4297,
+      "sha256": "131bf4e499f963127bb6c73dd80e9d41be743ff168a5dee4469de5a1dedfd590",
       "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-section-components-browser.mjs",
+      "kind": "text",
+      "bytes": 14413,
+      "sha256": "645806f0a94a982e007e1d7a17401143733f1f2cad065b6ba6a39945507eafdb"
+    },
+    {
+      "path": "scripts/inventory-section-components-proof.mjs",
+      "kind": "text",
+      "bytes": 8489,
+      "sha256": "70696c577ee55b5dd3aa57fe9b5c3837821d9e7464db6a8a79ce1af1da5fa319"
     },
     {
       "path": "scripts/language-browser-cases.mjs",
@@ -37136,6 +37232,12 @@
       "bytes": 6343,
       "sha256": "9ced47d8ced4171b0f7aa6ed6daa9905e1a1fbaeaac4371310db52213a5cb39e",
       "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-section-components-mutations.mjs",
+      "kind": "text",
+      "bytes": 7024,
+      "sha256": "5f51ac983534c158456a65a7f22446521d8207b58528d54c4282fa7dacd02fcb"
     },
     {
       "path": "scripts/test-mutations.mjs",
@@ -38150,12 +38252,6 @@
       "kind": "text"
     },
     {
-      "path": "tests/fixtures/pdf-arabic-046/README.md",
-      "bytes": 2099,
-      "sha256": "69dd1177da49481685b78c3af0f4b7448c6105dd5cb416f6af652ec3c8c9ab95",
-      "kind": "text"
-    },
-    {
       "path": "tests/fixtures/pdf-arabic-046/libreoffice-arabic.pdf",
       "bytes": 23361,
       "sha256": "bb76369a1f5885f8e6b08846af119a1ce652710d761e27ad4369bf11c017d250",
@@ -38179,6 +38275,12 @@
       "path": "tests/fixtures/pdf-arabic-046/manifest.json",
       "bytes": 12359,
       "sha256": "07752c45522e6abae5fed54af499edd8a750f6934392fd04755674dc5de57f23",
+      "kind": "text"
+    },
+    {
+      "path": "tests/fixtures/pdf-arabic-046/README.md",
+      "bytes": 2099,
+      "sha256": "69dd1177da49481685b78c3af0f4b7448c6105dd5cb416f6af652ec3c8c9ab95",
       "kind": "text"
     },
     {
@@ -38566,10 +38668,40 @@
       "kind": "text"
     },
     {
+      "path": "tests/inventory-section-assistant.test.ts",
+      "kind": "text",
+      "bytes": 4180,
+      "sha256": "eb889b5e2dc7419cd2e14c39ecd4c5987cb832289cf4a2e23d71aa870958fe27"
+    },
+    {
+      "path": "tests/inventory-section-components-binding.test.ts",
+      "kind": "text",
+      "bytes": 20647,
+      "sha256": "564126e39bb84a18278b16843d8a9bc6c227bb0f261e0658272aa59a1296f2dc"
+    },
+    {
+      "path": "tests/inventory-section-components-core.test.ts",
+      "kind": "text",
+      "bytes": 17452,
+      "sha256": "dd87994c720f8c814efb1ad18b182e3a97dd157da1512ef4cccdbfae9cd5e003"
+    },
+    {
+      "path": "tests/inventory-section-components-io.test.ts",
+      "kind": "text",
+      "bytes": 22802,
+      "sha256": "32ff6462fe71aa01638a607389478bbebd80279d55cfa5fc9530e1c365b6c0fb"
+    },
+    {
+      "path": "tests/inventory-section-native.test.ts",
+      "kind": "text",
+      "bytes": 18304,
+      "sha256": "72d1e196a2e5d8a49ec212d4f9ab2e091671a1e550c8fab3a20f0ceb5f809a4a"
+    },
+    {
       "path": "tests/inventory-source-diversity-v1.test.ts",
       "kind": "text",
-      "bytes": 13167,
-      "sha256": "6c6f18b3988525c3f71ee3405b7824d323ba6db2c383cc26f3b3389d91a0a26b"
+      "bytes": 18610,
+      "sha256": "e29915107cd35ed18b4c2b6eaa0a65bd5aa7a10d40d40b7d9c1ec60f84916a3e"
     },
     {
       "path": "tests/invoice-group-search.test.ts",
@@ -39336,21 +39468,21 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-BVTE2D6a.js",
+      "path": "assets/ar-io-xFe2-g6K.js",
       "bytes": 11377,
-      "sha256": "72a85b26483e0d63c9f84d987c8294d761c878ba8cf6af59a0e97248c3b5fd1e",
+      "sha256": "ae87d88475489dca5ee88f3cd35515b22b5d728f0469ff5dc7e332a82272de10",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-CbJrrUB4.js",
+      "path": "assets/bank-adjustment-io-CtHWGLsK.js",
       "bytes": 12101,
-      "sha256": "e68708386fcf22b342d0d912edb6649baa3885a172c814bc5456895716b9a05f",
+      "sha256": "3d1a14db1275369fe261aa876f19fd209f68561e3da925db64b6b8435361c974",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-CFv9bxJ7.js",
+      "path": "assets/bank-io-yxWEt4-l.js",
       "bytes": 6331,
-      "sha256": "e27172931806f31c4fcde3fc2b8a639b4a063ec14c7697fccc1295b0fa44aea4",
+      "sha256": "4ae6de75faf5b855a79aff0fc74c55229d5466dc2a68e7d49035753a05c939d1",
       "kind": "text"
     },
     {
@@ -39386,15 +39518,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-C1oK5DEi.js",
+      "path": "assets/fixed-assets-io-DG6WBgCO.js",
       "bytes": 9830,
-      "sha256": "627054d15c6caf15f45d10280bda3d7a229d69c7e88ee67dbba1bdf8167559a9",
+      "sha256": "b0db3e38c2e85fe34f3879b9927b37729502e10ef01c1ffd183f94b0236a5ebd",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-fUXsolmP.js",
+      "path": "assets/gl-tb-io-Dic6NeUv.js",
       "bytes": 2184,
-      "sha256": "61654b46ba60a1e9a6e4e5aa49dcb1f876b0d82ec4dc1be620a20571c64e664a",
+      "sha256": "deaacc1542f44d8fcefacbbbee88b24e3703e0e76af80cbaeb64df6c0474254b",
       "kind": "text"
     },
     {
@@ -39404,14 +39536,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-DoBBQt8u.js",
-      "bytes": 6289635,
-      "sha256": "9670c90caae685adf74e123a025e29f710c29dea58cb7970f07c4d688b6444ae",
+      "path": "assets/index-9bWoV5Wi.js",
+      "bytes": 6329411,
+      "sha256": "be4b179b086c112ffc0f20e8d216434e3c216bcc4afa6dd6d9aebe3d1e850c8e",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data"
       }
+    },
+    {
+      "path": "assets/inventory-register-io-D_QaTDZL.js",
+      "kind": "text",
+      "bytes": 16261,
+      "sha256": "7d51e8fded33f6643199fa4d315a4515c3d19c5eb5b987283a119c27a35336c2"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -39424,15 +39562,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-DRwfwxPH.js",
+      "path": "assets/payment-gateway-io-CM8YkE2-.js",
       "bytes": 6391,
-      "sha256": "779545c23edde14ac88a744bae8921a65306a64886f5f21d666a93c58fccf11b",
+      "sha256": "c77a90bba92a4afbdbec8f345a7a2d4936d1b3bcba3f718bdb36f9c73f39b9a0",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-Ca-Q0uqo.js",
+      "path": "assets/payment-gateway-source-Rxk2oPWT.js",
       "bytes": 6798,
-      "sha256": "fb185deb16372895f88ff72b56f3c2db601f3b79d40f52c9c0811107979b5c50",
+      "sha256": "4e514cb0d0a0ff387edd96be93b8fac36be1e7d1b4553ca8fa197addfe94e175",
       "kind": "text"
     },
     {
@@ -39462,9 +39600,9 @@
       }
     },
     {
-      "path": "assets/protocol-DKZWcY4u.js",
-      "bytes": 88775,
-      "sha256": "f66e6d0c8caf0d932c9004bdab20ac08a544463f694f8ccd719843b1e7dffc74",
+      "path": "assets/protocol-DpGQDmCv.js",
+      "bytes": 96567,
+      "sha256": "ccd9ceb97b5cd2ba8b3669b6117b9b1bf6007af28ab101dcdc2019cd0fa4a371",
       "kind": "text"
     },
     {
@@ -39546,6 +39684,16 @@
       "kind": "text"
     },
     {
+      "path": "fonts/noto-sans-arabic-variable.woff2",
+      "bytes": 361536,
+      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
+      }
+    },
+    {
       "path": "fonts/NotoSansArabic-OFL.txt",
       "bytes": 4382,
       "sha256": "07fc70bfeb985cc1a87a8587d0a0c80bab11c86c9dc3fd95b6f0cb332f983e96",
@@ -39570,16 +39718,6 @@
       "sha256": "55cd0db49a2fd08cb6b991c58f53fa224ae5e0538bb700fa28e1f480b0c19cd5"
     },
     {
-      "path": "fonts/noto-sans-arabic-variable.woff2",
-      "bytes": 361536,
-      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
-      "kind": "approved-binary",
-      "provenance": {
-        "type": "licensed-vendor",
-        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
-      }
-    },
-    {
       "path": "fonts/thmanyah-serif-display-bold.woff2",
       "kind": "approved-binary",
       "provenance": {
@@ -39592,7 +39730,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "6ba8cc9b332554594b3d102d6e0852e796d7b89f0a06f6c4d5533a7396fa19b3",
+      "sha256": "98b91657623e96362ff8551c86b5e657e944c2027b28f67704197125019e41a6",
       "kind": "text"
     },
     {
@@ -39602,15 +39740,15 @@
       "kind": "text"
     },
     {
-      "path": "ocr/TESSERACT-JS-LICENSE.txt",
-      "bytes": 11357,
-      "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
-      "kind": "text"
-    },
-    {
       "path": "ocr/tesseract-core-lstm.wasm.js",
       "bytes": 3896484,
       "sha256": "eef5f8b2f8e20e150680b20adaec4a60babafee3adbe8a94583c81fee46e8680",
+      "kind": "text"
+    },
+    {
+      "path": "ocr/TESSERACT-JS-LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
       "kind": "text"
     },
     {

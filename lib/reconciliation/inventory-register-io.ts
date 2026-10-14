@@ -1,4 +1,13 @@
 import ExcelJS from 'exceljs';
+import { readFile } from './io.ts';
+import { bindInventorySectionNative } from './inventory-section-native.ts';
+import { snapshotStockInputRequest } from './inventory-register-request.ts';
+import {
+  stockSectionCitationRows,
+  STOCK_SECTION_CITATION_HEADERS,
+  stockSourceObservations,
+  STOCK_SOURCE_OBSERVATION_HEADERS,
+} from './inventory-section-evidence.ts';
 import { stockCSV } from './inventory-register-csv.ts';
 import {
   STOCK_VERSION,
@@ -30,11 +39,23 @@ export async function readStockFile(name: string, original: ArrayBuffer) {
     typeof name !== 'string' ||
     !name ||
     name.length > 255 ||
-    !/\.csv$/i.test(name)
+    !/\.(?:csv|xlsx)$/i.test(name)
   )
     throw Error('STOCK_SOURCE');
-  const snapshot = original.slice(0),
-    rows = stockCSV(snapshot);
+  const snapshot = original.slice(0);
+  if (/\.xlsx$/i.test(name)) {
+    const source = await readFile(
+      name,
+      snapshot,
+      undefined,
+      false,
+      undefined,
+      32767,
+    );
+    if (source.sheets.length !== 1) throw Error('STOCK_SOURCE');
+    return bindInventorySectionNative(source);
+  }
+  const rows = stockCSV(snapshot);
   return {
     name,
     original: snapshot,
@@ -60,23 +81,19 @@ function decode(v: unknown) {
   return data;
 }
 export async function replayStock(input: StockInput) {
-  // Prevalidate sizes/metadata/event members before any metadata clone, then
-  // capture every original and every decision field before the first await.
-  reconcileStock(input);
-  const snapshots = input.files.map((f) => ({
-    name: f.name,
-    sha256: f.sha256,
-    original: f.original!.slice(0),
-  }));
-  const metadata = structuredClone({
-    readings: input.readings,
-    scope: input.scope,
-    completeness: input.completeness,
-    events: input.events,
-  });
+  // Bound and own original bytes and choices before the first await. Parsed
+  // caches are disposable; neither a forged cache nor an empty one is truth.
+  const captured = snapshotStockInputRequest(input);
+  const snapshots = captured.files;
+  const metadata = {
+    readings: captured.readings,
+    scope: captured.scope,
+    completeness: captured.completeness,
+    events: captured.events,
+  };
   const files = [];
   for (const f of snapshots) {
-    const file = await readStockFile(f.name, f.original);
+    const file = await readStockFile(f.name, f.original!);
     if (file.sha256 !== f.sha256) throw Error('STOCK_SOURCE_HASH');
     files.push(file);
   }
@@ -138,7 +155,7 @@ export async function restoreStock(original: ArrayBuffer) {
       !plain(f) ||
       !keys(f, ['name', 'sha256', 'data']) ||
       typeof f.name !== 'string' ||
-      !/\.csv$/i.test(f.name) ||
+      !/\.(?:csv|xlsx)$/i.test(f.name) ||
       typeof f.sha256 !== 'string' ||
       !/^[a-f0-9]{64}$/.test(f.sha256)
     )
@@ -147,7 +164,7 @@ export async function restoreStock(original: ArrayBuffer) {
   });
   const files = [];
   for (const f of snapshots) {
-    const file = await readStockFile(f.name, f.original);
+    const file = await readStockFile(f.name, f.original!);
     if (file.sha256 !== f.sha256) throw Error('STOCK_SOURCE_HASH');
     files.push(file);
   }
@@ -189,6 +206,14 @@ export async function exportStock(input: StockInput, expected: StockResult) {
       ['Completeness reference', r.completeness.reference],
       ['Completeness note', r.completeness.note],
       ['Register minor', r.totals?.registerMinor ?? null],
+      ...(r.sectionEvidence
+        ? [
+            [
+              'Register minor basis',
+              'Only values with proven item/dimension mapping and policy evidence contribute; see Register for all supplied parsed values',
+            ] as Value[],
+          ]
+        : []),
       ['GL minor', r.totals?.glMinor ?? null],
     ],
   );
@@ -288,7 +313,7 @@ export async function exportStock(input: StockInput, expected: StockResult) {
         i,
         STOCK_ROLES[i],
         f.name,
-        'CSV',
+        f.sheets[0].name,
         f.sha256!,
         part + 1,
         Math.ceil(data.length / 30000),
@@ -300,6 +325,21 @@ export async function exportStock(input: StockInput, expected: StockResult) {
     ['Source', 'Role', 'Name', 'Sheet', 'SHA256', 'Part', 'Parts', 'Base64'],
     sources,
   );
+  if (r.sectionEvidence)
+    table(
+      'Section citations',
+      STOCK_SECTION_CITATION_HEADERS,
+      stockSectionCitationRows(r.sectionEvidence),
+    );
+  if (r.sectionEvidence) {
+    const observations = stockSourceObservations(state.files);
+    if (observations.length)
+      table(
+        'Source observations',
+        STOCK_SOURCE_OBSERVATION_HEADERS,
+        observations,
+      );
+  }
   // Preflight every table before allocating Workbook; never truncate evidence.
   for (const t of tables) {
     if (t.rows.length + 1 > 1048576 || t.headers.length > 16384)
