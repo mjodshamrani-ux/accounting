@@ -21,6 +21,10 @@ export const evidenceLabels = {
   members: ['أعضاء النطاق الفيزيائي', 'Physical scope members'],
   register: ['السجل المرحل', 'Posted register'],
   carrying: ['القيمة الدفترية', 'Carrying amount'],
+  supportedRegister: [
+    'القيمة المدعومة بالخريطة والسياسة',
+    'Value supported by mapping and policy',
+  ],
   cost: ['التكلفة', 'Cost'],
   depreciation: ['الاستهلاك المتراكم', 'Accumulated depreciation'],
   impairment: ['الانخفاض في القيمة', 'Impairment'],

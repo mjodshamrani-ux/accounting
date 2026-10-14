@@ -89,6 +89,11 @@ for (const job of Object.values(workflow.jobs))
       assert(existsSync(path.join(root, m[0])), m[0]);
   }
 const required = [
+  'test:inventory-sections',
+  'test:inventory-sections:oracle',
+  'test:inventory-sections:proof',
+  'test:inventory-sections:mutations',
+  'test:inventory-sections:browser',
   'test:ar-scope-details',
   'test:ar-scope-details:oracle',
   'test:ar-scope-details:proof',

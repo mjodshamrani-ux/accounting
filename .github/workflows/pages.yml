@@ -14,7 +14,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -178,11 +178,25 @@ jobs:
           pnpm test:ar-scope-details:oracle
           pnpm test:ar-scope-details:proof
           pnpm test:ar-scope-details:mutations
+      - name: Verify sectioned inventory originals, literal citations, financial links and worker binding
+        env:
+          INV_SECTION_PROOF_DIR: ${{ runner.temp }}/inventory-section-proof
+          INV_SECTION_MUTATION_DIR: ${{ runner.temp }}/inventory-section-mutations
+        run: |
+          pnpm test:inventory-sections
+          pnpm test:inventory-sections:oracle
+          pnpm test:inventory-sections:proof
+          pnpm test:inventory-sections:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:browser
+      - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          INV_SECTION_BROWSER_DIR: ${{ runner.temp }}/inventory-section-browser
+        run: pnpm test:inventory-sections:browser
       - name: Verify signed-kind gateway actual Worker, Arabic and English mobile downloads independently
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

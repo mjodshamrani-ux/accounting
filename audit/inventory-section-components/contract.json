@@ -1,0 +1,399 @@
+{
+  "schema": "tarasuf-inv1b-section-contract/1",
+  "frozenBeforeProductEvaluation": true,
+  "family": "inventory-section-components-1",
+  "format": [
+    "Format",
+    "INV1A-SECTIONS-1"
+  ],
+  "financialStory": "Same INV1A story, independent structural variants; known development/regression corpus, not blind holdout",
+  "sourceFamily": "Scope rows followed by explicit item/dimension sections with separate Quantity and supplied Posted value component rows",
+  "counts": {
+    "stories": 1,
+    "semanticSectionFamily": 1,
+    "sourcePresentationVariants": 5,
+    "containers": [
+      "csv",
+      "xlsx"
+    ],
+    "xlsxProducerLineages": [
+      "openpyxl 3.1.5",
+      "xlsxwriter 3.2.9"
+    ],
+    "cases": 12,
+    "positive": 6,
+    "negative": 6,
+    "sources": 48,
+    "csv": 42,
+    "xlsx": 6
+  },
+  "truth": {
+    "registerMinor": 150000,
+    "glMinor": 150000,
+    "logicalRecordsByRole": [
+      4,
+      4,
+      4,
+      2
+    ],
+    "accountComparisons": [
+      [
+        "INV-1",
+        "branch=01",
+        100000,
+        100000,
+        0
+      ],
+      [
+        "INV-1",
+        "branch=02",
+        50000,
+        50000,
+        0
+      ]
+    ],
+    "keys": [
+      [
+        "0007",
+        "warehouse=W1;batch=B01",
+        10,
+        60000,
+        "V-0007-W1-B01",
+        "MAP-I1",
+        "POL-I1",
+        "branch=01"
+      ],
+      [
+        "0007",
+        "warehouse=W1;batch=B02",
+        10,
+        40000,
+        "V-0007-W1-B02",
+        "MAP-I2",
+        "POL-I2",
+        "branch=01"
+      ],
+      [
+        "0007",
+        "warehouse=W2;batch=B01",
+        10,
+        50000,
+        "V-0007-W2-B01",
+        "MAP-I3",
+        "POL-I3",
+        "branch=02"
+      ],
+      [
+        "0008",
+        "warehouse=W1;batch=B00",
+        0,
+        0,
+        "V-0008-W1-B00",
+        "MAP-I4",
+        "POL-I4",
+        "branch=01"
+      ]
+    ]
+  },
+  "expectedCases": [
+    {
+      "id": "INV1B-P01",
+      "financial": "ready",
+      "review": "needs-review",
+      "status": "needs-review"
+    },
+    {
+      "id": "INV1B-P02",
+      "financial": "ready",
+      "review": "needs-review",
+      "status": "needs-review"
+    },
+    {
+      "id": "INV1B-P03",
+      "financial": "ready",
+      "review": "needs-review",
+      "status": "needs-review"
+    },
+    {
+      "id": "INV1B-P04",
+      "financial": "ready",
+      "review": "needs-review",
+      "status": "needs-review"
+    },
+    {
+      "id": "INV1B-P05",
+      "financial": "ready",
+      "review": "needs-review",
+      "status": "needs-review"
+    },
+    {
+      "id": "INV1B-P06",
+      "financial": "ready",
+      "review": "needs-review",
+      "status": "needs-review"
+    },
+    {
+      "id": "INV1B-N01",
+      "financial": "source-error",
+      "acceptAllowed": false
+    },
+    {
+      "id": "INV1B-N02",
+      "financial": "source-error",
+      "acceptAllowed": false
+    },
+    {
+      "id": "INV1B-N03",
+      "financial": "source-error",
+      "acceptAllowed": false
+    },
+    {
+      "id": "INV1B-N04",
+      "financial": "missing",
+      "acceptAllowed": false
+    },
+    {
+      "id": "INV1B-N05",
+      "financial": "missing",
+      "acceptAllowed": false
+    },
+    {
+      "id": "INV1B-N06",
+      "financial": "source-error",
+      "acceptAllowed": false
+    }
+  ],
+  "sectionEvidence": {
+    "family": "inventory-section-components-1",
+    "recordAnchor": "Physical Section row and explicit End section boundary; no invented horizontal source row",
+    "sourceCitings": "Original SHA256, sheet index/name, physical row/column, exact raw source text for format/scope/field/boundary",
+    "exportTable": "Section citations",
+    "exportHeaders": [
+      "Record ID",
+      "Source",
+      "SHA256",
+      "Sheet index",
+      "Sheet",
+      "Source row",
+      "Column",
+      "Field",
+      "Text",
+      "Kind",
+      "Section end row"
+    ],
+    "readingFamily": "inventory-section-components-1",
+    "sessionAndResultVersion": "inventory-posted-register-gl-1"
+  },
+  "authority": {
+    "policy": "Whole-scope current inventory policy retained. Any source issue clears financial totals and comparison money. A missing binding forbids approval. Arithmetic ready still requires manual whole-source completeness and explicit current-context accept event.",
+    "noInference": [
+      "No quantity x unit price valuation",
+      "No hidden generator IDs or arbitrary sum matching",
+      "No derived CSV replacing source",
+      "No default zero for missing component",
+      "No automatic acceptance"
+    ]
+  },
+  "limits": [
+    "One known financial story, bounded declared English-label grammar; not all supplier/inventory layouts",
+    "Native identities/dimensions/scope literals; native numeric Quantity, precision and posted/control amounts may use exact source lexemes",
+    "Default plain producer styles inspected independently; arbitrary custom/conditional/invisible styles not certified",
+    "No PDF/OCR, matrix runtime, movement/FIFO/FX or source-error partial financial approvals",
+    "No field accuracy or blind holdout claim"
+  ],
+  "independentInstrument": {
+    "beforeProductTests": 9,
+    "result": "9 passed before candidate evaluation",
+    "initialPreflightIncidents": [
+      "Negative subtotal edit initially addressed End section; fixed by source role lookup before freezing",
+      "Independent reader initially mishandled openpyxl absolute worksheet target; fixed by OPC path resolution before freezing"
+    ],
+    "libraries": "Producer optional pinned openpyxl/xlsxwriter; default generator and oracle/checker/tests use Python stdlib, no CI network downloads"
+  },
+  "seals": {
+    "algorithm": "sha256",
+    "inputManifestSha256": "48579015099116df9ae770c9545e7045df5153a613d6c6213e6ea38dbe1daa92",
+    "inputManifestFiles": 49,
+    "code": [
+      {
+        "path": "generate.py",
+        "bytes": 9530,
+        "sha256": "fd72a537731bfa0b0e40b01bbb2092a4441202ccb36244d8fdc5de249c084b05"
+      },
+      {
+        "path": "oracle.py",
+        "bytes": 27575,
+        "sha256": "238816446a32f414a6f644dfb58d7388a2194a588ba144e64d7acf5bc55b194d"
+      },
+      {
+        "path": "check_export.py",
+        "bytes": 14482,
+        "sha256": "00730f8e895220b3475f4aa74d303fcc7449df0d28ce93b7d2a00f93621f360a"
+      },
+      {
+        "path": "test_oracle.py",
+        "bytes": 11089,
+        "sha256": "26ee8f56600c3102c6820c17a9d61bf9d96b28f82ae82b894642b55f6758d620"
+      },
+      {
+        "path": "xlsx-originals.json",
+        "bytes": 181860,
+        "sha256": "3c35a724a251f867beb07229b5eafc0892d1af290f38459cf927648db4d77196"
+      }
+    ]
+  },
+  "preEvaluationAmendments": [
+    {
+      "number": 1,
+      "reason": "Agreed evidence API additionally exposes supplied section/report control total citations; exact financial truth, expected states and all frozen input bytes remain unchanged. Added stronger control-citation assertion before any candidate evaluation.",
+      "instrumentTests": {
+        "passed": 9,
+        "failed": 0
+      },
+      "inputManifestSha256Unchanged": "48579015099116df9ae770c9545e7045df5153a613d6c6213e6ea38dbe1daa92",
+      "currentCode": [
+        {
+          "path": "check_export.py",
+          "bytes": 14984,
+          "sha256": "11fd0ea4e7bbdf1b53bed309f149b26de9ed87bef0466f1e5f2f375b17dd3c28"
+        },
+        {
+          "path": "test_oracle.py",
+          "bytes": 11564,
+          "sha256": "d6c4a225fa0b492c6dffd3cc9725aba437d35294124266a825f216ea939aebf3"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "reason": "Strengthen the independent instrument with a per-item money swap preserving both global and branch totals, fractional/export-source-hash and entity-scope controls. Financial truth and frozen input bytes unchanged; no candidate execution yet.",
+      "instrumentTests": {
+        "passed": 10,
+        "failed": 0
+      },
+      "currentCode": [
+        {
+          "path": "test_oracle.py",
+          "bytes": 12855,
+          "sha256": "a8ae9c86720ed67f9780efb74dda25e8f2b4432c48ca8204f0777e68dfbd9368"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "reason": "Agreed explicit register reading family inventory-section-components-1; canonical mapping/policy/GL reading family and session/result version unchanged. Financial truth and frozen input bytes unchanged; no candidate execution yet.",
+      "instrumentTests": {
+        "passed": 10,
+        "failed": 0
+      },
+      "currentCode": [
+        {
+          "path": "check_export.py",
+          "bytes": 15116,
+          "sha256": "daf771f5bfce8900558a09170d5ab0c19628af3f3fae8cfd3a986b26837f9ccf"
+        },
+        {
+          "path": "test_oracle.py",
+          "bytes": 12953,
+          "sha256": "869102325f3af0c88d5892012c869a04a7063b1e67255a44074bb16654463de8"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "reason": "Independent review found missing citation-keyset and limited display-instrument guards. Stronger checks now reject omitted field/scope/boundary evidence, foreign boundaries, white theme text, output masked General-format substitutions and hidden columns before any candidate evaluation. Financial truth and frozen input bytes unchanged.",
+      "instrumentTests": {
+        "passed": 14,
+        "failed": 0
+      },
+      "currentCode": [
+        {
+          "path": "oracle.py",
+          "bytes": 28894,
+          "sha256": "d298135e0f190b727bb38a574d2b1c8b4afd2a220f8632ef7474bc8c3411c515"
+        },
+        {
+          "path": "check_export.py",
+          "bytes": 17113,
+          "sha256": "b80129f1fa0cd5d3871522acee9342e92f1bccf08d3dc92e1dec3289cc201221"
+        },
+        {
+          "path": "test_oracle.py",
+          "bytes": 16053,
+          "sha256": "1d6381fabbaefad3930650316163d42bae8ffb4b8a7ac6fc82fcab0cbb00d43b"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "reason": "Bound theme1 dark text to its actual dark palette; reject hidden-zero/default-zero and row/column style delegation in the limited source inspector. All frozen input bytes and financial expectations unchanged; no product execution yet.",
+      "instrumentTests": {
+        "passed": 15,
+        "failed": 0
+      },
+      "currentCode": [
+        {
+          "path": "oracle.py",
+          "bytes": 29902,
+          "sha256": "dbfa1c47f1add3af04d71e48aa9191753b97c8bdb8f22266fc42758f21c1f1ca"
+        },
+        {
+          "path": "check_export.py",
+          "bytes": 17472,
+          "sha256": "cb65b4f8505ee40c4aaf74cc9acca9eceef75612c501d7dc800809e7cd4433dd"
+        },
+        {
+          "path": "test_oracle.py",
+          "bytes": 16619,
+          "sha256": "0d04f28a893146f51f54e0d6b5757444d5094cc757bab665b68dc5eeaa9250d5"
+        }
+      ]
+    }
+  ],
+  "integrationAmendments": [
+    {
+      "number": 1,
+      "stage": "After first candidate financial IO run passed 6/6 on sealed sources",
+      "reason": "Add independently checked undo exports and optional browser-session binding. Fixed acceptance mode unchanged. Browser may vary only UUIDv4/ISO event identity/time; exact original sources, scope, native readings, completeness, references, full physical membership and context remain required. Added omitted Quantity probe as a separate diagnostic fault without redefining the twelve sealed cases.",
+      "instrumentTests": {
+        "passed": 16,
+        "failed": 0
+      },
+      "frozenInputManifestSha256Unchanged": "48579015099116df9ae770c9545e7045df5153a613d6c6213e6ea38dbe1daa92",
+      "currentCode": [
+        {
+          "path": "check_export.py",
+          "bytes": 20602,
+          "sha256": "8e7ad326c6e66f928ead88f350c000e4a35f685b85fbc2cf36b7415d74d831f2"
+        },
+        {
+          "path": "test_oracle.py",
+          "bytes": 19606,
+          "sha256": "06eb259accafb74007734cd5bc30223ed77562dea8be3d30996a643a86cf1ac0"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "stage": "Independent final review after candidate green financial proof",
+      "reason": "Require an explicit Register minor basis disclosure in section workpapers so a supported subset is never labelled as the whole supplied register. Legacy flat headers remain unchanged. Added checker controls for omitted or misleading disclosure; fixed financial expectations/input bytes unchanged.",
+      "instrumentTests": {
+        "passed": 17,
+        "failed": 0
+      },
+      "frozenInputManifestSha256Unchanged": "48579015099116df9ae770c9545e7045df5153a613d6c6213e6ea38dbe1daa92",
+      "currentCode": [
+        {
+          "path": "check_export.py",
+          "bytes": 20833,
+          "sha256": "4c41aa95f9b61e10850b744a70fe0c039324fa943c5748da7a8a2ed6259d44a8"
+        },
+        {
+          "path": "test_oracle.py",
+          "bytes": 20273,
+          "sha256": "5da5d620a5806b0ec5134ddb63773c2453872764f3fc26f2144cba21e65f40c0"
+        }
+      ]
+    }
+  ]
+}

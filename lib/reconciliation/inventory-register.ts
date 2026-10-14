@@ -1,8 +1,16 @@
 import { currencyPrecision } from './currency-precision.ts';
 import { assertSourceFile } from './protocol.ts';
 import { MAX_ROWS, MAX_FILE_BYTES, type SourceFile } from './types.ts';
+import {
+  parseInventorySectionComponents,
+  STOCK_SECTION_FAMILY,
+  type StockSectionEvidence,
+  type StockSectionRowKind,
+} from './inventory-section-components.ts';
+export { STOCK_SECTION_FAMILY } from './inventory-section-components.ts';
 
-// Private pure proof stage: no worker/UI/public IO or financial posting authority.
+// Compare supplied posted values under declared source families; no valuation,
+// financial posting or completeness opinion is inferred by this pure engine.
 export const STOCK_VERSION = 'inventory-posted-register-gl-1';
 export const STOCK_ROLES = [
   'register',
@@ -84,7 +92,7 @@ export type StockScope = Record<(typeof STOCK_FIELDS)[number], string> & {
 export type StockReading = {
   sheet: number;
   role: (typeof STOCK_ROLES)[number];
-  family: typeof STOCK_VERSION;
+  family: typeof STOCK_VERSION | typeof STOCK_SECTION_FAMILY;
   confirmed: boolean;
 };
 export type StockEvent = {
@@ -133,7 +141,7 @@ export type StockResult = {
   inventory: {
     source: number;
     row: number;
-    kind: 'header' | 'blank' | 'data';
+    kind: 'header' | 'blank' | 'data' | StockSectionRowKind;
   }[];
   cells: {
     source: number;
@@ -143,6 +151,7 @@ export type StockResult = {
     text: string;
   }[];
   memberIds: string[];
+  sectionEvidence?: StockSectionEvidence;
   events: StockEvent[];
   financial: 'source-error' | 'missing' | 'difference' | 'ready';
   review: 'needs-review' | 'accepted' | 'rejected';
@@ -250,17 +259,21 @@ export function reconcileStock(input: StockInput): StockResult {
       !keys(r, ['sheet', 'role', 'family', 'confirmed']) ||
       r.sheet !== 0 ||
       r.role !== STOCK_ROLES[i] ||
-      r.family !== STOCK_VERSION ||
+      (r.family !== STOCK_VERSION &&
+        !(i === 0 && r.family === STOCK_SECTION_FAMILY)) ||
       r.confirmed !== true
     )
       fail('READING');
   });
-  input.files.forEach((f) => {
+  input.files.forEach((f, source) => {
+    const sections =
+      source === 0 && input.readings[source].family === STOCK_SECTION_FAMILY;
     assertSourceFile(f);
+    const native = sections && /\.xlsx$/i.test(f.name);
     text(f.name, 255);
     if (
       f.kind !== undefined ||
-      !/\.csv$/i.test(f.name) ||
+      !(sections ? /\.(?:csv|xlsx)$/i.test(f.name) : /\.csv$/i.test(f.name)) ||
       f.sheets.length !== 1 ||
       !(f.original instanceof ArrayBuffer) ||
       !f.original.byteLength ||
@@ -276,15 +289,33 @@ export function reconcileStock(input: StockInput): StockResult {
       fail('SOURCE_CAPACITY');
     if (
       sh.rows.reduce((n, row) => n + row.reduce((a, v) => a + v.length, 0), 0) >
-      f.original.byteLength
+      (native ? MAX_FILE_BYTES : f.original.byteLength)
     )
       fail('SOURCE_CAPACITY');
+    const allowedMetadata = native
+      ? [
+          'name',
+          'rows',
+          'formulaRows',
+          'hiddenRows',
+          'numericCells',
+          'numericDisplayFormats',
+          'formulaCells',
+          'rowIssues',
+          'cellIssues',
+          'cellNotes',
+          'referenceIssues',
+          'xlsxHeaders',
+        ]
+      : ['name', 'rows', 'formulaRows', 'hiddenRows'];
     if (
-      sh.hiddenRows.length ||
-      sh.formulaRows.length ||
-      Object.keys(sh).some(
-        (k) => !['name', 'rows', 'formulaRows', 'hiddenRows'].includes(k),
-      )
+      (!sections && (sh.hiddenRows.length || sh.formulaRows.length)) ||
+      Object.keys(sh).some((k) => !allowedMetadata.includes(k)) ||
+      (native &&
+        (!sh.xlsxHeaders ||
+          sh.xlsxHeaders.sourceHash !== f.sha256 ||
+          sh.xlsxHeaders.sheetName !== sh.name ||
+          sh.xlsxHeaders.sheetIndex !== 0))
     )
       fail('SOURCE_METADATA');
   });
@@ -335,7 +366,148 @@ export function reconcileStock(input: StockInput): StockResult {
   const absent = (key: string) => {
     if (!result.missing.includes(key)) result.missing.push(key);
   };
+  const interpretValues = (
+    source: number,
+    get: (key: string) => string,
+    onFailure?: (field: string) => void,
+  ) => {
+    const v: (string | number)[] = STOCK_VALUES[source].map(get);
+    let field = '';
+    try {
+      STOCK_VALUES[source].forEach((key, i) => {
+        if (
+          ![
+            'Quantity',
+            'Posted value',
+            'Debit',
+            'Credit',
+            'Quantity precision',
+          ].includes(key)
+        ) {
+          field = key;
+          text(
+            v[i],
+            ['Valuation reference', 'Reference'].includes(key) ? 2000 : 500,
+          );
+        }
+      });
+      if (source === 0 || source === 2) {
+        field = 'Quantity precision';
+        if (!/^[0-6]$/.test(v[4] as string)) fail('QUANTITY_PRECISION');
+        v[4] = Number(v[4]);
+      }
+      if (source === 0) {
+        field = 'Quantity';
+        v[2] = scaled(v[2] as string, v[4] as number);
+        field = 'Posted value';
+        v[5] = scaled(v[5] as string, decimals);
+      }
+      if (source === 2) {
+        if (
+          v[8] !== 'inventory' ||
+          v[9] !== 'debit-positive' ||
+          v[10] !== 'provided-posted-carrying-value'
+        )
+          fail('POLICY');
+        if (day(v[11] as string) > s.asOf || day(v[12] as string) < s.asOf)
+          fail('VALIDITY');
+      }
+      if (source === 3) {
+        if (v[2] !== 'inventory') fail('ACCOUNT_CLASS');
+        field = 'Debit';
+        v[3] = scaled(v[3] as string, decimals);
+        field = 'Credit';
+        v[4] = scaled(v[4] as string, decimals);
+      }
+      return v;
+    } catch (e) {
+      if (e instanceof Error && e.message.startsWith('STOCK_'))
+        onFailure?.(field);
+      throw e;
+    }
+  };
   input.files.forEach((f, source) => {
+    if (source === 0 && readings[source].family === STOCK_SECTION_FAMILY) {
+      const parsed = parseInventorySectionComponents(
+        f,
+        scope,
+        decimals,
+        scaled,
+      );
+      const id = (row: number) =>
+        JSON.stringify([STOCK_VERSION, source, f.sha256, 0, row]);
+      for (const row of parsed.inventory)
+        result.inventory.push({ source, ...row });
+      for (const cell of parsed.cells) result.cells.push({ source, ...cell });
+      const sectionIssueKeys = new Set(
+        parsed.issues.map((issue) => JSON.stringify([issue.row, issue.code])),
+      );
+      for (const issue of parsed.issues) problem(source, issue.row, issue.code);
+      result.memberIds.push(...parsed.memberRows.map(id));
+      result.sectionEvidence = {
+        family: STOCK_SECTION_FAMILY,
+        source: 0,
+        sheet: 0,
+        sheetName: f.sheets[0].name,
+        sourceHash: f.sha256!,
+        format: parsed.format,
+        scope: parsed.scope,
+        ...(parsed.reportTotal ? { reportTotal: parsed.reportTotal } : {}),
+        sections: parsed.records.map((record) => ({
+          recordId: id(record.row),
+          startRow: record.row,
+          endRow: record.endRow,
+          fields: record.fields,
+          ...(record.subtotal ? { subtotal: record.subtotal } : {}),
+          boundaries: {
+            start: {
+              sourceHash: f.sha256!,
+              sheet: 0,
+              sheetName: f.sheets[0].name,
+              row: record.row,
+              column: 1,
+              raw: f.sheets[0].rows[record.row - 1][0],
+            },
+            end: {
+              sourceHash: f.sha256!,
+              sheet: 0,
+              sheetName: f.sheets[0].name,
+              row: record.endRow,
+              column: 1,
+              raw: f.sheets[0].rows[record.endRow - 1][0],
+            },
+          },
+        })),
+      };
+      for (const record of parsed.records) {
+        let failureRow = record.row;
+        try {
+          const values = interpretValues(
+            source,
+            (key) => record.raw[key],
+            (field) => {
+              failureRow = record.fields[field]?.row ?? record.row;
+            },
+          );
+          result.records[source].push({
+            id: id(record.row),
+            source,
+            row: record.row,
+            values,
+          });
+        } catch (e) {
+          if (!(e instanceof Error) || !e.message.startsWith('STOCK_')) throw e;
+          const code = e.message.slice(6);
+          const key = JSON.stringify([failureRow, code]);
+          if (!sectionIssueKeys.has(key)) {
+            problem(source, failureRow, code);
+            sectionIssueKeys.add(key);
+          }
+        }
+      }
+      if (!result.records[source].length) absent('source:' + source);
+      return;
+    }
     const rows = f.sheets[0].rows,
       header = rows[0] ?? [],
       desired = STOCK_HEADERS[source];
@@ -376,45 +548,7 @@ export function reconcileStock(input: StockInput): StockResult {
           STOCK_FIELDS.some((k, i) => get(STOCK_SCOPE_HEADERS[i]) !== scope[k])
         )
           fail('ROW_SCOPE');
-        const v: (string | number)[] = STOCK_VALUES[source].map(get);
-        STOCK_VALUES[source].forEach((key, i) => {
-          if (
-            ![
-              'Quantity',
-              'Posted value',
-              'Debit',
-              'Credit',
-              'Quantity precision',
-            ].includes(key)
-          )
-            text(
-              v[i],
-              ['Valuation reference', 'Reference'].includes(key) ? 2000 : 500,
-            );
-        });
-        if (source === 0 || source === 2) {
-          if (!/^[0-6]$/.test(v[4] as string)) fail('QUANTITY_PRECISION');
-          v[4] = Number(v[4]);
-        }
-        if (source === 0) {
-          v[2] = scaled(v[2] as string, v[4] as number);
-          v[5] = scaled(v[5] as string, decimals);
-        }
-        if (source === 2) {
-          if (
-            v[8] !== 'inventory' ||
-            v[9] !== 'debit-positive' ||
-            v[10] !== 'provided-posted-carrying-value'
-          )
-            fail('POLICY');
-          if (day(v[11] as string) > s.asOf || day(v[12] as string) < s.asOf)
-            fail('VALIDITY');
-        }
-        if (source === 3) {
-          if (v[2] !== 'inventory') fail('ACCOUNT_CLASS');
-          v[3] = scaled(v[3] as string, decimals);
-          v[4] = scaled(v[4] as string, decimals);
-        }
+        const v = interpretValues(source, get);
         result.records[source].push({ id, source, row, values: v });
       } catch (e) {
         if (!(e instanceof Error) || !e.message.startsWith('STOCK_')) throw e;

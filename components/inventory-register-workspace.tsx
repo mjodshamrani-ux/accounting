@@ -15,6 +15,8 @@ import { workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
 import {
   STOCK_VERSION,
+  STOCK_SECTION_FAMILY,
+  STOCK_SCOPE_HEADERS,
   STOCK_ROLES,
   STOCK_FIELDS,
   type StockInput,
@@ -26,6 +28,10 @@ import {
   stockDemo,
   stockDemoScope,
 } from '@/lib/reconciliation/inventory-register-demo';
+import {
+  stockSectionCitationRows,
+  stockSourceObservations,
+} from '@/lib/reconciliation/inventory-section-evidence';
 import { stockCopy } from '@/lib/i18n/inventory-register';
 import './gl-tb-workspace.css';
 const emptyScope = (): StockScope =>
@@ -42,6 +48,41 @@ const readings = () =>
     family: STOCK_VERSION,
     confirmed: false,
   })) as StockInput['readings'];
+function sectioned(file: SourceFile) {
+  return (
+    /\.xlsx$/i.test(file.name) ||
+    (file.sheets[0]?.rows[0]?.[0] === 'Format' &&
+      file.sheets[0]?.rows[0]?.[1] === 'INV1A-SECTIONS-1')
+  );
+}
+function sourceScope(file: SourceFile): Partial<StockScope> | null {
+  if (
+    file.sheets[0]?.rows[0]?.[0] !== 'Format' ||
+    file.sheets[0]?.rows[0]?.[1] !== 'INV1A-SECTIONS-1'
+  )
+    return null;
+  const scope: Partial<StockScope> = {};
+  for (const original of file.sheets[0].rows.slice(1)) {
+    const row = [...original];
+    while (row.at(-1) === '') row.pop();
+    if (!row.length) continue;
+    if (row[0] === 'Section') break;
+    const key = STOCK_FIELDS[STOCK_SCOPE_HEADERS.indexOf(row[1])];
+    if (
+      row.length !== 3 ||
+      row[0] !== 'Scope' ||
+      !key ||
+      scope[key] !== undefined ||
+      !row[2] ||
+      row[2] !== row[2].trim()
+    )
+      return null;
+    scope[key] = row[2];
+  }
+  return STOCK_FIELDS.every((key) => typeof scope[key] === 'string')
+    ? scope
+    : null;
+}
 function download(buffer: ArrayBuffer, name: string, type: string) {
   const url = URL.createObjectURL(new Blob([buffer], { type })),
     a = document.createElement('a');
@@ -221,7 +262,21 @@ export function StockWorkspace({
         next[source] = value;
         setFiles(next);
         const r = [...reading] as StockInput['readings'];
-        r[source] = { ...r[source], confirmed: false };
+        r[source] = {
+          ...r[source],
+          family:
+            source === 0 && sectioned(value)
+              ? STOCK_SECTION_FAMILY
+              : STOCK_VERSION,
+          confirmed: false,
+        };
+        if (source === 0 && sectioned(value)) {
+          const suggested = sourceScope(value);
+          if (suggested)
+            setScope({ ...emptyScope(), ...suggested, confirmed: false });
+          else setScope({ ...scope, confirmed: false });
+        } else if (source === 0 && reading[0].family === STOCK_SECTION_FAMILY)
+          setScope({ ...scope, confirmed: false });
         setReading(r);
         setComplete({ ...complete, confirmed: false });
         invalidate();
@@ -379,7 +434,7 @@ export function StockWorkspace({
               <WorkspaceFileInput
                 aria-label={copy.roles[i]}
                 type="file"
-                accept=".csv"
+                accept={i === 0 ? '.csv,.xlsx' : '.csv'}
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   e.target.value = '';
@@ -404,12 +459,38 @@ export function StockWorkspace({
                     />
                     {copy.roleConfirm}
                   </label>
-                  {detail(
-                    copy.roles[i],
-                    files[i]!.sheets[0].rows[0] ?? [],
-                    files[i]!.sheets[0].rows.slice(1),
-                    files[i]!.sha256,
+                  {i === 0 && sectioned(files[i]!) && (
+                    <p>{copy.sectionsDetected}</p>
                   )}
+                  {i === 0 && sectioned(files[i]!)
+                    ? detail(
+                        copy.roles[i],
+                        [
+                          copy.sourceRow,
+                          ...Array.from(
+                            {
+                              length: Math.max(
+                                1,
+                                ...files[i]!.sheets[0].rows.map(
+                                  (row) => row.length,
+                                ),
+                              ),
+                            },
+                            (_, column) => copy.sourceColumn + (column + 1),
+                          ),
+                        ],
+                        files[i]!.sheets[0].rows.map((row, index) => [
+                          index + 1,
+                          ...row,
+                        ]),
+                        files[i]!.sha256,
+                      )
+                    : detail(
+                        copy.roles[i],
+                        files[i]!.sheets[0].rows[0] ?? [],
+                        files[i]!.sheets[0].rows.slice(1),
+                        files[i]!.sha256,
+                      )}
                 </>
               )}
             </fieldset>
@@ -576,6 +657,19 @@ export function StockWorkspace({
                 };
               }}
             />
+            {result.sectionEvidence &&
+              detail(
+                copy.sectionCitations,
+                copy.sectionCitationHeaders,
+                stockSectionCitationRows(result.sectionEvidence),
+              )}
+            {result.sectionEvidence &&
+              stockSourceObservations(files).length > 0 &&
+              detail(
+                copy.observations,
+                copy.observationHeaders,
+                stockSourceObservations(files),
+              )}
             <h2 data-stock-status>{status(result.status)}</h2>
             <p>
               {copy.units} · {result.scope.currency} · {result.decimals}
