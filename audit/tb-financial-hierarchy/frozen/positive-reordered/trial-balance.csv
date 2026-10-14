@@ -1,0 +1,8 @@
+Closing basis,Map version,Chart version,As of,Period end,Period start,Posting layer,Posting status,Currency basis,Currency,Ledger,Entity,Credit,Debit,Account class,Account label,Complete dimensions,Account ID
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,700.00,0.00,equity,Capital,branch=10,3000
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,500.00,0.00,current-liability,Payable,branch=10,2000
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,0.00,0.00,current-asset,Explicit zero,branch=10,0099
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,100.00,0.00,current-asset,Allowance (contra asset),branch=10,0019
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,0.00,300.00,current-asset,Receivable,branch=10,001
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,0.00,500.00,current-asset,Cash branch 20,branch=20,0010
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,0.00,500.00,current-asset,نقد، الفرع الأول,branch=10,0010

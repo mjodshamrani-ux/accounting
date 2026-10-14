@@ -1,0 +1,13 @@
+Closing basis,Map version,Chart version,As of,Period end,Period start,Posting layer,Posting status,Currency basis,Currency,Ledger,Entity,Amount,Line class,Line label,Kind,Parent ID,Node ID
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,700.00,equity,Capital,leaf,EQUITY,CAP
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,700.00,equity,Equity,parent,,EQUITY
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,500.00,current-liability,Payable,leaf,LIABILITIES,PAY
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,500.00,current-liability,Liabilities,parent,,LIABILITIES
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,0.00,current-asset,Explicit zero,leaf,ASSETS,ZERO
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,-100.00,current-asset,Allowance (contra asset),leaf,ASSETS,ALLOW
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,300.00,current-asset,Receivable,leaf,ASSETS,REC
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,500.00,current-asset,Cash branch 20,leaf,CASH,CASH-B
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,500.00,current-asset,نقد، الفرع الأول,leaf,CASH,CASH-A
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,1000.00,current-asset,Cash subtotal,parent,ASSETS,CASH
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,1200.00,current-asset,Current assets,parent,,ASSETS
+post-closing,SYN-MAP-1,SYN-CHART-1,2026-09-30,2026-09-30,2026-01-01,actual,posted,functional,SAR,LOCAL-SYNTHETIC,SYNTHETIC-FIN-1A,,,Synthetic financial position,title,,TITLE

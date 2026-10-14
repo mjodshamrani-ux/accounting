@@ -1,0 +1,8 @@
+Mapping ID,Account ID,Complete dimensions,Line ID,Sign,Evidence ID,Entity,Ledger,Currency,Currency basis,Posting status,Posting layer,Period start,Period end,As of,Chart version,Map version,Closing basis
+M1,0010,branch=10,CASH-B,debit-positive,E1,SYNTHETIC-FIN-1A,LOCAL-SYNTHETIC,SAR,functional,posted,actual,2026-01-01,2026-09-30,2026-09-30,SYN-CHART-1,SYN-MAP-1,post-closing
+M2,0010,branch=20,CASH-A,debit-positive,E2,SYNTHETIC-FIN-1A,LOCAL-SYNTHETIC,SAR,functional,posted,actual,2026-01-01,2026-09-30,2026-09-30,SYN-CHART-1,SYN-MAP-1,post-closing
+M3,001,branch=10,REC,debit-positive,E3,SYNTHETIC-FIN-1A,LOCAL-SYNTHETIC,SAR,functional,posted,actual,2026-01-01,2026-09-30,2026-09-30,SYN-CHART-1,SYN-MAP-1,post-closing
+M4,0019,branch=10,ALLOW,debit-positive,E4,SYNTHETIC-FIN-1A,LOCAL-SYNTHETIC,SAR,functional,posted,actual,2026-01-01,2026-09-30,2026-09-30,SYN-CHART-1,SYN-MAP-1,post-closing
+M5,0099,branch=10,ZERO,debit-positive,E5,SYNTHETIC-FIN-1A,LOCAL-SYNTHETIC,SAR,functional,posted,actual,2026-01-01,2026-09-30,2026-09-30,SYN-CHART-1,SYN-MAP-1,post-closing
+M6,2000,branch=10,PAY,credit-positive,E6,SYNTHETIC-FIN-1A,LOCAL-SYNTHETIC,SAR,functional,posted,actual,2026-01-01,2026-09-30,2026-09-30,SYN-CHART-1,SYN-MAP-1,post-closing
+M7,3000,branch=10,CAP,credit-positive,E7,SYNTHETIC-FIN-1A,LOCAL-SYNTHETIC,SAR,functional,posted,actual,2026-01-01,2026-09-30,2026-09-30,SYN-CHART-1,SYN-MAP-1,post-closing

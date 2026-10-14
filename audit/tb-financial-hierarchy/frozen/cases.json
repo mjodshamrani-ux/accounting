@@ -1,0 +1,130 @@
+{
+  "generator": "fin1a-csv-writer-1",
+  "synthetic": true,
+  "cases": [
+    {
+      "id": "positive-nested",
+      "expected": "eligible",
+      "requiredCodes": []
+    },
+    {
+      "id": "positive-reordered",
+      "expected": "eligible",
+      "requiredCodes": []
+    },
+    {
+      "id": "equal-amount-wrong-owner",
+      "expected": "blocked",
+      "requiredCodes": [
+        "MAPPING_PROOF"
+      ]
+    },
+    {
+      "id": "two-parents",
+      "expected": "blocked",
+      "requiredCodes": [
+        "DUPLICATE_NODE"
+      ]
+    },
+    {
+      "id": "parent-cycle",
+      "expected": "blocked",
+      "requiredCodes": [
+        "CYCLE"
+      ]
+    },
+    {
+      "id": "missing-zero-leaf",
+      "expected": "blocked",
+      "requiredCodes": [
+        "PROOF_LINE",
+        "MAPPING_TARGET"
+      ]
+    },
+    {
+      "id": "blank-zero-amount",
+      "expected": "blocked",
+      "requiredCodes": [
+        "MONEY"
+      ]
+    },
+    {
+      "id": "wrong-control-total",
+      "expected": "blocked",
+      "requiredCodes": [
+        "CONTROL_TOTAL"
+      ]
+    },
+    {
+      "id": "wrong-classification-balanced",
+      "expected": "blocked",
+      "requiredCodes": [
+        "CLASSIFICATION"
+      ]
+    },
+    {
+      "id": "expired-proof",
+      "expected": "blocked",
+      "requiredCodes": [
+        "VALIDITY"
+      ]
+    },
+    {
+      "id": "duplicate-mapping",
+      "expected": "blocked",
+      "requiredCodes": [
+        "DUPLICATE_MAPPING_ACCOUNT"
+      ]
+    },
+    {
+      "id": "unmapped-zero-account",
+      "expected": "blocked",
+      "requiredCodes": [
+        "UNMAPPED_ACCOUNT",
+        "UNMAPPED_LEAF"
+      ]
+    },
+    {
+      "id": "mapping-to-parent",
+      "expected": "blocked",
+      "requiredCodes": [
+        "MAPPING_TARGET"
+      ]
+    },
+    {
+      "id": "wrong-contra-sign",
+      "expected": "blocked",
+      "requiredCodes": [
+        "LEAF_TOTAL"
+      ]
+    },
+    {
+      "id": "late-unknown-row",
+      "expected": "blocked",
+      "requiredCodes": [
+        "KIND"
+      ]
+    },
+    {
+      "id": "foreign-scope",
+      "expected": "blocked",
+      "requiredCodes": [
+        "SCOPE"
+      ]
+    },
+    {
+      "id": "missing-parent",
+      "expected": "blocked",
+      "requiredCodes": [
+        "PARENT"
+      ]
+    },
+    {
+      "id": "subminor-value",
+      "expected": "blocked",
+      "requiredCodes": [
+        "MONEY"
+      ]
+    }
+  ]
+}
