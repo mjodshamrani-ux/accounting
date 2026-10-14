@@ -365,6 +365,16 @@ export async function readFile(
   // `buffer` remains the source of the retained original and its hash.
   const display = await xlsxDisplayContext(compatible);
   await workbook.xlsx.load(compatible);
+  const expectedSheetNames = [...display.sheets.keys()];
+  if (
+    workbook.worksheets.length !== expectedSheetNames.length ||
+    workbook.worksheets.some(
+      (sheet, index) => sheet.name !== expectedSheetNames[index],
+    )
+  )
+    throw new Error(
+      'لم تُقرأ جميع أوراق Excel بأسمائها وترتيبها الأصلي؛ لا يمكن قبول مصنف جزئي',
+    );
   if (workbook.worksheets.length > MAX_SHEETS)
     throw new Error(`الحد ${MAX_SHEETS} ورقة في الملف`);
   if (

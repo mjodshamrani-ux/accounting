@@ -992,6 +992,10 @@ export const engineCatalog: Record<string, string> = {
     'Duplicate Excel sheet link; the source cannot be renamed or a sheet dropped',
   'جزء ورقة Excel ناقص أو غير مدعوم؛ لا يمكن قبول مصنف جزئي':
     'An Excel sheet part is missing or unsupported; a partial workbook cannot be accepted',
+  'لم تُقرأ جميع أوراق Excel بأسمائها وترتيبها الأصلي؛ لا يمكن قبول مصنف جزئي':
+    'Not all Excel worksheets were read with their original names and order; a partial workbook cannot be accepted',
+  'رابط ورقة Excel خارجي أو نمطه غير صالح؛ لا يمكن اعتباره جزءًا داخليًا':
+    'The Excel worksheet relationship is external or has an invalid mode; it cannot be treated as an internal part',
   // zip.ts
   'فهرس XLSX تالف أو أرشيف غير مدعوم':
     'Corrupt XLSX index or unsupported archive',

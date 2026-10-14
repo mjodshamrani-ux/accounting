@@ -202,10 +202,14 @@ void test('Signed gateway: 58 independent synthetic bundles exercise CSV financi
         name === 'negative-native-cache-mismatch' ||
         name.startsWith('format-sar-')
       ) {
-        // These precode originals use original.xml (not ExcelJS sheetN.xml) and a
-        // minimal font excluded by the unchanged native display guard. They prove
-        // oracle representations, not product-supported native originals.
-        await assert.rejects(() => fixture(name), /الملف لا يحتوي أوراقًا/);
+        // The generic reader now resolves original.xml instead of losing its
+        // worksheet. These unchanged precode originals still have a minimal font
+        // outside the native display contract, so the existing domain guard must
+        // reject them. The first full run failed the old no-sheets expectation;
+        // this is a rejection-stage correction, not native financial acceptance.
+        await assert.rejects(() => fixture(name), {
+          message: /^BANK_NATIVE_DISPLAY$/,
+        });
         const original = Uint8Array.from(
           await readFile(new URL(`fixtures/${name}/0.xlsx`, corpus)),
         ).buffer;
