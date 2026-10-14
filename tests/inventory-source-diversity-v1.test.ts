@@ -24,13 +24,16 @@ import {
 import {
   STOCK_VERSION,
   STOCK_SECTION_FAMILY,
+  STOCK_MATRIX_FAMILY,
+  STOCK_VALUES,
   STOCK_FIELDS,
   STOCK_ROLES,
   type StockInput,
 } from '../lib/reconciliation/inventory-register.ts';
 
 // Frozen INV-1A input/oracle remains unchanged; its revealed target sections
-// now exercise the INV-1B family. Historical failures stay in the audit report.
+// now exercise INV-1B sections and INV-1C transposed columns. Historical
+// failures stay in the audit report; original sources/oracle are unchanged.
 const suite = path.resolve(
   import.meta.dirname,
   '../audit/inventory-source-diversity-v1',
@@ -110,11 +113,12 @@ async function input(id: string, legacy = false): Promise<StockInput> {
       sheet: 0,
       role,
       family:
-        !legacy &&
-        source === 0 &&
-        (entry.container === 'xlsx' ||
-          files[0].sheets[0].rows[0]?.[1] === 'INV1A-SECTIONS-1')
-          ? STOCK_SECTION_FAMILY
+        !legacy && source === 0
+          ? files[0].sheets[0].rows[0]?.[1] === 'INV1A-MATRIX-1'
+            ? STOCK_MATRIX_FAMILY
+            : files[0].sheets[0].rows[0]?.[1] === 'INV1A-SECTIONS-1'
+              ? STOCK_SECTION_FAMILY
+              : STOCK_VERSION
           : STOCK_VERSION,
       confirmed: true,
     })) as StockInput['readings'],
@@ -479,16 +483,137 @@ void test('INV-1A revealed sections now prove every monetary value, dimension, p
       expected.sources.map((f) => f.sha256),
     );
   }
-  const matrix = await replayStock(await input('INV1A-P04'));
-  assert.equal(matrix.result.financial, 'source-error');
-  assert.equal(matrix.result.totals, null);
-  assert.ok(matrix.result.issues.some((issue) => issue.code === 'FORMAT'));
-  assert.equal(matrix.result.records[0].length, 0);
-  assert.equal(
-    matrix.result.memberIds.filter((id) => JSON.parse(id)[1] === 0).length,
-    21,
+});
+
+void test('INV-1A revealed native matrix proves literal fields, exact column ownership, separate physical members and unchanged original sources', async () => {
+  const original = await input('INV1A-P04');
+  const current = await replayStock(original);
+  const expected = observed.cases.find((c) => c.id === 'INV1A-P04')!;
+  const r = current.result;
+  assert.equal(r.financial, 'ready');
+  assert.equal(r.review, 'needs-review');
+  assert.deepEqual(r.issues, []);
+  assert.deepEqual(r.missing, []);
+  assert.deepEqual(r.totals, expected.totals);
+  assert.deepEqual(
+    r.records.map((records) => records.length),
+    [4, 4, 4, 2],
   );
-  // Successful generic reading is not native matrix financial support.
+  assert.deepEqual(
+    r.records[0].map((record) => record.values),
+    expected.sources[0].records.map((record) => [
+      record.raw['Item ID'],
+      record.raw['Item dimensions'],
+      record.quantityUnits,
+      record.raw['Unit'],
+      Number(record.raw['Quantity precision']),
+      record.postedValueMinor,
+      record.raw['Valuation reference'],
+    ]),
+  );
+  assert.deepEqual(
+    r.comparisons.map((comparison) => [
+      comparison.account,
+      comparison.dimensions,
+      comparison.registerMinor,
+      comparison.glMinor,
+      comparison.differenceMinor,
+    ]),
+    [
+      ['INV-1', 'branch=01', 100000, 100000, 0],
+      ['INV-1', 'branch=02', 50000, 50000, 0],
+    ],
+  );
+  assert.deepEqual(
+    r.records[0].map((record) => [record.row, record.column]),
+    [
+      [15, 2],
+      [15, 3],
+      [15, 4],
+      [15, 5],
+    ],
+  );
+  assert.deepEqual(
+    r.records[0].map((record) => JSON.parse(record.id)),
+    [2, 3, 4, 5].map((column) => [
+      STOCK_VERSION,
+      0,
+      expected.sources[0].sha256,
+      0,
+      15,
+      column,
+    ]),
+  );
+  assert.equal(r.memberIds.length, 31);
+  assert.equal(r.inventory.length, 35);
+  assert.equal(r.memberIds.filter((id) => JSON.parse(id)[1] === 0).length, 21);
+  for (const id of r.memberIds) assert.equal(JSON.parse(id).length, 5);
+  const evidence = r.matrixEvidence!;
+  assert.equal(r.sectionEvidence, undefined);
+  assert.equal(evidence.family, STOCK_MATRIX_FAMILY);
+  assert.equal(evidence.sourceHash, expected.sources[0].sha256);
+  assert.equal(evidence.bands.length, 1);
+  const band = evidence.bands[0];
+  assert.equal(band.header.row, 14);
+  assert.equal(band.header.column, 1);
+  assert.equal(band.header.raw, 'Field');
+  assert.equal(band.completedRolesAtRow, 21);
+  assert.equal(band.boundary!.kind, 'report-end');
+  assert.deepEqual(band.boundary!.citation, evidence.reportEnd);
+  assert.equal(evidence.reportEnd!.row, 22);
+  for (const [index, record] of band.records.entries()) {
+    assert.equal(record.recordId, r.records[0][index].id);
+    assert.equal(record.column, index + 2);
+    assert.equal(record.axis.row, 14);
+    assert.equal(record.axis.column, index + 2);
+    assert.deepEqual(record.anchor, record.fields['Item ID'].value);
+    assert.deepEqual(Object.keys(record.fields), STOCK_VALUES[0]);
+    for (const [field, pair] of Object.entries(record.fields)) {
+      const citation = expected.sources[0].records[index].citations[field];
+      assert.deepEqual(pair.value, {
+        sourceHash: expected.sources[0].sha256,
+        sheet: 0,
+        sheetName: current.state.files[0].sheets[0].name,
+        row: citation.row,
+        column: citation.column,
+        raw: citation.raw,
+      });
+      assert.equal(pair.value.column, record.column);
+      assert.equal(pair.role.row, pair.value.row);
+      assert.equal(pair.role.column, 1);
+      assert.equal(pair.role.raw, field);
+      for (const actual of [
+        pair.value,
+        pair.role,
+        record.axis,
+        record.anchor,
+      ]) {
+        assert.equal(actual.sourceHash, current.state.files[0].sha256);
+        assert.equal(
+          current.state.files[0].sheets[0].rows[actual.row - 1][
+            actual.column - 1
+          ],
+          actual.raw,
+        );
+      }
+    }
+  }
+  for (const [index, key] of STOCK_FIELDS.entries()) {
+    assert.equal(evidence.scope[key]!.row, index + 2);
+    assert.equal(evidence.scope[key]!.column, 3);
+    assert.equal(evidence.scope[key]!.raw, scope[key]);
+    assert.equal(evidence.scope[key]!.sourceHash, expected.sources[0].sha256);
+  }
+  const restored = await restoreStock(await saveStock(current.state));
+  assert.deepEqual(restored.result, r);
+  assert.deepEqual(
+    restored.state.files.map((file) => file.original),
+    original.files.map((file) => file.original),
+  );
+  assert.deepEqual(
+    restored.state.files.map((file) => file.sha256),
+    expected.sources.map((file) => file.sha256),
+  );
 });
 
 void test('INV-1A frozen negative sections cannot gain authority; swapped dimensions remain missing despite equal source totals', async () => {
@@ -499,16 +624,12 @@ void test('INV-1A frozen negative sections cannot gain authority; swapped dimens
     'INV1A-N04': 'DUPLICATE_COMPONENT',
     'INV1A-N06': 'SCOPE_CONFLICT',
     'INV1A-N07': 'CONTROL_MISMATCH',
-    'INV1A-N08': 'FORMAT',
+    'INV1A-N08': 'DUPLICATE_MATRIX_FIELD',
   };
   for (const entry of corpus.cases.filter((c) => c.id.startsWith('INV1A-N'))) {
     const current = await replayStock(await input(entry.id));
     const expected = observed.cases.find((c) => c.id === entry.id)!;
-    assert.equal(
-      current.result.financial,
-      entry.id === 'INV1A-N08' ? 'source-error' : expected.financial,
-      entry.id,
-    );
+    assert.equal(current.result.financial, expected.financial, entry.id);
     assert.equal(current.result.review, 'needs-review');
     if (entry.id === 'INV1A-N05') {
       assert.deepEqual(current.result.issues, []);

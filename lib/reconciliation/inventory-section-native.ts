@@ -319,10 +319,9 @@ export async function bindInventorySectionNative(
         if (!address) throw Error('STOCK_NATIVE_XML');
         current = {
           row: Number(address[2]),
-          column: address[1].split('').reduce(
-            (n, char) => n * 26 + char.charCodeAt(0) - 64,
-            0,
-          ),
+          column: address[1]
+            .split('')
+            .reduce((n, char) => n * 26 + char.charCodeAt(0) - 64, 0),
           type: a.t ?? 'n',
           value: '',
           formula: false,
@@ -443,6 +442,10 @@ export async function bindInventorySectionNative(
   }
   const declaredCurrency =
     prefixCurrencies.size === 1 ? [...prefixCurrencies][0] : undefined;
+  // Matrix fact roles run horizontally. This marker only scopes a display
+  // diagnostic; the accounting parser still validates the complete family.
+  const matrix =
+    sheet.rows[0]?.[0] === 'Format' && sheet.rows[0]?.[1] === 'INV1A-MATRIX-1';
   const isoCurrency =
     /(?:^|[^A-Z])(SAR|JPY|KWD|USD|EUR|GBP|AED|QAR|BHD|OMR|CNY|INR|CHF|AUD|CAD|HKD|SGD)(?=[^A-Z]|$)/gi;
   const formatSections = (format: string) => {
@@ -514,7 +517,7 @@ export async function bindInventorySectionNative(
     const label = sheet.rows[cell.row - 1]?.[0];
     if (
       hasCurrency &&
-      cell.column === 2 &&
+      (cell.column === 2 || (matrix && cell.column > 2)) &&
       ['Quantity', 'Quantity precision'].includes(label)
     )
       warn('NATIVE_CURRENCY_ROLE');

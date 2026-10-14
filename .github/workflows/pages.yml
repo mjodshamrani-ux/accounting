@@ -187,6 +187,15 @@ jobs:
           pnpm test:inventory-sections:oracle
           pnpm test:inventory-sections:proof
           pnpm test:inventory-sections:mutations
+      - name: Verify inventory matrix originals, quantities, dimensions, column ownership and worker binding
+        env:
+          INV_MATRIX_PROOF_DIR: ${{ runner.temp }}/inventory-matrix-proof
+          INV_MATRIX_MUTATION_DIR: ${{ runner.temp }}/inventory-matrix-mutations
+        run: |
+          pnpm test:inventory-matrix
+          pnpm test:inventory-matrix:oracle
+          pnpm test:inventory-matrix:proof
+          pnpm test:inventory-matrix:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
@@ -197,6 +206,11 @@ jobs:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
           INV_SECTION_BROWSER_DIR: ${{ runner.temp }}/inventory-section-browser
         run: pnpm test:inventory-sections:browser
+      - name: Verify inventory matrix CSV and Excel uploads and independently checked bilingual downloads
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          INV_MATRIX_BROWSER_DIR: ${{ runner.temp }}/inventory-matrix-browser
+        run: pnpm test:inventory-matrix:browser
       - name: Verify signed-kind gateway actual Worker, Arabic and English mobile downloads independently
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
