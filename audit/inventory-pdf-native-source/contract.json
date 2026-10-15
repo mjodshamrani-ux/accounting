@@ -1,0 +1,34 @@
+{
+  "version": "native-pdf-source-1",
+  "stage": "INV-1F-G1",
+  "purpose": "Guarded native source geometry only; not stock PDF financial activation",
+  "input": "Owned original ArrayBuffer; snapshot before first await; same eight MiB limit",
+  "coordinates": "PDF units relative to visible-page lower-left; original page view retained",
+  "physicalIdentity": ["SHA-256 of captured original bytes", "one-based page", "one-based PDF.js text item"],
+  "text": "Nonblank native items; whitespace items leave gaps in physical item indices. Keep glyphText and extractionText when present. No table, money, quantity, dimension or scope inference.",
+  "sharedGuards": [
+    "native PDF.js and audited Unicode/font integrity",
+    "complete operator streams",
+    "page count, permissions, layers, widgets, rotation and clipping",
+    "paint visibility, occlusion, contrast, numeric glyph binding and image diagnosis",
+    "existing text, character, row and layout-work limits"
+  ],
+  "readingIssues": "Retain overlap and page-edge warnings with page, line and reasons; never convert these to a financial approval. Later domain reader must resolve or block them under its explicit isolation contract.",
+  "failure": "No source result until all pages have passed; restore guards and destroy the document on success, failure or thrown progress callback.",
+  "budget": {
+    "frozenSources": "All nineteen PDFs and eighty-one v2 sealed files, unchanged",
+    "sourceStories": 1,
+    "pdfFamilies": 2,
+    "positivePdfPresentations": 4,
+    "aggregatePages": 56,
+    "unitTests": 28,
+    "checkerFaults": 8,
+    "productMutations": 7
+  },
+  "excluded": [
+    "stock-read/request/UI PDF acceptance",
+    "inventory PDF accounting records, replay, decisions and Excel",
+    "OCR, images, Arabic inventory PDF family, models or cloud fallback",
+    "new file/page limits, enterprise capacity or blind holdout claims"
+  ]
+}

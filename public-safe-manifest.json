@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 28909,
-      "sha256": "9e399c33a1275c26b9808b4cd95988c9046a5a0d41e46d8a3c7bea99f5f3db73",
+      "bytes": 29179,
+      "sha256": "42507d2907845545e468af31c2b71add54c837c7bd5bdacb24374e1b27128922",
       "kind": "text"
     },
     {
@@ -35193,8 +35193,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 16462,
-      "sha256": "a0a439c2083066cfa533c0e9de1df8ecea55243d35a3f416173acd6e34722ecc",
+      "bytes": 17508,
+      "sha256": "edf3ba2d8f17e3edccf0ff2de79abfea8a9fac08a07458a254a45c4a783c10b7",
       "kind": "text"
     },
     {
@@ -35247,8 +35247,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 12236,
-      "sha256": "c27c9927c7260dc591861f48509758325cd0a4205c3c2f93bb1f293728d3cb04",
+      "bytes": 12793,
+      "sha256": "794489e196bc56e5a738cfa2de7aff5b2cba57b4032453efc1ebf60b9ca98bcd",
       "kind": "text"
     },
     {
@@ -35265,8 +35265,8 @@
     },
     {
       "path": "docs/reference/ARCHITECTURE.ar.md",
-      "bytes": 10285,
-      "sha256": "b1bae8edc68a8cf1d11b3c50dad8fa903b482c125ddf7b06b9c08025a33ca651",
+      "bytes": 11699,
+      "sha256": "b5c352bd5338e561b98f24c18ff055fa7b719bc982f06976ac93fd96c031a4a7",
       "kind": "text"
     },
     {
@@ -35307,8 +35307,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 37898,
-      "sha256": "5a3c4530a87ea99a0a41341bcf32f5c998e8e52d0d7a4f45c3da03eec6f8d7ae",
+      "bytes": 39068,
+      "sha256": "2414b85231052739616e7b4595751107a6410134f79f2775666523a781f3312a",
       "kind": "text"
     },
     {
@@ -35443,8 +35443,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 15126,
-      "sha256": "597e13973f59b61cb4cc38ffa7ff38c858aad188f2300f1e5ea8f647405dab43",
+      "bytes": 16236,
+      "sha256": "1f4b98bdc47b984b8e68846d396c4187b34247ee2741d9bd1d290c73d2c83672",
       "kind": "text"
     },
     {
@@ -35554,7 +35554,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "0db3247ed69b210aa91a77765472d9cacedcf9e13e454ddf8b2afaeda4e2d76c",
+      "sha256": "b9b9b2b4c5785de9aa798b2fd914476856386326d702a75ead0691b0687aab37",
       "kind": "text"
     },
     {
@@ -36261,8 +36261,8 @@
     },
     {
       "path": "lib/reconciliation/pdf.ts",
-      "bytes": 39726,
-      "sha256": "2294c67b0146e0efb2f0abbcdf6f80ee97f41423af52cfe6af98b897753733da",
+      "bytes": 42541,
+      "sha256": "e39cfebd97bed33e6eedf555046a4dbd6d5639f21be1a7eedf0f80462c00c8cd",
       "kind": "text"
     },
     {
@@ -36549,8 +36549,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 14897,
-      "sha256": "6394576d3751236b0d9817b6e4c73555752244b10f61ad980459438a5e8ef610",
+      "bytes": 15197,
+      "sha256": "97e2de22da335a4bc521e182d4251088d3a0f8fafa1fe6b65a5c695d2153bf41",
       "kind": "text"
     },
     {
@@ -36815,8 +36815,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 6925,
-      "sha256": "667a616aa08bb4f324361e012561b414ac70171afa9b5dc01dd7220d67a7d2ec",
+      "bytes": 7003,
+      "sha256": "07ff92bb68916768c1886a066839af09aead131e039eaf953b970a8ab2807671",
       "kind": "text"
     },
     {
@@ -39902,6 +39902,54 @@
       "bytes": 5670,
       "sha256": "7296ab9a12f9e53cbaab6cfb80d6ce02856c6b1b0429c299ee6d23bccbf85b73",
       "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-NATIVE-SOURCE.ar.md",
+      "bytes": 11698,
+      "sha256": "9e1bed49395acc98c8c14a5c6078e005e75ccd073ac1e506356dc6d0dea94edb",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/pdf-native-source.ts",
+      "bytes": 1044,
+      "sha256": "03588f592d3c3c3bf7dd5bcd5bfbc38304b2b12a35cd83e63ecc6ac4ae3dc4bc",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-native-source-proof.mjs",
+      "bytes": 4115,
+      "sha256": "2b475d1eca93726200c2c61cf52d8a5af05c406f083d0f24a115960a7ef9e18f",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-pdf-native-source-mutations.mjs",
+      "bytes": 3773,
+      "sha256": "f3b906bbae63fb81b812270a7dcd5257b1266cb3537d95e7b14c23411b9b0ff1",
+      "kind": "text"
+    },
+    {
+      "path": "tests/pdf-native-source.test.ts",
+      "bytes": 10057,
+      "sha256": "069a153b7e109488ec9ef2ffadea31632d9f16f001a3c39d24888453875fd130",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/check_reading.py",
+      "bytes": 6522,
+      "sha256": "fddc28fb9f6cbab00994bdc044aa09398b437663db7b1839ea0cdf7d85a84389",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/contract.json",
+      "bytes": 1907,
+      "sha256": "d3ade6160c66015abacbd5d5eece3b33a02dc630270cb7238d6f76acc7737c6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/README.ar.md",
+      "bytes": 2421,
+      "sha256": "781e097ca74d1626e74740e8c3fd008fc8fbe0f2bf959ffaa04fe512c152df11",
+      "kind": "text"
     }
   ],
   "distribution": [
@@ -39912,27 +39960,27 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-Dl4NrJRb.js",
+      "path": "assets/ar-io-2tRRIdKc.js",
       "bytes": 11377,
-      "sha256": "f11c90cf56d1458c2281745c7d30d68ab0421eb3449e3a7ed8a62c7b3da295e7",
+      "sha256": "ef6037d05ca695e74d0f89f16427ff31576aa56a3b08a30878c15c793d12d081",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-CYI-cNVs.js",
+      "path": "assets/bank-adjustment-io-BK58H6Pv.js",
       "bytes": 12101,
-      "sha256": "b4bdee1a9826421c40557ea8381ba7c1f0bcd6b8ae37ce578e6467fc774e5655",
+      "sha256": "4d8b4f164e190022312dba9236016a9961ae1158f93f9a1dd0faba6dd9a0be8f",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-9rKV9inL.js",
+      "path": "assets/bank-io-2bqNUoZr.js",
       "bytes": 6331,
-      "sha256": "d64b1d534c52721f7dce4e203f5532b4522a51daf95d5736ce28fb40f16701cf",
+      "sha256": "f832a55f02993e1cb18e3f50b2aa35826be6fafecc08365bf0bb4ffdfc3038b5",
       "kind": "text"
     },
     {
-      "path": "assets/bank-native-display-11TaCkds.js",
+      "path": "assets/bank-native-display-BUFapwUW.js",
       "bytes": 6148,
-      "sha256": "ae438ddd574b7334e22b90932e5d81a5bc15d4f59c243b5f3bc976f8d90e21d3",
+      "sha256": "89c922528c9c61e490860ee52e10ec300e2c411bb25189b76647a1f89dbc66f2",
       "kind": "text"
     },
     {
@@ -39942,9 +39990,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/core-ByuiytiH.js",
-      "bytes": 273222,
-      "sha256": "806376c6a542dd1ab29c0d09c8fcc375637cb3f22e071c75b2878a3d6b879ebb",
+      "path": "assets/core-kw4DDjC0.js",
+      "bytes": 273399,
+      "sha256": "d6b100931ddb26c042ae022ab5a150a4dbfc956caf70a3d0df1b7e0fd024274f",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -39962,15 +40010,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-CYCAsMfO.js",
+      "path": "assets/fixed-assets-io-2yj0i7cl.js",
       "bytes": 9830,
-      "sha256": "facac9d55c35942389146179409865dd5b3ab80b9750c9eb36d9ea1078db866b",
+      "sha256": "0797b420b530f9df3d1eb4cf05e0a34eb5bb0f09f773b8af8ec6f4552b477eca",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-BCJP-NZ-.js",
+      "path": "assets/gl-tb-io-DYXcjdI3.js",
       "bytes": 2185,
-      "sha256": "f8cc103f9234aa9ecacb6160199e1bdcc4a4c8b0236baded987870cd232f2b6d",
+      "sha256": "eadbc522b239250adbc72417bc06cc6d042a0d4ac690f951762736f0afd74995",
       "kind": "text"
     },
     {
@@ -39980,9 +40028,9 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-ADCfvvD7.js",
-      "bytes": 6369113,
-      "sha256": "751e2ddb99381cf6160b72c90afb11f811ea78eb723569a96c6f5f7b59c961f0",
+      "path": "assets/index-DMda9DMI.js",
+      "bytes": 6369292,
+      "sha256": "122ea804b2bfae8eaf07fd495982edcd89981ca69543f514c9955a4497052e6d",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
@@ -39990,10 +40038,10 @@
       }
     },
     {
-      "path": "assets/inventory-register-io-wwFdavjx.js",
+      "path": "assets/inventory-register-io-BIjmd_DG.js",
       "kind": "text",
       "bytes": 20227,
-      "sha256": "eb578fbd15b80e381c79ea6e1dc01e84c76c38d0874361ba572ea22b3f9bcfe7"
+      "sha256": "b525c3f3b041a78445bdec7d2e5558cee93e789bae48d9c994322e25afe7dd4d"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -40006,15 +40054,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-BpN_8o2z.js",
+      "path": "assets/payment-gateway-io-Cn-sot0O.js",
       "bytes": 6391,
-      "sha256": "1748378d9c01b233fbefc86f0ee63e8ec293ecf5340c2d08cce56c22bd153b26",
+      "sha256": "45e4ae5a69892e994dd9ad8db8d707a462903b1aa518817774ae528a74a95a45",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-CcKxk_lB.js",
+      "path": "assets/payment-gateway-source-DuLQqY1Z.js",
       "bytes": 6798,
-      "sha256": "75808086d61a213a3be271028a64a1e4cdb36d79431f6f755857c1d26e0c6caa",
+      "sha256": "66ce36ca68787b6ff9b666eeb76c80964ffb0691431c293278b790b12f340b8d",
       "kind": "text"
     },
     {
@@ -40044,9 +40092,9 @@
       }
     },
     {
-      "path": "assets/protocol-BgrzJDMM.js",
+      "path": "assets/protocol-CwdTqC1k.js",
       "bytes": 118559,
-      "sha256": "d32a87c1dfb77adc0d470db89b7f0913c6f3b27dbbde4f1db3c1f2570c6a50e2",
+      "sha256": "3c48ede90dbdf030263e0665bf031a2dc0a04873c5931ffa897fcac7c9a77bc0",
       "kind": "text"
     },
     {
@@ -40128,16 +40176,6 @@
       "kind": "text"
     },
     {
-      "path": "fonts/noto-sans-arabic-variable.woff2",
-      "bytes": 361536,
-      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
-      "kind": "approved-binary",
-      "provenance": {
-        "type": "licensed-vendor",
-        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
-      }
-    },
-    {
       "path": "fonts/NotoSansArabic-OFL.txt",
       "bytes": 4382,
       "sha256": "07fc70bfeb985cc1a87a8587d0a0c80bab11c86c9dc3fd95b6f0cb332f983e96",
@@ -40162,6 +40200,16 @@
       "sha256": "55cd0db49a2fd08cb6b991c58f53fa224ae5e0538bb700fa28e1f480b0c19cd5"
     },
     {
+      "path": "fonts/noto-sans-arabic-variable.woff2",
+      "bytes": 361536,
+      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
+      }
+    },
+    {
       "path": "fonts/thmanyah-serif-display-bold.woff2",
       "kind": "approved-binary",
       "provenance": {
@@ -40174,7 +40222,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "77a60b5eb9720916042d3dd3a2c20e42209b7b28a9710783b50e2546094e6fc8",
+      "sha256": "af4ec32a48f45d123d4fce43d7fe784619be0f89296f6fd7fac25cbd2779941d",
       "kind": "text"
     },
     {
@@ -40184,15 +40232,15 @@
       "kind": "text"
     },
     {
-      "path": "ocr/tesseract-core-lstm.wasm.js",
-      "bytes": 3896484,
-      "sha256": "eef5f8b2f8e20e150680b20adaec4a60babafee3adbe8a94583c81fee46e8680",
-      "kind": "text"
-    },
-    {
       "path": "ocr/TESSERACT-JS-LICENSE.txt",
       "bytes": 11357,
       "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "kind": "text"
+    },
+    {
+      "path": "ocr/tesseract-core-lstm.wasm.js",
+      "bytes": 3896484,
+      "sha256": "eef5f8b2f8e20e150680b20adaec4a60babafee3adbe8a94583c81fee46e8680",
       "kind": "text"
     },
     {
