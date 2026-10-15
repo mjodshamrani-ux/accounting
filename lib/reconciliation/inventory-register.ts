@@ -1,3 +1,9 @@
+import { stockCSV } from './inventory-register-csv.ts';
+import { STOCK_PDF_FAMILY } from './inventory-pdf-register.ts';
+import {
+  readInventoryPdfAccounting,
+  type InventoryPdfAccounting,
+} from './inventory-pdf-accounting.ts';
 import {
   STOCK_COLUMN_FAMILY,
   parseInventoryColumnHierarchy,
@@ -119,7 +125,8 @@ export type StockReading = {
     | typeof STOCK_SECTION_FAMILY
     | typeof STOCK_MATRIX_FAMILY
     | typeof STOCK_HIERARCHY_FAMILY
-    | typeof STOCK_COLUMN_FAMILY;
+    | typeof STOCK_COLUMN_FAMILY
+    | typeof STOCK_PDF_FAMILY;
   confirmed: boolean;
 };
 export type StockEvent = {
@@ -143,6 +150,7 @@ type RecordRow = {
   source: number;
   row: number;
   column?: number;
+  page?: number;
   values: (string | number)[];
 };
 type Comparison = {
@@ -162,7 +170,13 @@ export type StockResult = {
   completeness: StockInput['completeness'];
   decimals: number;
   records: RecordRow[][];
-  issues: { source: number; row: number; column?: number; code: string }[];
+  issues: {
+    source: number;
+    row: number;
+    column?: number;
+    page?: number;
+    code: string;
+  }[];
   missing: string[];
   comparisons: Comparison[];
   totals: { registerMinor: number; glMinor: number } | null;
@@ -190,6 +204,16 @@ export type StockResult = {
   matrixEvidence?: StockMatrixEvidence;
   hierarchyEvidence?: StockHierarchyEvidence;
   columnEvidence?: StockColumnEvidence;
+  pdfEvidence?: InventoryPdfAccounting & {
+    links: {
+      registerId: string;
+      mappingIds: string[];
+      policyIds: string[];
+      glIds: string[];
+      account: string[] | null;
+      supported: boolean;
+    }[];
+  };
   events: StockEvent[];
   financial: 'source-error' | 'missing' | 'difference' | 'ready';
   review: 'needs-review' | 'accepted' | 'rejected';
@@ -256,6 +280,133 @@ export function assertStockEventBudget(events: unknown) {
   }
 }
 export function reconcileStock(input: StockInput): StockResult {
+  return reconcileStockInternal(input);
+}
+
+export type StockPdfOriginalRequest = {
+  files: [
+    { name: string; original: ArrayBuffer },
+    { name: string; original: ArrayBuffer },
+    { name: string; original: ArrayBuffer },
+    { name: string; original: ArrayBuffer },
+  ];
+  scope: StockScope;
+};
+export type StockPdfComparison = {
+  version: 'inventory-pdf-original-comparison-1';
+  sources: { name: string; original: ArrayBuffer; sha256: string }[];
+  result: StockResult;
+};
+/** Experimental G3 accounting entry point, not a Worker/session/UI action.
+ * All four originals and scope are owned before any async work. No cache,
+ * declared hash, approval event, synthetic CSV or caller geometry is accepted.
+ */
+export async function compareInventoryPdfSources(
+  request: StockPdfOriginalRequest,
+): Promise<StockPdfComparison> {
+  if (
+    !plain(request) ||
+    !keys(request, ['files', 'scope']) ||
+    !Array.isArray(request.files) ||
+    request.files.length !== 4 ||
+    !plain(request.scope) ||
+    !keys(request.scope, [...STOCK_FIELDS, 'confirmed'])
+  )
+    fail('PDF_REQUEST');
+  const scope = { ...request.scope };
+  const originals = request.files.map((f, i) => {
+    if (
+      !plain(f) ||
+      !keys(f, ['name', 'original']) ||
+      typeof f.name !== 'string' ||
+      !(i === 0 ? /\.pdf$/i : /\.csv$/i).test(f.name) ||
+      !(f.original instanceof ArrayBuffer) ||
+      !f.original.byteLength ||
+      f.original.byteLength > MAX_FILE_BYTES
+    )
+      fail('PDF_REQUEST');
+    text(f.name, 255);
+    return { name: f.name, original: f.original.slice(0) };
+  });
+  if (
+    scope.confirmed !== true ||
+    !STOCK_FIELDS.every((k) => text(scope[k]) === scope[k])
+  )
+    fail('SCOPE');
+  const decimals = currencyPrecision(scope.currency);
+  if (decimals === undefined || !['SAR', 'JPY', 'KWD'].includes(scope.currency))
+    fail('CURRENCY');
+  const pdf = await readInventoryPdfAccounting(
+    originals[0].original,
+    scope,
+    STOCK_SCOPE_HEADERS,
+    STOCK_FIELDS,
+    decimals,
+    scaled,
+    bounded,
+  );
+  const files: SourceFile[] = [];
+  for (const [index, original] of originals.entries()) {
+    const sha256 = Array.from(
+      new Uint8Array(await crypto.subtle.digest('SHA-256', original.original)),
+      (n) => n.toString(16).padStart(2, '0'),
+    ).join('');
+    // The PDF sheet is a physical text inventory, never a disguised CSV source.
+    const tokenPages =
+      index === 0
+        ? pdf.reading.source.pages.map(
+            (p) => new Map(p.tokens.map((t) => [t.item, t.text])),
+          )
+        : [];
+    const rows =
+      index === 0
+        ? pdf.reading.inventory.map((line) =>
+            line.items.map((item) => tokenPages[line.page - 1].get(item)!),
+          )
+        : stockCSV(original.original);
+    files.push({
+      ...original,
+      sha256,
+      sheets: [
+        {
+          name: index === 0 ? 'PDF physical lines' : 'CSV',
+          rows,
+          formulaRows: [],
+          hiddenRows: [],
+        },
+      ],
+    });
+  }
+  if (files[0].sha256 !== pdf.reading.source.sha256) fail('SOURCE_HASH');
+  const result = reconcileStockInternal(
+    {
+      files: files as StockInput['files'],
+      readings: STOCK_ROLES.map((role, i) => ({
+        sheet: 0,
+        role,
+        family: i === 0 ? STOCK_PDF_FAMILY : STOCK_VERSION,
+        confirmed: true,
+      })) as StockInput['readings'],
+      scope,
+      completeness: { confirmed: false, reference: '', note: '' },
+      events: [],
+    },
+    pdf,
+  );
+  return {
+    version: 'inventory-pdf-original-comparison-1',
+    sources: files.map((f) => ({
+      name: f.name,
+      original: f.original!,
+      sha256: f.sha256!,
+    })),
+    result,
+  };
+}
+function reconcileStockInternal(
+  input: StockInput,
+  pdf?: InventoryPdfAccounting,
+): StockResult {
   if (
     !plain(input) ||
     !keys(input, ['files', 'readings', 'scope', 'completeness', 'events']) ||
@@ -303,13 +454,18 @@ export function reconcileStock(input: StockInput): StockResult {
           (r.family === STOCK_SECTION_FAMILY ||
             r.family === STOCK_MATRIX_FAMILY ||
             r.family === STOCK_HIERARCHY_FAMILY ||
-            r.family === STOCK_COLUMN_FAMILY)
+            r.family === STOCK_COLUMN_FAMILY ||
+            (r.family === STOCK_PDF_FAMILY && pdf !== undefined))
         )) ||
       r.confirmed !== true
     )
       fail('READING');
   });
   input.files.forEach((f, source) => {
+    const nativePdf =
+      source === 0 &&
+      pdf !== undefined &&
+      input.readings[0].family === STOCK_PDF_FAMILY;
     const sections =
       source === 0 &&
       (input.readings[source].family === STOCK_SECTION_FAMILY ||
@@ -321,7 +477,11 @@ export function reconcileStock(input: StockInput): StockResult {
     text(f.name, 255);
     if (
       f.kind !== undefined ||
-      !(sections ? /\.(?:csv|xlsx)$/i.test(f.name) : /\.csv$/i.test(f.name)) ||
+      !(nativePdf
+        ? /\.pdf$/i.test(f.name)
+        : sections
+          ? /\.(?:csv|xlsx)$/i.test(f.name)
+          : /\.csv$/i.test(f.name)) ||
       f.sheets.length !== 1 ||
       !(f.original instanceof ArrayBuffer) ||
       !f.original.byteLength ||
@@ -337,7 +497,7 @@ export function reconcileStock(input: StockInput): StockResult {
       fail('SOURCE_CAPACITY');
     if (
       sh.rows.reduce((n, row) => n + row.reduce((a, v) => a + v.length, 0), 0) >
-      (native ? MAX_FILE_BYTES : f.original.byteLength)
+      (native || nativePdf ? MAX_FILE_BYTES : f.original.byteLength)
     )
       fail('SOURCE_CAPACITY');
     const allowedMetadata = native
@@ -502,6 +662,70 @@ export function reconcileStock(input: StockInput): StockResult {
     }
   };
   input.files.forEach((f, source) => {
+    if (source === 0 && readings[source].family === STOCK_PDF_FAMILY && pdf) {
+      result.pdfEvidence = { ...pdf, links: [] };
+      const offsets = new Map<number, number>();
+      let offset = 0;
+      for (const page of pdf.reading.source.pages) {
+        offsets.set(page.page, offset);
+        offset += pdf.reading.inventory.filter(
+          (r) => r.page === page.page,
+        ).length;
+      }
+      for (const line of pdf.reading.inventory) {
+        const row = offsets.get(line.page)! + line.line;
+        result.inventory.push({
+          source,
+          row,
+          kind:
+            line.kind === 'record'
+              ? 'data'
+              : line.kind === 'unresolved'
+                ? 'error'
+                : line.kind === 'header'
+                  ? 'header'
+                  : 'control',
+        });
+        if (line.kind === 'record' || line.kind === 'unresolved')
+          result.memberIds.push(
+            JSON.stringify([
+              STOCK_PDF_FAMILY,
+              source,
+              f.sha256,
+              line.page,
+              line.line,
+            ]),
+          );
+      }
+      for (const issue of pdf.issues)
+        result.issues.push({
+          source,
+          row: (offsets.get(issue.page) ?? 0) + issue.line,
+          page: issue.page,
+          code: issue.code,
+        });
+      for (const record of pdf.records)
+        try {
+          const values = interpretValues(source, (k) => record.raw[k]);
+          result.records[0].push({
+            id: record.id,
+            source,
+            row: record.row,
+            page: record.page,
+            values,
+          });
+        } catch (e) {
+          if (!(e instanceof Error) || !e.message.startsWith('STOCK_')) throw e;
+          result.issues.push({
+            source,
+            row: record.row,
+            page: record.page,
+            code: e.message.slice(6),
+          });
+        }
+      if (!result.records[source].length) absent('source:' + source);
+      return;
+    }
     if (source === 0 && readings[source].family === STOCK_COLUMN_FAMILY) {
       const parsed = parseInventoryColumnHierarchy(
         f,
@@ -839,16 +1063,42 @@ export function reconcileStock(input: StockInput): StockResult {
     group.push(row);
     evidenceIndex.set(key, group);
   }
+  const glIndex = new Map<string, RecordRow[]>();
+  if (result.pdfEvidence)
+    for (const gl of result.records[3]) {
+      const key = itemKey(gl.values);
+      const group = glIndex.get(key) ?? [];
+      group.push(gl);
+      glIndex.set(key, group);
+    }
   for (const item of result.records[0]) {
     const v = item.values,
       key = itemKey(v),
       mapping = mappingIndex.get(key) ?? [];
+    const link = result.pdfEvidence
+      ? {
+          registerId: item.id,
+          mappingIds: mapping.map((m) => m.id),
+          policyIds: [] as string[],
+          glIds: [] as string[],
+          account: null as string[] | null,
+          supported: false,
+        }
+      : undefined;
+    if (link) result.pdfEvidence!.links.push(link);
     if (mapping.length !== 1) {
       absent('mapping:' + key);
       continue;
     }
     const m = mapping[0].values,
       evidence = evidenceIndex.get(m[5]) ?? [];
+    if (link) {
+      link.policyIds = evidence.map((e) => e.id);
+      link.account = m.slice(3, 5) as string[];
+      link.glIds = (glIndex.get(compound(m.slice(3, 5))) ?? []).map(
+        (g) => g.id,
+      );
+    }
     const expected = [v[0], v[1], v[3], v[4], v[6], m[3], m[4]];
     if (
       evidence.length !== 1 ||
@@ -857,6 +1107,7 @@ export function reconcileStock(input: StockInput): StockResult {
       absent('evidence:' + key);
       continue;
     }
+    if (link) link.supported = true;
     const account = compound(m.slice(3, 5));
     supported.set(account, (supported.get(account) ?? 0n) + BigInt(v[5]));
   }

@@ -50,14 +50,14 @@ const mutations = [
   ['caller-bytes', 'const buffer = input.slice(0);', 'const buffer = input;'],
   [
     'page-ownership',
-    'pages: pages.map((page, index) => ({\n        page: index + 1,',
-    'pages: pages.map((page, index) => ({\n        page: 1,',
+    'pages: pages.map((page, index) => ({\n      page: index + 1,',
+    'pages: pages.map((page, index) => ({\n      page: 1,',
   ],
   ['visible-origin', 'y: token.y - page.view[1],', 'y: token.y,'],
   [
     'layout-warnings',
-    'if (line.issues.length)\n          readingIssues.push(',
-    'if (false)\n          readingIssues.push(',
+    'if (line.issues.length)\n        readingIssues.push(',
+    'if (false)\n        readingIssues.push(',
   ],
   [
     'paint-guard',

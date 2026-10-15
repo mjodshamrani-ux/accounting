@@ -1,0 +1,35 @@
+{
+  "version": "inventory-pdf-accounting-1",
+  "sourceVersion": "native-pdf-source-1",
+  "literalVersion": "native-pdf-literals-1",
+  "inputManifest": "audit/inventory-pdf-foundation/INPUT-MANIFEST.v2.json",
+  "ready": ["P01", "P02", "P03", "P04"],
+  "difference": ["N04"],
+  "missing": ["N05", "N11"],
+  "sourceErrors": {
+    "N01": "PAGE_SEQUENCE",
+    "N02": "PAGE_SEQUENCE",
+    "N03": "CONTINUATION",
+    "N06": "MISSING_FIELD",
+    "N07": "UNCLASSIFIED_ROW",
+    "N08": "REPORT_END",
+    "N09": "PAGE_TOTAL",
+    "N10": "SCOPE_CONFLICT",
+    "N12": "PRECISION",
+    "N13": "HEADER_DIMENSIONS",
+    "N14": "REPORT_ID",
+    "N15": "CONTINUATION"
+  },
+  "facts": [
+    ["0008", "warehouse=NORTH;batch=LOT-X", 1250, "KG", 3, 410125, "VAL-FA"],
+    ["08", "warehouse=NORTH;batch=LOT-Y", 250, "KG", 2, 189875, "VAL-FB"],
+    ["0008", "warehouse=SOUTH;batch=LOT-X", 1250, "G", 0, 600000, "VAL-FC"],
+    ["8", "warehouse=SOUTH;batch=LOT-Z", 3, "EA", 0, 42500, "VAL-FD"],
+    ["008", "warehouse=EAST;batch=LOT-X", 50, "KG", 2, 42500, "VAL-FE"],
+    ["00", "warehouse=NORTH;batch=LOT-X", 0, "EA", 0, 0, "VAL-FZ"],
+    ["00008", "warehouse=WEST;batch=RETURN", 125, "KG", 3, 750, "VAL-FF"]
+  ],
+  "reportMinor": 1285750,
+  "activation": "G3 original-bytes library only; no Worker, session, approval, export or UI activation",
+  "comparisonVersion": "inventory-pdf-original-comparison-1"
+}

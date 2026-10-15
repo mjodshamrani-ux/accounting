@@ -1,4 +1,5 @@
 import { bidi } from './pdf-bidi.js';
+import type { PdfLiteralTrace } from './pdf-native-source.ts';
 
 // PDF.js applies its Unicode bidi algorithm between the glyph stream and text
 // extraction. Verify that same transformation per text run. The original text
@@ -10,6 +11,7 @@ export function bindTextPaints(
   texts: string[],
   boxes: number[][],
   rawRuns?: Map<number, string>,
+  literal?: { trace: PdfLiteralTrace; maxChars: number; maxOperators?: number },
 ): Map<number, number[][]> {
   const compact = (text: string) => text.replace(/\s/gu, '');
   const runs = texts
@@ -20,7 +22,19 @@ export function bindTextPaints(
     raw = '',
     length = 0;
   let operators = new Set<number>();
+  const parts: string[] = [];
+  let offset = 0,
+    start = -1;
+  let spacing = { char: 0, word: 0, scale: 100 };
+  const states: (typeof spacing)[] = [];
   for (let i = 0; i < fn.length; i++) {
+    if (literal) {
+      if (fn[i] === ops.save) states.push({ ...spacing });
+      if (fn[i] === ops.restore) spacing = states.pop() ?? spacing;
+      if (fn[i] === ops.setCharSpacing) spacing.char = Number(args[i]?.[0]);
+      if (fn[i] === ops.setWordSpacing) spacing.word = Number(args[i]?.[0]);
+      if (fn[i] === ops.setHScale) spacing.scale = Number(args[i]?.[0]);
+    }
     if (
       ![
         ops.showText,
@@ -34,15 +48,30 @@ export function bindTextPaints(
     if (!Array.isArray(glyphs))
       throw new Error('تعذر التحقق من ترتيب رسم نص PDF');
     bindings.set(i, []);
+    const operatorStart = offset;
+    let adjusted =
+      spacing.char !== 0 ||
+      spacing.word !== 0 ||
+      spacing.scale !== 100 ||
+      fn[i] === ops.nextLineSetSpacingShowText;
     for (const glyph of glyphs) {
-      if (typeof glyph === 'number') continue;
+      if (typeof glyph === 'number') {
+        if (glyph !== 0) adjusted = true;
+        continue;
+      }
       if (
         !glyph ||
         typeof glyph !== 'object' ||
         typeof glyph.unicode !== 'string'
       )
         throw new Error('ترميز رسم PDF غير قابل للتحقق');
+      if (literal) {
+        if (!glyph.unicode || offset + glyph.unicode.length > literal.maxChars)
+          throw new Error('PDF_LITERAL_CAPACITY_OR_ENCODING');
+        parts.push(glyph.unicode);
+      }
       for (const char of glyph.unicode) {
+        if (literal) offset += char.length;
         if (/\s/u.test(char)) {
           // Spaces may be inserted geometrically by PDF.js. Keep real internal
           // spaces for its bidi direction threshold, without counting them.
@@ -52,6 +81,7 @@ export function bindTextPaints(
         const current = runs[run];
         if (!current?.box)
           throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
+        if (literal && start < 0) start = offset - char.length;
         raw += char;
         length += char.length;
         operators.add(i);
@@ -67,6 +97,10 @@ export function bindTextPaints(
         )
           throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
         rawRuns?.set(current.index, raw);
+        if (literal) {
+          literal.trace.items.push({ item: current.index, start, end: offset });
+          start = -1;
+        }
         for (const op of operators) {
           const used = bindings.get(op)!;
           if (!used.includes(current.box)) used.push(current.box);
@@ -77,9 +111,20 @@ export function bindTextPaints(
         operators = new Set<number>();
       }
     }
+    if (literal) {
+      if (literal.trace.operators.length >= (literal.maxOperators ?? 100000))
+        throw new Error('PDF_LITERAL_OPERATOR_CAPACITY');
+      literal.trace.operators.push({
+        operator: i,
+        start: operatorStart,
+        end: offset,
+        adjusted,
+      });
+    }
   }
   if (run !== runs.length || length)
     throw new Error('نص PDF لم يُربط بالكامل بمصدره المرئي');
+  if (literal) literal.trace.text = parts.join('');
   return bindings;
 }
 

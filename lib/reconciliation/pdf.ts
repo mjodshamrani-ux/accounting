@@ -1,4 +1,8 @@
-import type { NativePdfSource } from './pdf-native-source.ts';
+import type {
+  NativePdfSource,
+  NativePdfLiteralSource,
+  PdfLiteralTrace,
+} from './pdf-native-source.ts';
 import { getNativePDFJS } from './pdfjs-native.ts';
 import { guardPdfFontIntegrity } from './pdf-font-integrity.ts';
 import type { SheetData } from './types.ts';
@@ -273,9 +277,10 @@ export function checkPdfOperators(
   textBoxes: number[][] = [],
   textRuns?: string[],
   rawRuns?: Map<number, string>,
+  literal?: { trace: PdfLiteralTrace; maxChars: number; maxOperators?: number },
 ) {
   const paints = textRuns
-    ? bindTextPaints(ops, fn, args, textRuns, textBoxes, rawRuns)
+    ? bindTextPaints(ops, fn, args, textRuns, textBoxes, rawRuns, literal)
     : null;
   const paintedBoxes: number[][] = [];
   const backgrounds: PdfBackground[] = [];
@@ -789,6 +794,7 @@ export function layoutPdfPage(
   });
 }
 type GuardedPdfPage = {
+  literals?: PdfLiteralTrace;
   view: [number, number, number, number];
   width: number;
   height: number;
@@ -801,6 +807,7 @@ async function readGuardedPdf<T>(
   input: ArrayBuffer,
   onProgress: ((progress: ProcessingProgress) => void) | undefined,
   project: (pages: GuardedPdfPage[], original: ArrayBuffer) => T | Promise<T>,
+  captureLiteral = false,
 ): Promise<T> {
   if (input.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
@@ -839,7 +846,9 @@ async function readGuardedPdf<T>(
       );
     const pages: GuardedPdfPage[] = [];
     let count = 0,
-      chars = 0;
+      chars = 0,
+      literalChars = 0,
+      literalOperators = 0;
     onProgress?.({ stage: 'pdf-read', completed: 0, total: doc.numPages });
     for (let pageNo = 1; pageNo <= doc.numPages; pageNo++) {
       const page = await doc.getPage(pageNo);
@@ -938,6 +947,14 @@ async function readGuardedPdf<T>(
             'PDF_NO_EXTRACTABLE_TEXT',
           );
         const rawRuns = new Map<number, string>();
+        const literals: PdfLiteralTrace | undefined = captureLiteral
+          ? {
+              version: 'native-pdf-literals-1',
+              text: '',
+              items: [],
+              operators: [],
+            }
+          : undefined;
         try {
           checkPdfOperators(
             OPS,
@@ -955,7 +972,20 @@ async function readGuardedPdf<T>(
             }),
             tokens.map((token) => token.text),
             rawRuns,
+            literals
+              ? {
+                  trace: literals,
+                  maxChars: 2000000 - literalChars,
+                  maxOperators: 100000 - literalOperators,
+                }
+              : undefined,
           );
+          if (literals) {
+            literalChars += literals.text.length;
+            literalOperators += literals.operators.length;
+            for (const range of literals.items)
+              range.item = tokens[range.item].item;
+          }
         } catch (error) {
           // Only annotate the existing image guard. Earlier clipping, hidden text,
           // occlusion and contrast failures keep their precedence and remain fatal.
@@ -978,6 +1008,7 @@ async function readGuardedPdf<T>(
           }
         }
         pages.push({
+          ...(literals ? { literals } : {}),
           tokens,
           view: [page.view[0], page.view[1], page.view[2], page.view[3]],
           width: page.view[2] - page.view[0],
@@ -1113,44 +1144,72 @@ export async function readNativePdfSource(
   buffer: ArrayBuffer,
   onProgress?: (progress: ProcessingProgress) => void,
 ): Promise<NativePdfSource> {
-  return readGuardedPdf(buffer, onProgress, async (pages, original) => {
-    const readingIssues: NativePdfSource['readingIssues'] = [];
-    let lines = 0;
-    for (const [index, page] of pages.entries()) {
-      // Keep the existing finite-coordinate, replacement-character, overlap,
-      // page-edge and layout-budget checks even without global column cuts.
-      const layout = layoutPdfPage(page.tokens, [], page.width);
-      lines += layout.length;
-      if (lines > MAX_ROWS) throw new Error('الحد 20,000 صف مستخرج');
-      layout.forEach((line, lineIndex) => {
-        if (line.issues.length)
-          readingIssues.push({
-            page: index + 1,
-            line: lineIndex + 1,
-            reasons: [...line.issues],
-          });
-      });
-    }
-    const digest = await crypto.subtle.digest('SHA-256', original);
-    const sha256 = Array.from(new Uint8Array(digest), (n) =>
-      n.toString(16).padStart(2, '0'),
-    ).join('');
-    return {
-      version: 'native-pdf-source-1',
-      sha256,
-      byteLength: original.byteLength,
-      coordinateSystem: 'visible-page-bottom-left-pdf-units',
-      readingIssues,
-      pages: pages.map((page, index) => ({
-        page: index + 1,
-        view: [...page.view],
-        width: page.width,
-        height: page.height,
-        tokens: page.tokens.map((token) => ({
-          ...token,
-          y: token.y - page.view[1],
-        })),
+  return readGuardedPdf(buffer, onProgress, projectNativePdfSource);
+}
+
+/** Additional, explicit evidence contract. Legacy reads do not capture glyph text. */
+export async function readLiteralNativePdfSource(
+  buffer: ArrayBuffer,
+  onProgress?: (progress: ProcessingProgress) => void,
+): Promise<NativePdfLiteralSource> {
+  return readGuardedPdf(
+    buffer,
+    onProgress,
+    async (pages, original) => {
+      const source = await projectNativePdfSource(pages, original);
+      return {
+        ...source,
+        literalVersion: 'native-pdf-literals-1',
+        pages: source.pages.map((page, i) => {
+          const literals = pages[i].literals;
+          if (!literals) throw new Error('PDF_LITERAL_MISSING');
+          return { ...page, literals };
+        }),
+      };
+    },
+    true,
+  );
+}
+async function projectNativePdfSource(
+  pages: GuardedPdfPage[],
+  original: ArrayBuffer,
+): Promise<NativePdfSource> {
+  const readingIssues: NativePdfSource['readingIssues'] = [];
+  let lines = 0;
+  for (const [index, page] of pages.entries()) {
+    // Keep the existing finite-coordinate, replacement-character, overlap,
+    // page-edge and layout-budget checks even without global column cuts.
+    const layout = layoutPdfPage(page.tokens, [], page.width);
+    lines += layout.length;
+    if (lines > MAX_ROWS) throw new Error('الحد 20,000 صف مستخرج');
+    layout.forEach((line, lineIndex) => {
+      if (line.issues.length)
+        readingIssues.push({
+          page: index + 1,
+          line: lineIndex + 1,
+          reasons: [...line.issues],
+        });
+    });
+  }
+  const digest = await crypto.subtle.digest('SHA-256', original);
+  const sha256 = Array.from(new Uint8Array(digest), (n) =>
+    n.toString(16).padStart(2, '0'),
+  ).join('');
+  return {
+    version: 'native-pdf-source-1',
+    sha256,
+    byteLength: original.byteLength,
+    coordinateSystem: 'visible-page-bottom-left-pdf-units',
+    readingIssues,
+    pages: pages.map((page, index) => ({
+      page: index + 1,
+      view: [...page.view],
+      width: page.width,
+      height: page.height,
+      tokens: page.tokens.map((token) => ({
+        ...token,
+        y: token.y - page.view[1],
       })),
-    };
-  });
+    })),
+  };
 }

@@ -1,5 +1,8 @@
-import { readNativePdfSource } from './pdf.ts';
-import type { NativePdfSource } from './pdf-native-source.ts';
+import { readNativePdfSource, readLiteralNativePdfSource } from './pdf.ts';
+import type {
+  NativePdfSource,
+  NativePdfLiteralSource,
+} from './pdf-native-source.ts';
 import type { ProcessingProgress } from './processing-progress.ts';
 import { MAX_ROWS } from './types.ts';
 
@@ -157,7 +160,20 @@ export async function readInventoryPdfRegister(
   original: ArrayBuffer,
   onProgress?: (p: ProcessingProgress) => void,
 ): Promise<InventoryPdfReading> {
-  const source = await readNativePdfSource(original, onProgress);
+  return interpretInventoryPdfSource(
+    await readNativePdfSource(original, onProgress),
+  );
+}
+export async function readInventoryLiteralPdfRegister(
+  original: ArrayBuffer,
+  onProgress?: (p: ProcessingProgress) => void,
+): Promise<InventoryPdfReading & { source: NativePdfLiteralSource }> {
+  const source = await readLiteralNativePdfSource(original, onProgress);
+  return { ...interpretInventoryPdfSource(source), source };
+}
+function interpretInventoryPdfSource(
+  source: NativePdfSource,
+): InventoryPdfReading {
   const pages = sourceLines(source);
   const result: InventoryPdfReading = {
     family: STOCK_PDF_FAMILY,
