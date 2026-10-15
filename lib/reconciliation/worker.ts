@@ -1,3 +1,6 @@
+import { replayStockPdfOriginals } from './inventory-register.ts';
+import { saveStockPdf, restoreStockPdf } from './inventory-pdf-lifecycle.ts';
+import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
 import {readPayrollFile,replayPayroll,savePayroll,restorePayroll,exportPayroll} from './payroll-io.ts';
 import {readAssetFile,replayAsset,saveAsset,restoreAsset,exportAsset} from './fixed-assets-io.ts';
 import { readStockFile, replayStock, saveStock, restoreStock, exportStock } from './inventory-register-io.ts';
@@ -54,6 +57,7 @@ self.onmessage = async (event: MessageEvent) => {
   };
   try {
     if (action.startsWith('ar-')) payload = snapshotArRequest(action, payload);
+    if (action.startsWith('stock-pdf-')) payload = snapshotStockPdfRequest(action, payload);
     let value: unknown;
     if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
     else if (action === 'bank-adjustment-reconcile')
@@ -89,6 +93,9 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'asset-save') value = await saveAsset(payload);
     else if (action === 'asset-restore') value = await restoreAsset(payload.buffer);
     else if (action === 'asset-export') value = await exportAsset(payload.state,payload.result);
+    else if (action === 'stock-pdf-reconcile') value = await replayStockPdfOriginals(payload);
+    else if (action === 'stock-pdf-save') value = await saveStockPdf(payload);
+    else if (action === 'stock-pdf-restore') value = await restoreStockPdf(payload.buffer);
     else if (action === 'stock-read') value = await readStockFile(payload.name,payload.buffer);
     else if (action === 'stock-reconcile') value = await replayStock(payload);
     else if (action === 'stock-save') value = await saveStock(payload);

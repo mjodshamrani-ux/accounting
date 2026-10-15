@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 29774,
-      "sha256": "0256d8e87e647440d5023ec8346d747793066e379c2d48397c00581f73d329ec",
+      "bytes": 30495,
+      "sha256": "c973c66d076fe4b3475e6b95c5ae764d1e513fcf1f72847dcf8cea7da895bb91",
       "kind": "text"
     },
     {
@@ -35193,8 +35193,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 21692,
-      "sha256": "60481440f089238dd329b896643d0dc73ae7bdb461d74ff7de07273255926b8c",
+      "bytes": 23136,
+      "sha256": "4b33cbb8ea4142467997d8ae6f7c47b3a729fec51f43780b301b1c2970fd1908",
       "kind": "text"
     },
     {
@@ -35247,8 +35247,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 14139,
-      "sha256": "c8b290d3e9811d1844886280e65fc4672ef5a1491fad9a69dcb16f296ae9dd2a",
+      "bytes": 15580,
+      "sha256": "91974c7d673d7a9ca36aa6d5e954f23e7c2fa8bda47d70b0a5139dc5cebe9d59",
       "kind": "text"
     },
     {
@@ -35290,8 +35290,8 @@
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
       "kind": "text",
-      "bytes": 49868,
-      "sha256": "51fd2c2b3bf3f096152b2a7d3f644b293cf4f3d3dd502564cc672b4569adf0b6"
+      "bytes": 51692,
+      "sha256": "bc01f35f3ff51ce33391faf1f3e2c5f279bb17d668d4f166b3a7cb36c792347a"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
@@ -35307,8 +35307,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 45159,
-      "sha256": "ede1a722b4701cb55e46fe7e653bae971bafe1a8c69d5ddaed5dc39e2c17156b",
+      "bytes": 48701,
+      "sha256": "937610bd13cf0fa9a133694c38de14e09251f85d9144af06a1cf49bf2377e708",
       "kind": "text"
     },
     {
@@ -35443,8 +35443,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 18013,
-      "sha256": "07fa9d3973b240b46b4867fb8612daa9ce1db029d4b70393cee3d3dfb87b8aed",
+      "bytes": 19510,
+      "sha256": "d2793c8f7fcd6bd1d79fd699df8012d68f2f5ae289d7a483c51d2d46dcd48e7d",
       "kind": "text"
     },
     {
@@ -35554,7 +35554,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "860e468ced870842614ca0e1a4be4be9fee02e9012d20bd6626a1904d47de3cf",
+      "sha256": "7eca6e14dcb39c80d01a6f08a7aa968d92b02a86f92df3e034f99b560e23bb90",
       "kind": "text"
     },
     {
@@ -36057,8 +36057,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-register.ts",
-      "bytes": 38715,
-      "sha256": "bbc1101fc3ee23ea1162d77c9c55146487ec767bb85c029b459d5e30b3b1dc02",
+      "bytes": 40190,
+      "sha256": "c91d125f9e79a19e42256655d3b4f23071462695dcdef243f8334f8d56032ee4",
       "kind": "text"
     },
     {
@@ -36285,8 +36285,8 @@
     },
     {
       "path": "lib/reconciliation/protocol.ts",
-      "bytes": 18803,
-      "sha256": "76e6049a28f37bed1bb2ec9655fc6ac8321b7123b41f74a061bcaf2804f3e6de",
+      "bytes": 19990,
+      "sha256": "6e4d102554e13cc626d7919a8706e99dc30d93147802033d473cb680d0b4ae24",
       "kind": "text"
     },
     {
@@ -36501,14 +36501,14 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 17412,
-      "sha256": "82a834e8db99a6f51b6f7f6896295323fc00075de1ade096f0816c4687db93ab",
+      "bytes": 17778,
+      "sha256": "c12567aad0c580721f436b56fbce580235a084dc1cb6050905f1abd7bf75d810",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/worker.ts",
-      "bytes": 10528,
-      "sha256": "09a0e30dfa7681dac0c4177471ea5547a2ae7fef1533e46c493146f856a72ef7",
+      "bytes": 11102,
+      "sha256": "205c4d0e433acef3215b47e12fbb6f0bd033c87432668d9d8415e21d8ef78f11",
       "kind": "text"
     },
     {
@@ -36549,8 +36549,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 15981,
-      "sha256": "54d98dfa0257737e93b3b9a3324557e8febb5d3f85bd73a474a9dba2db6f9adb",
+      "bytes": 16607,
+      "sha256": "ae84ba65a6e3bf78c872ba0b429397c8d0a80f3bdc6bf630a3c2eed58e8b845f",
       "kind": "text"
     },
     {
@@ -36815,8 +36815,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 7202,
-      "sha256": "f0d23afd2299c71f1d637855290e5061e66c471164315d3f1ee0aba0de107f12",
+      "bytes": 7359,
+      "sha256": "88aa1a3314fac5529e10cef26780706f6a433e35e9aabc846bfdcd1181318d40",
       "kind": "text"
     },
     {
@@ -40052,6 +40052,72 @@
       "bytes": 23403,
       "sha256": "d2edf23811a820c026ebdea7e737bab8b39cefe78e35ed49bc859782f1121c15",
       "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-LIFECYCLE.ar.md",
+      "bytes": 12108,
+      "sha256": "8022b37a31db24570ea6040fee73d156a4a578fe75a4d522b92ca31b6ee5d066",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-request.ts",
+      "bytes": 6121,
+      "sha256": "0a6f3ff5364bc7553bdaf9cbd42ea66f45e65e15065c027d19078af579a85e33",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-lifecycle.ts",
+      "bytes": 4153,
+      "sha256": "10804d33dbae47f34a92a02b9afc43a8422edb25b59fa57c26f994845609f4fa",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-lifecycle-proof.mjs",
+      "bytes": 7961,
+      "sha256": "849c921daa4975b582826943bf1b20a38dd9bb3642f6a0064943f1d4f233910c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-worker-browser.mjs",
+      "bytes": 9479,
+      "sha256": "e9aaec8000bd90998223ace31e1431061e3e3ba17edbb82f133e15938bd4276a",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-pdf-lifecycle-mutations.mjs",
+      "bytes": 4682,
+      "sha256": "59f261182c289429ece33ba0f155eb8e6aa2ecf0a862d76f88d55730dabacb46",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-lifecycle/README.ar.md",
+      "bytes": 2585,
+      "sha256": "b8005b0729835099c2474b8c9088fbf0758e728b4762114fba167f055d875ef5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-lifecycle/contract.json",
+      "bytes": 1276,
+      "sha256": "e1279f27e62647326de678c1ca365d7f9a50387952d83bda45f214c406e064aa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-lifecycle/check_lifecycle.py",
+      "bytes": 7201,
+      "sha256": "fee28c50c11d3e97c1d714ee895b54b8f7d6ee8290a95a00024e998b184e1fbe",
+      "kind": "text"
+    },
+    {
+      "path": "tests/helpers/inventory-pdf-lifecycle-fixture.ts",
+      "bytes": 3100,
+      "sha256": "036974a363ee124bc73cd98686b43fad0f015667618dd022d97fe5bacbc1aa62",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-pdf-lifecycle.test.ts",
+      "bytes": 22475,
+      "sha256": "a02ce8552f3be99f007f9029a78b7db760c4c77d966b782ce0a23a460f4c495d",
+      "kind": "text"
     }
   ],
   "distribution": [
@@ -40062,27 +40128,27 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-BlMus-AJ.js",
+      "path": "assets/ar-io-yJjSR0Qq.js",
       "bytes": 11377,
-      "sha256": "25c5af9378fb4631b6345bd832b58887230b3223be6e1b5a6151d93000f1d85a",
+      "sha256": "4e50b93e209d7cd2f59f671b44683a8710ff2e3ddc29ca7806bbdd5b7c22cfcb",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-Dahx8TKh.js",
+      "path": "assets/bank-adjustment-io-D0tvj_jl.js",
       "bytes": 12101,
-      "sha256": "385b3aeb3b1c758fba7676e9f4fb599032ca571c397ece0d8f1d452d2cef193b",
+      "sha256": "1323b2b041097cd0136412c4a9ab25b786a6b146c3085070054489882e44dc8c",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-CYicJbST.js",
+      "path": "assets/bank-io-BMs-2f1G.js",
       "bytes": 6331,
-      "sha256": "5efb9b8988ad8d9e92268daa15be23b94f3159b3669a34907c3176132282f553",
+      "sha256": "5cc2bf579c17945d00781b6deae8c542c5ae2e73b4d2144052685729e7329425",
       "kind": "text"
     },
     {
-      "path": "assets/bank-native-display-C5MWzw8P.js",
+      "path": "assets/bank-native-display-3W6ya3NH.js",
       "bytes": 6148,
-      "sha256": "c3b0acb8e21f070b46b7e47c7111005fd25ac19e10f1651df22f2fdd222173b8",
+      "sha256": "47a2e28434b4948b63294d6c4ca8edd1d8952018fe48a4e1d0b1814b1b11c850",
       "kind": "text"
     },
     {
@@ -40092,13 +40158,13 @@
       "kind": "text"
     },
     {
-      "path": "assets/core-DGO5NLTG.js",
-      "bytes": 274441,
-      "sha256": "9a9150bf15516a65454e0f602dda8724679bdc3212c4a0f48a7dba9e3d3dc518",
+      "path": "assets/core-BthGvS2m.js",
+      "bytes": 275328,
+      "sha256": "aa068888ded10f611e919febf7a00f924faf95eae57e532f046764bd281982d1",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only"
       }
     },
     {
@@ -40112,15 +40178,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-lU7WsvpT.js",
+      "path": "assets/fixed-assets-io-BxyWpWPu.js",
       "bytes": 9830,
-      "sha256": "f2e95a7eec797254857d46ecd85a370ca18609c81a6bbd0ab6e860625955a112",
+      "sha256": "245b8095eba0f3b24469f4c33928bdc050f2f0b7becece415db9a9528489e76c",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-C8x0-nEM.js",
-      "bytes": 2185,
-      "sha256": "e9c573950e33c0fe27f416deba144478c887d726c8fa70b80646a12b4205f3ae",
+      "path": "assets/gl-tb-io-DkAslMPy.js",
+      "bytes": 2184,
+      "sha256": "cf607b9fc3557d3c1116d1c51420b1fb3aca6b4f8e81a968191249d640ae9a81",
       "kind": "text"
     },
     {
@@ -40130,20 +40196,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-ClDQnTed.js",
-      "bytes": 6372193,
-      "sha256": "dc22ca3c2abfbb0f001cd4b6c30cfdb9219bee66520d1067f228967bfa50c1cb",
+      "path": "assets/index-zlu_gLbF.js",
+      "bytes": 6390791,
+      "sha256": "6b4bd17fc7f750b6302517a6a7964e776968cc42f5103071acaed2d7175ababa",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only"
       }
     },
     {
-      "path": "assets/inventory-register-io-BJQKYtO3.js",
+      "path": "assets/inventory-register-io-CwCcT6Rp.js",
       "kind": "text",
-      "bytes": 19452,
-      "sha256": "d99e91c70b77b2e6c612f41e4038bf530fb8db589c6f2aa008f8d3b4a3d9579d"
+      "bytes": 19462,
+      "sha256": "c3517cdc64f52d272cabe17f5c416668b964d64b86a508cf18b91085e3cacb31"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -40156,15 +40222,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-QZaEKvVS.js",
+      "path": "assets/payment-gateway-io-BtLV5WTd.js",
       "bytes": 6391,
-      "sha256": "86c32f1ef20f70dda908ce34d7691271e30c6c1d0249a4de7d55149f9c2340af",
+      "sha256": "54414915d06b0667f69ab5ae449ffad84c5e7b3b12c6a5a4c8a83f997f0db937",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-53iWocS4.js",
+      "path": "assets/payment-gateway-source-D0veALu3.js",
       "bytes": 6798,
-      "sha256": "2ae0dcf157f43201a15a65069ea201c946151f35c5887023f4dc423d60985a44",
+      "sha256": "5013369e2aa4d7197cf6e3990a15cd41e03b12af27c5db1f4fd99cf8e3933d9d",
       "kind": "text"
     },
     {
@@ -40194,9 +40260,9 @@
       }
     },
     {
-      "path": "assets/protocol-D_srdMMg.js",
-      "bytes": 120903,
-      "sha256": "4cac9651ea8c19db0d04fad90bc391d148d178fed23c7e78c5d90f3204890e05",
+      "path": "assets/protocol-Ch2Kz3yd.js",
+      "bytes": 137165,
+      "sha256": "f5b4dedbb11b357e792b440b6fabc769555db1c9a63393fd19769496af9b1694",
       "kind": "text"
     },
     {
@@ -40324,7 +40390,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "72ce79aac35d351449c568bf8d8cfcf5f46e0ec1133870b052a4a939f611d017",
+      "sha256": "ad781080f98dc288d4f73ed8bdbdb9fe08e681d8f5a6e088557ef6452fd449ec",
       "kind": "text"
     },
     {

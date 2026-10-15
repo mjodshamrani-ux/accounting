@@ -230,6 +230,14 @@ jobs:
           pnpm test:inventory-pdf:accounting
           pnpm test:inventory-pdf:accounting-proof
           pnpm test:inventory-pdf:accounting-mutations
+      - name: Verify inventory PDF original Worker, versioned sessions, decisions and stale evidence faults
+        env:
+          INV_PDF_LIFECYCLE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle
+          INV_PDF_LIFECYCLE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-lifecycle-mutations
+        run: |
+          pnpm test:inventory-pdf:lifecycle
+          pnpm test:inventory-pdf:lifecycle-proof
+          pnpm test:inventory-pdf:lifecycle-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
@@ -242,6 +250,10 @@ jobs:
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
       - run: pnpm exec playwright install --with-deps chromium
+      - name: Verify PDF inventory built browser Worker, original sessions and reviewed financial membership
+        env:
+          INV_PDF_WORKER_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-worker-browser
+        run: pnpm test:inventory-pdf:worker-browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:
