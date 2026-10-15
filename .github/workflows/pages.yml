@@ -213,10 +213,14 @@ jobs:
           pnpm test:inventory-column:baseline
       - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
         env:
+          INV_PDF_NATIVE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-native-source
+          PDF_NATIVE_SOURCE_MUTATION_DIR: ${{ runner.temp }}/pdf-native-source-mutations
           INV_PDF_BASELINE_DIR: ${{ runner.temp }}/inventory-pdf-baseline
         run: |
           pnpm test:inventory-pdf:oracle
           pnpm test:inventory-pdf:baseline
+          pnpm test:inventory-pdf:native-proof
+          pnpm test:inventory-pdf:native-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof

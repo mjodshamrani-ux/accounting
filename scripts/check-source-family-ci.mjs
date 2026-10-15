@@ -91,6 +91,8 @@ for (const job of Object.values(workflow.jobs))
 const required = [
   'test:inventory-pdf:oracle',
   'test:inventory-pdf:baseline',
+  'test:inventory-pdf:native-proof',
+  'test:inventory-pdf:native-mutations',
   'test:inventory-column',
   'test:inventory-column:proof',
   'test:inventory-column:mutations',

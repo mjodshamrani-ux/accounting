@@ -1,3 +1,4 @@
+import type { NativePdfSource } from './pdf-native-source.ts';
 import { getNativePDFJS } from './pdfjs-native.ts';
 import { guardPdfFontIntegrity } from './pdf-font-integrity.ts';
 import type { SheetData } from './types.ts';
@@ -787,17 +788,25 @@ export function layoutPdfPage(
     };
   });
 }
-export async function readPdf(
-  buffer: ArrayBuffer,
-  cuts: number[] = [],
-  autoColumns = false,
-  onProgress?: (progress: ProcessingProgress) => void,
-) {
-  validateCuts(cuts);
-  if (buffer.byteLength > MAX_FILE_BYTES)
+type GuardedPdfPage = {
+  view: [number, number, number, number];
+  width: number;
+  height: number;
+  tokens: (PdfToken & { item: number })[];
+};
+
+// The only native-text decoder. Both projections share every integrity guard.
+// Take ownership before the first await: callers may reuse or mutate their buffer.
+async function readGuardedPdf<T>(
+  input: ArrayBuffer,
+  onProgress: ((progress: ProcessingProgress) => void) | undefined,
+  project: (pages: GuardedPdfPage[], original: ArrayBuffer) => T | Promise<T>,
+): Promise<T> {
+  if (input.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
-  if (new TextDecoder().decode(buffer.slice(0, 5)) !== '%PDF-')
+  if (new TextDecoder().decode(input.slice(0, 5)) !== '%PDF-')
     throw new Error('محتوى الملف ليس PDF صالحًا');
+  const buffer = input.slice(0);
   const { getDocument, version, OPS } = await getNativePDFJS();
   const loading = getDocument({
     data: new Uint8Array(buffer.slice(0)),
@@ -828,15 +837,7 @@ export async function readPdf(
       throw new Error(
         'يحتوي PDF طبقات عرض. اطلب نسخة مسطحة تظهر كل البيانات أو Excel.',
       );
-    const sheet: SheetData = {
-      name: 'PDF',
-      rows: [],
-      formulaRows: [],
-      hiddenRows: [],
-      rowIssues: {},
-      rowPages: {},
-    };
-    const pages: { width: number; tokens: PdfToken[] }[] = [];
+    const pages: GuardedPdfPage[] = [];
     let count = 0,
       chars = 0;
     onProgress?.({ stage: 'pdf-read', completed: 0, total: doc.numPages });
@@ -852,8 +853,8 @@ export async function readPdf(
             'نماذج PDF التفاعلية غير مدعومة. اطلب نسخة مسطحة تظهر كل البيانات.',
           );
         const text = await page.getTextContent({ disableNormalization: true });
-        const tokens: PdfToken[] = [];
-        for (const item of text.items) {
+        const tokens: GuardedPdfPage['tokens'] = [];
+        for (const [index, item] of text.items.entries()) {
           if (!('str' in item)) continue;
           if (++count > 100000 || (chars += item.str.length) > 2000000)
             throw new Error('نص PDF يتجاوز حدود المعالجة الآمنة');
@@ -869,7 +870,8 @@ export async function readPdf(
             );
           if (item.str.trim()) {
             const style = text.styles[item.fontName];
-            const token: PdfToken = {
+            const token: GuardedPdfPage['tokens'][number] = {
+              item: index + 1,
               text: item.str,
               direction: item.dir,
               x: item.transform[4] - page.view[0],
@@ -975,7 +977,12 @@ export async function readPdf(
             token.text = raw.trim();
           }
         }
-        pages.push({ tokens, width: page.view[2] - page.view[0] });
+        pages.push({
+          tokens,
+          view: [page.view[0], page.view[1], page.view[2], page.view[3]],
+          width: page.view[2] - page.view[0],
+          height: page.view[3] - page.view[1],
+        });
       } catch (error) {
         if (error instanceof ImportDiagnosticError) throw error;
         const reason =
@@ -997,6 +1004,31 @@ export async function readPdf(
         total: doc.numPages,
       });
     }
+    return await project(pages, buffer);
+  } finally {
+    fontGuard?.restore();
+    streamGuard?.restore();
+    await loading.destroy();
+  }
+}
+
+export async function readPdf(
+  buffer: ArrayBuffer,
+  cuts: number[] = [],
+  autoColumns = false,
+  onProgress?: (progress: ProcessingProgress) => void,
+) {
+  validateCuts(cuts);
+  cuts = [...cuts];
+  return readGuardedPdf(buffer, onProgress, (pages) => {
+    const sheet: SheetData = {
+      name: 'PDF',
+      rows: [],
+      formulaRows: [],
+      hiddenRows: [],
+      rowIssues: {},
+      rowPages: {},
+    };
     // Prefer the header-signature reading; fall back to column geometry so an
     // ordinary statement is not stranded by unfamiliar header wording.
     const proposedLayout = suggestPdfColumnLayout(pages);
@@ -1005,7 +1037,7 @@ export async function readPdf(
         ? (proposedLayout?.cuts ?? projectPdfColumns(pages))
         : null;
     const effectiveCuts = suggested ?? cuts;
-    onProgress?.({ stage: 'pdf-layout', completed: 0, total: doc.numPages });
+    onProgress?.({ stage: 'pdf-layout', completed: 0, total: pages.length });
     for (const [index, page] of pages.entries()) {
       const lines = layoutPdfPage(page.tokens, effectiveCuts, page.width);
       const band = proposedLayout?.headers[index];
@@ -1058,20 +1090,67 @@ export async function readPdf(
       onProgress?.({
         stage: 'pdf-layout',
         completed: index + 1,
-        total: doc.numPages,
+        total: pages.length,
       });
     }
     return {
       sheets: [sheet],
       pdf: {
         cuts: [...effectiveCuts],
-        pages: doc.numPages,
+        pages: pages.length,
         ...(suggested ? { autoColumns: true } : {}),
       },
     };
-  } finally {
-    fontGuard?.restore();
-    streamGuard?.restore();
-    await loading.destroy();
-  }
+  });
+}
+
+/**
+ * Source geometry only. It does not infer table roles, scope, amounts or matches.
+ * Layout warnings remain evidence; a later accounting reader must resolve them.
+ * No caller-supplied geometry or cached result is accepted as source authority.
+ */
+export async function readNativePdfSource(
+  buffer: ArrayBuffer,
+  onProgress?: (progress: ProcessingProgress) => void,
+): Promise<NativePdfSource> {
+  return readGuardedPdf(buffer, onProgress, async (pages, original) => {
+    const readingIssues: NativePdfSource['readingIssues'] = [];
+    let lines = 0;
+    for (const [index, page] of pages.entries()) {
+      // Keep the existing finite-coordinate, replacement-character, overlap,
+      // page-edge and layout-budget checks even without global column cuts.
+      const layout = layoutPdfPage(page.tokens, [], page.width);
+      lines += layout.length;
+      if (lines > MAX_ROWS) throw new Error('الحد 20,000 صف مستخرج');
+      layout.forEach((line, lineIndex) => {
+        if (line.issues.length)
+          readingIssues.push({
+            page: index + 1,
+            line: lineIndex + 1,
+            reasons: [...line.issues],
+          });
+      });
+    }
+    const digest = await crypto.subtle.digest('SHA-256', original);
+    const sha256 = Array.from(new Uint8Array(digest), (n) =>
+      n.toString(16).padStart(2, '0'),
+    ).join('');
+    return {
+      version: 'native-pdf-source-1',
+      sha256,
+      byteLength: original.byteLength,
+      coordinateSystem: 'visible-page-bottom-left-pdf-units',
+      readingIssues,
+      pages: pages.map((page, index) => ({
+        page: index + 1,
+        view: [...page.view],
+        width: page.width,
+        height: page.height,
+        tokens: page.tokens.map((token) => ({
+          ...token,
+          y: token.y - page.view[1],
+        })),
+      })),
+    };
+  });
 }
