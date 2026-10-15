@@ -1,3 +1,9 @@
+import {
+  STOCK_HIERARCHY_FAMILY,
+  isInventoryHierarchy,
+  inventoryHierarchyScope,
+} from '../lib/reconciliation/inventory-hierarchy-sections.ts';
+import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -52,6 +58,7 @@ const readings = () =>
   })) as StockInput['readings'];
 function structured(file: SourceFile) {
   return (
+    isInventoryHierarchy(file) ||
     /\.xlsx$/i.test(file.name) ||
     (file.sheets[0]?.rows[0]?.[0] === 'Format' &&
       ['INV1A-SECTIONS-1', 'INV1A-MATRIX-1'].includes(
@@ -60,6 +67,7 @@ function structured(file: SourceFile) {
   );
 }
 function sourceScope(file: SourceFile): Partial<StockScope> | null {
+  if (isInventoryHierarchy(file)) return inventoryHierarchyScope(file);
   if (
     file.sheets[0]?.rows[0]?.[0] !== 'Format' ||
     !['INV1A-SECTIONS-1', 'INV1A-MATRIX-1'].includes(
@@ -271,11 +279,14 @@ export function StockWorkspace({
         r[source] = {
           ...r[source],
           family:
-            source === 0 && value.sheets[0]?.rows[0]?.[1] === 'INV1A-MATRIX-1'
-              ? STOCK_MATRIX_FAMILY
-              : source === 0 && structured(value)
-                ? STOCK_SECTION_FAMILY
-                : STOCK_VERSION,
+            source === 0 && isInventoryHierarchy(value)
+              ? STOCK_HIERARCHY_FAMILY
+              : source === 0 &&
+                  value.sheets[0]?.rows[0]?.[1] === 'INV1A-MATRIX-1'
+                ? STOCK_MATRIX_FAMILY
+                : source === 0 && structured(value)
+                  ? STOCK_SECTION_FAMILY
+                  : STOCK_VERSION,
           confirmed: false,
         };
         if (source === 0 && structured(value)) {
@@ -285,9 +296,11 @@ export function StockWorkspace({
           else setScope({ ...scope, confirmed: false });
         } else if (
           source === 0 &&
-          [STOCK_SECTION_FAMILY, STOCK_MATRIX_FAMILY].includes(
-            reading[0].family,
-          )
+          [
+            STOCK_SECTION_FAMILY,
+            STOCK_MATRIX_FAMILY,
+            STOCK_HIERARCHY_FAMILY,
+          ].includes(reading[0].family)
         )
           setScope({ ...scope, confirmed: false });
         setReading(r);
@@ -474,9 +487,11 @@ export function StockWorkspace({
                   </label>
                   {i === 0 && structured(files[i]!) && (
                     <p>
-                      {reading[i].family === STOCK_MATRIX_FAMILY
-                        ? copy.matrixDetected
-                        : copy.sectionsDetected}
+                      {reading[i].family === STOCK_HIERARCHY_FAMILY
+                        ? copy.hierarchyDetected
+                        : reading[i].family === STOCK_MATRIX_FAMILY
+                          ? copy.matrixDetected
+                          : copy.sectionsDetected}
                     </p>
                   )}
                   {i === 0 && structured(files[i]!)
@@ -680,13 +695,21 @@ export function StockWorkspace({
                 copy.sectionCitationHeaders,
                 stockSectionCitationRows(result.sectionEvidence),
               )}
+            {result.hierarchyEvidence &&
+              detail(
+                copy.hierarchyCitations,
+                copy.hierarchyCitationHeaders,
+                stockHierarchyCitationRows(result.hierarchyEvidence),
+              )}
             {result.matrixEvidence &&
               detail(
                 copy.matrixCitations,
                 copy.matrixCitationHeaders,
                 stockMatrixCitationRows(result.matrixEvidence),
               )}
-            {(result.sectionEvidence || result.matrixEvidence) &&
+            {(result.sectionEvidence ||
+              result.matrixEvidence ||
+              result.hierarchyEvidence) &&
               stockSourceObservations(files).length > 0 &&
               detail(
                 copy.observations,

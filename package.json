@@ -1,6 +1,6 @@
 {
   "name": "mizan-reconciliation",
-  "version": "0.4.50",
+  "version": "0.4.51",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -29,7 +29,7 @@
     "test:split-section": "node --experimental-strip-types --test tests/split-section-classifier.test.ts tests/split-section-session.test.ts",
     "test:split-section:mutations": "node scripts/test-split-section-mutations.mjs",
     "test:split-section:browser": "node scripts/split-section-browser.mjs",
-    "check": "pnpm test:source-families:ci && pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm test:native-pdf:mutations && pnpm test:running-balance && pnpm test:running-balance:proof && pnpm test:running-balance:mutations && pnpm test:fixed-assets-long && pnpm test:fixed-assets-long:oracle && pnpm test:fixed-assets-long:proof && pnpm test:fixed-assets-long:mutations && pnpm test:gl-tb-vertical && pnpm test:gl-tb-vertical:proof && pnpm test:gl-tb-vertical:mutations && pnpm test:bank-wd:proof && pnpm test:bank-wd:mutations && pnpm test:payment-gateway-signed && pnpm test:payment-gateway-signed:oracle && pnpm test:payment-gateway-signed:proof && pnpm test:payment-gateway-signed:mutations && pnpm test:ar-scope-details && pnpm test:ar-scope-details:oracle && pnpm test:ar-scope-details:proof && pnpm test:ar-scope-details:mutations && pnpm test:inventory-matrix && pnpm test:inventory-matrix:oracle && pnpm test:inventory-matrix:proof && pnpm test:inventory-matrix:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:browser:unified-workspace && pnpm test:split-section:browser && pnpm test:running-balance:browser && pnpm test:gl-tb-vertical:browser && pnpm test:bank-wd:browser && pnpm test:fixed-assets-long:browser && pnpm test:payment-gateway-signed:browser && pnpm test:ar-scope-details:browser && pnpm test:inventory-sections && pnpm test:inventory-sections:oracle && pnpm test:inventory-sections:proof && pnpm test:inventory-sections:mutations && pnpm test:inventory-sections:browser && pnpm test:inventory-matrix:browser",
+    "check": "pnpm test:source-families:ci && pnpm lint && pnpm typecheck && pnpm test && pnpm test:mutation-runner && pnpm test:mutations && pnpm test:specialized-faults && pnpm test:split-section:mutations && pnpm test:native-pdf:mutations && pnpm test:running-balance && pnpm test:running-balance:proof && pnpm test:running-balance:mutations && pnpm test:fixed-assets-long && pnpm test:fixed-assets-long:oracle && pnpm test:fixed-assets-long:proof && pnpm test:fixed-assets-long:mutations && pnpm test:gl-tb-vertical && pnpm test:gl-tb-vertical:proof && pnpm test:gl-tb-vertical:mutations && pnpm test:bank-wd:proof && pnpm test:bank-wd:mutations && pnpm test:payment-gateway-signed && pnpm test:payment-gateway-signed:oracle && pnpm test:payment-gateway-signed:proof && pnpm test:payment-gateway-signed:mutations && pnpm test:ar-scope-details && pnpm test:ar-scope-details:oracle && pnpm test:ar-scope-details:proof && pnpm test:ar-scope-details:mutations && pnpm test:inventory-matrix && pnpm test:inventory-matrix:oracle && pnpm test:inventory-matrix:proof && pnpm test:inventory-matrix:mutations && pnpm test:inventory-hierarchy && pnpm test:inventory-hierarchy:oracle && pnpm test:inventory-hierarchy:proof && pnpm test:inventory-hierarchy:mutations && pnpm build && pnpm test:browser && pnpm test:browser:startup-readiness && pnpm test:browser:main-integration && pnpm test:browser:section-families && pnpm test:browser:section-currency && pnpm test:browser:domain-navigation && pnpm test:browser:reconciliation-entry && pnpm test:browser:unified-workspace && pnpm test:split-section:browser && pnpm test:running-balance:browser && pnpm test:gl-tb-vertical:browser && pnpm test:bank-wd:browser && pnpm test:fixed-assets-long:browser && pnpm test:payment-gateway-signed:browser && pnpm test:ar-scope-details:browser && pnpm test:inventory-sections && pnpm test:inventory-sections:oracle && pnpm test:inventory-sections:proof && pnpm test:inventory-sections:mutations && pnpm test:inventory-sections:browser && pnpm test:inventory-matrix:browser && pnpm test:inventory-hierarchy:browser",
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
     "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
@@ -78,7 +78,12 @@
     "test:inventory-matrix:oracle": "python3 -B -m unittest discover -s audit/inventory-transposed-register -p test_oracle.py -v",
     "test:inventory-matrix:proof": "node --experimental-strip-types scripts/inventory-transposed-register-proof.mjs",
     "test:inventory-matrix:mutations": "node scripts/test-inventory-transposed-register-mutations.mjs",
-    "test:inventory-matrix:browser": "node --experimental-strip-types scripts/inventory-transposed-register-browser.mjs"
+    "test:inventory-matrix:browser": "node --experimental-strip-types scripts/inventory-transposed-register-browser.mjs",
+    "test:inventory-hierarchy": "node --experimental-strip-types --test tests/inventory-hierarchy-sections.test.ts tests/inventory-hierarchy-native.test.ts tests/inventory-hierarchy-assistant.test.ts",
+    "test:inventory-hierarchy:oracle": "python3 -B -m unittest discover -s audit/inventory-hierarchy-sections -p test_oracle.py -v",
+    "test:inventory-hierarchy:proof": "node --experimental-strip-types scripts/inventory-hierarchy-sections-proof.mjs",
+    "test:inventory-hierarchy:mutations": "node scripts/test-inventory-hierarchy-sections-mutations.mjs",
+    "test:inventory-hierarchy:browser": "node --experimental-strip-types scripts/inventory-hierarchy-sections-browser.mjs"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",

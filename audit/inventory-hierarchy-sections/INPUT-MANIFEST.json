@@ -1,0 +1,373 @@
+{
+  "schema": "inv1d-inputs/1",
+  "synthetic": true,
+  "cases": 18,
+  "sources": 72,
+  "files": [
+    {
+      "path": "INV1D-N01/register.csv",
+      "bytes": 902,
+      "sha256": "3ff8446be1cb44ae3f22db44ba6eaa661a23d2fb56eed52c71fde87eeedd5bd2"
+    },
+    {
+      "path": "INV1D-N01/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N01/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N01/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N02/register.xlsx",
+      "bytes": 8096,
+      "sha256": "a9f0946f9823f2a44aa923f5adf50794598edbad9ddce24c2ecb67c89b3da1da"
+    },
+    {
+      "path": "INV1D-N02/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N02/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N02/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N03/register.csv",
+      "bytes": 893,
+      "sha256": "abdbd8a9ccf549af4b146c564ce3ca7e442e15a6ee6d325df60f2cbb4064dae8"
+    },
+    {
+      "path": "INV1D-N03/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N03/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N03/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N04/register.xlsx",
+      "bytes": 7858,
+      "sha256": "b32b2c0956399d124c6b70dd9b1c6ca2cbebff3efec77813334d7d5464040132"
+    },
+    {
+      "path": "INV1D-N04/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N04/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N04/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N05/register.csv",
+      "bytes": 1076,
+      "sha256": "a779586e6c1b4a5bacbe04a1b3515e9956bc6ed40465975c6a5bf24b3165a4e8"
+    },
+    {
+      "path": "INV1D-N05/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N05/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N05/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N06/register.xlsx",
+      "bytes": 7856,
+      "sha256": "c06ca7156b28cf4678d436affb29240caeed5307b83f261d4516fb67ccc8302a"
+    },
+    {
+      "path": "INV1D-N06/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N06/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N06/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N07/register.csv",
+      "bytes": 927,
+      "sha256": "aab1a2be01560635055d2441e74686d30a7401035c777801f1e115942ec4eb90"
+    },
+    {
+      "path": "INV1D-N07/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N07/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N07/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N08/register.csv",
+      "bytes": 930,
+      "sha256": "501b0f77a81af590cdcca42a03d1ba7da041eff4359a4329212ac2a84f4a43e7"
+    },
+    {
+      "path": "INV1D-N08/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N08/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N08/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N09/register.xlsx",
+      "bytes": 7966,
+      "sha256": "cd7e36ead2d214fcc5b9ebd669ef70aef9c9fd3b1b41b86baf48b80398693ec5"
+    },
+    {
+      "path": "INV1D-N09/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N09/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N09/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N10/register.xlsx",
+      "bytes": 7966,
+      "sha256": "6a8c242859d488e44189d159246cca024b39edec008418be6e62db037c14a0ef"
+    },
+    {
+      "path": "INV1D-N10/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N10/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N10/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N11/register.csv",
+      "bytes": 891,
+      "sha256": "6eb53aa3045b7da97cd6c877d0d29f9c024b099427255961db9e1ffeea64d9c1"
+    },
+    {
+      "path": "INV1D-N11/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N11/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N11/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-N12/register.xlsx",
+      "bytes": 8410,
+      "sha256": "fb0f4aa139854b7fe1589e3e7b4d2db193ccc6ea4075ab085faa3e9b45c34fe9"
+    },
+    {
+      "path": "INV1D-N12/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-N12/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-N12/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-P01/register.csv",
+      "bytes": 902,
+      "sha256": "6cc489d473df975b4613b69100f908eb838e89fd0cd17fc22a84715d800a90c3"
+    },
+    {
+      "path": "INV1D-P01/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-P01/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-P01/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-P02/register.xlsx",
+      "bytes": 8096,
+      "sha256": "cbf9819e8c7accd4de885783be24fd8c3c4cb312088cf1cfaf7f3225710044b8"
+    },
+    {
+      "path": "INV1D-P02/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-P02/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-P02/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-P03/register.csv",
+      "bytes": 1131,
+      "sha256": "03044a67ca8927f226adce6339a0a1767250fe7d51ffecb62d5d9da7b87d5ba8"
+    },
+    {
+      "path": "INV1D-P03/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-P03/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-P03/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-P04/register.xlsx",
+      "bytes": 9070,
+      "sha256": "1170a3496f737e607eeba0a80b30200f5c1fd2e1cdc6b98edc82bd763a045462"
+    },
+    {
+      "path": "INV1D-P04/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-P04/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-P04/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-P05/register.csv",
+      "bytes": 834,
+      "sha256": "05d3174c428ee18aa1d884044e3be04a02fe8cdc3de4b7a76f5586015f844cfc"
+    },
+    {
+      "path": "INV1D-P05/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-P05/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-P05/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "INV1D-P06/register.xlsx",
+      "bytes": 8261,
+      "sha256": "79c00432877c74558e85d39161d448f1a2f4e2a6c2072a030ba794419bee8ae5"
+    },
+    {
+      "path": "INV1D-P06/source-1.csv",
+      "bytes": 1079,
+      "sha256": "1fa14348a7b6b19c6d1d43c2a1ba879fb916142938a298856c8ba48e5b153df1"
+    },
+    {
+      "path": "INV1D-P06/source-2.csv",
+      "bytes": 1618,
+      "sha256": "354f330fc957f9b624f64fe5bec931bdb42ee79f00b56aae5409e525d2eb0f1c"
+    },
+    {
+      "path": "INV1D-P06/source-3.csv",
+      "bytes": 980,
+      "sha256": "2adb39dbf64248dfa0977138726355da432bc7b2cedb56042a011d6f51e7aab7"
+    },
+    {
+      "path": "corpus.json",
+      "bytes": 4144,
+      "sha256": "d48077d7dd8aad5ea6f7231d7f57af2f1d749db9e407382baf8f827f5f554672"
+    }
+  ]
+}

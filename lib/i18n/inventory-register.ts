@@ -1,3 +1,4 @@
+import { STOCK_HIERARCHY_CITATION_HEADERS } from '../reconciliation/inventory-hierarchy-evidence.ts';
 const en = {
   scopePrefix: 'Inventory scope ',
   title: 'Posted inventory register / GL evidence',
@@ -6,7 +7,11 @@ const en = {
   claim:
     'This does not calculate inventory cost, aggregate quantities, post entries or establish existence, ownership, source authenticity or ERP completeness.',
   family:
-    'Use a flat CSV register or a sectioned or field-row matrix CSV / Excel register, with three CSV mapping, policy and GL sources. Structured Excel uses one worksheet and literal item identities. SAR / JPY / KWD, one snapshot date; 8 MiB per original and 20,000 physical data rows in total.',
+    'Use a flat CSV register or a sectioned, field-row matrix or parent/batch header CSV / Excel register, with three CSV mapping, policy and GL sources. Structured Excel uses one worksheet and literal item identities. SAR / JPY / KWD, one snapshot date; 8 MiB per original and 20,000 physical data rows in total.',
+  hierarchyCitations: 'Hierarchy dimension sources',
+  hierarchyCitationHeaders: STOCK_HIERARCHY_CITATION_HEADERS,
+  hierarchyDetected:
+    'Dimensions are read from their section headers; the explicit scope is filled in for review',
   sectionsDetected:
     'This register uses item sections; its explicit scope is filled in for review',
   matrixDetected:
@@ -189,6 +194,10 @@ const en = {
     header: 'Header',
     blank: 'Blank physical record',
     data: 'Data record',
+    'parent-start': 'Parent section',
+    'batch-start': 'Batch section',
+    'parent-end': 'Parent boundary',
+    'batch-end': 'Batch boundary',
     'matrix-axis': 'Matrix column axis',
     'matrix-field': 'Matrix field row',
     format: 'Format',
@@ -213,6 +222,19 @@ const en = {
     'orphan-evidence': 'Evidence with no proposed mapping',
   },
   codes: {
+    HIERARCHY_DIMENSION: 'A section dimension is missing or ambiguous',
+    HIERARCHY_PARENT: 'Parent section is malformed or changes dimension kind',
+    HIERARCHY_BATCH: 'Batch has no valid parent or value',
+    HIERARCHY_BOUNDARY:
+      'Section boundary is missing or belongs to another level',
+    HIERARCHY_HEADER:
+      'Detail header has missing, repeated or unsupported roles',
+    HIERARCHY_VALUE: 'A detail value is missing; blank is not zero',
+    HIERARCHY_DIMENSION_CONFLICT:
+      'Explicit row dimensions contradict their section headers',
+    HIERARCHY_ORPHAN: 'Detail row has no complete parent, batch and header',
+    HIERARCHY_MERGE: 'Merged cells do not belong to a proved dimension header',
+
     COLUMNS: 'Header or field count',
     MISSING_MATRIX_AXIS: 'No fact columns were declared',
     DUPLICATE_MATRIX_AXIS: 'A column key is repeated inside the same band',
@@ -282,7 +304,26 @@ const ar: typeof en = {
   claim:
     'لا يحسب هذا المسار تكلفة المخزون أو يجمع الكميات أو ينشئ قيودًا، ولا يثبت الوجود أو الملكية أو أصالة الأصل أو اكتمال نظام المنشأة.',
   family:
-    'ارفع سجلًا مسطحًا بصيغة CSV أو سجلًا بأقسام أو مصفوفة حقول بصيغة CSV أو Excel، مع ثلاثة ملفات CSV للخريطة والسياسة والأستاذ. سجل Excel بورقة واحدة ومعرّفات أصناف نصية. SAR / JPY / KWD وتاريخ واحد؛ 8 ميبيبايت لكل أصل و20 ألف صف بيانات إجمالًا.',
+    'السجل المسطح بصيغة CSV، وسجل الأقسام أو مصفوفة الحقول أو تفاصيل رؤوس الأبعاد بصيغة CSV أو Excel، مع ثلاثة ملفات CSV للخريطة والسياسة والأستاذ. سجل Excel بورقة واحدة ومعرّفات أصناف نصية. SAR / JPY / KWD وتاريخ واحد؛ 8 ميبيبايت لكل أصل و20 ألف صف بيانات إجمالًا.',
+  hierarchyCitations: 'مصادر أبعاد الأقسام',
+  hierarchyCitationHeaders: [
+    'معرف السجل',
+    'المصدر',
+    'البصمة',
+    'رقم الورقة',
+    'الورقة',
+    'صف المصدر',
+    'العمود',
+    'الحقل',
+    'النص',
+    'الدور',
+    'صف القسم',
+    'صف الدفعة',
+    'صف الحد',
+    'نطاق الدمج',
+    'الأبعاد المشتقة',
+  ],
+  hierarchyDetected: 'تُقرأ الأبعاد من رؤوس أقسامها والنطاق الصريح معبأ للمراجعة',
   sectionsDetected: 'قرأنا السجل بأقسامه وملأنا النطاق الواضح من الملف لتراجعه',
   matrixDetected: 'كل سجل في عمود مستقل ونطاقه الصريح جاهز للمراجعة',
   matrixSourceColumn: 'عمود الأصل',
@@ -449,6 +490,10 @@ const ar: typeof en = {
     header: 'عنوان',
     blank: 'سجل فيزيائي فارغ',
     data: 'سجل بيانات',
+    'parent-start': 'رأس القسم',
+    'batch-start': 'رأس الدفعة',
+    'parent-end': 'حد القسم',
+    'batch-end': 'حد الدفعة',
     'matrix-axis': 'أعمدة المصفوفة',
     'matrix-field': 'حقل المصفوفة',
     format: 'رأس الصيغة',
@@ -473,6 +518,16 @@ const ar: typeof en = {
     'orphan-evidence': 'دليل بلا خريطة مقترحة',
   },
   codes: {
+    HIERARCHY_DIMENSION: 'بُعد القسم مفقود أو ملتبس',
+    HIERARCHY_PARENT: 'رأس القسم غير سليم أو يغيّر نوع البُعد',
+    HIERARCHY_BATCH: 'الدفعة بلا قسم أب صالح أو بلا قيمة',
+    HIERARCHY_BOUNDARY: 'حدود القسم غير سليمة أو تخص مستوى آخر',
+    HIERARCHY_HEADER: 'حقول الترويسة ناقصة أو مكررة أو غير مدعومة',
+    HIERARCHY_VALUE: 'قيمة التفصيل مفقودة والفراغ ليس صفرًا',
+    HIERARCHY_DIMENSION_CONFLICT: 'أبعاد الصف الصريحة تتعارض مع رأس القسم',
+    HIERARCHY_ORPHAN: 'صف تفصيل بلا قسم ودفعة وترويسة مكتملة',
+    HIERARCHY_MERGE: 'الخلايا المدمجة لا تخص رأس بُعد مثبت',
+
     COLUMNS: 'العنوان أو عدد الحقول',
     MISSING_MATRIX_AXIS: 'أعمدة السجلات غير محددة',
     DUPLICATE_MATRIX_AXIS: 'هوية العمود مكررة داخل الكتلة',
