@@ -1,3 +1,4 @@
+import { STOCK_COLUMN_CITATION_HEADERS } from '../reconciliation/inventory-column-evidence.ts';
 import { STOCK_HIERARCHY_CITATION_HEADERS } from '../reconciliation/inventory-hierarchy-evidence.ts';
 const en = {
   scopePrefix: 'Inventory scope ',
@@ -8,6 +9,9 @@ const en = {
     'This does not calculate inventory cost, aggregate quantities, post entries or establish existence, ownership, source authenticity or ERP completeness.',
   family:
     'Use a flat CSV register or a sectioned, field-row matrix or parent/batch header CSV / Excel register, with three CSV mapping, policy and GL sources. Structured Excel uses one worksheet and literal item identities. SAR / JPY / KWD, one snapshot date; 8 MiB per original and 20,000 physical data rows in total.',
+  columnDetected: 'Dimensions come from each column’s parent and batch headers',
+  columnCitations: 'Column dimension sources',
+  columnCitationHeaders: STOCK_COLUMN_CITATION_HEADERS,
   hierarchyCitations: 'Hierarchy dimension sources',
   hierarchyCitationHeaders: STOCK_HIERARCHY_CITATION_HEADERS,
   hierarchyDetected:
@@ -198,6 +202,9 @@ const en = {
     'batch-start': 'Batch section',
     'parent-end': 'Parent boundary',
     'batch-end': 'Batch boundary',
+    'column-parent': 'Column parent header',
+    'column-batch': 'Column batch header',
+    'column-end': 'Panel end',
     'matrix-axis': 'Matrix column axis',
     'matrix-field': 'Matrix field row',
     format: 'Format',
@@ -235,6 +242,8 @@ const en = {
     HIERARCHY_ORPHAN: 'Detail row has no complete parent, batch and header',
     HIERARCHY_MERGE: 'Merged cells do not belong to a proved dimension header',
 
+    COLUMN_PANEL: 'Panel headers or boundaries are incomplete or conflicting',
+    COLUMN_MERGE: 'Merge is outside the proved column-parent interval',
     COLUMNS: 'Header or field count',
     MISSING_MATRIX_AXIS: 'No fact columns were declared',
     DUPLICATE_MATRIX_AXIS: 'A column key is repeated inside the same band',
@@ -305,6 +314,27 @@ const ar: typeof en = {
     'لا يحسب هذا المسار تكلفة المخزون أو يجمع الكميات أو ينشئ قيودًا، ولا يثبت الوجود أو الملكية أو أصالة الأصل أو اكتمال نظام المنشأة.',
   family:
     'السجل المسطح بصيغة CSV، وسجل الأقسام أو مصفوفة الحقول أو تفاصيل رؤوس الأبعاد بصيغة CSV أو Excel، مع ثلاثة ملفات CSV للخريطة والسياسة والأستاذ. سجل Excel بورقة واحدة ومعرّفات أصناف نصية. SAR / JPY / KWD وتاريخ واحد؛ 8 ميبيبايت لكل أصل و20 ألف صف بيانات إجمالًا.',
+  columnDetected: 'أبعاد كل عمود مأخوذة من الرؤوس المرتبطة به',
+  columnCitations: 'مصادر أبعاد الأعمدة',
+  columnCitationHeaders: [
+    'معرف السجل',
+    'المصدر',
+    'البصمة',
+    'رقم الورقة',
+    'الورقة',
+    'صف الأصل',
+    'العمود',
+    'الحقل',
+    'النص',
+    'نوع الدليل',
+    'صف الأب',
+    'صف الدفعة',
+    'نهاية اللوحة',
+    'صف المحور',
+    'عمود السجل',
+    'حدود الدمج',
+    'الأبعاد المشتقة',
+  ],
   hierarchyCitations: 'مصادر أبعاد الأقسام',
   hierarchyCitationHeaders: [
     'معرف السجل',
@@ -494,6 +524,9 @@ const ar: typeof en = {
     'batch-start': 'رأس الدفعة',
     'parent-end': 'حد القسم',
     'batch-end': 'حد الدفعة',
+    'column-parent': 'رأس أبعاد الأعمدة',
+    'column-batch': 'رأس دفعات الأعمدة',
+    'column-end': 'نهاية اللوحة',
     'matrix-axis': 'أعمدة المصفوفة',
     'matrix-field': 'حقل المصفوفة',
     format: 'رأس الصيغة',
@@ -528,6 +561,8 @@ const ar: typeof en = {
     HIERARCHY_ORPHAN: 'صف تفصيل بلا قسم ودفعة وترويسة مكتملة',
     HIERARCHY_MERGE: 'الخلايا المدمجة لا تخص رأس بُعد مثبت',
 
+    COLUMN_PANEL: 'رؤوس اللوحة أو حدودها ناقصة أو متعارضة',
+    COLUMN_MERGE: 'دمج خارج حدود رأس أبعاد الأعمدة المثبتة',
     COLUMNS: 'العنوان أو عدد الحقول',
     MISSING_MATRIX_AXIS: 'أعمدة السجلات غير محددة',
     DUPLICATE_MATRIX_AXIS: 'هوية العمود مكررة داخل الكتلة',

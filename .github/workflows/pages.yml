@@ -211,6 +211,14 @@ jobs:
         run: |
           pnpm test:inventory-column:oracle
           pnpm test:inventory-column:baseline
+      - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
+        env:
+          INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
+          INV_COLUMN_MUTATION_DIR: ${{ runner.temp }}/inventory-column-mutations
+        run: |
+          pnpm test:inventory-column
+          pnpm test:inventory-column:proof
+          pnpm test:inventory-column:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
@@ -231,6 +239,10 @@ jobs:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
           INV_HIERARCHY_BROWSER_DIR: ${{ runner.temp }}/inventory-hierarchy-browser
         run: pnpm test:inventory-hierarchy:browser
+      - name: Verify column hierarchy actual Worker, bilingual source ownership and independent downloads
+        env:
+          INV_COLUMN_BROWSER_DIR: ${{ runner.temp }}/inventory-column-browser
+        run: pnpm test:inventory-column:browser
       - name: Verify signed-kind gateway actual Worker, Arabic and English mobile downloads independently
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
