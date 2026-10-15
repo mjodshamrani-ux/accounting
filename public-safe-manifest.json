@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 27643,
-      "sha256": "5035378525c99b201817db12b6a9b457363ed0163380d4526b25b8ca8200ca9e",
+      "bytes": 27938,
+      "sha256": "9ebba931c9590894fe3adad65404e4ab797beec75e93bbea09d9cb49384d2771",
       "kind": "text"
     },
     {
@@ -35163,8 +35163,8 @@
     },
     {
       "path": "docs/audits/INV1-HIERARCHY-DISCOVERY.ar.md",
-      "bytes": 10741,
-      "sha256": "b2ac5264840794cbf0070a5fb5f9edb746cc3f86ee622c4d1347bbafebe535fa",
+      "bytes": 11146,
+      "sha256": "af89f989721c26665011f8710fe6389883807056e1f322f6fd6554d96d7f9a84",
       "kind": "text"
     },
     {
@@ -35193,8 +35193,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 12876,
-      "sha256": "5aefe5cacfcf55e4e5fe116aa62da2d5318edf699ae18babec7c7e800f7d1ef2",
+      "bytes": 14287,
+      "sha256": "55b1b0691bffa90000606e7343cdb99f90386f28ab4f5c6eb5999ce461fee2b5",
       "kind": "text"
     },
     {
@@ -35247,8 +35247,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 10399,
-      "sha256": "fa4ee80fd6dab2e202eb74d9bae9c2d3a3ebb0bd584b9e5ddbb440250d87ac9d",
+      "bytes": 10872,
+      "sha256": "c5685bec841b6f972c34494cbbb7a92ca5503f77a970cdff533191f9ee1b5478",
       "kind": "text"
     },
     {
@@ -35307,8 +35307,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 28615,
-      "sha256": "38b21af795e62fb3b41c66b10109ed1f01a640e79cae43dad0135ac2f7231413",
+      "bytes": 32305,
+      "sha256": "952cf95f89d210e24b04dd7b5d88f1cf4742566c9b92379ba56691c026f5eb33",
       "kind": "text"
     },
     {
@@ -35443,8 +35443,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 11362,
-      "sha256": "903d04fb1cf76e8b952e06f1a435dfd57742200a43f83426c97a4a4dd1e761e9",
+      "bytes": 13222,
+      "sha256": "7f1edc8b5e5ac64db9d01f966250fc74737c525dbd13c30a3b1bf3214cf3a337",
       "kind": "text"
     },
     {
@@ -36549,8 +36549,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 13634,
-      "sha256": "19f30a318baddce9518da360b541b03a8263c3e14427f338856ab404e8d686e5",
+      "bytes": 13959,
+      "sha256": "c1d4a122363787d1ef733f2d733980f22cf9a69e01048ab4b201198de83e98ea",
       "kind": "text"
     },
     {
@@ -36815,8 +36815,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 6659,
-      "sha256": "87c47fd1a8cea7584242fc6a5cbe2599517a1afc1b029dc9586d88ed00baffc1",
+      "bytes": 6729,
+      "sha256": "e481e3c08464b6a9ef7664f804f389f624fc59ae5389bffeebdeb455af83f850",
       "kind": "text"
     },
     {
@@ -39629,8 +39629,8 @@
     },
     {
       "path": "docs/audits/INV1-HIERARCHY-SECTIONS.ar.md",
-      "bytes": 10657,
-      "sha256": "6829c1e678ce10d17bd6558ae47bcd2308a06d9d631ce4e6a2d1fd6554ab73fb",
+      "bytes": 11549,
+      "sha256": "5dc4ac8a68c529f3d2566cea3bfd54c7bd2f4b0c56ffd6726f365dff96f974f1",
       "kind": "text"
     },
     {
@@ -39691,6 +39691,66 @@
       "path": "tests/inventory-hierarchy-sections.test.ts",
       "bytes": 10133,
       "sha256": "0dce5d5c183760c4c5f043758392357588e430bd064e042028883aa8bbe0a57b",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-hierarchy-baseline.mjs",
+      "bytes": 9790,
+      "sha256": "72fbbc6f5e38f06975bf932aabf1421532ab1f2a8805b1e521d4913692178f07",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/contract.json",
+      "bytes": 5573,
+      "sha256": "46df81aed985101a0c7ef8eeee4363e6f34960d3da95d439874bba971de4ed36",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/generate.py",
+      "bytes": 12878,
+      "sha256": "cb0492fcb4cf7297248d7e3c3662e8db489f4dc05f51779b5fb2350eb430631e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/oracle.py",
+      "bytes": 18044,
+      "sha256": "888e1310f79e4b961db26bd385ff308be406ecffaf30c9fe5e747f9d64893fdd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/test_oracle.py",
+      "bytes": 7942,
+      "sha256": "55899f2a0e44498559ce21294a6f043de111a02e430094b1d3fa63a1d7403c75",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.json",
+      "bytes": 12806,
+      "sha256": "1f60599228c6d70cf162afa7a84a9778e13ec5d567a1b23cf6170523f18f0ebb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v2.json",
+      "bytes": 15319,
+      "sha256": "9f7b55eea58a5500d805db0e67e5a3ee20ac05c0d5b9f9560c311729eb449560",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v3.json",
+      "bytes": 25367,
+      "sha256": "87a408f73cbc3473e35463df01663ff681812f1238bd807a248313a6dff2d972",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/README.ar.md",
+      "bytes": 7165,
+      "sha256": "4fd410de886aa85bdbfb420299a14dd714671ac30633e7ac595dbfb65ae6c678",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-COLUMN-HIERARCHY-FOUNDATION.ar.md",
+      "bytes": 13104,
+      "sha256": "76271e0f97132806702ede7cce2e26354dd66b9a2299d4a12cda9aaa6070ea5f",
       "kind": "text"
     }
   ],

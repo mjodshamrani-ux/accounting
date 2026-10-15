@@ -205,6 +205,12 @@ jobs:
           pnpm test:inventory-hierarchy:oracle
           pnpm test:inventory-hierarchy:proof
           pnpm test:inventory-hierarchy:mutations
+      - name: Verify column-header source truth and preserve pre-implementation product refusals
+        env:
+          INV_COLUMN_BASELINE_DIR: ${{ runner.temp }}/inventory-column-baseline
+        run: |
+          pnpm test:inventory-column:oracle
+          pnpm test:inventory-column:baseline
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
