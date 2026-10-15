@@ -1,5 +1,22 @@
 import type { PdfToken } from './pdf.ts';
 
+/** Opt-in glyph evidence. Offsets are UTF-16 offsets into the original paint text. */
+export type PdfLiteralTrace = {
+  version: 'native-pdf-literals-1';
+  text: string;
+  items: { item: number; start: number; end: number }[];
+  operators: {
+    operator: number;
+    start: number;
+    end: number;
+    adjusted: boolean;
+  }[];
+};
+export type NativePdfLiteralSource = Omit<NativePdfSource, 'pages'> & {
+  literalVersion: 'native-pdf-literals-1';
+  pages: (NativePdfSource['pages'][number] & { literals: PdfLiteralTrace })[];
+};
+
 /**
  * Native PDF text after the shared paint/font/stream/visibility guards.
  * This is a source reading, never an accounting result or a completeness claim.

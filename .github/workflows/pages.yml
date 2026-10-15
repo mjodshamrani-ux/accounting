@@ -213,6 +213,8 @@ jobs:
           pnpm test:inventory-column:baseline
       - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
         env:
+          INV_PDF_ACCOUNTING_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-accounting
+          INV_PDF_ACCOUNTING_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-accounting-mutations
           INV_PDF_FIELDS_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-fields
           INV_PDF_FIELDS_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-fields-mutations
           INV_PDF_NATIVE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-native-source
@@ -225,6 +227,9 @@ jobs:
           pnpm test:inventory-pdf:native-mutations
           pnpm test:inventory-pdf:fields-proof
           pnpm test:inventory-pdf:fields-mutations
+          pnpm test:inventory-pdf:accounting
+          pnpm test:inventory-pdf:accounting-proof
+          pnpm test:inventory-pdf:accounting-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
