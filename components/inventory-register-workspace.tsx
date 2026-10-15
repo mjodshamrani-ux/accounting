@@ -1,4 +1,9 @@
 import {
+  STOCK_COLUMN_FAMILY,
+  isInventoryColumnHierarchy,
+} from '../lib/reconciliation/inventory-column-hierarchy.ts';
+import { stockColumnCitationRows } from '../lib/reconciliation/inventory-column-evidence.ts';
+import {
   STOCK_HIERARCHY_FAMILY,
   isInventoryHierarchy,
   inventoryHierarchyScope,
@@ -279,14 +284,16 @@ export function StockWorkspace({
         r[source] = {
           ...r[source],
           family:
-            source === 0 && isInventoryHierarchy(value)
-              ? STOCK_HIERARCHY_FAMILY
-              : source === 0 &&
-                  value.sheets[0]?.rows[0]?.[1] === 'INV1A-MATRIX-1'
-                ? STOCK_MATRIX_FAMILY
-                : source === 0 && structured(value)
-                  ? STOCK_SECTION_FAMILY
-                  : STOCK_VERSION,
+            source === 0 && isInventoryColumnHierarchy(value)
+              ? STOCK_COLUMN_FAMILY
+              : source === 0 && isInventoryHierarchy(value)
+                ? STOCK_HIERARCHY_FAMILY
+                : source === 0 &&
+                    value.sheets[0]?.rows[0]?.[1] === 'INV1A-MATRIX-1'
+                  ? STOCK_MATRIX_FAMILY
+                  : source === 0 && structured(value)
+                    ? STOCK_SECTION_FAMILY
+                    : STOCK_VERSION,
           confirmed: false,
         };
         if (source === 0 && structured(value)) {
@@ -300,6 +307,7 @@ export function StockWorkspace({
             STOCK_SECTION_FAMILY,
             STOCK_MATRIX_FAMILY,
             STOCK_HIERARCHY_FAMILY,
+            STOCK_COLUMN_FAMILY,
           ].includes(reading[0].family)
         )
           setScope({ ...scope, confirmed: false });
@@ -487,11 +495,13 @@ export function StockWorkspace({
                   </label>
                   {i === 0 && structured(files[i]!) && (
                     <p>
-                      {reading[i].family === STOCK_HIERARCHY_FAMILY
-                        ? copy.hierarchyDetected
-                        : reading[i].family === STOCK_MATRIX_FAMILY
-                          ? copy.matrixDetected
-                          : copy.sectionsDetected}
+                      {reading[i].family === STOCK_COLUMN_FAMILY
+                        ? copy.columnDetected
+                        : reading[i].family === STOCK_HIERARCHY_FAMILY
+                          ? copy.hierarchyDetected
+                          : reading[i].family === STOCK_MATRIX_FAMILY
+                            ? copy.matrixDetected
+                            : copy.sectionsDetected}
                     </p>
                   )}
                   {i === 0 && structured(files[i]!)
@@ -695,6 +705,12 @@ export function StockWorkspace({
                 copy.sectionCitationHeaders,
                 stockSectionCitationRows(result.sectionEvidence),
               )}
+            {result.columnEvidence &&
+              detail(
+                copy.columnCitations,
+                copy.columnCitationHeaders,
+                stockColumnCitationRows(result.columnEvidence),
+              )}
             {result.hierarchyEvidence &&
               detail(
                 copy.hierarchyCitations,
@@ -709,7 +725,8 @@ export function StockWorkspace({
               )}
             {(result.sectionEvidence ||
               result.matrixEvidence ||
-              result.hierarchyEvidence) &&
+              result.hierarchyEvidence ||
+              result.columnEvidence) &&
               stockSourceObservations(files).length > 0 &&
               detail(
                 copy.observations,
@@ -788,7 +805,7 @@ export function StockWorkspace({
               <div key={i}>
                 {detail(
                   copy.roles[i],
-                  i === 0 && result.matrixEvidence
+                  i === 0 && (result.matrixEvidence || result.columnEvidence)
                     ? [
                         copy.records[i][0],
                         copy.matrixSourceColumn,
@@ -797,7 +814,8 @@ export function StockWorkspace({
                     : copy.records[i],
                   rows.map((v) => [
                     v.row,
-                    ...(i === 0 && result.matrixEvidence
+                    ...(i === 0 &&
+                    (result.matrixEvidence || result.columnEvidence)
                       ? [v.column ?? null]
                       : []),
                     ...v.values,
@@ -829,7 +847,7 @@ export function StockWorkspace({
             )}
             {detail(
               copy.issues,
-              result.matrixEvidence
+              result.matrixEvidence || result.columnEvidence
                 ? [
                     copy.issueHeaders[0],
                     copy.issueHeaders[1],
@@ -840,7 +858,9 @@ export function StockWorkspace({
               result.issues.map((v) => [
                 copy.roles[v.source] ?? copy.title,
                 v.row,
-                ...(result.matrixEvidence ? [v.column ?? null] : []),
+                ...(result.matrixEvidence || result.columnEvidence
+                  ? [v.column ?? null]
+                  : []),
                 (copy.codes as Record<string, string>)[v.code] ?? copy.failed,
               ]),
             )}

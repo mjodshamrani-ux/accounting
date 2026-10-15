@@ -57,3 +57,5 @@
 يصف [INV-1B](audits/INV1-SECTION-COMPONENTS.ar.md) تفعيل الأقسام المحدودة وتسليم 0.4.49. يصف [INV-1C](audits/INV1-TRANSPOSED-REGISTER.ar.md) تسليم المصفوفة 0.4.50 المستقل، ويصف [INV-1D](audits/INV1-HIERARCHY-SECTIONS.ar.md) تفاصيل الرؤوس الهرمية المنشورة 0.4.51، ثم يحدد INV-1E فجوة رؤوس الأعمدة. يؤخذ قرار النشر من الحالة وCI والتحقق الحي، لا من وجود الشفرة أو نجاح قراءة الملف.
 
 [أساس INV-1E لرؤوس أبعاد الأعمدة](audits/INV1-COLUMN-HIERARCHY-FOUNDATION.ar.md) يحدد فجوة المصدر التالية بأصول مختومة وأوراكل مستقل للكميات والقيم والأبعاد والربط ومواضع الدليل. يفصل قيد BHD عن رفض الهيكل تحت KWD؛ لا يفعّل العائلة ولا يغير إصدار التطبيق.
+
+[تنفيذ INV-1E — مرشح 0.4.52](audits/INV1-COLUMN-HIERARCHY-ENGINE.ar.md) يضيف عائلة رؤوس الأعمدة واللوحات المتتابعة ودليلها المالي ودورة الأصل والتصدير. الأساس المجمد يبقى تاريخيًا؛ [تعليمات تشغيل التنفيذ](../audit/inventory-column-hierarchy/IMPLEMENTATION.ar.md) و[عقده](../audit/inventory-column-hierarchy/implementation-contract.json) يحددان التفعيل وحدوده. لم يثبت نشر المرشح بعد، ولا يغلق نجاح القراءة أو هذه الحزمة بقية تنوع المخزون.

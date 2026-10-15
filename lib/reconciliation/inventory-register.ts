@@ -1,4 +1,11 @@
 import {
+  STOCK_COLUMN_FAMILY,
+  parseInventoryColumnHierarchy,
+  type StockColumnEvidence,
+  type ColumnRowKind,
+} from './inventory-column-hierarchy.ts';
+export { STOCK_COLUMN_FAMILY } from './inventory-column-hierarchy.ts';
+import {
   parseInventoryHierarchy,
   STOCK_HIERARCHY_FAMILY,
   type StockHierarchyEvidence,
@@ -111,7 +118,8 @@ export type StockReading = {
     | typeof STOCK_VERSION
     | typeof STOCK_SECTION_FAMILY
     | typeof STOCK_MATRIX_FAMILY
-    | typeof STOCK_HIERARCHY_FAMILY;
+    | typeof STOCK_HIERARCHY_FAMILY
+    | typeof STOCK_COLUMN_FAMILY;
   confirmed: boolean;
 };
 export type StockEvent = {
@@ -167,7 +175,8 @@ export type StockResult = {
       | 'data'
       | StockSectionRowKind
       | StockMatrixRowKind
-      | HierarchyRowKind;
+      | HierarchyRowKind
+      | ColumnRowKind;
   }[];
   cells: {
     source: number;
@@ -180,6 +189,7 @@ export type StockResult = {
   sectionEvidence?: StockSectionEvidence;
   matrixEvidence?: StockMatrixEvidence;
   hierarchyEvidence?: StockHierarchyEvidence;
+  columnEvidence?: StockColumnEvidence;
   events: StockEvent[];
   financial: 'source-error' | 'missing' | 'difference' | 'ready';
   review: 'needs-review' | 'accepted' | 'rejected';
@@ -292,7 +302,8 @@ export function reconcileStock(input: StockInput): StockResult {
           i === 0 &&
           (r.family === STOCK_SECTION_FAMILY ||
             r.family === STOCK_MATRIX_FAMILY ||
-            r.family === STOCK_HIERARCHY_FAMILY)
+            r.family === STOCK_HIERARCHY_FAMILY ||
+            r.family === STOCK_COLUMN_FAMILY)
         )) ||
       r.confirmed !== true
     )
@@ -303,7 +314,8 @@ export function reconcileStock(input: StockInput): StockResult {
       source === 0 &&
       (input.readings[source].family === STOCK_SECTION_FAMILY ||
         input.readings[source].family === STOCK_MATRIX_FAMILY ||
-        input.readings[source].family === STOCK_HIERARCHY_FAMILY);
+        input.readings[source].family === STOCK_HIERARCHY_FAMILY ||
+        input.readings[source].family === STOCK_COLUMN_FAMILY);
     assertSourceFile(f);
     const native = sections && /\.xlsx$/i.test(f.name);
     text(f.name, 255);
@@ -376,7 +388,10 @@ export function reconcileStock(input: StockInput): StockResult {
             .filter((row) => row.some((value) => value.trim())).length,
         0,
       );
-  if (input.readings[0].family === STOCK_MATRIX_FAMILY)
+  if (
+    input.readings[0].family === STOCK_MATRIX_FAMILY ||
+    input.readings[0].family === STOCK_COLUMN_FAMILY
+  )
     assertInventoryMatrixLogicalBudget(input.files[0], matrixBudget);
   const scope = {
       ...Object.fromEntries(STOCK_FIELDS.map((k) => [k, s[k]])),
@@ -487,6 +502,57 @@ export function reconcileStock(input: StockInput): StockResult {
     }
   };
   input.files.forEach((f, source) => {
+    if (source === 0 && readings[source].family === STOCK_COLUMN_FAMILY) {
+      const parsed = parseInventoryColumnHierarchy(
+        f,
+        scope,
+        decimals,
+        scaled,
+        matrixBudget,
+      );
+      const physicalId = (row: number) =>
+        JSON.stringify([STOCK_VERSION, source, f.sha256, 0, row]);
+      const id = (row: number, column: number) =>
+        JSON.stringify([STOCK_COLUMN_FAMILY, source, f.sha256, 0, row, column]);
+      result.inventory.push(...parsed.inventory.map((v) => ({ source, ...v })));
+      result.cells.push(...parsed.cells.map((v) => ({ source, ...v })));
+      result.memberIds.push(...parsed.memberRows.map(physicalId));
+      for (const issue of parsed.issues)
+        problem(source, issue.row, issue.code, issue.column);
+      result.columnEvidence = parsed.evidence;
+      for (const record of parsed.records) {
+        record.evidence.recordId = id(record.row, record.column);
+        let field = '';
+        try {
+          const values = interpretValues(
+            source,
+            (k) => record.raw[k],
+            (k) => {
+              field = k;
+            },
+          );
+          result.records[source].push({
+            id: id(record.row, record.column),
+            source,
+            row: record.row,
+            column: record.column,
+            values,
+          });
+        } catch (error) {
+          if (!(error instanceof Error) || !error.message.startsWith('STOCK_'))
+            throw error;
+          const c = record.evidence.fields[field]?.value;
+          problem(
+            source,
+            c?.row ?? record.row,
+            error.message.slice(6),
+            c?.column ?? record.column,
+          );
+        }
+      }
+      if (!result.records[source].length) absent('source:' + source);
+      return;
+    }
     if (source === 0 && readings[source].family === STOCK_HIERARCHY_FAMILY) {
       const parsed = parseInventoryHierarchy(f, scope, decimals, scaled);
       const id = (row: number) =>
