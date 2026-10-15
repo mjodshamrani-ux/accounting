@@ -1,0 +1,20 @@
+{
+  "schema":"tarasuf-inv1d-hierarchy/1",
+  "family":"inventory-hierarchy-sections-1",
+  "status":"frozen synthetic development contract before product evaluation",
+  "holdout":false,
+  "registerOnly":true,
+  "title":"Inventory carrying-value register",
+  "scope":"12 unique name/value rows before the first Plant or Warehouse; same existing scope and financial kernel",
+  "hierarchy":"one parent kind Plant or Warehouse plus Batch; a new parent always clears batch and detail headers; a new Batch clears detail headers; explicit end controls clear their level; unknown rows clear the active batch",
+  "details":"six unique literal headers in any order; optional seventh Item dimensions must exactly equal the source-derived parent and batch dimensions; multiple data rows per batch",
+  "boundaries":"next Batch or parent, End batch, End plant or End warehouse, Report total or End report are actual source boundaries; End report is required",
+  "merges":"XLSX single-row B:F or B:G in Plant/Warehouse/Batch value headers only, no stored payload in covered cells; native geometry must agree with original XML; no financial cell merge",
+  "identity":"literal item/parent/batch, no numeric identity; no semicolon or equals in dimension tokens; globally unique item/dimension tuple",
+  "controls":"optional Batch total, Parent total and Report total are supplied controls, never transaction rows; exact amounts required, then close their active scope",
+  "errors":"whole-source financial block with retained diagnostics; no inference of missing parent/batch or dimension from prior section, no valuation or partial-isolation change",
+  "limits":"existing file/row/column limits; one logical record per detail row",
+  "story":{"currency":"SAR","totalMinor":225000,"quantityMinor":[125,250,4,3,0],"itemValuesMinor":[40000,60000,100000,25000,0]},
+  "deferred":["two-level column matrix","PDF/OCR","multiple worksheets","movement bridge","valuation","capacity benchmark"],
+  "versionPolicy":"new family, existing stock/session protocol unchanged"
+}

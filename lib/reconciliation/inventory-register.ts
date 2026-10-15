@@ -1,3 +1,10 @@
+import {
+  parseInventoryHierarchy,
+  STOCK_HIERARCHY_FAMILY,
+  type StockHierarchyEvidence,
+  type HierarchyRowKind,
+} from './inventory-hierarchy-sections.ts';
+export { STOCK_HIERARCHY_FAMILY } from './inventory-hierarchy-sections.ts';
 import { currencyPrecision } from './currency-precision.ts';
 import { assertSourceFile } from './protocol.ts';
 import { MAX_ROWS, MAX_FILE_BYTES, type SourceFile } from './types.ts';
@@ -103,7 +110,8 @@ export type StockReading = {
   family:
     | typeof STOCK_VERSION
     | typeof STOCK_SECTION_FAMILY
-    | typeof STOCK_MATRIX_FAMILY;
+    | typeof STOCK_MATRIX_FAMILY
+    | typeof STOCK_HIERARCHY_FAMILY;
   confirmed: boolean;
 };
 export type StockEvent = {
@@ -158,7 +166,8 @@ export type StockResult = {
       | 'blank'
       | 'data'
       | StockSectionRowKind
-      | StockMatrixRowKind;
+      | StockMatrixRowKind
+      | HierarchyRowKind;
   }[];
   cells: {
     source: number;
@@ -170,6 +179,7 @@ export type StockResult = {
   memberIds: string[];
   sectionEvidence?: StockSectionEvidence;
   matrixEvidence?: StockMatrixEvidence;
+  hierarchyEvidence?: StockHierarchyEvidence;
   events: StockEvent[];
   financial: 'source-error' | 'missing' | 'difference' | 'ready';
   review: 'needs-review' | 'accepted' | 'rejected';
@@ -281,7 +291,8 @@ export function reconcileStock(input: StockInput): StockResult {
         !(
           i === 0 &&
           (r.family === STOCK_SECTION_FAMILY ||
-            r.family === STOCK_MATRIX_FAMILY)
+            r.family === STOCK_MATRIX_FAMILY ||
+            r.family === STOCK_HIERARCHY_FAMILY)
         )) ||
       r.confirmed !== true
     )
@@ -291,7 +302,8 @@ export function reconcileStock(input: StockInput): StockResult {
     const sections =
       source === 0 &&
       (input.readings[source].family === STOCK_SECTION_FAMILY ||
-        input.readings[source].family === STOCK_MATRIX_FAMILY);
+        input.readings[source].family === STOCK_MATRIX_FAMILY ||
+        input.readings[source].family === STOCK_HIERARCHY_FAMILY);
     assertSourceFile(f);
     const native = sections && /\.xlsx$/i.test(f.name);
     text(f.name, 255);
@@ -475,6 +487,48 @@ export function reconcileStock(input: StockInput): StockResult {
     }
   };
   input.files.forEach((f, source) => {
+    if (source === 0 && readings[source].family === STOCK_HIERARCHY_FAMILY) {
+      const parsed = parseInventoryHierarchy(f, scope, decimals, scaled);
+      const id = (row: number) =>
+        JSON.stringify([STOCK_VERSION, source, f.sha256, 0, row]);
+      result.inventory.push(...parsed.inventory.map((v) => ({ source, ...v })));
+      result.cells.push(...parsed.cells.map((v) => ({ source, ...v })));
+      for (const issue of parsed.issues)
+        problem(source, issue.row, issue.code, issue.column);
+      result.memberIds.push(...parsed.memberRows.map(id));
+      result.hierarchyEvidence = parsed.evidence;
+      for (const record of parsed.records) {
+        record.evidence.recordId = id(record.row);
+        let field = '';
+        try {
+          const values = interpretValues(
+            source,
+            (k) => record.raw[k],
+            (k) => {
+              field = k;
+            },
+          );
+          result.records[source].push({
+            id: id(record.row),
+            source,
+            row: record.row,
+            values,
+          });
+        } catch (error) {
+          if (!(error instanceof Error) || !error.message.startsWith('STOCK_'))
+            throw error;
+          const cite = record.evidence.fields[field];
+          problem(
+            source,
+            cite?.row ?? record.row,
+            error.message.slice(6),
+            cite?.column,
+          );
+        }
+      }
+      if (!result.records[source].length) absent('source:' + source);
+      return;
+    }
     if (source === 0 && readings[source].family === STOCK_MATRIX_FAMILY) {
       const parsed = parseInventoryTransposedRegister(
         f,
