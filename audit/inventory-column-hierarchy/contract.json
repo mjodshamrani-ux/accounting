@@ -1,0 +1,127 @@
+{
+  "schema": "tarasuf-inv1e-source-foundation/1",
+  "status": "source contract before new product-family implementation",
+  "synthetic": true,
+  "holdout": false,
+  "productEnabled": false,
+  "registerTitle": "Inventory carrying-value register",
+  "scope": "12 unique direct name/value scope rows before any panel; all three companion CSV sources carry the identical scope",
+  "panel": "Warehouse or Plant row, Batch row, Field axis, six unique field-role rows in any order, optional Item dimensions role, explicit End panel; one parent kind per report; each new panel must provide its own parent and batch rows",
+  "ownership": "CSV repeats the parent literally for every active column. XLSX may instead have a single-row parent merge whose original anchor owns only the columns in its explicit interval. Every column in that interval must be active; there is no carry to the next column, across a spacer, or into another panel. Batch and axis keys are direct nonmerged cells per active column",
+  "spacers": "Inactive separator columns must have no batch, parent, role value or stored payload; an empty axis is not permission to ignore financial cells",
+  "merges": "Only parent value cells in that panel's first row may merge horizontally; original covered cells must have no payload including numeric zero, no formula, overlap, vertical or financial merge",
+  "identity": "literal item, axis, parent and batch with leading zeros preserved; unique axes within a panel; unique item/derived-dimension tuple over the report; optional explicit dimensions must equal the independently source-derived pair",
+  "financial": "provided posted carrying value only; exact BHD minor units (3 decimals) and independent quantity precision; mapping/evidence/GL membership comes from original companion cells and cannot be proved by a sum",
+  "controls": "Report total is a supplied control over all parsed record values, never an extra record; End report required; missing zero is not explicit zero",
+  "errors": "preserve the existing whole-stock source-error gate for malformed source; no partial-isolation, source rewriting, inferred valuation or AI approval",
+  "story": {
+    "currency": "BHD",
+    "registerMinor": 1125000,
+    "glMinor": 1125000,
+    "facts": [
+      [
+        "0007",
+        "warehouse=NORTH;batch=LOT-A",
+        1250,
+        "KG",
+        3,
+        310125,
+        "VAL-A",
+        "INV-RAW",
+        "branch=10"
+      ],
+      [
+        "07",
+        "warehouse=NORTH;batch=LOT-B",
+        275,
+        "KG",
+        2,
+        189875,
+        "VAL-B",
+        "INV-RAW",
+        "branch=20"
+      ],
+      [
+        "0007",
+        "warehouse=SOUTH;batch=LOT-A",
+        1250,
+        "G",
+        0,
+        500000,
+        "VAL-C",
+        "INV-RAW",
+        "branch=30"
+      ],
+      [
+        "7",
+        "warehouse=SOUTH;batch=LOT-C",
+        3,
+        "EA",
+        0,
+        62500,
+        "VAL-D",
+        "INV-PACK",
+        "branch=40"
+      ],
+      [
+        "00",
+        "warehouse=NORTH;batch=Z0",
+        0,
+        "EA",
+        0,
+        0,
+        "VAL-Z",
+        "INV-PACK",
+        "branch=60"
+      ],
+      [
+        "007",
+        "warehouse=EAST;batch=LOT-A",
+        50,
+        "KG",
+        2,
+        62500,
+        "VAL-F",
+        "INV-PACK",
+        "branch=50"
+      ]
+    ],
+    "trap": "A+B=C while A and C have the same literal item and batch but different warehouse and quantity unit. D and F have the same amount. Moving amounts or parent ownership can preserve the grand and account totals while producing the wrong branch membership."
+  },
+  "structures": [
+    "one horizontal axis with explicit repeated CSV parent cells",
+    "one horizontal axis under native XLSX merged parent intervals",
+    "stacked complete panels, reordered fields and explicit panel boundaries",
+    "stacked XLSX panels with inactive separator columns and shared-string cells"
+  ],
+  "evidenceRequiredBeforeActivation": [
+    "all 20 KWD scenarios completed with expected financial outcomes, including positive source achievement and negative membership/structure controls",
+    "original bytes/hash",
+    "panel and end boundaries",
+    "axis column",
+    "field-role/value cell pair",
+    "parent anchor and exact merge interval",
+    "batch cell",
+    "derived dimensions labelled as derived",
+    "quantity units/precision",
+    "literal mapping and policy identities",
+    "per-account/dimension comparison",
+    "actual Worker",
+    "session/replay/decision",
+    "independent AR/EN Excel outputs",
+    "assistant fact binding",
+    "semantic fault detection"
+  ],
+  "layoutControls": "The initial product probe failed at STOCK_CURRENCY because current inventory admits only SAR/JPY/KWD. Original BHD sources and v1 manifest remain byte-exact. Four additional KWD presentations (C01-C04) change only source/companion currency, retain quantity/value/membership truth, and isolate structural rejection; they are not additional structures or financial stories. Extended inputs have a separate v2 manifest. Sixteen additional D01-D16 KWD negative controls retain each original defect; v3 extends v2 without replacing its manifest or default reproduction. These controls isolate all 20 scenarios at supported currency before product-family implementation.",
+  "deferred": [
+    "new product-family activation",
+    "BHD inventory activation",
+    "PDF/OCR",
+    "arbitrary depth or titles",
+    "multiple worksheets",
+    "movement bridge",
+    "valuation",
+    "capacity benchmark",
+    "real-client/holdout validation"
+  ]
+}
