@@ -1,0 +1,36 @@
+{
+  "schema": "tarasuf-inv1f-scope-blocks/2",
+  "extends": "contract.json",
+  "status": "additive source foundation; product PDF activation remains disabled",
+  "productEnabled": false,
+  "scope": "P01-P03 and N01-N12 retain the original v1 inputs and expectations. P04/N13-N15 add a report whose full twelve-value scope is explicit on the first page, with the same report ID, declared numbered physical page sequence, Currency and As of repeated on subsequent pages. No external or AI-inferred scope value is added",
+  "documentScopeOwnership": "Every record cites the first-page document scope and its own local scope repetitions. A local conflict is fatal. A shared report ID alone does not authorize reading a missing/duplicate/foreign physical page",
+  "sectionBoundaries": "An explicit next Warehouse header closes the preceding section and clears Batch and detail headers. Page total closes the last local section. These source boundaries are alternatives to literal End section rows. Explicit outgoing/incoming continuation keys remain required across pages and are not replaced by a nearby amount or a same-named parent",
+  "negativeCases": {
+    "N13": "A new Warehouse has no Batch; the preceding Batch must not be inherited",
+    "N14": "A page without the full scope block has a foreign report ID",
+    "N15": "A continued section lacks the matching incoming continuation marker"
+  },
+  "counts": {
+    "stories": 1,
+    "pdfLayoutFamilies": 2,
+    "positivePdfPresentations": 4,
+    "csvControls": 1,
+    "negativePdfCases": 15,
+    "pdfFiles": 19,
+    "totalOriginalSources": 80,
+    "sealedFilesIncludingCorpus": 81,
+    "pdfPages": 56,
+    "writerLineages": 1
+  },
+  "seal": "INPUT-MANIFEST.v2.json; default generation still reproduces all 65 v1 sealed files exactly, and extended generation preserves all original 64 source byte sequences",
+  "budget": "One bounded foundation cycle, at most twenty scenarios and eighty originals; no automatic extension into arbitrary source layouts or product activation",
+  "unchanged": [
+    "seven literal financial facts and provided policy/mapping/GL",
+    "exact quantities and money precision",
+    "native source and page geometry provenance",
+    "whole-stock source-error policy",
+    "AI has no financial authority",
+    "local privacy and existing application release"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "tarasuf-inv1f-pdf-foundation/1",
+  "status": "frozen synthetic development source foundation before PDF inventory activation",
+  "synthetic": true,
+  "holdout": false,
+  "productEnabled": false,
+  "challengeIds": ["CH-10", "CH-12", "INV-1"],
+  "story": {
+    "currency": "KWD",
+    "moneyPrecision": 3,
+    "records": 7,
+    "providedPostedMinor": 1285750,
+    "glMinor": 1285750,
+    "traps": [
+      "410.125 + 189.875 = 600.000 across different owners",
+      "two unrelated 42.500 values",
+      "0008 versus 08 versus 8 versus 008 versus 00008",
+      "same item/batch under NORTH and SOUTH with KG versus G",
+      "explicit zero quantity/value record"
+    ]
+  },
+  "sources": "Register in PDF, plus the existing three CSV mapping, provided valuation policy and GL sources; P00 is a separately authored canonical CSV control of the same story, never an extracted PDF disguised as CSV",
+  "presentations": {
+    "P01": "two A4 landscape pages, explicit dimensions in each row, reversed physical header/field order on the second page",
+    "P02": "three A4 portrait pages with closed Warehouse/Batch section tables and repeated local headers",
+    "P03": "three A4 portrait pages with a section continued across a page boundary; explicit outgoing/incoming continuation key and repeated parent/batch headers; selected cells use adjacent Tj fragments"
+  },
+  "counts": {
+    "stories": 1,
+    "pdfLayoutFamilies": 2,
+    "positivePdfPresentations": 3,
+    "csvControls": 1,
+    "negativePdfCases": 12,
+    "pdfFiles": 15,
+    "totalOriginalSources": 64,
+    "sealedFilesIncludingCorpus": 65,
+    "pdfPages": 44,
+    "writerLineages": 1
+  },
+  "scope": "Title, report ID, numbered Page n of N and all twelve literal scope values repeated consistently on every page; no inherited currency or entity",
+  "pageOwnership": "Physical page order and declared page count/ordinal must agree. End page and exact Page total are required on each page; Report total and End report only on the final page. Totals and repeated scope/header rows are controls, never inventory records",
+  "tableOwnership": "Field roles are literal unique headers of the local table; physical x positions bind each value to its own header on that page. Do not apply a single report-wide cut layout to reordered tables or to scope/control blocks",
+  "sectionOwnership": "Warehouse and Batch must be explicit locally. The page boundary closes implicit inheritance. Cross-page continuation requires matching explicit outgoing/incoming section keys AND the repeated local parent/batch. A new section clears old headers and dimensions",
+  "quantity": "Independently scaled by supplied Quantity precision and literal Unit; no addition across units, no cash precision applied to quantity, no implicit KG/G conversion",
+  "moneyAndLinks": "Supplied posted carrying values only, exact currency minor units. Item/dimension mapping and supplied policy must identify original item, unit, quantity precision, valuation reference, GL account/dimension, validity and scope. A total or equal amount does not establish membership",
+  "provenance": "Preserve original bytes and SHA256, physical page/local row, role and value text boxes, parent/batch source owners, scope/continuation/end controls and all rejected rows. A future product family must replay these from originals, not trust a parsed cache or an AI explanation",
+  "errors": "Existing whole-stock source-error financial block stays authoritative until a separately tested isolation contract changes it. Missing/duplicate pages, missing zero value, orphan money, wrong page total, conflicting scope or invalid precision cannot be silently excluded",
+  "oracle": "Independent standard-library CSV/Decimal financial oracle and a deliberately restricted Type1/Tm/Tj fixture PDF reader; imports neither generator nor product. Local pypdf/Poppler cross-check is additional decoder/visual evidence, not an ordinary CI dependency or evidence of real supplier diversity",
+  "activationGates": [
+    "native page/text/paint integrity and bounded extraction",
+    "per-table/page roles and evidence ownership",
+    "six financially interpretable PDF cases with exact facts, links and statuses",
+    "nine source-error cases retain diagnostics and null monetary outputs",
+    "Worker/session/events/source-original replay",
+    "independent XLSX outputs and targeted semantic guard faults",
+    "actual AR/EN shared UI uploads and downloads",
+    "unchanged CI, exact deployment assets and live verification"
+  ],
+  "limits": "Source foundation only. Existing file/page/row/resource budgets remain; no measured large-file capacity claim",
+  "deferred": [
+    "product PDF activation",
+    "arbitrary unnumbered reports or header aliases",
+    "Arabic PDF input",
+    "scanned/image PDF and OCR",
+    "multiple producer families and unseen holdout",
+    "inventory valuation or movement bridge",
+    "partial-source financial isolation",
+    "measured weak-device or enterprise capacity"
+  ]
+}
