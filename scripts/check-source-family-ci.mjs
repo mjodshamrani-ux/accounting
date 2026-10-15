@@ -93,6 +93,8 @@ const required = [
   'test:inventory-pdf:baseline',
   'test:inventory-pdf:native-proof',
   'test:inventory-pdf:native-mutations',
+  'test:inventory-pdf:fields-proof',
+  'test:inventory-pdf:fields-mutations',
   'test:inventory-column',
   'test:inventory-column:proof',
   'test:inventory-column:mutations',

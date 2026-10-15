@@ -1,0 +1,52 @@
+{
+  "version": "inventory-native-pdf-register-1",
+  "stage": "INV-1F-G2",
+  "input": "Original PDF bytes through readNativePdfSource; never caller-provided geometry",
+  "meaning": "Literal source roles and physical ownership only; no numeric conversion, money comparison, matching or financial approval",
+  "title": "Inventory carrying-value register",
+  "reportIdentity": "Nonempty first-page Report ID of at most 255 characters; repeated exactly on every page. No hardcoded fixture ID, currency, date or entity.",
+  "pages": "Each physical page must provide Page N of actual total. All pages, source tokens, unresolved lines and original hash are retained.",
+  "scope": "First page provides all twelve distinct scope labels; later pages repeat at least Currency and As of and may repeat other fields consistently. Missing fields are not inferred from transaction extremes.",
+  "tables": "Seven explicit field roles in any physical order for flat rows, or six roles under explicit Warehouse and Batch headers; positions and local header ownership define field intervals. No global document cuts.",
+  "dimensions": "New Warehouse clears Batch and header. Boundaries are End section, next Warehouse, Page total or explicit outgoing continuation. No dimension is inherited from a preceding section/page alone.",
+  "continuation": "Explicit outgoing and incoming key, same report, correct physical page sequence, locally repeated Warehouse and Batch and table roles. A continuation applies only to its own section.",
+  "evidence": "Each role, value, parent, batch, boundary, scope and control cites original hash, physical page/line, exact native item IDs, text and box.",
+  "readingIssues": "Any G1 display warning blocks G2 interpretation; retains complete source and unresolved inventory. This does not establish partial financial isolation.",
+  "failure": "Keep native source, all token inventory and interpreted raw records plus precise first structural error. Status source-error never authorizes accounting use.",
+  "deferredG3": {
+    "INV1F-N09": "G2 must preserve the wrong page-total literal and interpret roles; G3 must reject PAGE_TOTAL",
+    "INV1F-N12": "G2 must preserve precision 1 and quantity 1.250 without rounding; G3 must reject PRECISION"
+  },
+  "interpreted": [
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "N04",
+    "N05",
+    "N09",
+    "N11",
+    "N12"
+  ],
+  "structuralErrors": {
+    "N01": "PAGE_SEQUENCE",
+    "N02": "PAGE_SEQUENCE",
+    "N03": "CONTINUATION",
+    "N06": "MISSING_FIELD",
+    "N07": "UNCLASSIFIED_ROW",
+    "N08": "REPORT_END",
+    "N10": "SCOPE_CONFLICT",
+    "N13": "HEADER_DIMENSIONS",
+    "N14": "REPORT_ID",
+    "N15": "CONTINUATION"
+  },
+  "budget": "Nineteen unchanged frozen PDFs, two layout families, four positive presentations and one known financial story; 29 units including two bounded collision/gap probes, nine checker faults and eight code mutations.",
+  "excluded": [
+    "stock financial activation",
+    "Worker/session/UI/XLSX changes",
+    "OCR/images",
+    "Arabic inventory PDF family",
+    "enterprise capacity or field accuracy claims"
+  ],
+  "textAuthority": "Span text is display assembly. Native items and measured gaps are retained. gap-presentation does not prove whitespace count or canonical financial identity; G3 must prove literal identity from original glyph evidence or keep it unresolved, never normalize it silently."
+}

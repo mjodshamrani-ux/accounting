@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 29179,
-      "sha256": "42507d2907845545e468af31c2b71add54c837c7bd5bdacb24374e1b27128922",
+      "bytes": 29442,
+      "sha256": "8d409a3062f4ab8606fc7954a990cd2b12b4db1f31a76087cc50766475fa2155",
       "kind": "text"
     },
     {
@@ -35193,8 +35193,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 17508,
-      "sha256": "edf3ba2d8f17e3edccf0ff2de79abfea8a9fac08a07458a254a45c4a783c10b7",
+      "bytes": 18952,
+      "sha256": "f1c0c90c8194846852b5307dfbebbffd771ea5bebbe418617d6241e1d966efaa",
       "kind": "text"
     },
     {
@@ -35247,8 +35247,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 12793,
-      "sha256": "794489e196bc56e5a738cfa2de7aff5b2cba57b4032453efc1ebf60b9ca98bcd",
+      "bytes": 13238,
+      "sha256": "f423a356f3ca8cc23e777e03e4b64f355687f6a7849791041458f2c023a5eefe",
       "kind": "text"
     },
     {
@@ -35307,8 +35307,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 39068,
-      "sha256": "2414b85231052739616e7b4595751107a6410134f79f2775666523a781f3312a",
+      "bytes": 40738,
+      "sha256": "b9c9682429a9af7ffd3d60501fc2ab95261ec922b6d88021969523cd7540ad6b",
       "kind": "text"
     },
     {
@@ -35443,8 +35443,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 16236,
-      "sha256": "1f4b98bdc47b984b8e68846d396c4187b34247ee2741d9bd1d290c73d2c83672",
+      "bytes": 17083,
+      "sha256": "04fba2dee869dd5e9885d04d08bf40f03edeb3e13b0c92e6b98357ad80498425",
       "kind": "text"
     },
     {
@@ -36549,8 +36549,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 15197,
-      "sha256": "97e2de22da335a4bc521e182d4251088d3a0f8fafa1fe6b65a5c695d2153bf41",
+      "bytes": 15505,
+      "sha256": "c26bd523ea544661ad0c89732b94c81751c5027694416baa11c899486c9841b7",
       "kind": "text"
     },
     {
@@ -36815,8 +36815,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 7003,
-      "sha256": "07ff92bb68916768c1886a066839af09aead131e039eaf953b970a8ab2807671",
+      "bytes": 7081,
+      "sha256": "1f022b1bbf33a33c1d6788f96f19a97fe464528cd5d652b8c504af264ee3c68e",
       "kind": "text"
     },
     {
@@ -39949,6 +39949,54 @@
       "path": "audit/inventory-pdf-native-source/README.ar.md",
       "bytes": 2421,
       "sha256": "781e097ca74d1626e74740e8c3fd008fc8fbe0f2bf959ffaa04fe512c152df11",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-LOCAL-FIELDS.ar.md",
+      "bytes": 12258,
+      "sha256": "f74adb3c7f08db7e5e816010153c32d24314933290d3df414f6823ac603293b6",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-register.ts",
+      "bytes": 18725,
+      "sha256": "d098913a4a4d38550afc073bf5edda0b207c1ea34697414f3f89ec6e43f5a9ee",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-local-fields-proof.mjs",
+      "bytes": 4542,
+      "sha256": "40da937db04b7259b757d4a2039e6180fa2dfa8fccf4e72eb4e783f9f6353c4e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-pdf-local-fields-mutations.mjs",
+      "bytes": 3812,
+      "sha256": "fd3bef78070f830ded1473347a16a7912f6e5142980419c9dc67cf7620364db2",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-pdf-register.test.ts",
+      "bytes": 11649,
+      "sha256": "b93ac702059cf49fd88da8a1f233917b50be4bfbdf7d2620fd0bb4bb39496208",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/README.ar.md",
+      "bytes": 2171,
+      "sha256": "77429156369f65d985b1078ffee5ac3ef401941be77249ab9809a480cff81c26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/contract.json",
+      "bytes": 3409,
+      "sha256": "b731b7a1ce7de3e39819aa5e7ef4b1f196253dc4b07716716e3fcab267edb5b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/check_reading.py",
+      "bytes": 9055,
+      "sha256": "5b5931a0cf515210b8ede99d63a8abd1802a8c73c44e9685249f7aa0d0786a99",
       "kind": "text"
     }
   ],
