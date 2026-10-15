@@ -211,6 +211,12 @@ jobs:
         run: |
           pnpm test:inventory-column:oracle
           pnpm test:inventory-column:baseline
+      - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
+        env:
+          INV_PDF_BASELINE_DIR: ${{ runner.temp }}/inventory-pdf-baseline
+        run: |
+          pnpm test:inventory-pdf:oracle
+          pnpm test:inventory-pdf:baseline
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
