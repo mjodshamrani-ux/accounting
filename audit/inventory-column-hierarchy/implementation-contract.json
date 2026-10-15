@@ -1,0 +1,22 @@
+{
+  "schema": "tarasuf-inv1e-product-contract/1",
+  "family": "inventory-column-hierarchy-1",
+  "status": "implemented candidate 0.4.52; delivery requires exact-head CI and live proof",
+  "foundation": "contract.json and INPUT-MANIFEST.v3.json remain byte-exact historical source contracts, not product activation flags",
+  "role": "source 0 register only; other three sources retain their canonical CSV contracts",
+  "scope": "existing 12 literal name/value scope fields; same posted functional-currency stock kernel, current SAR/JPY/KWD policy; BHD remains unsupported",
+  "headers": "exact Inventory carrying-value register title; each panel provides its own Warehouse or Plant row, Batch row and Field axis; one parent kind per report; six unique field roles in any order, optional explicit Item dimensions; End panel and End report required",
+  "ownership": "direct parent per CSV column or original horizontal XLSX parent merge interval; direct batch and axis cell per active column; no carry into an inactive column or another panel",
+  "merges": "single-row parent only, bounded original geometry agrees with source-hashed metadata, every interval column active, no overlap or financial/vertical merge; original covered values must be empty. A shared-string index is resolved to distinguish an empty string from literal/numeric zero. All other visibility, formatting, identity, formula and currency diagnostics remain authoritative",
+  "identity": "literal item/parent/batch/axis identities; original leading zeros; unique axis within panel and item/dimension tuple across report, including zero-value facts; explicit dimensions must exactly equal derived parent/batch dimensions",
+  "money": "original posted-value cell scaled with declared currency precision and supplied report control; quantity uses its own precision and unit. No unit conversion, valuation, balancing adjustment or grouping from equal sums",
+  "records": "new-family six-part logical record identity binds family, source, SHA256, sheet, original item-role row and record column. Existing families and physical event-member identities are unchanged",
+  "evidence": "original value/role cell pair, parent label/anchor/range, direct batch and axis, panel end, scope and report controls; dimensions explicitly labelled derived, not attributed to a fabricated source cell",
+  "errors": "retain current whole-stock source-error financial gate, all originals and diagnostics; source-error workpapers have null monetary summary/comparisons and no approval. Missing mapping/policy/GL evidence is distinct from malformed source and from a numeric difference",
+  "lifecycle": "native read and authoritative Worker replay, source-bound event decisions, undo, save/restore, stale-export and foreign-response checks; optional result.columnEvidence only for this family",
+  "exports": "Register and Issues include original column; conditional Column citations table (17 columns); original source bytes/hashes and physical event members retained. Stable technical workbook headers are English; download paths are verified through both Arabic and English interfaces",
+  "resources": "existing 8 MiB/file, single worksheet and physical-row/column limits retained; all Field axes count toward logical budget before record allocation, reduced by non-register source rows. No changed worker/session/export envelope or measured enterprise-capacity claim",
+  "acceptance": "C01-C04 and D01-D16 exact financial/quantity/dimension/member outcomes; independent original-byte and XLSX checks; actual UI/Worker and session lifecycle; semantic mutations; unchanged old-family gates",
+  "additionalDevelopmentChecks": "native numeric money/quantity, typed identities, display/currency conflicts, covered numeric/literal zero versus shared empty text, hidden/formula sources, same-text foreign parent citation, pre-allocation budget, source-equivalent Plant inputs, separate SAR/JPY monetary and fractional quantity precision",
+  "excluded": ["BHD activation", "arbitrary header text/depth", "PDF/OCR", "multiple worksheets", "movement bridge", "valuation", "partial-source financial isolation", "capacity benchmark", "new model/runtime/cloud processing", "independent field or holdout validation"]
+}

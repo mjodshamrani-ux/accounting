@@ -48,8 +48,8 @@
     "coverage": "every TB account+Complete dimensions has exactly one mapping and one proof; every leaf including explicit zero is mapped; no unknown rows silently dropped",
     "minimumEvidence": "All four source roles must contain records; at least one TB account and one financial leaf. Header-only bundles and title-only statements cannot establish scope or financial evidence, even when all sums are zero."
   },
-  "money": "plain signed decimal lexeme with at most two fraction digits; exact integer minor units; blank != zero; debit and credit nonnegative; no rounding or floating-point inference",
-  "proof": "Independent supplied Account class/Line class/Sign/Line ID and inclusive validity dates; exact identity and dimensions; assets require debit-positive, liabilities/equity require credit-positive. Contra assets retain asset policy and may contribute negatively. No AI/label inference.",
+  "money": "plain signed decimal lexeme with at most two fraction digits; exact integer minor units; blank != zero; debit and credit nonnegative and cannot both be positive in one TB row; no rounding or floating-point inference Each input and final aggregate/net/contribution/control/category/grand-total/equation must have absolute minor units <= aggregateMinorAbsLimit; use exact integers, check final sums and their terms, do not reject legitimate intermediate cancellation.",
+  "proof": "Independent supplied Account class/Line class/Sign/Line ID; strict real-calendar YYYY-MM-DD validity dates must inclusively cover the whole declared Period start..Period end with Valid from <= Valid to, not merely As of. Exact identity and dimensions; assets require debit-positive, liabilities/equity require credit-positive. Contra assets retain asset policy and may contribute negatively. No AI/label inference.",
   "evidence": "SHA256 original UTF-8 CSV bytes, CSV record row (header=1), column, raw text for each serialized field; positions are never manufactured from a canonical replacement",
   "coverageCounts": {
     "financialStories": 1,
@@ -121,5 +121,6 @@
     "capacity benchmark",
     "parallel engine rollout"
   ],
-  "nextGate": "review this contract and oracle; independently reserve new structural/financial holdout before product implementation; retain current flat-family behavior and all CI gates"
+  "nextGate": "review this contract and oracle; independently reserve new structural/financial holdout before product implementation; retain current flat-family behavior and all CI gates",
+  "aggregateMinorAbsLimit": 100000000000000
 }

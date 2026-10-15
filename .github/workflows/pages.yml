@@ -198,6 +198,48 @@ jobs:
           pnpm test:inventory-matrix:oracle
           pnpm test:inventory-matrix:proof
           pnpm test:inventory-matrix:mutations
+      - name: Verify hierarchy inventory originals, parent ownership, merge payload and independent outputs
+        env:
+          INV_HIERARCHY_PROOF_DIR: ${{ runner.temp }}/inventory-hierarchy-proof
+          INV_HIERARCHY_MUTATION_DIR: ${{ runner.temp }}/inventory-hierarchy-mutations
+        run: |
+          pnpm test:inventory-hierarchy
+          pnpm test:inventory-hierarchy:oracle
+          pnpm test:inventory-hierarchy:proof
+          pnpm test:inventory-hierarchy:mutations
+      - name: Verify column-header source truth and preserve pre-implementation product refusals
+        env:
+          INV_COLUMN_BASELINE_DIR: ${{ runner.temp }}/inventory-column-baseline
+        run: |
+          pnpm test:inventory-column:oracle
+          pnpm test:inventory-column:baseline
+      - name: Verify inventory PDF source truth, page boundaries and preserved pre-activation capacity gap
+        env:
+          INV_PDF_ACCOUNTING_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-accounting
+          INV_PDF_ACCOUNTING_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-accounting-mutations
+          INV_PDF_FIELDS_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-fields
+          INV_PDF_FIELDS_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-fields-mutations
+          INV_PDF_NATIVE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-native-source
+          PDF_NATIVE_SOURCE_MUTATION_DIR: ${{ runner.temp }}/pdf-native-source-mutations
+          INV_PDF_BASELINE_DIR: ${{ runner.temp }}/inventory-pdf-baseline
+        run: |
+          pnpm test:inventory-pdf:oracle
+          pnpm test:inventory-pdf:baseline
+          pnpm test:inventory-pdf:native-proof
+          pnpm test:inventory-pdf:native-mutations
+          pnpm test:inventory-pdf:fields-proof
+          pnpm test:inventory-pdf:fields-mutations
+          pnpm test:inventory-pdf:accounting
+          pnpm test:inventory-pdf:accounting-proof
+          pnpm test:inventory-pdf:accounting-mutations
+      - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
+        env:
+          INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
+          INV_COLUMN_MUTATION_DIR: ${{ runner.temp }}/inventory-column-mutations
+        run: |
+          pnpm test:inventory-column
+          pnpm test:inventory-column:proof
+          pnpm test:inventory-column:mutations
       - run: pnpm build
       - name: Verify reviewed distribution immediately after build
         run: node scripts/public-content-check.mjs --dist
@@ -213,6 +255,15 @@ jobs:
           MIZAN_CHROMIUM: /usr/bin/google-chrome
           INV_MATRIX_BROWSER_DIR: ${{ runner.temp }}/inventory-matrix-browser
         run: pnpm test:inventory-matrix:browser
+      - name: Verify hierarchy CSV and merged Excel uploads and independently checked bilingual outputs
+        env:
+          MIZAN_CHROMIUM: /usr/bin/google-chrome
+          INV_HIERARCHY_BROWSER_DIR: ${{ runner.temp }}/inventory-hierarchy-browser
+        run: pnpm test:inventory-hierarchy:browser
+      - name: Verify column hierarchy actual Worker, bilingual source ownership and independent downloads
+        env:
+          INV_COLUMN_BROWSER_DIR: ${{ runner.temp }}/inventory-column-browser
+        run: pnpm test:inventory-column:browser
       - name: Verify signed-kind gateway actual Worker, Arabic and English mobile downloads independently
         env:
           MIZAN_CHROMIUM: /usr/bin/google-chrome

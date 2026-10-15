@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import tempfile
+from decimal import Decimal
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -200,6 +201,129 @@ class FoundationTests(unittest.TestCase):
             self.assertEqual(result['facts']['debitMinor'], result['facts']['creditMinor'])
             self.assertEqual({issue['code'] for issue in result['issues']}, {'SIGN_POLICY'})
             self.assertEqual(result['facts']['leafMinor']['ALLOW'], 10000)
+
+    def test_proof_validity_covers_whole_period_inclusively(self):
+        baseline = oracle.evaluate(ROOT / 'frozen/positive-nested')
+        checks = [
+            ('2026-01-01', '2026-09-30', 'eligible'),
+            ('2025-12-31', '2026-10-01', 'eligible'),
+            ('2026-01-02', '2026-09-30', 'blocked'),
+            ('2026-01-01', '2026-09-29', 'blocked'),
+            ('2026-10-01', '2026-09-30', 'blocked'),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            for role in oracle.ROLES:
+                (folder / (role + '.csv')).write_bytes((ROOT / 'frozen/positive-nested' / (role + '.csv')).read_bytes())
+            file = folder / 'presentation-evidence.csv'
+            original = file.read_text(encoding='utf-8')
+            for start, end, expected in checks:
+                with self.subTest(start=start, end=end):
+                    rows = list(csv.DictReader(io.StringIO(original, newline='')))
+                    rows[0]['Valid from'], rows[0]['Valid to'] = start, end
+                    stream = io.StringIO(newline=''); writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
+                    writer.writeheader(); writer.writerows(rows)
+                    file.write_text(stream.getvalue(), encoding='utf-8')
+                    result = oracle.evaluate(folder)
+                    self.assertEqual(result['status'], expected)
+                    self.assertEqual(result['facts'], baseline['facts'])
+                    self.assertEqual({issue['code'] for issue in result['issues']}, {'VALIDITY'} if expected == 'blocked' else set())
+
+    def test_proof_validity_dates_use_strict_iso_calendar_lexemes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            for role in oracle.ROLES:
+                (folder / (role + '.csv')).write_bytes((ROOT / 'frozen/positive-nested' / (role + '.csv')).read_bytes())
+            file = folder / 'presentation-evidence.csv'
+            original = file.read_text(encoding='utf-8')
+            for field in ['Valid from', 'Valid to']:
+                for value in ['20260101', '2026-1-01', '2026-02-30', '2026-01-01T00:00:00', '2026-01-01 ', '0000-01-01']:
+                    with self.subTest(field=field, value=value):
+                        rows = list(csv.DictReader(io.StringIO(original, newline='')))
+                        rows[0][field] = value
+                        stream = io.StringIO(newline=''); writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
+                        writer.writeheader(); writer.writerows(rows)
+                        file.write_text(stream.getvalue(), encoding='utf-8')
+                        result = oracle.evaluate(folder)
+                        self.assertEqual(result['status'], 'blocked')
+                        self.assertEqual({issue['code'] for issue in result['issues']}, {'DATE'})
+                        self.assertEqual(result['issues'][0]['field'], field)
+
+    def test_both_tb_sides_positive_block_despite_unchanged_net_and_controls(self):
+        baseline = oracle.evaluate(ROOT / 'frozen/positive-nested')
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            for role in oracle.ROLES:
+                (folder / (role + '.csv')).write_bytes((ROOT / 'frozen/positive-nested' / (role + '.csv')).read_bytes())
+            file = folder / 'trial-balance.csv'
+            rows = list(csv.DictReader(io.StringIO(file.read_text(encoding='utf-8'), newline='')))
+            rows[0]['Debit'], rows[0]['Credit'] = '510.00', '10.00'
+            stream = io.StringIO(newline=''); writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
+            writer.writeheader(); writer.writerows(rows)
+            file.write_text(stream.getvalue(), encoding='utf-8')
+            result = oracle.evaluate(folder)
+            self.assertEqual(result['status'], 'blocked')
+            self.assertEqual({issue['code'] for issue in result['issues']}, {'BOTH_SIDES'})
+            self.assertEqual(result['facts']['debitMinor'], result['facts']['creditMinor'])
+            self.assertEqual(result['facts']['debitMinor'], baseline['facts']['debitMinor'] + 1000)
+            for field in ['members', 'leafMinor', 'parentMinor', 'categoryMinor', 'equationMinor']:
+                self.assertEqual(result['facts'][field], baseline['facts'][field])
+
+    def test_exact_aggregate_limit_blocks_balanced_overflow_and_allows_boundary(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            for mode in ['known-story-overflow', 'exact-boundary', 'one-minor-above']:
+                with self.subTest(mode=mode):
+                    for role in oracle.ROLES:
+                        source = ROOT / 'frozen/positive-nested' / (role + '.csv')
+                        rows = list(csv.DictReader(io.StringIO(source.read_text(encoding='utf-8'), newline='')))
+                        if role == 'trial-balance':
+                            for row in rows:
+                                for field in ['Debit', 'Credit']:
+                                    row[field] = format(Decimal(row[field]) * 1000000000, '.2f')
+                                if mode != 'known-story-overflow' and row['Account ID'] == '001':
+                                    row['Debit'] = '0.00'
+                                if mode != 'known-story-overflow' and row['Account ID'] == '3000':
+                                    row['Credit'] = '400000000000.00'
+                                if mode == 'one-minor-above' and row['Account ID'] == '0010' and row['Complete dimensions'] == 'branch=10':
+                                    row['Debit'] = '500000000000.01'
+                                if mode == 'one-minor-above' and row['Account ID'] == '3000':
+                                    row['Credit'] = '400000000000.01'
+                        elif role == 'financial-position':
+                            excluded = ['ASSETS'] if mode == 'known-story-overflow' else ['ASSETS', 'CASH']
+                            rows = [row for row in rows if row['Node ID'] not in excluded]
+                            for row in rows:
+                                if row['Amount']:
+                                    row['Amount'] = format(Decimal(row['Amount']) * 1000000000, '.2f')
+                                if row['Parent ID'] in excluded:
+                                    row['Parent ID'] = ''
+                                if mode != 'known-story-overflow' and row['Node ID'] == 'REC':
+                                    row['Amount'] = '0.00'
+                                if mode != 'known-story-overflow' and row['Node ID'] in ['CAP', 'EQUITY']:
+                                    row['Amount'] = '400000000000.00'
+                                if mode == 'one-minor-above' and row['Node ID'] == 'CASH-A':
+                                    row['Amount'] = '500000000000.01'
+                                if mode == 'one-minor-above' and row['Node ID'] in ['CAP', 'EQUITY']:
+                                    row['Amount'] = '400000000000.01'
+                        stream = io.StringIO(newline=''); writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator='\n')
+                        writer.writeheader(); writer.writerows(rows)
+                        (folder / (role + '.csv')).write_text(stream.getvalue(), encoding='utf-8')
+                    result = oracle.evaluate(folder)
+                    self.assertEqual(result['facts']['equationMinor'], 0)
+                    self.assertEqual(result['facts']['debitMinor'], result['facts']['creditMinor'])
+                    codes = {issue['code'] for issue in result['issues']}
+                    if mode == 'exact-boundary':
+                        self.assertEqual(result['status'], 'eligible')
+                        self.assertEqual(codes, set())
+                        self.assertEqual(result['facts']['debitMinor'], 100000000000000)
+                    else:
+                        self.assertEqual(result['status'], 'blocked')
+                        self.assertEqual(codes, {'SUM'})
+                        self.assertGreater(result['facts']['debitMinor'], 100000000000000)
+                    if mode == 'known-story-overflow':
+                        self.assertEqual(result['facts']['parentMinor']['CASH'], 100000000000000)
+                        self.assertGreater(result['facts']['categoryMinor']['current-asset'], 100000000000000)
+                        self.assertTrue(all(abs(value) <= 100000000000000 for value in result['facts']['leafMinor'].values()))
 
     def test_malformed_serialized_source_is_not_an_accounting_rejection_guess(self):
         with tempfile.TemporaryDirectory() as directory:

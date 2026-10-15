@@ -31,6 +31,13 @@ def evaluate(folder, contract=None):
             issue.update(source=row['_source'], row=row['_row'], field=field)
         if issue not in issues:
             issues.append(issue)
+    def checked_sum(values, row=None, field=''):
+        values = list(values)
+        total = sum(values)
+        limit = contract['aggregateMinorAbsLimit']
+        if any(abs(value) > limit for value in values) or abs(total) > limit:
+            problem('SUM', row, field)
+        return total
     for source, role in enumerate(ROLES):
         raw = (Path(folder) / (role + '.csv')).read_bytes()
         digest = hashlib.sha256(raw).hexdigest()
@@ -97,14 +104,24 @@ def evaluate(folder, contract=None):
     unique(proofs, account_key, 'DUPLICATE_PROOF_ACCOUNT')
     nodes = unique(statements, lambda r: r['Node ID'], 'DUPLICATE_NODE')
     debit, credit, nets, reported = 0, 0, {}, {}
+    debit_values, credit_values = [], []
     for key, row in accounts.items():
         if row['Account class'] not in CATEGORIES:
             problem('CLASSIFICATION', row, 'Account class')
         dr, cr = money(row, 'Debit', True), money(row, 'Credit', True)
+        if dr is not None:
+            debit_values.append(dr)
+        if cr is not None:
+            credit_values.append(cr)
         if dr is not None and cr is not None:
-            debit += dr; credit += cr; nets[key] = dr - cr
+            if dr > 0 and cr > 0:
+                problem('BOTH_SIDES', row)
+            debit += dr; credit += cr; nets[key] = checked_sum([dr, -cr], row, 'Net')
         if key not in mapped:
             problem('UNMAPPED_ACCOUNT', row)
+    debit = checked_sum(debit_values, field='TB debit total')
+    credit = checked_sum(credit_values, field='TB credit total')
+    checked_sum([debit, -credit], field='TB residual')
     if debit != credit:
         problem('TB_BALANCE')
     children = {node: [] for node in nodes}
@@ -142,7 +159,7 @@ def evaluate(folder, contract=None):
                 problem('EMPTY_PARENT', row)
             values = [reported.get(child) for child in children[node]]
             if reported.get(node) is not None and all(value is not None for value in values):
-                if sum(values) != reported[node]:
+                if checked_sum(values, row, 'Parent child total') != reported[node]:
                     problem('CONTROL_TOTAL', row, 'Amount')
     for proof in proofs:
         account, line = accounts.get(account_key(proof)), nodes.get(proof['Line ID'])
@@ -156,12 +173,24 @@ def evaluate(folder, contract=None):
             problem('CLASSIFICATION', proof, 'Line class')
         if proof['Account class'] != proof['Line class']:
             problem('CLASSIFICATION', proof, 'Line class')
-        try:
-            start, end, asof = (date.fromisoformat(v) for v in (proof['Valid from'], proof['Valid to'], contract['scope']['As of']))
-            if not start <= asof <= end:
+        validity = {}
+        for field in ('Valid from', 'Valid to'):
+            value = proof[field]
+            try:
+                if not re.fullmatch(r'[0-9]{4}-[0-9]{2}-[0-9]{2}', value):
+                    raise ValueError('ISO_DATE')
+                parsed = date.fromisoformat(value)
+                if parsed.isoformat() != value:
+                    raise ValueError('ISO_DATE')
+                validity[field] = parsed
+            except ValueError:
+                problem('DATE', proof, field)
+        if len(validity) == 2:
+            start, end = validity['Valid from'], validity['Valid to']
+            period_start = date.fromisoformat(contract['scope']['Period start'])
+            period_end = date.fromisoformat(contract['scope']['Period end'])
+            if start > period_start or end < period_end or start > end:
                 problem('VALIDITY', proof)
-        except ValueError:
-            problem('VALIDITY', proof)
         if not proof['Evidence reference']:
             problem('PROOF_REFERENCE', proof)
         if proof['Sign'] not in ('debit-positive', 'credit-positive'):
@@ -194,6 +223,8 @@ def evaluate(folder, contract=None):
         members.setdefault(line_id, []).append('|'.join(key))
         if key in nets:
             contributions[line_id] = contributions.get(line_id, 0) + (nets[key] if row['Sign'] == 'debit-positive' else -nets[key])
+    for line_id in contributions:
+        contributions[line_id] = checked_sum([contributions[line_id]], nodes.get(line_id), 'Line contribution')
     for proof in proofs:
         if proof['Evidence ID'] not in used_proofs:
             problem('UNUSED_PROOF', proof)
@@ -203,11 +234,22 @@ def evaluate(folder, contract=None):
             continue
         if node not in members:
             problem('UNMAPPED_LEAF', row)
-        if reported.get(node) is not None and node in contributions and contributions[node] != reported[node]:
-            problem('LEAF_TOTAL', row, 'Amount')
+        if reported.get(node) is not None and node in contributions:
+            difference = checked_sum([contributions[node], -reported[node]], row, 'Line difference')
+            if difference != 0:
+                problem('LEAF_TOTAL', row, 'Amount')
         if row['Line class'] in category and reported.get(node) is not None:
             category[row['Line class']] += reported[node]
-    equation = category['current-asset'] + category['noncurrent-asset'] - category['current-liability'] - category['noncurrent-liability'] - category['equity']
+    calculated_category = {}
+    for classification in CATEGORIES:
+        category[classification] = checked_sum([reported[node] for node, row in nodes.items() if row['Kind'] == 'leaf' and row['Line class'] == classification and reported.get(node) is not None], field='Reported category:' + classification)
+        calculated_category[classification] = checked_sum([contributions[node] for node, row in nodes.items() if row['Kind'] == 'leaf' and row['Line class'] == classification and node in contributions], field='Calculated category:' + classification)
+    assets = checked_sum([category['current-asset'], category['noncurrent-asset']], field='Assets total')
+    liabilities = checked_sum([category['current-liability'], category['noncurrent-liability']], field='Liabilities total')
+    equation = checked_sum([assets, -liabilities, -category['equity']], field='Statement equation')
+    calculated_assets = checked_sum([calculated_category['current-asset'], calculated_category['noncurrent-asset']], field='Calculated assets total')
+    calculated_liabilities = checked_sum([calculated_category['current-liability'], calculated_category['noncurrent-liability']], field='Calculated liabilities total')
+    checked_sum([calculated_assets, -calculated_liabilities, -calculated_category['equity']], field='Calculated statement equation')
     if equation:
         problem('STATEMENT_EQUATION')
     return {

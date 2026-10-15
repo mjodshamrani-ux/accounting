@@ -1,4 +1,9 @@
+import { isInventoryColumnHierarchy } from './inventory-column-hierarchy.ts';
 import JSZip from 'jszip';
+import {
+  isInventoryHierarchy,
+  HIERARCHY_FIELDS,
+} from './inventory-hierarchy-sections.ts';
 import { SaxesParser } from 'saxes';
 import type { SaxesTagNS } from 'saxes';
 import { prepareXlsxForExcelJs } from './xlsx-namespaces.ts';
@@ -34,6 +39,8 @@ export async function bindInventorySectionNative(
     await prepareXlsxForExcelJs(sourceBytes),
   );
   const sheet = file.sheets[0];
+  const columnHierarchy = isInventoryColumnHierarchy(file);
+  const hierarchy = isInventoryHierarchy(file) && !columnHierarchy;
   const globalIssues = new Set<string>();
   const warn = (code: string) => globalIssues.add(code);
   const attrs = (tag: SaxesTagNS): Record<string, string> =>
@@ -265,8 +272,15 @@ export async function bindInventorySectionNative(
     'ignoredErrors',
     'ignoredError',
   ]);
+  if (hierarchy || columnHierarchy) {
+    simpleWorksheet.add('mergeCells');
+    simpleWorksheet.add('mergeCell');
+  }
   const shared = compatible.file('xl/sharedStrings.xml');
   const richSharedStrings = new Set<number>();
+  const emptySharedStrings = new Set<number>();
+  let sharedText = '',
+    inSharedText = false;
   let sharedIndex = -1,
     insideSharedString = false;
   if (shared)
@@ -276,19 +290,29 @@ export async function bindInventorySectionNative(
         if (tag.local === 'si') {
           sharedIndex++;
           insideSharedString = true;
+          sharedText = '';
         }
+        if (insideSharedString && tag.local === 't') inSharedText = true;
         if (!['sst', 'si', 't'].includes(tag.local)) {
           if (insideSharedString) richSharedStrings.add(sharedIndex);
           else warn('NATIVE_RICH_TEXT');
         }
       },
       (tag) => {
-        if (tag.local === 'si') insideSharedString = false;
+        if (tag.local === 't') inSharedText = false;
+        if (tag.local === 'si') {
+          if (sharedText === '') emptySharedStrings.add(sharedIndex);
+          insideSharedString = false;
+        }
+      },
+      (text) => {
+        if (insideSharedString && inSharedText) sharedText += text;
       },
     );
   const rowSettings = new Map<number, Record<string, string>>();
   const columnSettings = new Map<number, Record<string, string>>();
   const cells: NativeCell[] = [];
+  const nativeMerges: string[] = [];
   let defaults: Record<string, string> = {},
     current: NativeCell | null = null;
   let inValue = false,
@@ -298,6 +322,11 @@ export async function bindInventorySectionNative(
     (tag) => {
       const a = attrs(tag);
       if (!simpleWorksheet.has(tag.local)) warn('NATIVE_WORKSHEET_FEATURE');
+      if (tag.local === 'mergeCell') {
+        if (Object.keys(a).join('|') !== 'ref')
+          warn('NATIVE_WORKSHEET_FEATURE');
+        nativeMerges.push(a.ref ?? '');
+      }
       if (tag.local === 'sheetFormatPr') defaults = a;
       if (tag.local === 'row') rowSettings.set(Number(a.r), a);
       if (tag.local === 'col') {
@@ -332,10 +361,14 @@ export async function bindInventorySectionNative(
         warn('NATIVE_FORMULA');
         if (current) current.formula = true;
       }
-      if (tag.local === 'v') inValue = true;
+      if (
+        tag.local === 'v' ||
+        (tag.local === 't' && current?.type === 'inlineStr')
+      )
+        inValue = true;
     },
     (tag) => {
-      if (tag.local === 'v') inValue = false;
+      if (tag.local === 'v' || tag.local === 't') inValue = false;
       if (tag.local === 'c' && current) {
         const text = sheet.rows[current.row - 1]?.[current.column - 1];
         if (
@@ -352,6 +385,158 @@ export async function bindInventorySectionNative(
     },
   );
 
+  if (columnHierarchy) {
+    const physical = new Map(cells.map((c) => [`${c.row}:${c.column}`, c]));
+    const metadata = sheet.xlsxHeaders?.merges ?? [];
+    const ranges = new Map(
+      metadata.map((m) => [
+        JSON.stringify([m.top, m.left, m.bottom, m.right]),
+        m,
+      ]),
+    );
+    const next: number[] = [];
+    let following = -1;
+    for (let i = sheet.rows.length - 1; i >= 0; i--) {
+      if (sheet.rows[i].some((v) => v !== '')) following = i;
+      next[i] = following;
+    }
+    const column = (s: string) =>
+      s.split('').reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0);
+    const occupied = new Set<string>();
+    const parsed = nativeMerges.map((ref) => {
+      const m = /^([A-Z]+)([1-9]\d*):([A-Z]+)([1-9]\d*)$/.exec(ref);
+      return m
+        ? {
+            top: Number(m[2]),
+            left: column(m[1]),
+            bottom: Number(m[4]),
+            right: column(m[3]),
+          }
+        : null;
+    });
+    const valid =
+      parsed.length === metadata.length &&
+      parsed.every((m) => {
+        if (
+          !m ||
+          m.top !== m.bottom ||
+          m.left < 2 ||
+          m.right <= m.left ||
+          m.right > 100 ||
+          !['Warehouse', 'Plant'].includes(sheet.rows[m.top - 1]?.[0])
+        )
+          return false;
+        const matched = ranges.get(
+          JSON.stringify([m.top, m.left, m.bottom, m.right]),
+        );
+        const b = next[m.top],
+          a = b === undefined || b < 0 ? undefined : next[b + 1];
+        if (
+          !matched ||
+          matched.text !== sheet.rows[m.top - 1]?.[m.left - 1] ||
+          !matched.text ||
+          b === undefined ||
+          b < 0 ||
+          a === undefined ||
+          a < 0 ||
+          sheet.rows[b]?.[0] !== 'Batch' ||
+          sheet.rows[a]?.[0] !== 'Field'
+        )
+          return false;
+        for (let c = m.left; c <= m.right; c++) {
+          const key = `${m.top}:${c}`,
+            original = physical.get(key);
+          if (
+            occupied.has(key) ||
+            !sheet.rows[a]?.[c - 1] ||
+            (c > m.left &&
+              original &&
+              (original.formula ||
+                (original.value !== '' &&
+                  !(
+                    original.type === 's' &&
+                    /^\d+$/.test(original.value) &&
+                    emptySharedStrings.has(Number(original.value))
+                  ))))
+          )
+            return false;
+          occupied.add(key);
+        }
+        return true;
+      });
+    if (!valid) warn('NATIVE_COLUMN_MERGE');
+    else
+      for (const m of parsed) {
+        if (!m) continue;
+        for (let c = m.left; c <= m.right; c++) {
+          if (c > m.left) sheet.rows[m.top - 1][c - 1] = '';
+          const key = `${m.top}:${c}`,
+            warnings = sheet.cellIssues?.[key];
+          if (warnings)
+            sheet.cellIssues![key] = warnings.filter(
+              (t) =>
+                !/^خلية مدمجة في [A-Z]+[1-9]\d*؛ استخدم جدولًا دون دمج في الأعمدة المختارة$/.test(
+                  t,
+                ),
+            );
+        }
+      }
+  }
+  if (hierarchy) {
+    const physical = new Map(cells.map((c) => [`${c.row}:${c.column}`, c]));
+    const metadata = sheet.xlsxHeaders?.merges ?? [];
+    const metadataRanges = new Set(
+        metadata.map((m) => JSON.stringify([m.top, m.left, m.bottom, m.right])),
+      ),
+      seenMergeRows = new Set<number>();
+    const parsed = nativeMerges.map((ref) => {
+      const m = /^B([1-9]\d*):([FG])([1-9]\d*)$/.exec(ref);
+      return m
+        ? {
+            top: Number(m[1]),
+            left: 2,
+            bottom: Number(m[3]),
+            right: m[2] === 'F' ? 6 : 7,
+          }
+        : null;
+    });
+    const valid =
+      parsed.length === metadata.length &&
+      parsed.every((m) => {
+        if (!m || seenMergeRows.has(m.top)) return false;
+        seenMergeRows.add(m.top);
+        return (
+          m.top === m.bottom &&
+          ['Plant', 'Warehouse', 'Batch'].includes(
+            sheet.rows[m.top - 1]?.[0],
+          ) &&
+          sheet.rows[m.top - 1]?.[1] &&
+          metadataRanges.has(
+            JSON.stringify([m.top, m.left, m.bottom, m.right]),
+          ) &&
+          Array.from({ length: m.right - 2 }, (_, c) =>
+            physical.get(`${m.top}:${c + 3}`),
+          ).every((c) => !c || (!c.formula && c.value === ''))
+        );
+      });
+    if (!valid) warn('NATIVE_HIERARCHY_MERGE');
+    else
+      for (const m of parsed) {
+        if (!m) continue;
+        for (let c = 2; c <= m.right; c++) {
+          const key = `${m.top}:${c}`;
+          if (c > 2) sheet.rows[m.top - 1][c - 1] = '';
+          const warnings = sheet.cellIssues?.[key];
+          if (warnings)
+            sheet.cellIssues![key] = warnings.filter(
+              (t) =>
+                !/^خلية مدمجة في [A-Z]+[1-9]\d*؛ استخدم جدولًا دون دمج في الأعمدة المختارة$/.test(
+                  t,
+                ),
+            );
+        }
+      }
+  }
   const index = (
     value: string | undefined,
     count: number,
@@ -436,6 +621,12 @@ export async function bindInventorySectionNative(
   const prefixCurrencies = new Set<string>();
   for (const row of sheet.rows.slice(1)) {
     if (row.every((text) => !text.trim())) continue;
+    if (hierarchy || columnHierarchy) {
+      if (['Plant', 'Warehouse'].includes(row[0])) break;
+      if (row[0] === 'Currency' && typeof row[1] === 'string')
+        prefixCurrencies.add(row[1]);
+      continue;
+    }
     if (row[0] !== 'Scope') break;
     if (row[1] === 'Currency' && typeof row[2] === 'string')
       prefixCurrencies.add(row[2]);
@@ -445,7 +636,36 @@ export async function bindInventorySectionNative(
   // Matrix fact roles run horizontally. This marker only scopes a display
   // diagnostic; the accounting parser still validates the complete family.
   const matrix =
-    sheet.rows[0]?.[0] === 'Format' && sheet.rows[0]?.[1] === 'INV1A-MATRIX-1';
+    columnHierarchy ||
+    (sheet.rows[0]?.[0] === 'Format' &&
+      sheet.rows[0]?.[1] === 'INV1A-MATRIX-1');
+  const hierarchyRoles = new Map<number, Map<number, string>>();
+  if (hierarchy) {
+    let roles: Map<number, string> | null = null;
+    sheet.rows.forEach((r, i) => {
+      if (
+        [
+          'Plant',
+          'Warehouse',
+          'Batch',
+          'End batch',
+          'End plant',
+          'End warehouse',
+          'Batch total',
+          'Parent total',
+          'Report total',
+          'End report',
+        ].includes(r[0])
+      )
+        roles = null;
+      else if (
+        r.includes('Item ID') &&
+        HIERARCHY_FIELDS.every((k) => r.includes(k))
+      )
+        roles = new Map(r.map((v, c) => [c + 1, v]));
+      else if (roles) hierarchyRoles.set(i + 1, roles);
+    });
+  }
   const isoCurrency =
     /(?:^|[^A-Z])(SAR|JPY|KWD|USD|EUR|GBP|AED|QAR|BHD|OMR|CNY|INR|CHF|AUD|CAD|HKD|SGD)(?=[^A-Z]|$)/gi;
   const formatSections = (format: string) => {
@@ -517,8 +737,12 @@ export async function bindInventorySectionNative(
     const label = sheet.rows[cell.row - 1]?.[0];
     if (
       hasCurrency &&
-      (cell.column === 2 || (matrix && cell.column > 2)) &&
-      ['Quantity', 'Quantity precision'].includes(label)
+      (((cell.column === 2 || (matrix && cell.column > 2)) &&
+        ['Quantity', 'Quantity precision'].includes(label)) ||
+        (hierarchy &&
+          ['Quantity', 'Quantity precision'].includes(
+            hierarchyRoles.get(cell.row)?.get(cell.column) ?? '',
+          )))
     )
       warn('NATIVE_CURRENCY_ROLE');
     if (

@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 27053,
-      "sha256": "9e50a348085af7c7720bad0d3bd6c04b52b603b207b05eb5abab89f3fcf7b34d",
+      "bytes": 29971,
+      "sha256": "5f790959374aca8c5e80496f18dbe71e1731deac9b789aa56f0bf790a9b802c3",
       "kind": "text"
     },
     {
@@ -34629,8 +34629,8 @@
     },
     {
       "path": "components/inventory-register-workspace.tsx",
-      "bytes": 26871,
-      "sha256": "2f5ded23e53e9aa2aa32ffca727e0dc6dd86c2aea98c919cddc12a82db347e11",
+      "bytes": 28729,
+      "sha256": "9e019ae9fd78b092f599e236e2559b85e7685f8802f02051ff041f04eee3de22",
       "kind": "text"
     },
     {
@@ -35162,6 +35162,12 @@
       "sha256": "29909bad2b5a244e2096414ae6d472cdc7dbefb7f7e7484d5b9d5d1d3ca867ed"
     },
     {
+      "path": "docs/audits/INV1-HIERARCHY-DISCOVERY.ar.md",
+      "bytes": 11146,
+      "sha256": "af89f989721c26665011f8710fe6389883807056e1f322f6fd6554d96d7f9a84",
+      "kind": "text"
+    },
+    {
       "path": "docs/audits/INV1-SECTION-COMPONENTS.ar.md",
       "kind": "text",
       "bytes": 15210,
@@ -35176,8 +35182,8 @@
     {
       "path": "docs/audits/INV1-TRANSPOSED-REGISTER.ar.md",
       "kind": "text",
-      "bytes": 13122,
-      "sha256": "3ce9e13d7573960097760aeb466aa51517d6567488de41ce545c6c7215af3d7d"
+      "bytes": 15220,
+      "sha256": "dae3ffd94a6cef120007eb7fe9c9cdd926dddb09cfd90dac815095a8d68b92a5"
     },
     {
       "path": "docs/BANK-WITHDRAWAL-DEPOSIT-SOURCE.ar.md",
@@ -35187,8 +35193,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 12485,
-      "sha256": "b71ec43be5228b5b3d021699ff4106d31032c1b2c02f97881c0018058632e512",
+      "bytes": 21692,
+      "sha256": "60481440f089238dd329b896643d0dc73ae7bdb461d74ff7de07273255926b8c",
       "kind": "text"
     },
     {
@@ -35241,8 +35247,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 10101,
-      "sha256": "806dd2c56efc60f17cf5e696b88712f00efc518bbc2d0d29e17344b115c13776",
+      "bytes": 14139,
+      "sha256": "c8b290d3e9811d1844886280e65fc4672ef5a1491fad9a69dcb16f296ae9dd2a",
       "kind": "text"
     },
     {
@@ -35259,8 +35265,8 @@
     },
     {
       "path": "docs/reference/ARCHITECTURE.ar.md",
-      "bytes": 10285,
-      "sha256": "b1bae8edc68a8cf1d11b3c50dad8fa903b482c125ddf7b06b9c08025a33ca651",
+      "bytes": 11699,
+      "sha256": "b5c352bd5338e561b98f24c18ff055fa7b719bc982f06976ac93fd96c031a4a7",
       "kind": "text"
     },
     {
@@ -35301,8 +35307,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 25444,
-      "sha256": "fbf35b634c78ae23dd63ba0b695b602db8e8d9e5027c65c868b3c3625579b0ed",
+      "bytes": 45159,
+      "sha256": "ede1a722b4701cb55e46fe7e653bae971bafe1a8c69d5ddaed5dc39e2c17156b",
       "kind": "text"
     },
     {
@@ -35437,8 +35443,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 10155,
-      "sha256": "93807e57b62b47ed832b42f36e1b40488ff1d6ee8cc585fd356fe25386eddd03",
+      "bytes": 18013,
+      "sha256": "07fa9d3973b240b46b4867fb8612daa9ce1db029d4b70393cee3d3dfb87b8aed",
       "kind": "text"
     },
     {
@@ -35548,7 +35554,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "c8a82416d1250bc4d4ec8a993bbc60f74c2870e79f6e5388ca666c219a1df4c1",
+      "sha256": "860e468ced870842614ca0e1a4be4be9fee02e9012d20bd6626a1904d47de3cf",
       "kind": "text"
     },
     {
@@ -35601,8 +35607,8 @@
     },
     {
       "path": "lib/i18n/inventory-register.ts",
-      "bytes": 22881,
-      "sha256": "0b401477d64674d927a16c797fe8a0cebc5b797da567be1cc02f7b78cc4c1b5a",
+      "bytes": 27203,
+      "sha256": "598bcab546e8d9dee481a0c69bb87a4bf0156c3c554913016dfdb44bd10af0a5",
       "kind": "text"
     },
     {
@@ -36033,8 +36039,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-register-io.ts",
-      "bytes": 11704,
-      "sha256": "0ea14ec39b97ecd72d6edae2d66b14586741fcfd0d42c3e2f7d84a77f0a0dcdc",
+      "bytes": 12504,
+      "sha256": "911f573277b128a2d253b76aeca628095ad17d423562ec91ec31cfc15786d108",
       "kind": "text"
     },
     {
@@ -36051,8 +36057,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-register.ts",
-      "bytes": 26929,
-      "sha256": "01b56eb0ca93aca304078f6eb9924f47dc9d3a556d82f3e68d6c48f2407431ba",
+      "bytes": 38715,
+      "sha256": "bbc1101fc3ee23ea1162d77c9c55146487ec767bb85c029b459d5e30b3b1dc02",
       "kind": "text"
     },
     {
@@ -36070,8 +36076,8 @@
     {
       "path": "lib/reconciliation/inventory-section-native.ts",
       "kind": "text",
-      "bytes": 20772,
-      "sha256": "cf5498ae343fd6541ab47080cf61f82c713e47edf2a935447328d1bd67f8e9fe"
+      "bytes": 28142,
+      "sha256": "368d2071f318f12b5c21e80d25c8ddba55f55911cdbfc0cd2e720eaaae8e4d6d"
     },
     {
       "path": "lib/reconciliation/inventory-transposed-register.ts",
@@ -36243,8 +36249,8 @@
     },
     {
       "path": "lib/reconciliation/pdf-paint-order.ts",
-      "bytes": 5277,
-      "sha256": "967e9495fd93be35d1762c357e54cbf628298de2a4dc43945e6227210ed5bdea",
+      "bytes": 7004,
+      "sha256": "bc563d6d1e2c181b867427d958cafbe99f7dc3319d344a91041be7559f02acf0",
       "kind": "text"
     },
     {
@@ -36255,8 +36261,8 @@
     },
     {
       "path": "lib/reconciliation/pdf.ts",
-      "bytes": 39726,
-      "sha256": "2294c67b0146e0efb2f0abbcdf6f80ee97f41423af52cfe6af98b897753733da",
+      "bytes": 44325,
+      "sha256": "ecabe62d1ecc66d86c7816f73771444d97b4231d5591b39fd09e8ae69754cf54",
       "kind": "text"
     },
     {
@@ -36543,8 +36549,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 12753,
-      "sha256": "303deee2c062accf5ea00ea3295d4bcbc168872b0103570b0d193ec45ad934aa",
+      "bytes": 15981,
+      "sha256": "54d98dfa0257737e93b3b9a3324557e8febb5d3f85bd73a474a9dba2db6f9adb",
       "kind": "text"
     },
     {
@@ -36809,8 +36815,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 6477,
-      "sha256": "6e14bbb81e1b45b8f6f955816395f1aae140df7f2c0b9bf595889ee1d8f0197f",
+      "bytes": 7202,
+      "sha256": "f0d23afd2299c71f1d637855290e5061e66c471164315d3f1ee0aba0de107f12",
       "kind": "text"
     },
     {
@@ -39580,27 +39586,495 @@
       "kind": "text"
     },
     {
+      "path": "audit/inventory-hierarchy-sections/contract.json",
+      "bytes": 2042,
+      "sha256": "0264f04c90d045f63db65afe1a58da4ce1ca1727a1e50f8e7ee129d57b3dc70c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/generate.py",
+      "bytes": 8139,
+      "sha256": "d986fca2bd4ac5277ff0ef7de2de50d203b2017bb1e3043b9a226ba82129ef76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/oracle.py",
+      "bytes": 8432,
+      "sha256": "1adfbe8529967ae9ed231caf81fa6dffb5ac066e8059d588fd6eaab8784df6e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/test_oracle.py",
+      "bytes": 1983,
+      "sha256": "ac1d0bbc45a43cd76d7eb3ef1dec58d2b17b81490978835d34385fbbfd5838af",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/check_export.py",
+      "bytes": 13306,
+      "sha256": "b926a2ef909f0c12063eaf9dc4a908eb065b5b87999284c3aa9720c074b37220",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/INPUT-MANIFEST.json",
+      "bytes": 11537,
+      "sha256": "977d0a422847a573c13b096e634a77ddc32ed078a7d2e8b70b9dfb1688e75895",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/README.ar.md",
+      "bytes": 4836,
+      "sha256": "512251d0ebdc3107c1f2febb8066f1b8826537964990d4b2c3f7c5a9540f3e19",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-HIERARCHY-SECTIONS.ar.md",
+      "bytes": 11549,
+      "sha256": "5dc4ac8a68c529f3d2566cea3bfd54c7bd2f4b0c56ffd6726f365dff96f974f1",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-hierarchy-evidence.ts",
+      "bytes": 2642,
+      "sha256": "392eb568256154d607b9156351c9b5959c62482675042dab020f7da94698fc62",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-hierarchy-sections.ts",
+      "bytes": 14392,
+      "sha256": "8676c3e89cb2d1731879ca32e72fd8e49f6242387961d846ad9615ecfafa392c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-hierarchy-export-controls.mjs",
+      "bytes": 2623,
+      "sha256": "3a1f6cdeb99e282da0e9091c174d06a22f9de7704a4c7d97a37e3035504ea012",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-hierarchy-sections-browser.mjs",
+      "bytes": 11606,
+      "sha256": "0ae3c57cdb9d9e7c636510fbced531245ddcc17d5861f4922fd08caf4e459df5",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-hierarchy-sections-proof.mjs",
+      "bytes": 6523,
+      "sha256": "76130b3c6bedd6372ca9d802c06ec1b0ba9d2d6058d7fc9cda1b25a610e0e87e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-hierarchy-sections-mutations.mjs",
+      "bytes": 7061,
+      "sha256": "1b3cd4c8ae4c5206a436646070536d969792c341c1b67d45f699c8b837bb802a",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-assistant.test.ts",
+      "bytes": 1532,
+      "sha256": "9a41b301fb958a24175e3be395b1272fdd510915ec10539fd2d6a6d3d2862466",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-fixture.ts",
+      "bytes": 2227,
+      "sha256": "1f86a71331c37720e51efa7b3f7c2a8b492b44e225cd4829eeb648c55a340291",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-native.test.ts",
+      "bytes": 4754,
+      "sha256": "597e2d6490db431b24152cb9020c5dd24110835b13d24ab583aeaf39eb2a3117",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-sections.test.ts",
+      "bytes": 10133,
+      "sha256": "0dce5d5c183760c4c5f043758392357588e430bd064e042028883aa8bbe0a57b",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-hierarchy-baseline.mjs",
+      "bytes": 9790,
+      "sha256": "72fbbc6f5e38f06975bf932aabf1421532ab1f2a8805b1e521d4913692178f07",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/contract.json",
+      "bytes": 5573,
+      "sha256": "46df81aed985101a0c7ef8eeee4363e6f34960d3da95d439874bba971de4ed36",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/generate.py",
+      "bytes": 12878,
+      "sha256": "cb0492fcb4cf7297248d7e3c3662e8db489f4dc05f51779b5fb2350eb430631e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/oracle.py",
+      "bytes": 18044,
+      "sha256": "888e1310f79e4b961db26bd385ff308be406ecffaf30c9fe5e747f9d64893fdd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/test_oracle.py",
+      "bytes": 7942,
+      "sha256": "55899f2a0e44498559ce21294a6f043de111a02e430094b1d3fa63a1d7403c75",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.json",
+      "bytes": 12806,
+      "sha256": "1f60599228c6d70cf162afa7a84a9778e13ec5d567a1b23cf6170523f18f0ebb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v2.json",
+      "bytes": 15319,
+      "sha256": "9f7b55eea58a5500d805db0e67e5a3ee20ac05c0d5b9f9560c311729eb449560",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v3.json",
+      "bytes": 25367,
+      "sha256": "87a408f73cbc3473e35463df01663ff681812f1238bd807a248313a6dff2d972",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/README.ar.md",
+      "bytes": 7165,
+      "sha256": "4fd410de886aa85bdbfb420299a14dd714671ac30633e7ac595dbfb65ae6c678",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-COLUMN-HIERARCHY-FOUNDATION.ar.md",
+      "bytes": 13889,
+      "sha256": "8c9e82304492acfccfd6ddee239021c8a1ef738527d9898b3e17222bf2ec739b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/IMPLEMENTATION.ar.md",
+      "bytes": 3521,
+      "sha256": "d63b6ea4a59caab93f11261818d1818351aa3bbb8083d8dda3f99c6b123816c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/check_export.py",
+      "bytes": 16279,
+      "sha256": "5810f3be5b70fedd0e8a2544f341c9d5cb8ade6b7714b7cbc7692e1324bca645",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/implementation-contract.json",
+      "bytes": 4250,
+      "sha256": "2061ca85d782ab4e15450532860a7f5713a6ff34ee97ca26b8c11e881ec8bb31",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-COLUMN-HIERARCHY-ENGINE.ar.md",
+      "bytes": 13225,
+      "sha256": "21367c1d4c6f3ce2ea4c4b046ccdc7fc68debafa54d608051fe575462729db39",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-column-evidence.ts",
+      "bytes": 2317,
+      "sha256": "f30305799186262e56e9d33b82146f4eab9a1214ad0e0ed85b253515663e9baf",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-column-hierarchy.ts",
+      "bytes": 14267,
+      "sha256": "e50ccba9b7415315c6566c15e9ce1f0606136b519493f45aac65e5218610b73b",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-browser.mjs",
+      "bytes": 12284,
+      "sha256": "3fc208ae54492507dd5a7b15544cfa3de0b361af515bc1c188a28976bddebfb3",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-export-controls.mjs",
+      "bytes": 2578,
+      "sha256": "7649eaededb6445415539da0f5ebb2f9486eddb7f5f42f66575207a121a9289e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-proof.mjs",
+      "bytes": 6675,
+      "sha256": "100f9bc8448ca76d1f48fc5e01fc22475a08645a3f89b10169e42ab4c050091f",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-column-mutations.mjs",
+      "bytes": 6722,
+      "sha256": "e0535c5e5e1bf202d07aa5cd89b18472b374f6e9836f70d62a1d353169f5b9cb",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-column-assistant.test.ts",
+      "bytes": 1528,
+      "sha256": "fcf09a9e9bd01b1cdd775976321d64b338e0f8f1a795d9ff6df63775c9f62726",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-column-fixture.ts",
+      "bytes": 2275,
+      "sha256": "3cec1c83425813daabc37b9d3ff9b5b7c414226c5c8d86b7dc24adf4f30304a4",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-column-hierarchy.test.ts",
+      "bytes": 3683,
+      "sha256": "4cc50dcb3761bdfe6c6b970415520aa172c0ed52f67ec1a30641bce037710bfb",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-column-native.test.ts",
+      "bytes": 12208,
+      "sha256": "6e427663220c3057f9fe60ef658f3004846cd221ec5c3296679232c29ff2a696",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-baseline.mjs",
+      "bytes": 10579,
+      "sha256": "1aebf63596355c5c604f3d99c05d82a0d05fea36f50ab86c986701b19edd9608",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-FOUNDATION.ar.md",
+      "bytes": 16216,
+      "sha256": "ac2b3d54cb4f717ebc74563ba76753f80b8bed73b15f91f0929cffb1ca56a2b1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/contract.json",
+      "bytes": 5010,
+      "sha256": "bcdd97029f31dca291164419bdacffcca39ebd16f70a2f05b6cb50e0981cb056",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/scope-blocks-contract.json",
+      "bytes": 2340,
+      "sha256": "c29cdf0bc4e8862e961dc04e0ad2239709183b3b3a2e788e91c255d3d5516b67",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/INPUT-MANIFEST.json",
+      "bytes": 10146,
+      "sha256": "46b34d9b2bac12493b6ffea1c368c74d136e2e58abe08432cef751c3d672e5a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/INPUT-MANIFEST.v2.json",
+      "bytes": 12658,
+      "sha256": "39dc8805312def04549114d18860e525af235c76a22face9b395a81a861d90fc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/generate.py",
+      "bytes": 8957,
+      "sha256": "89a147cf788627757d6af54e6502de6ace893389a6163bb572822d3e75bcd336",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/oracle.py",
+      "bytes": 17531,
+      "sha256": "6cc917f8da6fddeb479d039c12c3a93fad04d556e09238e1e8cb202d14449dca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/test_oracle.py",
+      "bytes": 7571,
+      "sha256": "75467949d4c6005c2caff5ddd23ef00e351548a53705b88154c1eaee5b29d222",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/check_control.py",
+      "bytes": 10492,
+      "sha256": "6c04df663d08fc7de2a10a9d64b03e6f1c9d6d9a1d138d0cf2b5189de883179a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/README.ar.md",
+      "bytes": 5670,
+      "sha256": "7296ab9a12f9e53cbaab6cfb80d6ce02856c6b1b0429c299ee6d23bccbf85b73",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-NATIVE-SOURCE.ar.md",
+      "bytes": 11698,
+      "sha256": "9e1bed49395acc98c8c14a5c6078e005e75ccd073ac1e506356dc6d0dea94edb",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/pdf-native-source.ts",
+      "bytes": 1576,
+      "sha256": "70d5c914bbc26123d0208ed1266f302274573d32d248f9112c5ff848736b910e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-native-source-proof.mjs",
+      "bytes": 4115,
+      "sha256": "2b475d1eca93726200c2c61cf52d8a5af05c406f083d0f24a115960a7ef9e18f",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-pdf-native-source-mutations.mjs",
+      "bytes": 3765,
+      "sha256": "1d94e23a7fbb54b6c2fd173281ff47de53ea5e2ce631876d9b2b91b02ccf3b00",
+      "kind": "text"
+    },
+    {
+      "path": "tests/pdf-native-source.test.ts",
+      "bytes": 10057,
+      "sha256": "069a153b7e109488ec9ef2ffadea31632d9f16f001a3c39d24888453875fd130",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/check_reading.py",
+      "bytes": 6522,
+      "sha256": "fddc28fb9f6cbab00994bdc044aa09398b437663db7b1839ea0cdf7d85a84389",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/contract.json",
+      "bytes": 1907,
+      "sha256": "d3ade6160c66015abacbd5d5eece3b33a02dc630270cb7238d6f76acc7737c6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/README.ar.md",
+      "bytes": 2421,
+      "sha256": "781e097ca74d1626e74740e8c3fd008fc8fbe0f2bf959ffaa04fe512c152df11",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-LOCAL-FIELDS.ar.md",
+      "bytes": 12258,
+      "sha256": "f74adb3c7f08db7e5e816010153c32d24314933290d3df414f6823ac603293b6",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-register.ts",
+      "bytes": 19239,
+      "sha256": "4e9aab524855d8fcc4acfb59a3300a825d5b5d30bf1ca0966d81dbe465c4a3ad",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-local-fields-proof.mjs",
+      "bytes": 4542,
+      "sha256": "40da937db04b7259b757d4a2039e6180fa2dfa8fccf4e72eb4e783f9f6353c4e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-pdf-local-fields-mutations.mjs",
+      "bytes": 3812,
+      "sha256": "fd3bef78070f830ded1473347a16a7912f6e5142980419c9dc67cf7620364db2",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-pdf-register.test.ts",
+      "bytes": 11649,
+      "sha256": "b93ac702059cf49fd88da8a1f233917b50be4bfbdf7d2620fd0bb4bb39496208",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/README.ar.md",
+      "bytes": 2171,
+      "sha256": "77429156369f65d985b1078ffee5ac3ef401941be77249ab9809a480cff81c26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/contract.json",
+      "bytes": 3409,
+      "sha256": "b731b7a1ce7de3e39819aa5e7ef4b1f196253dc4b07716716e3fcab267edb5b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/check_reading.py",
+      "bytes": 9055,
+      "sha256": "5b5931a0cf515210b8ede99d63a8abd1802a8c73c44e9685249f7aa0d0786a99",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-ACCOUNTING.ar.md",
+      "bytes": 13085,
+      "sha256": "fbd9d5f68c3d6ce4b3bb7d8560d5b73a9399234d94a62cf9b782162efc5f0cca",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-accounting.ts",
+      "bytes": 11222,
+      "sha256": "9b50ae46f5bf055c7074bbb0fc0157b8792c14b2ce79004f0bb25aabe13bd60f",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-accounting-proof.mjs",
+      "bytes": 6789,
+      "sha256": "0ef029df2ee9f2a99c0da13666e095cc16b686333f5f61062ba174e6054e8c91",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-pdf-accounting-mutations.mjs",
+      "bytes": 5354,
+      "sha256": "ca8c54481d47672877a048d0b147c956bdc66763db262cdc26f7cf3c0b36a532",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-accounting/README.ar.md",
+      "bytes": 1544,
+      "sha256": "1d14c6b8ba414964a25f2f0f86b8e47f4ff5867e49227c3843e261922c200b00",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-accounting/contract.json",
+      "bytes": 1383,
+      "sha256": "e9416a25cfaa8bd0a8c8feb6749b3a99f79290b677e5b9afb151510e048215e1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-accounting/check_result.py",
+      "bytes": 11530,
+      "sha256": "1639788b7033b5360ecde887473423ad7c6890769f18f80ca5f0c8bcc7129431",
+      "kind": "text"
+    },
+    {
+      "path": "tests/helpers/pdf-rewrite-fixture.ts",
+      "bytes": 2817,
+      "sha256": "8dfd447b666237ea9723a32c0b08d4f8eff4ff34025e2189d80f4ee9fe3d5b44",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-pdf-accounting.test.ts",
+      "bytes": 23403,
+      "sha256": "d2edf23811a820c026ebdea7e737bab8b39cefe78e35ed49bc859782f1121c15",
+      "kind": "text"
+    },
+    {
       "path": "audit/tb-financial-hierarchy/INPUT-MANIFEST.json",
       "bytes": 9091,
-      "sha256": "1d782db4a0d9d99b5275344ac6e7201b3f8901f7d14a7f1f6500fd8b7424c67f",
+      "sha256": "8c27a23f957d25e22b12821f854d31b77f125197d2a39afc20ac1593f2a1e5a5",
       "kind": "text"
     },
     {
       "path": "audit/tb-financial-hierarchy/README.ar.md",
-      "bytes": 9473,
-      "sha256": "cb6c4917a74ac394afebc5b0d10a8adc4644ab930e75be7c906c22d48c1abfb8",
+      "bytes": 11759,
+      "sha256": "395d5fdc794f48a2ba9c9ab30a4b360deaf63c5b1f3aa086b39e15ed74b1e57f",
       "kind": "text"
     },
     {
       "path": "audit/tb-financial-hierarchy/REVIEW-NOTES.ar.md",
-      "bytes": 3694,
-      "sha256": "fa2fc8440a5d7fe16b719c2d46acd3cc0ddb17d532c68f2be6790def5c05b6bb",
+      "bytes": 9355,
+      "sha256": "58efaf4cb52434a6733b5ed165c87808b7d71642b9aaf579b20aa3d9c18a1510",
       "kind": "text"
     },
     {
       "path": "audit/tb-financial-hierarchy/contract.json",
-      "bytes": 4369,
-      "sha256": "324517a87b6945c5de3ff3b7bd4c9b23a823d79b088f940142dab47ecaa9c876",
+      "bytes": 4838,
+      "sha256": "8643ccf0c98498df8317c2ed296539336b8dc67317edf2aa8f9329852774a63c",
       "kind": "text"
     },
     {
@@ -40049,8 +40523,8 @@
     },
     {
       "path": "audit/tb-financial-hierarchy/oracle.py",
-      "bytes": 12094,
-      "sha256": "4a6bc7869f1dd1f99a96440e8f5fde8851add3a38db45165e1d4b8baa61489ba",
+      "bytes": 14888,
+      "sha256": "b58290a8d51966ead568ce653341ed11dcb76a9f485812705bac020e14a3de3d",
       "kind": "text"
     },
     {
@@ -40061,20 +40535,68 @@
     },
     {
       "path": "audit/tb-financial-hierarchy/test_oracle.py",
-      "bytes": 13720,
-      "sha256": "c7a24bd6dafddcc18c1c1346b10bc55bad07109c929c6047e03bea16d1ae8703",
+      "bytes": 22507,
+      "sha256": "fc60c3a6c84a20d25d31e210a8c7db1dd49a117c77a154c83d933885e307500d",
       "kind": "text"
     },
     {
       "path": "docs/audits/FIN1-HIERARCHY-FOUNDATION.ar.md",
-      "bytes": 7622,
-      "sha256": "0d87ef17773201478e5540aa67f0660aaaba4494fabd36d8b36a4822a5838fc8",
+      "bytes": 10243,
+      "sha256": "9dbf642f74c7c2c8cb2ff70693f3851a3ff7bd7af71533cabb04be41bf9c248c",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/FIN1-SOURCE4-PROTOTYPE.ar.md",
+      "bytes": 22091,
+      "sha256": "8ac596b405e3d77f2ced916c03e67d341b6f5cc54c58839393b455f1677fa2df",
+      "kind": "text"
+    },
+    {
+      "path": "docs/transfer/FIN1-RESUME-20261015.ar.md",
+      "bytes": 8638,
+      "sha256": "d45f21b44f09847233ebe0aef53a059c8cac7733009c876710efb0fde7c74d4b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/transfer/FIN1-STATUS.ar.md",
+      "bytes": 9088,
+      "sha256": "641e1198d07ddff331b48c04c24da4ebfb704f817393ebe12c3c4fcd0379867b",
       "kind": "text"
     },
     {
       "path": "docs/transfer/README.ar.md",
-      "bytes": 11788,
-      "sha256": "78d8498f9506ba7d290d52cbe295462581c44ebbe7f86b71fab8118af33aed51",
+      "bytes": 12667,
+      "sha256": "0472026df442f5aed17787c289d79bb36e61059f834e335470817a630637ba6b",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/tb-financial-hierarchy-contract.ts",
+      "bytes": 5108,
+      "sha256": "5a9e8d9395b04f2eb947da97c438f4169c409922b0d732fa1da08bb90b49f899",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/tb-financial-hierarchy-source.ts",
+      "bytes": 15877,
+      "sha256": "91a80c0c42f43dd023e50f842f1a72392d55c93910e1111f0aff472945acef31",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inspect-financial-hierarchy-source4.mjs",
+      "bytes": 3200,
+      "sha256": "f2d9bfd64403d57672808da3244fe8c8644697f9707dcafaffccc5595cabb511",
+      "kind": "text"
+    },
+    {
+      "path": "tests/tb-financial-hierarchy-origin.test.ts",
+      "bytes": 12448,
+      "sha256": "fcf02b4defa4f6449d23f7eeea292d5d676241bfbb68ef02a557934820cf88d6",
+      "kind": "text"
+    },
+    {
+      "path": "tests/tb-financial-hierarchy-source.test.ts",
+      "bytes": 13173,
+      "sha256": "44b5eb27e0d91afdd0c0bbe5013cf981ed6f632257cd59515ffbb370af9c196f",
       "kind": "text"
     }
   ],
@@ -40086,27 +40608,27 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-1OJVmqI6.js",
+      "path": "assets/ar-io-BlMus-AJ.js",
       "bytes": 11377,
-      "sha256": "63a6555ef0d473630295aae0582665e4c9a4a1159a8ed8f83f2a79ae7936aec0",
+      "sha256": "25c5af9378fb4631b6345bd832b58887230b3223be6e1b5a6151d93000f1d85a",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-DuORjjSn.js",
+      "path": "assets/bank-adjustment-io-Dahx8TKh.js",
       "bytes": 12101,
-      "sha256": "df5547b657d97d6e9edf71131bdb242a42492e280f9552e48f641ca6d6370b78",
+      "sha256": "385b3aeb3b1c758fba7676e9f4fb599032ca571c397ece0d8f1d452d2cef193b",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-C6znWq2s.js",
+      "path": "assets/bank-io-CYicJbST.js",
       "bytes": 6331,
-      "sha256": "4b02ebde0438ad759a232157769131a99b449786be18a6ac383b700eda05170a",
+      "sha256": "5efb9b8988ad8d9e92268daa15be23b94f3159b3669a34907c3176132282f553",
       "kind": "text"
     },
     {
-      "path": "assets/bank-native-display-11TaCkds.js",
+      "path": "assets/bank-native-display-C5MWzw8P.js",
       "bytes": 6148,
-      "sha256": "ae438ddd574b7334e22b90932e5d81a5bc15d4f59c243b5f3bc976f8d90e21d3",
+      "sha256": "c3b0acb8e21f070b46b7e47c7111005fd25ac19e10f1651df22f2fdd222173b8",
       "kind": "text"
     },
     {
@@ -40116,13 +40638,13 @@
       "kind": "text"
     },
     {
-      "path": "assets/core-ByuiytiH.js",
-      "bytes": 273222,
-      "sha256": "806376c6a542dd1ab29c0d09c8fcc375637cb3f22e071c75b2878a3d6b879ebb",
+      "path": "assets/core-DGO5NLTG.js",
+      "bytes": 274441,
+      "sha256": "9a9150bf15516a65454e0f602dda8724679bdc3212c4a0f48a7dba9e3d3dc518",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication."
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only"
       }
     },
     {
@@ -40136,15 +40658,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-CqcZEXAU.js",
+      "path": "assets/fixed-assets-io-lU7WsvpT.js",
       "bytes": 9830,
-      "sha256": "e7fed02d5814f74be89a8990b71728f592e0421aa158ddf5ee77cb0b10dfe663",
+      "sha256": "f2e95a7eec797254857d46ecd85a370ca18609c81a6bbd0ab6e860625955a112",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-DwLDO0NS.js",
-      "bytes": 2184,
-      "sha256": "cadabfe460a47793f88cee69da4339837122c28364dac539da133883c440de28",
+      "path": "assets/gl-tb-io-C8x0-nEM.js",
+      "bytes": 2185,
+      "sha256": "e9c573950e33c0fe27f416deba144478c887d726c8fa70b80646a12b4205f3ae",
       "kind": "text"
     },
     {
@@ -40154,20 +40676,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-DlRLSD4i.js",
-      "bytes": 6342440,
-      "sha256": "53ac4e0903b5df0ae953a155a3ae0831362f9b7b7824f54ef3316b5c4556ec26",
+      "path": "assets/index-ClDQnTed.js",
+      "bytes": 6372193,
+      "sha256": "dc22ca3c2abfbb0f001cd4b6c30cfdb9219bee66520d1067f228967bfa50c1cb",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only"
       }
     },
     {
-      "path": "assets/inventory-register-io-BZzl6XN8.js",
+      "path": "assets/inventory-register-io-BJQKYtO3.js",
       "kind": "text",
-      "bytes": 16629,
-      "sha256": "99aa8bb228d8b719798c579a537403f9f3bf693f794b2d111ec5731b7dc352ff"
+      "bytes": 19452,
+      "sha256": "d99e91c70b77b2e6c612f41e4038bf530fb8db589c6f2aa008f8d3b4a3d9579d"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -40180,15 +40702,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-CXIQ407y.js",
+      "path": "assets/payment-gateway-io-QZaEKvVS.js",
       "bytes": 6391,
-      "sha256": "e428281777d056f182f8da93c200dd27c350bdde5797cd89aeb2a7d3426bb81e",
+      "sha256": "86c32f1ef20f70dda908ce34d7691271e30c6c1d0249a4de7d55149f9c2340af",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-DJK5N1G8.js",
+      "path": "assets/payment-gateway-source-53iWocS4.js",
       "bytes": 6798,
-      "sha256": "20ef2b70483d17fff7c8e4d41008d9f301746cab397eb1e094d6473b1a64d255",
+      "sha256": "2ae0dcf157f43201a15a65069ea201c946151f35c5887023f4dc423d60985a44",
       "kind": "text"
     },
     {
@@ -40218,9 +40740,9 @@
       }
     },
     {
-      "path": "assets/protocol-Bq19voIJ.js",
-      "bytes": 104251,
-      "sha256": "9035ca4fb579ed6e837e57b03638e1611dcd6f71a03f4b3d7c0bb07c560b8517",
+      "path": "assets/protocol-D_srdMMg.js",
+      "bytes": 120903,
+      "sha256": "4cac9651ea8c19db0d04fad90bc391d148d178fed23c7e78c5d90f3204890e05",
       "kind": "text"
     },
     {
@@ -40302,16 +40824,6 @@
       "kind": "text"
     },
     {
-      "path": "fonts/noto-sans-arabic-variable.woff2",
-      "bytes": 361536,
-      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
-      "kind": "approved-binary",
-      "provenance": {
-        "type": "licensed-vendor",
-        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
-      }
-    },
-    {
       "path": "fonts/NotoSansArabic-OFL.txt",
       "bytes": 4382,
       "sha256": "07fc70bfeb985cc1a87a8587d0a0c80bab11c86c9dc3fd95b6f0cb332f983e96",
@@ -40336,6 +40848,16 @@
       "sha256": "55cd0db49a2fd08cb6b991c58f53fa224ae5e0538bb700fa28e1f480b0c19cd5"
     },
     {
+      "path": "fonts/noto-sans-arabic-variable.woff2",
+      "bytes": 361536,
+      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
+      }
+    },
+    {
       "path": "fonts/thmanyah-serif-display-bold.woff2",
       "kind": "approved-binary",
       "provenance": {
@@ -40348,7 +40870,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "95f7a362bcbf2c84b594a3c37f71c7b32fbe93408ba27a4e92b7cff21ea6484e",
+      "sha256": "72ce79aac35d351449c568bf8d8cfcf5f46e0ec1133870b052a4a939f611d017",
       "kind": "text"
     },
     {
@@ -40358,15 +40880,15 @@
       "kind": "text"
     },
     {
-      "path": "ocr/tesseract-core-lstm.wasm.js",
-      "bytes": 3896484,
-      "sha256": "eef5f8b2f8e20e150680b20adaec4a60babafee3adbe8a94583c81fee46e8680",
-      "kind": "text"
-    },
-    {
       "path": "ocr/TESSERACT-JS-LICENSE.txt",
       "bytes": 11357,
       "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "kind": "text"
+    },
+    {
+      "path": "ocr/tesseract-core-lstm.wasm.js",
+      "bytes": 3896484,
+      "sha256": "eef5f8b2f8e20e150680b20adaec4a60babafee3adbe8a94583c81fee46e8680",
       "kind": "text"
     },
     {

@@ -1,3 +1,11 @@
+import {
+  stockColumnCitationRows,
+  STOCK_COLUMN_CITATION_HEADERS,
+} from './inventory-column-evidence.ts';
+import {
+  stockHierarchyCitationRows,
+  STOCK_HIERARCHY_CITATION_HEADERS,
+} from './inventory-hierarchy-evidence.ts';
 import ExcelJS from 'exceljs';
 import { readFile } from './io.ts';
 import { bindInventorySectionNative } from './inventory-section-native.ts';
@@ -210,7 +218,10 @@ export async function exportStock(input: StockInput, expected: StockResult) {
       ['Completeness reference', r.completeness.reference],
       ['Completeness note', r.completeness.note],
       ['Register minor', r.totals?.registerMinor ?? null],
-      ...(r.sectionEvidence || r.matrixEvidence
+      ...(r.sectionEvidence ||
+      r.matrixEvidence ||
+      r.hierarchyEvidence ||
+      r.columnEvidence
         ? [
             [
               'Register minor basis',
@@ -234,14 +245,18 @@ export async function exportStock(input: StockInput, expected: StockResult) {
         'Record ID',
         'Source',
         'Source row',
-        ...(i === 0 && r.matrixEvidence ? ['Source column'] : []),
+        ...(i === 0 && (r.matrixEvidence || r.columnEvidence)
+          ? ['Source column']
+          : []),
         ...STOCK_VALUES[i].map((h) => units[h] ?? h),
       ],
       r.records[i].map((v) => [
         v.id,
         v.source,
         v.row,
-        ...(i === 0 && r.matrixEvidence ? [v.column ?? null] : []),
+        ...(i === 0 && (r.matrixEvidence || r.columnEvidence)
+          ? [v.column ?? null]
+          : []),
         ...v.values,
       ]),
     ),
@@ -277,13 +292,13 @@ export async function exportStock(input: StockInput, expected: StockResult) {
     [
       'Source',
       'Source row',
-      ...(r.matrixEvidence ? ['Source column'] : []),
+      ...(r.matrixEvidence || r.columnEvidence ? ['Source column'] : []),
       'Code',
     ],
     r.issues.map((v) => [
       v.source,
       v.row,
-      ...(r.matrixEvidence ? [v.column ?? null] : []),
+      ...(r.matrixEvidence || r.columnEvidence ? [v.column ?? null] : []),
       v.code,
     ]),
   );
@@ -352,13 +367,30 @@ export async function exportStock(input: StockInput, expected: StockResult) {
       STOCK_SECTION_CITATION_HEADERS,
       stockSectionCitationRows(r.sectionEvidence),
     );
+  if (r.columnEvidence)
+    table(
+      'Column citations',
+      STOCK_COLUMN_CITATION_HEADERS,
+      stockColumnCitationRows(r.columnEvidence),
+    );
+  if (r.hierarchyEvidence)
+    table(
+      'Hierarchy citations',
+      STOCK_HIERARCHY_CITATION_HEADERS,
+      stockHierarchyCitationRows(r.hierarchyEvidence),
+    );
   if (r.matrixEvidence)
     table(
       'Matrix citations',
       STOCK_MATRIX_CITATION_HEADERS,
       stockMatrixCitationRows(r.matrixEvidence),
     );
-  if (r.sectionEvidence || r.matrixEvidence) {
+  if (
+    r.sectionEvidence ||
+    r.matrixEvidence ||
+    r.hierarchyEvidence ||
+    r.columnEvidence
+  ) {
     const observations = stockSourceObservations(state.files);
     if (observations.length)
       table(

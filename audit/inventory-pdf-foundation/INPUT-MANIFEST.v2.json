@@ -1,0 +1,412 @@
+{
+  "schema": "tarasuf-inv1f-input-seal/2",
+  "synthetic": true,
+  "extends": "INPUT-MANIFEST.json",
+  "files": [
+    {
+      "path": "INV1F-N01/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N01/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N01/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N01/register.pdf",
+      "bytes": 8243,
+      "sha256": "9190bba354f1c3608f19ed594bd49fcf368241dd21cb3cefaed54ee5562ed0f9"
+    },
+    {
+      "path": "INV1F-N02/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N02/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N02/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N02/register.pdf",
+      "bytes": 15360,
+      "sha256": "4fa0187fea375d4bdcca61b217f978b2fff38e0c18abeaad80a07ec965130d26"
+    },
+    {
+      "path": "INV1F-N03/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N03/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N03/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N03/register.pdf",
+      "bytes": 11801,
+      "sha256": "7dff599ce9fff5f7b762ce30cc27fe6bb670916324832d6acf56d0896a330cc5"
+    },
+    {
+      "path": "INV1F-N04/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N04/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N04/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N04/register.pdf",
+      "bytes": 11801,
+      "sha256": "6122ba404c7b259c6f0710533404ab02e5d567b30ab4334fa560d85cc154b64a"
+    },
+    {
+      "path": "INV1F-N05/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N05/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N05/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N05/register.pdf",
+      "bytes": 11801,
+      "sha256": "8f52cf67843571e02ab67738863105902099ce37852893f4ae2b3ff2a14224fc"
+    },
+    {
+      "path": "INV1F-N06/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N06/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N06/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N06/register.pdf",
+      "bytes": 11756,
+      "sha256": "cd297be18b6d81cdb2bd02cf18f3bcf4f7cdc185236c737c43e579fc3ee7d5ea"
+    },
+    {
+      "path": "INV1F-N07/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N07/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N07/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N07/register.pdf",
+      "bytes": 11901,
+      "sha256": "84fb1a4701150459dd4fcd6aa617c5fa8a82cf9309f5a5910240391bac93ddf7"
+    },
+    {
+      "path": "INV1F-N08/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N08/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N08/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N08/register.pdf",
+      "bytes": 11752,
+      "sha256": "4b220c6228f2250aae5c8660e3a91612bd724d3d1b7736f98dbbe30becf8f0e7"
+    },
+    {
+      "path": "INV1F-N09/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N09/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N09/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N09/register.pdf",
+      "bytes": 11801,
+      "sha256": "ade0a1b06e5687c38425ca2d8f980896a62f35512c1c6e94e4c512d98d3efb3b"
+    },
+    {
+      "path": "INV1F-N10/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N10/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N10/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N10/register.pdf",
+      "bytes": 11801,
+      "sha256": "a89e6d1d5145ab8ff1a8c3491ef489e1197c353764644ab4fc44b673801affa7"
+    },
+    {
+      "path": "INV1F-N11/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N11/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N11/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N11/register.pdf",
+      "bytes": 11802,
+      "sha256": "934eb4ac17551ca8eb789868bc665fa7aafe5e31339b4e59aeb40dbe9ac6e570"
+    },
+    {
+      "path": "INV1F-N12/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N12/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N12/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N12/register.pdf",
+      "bytes": 11801,
+      "sha256": "ccd9ff22b885474b6b8ae821e9b597414cdae953c543f15ef26b030ed088c9ce"
+    },
+    {
+      "path": "INV1F-N13/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N13/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N13/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N13/register.pdf",
+      "bytes": 9361,
+      "sha256": "2fbd76db0c921bcc96d6d6d3458baec8f90a27bc17aee99b7f37575564d80ae2"
+    },
+    {
+      "path": "INV1F-N14/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N14/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N14/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N14/register.pdf",
+      "bytes": 9450,
+      "sha256": "410b15b9d4d2bacf17006bf6f768b7bf520b364bc413bc2613f1ebc64413ce0d"
+    },
+    {
+      "path": "INV1F-N15/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-N15/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-N15/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-N15/register.pdf",
+      "bytes": 9327,
+      "sha256": "2c29bdc30c52fde27f442cfa0440f9e2376980c95e08bb550da14586e17b8534"
+    },
+    {
+      "path": "INV1F-P00/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-P00/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-P00/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-P00/register.csv",
+      "bytes": 1428,
+      "sha256": "b351f2a6c4006f3f7721d6d675225e13dc96d657dccbc7b2a310c51fd5efefe5"
+    },
+    {
+      "path": "INV1F-P01/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-P01/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-P01/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-P01/register.pdf",
+      "bytes": 7181,
+      "sha256": "a214ac7b4e77d048628f2b303c21e4a353bee45c0eb1f63dd8d389011efff92c"
+    },
+    {
+      "path": "INV1F-P02/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-P02/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-P02/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-P02/register.pdf",
+      "bytes": 11065,
+      "sha256": "02c9de6ba5eed5c9f4c0a2e70a87abc5dc6b8c6bcb5b0a7169938150e8dc0777"
+    },
+    {
+      "path": "INV1F-P03/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-P03/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-P03/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-P03/register.pdf",
+      "bytes": 11867,
+      "sha256": "6721126a142f2997b9dd8e7e26655484b3c0f8ac5a3c3eca91ac6f2dc74f7cf0"
+    },
+    {
+      "path": "INV1F-P04/gl.csv",
+      "bytes": 1293,
+      "sha256": "1d6265756c0220f21052c3dd30d6f3107e67559eb21ade908f49c9baf0ae3db3"
+    },
+    {
+      "path": "INV1F-P04/mapping.csv",
+      "bytes": 1486,
+      "sha256": "dce9434e92a55168c177b227e0b0c9b76c00e83a01f3670fdfb370ca656b444a"
+    },
+    {
+      "path": "INV1F-P04/policy.csv",
+      "bytes": 2209,
+      "sha256": "3bf2e8f6a05609d3078764956fda57f7483975fbeb779160a97b97e1ff0f28f8"
+    },
+    {
+      "path": "INV1F-P04/register.pdf",
+      "bytes": 9450,
+      "sha256": "7ccf2c46c5d750fe11dc492d58e315c661cf32fc655d40952e829f3fe8bb56f7"
+    },
+    {
+      "path": "corpus.json",
+      "bytes": 4706,
+      "sha256": "6b6f31a4c9f3b5915016bf4a481d672a6809ed780d69e91542d5629fb074d08c"
+    }
+  ]
+}
