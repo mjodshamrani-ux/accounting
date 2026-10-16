@@ -4,12 +4,18 @@ import {
   type StockScope,
   type StockEvent,
   type StockInput,
+  type StockResult,
 } from './inventory-register.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 
 export const STOCK_PDF_LIFECYCLE_VERSION = 'inventory-pdf-lifecycle-1';
 export const STOCK_PDF_SESSION_FORMAT = 'tarasuf-inventory-pdf-session';
 export const STOCK_PDF_SESSION_LIMIT = 64 * 1024 * 1024;
+export const STOCK_PDF_EXPORT_LIMIT = 96 * 1024 * 1024;
+export type StockPdfExportRequest = {
+  state: StockPdfState;
+  result: StockResult;
+};
 export type StockPdfState = {
   version: typeof STOCK_PDF_LIFECYCLE_VERSION;
   files: [
@@ -111,9 +117,22 @@ export function snapshotStockPdfState(value: unknown): StockPdfState {
 export function snapshotStockPdfRequest(
   action: string,
   payload: unknown,
-): StockPdfState | { buffer: ArrayBuffer } {
+): StockPdfState | { buffer: ArrayBuffer } | StockPdfExportRequest {
   if (action === 'stock-pdf-reconcile' || action === 'stock-pdf-save')
     return snapshotStockPdfState(payload);
+  if (action === 'stock-pdf-export') {
+    if (
+      !pdfPlain(payload) ||
+      !pdfKeys(payload, ['state', 'result']) ||
+      !pdfPlain(payload.result)
+    )
+      throw Error('STOCK_PDF_EXPORT_REQUEST');
+    // Capture both choices and expected evidence synchronously before replay.
+    return {
+      state: snapshotStockPdfState(payload.state),
+      result: snapshotStockPdfTransport(payload.result) as StockResult,
+    };
+  }
   if (
     action !== 'stock-pdf-restore' ||
     !pdfPlain(payload) ||

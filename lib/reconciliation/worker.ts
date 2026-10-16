@@ -1,5 +1,6 @@
 import { replayStockPdfOriginals } from './inventory-register.ts';
 import { saveStockPdf, restoreStockPdf } from './inventory-pdf-lifecycle.ts';
+import { exportStockPdf } from './inventory-pdf-workbook.ts';
 import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
 import {readPayrollFile,replayPayroll,savePayroll,restorePayroll,exportPayroll} from './payroll-io.ts';
 import {readAssetFile,replayAsset,saveAsset,restoreAsset,exportAsset} from './fixed-assets-io.ts';
@@ -96,6 +97,7 @@ self.onmessage = async (event: MessageEvent) => {
     else if (action === 'stock-pdf-reconcile') value = await replayStockPdfOriginals(payload);
     else if (action === 'stock-pdf-save') value = await saveStockPdf(payload);
     else if (action === 'stock-pdf-restore') value = await restoreStockPdf(payload.buffer);
+    else if (action === 'stock-pdf-export') value = await exportStockPdf(payload);
     else if (action === 'stock-read') value = await readStockFile(payload.name,payload.buffer);
     else if (action === 'stock-reconcile') value = await replayStock(payload);
     else if (action === 'stock-save') value = await saveStock(payload);

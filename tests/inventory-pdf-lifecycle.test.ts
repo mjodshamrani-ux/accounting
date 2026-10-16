@@ -201,6 +201,10 @@ void test('G4 rejects caches, fake source geometry, alternate families and resul
   assert.throws(() => snapshotStockPdfState(s), /STOCK_PDF_SOURCE/);
   assert.throws(
     () => snapshotStockPdfRequest('stock-pdf-export', s),
+    /STOCK_PDF_EXPORT_REQUEST/,
+  );
+  assert.throws(
+    () => snapshotStockPdfRequest('stock-pdf-approve', s),
     /STOCK_PDF_ACTION/,
   );
 });
