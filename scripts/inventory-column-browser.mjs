@@ -156,7 +156,13 @@ try {
     const download = async (name, file) => {
       const pending = page.waitForEvent('download');
       await button(name).click();
-      await (await pending).saveAs(path.join(dir, file));
+      const received = await pending;
+      if (name === t.export)
+        assert.equal(
+          received.suggestedFilename(),
+          'tarasuf-inventory-evidence.xlsx',
+        );
+      await received.saveAs(path.join(dir, file));
       await wait();
       assert.equal(await w.getByRole('alert').count(), 0);
     };

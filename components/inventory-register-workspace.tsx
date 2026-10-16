@@ -829,7 +829,9 @@ export function StockWorkspace({
                 (b) =>
                   download(
                     b,
-                    `tarasuf-inventory-evidence-${lang}.xlsx`,
+                    pdf
+                      ? `tarasuf-inventory-evidence-${lang}.xlsx`
+                      : 'tarasuf-inventory-evidence.xlsx',
                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                   ),
               )

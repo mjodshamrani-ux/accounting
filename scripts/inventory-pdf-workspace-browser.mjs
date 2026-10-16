@@ -170,7 +170,13 @@ try {
       assert.equal(await button(k).isEnabled(), true, k);
       const d = page.waitForEvent('download');
       await button(k).click();
-      await (await d).saveAs(path.join(out, file));
+      const received = await d;
+      if (k === 'export')
+        assert.equal(
+          received.suggestedFilename(),
+          `tarasuf-inventory-evidence-${lang}.xlsx`,
+        );
+      await received.saveAs(path.join(out, file));
       await wait();
     };
     for (const i of [0, 3, 1, 2]) {
@@ -367,6 +373,28 @@ try {
       }
     } else assert.equal(await button('accept').isEnabled(), false);
     results[name] = phases;
+    if (code === 'N01') {
+      await download('save', name + '-source-error-session.json');
+      await page.reload();
+      await openDomainWorkspace(page, 'stock');
+      await openWorkspaceDisclosures(w);
+      await w
+        .getByLabel(t().restore, { exact: true })
+        .setInputFiles(path.join(out, name + '-source-error-session.json'));
+      await wait();
+      const restored = (await last('stock-pdf-restore')).result;
+      assert.deepEqual(restored, phases.unreviewed);
+      assert.equal(restored.financial, 'source-error');
+      assert.equal(restored.totals, null);
+      assert.equal(
+        await w.locator('[data-stock-status]').innerText(),
+        t().status['source-error'],
+      );
+      assert.equal(await button('accept').isEnabled(), false);
+      checks.push(
+        'cold source-error PDF session retains diagnostics and withheld money',
+      );
+    }
     if (code === 'P02') {
       // A cold mount must select the PDF session route before legacy CSV parsing.
       await page.reload();
