@@ -1,0 +1,27 @@
+{
+  "version": "inventory-pdf-workbook-evidence-1",
+  "phase": "INV-1F-G5a",
+  "financialAuthority": "fresh G4 original replay; expected result is only an equality guard",
+  "workerAction": "stock-pdf-export",
+  "requestFields": [
+    "state",
+    "result"
+  ],
+  "originals": [
+    "PDF register",
+    "CSV mapping",
+    "CSV supplied policy",
+    "CSV GL"
+  ],
+  "sourceCorpus": "unchanged INV-1F v2, one learned story, two PDF layout families, four positive presentations",
+  "cases": 19,
+  "lifecycleExports": 39,
+  "maxOriginalBytes": 8388608,
+  "maxWorkbookBytes": 100663296,
+  "excelTextChunkUTF16": 30000,
+  "transportComparison": "all OpenXML parts and ZIP integrity; only producer core created/modified timestamps may differ",
+  "uiEnabled": false,
+  "arabicWorkbookEnabled": false,
+  "newFinancialLayouts": false,
+  "next": "G5b PDF source inspection/upload, review, session restore, read-only assistant, bilingual workbooks and real UI acceptance; G6 CI/deployment/live proof"
+}

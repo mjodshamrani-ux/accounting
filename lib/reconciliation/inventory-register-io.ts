@@ -7,6 +7,7 @@ import {
   STOCK_HIERARCHY_CITATION_HEADERS,
 } from './inventory-hierarchy-evidence.ts';
 import ExcelJS from 'exceljs';
+import { stockPdfWorkbookTables } from './inventory-pdf-workbook-evidence.ts';
 import { readFile } from './io.ts';
 import { bindInventorySectionNative } from './inventory-section-native.ts';
 import { snapshotStockInputRequest } from './inventory-register-request.ts';
@@ -193,6 +194,28 @@ export async function exportStock(input: StockInput, expected: StockResult) {
   const expectedSnapshot = JSON.stringify(expected);
   const { state, result: r } = await replayStock(input);
   if (JSON.stringify(r) !== expectedSnapshot) throw Error('STOCK_STALE_EXPORT');
+  return writeStockEvidenceWorkbook(
+    r,
+    state.files.map((f) => ({
+      name: f.name,
+      original: f.original!,
+      sha256: f.sha256!,
+      sheet: f.sheets[0].name,
+    })),
+    stockSourceObservations(state.files),
+  );
+}
+/** Formatting only. Financial entry points must replay originals before calling. */
+export async function writeStockEvidenceWorkbook(
+  r: StockResult,
+  originals: {
+    name: string;
+    original: ArrayBuffer;
+    sha256: string;
+    sheet: string;
+  }[],
+  observations: Value[][] = [],
+) {
   if (r.cells.length + 1 > 1048576 || r.inventory.length + 1 > 1048576)
     throw Error('STOCK_EXPORT_CAPACITY');
   const tables: { name: string; headers: string[]; rows: Value[][] }[] = [];
@@ -221,7 +244,8 @@ export async function exportStock(input: StockInput, expected: StockResult) {
       ...(r.sectionEvidence ||
       r.matrixEvidence ||
       r.hierarchyEvidence ||
-      r.columnEvidence
+      r.columnEvidence ||
+      r.pdfEvidence
         ? [
             [
               'Register minor basis',
@@ -245,6 +269,7 @@ export async function exportStock(input: StockInput, expected: StockResult) {
         'Record ID',
         'Source',
         'Source row',
+        ...(i === 0 && r.pdfEvidence ? ['Source page'] : []),
         ...(i === 0 && (r.matrixEvidence || r.columnEvidence)
           ? ['Source column']
           : []),
@@ -254,6 +279,7 @@ export async function exportStock(input: StockInput, expected: StockResult) {
         v.id,
         v.source,
         v.row,
+        ...(i === 0 && r.pdfEvidence ? [v.page ?? null] : []),
         ...(i === 0 && (r.matrixEvidence || r.columnEvidence)
           ? [v.column ?? null]
           : []),
@@ -342,15 +368,15 @@ export async function exportStock(input: StockInput, expected: StockResult) {
     r.events.flatMap((v) => v.memberIds.map((id) => [v.id, id])),
   );
   const sources: Value[][] = [];
-  state.files.forEach((f, i) => {
+  originals.forEach((f, i) => {
     const data = encode(f.original!);
     for (let part = 0; part * 30000 < data.length; part++)
       sources.push([
         i,
         STOCK_ROLES[i],
         f.name,
-        f.sheets[0].name,
-        f.sha256!,
+        f.sheet,
+        f.sha256,
         part + 1,
         Math.ceil(data.length / 30000),
         data.slice(part * 30000, (part + 1) * 30000),
@@ -391,7 +417,6 @@ export async function exportStock(input: StockInput, expected: StockResult) {
     r.hierarchyEvidence ||
     r.columnEvidence
   ) {
-    const observations = stockSourceObservations(state.files);
     if (observations.length)
       table(
         'Source observations',
@@ -399,6 +424,7 @@ export async function exportStock(input: StockInput, expected: StockResult) {
         observations,
       );
   }
+  tables.push(...stockPdfWorkbookTables(r));
   // Preflight every table before allocating Workbook; never truncate evidence.
   for (const t of tables) {
     if (t.rows.length + 1 > 1048576 || t.headers.length > 16384)

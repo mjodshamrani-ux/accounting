@@ -20,7 +20,10 @@ import {
 } from '../tests/helpers/inventory-pdf-lifecycle-fixture.ts';
 const root = path.resolve(import.meta.dirname, '..'),
   dist = path.join(root, 'dist');
+const withWorkbooks = process.argv.includes('--workbooks');
+const exported = {};
 const output =
+  (withWorkbooks ? process.env.INV_PDF_WORKBOOK_BROWSER_DIR : undefined) ??
   process.env.INV_PDF_WORKER_BROWSER_DIR ??
   path.join(root, 'work/inventory-pdf-worker-browser');
 await mkdir(output, { recursive: true });
@@ -179,8 +182,8 @@ try {
           data: Buffer.from(f.original).toString('base64'),
         })),
       };
-    proof.cases['INV1F-' + code] = await page.evaluate(
-      async ({ state, positive }) => {
+    const captured = await page.evaluate(
+      async ({ state, positive, withWorkbooks }) => {
         const decode = (data) =>
           Uint8Array.from(atob(data), (c) => c.charCodeAt(0)).buffer;
         const encode = (data) => {
@@ -209,13 +212,21 @@ try {
             })),
           },
         });
-        const phases = {};
+        const phases = {},
+          workbookData = {};
         const capture = async (phase) => {
           const value = await window.g4.request('stock-pdf-reconcile', input),
             saved = await window.g4.request('stock-pdf-save', input),
             restored = await window.g4.request('stock-pdf-restore', {
               buffer: saved,
             });
+          if (withWorkbooks)
+            workbookData[phase] = encode(
+              await window.g4.request('stock-pdf-export', {
+                state: value.state,
+                result: value.result,
+              }),
+            );
           phases[phase] = {
             value: pack(value),
             restored: pack(restored),
@@ -249,10 +260,28 @@ try {
             r = await capture(phase);
           }
         }
-        return phases;
+        return withWorkbooks ? { phases, workbookData } : phases;
       },
-      { state: serializable, positive: g3Contract.ready.includes(code) },
+      {
+        state: serializable,
+        positive: g3Contract.ready.includes(code),
+        withWorkbooks,
+      },
     );
+    proof.cases['INV1F-' + code] = withWorkbooks ? captured.phases : captured;
+    if (withWorkbooks) {
+      exported['INV1F-' + code] = Object.fromEntries(
+        Object.entries(captured.phases).map(([phase, e]) => [
+          phase,
+          e.value.result,
+        ]),
+      );
+      for (const [phase, data] of Object.entries(captured.workbookData))
+        await writeFile(
+          path.join(out, 'INV1F-' + code + '-' + phase + '.xlsx'),
+          Buffer.from(data, 'base64'),
+        );
+    }
   }
   await page.evaluate(() => window.g4.close());
 } finally {
@@ -279,7 +308,33 @@ assert.equal(r.status, 0, r.stderr);
 assert.deepEqual(external, []);
 assert.deepEqual(nonGet, []);
 assert.deepEqual(errors, []);
+let workbookCheck;
+if (withWorkbooks) {
+  const f = path.join(out, 'export-results.json');
+  await writeFile(f, JSON.stringify(exported));
+  const check = spawnSync(
+    process.env.PYTHON ?? 'python3',
+    [
+      '-B',
+      path.join(root, 'audit/inventory-pdf-workbook/check_export.py'),
+      '--root',
+      path.join(out, 'sources'),
+      '--result',
+      f,
+      '--books',
+      out,
+    ],
+    { encoding: 'utf8', timeout: 60000, maxBuffer: 8 * 1024 * 1024 },
+  );
+  await writeFile(
+    path.join(out, 'independent-workbooks.log'),
+    check.stdout + check.stderr,
+  );
+  assert.equal(check.status, 0, check.stderr);
+  workbookCheck = JSON.parse(check.stdout);
+}
 const report = {
+  ...(withWorkbooks ? { workbookCheck } : {}),
   passed: true,
   worker,
   workerSha256,

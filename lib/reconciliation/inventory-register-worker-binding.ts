@@ -294,7 +294,7 @@ async function inspectExport(buffer: ArrayBuffer) {
   return contents;
 }
 
-async function sameExport(actual: ArrayBuffer, expected: ArrayBuffer) {
+export async function sameStockWorkbook(actual: ArrayBuffer, expected: ArrayBuffer) {
   return same(await inspectExport(actual), await inspectExport(expected));
 }
 
@@ -343,7 +343,7 @@ export async function validateStockWorkerResponse(action: string, value: unknown
   }
   if (action === 'stock-export') {
     const expected = await io.exportStock(payload.state as StockInput, payload.result as StockResult);
-    if (!await sameExport(captured as ArrayBuffer, expected)) throw Error('STOCK_WORKER_BINDING');
+    if (!await sameStockWorkbook(captured as ArrayBuffer, expected)) throw Error('STOCK_WORKER_BINDING');
     return expected;
   }
   throw Error('STOCK_WORKER_ACTION');

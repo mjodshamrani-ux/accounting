@@ -7,6 +7,7 @@ import {
   STOCK_PDF_SESSION_FORMAT,
   STOCK_PDF_LIFECYCLE_VERSION,
   STOCK_PDF_SESSION_LIMIT,
+  STOCK_PDF_EXPORT_LIMIT,
   pdfBytes,
   pdfKeys,
   pdfPlain,
@@ -15,6 +16,7 @@ import {
   snapshotStockPdfTransport,
   sameStockPdfData,
   type StockPdfState,
+  type StockPdfExportRequest,
 } from './inventory-pdf-request.ts';
 
 function encode(buffer: ArrayBuffer) {
@@ -102,6 +104,17 @@ export async function validateStockPdfWorkerResponse(
   payload: unknown,
 ) {
   const requested = snapshotStockPdfRequest(action, payload);
+  if (action === 'stock-pdf-export') {
+    pdfBytes(value, STOCK_PDF_EXPORT_LIMIT);
+    const returned = value.slice(0);
+    const { exportStockPdf } = await import('./inventory-pdf-workbook.ts');
+    const { sameStockWorkbook } =
+      await import('./inventory-register-worker-binding.ts');
+    const expected = await exportStockPdf(requested as StockPdfExportRequest);
+    if (!(await sameStockWorkbook(returned, expected)))
+      throw Error('STOCK_PDF_WORKER_EXPORT_BINDING');
+    return expected;
+  }
   if (action === 'stock-pdf-save') {
     pdfBytes(value, STOCK_PDF_SESSION_LIMIT);
     const returned = value.slice(0);

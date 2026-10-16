@@ -240,6 +240,14 @@ jobs:
           pnpm test:inventory-pdf:lifecycle
           pnpm test:inventory-pdf:lifecycle-proof
           pnpm test:inventory-pdf:lifecycle-mutations
+      - name: Verify inventory PDF original-bound Excel, native Worker, independent OpenXML and mutations
+        env:
+          INV_PDF_WORKBOOK_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workbook
+          INV_PDF_WORKBOOK_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workbook-mutations
+        run: |
+          pnpm test:inventory-pdf:workbook
+          pnpm test:inventory-pdf:workbook-proof
+          pnpm test:inventory-pdf:workbook-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
@@ -256,6 +264,10 @@ jobs:
         env:
           INV_PDF_WORKER_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-worker-browser
         run: pnpm test:inventory-pdf:worker-browser
+      - name: Verify inventory PDF workbooks in the exact production browser Worker
+        env:
+          INV_PDF_WORKBOOK_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-workbook-browser
+        run: pnpm test:inventory-pdf:workbook-browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:

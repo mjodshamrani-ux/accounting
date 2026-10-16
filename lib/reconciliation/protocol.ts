@@ -1,6 +1,7 @@
 import {
   STOCK_PDF_LIFECYCLE_VERSION,
   STOCK_PDF_SESSION_LIMIT,
+  STOCK_PDF_EXPORT_LIMIT,
 } from './inventory-pdf-request.ts';
 import { reconcilePayroll, type PayrollInput } from './payroll.ts';
 import { reconcileGlTb, type GlTbInput } from './gl-tb.ts';
@@ -70,6 +71,7 @@ export const WORKER_ACTIONS = [
   'stock-pdf-reconcile',
   'stock-pdf-save',
   'stock-pdf-restore',
+  'stock-pdf-export',
   'stock-read',
   'stock-reconcile',
   'stock-save',
@@ -153,11 +155,14 @@ export function validateWorkerValue(
     throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
   // Async original replay and exact equality are enforced by the client binding.
   // This synchronous transport check never treats the returned PDF cache as truth.
-  if (action === 'stock-pdf-save') {
+  if (action === 'stock-pdf-save' || action === 'stock-pdf-export') {
     if (
       !(value instanceof ArrayBuffer) ||
       !value.byteLength ||
-      value.byteLength > STOCK_PDF_SESSION_LIMIT
+      value.byteLength >
+        (action === 'stock-pdf-save'
+          ? STOCK_PDF_SESSION_LIMIT
+          : STOCK_PDF_EXPORT_LIMIT)
     )
       throw Error('STOCK_PDF_ENVELOPE');
   }
