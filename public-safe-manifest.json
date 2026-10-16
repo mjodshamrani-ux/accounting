@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 29774,
-      "sha256": "0256d8e87e647440d5023ec8346d747793066e379c2d48397c00581f73d329ec",
+      "bytes": 29971,
+      "sha256": "5f790959374aca8c5e80496f18dbe71e1731deac9b789aa56f0bf790a9b802c3",
       "kind": "text"
     },
     {
@@ -40051,6 +40051,552 @@
       "path": "tests/inventory-pdf-accounting.test.ts",
       "bytes": 23403,
       "sha256": "d2edf23811a820c026ebdea7e737bab8b39cefe78e35ed49bc859782f1121c15",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/INPUT-MANIFEST.json",
+      "bytes": 9091,
+      "sha256": "8c27a23f957d25e22b12821f854d31b77f125197d2a39afc20ac1593f2a1e5a5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/README.ar.md",
+      "bytes": 11759,
+      "sha256": "395d5fdc794f48a2ba9c9ab30a4b360deaf63c5b1f3aa086b39e15ed74b1e57f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/REVIEW-NOTES.ar.md",
+      "bytes": 9355,
+      "sha256": "58efaf4cb52434a6733b5ed165c87808b7d71642b9aaf579b20aa3d9c18a1510",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/contract.json",
+      "bytes": 4838,
+      "sha256": "8643ccf0c98498df8317c2ed296539336b8dc67317edf2aa8f9329852774a63c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/financial-position.csv",
+      "bytes": 2366,
+      "sha256": "1685d83b99d4f776937dd1a254a12ba94eb826c2c194d19254c68ca01795ab43",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/cases.json",
+      "bytes": 2402,
+      "sha256": "25fe3724597cdef2d64c642a5392f105f84a827429a48443a3700349800d8cfb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/proposed-mapping.csv",
+      "bytes": 1587,
+      "sha256": "5dd926d524e75f56d26a033e26829a0db7d7d8dd0fbe1fbd639de8488f463f71",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "1118594a3a7d9d1f95f5b45d8ba124c33cc39be226716e81803d448eeb0e5721",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "2405f16cba06d5c5e9d395d67e67d1172f4db9d2b5f0efad520e69dbfb976265",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/trial-balance.csv",
+      "bytes": 1518,
+      "sha256": "70f2d97384085d30c92d9c06d337c9fd74adf17d507cfd394083bff27e7e7bb5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/financial-position.csv",
+      "bytes": 2545,
+      "sha256": "901df551c48bfb60767796ed918968017acc2a0834f4fc53cb85e30586bbc34b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/presentation-evidence.csv",
+      "bytes": 2076,
+      "sha256": "df45d8401df8b59c1415e5379854f4d4d30cd4725254149b4cd9a62d9e6a77c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/proposed-mapping.csv",
+      "bytes": 1402,
+      "sha256": "9a492fe2f27c5c1d5c6a80285d7490a18167cb29ce86d2600a6d6939cbbd8696",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "25df8b8a460ab2be5615657cf512999a12f5a972c5bd3b72afaa9c56d7bda561",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/financial-position.csv",
+      "bytes": 2190,
+      "sha256": "9c27d2ad5808740d987af33bf47b1aa1e675436ca08e6c0f42e6e1c28ceade91",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/financial-position.csv",
+      "bytes": 2374,
+      "sha256": "4ae8adfdbf219cc3ae3a7e19fc69e960f602170ec621a3822fe3122b5c98e5de",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "0d48ed1cbacbe55bc52dc6a18a65f326a85868929dd416abd00d0be7a389ef5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "cf98c83bef223e234a80f793f1995a65b5c611d341b4d445f7fef5653e3bd18d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "78706fa2b7b17eb2c41c0ce1061ffbb45fe815538c9316af3a399c9e61a3b726",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "9344976242dbb6f1dad13050ed10c71b580ac2dc40a18d2ef0a268bdaf31b441",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/trial-balance.csv",
+      "bytes": 1513,
+      "sha256": "8c0ff8f28352ab9a6bac27dffcf74f6b41f17575ec1fbdeb3f7b389539b08be5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/financial-position.csv",
+      "bytes": 2571,
+      "sha256": "40f13dd9b70ce95d228b9e8a72428b3a0d6e819ab8bc7a2036f91eb2492ec69c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/proposed-mapping.csv",
+      "bytes": 1233,
+      "sha256": "7304a63f3db20877dfb9e5eb59e065707c1ba75f5c7189b70681d67c7797631e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/presentation-evidence.csv",
+      "bytes": 2082,
+      "sha256": "e89f31c794fdf369a831632b643d0007c764e6fb712f7d147f9a8958ae15068b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/presentation-evidence.csv",
+      "bytes": 2079,
+      "sha256": "c4ea0d85270bb9809a573b627a561bab7167d5e146e008148582b2e39ec0f673",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/proposed-mapping.csv",
+      "bytes": 1405,
+      "sha256": "88b6105536cd99bee57a5d6c8c91544d81e7b1505ac0e9bb6601e1026a5a0514",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "b9ac16852e80827d7174a9197db6f3fdfde9cdc1216a37992a5e1323190080d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/generate.py",
+      "bytes": 7309,
+      "sha256": "8c82ac5d38853ef7039d2d13ef48ecc6c37a7464cbd8ec641f3afaa588fe076b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/oracle.py",
+      "bytes": 14888,
+      "sha256": "b58290a8d51966ead568ce653341ed11dcb76a9f485812705bac020e14a3de3d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/run.py",
+      "bytes": 1413,
+      "sha256": "476219d91d48a08e8fbc89bcf1029d2b285be500ff81b47105d2d1039b8010c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/test_oracle.py",
+      "bytes": 22507,
+      "sha256": "fc60c3a6c84a20d25d31e210a8c7db1dd49a117c77a154c83d933885e307500d",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/FIN1-HIERARCHY-FOUNDATION.ar.md",
+      "bytes": 10243,
+      "sha256": "9dbf642f74c7c2c8cb2ff70693f3851a3ff7bd7af71533cabb04be41bf9c248c",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/FIN1-SOURCE4-PROTOTYPE.ar.md",
+      "bytes": 22091,
+      "sha256": "8ac596b405e3d77f2ced916c03e67d341b6f5cc54c58839393b455f1677fa2df",
+      "kind": "text"
+    },
+    {
+      "path": "docs/transfer/FIN1-RESUME-20261015.ar.md",
+      "bytes": 8638,
+      "sha256": "d45f21b44f09847233ebe0aef53a059c8cac7733009c876710efb0fde7c74d4b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/transfer/FIN1-STATUS.ar.md",
+      "bytes": 9088,
+      "sha256": "641e1198d07ddff331b48c04c24da4ebfb704f817393ebe12c3c4fcd0379867b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/transfer/README.ar.md",
+      "bytes": 12667,
+      "sha256": "0472026df442f5aed17787c289d79bb36e61059f834e335470817a630637ba6b",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/tb-financial-hierarchy-contract.ts",
+      "bytes": 5108,
+      "sha256": "5a9e8d9395b04f2eb947da97c438f4169c409922b0d732fa1da08bb90b49f899",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/tb-financial-hierarchy-source.ts",
+      "bytes": 15877,
+      "sha256": "91a80c0c42f43dd023e50f842f1a72392d55c93910e1111f0aff472945acef31",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inspect-financial-hierarchy-source4.mjs",
+      "bytes": 3200,
+      "sha256": "f2d9bfd64403d57672808da3244fe8c8644697f9707dcafaffccc5595cabb511",
+      "kind": "text"
+    },
+    {
+      "path": "tests/tb-financial-hierarchy-origin.test.ts",
+      "bytes": 12448,
+      "sha256": "fcf02b4defa4f6449d23f7eeea292d5d676241bfbb68ef02a557934820cf88d6",
+      "kind": "text"
+    },
+    {
+      "path": "tests/tb-financial-hierarchy-source.test.ts",
+      "bytes": 13173,
+      "sha256": "44b5eb27e0d91afdd0c0bbe5013cf981ed6f632257cd59515ffbb370af9c196f",
       "kind": "text"
     }
   ],

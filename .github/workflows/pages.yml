@@ -50,6 +50,8 @@ jobs:
         run: |
           node --experimental-strip-types audit/bank/export-fixture.mjs
           python3 -m unittest discover -s audit/bank -p 'test_*.py' -v
+      - name: Verify synthetic FIN hierarchy acceptance foundation without activating product support
+        run: python3 -B -m unittest discover -s audit/tb-financial-hierarchy -p 'test_*.py' -v
       - name: Independently verify payment allocation capacity, remittance, history and replay
         run: |
           node --experimental-strip-types audit/allocation/export-fixture.mjs

@@ -1,0 +1,126 @@
+{
+  "id": "FIN-1A-hierarchy-foundation-1",
+  "status": "synthetic-preimplementation-acceptance-foundation",
+  "baseline": "296d97f65c55dc3e4ee412119c82ea0ef258dcf7",
+  "challengeIds": [
+    "CH-06",
+    "CH-07",
+    "CH-13"
+  ],
+  "sourceRoles": [
+    "trial-balance",
+    "proposed-mapping",
+    "presentation-evidence",
+    "financial-position"
+  ],
+  "scope": {
+    "Entity": "SYNTHETIC-FIN-1A",
+    "Ledger": "LOCAL-SYNTHETIC",
+    "Currency": "SAR",
+    "Currency basis": "functional",
+    "Posting status": "posted",
+    "Posting layer": "actual",
+    "Period start": "2026-01-01",
+    "Period end": "2026-09-30",
+    "As of": "2026-09-30",
+    "Chart version": "SYN-CHART-1",
+    "Map version": "SYN-MAP-1",
+    "Closing basis": "post-closing"
+  },
+  "currencyPrecision": 2,
+  "limits": {
+    "rowsPerSource": 200,
+    "sourceBytes": 131072,
+    "fieldCharacters": 2000,
+    "treeDepth": 20
+  },
+  "hierarchy": {
+    "relationEvidence": "explicit Parent ID on each serialized statement row; adjacency/indent/color are not evidence",
+    "kinds": [
+      "leaf",
+      "parent",
+      "title"
+    ],
+    "leaf": "one financial line with supplied Amount and mapping/proof; maps may target leaves only",
+    "parent": "supplied Amount is a control equal to immediate financial children, each child counted once; never a second contribution to category or grand totals",
+    "title": "root presentation label with blank Parent ID, Line class and Amount; no financial children or mappings",
+    "ownership": "one unique Node ID and at most one parent, all parent references present, no cycles; descendants retain one category",
+    "coverage": "every TB account+Complete dimensions has exactly one mapping and one proof; every leaf including explicit zero is mapped; no unknown rows silently dropped",
+    "minimumEvidence": "All four source roles must contain records; at least one TB account and one financial leaf. Header-only bundles and title-only statements cannot establish scope or financial evidence, even when all sums are zero."
+  },
+  "money": "plain signed decimal lexeme with at most two fraction digits; exact integer minor units; blank != zero; debit and credit nonnegative and cannot both be positive in one TB row; no rounding or floating-point inference Each input and final aggregate/net/contribution/control/category/grand-total/equation must have absolute minor units <= aggregateMinorAbsLimit; use exact integers, check final sums and their terms, do not reject legitimate intermediate cancellation.",
+  "proof": "Independent supplied Account class/Line class/Sign/Line ID; strict real-calendar YYYY-MM-DD validity dates must inclusively cover the whole declared Period start..Period end with Valid from <= Valid to, not merely As of. Exact identity and dimensions; assets require debit-positive, liabilities/equity require credit-positive. Contra assets retain asset policy and may contribute negatively. No AI/label inference.",
+  "evidence": "SHA256 original UTF-8 CSV bytes, CSV record row (header=1), column, raw text for each serialized field; positions are never manufactured from a canonical replacement",
+  "coverageCounts": {
+    "financialStories": 1,
+    "hierarchicalSourceFamilies": 1,
+    "csvRepresentations": 2,
+    "containers": 1,
+    "producerLineages": 1,
+    "blindHoldouts": 0
+  },
+  "expectedStory": {
+    "debitMinor": 130000,
+    "creditMinor": 130000,
+    "leafMinor": {
+      "CASH-A": 50000,
+      "CASH-B": 50000,
+      "REC": 30000,
+      "ALLOW": -10000,
+      "ZERO": 0,
+      "PAY": 50000,
+      "CAP": 70000
+    },
+    "parentMinor": {
+      "ASSETS": 120000,
+      "CASH": 100000,
+      "LIABILITIES": 50000,
+      "EQUITY": 70000
+    },
+    "members": {
+      "CASH-A": [
+        "0010|branch=10"
+      ],
+      "CASH-B": [
+        "0010|branch=20"
+      ],
+      "REC": [
+        "001|branch=10"
+      ],
+      "ALLOW": [
+        "0019|branch=10"
+      ],
+      "ZERO": [
+        "0099|branch=10"
+      ],
+      "PAY": [
+        "2000|branch=10"
+      ],
+      "CAP": [
+        "3000|branch=10"
+      ]
+    },
+    "categoryMinor": {
+      "current-asset": 120000,
+      "noncurrent-asset": 0,
+      "current-liability": 50000,
+      "noncurrent-liability": 0,
+      "equity": 70000
+    },
+    "equationMinor": 0
+  },
+  "exclusions": [
+    "product activation",
+    "parser changes",
+    "XLSX/PDF/OCR",
+    "multiple periods/currencies",
+    "implicit parent inference",
+    "accounting policy invention",
+    "session/worker/export/browser qualification",
+    "field accuracy",
+    "capacity benchmark",
+    "parallel engine rollout"
+  ],
+  "nextGate": "review this contract and oracle; independently reserve new structural/financial holdout before product implementation; retain current flat-family behavior and all CI gates",
+  "aggregateMinorAbsLimit": 100000000000000
+}
