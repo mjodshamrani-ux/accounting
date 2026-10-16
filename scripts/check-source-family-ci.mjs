@@ -89,6 +89,10 @@ for (const job of Object.values(workflow.jobs))
       assert(existsSync(path.join(root, m[0])), m[0]);
   }
 const required = [
+  'test:inventory-pdf:workspace',
+  'test:inventory-pdf:workspace-proof',
+  'test:inventory-pdf:workspace-mutations',
+  'test:inventory-pdf:workspace-browser',
   'test:inventory-pdf:workbook',
   'test:inventory-pdf:workbook-proof',
   'test:inventory-pdf:workbook-mutations',

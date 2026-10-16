@@ -97,6 +97,7 @@ export type DomainEvidenceFact = {
   subject?: Label;
   value: number | boolean | string | null;
   money?: true;
+  detail?: string;
 };
 export type DomainEvidenceAnswer = {
   kind: EvidenceQuestion | 'unsupported' | 'stale';
@@ -106,6 +107,7 @@ export type DomainEvidenceAnswer = {
   currency: string;
   decimals: number;
   individualAmounts?: true;
+  citations?: {hash:string;page:number;line:number;field:string;text:string;recordId:string}[];
 };
 // Explains the current, already-read input only. It neither rehashes original
 // bytes nor takes the place of the IO replay gate for financial decisions.

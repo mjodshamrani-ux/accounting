@@ -72,6 +72,8 @@ export const WORKER_ACTIONS = [
   'stock-pdf-save',
   'stock-pdf-restore',
   'stock-pdf-export',
+  'stock-pdf-read',
+  'stock-pdf-ask',
   'stock-read',
   'stock-reconcile',
   'stock-save',

@@ -21,9 +21,11 @@ export function DomainEvidenceAssistant({
   snapshot,
   busy,
   replay,
+  verifiedAnswer,
 }: {
   result: DomainEvidenceSnapshot['result'];
-  snapshot: () => DomainEvidenceSnapshot;
+  snapshot?: () => DomainEvidenceSnapshot;
+  verifiedAnswer?: (question: string) => Promise<DomainEvidenceAnswer>;
   busy: boolean;
   replay?: (
     snapshot: SpecializedEvidenceSnapshot,
@@ -35,6 +37,7 @@ export function DomainEvidenceAssistant({
   const [question, setQuestion] = useState('');
   const [previous, setPrevious] = useState(result);
   const [checking, setChecking] = useState(false);
+  const [citationPage, setCitationPage] = useState(0);
   const request = useRef(0);
   const currentResult = useRef(result);
   useLayoutEffect(() => {
@@ -51,6 +54,7 @@ export function DomainEvidenceAssistant({
     setChecking(false);
     setPrevious(result);
     setAnswer(null);
+    setCitationPage(0);
     setQuestion('');
   }
   async function ask(q: string) {
@@ -61,17 +65,21 @@ export function DomainEvidenceAssistant({
     setChecking(true);
     let next: DomainEvidenceAnswer;
     try {
-      const captured = snapshot();
-      next = isSpecializedEvidenceSnapshot(captured)
-        ? await askVerifiedSpecializedEvidence(
-            captured,
-            q,
-            replay ??
-              (async () => {
-                throw Error('REPLAY_REQUIRED');
-              }),
-          )
-        : askDomainEvidence(captured, q);
+      if (verifiedAnswer) next = await verifiedAnswer(q);
+      else {
+        if (!snapshot) throw Error('REPLAY_REQUIRED');
+        const captured = snapshot();
+        next = isSpecializedEvidenceSnapshot(captured)
+          ? await askVerifiedSpecializedEvidence(
+              captured,
+              q,
+              replay ??
+                (async () => {
+                  throw Error('REPLAY_REQUIRED');
+                }),
+            )
+          : askDomainEvidence(captured, q);
+      }
     } catch {
       next = {
         kind: 'stale',
@@ -146,6 +154,7 @@ export function DomainEvidenceAssistant({
                   {answer.facts.map((f, i) => (
                     <div key={i} className="stack" style={{ marginBlock: 8 }}>
                       <dt>
+                        {f.detail && <bdi>{f.detail} · </bdi>}
                         {f.subject ? `${t.labels[f.subject]} · ` : ''}
                         {t.labels[f.label]}
                       </dt>
@@ -204,6 +213,69 @@ export function DomainEvidenceAssistant({
                   </dl>
                 ))}
               </details>
+              {answer.citations && (
+                <details data-pdf-assistant-citations>
+                  <summary>
+                    {t.citations} ({answer.citations.length})
+                  </summary>
+                  <div className="gl-tb-table">
+                    <table>
+                      <thead>
+                        <tr>
+                          {t.citationHeaders.map((h) => (
+                            <th key={h}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {answer.citations
+                          .slice(citationPage * 50, citationPage * 50 + 50)
+                          .map((c, i) => (
+                            <tr key={i}>
+                              {[
+                                c.page,
+                                c.line,
+                                c.field,
+                                c.text,
+                                c.recordId,
+                                c.hash,
+                              ].map((v, j) => (
+                                <td
+                                  key={j}
+                                  style={{ overflowWrap: 'anywhere' }}
+                                >
+                                  {v}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="actions">
+                    <Button
+                      variant="outline"
+                      disabled={!citationPage}
+                      onClick={() => setCitationPage(citationPage - 1)}
+                    >
+                      {t.previous}
+                    </Button>
+                    <span>
+                      {citationPage + 1} /{' '}
+                      {Math.max(1, Math.ceil(answer.citations.length / 50))}
+                    </span>
+                    <Button
+                      variant="outline"
+                      disabled={
+                        (citationPage + 1) * 50 >= answer.citations.length
+                      }
+                      onClick={() => setCitationPage(citationPage + 1)}
+                    >
+                      {t.nextPage}
+                    </Button>
+                  </div>
+                </details>
+              )}
             </>
           )}
         </div>

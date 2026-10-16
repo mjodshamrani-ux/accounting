@@ -17,6 +17,8 @@ import {
   sameStockPdfData,
   type StockPdfState,
   type StockPdfExportRequest,
+  type StockPdfReadRequest,
+  type StockPdfAskRequest,
 } from './inventory-pdf-request.ts';
 
 function encode(buffer: ArrayBuffer) {
@@ -104,6 +106,20 @@ export async function validateStockPdfWorkerResponse(
   payload: unknown,
 ) {
   const requested = snapshotStockPdfRequest(action, payload);
+  if (action === 'stock-pdf-read' || action === 'stock-pdf-ask') {
+    const captured = snapshotStockPdfTransport(value);
+    const expected =
+      action === 'stock-pdf-read'
+        ? await (
+            await import('./inventory-pdf-preview.ts')
+          ).readStockPdf(requested as StockPdfReadRequest)
+        : await (
+            await import('./inventory-pdf-assistant.ts')
+          ).askStockPdf(requested as StockPdfAskRequest);
+    if (!sameStockPdfData(captured, expected))
+      throw Error('STOCK_PDF_WORKER_BINDING');
+    return expected;
+  }
   if (action === 'stock-pdf-export') {
     pdfBytes(value, STOCK_PDF_EXPORT_LIMIT);
     const returned = value.slice(0);

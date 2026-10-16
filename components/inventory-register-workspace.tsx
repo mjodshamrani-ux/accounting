@@ -1,3 +1,20 @@
+import { STOCK_PDF_FAMILY } from '../lib/reconciliation/inventory-pdf-register.ts';
+import {
+  STOCK_PDF_LIFECYCLE_VERSION,
+  STOCK_PDF_SESSION_FORMAT,
+  type StockPdfState,
+} from '../lib/reconciliation/inventory-pdf-request.ts';
+import {
+  inventoryCompanionScope,
+  type StockPdfPreview,
+} from '../lib/reconciliation/inventory-pdf-preview.ts';
+import type { StockPdfReplay } from '../lib/reconciliation/inventory-register.ts';
+import type { DomainEvidenceAnswer } from '../lib/reconciliation/domain-assistant.ts';
+import { stockPdfWorkbookTables } from '../lib/reconciliation/inventory-pdf-workbook-evidence.ts';
+import {
+  inventoryPdfCopy,
+  inventoryPdfIssue,
+} from '../lib/i18n/inventory-pdf.ts';
 import {
   STOCK_COLUMN_FAMILY,
   isInventoryColumnHierarchy,
@@ -10,7 +27,7 @@ import {
 } from '../lib/reconciliation/inventory-hierarchy-sections.ts';
 import { stockHierarchyCitationRows } from '../lib/reconciliation/inventory-hierarchy-evidence.ts';
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -181,6 +198,22 @@ export function StockWorkspace({
     null,
     null,
   ]);
+  const [pdf, setPdf] = useState<StockPdfPreview | null>(null);
+  const pdfCopy = inventoryPdfCopy[lang];
+  const hasRegister = !!(pdf || files[0]);
+  const sources = [pdf ?? files[0], ...files.slice(1)];
+  const previewRows = useMemo(() => {
+    if (!pdf) return [];
+    const maps = pdf.reading.source.pages.map(
+      (p) => new Map(p.tokens.map((t) => [t.item, t.text])),
+    );
+    return pdf.reading.inventory.map((l) => [
+      l.page,
+      l.line,
+      l.kind,
+      l.items.map((i) => maps[l.page - 1]?.get(i) ?? '').join(' '),
+    ]);
+  }, [pdf]);
   const [reading, setReading] = useState(readings),
     [scope, setScope] = useState(emptyScope);
   const [complete, setComplete] = useState<StockInput['completeness']>({
@@ -190,6 +223,10 @@ export function StockWorkspace({
   });
   const [events, setEvents] = useState<StockEvent[]>([]),
     [result, setResult] = useState<StockResult | null>(null);
+  const pdfTables = useMemo(
+    () => (result?.pdfEvidence ? stockPdfWorkbookTables(result, false) : []),
+    [result],
+  );
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
     [reference, setReference] = useState(''),
@@ -218,6 +255,7 @@ export function StockWorkspace({
     setError('');
   }
   function state(): StockInput {
+    if (pdf) throw Error('STOCK_PDF_LEGACY_INPUT');
     return {
       files: files as StockInput['files'],
       readings: reading,
@@ -226,13 +264,80 @@ export function StockWorkspace({
       events,
     };
   }
-  function install(v: { state: StockInput; result: StockResult }) {
-    setFiles(v.state.files);
-    setReading(v.state.readings);
+  function pdfState(nextEvents = events): StockPdfState {
+    if (!pdf || !files.slice(1).every(Boolean))
+      throw Error('STOCK_PDF_REQUEST');
+    return {
+      version: STOCK_PDF_LIFECYCLE_VERSION,
+      files: sources.map((f) => ({
+        name: f!.name,
+        sha256: f!.sha256!,
+        original: f!.original!,
+      })) as StockPdfState['files'],
+      scope,
+      completeness: complete,
+      events: nextEvents,
+    };
+  }
+  type Replay = { state: StockInput; result: StockResult } | StockPdfReplay;
+  function install(v: Replay) {
+    if (!('version' in v)) {
+      setPdf(null);
+      setFiles(v.state.files);
+    }
+    setReading(v.result.readings);
     setScope(v.state.scope);
     setComplete(v.state.completeness);
     setEvents(v.state.events);
     setResult(v.result);
+  }
+  const compute = (signal: AbortSignal, nextEvents = events) =>
+    pdf
+      ? workerTask<StockPdfReplay>(
+          'stock-pdf-reconcile',
+          pdfState(nextEvents),
+          signal,
+        )
+      : workerTask<{ state: StockInput; result: StockResult }>(
+          'stock-reconcile',
+          { ...state(), events: nextEvents },
+          signal,
+        );
+  async function restoreSession(f: File, signal: AbortSignal) {
+    if (f.size > 64 * 1024 * 1024) throw Error('STOCK_SESSION');
+    const buffer = await f.arrayBuffer();
+    const format = JSON.parse(
+      new TextDecoder('utf-8', { fatal: true }).decode(buffer),
+    ).format;
+    if (format !== STOCK_PDF_SESSION_FORMAT)
+      return workerTask<{ state: StockInput; result: StockResult }>(
+        'stock-restore',
+        { buffer },
+        signal,
+      );
+    const replay = await workerTask<StockPdfReplay>(
+      'stock-pdf-restore',
+      { buffer },
+      signal,
+    );
+    const preview = await workerTask<StockPdfPreview>(
+      'stock-pdf-read',
+      {
+        name: replay.state.files[0].name,
+        buffer: replay.state.files[0].original,
+      },
+      signal,
+    );
+    const companion: SourceFile[] = [];
+    for (const f of replay.state.files.slice(1))
+      companion.push(
+        await workerTask<SourceFile>(
+          'stock-read',
+          { name: f.name, buffer: f.original },
+          signal,
+        ),
+      );
+    return { replay, preview, companion };
   }
   async function perform<T>(
     work: (signal: AbortSignal) => Promise<T>,
@@ -262,11 +367,36 @@ export function StockWorkspace({
     }
   }
   const ready =
-    files.every(Boolean) &&
+    hasRegister &&
+    files.slice(1).every(Boolean) &&
     reading.every((r) => r.confirmed) &&
     scope.confirmed &&
     STOCK_FIELDS.every((k) => scope[k]);
   async function upload(file: File, source: number) {
+    if (runtime.current.running) return;
+    if (pdf || (source === 0 && /\.pdf$/i.test(file.name))) invalidate();
+    if (source === 0 && /\.pdf$/i.test(file.name)) {
+      await perform(
+        async (signal) => {
+          if (file.size > MAX_FILE_BYTES) throw Error('STOCK_SOURCE');
+          return workerTask<StockPdfPreview>(
+            'stock-pdf-read',
+            { name: file.name, buffer: await file.arrayBuffer() },
+            signal,
+          );
+        },
+        (value) => {
+          setPdf(value);
+          setFiles([null, ...files.slice(1)]);
+          const next = [...reading] as StockInput['readings'];
+          next[0] = { ...next[0], family: STOCK_PDF_FAMILY, confirmed: false };
+          setReading(next);
+          setScope({ ...emptyScope(), ...value.scope, confirmed: false });
+          setComplete({ ...complete, confirmed: false });
+        },
+      );
+      return;
+    }
     await perform(
       async (signal) => {
         if (file.size > MAX_FILE_BYTES) throw Error('STOCK_SOURCE');
@@ -277,6 +407,19 @@ export function StockWorkspace({
         );
       },
       (value) => {
+        if (source === 0) setPdf(null);
+        if (pdf && source !== 0) {
+          const explicit = inventoryCompanionScope(value);
+          setScope((previous) => ({
+            ...previous,
+            ...Object.fromEntries(
+              Object.entries(explicit).filter(
+                ([key]) => !previous[key as keyof StockScope],
+              ),
+            ),
+            confirmed: false,
+          }));
+        }
         const next = [...files];
         next[source] = value;
         setFiles(next);
@@ -362,15 +505,7 @@ export function StockWorkspace({
       reference,
       note,
     };
-    await perform(
-      (signal) =>
-        workerTask<{ state: StockInput; result: StockResult }>(
-          'stock-reconcile',
-          { ...state(), events: [...events, e] },
-          signal,
-        ),
-      install,
-    );
+    await perform((signal) => compute(signal, [...events, e]), install);
   }
   const status = (value: string) =>
     (copy.status as Record<string, string>)[value] ?? value;
@@ -412,7 +547,7 @@ export function StockWorkspace({
           onBack={onBack}
           backLabel={copy.back}
           disabled={busy}
-          hasWork={files.some(Boolean)}
+          hasWork={sources.some(Boolean)}
         />
         <WorkspaceIntro title={copy.title} intro={copy.intro}>
           <p>{copy.claim}</p>
@@ -433,32 +568,25 @@ export function StockWorkspace({
                   const f = e.target.files?.[0];
                   e.target.value = '';
                   if (f)
-                    void perform(async (signal) => {
-                      if (f.size > 64 * 1024 * 1024)
-                        throw Error('STOCK_SESSION');
-                      return workerTask<{
-                        state: StockInput;
-                        result: StockResult;
-                      }>(
-                        'stock-restore',
-                        { buffer: await f.arrayBuffer() },
-                        signal,
-                      );
-                    }, install);
+                    void perform(
+                      (signal) => restoreSession(f, signal),
+                      (value) => {
+                        if ('replay' in value) {
+                          setPdf(value.preview);
+                          setFiles([null, ...value.companion]);
+                          install(value.replay);
+                        } else install(value);
+                      },
+                    );
                 }}
               />
             </label>
-            {busy && (
-              <Button variant="outline" onClick={cancel}>
-                {copy.cancel}
-              </Button>
-            )}
           </div>
         </WorkspaceAdvanced>
         <WorkspaceGroupTitle kind="sources" />
         <WorkspaceSources
           primaryIndices={[0, 3]}
-          primaryReady={!!(files[0] && files[3])}
+          primaryReady={!!(hasRegister && files[3])}
         >
           {STOCK_ROLES.map((role, i) => (
             <fieldset key={role} disabled={busy} className="workspace-source">
@@ -468,13 +596,54 @@ export function StockWorkspace({
               <WorkspaceFileInput
                 aria-label={copy.roles[i]}
                 type="file"
-                accept={i === 0 ? '.csv,.xlsx' : '.csv'}
+                accept={i === 0 ? '.csv,.xlsx,.pdf' : '.csv'}
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   e.target.value = '';
                   if (f) void upload(f, i);
                 }}
               />
+              {i === 0 && pdf && (
+                <>
+                  <p>
+                    <bdi>{pdf.name}</bdi>
+                  </p>
+                  <p>{pdfCopy.detected}</p>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={reading[0].confirmed}
+                      onChange={(e) => {
+                        const next = [...reading] as StockInput['readings'];
+                        next[0] = { ...next[0], confirmed: e.target.checked };
+                        setReading(next);
+                        invalidate();
+                      }}
+                    />
+                    {copy.roleConfirm}
+                  </label>
+                  <Button
+                    variant="outline"
+                    onClick={() =>
+                      download(pdf.original, pdf.name, 'application/pdf')
+                    }
+                  >
+                    {pdfCopy.original}
+                  </Button>
+                  {detail(
+                    pdfCopy.preview,
+                    pdfCopy.previewHeaders,
+                    previewRows,
+                    pdf.sha256,
+                  )}
+                  {pdf.reading.issues.length > 0 &&
+                    detail(
+                      pdfCopy.diagnostics,
+                      pdfCopy.diagnosticHeaders,
+                      pdf.reading.issues.map((v) => [v.page, v.line, v.code]),
+                    )}
+                </>
+              )}
               {files[i] && (
                 <>
                   <p>
@@ -538,7 +707,7 @@ export function StockWorkspace({
             </fieldset>
           ))}
         </WorkspaceSources>
-        <fieldset disabled={busy} hidden={!(files[0] && files[3])}>
+        <fieldset disabled={busy} hidden={!(hasRegister && files[3])}>
           <legend>{copy.scopeTitle}</legend>
           <div className="gl-tb-grid">
             {STOCK_FIELDS.map((k) => (
@@ -611,19 +780,14 @@ export function StockWorkspace({
           </fieldset>
         </WorkspaceAdvanced>
         <div className="gl-tb-actions workspace-run-actions">
+          {busy && (
+            <Button variant="outline" onClick={cancel}>
+              {copy.cancel}
+            </Button>
+          )}
           <Button
             disabled={busy || !ready}
-            onClick={() =>
-              void perform(
-                (signal) =>
-                  workerTask<{ state: StockInput; result: StockResult }>(
-                    'stock-reconcile',
-                    state(),
-                    signal,
-                  ),
-                install,
-              )
-            }
+            onClick={() => void perform((signal) => compute(signal), install)}
           >
             {copy.compare}
           </Button>
@@ -633,7 +797,11 @@ export function StockWorkspace({
             onClick={() =>
               void perform(
                 (signal) =>
-                  workerTask<ArrayBuffer>('stock-save', state(), signal),
+                  workerTask<ArrayBuffer>(
+                    pdf ? 'stock-pdf-save' : 'stock-save',
+                    pdf ? pdfState() : state(),
+                    signal,
+                  ),
                 (b) =>
                   download(
                     b,
@@ -652,14 +820,18 @@ export function StockWorkspace({
               void perform(
                 (signal) =>
                   workerTask<ArrayBuffer>(
-                    'stock-export',
-                    { state: state(), result },
+                    pdf ? 'stock-pdf-export' : 'stock-export',
+                    pdf
+                      ? { state: pdfState(), result, language: lang }
+                      : { state: state(), result },
                     signal,
                   ),
                 (b) =>
                   download(
                     b,
-                    'tarasuf-inventory-evidence.xlsx',
+                    pdf
+                      ? `tarasuf-inventory-evidence-${lang}.xlsx`
+                      : 'tarasuf-inventory-evidence.xlsx',
                     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                   ),
               )
@@ -668,37 +840,93 @@ export function StockWorkspace({
             {copy.export}
           </Button>
         </div>
-        {error && <p role="alert">{copy.failed}</p>}
+        {pdf && result && <p className="muted">{pdfCopy.exportNote}</p>}
+        {error && (
+          <p role="alert" data-stock-error>
+            {pdfCopy.failed} <bdi>{error}</bdi>
+          </p>
+        )}
         {result && (
           <section className="workspace-results">
-            <DomainEvidenceAssistant
-              result={result}
-              snapshot={() => ({
-                domain: 'inventory-register',
-                input: state(),
-                result,
-              })}
-              busy={busy}
-              replay={async (captured) => {
-                if (captured.domain !== 'inventory-register')
-                  throw Error('DOMAIN');
-                const fresh = await perform(
-                  (signal) =>
-                    workerTask<{ state: StockInput; result: StockResult }>(
-                      'stock-reconcile',
-                      captured.input,
-                      signal,
-                    ),
-                  () => {},
-                );
-                if (!fresh) throw Error('STALE_EVIDENCE_REPLY');
-                return {
+            {pdf ? (
+              <DomainEvidenceAssistant
+                result={result}
+                busy={busy}
+                verifiedAnswer={async (question) => {
+                  const answer = await perform(
+                    (signal) =>
+                      workerTask<DomainEvidenceAnswer>(
+                        'stock-pdf-ask',
+                        { state: pdfState(), result, question },
+                        signal,
+                      ),
+                    () => {},
+                  );
+                  if (!answer) throw Error('STALE_EVIDENCE_REPLY');
+                  return answer;
+                }}
+              />
+            ) : (
+              <DomainEvidenceAssistant
+                result={result}
+                snapshot={() => ({
                   domain: 'inventory-register',
-                  input: fresh.state,
-                  result: fresh.result,
-                };
-              }}
-            />
+                  input: state(),
+                  result,
+                })}
+                busy={busy}
+                replay={async (captured) => {
+                  if (captured.domain !== 'inventory-register')
+                    throw Error('DOMAIN');
+                  const fresh = await perform(
+                    (signal) =>
+                      workerTask<{ state: StockInput; result: StockResult }>(
+                        'stock-reconcile',
+                        captured.input,
+                        signal,
+                      ),
+                    () => {},
+                  );
+                  if (!fresh) throw Error('STALE_EVIDENCE_REPLY');
+                  return {
+                    domain: 'inventory-register',
+                    input: fresh.state,
+                    result: fresh.result,
+                  };
+                }}
+              />
+            )}
+            {result.pdfEvidence &&
+              pdfTables
+                .filter((t) =>
+                  [
+                    'PDF records',
+                    'PDF links',
+                    'PDF controls',
+                    'PDF diagnostics',
+                  ].includes(t.name),
+                )
+                .map((t) => (
+                  <div key={t.name}>
+                    {detail(
+                      t.name === 'PDF records'
+                        ? pdfCopy.fields
+                        : t.name === 'PDF links'
+                          ? pdfCopy.links
+                          : t.name === 'PDF controls'
+                            ? pdfCopy.controls
+                            : pdfCopy.diagnostics,
+                      t.name === 'PDF records'
+                        ? pdfCopy.fieldsHeaders
+                        : t.name === 'PDF links'
+                          ? pdfCopy.linkHeaders
+                          : t.name === 'PDF controls'
+                            ? pdfCopy.controlHeaders
+                            : pdfCopy.diagnosticHeaders,
+                      t.rows,
+                    )}
+                  </div>
+                ))}
             {result.sectionEvidence &&
               detail(
                 copy.sectionCitations,
@@ -861,7 +1089,8 @@ export function StockWorkspace({
                 ...(result.matrixEvidence || result.columnEvidence
                   ? [v.column ?? null]
                   : []),
-                (copy.codes as Record<string, string>)[v.code] ?? copy.failed,
+                (copy.codes as Record<string, string>)[v.code] ??
+                  (pdf ? inventoryPdfIssue(lang, v.code) : copy.failed),
               ]),
             )}
             {detail(
@@ -899,7 +1128,7 @@ export function StockWorkspace({
             {detail(
               copy.sources,
               copy.sourceHeaders,
-              files.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
+              sources.map((f, i) => [copy.roles[i], f!.name, f!.sha256!]),
             )}
           </section>
         )}

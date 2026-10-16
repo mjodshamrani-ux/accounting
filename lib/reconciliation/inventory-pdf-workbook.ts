@@ -27,6 +27,8 @@ export async function exportStockPdf(
       original: f.original,
       sheet: i ? 'CSV' : 'PDF',
     })),
+    [],
+    captured.language ?? 'en',
   );
   pdfBytes(bytes, STOCK_PDF_EXPORT_LIMIT);
   return bytes;

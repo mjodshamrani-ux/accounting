@@ -1,0 +1,31 @@
+{
+  "version": "inventory-pdf-workspace-1",
+  "applicationCandidate": "0.4.57",
+  "sourceFoundation": "../inventory-pdf-foundation",
+  "financialContract": "../inventory-pdf-accounting/contract.json",
+  "lifecycleContract": "../inventory-pdf-lifecycle/contract.json",
+  "workbookContract": "../inventory-pdf-workbook/contract.json",
+  "languages": ["ar", "en"],
+  "roles": ["PDF register", "CSV mapping", "CSV policy", "CSV GL"],
+  "authority": "Fresh replay from four owned original byte buffers, never UI preview, submitted result, assistant, translated labels or stored certificate",
+  "scopeProposal": "Literal PDF values or explicit identical CSV scope cells; reviewer confirms meaning; proposal never confirms completeness",
+  "assistant": "Read-only deterministic question routing and verified facts/citations; no model, OCR, external request, approval or invented amount",
+  "sourceErrorPolicy": "Retain diagnostic evidence; whole-inventory source error blocks financial totals and approval under the existing contract",
+  "uiExpectedCases": 19,
+  "uiExpectedPhases": 39,
+  "uiExpectedWorkbooks": 78,
+  "positivePresentations": 4,
+  "pdfFamilies": 2,
+  "financialStories": 1,
+  "independentChecker": "check_workspace.py",
+  "forbiddenClaims": [
+    "general PDF support",
+    "all inventory reconciliations",
+    "OCR financial approval",
+    "field accuracy",
+    "independent holdout",
+    "ordinary-device capacity",
+    "new LLM integration",
+    "universal 100% accuracy"
+  ]
+}
