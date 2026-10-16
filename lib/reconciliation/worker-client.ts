@@ -1,5 +1,10 @@
+import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
+import { validateStockPdfWorkerResponse } from './inventory-pdf-lifecycle.ts';
 import { snapshotStockRequest } from './inventory-register-request.ts';
-import { assertStockWorkerReply, validateStockWorkerResponse } from './inventory-register-worker-binding.ts';
+import {
+  assertStockWorkerReply,
+  validateStockWorkerResponse,
+} from './inventory-register-worker-binding.ts';
 import { snapshotAsset } from './fixed-assets-envelope.ts';
 import { snapshotGatewayRequest } from './payment-gateway-worker-binding.ts';
 import { snapshotArRequest, assertArWorkerReply } from './ar-worker-binding.ts';
@@ -34,7 +39,8 @@ export function workerRequestTimeout(action: string, payload: unknown) {
         typeof file.name === 'string' &&
         /\.pdf$/i.test(file.name),
     );
-  return isPdfRead(action, payload) ||
+  return action.startsWith('stock-pdf-') ||
+    isPdfRead(action, payload) ||
     action === 'restore-session' ||
     rereadsPdf
     ? 180000
@@ -73,7 +79,9 @@ export function createWorkerClient(
       }
       if (action.startsWith('stock-')) {
         try {
-          payload = snapshotStockRequest(action, payload);
+          payload = action.startsWith('stock-pdf-')
+            ? snapshotStockPdfRequest(action, payload)
+            : snapshotStockRequest(action, payload);
         } catch (error) {
           return reject(error);
         }
@@ -303,11 +311,11 @@ export function createWorkerClient(
             response.value = requested;
           }
           if (action.startsWith('stock-')) {
-            response.value = await validateStockWorkerResponse(
-              action,
-              response.value,
-              payload,
-            );
+            response.value = await (
+              action.startsWith('stock-pdf-')
+                ? validateStockPdfWorkerResponse
+                : validateStockWorkerResponse
+            )(action, response.value, payload);
           }
           validateWorkerValue(action, response.value, payload);
           if (action.startsWith('ar-')) {

@@ -1,3 +1,7 @@
+import {
+  STOCK_PDF_LIFECYCLE_VERSION,
+  STOCK_PDF_SESSION_LIMIT,
+} from './inventory-pdf-request.ts';
 import { reconcilePayroll, type PayrollInput } from './payroll.ts';
 import { reconcileGlTb, type GlTbInput } from './gl-tb.ts';
 import { reconcileAsset, type AssetInput } from './fixed-assets.ts';
@@ -63,6 +67,9 @@ export const WORKER_ACTIONS = [
   'asset-save',
   'asset-restore',
   'asset-export',
+  'stock-pdf-reconcile',
+  'stock-pdf-save',
+  'stock-pdf-restore',
   'stock-read',
   'stock-reconcile',
   'stock-save',
@@ -101,7 +108,10 @@ export function isRequest(value: unknown): value is {
     Number.isSafeInteger(value.id) &&
     (value.id as number) > 0 &&
     WORKER_ACTIONS.includes(value.action as WorkerAction) &&
-    (!(typeof value.action === 'string' && value.action.startsWith('ar-')) ||
+    (!(
+      typeof value.action === 'string' &&
+      (value.action.startsWith('ar-') || value.action.startsWith('stock-pdf-'))
+    ) ||
       Object.keys(value).sort().join('|') === 'action|channel|id|payload') &&
     Object.hasOwn(value, 'payload')
   );
@@ -141,6 +151,30 @@ export function validateWorkerValue(
 ) {
   if (value === undefined || value === null)
     throw new Error('استجابة المعالجة المحلية غير مكتملة. أعد اختيار الملف.');
+  // Async original replay and exact equality are enforced by the client binding.
+  // This synchronous transport check never treats the returned PDF cache as truth.
+  if (action === 'stock-pdf-save') {
+    if (
+      !(value instanceof ArrayBuffer) ||
+      !value.byteLength ||
+      value.byteLength > STOCK_PDF_SESSION_LIMIT
+    )
+      throw Error('STOCK_PDF_ENVELOPE');
+  }
+  if (action === 'stock-pdf-reconcile' || action === 'stock-pdf-restore') {
+    if (
+      !isRecord(value) ||
+      Object.keys(value).sort().join('|') !== 'result|state|version' ||
+      value.version !== STOCK_PDF_LIFECYCLE_VERSION ||
+      !isRecord(value.state) ||
+      !isRecord(value.result) ||
+      value.state.version !== STOCK_PDF_LIFECYCLE_VERSION ||
+      value.result.version !== 'inventory-posted-register-gl-1' ||
+      typeof value.result.context !== 'string' ||
+      !isRecord(value.result.pdfEvidence)
+    )
+      throw Error('STOCK_PDF_ENVELOPE');
+  }
   if (action === 'ar-save' || action === 'ar-export') {
     if (
       !(value instanceof ArrayBuffer) ||

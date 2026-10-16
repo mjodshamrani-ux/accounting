@@ -1,0 +1,44 @@
+{
+  "version": "inventory-pdf-lifecycle-1",
+  "sessionFormat": "tarasuf-inventory-pdf-session",
+  "foundation": "INV-1F v2 unchanged (19 PDFs, 56 pages, 4 positive presentations, 2 layout families, 1 learned story)",
+  "actions": [
+    "stock-pdf-reconcile",
+    "stock-pdf-save",
+    "stock-pdf-restore"
+  ],
+  "positivePhases": [
+    "unreviewed",
+    "complete",
+    "accepted",
+    "undone",
+    "rejected",
+    "reopened"
+  ],
+  "authority": "Fresh guarded reads of all four original byte buffers; no parsed caches or PDF certificates from the caller",
+  "decisionContext": [
+    "lifecycle version",
+    "four ordered SHA-256 digests",
+    "fixed source readings",
+    "all scope fields",
+    "completeness choice"
+  ],
+  "sessionFields": [
+    "format",
+    "version",
+    "files",
+    "scope",
+    "completeness",
+    "events"
+  ],
+  "financialPromotion": "only ready plus explicit referenced completeness and exact physical source membership",
+  "excluded": [
+    "stock-read/UI PDF activation",
+    "PDF Excel export",
+    "OCR",
+    "new layouts",
+    "partial inventory financial isolation",
+    "new field validation claims"
+  ],
+  "arrayIntegrity": "Source slots, event lists and decision members must be dense indexed arrays with no non-index own properties"
+}

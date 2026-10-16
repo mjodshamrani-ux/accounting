@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 29971,
-      "sha256": "5f790959374aca8c5e80496f18dbe71e1731deac9b789aa56f0bf790a9b802c3",
+      "bytes": 30692,
+      "sha256": "147e0f2821576fc86b0c8a688ce28f6fc607edf8f880f3d66cbb9c39dd5eab8f",
       "kind": "text"
     },
     {
@@ -35,6 +35,18 @@
       "path": "AGENTS.md",
       "bytes": 5319,
       "sha256": "44ad16270af8004b85ffbd54b82be492787fd6b76f45cc9ebc3f73c75e856142",
+      "kind": "text"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 2875,
+      "sha256": "e26b15a063d23cecd57f2ed5bab4e189a9e411792ad9420c65afe535b013f4f2",
+      "kind": "text"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6998,
+      "sha256": "5393139ab1b64132b56188f241341474b4a8ec2807fa05dc8b2c7d7cb3569dbc",
       "kind": "text"
     },
     {
@@ -530,15 +542,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/ar-limited/check_export_text.py",
-      "bytes": 1683,
-      "sha256": "1eb19609116388031eff446361ebefe79074cd356bd9479f66a3515427e2bd26",
-      "kind": "text"
-    },
-    {
       "path": "audit/ar-limited/check_export.py",
       "bytes": 9600,
       "sha256": "5d7676cb5db8aa9cd68c73f9f9c685c3b09c90990dfab66486a8e6144f1e89cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-limited/check_export_text.py",
+      "bytes": 1683,
+      "sha256": "1eb19609116388031eff446361ebefe79074cd356bd9479f66a3515427e2bd26",
       "kind": "text"
     },
     {
@@ -632,6 +644,76 @@
       "kind": "text"
     },
     {
+      "path": "audit/ar-scope-details/CONTRACT.ar.md",
+      "bytes": 19433,
+      "sha256": "990fa646de607b3b849cedc1a2c5bc1d6a4001a100aa0be694a82b72aef34f40",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/EXPORT-SCHEMA.md",
+      "bytes": 10932,
+      "sha256": "0865b3b9ca39f07d27c41783c0588ba18ce644aae53421bf813b8bf98c1bef84",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/IMPLEMENTATION-PLAN.ar.md",
+      "bytes": 7490,
+      "sha256": "94fed4c34fdaedad938498bdb890e0d83aa72cb97b5616506e9b5ff5f25b84b0",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/LIFECYCLE-PLAN.json",
+      "bytes": 2716,
+      "sha256": "1caf1f4badeeac99720d0de34053ec54ffd2fdf50d246d63766e4855a9cdb111",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/MUTATION-PLAN.json",
+      "bytes": 7129,
+      "sha256": "cc556fd891c4cf2e80a68acaeb1888d48db27e5c211c7f1960489672a0056f93",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/PRECODE-ACCEPTANCE.json",
+      "bytes": 521,
+      "sha256": "1d239e572aacff7cf4e19648a2db9fa28caf392edd4db36392ebabd0ca4e5c25",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/ar-scope-details/checker/README.md",
+      "bytes": 6372,
+      "sha256": "07864843de9392acee777ecf13da7098254bfe78a62b93821a27effc6daaf093",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
       "path": "audit/ar-scope-details/checker/check_export.py",
       "bytes": 38438,
       "sha256": "4a185a41584fa5334bdbdfe12d3cb826cfe3a4afa5a7f2eaab716390024e086c",
@@ -645,16 +727,6 @@
       "path": "audit/ar-scope-details/checker/check_exports.py",
       "bytes": 4853,
       "sha256": "e3d86be92918c16483b85c4c290f00f4537c60bd2a81beb595a38e987ecf9fa9",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/checker/README.md",
-      "bytes": 6372,
-      "sha256": "07864843de9392acee777ecf13da7098254bfe78a62b93821a27effc6daaf093",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -682,19 +754,9 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/CONTRACT.ar.md",
-      "bytes": 19433,
-      "sha256": "990fa646de607b3b849cedc1a2c5bc1d6a4001a100aa0be694a82b72aef34f40",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/EXPORT-SCHEMA.md",
-      "bytes": 10932,
-      "sha256": "0865b3b9ca39f07d27c41783c0588ba18ce644aae53421bf813b8bf98c1bef84",
+      "path": "audit/ar-scope-details/fixtures/TRUTHS.json",
+      "bytes": 48686,
+      "sha256": "554b124b899c5566c03f63bdb029c09052734cd7e112f7b9abe12b8bf293ff9f",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -2592,16 +2654,6 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/fixtures/TRUTHS.json",
-      "bytes": 48686,
-      "sha256": "554b124b899c5566c03f63bdb029c09052734cd7e112f7b9abe12b8bf293ff9f",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
       "path": "audit/ar-scope-details/fixtures/two-credit-notes/bundle.json",
       "bytes": 477,
       "sha256": "e7e220f47635a2cf893435b657ca7647d8724bf262202f130e77afb3c48f3c43",
@@ -2962,36 +3014,6 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/IMPLEMENTATION-PLAN.ar.md",
-      "bytes": 7490,
-      "sha256": "94fed4c34fdaedad938498bdb890e0d83aa72cb97b5616506e9b5ff5f25b84b0",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/LIFECYCLE-PLAN.json",
-      "bytes": 2716,
-      "sha256": "1caf1f4badeeac99720d0de34053ec54ffd2fdf50d246d63766e4855a9cdb111",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/ar-scope-details/MUTATION-PLAN.json",
-      "bytes": 7129,
-      "sha256": "cc556fd891c4cf2e80a68acaeb1888d48db27e5c211c7f1960489672a0056f93",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
       "path": "audit/ar-scope-details/native-controls/hidden-text-format/bundle.json",
       "bytes": 479,
       "sha256": "ba13b6e35df7375a62c983e89f7be8ab50a43fc24dd64bd818f68aaacec493ee",
@@ -3082,16 +3104,6 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/oracle/ar_oracle.py",
-      "bytes": 35350,
-      "sha256": "dc499c2ee24b278d0733e122abb5749adbc9b2e4237a9fe93a0d0bfe8a8a5326",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed AR scope-details precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
       "path": "audit/ar-scope-details/oracle/README.md",
       "bytes": 9764,
       "sha256": "f9676bbc1d54f0965f75200de47b1c5556abfee5b03b3ed4224a3cdaba6a7260",
@@ -3102,9 +3114,9 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/oracle/test_oracle.py",
-      "bytes": 28331,
-      "sha256": "469bc5ffb2ad4e3e22559a22c6c0ed043634127cc6f515aa25072618607eaf1c",
+      "path": "audit/ar-scope-details/oracle/ar_oracle.py",
+      "bytes": 35350,
+      "sha256": "dc499c2ee24b278d0733e122abb5749adbc9b2e4237a9fe93a0d0bfe8a8a5326",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -3112,9 +3124,9 @@
       }
     },
     {
-      "path": "audit/ar-scope-details/PRECODE-ACCEPTANCE.json",
-      "bytes": 521,
-      "sha256": "1d239e572aacff7cf4e19648a2db9fa28caf392edd4db36392ebabd0ca4e5c25",
+      "path": "audit/ar-scope-details/oracle/test_oracle.py",
+      "bytes": 28331,
+      "sha256": "469bc5ffb2ad4e3e22559a22c6c0ed043634127cc6f515aa25072618607eaf1c",
       "kind": "text",
       "provenance": {
         "type": "synthetic",
@@ -5446,6 +5458,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/bank-withdrawal-deposit/ORIGIN.json",
+      "bytes": 304,
+      "sha256": "a2868c33330e307d0f06493f6ae1e6a3dcda95ea38d6ccb281dfab0bac445eeb",
+      "kind": "text"
+    },
+    {
       "path": "audit/bank-withdrawal-deposit/check-evidence.py",
       "bytes": 23322,
       "sha256": "446fdb4b078cf62260c6400004b13f37ace402f805246dfcc8429750d2e898b4",
@@ -6948,15 +6966,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/bank-withdrawal-deposit/ORIGIN.json",
-      "bytes": 304,
-      "sha256": "a2868c33330e307d0f06493f6ae1e6a3dcda95ea38d6ccb281dfab0bac445eeb",
-      "kind": "text"
-    },
-    {
       "path": "audit/bank-withdrawal-deposit/prove.mjs",
       "bytes": 7023,
       "sha256": "df88d07f19bb583ad04663df67f86b7f0e5ab85722cfe1cd58e9f1fe8f0253b3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-withdrawal-deposit/supplemental/66-isolated-native-canonical-peer/INPUT-MANIFEST.json",
+      "bytes": 503,
+      "sha256": "8e8d42d0657deba6300d9f82b02f5c63f521e172ba81ff300008fd2a5b913308",
       "kind": "text"
     },
     {
@@ -6983,12 +7001,6 @@
       "path": "audit/bank-withdrawal-deposit/supplemental/66-isolated-native-canonical-peer/facts.json",
       "bytes": 619,
       "sha256": "ed8803ac51ef56aba60e05c10894da2356d7b714d23613546dea258539d6e54a",
-      "kind": "text"
-    },
-    {
-      "path": "audit/bank-withdrawal-deposit/supplemental/66-isolated-native-canonical-peer/INPUT-MANIFEST.json",
-      "bytes": 503,
-      "sha256": "8e8d42d0657deba6300d9f82b02f5c63f521e172ba81ff300008fd2a5b913308",
       "kind": "text"
     },
     {
@@ -7764,18 +7776,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/fixed-assets-long/accepted-oracle-results.json",
-      "bytes": 1603955,
-      "sha256": "7465d1924aa7a42672cd3b8a71e772dfbe9aa61fe85214d29cf413dfe0eda412",
-      "kind": "text"
-    },
-    {
-      "path": "audit/fixed-assets-long/check-evidence.py",
-      "bytes": 19212,
-      "sha256": "d80c0d2fca676147e4c118a261f29285760bd9dcb7e394f24b2653f2d7ec28fc",
-      "kind": "text"
-    },
-    {
       "path": "audit/fixed-assets-long/CLARIFICATIONS-V1.ar.md",
       "bytes": 4806,
       "sha256": "570e61fc4e0c8050b0fe3c15fde0836f74f118de5eb5755186b04cca3c75a30a",
@@ -7791,6 +7791,36 @@
       "path": "audit/fixed-assets-long/CONTRACT.ar.md",
       "bytes": 10343,
       "sha256": "9986126ecd943bb5e9ad17cdc04ef35066da2a5cf6d6de4d736ad3ecc3dc1382",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-long/LIFECYCLE-README.md",
+      "bytes": 4208,
+      "sha256": "2e28f97c15016bb7c1a39b126e72bea7256a0121d5145cb294918f9f05f1e3c9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-long/ORIGIN.json",
+      "bytes": 50717,
+      "sha256": "24d19a2340e4e911618a6ef685e5f435ce95ba1b0e52a48f13f1ecc0ee4afdce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-long/TEXT-POLICY.ar.md",
+      "bytes": 2998,
+      "sha256": "d3ddc9df5b9feadfc8b0fecbf49eeef66801bff55206ff4e51713d2d6218c1c4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-long/accepted-oracle-results.json",
+      "bytes": 1603955,
+      "sha256": "7465d1924aa7a42672cd3b8a71e772dfbe9aa61fe85214d29cf413dfe0eda412",
+      "kind": "text"
+    },
+    {
+      "path": "audit/fixed-assets-long/check-evidence.py",
+      "bytes": 19212,
+      "sha256": "d80c0d2fca676147e4c118a261f29285760bd9dcb7e394f24b2653f2d7ec28fc",
       "kind": "text"
     },
     {
@@ -9426,12 +9456,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/fixed-assets-long/LIFECYCLE-README.md",
-      "bytes": 4208,
-      "sha256": "2e28f97c15016bb7c1a39b126e72bea7256a0121d5145cb294918f9f05f1e3c9",
-      "kind": "text"
-    },
-    {
       "path": "audit/fixed-assets-long/oracle.py",
       "bytes": 18508,
       "sha256": "5d5e9abd877b4e758663af40c28863ff5375252b039d784a415e6cc9fb3babd0",
@@ -9456,12 +9480,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/fixed-assets-long/ORIGIN.json",
-      "bytes": 50717,
-      "sha256": "24d19a2340e4e911618a6ef685e5f435ce95ba1b0e52a48f13f1ecc0ee4afdce",
-      "kind": "text"
-    },
-    {
       "path": "audit/fixed-assets-long/supplemental/diagnostic-assertions.json",
       "bytes": 5183,
       "sha256": "cc8de1b325d063a73faa708a8a7198a48c213dc8a05bc481ebe92fc8c497a14f",
@@ -9471,12 +9489,6 @@
       "path": "audit/fixed-assets-long/test-evidence.py",
       "bytes": 6102,
       "sha256": "ff710d3122f916bd35ee252906aae5a8bff53fce5b2d47168b0a4b3f3b67b94b",
-      "kind": "text"
-    },
-    {
-      "path": "audit/fixed-assets-long/TEXT-POLICY.ar.md",
-      "bytes": 2998,
-      "sha256": "d3ddc9df5b9feadfc8b0fecbf49eeef66801bff55206ff4e51713d2d6218c1c4",
       "kind": "text"
     },
     {
@@ -13722,6 +13734,240 @@
       }
     },
     {
+      "path": "audit/inventory-column-hierarchy/IMPLEMENTATION.ar.md",
+      "bytes": 3521,
+      "sha256": "d63b6ea4a59caab93f11261818d1818351aa3bbb8083d8dda3f99c6b123816c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.json",
+      "bytes": 12806,
+      "sha256": "1f60599228c6d70cf162afa7a84a9778e13ec5d567a1b23cf6170523f18f0ebb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v2.json",
+      "bytes": 15319,
+      "sha256": "9f7b55eea58a5500d805db0e67e5a3ee20ac05c0d5b9f9560c311729eb449560",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v3.json",
+      "bytes": 25367,
+      "sha256": "87a408f73cbc3473e35463df01663ff681812f1238bd807a248313a6dff2d972",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/README.ar.md",
+      "bytes": 7165,
+      "sha256": "4fd410de886aa85bdbfb420299a14dd714671ac30633e7ac595dbfb65ae6c678",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/check_export.py",
+      "bytes": 16279,
+      "sha256": "5810f3be5b70fedd0e8a2544f341c9d5cb8ade6b7714b7cbc7692e1324bca645",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/contract.json",
+      "bytes": 5573,
+      "sha256": "46df81aed985101a0c7ef8eeee4363e6f34960d3da95d439874bba971de4ed36",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/generate.py",
+      "bytes": 12878,
+      "sha256": "cb0492fcb4cf7297248d7e3c3662e8db489f4dc05f51779b5fb2350eb430631e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/implementation-contract.json",
+      "bytes": 4250,
+      "sha256": "2061ca85d782ab4e15450532860a7f5713a6ff34ee97ca26b8c11e881ec8bb31",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/oracle.py",
+      "bytes": 18044,
+      "sha256": "888e1310f79e4b961db26bd385ff308be406ecffaf30c9fe5e747f9d64893fdd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-column-hierarchy/test_oracle.py",
+      "bytes": 7942,
+      "sha256": "55899f2a0e44498559ce21294a6f043de111a02e430094b1d3fa63a1d7403c75",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/INPUT-MANIFEST.json",
+      "bytes": 11537,
+      "sha256": "977d0a422847a573c13b096e634a77ddc32ed078a7d2e8b70b9dfb1688e75895",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/README.ar.md",
+      "bytes": 4836,
+      "sha256": "512251d0ebdc3107c1f2febb8066f1b8826537964990d4b2c3f7c5a9540f3e19",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/check_export.py",
+      "bytes": 13306,
+      "sha256": "b926a2ef909f0c12063eaf9dc4a908eb065b5b87999284c3aa9720c074b37220",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/contract.json",
+      "bytes": 2042,
+      "sha256": "0264f04c90d045f63db65afe1a58da4ce1ca1727a1e50f8e7ee129d57b3dc70c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/generate.py",
+      "bytes": 8139,
+      "sha256": "d986fca2bd4ac5277ff0ef7de2de50d203b2017bb1e3043b9a226ba82129ef76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/oracle.py",
+      "bytes": 8432,
+      "sha256": "1adfbe8529967ae9ed231caf81fa6dffb5ac066e8059d588fd6eaab8784df6e2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-hierarchy-sections/test_oracle.py",
+      "bytes": 1983,
+      "sha256": "ac1d0bbc45a43cd76d7eb3ef1dec58d2b17b81490978835d34385fbbfd5838af",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-accounting/README.ar.md",
+      "bytes": 1544,
+      "sha256": "1d14c6b8ba414964a25f2f0f86b8e47f4ff5867e49227c3843e261922c200b00",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-accounting/check_result.py",
+      "bytes": 11530,
+      "sha256": "1639788b7033b5360ecde887473423ad7c6890769f18f80ca5f0c8bcc7129431",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-accounting/contract.json",
+      "bytes": 1383,
+      "sha256": "e9416a25cfaa8bd0a8c8feb6749b3a99f79290b677e5b9afb151510e048215e1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/INPUT-MANIFEST.json",
+      "bytes": 10146,
+      "sha256": "46b34d9b2bac12493b6ffea1c368c74d136e2e58abe08432cef751c3d672e5a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/INPUT-MANIFEST.v2.json",
+      "bytes": 12658,
+      "sha256": "39dc8805312def04549114d18860e525af235c76a22face9b395a81a861d90fc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/README.ar.md",
+      "bytes": 5670,
+      "sha256": "7296ab9a12f9e53cbaab6cfb80d6ce02856c6b1b0429c299ee6d23bccbf85b73",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/check_control.py",
+      "bytes": 10492,
+      "sha256": "6c04df663d08fc7de2a10a9d64b03e6f1c9d6d9a1d138d0cf2b5189de883179a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/contract.json",
+      "bytes": 5010,
+      "sha256": "bcdd97029f31dca291164419bdacffcca39ebd16f70a2f05b6cb50e0981cb056",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/generate.py",
+      "bytes": 8957,
+      "sha256": "89a147cf788627757d6af54e6502de6ace893389a6163bb572822d3e75bcd336",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/oracle.py",
+      "bytes": 17531,
+      "sha256": "6cc917f8da6fddeb479d039c12c3a93fad04d556e09238e1e8cb202d14449dca",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/scope-blocks-contract.json",
+      "bytes": 2340,
+      "sha256": "c29cdf0bc4e8862e961dc04e0ad2239709183b3b3a2e788e91c255d3d5516b67",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-foundation/test_oracle.py",
+      "bytes": 7571,
+      "sha256": "75467949d4c6005c2caff5ddd23ef00e351548a53705b88154c1eaee5b29d222",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-lifecycle/README.ar.md",
+      "bytes": 2585,
+      "sha256": "b8005b0729835099c2474b8c9088fbf0758e728b4762114fba167f055d875ef5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-lifecycle/check_lifecycle.py",
+      "bytes": 7201,
+      "sha256": "fee28c50c11d3e97c1d714ee895b54b8f7d6ee8290a95a00024e998b184e1fbe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-lifecycle/contract.json",
+      "bytes": 1276,
+      "sha256": "e1279f27e62647326de678c1ca365d7f9a50387952d83bda45f214c406e064aa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/README.ar.md",
+      "bytes": 2171,
+      "sha256": "77429156369f65d985b1078ffee5ac3ef401941be77249ab9809a480cff81c26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/check_reading.py",
+      "bytes": 9055,
+      "sha256": "5b5931a0cf515210b8ede99d63a8abd1802a8c73c44e9685249f7aa0d0786a99",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-local-fields/contract.json",
+      "bytes": 3409,
+      "sha256": "b731b7a1ce7de3e39819aa5e7ef4b1f196253dc4b07716716e3fcab267edb5b8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/README.ar.md",
+      "bytes": 2421,
+      "sha256": "781e097ca74d1626e74740e8c3fd008fc8fbe0f2bf959ffaa04fe512c152df11",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/check_reading.py",
+      "bytes": 6522,
+      "sha256": "fddc28fb9f6cbab00994bdc044aa09398b437663db7b1839ea0cdf7d85a84389",
+      "kind": "text"
+    },
+    {
+      "path": "audit/inventory-pdf-native-source/contract.json",
+      "bytes": 1907,
+      "sha256": "d3ade6160c66015abacbd5d5eece3b33a02dc630270cb7238d6f76acc7737c6a",
+      "kind": "text"
+    },
+    {
       "path": "audit/inventory-register/cases.json",
       "bytes": 3134,
       "sha256": "9faed16970975c1abd370b5270077db9c0bffa32cd75b89510459610e7a1775e",
@@ -14976,6 +15222,18 @@
       "kind": "text"
     },
     {
+      "path": "audit/inventory-section-components/INPUT-MANIFEST.json",
+      "kind": "text",
+      "bytes": 8153,
+      "sha256": "48579015099116df9ae770c9545e7045df5153a613d6c6213e6ea38dbe1daa92"
+    },
+    {
+      "path": "audit/inventory-section-components/README.ar.md",
+      "kind": "text",
+      "bytes": 12322,
+      "sha256": "e7b2392ad7e5c72641ee9f2db23d3f254b66a99cd43188c3688df109cd56b5d2"
+    },
+    {
       "path": "audit/inventory-section-components/check_export.py",
       "kind": "text",
       "bytes": 20833,
@@ -14994,22 +15252,10 @@
       "sha256": "fd72a537731bfa0b0e40b01bbb2092a4441202ccb36244d8fdc5de249c084b05"
     },
     {
-      "path": "audit/inventory-section-components/INPUT-MANIFEST.json",
-      "kind": "text",
-      "bytes": 8153,
-      "sha256": "48579015099116df9ae770c9545e7045df5153a613d6c6213e6ea38dbe1daa92"
-    },
-    {
       "path": "audit/inventory-section-components/oracle.py",
       "kind": "text",
       "bytes": 29902,
       "sha256": "dbfa1c47f1add3af04d71e48aa9191753b97c8bdb8f22266fc42758f21c1f1ca"
-    },
-    {
-      "path": "audit/inventory-section-components/README.ar.md",
-      "kind": "text",
-      "bytes": 12322,
-      "sha256": "e7b2392ad7e5c72641ee9f2db23d3f254b66a99cd43188c3688df109cd56b5d2"
     },
     {
       "path": "audit/inventory-section-components/test_oracle.py",
@@ -15022,6 +15268,18 @@
       "kind": "text",
       "bytes": 181860,
       "sha256": "3c35a724a251f867beb07229b5eafc0892d1af290f38459cf927648db4d77196"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/INPUT-MANIFEST.json",
+      "kind": "text",
+      "bytes": 8181,
+      "sha256": "cce79811d5a9d28d3b7266b3597aac53a6a39c3065843df828c54502eedf0b0f"
+    },
+    {
+      "path": "audit/inventory-source-diversity-v1/README.ar.md",
+      "kind": "text",
+      "bytes": 14663,
+      "sha256": "a1c1763051858c0eb46477907d7b1d6c796368a4e00761a0448d1192317028c6"
     },
     {
       "path": "audit/inventory-source-diversity-v1/check_control_export.py",
@@ -15042,28 +15300,28 @@
       "sha256": "4527bee5afa419ac80a215aafd9ec58ddce7d4d9ce4f8f9f316b8b3a9b1236fb"
     },
     {
-      "path": "audit/inventory-source-diversity-v1/INPUT-MANIFEST.json",
-      "kind": "text",
-      "bytes": 8181,
-      "sha256": "cce79811d5a9d28d3b7266b3597aac53a6a39c3065843df828c54502eedf0b0f"
-    },
-    {
       "path": "audit/inventory-source-diversity-v1/oracle.py",
       "kind": "text",
       "bytes": 20648,
       "sha256": "4d274edf6356003e3db3c5c63cdca4611fe91605c9c0b66674b5c9845b85d116"
     },
     {
-      "path": "audit/inventory-source-diversity-v1/README.ar.md",
-      "kind": "text",
-      "bytes": 14663,
-      "sha256": "a1c1763051858c0eb46477907d7b1d6c796368a4e00761a0448d1192317028c6"
-    },
-    {
       "path": "audit/inventory-source-diversity-v1/test_oracle.py",
       "kind": "text",
       "bytes": 18455,
       "sha256": "4f7d0e683d33934ed11888d03ebb3ac33374c1a84c4aaf75024b45740025077a"
+    },
+    {
+      "path": "audit/inventory-transposed-register/INPUT-MANIFEST.json",
+      "kind": "text",
+      "bytes": 9410,
+      "sha256": "7abb94bbc3ad9fb1b3cfd080be2bf8db4fadc70dbf0a929c8206be461336f8e0"
+    },
+    {
+      "path": "audit/inventory-transposed-register/README.ar.md",
+      "kind": "text",
+      "bytes": 6981,
+      "sha256": "ffab2ca62ab690f49a06b902dfd21d6d0ca7b8bde02088622226442b82d3f112"
     },
     {
       "path": "audit/inventory-transposed-register/check_export.py",
@@ -15090,22 +15348,10 @@
       "sha256": "260c322a6b907584b1a1a51977e6719cb48cb2667e0ca437325722bcc1f9afc9"
     },
     {
-      "path": "audit/inventory-transposed-register/INPUT-MANIFEST.json",
-      "kind": "text",
-      "bytes": 9410,
-      "sha256": "7abb94bbc3ad9fb1b3cfd080be2bf8db4fadc70dbf0a929c8206be461336f8e0"
-    },
-    {
       "path": "audit/inventory-transposed-register/oracle.py",
       "kind": "text",
       "bytes": 33927,
       "sha256": "4921b77c0787f166802f07d7295e06fd54431e479ed796133f55f2fca552a75c"
-    },
-    {
-      "path": "audit/inventory-transposed-register/README.ar.md",
-      "kind": "text",
-      "bytes": 6981,
-      "sha256": "ffab2ca62ab690f49a06b902dfd21d6d0ca7b8bde02088622226442b82d3f112"
     },
     {
       "path": "audit/inventory-transposed-register/test_oracle.py",
@@ -15147,6 +15393,18 @@
       "path": "audit/large-statements/check_openxml.py",
       "bytes": 18126,
       "sha256": "73bc8656fbcfdb64420049fccf9fd882619030121eb9922ea7f3698c60be6efb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/large-statements/frozen/README.md",
+      "bytes": 1933,
+      "sha256": "c30b589d8441a31ed8da29e9f393e07995a9195a35d8f8f81ab7409c790a3703",
+      "kind": "text"
+    },
+    {
+      "path": "audit/large-statements/frozen/SHA256SUMS",
+      "bytes": 1325,
+      "sha256": "97b9454ad63b2f26b64d742b90072230b7da3f36b6bb197aa0e5da1b2ec4c7a2",
       "kind": "text"
     },
     {
@@ -15256,21 +15514,9 @@
       }
     },
     {
-      "path": "audit/large-statements/frozen/README.md",
-      "bytes": 1933,
-      "sha256": "c30b589d8441a31ed8da29e9f393e07995a9195a35d8f8f81ab7409c790a3703",
-      "kind": "text"
-    },
-    {
       "path": "audit/large-statements/frozen/run.mjs",
       "bytes": 2618,
       "sha256": "c2b1d2f6878b885e735e9f1ccecb2253cd7c5d486c4e6d9f58b6142b66604ad6",
-      "kind": "text"
-    },
-    {
-      "path": "audit/large-statements/frozen/SHA256SUMS",
-      "bytes": 1325,
-      "sha256": "97b9454ad63b2f26b64d742b90072230b7da3f36b6bb197aa0e5da1b2ec4c7a2",
       "kind": "text"
     },
     {
@@ -17032,15 +17278,15 @@
       "kind": "text"
     },
     {
-      "path": "audit/p1v206-source-proof-v1/frozen/contract.json",
-      "bytes": 5067,
-      "sha256": "03b19404323acae2e2054f1e190a97394de7e97e783d0a12bb52c70ce03e09d1",
-      "kind": "text"
-    },
-    {
       "path": "audit/p1v206-source-proof-v1/frozen/MANIFEST.json",
       "bytes": 1467,
       "sha256": "1a1b43c92a0c121e8fbe94abb85ae8a2359e82a80925ef73867fccb70d907cf9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p1v206-source-proof-v1/frozen/contract.json",
+      "bytes": 5067,
+      "sha256": "03b19404323acae2e2054f1e190a97394de7e97e783d0a12bb52c70ce03e09d1",
       "kind": "text"
     },
     {
@@ -17053,6 +17299,18 @@
       "path": "audit/p2-group-resolution/evaluator-v2/run-independent.mjs",
       "bytes": 3658,
       "sha256": "b19c8f34c75216d5317fb91e0236cf28fd77644ac92ffda5c4982d41a3ce96ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p2-group-resolution/holdout-v2/frozen/README.md",
+      "bytes": 1308,
+      "sha256": "8757e1fb0fa2ae6ec20e198dffc5584fa02dc80089363d60436834fb6c05549d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p2-group-resolution/holdout-v2/frozen/SHA256SUMS",
+      "bytes": 1751,
+      "sha256": "cdd14c59253e6132843b7870f097f218ca69c93da22bf5016955757a24a59a39",
       "kind": "text"
     },
     {
@@ -17158,21 +17416,21 @@
       "kind": "text"
     },
     {
-      "path": "audit/p2-group-resolution/holdout-v2/frozen/README.md",
-      "bytes": 1308,
-      "sha256": "8757e1fb0fa2ae6ec20e198dffc5584fa02dc80089363d60436834fb6c05549d",
-      "kind": "text"
-    },
-    {
       "path": "audit/p2-group-resolution/holdout-v2/frozen/run.mjs",
       "bytes": 11806,
       "sha256": "337097aab86b9fccbbc93d1ec69c4b75a8ad22234f0027e7dcaa2beb44f759a6",
       "kind": "text"
     },
     {
-      "path": "audit/p2-group-resolution/holdout-v2/frozen/SHA256SUMS",
-      "bytes": 1751,
-      "sha256": "cdd14c59253e6132843b7870f097f218ca69c93da22bf5016955757a24a59a39",
+      "path": "audit/p2-group-resolution/holdout/frozen/README.md",
+      "bytes": 1383,
+      "sha256": "01a81d58de837456b4359a9393837c69bc0b769b709a7d4f1c4127ab6fa4a177",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p2-group-resolution/holdout/frozen/SHA256SUMS",
+      "bytes": 2091,
+      "sha256": "c9264375293d7c7080d971b6d3f19c15fed7a844b198784568d6a2b8d95c186d",
       "kind": "text"
     },
     {
@@ -17302,21 +17560,21 @@
       "kind": "text"
     },
     {
-      "path": "audit/p2-group-resolution/holdout/frozen/README.md",
-      "bytes": 1383,
-      "sha256": "01a81d58de837456b4359a9393837c69bc0b769b709a7d4f1c4127ab6fa4a177",
-      "kind": "text"
-    },
-    {
       "path": "audit/p2-group-resolution/holdout/frozen/run.mjs",
       "bytes": 11806,
       "sha256": "337097aab86b9fccbbc93d1ec69c4b75a8ad22234f0027e7dcaa2beb44f759a6",
       "kind": "text"
     },
     {
-      "path": "audit/p2-group-resolution/holdout/frozen/SHA256SUMS",
-      "bytes": 2091,
-      "sha256": "c9264375293d7c7080d971b6d3f19c15fed7a844b198784568d6a2b8d95c186d",
+      "path": "audit/p2-group-resolution/independent/frozen/README.md",
+      "bytes": 2630,
+      "sha256": "c9ce65b796d4b96975a6a3df646fb8c87579f65c31cd9de9bdbde3d2936c6f0e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p2-group-resolution/independent/frozen/SHA256SUMS",
+      "bytes": 3765,
+      "sha256": "2e26c81894873d7909df401cdbe52a154e95809932b93c5f3cb60cea5f165f68",
       "kind": "text"
     },
     {
@@ -17554,21 +17812,9 @@
       "kind": "text"
     },
     {
-      "path": "audit/p2-group-resolution/independent/frozen/README.md",
-      "bytes": 2630,
-      "sha256": "c9ce65b796d4b96975a6a3df646fb8c87579f65c31cd9de9bdbde3d2936c6f0e",
-      "kind": "text"
-    },
-    {
       "path": "audit/p2-group-resolution/independent/frozen/run.mjs",
       "bytes": 11746,
       "sha256": "001b795cccc23c4edb047fb2e69a628b82e6a936dfa26ffb51ef29b74ae21025",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p2-group-resolution/independent/frozen/SHA256SUMS",
-      "bytes": 3765,
-      "sha256": "2e26c81894873d7909df401cdbe52a154e95809932b93c5f3cb60cea5f165f68",
       "kind": "text"
     },
     {
@@ -18990,6 +19236,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/boundaries/MANIFEST.json",
+      "bytes": 1445,
+      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/boundaries/boundary-actions.json",
       "bytes": 4814,
       "sha256": "a18d5d5e7646fae569f843a62633b261a7e873ffa93e157c9bf2c161673c8c05",
@@ -18999,12 +19251,6 @@
       "path": "audit/p4-qualified-currency-v1/boundaries/boundary-consistency.log",
       "bytes": 733,
       "sha256": "99514beb5a55343732cc41e9dafa915ead6df01232d3e15bce42e7a771d293b2",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/boundaries/MANIFEST.json",
-      "bytes": 1445,
-      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
       "kind": "text"
     },
     {
@@ -19020,12 +19266,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser-clarification/clarification.json",
-      "bytes": 2141,
-      "sha256": "97dfdafe5c4b34f2dccae83fd6c0d32f097942a7246469f6fc35828f93bbcb6c",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser-clarification/CLARIFICATION.md",
       "bytes": 3707,
       "sha256": "b12225409ede0299003381bc5c7d3260eb16fef2c2af7c6ac537816b120e1a44",
@@ -19035,6 +19275,12 @@
       "path": "audit/p4-qualified-currency-v1/browser-clarification/MANIFEST.json",
       "bytes": 2344,
       "sha256": "5aca126df4fdd033b1773751e7c8f98a7a92e34f674ff92b1ba53dc02bc06a1c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser-clarification/clarification.json",
+      "bytes": 2141,
+      "sha256": "97dfdafe5c4b34f2dccae83fd6c0d32f097942a7246469f6fc35828f93bbcb6c",
       "kind": "text"
     },
     {
@@ -19084,27 +19330,33 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/acceptance-matrix.json",
-      "bytes": 114414,
-      "sha256": "b3d91022b2cfca7aae9eddcfa8d0e6a33437ddd6ff5a0ca8817c90ffe06428d8",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/ACCEPTANCE.md",
       "bytes": 14397,
       "sha256": "5a19019f9dbd7af6c54b0b748b95de7b8b9ff1db50510d1c6fddad8a643ce86c",
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/external-checker-spec.json",
-      "bytes": 2352,
-      "sha256": "01d3e852c18e3ad25fd1d5f1d302a5bcdb78a9fecdde7c8e1096c150096c0297",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/MANIFEST.json",
       "bytes": 20219,
       "sha256": "94dffd30f325de9e0c755204c22b7a8dfa800f7a69715da58abeccf690518c0d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/STATUS.json",
+      "bytes": 267,
+      "sha256": "a1e33f99ddda9ebfe866c1ad90643285b30d8c766ddc3f2ff0cf976e65aa0f7c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/acceptance-matrix.json",
+      "bytes": 114414,
+      "sha256": "b3d91022b2cfca7aae9eddcfa8d0e6a33437ddd6ff5a0ca8817c90ffe06428d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/external-checker-spec.json",
+      "bytes": 2352,
+      "sha256": "01d3e852c18e3ad25fd1d5f1d302a5bcdb78a9fecdde7c8e1096c150096c0297",
       "kind": "text"
     },
     {
@@ -19120,6 +19372,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/MANIFEST.json",
+      "bytes": 1445,
+      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/boundary-actions.json",
       "bytes": 4814,
       "sha256": "a18d5d5e7646fae569f843a62633b261a7e873ffa93e157c9bf2c161673c8c05",
@@ -19129,12 +19387,6 @@
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/boundary-consistency.log",
       "bytes": 733,
       "sha256": "99514beb5a55343732cc41e9dafa915ead6df01232d3e15bce42e7a771d293b2",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-boundary-clarification-v1/MANIFEST.json",
-      "bytes": 1445,
-      "sha256": "7d045f9fd964e07c78ceda6e6e46143927375815f291f08d27abb9898a724499",
       "kind": "text"
     },
     {
@@ -19150,15 +19402,21 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/actions-addendum.json",
-      "bytes": 7040,
-      "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/ADDENDUM.md",
       "bytes": 5888,
       "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/MANIFEST.json",
+      "bytes": 1914,
+      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/actions-addendum.json",
+      "bytes": 7040,
+      "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e",
       "kind": "text"
     },
     {
@@ -19180,12 +19438,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/MANIFEST.json",
-      "bytes": 1914,
-      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-format-addendum-v1/manual-number-format-truth.json",
       "bytes": 6361,
       "sha256": "f05237e7a1fc910a70d7f53b1e58bd4da8c0e8db5a2f5a9d67061377bb06cb45",
@@ -19201,6 +19453,12 @@
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/CONTRACT.md",
       "bytes": 6213,
       "sha256": "72229fbd43fbd378cb2da09ce515a7c043e79ba261d80864f7f9dfe63f8098ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/MANIFEST.json",
+      "bytes": 12749,
+      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
       "kind": "text"
     },
     {
@@ -19726,12 +19984,6 @@
       }
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/MANIFEST.json",
-      "bytes": 12749,
-      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/source-snapshot/p4-qualified-currency-v1/verify-draft-closure.py",
       "bytes": 4579,
       "sha256": "65444f10c16821987c299ecfb5d1935f8075ff8c7653720814b3da5b93345c87",
@@ -19750,12 +20002,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/browser/STATUS.json",
-      "bytes": 267,
-      "sha256": "a1e33f99ddda9ebfe866c1ad90643285b30d8c766ddc3f2ff0cf976e65aa0f7c",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/browser/verify-draft.py",
       "bytes": 5825,
       "sha256": "d9714079b90de9998dd6cbb5cf5ef8bbb5ec53c89e3fab8eb356b646e805dc8e",
@@ -19765,6 +20011,12 @@
       "path": "audit/p4-qualified-currency-v1/draft/CONTRACT.md",
       "bytes": 6213,
       "sha256": "72229fbd43fbd378cb2da09ce515a7c043e79ba261d80864f7f9dfe63f8098ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/draft/MANIFEST.json",
+      "bytes": 12749,
+      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
       "kind": "text"
     },
     {
@@ -20290,12 +20542,6 @@
       }
     },
     {
-      "path": "audit/p4-qualified-currency-v1/draft/MANIFEST.json",
-      "bytes": 12749,
-      "sha256": "83c0ce2ccafa08bfff3f20bfa0831eae145434c98ba779cada4c421d38afda79",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/draft/verify-draft-closure.py",
       "bytes": 4579,
       "sha256": "65444f10c16821987c299ecfb5d1935f8075ff8c7653720814b3da5b93345c87",
@@ -20308,15 +20554,21 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/format-addendum/actions-addendum.json",
-      "bytes": 7040,
-      "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/format-addendum/ADDENDUM.md",
       "bytes": 5888,
       "sha256": "605800704b04e7d41f45fca691a954119b427906dd078e0c40b97849ff9718b7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/format-addendum/MANIFEST.json",
+      "bytes": 1914,
+      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/format-addendum/actions-addendum.json",
+      "bytes": 7040,
+      "sha256": "db1f15212136d36f26a6ccd15edb8ff3ca5d5053e0600e18ec7d03631b723f2e",
       "kind": "text"
     },
     {
@@ -20338,12 +20590,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/format-addendum/MANIFEST.json",
-      "bytes": 1914,
-      "sha256": "1056e5b2a6bf558766475ef53f1c44eee0865528517474b2444df33b044a7852",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/format-addendum/manual-number-format-truth.json",
       "bytes": 6361,
       "sha256": "f05237e7a1fc910a70d7f53b1e58bd4da8c0e8db5a2f5a9d67061377bb06cb45",
@@ -20356,6 +20602,18 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/MANIFEST.json",
+      "bytes": 2321,
+      "sha256": "2d1ee525fe4803e7fc8476ccfec542bd4aa4f7c888b2d57827b43077909020da",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/RESULT.json",
+      "bytes": 4443,
+      "sha256": "90db1b67fa2ab486bb36aeb8ebeb9858a5edc5257491544aeb8a2e5a5ffc0914",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/precode-addenda-review/independent-pins-matrix-second.py",
       "bytes": 7022,
       "sha256": "f593520deae670ef0e2f9a302af4864db389c626a39b47920c91bc9fe7255cfd",
@@ -20365,12 +20623,6 @@
       "path": "audit/p4-qualified-currency-v1/precode-addenda-review/independent-pins-matrix.py",
       "bytes": 7123,
       "sha256": "bfd9f3879bc54eacab637699c2305df8f329a64c229fb5ac5fb987a9a0b15686",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/MANIFEST.json",
-      "bytes": 2321,
-      "sha256": "2d1ee525fe4803e7fc8476ccfec542bd4aa4f7c888b2d57827b43077909020da",
       "kind": "text"
     },
     {
@@ -20416,21 +20668,9 @@
       "kind": "text"
     },
     {
-      "path": "audit/p4-qualified-currency-v1/precode-addenda-review/RESULT.json",
-      "bytes": 4443,
-      "sha256": "90db1b67fa2ab486bb36aeb8ebeb9858a5edc5257491544aeb8a2e5a5ffc0914",
-      "kind": "text"
-    },
-    {
       "path": "audit/p4-qualified-currency-v1/precode-addenda-review/reviewed-action-boundaries.json",
       "bytes": 12100,
       "sha256": "f7f5e970707d065f2a153edfbf3417f6a707765e4d9366d3ebe7c4f7c52f1265",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/precode-closure/closure-run.log",
-      "bytes": 207,
-      "sha256": "a13596f6b697b0f41e04bff714a61b97b595002658dc3ddb5ba97f55c2dbfc78",
       "kind": "text"
     },
     {
@@ -20446,9 +20686,27 @@
       "kind": "text"
     },
     {
+      "path": "audit/p4-qualified-currency-v1/precode-closure/closure-run.log",
+      "bytes": 207,
+      "sha256": "a13596f6b697b0f41e04bff714a61b97b595002658dc3ddb5ba97f55c2dbfc78",
+      "kind": "text"
+    },
+    {
       "path": "audit/p4-qualified-currency-v1/precode-closure/verify-closure.py",
       "bytes": 8224,
       "sha256": "0f5ad02269eb6d754eeb39a16deceac7d460c2db966c97ac23ffe0d7088eba8e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/precode-original/MANIFEST.json",
+      "bytes": 2431,
+      "sha256": "f4083b3236d61b971b5359298a6b901cc23aac6cb690a538c1cfe372c59cf561",
+      "kind": "text"
+    },
+    {
+      "path": "audit/p4-qualified-currency-v1/precode-original/RESULT.json",
+      "bytes": 4058,
+      "sha256": "a35a97bc29a3a74c078bcb7ec2c11ef9550b537b63c3aa7c795b7e90d10e7a8e",
       "kind": "text"
     },
     {
@@ -20473,12 +20731,6 @@
       "path": "audit/p4-qualified-currency-v1/precode-original/independent-refusals.py",
       "bytes": 3505,
       "sha256": "de3ee7e44a6359df3f146b56fe295d1be24c661ecd0dcb38b04c8e580dc9bba1",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/precode-original/MANIFEST.json",
-      "bytes": 2431,
-      "sha256": "f4083b3236d61b971b5359298a6b901cc23aac6cb690a538c1cfe372c59cf561",
       "kind": "text"
     },
     {
@@ -20521,12 +20773,6 @@
       "path": "audit/p4-qualified-currency-v1/precode-original/refusals-run.log",
       "bytes": 242,
       "sha256": "82acc81485c788d8fa34060f49cfc2bd68837d4f598485dc42cade18db8493ee",
-      "kind": "text"
-    },
-    {
-      "path": "audit/p4-qualified-currency-v1/precode-original/RESULT.json",
-      "bytes": 4058,
-      "sha256": "a35a97bc29a3a74c078bcb7ec2c11ef9550b537b63c3aa7c795b7e90d10e7a8e",
       "kind": "text"
     },
     {
@@ -21280,6 +21526,18 @@
       "kind": "text"
     },
     {
+      "path": "audit/partial-reconciliation/frozen/README.md",
+      "bytes": 3952,
+      "sha256": "31d1ccbb9e6aabcc8d026e85312a5e873c9e48cfe828293ee4e6b5df2e86cf62",
+      "kind": "text"
+    },
+    {
+      "path": "audit/partial-reconciliation/frozen/SHA256SUMS",
+      "bytes": 3091,
+      "sha256": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e",
+      "kind": "text"
+    },
+    {
       "path": "audit/partial-reconciliation/frozen/contracts.json",
       "bytes": 78990,
       "sha256": "bfd08fb1c316666b65fd5be45888233c44af67200bb91b11366723b3b0a5d956",
@@ -21480,22 +21738,30 @@
       "kind": "text"
     },
     {
-      "path": "audit/partial-reconciliation/frozen/README.md",
-      "bytes": 3952,
-      "sha256": "31d1ccbb9e6aabcc8d026e85312a5e873c9e48cfe828293ee4e6b5df2e86cf62",
-      "kind": "text"
-    },
-    {
       "path": "audit/partial-reconciliation/frozen/run.mjs",
       "bytes": 12433,
       "sha256": "4bf5a897a7d35fc8f92d405a3b97e0aa9cbb01035658227a6aa1942c1695d593",
       "kind": "text"
     },
     {
-      "path": "audit/partial-reconciliation/frozen/SHA256SUMS",
-      "bytes": 3091,
-      "sha256": "0b10b982659d984e9298082c0a76bb183fcd6d30abb8c34a5be520fed9a57e7e",
-      "kind": "text"
+      "path": "audit/payment-gateway-signed/PROVENANCE.json",
+      "bytes": 357,
+      "sha256": "c479c6a7041cb7c77bc26ad13f0877349d65ce411f69035d51a4d0f32b1174a1",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
+    },
+    {
+      "path": "audit/payment-gateway-signed/README.md",
+      "bytes": 1183,
+      "sha256": "53bcf813ccd189d0579f48d16d98ebac87cfa624ca5b3b3a97daeea3d2833dc5",
+      "kind": "text",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
+      }
     },
     {
       "path": "audit/payment-gateway-signed/build_fixtures.py",
@@ -24438,26 +24704,6 @@
       }
     },
     {
-      "path": "audit/payment-gateway-signed/PROVENANCE.json",
-      "bytes": 357,
-      "sha256": "c479c6a7041cb7c77bc26ad13f0877349d65ce411f69035d51a4d0f32b1174a1",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
-      "path": "audit/payment-gateway-signed/README.md",
-      "bytes": 1183,
-      "sha256": "53bcf813ccd189d0579f48d16d98ebac87cfa624ca5b3b3a97daeea3d2833dc5",
-      "kind": "text",
-      "provenance": {
-        "type": "synthetic",
-        "description": "AI-authored synthetic raw CSV/OOXML and independent literal truth corpus copied from sealed signed-kind precode inventory. No field originals or human-review attribution. Exact proposed inventory requires fresh independent final-tree review before publication."
-      }
-    },
-    {
       "path": "audit/payment-gateway-signed/run_assertions.py",
       "bytes": 7202,
       "sha256": "dff5e55a547ca63a39a13161132f358bec9c9030438c4ea9b222f3fc4a78a620",
@@ -24477,12 +24723,6 @@
       "path": "audit/payment-gateway/comma-provenance/source-0.csv",
       "bytes": 817,
       "sha256": "b56fb286544a488c398c58ebead79392b8addb1dcb44ff15574b630c33b1b0e2",
-      "kind": "text"
-    },
-    {
-      "path": "audit/payment-gateway/currency-contracts/expected.json",
-      "bytes": 81408,
-      "sha256": "92b2cefa68d0d98679c9f89857016d89c8e7c3b278c6c434e7faa121cf6f4af4",
       "kind": "text"
     },
     {
@@ -24555,6 +24795,12 @@
       "path": "audit/payment-gateway/currency-contracts/USD-3.csv",
       "bytes": 387,
       "sha256": "468531e8f3c4696c977c23f2c14da32752b865cef1bc0f1fafa9a5063993e48c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/payment-gateway/currency-contracts/expected.json",
+      "bytes": 81408,
+      "sha256": "92b2cefa68d0d98679c9f89857016d89c8e7c3b278c6c434e7faa121cf6f4af4",
       "kind": "text"
     },
     {
@@ -29978,6 +30224,12 @@
       "kind": "text"
     },
     {
+      "path": "audit/running-balance/README.md",
+      "bytes": 4344,
+      "sha256": "8cb4655b65e028fb1eb5c290aa06658b7bcaf08e61b9a971cca81fc597ab40c5",
+      "kind": "text"
+    },
+    {
       "path": "audit/running-balance/frozen/INPUT-MANIFEST.json",
       "bytes": 16498,
       "sha256": "76a277fcee53c7448507244058e5760e269e78dd666d144b5b8d3ed6bac8b552",
@@ -30736,12 +30988,6 @@
       }
     },
     {
-      "path": "audit/running-balance/README.md",
-      "bytes": 4344,
-      "sha256": "8cb4655b65e028fb1eb5c290aa06658b7bcaf08e61b9a971cca81fc597ab40c5",
-      "kind": "text"
-    },
-    {
       "path": "audit/running-balance/unicode/expected.csv",
       "bytes": 88,
       "sha256": "639c99b98b632f2dffcf90a89ddfa404d56c2063c458eec856209acb09bbddd7",
@@ -31278,6 +31524,24 @@
         "type": "public-design",
         "description": "Exact public Git workflow from published main 12a16bcbfa646595db433c28a67e3c1e104c6cb6 (release 0.4.43); no private execution evidence."
       }
+    },
+    {
+      "path": "audit/split-section/INPUT-MANIFEST.json",
+      "bytes": 24156,
+      "sha256": "ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/README.md",
+      "bytes": 2527,
+      "sha256": "ac258ec38eb08aed5ffc318163be46e1e6339f50eb7c20d6feffd101e988ad6d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/split-section/SOURCE-FACTS.json",
+      "bytes": 139316,
+      "sha256": "084c9ffcb8598c225356b9dbace1fe6157a121937d9159133ea5c10e7406bfbd",
+      "kind": "text"
     },
     {
       "path": "audit/split-section/capacity-regression/19/expected.csv",
@@ -32294,24 +32558,6 @@
       "kind": "text"
     },
     {
-      "path": "audit/split-section/INPUT-MANIFEST.json",
-      "bytes": 24156,
-      "sha256": "ebb1f9678384fa35ff23c28d636c240c6d1488ac483006ae85a20b019e2bc16c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/split-section/README.md",
-      "bytes": 2527,
-      "sha256": "ac258ec38eb08aed5ffc318163be46e1e6339f50eb7c20d6feffd101e988ad6d",
-      "kind": "text"
-    },
-    {
-      "path": "audit/split-section/SOURCE-FACTS.json",
-      "bytes": 139316,
-      "sha256": "084c9ffcb8598c225356b9dbace1fe6157a121937d9159133ea5c10e7406bfbd",
-      "kind": "text"
-    },
-    {
       "path": "audit/split-section/verify_inputs.py",
       "bytes": 1877,
       "sha256": "c40a76da00f39abd1b545cf7fde780f2f20d854ca1d699e7361a81dbe1dde0dd",
@@ -32333,6 +32579,492 @@
       "path": "audit/stress/workbooks/manifest.json",
       "bytes": 32357,
       "sha256": "968c0b176065c0f6fc86bf242efac4642a827505314a7cf5e6c49995e3ef8964",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/INPUT-MANIFEST.json",
+      "bytes": 9091,
+      "sha256": "8c27a23f957d25e22b12821f854d31b77f125197d2a39afc20ac1593f2a1e5a5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/README.ar.md",
+      "bytes": 11759,
+      "sha256": "395d5fdc794f48a2ba9c9ab30a4b360deaf63c5b1f3aa086b39e15ed74b1e57f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/REVIEW-NOTES.ar.md",
+      "bytes": 9355,
+      "sha256": "58efaf4cb52434a6733b5ed165c87808b7d71642b9aaf579b20aa3d9c18a1510",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/contract.json",
+      "bytes": 4838,
+      "sha256": "8643ccf0c98498df8317c2ed296539336b8dc67317edf2aa8f9329852774a63c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/financial-position.csv",
+      "bytes": 2366,
+      "sha256": "1685d83b99d4f776937dd1a254a12ba94eb826c2c194d19254c68ca01795ab43",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/cases.json",
+      "bytes": 2402,
+      "sha256": "25fe3724597cdef2d64c642a5392f105f84a827429a48443a3700349800d8cfb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/proposed-mapping.csv",
+      "bytes": 1587,
+      "sha256": "5dd926d524e75f56d26a033e26829a0db7d7d8dd0fbe1fbd639de8488f463f71",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "1118594a3a7d9d1f95f5b45d8ba124c33cc39be226716e81803d448eeb0e5721",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "2405f16cba06d5c5e9d395d67e67d1172f4db9d2b5f0efad520e69dbfb976265",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/trial-balance.csv",
+      "bytes": 1518,
+      "sha256": "70f2d97384085d30c92d9c06d337c9fd74adf17d507cfd394083bff27e7e7bb5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/financial-position.csv",
+      "bytes": 2545,
+      "sha256": "901df551c48bfb60767796ed918968017acc2a0834f4fc53cb85e30586bbc34b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/presentation-evidence.csv",
+      "bytes": 2076,
+      "sha256": "df45d8401df8b59c1415e5379854f4d4d30cd4725254149b4cd9a62d9e6a77c8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/proposed-mapping.csv",
+      "bytes": 1402,
+      "sha256": "9a492fe2f27c5c1d5c6a80285d7490a18167cb29ce86d2600a6d6939cbbd8696",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "25df8b8a460ab2be5615657cf512999a12f5a972c5bd3b72afaa9c56d7bda561",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/financial-position.csv",
+      "bytes": 2190,
+      "sha256": "9c27d2ad5808740d987af33bf47b1aa1e675436ca08e6c0f42e6e1c28ceade91",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/financial-position.csv",
+      "bytes": 2374,
+      "sha256": "4ae8adfdbf219cc3ae3a7e19fc69e960f602170ec621a3822fe3122b5c98e5de",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "0d48ed1cbacbe55bc52dc6a18a65f326a85868929dd416abd00d0be7a389ef5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "cf98c83bef223e234a80f793f1995a65b5c611d341b4d445f7fef5653e3bd18d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "78706fa2b7b17eb2c41c0ce1061ffbb45fe815538c9316af3a399c9e61a3b726",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "9344976242dbb6f1dad13050ed10c71b580ac2dc40a18d2ef0a268bdaf31b441",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/trial-balance.csv",
+      "bytes": 1513,
+      "sha256": "8c0ff8f28352ab9a6bac27dffcf74f6b41f17575ec1fbdeb3f7b389539b08be5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/financial-position.csv",
+      "bytes": 2571,
+      "sha256": "40f13dd9b70ce95d228b9e8a72428b3a0d6e819ab8bc7a2036f91eb2492ec69c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/two-parents/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/proposed-mapping.csv",
+      "bytes": 1233,
+      "sha256": "7304a63f3db20877dfb9e5eb59e065707c1ba75f5c7189b70681d67c7797631e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/presentation-evidence.csv",
+      "bytes": 2082,
+      "sha256": "e89f31c794fdf369a831632b643d0007c764e6fb712f7d147f9a8958ae15068b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/presentation-evidence.csv",
+      "bytes": 2079,
+      "sha256": "c4ea0d85270bb9809a573b627a561bab7167d5e146e008148582b2e39ec0f673",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/proposed-mapping.csv",
+      "bytes": 1405,
+      "sha256": "88b6105536cd99bee57a5d6c8c91544d81e7b1505ac0e9bb6601e1026a5a0514",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/financial-position.csv",
+      "bytes": 2370,
+      "sha256": "b9ac16852e80827d7174a9197db6f3fdfde9cdc1216a37992a5e1323190080d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/presentation-evidence.csv",
+      "bytes": 2078,
+      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/proposed-mapping.csv",
+      "bytes": 1404,
+      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/trial-balance.csv",
+      "bytes": 1512,
+      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/generate.py",
+      "bytes": 7309,
+      "sha256": "8c82ac5d38853ef7039d2d13ef48ecc6c37a7464cbd8ec641f3afaa588fe076b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/oracle.py",
+      "bytes": 14888,
+      "sha256": "b58290a8d51966ead568ce653341ed11dcb76a9f485812705bac020e14a3de3d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/run.py",
+      "bytes": 1413,
+      "sha256": "476219d91d48a08e8fbc89bcf1029d2b285be500ff81b47105d2d1039b8010c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/tb-financial-hierarchy/test_oracle.py",
+      "bytes": 22507,
+      "sha256": "fc60c3a6c84a20d25d31e210a8c7db1dd49a117c77a154c83d933885e307500d",
       "kind": "text"
     },
     {
@@ -34496,12 +35228,6 @@
       "kind": "text"
     },
     {
-      "path": "CLAUDE.md",
-      "bytes": 2875,
-      "sha256": "e26b15a063d23cecd57f2ed5bab4e189a9e411792ad9420c65afe535b013f4f2",
-      "kind": "text"
-    },
-    {
       "path": "components.json",
       "bytes": 516,
       "sha256": "9928283696d86836422959a2c520df83a718d31ffbcab533a14ca8dca2c8d475",
@@ -35156,36 +35882,6 @@
       "kind": "text"
     },
     {
-      "path": "docs/audits/C0-SOURCE-DIVERSITY.ar.md",
-      "kind": "text",
-      "bytes": 38383,
-      "sha256": "29909bad2b5a244e2096414ae6d472cdc7dbefb7f7e7484d5b9d5d1d3ca867ed"
-    },
-    {
-      "path": "docs/audits/INV1-HIERARCHY-DISCOVERY.ar.md",
-      "bytes": 11146,
-      "sha256": "af89f989721c26665011f8710fe6389883807056e1f322f6fd6554d96d7f9a84",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-SECTION-COMPONENTS.ar.md",
-      "kind": "text",
-      "bytes": 15210,
-      "sha256": "dc181ecbc0139216ed18c4d5537ad7e78c6611554e75a57161b33546a10e2009"
-    },
-    {
-      "path": "docs/audits/INV1-SOURCE-FOUNDATION.ar.md",
-      "kind": "text",
-      "bytes": 11777,
-      "sha256": "cbcd2e57b5f57a057bb7d0cda1ccd6f15ffb46265d237da16cb9607ca82593c6"
-    },
-    {
-      "path": "docs/audits/INV1-TRANSPOSED-REGISTER.ar.md",
-      "kind": "text",
-      "bytes": 15220,
-      "sha256": "dae3ffd94a6cef120007eb7fe9c9cdd926dddb09cfd90dac815095a8d68b92a5"
-    },
-    {
       "path": "docs/BANK-WITHDRAWAL-DEPOSIT-SOURCE.ar.md",
       "bytes": 4013,
       "sha256": "e61030475eadb8c321c32299a369e6bda35963aab06e2cb007ccf527fe817b5c",
@@ -35193,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 21692,
-      "sha256": "60481440f089238dd329b896643d0dc73ae7bdb461d74ff7de07273255926b8c",
+      "bytes": 23136,
+      "sha256": "4b33cbb8ea4142467997d8ae6f7c47b3a729fec51f43780b301b1c2970fd1908",
       "kind": "text"
     },
     {
@@ -35247,81 +35943,9 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 14139,
-      "sha256": "c8b290d3e9811d1844886280e65fc4672ef5a1491fad9a69dcb16f296ae9dd2a",
+      "bytes": 15580,
+      "sha256": "91974c7d673d7a9ca36aa6d5e954f23e7c2fa8bda47d70b0a5139dc5cebe9d59",
       "kind": "text"
-    },
-    {
-      "path": "docs/reference/ACCOUNTING-CONTRACT.ar.md",
-      "bytes": 7040,
-      "sha256": "c262c3ea14ffdd47542e2deb0109dc7ae714eba30f5665afeb4533a7e830cad1",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/AI-AND-OCR.ar.md",
-      "bytes": 8141,
-      "sha256": "0e19e4477e8227771cd39200d6ff7a11aaaa9f783f83e1856d3a2bb23c101f04",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/ARCHITECTURE.ar.md",
-      "bytes": 11699,
-      "sha256": "b5c352bd5338e561b98f24c18ff055fa7b719bc982f06976ac93fd96c031a4a7",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/CHALLENGES.ar.md",
-      "kind": "text",
-      "bytes": 57109,
-      "sha256": "ecfb77929ff21ee33108add9588387063a611ff05dd237a40b3655f8ab756cd8"
-    },
-    {
-      "path": "docs/reference/DELIVERY.ar.md",
-      "bytes": 6657,
-      "sha256": "83dd590b910d36e9eda29ff4d1e1548cc931921f32eb6c272d2433653d8ec9fd",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/DESIGN.ar.md",
-      "bytes": 10253,
-      "sha256": "b46ce383a9d939812239f299ff87f89216355c82e00c0e77a22653e825b644ac",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "kind": "text",
-      "bytes": 49868,
-      "sha256": "51fd2c2b3bf3f096152b2a7d3f644b293cf4f3d3dd502564cc672b4569adf0b6"
-    },
-    {
-      "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 10083,
-      "sha256": "7d4c531d3536340fcc7f90af7a98f2e627c8ece6e96ebde4b5c3a936dd1e973b",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/QUALITY.ar.md",
-      "bytes": 11403,
-      "sha256": "b5f7ecd5dc34c104f2d17c0e4b1ee8574cfb39ddb2c7bf9c55f68cdbf558ec7a",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/STATE.ar.md",
-      "bytes": 45159,
-      "sha256": "ede1a722b4701cb55e46fe7e653bae971bafe1a8c69d5ddaed5dc39e2c17156b",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/VISION.ar.md",
-      "bytes": 8227,
-      "sha256": "a0db03557b58e2ea6bea3a201a4db1a2fb3a288ae27ebc00bc79c45d419ba296",
-      "kind": "text"
-    },
-    {
-      "path": "docs/reference/VISUAL-IMPLEMENTATION.ar.md",
-      "kind": "text",
-      "bytes": 39082,
-      "sha256": "46de720b23b282cb579e25a2cf8451ff6d3bc3455937c8b5834f6b51bd2cda5b"
     },
     {
       "path": "docs/RELEASE-0.4.39.ar.md",
@@ -35380,6 +36004,192 @@
       "kind": "text",
       "bytes": 2439,
       "sha256": "b37314bba1a52bedf24db214772314147c321d271ef0fa141368bfb816648a95"
+    },
+    {
+      "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
+      "bytes": 3044,
+      "sha256": "7f313eefb2776c3f1d5e9d61940928042ea74d18279de00ec7f81c4784140671",
+      "kind": "text"
+    },
+    {
+      "path": "docs/VERIFICATION-FIXES.ar.md",
+      "bytes": 10448,
+      "sha256": "391a609d3fe742823fed6f4a8cf7031fa52c2f6e5f228d2963c8cf9fce1c7e0f",
+      "kind": "text"
+    },
+    {
+      "path": "docs/WORKSPACE-IDENTITY.ar.md",
+      "kind": "text",
+      "bytes": 7157,
+      "sha256": "ba0112407472cca85fbbef9b8733b4e77cda99bb537c7ed3746e08b39e76d00b"
+    },
+    {
+      "path": "docs/audits/C0-SOURCE-DIVERSITY.ar.md",
+      "kind": "text",
+      "bytes": 38383,
+      "sha256": "29909bad2b5a244e2096414ae6d472cdc7dbefb7f7e7484d5b9d5d1d3ca867ed"
+    },
+    {
+      "path": "docs/audits/FIN1-HIERARCHY-FOUNDATION.ar.md",
+      "bytes": 10243,
+      "sha256": "9dbf642f74c7c2c8cb2ff70693f3851a3ff7bd7af71533cabb04be41bf9c248c",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/FIN1-SOURCE4-PROTOTYPE.ar.md",
+      "bytes": 22091,
+      "sha256": "8ac596b405e3d77f2ced916c03e67d341b6f5cc54c58839393b455f1677fa2df",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-COLUMN-HIERARCHY-ENGINE.ar.md",
+      "bytes": 13225,
+      "sha256": "21367c1d4c6f3ce2ea4c4b046ccdc7fc68debafa54d608051fe575462729db39",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-COLUMN-HIERARCHY-FOUNDATION.ar.md",
+      "bytes": 13889,
+      "sha256": "8c9e82304492acfccfd6ddee239021c8a1ef738527d9898b3e17222bf2ec739b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-HIERARCHY-DISCOVERY.ar.md",
+      "bytes": 11146,
+      "sha256": "af89f989721c26665011f8710fe6389883807056e1f322f6fd6554d96d7f9a84",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-HIERARCHY-SECTIONS.ar.md",
+      "bytes": 11549,
+      "sha256": "5dc4ac8a68c529f3d2566cea3bfd54c7bd2f4b0c56ffd6726f365dff96f974f1",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-ACCOUNTING.ar.md",
+      "bytes": 13085,
+      "sha256": "fbd9d5f68c3d6ce4b3bb7d8560d5b73a9399234d94a62cf9b782162efc5f0cca",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-FOUNDATION.ar.md",
+      "bytes": 16216,
+      "sha256": "ac2b3d54cb4f717ebc74563ba76753f80b8bed73b15f91f0929cffb1ca56a2b1",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-LIFECYCLE.ar.md",
+      "bytes": 12108,
+      "sha256": "8022b37a31db24570ea6040fee73d156a4a578fe75a4d522b92ca31b6ee5d066",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-LOCAL-FIELDS.ar.md",
+      "bytes": 12258,
+      "sha256": "f74adb3c7f08db7e5e816010153c32d24314933290d3df414f6823ac603293b6",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-PDF-NATIVE-SOURCE.ar.md",
+      "bytes": 11698,
+      "sha256": "9e1bed49395acc98c8c14a5c6078e005e75ccd073ac1e506356dc6d0dea94edb",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/INV1-SECTION-COMPONENTS.ar.md",
+      "kind": "text",
+      "bytes": 15210,
+      "sha256": "dc181ecbc0139216ed18c4d5537ad7e78c6611554e75a57161b33546a10e2009"
+    },
+    {
+      "path": "docs/audits/INV1-SOURCE-FOUNDATION.ar.md",
+      "kind": "text",
+      "bytes": 11777,
+      "sha256": "cbcd2e57b5f57a057bb7d0cda1ccd6f15ffb46265d237da16cb9607ca82593c6"
+    },
+    {
+      "path": "docs/audits/INV1-TRANSPOSED-REGISTER.ar.md",
+      "kind": "text",
+      "bytes": 15220,
+      "sha256": "dae3ffd94a6cef120007eb7fe9c9cdd926dddb09cfd90dac815095a8d68b92a5"
+    },
+    {
+      "path": "docs/reference/ACCOUNTING-CONTRACT.ar.md",
+      "bytes": 7040,
+      "sha256": "c262c3ea14ffdd47542e2deb0109dc7ae714eba30f5665afeb4533a7e830cad1",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/AI-AND-OCR.ar.md",
+      "bytes": 8141,
+      "sha256": "0e19e4477e8227771cd39200d6ff7a11aaaa9f783f83e1856d3a2bb23c101f04",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/ARCHITECTURE.ar.md",
+      "bytes": 11699,
+      "sha256": "b5c352bd5338e561b98f24c18ff055fa7b719bc982f06976ac93fd96c031a4a7",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/CHALLENGES.ar.md",
+      "kind": "text",
+      "bytes": 57109,
+      "sha256": "ecfb77929ff21ee33108add9588387063a611ff05dd237a40b3655f8ab756cd8"
+    },
+    {
+      "path": "docs/reference/DELIVERY.ar.md",
+      "bytes": 6657,
+      "sha256": "83dd590b910d36e9eda29ff4d1e1548cc931921f32eb6c272d2433653d8ec9fd",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/DESIGN.ar.md",
+      "bytes": 10253,
+      "sha256": "b46ce383a9d939812239f299ff87f89216355c82e00c0e77a22653e825b644ac",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
+      "kind": "text",
+      "bytes": 51692,
+      "sha256": "bc01f35f3ff51ce33391faf1f3e2c5f279bb17d668d4f166b3a7cb36c792347a"
+    },
+    {
+      "path": "docs/reference/HISTORY.ar.md",
+      "bytes": 10083,
+      "sha256": "7d4c531d3536340fcc7f90af7a98f2e627c8ece6e96ebde4b5c3a936dd1e973b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/QUALITY.ar.md",
+      "bytes": 11403,
+      "sha256": "b5f7ecd5dc34c104f2d17c0e4b1ee8574cfb39ddb2c7bf9c55f68cdbf558ec7a",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/STATE.ar.md",
+      "bytes": 48701,
+      "sha256": "937610bd13cf0fa9a133694c38de14e09251f85d9144af06a1cf49bf2377e708",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/VISION.ar.md",
+      "bytes": 8227,
+      "sha256": "a0db03557b58e2ea6bea3a201a4db1a2fb3a288ae27ebc00bc79c45d419ba296",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/VISUAL-IMPLEMENTATION.ar.md",
+      "kind": "text",
+      "bytes": 39082,
+      "sha256": "46de720b23b282cb579e25a2cf8451ff6d3bc3455937c8b5834f6b51bd2cda5b"
+    },
+    {
+      "path": "docs/roadmap/README.ar.md",
+      "bytes": 7306,
+      "sha256": "8e3bb72842d6a8dc712791c83df651893837a0e1ededd8fee1d23f84671ddee8",
+      "kind": "text"
     },
     {
       "path": "docs/roadmap/accounts-privacy-business.ar.md",
@@ -35443,8 +36253,8 @@
     },
     {
       "path": "docs/roadmap/inventory.ar.md",
-      "bytes": 18013,
-      "sha256": "07fa9d3973b240b46b4867fb8612daa9ce1db029d4b70393cee3d3dfb87b8aed",
+      "bytes": 19510,
+      "sha256": "d2793c8f7fcd6bd1d79fd699df8012d68f2f5ae289d7a483c51d2d46dcd48e7d",
       "kind": "text"
     },
     {
@@ -35457,12 +36267,6 @@
       "path": "docs/roadmap/payroll.ar.md",
       "bytes": 3524,
       "sha256": "20cb3d7558cb09c2bc893170d9aa696716e103a26f646ccfefc66005587578de",
-      "kind": "text"
-    },
-    {
-      "path": "docs/roadmap/README.ar.md",
-      "bytes": 7306,
-      "sha256": "8e3bb72842d6a8dc712791c83df651893837a0e1ededd8fee1d23f84671ddee8",
       "kind": "text"
     },
     {
@@ -35484,22 +36288,22 @@
       "kind": "text"
     },
     {
-      "path": "docs/SOURCE-FAMILIES-INTEGRATION.ar.md",
-      "bytes": 3044,
-      "sha256": "7f313eefb2776c3f1d5e9d61940928042ea74d18279de00ec7f81c4784140671",
+      "path": "docs/transfer/FIN1-RESUME-20261015.ar.md",
+      "bytes": 8638,
+      "sha256": "d45f21b44f09847233ebe0aef53a059c8cac7733009c876710efb0fde7c74d4b",
       "kind": "text"
     },
     {
-      "path": "docs/VERIFICATION-FIXES.ar.md",
-      "bytes": 10448,
-      "sha256": "391a609d3fe742823fed6f4a8cf7031fa52c2f6e5f228d2963c8cf9fce1c7e0f",
+      "path": "docs/transfer/FIN1-STATUS.ar.md",
+      "bytes": 9088,
+      "sha256": "641e1198d07ddff331b48c04c24da4ebfb704f817393ebe12c3c4fcd0379867b",
       "kind": "text"
     },
     {
-      "path": "docs/WORKSPACE-IDENTITY.ar.md",
-      "kind": "text",
-      "bytes": 7157,
-      "sha256": "ba0112407472cca85fbbef9b8733b4e77cda99bb537c7ed3746e08b39e76d00b"
+      "path": "docs/transfer/README.ar.md",
+      "bytes": 12667,
+      "sha256": "0472026df442f5aed17787c289d79bb36e61059f834e335470817a630637ba6b",
+      "kind": "text"
     },
     {
       "path": "examples/ledger-demo.csv",
@@ -35554,7 +36358,7 @@
     {
       "path": "lib/brand.ts",
       "bytes": 835,
-      "sha256": "860e468ced870842614ca0e1a4be4be9fee02e9012d20bd6626a1904d47de3cf",
+      "sha256": "7eca6e14dcb39c80d01a6f08a7aa968d92b02a86f92df3e034f99b560e23bb90",
       "kind": "text"
     },
     {
@@ -35699,6 +36503,12 @@
       "path": "lib/i18n/workspace.ts",
       "bytes": 1089,
       "sha256": "18af9325c1d39cfbb520112466d40d2a5096db77e04c2985636a6a46a697bc8d",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/PDF-BIDI-LICENSE.txt",
+      "bytes": 10174,
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
       "kind": "text"
     },
     {
@@ -36020,10 +36830,58 @@
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/inventory-column-evidence.ts",
+      "bytes": 2317,
+      "sha256": "f30305799186262e56e9d33b82146f4eab9a1214ad0e0ed85b253515663e9baf",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-column-hierarchy.ts",
+      "bytes": 14267,
+      "sha256": "e50ccba9b7415315c6566c15e9ce1f0606136b519493f45aac65e5218610b73b",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-hierarchy-evidence.ts",
+      "bytes": 2642,
+      "sha256": "392eb568256154d607b9156351c9b5959c62482675042dab020f7da94698fc62",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-hierarchy-sections.ts",
+      "bytes": 14392,
+      "sha256": "8676c3e89cb2d1731879ca32e72fd8e49f6242387961d846ad9615ecfafa392c",
+      "kind": "text"
+    },
+    {
       "path": "lib/reconciliation/inventory-matrix-evidence.ts",
       "kind": "text",
       "bytes": 2684,
       "sha256": "fed8656985c0d6e9dc6a3fd6e62c3f0aa02f3d7eb62b69a72bbb3892406629fb"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-accounting.ts",
+      "bytes": 11222,
+      "sha256": "9b50ae46f5bf055c7074bbb0fc0157b8792c14b2ce79004f0bb25aabe13bd60f",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-lifecycle.ts",
+      "bytes": 4153,
+      "sha256": "10804d33dbae47f34a92a02b9afc43a8422edb25b59fa57c26f994845609f4fa",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-register.ts",
+      "bytes": 19239,
+      "sha256": "4e9aab524855d8fcc4acfb59a3300a825d5b5d30bf1ca0966d81dbe465c4a3ad",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/inventory-pdf-request.ts",
+      "bytes": 6121,
+      "sha256": "0a6f3ff5364bc7553bdaf9cbd42ea66f45e65e15065c027d19078af579a85e33",
+      "kind": "text"
     },
     {
       "path": "lib/reconciliation/inventory-register-csv.ts",
@@ -36057,8 +36915,8 @@
     },
     {
       "path": "lib/reconciliation/inventory-register.ts",
-      "bytes": 38715,
-      "sha256": "bbc1101fc3ee23ea1162d77c9c55146487ec767bb85c029b459d5e30b3b1dc02",
+      "bytes": 40190,
+      "sha256": "c91d125f9e79a19e42256655d3b4f23071462695dcdef243f8334f8d56032ee4",
       "kind": "text"
     },
     {
@@ -36224,12 +37082,6 @@
       "kind": "text"
     },
     {
-      "path": "lib/reconciliation/PDF-BIDI-LICENSE.txt",
-      "bytes": 10174,
-      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
-      "kind": "text"
-    },
-    {
       "path": "lib/reconciliation/pdf-bidi.js",
       "bytes": 14651,
       "sha256": "8e1cb4864fbd4940e19fd7b1722821e439904138d234a365b2f9a8194f691e33",
@@ -36245,6 +37097,12 @@
       "path": "lib/reconciliation/pdf-font-integrity.ts",
       "bytes": 1659,
       "sha256": "146be6373343598ce7150e9ee49b256b08ff79a82d212686504fefaad34cf040",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/pdf-native-source.ts",
+      "bytes": 1576,
+      "sha256": "70d5c914bbc26123d0208ed1266f302274573d32d248f9112c5ff848736b910e",
       "kind": "text"
     },
     {
@@ -36285,8 +37143,8 @@
     },
     {
       "path": "lib/reconciliation/protocol.ts",
-      "bytes": 18803,
-      "sha256": "76e6049a28f37bed1bb2ec9655fc6ac8321b7123b41f74a061bcaf2804f3e6de",
+      "bytes": 19990,
+      "sha256": "6e4d102554e13cc626d7919a8706e99dc30d93147802033d473cb680d0b4ae24",
       "kind": "text"
     },
     {
@@ -36410,6 +37268,18 @@
       "kind": "text"
     },
     {
+      "path": "lib/reconciliation/tb-financial-hierarchy-contract.ts",
+      "bytes": 5108,
+      "sha256": "5a9e8d9395b04f2eb947da97c438f4169c409922b0d732fa1da08bb90b49f899",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/tb-financial-hierarchy-source.ts",
+      "bytes": 15877,
+      "sha256": "91a80c0c42f43dd023e50f842f1a72392d55c93910e1111f0aff472945acef31",
+      "kind": "text"
+    },
+    {
       "path": "lib/reconciliation/tb-financial-io.ts",
       "bytes": 12310,
       "sha256": "326c026e81a09ccfd03fb6d359d1c00b6b6652910e4541d56b2701446024fbf7",
@@ -36501,14 +37371,14 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 17412,
-      "sha256": "82a834e8db99a6f51b6f7f6896295323fc00075de1ade096f0816c4687db93ab",
+      "bytes": 17778,
+      "sha256": "c12567aad0c580721f436b56fbce580235a084dc1cb6050905f1abd7bf75d810",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/worker.ts",
-      "bytes": 10528,
-      "sha256": "09a0e30dfa7681dac0c4177471ea5547a2ae7fef1533e46c493146f856a72ef7",
+      "bytes": 11102,
+      "sha256": "205c4d0e433acef3215b47e12fbb6f0bd033c87432668d9d8415e21d8ef78f11",
       "kind": "text"
     },
     {
@@ -36549,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 15981,
-      "sha256": "54d98dfa0257737e93b3b9a3324557e8febb5d3f85bd73a474a9dba2db6f9adb",
+      "bytes": 16607,
+      "sha256": "ae84ba65a6e3bf78c872ba0b429397c8d0a80f3bdc6bf630a3c2eed58e8b845f",
       "kind": "text"
     },
     {
@@ -36614,16 +37484,6 @@
       "kind": "text"
     },
     {
-      "path": "public/fonts/noto-sans-arabic-variable.woff2",
-      "bytes": 361536,
-      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
-      "kind": "approved-binary",
-      "provenance": {
-        "type": "licensed-vendor",
-        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
-      }
-    },
-    {
       "path": "public/fonts/NotoSansArabic-OFL.txt",
       "bytes": 4382,
       "sha256": "07fc70bfeb985cc1a87a8587d0a0c80bab11c86c9dc3fd95b6f0cb332f983e96",
@@ -36648,6 +37508,16 @@
       "sha256": "55cd0db49a2fd08cb6b991c58f53fa224ae5e0538bb700fa28e1f480b0c19cd5"
     },
     {
+      "path": "public/fonts/noto-sans-arabic-variable.woff2",
+      "bytes": 361536,
+      "sha256": "802ec442ca217cf586882350bf8090f7a18f4cbf6cbc8659e82a1ebc282b2ebc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "licensed-vendor",
+        "description": "Unchanged Noto Sans Arabic public font with included SIL Open Font License in public/fonts/NotoSansArabic-OFL.txt."
+      }
+    },
+    {
       "path": "public/fonts/thmanyah-serif-display-bold.woff2",
       "kind": "approved-binary",
       "provenance": {
@@ -36656,12 +37526,6 @@
       },
       "bytes": 81988,
       "sha256": "d36da84ee5423145415425bdd9c10dc27f57a66afec031bd7b78e662572846ce"
-    },
-    {
-      "path": "README.md",
-      "bytes": 6998,
-      "sha256": "5393139ab1b64132b56188f241341474b4a8ec2807fa05dc8b2c7d7cb3569dbc",
-      "kind": "text"
     },
     {
       "path": "scripts/acceptance-ar-pixel-diff.mjs",
@@ -36815,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 7202,
-      "sha256": "f0d23afd2299c71f1d637855290e5061e66c471164315d3f1ee0aba0de107f12",
+      "bytes": 7359,
+      "sha256": "88aa1a3314fac5529e10cef26780706f6a433e35e9aabc846bfdcd1181318d40",
       "kind": "text"
     },
     {
@@ -36940,6 +37804,12 @@
       "kind": "text"
     },
     {
+      "path": "scripts/inspect-financial-hierarchy-source4.mjs",
+      "bytes": 3200,
+      "sha256": "f2d9bfd64403d57672808da3244fe8c8644697f9707dcafaffccc5595cabb511",
+      "kind": "text"
+    },
+    {
       "path": "scripts/intercompany-browser-cases.mjs",
       "bytes": 7797,
       "sha256": "21f5d487db35064cd04e5c8c6c3dd606d6c032ada5a224f9ac766c9da5387e98",
@@ -36949,6 +37819,84 @@
       "path": "scripts/intercompany-browser-test.mjs",
       "bytes": 2561,
       "sha256": "db488eb81f08e97c6097594c2729a24a6bd323fa4d3dfb98684339516ca27661",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-browser.mjs",
+      "bytes": 12284,
+      "sha256": "3fc208ae54492507dd5a7b15544cfa3de0b361af515bc1c188a28976bddebfb3",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-export-controls.mjs",
+      "bytes": 2578,
+      "sha256": "7649eaededb6445415539da0f5ebb2f9486eddb7f5f42f66575207a121a9289e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-hierarchy-baseline.mjs",
+      "bytes": 9790,
+      "sha256": "72fbbc6f5e38f06975bf932aabf1421532ab1f2a8805b1e521d4913692178f07",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-column-proof.mjs",
+      "bytes": 6675,
+      "sha256": "100f9bc8448ca76d1f48fc5e01fc22475a08645a3f89b10169e42ab4c050091f",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-hierarchy-export-controls.mjs",
+      "bytes": 2623,
+      "sha256": "3a1f6cdeb99e282da0e9091c174d06a22f9de7704a4c7d97a37e3035504ea012",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-hierarchy-sections-browser.mjs",
+      "bytes": 11606,
+      "sha256": "0ae3c57cdb9d9e7c636510fbced531245ddcc17d5861f4922fd08caf4e459df5",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-hierarchy-sections-proof.mjs",
+      "bytes": 6523,
+      "sha256": "76130b3c6bedd6372ca9d802c06ec1b0ba9d2d6058d7fc9cda1b25a610e0e87e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-accounting-proof.mjs",
+      "bytes": 6789,
+      "sha256": "0ef029df2ee9f2a99c0da13666e095cc16b686333f5f61062ba174e6054e8c91",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-baseline.mjs",
+      "bytes": 10579,
+      "sha256": "1aebf63596355c5c604f3d99c05d82a0d05fea36f50ab86c986701b19edd9608",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-lifecycle-proof.mjs",
+      "bytes": 7961,
+      "sha256": "849c921daa4975b582826943bf1b20a38dd9bb3642f6a0064943f1d4f233910c",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-local-fields-proof.mjs",
+      "bytes": 4542,
+      "sha256": "40da937db04b7259b757d4a2039e6180fa2dfa8fccf4e72eb4e783f9f6353c4e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-native-source-proof.mjs",
+      "bytes": 4115,
+      "sha256": "2b475d1eca93726200c2c61cf52d8a5af05c406f083d0f24a115960a7ef9e18f",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/inventory-pdf-worker-browser.mjs",
+      "bytes": 9479,
+      "sha256": "e9aaec8000bd90998223ace31e1431061e3e3ba17edbb82f133e15938bd4276a",
       "kind": "text"
     },
     {
@@ -37330,6 +38278,36 @@
       "kind": "text"
     },
     {
+      "path": "scripts/test-inventory-column-mutations.mjs",
+      "bytes": 6722,
+      "sha256": "e0535c5e5e1bf202d07aa5cd89b18472b374f6e9836f70d62a1d353169f5b9cb",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-hierarchy-sections-mutations.mjs",
+      "bytes": 7061,
+      "sha256": "1b3cd4c8ae4c5206a436646070536d969792c341c1b67d45f699c8b837bb802a",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-pdf-accounting-mutations.mjs",
+      "bytes": 5354,
+      "sha256": "ca8c54481d47672877a048d0b147c956bdc66763db262cdc26f7cf3c0b36a532",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-pdf-lifecycle-mutations.mjs",
+      "bytes": 4682,
+      "sha256": "59f261182c289429ece33ba0f155eb8e6aa2ecf0a862d76f88d55730dabacb46",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-inventory-pdf-local-fields-mutations.mjs",
+      "bytes": 3812,
+      "sha256": "fd3bef78070f830ded1473347a16a7912f6e5142980419c9dc67cf7620364db2",
+      "kind": "text"
+    },
+    {
       "path": "scripts/test-inventory-section-components-mutations.mjs",
       "kind": "text",
       "bytes": 7024,
@@ -37369,6 +38347,12 @@
       "path": "scripts/test-payment-gateway-signed-mutations.mjs",
       "bytes": 14070,
       "sha256": "e2837059e74b227f19074b937276c7faa59a7445ceac70f358f88de7fcbb01db",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-pdf-native-source-mutations.mjs",
+      "bytes": 3765,
+      "sha256": "1d94e23a7fbb54b6c2fd173281ff47de53ea5e2ce631876d9b2b91b02ccf3b00",
       "kind": "text"
     },
     {
@@ -38354,6 +39338,12 @@
       "kind": "text"
     },
     {
+      "path": "tests/fixtures/pdf-arabic-046/README.md",
+      "bytes": 2099,
+      "sha256": "69dd1177da49481685b78c3af0f4b7448c6105dd5cb416f6af652ec3c8c9ab95",
+      "kind": "text"
+    },
+    {
       "path": "tests/fixtures/pdf-arabic-046/libreoffice-arabic.pdf",
       "bytes": 23361,
       "sha256": "bb76369a1f5885f8e6b08846af119a1ce652710d761e27ad4369bf11c017d250",
@@ -38377,12 +39367,6 @@
       "path": "tests/fixtures/pdf-arabic-046/manifest.json",
       "bytes": 12359,
       "sha256": "07752c45522e6abae5fed54af499edd8a750f6934392fd04755674dc5de57f23",
-      "kind": "text"
-    },
-    {
-      "path": "tests/fixtures/pdf-arabic-046/README.md",
-      "bytes": 2099,
-      "sha256": "69dd1177da49481685b78c3af0f4b7448c6105dd5cb416f6af652ec3c8c9ab95",
       "kind": "text"
     },
     {
@@ -38674,6 +39658,12 @@
       "kind": "text"
     },
     {
+      "path": "tests/helpers/inventory-pdf-lifecycle-fixture.ts",
+      "bytes": 3100,
+      "sha256": "036974a363ee124bc73cd98686b43fad0f015667618dd022d97fe5bacbc1aa62",
+      "kind": "text"
+    },
+    {
       "path": "tests/helpers/lint-value-text.ts",
       "bytes": 963,
       "sha256": "4c0e8449b27153a4e038ec5a95288c6d69d4f459846b0a3d619b3ade13e5ebae",
@@ -38683,6 +39673,12 @@
       "path": "tests/helpers/pdf-fixture.ts",
       "bytes": 1613,
       "sha256": "dff9730d1a0c502eb195c693b4caf945a95a97977061c9f9e703972b3bc26ccd",
+      "kind": "text"
+    },
+    {
+      "path": "tests/helpers/pdf-rewrite-fixture.ts",
+      "bytes": 2817,
+      "sha256": "8dfd447b666237ea9723a32c0b08d4f8eff4ff34025e2189d80f4ee9fe3d5b44",
       "kind": "text"
     },
     {
@@ -38752,6 +39748,54 @@
       "kind": "text"
     },
     {
+      "path": "tests/inventory-column-assistant.test.ts",
+      "bytes": 1528,
+      "sha256": "fcf09a9e9bd01b1cdd775976321d64b338e0f8f1a795d9ff6df63775c9f62726",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-column-fixture.ts",
+      "bytes": 2275,
+      "sha256": "3cec1c83425813daabc37b9d3ff9b5b7c414226c5c8d86b7dc24adf4f30304a4",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-column-hierarchy.test.ts",
+      "bytes": 3683,
+      "sha256": "4cc50dcb3761bdfe6c6b970415520aa172c0ed52f67ec1a30641bce037710bfb",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-column-native.test.ts",
+      "bytes": 12208,
+      "sha256": "6e427663220c3057f9fe60ef658f3004846cd221ec5c3296679232c29ff2a696",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-assistant.test.ts",
+      "bytes": 1532,
+      "sha256": "9a41b301fb958a24175e3be395b1272fdd510915ec10539fd2d6a6d3d2862466",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-fixture.ts",
+      "bytes": 2227,
+      "sha256": "1f86a71331c37720e51efa7b3f7c2a8b492b44e225cd4829eeb648c55a340291",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-native.test.ts",
+      "bytes": 4754,
+      "sha256": "597e2d6490db431b24152cb9020c5dd24110835b13d24ab583aeaf39eb2a3117",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-hierarchy-sections.test.ts",
+      "bytes": 10133,
+      "sha256": "0dce5d5c183760c4c5f043758392357588e430bd064e042028883aa8bbe0a57b",
+      "kind": "text"
+    },
+    {
       "path": "tests/inventory-matrix-binding.test.ts",
       "kind": "text",
       "bytes": 14428,
@@ -38762,6 +39806,24 @@
       "kind": "text",
       "bytes": 11219,
       "sha256": "a46d00207e0bf1874ed1234c37d9286c9d82826c978f7705aa84648680a492d4"
+    },
+    {
+      "path": "tests/inventory-pdf-accounting.test.ts",
+      "bytes": 23403,
+      "sha256": "d2edf23811a820c026ebdea7e737bab8b39cefe78e35ed49bc859782f1121c15",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-pdf-lifecycle.test.ts",
+      "bytes": 22475,
+      "sha256": "a02ce8552f3be99f007f9029a78b7db760c4c77d966b782ce0a23a460f4c495d",
+      "kind": "text"
+    },
+    {
+      "path": "tests/inventory-pdf-register.test.ts",
+      "bytes": 11649,
+      "sha256": "b93ac702059cf49fd88da8a1f233917b50be4bfbdf7d2620fd0bb4bb39496208",
+      "kind": "text"
     },
     {
       "path": "tests/inventory-register-calendar.test.ts",
@@ -39055,6 +40117,12 @@
       "path": "tests/pdf-import-diagnosis.test.ts",
       "bytes": 8682,
       "sha256": "06e793b008bc3a56b1805a3a3db077b9cfb1fe677be95d4d7860c9ba268e5eb4",
+      "kind": "text"
+    },
+    {
+      "path": "tests/pdf-native-source.test.ts",
+      "bytes": 10057,
+      "sha256": "069a153b7e109488ec9ef2ffadea31632d9f16f001a3c39d24888453875fd130",
       "kind": "text"
     },
     {
@@ -39424,6 +40492,18 @@
       "kind": "text"
     },
     {
+      "path": "tests/tb-financial-hierarchy-origin.test.ts",
+      "bytes": 12448,
+      "sha256": "fcf02b4defa4f6449d23f7eeea292d5d676241bfbb68ef02a557934820cf88d6",
+      "kind": "text"
+    },
+    {
+      "path": "tests/tb-financial-hierarchy-source.test.ts",
+      "bytes": 13173,
+      "sha256": "44b5eb27e0d91afdd0c0bbe5013cf981ed6f632257cd59515ffbb370af9c196f",
+      "kind": "text"
+    },
+    {
       "path": "tests/tb-financial-io.test.ts",
       "bytes": 12856,
       "sha256": "4ee2c7c5c9e0c511b147f2ad0a44d042d7cf54126b182406b8cc073b94608637",
@@ -39584,1020 +40664,6 @@
       "bytes": 865,
       "sha256": "902aeec1b7b297f7809c843ffd62111ea2f8d9b3135bcee5256366e1190825ef",
       "kind": "text"
-    },
-    {
-      "path": "audit/inventory-hierarchy-sections/contract.json",
-      "bytes": 2042,
-      "sha256": "0264f04c90d045f63db65afe1a58da4ce1ca1727a1e50f8e7ee129d57b3dc70c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-hierarchy-sections/generate.py",
-      "bytes": 8139,
-      "sha256": "d986fca2bd4ac5277ff0ef7de2de50d203b2017bb1e3043b9a226ba82129ef76",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-hierarchy-sections/oracle.py",
-      "bytes": 8432,
-      "sha256": "1adfbe8529967ae9ed231caf81fa6dffb5ac066e8059d588fd6eaab8784df6e2",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-hierarchy-sections/test_oracle.py",
-      "bytes": 1983,
-      "sha256": "ac1d0bbc45a43cd76d7eb3ef1dec58d2b17b81490978835d34385fbbfd5838af",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-hierarchy-sections/check_export.py",
-      "bytes": 13306,
-      "sha256": "b926a2ef909f0c12063eaf9dc4a908eb065b5b87999284c3aa9720c074b37220",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-hierarchy-sections/INPUT-MANIFEST.json",
-      "bytes": 11537,
-      "sha256": "977d0a422847a573c13b096e634a77ddc32ed078a7d2e8b70b9dfb1688e75895",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-hierarchy-sections/README.ar.md",
-      "bytes": 4836,
-      "sha256": "512251d0ebdc3107c1f2febb8066f1b8826537964990d4b2c3f7c5a9540f3e19",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-HIERARCHY-SECTIONS.ar.md",
-      "bytes": 11549,
-      "sha256": "5dc4ac8a68c529f3d2566cea3bfd54c7bd2f4b0c56ffd6726f365dff96f974f1",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/inventory-hierarchy-evidence.ts",
-      "bytes": 2642,
-      "sha256": "392eb568256154d607b9156351c9b5959c62482675042dab020f7da94698fc62",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/inventory-hierarchy-sections.ts",
-      "bytes": 14392,
-      "sha256": "8676c3e89cb2d1731879ca32e72fd8e49f6242387961d846ad9615ecfafa392c",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-hierarchy-export-controls.mjs",
-      "bytes": 2623,
-      "sha256": "3a1f6cdeb99e282da0e9091c174d06a22f9de7704a4c7d97a37e3035504ea012",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-hierarchy-sections-browser.mjs",
-      "bytes": 11606,
-      "sha256": "0ae3c57cdb9d9e7c636510fbced531245ddcc17d5861f4922fd08caf4e459df5",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-hierarchy-sections-proof.mjs",
-      "bytes": 6523,
-      "sha256": "76130b3c6bedd6372ca9d802c06ec1b0ba9d2d6058d7fc9cda1b25a610e0e87e",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/test-inventory-hierarchy-sections-mutations.mjs",
-      "bytes": 7061,
-      "sha256": "1b3cd4c8ae4c5206a436646070536d969792c341c1b67d45f699c8b837bb802a",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-hierarchy-assistant.test.ts",
-      "bytes": 1532,
-      "sha256": "9a41b301fb958a24175e3be395b1272fdd510915ec10539fd2d6a6d3d2862466",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-hierarchy-fixture.ts",
-      "bytes": 2227,
-      "sha256": "1f86a71331c37720e51efa7b3f7c2a8b492b44e225cd4829eeb648c55a340291",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-hierarchy-native.test.ts",
-      "bytes": 4754,
-      "sha256": "597e2d6490db431b24152cb9020c5dd24110835b13d24ab583aeaf39eb2a3117",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-hierarchy-sections.test.ts",
-      "bytes": 10133,
-      "sha256": "0dce5d5c183760c4c5f043758392357588e430bd064e042028883aa8bbe0a57b",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-column-hierarchy-baseline.mjs",
-      "bytes": 9790,
-      "sha256": "72fbbc6f5e38f06975bf932aabf1421532ab1f2a8805b1e521d4913692178f07",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/contract.json",
-      "bytes": 5573,
-      "sha256": "46df81aed985101a0c7ef8eeee4363e6f34960d3da95d439874bba971de4ed36",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/generate.py",
-      "bytes": 12878,
-      "sha256": "cb0492fcb4cf7297248d7e3c3662e8db489f4dc05f51779b5fb2350eb430631e",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/oracle.py",
-      "bytes": 18044,
-      "sha256": "888e1310f79e4b961db26bd385ff308be406ecffaf30c9fe5e747f9d64893fdd",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/test_oracle.py",
-      "bytes": 7942,
-      "sha256": "55899f2a0e44498559ce21294a6f043de111a02e430094b1d3fa63a1d7403c75",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.json",
-      "bytes": 12806,
-      "sha256": "1f60599228c6d70cf162afa7a84a9778e13ec5d567a1b23cf6170523f18f0ebb",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v2.json",
-      "bytes": 15319,
-      "sha256": "9f7b55eea58a5500d805db0e67e5a3ee20ac05c0d5b9f9560c311729eb449560",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/INPUT-MANIFEST.v3.json",
-      "bytes": 25367,
-      "sha256": "87a408f73cbc3473e35463df01663ff681812f1238bd807a248313a6dff2d972",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/README.ar.md",
-      "bytes": 7165,
-      "sha256": "4fd410de886aa85bdbfb420299a14dd714671ac30633e7ac595dbfb65ae6c678",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-COLUMN-HIERARCHY-FOUNDATION.ar.md",
-      "bytes": 13889,
-      "sha256": "8c9e82304492acfccfd6ddee239021c8a1ef738527d9898b3e17222bf2ec739b",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/IMPLEMENTATION.ar.md",
-      "bytes": 3521,
-      "sha256": "d63b6ea4a59caab93f11261818d1818351aa3bbb8083d8dda3f99c6b123816c1",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/check_export.py",
-      "bytes": 16279,
-      "sha256": "5810f3be5b70fedd0e8a2544f341c9d5cb8ade6b7714b7cbc7692e1324bca645",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-column-hierarchy/implementation-contract.json",
-      "bytes": 4250,
-      "sha256": "2061ca85d782ab4e15450532860a7f5713a6ff34ee97ca26b8c11e881ec8bb31",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-COLUMN-HIERARCHY-ENGINE.ar.md",
-      "bytes": 13225,
-      "sha256": "21367c1d4c6f3ce2ea4c4b046ccdc7fc68debafa54d608051fe575462729db39",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/inventory-column-evidence.ts",
-      "bytes": 2317,
-      "sha256": "f30305799186262e56e9d33b82146f4eab9a1214ad0e0ed85b253515663e9baf",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/inventory-column-hierarchy.ts",
-      "bytes": 14267,
-      "sha256": "e50ccba9b7415315c6566c15e9ce1f0606136b519493f45aac65e5218610b73b",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-column-browser.mjs",
-      "bytes": 12284,
-      "sha256": "3fc208ae54492507dd5a7b15544cfa3de0b361af515bc1c188a28976bddebfb3",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-column-export-controls.mjs",
-      "bytes": 2578,
-      "sha256": "7649eaededb6445415539da0f5ebb2f9486eddb7f5f42f66575207a121a9289e",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-column-proof.mjs",
-      "bytes": 6675,
-      "sha256": "100f9bc8448ca76d1f48fc5e01fc22475a08645a3f89b10169e42ab4c050091f",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/test-inventory-column-mutations.mjs",
-      "bytes": 6722,
-      "sha256": "e0535c5e5e1bf202d07aa5cd89b18472b374f6e9836f70d62a1d353169f5b9cb",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-column-assistant.test.ts",
-      "bytes": 1528,
-      "sha256": "fcf09a9e9bd01b1cdd775976321d64b338e0f8f1a795d9ff6df63775c9f62726",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-column-fixture.ts",
-      "bytes": 2275,
-      "sha256": "3cec1c83425813daabc37b9d3ff9b5b7c414226c5c8d86b7dc24adf4f30304a4",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-column-hierarchy.test.ts",
-      "bytes": 3683,
-      "sha256": "4cc50dcb3761bdfe6c6b970415520aa172c0ed52f67ec1a30641bce037710bfb",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-column-native.test.ts",
-      "bytes": 12208,
-      "sha256": "6e427663220c3057f9fe60ef658f3004846cd221ec5c3296679232c29ff2a696",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-pdf-baseline.mjs",
-      "bytes": 10579,
-      "sha256": "1aebf63596355c5c604f3d99c05d82a0d05fea36f50ab86c986701b19edd9608",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-PDF-FOUNDATION.ar.md",
-      "bytes": 16216,
-      "sha256": "ac2b3d54cb4f717ebc74563ba76753f80b8bed73b15f91f0929cffb1ca56a2b1",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/contract.json",
-      "bytes": 5010,
-      "sha256": "bcdd97029f31dca291164419bdacffcca39ebd16f70a2f05b6cb50e0981cb056",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/scope-blocks-contract.json",
-      "bytes": 2340,
-      "sha256": "c29cdf0bc4e8862e961dc04e0ad2239709183b3b3a2e788e91c255d3d5516b67",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/INPUT-MANIFEST.json",
-      "bytes": 10146,
-      "sha256": "46b34d9b2bac12493b6ffea1c368c74d136e2e58abe08432cef751c3d672e5a9",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/INPUT-MANIFEST.v2.json",
-      "bytes": 12658,
-      "sha256": "39dc8805312def04549114d18860e525af235c76a22face9b395a81a861d90fc",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/generate.py",
-      "bytes": 8957,
-      "sha256": "89a147cf788627757d6af54e6502de6ace893389a6163bb572822d3e75bcd336",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/oracle.py",
-      "bytes": 17531,
-      "sha256": "6cc917f8da6fddeb479d039c12c3a93fad04d556e09238e1e8cb202d14449dca",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/test_oracle.py",
-      "bytes": 7571,
-      "sha256": "75467949d4c6005c2caff5ddd23ef00e351548a53705b88154c1eaee5b29d222",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/check_control.py",
-      "bytes": 10492,
-      "sha256": "6c04df663d08fc7de2a10a9d64b03e6f1c9d6d9a1d138d0cf2b5189de883179a",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-foundation/README.ar.md",
-      "bytes": 5670,
-      "sha256": "7296ab9a12f9e53cbaab6cfb80d6ce02856c6b1b0429c299ee6d23bccbf85b73",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-PDF-NATIVE-SOURCE.ar.md",
-      "bytes": 11698,
-      "sha256": "9e1bed49395acc98c8c14a5c6078e005e75ccd073ac1e506356dc6d0dea94edb",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/pdf-native-source.ts",
-      "bytes": 1576,
-      "sha256": "70d5c914bbc26123d0208ed1266f302274573d32d248f9112c5ff848736b910e",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-pdf-native-source-proof.mjs",
-      "bytes": 4115,
-      "sha256": "2b475d1eca93726200c2c61cf52d8a5af05c406f083d0f24a115960a7ef9e18f",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/test-pdf-native-source-mutations.mjs",
-      "bytes": 3765,
-      "sha256": "1d94e23a7fbb54b6c2fd173281ff47de53ea5e2ce631876d9b2b91b02ccf3b00",
-      "kind": "text"
-    },
-    {
-      "path": "tests/pdf-native-source.test.ts",
-      "bytes": 10057,
-      "sha256": "069a153b7e109488ec9ef2ffadea31632d9f16f001a3c39d24888453875fd130",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-native-source/check_reading.py",
-      "bytes": 6522,
-      "sha256": "fddc28fb9f6cbab00994bdc044aa09398b437663db7b1839ea0cdf7d85a84389",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-native-source/contract.json",
-      "bytes": 1907,
-      "sha256": "d3ade6160c66015abacbd5d5eece3b33a02dc630270cb7238d6f76acc7737c6a",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-native-source/README.ar.md",
-      "bytes": 2421,
-      "sha256": "781e097ca74d1626e74740e8c3fd008fc8fbe0f2bf959ffaa04fe512c152df11",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-PDF-LOCAL-FIELDS.ar.md",
-      "bytes": 12258,
-      "sha256": "f74adb3c7f08db7e5e816010153c32d24314933290d3df414f6823ac603293b6",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/inventory-pdf-register.ts",
-      "bytes": 19239,
-      "sha256": "4e9aab524855d8fcc4acfb59a3300a825d5b5d30bf1ca0966d81dbe465c4a3ad",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-pdf-local-fields-proof.mjs",
-      "bytes": 4542,
-      "sha256": "40da937db04b7259b757d4a2039e6180fa2dfa8fccf4e72eb4e783f9f6353c4e",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/test-inventory-pdf-local-fields-mutations.mjs",
-      "bytes": 3812,
-      "sha256": "fd3bef78070f830ded1473347a16a7912f6e5142980419c9dc67cf7620364db2",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-pdf-register.test.ts",
-      "bytes": 11649,
-      "sha256": "b93ac702059cf49fd88da8a1f233917b50be4bfbdf7d2620fd0bb4bb39496208",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-local-fields/README.ar.md",
-      "bytes": 2171,
-      "sha256": "77429156369f65d985b1078ffee5ac3ef401941be77249ab9809a480cff81c26",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-local-fields/contract.json",
-      "bytes": 3409,
-      "sha256": "b731b7a1ce7de3e39819aa5e7ef4b1f196253dc4b07716716e3fcab267edb5b8",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-local-fields/check_reading.py",
-      "bytes": 9055,
-      "sha256": "5b5931a0cf515210b8ede99d63a8abd1802a8c73c44e9685249f7aa0d0786a99",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/INV1-PDF-ACCOUNTING.ar.md",
-      "bytes": 13085,
-      "sha256": "fbd9d5f68c3d6ce4b3bb7d8560d5b73a9399234d94a62cf9b782162efc5f0cca",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/inventory-pdf-accounting.ts",
-      "bytes": 11222,
-      "sha256": "9b50ae46f5bf055c7074bbb0fc0157b8792c14b2ce79004f0bb25aabe13bd60f",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inventory-pdf-accounting-proof.mjs",
-      "bytes": 6789,
-      "sha256": "0ef029df2ee9f2a99c0da13666e095cc16b686333f5f61062ba174e6054e8c91",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/test-inventory-pdf-accounting-mutations.mjs",
-      "bytes": 5354,
-      "sha256": "ca8c54481d47672877a048d0b147c956bdc66763db262cdc26f7cf3c0b36a532",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-accounting/README.ar.md",
-      "bytes": 1544,
-      "sha256": "1d14c6b8ba414964a25f2f0f86b8e47f4ff5867e49227c3843e261922c200b00",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-accounting/contract.json",
-      "bytes": 1383,
-      "sha256": "e9416a25cfaa8bd0a8c8feb6749b3a99f79290b677e5b9afb151510e048215e1",
-      "kind": "text"
-    },
-    {
-      "path": "audit/inventory-pdf-accounting/check_result.py",
-      "bytes": 11530,
-      "sha256": "1639788b7033b5360ecde887473423ad7c6890769f18f80ca5f0c8bcc7129431",
-      "kind": "text"
-    },
-    {
-      "path": "tests/helpers/pdf-rewrite-fixture.ts",
-      "bytes": 2817,
-      "sha256": "8dfd447b666237ea9723a32c0b08d4f8eff4ff34025e2189d80f4ee9fe3d5b44",
-      "kind": "text"
-    },
-    {
-      "path": "tests/inventory-pdf-accounting.test.ts",
-      "bytes": 23403,
-      "sha256": "d2edf23811a820c026ebdea7e737bab8b39cefe78e35ed49bc859782f1121c15",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/INPUT-MANIFEST.json",
-      "bytes": 9091,
-      "sha256": "8c27a23f957d25e22b12821f854d31b77f125197d2a39afc20ac1593f2a1e5a5",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/README.ar.md",
-      "bytes": 11759,
-      "sha256": "395d5fdc794f48a2ba9c9ab30a4b360deaf63c5b1f3aa086b39e15ed74b1e57f",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/REVIEW-NOTES.ar.md",
-      "bytes": 9355,
-      "sha256": "58efaf4cb52434a6733b5ed165c87808b7d71642b9aaf579b20aa3d9c18a1510",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/contract.json",
-      "bytes": 4838,
-      "sha256": "8643ccf0c98498df8317c2ed296539336b8dc67317edf2aa8f9329852774a63c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/financial-position.csv",
-      "bytes": 2366,
-      "sha256": "1685d83b99d4f776937dd1a254a12ba94eb826c2c194d19254c68ca01795ab43",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/blank-zero-amount/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/cases.json",
-      "bytes": 2402,
-      "sha256": "25fe3724597cdef2d64c642a5392f105f84a827429a48443a3700349800d8cfb",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/proposed-mapping.csv",
-      "bytes": 1587,
-      "sha256": "5dd926d524e75f56d26a033e26829a0db7d7d8dd0fbe1fbd639de8488f463f71",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/duplicate-mapping/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "1118594a3a7d9d1f95f5b45d8ba124c33cc39be226716e81803d448eeb0e5721",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/equal-amount-wrong-owner/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "2405f16cba06d5c5e9d395d67e67d1172f4db9d2b5f0efad520e69dbfb976265",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/expired-proof/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/foreign-scope/trial-balance.csv",
-      "bytes": 1518,
-      "sha256": "70f2d97384085d30c92d9c06d337c9fd74adf17d507cfd394083bff27e7e7bb5",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/financial-position.csv",
-      "bytes": 2545,
-      "sha256": "901df551c48bfb60767796ed918968017acc2a0834f4fc53cb85e30586bbc34b",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/late-unknown-row/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/presentation-evidence.csv",
-      "bytes": 2076,
-      "sha256": "df45d8401df8b59c1415e5379854f4d4d30cd4725254149b4cd9a62d9e6a77c8",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/proposed-mapping.csv",
-      "bytes": 1402,
-      "sha256": "9a492fe2f27c5c1d5c6a80285d7490a18167cb29ce86d2600a6d6939cbbd8696",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/mapping-to-parent/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "25df8b8a460ab2be5615657cf512999a12f5a972c5bd3b72afaa9c56d7bda561",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-parent/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/financial-position.csv",
-      "bytes": 2190,
-      "sha256": "9c27d2ad5808740d987af33bf47b1aa1e675436ca08e6c0f42e6e1c28ceade91",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/missing-zero-leaf/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/financial-position.csv",
-      "bytes": 2374,
-      "sha256": "4ae8adfdbf219cc3ae3a7e19fc69e960f602170ec621a3822fe3122b5c98e5de",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/parent-cycle/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-nested/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "0d48ed1cbacbe55bc52dc6a18a65f326a85868929dd416abd00d0be7a389ef5e",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "cf98c83bef223e234a80f793f1995a65b5c611d341b4d445f7fef5653e3bd18d",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "78706fa2b7b17eb2c41c0ce1061ffbb45fe815538c9316af3a399c9e61a3b726",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/positive-reordered/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "9344976242dbb6f1dad13050ed10c71b580ac2dc40a18d2ef0a268bdaf31b441",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/subminor-value/trial-balance.csv",
-      "bytes": 1513,
-      "sha256": "8c0ff8f28352ab9a6bac27dffcf74f6b41f17575ec1fbdeb3f7b389539b08be5",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/two-parents/financial-position.csv",
-      "bytes": 2571,
-      "sha256": "40f13dd9b70ce95d228b9e8a72428b3a0d6e819ab8bc7a2036f91eb2492ec69c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/two-parents/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/two-parents/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/two-parents/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/proposed-mapping.csv",
-      "bytes": 1233,
-      "sha256": "7304a63f3db20877dfb9e5eb59e065707c1ba75f5c7189b70681d67c7797631e",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/unmapped-zero-account/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/presentation-evidence.csv",
-      "bytes": 2082,
-      "sha256": "e89f31c794fdf369a831632b643d0007c764e6fb712f7d147f9a8958ae15068b",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-classification-balanced/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "fcdc66692126bf1895a4a65f634a3d4142d18627b7425c36557e666e03d9831c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/presentation-evidence.csv",
-      "bytes": 2079,
-      "sha256": "c4ea0d85270bb9809a573b627a561bab7167d5e146e008148582b2e39ec0f673",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/proposed-mapping.csv",
-      "bytes": 1405,
-      "sha256": "88b6105536cd99bee57a5d6c8c91544d81e7b1505ac0e9bb6601e1026a5a0514",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-contra-sign/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/financial-position.csv",
-      "bytes": 2370,
-      "sha256": "b9ac16852e80827d7174a9197db6f3fdfde9cdc1216a37992a5e1323190080d5",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/presentation-evidence.csv",
-      "bytes": 2078,
-      "sha256": "c30673682544228751dfd908adc1cd0e8ea41dedfdcf3b62e53defbae3c8794c",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/proposed-mapping.csv",
-      "bytes": 1404,
-      "sha256": "e1b78be8fc29cbddceeede843e97551156a44fcec9e826c2ff107be59239b067",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/frozen/wrong-control-total/trial-balance.csv",
-      "bytes": 1512,
-      "sha256": "69b6f5a4dad10f3c0be166e8b382331d6e1c80557d8be8187a692460b4000c28",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/generate.py",
-      "bytes": 7309,
-      "sha256": "8c82ac5d38853ef7039d2d13ef48ecc6c37a7464cbd8ec641f3afaa588fe076b",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/oracle.py",
-      "bytes": 14888,
-      "sha256": "b58290a8d51966ead568ce653341ed11dcb76a9f485812705bac020e14a3de3d",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/run.py",
-      "bytes": 1413,
-      "sha256": "476219d91d48a08e8fbc89bcf1029d2b285be500ff81b47105d2d1039b8010c2",
-      "kind": "text"
-    },
-    {
-      "path": "audit/tb-financial-hierarchy/test_oracle.py",
-      "bytes": 22507,
-      "sha256": "fc60c3a6c84a20d25d31e210a8c7db1dd49a117c77a154c83d933885e307500d",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/FIN1-HIERARCHY-FOUNDATION.ar.md",
-      "bytes": 10243,
-      "sha256": "9dbf642f74c7c2c8cb2ff70693f3851a3ff7bd7af71533cabb04be41bf9c248c",
-      "kind": "text"
-    },
-    {
-      "path": "docs/audits/FIN1-SOURCE4-PROTOTYPE.ar.md",
-      "bytes": 22091,
-      "sha256": "8ac596b405e3d77f2ced916c03e67d341b6f5cc54c58839393b455f1677fa2df",
-      "kind": "text"
-    },
-    {
-      "path": "docs/transfer/FIN1-RESUME-20261015.ar.md",
-      "bytes": 8638,
-      "sha256": "d45f21b44f09847233ebe0aef53a059c8cac7733009c876710efb0fde7c74d4b",
-      "kind": "text"
-    },
-    {
-      "path": "docs/transfer/FIN1-STATUS.ar.md",
-      "bytes": 9088,
-      "sha256": "641e1198d07ddff331b48c04c24da4ebfb704f817393ebe12c3c4fcd0379867b",
-      "kind": "text"
-    },
-    {
-      "path": "docs/transfer/README.ar.md",
-      "bytes": 12667,
-      "sha256": "0472026df442f5aed17787c289d79bb36e61059f834e335470817a630637ba6b",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/tb-financial-hierarchy-contract.ts",
-      "bytes": 5108,
-      "sha256": "5a9e8d9395b04f2eb947da97c438f4169c409922b0d732fa1da08bb90b49f899",
-      "kind": "text"
-    },
-    {
-      "path": "lib/reconciliation/tb-financial-hierarchy-source.ts",
-      "bytes": 15877,
-      "sha256": "91a80c0c42f43dd023e50f842f1a72392d55c93910e1111f0aff472945acef31",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/inspect-financial-hierarchy-source4.mjs",
-      "bytes": 3200,
-      "sha256": "f2d9bfd64403d57672808da3244fe8c8644697f9707dcafaffccc5595cabb511",
-      "kind": "text"
-    },
-    {
-      "path": "tests/tb-financial-hierarchy-origin.test.ts",
-      "bytes": 12448,
-      "sha256": "fcf02b4defa4f6449d23f7eeea292d5d676241bfbb68ef02a557934820cf88d6",
-      "kind": "text"
-    },
-    {
-      "path": "tests/tb-financial-hierarchy-source.test.ts",
-      "bytes": 13173,
-      "sha256": "44b5eb27e0d91afdd0c0bbe5013cf981ed6f632257cd59515ffbb370af9c196f",
-      "kind": "text"
     }
   ],
   "distribution": [
@@ -40608,27 +40674,27 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-BlMus-AJ.js",
+      "path": "assets/ar-io-yJjSR0Qq.js",
       "bytes": 11377,
-      "sha256": "25c5af9378fb4631b6345bd832b58887230b3223be6e1b5a6151d93000f1d85a",
+      "sha256": "4e50b93e209d7cd2f59f671b44683a8710ff2e3ddc29ca7806bbdd5b7c22cfcb",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-Dahx8TKh.js",
+      "path": "assets/bank-adjustment-io-D0tvj_jl.js",
       "bytes": 12101,
-      "sha256": "385b3aeb3b1c758fba7676e9f4fb599032ca571c397ece0d8f1d452d2cef193b",
+      "sha256": "1323b2b041097cd0136412c4a9ab25b786a6b146c3085070054489882e44dc8c",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-CYicJbST.js",
+      "path": "assets/bank-io-BMs-2f1G.js",
       "bytes": 6331,
-      "sha256": "5efb9b8988ad8d9e92268daa15be23b94f3159b3669a34907c3176132282f553",
+      "sha256": "5cc2bf579c17945d00781b6deae8c542c5ae2e73b4d2144052685729e7329425",
       "kind": "text"
     },
     {
-      "path": "assets/bank-native-display-C5MWzw8P.js",
+      "path": "assets/bank-native-display-3W6ya3NH.js",
       "bytes": 6148,
-      "sha256": "c3b0acb8e21f070b46b7e47c7111005fd25ac19e10f1651df22f2fdd222173b8",
+      "sha256": "47a2e28434b4948b63294d6c4ca8edd1d8952018fe48a4e1d0b1814b1b11c850",
       "kind": "text"
     },
     {
@@ -40638,13 +40704,13 @@
       "kind": "text"
     },
     {
-      "path": "assets/core-DGO5NLTG.js",
-      "bytes": 274441,
-      "sha256": "9a9150bf15516a65454e0f602dda8724679bdc3212c4a0f48a7dba9e3d3dc518",
+      "path": "assets/core-BthGvS2m.js",
+      "bytes": 275328,
+      "sha256": "aa068888ded10f611e919febf7a00f924faf95eae57e532f046764bd281982d1",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only"
       }
     },
     {
@@ -40658,15 +40724,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-lU7WsvpT.js",
+      "path": "assets/fixed-assets-io-BxyWpWPu.js",
       "bytes": 9830,
-      "sha256": "f2e95a7eec797254857d46ecd85a370ca18609c81a6bbd0ab6e860625955a112",
+      "sha256": "245b8095eba0f3b24469f4c33928bdc050f2f0b7becece415db9a9528489e76c",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-C8x0-nEM.js",
-      "bytes": 2185,
-      "sha256": "e9c573950e33c0fe27f416deba144478c887d726c8fa70b80646a12b4205f3ae",
+      "path": "assets/gl-tb-io-DkAslMPy.js",
+      "bytes": 2184,
+      "sha256": "cf607b9fc3557d3c1116d1c51420b1fb3aca6b4f8e81a968191249d640ae9a81",
       "kind": "text"
     },
     {
@@ -40676,20 +40742,20 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-ClDQnTed.js",
-      "bytes": 6372193,
-      "sha256": "dc22ca3c2abfbb0f001cd4b6c30cfdb9219bee66520d1067f228967bfa50c1cb",
+      "path": "assets/index-zlu_gLbF.js",
+      "bytes": 6390791,
+      "sha256": "6b4bd17fc7f750b6302517a6a7964e776968cc42f5103071acaed2d7175ababa",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only"
       }
     },
     {
-      "path": "assets/inventory-register-io-BJQKYtO3.js",
+      "path": "assets/inventory-register-io-CwCcT6Rp.js",
       "kind": "text",
-      "bytes": 19452,
-      "sha256": "d99e91c70b77b2e6c612f41e4038bf530fb8db589c6f2aa008f8d3b4a3d9579d"
+      "bytes": 19462,
+      "sha256": "c3517cdc64f52d272cabe17f5c416668b964d64b86a508cf18b91085e3cacb31"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -40702,15 +40768,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-QZaEKvVS.js",
+      "path": "assets/payment-gateway-io-BtLV5WTd.js",
       "bytes": 6391,
-      "sha256": "86c32f1ef20f70dda908ce34d7691271e30c6c1d0249a4de7d55149f9c2340af",
+      "sha256": "54414915d06b0667f69ab5ae449ffad84c5e7b3b12c6a5a4c8a83f997f0db937",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-53iWocS4.js",
+      "path": "assets/payment-gateway-source-D0veALu3.js",
       "bytes": 6798,
-      "sha256": "2ae0dcf157f43201a15a65069ea201c946151f35c5887023f4dc423d60985a44",
+      "sha256": "5013369e2aa4d7197cf6e3990a15cd41e03b12af27c5db1f4fd99cf8e3933d9d",
       "kind": "text"
     },
     {
@@ -40740,9 +40806,9 @@
       }
     },
     {
-      "path": "assets/protocol-D_srdMMg.js",
-      "bytes": 120903,
-      "sha256": "4cac9651ea8c19db0d04fad90bc391d148d178fed23c7e78c5d90f3204890e05",
+      "path": "assets/protocol-Ch2Kz3yd.js",
+      "bytes": 137165,
+      "sha256": "f5b4dedbb11b357e792b440b6fabc769555db1c9a63393fd19769496af9b1694",
       "kind": "text"
     },
     {
@@ -40870,7 +40936,7 @@
     {
       "path": "index.html",
       "bytes": 4017,
-      "sha256": "72ce79aac35d351449c568bf8d8cfcf5f46e0ec1133870b052a4a939f611d017",
+      "sha256": "ad781080f98dc288d4f73ed8bdbdb9fe08e681d8f5a6e088557ef6452fd449ec",
       "kind": "text"
     },
     {

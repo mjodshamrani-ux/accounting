@@ -1,3 +1,8 @@
+import {
+  snapshotStockPdfState,
+  STOCK_PDF_LIFECYCLE_VERSION,
+  type StockPdfState,
+} from './inventory-pdf-request.ts';
 import { stockCSV } from './inventory-register-csv.ts';
 import { STOCK_PDF_FAMILY } from './inventory-pdf-register.ts';
 import {
@@ -265,14 +270,23 @@ function bounded(n: bigint) {
   if (n > 100000000000000n || n < -100000000000000n) fail('TOTAL_BOUND');
   return Number(n);
 }
+function denseStockList(value: unknown[]) {
+  const ownKeys = Object.keys(value);
+  return (
+    ownKeys.length === value.length &&
+    ownKeys.every((key, index) => key === String(index))
+  );
+}
 export function assertStockEventBudget(events: unknown) {
-  if (!Array.isArray(events) || events.length > 1000) fail('EVENT_CAPACITY');
+  if (!Array.isArray(events) || events.length > 1000 || !denseStockList(events))
+    fail('EVENT_CAPACITY');
   let total = 0;
   for (const e of events) {
     if (
       !plain(e) ||
       !Array.isArray(e.memberIds) ||
-      e.memberIds.length > MAX_ROWS
+      e.memberIds.length > MAX_ROWS ||
+      !denseStockList(e.memberIds)
     )
       fail('EVENT_CAPACITY');
     total += e.memberIds.length;
@@ -333,6 +347,34 @@ export async function compareInventoryPdfSources(
     !STOCK_FIELDS.every((k) => text(scope[k]) === scope[k])
   )
     fail('SCOPE');
+  return compareOwnedInventoryPdf(originals, scope);
+}
+export type StockPdfReplay = {
+  version: typeof STOCK_PDF_LIFECYCLE_VERSION;
+  state: StockPdfState;
+  result: StockResult;
+};
+/** G4 authority always starts with captured originals, never a G3 certificate. */
+export async function replayStockPdfOriginals(
+  request: StockPdfState,
+): Promise<StockPdfReplay> {
+  const captured = snapshotStockPdfState(request);
+  const fresh = await compareOwnedInventoryPdf(
+    captured.files,
+    captured.scope,
+    captured,
+  );
+  return {
+    version: STOCK_PDF_LIFECYCLE_VERSION,
+    state: captured,
+    result: fresh.result,
+  };
+}
+async function compareOwnedInventoryPdf(
+  originals: { name: string; original: ArrayBuffer }[],
+  scope: StockScope,
+  lifecycle?: StockPdfState,
+): Promise<StockPdfComparison> {
   const decimals = currencyPrecision(scope.currency);
   if (decimals === undefined || !['SAR', 'JPY', 'KWD'].includes(scope.currency))
     fail('CURRENCY');
@@ -351,6 +393,8 @@ export async function compareInventoryPdfSources(
       new Uint8Array(await crypto.subtle.digest('SHA-256', original.original)),
       (n) => n.toString(16).padStart(2, '0'),
     ).join('');
+    if (lifecycle && sha256 !== lifecycle.files[index].sha256)
+      fail('SOURCE_HASH');
     // The PDF sheet is a physical text inventory, never a disguised CSV source.
     const tokenPages =
       index === 0
@@ -388,10 +432,15 @@ export async function compareInventoryPdfSources(
         confirmed: true,
       })) as StockInput['readings'],
       scope,
-      completeness: { confirmed: false, reference: '', note: '' },
-      events: [],
+      completeness: lifecycle?.completeness ?? {
+        confirmed: false,
+        reference: '',
+        note: '',
+      },
+      events: lifecycle?.events ?? [],
     },
     pdf,
+    lifecycle ? STOCK_PDF_LIFECYCLE_VERSION : STOCK_VERSION,
   );
   return {
     version: 'inventory-pdf-original-comparison-1',
@@ -406,6 +455,7 @@ export async function compareInventoryPdfSources(
 function reconcileStockInternal(
   input: StockInput,
   pdf?: InventoryPdfAccounting,
+  contextVersion: string = STOCK_VERSION,
 ): StockResult {
   if (
     !plain(input) ||
@@ -560,7 +610,7 @@ function reconcileStockInternal(
     readings = input.readings.map((r) => ({ ...r })) as StockInput['readings'],
     completeness = { ...c };
   const context = JSON.stringify([
-    STOCK_VERSION,
+    contextVersion,
     input.files.map((f) => f.sha256),
     readings,
     scope,
