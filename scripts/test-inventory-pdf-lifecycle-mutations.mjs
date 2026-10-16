@@ -65,8 +65,8 @@ const mutations = [
   [
     'skip-worker-response-binding',
     io,
-    'if (!sameStockPdfData(captured, expected))',
-    'if (false)',
+    "if (!sameStockPdfData(captured, expected))\n    throw Error('STOCK_PDF_WORKER_BINDING');",
+    "if (false)\n    throw Error('STOCK_PDF_WORKER_BINDING');",
   ],
   [
     'skip-saved-session-binding',

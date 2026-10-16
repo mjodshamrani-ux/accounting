@@ -248,6 +248,14 @@ jobs:
           pnpm test:inventory-pdf:workbook
           pnpm test:inventory-pdf:workbook-proof
           pnpm test:inventory-pdf:workbook-mutations
+      - name: Verify inventory PDF workspace original preview, read-only assistant and bilingual evidence contracts
+        env:
+          INV_PDF_WORKSPACE_PROOF_DIR: ${{ runner.temp }}/inventory-pdf-workspace
+          INV_PDF_WORKSPACE_MUTATION_DIR: ${{ runner.temp }}/inventory-pdf-workspace-mutations
+        run: |
+          pnpm test:inventory-pdf:workspace
+          pnpm test:inventory-pdf:workspace-proof
+          pnpm test:inventory-pdf:workspace-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
@@ -268,6 +276,10 @@ jobs:
         env:
           INV_PDF_WORKBOOK_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-workbook-browser
         run: pnpm test:inventory-pdf:workbook-browser
+      - name: Verify actual PDF inventory uploads, AR EN downloads, sessions, assistant, cancellation and retained work
+        env:
+          INV_PDF_WORKSPACE_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-workspace-ui
+        run: pnpm test:inventory-pdf:workspace-browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:

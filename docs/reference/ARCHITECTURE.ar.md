@@ -63,3 +63,18 @@ flowchart TD
 تفصل [وحدة INV-1F-G1](../audits/INV1-PDF-NATIVE-SOURCE.ar.md) بين readNativePdfSource للهندسة الأصلية وreadPdf للإسقاط العام. يستعملان مجمّعًا خاصًا واحدًا مع حراس الخط والدفق والطلاء والظهور. عقد native-pdf-source-1 يحفظ SHA-256 من البايتات الملتقطة قبل الانتظار، والصفحة ورقم العنصر النصي وحدود الصفحة والمواضع والتحذيرات؛ لا يعطي دور حقل أو نتيجة مالية.
 
 النصوص غير الفارغة فقط هي عناصر المصدر، وقد تقسم عبارة واحدة إلى عدة عناصر؛ لا يساوي رقم العنصر صفًا محاسبيًا. الإحداثيات نسبية لأسفل يسار الصفحة الظاهرة، وview يحفظ الأصل المطلق. readingIssues إلزامي في العقد، ولا يجوز تجاهله عند بناء عائلة مالية. لا يقبل API هندسة مخبأة من العميل؛ أي ربط مالي لاحق يحتاج إعادة قراءة الأصل والتحقق من ملكية الحقل والأبعاد وحدود الجدول والصفحة. لا يغيّر هذا العقد SourceFile أو بروتوكول الجلسة أو طلب المخزون ضمنيًا.
+
+## دورة PDF المخزون في G4 وG5
+
+الحالة الخام stock-pdf تحمل PDF السجل وثلاثة CSV للخريطة والسياسة وGL، مع الاختيارات والقرارات، ولا تحمل sheets أو هندسة أو نتيجة معتمدة من المستدعي. تبقى حالة CSV/Excel والجلسة القديمة منفصلتين. [سجل التنفيذ](../audits/INV1-PDF-WORKSPACE.ar.md) يميز المرشح المحلي من النشر.
+
+| الجزء | المدخل والسلطة | موضع التنفيذ |
+| --- | --- | --- |
+| المعاينة | بايتات PDF مملوكة قبل الانتظار؛ اقتراح حرفي بلا اعتماد | [inventory-pdf-preview](../../lib/reconciliation/inventory-pdf-preview.ts) |
+| النقل | أفعال وحقول وأحجام محددة، والتقاط الطلب والرد وربطهما | [inventory-pdf-request](../../lib/reconciliation/inventory-pdf-request.ts) و[lifecycle](../../lib/reconciliation/inventory-pdf-lifecycle.ts) |
+| الحساب | إعادة قراءة الأصول الأربعة وحروف الهوية ثم النواة القائمة | [inventory-pdf-accounting](../../lib/reconciliation/inventory-pdf-accounting.ts) و[inventory-register](../../lib/reconciliation/inventory-register.ts) |
+| الشرح | سؤال مقيد ونتيجة أعيد إثباتها؛ لا قرار أو مبلغ من نص السؤال | [inventory-pdf-assistant](../../lib/reconciliation/inventory-pdf-assistant.ts) |
+| Excel | إعادة الحساب وربط الرد ببايتات حزمة الطلب نفسه | [inventory-pdf-workbook](../../lib/reconciliation/inventory-pdf-workbook.ts) و[جداول الدليل](../../lib/reconciliation/inventory-pdf-workbook-evidence.ts) |
+| اللغة | أسماء العرض والملخص واتجاه الورقة فقط؛ لا ترجمة حروف المصدر وهوياته | [inventory-pdf-workbook labels](../../lib/i18n/inventory-pdf-workbook.ts) |
+
+ملف Excel وجلسة الحفظ يتضمنان الأصول كاملة وأدلة المراجعة محليًا؛ تصرح الواجهة بمحتوى الصادر. ليسا ملفين مجهولين أو مقتصرين على المجاميع. لا يخزن التطبيق ذلك على خادم ولا يرسله للمساعد الخارجي. لا يغير هذا المسار CSP أو يفعّل نموذجًا أو OCR؛ حدود الذاكرة والأحجام حراس توقف وليست إثبات سعة على كل جهاز.

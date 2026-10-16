@@ -15,7 +15,14 @@ export const STOCK_PDF_EXPORT_LIMIT = 96 * 1024 * 1024;
 export type StockPdfExportRequest = {
   state: StockPdfState;
   result: StockResult;
+  language?: 'ar' | 'en';
 };
+export type StockPdfAskRequest = {
+  state: StockPdfState;
+  result: StockResult;
+  question: string;
+};
+export type StockPdfReadRequest = { name: string; buffer: ArrayBuffer };
 export type StockPdfState = {
   version: typeof STOCK_PDF_LIFECYCLE_VERSION;
   files: [
@@ -117,13 +124,48 @@ export function snapshotStockPdfState(value: unknown): StockPdfState {
 export function snapshotStockPdfRequest(
   action: string,
   payload: unknown,
-): StockPdfState | { buffer: ArrayBuffer } | StockPdfExportRequest {
+):
+  | StockPdfState
+  | { buffer: ArrayBuffer }
+  | StockPdfExportRequest
+  | StockPdfReadRequest
+  | StockPdfAskRequest {
+  if (action === 'stock-pdf-read') {
+    if (
+      !pdfPlain(payload) ||
+      !pdfKeys(payload, ['name', 'buffer']) ||
+      !text(payload.name, 255) ||
+      !/\.pdf$/i.test(payload.name as string)
+    )
+      throw Error('STOCK_PDF_READ_REQUEST');
+    pdfBytes(payload.buffer);
+    return { name: payload.name as string, buffer: payload.buffer.slice(0) };
+  }
+  if (action === 'stock-pdf-ask') {
+    if (
+      !pdfPlain(payload) ||
+      !pdfKeys(payload, ['state', 'result', 'question']) ||
+      !text(payload.question, 2000) ||
+      !pdfPlain(payload.result)
+    )
+      throw Error('STOCK_PDF_ASK_REQUEST');
+    return {
+      state: snapshotStockPdfState(payload.state),
+      result: snapshotStockPdfTransport(payload.result) as StockResult,
+      question: payload.question as string,
+    };
+  }
   if (action === 'stock-pdf-reconcile' || action === 'stock-pdf-save')
     return snapshotStockPdfState(payload);
   if (action === 'stock-pdf-export') {
     if (
       !pdfPlain(payload) ||
-      !pdfKeys(payload, ['state', 'result']) ||
+      !(
+        pdfKeys(payload, ['state', 'result']) ||
+        pdfKeys(payload, ['state', 'result', 'language'])
+      ) ||
+      (Object.hasOwn(payload, 'language') &&
+        !['ar', 'en'].includes(payload.language as string)) ||
       !pdfPlain(payload.result)
     )
       throw Error('STOCK_PDF_EXPORT_REQUEST');
@@ -131,6 +173,9 @@ export function snapshotStockPdfRequest(
     return {
       state: snapshotStockPdfState(payload.state),
       result: snapshotStockPdfTransport(payload.result) as StockResult,
+      ...(Object.hasOwn(payload, 'language')
+        ? { language: payload.language as 'ar' | 'en' }
+        : {}),
     };
   }
   if (

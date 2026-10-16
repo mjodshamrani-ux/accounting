@@ -145,6 +145,27 @@ const statuses: Record<string, [string, string]> = {
 export function domainEvidenceCopy(lang: 'ar' | 'en') {
   const i = lang === 'ar' ? 0 : 1;
   return {
+    citations: ['مصادر حقول PDF', 'PDF field sources'][i],
+    citationHeaders:
+      i === 0
+        ? [
+            'الصفحة',
+            'السطر',
+            'الحقل',
+            'النص الأصلي',
+            'معرف السجل',
+            'بصمة المصدر',
+          ]
+        : [
+            'Page',
+            'Line',
+            'Field',
+            'Original text',
+            'Record ID',
+            'Source hash',
+          ],
+    previous: ['السابق', 'Previous'][i],
+    nextPage: ['التالي', 'Next'][i],
     title: ['شرح أدلة النتيجة', 'Explain result evidence'][i],
     intro: [
       'شرح حتمي من الحساب الحالي. لا يفترض سببًا للفرق ولا يكتب قيدًا أو يمنح اعتمادًا.',

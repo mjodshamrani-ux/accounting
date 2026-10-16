@@ -21,7 +21,10 @@ export function stockPdfTextParts(text: string): string[] {
   return parts.length ? parts : [''];
 }
 /** Presentation only, including unresolved source evidence; no new matching. */
-export function stockPdfWorkbookTables(r: StockResult): StockEvidenceTable[] {
+export function stockPdfWorkbookTables(
+  r: StockResult,
+  archive = true,
+): StockEvidenceTable[] {
   const e = r.pdfEvidence;
   if (!e) return [];
   const tables: StockEvidenceTable[] = [];
@@ -41,36 +44,37 @@ export function stockPdfWorkbookTables(r: StockResult): StockEvidenceTable[] {
       ]),
     ),
   );
-  table(
-    'PDF literals',
-    [
-      'SHA256',
-      'Page',
-      'Line',
-      'Items',
-      'Start UTF16',
-      'End UTF16',
-      'Operators',
-      'Part',
-      'Parts',
-      'Literal text',
-    ],
-    e.literals.flatMap((v) => {
-      const parts = stockPdfTextParts(v.text);
-      return parts.map((part, i) => [
-        v.span.sourceHash,
-        v.span.page,
-        v.span.line,
-        JSON.stringify(v.span.items),
-        v.start,
-        v.end,
-        JSON.stringify(v.operators),
-        i + 1,
-        parts.length,
-        part,
-      ]);
-    }),
-  );
+  if (archive)
+    table(
+      'PDF literals',
+      [
+        'SHA256',
+        'Page',
+        'Line',
+        'Items',
+        'Start UTF16',
+        'End UTF16',
+        'Operators',
+        'Part',
+        'Parts',
+        'Literal text',
+      ],
+      e.literals.flatMap((v) => {
+        const parts = stockPdfTextParts(v.text);
+        return parts.map((part, i) => [
+          v.span.sourceHash,
+          v.span.page,
+          v.span.line,
+          JSON.stringify(v.span.items),
+          v.start,
+          v.end,
+          JSON.stringify(v.operators),
+          i + 1,
+          parts.length,
+          part,
+        ]);
+      }),
+    );
   table(
     'PDF links',
     ['Register ID', 'Related role', 'Related ID', 'Supported'],
@@ -123,17 +127,19 @@ export function stockPdfWorkbookTables(r: StockResult): StockEvidenceTable[] {
   // Lossless local evidence, not another financial authority. This includes
   // every native item, exact glyph trace, role/value span, section/continuation
   // boundary, unresolved line and link. Chunking avoids Excel's 32767-cell cap.
-  const parts = stockPdfTextParts(JSON.stringify(e));
-  table(
-    'PDF evidence',
-    ['Format', 'SHA256', 'Part', 'Parts', 'JSON text'],
-    parts.map((part, i) => [
-      'inventory-pdf-workbook-evidence-1',
-      e.reading.source.sha256,
-      i + 1,
-      parts.length,
-      part,
-    ]),
-  );
+  if (archive) {
+    const parts = stockPdfTextParts(JSON.stringify(e));
+    table(
+      'PDF evidence',
+      ['Format', 'SHA256', 'Part', 'Parts', 'JSON text'],
+      parts.map((part, i) => [
+        'inventory-pdf-workbook-evidence-1',
+        e.reading.source.sha256,
+        i + 1,
+        parts.length,
+        part,
+      ]),
+    );
+  }
   return tables;
 }

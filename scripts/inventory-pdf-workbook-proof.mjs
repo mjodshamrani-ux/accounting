@@ -11,7 +11,9 @@ import {
   pdfDecision,
 } from '../tests/helpers/inventory-pdf-lifecycle-fixture.ts';
 const root = path.resolve(import.meta.dirname, '..');
+const bilingual = process.argv.includes('--bilingual');
 const output =
+  (bilingual ? process.env.INV_PDF_WORKSPACE_PROOF_DIR : undefined) ??
   process.env.INV_PDF_WORKBOOK_PROOF_DIR ??
   path.join(root, 'work/inventory-pdf-workbook');
 await mkdir(output, { recursive: true });
@@ -60,6 +62,17 @@ try {
         path.join(out, name + '-' + phase + '.xlsx'),
         Buffer.from(bytes),
       );
+      if (bilingual) {
+        const arabic = await client.request('stock-pdf-export', {
+          state: replay.state,
+          result: replay.result,
+          language: 'ar',
+        });
+        await writeFile(
+          path.join(out, name + '-' + phase + '-ar.xlsx'),
+          Buffer.from(arabic),
+        );
+      }
       phases[phase] = replay.result;
       count++;
       return replay;
@@ -297,6 +310,164 @@ for (const [id, mutate, reason] of [
   assert.notEqual(check.status, 0, id);
   assert.match(check.stderr, new RegExp('AssertionError: ' + reason), id);
   report.reportControls.push({ id, rejectedByOriginalMetadata: true });
+}
+if (bilingual) {
+  const checked = spawnSync(
+    process.env.PYTHON ?? 'python3',
+    [
+      '-B',
+      path.join(root, 'audit/inventory-pdf-workspace/check_workspace.py'),
+      '--books',
+      out,
+      '--sources',
+      path.join(out, 'sources'),
+      '--result',
+      result,
+    ],
+    { encoding: 'utf8', timeout: 60000, maxBuffer: 8 * 1024 * 1024 },
+  );
+  await writeFile(
+    path.join(out, 'bilingual.log'),
+    checked.stdout + checked.stderr,
+  );
+  assert.equal(checked.status, 0, checked.stderr);
+  report.bilingual = JSON.parse(checked.stdout);
+  const labels = JSON.parse(
+    await readFile(
+      path.join(root, 'audit/inventory-pdf-workspace/labels.ar.json'),
+      'utf8',
+    ),
+  );
+  const originalAr = await readFile(
+    path.join(out, 'INV1F-P02-unreviewed-ar.xlsx'),
+  );
+  report.arabicControls = [];
+  for (const [id, edit, reason] of [
+    ['positive-rewrite', null, null],
+    [
+      'same-total-wrong-members',
+      (b) => {
+        const s = b.getWorksheet(labels.Register),
+          a = s.getCell('J2').value;
+        s.getCell('J2').value = s.getCell('J3').value;
+        s.getCell('J3').value = a;
+      },
+      'TABLE_Register',
+    ],
+    [
+      'wrong-quantity',
+      (b) => {
+        b.getWorksheet(labels.Register).getCell('G2').value = 500;
+      },
+      'TABLE_Register',
+    ],
+    [
+      'wrong-dimension',
+      (b) => {
+        b.getWorksheet(labels.Register).getCell('F2').value =
+          'warehouse=SOUTH;batch=LOT-X';
+      },
+      'TABLE_Register',
+    ],
+    [
+      'wrong-link',
+      (b) => {
+        b.getWorksheet(labels['PDF links']).getCell('C2').value =
+          'foreign-member';
+      },
+      'TABLE_PDF links',
+    ],
+    [
+      'wrong-header',
+      (b) => {
+        b.getWorksheet(labels.Register).getCell('G1').value =
+          labels['Posted value minor'];
+      },
+      'HEADERS_Register',
+    ],
+    [
+      'wrong-direction',
+      (b) => {
+        b.getWorksheet(labels.Register).views = [{ rightToLeft: false }];
+      },
+      'LANGUAGE_DIRECTION',
+    ],
+    [
+      'missing-original',
+      (b) => {
+        b.getWorksheet(labels.Sources).getCell('H2').value = 'AAAA';
+      },
+      'SOURCE_BYTES',
+    ],
+    [
+      'missing-evidence',
+      (b) => {
+        b.getWorksheet(labels['PDF evidence']).spliceRows(2, 1);
+      },
+      'EVIDENCE_PARTS',
+    ],
+    [
+      'unearned-approval',
+      (b) => {
+        b.getWorksheet(labels.Summary).eachRow((r) => {
+          if (r.getCell(1).value === labels.Review)
+            r.getCell(2).value = labels.accepted;
+        });
+      },
+      'SUMMARY_Review',
+    ],
+    [
+      'formula',
+      (b) => {
+        b.getWorksheet(labels.Register).getCell('E2').value = {
+          formula: '1+1',
+          result: 2,
+        };
+      },
+      'FORMULA',
+    ],
+  ]) {
+    const b = new ExcelJS.Workbook();
+    await b.xlsx.load(originalAr);
+    if (edit) edit(b);
+    const target = path.join(out, 'control-ar-' + id + '.xlsx');
+    await writeFile(target, Buffer.from(await b.xlsx.writeBuffer()));
+    const r = spawnSync(
+      process.env.PYTHON ?? 'python3',
+      [
+        '-B',
+        path.join(root, 'audit/inventory-pdf-workspace/check_workspace.py'),
+        '--books',
+        out,
+        '--sources',
+        path.join(out, 'sources'),
+        '--result',
+        result,
+        '--single',
+        target,
+        '--case',
+        'INV1F-P02',
+        '--language',
+        'ar',
+      ],
+      { encoding: 'utf8', timeout: 60000, maxBuffer: 8 * 1024 * 1024 },
+    );
+    await writeFile(
+      path.join(out, 'control-ar-' + id + '.log'),
+      r.stdout + r.stderr,
+    );
+    assert.equal(r.signal, null, id);
+    assert.ok(!r.error, id);
+    if (edit) {
+      assert.notEqual(r.status, 0, id);
+      assert.match(r.stderr, new RegExp('AssertionError: .*' + reason), id);
+    } else assert.equal(r.status, 0, r.stderr);
+    report.arabicControls.push({
+      id,
+      expected: edit ? 'reject' : 'accept',
+      passed: true,
+    });
+  }
 }
 report.passed = true;
 await writeFile(path.join(out, 'checks.json'), JSON.stringify(report, null, 2));

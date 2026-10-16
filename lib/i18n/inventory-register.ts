@@ -8,7 +8,7 @@ const en = {
   claim:
     'This does not calculate inventory cost, aggregate quantities, post entries or establish existence, ownership, source authenticity or ERP completeness.',
   family:
-    'Use a flat CSV register or a sectioned, field-row matrix or parent/batch header CSV / Excel register, with three CSV mapping, policy and GL sources. Structured Excel uses one worksheet and literal item identities. SAR / JPY / KWD, one snapshot date; 8 MiB per original and 20,000 physical data rows in total.',
+    'Use a supported CSV / Excel register layout or native-text PDF, with three CSV mapping, policy and GL sources. Excel uses one worksheet and literal item identities. SAR / JPY / KWD, one snapshot date; 8 MiB per original and 20,000 physical data rows in total. Scanned PDFs are not supported.',
   columnDetected: 'Dimensions come from each column’s parent and batch headers',
   columnCitations: 'Column dimension sources',
   columnCitationHeaders: STOCK_COLUMN_CITATION_HEADERS,
@@ -313,7 +313,7 @@ const ar: typeof en = {
   claim:
     'لا يحسب هذا المسار تكلفة المخزون أو يجمع الكميات أو ينشئ قيودًا، ولا يثبت الوجود أو الملكية أو أصالة الأصل أو اكتمال نظام المنشأة.',
   family:
-    'السجل المسطح بصيغة CSV، وسجل الأقسام أو مصفوفة الحقول أو تفاصيل رؤوس الأبعاد بصيغة CSV أو Excel، مع ثلاثة ملفات CSV للخريطة والسياسة والأستاذ. سجل Excel بورقة واحدة ومعرّفات أصناف نصية. SAR / JPY / KWD وتاريخ واحد؛ 8 ميبيبايت لكل أصل و20 ألف صف بيانات إجمالًا.',
+    'السجل بصيغة CSV أو Excel ضمن البنى المدعومة أو PDF نصي مع ثلاثة ملفات CSV للخريطة والسياسة والأستاذ. سجل Excel بورقة واحدة ومعرّفات أصناف نصية. SAR / JPY / KWD وتاريخ واحد و8 ميبيبايت لكل أصل و20 ألف صف بيانات إجمالًا. لا يشمل PDF المصوّر.',
   columnDetected: 'أبعاد كل عمود مأخوذة من الرؤوس المرتبطة به',
   columnCitations: 'مصادر أبعاد الأعمدة',
   columnCitationHeaders: [

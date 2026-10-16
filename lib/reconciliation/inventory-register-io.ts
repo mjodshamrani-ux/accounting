@@ -8,6 +8,7 @@ import {
 } from './inventory-hierarchy-evidence.ts';
 import ExcelJS from 'exceljs';
 import { stockPdfWorkbookTables } from './inventory-pdf-workbook-evidence.ts';
+import { inventoryPdfWorkbookLabel } from '../i18n/inventory-pdf-workbook.ts';
 import { readFile } from './io.ts';
 import { bindInventorySectionNative } from './inventory-section-native.ts';
 import { snapshotStockInputRequest } from './inventory-register-request.ts';
@@ -215,6 +216,7 @@ export async function writeStockEvidenceWorkbook(
     sheet: string;
   }[],
   observations: Value[][] = [],
+  language: 'ar' | 'en' = 'en',
 ) {
   if (r.cells.length + 1 > 1048576 || r.inventory.length + 1 > 1048576)
     throw Error('STOCK_EXPORT_CAPACITY');
@@ -439,9 +441,30 @@ export async function writeStockEvidenceWorkbook(
   }
   const book = new ExcelJS.Workbook();
   for (const t of tables) {
-    const sheet = book.addWorksheet(t.name);
-    sheet.addRow(t.headers);
-    for (const row of t.rows) sheet.addRow(row);
+    const arabic = language === 'ar' && !!r.pdfEvidence;
+    const label = (v: string) => (arabic ? inventoryPdfWorkbookLabel(v) : v);
+    const sheet = book.addWorksheet(label(t.name));
+    if (arabic) sheet.views = [{ rightToLeft: true }];
+    sheet.addRow(t.headers.map(label));
+    for (const row of t.rows) {
+      if (arabic && t.name === 'Summary') {
+        const key = row[0] as string;
+        sheet.addRow([
+          label(key),
+          [
+            'Claim',
+            'Register minor basis',
+            'Status',
+            'Financial',
+            'Review',
+            'Scope confirmed',
+            'Completeness confirmed',
+          ].includes(key)
+            ? label(String(row[1]))
+            : row[1],
+        ]);
+      } else sheet.addRow(row);
+    }
   }
   const data = await book.xlsx.writeBuffer();
   return new Uint8Array(data).buffer;

@@ -33,7 +33,9 @@ def normal(value):
     return None if value == '' else value
 
 def check_workbook(book, folder, r):
-    tables = reader.read_workbook(book)
+    return check_tables(reader.read_workbook(book), folder, r)
+
+def check_tables(tables, folder, r):
     assert list(tables) == SHEETS, 'SHEET_SET_ORDER'
     def table(name, headers):
         data = tables[name]

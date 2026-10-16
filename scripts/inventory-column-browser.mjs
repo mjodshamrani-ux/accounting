@@ -166,7 +166,7 @@ try {
       assert.equal(await input.isEnabled(), true);
       assert.equal(
         await input.getAttribute('accept'),
-        i === 0 ? '.csv,.xlsx' : '.csv',
+        i === 0 ? '.csv,.xlsx,.pdf' : '.csv',
       );
       await input.setInputFiles(path.join(sources, entry.files[i]));
       await wait();

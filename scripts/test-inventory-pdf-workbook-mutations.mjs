@@ -37,8 +37,8 @@ const mutations = [
   [
     'borrow-expected-result',
     request,
-    'result: snapshotStockPdfTransport(payload.result) as StockResult,',
-    'result: payload.result as StockResult,',
+    "result: snapshotStockPdfTransport(payload.result) as StockResult,\n      ...(Object.hasOwn(payload, 'language')",
+    "result: payload.result as StockResult,\n      ...(Object.hasOwn(payload, 'language')",
   ],
   [
     'skip-returned-workbook-binding',
