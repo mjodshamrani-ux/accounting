@@ -3,14 +3,14 @@
   "source": [
     {
       "path": ".gitattributes",
-      "bytes": 341,
-      "sha256": "796514dcb1f66d22e22fc03aa5b1244c56711d97600306ea34cbb1e8fd449aa1",
+      "bytes": 498,
+      "sha256": "97a3cb51ede80950895427e55bb5da3414277daae51fdf080af918cda16fa20d",
       "kind": "text"
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 32251,
-      "sha256": "9cef2ea4eb92197d9b5f739726dd90311525477fbd5b2800119b35e38fcc50e6",
+      "bytes": 32609,
+      "sha256": "6966257a4435f2b36d368cf5c6375396729aed39553fe1c614573d063482f011",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 6923,
-      "sha256": "bf87bbe88aebfa6b1b2df791067b4ce4e2f61aea14590bba08f74e835d0c223b",
+      "bytes": 7061,
+      "sha256": "21918632fcc3ce6752b35778f9991d6c982e5dcadf29109dceacdabdb238cd1b",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 16393,
-      "sha256": "a9f0dde7b73a1557b03cc3de11918dcc2938c551aea703ca61ef9101ac1745aa",
+      "bytes": 16452,
+      "sha256": "104c5da18591a586cdbe000c97ec8dc19d25d913c52aaa9a9de21092c82fa6a6",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 59319,
-      "sha256": "ed155490b0b43b075861e4b5accc4e5596e18d9722fa1f9e66db61fd9b9e8127",
+      "bytes": 61203,
+      "sha256": "2e1a87c833b649e066f1cf4bea4f85bdc65601b0dab27c781b74f9b0cb3e6f94",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 11761,
-      "sha256": "9393e995ff4252be0b1f90ec129ca6bf5927eeb9f16f542e72725e05a3a16bc1",
+      "bytes": 12743,
+      "sha256": "6c4bbc5ecf5c9ba78d6759c52bac3cc8b43a1e85ab3b3a1595e10b7b7fcca6e4",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 6157,
-      "sha256": "b03feff4625f31d96eba03fc209e08114461bfa73f13b2bc3910d18a4e94b903",
+      "bytes": 7466,
+      "sha256": "8369993b501fc9c34e06ce39d30a63bfb27953af3d15a07ed6e24c41250b2f1d",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 17991,
-      "sha256": "342d6f2c65a9db0579c85263db4398129a073b57f3f50d1a699db54e00022038",
+      "bytes": 18443,
+      "sha256": "4cef1978670de9f67c2e3ab7e191e299a7b053c32dc13fde11f948262491e4b0",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 7675,
-      "sha256": "1ddf08506a89ada51bb3f98fd0c1916615f1d6b585203529b3647fe99fb03df8",
+      "bytes": 7781,
+      "sha256": "e05d395edaefda76071649f45ad374f7e5bfb90eb7eb7d3bff2ade163a045f49",
       "kind": "text"
     },
     {
@@ -40897,6 +40897,366 @@
       "path": "tests/hard-cases-gate.test.ts",
       "bytes": 4230,
       "sha256": "17598c5cf18a8f5626a35deff414cf32c725dfb16f505b6c48cb6c1d73cf8d7b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/README.ar.md",
+      "bytes": 5744,
+      "sha256": "30c892ab084f650ede7ff0af95f6e3e998633e6dd72032aec7f33dfa6a853fc1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/contract.json",
+      "bytes": 9192,
+      "sha256": "400b8cbcda2447bf36710d38a8f91786d1f07951fc20e8894f71a969c93f7e34",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS01-cashbook.csv",
+      "bytes": 725,
+      "sha256": "ab810620875bbd51f050d873a3789b798244ad66e9e4bf84f23226f3932a483f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS01-cashbook.xlsx",
+      "bytes": 7008,
+      "sha256": "6bd408c85e97a04883bb5a53cdd59e7d6f88e3580fbad3f88a4ca25cfce3ca53",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS01-statement.csv",
+      "bytes": 881,
+      "sha256": "201100a3d44448291dd0b8b9eb305a05fd69d6bfcd02e809c876a3ed5d435a70",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS01-statement.pdf",
+      "bytes": 24791,
+      "sha256": "9af781800ca59c5e3cdc4795d1483384610bf7b387f631b7d733cd1ff06bb296",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS01-statement.xlsx",
+      "bytes": 7130,
+      "sha256": "0ef7b840c987f0e43972b5f04949d926b8a0da0965ff824f5773c6b82156a6d0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS02-cashbook.csv",
+      "bytes": 795,
+      "sha256": "5cb021bea7da1ed464b7331d8295e32bb540fb68d9164d7a01576dd5a762b0ff",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS02-statement.pdf",
+      "bytes": 25017,
+      "sha256": "0e64d9006b103e7bad689830e4994467ea0b4f64ae2b898a4a790041ff8b94a5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS03-cashbook.csv",
+      "bytes": 856,
+      "sha256": "f4ff32e784b9e44350ca9190e497e2c7d9ab1a53d27ea067ae7d5990fa2943f8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS03-statement.pdf",
+      "bytes": 24734,
+      "sha256": "84f866393f84fff57ae417330dca7c6861c4121943f21165929fa25816af2b7c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS04-cashbook.csv",
+      "bytes": 721,
+      "sha256": "45a7e2d390ea0457bd894fed01b939d441d93ab5811df2526437d23f8ffdc338",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS04-statement.pdf",
+      "bytes": 24971,
+      "sha256": "cbcb61a894e279aaca5bdbf499d72d0d49f37b6fa42c84b2ca89396d7ba7904b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS05-cashbook.csv",
+      "bytes": 758,
+      "sha256": "341a75178d95adf6d687e159f76a12245dcb835d10ed7cbf1d7fce646f7ee3e5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS05-statement.pdf",
+      "bytes": 24883,
+      "sha256": "b88c24f3a1f7b5395130b2149726e839cd547403832166c5bf11e062225abf8f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS06-cashbook.csv",
+      "bytes": 749,
+      "sha256": "94c30a09bb4c9a27de431af5bf405406a0616b56c30434e6d9af60a9b659e42d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS06-statement.pdf",
+      "bytes": 24850,
+      "sha256": "1daa2d7b37468626f5546317db469e7b8e5ac5d7afad68cbcba11cd0dbc5f96b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS07-cashbook.csv",
+      "bytes": 802,
+      "sha256": "89254211461894202910f1e33ad174d5920bd635e81eb9f2501d1eb31ba35f82",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS07-statement.pdf",
+      "bytes": 25104,
+      "sha256": "4c9b3384d57ec902649c2dc53f5f3bd1162b61a195447c169f6f961314b075a8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS08-cashbook.csv",
+      "bytes": 977,
+      "sha256": "60de3fcdcfe7f73bfaffb0e8aacb7e4c230b7857a06c535a28904c49bb93a92b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS08-statement.pdf",
+      "bytes": 26163,
+      "sha256": "9d027e3e56b47e926b87fde3ce9627b25357c720c8e87e6493e8cfff8e79e842",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS09-cashbook.csv",
+      "bytes": 987,
+      "sha256": "d49f5868b31a67e860ae9131348ec7eaa5307f5c2ff45535751b04dcbaf87e7e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS09-statement.pdf",
+      "bytes": 25213,
+      "sha256": "229ced30b7ff1ed46eeb2587a3fe14a5de789b9f0893de23452f1d7ac14206e6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS10-cashbook.csv",
+      "bytes": 1373,
+      "sha256": "d22b3668ba8a83f1e6e3fd0d5b2b656a7f6c3d2c8f582681329f70650bb0abda",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS10-statement.pdf",
+      "bytes": 24752,
+      "sha256": "07fc998682c79803f00f20e1469ecfaa9927bbdb4f554d424ffed8a922140ab4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS11-cashbook.csv",
+      "bytes": 721,
+      "sha256": "4c6da3128bade4126d2fecb64842df519aa129fa79412ffd892de1989659e6d6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS11-statement.pdf",
+      "bytes": 29151,
+      "sha256": "058b0dae80bf2bfc0c0cbf17ec79aa04e4ed91c71aa65fedc83948b49313e689",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS12-cashbook.csv",
+      "bytes": 770,
+      "sha256": "8a75f9aa0b1b44e1962dbf219f2fa9b927ee87cae203d3a9c8cca97a1dfd8fd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS12-statement.pdf",
+      "bytes": 24646,
+      "sha256": "00e4e442149ae1e03c37bfb862b432020b4962bdf2245023d336dd677f45b328",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS13-cashbook.csv",
+      "bytes": 740,
+      "sha256": "fe9678f2a48a496359d0ba8e67a8027bac794387c87b4aef21c784ac107cbe20",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS13-statement.pdf",
+      "bytes": 25063,
+      "sha256": "2b91157a10c8f1835318b3988d82f5f852c0eacec5027014604b2cfdde33d817",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS14-cashbook.csv",
+      "bytes": 113159,
+      "sha256": "7a00a8af82952c3a7097a3167adceca2925d2af37647633117ac2ca26e129520",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS14-statement.pdf",
+      "bytes": 281981,
+      "sha256": "8e58fd93e46cd29ebc80e8b23e1c9f0d743827d763a21692ccae6970df3e3246",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS15-cashbook.csv",
+      "bytes": 161961,
+      "sha256": "eaae990538e5bb73b128f3b0164b56846b542f565cd1e7e13c3f9daeac1aff3e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS15-statement.pdf",
+      "bytes": 396748,
+      "sha256": "a8993327fdd95521ca1bca3c9706cbc8e5672b567a4ec7c5569d0c293dbc9e2c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS16-cashbook.csv",
+      "bytes": 695,
+      "sha256": "dbe620ef96f54f4f7a8f36916bed0ee5d4dbe7515f38a526b5ac1866d5f48bd6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/BS16-statement.pdf",
+      "bytes": 27867,
+      "sha256": "e2ea6865de828ad9de6b361a0c5c9ec9c6e6e3559c87d6e6322e42b6e6ca624e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 foundation: rendered by Chromium page.pdf (DejaVu Sans) or exceljs from audit/bank-statement-foundation/stories.mjs, sealed by frozen/INPUT-MANIFEST.json and read back independently (VERIFY.json, oracle.py). Fictional bank, account and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/EXPECTED.json",
+      "bytes": 111147,
+      "sha256": "f587562c48addfe2c73f34ee34bd83b6891d70be9c02358ff922bb4749d59c21",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/INPUT-MANIFEST.json",
+      "bytes": 5264,
+      "sha256": "0df35a0963856e4240472d776e3af3e97e3f523f55b9ca233b27c58960c745c2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/frozen/VERIFY.json",
+      "bytes": 3572,
+      "sha256": "b8df3bd2131003eb4676c8acbf606bcb3e5e72a15c9a0e4fd4d2c9f793d9c787",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/mutate_oracle.py",
+      "bytes": 3428,
+      "sha256": "9a7275b884e0aa58a4ec9a40414dc9003f2e82c9876b25abdf31159421e2648d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/oracle.py",
+      "bytes": 16861,
+      "sha256": "07033ecfcf3ce4bc5ae8617ee28d9cbb3f51623a41ccdb3c0cf3716ed8f543f2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/render.mjs",
+      "bytes": 9315,
+      "sha256": "d844984944a394c25a62a407bc2d962189332d7b86f4874e05c2b884b7bab9d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/stories.mjs",
+      "bytes": 15775,
+      "sha256": "3f9dc9771358960f363f8bf8201dcd63fa9213658e04955faef9ff7899b96ff1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/test_oracle.py",
+      "bytes": 13218,
+      "sha256": "b2d71b364d50d87f3565ddd67e23bcf494b0145efe58b6007cd3bb43168920a2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/verify_assets.py",
+      "bytes": 7137,
+      "sha256": "eb79b4f4a331ec516f616f50b104a75c1b66baa98a205221f8a277c71a6d3b63",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-FOUNDATION.ar.md",
+      "bytes": 17655,
+      "sha256": "0f66a766ffdc8980d28478fa90e52f944fd6f3af4b08a34ec83b91e20382c6c4",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-baseline.mjs",
+      "bytes": 6108,
+      "sha256": "949904bfe9f97d2b6a607e98b444a437214f7cdd3b33b60b27cd565f47417a38",
       "kind": "text"
     }
   ],

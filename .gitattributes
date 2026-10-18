@@ -4,3 +4,6 @@ audit/split-section/frozen/**/source.pdf binary
 audit/split-section/frozen/**/expected.csv binary
 audit/split-section/capacity-regression/**/source.pdf binary
 audit/split-section/capacity-regression/**/expected.csv binary
+audit/bank-statement-foundation/frozen/*.pdf binary
+audit/bank-statement-foundation/frozen/*.csv binary
+audit/bank-statement-foundation/frozen/*.xlsx binary
