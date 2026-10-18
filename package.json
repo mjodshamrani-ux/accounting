@@ -33,6 +33,7 @@
     "prepare:ocr": "node scripts/prepare-ocr-assets.mjs",
     "brand:social": "node scripts/generate-social-assets.mjs",
     "test:reliability:quick": "node --experimental-strip-types audit/reliability/run.mjs --quick",
+    "test:hard-cases": "node --experimental-strip-types audit/hard-cases/gate.mjs --out work/hard/gate",
     "test:reliability:p2": "node scripts/test-p2-contracts.mjs",
     "test:reliability:partial": "node scripts/test-partial-contracts.mjs",
     "test:reliability": "node --experimental-strip-types audit/reliability/run.mjs --split development,validation,final --frozen",

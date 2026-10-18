@@ -5,7 +5,7 @@
 // reveals the answer (hidden ids, the expected outcome, the variant name) is
 // written into a rendered file; files carry only the columns an accountant's
 // report would show.
-export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.3.0';
+export const HARD_CASES_VERSION = 'tarasuf-hard-cases-1.4.0';
 
 function rng(seed) {
   let state = seed >>> 0 || 1;
@@ -95,6 +95,17 @@ export const TEMPLATES = {
   'H04-description-role': ['same-role', 'other-role'],
   'H05-order-number-as-document': ['order-number'],
   'H06-kept-evidence-arabic': ['voucher-and-batch'],
+  // ---- counter-cases (1.4.0, EVAL-1): written against capabilities the
+  // product added after their contracts were fixed, only in the counter
+  // split, so no earlier split changes.
+  'G12-nm-counter': [
+    'other-identity',
+    'no-identity-part',
+    'off-by-one',
+    'two-identities',
+    'identity-on-outsider',
+  ],
+  'G13-invalid-date-member': ['member-invalid'],
 };
 
 // Background rows keep every scenario honest: they must be matched in every
@@ -171,11 +182,35 @@ const CONTRACTS = {
     'mirror of G01',
   ),
   'G03-payment-nm|identity': {
-    kind: 'unsupported',
-    outcomes: ['review', 'unmatched'],
+    kind: 'solve',
+    outcomes: ['auto'],
     signals: [],
-    note: 'N:M has no product path. Either outcome is a safe refusal; neither is support for N:M.',
+    version: 2,
+    note: 'two complete groups under one explicit bank reference held by every member and no other row: one payment, approved as group equivalence, not row-to-row allocation',
   },
+  'G12-nm-counter|other-identity': REFUSE_EITHER(
+    'one part carries another bank reference: the identity group is not complete',
+  ),
+  'G12-nm-counter|no-identity-part': REFUSE_EITHER(
+    'one part has no bank reference: membership is not proven for every row',
+  ),
+  'G12-nm-counter|off-by-one': REFUSE_EITHER(
+    'the identity groups differ by one minor unit: not equivalent',
+  ),
+  'G12-nm-counter|identity-on-outsider': REFUSE_EITHER(
+    'an unrelated row carries the same bank reference: the identity group is not the payment',
+  ),
+  'N08-invalid-date|feb-30': {
+    kind: 'isolate',
+    outcomes: ['unmatched', 'review'],
+    signals: [],
+    version: 2,
+    rejection: { pattern: 'غير موجود في التقويم|تاريخ غير صالح' },
+    note: 'the impossible date is a row error with its reason; the comparison continues, the row and its counterpart stay unapproved, and other rows still match',
+  },
+  'G13-invalid-date-member|member-invalid': REFUSE_EITHER(
+    'a group member has an impossible date: isolating it must not approve the rest of its group',
+  ),
   'G04-sum-no-identity|plain': REFUSE_EITHER(
     'only an amount coincidence links the rows; a suggestion is acceptable, not required',
   ),
@@ -275,9 +310,34 @@ const CONTRACTS = {
   ),
 };
 /** The contract of one scenario, from the table above or its expectation. */
+// Contracts the product outgrew (EVAL-1). A superseded contract is never
+// edited in place: the new one carries a higher version and the retired one
+// stays here with the reason, so earlier results keep their meaning.
+export const CONTRACT_HISTORY = {
+  'G03-payment-nm|identity': [
+    {
+      version: 1,
+      kind: 'unsupported',
+      retired: '2026-10-18',
+      reason:
+        'the product added a deliberate N:M path for complete groups under one explicit bank reference (engine 0.3.26); v1 counted every approval as unsafe. Counter-cases: G12-nm-counter.',
+    },
+  ],
+  'N08-invalid-date|feb-30': [
+    {
+      version: 1,
+      kind: 'invalid',
+      rejection: { code: 'FORMAT_INVALID', field: 'dateFormat' },
+      retired: '2026-10-18',
+      reason:
+        'the product now isolates the impossible date as a row error and compares the rest (partial result, C-2) instead of stopping. Counter-case: G13-invalid-date-member.',
+    },
+  ],
+};
+
 function contractFor(d, expect, targetCount, sources) {
   const written = CONTRACTS[`${d.template}|${d.variant}`];
-  if (written) return written;
+  if (written) return { version: 1, ...written };
   if (expect === 'auto')
     return targetCount
       ? { kind: 'solve', outcomes: ['auto'], signals: [] }
@@ -397,17 +457,20 @@ export function buildHardCase(d) {
       extraFields.add('bankReference');
       const va = parts(total, 2),
         vb = parts(total, 3);
-      put(
+      const ka = put(
         'a',
         va.map((v) => payment(v, day(15))),
         'group',
       );
-      put(
+      const kb = put(
         'b',
         vb.map((v) => payment(v, day(15))),
         'group',
       );
-      expect = 'unsupported';
+      // Contract v2 (1.4.0): two complete groups under one explicit bank
+      // reference held by every member and no other row are one payment.
+      // v1 called N:M unsupported; the history is kept in CONTRACT_HISTORY.
+      group(ka, kb);
       break;
     }
     case 'G04-sum-no-identity': {
@@ -877,7 +940,7 @@ export function buildHardCase(d) {
         ],
         'target',
       );
-      expect = 'invalid';
+      expect = 'isolated';
       break;
     }
     case 'F09-missing-amount-column':
@@ -889,6 +952,70 @@ export function buildHardCase(d) {
       invalid = ['corrupt-file', null];
       expect = 'invalid';
       break;
+    case 'G12-nm-counter': {
+      // Counter-cases to the N:M identity path (G03 contract v2). Only
+      // two-identities may be approved, each group with its exact members.
+      extraFields.add('bankReference');
+      const va = parts(total, 2),
+        vb = parts(total, 3);
+      if (d.variant === 'two-identities') {
+        // A second payment under its own bank reference, with the same total
+        // and interleaved rows: totals alone cannot tell the groups apart.
+        const other = `BNK-Y${400000 + n}`;
+        const wa = parts(total, 2),
+          wb = parts(total, 3);
+        const rowsA = [
+          payment(va[0], day(15)),
+          payment(wa[0], day(15), { bankReference: other }),
+          payment(va[1], day(15)),
+          payment(wa[1], day(15), { bankReference: other }),
+        ];
+        const rowsB = [
+          payment(vb[0], day(15)),
+          payment(wb[0], day(15), { bankReference: other }),
+          payment(vb[1], day(15)),
+          payment(wb[1], day(15), { bankReference: other }),
+          payment(vb[2], day(15)),
+          payment(wb[2], day(15), { bankReference: other }),
+        ];
+        const ka = put('a', rowsA, 'group'),
+          kb = put('b', rowsB, 'group');
+        group([ka[0], ka[2]], [kb[0], kb[2], kb[4]]);
+        group([ka[1], ka[3]], [kb[1], kb[3], kb[5]]);
+        break;
+      }
+      const rowsB = vb.map((v) => payment(v, day(15)));
+      if (d.variant === 'other-identity')
+        rowsB[1] = { ...rowsB[1], bankReference: `BNK-X${400000 + n}` };
+      if (d.variant === 'no-identity-part')
+        rowsB[1] = { ...rowsB[1], bankReference: '' };
+      if (d.variant === 'off-by-one')
+        rowsB[2] = { ...rowsB[2], minor: rowsB[2].minor - 1 };
+      if (d.variant === 'identity-on-outsider')
+        rowsB.push(payment(random(10, 90) * 100, day(15)));
+      put(
+        'a',
+        va.map((v) => payment(v, day(15))),
+        'group',
+      );
+      put('b', rowsB, 'group');
+      expect = 'review';
+      break;
+    }
+    case 'G13-invalid-date-member': {
+      // One part of an identity group has an impossible date. Isolating the
+      // row must not let the rest of its group be approved.
+      extraFields.add('bankReference');
+      const values = parts(total, 3);
+      put('a', [payment(total, day(15))], 'group');
+      put(
+        'b',
+        values.map((v, i) => payment(v, i === 1 ? '2026-02-30' : day(15))),
+        'group',
+      );
+      expect = 'review';
+      break;
+    }
     case 'H01-two-day-vendor-payments': {
       // A payment in three parts over two days under one bank reference,
       // labelled "Vendor Payment" on the statement and "Payment" in the
@@ -1270,16 +1397,21 @@ const LAYOUTS = {
 const PDF_SAFE = /^(T01|T05|T06|R04|R06|R10|N04|N05|R05|N08)/;
 const PDF_UNSAFE_VARIANT = /arabic/;
 // Splits separate templates and variants, not only seeds.
+// Counter-case templates (1.4.0) belong to the counter split only.
+const COUNTER = (t) => /^(G12|G13)-/.test(t);
 const SPLIT_TEMPLATES = {
   development: (t) =>
     !t.startsWith('C0') &&
     !t.startsWith('H') &&
+    !COUNTER(t) &&
     !['G09-equal-parts', 'R06-lookalike', 'N07-ambiguous-date'].includes(t),
-  validation: (t) => !t.startsWith('C0') && !t.startsWith('H'),
-  final: (t) => !t.startsWith('H'),
+  validation: (t) => !t.startsWith('C0') && !t.startsWith('H') && !COUNTER(t),
+  final: (t) => !t.startsWith('H') && !COUNTER(t),
   // Held out (1.3.0): every template, the held-out interactions included,
   // under layouts no other split uses. Measured once, after the fixes.
-  holdout: () => true,
+  holdout: (t) => !COUNTER(t),
+  // Counter split (1.4.0): the superseded contracts and their counter-cases.
+  counter: (t) => COUNTER(t) || /^(G03|N08)-/.test(t),
 };
 LAYOUTS.holdout = [
   [
@@ -1324,6 +1456,7 @@ LAYOUTS.holdout = [
 // (an opened final set counts as development). Same layouts and templates,
 // unseen seeds.
 LAYOUTS['final-b'] = LAYOUTS.final;
+LAYOUTS.counter = LAYOUTS.development;
 SPLIT_TEMPLATES['final-b'] = SPLIT_TEMPLATES.final;
 
 export function hardManifest(split, count, { fileRuns = false } = {}) {
@@ -1340,6 +1473,7 @@ export function hardManifest(split, count, { fileRuns = false } = {}) {
     final: 400000,
     'final-b': 600000,
     holdout: 800000,
+    counter: 1000000,
   }[split];
   const out = [];
   for (let i = 0; out.length < count; i++) {
@@ -1351,7 +1485,7 @@ export function hardManifest(split, count, { fileRuns = false } = {}) {
     )
       pair = layouts.find((p) => !p.some((l) => l.format === 'pdf')) ?? pair;
     out.push({
-      id: `HC-${{ 'final-b': 'FNB', holdout: 'HLD' }[split] ?? split.slice(0, 3).toUpperCase()}-${pad(i + 1, 5)}`,
+      id: `HC-${{ 'final-b': 'FNB', holdout: 'HLD', counter: 'CTR' }[split] ?? split.slice(0, 3).toUpperCase()}-${pad(i + 1, 5)}`,
       split,
       index: base + i,
       seed: (base + i) * 2654435761,

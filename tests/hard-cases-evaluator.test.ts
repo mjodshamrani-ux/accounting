@@ -44,6 +44,7 @@ const manifests: Record<string, unknown[]> = {
   validation: hardManifest('validation', 4000),
   development: hardManifest('development', 1200),
   holdout: hardManifest('holdout', 800),
+  counter: hardManifest('counter', 600),
 };
 const spec = (template: string, variant: string, split = 'validation') =>
   buildHardCase(
@@ -404,4 +405,73 @@ void test('evaluator: unaided and declared runs record assistance separately', a
     ),
   );
   assert.deepEqual(unaided.productReading[0].wrongColumns, ['reference']);
+});
+
+// 2.1.0: contracts the product outgrew get a new version with counter-cases.
+const history = (
+  scenarios as unknown as {
+    CONTRACT_HISTORY: Record<string, { version: number; retired: string }[]>;
+  }
+).CONTRACT_HISTORY;
+
+void test('evaluator: a superseded contract keeps its history and the new version is recorded', async () => {
+  for (const [t, v] of [
+    ['G03-payment-nm', 'identity'],
+    ['N08-invalid-date', 'feb-30'],
+  ]) {
+    const s = spec(t, v, 'counter') as unknown as {
+      oracle: { contract: { version: number } };
+    };
+    assert.equal(s.oracle.contract.version, 2, t);
+    assert.equal(history[`${t}|${v}`][0].version, 1);
+    assert.ok(history[`${t}|${v}`][0].retired);
+    const record = (await evaluateHardCase(s, engine, 'logical')) as Verdict & {
+      contractVersion: number;
+    };
+    assert.equal(record.contractVersion, 2);
+    assert.equal(record.verdict, 'pass', t);
+  }
+});
+
+void test('evaluator: an isolated row error passes only while the comparison goes on with its reason', async () => {
+  const s = spec('N08-invalid-date', 'feb-30', 'counter');
+  const noReason = tampered((r) => {
+    const sides = r as unknown as { supplier: { errors: unknown[] } };
+    sides.supplier.errors = [];
+  });
+  assert.equal(await verdict(s, noReason), 'fail-wrong-reason');
+  // The whole comparison stopped, as contract v1 required: no longer enough.
+  const stop = throwing(
+    Object.assign(
+      new Error(
+        'supplier-statement.csv: تعذر التحقق من صيغة التواريخ. صحح قراءة الأعمدة أو الصفوف المشار إليها قبل المقارنة. توجد قيم غير صالحة أو صيغ متعارضة في التاريخ. راجع المصدر.',
+      ),
+      { readiness: { code: 'FORMAT_INVALID', field: 'dateFormat' } },
+    ),
+  );
+  assert.equal(await verdict(s, stop), 'fail-not-isolated');
+});
+
+void test('evaluator: N:M groups must be approved, and with their exact members', async () => {
+  const declined = tampered((r) => {
+    for (const c of r.cases)
+      if (c.status === 'Matched' && c.ledgerMembers.length > 1)
+        c.status = 'Needs Review';
+  });
+  assert.equal(
+    await verdict(spec('G03-payment-nm', 'identity', 'counter'), declined),
+    'fail-missed',
+  );
+  const two = spec('G12-nm-counter', 'two-identities', 'counter');
+  assert.equal(await verdict(two), 'pass');
+  const swapped = tampered((r) => {
+    const groups = r.cases.filter(
+      (c) => c.status === 'Matched' && c.ledgerMembers.length === 3,
+    );
+    assert.equal(groups.length, 2);
+    const x = groups[0].ledgerMembers[0];
+    groups[0].ledgerMembers[0] = groups[1].ledgerMembers[0];
+    groups[1].ledgerMembers[0] = x;
+  });
+  assert.equal(await verdict(two, swapped), 'fail-unsafe');
 });

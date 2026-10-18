@@ -119,6 +119,8 @@ jobs:
         run: pnpm test:reliability:partial
       - name: Verify independent end-to-end foundation cases
         run: pnpm test:reliability:quick
+      - name: Living hard-case measurement with versioned contracts and triage (EVAL-1)
+        run: pnpm test:hard-cases
       - name: Independently verify bilingual Excel outputs
         run: |
           node --experimental-strip-types audit/stress/export-corpus.mjs

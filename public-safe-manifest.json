@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 32129,
-      "sha256": "10d1a54b6da7fec67b84894cf0297fe369051b3da9d03a76e59a16aa1c1a0593",
+      "bytes": 32251,
+      "sha256": "9cef2ea4eb92197d9b5f739726dd90311525477fbd5b2800119b35e38fcc50e6",
       "kind": "text"
     },
     {
@@ -11587,8 +11587,8 @@
     },
     {
       "path": "audit/hard-cases/evaluate.mjs",
-      "bytes": 19791,
-      "sha256": "8221d0d86c36685ff00087bcedcaa14d2b75b5c51559707677a85c39b7109e36",
+      "bytes": 20537,
+      "sha256": "b4c734acc187c79d599c9bced098411e47636276cb518259ac3470b18ec51181",
       "kind": "text"
     },
     {
@@ -11599,8 +11599,8 @@
     },
     {
       "path": "audit/hard-cases/scenarios.mjs",
-      "bytes": 44415,
-      "sha256": "0622ebd45174e0cce22013c2e1d930659b37711700ad68019ea632a0cb5bb242",
+      "bytes": 50044,
+      "sha256": "5de4c5875d3f5f1571c29109007ce98b20ad5922781cd61860924df8889f320f",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 6838,
-      "sha256": "0222e8079b7215bf3f0285488e36c2d60a780e777fb4623263fb075ca43a7bb4",
+      "bytes": 6923,
+      "sha256": "bf87bbe88aebfa6b1b2df791067b4ce4e2f61aea14590bba08f74e835d0c223b",
       "kind": "text"
     },
     {
@@ -36139,8 +36139,8 @@
     },
     {
       "path": "docs/reference/DELIVERY.ar.md",
-      "bytes": 6912,
-      "sha256": "7107eedbd651beed4abba346957d87b926ebbb2a3f7cf9674a647c075c9e6e92",
+      "bytes": 6933,
+      "sha256": "c87ddda2f1cc8eb6c30ae86cfb20865b6e66784feb1a2c892c407ebd1ead5561",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 59113,
-      "sha256": "4728244d69228586e3e4c6625d7e2b4e06c653c96b67a8a50a23100af35b7d73",
+      "bytes": 59319,
+      "sha256": "ed155490b0b43b075861e4b5accc4e5596e18d9722fa1f9e66db61fd9b9e8127",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 11056,
-      "sha256": "e74bc044cba48819898f905eed0c655252fc250f02c6e3db4a40b2de02fbb7df",
+      "bytes": 11761,
+      "sha256": "9393e995ff4252be0b1f90ec129ca6bf5927eeb9f16f542e72725e05a3a16bc1",
       "kind": "text"
     },
     {
@@ -36229,8 +36229,8 @@
     },
     {
       "path": "docs/roadmap/common.ar.md",
-      "bytes": 11381,
-      "sha256": "bc6944718d75127d23832b2163d2730a09e8e24747dd9d260ff08385493b1b39",
+      "bytes": 11664,
+      "sha256": "bf62ab543cca2fb747f91655f231d518987954071336502772691597a2b4da26",
       "kind": "text"
     },
     {
@@ -36277,8 +36277,8 @@
     },
     {
       "path": "docs/roadmap/supplier.ar.md",
-      "bytes": 5275,
-      "sha256": "c78a08a0401b6b4cecc1da3ccbcc196f4a810c0c0c99f0cc580c7d6d9bf3a189",
+      "bytes": 5326,
+      "sha256": "237843b520ede0bf4d1be11d80278933fdbc6f52747288706019a1900e4e80be",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 17886,
-      "sha256": "b8cbf183fe4bfc11aba823c011ad00fad406d348cd4cfce2a685a68f434253e6",
+      "bytes": 17991,
+      "sha256": "342d6f2c65a9db0579c85263db4398129a073b57f3f50d1a699db54e00022038",
       "kind": "text"
     },
     {
@@ -39569,8 +39569,8 @@
     },
     {
       "path": "tests/hard-cases-evaluator.test.ts",
-      "bytes": 14397,
-      "sha256": "33bd1484f48f5328ada60d40d2f6b35540c7293843344b25d49284921dc9ec01",
+      "bytes": 17222,
+      "sha256": "44718f24054b3e980d0fa0dfd3f9a52bab746167f90f62eb11cd0648c92c43a3",
       "kind": "text"
     },
     {
@@ -40805,14 +40805,98 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 6060,
-      "sha256": "9eab4d659dbdc58811fc4aace583c93b3d24fb0a17c63e058d59426dd0c866a0",
+      "bytes": 6529,
+      "sha256": "73bf483c09eff17e0923411b663ccadd8e630afbf0871561e0a08a1101e4de85",
       "kind": "text"
     },
     {
       "path": "tests/docs-status.test.ts",
       "bytes": 4591,
       "sha256": "7ebb67e14584398caeb4a6b306e7742c1fa81f887f2ce8839b439b9736c91f19",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/catalog.mjs",
+      "bytes": 15763,
+      "sha256": "35f7f7e46852043662f7c1bfd44f9458c26b93cfc9d042ac88b91109b0ec341b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/coverage-report.mjs",
+      "bytes": 4673,
+      "sha256": "5f4bd546ca933bb16950ee1831f27531bab4341fa99d22f50aca41c48fe4e41b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/coverage.mjs",
+      "bytes": 19092,
+      "sha256": "79227e995856f639c8a41ea8b8e627419f8fea38e27a73965a581fc7029e9216",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/gate-rules.mjs",
+      "bytes": 2288,
+      "sha256": "e9379da4935526292ce6cb6af7526cbc566f04af6a5c6733b0ffa745bb2bcfa6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/gate.mjs",
+      "bytes": 5462,
+      "sha256": "b93a059684b9538e8506df740620472fa45b80b0e338fce422f0c56c6eff2ad9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/minimize.mjs",
+      "bytes": 3671,
+      "sha256": "3be0499cf07d4b6c8218b817d0fb0bdb7db1c3198e2b075347bd19d4db533ae1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/pdf-composite-run.mjs",
+      "bytes": 15445,
+      "sha256": "c0a9951745d83863216994913b48dd7b8df7e65716b8535fd58fc0669b893774",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/pdf_verify.py",
+      "bytes": 766,
+      "sha256": "cd3efe94fd057b06bd9d91e005b7f16d98d62e82f60ed797ed6999db6319ef0e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/report.mjs",
+      "bytes": 1806,
+      "sha256": "404f8f3d020fb16390ab559807f6edacdc2231f5ad19730dc30911ec23575f01",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/run.mjs",
+      "bytes": 6191,
+      "sha256": "83d8e2543cce45fea890cb003b0e8bf698d596bb2bbf5e39d259e5da59d49888",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/scale.mjs",
+      "bytes": 5756,
+      "sha256": "a670f0c97da50425b057574eb7ca824d28e2cc342f79edc4f52e2d8eaf785758",
+      "kind": "text"
+    },
+    {
+      "path": "audit/hard-cases/triage.mjs",
+      "bytes": 4085,
+      "sha256": "2c536d5cdff11c4623d8812aa44a0f849e223f6e156c05fcf997dbaa2c457556",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/EVAL-1.ar.md",
+      "bytes": 10954,
+      "sha256": "933fca82d366e3bb3bce1344e1c5d19e97bd7c941518061d662325b0c7822f5f",
+      "kind": "text"
+    },
+    {
+      "path": "tests/hard-cases-gate.test.ts",
+      "bytes": 4230,
+      "sha256": "17598c5cf18a8f5626a35deff414cf32c725dfb16f505b6c48cb6c1d73cf8d7b",
       "kind": "text"
     }
   ],
