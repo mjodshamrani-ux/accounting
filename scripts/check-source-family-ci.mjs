@@ -113,6 +113,8 @@ const required = [
   'test:bank-statement:g2-mutations',
   'test:bank-statement:g3-proof',
   'test:bank-statement:g3-mutations',
+  'test:bank-statement:g4-mutations',
+  'test:bank-statement:workspace-browser',
   'test:inventory-pdf:native-proof',
   'test:inventory-pdf:native-mutations',
   'test:inventory-pdf:fields-proof',

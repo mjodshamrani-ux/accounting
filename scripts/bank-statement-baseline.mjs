@@ -1,8 +1,11 @@
 // BNK-PDF-1 before-activation record. The product refusing a real bank
-// statement is the gap this plan closes, not a success. Checks the frozen
-// seal, then records where the current bank path stops for each statement as
+// statement was the gap this plan closes, not a success. Checks the frozen
+// seal, then records where the bank movement path stops for each statement as
 // the bank issues it: every PDF at the bank engine's source check, and BS01
-// as CSV and XLSX at the bank engine's required columns.
+// as CSV and XLSX at the bank engine's required columns. Since G4 the bank
+// workspace offers a separate statement path (bank-statement-native-1),
+// measured by scripts/bank-statement-workspace-browser.mjs; the movement
+// path's refusals below are preserved, unchanged.
 //   node --experimental-strip-types scripts/bank-statement-baseline.mjs
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -43,6 +46,7 @@ const tracked = [
   'lib/reconciliation/bank.ts',
   'lib/reconciliation/io.ts',
   'components/bank-workspace.tsx',
+  'components/bank-statement-workspace.tsx',
 ];
 const sourceHashes = Object.fromEntries(
   await Promise.all(
@@ -50,7 +54,8 @@ const sourceHashes = Object.fromEntries(
   ),
 );
 
-// The workspace offers and accepts only CSV and XLSX for both sides.
+// The movement path still offers and accepts only CSV and XLSX for both
+// sides. A statement is offered only by the separate statement path (G4).
 const workspace = await readFile(
   path.join(root, 'components/bank-workspace.tsx'),
   'utf8',
@@ -58,6 +63,12 @@ const workspace = await readFile(
 assert.ok(workspace.includes('!/\\.(csv|xlsx)$/i.test(blob.name)'));
 assert.ok(workspace.includes('accept=".csv,.xlsx"'));
 assert.ok(!/accept="[^"]*pdf/i.test(workspace));
+const statementPath = await readFile(
+  path.join(root, 'components/bank-statement-workspace.tsx'),
+  'utf8',
+);
+assert.ok(statementPath.includes("'.pdf,.csv,.xlsx'"));
+assert.ok(statementPath.includes("'bank-statement-reconcile'"));
 // The engine itself refuses any source not named .csv or .xlsx.
 const engine = await readFile(
   path.join(root, 'lib/reconciliation/bank.ts'),
@@ -102,14 +113,18 @@ async function attempt(id, statement, cashbook, family) {
 
 const report = {
   schema: 'tarasuf-bnk-pdf1-baseline/1',
-  productEnabled: false,
+  productEnabled: true,
+  activatedIn: 'BNK-PDF-1 G4, candidate 0.4.58',
   proposedFamily: 'bank-statement-native-1',
   sourceHashes,
   factsSha256: manifest.facts.sha256,
-  workspaceIntake: 'csv and xlsx only, both sides',
+  workspaceIntake:
+    'movement path: csv and xlsx, both sides; statement path (G4): pdf, csv or xlsx statement with a csv or xlsx cashbook',
   statementPositiveCapacity: {
+    path: 'bank movement families, as before activation',
     eligible: expected.stories.filter((s) => s.statement === 'verified').length,
     completed: 0,
+    afterActivation: 'scripts/bank-statement-workspace-browser.mjs',
   },
   heldStatements: expected.stories
     .filter((s) => s.statement !== 'verified')
@@ -121,6 +136,13 @@ const report = {
       stage: 'pdf-read',
       result: 'all 16 statement PDFs refused at page 2 as clipped text',
       record: 'docs/audits/BNK-PDF-1-FOUNDATION.ar.md',
+    },
+    {
+      release: '0.4.58',
+      stage: 'workspace',
+      result:
+        'G4 adds the statement path to the bank workspace; the movement path below still refuses every statement',
+      record: 'docs/audits/BNK-PDF-1-G4.ar.md',
     },
   ],
 };
