@@ -258,13 +258,17 @@ jobs:
           pnpm test:inventory-pdf:workspace
           pnpm test:inventory-pdf:workspace-proof
           pnpm test:inventory-pdf:workspace-mutations
-      - name: Verify bank statement source truth, independent oracle and preserved pre-activation refusals (BNK-PDF-1)
+      - name: Verify bank statement source truth, independent oracle, native reading proof, code mutations and preserved pre-activation refusals (BNK-PDF-1)
         env:
           BNK_PDF_BASELINE_DIR: ${{ runner.temp }}/bank-statement-baseline
+          BNK_G1_PROOF_DIR: ${{ runner.temp }}/bank-statement-g1
+          BNK_G1_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g1-mutations
         run: |
           pnpm test:bank-statement:oracle
           pnpm test:bank-statement:oracle-mutants
           pnpm test:bank-statement:baseline
+          pnpm test:bank-statement:g1-proof
+          pnpm test:bank-statement:g1-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof

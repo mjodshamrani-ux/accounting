@@ -1,8 +1,14 @@
 import type {
   NativePdfSource,
   NativePdfLiteralSource,
+  NativePdfWordSource,
   PdfLiteralTrace,
 } from './pdf-native-source.ts';
+import {
+  placeGlyphs,
+  splitTextItems,
+  type PdfTokenPart,
+} from './pdf-glyph-geometry.ts';
 import { getNativePDFJS } from './pdfjs-native.ts';
 import { guardPdfFontIntegrity } from './pdf-font-integrity.ts';
 import type { SheetData } from './types.ts';
@@ -269,6 +275,63 @@ function straightPathOverlaps(
   return false;
 }
 
+/** Ink evidence for the clip test: each text run's baseline and font size
+ * (in the order of textBoxes), and each drawn glyph's vertical ink extent per
+ * unit font size, when its outline was proved. */
+export type GlyphInk = {
+  runs: { baseline: number; size: number }[];
+  glyph: (id: string) => readonly [number, number] | undefined;
+};
+// Outlines can arrive as half floats; this margin, in units of the font size,
+// covers their rounding many times over.
+const GLYPH_INK_MARGIN = 0.01;
+
+// The clip test asks whether drawn ink can be cut away. A run whose every
+// glyph outline is known is tested by that ink, vertically, over the run's
+// advance width; any run without that proof keeps the padded text box. Text
+// rise moves glyphs off the extracted baseline, so a page with rise keeps the
+// padded boxes throughout.
+function inkClipBoxes(
+  ops: Record<string, number>,
+  fn: number[],
+  args: unknown[][],
+  textBoxes: number[][],
+  runGlyphs: Map<number, Set<string> | null> | undefined,
+  ink: GlyphInk | undefined,
+): (padded: number[]) => number[] {
+  if (
+    !ink ||
+    !runGlyphs ||
+    fn.some((op, i) => op === ops.setTextRise && Number(args[i]?.[0]) !== 0)
+  )
+    return (padded) => padded;
+  const boxes = new Map<number[], number[]>();
+  for (const [index, ids] of runGlyphs) {
+    const run = ink.runs[index];
+    if (!ids?.size || !run || !(run.size > 0)) continue;
+    let low = Infinity,
+      high = -Infinity;
+    for (const id of ids) {
+      const extent = ink.glyph(id);
+      if (!extent) {
+        low = NaN;
+        break;
+      }
+      low = Math.min(low, extent[0]);
+      high = Math.max(high, extent[1]);
+    }
+    if (!Number.isFinite(low) || !Number.isFinite(high)) continue;
+    const padded = textBoxes[index];
+    boxes.set(padded, [
+      padded[0],
+      run.baseline + run.size * (low - GLYPH_INK_MARGIN),
+      padded[2],
+      run.baseline + run.size * (high + GLYPH_INK_MARGIN),
+    ]);
+  }
+  return (padded) => boxes.get(padded) ?? padded;
+}
+
 export function checkPdfOperators(
   ops: Record<string, number>,
   fn: number[],
@@ -278,10 +341,24 @@ export function checkPdfOperators(
   textRuns?: string[],
   rawRuns?: Map<number, string>,
   literal?: { trace: PdfLiteralTrace; maxChars: number; maxOperators?: number },
+  ink?: GlyphInk,
+  runPieces?: Map<number, [operator: number, glyph: number][]>,
 ) {
+  const runGlyphs = ink ? new Map<number, Set<string> | null>() : undefined;
   const paints = textRuns
-    ? bindTextPaints(ops, fn, args, textRuns, textBoxes, rawRuns, literal)
+    ? bindTextPaints(
+        ops,
+        fn,
+        args,
+        textRuns,
+        textBoxes,
+        rawRuns,
+        literal,
+        runGlyphs,
+        runPieces,
+      )
     : null;
+  const clipBoxOf = inkClipBoxes(ops, fn, args, textBoxes, runGlyphs, ink);
   const paintedBoxes: number[][] = [];
   const backgrounds: PdfBackground[] = [];
   let state = {
@@ -405,13 +482,15 @@ export function checkPdfOperators(
         state.clipped ||
         (state.clipBox &&
           ((!paints && !currentBoxes.length) ||
-            currentBoxes.some(
-              (box) =>
+            currentBoxes.some((padded) => {
+              const box = clipBoxOf(padded);
+              return (
                 box[0] < state.clipBox![0] - 0.01 ||
                 box[1] < state.clipBox![1] - 0.01 ||
                 box[2] > state.clipBox![2] + 0.01 ||
-                box[3] > state.clipBox![3] + 0.01,
-            ))) ||
+                box[3] > state.clipBox![3] + 0.01
+              );
+            }))) ||
         state.mode >= 4 ||
         state.mode < 0 ||
         !Number.isInteger(state.mode)
@@ -798,7 +877,7 @@ type GuardedPdfPage = {
   view: [number, number, number, number];
   width: number;
   height: number;
-  tokens: (PdfToken & { item: number })[];
+  tokens: (PdfToken & { item: number; parts?: PdfTokenPart[] })[];
 };
 
 // The only native-text decoder. Both projections share every integrity guard.
@@ -808,6 +887,7 @@ async function readGuardedPdf<T>(
   onProgress: ((progress: ProcessingProgress) => void) | undefined,
   project: (pages: GuardedPdfPage[], original: ArrayBuffer) => T | Promise<T>,
   captureLiteral = false,
+  captureWords = false,
 ): Promise<T> {
   if (input.byteLength > MAX_FILE_BYTES)
     throw new Error('حجم الملف يتجاوز 8 MB');
@@ -947,6 +1027,9 @@ async function readGuardedPdf<T>(
             'PDF_NO_EXTRACTABLE_TEXT',
           );
         const rawRuns = new Map<number, string>();
+        const runPieces = captureWords
+          ? new Map<number, [number, number][]>()
+          : undefined;
         const literals: PdfLiteralTrace | undefined = captureLiteral
           ? {
               version: 'native-pdf-literals-1',
@@ -979,6 +1062,11 @@ async function readGuardedPdf<T>(
                   maxOperators: 100000 - literalOperators,
                 }
               : undefined,
+            {
+              runs: tokens.map((t) => ({ baseline: t.y, size: t.height })),
+              glyph: fontGuard.glyphInk,
+            },
+            runPieces,
           );
           if (literals) {
             literalChars += literals.text.length;
@@ -1006,6 +1094,16 @@ async function readGuardedPdf<T>(
             token.extractionText = token.text;
             token.text = raw.trim();
           }
+        }
+        if (runPieces) {
+          const parts = splitTextItems(
+            tokens,
+            runPieces,
+            rawRuns,
+            placeGlyphs(OPS, operators.fnArray, operators.argsArray),
+            page.view[0],
+          );
+          for (const [index, words] of parts) tokens[index].parts = words;
         }
         pages.push({
           ...(literals ? { literals } : {}),
@@ -1140,6 +1238,24 @@ export async function readPdf(
  * Layout warnings remain evidence; a later accounting reader must resolve them.
  * No caller-supplied geometry or cached result is accepted as source authority.
  */
+/** The native source with combined left-to-right items split into words
+ * where their glyph geometry was proved (see splitTextItems). */
+export async function readNativePdfWordSource(
+  buffer: ArrayBuffer,
+  onProgress?: (progress: ProcessingProgress) => void,
+): Promise<NativePdfWordSource> {
+  return readGuardedPdf(
+    buffer,
+    onProgress,
+    async (pages, original) => ({
+      ...(await projectNativePdfSource(pages, original)),
+      wordVersion: 'native-pdf-words-1',
+    }),
+    false,
+    true,
+  );
+}
+
 export async function readNativePdfSource(
   buffer: ArrayBuffer,
   onProgress?: (progress: ProcessingProgress) => void,

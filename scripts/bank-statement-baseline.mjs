@@ -1,8 +1,8 @@
-// BNK-PDF-1 before-implementation record. The product refusing a real bank
+// BNK-PDF-1 before-activation record. The product refusing a real bank
 // statement is the gap this plan closes, not a success. Checks the frozen
-// seal, then records where the current path stops for each statement as the
-// bank issues it: every PDF at the guarded PDF reader, and BS01 as CSV and
-// XLSX at the bank engine's required columns.
+// seal, then records where the current bank path stops for each statement as
+// the bank issues it: every PDF at the bank engine's source check, and BS01
+// as CSV and XLSX at the bank engine's required columns.
 //   node --experimental-strip-types scripts/bank-statement-baseline.mjs
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -115,31 +115,41 @@ const report = {
     .filter((s) => s.statement !== 'verified')
     .map((s) => ({ id: s.id, statement: s.statement })),
   currentProduct: [],
+  history: [
+    {
+      release: '0.4.57',
+      stage: 'pdf-read',
+      result: 'all 16 statement PDFs refused at page 2 as clipped text',
+      record: 'docs/audits/BNK-PDF-1-FOUNDATION.ar.md',
+    },
+  ],
 };
-// Chromium clips each printed page to its content area. At the top of page
-// 2 the first heading's text box, measured by the reader from font metrics,
-// ends 0.75pt above that clip although its glyphs render whole, so the
-// guarded reader refuses the file as clipped text. Recorded, not tuned away:
-// the native reader must settle it glyph by glyph, keeping truly clipped text
-// refused.
-const CLIPPED =
-  /^تعذرت قراءة صفحة PDF 2: يحتوي PDF نصًا مقصوصًا أو طريقة قص غير مدعومة/;
+// Until G1 the guarded reader refused all sixteen PDFs at page 2 as clipped
+// text (0.4.57): the first heading's padded text box crossed Chromium's page
+// clip although its glyphs render whole. G1 tests the clip by glyph ink, so
+// the files now read; the bank path then stops at the engine, which accepts
+// only sources named .csv or .xlsx. The earlier refusal is kept below as
+// history, not re-run.
 for (const s of expected.stories) {
-  let readError = null;
-  try {
-    await read(`${s.id}-statement.pdf`);
-  } catch (error) {
-    readError = error.message;
+  const pdf = await read(`${s.id}-statement.pdf`);
+  assert.equal(pdf.pdf.pages, s.printedPages, s.id);
+  for (const family of [BANK_VERSION, BANK_WD_FAMILY]) {
+    const { error } = await attempt(
+      s.id,
+      `${s.id}-statement.pdf`,
+      `${s.id}-cashbook.csv`,
+      family,
+    );
+    assert.equal(error, 'BANK_SOURCE', `${s.id} ${family}`);
+    report.currentProduct.push({
+      id: s.id,
+      statement: 'pdf',
+      stage: 'bank-reconcile',
+      family,
+      error,
+      sourceStatement: s.statement,
+    });
   }
-  assert.match(readError ?? '', CLIPPED, s.id);
-  report.currentProduct.push({
-    id: s.id,
-    statement: 'pdf',
-    stage: 'pdf-read',
-    page: 2,
-    error: 'clipped text',
-    sourceStatement: s.statement,
-  });
   if (s.id !== 'BS01') continue;
   for (const [statement, cashbook] of [
     ['BS01-statement.csv', 'BS01-cashbook.csv'],
@@ -159,7 +169,7 @@ for (const s of expected.stories) {
     }
 }
 assert.equal(report.statementPositiveCapacity.eligible, 14);
-assert.equal(report.currentProduct.length, 20);
+assert.equal(report.currentProduct.length, 36);
 
 await mkdir(outDir, { recursive: true });
 await writeFile(

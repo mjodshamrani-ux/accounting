@@ -106,6 +106,8 @@ const required = [
   'test:bank-statement:oracle',
   'test:bank-statement:oracle-mutants',
   'test:bank-statement:baseline',
+  'test:bank-statement:g1-proof',
+  'test:bank-statement:g1-mutations',
   'test:inventory-pdf:native-proof',
   'test:inventory-pdf:native-mutations',
   'test:inventory-pdf:fields-proof',
