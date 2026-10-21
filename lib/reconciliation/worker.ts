@@ -20,6 +20,13 @@ import {
 } from './bank-adjustment-io.ts';
 import { replayBank, saveBank, restoreBank, exportBank } from './bank-io.ts';
 import {
+  replayBankStatement,
+  saveBankStatement,
+  restoreBankStatement,
+  exportBankStatement,
+} from './bank-statement-lifecycle.ts';
+import { snapshotBankStatementRequest } from './bank-statement-request.ts';
+import {
   replayAllocation,
   saveAllocation,
   restoreAllocation,
@@ -61,6 +68,8 @@ self.onmessage = async (event: MessageEvent) => {
   try {
     if (action.startsWith('ar-')) payload = snapshotArRequest(action, payload);
     if (action.startsWith('stock-pdf-')) payload = snapshotStockPdfRequest(action, payload);
+    if (action.startsWith('bank-statement-'))
+      payload = snapshotBankStatementRequest(action, payload);
     let value: unknown;
     if (action === 'ready') value = { ready: true, engine: ENGINE_VERSION };
     else if (action === 'bank-adjustment-reconcile')
@@ -77,6 +86,14 @@ self.onmessage = async (event: MessageEvent) => {
       value = await restoreBank(payload.buffer);
     else if (action === 'bank-export')
       value = await exportBank(payload.state, payload.result);
+    else if (action === 'bank-statement-reconcile')
+      value = await replayBankStatement(payload);
+    else if (action === 'bank-statement-save')
+      value = await saveBankStatement(payload);
+    else if (action === 'bank-statement-restore')
+      value = await restoreBankStatement(payload.buffer);
+    else if (action === 'bank-statement-export')
+      value = await exportBankStatement(payload.state, payload.result);
     else if (action === 'allocation-reconcile')
       value = await replayAllocation(payload);
     else if (action === 'allocation-save')

@@ -1,4 +1,5 @@
 import { snapshotStockPdfRequest } from './inventory-pdf-request.ts';
+import { snapshotBankStatementRequest } from './bank-statement-request.ts';
 import { validateStockPdfWorkerResponse } from './inventory-pdf-lifecycle.ts';
 import { snapshotStockRequest } from './inventory-register-request.ts';
 import {
@@ -40,6 +41,7 @@ export function workerRequestTimeout(action: string, payload: unknown) {
         /\.pdf$/i.test(file.name),
     );
   return action.startsWith('stock-pdf-') ||
+    action.startsWith('bank-statement-') ||
     isPdfRead(action, payload) ||
     action === 'restore-session' ||
     rereadsPdf
@@ -94,8 +96,16 @@ export function createWorkerClient(
           return reject(error);
         }
       }
+      // Capture the statement originals, scope and decisions synchronously.
+      if (action.startsWith('bank-statement-')) {
+        try {
+          payload = snapshotBankStatementRequest(action, payload);
+        } catch (error) {
+          return reject(error);
+        }
+      }
       // Bind bank validation to the caller's sources and context at submission.
-      if (action.startsWith('bank-')) {
+      else if (action.startsWith('bank-')) {
         try {
           payload = structuredClone(payload);
         } catch (error) {
@@ -318,6 +328,15 @@ export function createWorkerClient(
             )(action, response.value, payload);
           }
           validateWorkerValue(action, response.value, payload);
+          if (action.startsWith('bank-statement-')) {
+            const { validateBankStatementWorkerResponse } =
+              await import('./bank-statement-lifecycle.ts');
+            response.value = await validateBankStatementWorkerResponse(
+              action,
+              response.value,
+              payload,
+            );
+          }
           if (action.startsWith('ar-')) {
             const { validateArWorkerResponse } =
               await import('./ar-worker-binding.ts');

@@ -111,6 +111,8 @@ const required = [
   'test:bank-statement:g2-proof',
   'test:bank-statement:g2-differential',
   'test:bank-statement:g2-mutations',
+  'test:bank-statement:g3-proof',
+  'test:bank-statement:g3-mutations',
   'test:inventory-pdf:native-proof',
   'test:inventory-pdf:native-mutations',
   'test:inventory-pdf:fields-proof',

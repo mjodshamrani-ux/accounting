@@ -258,7 +258,7 @@ jobs:
           pnpm test:inventory-pdf:workspace
           pnpm test:inventory-pdf:workspace-proof
           pnpm test:inventory-pdf:workspace-mutations
-      - name: Verify bank statement source truth, independent oracle, native reading and matching proofs, oracle differential, code mutations and preserved pre-activation refusals (BNK-PDF-1)
+      - name: Verify bank statement source truth, independent oracle, native reading, matching and session lifecycle proofs, oracle differential, independent workbook check, code mutations and preserved pre-activation refusals (BNK-PDF-1)
         env:
           BNK_PDF_BASELINE_DIR: ${{ runner.temp }}/bank-statement-baseline
           BNK_G1_PROOF_DIR: ${{ runner.temp }}/bank-statement-g1
@@ -266,6 +266,8 @@ jobs:
           BNK_G2_PROOF_DIR: ${{ runner.temp }}/bank-statement-g2
           BNK_G2_DIFFERENTIAL_DIR: ${{ runner.temp }}/bank-statement-g2-differential
           BNK_G2_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g2-mutations
+          BNK_G3_PROOF_DIR: ${{ runner.temp }}/bank-statement-g3
+          BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
         run: |
           pnpm test:bank-statement:oracle
           pnpm test:bank-statement:oracle-mutants
@@ -275,6 +277,8 @@ jobs:
           pnpm test:bank-statement:g2-proof
           pnpm test:bank-statement:g2-differential
           pnpm test:bank-statement:g2-mutations
+          pnpm test:bank-statement:g3-proof
+          pnpm test:bank-statement:g3-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof

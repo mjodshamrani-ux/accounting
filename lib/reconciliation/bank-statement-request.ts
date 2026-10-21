@@ -1,0 +1,265 @@
+// bank-statement-lifecycle-1, request part: the state a statement session
+// keeps and its synchronous capture. Only the two original files, the scope
+// the accountant chose and the accountant's decisions are state; every
+// reading and match is recomputed from the original bytes on each replay.
+// This module has no reader or workbook dependency, so the worker protocol
+// and client can capture a request before anything yields.
+import { currencyPrecision } from './currency-precision.ts';
+import { MAX_FILE_BYTES } from './types.ts';
+
+export const BANK_STATEMENT_LIFECYCLE_VERSION = 'bank-statement-lifecycle-1';
+export const BANK_STATEMENT_SESSION_FORMAT = 'tarasuf-bank-statement-session';
+export const BANK_STATEMENT_SESSION_LIMIT = 32 * 1024 * 1024;
+export const BANK_STATEMENT_EXPORT_LIMIT = 96 * 1024 * 1024;
+export const BANK_STATEMENT_DECISION_LIMIT = 1000;
+
+export type StatementSource = {
+  name: string;
+  sha256: string;
+  original: ArrayBuffer;
+};
+export type StatementScope = {
+  /** A table statement's currency; null for a PDF, which prints its own. */
+  currency: string | null;
+  /** A table statement's period; null for a PDF, which prints its own. */
+  period: { start: string; end: string } | null;
+  /** A table statement's closing balance as the accountant confirmed it, in
+   * minor units; only for a table that prints no closing balance. */
+  confirmedClosing: number | null;
+};
+export type StatementDecision = {
+  id: string;
+  type: 'accept' | 'reject' | 'undo';
+  /** The result context the decision was taken in. */
+  context: string;
+  /** Device time, UTC. */
+  at: string;
+  /** The case decided, with its exact members. */
+  case: string;
+  statement: string[];
+  cashbook: string[];
+  note: string;
+};
+export type BankStatementState = {
+  version: typeof BANK_STATEMENT_LIFECYCLE_VERSION;
+  /** The statement (PDF, CSV or XLSX), then the cashbook (CSV or XLSX). */
+  files: [StatementSource, StatementSource];
+  scope: StatementScope;
+  decisions: StatementDecision[];
+};
+export type BankStatementExportRequest = {
+  state: BankStatementState;
+  result: unknown;
+};
+
+export const STATEMENT_FILE = /\.(pdf|csv|xlsx)$/iu;
+export const CASHBOOK_FILE = /\.(csv|xlsx)$/iu;
+
+export const statementPlain = (v: unknown): v is Record<string, unknown> =>
+  !!v &&
+  typeof v === 'object' &&
+  !Array.isArray(v) &&
+  [Object.prototype, null].includes(Object.getPrototypeOf(v));
+export const statementKeys = (v: object, expected: readonly string[]) =>
+  Object.keys(v).sort().join('|') === [...expected].sort().join('|');
+/** An array with every index present and nothing beside them. */
+export const denseArray = (v: unknown, limit: number): v is unknown[] =>
+  Array.isArray(v) &&
+  v.length <= limit &&
+  statementKeys(
+    v,
+    Array.from({ length: v.length }, (_, i) => String(i)),
+  );
+export function fail(code: string): never {
+  throw new Error(`BANK_STATEMENT_${code}`);
+}
+export function statementBytes(
+  v: unknown,
+  limit = MAX_FILE_BYTES,
+  code = 'SOURCE',
+): asserts v is ArrayBuffer {
+  if (!(v instanceof ArrayBuffer) || !v.byteLength || v.byteLength > limit)
+    fail(code);
+}
+/** Visible text without control or format characters. */
+export function statementText(v: unknown, limit: number): v is string {
+  return (
+    typeof v === 'string' &&
+    !!v.trim() &&
+    v === v.trim() &&
+    v.length <= limit &&
+    !/[\p{Cc}\p{Cf}]/u.test(v)
+  );
+}
+export const isoDay = (v: unknown): v is string =>
+  typeof v === 'string' &&
+  /^\d{4}-\d{2}-\d{2}$/u.test(v) &&
+  !Number.isNaN(Date.parse(`${v}T00:00:00Z`)) &&
+  new Date(`${v}T00:00:00Z`).toISOString().slice(0, 10) === v;
+export const isoInstant = (v: unknown): v is string =>
+  typeof v === 'string' &&
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/u.test(v) &&
+  Number.isFinite(Date.parse(v)) &&
+  new Date(v).toISOString() === v;
+
+/** The scope's own form; whether it fits the statement is checked on replay. */
+function snapshotScope(scope: unknown): StatementScope {
+  if (
+    !statementPlain(scope) ||
+    !statementKeys(scope, ['currency', 'period', 'confirmedClosing'])
+  )
+    fail('STATE_SCOPE');
+  const { currency, period, confirmedClosing } = scope;
+  if (
+    currency !== null &&
+    (typeof currency !== 'string' ||
+      !/^[A-Z]{3}$/u.test(currency) ||
+      currencyPrecision(currency) === undefined)
+  )
+    fail('STATE_SCOPE');
+  if (
+    period !== null &&
+    (!statementPlain(period) ||
+      !statementKeys(period, ['start', 'end']) ||
+      !isoDay(period.start) ||
+      !isoDay(period.end) ||
+      period.start > period.end)
+  )
+    fail('STATE_SCOPE');
+  if (
+    confirmedClosing !== null &&
+    (typeof confirmedClosing !== 'number' ||
+      !Number.isSafeInteger(confirmedClosing))
+  )
+    fail('STATE_SCOPE');
+  return {
+    currency,
+    period: period === null ? null : { start: period.start, end: period.end },
+    confirmedClosing,
+  } as StatementScope;
+}
+/** A decision's own form; its context and members are checked on replay. */
+function snapshotDecision(e: unknown): StatementDecision {
+  const ids = (v: unknown) =>
+    denseArray(v, 1000) && v.every((id) => statementText(id, 200));
+  if (
+    !statementPlain(e) ||
+    !statementKeys(e, [
+      'id',
+      'type',
+      'context',
+      'at',
+      'case',
+      'statement',
+      'cashbook',
+      'note',
+    ]) ||
+    !statementText(e.id, 200) ||
+    !['accept', 'reject', 'undo'].includes(e.type as string) ||
+    !statementText(e.context, 4096) ||
+    !isoInstant(e.at) ||
+    !statementText(e.case, 20) ||
+    !ids(e.statement) ||
+    !ids(e.cashbook) ||
+    !statementText(e.note, 2000)
+  )
+    fail('DECISION');
+  return {
+    id: e.id,
+    type: e.type as StatementDecision['type'],
+    context: e.context,
+    at: e.at,
+    case: e.case,
+    statement: [...(e.statement as string[])],
+    cashbook: [...(e.cashbook as string[])],
+    note: e.note,
+  };
+}
+/** Captures a state synchronously: the original bytes are copied, and no
+ * reading, result or parsed cache is accepted beside them. */
+export function snapshotBankStatementState(value: unknown): BankStatementState {
+  if (
+    !statementPlain(value) ||
+    !statementKeys(value, ['version', 'files', 'scope', 'decisions']) ||
+    value.version !== BANK_STATEMENT_LIFECYCLE_VERSION ||
+    !denseArray(value.files, 2) ||
+    value.files.length !== 2 ||
+    !denseArray(value.decisions, BANK_STATEMENT_DECISION_LIMIT)
+  )
+    fail('INPUT');
+  const files = value.files.map((f, i) => {
+    if (
+      !statementPlain(f) ||
+      !statementKeys(f, ['name', 'sha256', 'original']) ||
+      !statementText(f.name, 255) ||
+      !(i === 0 ? STATEMENT_FILE : CASHBOOK_FILE).test(f.name) ||
+      typeof f.sha256 !== 'string' ||
+      !/^[a-f0-9]{64}$/u.test(f.sha256)
+    )
+      fail('SOURCE');
+    statementBytes(f.original);
+    return { name: f.name, sha256: f.sha256, original: f.original.slice(0) };
+  });
+  return {
+    version: BANK_STATEMENT_LIFECYCLE_VERSION,
+    files: files as BankStatementState['files'],
+    scope: snapshotScope(value.scope),
+    decisions: value.decisions.map(snapshotDecision),
+  };
+}
+/** Captures a worker request before anything yields. */
+export function snapshotBankStatementRequest(
+  action: string,
+  payload: unknown,
+): BankStatementState | BankStatementExportRequest | { buffer: ArrayBuffer } {
+  if (action === 'bank-statement-reconcile' || action === 'bank-statement-save')
+    return snapshotBankStatementState(payload);
+  if (action === 'bank-statement-export') {
+    if (
+      !statementPlain(payload) ||
+      !statementKeys(payload, ['state', 'result']) ||
+      !statementPlain(payload.result)
+    )
+      fail('EXPORT_REQUEST');
+    return {
+      state: snapshotBankStatementState(payload.state),
+      result: structuredClone(payload.result),
+    };
+  }
+  if (
+    action !== 'bank-statement-restore' ||
+    !statementPlain(payload) ||
+    !statementKeys(payload, ['buffer'])
+  )
+    fail('ACTION');
+  statementBytes(payload.buffer, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
+  return { buffer: payload.buffer.slice(0) };
+}
+/** Structural equality; original bytes are compared byte for byte. */
+export function sameStatementData(a: unknown, b: unknown): boolean {
+  if (Object.is(a, b)) return true;
+  if (a instanceof ArrayBuffer || b instanceof ArrayBuffer) {
+    if (
+      !(a instanceof ArrayBuffer) ||
+      !(b instanceof ArrayBuffer) ||
+      a.byteLength !== b.byteLength
+    )
+      return false;
+    const right = new Uint8Array(b);
+    return new Uint8Array(a).every((v, i) => v === right[i]);
+  }
+  if (Array.isArray(a) || Array.isArray(b))
+    return (
+      Array.isArray(a) &&
+      Array.isArray(b) &&
+      a.length === b.length &&
+      statementKeys(a, Object.keys(b)) &&
+      a.every((v, i) => sameStatementData(v, b[i]))
+    );
+  return (
+    statementPlain(a) &&
+    statementPlain(b) &&
+    statementKeys(a, Object.keys(b)) &&
+    Object.entries(a).every(([k, v]) => sameStatementData(v, b[k]))
+  );
+}

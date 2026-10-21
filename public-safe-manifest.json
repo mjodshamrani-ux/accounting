@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 33288,
-      "sha256": "12181da9ab0bba79bd8d090800b08fafef3ffa24df2e2f974e47d28a0490b9aa",
+      "bytes": 33570,
+      "sha256": "031175021c7631d22f058eb7c8c342a6ff68f24932f29969f59a88aaf96ce5a7",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 7201,
-      "sha256": "0d0f9f5a374637cc517fc6eba55b7a7eec69b749cfde9572509237601298d177",
+      "bytes": 7250,
+      "sha256": "a8089b494da871f8e8eb9a2f7d401f369c25e64b27a816132662d572e9fc4a63",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 16550,
-      "sha256": "128a63bc7e3bc842194f981c0680e0ef495af328f94ff5ff2bfee444e6e8874d",
+      "bytes": 16602,
+      "sha256": "1a49c51eb4eb709cc64ffb4e43e6bf55673dfe987efc7dc4b34a417edd56b38e",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 14487,
-      "sha256": "a3b6fc8ca9741e0ae4cb650c9590c316adae385da75bc2708ae4f10738483eed",
+      "bytes": 15629,
+      "sha256": "9979954cf6a4dafbdaa57eb07a692b858b7e5d28d1b78f9e6f1c2163cf5e9b12",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 57270,
-      "sha256": "fb0719452e986c89f21b36a8c8557ad1b8bd20360638f80782fa8b1c25eab6bf",
+      "bytes": 57438,
+      "sha256": "9c800b9c8facc5d88198e34dcc59d89f27e4b6e0308eb8bb26e09ff01a208e46",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 8495,
-      "sha256": "629ab27c4aee26cfc2de6c43dc62983380fa90527ba4b4d0e2ff4eed59da6dcf",
+      "bytes": 9336,
+      "sha256": "b1bb6eef427f266651f87112aba6c2708d57f1768c16e2aa226c03c40e34a90e",
       "kind": "text"
     },
     {
@@ -37143,8 +37143,8 @@
     },
     {
       "path": "lib/reconciliation/protocol.ts",
-      "bytes": 20195,
-      "sha256": "852c4ab8b50ab89ae177f55350f2db8d97e6c475ee13420ce7cc40f1aae9f21b",
+      "bytes": 21822,
+      "sha256": "7a1077bafe2e357e27b51c26b263309959bddf8ff0dd4eedac78bb22c59bf8d5",
       "kind": "text"
     },
     {
@@ -37371,14 +37371,14 @@
     },
     {
       "path": "lib/reconciliation/worker-client.ts",
-      "bytes": 17778,
-      "sha256": "c12567aad0c580721f436b56fbce580235a084dc1cb6050905f1abd7bf75d810",
+      "bytes": 18536,
+      "sha256": "ed3cf4bf36dcb33d6f9bb9210d054e474430542e608e81d0ae9dbaa5ecf8452a",
       "kind": "text"
     },
     {
       "path": "lib/reconciliation/worker.ts",
-      "bytes": 11522,
-      "sha256": "6ad2bef2b9d34357c4f3b9e940fa44e84a3f2218ad696e3bd77631248f73a6a4",
+      "bytes": 12273,
+      "sha256": "553d557be31e3a212d699ea2d7cd815e0f3f739e1018ae8f2cf3a5a48c441ae6",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 19164,
-      "sha256": "23beec1749e7de37b6c09531a6c59d932fea3832dc27e51daf4f384f081ed65e",
+      "bytes": 19442,
+      "sha256": "d7c3b552ac03860d6f1990280568bc0b39b992dd094451a5d8370063f5e7a528",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 7966,
-      "sha256": "b169072273ee6f904278d65b9b35ff0abc521fed558f008141d6aae58fdf0436",
+      "bytes": 8038,
+      "sha256": "b151d0ee6f7e0ee6f12bb97d2e78e01ba48840025200c71c5176b9dd76ffcd62",
       "kind": "text"
     },
     {
@@ -40901,8 +40901,8 @@
     },
     {
       "path": "audit/bank-statement-foundation/README.ar.md",
-      "bytes": 5927,
-      "sha256": "dccde31d6b5d6910262fb14d131fbce3339b17ed6e82176c91d2751d6fd3f4a7",
+      "bytes": 6485,
+      "sha256": "e368e2e8a76c9471ec93997e7bcfbfa001663419437c9f5fba80866365a16719",
       "kind": "text"
     },
     {
@@ -41348,6 +41348,54 @@
       "bytes": 10121,
       "sha256": "8f80dd9c4492f8b806a3f97e7a158dd4ebf767ecbef66bb7b9595bbd2a750c5a",
       "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/check_export.py",
+      "bytes": 21469,
+      "sha256": "557fbc0db3040122a1488a949fec876e4aa7ebe382d190aba61d72d4f100ab18",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-G3.ar.md",
+      "bytes": 13373,
+      "sha256": "95086e68e05ddeaa53a4a0634ca3b05958a9359a9827ae8bc2ec04566c127ab9",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/bank-statement-lifecycle.ts",
+      "bytes": 20052,
+      "sha256": "8f91166c3b98e1c769bc7f35494a2064cc83adfd92f3837ff72078759b27fd59",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/bank-statement-request.ts",
+      "bytes": 8951,
+      "sha256": "3922bc4fa15dc0741966c79d51301638686f1a186a565dd3d48beb80bf0df565",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-g3-proof.mjs",
+      "bytes": 18678,
+      "sha256": "031d1c2e438833d7949644e7ba00094b6c33acfe97729f52e23ce0d411219bd5",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-bank-statement-g3-mutations.mjs",
+      "bytes": 8663,
+      "sha256": "93e3a0a5d80911b8719653e3e702f15405700c758ab05bb55f5232ab8053ccb9",
+      "kind": "text"
+    },
+    {
+      "path": "tests/bank-statement-lifecycle.test.ts",
+      "bytes": 14371,
+      "sha256": "aa99f1cd7c79bfd5955a2faae0a350b117e4c950081cce0ab439b49d4bb18acb",
+      "kind": "text"
+    },
+    {
+      "path": "tests/bank-statement-worker.test.ts",
+      "bytes": 6873,
+      "sha256": "af3d22a4c3492cc063749e52bcc036c11307cd08dd210b65d929bcec3c9c3e1b",
+      "kind": "text"
     }
   ],
   "distribution": [
@@ -41358,27 +41406,27 @@
       "kind": "text"
     },
     {
-      "path": "assets/ar-io-B2TSEYgJ.js",
+      "path": "assets/ar-io-DHqGZkyL.js",
       "bytes": 11377,
-      "sha256": "24d22e9710e8492b01ff29abd2373dc8b9805504c16e2d9c1e5f885a58bfe82a",
+      "sha256": "f8a4a19ac598c7a81ff342efc0f0c5378a3efa89fe553c1a3086a816534321fa",
       "kind": "text"
     },
     {
-      "path": "assets/bank-adjustment-io-orUthewl.js",
+      "path": "assets/bank-adjustment-io-CLXx-g4p.js",
       "bytes": 12101,
-      "sha256": "49350a0e7b5a5e1af8a3b524641def55ae961a728ee6001186a9420387ba042c",
+      "sha256": "b881e93bb62e498093ad76de137354df5e5627f6a597f764e8b658701a681ef6",
       "kind": "text"
     },
     {
-      "path": "assets/bank-io-CtqiURwA.js",
+      "path": "assets/bank-io-D_XRhhQm.js",
       "bytes": 6331,
-      "sha256": "b394e4382799b022bfdc35e0f83f4db28c8cd487d5b62627fb813e98cbcfb25e",
+      "sha256": "a60d2a49a8c2ae42a756bf402f0ddfa0185ee9a22c642d6a44845851c902e58e",
       "kind": "text"
     },
     {
-      "path": "assets/bank-native-display-CRUkKFoY.js",
+      "path": "assets/bank-native-display-DS6nDJ56.js",
       "bytes": 6148,
-      "sha256": "4b866580bd78afe278532dce91b94492678a25ef1e1ae247d53a5f7516f07f1c",
+      "sha256": "6ac0f3ab403bd3752353cee8080c02fc7b379961281eb04c754c7264fa606155",
       "kind": "text"
     },
     {
@@ -41388,13 +41436,13 @@
       "kind": "text"
     },
     {
-      "path": "assets/core-DD13Qxpg.js",
-      "bytes": 279880,
-      "sha256": "7ecab9c40ef3157e34405beef25b5552ed8723f200d7607bc0902deec8ea1fa6",
+      "path": "assets/core-B3rMBSeD.js",
+      "bytes": 279999,
+      "sha256": "bf315bb2cc558ebc7c5f05613b28c6d71378d537c47bd23f6d298efa3ecf48b2",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only"
       }
     },
     {
@@ -41408,15 +41456,15 @@
       }
     },
     {
-      "path": "assets/fixed-assets-io-DtOEJmqq.js",
+      "path": "assets/fixed-assets-io-sPu8El4r.js",
       "bytes": 9830,
-      "sha256": "c2c8a8cb177b189308e3c271fd105b60ef093c8fd29aa0af5e8677ba94b0db90",
+      "sha256": "8ff094b074d0263b781e650dbdc3963ba49e2057e7e5a37d7c233e498e7d93e7",
       "kind": "text"
     },
     {
-      "path": "assets/gl-tb-io-e-4fIj3H.js",
+      "path": "assets/gl-tb-io-B35jYw0-.js",
       "bytes": 2184,
-      "sha256": "0ee1be47d2a8623ffbc4aed729d8c73f4e85c092eea0cd2a1d88a9d4cbbc5d7d",
+      "sha256": "78c75b1e6d3d55976627698e118c306123057e119dd3844d3ac4995c19bd142a",
       "kind": "text"
     },
     {
@@ -41426,32 +41474,32 @@
       "kind": "text"
     },
     {
-      "path": "assets/index-E4ZiqD4g.js",
-      "bytes": 6419365,
-      "sha256": "b97c31c059c77ad0a61e3d7a78d0bebc3a9554c2b90cfbbcd4265b0ee0cbfcb4",
+      "path": "assets/index-D3xI9eI5.js",
+      "bytes": 6448296,
+      "sha256": "6b199a7015caa2ced572b11e668db75cd88638864f06c32352f733a60a9b2e5a",
       "kind": "approved-binary",
       "provenance": {
         "type": "public-design",
-        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only"
+        "description": "Local application asset compiled from candidate source with unchanged locked dependencies. Parser control literals require decoded privacy scans; exact source and build inventory require independent final-tree review before publication.; rebuilt from reviewed INV-1B section, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1C matrix, original-source binding and licensed existing local assets, with synthetic test proofs only and no financial user data; rebuilt from reviewed INV-1F-G3 opt-in glyph provenance and original-only accounting with unchanged locked dependencies and licensed local assets; synthetic proofs only; rebuilt from reviewed INV-1F-G4 original PDF Worker, versioned local sessions and request-bound decisions; fixed G3 accounting and locked dependencies, unchanged local fonts/artwork and no financial network processing; synthetic lifecycle proofs only; rebuilt from reviewed INV-1F-G5a original-bound PDF workbook transport and complete local evidence chunks; unchanged accounting policy, locked dependencies and local fonts/artwork; no PDF UI activation or financial network processing; rebuilt from reviewed INV-1F-G5b original-bound native PDF workspace, deterministic read-only evidence assistant and bilingual full-evidence workbook labels; unchanged financial policy, frozen source oracle, locked dependencies, licensed local fonts and original upload artwork; no new model, OCR approval or financial network processing; preserved legacy inventory export filename and verified native PDF language-specific download filenames, no accounting or privacy policy change; rebuilt from reviewed BNK-PDF-1 G1 glyph-ink clip test, proved word geometry and the bank statement reader (not wired into the interface) with unchanged locked dependencies and local assets; synthetic proofs only; rebuilt from reviewed BNK-PDF-1 G3 bank statement session lifecycle and its four worker actions with main-thread recomputation (not wired into the interface), with unchanged locked dependencies and local assets; synthetic proofs only"
       }
     },
     {
-      "path": "assets/inventory-pdf-assistant-DUAIyT4s.js",
+      "path": "assets/inventory-pdf-assistant-RT8bM3Wn.js",
       "bytes": 1671,
-      "sha256": "1544a3ccbd67ab32d4193a25554973a71c7b2f5c631e762d3ee42134cad31ed2",
+      "sha256": "1b5b8dd0f0c85489c6ed0d52a71881f793da2424f64c8976857ddb2d1f0b8825",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-pdf-workbook-Ck9sRI5t.js",
+      "path": "assets/inventory-pdf-workbook-CCcq08TM.js",
       "bytes": 473,
-      "sha256": "297f076520ec6d6f42b6b40a1a2a2a9cc568cd87048500f88ef4878e626d3c21",
+      "sha256": "ca64005920a141c618699ba2ef07cfd0a9689f62102ab1afdbc0466200d4ad39",
       "kind": "text"
     },
     {
-      "path": "assets/inventory-register-io-Dkpu_1SH.js",
+      "path": "assets/inventory-register-io-Dt9VQEZ0.js",
       "kind": "text",
       "bytes": 25143,
-      "sha256": "415e4dbe098f5246e7dde4c2d2560a560cb1fb7b861e0ab4eac0390eaba8108d"
+      "sha256": "749fa6ae12cc79651559ba3f2a8bbd3f28a8a9087d50a8e95440b0e93280007e"
     },
     {
       "path": "assets/jszip.min-Lqf3Qs4v.js",
@@ -41464,15 +41512,15 @@
       }
     },
     {
-      "path": "assets/payment-gateway-io-DYEcUzp6.js",
+      "path": "assets/payment-gateway-io-D5R1QzgK.js",
       "bytes": 6391,
-      "sha256": "137a9b8af92cd0dde002211db60da26378b7800bde06ff224900b6f5938eaa6c",
+      "sha256": "73d1006598c2efd0a97892242b78fb1e5ab4bf0d5dd144cf63970ebc0eb78502",
       "kind": "text"
     },
     {
-      "path": "assets/payment-gateway-source-Ijmo4tBu.js",
+      "path": "assets/payment-gateway-source-DSEVe0d_.js",
       "bytes": 6798,
-      "sha256": "0baf7ff3293f68add4666422afd913a6920b5b1ac87e08643d85d50585a07755",
+      "sha256": "0229ad5789247ebce392184c86c18f4607816c574491fb953ee4d7a6f08e5c70",
       "kind": "text"
     },
     {
@@ -41502,9 +41550,9 @@
       }
     },
     {
-      "path": "assets/protocol-dInETAzk.js",
-      "bytes": 137999,
-      "sha256": "37fd700dd5ec8ffab43eb0e88a577d625fbf3034755b66af0a0b573a07554c48",
+      "path": "assets/protocol-Ce62vTfR.js",
+      "bytes": 138712,
+      "sha256": "fc4ed5d6c3b257324eea27a94d6e037bcb36c76f004843ef31b802590da074c6",
       "kind": "text"
     },
     {
@@ -41631,8 +41679,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 4017,
-      "sha256": "6f77ebcaa65a8d084a65c31c746b23900927e0f8c919b57781c435e3d194516a",
+      "bytes": 4111,
+      "sha256": "502f5a769185f11a005d32d8bbb9e23f9402faeb407a43ab6847692b72c17f0a",
       "kind": "text"
     },
     {
@@ -41663,6 +41711,18 @@
       "path": "ocr/worker.js",
       "bytes": 6154223,
       "sha256": "4faaf3bf0aabdd360f3a8a280f37050fa7307799d30cb9f4ab2dbd9807383f38",
+      "kind": "text"
+    },
+    {
+      "path": "assets/bank-statement-lifecycle-DUExQkvl.js",
+      "bytes": 25147,
+      "sha256": "9e539b0537ecc8592b58fef0e0e2fbd8fa80f6f43209c35e9edba2f51dee6cfb",
+      "kind": "text"
+    },
+    {
+      "path": "assets/bank-statement-request-7GvcjGWo.js",
+      "bytes": 3361,
+      "sha256": "1b9f0aeb71a9e55fbd809697ffb7dd7f3bd6646ff93c3b96b870fe805001571e",
       "kind": "text"
     }
   ]
