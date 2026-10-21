@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 32882,
-      "sha256": "9f2277f97492d1ea413a39dd0aa4e91250113f4e54491b93d0943eaed3e1783b",
+      "bytes": 33288,
+      "sha256": "12181da9ab0bba79bd8d090800b08fafef3ffa24df2e2f974e47d28a0490b9aa",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 7149,
-      "sha256": "244c5e710d716c5012268c53ab7be859c5e3c3449d6a96cb32dadb75726c57b9",
+      "bytes": 7201,
+      "sha256": "0d0f9f5a374637cc517fc6eba55b7a7eec69b749cfde9572509237601298d177",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 16503,
-      "sha256": "f5ae0ae52eba46e0ac9f10c318b9e2ffc77b1acaad636b1733d039abc59116b0",
+      "bytes": 16550,
+      "sha256": "128a63bc7e3bc842194f981c0680e0ef495af328f94ff5ff2bfee444e6e8874d",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 13607,
-      "sha256": "32c664c060f134bd02da7c01542a95667927c3ea1e478cdcc17f6add3684f582",
+      "bytes": 14487,
+      "sha256": "a3b6fc8ca9741e0ae4cb650c9590c316adae385da75bc2708ae4f10738483eed",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 57151,
-      "sha256": "80df9ef2d8d9a4d0fa96df1bd31354c2607a4e66ce2f7ccc7591044d505b01d2",
+      "bytes": 57270,
+      "sha256": "fb0719452e986c89f21b36a8c8557ad1b8bd20360638f80782fa8b1c25eab6bf",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 8101,
-      "sha256": "2eb09cd5f2ae639604faf6d530ce1a8c58d965c28cf9a5b19dfef9b166ef1fc6",
+      "bytes": 8495,
+      "sha256": "629ab27c4aee26cfc2de6c43dc62983380fa90527ba4b4d0e2ff4eed59da6dcf",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 18721,
-      "sha256": "61688816e9442b5fc8cf6e7d601f0c393b24d7fe17116bddeebf80c16e2ac312",
+      "bytes": 19164,
+      "sha256": "23beec1749e7de37b6c09531a6c59d932fea3832dc27e51daf4f384f081ed65e",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 7853,
-      "sha256": "81e3edc73d678a1876a04e0e9478a9dec8b11750686d4781c4764e600108c135",
+      "bytes": 7966,
+      "sha256": "b169072273ee6f904278d65b9b35ff0abc521fed558f008141d6aae58fdf0436",
       "kind": "text"
     },
     {
@@ -41305,6 +41305,48 @@
       "path": "tests/pdf-glyph-ink.test.ts",
       "bytes": 8126,
       "sha256": "9d952beed782c28168d5f4626b0dd49a6e3530d7f0ad2314125f57fe24c3a60b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-foundation/differential_match.py",
+      "bytes": 1012,
+      "sha256": "f671645e7bb251fe3ccd0320a127899b1e4bfe37e994c7119f2dda3083f2f31b",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-G2.ar.md",
+      "bytes": 8819,
+      "sha256": "32bad311e86ffae40defce701367992f636cb6eed834bfcfb5d7b09888fedc8a",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/bank-statement-match.ts",
+      "bytes": 12475,
+      "sha256": "b2c39dd06f1d7c8348e04d3a609c81f7989100e8ee80ee63430643710bcc0d0d",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-g2-differential.mjs",
+      "bytes": 8384,
+      "sha256": "4e855feda068fbadba2d5e001ffa33d0146fa6572dc4e90ff5fa832cd3abfafb",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-g2-proof.mjs",
+      "bytes": 8021,
+      "sha256": "b872c7d329d192ded7c7adcc5db8fe77879606e84eb476d6696f9540544ea5c8",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-bank-statement-g2-mutations.mjs",
+      "bytes": 6356,
+      "sha256": "c15f398a150f5eecd4b352abae2f8a7a351960395a6a4649360dd3fb56b20934",
+      "kind": "text"
+    },
+    {
+      "path": "tests/bank-statement-match.test.ts",
+      "bytes": 10121,
+      "sha256": "8f80dd9c4492f8b806a3f97e7a158dd4ebf767ecbef66bb7b9595bbd2a750c5a",
       "kind": "text"
     }
   ],
