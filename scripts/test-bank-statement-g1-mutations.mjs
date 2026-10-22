@@ -30,6 +30,7 @@ const tests = [
   'tests/pdf-glyph-ink.test.ts',
   'tests/pdf-glyph-geometry.test.ts',
   'tests/bank-statement-native.test.ts',
+  'tests/bank-statement-writers.test.ts',
 ];
 const PDF = 'lib/reconciliation/pdf.ts',
   PAINT = 'lib/reconciliation/pdf-paint-order.ts',
@@ -103,6 +104,26 @@ const mutations = [
   ['split-rtl', GEOMETRY, "token.direction === 'rtl' ||", ''],
   // The statement reader and its proof.
   ['column-left-edge', READER, 'p.x0 >= c.start[k] - PADDING &&', 'true &&'],
+  // G6: headers aligned with their column's end, and the heading's words.
+  ['end-aligned-headers-ignored', READER, 'if (k < 0) return undefined;', 'return undefined;'],
+  [
+    'end-edge-unchecked',
+    READER,
+    'return ends && clear ? k : undefined;',
+    'return clear ? k : undefined;',
+  ],
+  [
+    'other-headers-unchecked',
+    READER,
+    'return ends && clear ? k : undefined;',
+    'return ends ? k : undefined;',
+  ],
+  [
+    'heading-runs-not-joined',
+    READER,
+    'textOf(l.tokens.flatMap(partsOf), STATEMENT_VOCABULARY[layout].direction)',
+    "''",
+  ],
   [
     'label-case-folded',
     READER,

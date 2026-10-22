@@ -287,9 +287,19 @@ function linesOf(tokens: Token[]): Line[] {
 // Each header cell starts at its column's start edge (left in a left-to-right
 // table, right in a right-to-left one). A value belongs to a column when it
 // lies between that edge (less the cell padding) and the next column's edge.
+// A writer may instead align a header with its column's end, as amounts are
+// aligned: a value that no start edge places belongs to the one column whose
+// header it lies under only if it ends where that header ends (the right
+// edge in a left-to-right table, the left in a right-to-left one) and stays
+// clear of every other header.
 const PADDING = 2.5,
-  SEPARATION = 1;
-type Columns = { start: number[]; direction: 'ltr' | 'rtl' };
+  SEPARATION = 1,
+  UNDER = 0.5;
+type Columns = {
+  start: number[];
+  spans: { x0: number; x1: number }[];
+  direction: 'ltr' | 'rtl';
+};
 function columnOf(c: Columns, p: Piece): number | undefined {
   for (let k = 0; k < c.start.length; k++) {
     const next = c.start[k + 1];
@@ -305,7 +315,21 @@ function columnOf(c: Columns, p: Piece): number | undefined {
     )
       return k;
   }
-  return undefined;
+  const k = c.spans.findIndex(
+    (s) => p.x0 < s.x1 - UNDER && p.x1 > s.x0 + UNDER,
+  );
+  if (k < 0) return undefined;
+  const own = c.spans[k];
+  const ends =
+    c.direction === 'ltr'
+      ? Math.abs(p.x1 - own.x1) <= PADDING
+      : Math.abs(p.x0 - own.x0) <= PADDING;
+  const clear = c.spans.every(
+    (s) =>
+      s === own ||
+      (s.x1 <= own.x0 ? p.x0 >= s.x1 + SEPARATION : p.x1 <= s.x0 - SEPARATION),
+  );
+  return ends && clear ? k : undefined;
 }
 
 /** A token as it sits in the table: whole when it fits one column, else
@@ -366,6 +390,7 @@ function findHeader(
       // Walk the declared headers over the cells in reading order; every
       // boundary must fall between cells.
       const start: number[] = [];
+      const spans: { x0: number; x1: number }[] = [];
       let at = 0,
         ok = true;
       for (const label of target) {
@@ -384,9 +409,17 @@ function findHeader(
             ? Math.min(...group.map((p) => p.x0))
             : Math.max(...group.map((p) => p.x1)),
         );
+        spans.push({
+          x0: Math.min(...group.map((p) => p.x0)),
+          x1: Math.max(...group.map((p) => p.x1)),
+        });
       }
       if (ok && at === ordered.length)
-        return { first, last, columns: { start, direction: v.direction } };
+        return {
+          first,
+          last,
+          columns: { start, spans, direction: v.direction },
+        };
     }
   return undefined;
 }
@@ -704,22 +737,30 @@ export function readBankStatementPdf(
   // The heading names the currency and the period; read it before amounts.
   const firstLines = linesOf(first.tokens);
   const header = findHeader(firstLines, STATEMENT_VOCABULARY[layout])!;
-  const headingTokens = firstLines
-    .slice(0, header.first)
-    .flatMap((l) => l.tokens);
-  const currencies = [
-    ...new Set(
-      headingTokens
-        .flatMap(partsOf)
-        .flatMap((p) => (/^[A-Z]{3}$/u.test(p.text) ? [p.text] : [])),
+  const headingLines = firstLines.slice(0, header.first);
+  // The heading's words: each token or proved word part, and each word of a
+  // heading line read in order, where touching runs join (a writer may print
+  // a date as separate runs, or a whole line as one run).
+  const headingWords = [
+    ...headingLines.flatMap((l) => l.tokens).flatMap(partsOf),
+    ...headingLines.flatMap((l) =>
+      textOf(l.tokens.flatMap(partsOf), STATEMENT_VOCABULARY[layout].direction)
+        .split(/\s+/u)
+        .map((text) => ({ text, readings: [text] })),
     ),
   ];
-  // Each date is one reading of a token or word part; the period is the
-  // earlier and the later of exactly two dates, whatever the reading order.
-  const dates = headingTokens
-    .flatMap(partsOf)
-    .flatMap((p) => statementDate(p.readings, layout) ?? [])
-    .sort();
+  const currencies = [
+    ...new Set(
+      headingWords.flatMap((p) => (/^[A-Z]{3}$/u.test(p.text) ? [p.text] : [])),
+    ),
+  ];
+  // Each date is one reading of a word; the period is the earlier and the
+  // later of exactly two dates, whatever the reading order.
+  const dates = [
+    ...new Set(
+      headingWords.flatMap((p) => statementDate(p.readings, layout) ?? []),
+    ),
+  ].sort();
   const decimals =
     currencies.length === 1 ? currencyPrecision(currencies[0]) : undefined;
   if (decimals === undefined || dates.length !== 2)

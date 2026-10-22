@@ -41267,8 +41267,8 @@
     },
     {
       "path": "lib/reconciliation/bank-statement-native.ts",
-      "bytes": 29303,
-      "sha256": "9feaaf0dc9ea1b76d37f2a9b1ed3683c1666b606986f996781ae0f2b77a970ab",
+      "bytes": 30800,
+      "sha256": "18ffdeb84624d5f1d82bd99a0b02b264737a00adf0bdafa4e128b2f5a74d1f48",
       "kind": "text"
     },
     {
@@ -41285,8 +41285,8 @@
     },
     {
       "path": "scripts/test-bank-statement-g1-mutations.mjs",
-      "bytes": 7482,
-      "sha256": "a4150c863c25c9dc1b8c33a69b5670c700204de4c08314d3e44fc0fc3578c1d3",
+      "bytes": 8100,
+      "sha256": "839ee2c8065a357dd11dd0e480a03906910aff234ef28828c4b99ba2eed44549",
       "kind": "text"
     },
     {
@@ -41787,6 +41787,12 @@
       "path": "scripts/bank-statement-g6-holdout.mjs",
       "bytes": 11517,
       "sha256": "613eed850153dfd39cbcfe6daad80cf5204e463a4cb07335006f2114c37a027c",
+      "kind": "text"
+    },
+    {
+      "path": "tests/bank-statement-writers.test.ts",
+      "bytes": 6897,
+      "sha256": "e1e15dc403bc650a62a3516fd455e12563f89334a7a6abb0b7abde2c592fab5b",
       "kind": "text"
     }
   ],
