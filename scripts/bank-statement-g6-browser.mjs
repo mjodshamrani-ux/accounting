@@ -6,7 +6,7 @@
 // workbook from a CSV cashbook goes through the independent export checker.
 // A refused statement must leave no result and name its refusal. The outcome
 // is recorded as it comes; nothing stops at the first difference.
-//   pnpm build && node --experimental-strip-types scripts/bank-statement-g6-browser.mjs
+//   pnpm build && node --experimental-strip-types scripts/bank-statement-g6-browser.mjs [--assert=<results file>]
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
@@ -273,3 +273,14 @@ const report = {
 };
 await writeFile(path.join(out, 'browser.json'), `${JSON.stringify(report, null, 1)}\n`);
 console.log(JSON.stringify({ out, ...report.summary }));
+// With --assert=<results file under audit/>, the outcome must equal the
+// recorded one: a recorded failure stays visible, and a
+// change in either direction is noticed.
+const recordedFile = process.argv
+  .find((a) => a.startsWith('--assert='))
+  ?.slice('--assert='.length);
+if (recordedFile) {
+  const recorded = await json(path.join(root, recordedFile));
+  assert.deepEqual(report.summary, recorded.summary, 'holdout outcome changed');
+  assert.deepEqual(report.runs, recorded.runs, 'holdout runs changed');
+}

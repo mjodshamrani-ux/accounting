@@ -210,30 +210,40 @@ for (const name of required) {
     `Gate omitted from check: ${name}`,
   );
 }
-// The interface mutation gate builds the application once per mutant, so it
-// runs as its own job beside the build: unconditional, failing, and in check.
-{
-  const name = 'test:bank-statement:interface-mutations';
-  const job = workflow.jobs['bank-statement-interface-mutations'];
-  assert(job, `Separate gate job missing: ${name}`);
+// Gates that build the application themselves run as their own jobs beside
+// the build: each unconditional, failing, exactly once, and in check.
+const separate = {
+  'bank-statement-interface-mutations': [
+    'test:bank-statement:interface-mutations',
+  ],
+  'bank-statement-holdout': [
+    'test:bank-statement:g6-holdout',
+    'test:bank-statement:g6-browser',
+  ],
+};
+for (const [jobName, names] of Object.entries(separate)) {
+  const job = workflow.jobs[jobName];
+  assert(job, `Separate gate job missing: ${jobName}`);
   assert.equal(job.if, undefined, `Separate gate job cannot be conditional`);
   assert.notEqual(job['continue-on-error'], true);
-  const owners = Object.values(workflow.jobs).flatMap((j) =>
-    (j.steps ?? []).filter((step) =>
-      (step.run ?? '')
-        .split('\n')
-        .some((line) => line.trim() === `pnpm ${name}`),
-    ),
-  );
-  assert.equal(owners.length, 1, `Gate must execute exactly once: ${name}`);
-  assert(job.steps.includes(owners[0]), `Gate outside its job: ${name}`);
-  assert.equal(owners[0].if, undefined);
-  assert.equal(owners[0].shell, undefined);
-  assert.equal(owners[0].run.trim(), `pnpm ${name}`);
-  assert(
-    pkg.scripts.check.includes(`pnpm ${name}`),
-    `Gate omitted from check: ${name}`,
-  );
+  for (const name of names) {
+    const owners = Object.values(workflow.jobs).flatMap((j) =>
+      (j.steps ?? []).filter((step) =>
+        (step.run ?? '')
+          .split('\n')
+          .some((line) => line.trim() === `pnpm ${name}`),
+      ),
+    );
+    assert.equal(owners.length, 1, `Gate must execute exactly once: ${name}`);
+    assert(job.steps.includes(owners[0]), `Gate outside its job: ${name}`);
+    assert.equal(owners[0].if, undefined);
+    assert.equal(owners[0].shell, undefined);
+    assert.equal(owners[0].run.trim(), `pnpm ${name}`);
+    assert(
+      pkg.scripts.check.includes(`pnpm ${name}`),
+      `Gate omitted from check: ${name}`,
+    );
+  }
 }
 for (const command of Object.values(pkg.scripts))
   for (const m of command.matchAll(

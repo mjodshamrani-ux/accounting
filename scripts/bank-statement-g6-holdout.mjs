@@ -10,10 +10,10 @@
 //   3. result: the matching against the cashbook, in the facts' keys, against
 //      EXPECTED.json; the XLSX cashbooks of H01 and H07 as well as the CSV;
 //   4. false automatic pairs over all twelve statements.
-// With --assert it also fails unless the outcome equals the recorded one
-// given by BNK_G6_RECORDED (a results file under audit/), so that a recorded
+// With --assert=<results file under audit/> it also fails unless the outcome
+// equals the recorded one, so that a recorded
 // failure stays visible and a change in either direction is noticed.
-//   node --experimental-strip-types scripts/bank-statement-g6-holdout.mjs
+//   node --experimental-strip-types scripts/bank-statement-g6-holdout.mjs [--assert=<results file>]
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
@@ -278,8 +278,11 @@ const report = {
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, 'run.json'), `${JSON.stringify(report, null, 1)}\n`);
 console.log(JSON.stringify({ out: path.join(outDir, 'run.json'), ...report.summary }));
-if (process.argv.includes('--assert')) {
-  const recorded = await json(path.join(root, process.env.BNK_G6_RECORDED));
+const recordedFile = process.argv
+  .find((a) => a.startsWith('--assert='))
+  ?.slice('--assert='.length);
+if (recordedFile) {
+  const recorded = await json(path.join(root, recordedFile));
   assert.deepEqual(report.summary, recorded.summary, 'holdout outcome changed');
   assert.deepEqual(
     report.statements,
