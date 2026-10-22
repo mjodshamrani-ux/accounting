@@ -41758,6 +41758,36 @@
       "bytes": 17242,
       "sha256": "ab56af670f8d87249616def0936995619e8c6da853cb55c7dcd3476dda84af03",
       "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g6/check_export.py",
+      "bytes": 2864,
+      "sha256": "9248297da8cd00508ce1f5509761d141797da61eddf4426c206e34dbe5a02f1c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g6/results/run-1-c82dd54-browser.json",
+      "bytes": 3520,
+      "sha256": "439e8bf9bd476897bbc97019b3a090c7c4228e371fda8867a481d1c6458b42b1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g6/results/run-1-c82dd54.json",
+      "bytes": 5862,
+      "sha256": "3c5a746175c8beb311229433f95f23fb903a9430bb50e3df358859f70b8036cc",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-g6-browser.mjs",
+      "bytes": 12919,
+      "sha256": "9bfd49482d4668a0d905cac07e8145f5ad4af93f0d811678ff651fe9e3355515",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-g6-holdout.mjs",
+      "bytes": 11479,
+      "sha256": "3148f0f4238fbbeb6d530bb6630eb3e0724b8183dbf3bb330404d15ec5b14e28",
+      "kind": "text"
     }
   ],
   "distribution": [
