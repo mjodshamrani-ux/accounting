@@ -83,7 +83,7 @@
   border: 1px solid var(--border);
   border-radius: 1rem;
   padding: 1rem 1.15rem;
-  background: var(--card);
+  background: var(--background);
   box-shadow: 0 2px 12px rgb(15 23 42 / 4%);
 }
 .gl-tb-role-card h4 {
@@ -92,7 +92,7 @@
 }
 .gl-tb-role-card p {
   font-size: 0.85rem;
-  color: var(--muted-foreground);
+  color: #637088;
 }
 .gl-tb-role-card dl > div {
   display: flex;
@@ -112,5 +112,5 @@
 .gl-tb-role-card small {
   display: block;
   margin-block-start: 0.15rem;
-  color: var(--muted-foreground);
+  color: #637088;
 }

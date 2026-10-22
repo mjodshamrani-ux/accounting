@@ -179,7 +179,7 @@
   line-height: 1.5;
 }
 .workspace-intro__heading h1[lang='en'] {
-  font-family: var(--font-sans);
+  font-family: 'Noto Sans Arabic', Arial, sans-serif;
 }
 .workspace-intro__heading > p {
   color: #626f84;

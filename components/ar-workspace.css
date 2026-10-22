@@ -19,7 +19,7 @@
 .ar-source-evidence {
   margin-block: 0.75rem;
   padding: 0.85rem 1rem;
-  border: 1px solid var(--workspace-border, #e1e6ed);
+  border: 1px solid #e1e6ed;
   border-radius: 0.75rem;
 }
 .ar-source-evidence summary {
@@ -53,7 +53,7 @@
 }
 .ar-case-reason {
   margin-block: 8px 18px;
-  color: var(--muted, #64748b);
+  color: #64748b;
   font-size: 13px;
 }
 .ar-workspace .ar-case-members {
@@ -66,7 +66,7 @@
   padding: 18px;
   border: 1px solid var(--border, #e1e6ed);
   border-radius: 13px;
-  background: var(--soft, #f8f9fc);
+  background: #f8f9fc;
 }
 .ar-member-heading {
   font-size: 13px;
@@ -75,7 +75,7 @@
 .ar-member-amount {
   font-size: 22px;
   font-variant-numeric: tabular-nums;
-  color: var(--ink, #20334a);
+  color: #20334a;
 }
 .ar-member-meta {
   display: grid;
@@ -85,17 +85,17 @@
   font-size: 12px;
 }
 .ar-member-meta dt {
-  color: var(--muted, #64748b);
+  color: #64748b;
   margin-bottom: 4px;
 }
 .ar-member-meta dd {
   margin: 0;
-  color: var(--ink, #20334a);
+  color: #20334a;
 }
 .ar-member-description {
   margin-block: 14px 0;
   font-size: 12px;
-  color: var(--muted, #64748b);
+  color: #64748b;
 }
 @media (max-width: 600px) {
   .ar-case-members > li {
