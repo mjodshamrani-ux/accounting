@@ -269,6 +269,7 @@ jobs:
           BNK_G3_PROOF_DIR: ${{ runner.temp }}/bank-statement-g3
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
+          BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
         run: |
           pnpm test:bank-statement:oracle
           pnpm test:bank-statement:oracle-mutants
@@ -281,6 +282,7 @@ jobs:
           pnpm test:bank-statement:g3-proof
           pnpm test:bank-statement:g3-mutations
           pnpm test:bank-statement:g4-mutations
+          pnpm test:bank-statement:g5-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
@@ -536,6 +538,29 @@ jobs:
         env:
           SPECIALIZED_FAULT_OUTPUT_DIR: ${{ runner.temp }}/specialized-fault-evidence
         run: pnpm test:specialized-faults
+  bank-statement-interface-mutations:
+    name: Bank statement interface mutations in built browser copies (BNK-PDF-1 G5)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the browser acceptance to catch it
+        env:
+          BNK_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-statement-interface-mutations
+        run: pnpm test:bank-statement:interface-mutations
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:

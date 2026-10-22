@@ -272,21 +272,24 @@ export function useBankStatement() {
 }
 export type BankStatementSession = ReturnType<typeof useBankStatement>;
 
-function Table({
+/** A paged table that builds only the rows it shows. */
+function Table<T>({
   title,
   headers,
-  rows,
+  items,
+  row,
   testId,
 }: {
   title: string;
   headers: string[];
-  rows: ReactNode[][];
+  items: readonly T[];
+  row: (item: T, index: number) => ReactNode[];
   testId: string;
 }) {
   const { lang } = useI18n(),
     c = bankStatementCopy[lang];
   const [page, setPage] = useState(0);
-  const pages = Math.max(1, Math.ceil(rows.length / 50));
+  const pages = Math.max(1, Math.ceil(items.length / 50));
   const at = Math.min(page, pages - 1);
   return (
     <section data-bank-statement-table={testId}>
@@ -301,9 +304,9 @@ function Table({
             </tr>
           </thead>
           <tbody>
-            {rows.slice(at * 50, (at + 1) * 50).map((r, i) => (
+            {items.slice(at * 50, (at + 1) * 50).map((item, i) => (
               <tr key={at * 50 + i}>
-                {r.map((cell, k) => (
+                {row(item, at * 50 + i).map((cell, k) => (
                   <td key={k}>{cell}</td>
                 ))}
               </tr>
@@ -586,7 +589,8 @@ function Result({
         title={c.summary}
         headers={c.summaryHeaders}
         testId="summary"
-        rows={[
+        row={(cells) => cells}
+        items={[
           [c.summaryRows.format, r.reading.format.toUpperCase()],
           [c.summaryRows.currency, r.reading.currency],
           [
@@ -659,7 +663,8 @@ function Result({
           title={c.review}
           headers={c.caseHeaders}
           testId="review"
-          rows={r.cases.filter((k) => k.kind === 'review').map(caseRow)}
+          items={r.cases.filter((k) => k.kind === 'review')}
+          row={caseRow}
         />
       )}
       {r.cases.some((k) => k.kind === 'automatic') && (
@@ -667,7 +672,8 @@ function Result({
           title={c.automatic}
           headers={c.caseHeaders}
           testId="automatic"
-          rows={r.cases.filter((k) => k.kind === 'automatic').map(caseRow)}
+          items={r.cases.filter((k) => k.kind === 'automatic')}
+          row={caseRow}
         />
       )}
       {r.outstanding.length > 0 && (
@@ -675,7 +681,8 @@ function Result({
           title={c.outstanding}
           headers={c.outstandingHeaders}
           testId="outstanding"
-          rows={r.outstanding.map((o) => {
+          items={r.outstanding}
+          row={(o) => {
             const m = statementMember(r, o.side, o.id);
             return [
               c.sides[o.side],
@@ -689,7 +696,7 @@ function Result({
               </bdi>,
               where(o.side, o.id),
             ];
-          })}
+          }}
         />
       )}
       {r.match.timing.length > 0 && (
@@ -697,10 +704,16 @@ function Result({
           title={c.timing}
           headers={c.timingHeaders}
           testId="timing"
-          rows={r.match.timing.map((id) => {
-            const m = r.match.movements.find((x) => x.id === id)!;
-            return [id, m.date, m.valueDate, where('statement', id)];
-          })}
+          items={r.match.timing}
+          row={(id) => {
+            const m = statementMember(r, 'statement', id)!;
+            return [
+              id,
+              m.date,
+              r.match.movements[Number(id.slice(1)) - 1].valueDate,
+              where('statement', id),
+            ];
+          }}
         />
       )}
       {r.decisions.length > 0 && (
@@ -708,7 +721,8 @@ function Result({
           title={c.decisions}
           headers={c.decisionHeaders}
           testId="decisions"
-          rows={r.decisions.map((d) => [
+          items={r.decisions}
+          row={(d) => [
             <bdi key="id" dir="ltr">
               {d.id}
             </bdi>,
@@ -718,7 +732,7 @@ function Result({
               {d.at}
             </bdi>,
             d.note,
-          ])}
+          ]}
         />
       )}
       <details className="bank-statement-lines">
@@ -727,7 +741,8 @@ function Result({
           title={c.lines}
           headers={c.lineHeaders}
           testId="lines"
-          rows={r.reading.lines.map((l, i) => [
+          items={r.reading.lines}
+          row={(l, i) => [
             i + 1,
             c.lineKinds[l.kind],
             l.page || '',
@@ -746,7 +761,7 @@ function Result({
             <bdi key="b" dir="ltr">
               {format(l.balance)}
             </bdi>,
-          ])}
+          ]}
         />
       </details>
     </section>

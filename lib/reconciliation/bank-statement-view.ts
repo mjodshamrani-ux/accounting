@@ -202,6 +202,26 @@ export function bankSessionFormat(
   }
 }
 
+// Members by id, built once per result: a long statement has thousands.
+const indexes = new WeakMap<
+  BankStatementResult,
+  {
+    movements: Map<string, BankStatementResult['match']['movements'][number]>;
+    cashbook: Map<string, BankStatementResult['match']['cashbook'][number]>;
+  }
+>();
+function indexed(result: BankStatementResult) {
+  let index = indexes.get(result);
+  if (!index) {
+    index = {
+      movements: new Map(result.match.movements.map((m) => [m.id, m])),
+      cashbook: new Map(result.match.cashbook.map((c) => [c.id, c])),
+    };
+    indexes.set(result, index);
+  }
+  return index;
+}
+
 /** A statement movement or cashbook entry, as the tables show a member. */
 export function statementMember(
   result: BankStatementResult,
@@ -209,7 +229,7 @@ export function statementMember(
   id: string,
 ) {
   if (side === 'statement') {
-    const m = result.match.movements.find((x) => x.id === id);
+    const m = indexed(result).movements.get(id);
     return m
       ? {
           id,
@@ -221,7 +241,7 @@ export function statementMember(
         }
       : null;
   }
-  const c = result.match.cashbook.find((x) => x.id === id);
+  const c = indexed(result).cashbook.get(id);
   return c
     ? {
         id,

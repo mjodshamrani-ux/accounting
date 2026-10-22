@@ -26,7 +26,7 @@
 .bank-source-basis {
   margin-block: 0.75rem;
   line-height: 1.7;
-  color: var(--muted-foreground);
+  color: #637088;
 }
 
 /* Bank source type: two plain choices, each with its accepted formats. The
@@ -63,10 +63,6 @@
   border-color: #d9cdf6;
   background: #f2eefb;
   color: #573790;
-}
-.reconciliation-workspace .bank-source-mode label:has(input:focus-visible) {
-  outline: 2px solid var(--color-ring);
-  outline-offset: 2px;
 }
 .reconciliation-workspace .bank-source-mode input[type='radio'] {
   flex: 0 0 auto;
@@ -148,5 +144,5 @@
   margin-block-start: 0.4rem;
 }
 .bank-statement-members small {
-  color: var(--color-muted-foreground);
+  color: #637088;
 }

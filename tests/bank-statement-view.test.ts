@@ -300,4 +300,16 @@ void test('members are shown with the page and text items or the row they come f
     String(entry.row),
   );
   assert.equal(statementMember(result, 'cashbook', 'NO-SUCH'), null);
+  // Each result has its own members, looked up by its own index.
+  const other = (await replayBankStatement(await pdf('BS04'))).result;
+  const last = other.match.movements.at(-1)!;
+  assert.equal(
+    statementMember(other, 'statement', last.id)?.amount,
+    last.amount,
+  );
+  assert.notEqual(last.amount, result.match.movements.at(-1)!.amount);
+  assert.equal(
+    statementMember(other, 'cashbook', other.match.cashbook[0].id)?.citation,
+    String(other.match.cashbook[0].row),
+  );
 });

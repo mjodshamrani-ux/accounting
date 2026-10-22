@@ -115,6 +115,7 @@ const required = [
   'test:bank-statement:g3-mutations',
   'test:bank-statement:g4-mutations',
   'test:bank-statement:workspace-browser',
+  'test:bank-statement:g5-mutations',
   'test:inventory-pdf:native-proof',
   'test:inventory-pdf:native-mutations',
   'test:inventory-pdf:fields-proof',
@@ -203,6 +204,31 @@ for (const name of required) {
       `Gate command must propagate failure: ${line}`,
     );
   }
+  assert(
+    pkg.scripts.check.includes(`pnpm ${name}`),
+    `Gate omitted from check: ${name}`,
+  );
+}
+// The interface mutation gate builds the application once per mutant, so it
+// runs as its own job beside the build: unconditional, failing, and in check.
+{
+  const name = 'test:bank-statement:interface-mutations';
+  const job = workflow.jobs['bank-statement-interface-mutations'];
+  assert(job, `Separate gate job missing: ${name}`);
+  assert.equal(job.if, undefined, `Separate gate job cannot be conditional`);
+  assert.notEqual(job['continue-on-error'], true);
+  const owners = Object.values(workflow.jobs).flatMap((j) =>
+    (j.steps ?? []).filter((step) =>
+      (step.run ?? '')
+        .split('\n')
+        .some((line) => line.trim() === `pnpm ${name}`),
+    ),
+  );
+  assert.equal(owners.length, 1, `Gate must execute exactly once: ${name}`);
+  assert(job.steps.includes(owners[0]), `Gate outside its job: ${name}`);
+  assert.equal(owners[0].if, undefined);
+  assert.equal(owners[0].shell, undefined);
+  assert.equal(owners[0].run.trim(), `pnpm ${name}`);
   assert(
     pkg.scripts.check.includes(`pnpm ${name}`),
     `Gate omitted from check: ${name}`,

@@ -22,7 +22,10 @@ import { heldReason } from '../lib/reconciliation/bank-statement-view.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
 const root = path.resolve(import.meta.dirname, '..'),
-  dist = path.join(root, 'dist'),
+  // BNK_G4_DIST: another build of the same source, for the interface mutation
+  // gate; BNK_G4_BROWSER_QUICK=1 skips the sixteen-statement pass.
+  dist = process.env.BNK_G4_DIST ?? path.join(root, 'dist'),
+  quick = process.env.BNK_G4_BROWSER_QUICK === '1',
   suite = path.join(root, 'audit/bank-statement-foundation'),
   frozen = path.join(suite, 'frozen');
 const output =
@@ -179,6 +182,11 @@ async function open(lang, width) {
   page.on('pageerror', (e) => errors.push(e.message));
   await page.addInitScript(() => {
     globalThis.statementReplies = [];
+    globalThis.longTasks = [];
+    new PerformanceObserver((list) => {
+      for (const e of list.getEntries())
+        globalThis.longTasks.push([e.startTime, e.duration]);
+    }).observe({ type: 'longtask', buffered: true });
     globalThis.statementHold = false;
     globalThis.statementQueue = [];
     globalThis.statementTerminated = 0;
@@ -246,13 +254,17 @@ async function open(lang, width) {
           ?.getAttribute('aria-busy') === 'false',
     );
   /** Runs an action and waits for its reply and the page to settle. */
+  // A missing reply is an assertion failure, not a timeout, so that a
+  // planted interface defect counts as caught (scripts/test-bank-statement-
+  // interface-mutations.mjs).
   const act = async (run) => {
     const before = await replies();
     await run();
-    await page.waitForFunction(
-      (n) => globalThis.statementReplies.length > n,
-      before,
-    );
+    await page
+      .waitForFunction((n) => globalThis.statementReplies.length > n, before, {
+        timeout: 120000,
+      })
+      .catch(() => assert.fail('no statement reply from the Worker'));
     await settle();
     return page.evaluate(() => globalThis.statementReplies.at(-1));
   };
@@ -268,11 +280,24 @@ async function open(lang, width) {
   };
   const button = (name, scope = w) =>
     scope.getByRole('button', { name, exact: true });
-  const compare = () => act(() => button(c.compare).click());
+  // A refusal is a failed check unless the check expects one.
+  const compare = async (refusal = false) => {
+    assert.equal(await button(c.compare).isEnabled(), true, 'compare enabled');
+    const reply = await act(() => button(c.compare).click());
+    assert.equal(reply.ok, !refusal, `compare: ${reply.error ?? 'accepted'}`);
+    return reply;
+  };
+  // A refused save or export, or one the page does not hand over, is a failed
+  // check, not a timeout.
   const download = async (name, file) => {
-    const pending = page.waitForEvent('download');
-    await button(name).click();
+    assert.equal(await button(name).isEnabled(), true, name);
+    const pending = page
+      .waitForEvent('download', { timeout: 120000 })
+      .catch(() => null);
+    const reply = await act(() => button(name).click());
+    assert.equal(reply.ok, true, `${name}: ${reply.error ?? ''}`);
     const d = await pending;
+    assert.ok(d, `${name}: no download`);
     const target = path.join(out, file);
     await d.saveAs(target);
     await settle();
@@ -283,7 +308,9 @@ async function open(lang, width) {
     if ((await advanced.getAttribute('open')) === null)
       await advanced.locator(':scope > summary').click();
     const input = w.getByLabel(bank.restore, { exact: true });
-    return act(() => input.setInputFiles(file));
+    const reply = await act(() => input.setInputFiles(file));
+    assert.equal(reply.ok, true, `restore: ${reply.error ?? ''}`);
+    return reply;
   };
   const table = (key) =>
     w
@@ -323,11 +350,13 @@ async function rendered(u, result) {
     u.c.status[result.status],
   );
   if (result.match.held) {
+    const held = heldReason(result.match.held.reason);
+    const message = u.w.locator('[data-bank-statement-held]');
+    assert.equal(await message.getAttribute('data-bank-statement-held'), held.kind);
+    // The accountant reads the reason in the page's words, never the engine's.
     assert.equal(
-      await u.w
-        .locator('[data-bank-statement-held]')
-        .getAttribute('data-bank-statement-held'),
-      heldReason(result.match.held.reason).kind,
+      (await message.innerText()).replace(/\s+/g, ' ').trim(),
+      [u.c.held[held.kind], held.detail].filter(Boolean).join(' '),
     );
     for (const key of ['review', 'automatic', 'outstanding'])
       assert.equal(
@@ -402,7 +431,7 @@ try {
   // Every statement, alternating languages and a phone width, on two pages
   // that are reused: a new file must clear the previous result.
   const pages = { ar: await open('ar', 1440), en: await open('en', 390) };
-  for (const [i, story] of facts.stories.entries()) {
+  for (const [i, story] of quick ? [] : facts.stories.entries()) {
     const id = story.id,
       u = i % 2 ? pages.en : pages.ar;
     const statementFile = `${id}-statement.pdf`,
@@ -434,7 +463,8 @@ try {
       outstanding: result.outstanding.length,
     });
   }
-  checks.push('16 statements: upload, match, save, restore and Excel');
+  if (!quick)
+    checks.push('16 statements: upload, match, save, restore and Excel');
   await pages.ar.page.screenshot({
     path: path.join(out, 'ar-1440-last.png'),
     fullPage: false,
@@ -446,10 +476,13 @@ try {
 
   // Decisions with the page's own buttons.
   const u = pages.ar;
+  // A decision the lifecycle refuses is a failed check here, not a crash.
   const decide = async (row, name) => {
     const target = u.button(name, row);
     assert.equal(await target.isEnabled(), true, name);
-    return u.act(() => target.click());
+    const reply = await u.act(() => target.click());
+    assert.equal(reply.ok, true, `${name}: ${reply.error ?? ''}`);
+    return reply;
   };
   const reviewRow = (n = 0) =>
     u.w.locator('[data-bank-statement-table="review"] tbody tr').nth(n);
@@ -463,6 +496,7 @@ try {
   }
   // BS04: no decision without a reason; then accept the suggestion.
   let result = await load('BS04');
+  const suggested = result.cases.find((k) => k.status === 'needs-review').id;
   for (const name of [u.c.accept, u.c.reject, u.c.undo])
     assert.equal(await u.button(name, reviewRow()).isEnabled(), false, name);
   await note.fill('Deposit slip matches the receipt');
@@ -470,6 +504,16 @@ try {
   let reply = await decide(reviewRow(), u.c.accept);
   result = reply.value.result;
   assert.equal(result.status, 'reviewed');
+  // The button named accept records an acceptance of that case, with the
+  // reason as written.
+  assert.deepEqual(
+    result.decisions.map((d) => [d.type, d.case, d.note]),
+    [['accept', suggested, 'Deposit slip matches the receipt']],
+  );
+  assert.equal(
+    result.cases.find((k) => k.id === suggested).status,
+    'matched-accepted',
+  );
   await rendered(u, result);
   sameAsOracle(result, 'BS04');
   // Save, reload the page cold, and restore from the advanced options.
@@ -582,12 +626,10 @@ try {
   await closing.fill(money(own + 1));
   result = (await u.compare()).value.result;
   assert.equal(heldReason(result.match.held.reason).kind, 'closing-differs');
-  assert.ok(
-    !(await u.w.locator('[data-bank-statement-held]').innerText()).includes(
-      money(own).replace('-', ''),
-    ),
-    'the file’s own closing is not shown',
-  );
+  const heldText = await u.w.locator('[data-bank-statement-held]').innerText();
+  for (const shown of [money(own).replace('-', ''), String(Math.abs(own))])
+    assert.ok(!heldText.includes(shown), 'the file’s own closing is not shown');
+  await rendered(u, result);
   await closing.fill(money(own));
   result = (await u.compare()).value.result;
   assert.equal(result.status, 'reviewed');
@@ -610,7 +652,7 @@ try {
 
   // Refusals are named, and leave no result.
   await u.choose('statement', 'BS01-cashbook.csv');
-  reply = await u.compare();
+  reply = await u.compare(true);
   assert.equal(reply.ok, false);
   assert.equal(
     await u.w
@@ -620,7 +662,7 @@ try {
   );
   await u.choose('statement', 'BS04-statement.pdf');
   await u.choose('cashbook', 'BS01-statement.csv');
-  reply = await u.compare();
+  reply = await u.compare(true);
   assert.equal(reply.ok, false);
   assert.equal(
     await u.w
@@ -644,6 +686,7 @@ try {
   });
   await u.button(u.c.compare).click();
   await u.page.waitForFunction(() => globalThis.statementQueue.length > 0);
+  assert.equal(await u.button(u.bank.cancel).count(), 1, 'cancel shown');
   await u.button(u.bank.cancel).click();
   await u.settle();
   await u.page.evaluate(() => {
@@ -668,6 +711,169 @@ try {
   await u.w.locator('[data-bank-source-mode] input[value="statement"]').check();
   await rendered(u, result);
   checks.push('switching source type keeps the statement result');
+
+  // A file dropped on a card, as the browser delivers a drop to the native
+  // input (Chromium's drag input, not synthetic DOM events).
+  const cdp = await u.ctx.newCDPSession(u.page);
+  const drop = async (role, file) => {
+    const input = u.w.getByLabel(u.c[role], { exact: true });
+    const box = await input.boundingBox();
+    const at = { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+    const data = {
+      items: [],
+      files: [path.join(frozen, file)],
+      dragOperationsMask: 1,
+    };
+    const zone = input.locator('xpath=..');
+    await cdp.send('Input.dispatchDragEvent', {
+      type: 'dragEnter',
+      ...at,
+      data,
+    });
+    assert.equal(await zone.getAttribute('data-drag-active'), 'true', role);
+    await cdp.send('Input.dispatchDragEvent', {
+      type: 'dragOver',
+      ...at,
+      data,
+    });
+    await cdp.send('Input.dispatchDragEvent', { type: 'drop', ...at, data });
+    await u.w
+      .locator(`[data-bank-statement-file="${role}"]`)
+      .filter({ hasText: file })
+      .waitFor();
+    assert.equal(await zone.getAttribute('data-drag-active'), 'false', role);
+  };
+  await drop('statement', 'BS12-statement.pdf');
+  assert.equal(await u.w.locator('[data-bank-statement-result]').count(), 0);
+  await drop('cashbook', 'BS12-cashbook.csv');
+  sameAsOracle((await u.compare()).value.result, 'BS12');
+  checks.push('statement and cashbook dropped on their cards');
+
+  // The whole path by keyboard on a fresh page: the source type by arrow
+  // key, the file choosers by Enter and by Space, matching and a decision by
+  // Enter. One file chooser listener for the whole page: Playwright turns its
+  // chooser interception on and off with the listener, without waiting, so a
+  // listener per chooser races the key press.
+  const k = await open('en', 1440);
+  const choosers = [];
+  k.page.on('filechooser', (chooser) => choosers.push(chooser));
+  await k.w.locator('[data-bank-source-mode] input[value="statement"]').check();
+  await k.w.locator('[data-bank-source-mode] input[value="movements"]').check();
+  await k.w.locator('[data-bank-source-mode] input[value="movements"]').focus();
+  await k.page.keyboard.press('ArrowDown');
+  assert.equal(
+    await k.w
+      .locator('[data-bank-source-mode] input[value="statement"]')
+      .isChecked(),
+    true,
+  );
+  const focused = () =>
+    k.page.evaluate(() => document.activeElement?.getAttribute('aria-label'));
+  for (const [role, file, key] of [
+    ['statement', 'BS04-statement.pdf', 'Enter'],
+    ['cashbook', 'BS04-cashbook.csv', 'Space'],
+  ]) {
+    await k.page.keyboard.press('Tab');
+    assert.equal(await focused(), k.c[role]);
+    const opened = choosers.length;
+    await k.page.keyboard.press(key);
+    for (let i = 0; i < 300 && choosers.length === opened; i++)
+      await k.page.waitForTimeout(100);
+    assert.equal(choosers.length, opened + 1, `${key} opens the ${role} chooser`);
+    await choosers[opened].setFiles(path.join(frozen, file));
+    await k.w
+      .locator(`[data-bank-statement-file="${role}"]`)
+      .filter({ hasText: file })
+      .waitFor();
+  }
+  const tabTo = async (name) => {
+    for (let i = 0; i < 40; i++) {
+      await k.page.keyboard.press('Tab');
+      if (
+        await k.page.evaluate(
+          (name) => document.activeElement?.textContent?.trim() === name,
+          name,
+        )
+      )
+        return;
+    }
+    assert.fail(`not reachable by Tab: ${name}`);
+  };
+  await tabTo(k.c.compare);
+  const keyed = await k.act(() => k.page.keyboard.press('Enter'));
+  assert.equal(keyed.value.result.status, 'needs-review');
+  await k.w.getByLabel(k.c.note, { exact: true }).focus();
+  await k.page.keyboard.type('Deposit slip seen');
+  await tabTo(k.c.accept);
+  const accepted = await k.act(() => k.page.keyboard.press('Enter'));
+  assert.equal(accepted.ok, true, accepted.error);
+  assert.equal(accepted.value.result.status, 'reviewed');
+  assert.deepEqual(
+    accepted.value.result.decisions.map((d) => [d.type, d.note]),
+    [['accept', 'Deposit slip seen']],
+  );
+  await k.ctx.close();
+  checks.push(
+    'keyboard only: source type, both files, matching and a decision',
+  );
+
+  // The longest statement must not freeze the page: the client verifies a
+  // reply from its own reading of the originals, read once and in page-sized
+  // turns. Budgets are for one uninterrupted main-thread task.
+  const longest = (since) =>
+    u.page.evaluate(
+      (since) =>
+        Math.max(
+          0,
+          ...globalThis.longTasks
+            .filter(([start]) => start >= since)
+            .map(([, duration]) => duration),
+        ),
+      since,
+    );
+  const now = () => u.page.evaluate(() => performance.now());
+  const timing = {};
+  const timed = async (label, budget, run) => {
+    const since = await now();
+    const value = await run();
+    const total = (await now()) - since;
+    const task = await longest(since);
+    timing[label] = {
+      totalMs: Math.round(total),
+      longestTaskMs: Math.round(task),
+      budgetMs: budget,
+    };
+    assert.ok(
+      task < budget,
+      `${label}: a ${Math.round(task)} ms main-thread task`,
+    );
+    return value;
+  };
+  await u.choose('statement', 'BS15-statement.pdf');
+  await u.choose('cashbook', 'BS15-cashbook.csv');
+  result = (await timed('BS15 compare', 1000, () => u.compare())).value.result;
+  sameAsOracle(result, 'BS15');
+  await note.fill('Timing check');
+  result = (
+    await timed('BS15 decision', 1000, () => decide(automaticRow(), u.c.reject))
+  ).value.result;
+  const timingSession = await timed('BS15 save', 1000, () =>
+    u.download(u.c.save, 'BS15-timing-session.json'),
+  );
+  await timed('BS15 restore', 1000, () => u.restore(timingSession.target));
+  book = await timed('BS15 export', 1500, () =>
+    u.download(u.c.export, 'BS15-timing.xlsx'),
+  );
+  toCheck(
+    'BS15-rejected',
+    'BS15',
+    book.target,
+    'BS15-statement.pdf',
+    'BS15-cashbook.csv',
+    result,
+    null,
+  );
+  checks.push('100-page statement within main-thread budgets');
   const seconds = Math.round((performance.now() - started) / 1000);
 
   // The independent check of every downloaded workbook.
@@ -694,7 +900,9 @@ try {
   assert.deepEqual(nonGet, [], 'non-GET requests');
   const verified = statements.filter((s) => s.verified);
   const report = {
-    schema: 'tarasuf-bnk-pdf1-g4-browser/1',
+    schema: 'tarasuf-bnk-pdf1-g4-browser/2',
+    quick,
+    timing,
     capacity: {
       eligible: verified.length,
       completed: verified.filter(
@@ -711,9 +919,11 @@ try {
     external,
     nonGet,
   };
-  assert.equal(report.capacity.eligible, 14);
-  assert.equal(report.capacity.completed, 14);
-  assert.equal(report.capacity.held, 2);
+  if (!quick) {
+    assert.equal(report.capacity.eligible, 14);
+    assert.equal(report.capacity.completed, 14);
+    assert.equal(report.capacity.held, 2);
+  }
   assert.equal(report.capacity.falseAutomatic, 0);
   await writeFile(
     path.join(out, 'checks.json'),
@@ -723,6 +933,7 @@ try {
     JSON.stringify({
       out: path.relative(root, out),
       capacity: report.capacity,
+      timing,
       workbooksChecked: report.workbooksChecked,
       checks: checks.length,
       seconds,

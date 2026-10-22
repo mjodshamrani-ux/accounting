@@ -880,6 +880,23 @@ type GuardedPdfPage = {
   tokens: (PdfToken & { item: number; parts?: PdfTokenPart[] })[];
 };
 
+/** One macrotask turn between pages on a window's main thread, where a page's
+ * client re-reads an original to verify a worker's reply: input and painting
+ * run in between, and a long PDF no longer freezes the page. A worker and
+ * Node never wait. Scheduling only; nothing read changes. */
+const yieldBetweenPages =
+  typeof window === 'undefined' || typeof MessageChannel === 'undefined'
+    ? undefined
+    : () =>
+        new Promise<void>((resolve) => {
+          const channel = new MessageChannel();
+          channel.port1.onmessage = () => {
+            channel.port1.close();
+            resolve();
+          };
+          channel.port2.postMessage(null);
+        });
+
 // The only native-text decoder. Both projections share every integrity guard.
 // Take ownership before the first await: callers may reuse or mutate their buffer.
 async function readGuardedPdf<T>(
@@ -1132,6 +1149,7 @@ async function readGuardedPdf<T>(
         completed: pageNo,
         total: doc.numPages,
       });
+      await yieldBetweenPages?.();
     }
     return await project(pages, buffer);
   } finally {

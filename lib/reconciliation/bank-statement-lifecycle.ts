@@ -107,11 +107,38 @@ const formatOf = (name: string) =>
 const sameIds = (a: string[], b: string[]) =>
   a.length === b.length && a.every((id, i) => id === b[i]);
 
+/** What two originals and a scope give before any decision. Frozen: every
+ * result settled from it shares it, and none may change it. */
+type StatementBase = {
+  reading: BankStatementReading;
+  match: StatementMatchResult;
+  context: string;
+};
+function frozen<T>(value: T): T {
+  if (value && typeof value === 'object' && !Object.isFrozen(value)) {
+    Object.freeze(value);
+    for (const child of Object.values(value)) frozen(child);
+  }
+  return value;
+}
+
 /** Re-reads both originals, matches them, and applies the decisions. */
 export async function replayBankStatement(
   input: unknown,
 ): Promise<BankStatementReplay> {
   const state = snapshotBankStatementState(input);
+  return settleStatement(state, await readStatement(state));
+}
+
+/** Reads both originals from their bytes, checks both fingerprints and the
+ * scope, and matches. */
+let reads = 0;
+/** How many times this thread has read a statement's originals. */
+export const statementReads = () => reads;
+async function readStatement(
+  state: BankStatementState,
+): Promise<StatementBase> {
+  reads++;
   const [statementFile, cashbookFile] = state.files;
   const { scope } = state;
   let reading: BankStatementReading;
@@ -165,7 +192,16 @@ export async function replayBankStatement(
     scope.confirmedClosing,
     match.statement.completeness,
   ]);
+  return frozen({ reading, match, context });
+}
 
+/** Applies the decisions to what the originals gave. Reads nothing. */
+function settleStatement(
+  state: BankStatementState,
+  base: StatementBase,
+): BankStatementReplay {
+  const { reading, match, context } = base;
+  const { scope } = state;
   const cases: StatementCase[] = [
     ...match.auto.map((a) => ({
       kind: 'automatic' as const,
@@ -257,6 +293,49 @@ export async function replayBankStatement(
   };
 }
 
+/**
+ * This thread's own reading of the last originals it verified. A later
+ * request with the same names, fingerprints, bytes (compared byte for byte)
+ * and scope gives the same reading, so its decisions are settled on it
+ * without reading the PDF again; anything else is read from its bytes.
+ */
+let verified: {
+  files: { name: string; sha256: string; original: ArrayBuffer }[];
+  scope: string;
+  base: StatementBase;
+} | null = null;
+const sameBytes = (a: ArrayBuffer, b: ArrayBuffer) => {
+  if (a.byteLength !== b.byteLength) return false;
+  const x = new Uint8Array(a),
+    y = new Uint8Array(b);
+  return x.every((v, i) => v === y[i]);
+};
+export async function replayVerified(
+  input: unknown,
+): Promise<BankStatementReplay> {
+  const state = snapshotBankStatementState(input);
+  const scope = JSON.stringify(state.scope);
+  const v = verified;
+  if (
+    v &&
+    v.scope === scope &&
+    v.files.every(
+      (f, i) =>
+        f.name === state.files[i].name &&
+        f.sha256 === state.files[i].sha256 &&
+        sameBytes(f.original, state.files[i].original),
+    )
+  )
+    return settleStatement(state, v.base);
+  const base = await readStatement(state);
+  verified = {
+    files: state.files.map((f) => ({ ...f, original: f.original.slice(0) })),
+    scope,
+    base,
+  };
+  return settleStatement(state, base);
+}
+
 function encode(buffer: ArrayBuffer) {
   const bytes = new Uint8Array(buffer),
     parts: string[] = [];
@@ -304,7 +383,15 @@ export async function saveBankStatement(input: unknown): Promise<ArrayBuffer> {
 
 export async function restoreBankStatement(
   session: ArrayBuffer,
+  replay: (
+    input: unknown,
+  ) => Promise<BankStatementReplay> = replayBankStatement,
 ): Promise<BankStatementReplay> {
+  return replay(sessionState(session));
+}
+
+/** The state a session file holds: its originals, scope and decisions. */
+function sessionState(session: ArrayBuffer): BankStatementState {
   statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
   let parsed: unknown;
   try {
@@ -334,7 +421,7 @@ export async function restoreBankStatement(
       fail('SESSION');
     return { name: f.name, sha256: f.sha256, original: decode(f.data) };
   });
-  return replayBankStatement({
+  return snapshotBankStatementState({
     version: parsed.version,
     files,
     scope: parsed.scope,
@@ -347,8 +434,11 @@ export async function restoreBankStatement(
 export async function exportBankStatement(
   input: unknown,
   expected: unknown,
+  replay: (
+    input: unknown,
+  ) => Promise<BankStatementReplay> = replayBankStatement,
 ): Promise<ArrayBuffer> {
-  const { state, result } = await replayBankStatement(input);
+  const { state, result } = await replay(input);
   if (!sameStatementData(result, expected)) fail('STALE_RESULT');
   const { reading, match } = result;
   const book = new ExcelJS.Workbook();
@@ -607,7 +697,10 @@ export async function exportBankStatement(
 }
 
 /** A worker reply is installed only if this thread, from the captured
- * request's own originals, computes the same thing. */
+ * request's own originals, computes the same thing. The originals are read
+ * here once per set of bytes and scope (replayVerified); a saved session is
+ * bound by holding exactly the request's originals, scope and decisions,
+ * which this thread has just replayed. */
 export async function validateBankStatementWorkerResponse(
   action: string,
   value: unknown,
@@ -617,16 +710,21 @@ export async function validateBankStatementWorkerResponse(
   if (action === 'bank-statement-save') {
     statementBytes(value, BANK_STATEMENT_SESSION_LIMIT, 'ENVELOPE');
     const returned = value.slice(0);
-    const expected = await replayBankStatement(requested);
-    if (!sameStatementData(await restoreBankStatement(returned), expected))
+    const state = (await replayVerified(requested)).state;
+    let saved: BankStatementState | undefined;
+    try {
+      saved = sessionState(returned);
+    } catch {
       fail('WORKER_BINDING');
+    }
+    if (!sameStatementData(saved, state)) fail('WORKER_BINDING');
     return returned;
   }
   if (action === 'bank-statement-export') {
     statementBytes(value, BANK_STATEMENT_EXPORT_LIMIT, 'ENVELOPE');
     const returned = value.slice(0);
     const { state, result } = requested as BankStatementExportRequest;
-    const expected = await exportBankStatement(state, result);
+    const expected = await exportBankStatement(state, result, replayVerified);
     const { sameStockWorkbook } =
       await import('./inventory-register-worker-binding.ts');
     const same = await sameStockWorkbook(returned, expected).catch(() => false);
@@ -640,8 +738,9 @@ export async function validateBankStatementWorkerResponse(
     action === 'bank-statement-restore'
       ? await restoreBankStatement(
           (requested as { buffer: ArrayBuffer }).buffer,
+          replayVerified,
         )
-      : await replayBankStatement(requested);
+      : await replayVerified(requested);
   if (!sameStatementData(captured, expected)) fail('WORKER_BINDING');
   return expected;
 }
