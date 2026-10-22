@@ -105,6 +105,7 @@ const required = [
   'test:inventory-pdf:baseline',
   'test:bank-statement:oracle',
   'test:bank-statement:oracle-mutants',
+  'test:bank-statement:holdout-seal',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',
   'test:bank-statement:g1-mutations',

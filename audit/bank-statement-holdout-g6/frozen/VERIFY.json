@@ -1,0 +1,235 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline",
+ "factsSha256": "01bee30ac907e8535b72006abaf41e156a296c845dc4a6465c6608d03d34f533",
+ "statements": [
+  {
+   "id": "H01",
+   "file": "H01-statement.pdf",
+   "sha256": "14453b792d5382530b7847b8a1d8b9d6f5b08ab41402c83967389a1da72efc7c",
+   "pages": 2,
+   "valuesFound": 90,
+   "ok": true,
+   "problems": [],
+   "producer": "LibreOffice 24.2",
+   "fonts": [
+    "BAAAAA+LiberationSans-Bold",
+    "CAAAAA+LiberationSans"
+   ],
+   "fontDeclared": "Liberation Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "H02",
+   "file": "H02-statement.pdf",
+   "sha256": "e9b409c5eddb9d4c188ff7e6f6a6b2bc7919e636c570426fbbb74fc3cdc2b4b1",
+   "pages": 3,
+   "valuesFound": 111,
+   "ok": true,
+   "problems": [],
+   "producer": "LibreOffice 24.2",
+   "fonts": [
+    "BAAAAA+LiberationSerif-Bold",
+    "CAAAAA+LiberationSerif"
+   ],
+   "fontDeclared": "Liberation Serif",
+   "fontPresent": true
+  },
+  {
+   "id": "H03",
+   "file": "H03-statement.pdf",
+   "sha256": "c68baef0ed8653025135a753a4adbb58dce9723d63b8abe2151adfc68c2729cc",
+   "pages": 2,
+   "valuesFound": 66,
+   "ok": true,
+   "problems": [],
+   "producer": "LibreOffice 24.2",
+   "fonts": [
+    "BAAAAA+FreeSerifBold",
+    "CAAAAA+FreeSerif"
+   ],
+   "fontDeclared": "FreeSerif",
+   "fontPresent": true
+  },
+  {
+   "id": "H04",
+   "file": "H04-statement.pdf",
+   "sha256": "f7f2b684ede70cf395f5cc89e061e3f098340f0bf11ff94e5e118f134279305d",
+   "pages": 2,
+   "valuesFound": 71,
+   "ok": true,
+   "problems": [],
+   "producer": "LibreOffice 24.2",
+   "fonts": [
+    "BAAAAA+DejaVuSans-Bold",
+    "CAAAAA+DejaVuSans"
+   ],
+   "fontDeclared": "DejaVu Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "H05",
+   "file": "H05-statement.pdf",
+   "sha256": "60eaff6cd62a5c74cc37b2a5bf7b1b8b95c76cf615432e32f61f6253056a5680",
+   "pages": 30,
+   "valuesFound": 3723,
+   "ok": true,
+   "problems": [],
+   "producer": "LibreOffice 24.2",
+   "fonts": [
+    "BAAAAA+LiberationSans-Bold",
+    "CAAAAA+LiberationSans"
+   ],
+   "fontDeclared": "Liberation Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "H06",
+   "file": "H06-statement.pdf",
+   "sha256": "f82adf389d44fd3360ac9e96a311b3ee1780522f61faf741389b45302e459f84",
+   "pages": 2,
+   "valuesFound": 78,
+   "ok": true,
+   "problems": [],
+   "producer": "LibreOffice 24.2",
+   "fonts": [
+    "BAAAAA+LiberationSans-Bold",
+    "CAAAAA+LiberationSans"
+   ],
+   "fontDeclared": "Liberation Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "H07",
+   "file": "H07-statement.pdf",
+   "sha256": "465cb4ed44780cffa8ae9bbf92a5064556f1504ae6616856cd2f8adf13df7210",
+   "pages": 3,
+   "valuesFound": 110,
+   "ok": true,
+   "problems": [],
+   "producer": "ReportLab PDF Library - www.reportlab.com",
+   "fonts": [
+    "Helvetica",
+    "Helvetica-Bold"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true
+  },
+  {
+   "id": "H08",
+   "file": "H08-statement.pdf",
+   "sha256": "559b34551c342d583cf99bb02fcf3b35c4daa5c0606f9b035bcafdf5e20c9004",
+   "pages": 3,
+   "valuesFound": 110,
+   "ok": true,
+   "problems": [],
+   "producer": "ReportLab PDF Library - www.reportlab.com",
+   "fonts": [
+    "Helvetica",
+    "Helvetica-Bold"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true
+  },
+  {
+   "id": "H09",
+   "file": "H09-statement.pdf",
+   "sha256": "b31b9ae7c5a291ba178afeaa98baa69cdb87d2e7c91ac2cc4a98e099264e2310",
+   "pages": 4,
+   "valuesFound": 160,
+   "ok": true,
+   "problems": [],
+   "producer": "ReportLab PDF Library - www.reportlab.com",
+   "fonts": [
+    "Helvetica",
+    "Helvetica-Bold"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true
+  },
+  {
+   "id": "H10",
+   "file": "H10-statement.pdf",
+   "sha256": "271e24a85cd5f5948a59245f1d71a511fa84ab8a33fbf86b00fbc7e8d047591e",
+   "pages": 2,
+   "valuesFound": 72,
+   "ok": true,
+   "problems": [],
+   "producer": "ReportLab PDF Library - www.reportlab.com",
+   "fonts": [
+    "AAAAAA+LiberationSerif",
+    "AAAAAA+LiberationSerif-Bold",
+    "Helvetica"
+   ],
+   "fontDeclared": "Liberation Serif (embedded TrueType)",
+   "fontPresent": true
+  },
+  {
+   "id": "H11",
+   "file": "H11-statement.pdf",
+   "sha256": "b073a88dea68cbfa534bd7cab418be993f5bf39d615eb443ae8f659e0cb52605",
+   "pages": 2,
+   "valuesFound": 60,
+   "ok": true,
+   "problems": [],
+   "producer": "ReportLab PDF Library - www.reportlab.com",
+   "fonts": [
+    "AAAAAA+DejaVuSans",
+    "AAAAAA+DejaVuSans-Bold",
+    "Helvetica"
+   ],
+   "fontDeclared": "DejaVu Sans (embedded TrueType)",
+   "fontPresent": true
+  },
+  {
+   "id": "H12",
+   "file": "H12-statement.pdf",
+   "sha256": "f1ecf1a83fadfce1d910cac40db100174c3e51dbdba59cb06771c246f64b8deb",
+   "pages": 1,
+   "valuesFound": 46,
+   "ok": true,
+   "problems": [],
+   "producer": "ReportLab PDF Library - www.reportlab.com",
+   "fonts": [
+    "Helvetica",
+    "Helvetica-Bold"
+   ],
+   "fontDeclared": "Helvetica",
+   "fontPresent": true
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "H01-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "4c3ddc142434234652042c7bddd121739be4346fc73dcf58b87c3d027cd464f4"
+  },
+  {
+   "file": "H07-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "2ceea64c4e8bfd44b857811236aea0485df48bf03007578cebc9dfcf4ec75bd9"
+  }
+ ],
+ "selfTest": [
+  "H01: LibreOffice, English: an amount one halala off",
+  "H03: LibreOffice, Arabic-Indic digits: a reference changed",
+  "H03: LibreOffice, Arabic-Indic digits: a date changed",
+  "H04: LibreOffice, Arabic with Latin digits: a balance changed",
+  "H07: ReportLab Helvetica: a brought-forward balance changed",
+  "H10: ReportLab embedded TrueType: a deposit one halala off",
+  "H11: ReportLab Arabic, visual order: a reference changed",
+  "H11: ReportLab Arabic, visual order: a withdrawal one halala off",
+  "H08: ReportLab: the printed page numbers changed",
+  "H01: LibreOffice: two balances swapped between rows",
+  "H07: ReportLab: two balances swapped between rows",
+  "H05: LibreOffice landscape: the continuation text changed",
+  "H12: ReportLab: a value date changed",
+  "H01: XLSX cashbook one halala off its CSV",
+  "H07: XLSX cashbook one halala off its CSV"
+ ]
+}

@@ -273,6 +273,7 @@ jobs:
         run: |
           pnpm test:bank-statement:oracle
           pnpm test:bank-statement:oracle-mutants
+          pnpm test:bank-statement:holdout-seal
           pnpm test:bank-statement:baseline
           pnpm test:bank-statement:g1-proof
           pnpm test:bank-statement:g1-mutations
