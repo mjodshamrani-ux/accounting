@@ -62,7 +62,7 @@ const server = createServer(async (req, res) => {
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const origin = `http://127.0.0.1:${server.address().port}`;
 const c = bankStatementCopy.en;
-const sorted = (xs) => [...xs].sort();
+const sorted = (xs) => [...xs].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
 const errors = [],
   external = [];
 

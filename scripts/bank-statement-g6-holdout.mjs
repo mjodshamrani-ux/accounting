@@ -67,7 +67,7 @@ const { matchBankStatement, readBankCashbookTable } = await import(
 
 const words = (s) => s.normalize('NFKC').replace(/\s+/gu, ' ').trim();
 const minor = (s) => Math.round(Number(s) * 100);
-const sorted = (xs) => [...xs].sort();
+const sorted = (xs) => [...xs].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
 const pairKeys = (pairs) => sorted(pairs.map((p) => p.join('|')));
 const groupKeys = (groups) =>
   sorted(
