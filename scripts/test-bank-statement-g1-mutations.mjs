@@ -32,6 +32,7 @@ const tests = [
   'tests/bank-statement-native.test.ts',
   'tests/bank-statement-writers.test.ts',
   'tests/pdf-glyph-order.test.ts',
+  'tests/pdf-ink-guards.test.ts',
 ];
 const PDF = 'lib/reconciliation/pdf.ts',
   PAINT = 'lib/reconciliation/pdf-paint-order.ts',
@@ -120,7 +121,7 @@ const mutations = [
     'return ends && clear ? k : undefined;',
     'return ends ? k : undefined;',
   ],
-  // G7: right-to-left runs read by glyph, and the DR suffix as its own run.
+  // G7: right-to-left runs read by glyph.
   [
     'glyph-order-unused',
     PDF,
@@ -145,19 +146,57 @@ const mutations = [
     'STAND_INS.filter((s) => !raw.includes(s) && !text.includes(s))',
     'STAND_INS',
   ],
+  // G8: the DR run after its amount in either direction, date runs, and
+  // drawings and rows judged by proved ink.
+  ['debit-mark-ignored', READER, 'if (!amount) continue;', 'continue;'],
   [
-    'debit-mark-ignored',
+    'debit-mark-right-to-left-only',
     READER,
-    "if (columns.direction !== 'rtl') return pieces;",
-    'return pieces;',
+    'const out = [...pieces];',
+    'const out = [...pieces];\n  if (!rtl) return out;',
   ],
-  ['debit-mark-left-to-right', READER, "if (columns.direction !== 'rtl') return pieces;", ''],
-  ['debit-mark-either-side', READER, 'q.x0 - mark.x1 >= -UNDER &&', 'true &&'],
+  [
+    'debit-mark-same-side',
+    READER,
+    'const gap = rtl ? q.x0 - mark.x1 : mark.x0 - q.x1;',
+    'const gap = q.x0 - mark.x1;',
+  ],
+  ['debit-mark-either-side', READER, 'gap >= -UNDER &&', 'true &&'],
   [
     'debit-mark-any-distance',
     READER,
-    'q.x0 - mark.x1 <= Math.min(q.height, mark.height),',
-    'true,',
+    'gap <= Math.min(q.height, mark.height)',
+    'true',
+  ],
+  [
+    'date-runs-not-joined',
+    READER,
+    'if (cells[col].length > 1 && !/\\s/u.test(joined))',
+    'if (false)',
+  ],
+  [
+    'date-runs-apart-joined',
+    READER,
+    'if (cells[col].length > 1 && !/\\s/u.test(joined))',
+    'if (cells[col].length > 1)',
+  ],
+  [
+    'drawing-by-metrics',
+    PDF,
+    'const inkBoxes = textBoxes.map(clipBoxOf);',
+    'const inkBoxes = textBoxes;',
+  ],
+  [
+    'rows-by-metrics',
+    PDF,
+    '.map((t) => ink?.get(t) ?? glyphBounds(t)),',
+    '.map((t) => glyphBounds(t)),',
+  ],
+  [
+    'ink-unproved-returned',
+    PDF,
+    'return inkBoxes.map((box, i) => (box === textBoxes[i] ? undefined : box));',
+    'return inkBoxes;',
   ],
   [
     'heading-runs-not-joined',
@@ -275,6 +314,7 @@ if (report.baselinePassed)
         ...tests,
         'audit/bank-statement-foundation/frozen',
         'audit/bank-statement-holdout-g6/frozen',
+        'audit/bank-statement-holdout-g8/frozen',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });

@@ -15,6 +15,7 @@ import {
 } from '../lib/reconciliation/bank-statement-native.ts';
 import { readNativePdfWordSource } from '../lib/reconciliation/pdf.ts';
 import { readFile } from '../lib/reconciliation/io.ts';
+import ExcelJS from 'exceljs';
 
 // bank-statement-native-1 matching. The proof against the oracle on all
 // sixteen frozen statements is scripts/bank-statement-g2-proof, and the
@@ -315,4 +316,50 @@ void test('the cashbook is read strictly', async () => {
       code,
     );
   }
+});
+
+void test('a typed cashbook amount holds its value, not printed decimals (G8)', async () => {
+  // K02 of the G8 holdout, saved by XlsxWriter with dates and amounts as
+  // numbers: 366445 is 366445.00. Regression since G8 was fixed on it.
+  const g8 = (name: string) =>
+    fsRead(new URL(`../audit/bank-statement-holdout-g8/frozen/${name}`, import.meta.url));
+  /** A cashbook that must read: a refusal fails as an assertion. */
+  const entries = (file: Awaited<ReturnType<typeof readFile>>) => {
+    let out: CashbookEntry[] = [];
+    assert.doesNotThrow(() => {
+      out = readBankCashbookTable(file, 'SAR');
+    });
+    return out;
+  };
+  const typed = entries(
+    await readFile('K02-cashbook.xlsx', Uint8Array.from(await g8('K02-cashbook.xlsx')).buffer),
+  );
+  const text = entries(
+    await readFile('K02-cashbook.csv', Uint8Array.from(await g8('K02-cashbook.csv')).buffer),
+  );
+  assert.deepEqual(typed, text);
+  assert.ok(typed.some((e) => e.amount % 100 === 0));
+  // Built here: whole and one-decimal numbers read; three decimals do not.
+  const book = async (receipt: number) => {
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('Cashbook');
+    ws.addRow(['Date', 'Voucher', 'Description', 'Reference', 'Receipts', 'Payments']);
+    ws.addRow([new Date(Date.UTC(2026, 6, 1)), 'RV-1', 'Receipt', 'FT1', receipt, null]);
+    ws.getCell('A2').numFmt = 'yyyy-mm-dd';
+    ws.getCell('E2').numFmt = '0.00';
+    return readFile('typed.xlsx', Uint8Array.from(Buffer.from(await wb.xlsx.writeBuffer())).buffer);
+  };
+  assert.equal(entries(await book(366445))[0]?.amount, 36644500);
+  assert.equal(entries(await book(1234.5))[0]?.amount, 123450);
+  await assert.rejects(
+    async () => readBankCashbookTable(await book(12.345), 'SAR'),
+    (e: unknown) => e instanceof CashbookReadError && e.code === 'AMOUNT',
+  );
+  // Text keeps its form: a CSV amount without its decimals is refused.
+  const rows = (await frozen('BS01-cashbook.csv')).toString().split('\r\n');
+  const whole = rows.map((r, i) => (i === 1 ? r.replace(/(\d+)\.\d{2}(,|$)/, '$1$2') : r)).join('\r\n');
+  await assert.rejects(
+    async () => readBankCashbookTable(await csv('cashbook.csv', whole), 'SAR'),
+    (e: unknown) => e instanceof CashbookReadError && e.code === 'AMOUNT',
+  );
 });

@@ -135,10 +135,17 @@ export function readBankCashbookTable(
     `^(\\d+)${decimals ? `\\.(\\d{${decimals}})` : ''}$`,
     'u',
   );
-  const amount = (s: string, at: number, name: string) => {
+  // A typed number holds its value, not the decimals it is shown with: the
+  // number 366445 is 366445.00, and 1234.5 is 1234.50. Text keeps the form.
+  const typedMoney = new RegExp(
+    `^(\\d+)${decimals ? `(?:\\.(\\d{1,${decimals}}))?` : ''}$`,
+    'u',
+  );
+  const numeric = file.sheets[0]?.numericCells;
+  const amount = (s: string, at: number, column: number, name: string) => {
     if (!s) return 0;
-    const m = money.exec(s);
-    const value = m ? Number(m[1] + (m[2] ?? '')) : NaN;
+    const m = (numeric?.[`${at}:${column}`] ? typedMoney : money).exec(s);
+    const value = m ? Number(m[1] + (m[2] ?? '').padEnd(decimals, '0')) : NaN;
     if (!Number.isSafeInteger(value))
       throw new CashbookReadError('AMOUNT', at, `${name} ${JSON.stringify(s)}`);
     return value;
@@ -160,8 +167,8 @@ export function readBankCashbookTable(
       !payments
     )
       throw new CashbookReadError('ROW', at, 'an empty row');
-    const receipt = amount(receipts, at, 'receipts');
-    const payment = amount(payments, at, 'payments');
+    const receipt = amount(receipts, at, 5, 'receipts');
+    const payment = amount(payments, at, 6, 'payments');
     if (receipt > 0 === payment > 0)
       throw new CashbookReadError(
         'AMOUNT',

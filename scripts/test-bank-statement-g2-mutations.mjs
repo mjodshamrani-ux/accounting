@@ -113,6 +113,31 @@ const mutations = [
     '\\\\.(\\\\d{${decimals},})',
   ],
   ['statement-ids-shifted', ENGINE, 'id: `S${i + 1}`,', 'id: `S${i}`,'],
+  // G8: a typed number holds its value; text keeps its two decimals.
+  [
+    'typed-amount-as-text',
+    ENGINE,
+    '(numeric?.[`${at}:${column}`] ? typedMoney : money)',
+    'money',
+  ],
+  [
+    'text-amount-as-typed',
+    ENGINE,
+    '(numeric?.[`${at}:${column}`] ? typedMoney : money)',
+    'typedMoney',
+  ],
+  [
+    'typed-any-decimals',
+    ENGINE,
+    '(?:\\\\.(\\\\d{1,${decimals}}))?',
+    '(?:\\\\.(\\\\d{1,}))?',
+  ],
+  [
+    'typed-receipts-column',
+    ENGINE,
+    "const receipt = amount(receipts, at, 5, 'receipts');",
+    "const receipt = amount(receipts, at, 4, 'receipts');",
+  ],
 ];
 const files = [
   ...new Set(mutations.map(([, file]) => file)),
@@ -171,6 +196,7 @@ if (report.baselinePassed)
         ...tests,
         differential,
         'audit/bank-statement-foundation',
+        'audit/bank-statement-holdout-g8/frozen',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });

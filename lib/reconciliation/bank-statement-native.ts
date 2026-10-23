@@ -339,34 +339,38 @@ function fitted(columns: Columns, t: Token): Piece[] {
   return columnOf(columns, whole) !== undefined ? [whole] : partsOf(t);
 }
 
-/** In a right-to-left table a balance printed with its DR suffix arrives as
- * two runs, the suffix on the left: the bidirectional algorithm sets a number
- * and the Latin word after it apart, so «78,720.47 DR» shows as
- * «DR 78,720.47», and the order cannot be told from the page. The two read as
- * one balance, the contract's only form, when both lie in the balance column,
- * on one baseline, with the suffix just left of the amount. */
+/** A balance printed with its DR suffix can arrive as two runs. In a
+ * right-to-left table the bidirectional algorithm sets a number and the Latin
+ * word after it apart, so «78,720.47 DR» shows as «DR 78,720.47»; in a
+ * left-to-right one PDF.js can split a monospaced «181,636.79 DR» at its
+ * space. The two read as one balance, the contract's only form, when both lie
+ * in the balance column, on one baseline, with the suffix just after the
+ * amount in reading order: on its left in a right-to-left table, on its right
+ * in a left-to-right one. */
 function debitMarked(pieces: Piece[], columns: Columns): Piece[] {
-  if (columns.direction !== 'rtl') return pieces;
+  const rtl = columns.direction === 'rtl';
   const out = [...pieces];
   for (const mark of pieces) {
     if (mark.text !== 'DR' || columnOf(columns, mark) !== COLUMN.balance)
       continue;
-    const amount = out.find(
-      (q) =>
+    const amount = out.find((q) => {
+      const gap = rtl ? q.x0 - mark.x1 : mark.x0 - q.x1;
+      return (
         q !== mark &&
         q.y === mark.y &&
         /^[\d\u0660-\u0669][\d\u0660-\u0669,.\u066b\u066c]*$/u.test(q.text) &&
         columnOf(columns, q) === COLUMN.balance &&
-        q.x0 - mark.x1 >= -UNDER &&
-        q.x0 - mark.x1 <= Math.min(q.height, mark.height),
-    );
+        gap >= -UNDER &&
+        gap <= Math.min(q.height, mark.height)
+      );
+    });
     if (!amount) continue;
     const text = `${amount.text} DR`;
     out.splice(out.indexOf(amount), 1, {
       ...amount,
       text,
       readings: [text],
-      x0: mark.x0,
+      ...(rtl ? { x0: mark.x0 } : { x1: mark.x1 }),
     });
     out.splice(out.indexOf(mark), 1);
   }
@@ -599,6 +603,15 @@ function readPage(
       return cells[col][0];
     };
     const cellDate = (col: number, name: string) => {
+      // A date can arrive as touching runs, as a writer that sets each
+      // bidirectional run apart prints «٢٠٢٦-٠٥-٠٢» in a right-to-left table:
+      // read in reading order, touching runs join and must make one date.
+      const joined = textOf(cells[col], v.direction);
+      if (cells[col].length > 1 && !/\s/u.test(joined))
+        return (
+          statementDate([joined], layout) ??
+          fail('DATE', `${name} ${JSON.stringify(joined)} is not one date`)
+        );
       const piece = single(col, name);
       return (
         statementDate(piece.readings, layout) ??

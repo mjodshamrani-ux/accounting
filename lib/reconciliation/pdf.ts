@@ -287,9 +287,10 @@ export type GlyphInk = {
 // covers their rounding many times over.
 const GLYPH_INK_MARGIN = 0.01;
 
-// The clip test asks whether drawn ink can be cut away. A run whose every
-// glyph outline is known is tested by that ink, vertically, over the run's
-// advance width; any run without that proof keeps the padded text box. Text
+// The clip test asks whether drawn ink can be cut away, and the drawing test
+// whether a stroke or fill can cross it. A run whose every glyph outline is
+// known is tested by that ink, vertically, over the run's advance width; any
+// run without that proof keeps the padded text box. Text
 // rise moves glyphs off the extracted baseline, so a page with rise keeps the
 // padded boxes throughout.
 function inkClipBoxes(
@@ -344,7 +345,7 @@ export function checkPdfOperators(
   literal?: { trace: PdfLiteralTrace; maxChars: number; maxOperators?: number },
   ink?: GlyphInk,
   runPieces?: Map<number, [operator: number, glyph: number][]>,
-) {
+): (number[] | undefined)[] {
   const runGlyphs = ink ? new Map<number, Set<string> | null>() : undefined;
   const paints = textRuns
     ? bindTextPaints(
@@ -360,6 +361,10 @@ export function checkPdfOperators(
       )
     : null;
   const clipBoxOf = inkClipBoxes(ops, fn, args, textBoxes, runGlyphs, ink);
+  // A drawing over text is judged by the same ink: a rule or grid line that
+  // passes beside a run's glyphs crosses no glyph, whatever the font's
+  // ascent and descent say.
+  const inkBoxes = textBoxes.map(clipBoxOf);
   const paintedBoxes: number[][] = [];
   const backgrounds: PdfBackground[] = [];
   let state = {
@@ -669,7 +674,7 @@ export function checkPdfOperators(
           pad,
           state.lineJoin,
           state.miterLimit,
-          textBoxes,
+          inkBoxes,
           kind === ops.closeStroke,
           fillOnly,
         );
@@ -688,7 +693,7 @@ export function checkPdfOperators(
       if (
         !box.every(Number.isFinite) ||
         !textBoxes.length ||
-        textBoxes.some((t) => boxOverlaps(box, t))
+        inkBoxes.some((t) => boxOverlaps(box, t))
       )
         throw new Error(
           'يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.',
@@ -698,6 +703,8 @@ export function checkPdfOperators(
         'يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب PDF نصيًا أو Excel.',
       );
   }
+  // Each run's ink box where its glyph outlines were proved, else undefined.
+  return inkBoxes.map((box, i) => (box === textBoxes[i] ? undefined : box));
 }
 export function validateCuts(cuts: number[]): void {
   if (
@@ -720,6 +727,8 @@ export function layoutPdfPage(
   tokens: PdfToken[],
   cuts: number[],
   width: number,
+  // A token's ink box where its glyph outlines were proved.
+  ink?: Map<PdfToken, number[]>,
 ) {
   validateCuts(cuts);
   if (!Number.isFinite(width) || width <= 0)
@@ -741,9 +750,12 @@ export function layoutPdfPage(
   }
   // Separate baselines do not prove separate visible rows: two complete lines
   // can be painted over one another and still parse into valid dates/amounts.
-  // Use actual font metrics where available; line spacing itself is not evidence.
+  // Use the glyphs' proved ink, else actual font metrics where available;
+  // line spacing itself is not evidence.
   const bounds = lines.map((line) =>
-    line.tokens.sort((a, b) => a.x - b.x).map(glyphBounds),
+    line.tokens
+      .sort((a, b) => a.x - b.x)
+      .map((t) => ink?.get(t) ?? glyphBounds(t)),
   );
   let reach = 0;
   for (let i = 0; i < lines.length; i++)
@@ -879,6 +891,7 @@ type GuardedPdfPage = {
   width: number;
   height: number;
   tokens: (PdfToken & { item: number; parts?: PdfTokenPart[] })[];
+  ink: Map<PdfToken, number[]>;
 };
 
 /** One macrotask turn between pages on a window's main thread, where a page's
@@ -1056,8 +1069,9 @@ async function readGuardedPdf<T>(
               operators: [],
             }
           : undefined;
+        const ink = new Map<PdfToken, number[]>();
         try {
-          checkPdfOperators(
+          const inkBoxes = checkPdfOperators(
             OPS,
             operators.fnArray,
             operators.argsArray,
@@ -1086,6 +1100,15 @@ async function readGuardedPdf<T>(
             },
             runPieces,
           );
+          // In the tokens' coordinates, for the row test of layoutPdfPage.
+          for (const [i, box] of inkBoxes.entries())
+            if (box)
+              ink.set(tokens[i], [
+                box[0] - page.view[0],
+                box[1],
+                box[2] - page.view[0],
+                box[3],
+              ]);
           if (literals) {
             literalChars += literals.text.length;
             literalOperators += literals.operators.length;
@@ -1137,6 +1160,7 @@ async function readGuardedPdf<T>(
         pages.push({
           ...(literals ? { literals } : {}),
           tokens,
+          ink,
           view: [page.view[0], page.view[1], page.view[2], page.view[3]],
           width: page.view[2] - page.view[0],
           height: page.view[3] - page.view[1],
@@ -1198,7 +1222,12 @@ export async function readPdf(
     const effectiveCuts = suggested ?? cuts;
     onProgress?.({ stage: 'pdf-layout', completed: 0, total: pages.length });
     for (const [index, page] of pages.entries()) {
-      const lines = layoutPdfPage(page.tokens, effectiveCuts, page.width);
+      const lines = layoutPdfPage(
+        page.tokens,
+        effectiveCuts,
+        page.width,
+        page.ink,
+      );
       const band = proposedLayout?.headers[index];
       const pieces = band?.lineIndexes.map((i) => lines[i]);
       const merged =
@@ -1325,7 +1354,7 @@ async function projectNativePdfSource(
   for (const [index, page] of pages.entries()) {
     // Keep the existing finite-coordinate, replacement-character, overlap,
     // page-edge and layout-budget checks even without global column cuts.
-    const layout = layoutPdfPage(page.tokens, [], page.width);
+    const layout = layoutPdfPage(page.tokens, [], page.width, page.ink);
     lines += layout.length;
     if (lines > MAX_ROWS) throw new Error('الحد 20,000 صف مستخرج');
     layout.forEach((line, lineIndex) => {

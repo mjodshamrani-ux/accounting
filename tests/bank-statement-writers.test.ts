@@ -270,7 +270,8 @@ void test('a DR run makes a balance negative only beside it in the balance colum
   const deposit = await source('BS16');
   deposit.pages[0].tokens.push(mark(at(deposit, '228,597.08'), 145.3));
   assert.throws(() => readBankStatementPdf(deposit), BankStatementReadError);
-  // In a left-to-right table the suffix follows the amount as printed.
+  // In a left-to-right table the suffix follows the amount on its right
+  // (G8); on its left it is not a suffix.
   const ltr = await source('BS01');
   const [, , , first01] = ltr.pages[0].tokens
     .filter((t) => AMOUNT.test(t.text) && t.x > 500)
@@ -278,6 +279,134 @@ void test('a DR run makes a balance negative only beside it in the balance colum
   first01.x += 14;
   ltr.pages[0].tokens.push(mark(first01, first01.x - 14));
   refused(ltr, 'FIELD');
+  const after = await source('BS01');
+  const [, , , last01] = after.pages[0].tokens
+    .filter((t) => AMOUNT.test(t.text) && t.x > 500)
+    .sort((a, b) => b.y - a.y);
+  last01.x -= 14;
+  after.pages[0].tokens.push(mark(last01, last01.x + last01.width + 2.5));
+  const read01 = read(after);
+  assert.ok(read01.lines.some((l) => l.balance !== undefined && l.balance < 0));
+  assert.equal(read01.status, 'balance-broken');
+  // Right of it but far off.
+  const farRight = await source('BS01');
+  const [, , , away] = farRight.pages[0].tokens
+    .filter((t) => AMOUNT.test(t.text) && t.x > 500)
+    .sort((a, b) => b.y - a.y);
+  away.x -= 30;
+  farRight.pages[0].tokens.push(mark(away, away.x + away.width + 20));
+  refused(farRight, 'FIELD');
+});
+
+/** A balance token split the way PDF.js splits a monospaced run at its
+ * space: the amount, then DR on its right. */
+function splitDebitRight(page: NativePdfWordSource['pages'][number], t: Token, item: number) {
+  const amount = t.text.replace(/ DR$/u, '');
+  const unit = t.width / t.text.length;
+  const value = { ...t, text: amount, width: unit * amount.length };
+  delete value.parts;
+  delete value.extractionText;
+  const mark = { ...t, text: 'DR', x: t.x + unit * (amount.length + 1), width: unit * 2, item };
+  delete mark.parts;
+  delete mark.extractionText;
+  page.tokens.splice(page.tokens.indexOf(t), 1, value, mark);
+}
+
+void test('a left-to-right overdrawn balance printed as amount and DR runs reads as the original (BS15)', async () => {
+  const original = read(await source('BS15'));
+  const s = await source('BS15');
+  let item = 400000,
+    split = 0;
+  for (const page of s.pages)
+    for (const t of page.tokens.filter((t) => t.text.endsWith(' DR'))) {
+      splitDebitRight(page, t, item++);
+      split++;
+    }
+  assert.ok(split > 100, `${split} overdrawn balances split`);
+  const runs = read(s);
+  assert.equal(runs.status, original.status);
+  assert.deepEqual(withoutItems(runs.lines), withoutItems(original.lines));
+});
+
+// G8: a writer that sets each bidirectional run apart prints an Arabic-Indic
+// date in a right-to-left table as five touching runs, in visual order from
+// the left: day, '-', month, '-', year.
+const DATE_AR = /^[٠-٩]{2}-[٠-٩]{2}-[٠-٩]{4}$|^[٠-٩]{4}-[٠-٩]{2}-[٠-٩]{2}$/u;
+function splitDate(page: NativePdfWordSource['pages'][number], t: Token, item: number, gap = 0) {
+  const reading = t.extractionText ?? t.text;
+  const [year, month, day] = /^[٠-٩]{4}/u.test(reading)
+    ? reading.split('-')
+    : reading.split('-').reverse();
+  const runs = [day, '-', month, '-', year];
+  const unit = t.width / 10;
+  // A gap after the month moves the first runs left, inside the cell.
+  let x = t.x - gap;
+  const out = runs.map((text, k) => {
+    const run = { ...t, text, x, width: unit * text.length, item: item + k, direction: text === '-' ? 'ltr' : 'rtl' };
+    delete run.parts;
+    delete run.extractionText;
+    delete run.glyphText;
+    x += unit * text.length + (k === 1 ? gap : 0);
+    return run as Token;
+  });
+  page.tokens.splice(page.tokens.indexOf(t), 1, ...out);
+}
+
+void test('Arabic-Indic dates printed as touching runs read as the original (BS11)', async () => {
+  const original = read(await source('BS11'));
+  const s = await source('BS11');
+  let item = 500000,
+    split = 0;
+  for (const page of s.pages)
+    for (const t of page.tokens.filter((t) => DATE_AR.test(t.text))) {
+      splitDate(page, t, item);
+      item += 5;
+      split++;
+    }
+  assert.ok(split > 20, `${split} dates split`);
+  const runs = read(s);
+  assert.equal(runs.status, original.status);
+  assert.deepEqual(withoutItems(runs.lines), withoutItems(original.lines));
+  // Runs set apart do not join: one date cell, two values.
+  const apart = await source('BS11');
+  // A movement's date: the rightmost column of the right-to-left table.
+  const tableDate = (s: NativePdfWordSource) =>
+    s.pages[0].tokens.filter((t) => DATE_AR.test(t.text)).sort((a, b) => b.x - a.x)[0];
+  const first = tableDate(apart);
+  splitDate(apart.pages[0], first, 600000, 4);
+  refused(apart, 'FIELD');
+  // Touching runs that make no date are not one.
+  const wrong = await source('BS11');
+  const one = tableDate(wrong);
+  splitDate(wrong.pages[0], one, 700000);
+  const runsOf = wrong.pages[0].tokens.filter((t) => t.item >= 700000 && t.item < 700005);
+  runsOf[2].text = '١٣';
+  refused(wrong, 'DATE');
+});
+
+void test('K09, fpdf2 Courier: a DR split from its balance holds the statement as balance-broken', async () => {
+  // A G8 holdout statement, regression since G8 was fixed on it.
+  const s = await readNativePdfWordSource(
+    Uint8Array.from(
+      await fsRead(new URL('../audit/bank-statement-holdout-g8/frozen/K09-statement.pdf', import.meta.url)),
+    ).buffer,
+  );
+  assert.ok(s.pages[0].tokens.some((t) => t.text === 'DR'), 'DR arrives as its own run');
+  const r = read(s);
+  assert.equal(r.status, 'balance-broken');
+  assert.ok(r.lines.some((l) => l.kind === 'movement' && l.balance! < 0));
+});
+
+void test('K05, Typst Arabic-Indic: dates as touching runs read in reading order', async () => {
+  const s = await readNativePdfWordSource(
+    Uint8Array.from(
+      await fsRead(new URL('../audit/bank-statement-holdout-g8/frozen/K05-statement.pdf', import.meta.url)),
+    ).buffer,
+  );
+  assert.ok(s.pages[0].tokens.some((t) => t.text === '-'), 'a date arrives as runs');
+  const r = read(s);
+  assert.equal(r.status, 'verified');
+  assert.equal(r.lines[1].date, '2026-05-02');
 });
 
 void test('H04, LibreOffice Arabic: the lam-alef glyph read by glyph, PDF.js reading beside it', async () => {
