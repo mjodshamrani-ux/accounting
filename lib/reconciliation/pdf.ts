@@ -11,6 +11,7 @@ import {
 } from './pdf-glyph-geometry.ts';
 import { getNativePDFJS } from './pdfjs-native.ts';
 import { guardPdfFontIntegrity } from './pdf-font-integrity.ts';
+import { glyphOrderText } from './pdf-glyph-order.ts';
 import type { SheetData } from './types.ts';
 import { MAX_FILE_BYTES, MAX_PDF_PAGES, MAX_ROWS } from './types.ts';
 import type { ProcessingProgress } from './processing-progress.ts';
@@ -1121,6 +1122,17 @@ async function readGuardedPdf<T>(
             page.view[0],
           );
           for (const [index, words] of parts) tokens[index].parts = words;
+          // A run drawn with glyphs of several right-to-left letters reads by
+          // glyph (pdf-glyph-order.ts); PDF.js's own reading stays beside it.
+          for (const [index, raw] of rawRuns) {
+            const token = tokens[index];
+            const pieces = runPieces.get(index);
+            if (!pieces || token.extractionText !== undefined) continue;
+            const text = glyphOrderText(token.text, raw, pieces);
+            if (text === undefined) continue;
+            token.extractionText = token.text;
+            token.text = text;
+          }
         }
         pages.push({
           ...(literals ? { literals } : {}),
@@ -1267,7 +1279,7 @@ export async function readNativePdfWordSource(
     onProgress,
     async (pages, original) => ({
       ...(await projectNativePdfSource(pages, original)),
-      wordVersion: 'native-pdf-words-1',
+      wordVersion: 'native-pdf-words-2',
     }),
     false,
     true,

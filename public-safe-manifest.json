@@ -37101,8 +37101,8 @@
     },
     {
       "path": "lib/reconciliation/pdf-native-source.ts",
-      "bytes": 2274,
-      "sha256": "df972f9b9b148ab2aa4ee64891e8e140a22352a0844fb460f39303224fce5ba5",
+      "bytes": 2439,
+      "sha256": "a69a03c4eacc3cd1979e79c2d09c618be898d035834631f8d8e4d9ba1cf1b249",
       "kind": "text"
     },
     {
@@ -37119,8 +37119,8 @@
     },
     {
       "path": "lib/reconciliation/pdf.ts",
-      "bytes": 48748,
-      "sha256": "6cb722881a694276e8987e5756c60e7fc344e7a506acbd93add7f4386df2104b",
+      "bytes": 49374,
+      "sha256": "e05ad68cf28f20b776b3db7a618dfa2552f6a98dc1f030cf5b9450a7e1307aab",
       "kind": "text"
     },
     {
@@ -41267,8 +41267,8 @@
     },
     {
       "path": "lib/reconciliation/bank-statement-native.ts",
-      "bytes": 30800,
-      "sha256": "18ffdeb84624d5f1d82bd99a0b02b264737a00adf0bdafa4e128b2f5a74d1f48",
+      "bytes": 32082,
+      "sha256": "013282655aedead54b82f3a74289984665f79beec74c7eeced57602efd360b31",
       "kind": "text"
     },
     {
@@ -41285,8 +41285,8 @@
     },
     {
       "path": "scripts/test-bank-statement-g1-mutations.mjs",
-      "bytes": 8100,
-      "sha256": "839ee2c8065a357dd11dd0e480a03906910aff234ef28828c4b99ba2eed44549",
+      "bytes": 9273,
+      "sha256": "22963f8b0872a6344ae2851f16cf6a4a528c7da3eda01d968598ae96b4b39efc",
       "kind": "text"
     },
     {
@@ -41791,8 +41791,8 @@
     },
     {
       "path": "tests/bank-statement-writers.test.ts",
-      "bytes": 6897,
-      "sha256": "e1e15dc403bc650a62a3516fd455e12563f89334a7a6abb0b7abde2c592fab5b",
+      "bytes": 11213,
+      "sha256": "14f442c9552708105743319de7ac450389ad980f6e6122849dca21ce437b3698",
       "kind": "text"
     },
     {
@@ -41811,6 +41811,18 @@
       "path": "docs/audits/BNK-PDF-1-G6.ar.md",
       "bytes": 16326,
       "sha256": "8a2765dbe25f350b75ff23fc9abee35677e58277dd3827cbaa83072aafb73705",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/pdf-glyph-order.ts",
+      "bytes": 4414,
+      "sha256": "cb087b336ebbfe11d199c99f6839240d5dfb361df424060dd22bd17093006a47",
+      "kind": "text"
+    },
+    {
+      "path": "tests/pdf-glyph-order.test.ts",
+      "bytes": 3663,
+      "sha256": "8c0a30d1406ecefa1f28713de10997dd17ad78473fafe4acee348417775b7dbd",
       "kind": "text"
     }
   ],

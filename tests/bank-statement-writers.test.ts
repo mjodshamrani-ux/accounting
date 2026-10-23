@@ -194,3 +194,109 @@ void test('a heading must still state exactly one currency and two dates', async
   }
   refused(twice, 'SCOPE');
 });
+
+// G7: in a right-to-left table a writer may print a balance with its DR
+// suffix as two runs, the suffix on the left («DR 78,720.47» for
+// «78,720.47 DR»). Made here from the foundation's Arabic statements.
+
+/** A balance token split into the two runs such a writer prints: DR on the
+ * left, the amount on the right, within the token's own width. */
+function splitDebit(page: NativePdfWordSource['pages'][number], t: Token, item: number) {
+  const amount = t.text.replace(/ DR$/u, '');
+  const unit = t.width / t.text.length;
+  const mark = { ...t, text: 'DR', x: t.x, width: unit * 2, item };
+  delete mark.parts;
+  delete mark.extractionText;
+  const value = { ...t, text: amount, x: t.x + unit * 3, width: unit * amount.length };
+  delete value.parts;
+  delete value.extractionText;
+  page.tokens.splice(page.tokens.indexOf(t), 1, mark, value);
+}
+const withoutItems = (lines: { items: number[] }[]) =>
+  lines.map((l) => ({ ...l, items: [] }));
+
+void test('an overdrawn balance printed as DR and amount runs reads as the original (BS11)', async () => {
+  const original = read(await source('BS11'));
+  const s = await source('BS11');
+  let item = 200000,
+    split = 0;
+  for (const page of s.pages)
+    for (const t of page.tokens.filter((t) => t.text.endsWith(' DR'))) {
+      splitDebit(page, t, item++);
+      split++;
+    }
+  assert.ok(split > 10, `${split} overdrawn balances split`);
+  const runs = read(s);
+  assert.equal(runs.status, original.status);
+  assert.deepEqual(withoutItems(runs.lines), withoutItems(original.lines));
+});
+
+void test('a DR run makes a balance negative only beside it in the balance column', async () => {
+  const at = (s: NativePdfWordSource, text: string) =>
+    s.pages[0].tokens.find((t) => t.text === text)!;
+  const mark = (t: Token, x: number) => ({
+    ...t,
+    text: 'DR',
+    x,
+    width: 11.7,
+    item: 300000,
+    parts: undefined,
+    extractionText: undefined,
+  });
+  // Beside the amount, on its left: the movement's balance is negative.
+  const beside = await source('BS16');
+  const balance = at(beside, '228,597.08');
+  balance.x = 55.7;
+  beside.pages[0].tokens.push(mark(balance, 41.5));
+  const read16 = read(beside);
+  const line = read16.lines.find((l) => l.kind === 'movement')!;
+  assert.equal(line.balance, -22859708);
+  assert.equal(read16.status, 'balance-broken');
+  // The opening balance as well.
+  const opening = await source('BS16');
+  const first = at(opening, '279,499.00');
+  first.x = 49.2;
+  opening.pages[0].tokens.push(mark(first, 35));
+  assert.equal(read(opening).lines[0].balance, -27949900);
+  // On the right of the amount: not a suffix.
+  const right = await source('BS16');
+  right.pages[0].tokens.push(mark(at(right, '228,597.08'), 89.8));
+  refused(right, 'FIELD');
+  // Far from the amount.
+  const far = await source('BS16');
+  far.pages[0].tokens.push(mark(at(far, '228,597.08'), 15));
+  refused(far, 'FIELD');
+  // In the deposit column.
+  const deposit = await source('BS16');
+  deposit.pages[0].tokens.push(mark(at(deposit, '228,597.08'), 145.3));
+  assert.throws(() => readBankStatementPdf(deposit), BankStatementReadError);
+  // In a left-to-right table the suffix follows the amount as printed.
+  const ltr = await source('BS01');
+  const [, , , first01] = ltr.pages[0].tokens
+    .filter((t) => AMOUNT.test(t.text) && t.x > 500)
+    .sort((a, b) => b.y - a.y);
+  first01.x += 14;
+  ltr.pages[0].tokens.push(mark(first01, first01.x - 14));
+  refused(ltr, 'FIELD');
+});
+
+void test('H04, LibreOffice Arabic: the lam-alef glyph read by glyph, PDF.js reading beside it', async () => {
+  // A G6 holdout statement, regression since G7 was fixed on it.
+  const s = await readNativePdfWordSource(
+    Uint8Array.from(
+      await fsRead(
+        new URL(
+          '../audit/bank-statement-holdout-g6/frozen/H04-statement.pdf',
+          import.meta.url,
+        ),
+      ),
+    ).buffer,
+  );
+  const label = s.pages[0].tokens.find((t) => t.text === 'الرصيد الافتتاحي')!;
+  assert.ok(label, 'the opening label reads in its own letter order');
+  assert.equal(label.extractionText, 'الرصيد االفتتاحي');
+  const r = read(s);
+  assert.equal(r.status, 'verified');
+  assert.equal(r.lines[0].kind, 'opening');
+  assert.ok(r.lines.some((l) => l.kind === 'movement' && l.balance! < 0));
+});

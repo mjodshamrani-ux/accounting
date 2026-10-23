@@ -48,10 +48,12 @@ export type NativePdfSource = {
  * PDF.js combined across a gap carries `parts`, its words with the span of
  * their own glyphs, where the replayed placement reproduced the item. Items
  * without parts are whole words or could not be split; a reader must not
- * divide them by any other means.
+ * divide them by any other means. Version 2: a right-to-left item drawn with
+ * a glyph of several letters reads by glyph (pdf-glyph-order.ts), with
+ * PDF.js's own reading kept in `extractionText`.
  */
 export type NativePdfWordSource = Omit<NativePdfSource, 'pages'> & {
-  wordVersion: 'native-pdf-words-1';
+  wordVersion: 'native-pdf-words-2';
   pages: (Omit<NativePdfSource['pages'][number], 'tokens'> & {
     tokens: (NativePdfSource['pages'][number]['tokens'][number] & {
       parts?: PdfTokenPart[];

@@ -339,6 +339,40 @@ function fitted(columns: Columns, t: Token): Piece[] {
   return columnOf(columns, whole) !== undefined ? [whole] : partsOf(t);
 }
 
+/** In a right-to-left table a balance printed with its DR suffix arrives as
+ * two runs, the suffix on the left: the bidirectional algorithm sets a number
+ * and the Latin word after it apart, so «78,720.47 DR» shows as
+ * «DR 78,720.47», and the order cannot be told from the page. The two read as
+ * one balance, the contract's only form, when both lie in the balance column,
+ * on one baseline, with the suffix just left of the amount. */
+function debitMarked(pieces: Piece[], columns: Columns): Piece[] {
+  if (columns.direction !== 'rtl') return pieces;
+  const out = [...pieces];
+  for (const mark of pieces) {
+    if (mark.text !== 'DR' || columnOf(columns, mark) !== COLUMN.balance)
+      continue;
+    const amount = out.find(
+      (q) =>
+        q !== mark &&
+        q.y === mark.y &&
+        /^[\d\u0660-\u0669][\d\u0660-\u0669,.\u066b\u066c]*$/u.test(q.text) &&
+        columnOf(columns, q) === COLUMN.balance &&
+        q.x0 - mark.x1 >= -UNDER &&
+        q.x0 - mark.x1 <= Math.min(q.height, mark.height),
+    );
+    if (!amount) continue;
+    const text = `${amount.text} DR`;
+    out.splice(out.indexOf(amount), 1, {
+      ...amount,
+      text,
+      readings: [text],
+      x0: mark.x0,
+    });
+    out.splice(out.indexOf(mark), 1);
+  }
+  return out;
+}
+
 /** The header band of a page: up to three stacked lines whose cells are the
  * declared headers, exactly and in order. */
 function findHeader(
@@ -478,7 +512,11 @@ function readPage(
     // Declared non-movement lines: label text plus amounts in amount columns.
     const amounts = new Map<number, Piece[]>();
     const label: Piece[] = [];
-    for (const p of line.tokens.flatMap((t) => fitted(columns, t))) {
+    const pieces = debitMarked(
+      line.tokens.flatMap((t) => fitted(columns, t)),
+      columns,
+    );
+    for (const p of pieces) {
       const col = columnOf(columns, p);
       if (
         col !== undefined &&
@@ -527,13 +565,11 @@ function readPage(
     // Otherwise every piece must sit in one column; a token that crosses
     // columns counts only through its proved word parts.
     const cells: Piece[][] = Array.from({ length: 7 }, () => []);
-    for (const t of line.tokens) {
-      for (const p of fitted(columns, t)) {
-        const col =
-          columnOf(columns, p) ??
-          fail('COLUMN', `${JSON.stringify(p.text)} is not inside one column`);
-        cells[col].push(p);
-      }
+    for (const p of pieces) {
+      const col =
+        columnOf(columns, p) ??
+        fail('COLUMN', `${JSON.stringify(p.text)} is not inside one column`);
+      cells[col].push(p);
     }
     const text = (col: number) => textOf(cells[col], v.direction);
     const filled = cells.map((c) => c.length > 0);

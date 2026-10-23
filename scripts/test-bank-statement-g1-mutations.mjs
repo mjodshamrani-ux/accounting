@@ -31,12 +31,14 @@ const tests = [
   'tests/pdf-glyph-geometry.test.ts',
   'tests/bank-statement-native.test.ts',
   'tests/bank-statement-writers.test.ts',
+  'tests/pdf-glyph-order.test.ts',
 ];
 const PDF = 'lib/reconciliation/pdf.ts',
   PAINT = 'lib/reconciliation/pdf-paint-order.ts',
   FONT = 'lib/reconciliation/pdf-font-integrity.ts',
   GEOMETRY = 'lib/reconciliation/pdf-glyph-geometry.ts',
-  READER = 'lib/reconciliation/bank-statement-native.ts';
+  READER = 'lib/reconciliation/bank-statement-native.ts',
+  ORDER = 'lib/reconciliation/pdf-glyph-order.ts';
 const mutations = [
   // The clip test by glyph ink.
   [
@@ -117,6 +119,45 @@ const mutations = [
     READER,
     'return ends && clear ? k : undefined;',
     'return ends ? k : undefined;',
+  ],
+  // G7: right-to-left runs read by glyph, and the DR suffix as its own run.
+  [
+    'glyph-order-unused',
+    PDF,
+    'const text = glyphOrderText(token.text, raw, pieces);',
+    'const text: string | undefined = undefined;',
+  ],
+  [
+    'glyph-order-unverified',
+    ORDER,
+    'if (!inside[k] && byGlyph[k] !== reading[k]) return undefined;',
+    '',
+  ],
+  [
+    'glyph-order-any-letters',
+    ORDER,
+    'group.every((c) => RTL_LETTER.test(c))',
+    'true',
+  ],
+  [
+    'glyph-order-stand-in-collision',
+    ORDER,
+    'STAND_INS.filter((s) => !raw.includes(s) && !text.includes(s))',
+    'STAND_INS',
+  ],
+  [
+    'debit-mark-ignored',
+    READER,
+    "if (columns.direction !== 'rtl') return pieces;",
+    'return pieces;',
+  ],
+  ['debit-mark-left-to-right', READER, "if (columns.direction !== 'rtl') return pieces;", ''],
+  ['debit-mark-either-side', READER, 'q.x0 - mark.x1 >= -UNDER &&', 'true &&'],
+  [
+    'debit-mark-any-distance',
+    READER,
+    'q.x0 - mark.x1 <= Math.min(q.height, mark.height),',
+    'true,',
   ],
   [
     'heading-runs-not-joined',
@@ -233,6 +274,7 @@ if (report.baselinePassed)
         'lib',
         ...tests,
         'audit/bank-statement-foundation/frozen',
+        'audit/bank-statement-holdout-g6/frozen',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });
