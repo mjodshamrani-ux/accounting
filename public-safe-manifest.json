@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 7877,
-      "sha256": "f9c6423f4e2586a8350071c66e25c1d0399e4e5260dfb95094fdc866ee1014fe",
+      "bytes": 7998,
+      "sha256": "84850d98d2ce18801908cc742560ca0bed07831d222f8cb812b1a6f3e838c60e",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 16759,
-      "sha256": "1111221618b1136c6628ec66ef5935661f3645a5f98b86bd12159538e0789c77",
+      "bytes": 16801,
+      "sha256": "74117c5e3bda4ac785ed6ef9a3b969636013f998f53df81d8fc77fc389b82f0a",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 62985,
-      "sha256": "df108d679ea247740634a43d0822fff93923f9ab1bbbbcf3c6b4b284493d6329",
+      "bytes": 65390,
+      "sha256": "4ed847858cc13485683063126d1b4045d87dfd104a63d3ee63b8f80bbc3f0680",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 19727,
-      "sha256": "2ac38626b9cc99a657326f872a37b7eed86eadde4811d5906bc9d9c9d0b8749b",
+      "bytes": 20882,
+      "sha256": "a0d2d27747b3255e8f9b2663f2e69d04cd6d9b63a1a0d85f55c5b6c47edb38ea",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 58275,
-      "sha256": "25d3d9b1963f90a269b519df61e9b1063ecfc6de50417ce7d14102fdc602d55e",
+      "bytes": 58629,
+      "sha256": "ee78e2ed6c0abc0e6959c994573ad488abf92039591b75ca9028c290d70357b3",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 12674,
-      "sha256": "3e7876ddb1540d136a6fb2620135a83f5d0913aa58566d55fb1b35e95fd1c563",
+      "bytes": 13673,
+      "sha256": "b389f392477b47d68b3d6cc88c5d44faf9dbf69aabd6172910131891f829b5c3",
       "kind": "text"
     },
     {
@@ -37420,7 +37420,7 @@
     {
       "path": "package.json",
       "bytes": 21373,
-      "sha256": "5e0c2874ab9deeeef84c56ec6af45479eff2aad4a5b4df8b3fcbad2b1e1fa090",
+      "sha256": "699edb9cf3ebe826466b5fe281ef3315e6e608b2e4e4960d1baf4512576072b2",
       "kind": "text"
     },
     {
@@ -41827,8 +41827,8 @@
     },
     {
       "path": "docs/audits/BNK-PDF-1-G7.ar.md",
-      "bytes": 11564,
-      "sha256": "745abeaf0b3449d242abca70213069001dbf68193df2ecfe795dba1d361baab6",
+      "bytes": 11624,
+      "sha256": "2c5603b59403bb65146b34dc36cbe28f6f7af9fa1a47af750d222aed8a82b9ff",
       "kind": "text"
     },
     {
@@ -42167,6 +42167,24 @@
       "path": "tests/pdf-ink-guards.test.ts",
       "bytes": 5628,
       "sha256": "927d46ef73a9bcf9ab2e9467c2faff2bdb54f10358ddf31880fad28ff82ef9f9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/results/run-2-1b6b505-browser.json",
+      "bytes": 3617,
+      "sha256": "2af89fd30efdbdcd01cdc9c4f04d4adc5e20ce8496b7a1c99a0eb30ca1f8274a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/results/run-2-1b6b505.json",
+      "bytes": 7607,
+      "sha256": "086397969766d069649283868051801921d1e36cc8fcd606ff60f6ce2d809914",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-G8.ar.md",
+      "bytes": 18409,
+      "sha256": "88210febd274bc89cad67c0e11f1d678bf3b051849901d0bdf1e636933e3eefc",
       "kind": "text"
     }
   ],
