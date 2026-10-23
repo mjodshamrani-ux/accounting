@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 36565,
-      "sha256": "fac6d1e122dfb79e1e019aee353544e19aa3cb4a0272fe336dd473e055428221",
+      "bytes": 36569,
+      "sha256": "0acf52c72650f0acbfb139007306c7f94ed83721f9751bbbdd3c51eb6c4d48f5",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 20650,
-      "sha256": "ed70fa375e23aca9b26d7f442749fd9fa5a9696a2aee49da98fdf4951b2bc99c",
+      "bytes": 20745,
+      "sha256": "45b7aaecf62c7848247778d6ed3b017987f2e2116c9f67edc0691775a9af80f5",
       "kind": "text"
     },
     {
@@ -41778,18 +41778,6 @@
       "kind": "text"
     },
     {
-      "path": "scripts/bank-statement-g6-browser.mjs",
-      "bytes": 13499,
-      "sha256": "c4813d13b855e7ad66fbe8545c4ef5d9494a5dd77a3e051db018d3c253fa769b",
-      "kind": "text"
-    },
-    {
-      "path": "scripts/bank-statement-g6-holdout.mjs",
-      "bytes": 11587,
-      "sha256": "c4b21607c8a650cb45dfd51916d374ed3a7498451da1a1d33cc149a610c76e41",
-      "kind": "text"
-    },
-    {
       "path": "tests/bank-statement-writers.test.ts",
       "bytes": 11213,
       "sha256": "14f442c9552708105743319de7ac450389ad980f6e6122849dca21ce437b3698",
@@ -41809,8 +41797,8 @@
     },
     {
       "path": "docs/audits/BNK-PDF-1-G6.ar.md",
-      "bytes": 16415,
-      "sha256": "3476ac760b777ae982423916fc17d0bd28ece35ec9ee82c39e7d3a8a87516f03",
+      "bytes": 16535,
+      "sha256": "fe0ee01cf14ea64c3ce61cf3ea6af95eaa09226109d4b8ac2d71108ec93ac3a0",
       "kind": "text"
     },
     {
@@ -41841,6 +41829,18 @@
       "path": "docs/audits/BNK-PDF-1-G7.ar.md",
       "bytes": 11564,
       "sha256": "745abeaf0b3449d242abca70213069001dbf68193df2ecfe795dba1d361baab6",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-holdout-browser.mjs",
+      "bytes": 13962,
+      "sha256": "3e56e04b098fb0b25cd2a505d4f6ce267cf3f9e85e8bee1c1bc9e9540ad52cb6",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-holdout.mjs",
+      "bytes": 11705,
+      "sha256": "da07e7c4f4fb27c3954b95f2007a60bfd4487cc88276b698887fb89f5fcfd33c",
       "kind": "text"
     }
   ],

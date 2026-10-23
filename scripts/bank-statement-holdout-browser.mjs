@@ -1,12 +1,16 @@
-// BNK-PDF-1 G6 holdout in the browser, on the built application: each sealed
-// statement with its cashbook (CSV, and the XLSX of H01 and H07) is uploaded
-// through the bank workspace's statement path and matched. A statement the
-// page matches is compared with EXPECTED.json in the facts' keys, saved,
-// restored from the saved file on a fresh page and exported to Excel; every
-// workbook from a CSV cashbook goes through the independent export checker.
-// A refused statement must leave no result and name its refusal. The outcome
-// is recorded as it comes; nothing stops at the first difference.
-//   pnpm build && node --experimental-strip-types scripts/bank-statement-g6-browser.mjs [--assert=<results file>]
+// BNK-PDF-1 holdout in the browser, on the built application: each sealed
+// statement of a holdout package (G6, G8) with its cashbook (CSV, and a
+// story's XLSX) is uploaded through the bank workspace's statement path and
+// matched. A statement the page matches is compared with EXPECTED.json in the
+// facts' keys, saved, restored from the saved file on a fresh page and
+// exported to Excel; every workbook from a CSV cashbook goes through the
+// package's independent export checker. On the story named by --decide, the
+// first case the page lets the accountant accept is accepted, so that one
+// checked workbook carries a decision. A refused statement must leave no
+// result and name its refusal. The outcome is recorded as it comes; nothing
+// stops at the first difference.
+//   pnpm build && node --experimental-strip-types scripts/bank-statement-holdout-browser.mjs \
+//     --suite=<package under audit/> --decide=<story> [--assert=<results file>]
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
@@ -18,13 +22,23 @@ import { bankStatementCopy } from '../lib/i18n/bank-statement.ts';
 import { en as enCatalogue } from '../lib/i18n/locales/en.ts';
 import { openDomainWorkspace } from './domain-navigation-support.mjs';
 
+const option = (name) =>
+  process.argv
+    .find((a) => a.startsWith(`--${name}=`))
+    ?.slice(name.length + 3);
+assert.ok(
+  option('suite') && option('decide'),
+  'Usage: --suite=<holdout package under audit/> --decide=<story>',
+);
 const root = path.resolve(import.meta.dirname, '..'),
-  dist = process.env.BNK_G6_DIST ?? path.join(root, 'dist'),
-  suite = path.join(root, 'audit/bank-statement-holdout-g6'),
+  dist = process.env.BNK_HOLDOUT_DIST ?? path.join(root, 'dist'),
+  suite = path.resolve(root, option('suite')),
   frozen = path.join(suite, 'frozen');
-const output =
-  process.env.BNK_G6_BROWSER_DIR ??
-  path.join(root, 'work/bank-statement-g6-browser');
+const output = path.join(
+  process.env.BNK_HOLDOUT_BROWSER_DIR ??
+    path.join(root, 'work/bank-statement-holdout-browser'),
+  path.basename(suite),
+);
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(path.join(output, 'run-'));
 const sha = (b) => createHash('sha256').update(b).digest('hex');
@@ -179,7 +193,7 @@ try {
       Object.assign(run, { status: result.status, ...outcome(result, story, want) });
       // One decision on a new producer's statement: accept the first case
       // the page lets the accountant accept, with a written reason.
-      if (story.id === 'H02' && run.equal) {
+      if (story.id === option('decide') && run.equal) {
         await u.w.getByLabel(c.note, { exact: true }).fill('Bank slip seen for the cash deposit');
         const rows = u.w.locator('[data-bank-statement-table="review"] tbody tr');
         for (let i = 0; i < (await rows.count()); i++) {
@@ -276,9 +290,7 @@ console.log(JSON.stringify({ out, ...report.summary }));
 // With --assert=<results file under audit/>, the outcome must equal the
 // recorded one: a recorded failure stays visible, and a
 // change in either direction is noticed.
-const recordedFile = process.argv
-  .find((a) => a.startsWith('--assert='))
-  ?.slice('--assert='.length);
+const recordedFile = option('assert');
 if (recordedFile) {
   const recorded = await json(path.join(root, recordedFile));
   assert.deepEqual(report.summary, recorded.summary, 'holdout outcome changed');

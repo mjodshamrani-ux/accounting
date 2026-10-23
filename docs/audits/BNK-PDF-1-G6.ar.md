@@ -102,8 +102,8 @@
 |---|---|
 | [`test_seal.py`](../../audit/bank-statement-holdout-g6/test_seal.py) | الختم والحقائق و`EXPECTED.json` بايتًا ببايت وربط `VERIFY.json`، وثمانية أنواع من العبث مرفوضة |
 | [`verify.py`](../../audit/bank-statement-holdout-g6/verify.py) قبل الختم | 12/12 كشفًا صفًا صفًا، و15/15 تعديلًا مزروعًا، ودفترا XLSX يساويان CSV |
-| [`bank-statement-g6-holdout`](../../scripts/bank-statement-g6-holdout.mjs) | طبقة بطبقة: القراءة سطرًا بسطر، وحالة الكشف، والنتيجة بالمفاتيح، والاعتماد الخاطئ، ولا يتوقف عند أول فرق |
-| [`bank-statement-g6-browser`](../../scripts/bank-statement-g6-browser.mjs) | الرفع والمطابقة والحفظ والاستعادة الباردة وExcel، وقرار واحد على H02. [`check_export.py`](../../audit/bank-statement-holdout-g6/check_export.py) فاحص الأساس كما هو، بفترة كل قصة |
+| [`bank-statement-holdout`](../../scripts/bank-statement-holdout.mjs)، وكان اسمه `bank-statement-g6-holdout` حتى G8 | طبقة بطبقة: القراءة سطرًا بسطر، وحالة الكشف، والنتيجة بالمفاتيح، والاعتماد الخاطئ، ولا يتوقف عند أول فرق |
+| [`bank-statement-holdout-browser`](../../scripts/bank-statement-holdout-browser.mjs)، وكان اسمه `bank-statement-g6-browser` حتى G8 | الرفع والمطابقة والحفظ والاستعادة الباردة وExcel، وقرار واحد على H02. [`check_export.py`](../../audit/bank-statement-holdout-g6/check_export.py) فاحص الأساس كما هو، بفترة كل قصة |
 | [`bank-statement-writers`](../../tests/bank-statement-writers.test.ts) | خمس حالات من كشوف الأساس، لا من ملفات holdout:<br>• رأس مبلغ محاذى إلى النهاية يُقرأ كما كان في BS01 وفي BS14 ذي السبعين صفحة؛<br>• قيمة تقصر عن نهاية رأسها بأربع نقاط، أو تمتد تحت الرأس السابق أو تلامسه، تُرفض؛<br>• رأس قطعة واحدة، وتاريخ رأس من قطع منفصلة في BS16، يعطيان الفترة نفسها؛<br>• تاريخ ثالث أو عملة ثانية يُرفضان |
 | [`test-bank-statement-g1-mutations`](../../scripts/test-bank-statement-g1-mutations.mjs) | **30/30**، منها أربع جديدة: تجاهل الرأس المحاذى إلى النهاية، وعدم اشتراط النهاية، وعدم اشتراط الابتعاد، وعدم ضم قطع الرأس |
 | أدلة G1 وG2 وG3 والفرق مع الأوراكل وسجل الأساس | ناجحة دون تغيير |

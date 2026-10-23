@@ -1,19 +1,19 @@
-// BNK-PDF-1 G6 holdout: the product on statements from two producers it has
-// never read (LibreOffice Writer and ReportLab), sealed before this script
-// first ran. Nothing stops at the first difference: every statement is
-// measured layer by layer and the outcome recorded as it comes.
+// BNK-PDF-1 holdout: the product on a sealed holdout package (G6, G8),
+// sealed before this script first ran on it. Nothing stops at the first
+// difference: every statement is measured layer by layer and the outcome
+// recorded as it comes.
 //   1. reading: each printed line read from the PDF against the facts
 //      (kind, page, dates, reference, amounts, balances; descriptions and
 //      continuation text after NFKC and whitespace normalisation);
 //   2. statement: status, pages, period, currency and layout against the
 //      oracle's EXPECTED.json and the facts;
 //   3. result: the matching against the cashbook, in the facts' keys, against
-//      EXPECTED.json; the XLSX cashbooks of H01 and H07 as well as the CSV;
-//   4. false automatic pairs over all twelve statements.
+//      EXPECTED.json; a story's XLSX cashbook as well as its CSV;
+//   4. false automatic pairs over all the package's statements.
 // With --assert=<results file under audit/> it also fails unless the outcome
 // equals the recorded one, so that a recorded
 // failure stays visible and a change in either direction is noticed.
-//   node --experimental-strip-types scripts/bank-statement-g6-holdout.mjs [--assert=<results file>]
+//   node --experimental-strip-types scripts/bank-statement-holdout.mjs --suite=<package under audit/> [--assert=<results file>]
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
@@ -21,11 +21,17 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
-const suite = path.join(root, 'audit/bank-statement-holdout-g6');
+const option = (name) =>
+  process.argv
+    .find((a) => a.startsWith(`--${name}=`))
+    ?.slice(name.length + 3);
+assert.ok(option('suite'), 'Usage: --suite=<holdout package under audit/>');
+const suite = path.resolve(root, option('suite'));
 const frozen = path.join(suite, 'frozen');
-const outDir =
-  process.env.BNK_G6_HOLDOUT_DIR ??
-  path.join(root, 'work/bank-statement-g6-holdout');
+const outDir = path.join(
+  process.env.BNK_HOLDOUT_DIR ?? path.join(root, 'work/bank-statement-holdout'),
+  path.basename(suite),
+);
 const sha = (b) => createHash('sha256').update(b).digest('hex');
 const json = async (p) => JSON.parse(await readFile(p, 'utf8'));
 
@@ -278,9 +284,7 @@ const report = {
 await mkdir(outDir, { recursive: true });
 await writeFile(path.join(outDir, 'run.json'), `${JSON.stringify(report, null, 1)}\n`);
 console.log(JSON.stringify({ out: path.join(outDir, 'run.json'), ...report.summary }));
-const recordedFile = process.argv
-  .find((a) => a.startsWith('--assert='))
-  ?.slice('--assert='.length);
+const recordedFile = option('assert');
 if (recordedFile) {
   const recorded = await json(path.join(root, recordedFile));
   assert.deepEqual(report.summary, recorded.summary, 'holdout outcome changed');

@@ -583,12 +583,12 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - name: Read and match the sealed holdout in Node against its recorded outcome
         env:
-          BNK_G6_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-g6-holdout
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
         run: pnpm test:bank-statement:g6-holdout
       - run: pnpm build
       - name: Run the sealed holdout through the built bank workspace against its recorded outcome
         env:
-          BNK_G6_BROWSER_DIR: ${{ runner.temp }}/bank-statement-g6-browser
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
         run: pnpm test:bank-statement:g6-browser
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
