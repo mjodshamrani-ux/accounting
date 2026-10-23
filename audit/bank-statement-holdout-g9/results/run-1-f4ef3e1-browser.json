@@ -1,0 +1,177 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "f4ef3e171c65a7a1de700598f5d7e689f9217976",
+ "summary": {
+  "capacity": [
+   "N01",
+   "N02",
+   "N03",
+   "N04",
+   "N05",
+   "N07",
+   "N09",
+   "N10"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "N06",
+   "N11",
+   "N12"
+  ],
+  "refused": [
+   "N08"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 11,
+  "exportCheck": "passed",
+  "checkerSelfTest": 13,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "N01",
+   "cashbook": "N01-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "decision": [
+    [
+     "accept",
+     "Bank slip seen for the cash deposit"
+    ]
+   ],
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N02",
+   "cashbook": "N02-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N02",
+   "cashbook": "N02-cashbook.xlsx",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N03",
+   "cashbook": "N03-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N04",
+   "cashbook": "N04-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N05",
+   "cashbook": "N05-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N06",
+   "cashbook": "N06-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N07",
+   "cashbook": "N07-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N08",
+   "cashbook": "N08-cashbook.csv",
+   "refused": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب PDF نصيًا أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "N09",
+   "cashbook": "N09-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N10",
+   "cashbook": "N10-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N10",
+   "cashbook": "N10-cashbook.xlsx",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N11",
+   "cashbook": "N11-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "N12",
+   "cashbook": "N12-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  }
+ ]
+}
