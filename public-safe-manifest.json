@@ -37095,8 +37095,8 @@
     },
     {
       "path": "lib/reconciliation/pdf-font-integrity.ts",
-      "bytes": 3485,
-      "sha256": "18956aeeb6d35f037dc962d64482b8f5718433a5ffc8ff581401daff9fc41b84",
+      "bytes": 4106,
+      "sha256": "5dcf964093917738455dad98c9a9ef14ca96ee1932e301144b9d7b5963ec785d",
       "kind": "text"
     },
     {
@@ -37107,8 +37107,8 @@
     },
     {
       "path": "lib/reconciliation/pdf-paint-order.ts",
-      "bytes": 8230,
-      "sha256": "ebd1c378ae6faf9e8f07421b46eb2201b311cc012363135e640a104939c7e138",
+      "bytes": 8530,
+      "sha256": "5afb86fc3731457b51bf72f60e270e660f2817e79b6b030dec335de1506cfe61",
       "kind": "text"
     },
     {
@@ -37119,8 +37119,8 @@
     },
     {
       "path": "lib/reconciliation/pdf.ts",
-      "bytes": 50511,
-      "sha256": "8131f5b792e2b3c6bb9787ef8ad9f54d105a5cfce540570809f926ece1338b2b",
+      "bytes": 55102,
+      "sha256": "cd29d099a4366c37425b4ef628cf4b8efcb5438db25f4e248c96cbc40393d68f",
       "kind": "text"
     },
     {
@@ -41273,8 +41273,8 @@
     },
     {
       "path": "lib/reconciliation/pdf-glyph-geometry.ts",
-      "bytes": 9052,
-      "sha256": "dfb1defbbd0cbe3b20147b088c57f90d4063455e859452c86cdbc79833494e6d",
+      "bytes": 9970,
+      "sha256": "8a2c3769f6b6b0b94cfb864101000bab3b0518bec91fb475b74e9dc2a578df5b",
       "kind": "text"
     },
     {
@@ -41285,8 +41285,8 @@
     },
     {
       "path": "scripts/test-bank-statement-g1-mutations.mjs",
-      "bytes": 10238,
-      "sha256": "b9967954cac5699c7cdb05c9e960fa2a492b511f7bc1c1edcb0fc700d916cd9d",
+      "bytes": 11876,
+      "sha256": "152eb8f1dcf2cedd09bde9fdf3dfa25194396ac3d3274ca864fc8589e969a055",
       "kind": "text"
     },
     {
@@ -42885,6 +42885,18 @@
       "path": "audit/bank-statement-holdout-g10/results/run-1-28ae060.json",
       "bytes": 7193,
       "sha256": "98ac6eea879c0101fe8ce656b7584ec21eeb5c08514b38a0c7a78108e7f7e1b1",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-statement-holdout-ablation.mjs",
+      "bytes": 5755,
+      "sha256": "bf9a0b55b2bd88a3a75c0006960b3d72e78997ca1482e6d6feb2b49820114cad",
+      "kind": "text"
+    },
+    {
+      "path": "tests/pdf-glyph-boxes.test.ts",
+      "bytes": 11692,
+      "sha256": "9d81947faee91b40c7f9aef490baf36fd83b770b107aa79c06a9c69adcbc2276",
       "kind": "text"
     }
   ],

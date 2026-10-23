@@ -12,9 +12,14 @@ export function bindTextPaints(
   boxes: number[][],
   rawRuns?: Map<number, string>,
   literal?: { trace: PdfLiteralTrace; maxChars: number; maxOperators?: number },
-  // Outline ids (`<font>_path_<char>`) of the glyphs drawn for each run; null
-  // when a glyph is placed by more than its run's baseline (accent, vertical).
-  runGlyphs?: Map<number, Set<string> | null>,
+  // The glyphs drawn for each run, in drawing order, each once: its operator,
+  // its index in that operator's glyphs and its outline id
+  // (`<font>_path_<char>`); null when a glyph is placed by more than its
+  // run's baseline (accent, vertical).
+  runGlyphs?: Map<
+    number,
+    [operator: number, glyph: number, id: string][] | null
+  >,
   // The drawing operator and glyph index of each non-space character of each
   // run, in drawing order.
   runPieces?: Map<number, [operator: number, glyph: number][]>,
@@ -100,14 +105,17 @@ export function bindTextPaints(
         if (runGlyphs) {
           const used = runGlyphs.has(current.index)
             ? runGlyphs.get(current.index)!
-            : new Set<string>();
+            : [];
           const placed =
             used &&
             font &&
             typeof glyph.fontChar === 'string' &&
             !glyph.accent &&
             !glyph.vmetric;
-          if (placed) used.add(`${font}_path_${glyph.fontChar}`);
+          const last = used?.at(-1);
+          // A glyph of several characters is one outline.
+          if (placed && (last?.[0] !== i || last[1] !== glyphIndex))
+            used.push([i, glyphIndex, `${font}_path_${glyph.fontChar}`]);
           runGlyphs.set(current.index, placed ? used : null);
         }
         if (literal && start < 0) start = offset - char.length;

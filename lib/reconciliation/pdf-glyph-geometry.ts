@@ -10,7 +10,7 @@
 /** Advance box of one drawn glyph in absolute page units, on its baseline. */
 export type GlyphPlacement = { x0: number; x1: number; y: number };
 
-type Matrix = [number, number, number, number, number, number];
+export type Matrix = [number, number, number, number, number, number];
 const IDENTITY: Matrix = [1, 0, 0, 1, 0, 0];
 const multiply = (m: Matrix, n: Matrix): Matrix => [
   m[0] * n[0] + m[1] * n[2],
@@ -31,12 +31,15 @@ const matrix = (value: unknown): Matrix | undefined => {
  * Placements per text-showing operator index, aligned with that operator's
  * glyph array (TJ numbers and unplaceable glyphs are null). A page state the
  * replay does not model (an unreadable matrix, a vertical glyph) leaves the
- * affected glyphs null; nothing is estimated.
+ * affected glyphs null; nothing is estimated. When `glyphSpace` is given, it
+ * receives, aligned the same way, the matrix from each placed glyph's space
+ * (its outline per unit font size, as PDF.js sends it) to the page.
  */
 export function placeGlyphs(
   ops: Record<string, number>,
   fn: number[],
   args: unknown[][],
+  glyphSpace?: Map<number, (Matrix | null)[]>,
 ): Map<number, (GlyphPlacement | null)[]> {
   // PDF.js saves the text matrix and position with the graphics state on q,
   // in its canvas and in its text extraction alike; so does this replay.
@@ -77,6 +80,8 @@ export function placeGlyphs(
   const show = (index: number, glyphs: unknown) => {
     const out: (GlyphPlacement | null)[] = [];
     placed.set(index, out);
+    const spaces: (Matrix | null)[] = [];
+    glyphSpace?.set(index, spaces);
     if (!Array.isArray(glyphs)) return;
     const direction = state.size < 0 ? -1 : 1;
     const size = Math.abs(state.size);
@@ -100,6 +105,7 @@ export function placeGlyphs(
       if (typeof glyph === 'number') {
         advance -= (glyph * size) / 1000;
         out.push(null);
+        spaces.push(null);
         continue;
       }
       const g = glyph as {
@@ -112,12 +118,29 @@ export function placeGlyphs(
       const next = advance + width * widthScale + spacing * direction;
       const [x0, y0] = at(state.x + advance * step);
       const [x1, y1] = at(state.x + next * step);
-      out.push(
+      const placement =
         g?.vmetric ||
-          ![x0, y0, x1, y1].every(Number.isFinite) ||
-          Math.abs(y1 - y0) > 0.01
+        ![x0, y0, x1, y1].every(Number.isFinite) ||
+        Math.abs(y1 - y0) > 0.01
           ? null
-          : { x0: Math.min(x0, x1), x1: Math.max(x0, x1), y: y0 },
+          : { x0: Math.min(x0, x1), x1: Math.max(x0, x1), y: y0 };
+      out.push(placement);
+      // The outline is scaled by the font size, and across by the
+      // horizontal scale, from the pen, before the text matrix.
+      const sx = state.size * state.scale,
+        sy = state.size,
+        pen = state.x + advance * step;
+      spaces.push(
+        placement && page
+          ? [
+              page[0] * sx,
+              page[1] * sx,
+              page[2] * sy,
+              page[3] * sy,
+              page[0] * pen + page[2] * ty + page[4],
+              page[1] * pen + page[3] * ty + page[5],
+            ]
+          : null,
       );
       advance = next;
     }

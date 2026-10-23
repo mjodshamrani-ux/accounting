@@ -33,6 +33,7 @@ const tests = [
   'tests/bank-statement-writers.test.ts',
   'tests/pdf-glyph-order.test.ts',
   'tests/pdf-ink-guards.test.ts',
+  'tests/pdf-glyph-boxes.test.ts',
 ];
 const PDF = 'lib/reconciliation/pdf.ts',
   PAINT = 'lib/reconciliation/pdf-paint-order.ts',
@@ -108,7 +109,12 @@ const mutations = [
   // The statement reader and its proof.
   ['column-left-edge', READER, 'p.x0 >= c.start[k] - PADDING &&', 'true &&'],
   // G6: headers aligned with their column's end, and the heading's words.
-  ['end-aligned-headers-ignored', READER, 'if (k < 0) return undefined;', 'return undefined;'],
+  [
+    'end-aligned-headers-ignored',
+    READER,
+    'if (k < 0) return undefined;',
+    'return undefined;',
+  ],
   [
     'end-edge-unchecked',
     READER,
@@ -189,14 +195,76 @@ const mutations = [
   [
     'rows-by-metrics',
     PDF,
-    '.map((t) => ink?.get(t) ?? glyphBounds(t)),',
-    '.map((t) => glyphBounds(t)),',
+    '.flatMap((t) => glyphs?.get(t) ?? [ink?.get(t) ?? glyphBounds(t)])',
+    '.flatMap((t) => [glyphBounds(t)])',
   ],
   [
     'ink-unproved-returned',
     PDF,
     'return inkBoxes.map((box, i) => (box === textBoxes[i] ? undefined : box));',
     'return inkBoxes;',
+  ],
+  // G10: a rectangle traced back to its start, and each glyph's own box.
+  ['rectangle-return-unclosed', PDF, 'path.points.length === 5 &&', 'false &&'],
+  [
+    'glyph-boxes-ignored',
+    PDF,
+    'const inkTargets = inkBoxes.flatMap((box, i) => glyphBoxes.get(i) ?? [box]);',
+    'const inkTargets = inkBoxes;',
+  ],
+  [
+    'glyph-advance-only',
+    PDF,
+    'const outline = ink.box(id);',
+    'const outline = ink.box(id) && ([0, ink.box(id)![1], 0.6, ink.box(id)![3]] as const);',
+  ],
+  [
+    'glyph-replay-unchecked',
+    PDF,
+    'Math.abs(left - padded[0]) <= 0.5 &&\n      Math.abs(right - padded[2]) <= 0.5',
+    'true',
+  ],
+  [
+    'glyph-baseline-unchecked',
+    PDF,
+    ' || Math.abs(at.y - run.baseline) > 0.5) break;',
+    ') break;',
+  ],
+  [
+    'glyph-partial',
+    PDF,
+    'boxes.length === glyphs.length &&',
+    'boxes.length > 0 &&',
+  ],
+  [
+    'rows-glyphs-ignored',
+    PDF,
+    '.flatMap((t) => glyphs?.get(t) ?? [ink?.get(t) ?? glyphBounds(t)])',
+    '.flatMap((t) => [ink?.get(t) ?? glyphBounds(t)])',
+  ],
+  [
+    'rows-window',
+    PDF,
+    'bounds[j][start][0] < a[0] - widest[j]',
+    'bounds[j][start][0] < a[0]',
+  ],
+  [
+    'outline-across-ignored',
+    FONT,
+    'left = Math.min(left, x);',
+    'left = Math.min(left, 0);',
+  ],
+  [
+    'glyph-space-scale',
+    GEOMETRY,
+    'const sx = state.size * state.scale,',
+    'const sx = state.size,',
+  ],
+  [
+    'glyph-space-pen',
+    GEOMETRY,
+    'pen = state.x + advance * step;',
+    'pen = state.x;',
   ],
   [
     'heading-runs-not-joined',
@@ -315,6 +383,7 @@ if (report.baselinePassed)
         'audit/bank-statement-foundation/frozen',
         'audit/bank-statement-holdout-g6/frozen',
         'audit/bank-statement-holdout-g8/frozen',
+        'audit/bank-statement-holdout-g10/frozen',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });
