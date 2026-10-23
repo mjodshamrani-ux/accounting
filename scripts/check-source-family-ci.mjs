@@ -219,6 +219,8 @@ const separate = {
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',
+    'test:bank-statement:g8-holdout',
+    'test:bank-statement:g8-browser',
   ],
 };
 for (const [jobName, names] of Object.entries(separate)) {
