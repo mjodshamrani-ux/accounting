@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 20745,
-      "sha256": "45b7aaecf62c7848247778d6ed3b017987f2e2116c9f67edc0691775a9af80f5",
+      "bytes": 20834,
+      "sha256": "d7bf62a2ec039451d705d49b055ccfaf32efb5160ba1a8c2562c1c4bd4dbbb88",
       "kind": "text"
     },
     {
@@ -41841,6 +41841,314 @@
       "path": "scripts/bank-statement-holdout.mjs",
       "bytes": 11705,
       "sha256": "da07e7c4f4fb27c3954b95f2007a60bfd4487cc88276b698887fb89f5fcfd33c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/README.ar.md",
+      "bytes": 8318,
+      "sha256": "57173740c4a4cd5d2997542828607a3afba0185f4f96b1f7a3a6d0ce6b087d95",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/check_export.py",
+      "bytes": 2864,
+      "sha256": "97c8f0f81253476cb6fdb9fb74cf7f9b07708b854a7a6021a7396bbb531e1d52",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/check_seal.py",
+      "bytes": 4077,
+      "sha256": "32787854c0c07621a9141014b0d5ff30fe83dcc4d0c09f01f79b0ec3de14e9eb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/common.py",
+      "bytes": 4848,
+      "sha256": "a990153c188cef1e6da1c3d48f6c377718ef7d2ba787c213a9ce023eaa5b5d31",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/expected.py",
+      "bytes": 2901,
+      "sha256": "b20ab16e29de07084b5c30f0f63d95035c50c15f039c4fa5c94f01e79006b21a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/EXPECTED.json",
+      "bytes": 27998,
+      "sha256": "cf806d800ed49b18b9465227e184f15518221e39248113470217157c102b1b5d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/INPUT-MANIFEST.json",
+      "bytes": 5811,
+      "sha256": "0670ea2c59bf67b787b548732ed7d84a2a133763857d8779502cfe42f7566ddb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K01-cashbook.csv",
+      "bytes": 1244,
+      "sha256": "d4b5bebcad85b4db892ac4cda814ebc82a92be2be5b3604c0ddbd79e2ef827d1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K01-statement.pdf",
+      "bytes": 67765,
+      "sha256": "824545bf78473a0a64d90513429e02e72c91a3c4954e26daa86e5be1f3578677",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K02-cashbook.csv",
+      "bytes": 1079,
+      "sha256": "e7ed0ae2325e955a44a7fd8634e3bceaa696cee7e4548e84eab0c9d6de13efd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K02-cashbook.xlsx",
+      "bytes": 6203,
+      "sha256": "b313310a4121bc860d715ce0eb04323af6beb196043082486c32d26c19cb2b8c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K02-statement.pdf",
+      "bytes": 43969,
+      "sha256": "e4b3f8d7f53e14f6f90ba2a5a8e76ecf15aafa71c498d57dd340e3802226ef18",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K03-cashbook.csv",
+      "bytes": 63289,
+      "sha256": "3dd72ec4d46612db8a6ea85044a6b98717577309b5d2fdf33886aeca4292f457",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K03-statement.pdf",
+      "bytes": 1380386,
+      "sha256": "6751ef4579f032979420471ca9914ad254e8549ee479fe315c78b52fcdf83df4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K04-cashbook.csv",
+      "bytes": 1147,
+      "sha256": "774b3275b709a934d021e872a67c7f30536a5249adaa63d8cd4df28c78abae5b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf",
+      "bytes": 52889,
+      "sha256": "170bf65dd4c680a2b4e6d342b1bf2b5d3f3a839171024d5385b1ffe7293df805",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K05-cashbook.csv",
+      "bytes": 881,
+      "sha256": "18f59d8b64bc92381ae4c25baca8fd9e1e4b43826e669fa908049672dcb706d2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K05-statement.pdf",
+      "bytes": 49518,
+      "sha256": "912adfea6217db9578752d20897fdf25023d4e8672b46d28e22c14540e859030",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K06-cashbook.csv",
+      "bytes": 1675,
+      "sha256": "d0e5f29726e22004729bbaf704219f732db844c482756a3bb12453118c90977b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K06-statement.pdf",
+      "bytes": 48165,
+      "sha256": "5af16df5bb542ec5b8cc2f01aadb68ec5163a664a6a5848a8775c09a60632d63",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K07-cashbook.csv",
+      "bytes": 1354,
+      "sha256": "ac4f6d93497cdf884fba3637bf60129288a481d085b115a3b5b161678cdf63f8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K07-statement.pdf",
+      "bytes": 4769,
+      "sha256": "5358cc717e831c4f41fc0cb86a337148104a24e7604822bc117fdf7b2745dcea",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K08-cashbook.csv",
+      "bytes": 1137,
+      "sha256": "6e1d6b21ec51ac6b12211921bc0cca6c993d77b677b889a133acaf34bd2820de",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K08-cashbook.xlsx",
+      "bytes": 5621,
+      "sha256": "e29172ed54d6265fab2b9b2810637cfc4dd61d83ad2ad399bc84ff994a90d7f9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K08-statement.pdf",
+      "bytes": 14519,
+      "sha256": "5163caf157ae9f68af19a4e7e7ff4d9c1edeb4af926cb9196b402e7218d7f410",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K09-cashbook.csv",
+      "bytes": 974,
+      "sha256": "a45f40d5777da9eab5ffc187c6eb92dcf097d49303e3d8aa3d96dc2472b3106c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K09-statement.pdf",
+      "bytes": 2892,
+      "sha256": "69e42aaf20f1636f64854ff499588be3eb17ea610c75a45cbe134d68649baba1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K10-cashbook.csv",
+      "bytes": 1030,
+      "sha256": "a58ab0ce516a959a21528f093b7ad20f6410a63654a3508e8577104eea6516f7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf",
+      "bytes": 22743,
+      "sha256": "7146b973373ee563d06cfb0d8e43779547f657e68d8778ed843ab0fdebaabc1b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K11-cashbook.csv",
+      "bytes": 1647,
+      "sha256": "03056cfcaa851457107015e687c69fdab6c2e1929d3f44d9a6919fe8731c6d65",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K11-statement.pdf",
+      "bytes": 29829,
+      "sha256": "e1e16bf5867ae9209043a857aec377844de6d3b8b598fa4c1116fc6cbbef7b42",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K12-cashbook.csv",
+      "bytes": 1187,
+      "sha256": "b94adb0ad905670eae89c05635640970c6eb8ce256d32af4d5a4ec99e78f9b5d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/K12-statement.pdf",
+      "bytes": 15729,
+      "sha256": "9754e461acc672c9ba88e6746cbfc350a7b47d445f5c903f6d16da72cb4c5dc0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G8 holdout: typeset by Typst 0.15.0 or drawn by fpdf2 2.8.9 (statements), or written by XlsxWriter 3.3.0 or openpyxl 3.1.5 (cashbooks), from audit/bank-statement-holdout-g8/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run and read back independently (VERIFY.json with pdfminer.six, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/frozen/VERIFY.json",
+      "bytes": 6158,
+      "sha256": "52d90c7d8d6f715cb5671e13da03b6e97eef30ce378472743ee503b6c391e74b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/holdout.json",
+      "bytes": 7577,
+      "sha256": "264ce1372d6cef80f0cddee7c50c0a78267909a459d115f1fa4fb5a38a051567",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/render.py",
+      "bytes": 5927,
+      "sha256": "7a01575e931898371b82e3b9d74699f9d18410d9b51dac1ccc9836a9c772584e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/render_fpdf.py",
+      "bytes": 6283,
+      "sha256": "3dc961db8971eb74398f325a653be0e9126f9a1584fe59f92880962cfa64a982",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/render_typst.py",
+      "bytes": 2355,
+      "sha256": "4f8d7c5f9a214bee7844b06ca52ea6ee2694c13860845c1c210ce20cef3db739",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/statement.typ",
+      "bytes": 2620,
+      "sha256": "8d7c5fd395f6b6f69529ee9c00981055a42ef7f54172344ed642d0b9838bd6ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/stories.py",
+      "bytes": 28057,
+      "sha256": "16edaa7fce1432943079a4bfbd48d3b9ec19b9edda94468d20d31e589eb955e8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/test_seal.py",
+      "bytes": 3169,
+      "sha256": "7c3bbf2e9a15c69379885dadb268e9857e7e09e3d01e0d363ef6df4549f9a131",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g8/verify.py",
+      "bytes": 19581,
+      "sha256": "e200e5f178e97e3b38c20bffd9d6377e4cf54ac15e60eb941aa62fb389059734",
       "kind": "text"
     }
   ],

@@ -1,0 +1,241 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline",
+ "factsSha256": "71d9be7aecfa9e2f9caedeceb648c88584a52fa85f8f390bc71d1ebeb8a6cc63",
+ "statements": [
+  {
+   "id": "K01",
+   "file": "K01-statement.pdf",
+   "sha256": "824545bf78473a0a64d90513429e02e72c91a3c4954e26daa86e5be1f3578677",
+   "pages": 3,
+   "valuesFound": 122,
+   "ok": true,
+   "problems": [],
+   "creator": "Typst 0.15.0",
+   "producer": null,
+   "fonts": [
+    "OCNGFX+DejaVuSerif-Bold",
+    "QKHSLC+DejaVuSerif"
+   ],
+   "fontDeclared": "DejaVu Serif",
+   "fontPresent": true
+  },
+  {
+   "id": "K02",
+   "file": "K02-statement.pdf",
+   "sha256": "e4b3f8d7f53e14f6f90ba2a5a8e76ecf15aafa71c498d57dd340e3802226ef18",
+   "pages": 2,
+   "valuesFound": 110,
+   "ok": true,
+   "problems": [],
+   "creator": "Typst 0.15.0",
+   "producer": null,
+   "fonts": [
+    "FZDETR+Inter-Regular-Identity-H"
+   ],
+   "fontDeclared": "Inter",
+   "fontPresent": true
+  },
+  {
+   "id": "K03",
+   "file": "K03-statement.pdf",
+   "sha256": "6751ef4579f032979420471ca9914ad254e8549ee479fe315c78b52fcdf83df4",
+   "pages": 42,
+   "valuesFound": 6177,
+   "ok": true,
+   "problems": [],
+   "creator": "Typst 0.15.0",
+   "producer": null,
+   "fonts": [
+    "BEOMSD+DejaVuSansMono"
+   ],
+   "fontDeclared": "DejaVu Sans Mono",
+   "fontPresent": true
+  },
+  {
+   "id": "K04",
+   "file": "K04-statement.pdf",
+   "sha256": "170bf65dd4c680a2b4e6d342b1bf2b5d3f3a839171024d5385b1ffe7293df805",
+   "pages": 2,
+   "valuesFound": 79,
+   "ok": true,
+   "problems": [],
+   "creator": "Typst 0.15.0",
+   "producer": null,
+   "fonts": [
+    "BWGAJU+Amiri-Regular"
+   ],
+   "fontDeclared": "Amiri",
+   "fontPresent": true
+  },
+  {
+   "id": "K05",
+   "file": "K05-statement.pdf",
+   "sha256": "912adfea6217db9578752d20897fdf25023d4e8672b46d28e22c14540e859030",
+   "pages": 2,
+   "valuesFound": 70,
+   "ok": true,
+   "problems": [],
+   "creator": "Typst 0.15.0",
+   "producer": null,
+   "fonts": [
+    "TPFBHR+DejaVuSans"
+   ],
+   "fontDeclared": "DejaVu Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "K06",
+   "file": "K06-statement.pdf",
+   "sha256": "5af16df5bb542ec5b8cc2f01aadb68ec5163a664a6a5848a8775c09a60632d63",
+   "pages": 3,
+   "valuesFound": 132,
+   "ok": true,
+   "problems": [],
+   "creator": "Typst 0.15.0",
+   "producer": null,
+   "fonts": [
+    "QUYLDT+FreeSans"
+   ],
+   "fontDeclared": "FreeSans",
+   "fontPresent": true
+  },
+  {
+   "id": "K07",
+   "file": "K07-statement.pdf",
+   "sha256": "5358cc717e831c4f41fc0cb86a337148104a24e7604822bc117fdf7b2745dcea",
+   "pages": 3,
+   "valuesFound": 121,
+   "ok": true,
+   "problems": [],
+   "creator": "fpdf2 2.8.9",
+   "producer": null,
+   "fonts": [
+    "Times-Roman"
+   ],
+   "fontDeclared": "Times",
+   "fontPresent": true
+  },
+  {
+   "id": "K08",
+   "file": "K08-statement.pdf",
+   "sha256": "5163caf157ae9f68af19a4e7e7ff4d9c1edeb4af926cb9196b402e7218d7f410",
+   "pages": 2,
+   "valuesFound": 90,
+   "ok": true,
+   "problems": [],
+   "creator": "fpdf2 2.8.9",
+   "producer": null,
+   "fonts": [
+    "MPDFAA+Caladea"
+   ],
+   "fontDeclared": "Caladea",
+   "fontPresent": true
+  },
+  {
+   "id": "K09",
+   "file": "K09-statement.pdf",
+   "sha256": "69e42aaf20f1636f64854ff499588be3eb17ea610c75a45cbe134d68649baba1",
+   "pages": 2,
+   "valuesFound": 96,
+   "ok": true,
+   "problems": [],
+   "creator": "fpdf2 2.8.9",
+   "producer": null,
+   "fonts": [
+    "Courier"
+   ],
+   "fontDeclared": "Courier",
+   "fontPresent": true
+  },
+  {
+   "id": "K10",
+   "file": "K10-statement.pdf",
+   "sha256": "7146b973373ee563d06cfb0d8e43779547f657e68d8778ed843ab0fdebaabc1b",
+   "pages": 2,
+   "valuesFound": 76,
+   "ok": true,
+   "problems": [],
+   "creator": "fpdf2 2.8.9",
+   "producer": null,
+   "fonts": [
+    "MPDFAA+Amiri"
+   ],
+   "fontDeclared": "Amiri",
+   "fontPresent": true
+  },
+  {
+   "id": "K11",
+   "file": "K11-statement.pdf",
+   "sha256": "e1e16bf5867ae9209043a857aec377844de6d3b8b598fa4c1116fc6cbbef7b42",
+   "pages": 3,
+   "valuesFound": 125,
+   "ok": true,
+   "problems": [],
+   "creator": "fpdf2 2.8.9",
+   "producer": null,
+   "fonts": [
+    "MPDFAA+DejaVuSansBook"
+   ],
+   "fontDeclared": "DejaVu Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "K12",
+   "file": "K12-statement.pdf",
+   "sha256": "9754e461acc672c9ba88e6746cbfc350a7b47d445f5c903f6d16da72cb4c5dc0",
+   "pages": 3,
+   "valuesFound": 116,
+   "ok": true,
+   "problems": [],
+   "creator": "fpdf2 2.8.9",
+   "producer": null,
+   "fonts": [
+    "MPDFAA+Carlito"
+   ],
+   "fontDeclared": "Carlito",
+   "fontPresent": true
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "K02-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "b313310a4121bc860d715ce0eb04323af6beb196043082486c32d26c19cb2b8c"
+  },
+  {
+   "file": "K08-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "e29172ed54d6265fab2b9b2810637cfc4dd61d83ad2ad399bc84ff994a90d7f9"
+  }
+ ],
+ "selfTest": [
+  "K01: Typst serif: an amount one halala off",
+  "K01: Typst serif: two balances swapped between rows",
+  "K01: Typst serif: a word inside a wrapped description",
+  "K02: Typst Inter: a reference without its inner space",
+  "K03: Typst monospaced: the continuation text changed",
+  "K03: Typst monospaced: a page total changed",
+  "K04: Typst Arabic, Amiri: a balance changed",
+  "K04: Typst Arabic, Amiri: an overdrawn balance without DR",
+  "K05: Typst Arabic-Indic digits: a date changed",
+  "K05: Typst Arabic-Indic digits: a reference changed",
+  "K06: Typst: the printed page numbers changed",
+  "K07: fpdf2 Times: a brought-forward balance changed",
+  "K07: fpdf2 Times: two balances swapped between rows",
+  "K08: fpdf2 Caladea: a deposit above a billion one halala off",
+  "K08: fpdf2 Caladea: the zero total withdrawals changed",
+  "K10: fpdf2 Arabic, Amiri, Arabic-Indic: a withdrawal one halala off",
+  "K10: fpdf2 Arabic, Amiri, Arabic-Indic: a value date changed",
+  "K11: fpdf2 Arabic, DejaVu: a page total changed",
+  "K11: fpdf2 Arabic, DejaVu: the continuation text changed",
+  "K12: fpdf2 Carlito: the page order read back as printed",
+  "K02: XLSX cashbook one halala off its CSV",
+  "K08: XLSX cashbook one halala off its CSV"
+ ]
+}
