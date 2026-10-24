@@ -1,0 +1,264 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "49d17d60e88822b1d0b3053c97c84a1d5dc110759c70123301a98893859d1881",
+ "statements": [
+  {
+   "id": "Q01",
+   "file": "Q01-statement.pdf",
+   "sha256": "8ff17cd903484caa139fb2e671fd2a7abb7e187fe9d692fb50e45e315de2f18b",
+   "pages": 3,
+   "valuesFound": 217,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "Apache PDFBox 3.0.5",
+   "fonts": [
+    "AAABYK+FiraSans-Regular",
+    "AAAXXE+FiraSans-Bold"
+   ],
+   "fontDeclared": "Fira Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "Q02",
+   "file": "Q02-statement.pdf",
+   "sha256": "a6e2367565bd9809d88f70821ebb06374f889fa765e4b2d5411620efa1f45475",
+   "pages": 3,
+   "valuesFound": 153,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "Apache PDFBox 3.0.5",
+   "fonts": [
+    "AAVMNC+NotoNaskhArabic-Bold",
+    "AAXQOG+NotoNaskhArabic-Regular"
+   ],
+   "fontDeclared": "Noto Naskh Arabic",
+   "fontPresent": true
+  },
+  {
+   "id": "Q03",
+   "file": "Q03-statement.pdf",
+   "sha256": "165e41cd55f1962382f18b2736f74e2c73beb4d7a610f7c9636c2b34d9116628",
+   "pages": 4,
+   "valuesFound": 222,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "Apache PDFBox 3.0.5",
+   "fonts": [
+    "AAAKEF+JetBrainsMono-Bold",
+    "AAASFK+JetBrainsMono-Regular"
+   ],
+   "fontDeclared": "JetBrains Mono",
+   "fontPresent": true
+  },
+  {
+   "id": "Q04",
+   "file": "Q04-statement.pdf",
+   "sha256": "60de0f8154fb22e32402bab7944b10e9b343b496ccd820a7f5f30ed22df97739",
+   "pages": 4,
+   "valuesFound": 188,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "Apache PDFBox 3.0.5",
+   "fonts": [
+    "AAMTNC+NotoKufiArabic-Bold",
+    "AAXLVG+NotoKufiArabic-Regular"
+   ],
+   "fontDeclared": "Noto Kufi Arabic",
+   "fontPresent": true
+  },
+  {
+   "id": "Q05",
+   "file": "Q05-statement.pdf",
+   "sha256": "4ae84d3adb62d1d363382e4ea564511ad3e164581093ee4b2e1b17ae570e05f1",
+   "pages": 3,
+   "valuesFound": 194,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "Apache PDFBox 3.0.5",
+   "fonts": [
+    "Times-Bold",
+    "Times-Roman"
+   ],
+   "fontDeclared": "Times-Roman",
+   "fontPresent": true
+  },
+  {
+   "id": "Q06",
+   "file": "Q06-statement.pdf",
+   "sha256": "b138ac70632a025a2dfa8bd8e99d70d2d6c642730d548acb5fed18b74cd03ce8",
+   "pages": 8,
+   "valuesFound": 659,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "Apache PDFBox 3.0.5",
+   "fonts": [
+    "Times-Bold",
+    "Times-Roman"
+   ],
+   "fontDeclared": "Times-Roman",
+   "fontPresent": true
+  },
+  {
+   "id": "Q07",
+   "file": "Q07-statement.pdf",
+   "sha256": "acd65dfcfa026ee01a4f51713cf9257a9a8f297119c933f18e43502022cf7f36",
+   "pages": 3,
+   "valuesFound": 224,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "jsPDF 4.2.1",
+   "fonts": [
+    "NotoSans"
+   ],
+   "fontDeclared": "Noto Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "Q08",
+   "file": "Q08-statement.pdf",
+   "sha256": "7351b48274541ca1fabbb987d5e46b2e6d74b14a1564e3e9f66f6d692aea4d72",
+   "pages": 3,
+   "valuesFound": 172,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "jsPDF 4.2.1",
+   "fonts": [
+    "NotoNaskhArabic"
+   ],
+   "fontDeclared": "Noto Naskh Arabic",
+   "fontPresent": true
+  },
+  {
+   "id": "Q09",
+   "file": "Q09-statement.pdf",
+   "sha256": "87ffa06cc1060c3d1c01f27b868aef4a5a6150baaa3c079c38531e6078eafe95",
+   "pages": 2,
+   "valuesFound": 162,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "jsPDF 4.2.1",
+   "fonts": [
+    "Courier",
+    "Courier-Bold"
+   ],
+   "fontDeclared": "Courier",
+   "fontPresent": true
+  },
+  {
+   "id": "Q10",
+   "file": "Q10-statement.pdf",
+   "sha256": "119497362a33bcaceba968ebbaeaedd31a797cd17f325aaf7a77bd6c3f51aeeb",
+   "pages": 3,
+   "valuesFound": 159,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "jsPDF 4.2.1",
+   "fonts": [
+    "NotoKufiArabic"
+   ],
+   "fontDeclared": "Noto Kufi Arabic",
+   "fontPresent": true
+  },
+  {
+   "id": "Q11",
+   "file": "Q11-statement.pdf",
+   "sha256": "fe539a525aa4bb688bb59753d9a1008647443e6a0f418adae76a67b8dc75995f",
+   "pages": 3,
+   "valuesFound": 163,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "jsPDF 4.2.1",
+   "fonts": [
+    "NotoSans"
+   ],
+   "fontDeclared": "Noto Sans",
+   "fontPresent": true
+  },
+  {
+   "id": "Q12",
+   "file": "Q12-statement.pdf",
+   "sha256": "c7ed0049ecab3f8c5e63c2f58d62200ba186020182f611869bec9994d1dba0a0",
+   "pages": 2,
+   "valuesFound": 102,
+   "ok": true,
+   "problems": [],
+   "creator": "Tarasuf holdout G12",
+   "producer": "jsPDF 4.2.1",
+   "fonts": [
+    "Courier",
+    "Courier-Bold"
+   ],
+   "fontDeclared": "Courier",
+   "fontPresent": true
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "Q03-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "79a949a9a9874775c3be6e539b2a2ab6fc60a329e2cbdbc76075ced0b6458dc1"
+  },
+  {
+   "file": "Q09-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "9ebbf5cb24ec492a07319a4fc97740cac9c4835655fbcf09dd734c292ff3e3f2"
+  }
+ ],
+ "selfTest": [
+  "Q01: PDFBox Fira Sans, clipped grid: a withdrawal one halala off",
+  "Q01: PDFBox Fira Sans, clipped grid: two balances swapped between rows",
+  "Q01: PDFBox Fira Sans, clipped grid: the returned cheque reference changed",
+  "Q01: PDFBox Fira Sans, clipped grid: a description word changed",
+  "Q02: PDFBox Arabic, Naskh, by run: a date changed",
+  "Q02: PDFBox Arabic, Naskh, by run: an overdrawn balance without DR",
+  "Q02: PDFBox Arabic, Naskh, by run: a description word changed",
+  "Q02: PDFBox Arabic, Naskh, by run: the two-month transfer one riyal off",
+  "Q03: PDFBox JetBrains Mono, DR slot: an overdrawn balance without DR",
+  "Q03: PDFBox JetBrains Mono, DR slot: a balance in credit read as overdrawn",
+  "Q03: PDFBox JetBrains Mono, DR slot: a page total changed",
+  "Q03: PDFBox JetBrains Mono, DR slot: the short payment reference changed",
+  "Q04: PDFBox Arabic, Kufi, filled grid: a word inside a wrapped description",
+  "Q04: PDFBox Arabic, Kufi, filled grid: the value date before the period changed",
+  "Q04: PDFBox Arabic, Kufi, filled grid: the fee changed",
+  "Q05: PDFBox Times-Roman: a deposit one halala off",
+  "Q06: PDFBox Times-Roman: the continuation text changed",
+  "Q06: PDFBox Times-Roman: the value date after the period changed",
+  "Q06: PDFBox Times-Roman: the printed page numbers changed",
+  "Q06: PDFBox Times-Roman: one of two equal cash deposits one halala off",
+  "Q07: jsPDF Noto Sans, landscape: the refund reference changed",
+  "Q07: jsPDF Noto Sans, landscape: two balances swapped between rows",
+  "Q07: jsPDF Noto Sans, landscape: a withdrawal one halala off",
+  "Q08: jsPDF Arabic, Naskh: a description word changed",
+  "Q08: jsPDF Arabic, Naskh: the presented cheque's date changed",
+  "Q08: jsPDF Arabic, Naskh: the returned cheque fee changed",
+  "Q09: jsPDF Courier: an overdrawn balance without DR",
+  "Q09: jsPDF Courier: the deposit reference changed",
+  "Q09: jsPDF Courier: a description word changed",
+  "Q10: jsPDF Arabic, Kufi, Arabic-Indic: a page total changed",
+  "Q10: jsPDF Arabic, Kufi, Arabic-Indic: an overdrawn balance without DR",
+  "Q10: jsPDF Arabic, Kufi, Arabic-Indic: the second water bill reference changed",
+  "Q10: jsPDF Arabic, Kufi, Arabic-Indic: a date changed",
+  "Q11: jsPDF Noto Sans, grid: the missing brought-forward line read back",
+  "Q12: jsPDF Courier: the second printed page read back as page 2",
+  "Q12: jsPDF Courier: the closing balance changed",
+  "Q03: XLSX cashbook one halala off its CSV",
+  "Q09: XLSX cashbook one halala off its CSV"
+ ]
+}

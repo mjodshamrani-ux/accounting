@@ -1,0 +1,147 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "712d6a13b13a41d0ca9a883b6daeb761e2c7b048",
+ "summary": {
+  "capacity": [
+   "K07",
+   "K08",
+   "K11"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "K12"
+  ],
+  "refused": [
+   "K01",
+   "K02",
+   "K03",
+   "K04",
+   "K05",
+   "K06",
+   "K09",
+   "K10"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 4,
+  "exportCheck": "passed",
+  "checkerSelfTest": null,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "K01",
+   "cashbook": "K01-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "K02",
+   "cashbook": "K02-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "K02",
+   "cashbook": "K02-cashbook.xlsx",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "K03",
+   "cashbook": "K03-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "K04",
+   "cashbook": "K04-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "K05",
+   "cashbook": "K05-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "K06",
+   "cashbook": "K06-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "K07",
+   "cashbook": "K07-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "K08",
+   "cashbook": "K08-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "K08",
+   "cashbook": "K08-cashbook.xlsx",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "K09",
+   "cashbook": "K09-cashbook.csv",
+   "refused": "BANK_STATEMENT_FIELD: page 1 line 12: amount needs one value",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "K10",
+   "cashbook": "K10-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "K11",
+   "cashbook": "K11-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "K12",
+   "cashbook": "K12-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  }
+ ]
+}

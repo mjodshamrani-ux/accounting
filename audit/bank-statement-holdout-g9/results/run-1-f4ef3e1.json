@@ -1,0 +1,417 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "f4ef3e171c65a7a1de700598f5d7e689f9217976",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "N01",
+   "N02",
+   "N03",
+   "N04",
+   "N05",
+   "N07",
+   "N09",
+   "N10"
+  ],
+  "positivesFailed": [
+   "N08"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "N06",
+   "N11",
+   "N12"
+  ],
+  "readingOk": [
+   "N01",
+   "N02",
+   "N03",
+   "N04",
+   "N05",
+   "N06",
+   "N07",
+   "N09",
+   "N10",
+   "N11",
+   "N12"
+  ],
+  "refused": [
+   "N08"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "N01",
+   "producer": "weasyprint",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2026-05-01",
+     "end": "2026-05-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 22,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N02",
+   "producer": "weasyprint",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-07-01",
+     "end": "2026-07-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 25,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 25,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N03",
+   "producer": "weasyprint",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-09-01",
+     "end": "2026-09-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 18,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N04",
+   "producer": "weasyprint",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2026-02-01",
+     "end": "2026-02-28"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 22,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N05",
+   "producer": "weasyprint",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 29,
+    "period": {
+     "start": "2026-01-01",
+     "end": "2026-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 229,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N06",
+   "producer": "weasyprint",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "statement totals differ from its movements",
+    "pages": 1,
+    "period": {
+     "start": "2026-08-01",
+     "end": "2026-08-15"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 8,
+    "equal": true,
+    "held": "balance-broken: statement totals differ from its movements",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N07",
+   "producer": "mupdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-06-01",
+     "end": "2026-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 19,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N08",
+   "producer": "mupdf",
+   "layout": "en",
+   "refused": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب PDF نصيًا أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب PDF نصيًا أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "N09",
+   "producer": "mupdf",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2026-03-01",
+     "end": "2026-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 33,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N10",
+   "producer": "mupdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2026-11-01",
+     "end": "2026-11-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 33,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 33,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N11",
+   "producer": "mupdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,2,3 of 3,4",
+    "pages": 3,
+    "period": {
+     "start": "2026-04-01",
+     "end": "2026-04-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 22,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,2,3 of 3,4",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "N12",
+   "producer": "mupdf",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 1: carried-forward 2608203 != 2607203",
+    "pages": 3,
+    "period": {
+     "start": "2026-12-01",
+     "end": "2026-12-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 21,
+    "equal": true,
+    "held": "balance-broken: page 1: carried-forward 2608203 != 2607203",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  }
+ ]
+}

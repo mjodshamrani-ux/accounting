@@ -1,0 +1,1098 @@
+{
+ "schema": "tarasuf-bnk-pdf1-eligibility-retro/1",
+ "what": "eligibility.py after G12 (contrast: the reader's visibleOnBackground test on the run's ink box), run on each sealed package with the decision story its runs used. Findings equal the G11 records (retro-g6.json to retro-g10.json) for G6 to G10, and none for G12, whose sealed ELIGIBILITY.json the G11 tool wrote.",
+ "packages": {
+  "g6": {
+   "package": "bank-statement-holdout-g6",
+   "clearancePt": 0.05,
+   "statements": {
+    "H01": {
+     "sha256": "14453b792d5382530b7847b8a1d8b9d6f5b08ab41402c83967389a1da72efc7c",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.79,
+     "leastLineGapPt": null
+    },
+    "H02": {
+     "sha256": "e9b409c5eddb9d4c188ff7e6f6a6b2bc7919e636c570426fbbb74fc3cdc2b4b1",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.7,
+     "leastLineGapPt": null
+    },
+    "H03": {
+     "sha256": "c68baef0ed8653025135a753a4adbb58dce9723d63b8abe2151adfc68c2729cc",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 0.95,
+     "leastLineGapPt": null
+    },
+    "H04": {
+     "sha256": "f7f2b684ede70cf395f5cc89e061e3f098340f0bf11ff94e5e118f134279305d",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.08,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.6,
+     "leastLineGapPt": null
+    },
+    "H05": {
+     "sha256": "60eaff6cd62a5c74cc37b2a5bf7b1b8b95c76cf615432e32f61f6253056a5680",
+     "pages": 30,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.79,
+     "leastLineGapPt": null
+    },
+    "H06": {
+     "sha256": "f82adf389d44fd3360ac9e96a311b3ee1780522f61faf741389b45302e459f84",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.79,
+     "leastLineGapPt": null
+    },
+    "H07": {
+     "sha256": "465cb4ed44780cffa8ae9bbf92a5064556f1504ae6616856cd2f8adf13df7210",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.01,
+     "leastLineGapPt": null
+    },
+    "H08": {
+     "sha256": "559b34551c342d583cf99bb02fcf3b35c4daa5c0606f9b035bcafdf5e20c9004",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.01,
+     "leastLineGapPt": null
+    },
+    "H09": {
+     "sha256": "b31b9ae7c5a291ba178afeaa98baa69cdb87d2e7c91ac2cc4a98e099264e2310",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.01,
+     "leastLineGapPt": null
+    },
+    "H10": {
+     "sha256": "271e24a85cd5f5948a59245f1d71a511fa84ab8a33fbf86b00fbc7e8d047591e",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 0.82,
+     "leastLineGapPt": null
+    },
+    "H11": {
+     "sha256": "b073a88dea68cbfa534bd7cab418be993f5bf39d615eb443ae8f659e0cb52605",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 0.8,
+     "leastLineGapPt": null
+    },
+    "H12": {
+     "sha256": "f1ecf1a83fadfce1d910cac40db100174c3e51dbdba59cb06771c246f64b8deb",
+     "pages": 1,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.01,
+     "leastLineGapPt": null
+    }
+   },
+   "decision": {
+    "story": "H02",
+    "reasons": [
+     "ambiguous-amount-date",
+     "amount-date-suggestion"
+    ],
+    "problems": []
+   }
+  },
+  "g8": {
+   "package": "bank-statement-holdout-g8",
+   "clearancePt": 0.05,
+   "statements": {
+    "K01": {
+     "sha256": "824545bf78473a0a64d90513429e02e72c91a3c4954e26daa86e5be1f3578677",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.38,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "K02": {
+     "sha256": "e4b3f8d7f53e14f6f90ba2a5a8e76ecf15aafa71c498d57dd340e3802226ef18",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 0.77,
+     "leastLineGapPt": null
+    },
+    "K03": {
+     "sha256": "6751ef4579f032979420471ca9914ad254e8549ee479fe315c78b52fcdf83df4",
+     "pages": 42,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 8.77,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.14,
+     "leastLineGapPt": null
+    },
+    "K04": {
+     "sha256": "170bf65dd4c680a2b4e6d342b1bf2b5d3f3a839171024d5385b1ffe7293df805",
+     "pages": 2,
+     "found": {
+      "ruleClearance": [
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -2.03
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -2.03
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "ع",
+         -2.47
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -2.03
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -2.03
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "ع",
+         -2.47
+        ]
+       }
+      ],
+      "lineInk": [
+       {
+        "page": 1,
+        "at": 0.0
+       },
+       {
+        "page": 2,
+        "at": 0.0
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 9.08,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": -2.47,
+     "leastLineGapPt": 0.0
+    },
+    "K05": {
+     "sha256": "912adfea6217db9578752d20897fdf25023d4e8672b46d28e22c14540e859030",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.38,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 0.62,
+     "leastLineGapPt": null
+    },
+    "K06": {
+     "sha256": "5af16df5bb542ec5b8cc2f01aadb68ec5163a664a6a5848a8775c09a60632d63",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 0.85,
+     "leastLineGapPt": null
+    },
+    "K07": {
+     "sha256": "5358cc717e831c4f41fc0cb86a337148104a24e7604822bc117fdf7b2745dcea",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.65,
+     "leastLineGapPt": null
+    },
+    "K08": {
+     "sha256": "5163caf157ae9f68af19a4e7e7ff4d9c1edeb4af926cb9196b402e7218d7f410",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 3.22,
+     "leastLineGapPt": null
+    },
+    "K09": {
+     "sha256": "69e42aaf20f1636f64854ff499588be3eb17ea610c75a45cbe134d68649baba1",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 4.08,
+     "leastLineGapPt": null
+    },
+    "K10": {
+     "sha256": "7146b973373ee563d06cfb0d8e43779547f657e68d8778ed843ab0fdebaabc1b",
+     "pages": 2,
+     "found": {
+      "ruleClearance": [
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -0.13
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -0.13
+        ]
+       },
+       {
+        "page": 1,
+        "at": [
+         "خ",
+         -0.13
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -0.13
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -0.13
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         "خ",
+         -0.13
+        ]
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": -1.07,
+     "leastLineGapPt": null
+    },
+    "K11": {
+     "sha256": "e1e16bf5867ae9209043a857aec377844de6d3b8b598fa4c1116fc6cbbef7b42",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.92,
+     "leastLineGapPt": null
+    },
+    "K12": {
+     "sha256": "9754e461acc672c9ba88e6746cbfc350a7b47d445f5c903f6d16da72cb4c5dc0",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 3.63,
+     "leastLineGapPt": null
+    }
+   },
+   "decision": {
+    "story": "K02",
+    "reasons": [
+     "amount-date-suggestion",
+     "amount-date-suggestion"
+    ],
+    "problems": []
+   }
+  },
+  "g9": {
+   "package": "bank-statement-holdout-g9",
+   "clearancePt": 0.05,
+   "statements": {
+    "N01": {
+     "sha256": "d758c20bdf2369d557c79bfe1731780d14a770bd8d1b1776229515163e299f0a",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.72,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.26,
+     "leastLineGapPt": null
+    },
+    "N02": {
+     "sha256": "8ad9849414654b0b9486282bb2d8a7efa575b5141235980a84b9c2bbbbe21468",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.07,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.78,
+     "leastLineGapPt": null
+    },
+    "N03": {
+     "sha256": "d08659730c197676d808f166dadb1c186e9bb5b869cdb12fc45a72c946b30b67",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.6,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.94,
+     "leastLineGapPt": null
+    },
+    "N04": {
+     "sha256": "38f71ff99f82ab5ee72226cb56f8afea34d25220fa7e1c6f7ec1bffcb8b7e429",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 15.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 3.2,
+     "leastLineGapPt": null
+    },
+    "N05": {
+     "sha256": "c812090bbcae6f363f7b32d435b0a2a4a8656fb25ef037dd830e9ba450dfb8d4",
+     "pages": 29,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.07,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.47,
+     "leastLineGapPt": null
+    },
+    "N06": {
+     "sha256": "a383cebb327711413600273c85fbac62e2b5afc13eba8364ea0f122f23a7d7ff",
+     "pages": 1,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.26,
+     "leastLineGapPt": null
+    },
+    "N07": {
+     "sha256": "23ce923af6ea78eaee90d3673da9252208d59b08e7679d291b6f318c67495bf7",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.95,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "N08": {
+     "sha256": "874cd5988cd2c318400c753437eec13a356aed1d9c86f8948d140b30b2282feb",
+     "pages": 2,
+     "found": {
+      "images": [
+       {
+        "page": 1,
+        "at": 1
+       },
+       {
+        "page": 2,
+        "at": 1
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "N09": {
+     "sha256": "0102792ccce51926c40736ef5961ba777668a7c2e84c02816eb0463df9d1ae18",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "N10": {
+     "sha256": "a032fb9679649ee8eae17c006cf6a25cb679f748ff54ad050af7efa211b50014",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.75,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "N11": {
+     "sha256": "ce50e05ed8c1256e0b38cc32244930d3f277dfc0dc9bbe3df3acf944eca675a0",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "N12": {
+     "sha256": "fab10305d0a9eac2f248dc777ce06911dd3541b6ee0d38221e38c5895200e7ec",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    }
+   },
+   "decision": {
+    "story": "N01",
+    "reasons": [
+     "date-gap"
+    ],
+    "problems": []
+   }
+  },
+  "g10": {
+   "package": "bank-statement-holdout-g10",
+   "clearancePt": 0.05,
+   "statements": {
+    "P01": {
+     "sha256": "b63d374d176fce5fb8370942df8c098b13483011d8b6ae23afb158b57f4611ef",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.15,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.5,
+     "leastLineGapPt": null
+    },
+    "P02": {
+     "sha256": "da8ca32f09469aa6f1127ee4d030a4abdc571b80906c7d27fad7e430dd9e2676",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.57,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 0.68,
+     "leastLineGapPt": null
+    },
+    "P03": {
+     "sha256": "8e8d13e6825f3fef70363b0ea7120d5e9651a49f1197dca3d4d403b9322306f8",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.65,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.92,
+     "leastLineGapPt": null
+    },
+    "P04": {
+     "sha256": "f59c2011e119fc9a6bc4746158e5c4e55545dd9d6f0311ecb0c26f24f97e16fb",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 7.5,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 3.08,
+     "leastLineGapPt": null
+    },
+    "P05": {
+     "sha256": "8ee42cd8434bfb102cdf1c68c4a9a207799038754f4b082d4f801d2f6f576269",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.58,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.79,
+     "leastLineGapPt": null
+    },
+    "P06": {
+     "sha256": "d02b1331119ed32189c88be8ec4a72b15891711c2c6e134ba58a06afd2388336",
+     "pages": 8,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.58,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.79,
+     "leastLineGapPt": null
+    },
+    "P07": {
+     "sha256": "52bb6ff43dbce7e475013ce7c1d85f98c5ae1578f9122cd38fa0812421742f4f",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.28,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.7,
+     "leastLineGapPt": null
+    },
+    "P08": {
+     "sha256": "c7d2953126a1f14beb24f25dd52f0b2c3820fa243303f5634a09a1b0c55f33bc",
+     "pages": 2,
+     "found": {
+      "rotation": [
+       {
+        "page": 1,
+        "at": 90
+       },
+       {
+        "page": 2,
+        "at": 90
+       }
+      ],
+      "direction": [
+       {
+        "page": 1,
+        "at": [
+         0.0,
+         13.0,
+         -13.0,
+         0.0
+        ]
+       },
+       {
+        "page": 2,
+        "at": [
+         0.0,
+         13.0,
+         -13.0,
+         0.0
+        ]
+       }
+      ],
+      "pageEdge": [
+       {
+        "page": 1,
+        "at": "T"
+       },
+       {
+        "page": 1,
+        "at": "A"
+       },
+       {
+        "page": 1,
+        "at": "A"
+       },
+       {
+        "page": 2,
+        "at": "T"
+       },
+       {
+        "page": 2,
+        "at": "A"
+       },
+       {
+        "page": 2,
+        "at": "A"
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 9.53,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.0,
+     "leastLineGapPt": null
+    },
+    "P09": {
+     "sha256": "ed910d355e3c9e209bef24cad4025a305b87aba1f2c7f8fb5ca79f2a0f8ec957",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 12.38,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.26,
+     "leastLineGapPt": 0.1
+    },
+    "P10": {
+     "sha256": "eb55f40bd73ec2654c1fb29990d0f1e401351a49f8339eb06e7d2d42dff7d96a",
+     "pages": 3,
+     "found": {
+      "lineInk": [
+       {
+        "page": 1,
+        "at": 0.0
+       },
+       {
+        "page": 2,
+        "at": 0.0
+       },
+       {
+        "page": 3,
+        "at": 0.0
+       }
+      ]
+     },
+     "lineControl": {
+      "shiftPt": 10.05,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.2,
+     "leastLineGapPt": 0.0
+    },
+    "P11": {
+     "sha256": "5f17f4648f3e340d12d66539fe02d922f6c0cb401227121ff1d96f24d978bc0b",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.88,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.66,
+     "leastLineGapPt": null
+    },
+    "P12": {
+     "sha256": "90e5e84b8b7976d0f673f643713499feb51383f803ce20408fd9859e1a7c2640",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.0,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.41,
+     "leastLineGapPt": null
+    }
+   },
+   "decision": {
+    "story": "P01",
+    "reasons": [
+     "duplicate-reference"
+    ],
+    "problems": [
+     "no case the page accepts: ['duplicate-reference']"
+    ]
+   }
+  },
+  "g12": {
+   "package": "bank-statement-holdout-g12",
+   "clearancePt": 0.05,
+   "statements": {
+    "Q01": {
+     "sha256": "8ff17cd903484caa139fb2e671fd2a7abb7e187fe9d692fb50e45e315de2f18b",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.3,
+     "leastLineGapPt": null
+    },
+    "Q02": {
+     "sha256": "a6e2367565bd9809d88f70821ebb06374f889fa765e4b2d5411620efa1f45475",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.59,
+     "leastLineGapPt": null
+    },
+    "Q03": {
+     "sha256": "165e41cd55f1962382f18b2736f74e2c73beb4d7a610f7c9636c2b34d9116628",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.5,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.57,
+     "leastLineGapPt": null
+    },
+    "Q04": {
+     "sha256": "60de0f8154fb22e32402bab7944b10e9b343b496ccd820a7f5f30ed22df97739",
+     "pages": 4,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.25,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.48,
+     "leastLineGapPt": null
+    },
+    "Q05": {
+     "sha256": "4ae84d3adb62d1d363382e4ea564511ad3e164581093ee4b2e1b17ae570e05f1",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 3.24,
+     "leastLineGapPt": null
+    },
+    "Q06": {
+     "sha256": "b138ac70632a025a2dfa8bd8e99d70d2d6c642730d548acb5fed18b74cd03ce8",
+     "pages": 8,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.7,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 3.24,
+     "leastLineGapPt": null
+    },
+    "Q07": {
+     "sha256": "acd65dfcfa026ee01a4f51713cf9257a9a8f297119c933f18e43502022cf7f36",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.85,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "Q08": {
+     "sha256": "7351b48274541ca1fabbb987d5e46b2e6d74b14a1564e3e9f66f6d692aea4d72",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.65,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.38,
+     "leastLineGapPt": null
+    },
+    "Q09": {
+     "sha256": "87ffa06cc1060c3d1c01f27b868aef4a5a6150baaa3c079c38531e6078eafe95",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.9,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    },
+    "Q10": {
+     "sha256": "119497362a33bcaceba968ebbaeaedd31a797cd17f325aaf7a77bd6c3f51aeeb",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 10.65,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 1.27,
+     "leastLineGapPt": null
+    },
+    "Q11": {
+     "sha256": "fe539a525aa4bb688bb59753d9a1008647443e6a0f418adae76a67b8dc75995f",
+     "pages": 3,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 11.78,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": 2.95,
+     "leastLineGapPt": null
+    },
+    "Q12": {
+     "sha256": "c7ed0049ecab3f8c5e63c2f58d62200ba186020182f611869bec9994d1dba0a0",
+     "pages": 2,
+     "found": {},
+     "lineControl": {
+      "shiftPt": 9.9,
+      "found": [
+       true,
+       true
+      ]
+     },
+     "leastRuleGapPt": null,
+     "leastLineGapPt": null
+    }
+   },
+   "decision": {
+    "story": "Q01",
+    "reasons": [
+     "date-gap"
+    ],
+    "problems": []
+   }
+  }
+ }
+}

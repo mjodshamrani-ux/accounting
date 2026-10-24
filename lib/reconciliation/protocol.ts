@@ -1,4 +1,9 @@
 import {
+  BANK_STATEMENT_EXPORT_LIMIT,
+  BANK_STATEMENT_LIFECYCLE_VERSION,
+  BANK_STATEMENT_SESSION_LIMIT,
+} from './bank-statement-request.ts';
+import {
   STOCK_PDF_LIFECYCLE_VERSION,
   STOCK_PDF_SESSION_LIMIT,
   STOCK_PDF_EXPORT_LIMIT,
@@ -53,6 +58,10 @@ export const WORKER_ACTIONS = [
   'bank-save',
   'bank-restore',
   'bank-export',
+  'bank-statement-reconcile',
+  'bank-statement-save',
+  'bank-statement-restore',
+  'bank-statement-export',
   'allocation-reconcile',
   'allocation-save',
   'allocation-restore',
@@ -114,7 +123,9 @@ export function isRequest(value: unknown): value is {
     WORKER_ACTIONS.includes(value.action as WorkerAction) &&
     (!(
       typeof value.action === 'string' &&
-      (value.action.startsWith('ar-') || value.action.startsWith('stock-pdf-'))
+      (value.action.startsWith('ar-') ||
+        value.action.startsWith('stock-pdf-') ||
+        value.action.startsWith('bank-statement-'))
     ) ||
       Object.keys(value).sort().join('|') === 'action|channel|id|payload') &&
     Object.hasOwn(value, 'payload')
@@ -181,6 +192,43 @@ export function validateWorkerValue(
       !isRecord(value.result.pdfEvidence)
     )
       throw Error('STOCK_PDF_ENVELOPE');
+  }
+  // The client binding replays the captured originals and installs only its
+  // own result; this checks the transport shape alone.
+  if (action === 'bank-statement-save' || action === 'bank-statement-export') {
+    if (
+      !(value instanceof ArrayBuffer) ||
+      !value.byteLength ||
+      value.byteLength >
+        (action === 'bank-statement-save'
+          ? BANK_STATEMENT_SESSION_LIMIT
+          : BANK_STATEMENT_EXPORT_LIMIT)
+    )
+      throw Error('BANK_STATEMENT_ENVELOPE');
+  }
+  if (
+    action === 'bank-statement-reconcile' ||
+    action === 'bank-statement-restore'
+  ) {
+    if (
+      !isRecord(value) ||
+      Object.keys(value).sort().join('|') !== 'result|state' ||
+      !isRecord(value.state) ||
+      !isRecord(value.result) ||
+      value.state.version !== BANK_STATEMENT_LIFECYCLE_VERSION ||
+      value.result.version !== BANK_STATEMENT_LIFECYCLE_VERSION ||
+      typeof value.result.context !== 'string' ||
+      !Array.isArray(value.state.files) ||
+      value.state.files.length !== 2 ||
+      value.state.files.some(
+        (file) =>
+          !isRecord(file) ||
+          !(file.original instanceof ArrayBuffer) ||
+          !file.original.byteLength ||
+          file.original.byteLength > MAX_FILE_BYTES,
+      )
+    )
+      throw Error('BANK_STATEMENT_ENVELOPE');
   }
   if (action === 'ar-save' || action === 'ar-export') {
     if (

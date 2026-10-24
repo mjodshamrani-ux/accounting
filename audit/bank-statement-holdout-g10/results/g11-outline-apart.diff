@@ -1,0 +1,510 @@
+diff --git a/lib/reconciliation/pdf-font-integrity.ts b/lib/reconciliation/pdf-font-integrity.ts
+index ca2d04d..e92e78a 100644
+--- a/lib/reconciliation/pdf-font-integrity.ts
++++ b/lib/reconciliation/pdf-font-integrity.ts
+@@ -66,6 +66,7 @@ export function guardPdfFontIntegrity(document: unknown, version: string) {
+     string,
+     readonly [number, number, number, number] | undefined
+   >();
++  const outlines = new Map<string, unknown>();
+   const wrapped = function (this: unknown, ...args: unknown[]) {
+     const value = args[0];
+     if (
+@@ -79,9 +80,11 @@ export function guardPdfFontIntegrity(document: unknown, version: string) {
+       Array.isArray(value) &&
+       value[1] === 'FontPath' &&
+       typeof value[0] === 'string'
+-    )
++    ) {
+       // A path sent twice for one glyph cannot prove either outline.
+       ink.set(value[0], ink.has(value[0]) ? undefined : glyphInkBox(value[2]));
++      outlines.set(value[0], outlines.has(value[0]) ? undefined : value[2]);
++    }
+     return Reflect.apply(original, this, args);
+   };
+   handlers.commonobj = wrapped;
+@@ -98,6 +101,8 @@ export function guardPdfFontIntegrity(document: unknown, version: string) {
+     },
+     /** The whole box of that outline, x0, y0, x1, y1, per unit font size. */
+     glyphBox: (id: string) => ink.get(id),
++    /** The outline itself, as PDF.js sent it, where its box was proved. */
++    glyphOutline: (id: string) => (ink.get(id) ? outlines.get(id) : undefined),
+     restore() {
+       if (handlers.commonobj === wrapped) handlers.commonobj = original;
+     },
+diff --git a/lib/reconciliation/pdf-glyph-outline.ts b/lib/reconciliation/pdf-glyph-outline.ts
+new file mode 100644
+index 0000000..fc27d72
+--- /dev/null
++++ b/lib/reconciliation/pdf-glyph-outline.ts
+@@ -0,0 +1,226 @@
++import type { Matrix } from './pdf-glyph-geometry.ts';
++
++// A glyph's ink box is a bound, not its ink: two boxes from neighbouring lines
++// can overlap at their corners while the letters inside them stay apart
++// (BNK-PDF-1 G10, P09). Where the row test finds two such boxes, the outlines
++// themselves decide. An outline is flattened on the page with a known bound on
++// how far its chords leave its curves, and two glyphs are apart only when no
++// edge of one comes within those bounds and a margin of an edge of the other,
++// and neither encloses a point of the other. Anything unknown, unreadable or
++// beyond the budget is never apart.
++
++const PATH_POINTS = [2, 2, 6, 4, 0];
++const MOVE = 0,
++  CLOSE = 4;
++/** Chords per curve at most; the bound then says how far they stray. */
++const MAX_CHORDS = 256;
++
++export type GlyphShape = {
++  /** Closed polygons on the page, x0, y0, x1, y1, ... */
++  contours: number[][];
++  /** How far a chord can be from the curve it replaces. */
++  error: number;
++  box: [number, number, number, number];
++};
++
++/** A glyph outline (PDF.js FontPath, per unit font size) carried onto the page
++ * by the glyph's matrix, as closed polygons within `tolerance` of its curves. */
++export function glyphShape(
++  path: unknown,
++  m: Matrix,
++  tolerance: number,
++): GlyphShape | undefined {
++  if (!(path instanceof ArrayBuffer) || !(tolerance > 0)) return undefined;
++  // Decoded as PDF.js encodes it in this realm, as the outline reader does.
++  const Values =
++    typeof Float16Array === 'undefined' ? Float32Array : Float16Array;
++  if (path.byteLength % Values.BYTES_PER_ELEMENT) return undefined;
++  const values = new Values(path);
++  const place = (x: number, y: number) => [
++    m[0] * x + m[2] * y + m[4],
++    m[1] * x + m[3] * y + m[5],
++  ];
++  const contours: number[][] = [];
++  let contour: number[] = [],
++    start: number[] | undefined,
++    error = 0;
++  const finish = () => {
++    if (contour.length >= 4) contours.push(contour);
++    contour = [];
++  };
++  for (let i = 0; i < values.length;) {
++    const op = values[i++],
++      size = PATH_POINTS[op];
++    if (size === undefined || i + size > values.length) return undefined;
++    const raw = Array.from(values.subarray(i, i + size));
++    i += size;
++    if (!raw.every(Number.isFinite)) return undefined;
++    if (op === CLOSE) {
++      finish();
++      if (start) contour = [...start];
++      continue;
++    }
++    const points: number[][] = [];
++    for (let k = 0; k < size; k += 2) points.push(place(raw[k], raw[k + 1]));
++    if (op === MOVE) {
++      finish();
++      start = points[0];
++      contour = [...start];
++      continue;
++    }
++    // A segment needs a point to start from.
++    if (contour.length < 2) return undefined;
++    if (points.length === 1) {
++      contour.push(...points[0]);
++      continue;
++    }
++    const p = [contour.slice(-2), ...points];
++    // The second differences bound the curvature, and so the chord error.
++    const second = (k: number) =>
++      Math.hypot(
++        p[k][0] - 2 * p[k + 1][0] + p[k + 2][0],
++        p[k][1] - 2 * p[k + 1][1] + p[k + 2][1],
++      );
++    const reach =
++      p.length === 4 ? 0.75 * Math.max(second(0), second(1)) : 0.25 * second(0);
++    const chords = Math.min(
++      MAX_CHORDS,
++      Math.max(1, Math.ceil(Math.sqrt(reach / tolerance))),
++    );
++    error = Math.max(error, reach / (chords * chords));
++    for (let k = 1; k <= chords; k++) {
++      const t = k / chords,
++        u = 1 - t;
++      const w =
++        p.length === 4
++          ? [u * u * u, 3 * u * u * t, 3 * u * t * t, t * t * t]
++          : [u * u, 2 * u * t, t * t];
++      contour.push(
++        w.reduce((s, c, j) => s + c * p[j][0], 0),
++        w.reduce((s, c, j) => s + c * p[j][1], 0),
++      );
++    }
++  }
++  finish();
++  if (!contours.length) return undefined;
++  let x0 = Infinity,
++    y0 = Infinity,
++    x1 = -Infinity,
++    y1 = -Infinity;
++  for (const c of contours)
++    for (let k = 0; k < c.length; k += 2) {
++      x0 = Math.min(x0, c[k]);
++      x1 = Math.max(x1, c[k]);
++      y0 = Math.min(y0, c[k + 1]);
++      y1 = Math.max(y1, c[k + 1]);
++    }
++  if (![x0, y0, x1, y1, error].every(Number.isFinite)) return undefined;
++  return { contours, error, box: [x0, y0, x1, y1] };
++}
++
++/** The nonzero winding number of a shape around a point. */
++function winding(shape: GlyphShape, x: number, y: number) {
++  let wound = 0;
++  for (const c of shape.contours)
++    for (let k = 0; k < c.length; k += 2) {
++      const ax = c[k],
++        ay = c[k + 1],
++        bx = c[(k + 2) % c.length],
++        by = c[(k + 3) % c.length];
++      const side = (bx - ax) * (y - ay) - (x - ax) * (by - ay);
++      if (ay <= y && by > y && side > 0) wound++;
++      else if (ay > y && by <= y && side < 0) wound--;
++    }
++  return wound;
++}
++
++function pointSegment(
++  px: number,
++  py: number,
++  ax: number,
++  ay: number,
++  bx: number,
++  by: number,
++) {
++  const dx = bx - ax,
++    dy = by - ay,
++    length = dx * dx + dy * dy;
++  const t =
++    length > 0
++      ? Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / length))
++      : 0;
++  return Math.hypot(px - ax - t * dx, py - ay - t * dy);
++}
++
++/** The distance between segments ab and cd, zero where they cross. */
++function segments(e: number[], f: number[]) {
++  const [ax, ay, bx, by] = e,
++    [cx, cy, dx, dy] = f;
++  const cross = (
++    px: number,
++    py: number,
++    qx: number,
++    qy: number,
++    rx: number,
++    ry: number,
++  ) => (qx - px) * (ry - py) - (qy - py) * (rx - px);
++  const d1 = cross(ax, ay, bx, by, cx, cy),
++    d2 = cross(ax, ay, bx, by, dx, dy),
++    d3 = cross(cx, cy, dx, dy, ax, ay),
++    d4 = cross(cx, cy, dx, dy, bx, by);
++  if (
++    ((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) &&
++    ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0))
++  )
++    return 0;
++  return Math.min(
++    pointSegment(ax, ay, cx, cy, dx, dy),
++    pointSegment(bx, by, cx, cy, dx, dy),
++    pointSegment(cx, cy, ax, ay, bx, by),
++    pointSegment(dx, dy, ax, ay, bx, by),
++  );
++}
++
++/** The edges of a shape whose boxes come within `reach` of a box. */
++function edgesNear(shape: GlyphShape, box: number[], reach: number) {
++  const out: number[][] = [];
++  for (const c of shape.contours)
++    for (let k = 0; k < c.length; k += 2) {
++      const e = [c[k], c[k + 1], c[(k + 2) % c.length], c[(k + 3) % c.length]];
++      if (
++        Math.min(e[0], e[2]) <= box[2] + reach &&
++        Math.max(e[0], e[2]) >= box[0] - reach &&
++        Math.min(e[1], e[3]) <= box[3] + reach &&
++        Math.max(e[1], e[3]) >= box[1] - reach
++      )
++        out.push(e);
++    }
++  return out;
++}
++
++/** Whether the ink of two glyph shapes is apart by more than `margin` plus
++ * their chord errors. `budget.left` counts edge pairs; when it runs out, the
++ * answer is no. */
++export function inkApart(
++  a: GlyphShape,
++  b: GlyphShape,
++  margin: number,
++  budget: { left: number },
++): boolean {
++  const reach = a.error + b.error + margin;
++  if (!(reach >= 0)) return false;
++  const near = edgesNear(a, b.box, reach),
++    other = edgesNear(b, a.box, reach);
++  budget.left -= near.length * other.length;
++  if (budget.left < 0) return false;
++  for (const e of near)
++    for (const f of other) if (segments(e, f) <= reach) return false;
++  // Edges apart: the shapes are apart unless one holds the other.
++  for (const [inner, outer] of [
++    [a, b],
++    [b, a],
++  ])
++    for (const c of inner.contours)
++      if (winding(outer, c[0], c[1]) !== 0) return false;
++  return true;
++}
+diff --git a/lib/reconciliation/pdf.ts b/lib/reconciliation/pdf.ts
+index 063e6e3..c766c86 100644
+--- a/lib/reconciliation/pdf.ts
++++ b/lib/reconciliation/pdf.ts
+@@ -12,6 +12,8 @@ import {
+ } from './pdf-glyph-geometry.ts';
+ import { getNativePDFJS } from './pdfjs-native.ts';
+ import { guardPdfFontIntegrity } from './pdf-font-integrity.ts';
++import { glyphShape, inkApart } from './pdf-glyph-outline.ts';
++import type { GlyphShape } from './pdf-glyph-outline.ts';
+ import { glyphOrderText } from './pdf-glyph-order.ts';
+ import type { SheetData } from './types.ts';
+ import { MAX_FILE_BYTES, MAX_PDF_PAGES, MAX_ROWS } from './types.ts';
+@@ -295,6 +297,8 @@ export type GlyphInk = {
+   glyph: (id: string) => readonly [number, number] | undefined;
+   box?: (id: string) => readonly [number, number, number, number] | undefined;
+ };
++/** Each proved glyph of a run: its outline's id and its matrix on the page. */
++export type GlyphPlaces = Map<number, [id: string, m: Matrix][]>;
+ type RunGlyphs = Map<
+   number,
+   [operator: number, glyph: number, id: string][] | null
+@@ -302,6 +306,11 @@ type RunGlyphs = Map<
+ // Outlines can arrive as half floats; this margin, in units of the font size,
+ // covers their rounding many times over.
+ const GLYPH_INK_MARGIN = 0.01;
++// Where two glyph boxes of neighbouring rows meet, their outlines are
++// flattened with chords at most this far from the curves, in points, and
++// compared edge pair by edge pair up to this many on a page.
++const OUTLINE_CHORD_ERROR = 0.01;
++const OUTLINE_EDGE_PAIRS = 2_000_000;
+ 
+ // The clip test asks whether drawn ink can be cut away, and the drawing test
+ // whether a stroke or fill can cross it. A run whose every glyph outline is
+@@ -363,6 +372,7 @@ function glyphInkBoxes(
+   textBoxes: number[][],
+   runGlyphs: RunGlyphs | undefined,
+   ink: GlyphInk | undefined,
++  places?: GlyphPlaces,
+ ): Map<number, number[][]> {
+   const out = new Map<number, number[][]>();
+   // Text rise is in each glyph's matrix; a run whose placements leave PDF.js's
+@@ -374,7 +384,8 @@ function glyphInkBoxes(
+     const run = ink.runs[index],
+       padded = textBoxes[index];
+     if (!glyphs?.length || !run || !padded) continue;
+-    const boxes: number[][] = [];
++    const boxes: number[][] = [],
++      ids: [string, Matrix][] = [];
+     let left = Infinity,
+       right = -Infinity;
+     for (const [operator, glyph, id] of glyphs) {
+@@ -402,13 +413,16 @@ function glyphInkBoxes(
+       ];
+       if (!box.every(Number.isFinite)) break;
+       boxes.push(box);
++      ids.push([id, m]);
+     }
+     if (
+       boxes.length === glyphs.length &&
+       Math.abs(left - padded[0]) <= 0.5 &&
+       Math.abs(right - padded[2]) <= 0.5
+-    )
++    ) {
+       out.set(index, boxes);
++      places?.set(index, ids);
++    }
+   }
+   return out;
+ }
+@@ -426,6 +440,8 @@ export function checkPdfOperators(
+   runPieces?: Map<number, [operator: number, glyph: number][]>,
+   // Receives each run's glyph ink boxes, where they were proved.
+   glyphs?: Map<number, number[][]>,
++  // And, for those runs, each glyph's outline id and matrix.
++  places?: GlyphPlaces,
+ ): (number[] | undefined)[] {
+   const runGlyphs: RunGlyphs | undefined = ink ? new Map() : undefined;
+   const paints = textRuns
+@@ -446,7 +462,15 @@ export function checkPdfOperators(
+   // passes beside a run's glyphs crosses no glyph, whatever the font's
+   // ascent and descent say.
+   const inkBoxes = textBoxes.map(clipBoxOf);
+-  const glyphBoxes = glyphInkBoxes(ops, fn, args, textBoxes, runGlyphs, ink);
++  const glyphBoxes = glyphInkBoxes(
++    ops,
++    fn,
++    args,
++    textBoxes,
++    runGlyphs,
++    ink,
++    places,
++  );
+   for (const [index, boxes] of glyphBoxes) glyphs?.set(index, boxes);
+   const inkTargets = inkBoxes.flatMap((box, i) => glyphBoxes.get(i) ?? [box]);
+   const paintedBoxes: number[][] = [];
+@@ -815,6 +839,8 @@ export function layoutPdfPage(
+   ink?: Map<PdfToken, number[]>,
+   // Its glyphs' ink boxes where each glyph's outline and place were proved.
+   glyphs?: Map<PdfToken, number[][]>,
++  // Whether the ink of two such glyphs, by their outlines, is apart.
++  apart?: (a: number[], b: number[]) => boolean,
+ ) {
+   validateCuts(cuts);
+   if (!Number.isFinite(width) || width <= 0)
+@@ -880,7 +906,10 @@ export function layoutPdfPage(
+             a[0] < b[2] - 0.2 &&
+             a[2] > b[0] + 0.2 &&
+             a[1] < b[3] - 0.2 &&
+-            a[3] > b[1] + 0.2
++            a[3] > b[1] + 0.2 &&
++            // Boxes are bounds: their corners can meet where the letters
++            // inside them do not.
++            !apart?.(a, b)
+           ) {
+             overlapRows.add(i);
+             overlapRows.add(j);
+@@ -990,6 +1019,7 @@ type GuardedPdfPage = {
+   tokens: (PdfToken & { item: number; parts?: PdfTokenPart[] })[];
+   ink: Map<PdfToken, number[]>;
+   glyphInk: Map<PdfToken, number[][]>;
++  glyphApart: (a: number[], b: number[]) => boolean;
+ };
+ 
+ /** One macrotask turn between pages on a window's main thread, where a page's
+@@ -1170,6 +1200,10 @@ async function readGuardedPdf<T>(
+         const ink = new Map<PdfToken, number[]>();
+         const glyphInk = new Map<PdfToken, number[][]>();
+         const runGlyphBoxes = new Map<number, number[][]>();
++        const runGlyphPlaces: GlyphPlaces = new Map();
++        // Each glyph box of the row test and the glyph it bounds, in the
++        // tokens' coordinates, for its outline when two boxes meet.
++        const boxGlyph = new Map<number[], [id: string, m: Matrix]>();
+         try {
+           const inkBoxes = checkPdfOperators(
+             OPS,
+@@ -1201,6 +1235,7 @@ async function readGuardedPdf<T>(
+             },
+             runPieces,
+             runGlyphBoxes,
++            runGlyphPlaces,
+           );
+           // In the tokens' coordinates, for the row test of layoutPdfPage.
+           for (const [i, box] of inkBoxes.entries())
+@@ -1211,16 +1246,23 @@ async function readGuardedPdf<T>(
+                 box[2] - page.view[0],
+                 box[3],
+               ]);
+-          for (const [i, boxes] of runGlyphBoxes)
+-            glyphInk.set(
+-              tokens[i],
+-              boxes.map((b) => [
+-                b[0] - page.view[0],
+-                b[1],
+-                b[2] - page.view[0],
+-                b[3],
+-              ]),
+-            );
++          for (const [i, boxes] of runGlyphBoxes) {
++            const shifted = boxes.map((b) => [
++              b[0] - page.view[0],
++              b[1],
++              b[2] - page.view[0],
++              b[3],
++            ]);
++            glyphInk.set(tokens[i], shifted);
++            runGlyphPlaces
++              .get(i)
++              ?.forEach(([id, m], k) =>
++                boxGlyph.set(shifted[k], [
++                  id,
++                  [m[0], m[1], m[2], m[3], m[4] - page.view[0], m[5]],
++                ]),
++              );
++          }
+           if (literals) {
+             literalChars += literals.text.length;
+             literalOperators += literals.operators.length;
+@@ -1269,11 +1311,49 @@ async function readGuardedPdf<T>(
+             token.text = text;
+           }
+         }
++        // Two glyph boxes of neighbouring rows that meet are apart only when
++        // their outlines are, by the glyphs' margins.
++        const shapes = new Map<number[], GlyphShape | undefined>();
++        const shapeOf = (box: number[]) => {
++          const glyph = boxGlyph.get(box);
++          if (glyph && !shapes.has(box))
++            shapes.set(
++              box,
++              glyphShape(
++                fontGuard?.glyphOutline(glyph[0]),
++                glyph[1],
++                OUTLINE_CHORD_ERROR,
++              ),
++            );
++          return shapes.get(box);
++        };
++        const size = (m: Matrix) =>
++          Math.sqrt(Math.abs(m[0] * m[3] - m[1] * m[2]));
++        const budget = { left: OUTLINE_EDGE_PAIRS };
++        const glyphApart = (a: number[], b: number[]) => {
++          const ga = boxGlyph.get(a),
++            gb = boxGlyph.get(b),
++            sa = shapeOf(a),
++            sb = shapeOf(b);
++          return (
++            !!ga &&
++            !!gb &&
++            !!sa &&
++            !!sb &&
++            inkApart(
++              sa,
++              sb,
++              GLYPH_INK_MARGIN * (size(ga[1]) + size(gb[1])),
++              budget,
++            )
++          );
++        };
+         pages.push({
+           ...(literals ? { literals } : {}),
+           tokens,
+           ink,
+           glyphInk,
++          glyphApart,
+           view: [page.view[0], page.view[1], page.view[2], page.view[3]],
+           width: page.view[2] - page.view[0],
+           height: page.view[3] - page.view[1],
+@@ -1341,6 +1421,7 @@ export async function readPdf(
+         page.width,
+         page.ink,
+         page.glyphInk,
++        page.glyphApart,
+       );
+       const band = proposedLayout?.headers[index];
+       const pieces = band?.lineIndexes.map((i) => lines[i]);
+@@ -1474,6 +1555,7 @@ async function projectNativePdfSource(
+       page.width,
+       page.ink,
+       page.glyphInk,
++      page.glyphApart,
+     );
+     lines += layout.length;
+     if (lines > MAX_ROWS) throw new Error('الحد 20,000 صف مستخرج');

@@ -57,7 +57,7 @@ export const reconciliationDirectoryCopy = {
       'لا نقل أموال أو قرارات من مقارنة المورد، ولا ترحيل.',
     ],
     bank: [
-      'حركات بنك، ثم مسار مستقل للأرصدة وبنود التسوية.',
+      'حركات بنك أو كشف البنك كما يصدره، ثم مسار مستقل للأرصدة وبنود التسوية.',
       'لا بند موازن مولد من الفرق، ولا إثبات أصالة البنك.',
     ],
     'tb-financial': [
@@ -136,7 +136,7 @@ export const reconciliationDirectoryCopy = {
       'No transfer of money or decisions from supplier comparison, and no posting.',
     ],
     bank: [
-      'Bank movements and a separate balance and reconciliation-item workflow.',
+      'Bank movements or the bank statement as issued, and a separate balance and reconciliation-item workflow.',
       'No balancing item invented from a difference or proof of bank authenticity.',
     ],
     'tb-financial': [

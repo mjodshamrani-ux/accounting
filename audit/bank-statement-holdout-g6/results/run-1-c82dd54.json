@@ -1,0 +1,272 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "c82dd545e663de303dafbbc52cf3fc23945d5fd1",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "H01",
+   "H02",
+   "H05"
+  ],
+  "positivesFailed": [
+   "H03",
+   "H04",
+   "H07",
+   "H10",
+   "H11",
+   "H12"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "H06"
+  ],
+  "readingOk": [
+   "H01",
+   "H02",
+   "H05",
+   "H06"
+  ],
+  "refused": [
+   "H03",
+   "H04",
+   "H07",
+   "H08",
+   "H09",
+   "H10",
+   "H11",
+   "H12"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "H01",
+   "producer": "libreoffice-writer",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-08-01",
+     "end": "2026-08-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 14,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 14,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "H02",
+   "producer": "libreoffice-writer",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2026-09-01",
+     "end": "2026-09-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 17,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "H03",
+   "producer": "libreoffice-writer",
+   "layout": "ar",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_READING: page 1 line 1: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+    ]
+   }
+  },
+  {
+   "id": "H04",
+   "producer": "libreoffice-writer",
+   "layout": "ar",
+   "refused": "BANK_STATEMENT_SCOPE: page 1 line 3: the heading must state one currency and one period",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_SCOPE: page 1 line 3: the heading must state one currency and one period"
+    ]
+   }
+  },
+  {
+   "id": "H05",
+   "producer": "libreoffice-writer",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 30,
+    "period": {
+     "start": "2026-07-01",
+     "end": "2026-09-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 600,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "H06",
+   "producer": "libreoffice-writer",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: brought-forward -447626 != -457626",
+    "pages": 2,
+    "period": {
+     "start": "2026-10-01",
+     "end": "2026-10-15"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 12,
+    "equal": true,
+    "held": "balance-broken: page 2: brought-forward -447626 != -457626",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "H07",
+   "producer": "reportlab",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column"
+    ]
+   }
+  },
+  {
+   "id": "H08",
+   "producer": "reportlab",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column"
+    ]
+   }
+  },
+  {
+   "id": "H09",
+   "producer": "reportlab",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column"
+    ]
+   }
+  },
+  {
+   "id": "H10",
+   "producer": "reportlab",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column"
+    ]
+   }
+  },
+  {
+   "id": "H11",
+   "producer": "reportlab",
+   "layout": "ar",
+   "refused": "BANK_STATEMENT_SCOPE: page 1 line 3: the heading must state one currency and one period",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_SCOPE: page 1 line 3: the heading must state one currency and one period"
+    ]
+   }
+  },
+  {
+   "id": "H12",
+   "producer": "reportlab",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column"
+    ]
+   }
+  }
+ ]
+}

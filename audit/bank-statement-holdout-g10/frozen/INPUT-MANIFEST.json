@@ -1,0 +1,210 @@
+{
+ "version": "bank-statement-holdout-g10-1",
+ "producers": {
+  "fop": "2.10",
+  "openpdf": "2.0.3",
+  "poi": "5.4.1",
+  "java": "openjdk version \"21.0.12.1\" 2026-08-18",
+  "fonttools": "4.67.0",
+  "cashbookCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "almarai-nl-400.ttf": {
+   "source": "@fontsource/almarai 5.3.0: almarai-arabic-400-normal.woff, almarai-latin-400-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "6009ca91514d0d523d65ca7a5496f8efb186c0e7a2604179c413f1de56445520"
+  },
+  "almarai-nl-700.ttf": {
+   "source": "@fontsource/almarai 5.3.0: almarai-arabic-700-normal.woff, almarai-latin-700-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "6da3273559d43e088f7cbaa9ac097f805997de5b8daa57c3f245f0fc701267ce"
+  },
+  "amiri-400.ttf": {
+   "source": "@fontsource/amiri 5.3.0: amiri-arabic-400-normal.woff, amiri-latin-400-normal.woff",
+   "recipe": "merged by fontTools",
+   "sha256": "ea6ce75834f0567da49d6624202a75a01bc93443be108b3f671c098700e98c49"
+  },
+  "courier-prime-nl-400.ttf": {
+   "source": "@fontsource/courier-prime 5.3.0: courier-prime-latin-400-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "fd2e6986d062934895badcce2a4b6d3d010912d53f5a2c9f4f98ef34c469f847"
+  },
+  "courier-prime-nl-700.ttf": {
+   "source": "@fontsource/courier-prime 5.3.0: courier-prime-latin-700-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "2de6072d92e948a7910a4bf222997df38c237efaaf3612654b9ceba3e5ba8a1c"
+  },
+  "markazi-text-nl-400.ttf": {
+   "source": "@fontsource/markazi-text 5.3.0: markazi-text-arabic-400-normal.woff, markazi-text-latin-400-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "9886c1eeaa1b04fb40760466081b05c8b5a5a049a8c27ee18110b370c6981c7a"
+  },
+  "markazi-text-nl-700.ttf": {
+   "source": "@fontsource/markazi-text 5.3.0: markazi-text-arabic-700-normal.woff, markazi-text-latin-700-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "a7b95e5e8fb177de8d861ea804593b5a900b9a694bc2db1c32f76bd5f81e566e"
+  },
+  "open-sans-nl-400.ttf": {
+   "source": "@fontsource/open-sans 5.3.0: open-sans-latin-400-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "9c462950773cf4dd4682bb45fbb207220a55767ab0ae5c0120efa350fdb56593"
+  },
+  "open-sans-nl-700.ttf": {
+   "source": "@fontsource/open-sans 5.3.0: open-sans-latin-700-normal.woff",
+   "recipe": "merged by fontTools, liga removed",
+   "sha256": "93c6732d3d13ac3c0a39462bc30b36bd06310d41d15966ca01222605710c8346"
+  },
+  "DejaVuSans.ttf": {
+   "source": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+   "recipe": "system font, as installed",
+   "sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280"
+  },
+  "Helvetica, Courier": {
+   "source": "PDF standard fonts",
+   "recipe": "not embedded"
+  }
+ },
+ "holdout": {
+  "file": "holdout.json",
+  "sha256": "e2aded2cb09068bae5780674c0cabd49f87a5de24c43be0aaf1f9b2770035675"
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "python3 -B audit/bank-statement-holdout-g10/stories.py",
+  "sha256": "18d70f035f64c73a13455b152a380fbead4fffe8ddfda3afe7d653b0758e2f7a",
+  "bytes": 183410
+ },
+ "files": [
+  {
+   "file": "P01-cashbook.csv",
+   "sha256": "f87fb9d73020f85c952605abb652067412dc84b073a0f0e4a8fe95d48802a850",
+   "bytes": 1915
+  },
+  {
+   "file": "P01-statement.pdf",
+   "sha256": "b63d374d176fce5fb8370942df8c098b13483011d8b6ae23afb158b57f4611ef",
+   "bytes": 21467
+  },
+  {
+   "file": "P02-cashbook.csv",
+   "sha256": "843629d3d00c666f09292f9544e9eb61fdaef41b1cc9621ea4b65acd91d9b49b",
+   "bytes": 3001
+  },
+  {
+   "file": "P02-statement.pdf",
+   "sha256": "da8ca32f09469aa6f1127ee4d030a4abdc571b80906c7d27fad7e430dd9e2676",
+   "bytes": 23725
+  },
+  {
+   "file": "P03-cashbook.csv",
+   "sha256": "4f726e6d59391f7ade11c39fcf6cd75dbb9accd15749d9a59f28b6ac7b8c1f49",
+   "bytes": 2703
+  },
+  {
+   "file": "P03-statement.pdf",
+   "sha256": "8e8d13e6825f3fef70363b0ea7120d5e9651a49f1197dca3d4d403b9322306f8",
+   "bytes": 30249
+  },
+  {
+   "file": "P04-cashbook.csv",
+   "sha256": "2393f0c3de783f17fe8b24e07a3efd4efb3fe40d284b6eb689f8cb83865ecc9b",
+   "bytes": 2023
+  },
+  {
+   "file": "P04-cashbook.xlsx",
+   "sha256": "1613fe26ef5bb0ecae41f03cd9033bf29cc468a25b7010008fcd3d45bfe66723",
+   "bytes": 4739
+  },
+  {
+   "file": "P04-statement.pdf",
+   "sha256": "f59c2011e119fc9a6bc4746158e5c4e55545dd9d6f0311ecb0c26f24f97e16fb",
+   "bytes": 20172
+  },
+  {
+   "file": "P05-cashbook.csv",
+   "sha256": "a7a50a02d61c749ee02e4d9f2b00483ccd3ba2efa79d1fe568285e06d24c60b7",
+   "bytes": 1838
+  },
+  {
+   "file": "P05-statement.pdf",
+   "sha256": "8ee42cd8434bfb102cdf1c68c4a9a207799038754f4b082d4f801d2f6f576269",
+   "bytes": 11921
+  },
+  {
+   "file": "P06-cashbook.csv",
+   "sha256": "fd936b57773dba66de9890c022ea554dd2d7d463e8041c058f76a3b3bd0224c6",
+   "bytes": 6753
+  },
+  {
+   "file": "P06-statement.pdf",
+   "sha256": "d02b1331119ed32189c88be8ec4a72b15891711c2c6e134ba58a06afd2388336",
+   "bytes": 25841
+  },
+  {
+   "file": "P07-cashbook.csv",
+   "sha256": "6bed951dfea9f9b6c2f3a7369d87ada458838e66012f91a024a57a4105b25c72",
+   "bytes": 2126
+  },
+  {
+   "file": "P07-statement.pdf",
+   "sha256": "52bb6ff43dbce7e475013ce7c1d85f98c5ae1578f9122cd38fa0812421742f4f",
+   "bytes": 6091
+  },
+  {
+   "file": "P08-cashbook.csv",
+   "sha256": "10d27a1e4e1dd509fd1907e655e5ece4ce825c427ccd99f517a51ec3d44740ae",
+   "bytes": 1744
+  },
+  {
+   "file": "P08-cashbook.xlsx",
+   "sha256": "ac694d39cbcd8784d12937cf58017bbb4dcde7b4d8794d07e3a816414893a651",
+   "bytes": 4619
+  },
+  {
+   "file": "P08-statement.pdf",
+   "sha256": "c7d2953126a1f14beb24f25dd52f0b2c3820fa243303f5634a09a1b0c55f33bc",
+   "bytes": 3671
+  },
+  {
+   "file": "P09-cashbook.csv",
+   "sha256": "cc3fe1775d5d69bbc59734a99bc0a19bda916e26e8f76179de25101c6bb4d83f",
+   "bytes": 2908
+  },
+  {
+   "file": "P09-statement.pdf",
+   "sha256": "ed910d355e3c9e209bef24cad4025a305b87aba1f2c7f8fb5ca79f2a0f8ec957",
+   "bytes": 27559
+  },
+  {
+   "file": "P10-cashbook.csv",
+   "sha256": "005f385f9be560e50e30d2bbaac86a9b695a45fad7535bc2bc2f29465b022999",
+   "bytes": 2123
+  },
+  {
+   "file": "P10-statement.pdf",
+   "sha256": "eb55f40bd73ec2654c1fb29990d0f1e401351a49f8339eb06e7d2d42dff7d96a",
+   "bytes": 30934
+  },
+  {
+   "file": "P11-cashbook.csv",
+   "sha256": "e7e93f145498a51dc943e12df1f06e7da496ca3fc6fdd09286c5b1251550a27f",
+   "bytes": 2047
+  },
+  {
+   "file": "P11-statement.pdf",
+   "sha256": "5f17f4648f3e340d12d66539fe02d922f6c0cb401227121ff1d96f24d978bc0b",
+   "bytes": 11138
+  },
+  {
+   "file": "P12-cashbook.csv",
+   "sha256": "e03a87d4a63e0701ed1ff650f3a539bca72c55724e2044d08d90d717052d6a73",
+   "bytes": 2033
+  },
+  {
+   "file": "P12-statement.pdf",
+   "sha256": "90e5e84b8b7976d0f673f643713499feb51383f803ce20408fd9859e1a7c2640",
+   "bytes": 11343
+  }
+ ]
+}

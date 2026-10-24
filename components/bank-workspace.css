@@ -26,5 +26,123 @@
 .bank-source-basis {
   margin-block: 0.75rem;
   line-height: 1.7;
-  color: var(--muted-foreground);
+  color: #637088;
+}
+
+/* Bank source type: two plain choices, each with its accepted formats. The
+   radio follows the shared checkbox treatment; the shared field rule sizes
+   every other input as a text box. */
+.bank-source-mode {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.bank-source-mode legend {
+  margin-block-end: 0.5rem;
+  font-weight: 600;
+}
+.reconciliation-workspace .bank-source-mode label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  column-gap: 10px;
+  row-gap: 0.25rem;
+  padding: 12px 14px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #f6f7fb;
+  color: #546077;
+  font-size: 12px;
+  line-height: 1.9;
+  cursor: pointer;
+}
+.reconciliation-workspace .bank-source-mode label:has(input:checked) {
+  border-color: #d9cdf6;
+  background: #f2eefb;
+  color: #573790;
+}
+.reconciliation-workspace .bank-source-mode input[type='radio'] {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  margin: 3px 0 0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  accent-color: #6738d3;
+}
+.bank-source-mode strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+.bank-source-mode small {
+  grid-column: 2;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.bank-statement-result {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+.bank-statement-held {
+  display: block;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-inline-start: 4px solid var(--primary);
+  border-radius: 0.6rem;
+  background: var(--background);
+  line-height: 1.7;
+}
+.bank-statement-held p {
+  margin: 0;
+}
+.bank-statement-members {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: 1.7;
+}
+.bank-statement-note {
+  flex-direction: column;
+  align-items: stretch;
+}
+.bank-statement-lines > summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+/* Statement tables scroll inside their frame rather than breaking words. */
+.bank-statement-result .gl-tb-table table {
+  min-width: 52rem;
+}
+.bank-statement-result
+  [data-bank-statement-table='summary']
+  .gl-tb-table
+  table {
+  min-width: 0;
+}
+.bank-statement-result :is(th, td) {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.bank-statement-result th,
+.bank-statement-result td:first-child,
+.bank-statement-id {
+  white-space: nowrap;
+}
+.bank-statement-members li {
+  display: flex;
+  flex-direction: column;
+}
+.bank-statement-members li + li {
+  margin-block-start: 0.4rem;
+}
+.bank-statement-members small {
+  color: #637088;
 }

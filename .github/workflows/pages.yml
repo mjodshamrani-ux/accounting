@@ -14,7 +14,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
@@ -119,6 +119,8 @@ jobs:
         run: pnpm test:reliability:partial
       - name: Verify independent end-to-end foundation cases
         run: pnpm test:reliability:quick
+      - name: Living hard-case measurement with versioned contracts and triage (EVAL-1)
+        run: pnpm test:hard-cases
       - name: Independently verify bilingual Excel outputs
         run: |
           node --experimental-strip-types audit/stress/export-corpus.mjs
@@ -256,6 +258,32 @@ jobs:
           pnpm test:inventory-pdf:workspace
           pnpm test:inventory-pdf:workspace-proof
           pnpm test:inventory-pdf:workspace-mutations
+      - name: Verify bank statement source truth, independent oracle, native reading, matching and session lifecycle proofs, oracle differential, independent workbook check, code and interface-rule mutations and preserved pre-activation refusals (BNK-PDF-1)
+        env:
+          BNK_PDF_BASELINE_DIR: ${{ runner.temp }}/bank-statement-baseline
+          BNK_G1_PROOF_DIR: ${{ runner.temp }}/bank-statement-g1
+          BNK_G1_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g1-mutations
+          BNK_G2_PROOF_DIR: ${{ runner.temp }}/bank-statement-g2
+          BNK_G2_DIFFERENTIAL_DIR: ${{ runner.temp }}/bank-statement-g2-differential
+          BNK_G2_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g2-mutations
+          BNK_G3_PROOF_DIR: ${{ runner.temp }}/bank-statement-g3
+          BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
+          BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
+          BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
+        run: |
+          pnpm test:bank-statement:oracle
+          pnpm test:bank-statement:oracle-mutants
+          pnpm test:bank-statement:holdout-seal
+          pnpm test:bank-statement:baseline
+          pnpm test:bank-statement:g1-proof
+          pnpm test:bank-statement:g1-mutations
+          pnpm test:bank-statement:g2-proof
+          pnpm test:bank-statement:g2-differential
+          pnpm test:bank-statement:g2-mutations
+          pnpm test:bank-statement:g3-proof
+          pnpm test:bank-statement:g3-mutations
+          pnpm test:bank-statement:g4-mutations
+          pnpm test:bank-statement:g5-mutations
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
@@ -280,6 +308,10 @@ jobs:
         env:
           INV_PDF_WORKSPACE_BROWSER_DIR: ${{ runner.temp }}/inventory-pdf-workspace-ui
         run: pnpm test:inventory-pdf:workspace-browser
+      - name: Verify bank statement uploads through the actual Worker, oracle-equal matches, decisions, sessions and independently checked Excel (BNK-PDF-1 G4)
+        env:
+          BNK_G4_BROWSER_DIR: ${{ runner.temp }}/bank-statement-workspace-browser
+        run: pnpm test:bank-statement:workspace-browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:
@@ -507,6 +539,89 @@ jobs:
         env:
           SPECIALIZED_FAULT_OUTPUT_DIR: ${{ runner.temp }}/specialized-fault-evidence
         run: pnpm test:specialized-faults
+  bank-statement-interface-mutations:
+    name: Bank statement interface mutations in built browser copies (BNK-PDF-1 G5)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Build each planted interface defect and require the browser acceptance to catch it
+        env:
+          BNK_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-statement-interface-mutations
+        run: pnpm test:bank-statement:interface-mutations
+  bank-statement-holdout:
+    name: Bank statement holdouts from ten other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10, G12)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Read and match the sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g6-holdout
+      - name: Read and match the second sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g8-holdout
+      - name: Read and match the third sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g9-holdout
+      - name: Read and match the fourth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g10-holdout
+      - name: Read and match the fifth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g12-holdout
+      - run: pnpm build
+      - name: Run the sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g6-browser
+      - name: Run the second sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g8-browser
+      - name: Run the third sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g9-browser
+      - name: Run the fourth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g10-browser
+      - name: Run the fifth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g12-browser
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:

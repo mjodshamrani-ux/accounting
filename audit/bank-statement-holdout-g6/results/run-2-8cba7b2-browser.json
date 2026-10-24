@@ -1,0 +1,174 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "8cba7b255c3d73f8147fe5ff742ac6e2fe7dde0a",
+ "summary": {
+  "capacity": [
+   "H01",
+   "H02",
+   "H05",
+   "H07",
+   "H10",
+   "H11",
+   "H12"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "H06",
+   "H08",
+   "H09"
+  ],
+  "refused": [
+   "H03",
+   "H04"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 10,
+  "exportCheck": "passed",
+  "checkerSelfTest": 13,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "H01",
+   "cashbook": "H01-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H01",
+   "cashbook": "H01-cashbook.xlsx",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H02",
+   "cashbook": "H02-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "decision": [
+    [
+     "accept",
+     "Bank slip seen for the cash deposit"
+    ]
+   ],
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H03",
+   "cashbook": "H03-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "H04",
+   "cashbook": "H04-cashbook.csv",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"الرصيد االفتتاحي\" is not inside one column",
+   "failureShown": "statement-line",
+   "resultShown": 0
+  },
+  {
+   "id": "H05",
+   "cashbook": "H05-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H06",
+   "cashbook": "H06-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H07",
+   "cashbook": "H07-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H07",
+   "cashbook": "H07-cashbook.xlsx",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H08",
+   "cashbook": "H08-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H09",
+   "cashbook": "H09-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H10",
+   "cashbook": "H10-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H11",
+   "cashbook": "H11-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H12",
+   "cashbook": "H12-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  }
+ ]
+}

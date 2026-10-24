@@ -1,0 +1,153 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "c82dd545e663de303dafbbc52cf3fc23945d5fd1",
+ "summary": {
+  "capacity": [
+   "H01",
+   "H02",
+   "H05"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "H06"
+  ],
+  "refused": [
+   "H03",
+   "H04",
+   "H07",
+   "H08",
+   "H09",
+   "H10",
+   "H11",
+   "H12"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 4,
+  "exportCheck": "passed",
+  "checkerSelfTest": 13,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "H01",
+   "cashbook": "H01-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H01",
+   "cashbook": "H01-cashbook.xlsx",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H02",
+   "cashbook": "H02-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "decision": [
+    [
+     "accept",
+     "Bank slip seen for the cash deposit"
+    ]
+   ],
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H03",
+   "cashbook": "H03-cashbook.csv",
+   "refused": "BANK_STATEMENT_READING: page 1 line 1: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.",
+   "failureShown": "statement-reading",
+   "resultShown": 0
+  },
+  {
+   "id": "H04",
+   "cashbook": "H04-cashbook.csv",
+   "refused": "BANK_STATEMENT_SCOPE: page 1 line 3: the heading must state one currency and one period",
+   "failureShown": "statement-scope",
+   "resultShown": 0
+  },
+  {
+   "id": "H05",
+   "cashbook": "H05-cashbook.csv",
+   "status": "reviewed",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H06",
+   "cashbook": "H06-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "H07",
+   "cashbook": "H07-cashbook.csv",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "failureShown": "statement-line",
+   "resultShown": 0
+  },
+  {
+   "id": "H07",
+   "cashbook": "H07-cashbook.xlsx",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "failureShown": "statement-line",
+   "resultShown": 0
+  },
+  {
+   "id": "H08",
+   "cashbook": "H08-cashbook.csv",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "failureShown": "statement-line",
+   "resultShown": 0
+  },
+  {
+   "id": "H09",
+   "cashbook": "H09-cashbook.csv",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "failureShown": "statement-line",
+   "resultShown": 0
+  },
+  {
+   "id": "H10",
+   "cashbook": "H10-cashbook.csv",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "failureShown": "statement-line",
+   "resultShown": 0
+  },
+  {
+   "id": "H11",
+   "cashbook": "H11-cashbook.csv",
+   "refused": "BANK_STATEMENT_SCOPE: page 1 line 3: the heading must state one currency and one period",
+   "failureShown": "statement-scope",
+   "resultShown": 0
+  },
+  {
+   "id": "H12",
+   "cashbook": "H12-cashbook.csv",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "failureShown": "statement-line",
+   "resultShown": 0
+  }
+ ]
+}

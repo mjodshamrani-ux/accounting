@@ -1,0 +1,193 @@
+{
+ "version": "bank-statement-holdout-g8-1",
+ "producers": {
+  "typst": "0.15.0",
+  "fpdf2": "2.8.9",
+  "uharfbuzz": "0.56.4",
+  "xlsxwriter": "3.3.0",
+  "openpyxl": "3.1.5",
+  "fonttools": "4.67.0",
+  "cashbookCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "DejaVu Serif": {
+   "file": "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
+   "sha256": "8f2c103bfa3fd5de71f1b92b18f21906b5a26871fb7e19a9a4c9af539c3cc7ab"
+  },
+  "DejaVu Serif Bold": {
+   "file": "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
+   "sha256": "847b33e13925f19ff87e4d934d6b3cf7cac35ce16424f6f670e40c2f377cf2df"
+  },
+  "Inter": {
+   "file": "/usr/share/fonts/opentype/inter/Inter-Regular.otf",
+   "sha256": "be6d709dcb730ddaf050cbdae6fe89bd56d5d14dc66885639bbf6f06bd03521b"
+  },
+  "DejaVu Sans Mono": {
+   "file": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+   "sha256": "c805f9436dbc268644c1d9584f01a601a653e028e08fd74b9b949f6cf8304d88"
+  },
+  "DejaVu Sans": {
+   "file": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+   "sha256": "ae7b7855e115a5966d8b1b3f80f254ccc117ec86f9965e202ee2940453837280"
+  },
+  "FreeSans": {
+   "file": "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+   "sha256": "350badd6ab6a58e7fd7a0ea2ae0c10174941a08e1cd06b3c6010e10b3d5ae319"
+  },
+  "Caladea": {
+   "file": "/usr/share/fonts/truetype/crosextra/Caladea-Regular.ttf",
+   "sha256": "f1e899278b7b4491aba5b6a8253c4b04c050cc59b21865be5c37559a775153cd"
+  },
+  "Carlito": {
+   "file": "/usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf",
+   "sha256": "f6418f708baede9789daef5d458c0f53d2a888af9820e8062934e504fedc6595"
+  },
+  "Amiri": {
+   "file": "@fontsource/amiri 5.3.0, amiri-arabic-400-normal.woff + amiri-latin-400-normal.woff, merged by fontTools",
+   "sha256": "5510db2e4d6efb2f5519a3a21b4039ca87e311f16022e2fd9842245c567a2bfe"
+  }
+ },
+ "holdout": {
+  "file": "holdout.json",
+  "sha256": "264ce1372d6cef80f0cddee7c50c0a78267909a459d115f1fa4fb5a38a051567"
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "python3 -B audit/bank-statement-holdout-g8/stories.py",
+  "sha256": "71d9be7aecfa9e2f9caedeceb648c88584a52fa85f8f390bc71d1ebeb8a6cc63",
+  "bytes": 475912
+ },
+ "files": [
+  {
+   "file": "K01-cashbook.csv",
+   "sha256": "d4b5bebcad85b4db892ac4cda814ebc82a92be2be5b3604c0ddbd79e2ef827d1",
+   "bytes": 1244
+  },
+  {
+   "file": "K01-statement.pdf",
+   "sha256": "824545bf78473a0a64d90513429e02e72c91a3c4954e26daa86e5be1f3578677",
+   "bytes": 67765
+  },
+  {
+   "file": "K02-cashbook.csv",
+   "sha256": "e7ed0ae2325e955a44a7fd8634e3bceaa696cee7e4548e84eab0c9d6de13efd9",
+   "bytes": 1079
+  },
+  {
+   "file": "K02-cashbook.xlsx",
+   "sha256": "b313310a4121bc860d715ce0eb04323af6beb196043082486c32d26c19cb2b8c",
+   "bytes": 6203
+  },
+  {
+   "file": "K02-statement.pdf",
+   "sha256": "e4b3f8d7f53e14f6f90ba2a5a8e76ecf15aafa71c498d57dd340e3802226ef18",
+   "bytes": 43969
+  },
+  {
+   "file": "K03-cashbook.csv",
+   "sha256": "3dd72ec4d46612db8a6ea85044a6b98717577309b5d2fdf33886aeca4292f457",
+   "bytes": 63289
+  },
+  {
+   "file": "K03-statement.pdf",
+   "sha256": "6751ef4579f032979420471ca9914ad254e8549ee479fe315c78b52fcdf83df4",
+   "bytes": 1380386
+  },
+  {
+   "file": "K04-cashbook.csv",
+   "sha256": "774b3275b709a934d021e872a67c7f30536a5249adaa63d8cd4df28c78abae5b",
+   "bytes": 1147
+  },
+  {
+   "file": "K04-statement.pdf",
+   "sha256": "170bf65dd4c680a2b4e6d342b1bf2b5d3f3a839171024d5385b1ffe7293df805",
+   "bytes": 52889
+  },
+  {
+   "file": "K05-cashbook.csv",
+   "sha256": "18f59d8b64bc92381ae4c25baca8fd9e1e4b43826e669fa908049672dcb706d2",
+   "bytes": 881
+  },
+  {
+   "file": "K05-statement.pdf",
+   "sha256": "912adfea6217db9578752d20897fdf25023d4e8672b46d28e22c14540e859030",
+   "bytes": 49518
+  },
+  {
+   "file": "K06-cashbook.csv",
+   "sha256": "d0e5f29726e22004729bbaf704219f732db844c482756a3bb12453118c90977b",
+   "bytes": 1675
+  },
+  {
+   "file": "K06-statement.pdf",
+   "sha256": "5af16df5bb542ec5b8cc2f01aadb68ec5163a664a6a5848a8775c09a60632d63",
+   "bytes": 48165
+  },
+  {
+   "file": "K07-cashbook.csv",
+   "sha256": "ac4f6d93497cdf884fba3637bf60129288a481d085b115a3b5b161678cdf63f8",
+   "bytes": 1354
+  },
+  {
+   "file": "K07-statement.pdf",
+   "sha256": "5358cc717e831c4f41fc0cb86a337148104a24e7604822bc117fdf7b2745dcea",
+   "bytes": 4769
+  },
+  {
+   "file": "K08-cashbook.csv",
+   "sha256": "6e1d6b21ec51ac6b12211921bc0cca6c993d77b677b889a133acaf34bd2820de",
+   "bytes": 1137
+  },
+  {
+   "file": "K08-cashbook.xlsx",
+   "sha256": "e29172ed54d6265fab2b9b2810637cfc4dd61d83ad2ad399bc84ff994a90d7f9",
+   "bytes": 5621
+  },
+  {
+   "file": "K08-statement.pdf",
+   "sha256": "5163caf157ae9f68af19a4e7e7ff4d9c1edeb4af926cb9196b402e7218d7f410",
+   "bytes": 14519
+  },
+  {
+   "file": "K09-cashbook.csv",
+   "sha256": "a45f40d5777da9eab5ffc187c6eb92dcf097d49303e3d8aa3d96dc2472b3106c",
+   "bytes": 974
+  },
+  {
+   "file": "K09-statement.pdf",
+   "sha256": "69e42aaf20f1636f64854ff499588be3eb17ea610c75a45cbe134d68649baba1",
+   "bytes": 2892
+  },
+  {
+   "file": "K10-cashbook.csv",
+   "sha256": "a58ab0ce516a959a21528f093b7ad20f6410a63654a3508e8577104eea6516f7",
+   "bytes": 1030
+  },
+  {
+   "file": "K10-statement.pdf",
+   "sha256": "7146b973373ee563d06cfb0d8e43779547f657e68d8778ed843ab0fdebaabc1b",
+   "bytes": 22743
+  },
+  {
+   "file": "K11-cashbook.csv",
+   "sha256": "03056cfcaa851457107015e687c69fdab6c2e1929d3f44d9a6919fe8731c6d65",
+   "bytes": 1647
+  },
+  {
+   "file": "K11-statement.pdf",
+   "sha256": "e1e16bf5867ae9209043a857aec377844de6d3b8b598fa4c1116fc6cbbef7b42",
+   "bytes": 29829
+  },
+  {
+   "file": "K12-cashbook.csv",
+   "sha256": "b94adb0ad905670eae89c05635640970c6eb8ce256d32af4d5a4ec99e78f9b5d",
+   "bytes": 1187
+  },
+  {
+   "file": "K12-statement.pdf",
+   "sha256": "9754e461acc672c9ba88e6746cbfc350a7b47d445f5c903f6d16da72cb4c5dc0",
+   "bytes": 15729
+  }
+ ]
+}

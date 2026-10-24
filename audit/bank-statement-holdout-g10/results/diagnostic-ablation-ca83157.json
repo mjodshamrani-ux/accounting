@@ -1,0 +1,193 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-ablation/1",
+ "suite": "audit/bank-statement-holdout-g10",
+ "commit": "ca831571d53b71d9ed53743ac150be58d693c748",
+ "productSourceChanged": false,
+ "plain": {
+  "positivesCompleted": [
+   "P01",
+   "P02",
+   "P03",
+   "P04",
+   "P06",
+   "P07"
+  ],
+  "positivesFailed": [
+   "P08",
+   "P09",
+   "P10"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "P05",
+   "P11",
+   "P12"
+  ],
+  "readingOk": [
+   "P01",
+   "P02",
+   "P03",
+   "P04",
+   "P05",
+   "P06",
+   "P07",
+   "P11",
+   "P12"
+  ],
+  "refused": [
+   "P08",
+   "P09",
+   "P10"
+  ],
+  "falseAutomatic": 0
+ },
+ "ablations": [
+  {
+   "rule": "drawing by ink",
+   "unit": "G8",
+   "mutant": "g1:drawing-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 8: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "rows by ink",
+   "unit": "G8",
+   "mutant": "g1:rows-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "P01",
+    "P02",
+    "P03",
+    "P04"
+   ],
+   "lostHeld": [
+    "P11",
+    "P12"
+   ],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P01": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P02": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P03": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P04": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P11": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P12": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "DR after its amount",
+   "unit": "G8",
+   "mutant": "g1:debit-mark-ignored",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 8: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "date runs joined",
+   "unit": "G8",
+   "mutant": "g1:date-runs-not-joined",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 8: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "typed cashbook amounts",
+   "unit": "G8",
+   "mutant": "g2:typed-amount-as-text",
+   "file": "lib/reconciliation/bank-statement-match.ts",
+   "lostPositives": [
+    "P04"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 8: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "rectangle traced back to its start",
+   "unit": "G10",
+   "mutant": "g1:rectangle-return-unclosed",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "P01",
+    "P03"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P01": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+    "P03": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 8: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "drawings by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:glyph-boxes-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "P01"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P01": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 8: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "rows by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:rows-glyphs-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "P02"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "P02": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P08": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+    "P09": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "P10": "BANK_STATEMENT_READING: page 1 line 10: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  }
+ ]
+}

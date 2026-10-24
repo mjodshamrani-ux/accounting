@@ -1,0 +1,181 @@
+{
+ "package": "bank-statement-holdout-g12",
+ "clearancePt": 0.05,
+ "statements": {
+  "Q01": {
+   "sha256": "8ff17cd903484caa139fb2e671fd2a7abb7e187fe9d692fb50e45e315de2f18b",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.3,
+   "leastLineGapPt": null
+  },
+  "Q02": {
+   "sha256": "a6e2367565bd9809d88f70821ebb06374f889fa765e4b2d5411620efa1f45475",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.59,
+   "leastLineGapPt": null
+  },
+  "Q03": {
+   "sha256": "165e41cd55f1962382f18b2736f74e2c73beb4d7a610f7c9636c2b34d9116628",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.5,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.57,
+   "leastLineGapPt": null
+  },
+  "Q04": {
+   "sha256": "60de0f8154fb22e32402bab7944b10e9b343b496ccd820a7f5f30ed22df97739",
+   "pages": 4,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.25,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.48,
+   "leastLineGapPt": null
+  },
+  "Q05": {
+   "sha256": "4ae84d3adb62d1d363382e4ea564511ad3e164581093ee4b2e1b17ae570e05f1",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 3.24,
+   "leastLineGapPt": null
+  },
+  "Q06": {
+   "sha256": "b138ac70632a025a2dfa8bd8e99d70d2d6c642730d548acb5fed18b74cd03ce8",
+   "pages": 8,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 3.24,
+   "leastLineGapPt": null
+  },
+  "Q07": {
+   "sha256": "acd65dfcfa026ee01a4f51713cf9257a9a8f297119c933f18e43502022cf7f36",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.85,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  },
+  "Q08": {
+   "sha256": "7351b48274541ca1fabbb987d5e46b2e6d74b14a1564e3e9f66f6d692aea4d72",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.38,
+   "leastLineGapPt": null
+  },
+  "Q09": {
+   "sha256": "87ffa06cc1060c3d1c01f27b868aef4a5a6150baaa3c079c38531e6078eafe95",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.9,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  },
+  "Q10": {
+   "sha256": "119497362a33bcaceba968ebbaeaedd31a797cd17f325aaf7a77bd6c3f51aeeb",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.27,
+   "leastLineGapPt": null
+  },
+  "Q11": {
+   "sha256": "fe539a525aa4bb688bb59753d9a1008647443e6a0f418adae76a67b8dc75995f",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.78,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.95,
+   "leastLineGapPt": null
+  },
+  "Q12": {
+   "sha256": "c7ed0049ecab3f8c5e63c2f58d62200ba186020182f611869bec9994d1dba0a0",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.9,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  }
+ },
+ "decision": {
+  "story": "Q01",
+  "reasons": [
+   "date-gap"
+  ],
+  "problems": []
+ }
+}

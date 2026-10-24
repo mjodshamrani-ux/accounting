@@ -12,6 +12,17 @@ export function bindTextPaints(
   boxes: number[][],
   rawRuns?: Map<number, string>,
   literal?: { trace: PdfLiteralTrace; maxChars: number; maxOperators?: number },
+  // The glyphs drawn for each run, in drawing order, each once: its operator,
+  // its index in that operator's glyphs and its outline id
+  // (`<font>_path_<char>`); null when a glyph is placed by more than its
+  // run's baseline (accent, vertical).
+  runGlyphs?: Map<
+    number,
+    [operator: number, glyph: number, id: string][] | null
+  >,
+  // The drawing operator and glyph index of each non-space character of each
+  // run, in drawing order.
+  runPieces?: Map<number, [operator: number, glyph: number][]>,
 ): Map<number, number[][]> {
   const compact = (text: string) => text.replace(/\s/gu, '');
   const runs = texts
@@ -27,7 +38,12 @@ export function bindTextPaints(
     start = -1;
   let spacing = { char: 0, word: 0, scale: 100 };
   const states: (typeof spacing)[] = [];
+  let font = '';
   for (let i = 0; i < fn.length; i++) {
+    if (fn[i] === ops.setFont) {
+      const name = args[i]?.[0];
+      font = typeof name === 'string' ? name : '';
+    }
     if (literal) {
       if (fn[i] === ops.save) states.push({ ...spacing });
       if (fn[i] === ops.restore) spacing = states.pop() ?? spacing;
@@ -54,7 +70,7 @@ export function bindTextPaints(
       spacing.word !== 0 ||
       spacing.scale !== 100 ||
       fn[i] === ops.nextLineSetSpacingShowText;
-    for (const glyph of glyphs) {
+    for (const [glyphIndex, glyph] of glyphs.entries()) {
       if (typeof glyph === 'number') {
         if (glyph !== 0) adjusted = true;
         continue;
@@ -81,6 +97,27 @@ export function bindTextPaints(
         const current = runs[run];
         if (!current?.box)
           throw new Error('نص PDF المستخرج لا يطابق ترتيب الرسم');
+        if (runPieces) {
+          const pieces = runPieces.get(current.index) ?? [];
+          for (let k = 0; k < char.length; k++) pieces.push([i, glyphIndex]);
+          runPieces.set(current.index, pieces);
+        }
+        if (runGlyphs) {
+          const used = runGlyphs.has(current.index)
+            ? runGlyphs.get(current.index)!
+            : [];
+          const placed =
+            used &&
+            font &&
+            typeof glyph.fontChar === 'string' &&
+            !glyph.accent &&
+            !glyph.vmetric;
+          const last = used?.at(-1);
+          // A glyph of several characters is one outline.
+          if (placed && (last?.[0] !== i || last[1] !== glyphIndex))
+            used.push([i, glyphIndex, `${font}_path_${glyph.fontChar}`]);
+          runGlyphs.set(current.index, placed ? used : null);
+        }
         if (literal && start < 0) start = offset - char.length;
         raw += char;
         length += char.length;

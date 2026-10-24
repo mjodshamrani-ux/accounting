@@ -1,0 +1,270 @@
+{
+ "package": "bank-statement-holdout-g8",
+ "clearancePt": 0.05,
+ "statements": {
+  "K01": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.38,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  },
+  "K02": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.15,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 0.77,
+   "leastLineGapPt": null
+  },
+  "K03": {
+   "pages": 42,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 8.77,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 1.14,
+   "leastLineGapPt": null
+  },
+  "K04": {
+   "pages": 2,
+   "found": {
+    "ruleClearance": [
+     {
+      "page": 1,
+      "at": [
+       "خ",
+       -2.03
+      ]
+     },
+     {
+      "page": 1,
+      "at": [
+       "خ",
+       -2.03
+      ]
+     },
+     {
+      "page": 1,
+      "at": [
+       "ع",
+       -2.47
+      ]
+     },
+     {
+      "page": 2,
+      "at": [
+       "خ",
+       -2.03
+      ]
+     },
+     {
+      "page": 2,
+      "at": [
+       "خ",
+       -2.03
+      ]
+     },
+     {
+      "page": 2,
+      "at": [
+       "ع",
+       -2.47
+      ]
+     }
+    ],
+    "lineInk": [
+     {
+      "page": 1,
+      "at": 0.0
+     },
+     {
+      "page": 2,
+      "at": 0.0
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 9.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": -2.47,
+   "leastLineGapPt": 0.0
+  },
+  "K05": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.38,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 0.62,
+   "leastLineGapPt": null
+  },
+  "K06": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.15,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 0.85,
+   "leastLineGapPt": null
+  },
+  "K07": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.65,
+   "leastLineGapPt": null
+  },
+  "K08": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 3.22,
+   "leastLineGapPt": null
+  },
+  "K09": {
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 4.08,
+   "leastLineGapPt": null
+  },
+  "K10": {
+   "pages": 2,
+   "found": {
+    "ruleClearance": [
+     {
+      "page": 1,
+      "at": [
+       "خ",
+       -0.13
+      ]
+     },
+     {
+      "page": 1,
+      "at": [
+       "خ",
+       -0.13
+      ]
+     },
+     {
+      "page": 1,
+      "at": [
+       "خ",
+       -0.13
+      ]
+     },
+     {
+      "page": 2,
+      "at": [
+       "خ",
+       -0.13
+      ]
+     },
+     {
+      "page": 2,
+      "at": [
+       "خ",
+       -0.13
+      ]
+     },
+     {
+      "page": 2,
+      "at": [
+       "خ",
+       -0.13
+      ]
+     }
+    ]
+   },
+   "lineControl": {
+    "shiftPt": 10.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": -1.07,
+   "leastLineGapPt": null
+  },
+  "K11": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 2.92,
+   "leastLineGapPt": null
+  },
+  "K12": {
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "leastRuleGapPt": 3.63,
+   "leastLineGapPt": null
+  }
+ },
+ "decision": {
+  "story": "K02",
+  "reasons": [
+   "amount-date-suggestion",
+   "amount-date-suggestion"
+  ],
+  "problems": []
+ }
+}

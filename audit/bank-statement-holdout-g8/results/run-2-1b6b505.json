@@ -1,0 +1,377 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "1b6b505e3564f47c27f684d0a0a3aa37b61d2102",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "K02",
+   "K03",
+   "K05",
+   "K07",
+   "K08",
+   "K11"
+  ],
+  "positivesFailed": [
+   "K01",
+   "K04",
+   "K10"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "K06",
+   "K09",
+   "K12"
+  ],
+  "readingOk": [
+   "K02",
+   "K03",
+   "K05",
+   "K06",
+   "K07",
+   "K08",
+   "K09",
+   "K11",
+   "K12"
+  ],
+  "refused": [
+   "K01",
+   "K04",
+   "K10"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "K01",
+   "producer": "typst",
+   "layout": "en",
+   "refused": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column"
+    ]
+   }
+  },
+  {
+   "id": "K02",
+   "producer": "typst",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-06-01",
+     "end": "2026-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 17,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 17,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K03",
+   "producer": "typst",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 42,
+    "period": {
+     "start": "2026-01-01",
+     "end": "2026-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 1002,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K04",
+   "producer": "typst",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "K05",
+   "producer": "typst",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-05-01",
+     "end": "2026-05-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 12,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K06",
+   "producer": "typst",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,2,3 of 4",
+    "pages": 3,
+    "period": {
+     "start": "2026-10-16",
+     "end": "2026-10-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 26,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,2,3 of 4",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K07",
+   "producer": "fpdf2",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2026-04-01",
+     "end": "2026-04-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 19,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K08",
+   "producer": "fpdf2",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 2,
+    "period": {
+     "start": "2026-02-01",
+     "end": "2026-02-28"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 15,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 15,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K09",
+   "producer": "fpdf2",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 1: printed balance 15104749 != -15104749 (items 74,75,77,79,81,83)",
+    "pages": 2,
+    "period": {
+     "start": "2026-03-01",
+     "end": "2026-03-15"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 15,
+    "equal": true,
+    "held": "balance-broken: page 1: printed balance 15104749 != -15104749 (items 74,75,77,79,81,83)",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K10",
+   "producer": "fpdf2",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel."
+    ]
+   }
+  },
+  {
+   "id": "K11",
+   "producer": "fpdf2",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 3,
+    "period": {
+     "start": "2027-01-01",
+     "end": "2027-01-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 22,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "K12",
+   "producer": "fpdf2",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,3,2 of 3",
+    "pages": 3,
+    "period": {
+     "start": "2026-09-16",
+     "end": "2026-10-15"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 18,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,3,2 of 3",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  }
+ ]
+}

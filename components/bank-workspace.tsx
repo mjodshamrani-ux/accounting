@@ -1,6 +1,6 @@
 import { DomainEvidenceAssistant } from '@/components/domain-evidence-assistant';
 import { BankAdjustmentWorkspace } from './bank-adjustment-workspace';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   WorkspaceHeader,
@@ -12,6 +12,13 @@ import {
   WorkspaceAdvanced,
 } from './workspace-chrome';
 import { useI18n } from '@/lib/i18n/context';
+import { bankStatementCopy } from '@/lib/i18n/bank-statement';
+import { bankSessionFormat } from '@/lib/reconciliation/bank-statement-view';
+import {
+  BankStatementResults,
+  BankStatementSources,
+  useBankStatement,
+} from './bank-statement-workspace';
 import { workspaceCopy } from '@/lib/i18n/workspace';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
@@ -84,6 +91,13 @@ export function BankWorkspace({
     [bankId, setBankId] = useState(''),
     [cashId, setCashId] = useState(''),
     [evidenceId, setEvidenceId] = useState('');
+  // The bank source type: movement files in the settlement template, or a
+  // statement as the bank issues it. Each keeps its own work while the other
+  // is shown.
+  const [mode, setMode] = useState<'movements' | 'statement'>('movements'),
+    statement = useBankStatement(),
+    sourceMode = useId(),
+    s = bankStatementCopy[lang];
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -252,7 +266,7 @@ export function BankWorkspace({
       result?.events.length ?? 0,
       result?.timingItems.length ?? 0,
     );
-  const locked = busy || balanceBusy;
+  const locked = busy || balanceBusy || statement.busy;
   return (
     <>
       {active && (
@@ -264,7 +278,7 @@ export function BankWorkspace({
             onBack={onBack}
             backLabel={t.back}
             disabled={locked}
-            hasWork={files.some(Boolean) || balanceHasWork}
+            hasWork={files.some(Boolean) || balanceHasWork || statement.hasWork}
           />
           <WorkspaceIntro title={t.title} intro={t.intro}>
             <p>{t.limits}</p>
@@ -274,6 +288,7 @@ export function BankWorkspace({
             <WorkspaceAdvanced>
               <div className="gl-tb-actions workspace-toolbar">
                 <Button
+                  hidden={mode !== 'movements'}
                   onClick={() =>
                     perform(async (signal) => {
                       const sources: SourceFile[] = [];
@@ -310,185 +325,224 @@ export function BankWorkspace({
                         setFailed('general');
                         return;
                       }
-                      void perform(async (signal) =>
-                        install(
-                          await workerTask(
-                            'bank-restore',
-                            { buffer: await blob.arrayBuffer() },
-                            signal,
+                      // The declared format alone routes a session; each
+                      // path then checks every byte it restores.
+                      void blob.arrayBuffer().then((buffer) => {
+                        if (bankSessionFormat(buffer) === 'statement') {
+                          setMode('statement');
+                          return statement.restore(buffer);
+                        }
+                        setMode('movements');
+                        return perform(async (signal) =>
+                          install(
+                            await workerTask(
+                              'bank-restore',
+                              { buffer },
+                              signal,
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      });
                     }}
                   />
                 </label>
               </div>
             </WorkspaceAdvanced>
-            <WorkspaceGroupTitle kind="sources" />
-            <WorkspaceSources
-              primaryIndices={[0, 1]}
-              primaryReady={!!(files[0] && files[1])}
-            >
-              {([0, 1] as const).map((side) => (
-                <section
-                  className="workspace-source"
-                  key={side}
-                  data-testid={`bank-source-${side}`}
-                >
-                  <h2>
-                    <WorkspaceSourceHeading>
-                      {t.sides[side]}
-                    </WorkspaceSourceHeading>
-                  </h2>
-                  <WorkspaceFileInput
-                    type="file"
-                    accept=".csv,.xlsx"
-                    aria-label={t.sides[side]}
-                    onChange={(e) => {
-                      const blob = e.target.files?.[0];
-                      e.target.value = '';
-                      if (blob) void upload(side, blob);
-                    }}
+            <fieldset className="bank-source-mode" data-bank-source-mode>
+              <legend>{s.modeTitle}</legend>
+              {(['movements', 'statement'] as const).map((value) => (
+                <label key={value}>
+                  <input
+                    type="radio"
+                    name={sourceMode}
+                    value={value}
+                    checked={mode === value}
+                    onChange={() => setMode(value)}
                   />
-                  {files[side] && (
-                    <>
-                      <p>{files[side]!.name}</p>
-                      <label>
-                        {t.sheet}
-                        <select
-                          aria-label={`${t.sides[side]} ${t.sheet}`}
-                          value={readings[side].sheet}
-                          onChange={(e) => {
-                            setReadings((previous) => {
-                              const next = [...previous] as typeof readings;
-                              next[side] = {
-                                ...next[side],
-                                sheet: Number(e.target.value),
-                                confirmed: false,
-                              };
-                              return next;
-                            });
-                            invalidate();
-                          }}
-                        >
-                          {files[side]!.sheets.map((sheet, index) => (
-                            <option key={index} value={index}>
-                              {sheet.name}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      <label>
-                        {t.sourceFamily}
-                        <select
-                          aria-label={`${t.sides[side]} ${t.sourceFamily}`}
-                          value={readings[side].family}
-                          onChange={(e) => {
-                            setReadings((previous) => {
-                              const next = [...previous] as typeof readings;
-                              next[side] = {
-                                ...next[side],
-                                family: e.target.value as BankReading['family'],
-                                confirmed: false,
-                              };
-                              return next;
-                            });
-                            invalidate();
-                          }}
-                        >
-                          <option value={BANK_VERSION}>
-                            {t.amountDirection}
-                          </option>
-                          <option value={BANK_WD_FAMILY}>
-                            {t.withdrawalDeposit}
-                          </option>
-                        </select>
-                      </label>
-                      {readings[side].family === BANK_WD_FAMILY && (
-                        <p className="bank-source-basis">
-                          {t.withdrawalDepositHint}
-                        </p>
+                  <strong>{s.modes[value]}</strong>
+                  <small>{s.modeHints[value]}</small>
+                </label>
+              ))}
+            </fieldset>
+            {mode === 'statement' ? (
+              <BankStatementSources s={statement} />
+            ) : (
+              <>
+                <WorkspaceGroupTitle kind="sources" />
+                <WorkspaceSources
+                  primaryIndices={[0, 1]}
+                  primaryReady={!!(files[0] && files[1])}
+                >
+                  {([0, 1] as const).map((side) => (
+                    <section
+                      className="workspace-source"
+                      key={side}
+                      data-testid={`bank-source-${side}`}
+                    >
+                      <h2>
+                        <WorkspaceSourceHeading>
+                          {t.sides[side]}
+                        </WorkspaceSourceHeading>
+                      </h2>
+                      <WorkspaceFileInput
+                        type="file"
+                        accept=".csv,.xlsx"
+                        aria-label={t.sides[side]}
+                        onChange={(e) => {
+                          const blob = e.target.files?.[0];
+                          e.target.value = '';
+                          if (blob) void upload(side, blob);
+                        }}
+                      />
+                      {files[side] && (
+                        <>
+                          <p>{files[side]!.name}</p>
+                          <label>
+                            {t.sheet}
+                            <select
+                              aria-label={`${t.sides[side]} ${t.sheet}`}
+                              value={readings[side].sheet}
+                              onChange={(e) => {
+                                setReadings((previous) => {
+                                  const next = [...previous] as typeof readings;
+                                  next[side] = {
+                                    ...next[side],
+                                    sheet: Number(e.target.value),
+                                    confirmed: false,
+                                  };
+                                  return next;
+                                });
+                                invalidate();
+                              }}
+                            >
+                              {files[side]!.sheets.map((sheet, index) => (
+                                <option key={index} value={index}>
+                                  {sheet.name}
+                                </option>
+                              ))}
+                            </select>
+                          </label>
+                          <label>
+                            {t.sourceFamily}
+                            <select
+                              aria-label={`${t.sides[side]} ${t.sourceFamily}`}
+                              value={readings[side].family}
+                              onChange={(e) => {
+                                setReadings((previous) => {
+                                  const next = [...previous] as typeof readings;
+                                  next[side] = {
+                                    ...next[side],
+                                    family: e.target
+                                      .value as BankReading['family'],
+                                    confirmed: false,
+                                  };
+                                  return next;
+                                });
+                                invalidate();
+                              }}
+                            >
+                              <option value={BANK_VERSION}>
+                                {t.amountDirection}
+                              </option>
+                              <option value={BANK_WD_FAMILY}>
+                                {t.withdrawalDeposit}
+                              </option>
+                            </select>
+                          </label>
+                          {readings[side].family === BANK_WD_FAMILY && (
+                            <p className="bank-source-basis">
+                              {t.withdrawalDepositHint}
+                            </p>
+                          )}
+                          <label>
+                            <input
+                              type="checkbox"
+                              aria-label={`${t.sides[side]} ${t.sourceConfirm}`}
+                              checked={readings[side].confirmed}
+                              onChange={(e) => {
+                                setReadings((previous) => {
+                                  const next = [...previous] as typeof readings;
+                                  next[side] = {
+                                    ...next[side],
+                                    confirmed: e.target.checked,
+                                  };
+                                  return next;
+                                });
+                                invalidate();
+                              }}
+                            />
+                            {t.sourceConfirm}
+                          </label>
+                        </>
                       )}
-                      <label>
+                    </section>
+                  ))}
+                </WorkspaceSources>
+                <section
+                  className="workspace-scope"
+                  hidden={!(files[0] && files[1])}
+                >
+                  <WorkspaceGroupTitle kind="scope" />
+                  <div className="gl-tb-grid">
+                    {BANK_SCOPE_FIELDS.map((key) => (
+                      <label key={key}>
+                        {t.fields[key]}
                         <input
-                          type="checkbox"
-                          aria-label={`${t.sides[side]} ${t.sourceConfirm}`}
-                          checked={readings[side].confirmed}
+                          aria-label={t.fields[key]}
+                          type={
+                            key === 'start' || key === 'end' ? 'date' : 'text'
+                          }
+                          value={scope[key]}
                           onChange={(e) => {
-                            setReadings((previous) => {
-                              const next = [...previous] as typeof readings;
-                              next[side] = {
-                                ...next[side],
-                                confirmed: e.target.checked,
-                              };
-                              return next;
-                            });
+                            setScope((previous) => ({
+                              ...previous,
+                              [key]: e.target.value,
+                              confirmed: false,
+                            }));
                             invalidate();
                           }}
                         />
-                        {t.sourceConfirm}
                       </label>
-                    </>
-                  )}
-                </section>
-              ))}
-            </WorkspaceSources>
-            <section
-              className="workspace-scope"
-              hidden={!(files[0] && files[1])}
-            >
-              <WorkspaceGroupTitle kind="scope" />
-              <div className="gl-tb-grid">
-                {BANK_SCOPE_FIELDS.map((key) => (
-                  <label key={key}>
-                    {t.fields[key]}
+                    ))}
+                  </div>
+                  <label>
                     <input
-                      aria-label={t.fields[key]}
-                      type={key === 'start' || key === 'end' ? 'date' : 'text'}
-                      value={scope[key]}
+                      type="checkbox"
+                      checked={scope.confirmed}
                       onChange={(e) => {
                         setScope((previous) => ({
                           ...previous,
-                          [key]: e.target.value,
-                          confirmed: false,
+                          confirmed: e.target.checked,
                         }));
                         invalidate();
                       }}
                     />
+                    {t.scopeConfirm}
                   </label>
-                ))}
-              </div>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={scope.confirmed}
-                  onChange={(e) => {
-                    setScope((previous) => ({
-                      ...previous,
-                      confirmed: e.target.checked,
-                    }));
-                    invalidate();
-                  }}
-                />
-                {t.scopeConfirm}
-              </label>
-            </section>
-            <Button
-              disabled={
-                !files.every(Boolean) ||
-                !readings.every((r) => r.confirmed) ||
-                !scope.confirmed
-              }
-              onClick={() =>
-                perform(async (signal) =>
-                  install(await workerTask('bank-reconcile', input(), signal)),
-                )
-              }
-            >
-              {t.compare}
-            </Button>
+                </section>
+                <Button
+                  disabled={
+                    !files.every(Boolean) ||
+                    !readings.every((r) => r.confirmed) ||
+                    !scope.confirmed
+                  }
+                  onClick={() =>
+                    perform(async (signal) =>
+                      install(
+                        await workerTask('bank-reconcile', input(), signal),
+                      ),
+                    )
+                  }
+                >
+                  {t.compare}
+                </Button>
+              </>
+            )}
           </fieldset>
-          {busy && (
+          {mode === 'statement' && (
+            <BankStatementResults s={statement} locked={locked} />
+          )}
+          {mode === 'movements' && busy && (
             <Button
               variant="outline"
               onClick={() => {
@@ -501,12 +555,12 @@ export function BankWorkspace({
               {t.cancel}
             </Button>
           )}
-          {failed && (
+          {mode === 'movements' && failed && (
             <p role="alert">
               {failed === 'native-display' ? t.displayFailed : t.failed}
             </p>
           )}
-          {result && (
+          {mode === 'movements' && result && (
             <>
               <h2 data-testid="bank-result">{t.status[result.status]}</h2>
               <DomainEvidenceAssistant
@@ -816,8 +870,10 @@ export function BankWorkspace({
       )}
       <div
         className="app-shell gl-tb-workspace bank-workspace reconciliation-workspace workspace-bank-continuation"
-        hidden={!active}
-        style={{ display: active ? undefined : 'none' }}
+        hidden={!active || mode !== 'movements'}
+        style={{
+          display: active && mode === 'movements' ? undefined : 'none',
+        }}
       >
         <details className="workspace-bank-balance-flow" data-bank-balance-flow>
           <summary>{workspaceCopy[lang].bankBalanceFlow}</summary>

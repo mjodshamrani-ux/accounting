@@ -1,0 +1,16 @@
+{
+  "name": "bank-statement-holdout-g12-writers",
+  "private": true,
+  "description": "The JavaScript writers of the G12 holdout: jsPDF with autoTable for statements, ExcelJS for XLSX cashbooks, and the Fontsource fonts both PDF writers use. Installed outside the repository: npm ci --prefix <dir> after copying this file and package-lock.json there.",
+  "type": "module",
+  "dependencies": {
+    "@fontsource/fira-sans": "5.3.0",
+    "@fontsource/jetbrains-mono": "5.3.0",
+    "@fontsource/noto-kufi-arabic": "5.3.0",
+    "@fontsource/noto-naskh-arabic": "5.3.0",
+    "@fontsource/noto-sans": "5.3.0",
+    "exceljs": "4.4.0",
+    "jspdf": "4.2.1",
+    "jspdf-autotable": "5.0.8"
+  }
+}
