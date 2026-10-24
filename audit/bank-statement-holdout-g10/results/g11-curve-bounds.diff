@@ -1,0 +1,306 @@
+diff --git a/lib/reconciliation/pdf-font-integrity.ts b/lib/reconciliation/pdf-font-integrity.ts
+index ca2d04d..fef0db4 100644
+--- a/lib/reconciliation/pdf-font-integrity.ts
++++ b/lib/reconciliation/pdf-font-integrity.ts
+@@ -7,9 +7,46 @@ const message = 'تعذر التحقق من نص أحد خطوط PDF؛ اطلب
+ 
+ // With font faces disabled, PDF.js sends the outline of every glyph it draws on
+ // the same transport ("FontPath", DrawOPS in text space with the font matrix
+-// applied). A Bezier curve lies inside the box of its control points, so that
+-// box contains the glyph's ink. Anything unreadable stays unknown, never small.
+-const PATH_POINTS = [2, 2, 6, 4, 0];
++// applied). The ink is the area the outline encloses, so its box is the box of
++// the outline itself: every segment's end points and, inside a curve, the
++// points where its x or y turns. A curve's control points lie outside it and
++// would widen the box beyond the ink (BNK-PDF-1 G11). Anything unreadable
++// stays unknown, never small.
++const MOVE = 0,
++  CLOSE = 4,
++  PATH_POINTS = [2, 2, 6, 4, 0];
++const bezier = (p: readonly number[], t: number) => {
++  const u = 1 - t;
++  return p.length === 4
++    ? u * u * u * p[0] +
++        3 * u * u * t * p[1] +
++        3 * u * t * t * p[2] +
++        t * t * t * p[3]
++    : u * u * p[0] + 2 * u * t * p[1] + t * t * p[2];
++};
++/** One coordinate of a quadratic or cubic Bezier segment, from its start
++ * through its control points to its end, where its derivative is zero inside
++ * the segment. */
++function turns(p: readonly number[]): number[] {
++  // The derivative is proportional to a t² + b t + c.
++  const [a, b, c] =
++    p.length === 4
++      ? [
++          p[3] - 3 * p[2] + 3 * p[1] - p[0],
++          2 * (p[2] - 2 * p[1] + p[0]),
++          p[1] - p[0],
++        ]
++      : [0, p[2] - 2 * p[1] + p[0], p[1] - p[0]];
++  let roots: number[] = [];
++  if (a === 0) roots = b === 0 ? [] : [-c / b];
++  else {
++    const d = b * b - 4 * a * c;
++    // The stable pair of roots: no difference of nearly equal terms.
++    const q = d < 0 ? 0 : -(b + Math.sign(b || 1) * Math.sqrt(d)) / 2;
++    if (q !== 0) roots = [q / a, c / q];
++  }
++  return roots.filter((t) => t > 0 && t < 1).map((t) => bezier(p, t));
++}
+ /** The box [x0, y0, x1, y1] of a glyph's outline in text space per unit font
+  * size, when the outline can be read. */
+ export function glyphInkBox(
+@@ -25,19 +62,41 @@ export function glyphInkBox(
+     low = Infinity,
+     right = -Infinity,
+     high = -Infinity;
+-  for (let i = 0; i < values.length;) {
+-    const points = PATH_POINTS[values[i++]];
+-    if (points === undefined || i + points > values.length) return undefined;
+-    for (let k = 1; k < points; k += 2) {
+-      const x = values[i + k - 1],
+-        y = values[i + k];
+-      if (!Number.isFinite(x) || !Number.isFinite(y)) return undefined;
++  const across = (x: number) => {
+       left = Math.min(left, x);
+       right = Math.max(right, x);
++    },
++    up = (y: number) => {
+       low = Math.min(low, y);
+       high = Math.max(high, y);
+-    }
++    };
++  // The current point, and the start of its subpath for a close.
++  let at: number[] | undefined, start: number[] | undefined;
++  for (let i = 0; i < values.length; ) {
++    const op = values[i++],
++      points = PATH_POINTS[op];
++    if (points === undefined || i + points > values.length) return undefined;
++    const p = Array.from(values.subarray(i, i + points));
+     i += points;
++    if (!p.every(Number.isFinite)) return undefined;
++    if (op === CLOSE) {
++      at = start;
++      continue;
++    }
++    const end = p.slice(-2);
++    across(end[0]);
++    up(end[1]);
++    if (op === MOVE) start = end;
++    else if (points > 2 && at) {
++      turns([at[0], ...p.filter((_, k) => k % 2 === 0)]).forEach(across);
++      turns([at[1], ...p.filter((_, k) => k % 2 === 1)]).forEach(up);
++    } else if (points > 2)
++      // A curve with no current point: its control points still bound it.
++      for (let k = 0; k < points - 2; k += 2) {
++        across(p[k]);
++        up(p[k + 1]);
++      }
++    at = end;
+   }
+   return low <= high ? [left, low, right, high] : undefined;
+ }
+diff --git a/tests/pdf-glyph-curve-bounds.test.ts b/tests/pdf-glyph-curve-bounds.test.ts
+new file mode 100644
+index 0000000..fe29da4
+--- /dev/null
++++ b/tests/pdf-glyph-curve-bounds.test.ts
+@@ -0,0 +1,196 @@
++import test from 'node:test';
++import assert from 'node:assert/strict';
++import { readFile } from 'node:fs/promises';
++import { glyphInkBox } from '../lib/reconciliation/pdf-font-integrity.ts';
++
++// BNK-PDF-1 G11: a glyph's ink box is the box of its outline, not of the
++// outline's control points. A curve stays inside its control points but seldom
++// reaches them, so their box can meet a neighbouring line's box where no ink
++// meets (G10, P09). The box must still contain every point of the outline.
++
++// Encoded as PDF.js encodes outlines in this runtime: half floats where the
++// runtime has them, otherwise single floats.
++const Values =
++  typeof Float16Array === 'undefined' ? Float32Array : Float16Array;
++const buf = (values: number[]) => Values.from(values).buffer as ArrayBuffer;
++const as = (n: number) => Values.from([n])[0];
++const MOVE = 0,
++  LINE = 1,
++  CUBIC = 2,
++  QUAD = 3,
++  CLOSE = 4;
++const near = (got: readonly number[] | undefined, want: number[]) => {
++  assert.ok(got, 'an outline that can be read');
++  got.forEach((v, i) =>
++    assert.ok(Math.abs(v - want[i]) < 1e-9, `${v} != ${want[i]}`),
++  );
++};
++
++void test('a curve is bounded where it turns, not by its control points', () => {
++  // An arch: its control points reach 1, the curve 0.75 at its middle.
++  near(
++    glyphInkBox(buf([MOVE, 0, 0, CUBIC, 0, 1, 1, 1, 1, 0, CLOSE])),
++    [0, 0, 1, 0.75],
++  );
++  // A quadratic arch: its control point 1, the curve 0.5.
++  near(
++    glyphInkBox(buf([MOVE, 0, 0, QUAD, 0.5, 1, 1, 0, CLOSE])),
++    [0, 0, 1, 0.5],
++  );
++  // A cubic whose derivative is linear in y (no t² term): 0.375 at the middle.
++  near(
++    glyphInkBox(buf([MOVE, 0, 0, CUBIC, 0.25, 0.5, 0.75, 0.5, 1, 0, CLOSE])),
++    [0, 0, 1, 0.375],
++  );
++  // Leftmost inside the curve, across: an S from (0.5, 0) to (0.5, 1).
++  near(
++    glyphInkBox(
++      buf([MOVE, 0.5, 0, CUBIC, -0.5, 0.25, -0.5, 0.75, 0.5, 1, CLOSE]),
++    ),
++    [-0.25, 0, 0.5, 1],
++  );
++  // Lines are their end points.
++  near(
++    glyphInkBox(
++      buf([MOVE, 0.25, 0, LINE, -0.125, 0.5, LINE, 0.5, 0.25, CLOSE]),
++    ),
++    [as(-0.125), 0, 0.5, 0.5],
++  );
++});
++
++void test('after a close, the next segment starts at the start of its subpath', () => {
++  // The second curve starts back at (0, 0), not at (1, 0): from (0, 0) its
++  // control points (0, -1) and (1, -1) take it down to -0.75.
++  near(
++    glyphInkBox(
++      buf([MOVE, 0, 0, LINE, 1, 0, CLOSE, CUBIC, 0, -1, 1, -1, 1, 0, CLOSE]),
++    ),
++    [0, -0.75, 1, 0],
++  );
++});
++
++void test('a curve with no current point is bounded by its control points', () => {
++  near(glyphInkBox(buf([CUBIC, 0, 1, 1, 1, 1, 0])), [0, 0, 1, 1]);
++});
++
++void test('anything unreadable stays unknown', () => {
++  for (const bad of [
++    buf([]),
++    buf([MOVE, 0]),
++    buf([7, 0, 0]),
++    buf([MOVE, 0, Number.NaN]),
++    buf([MOVE, 0, 0, CUBIC, 0, 1, Number.POSITIVE_INFINITY, 1, 1, 0]),
++    buf([0.5, 0, 0]),
++    new ArrayBuffer(5),
++    Values.from([0, 0, 0]),
++    null,
++  ])
++    assert.equal(glyphInkBox(bad), undefined);
++});
++
++void test('every outline: the box holds every point of it, and no more (sampled)', () => {
++  // A seeded generator of outlines; the oracle samples each segment densely,
++  // which no part of the reader does.
++  let seed = 0x5eed11;
++  const random = () => {
++    seed = (seed + 0x6d2b79f5) | 0;
++    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
++    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
++    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
++  };
++  const coordinate = () => Math.round((random() * 2 - 1) * 1024) / 1024;
++  const STEPS = 4000;
++  for (let n = 0; n < 2000; n++) {
++    const ops: number[] = [];
++    for (let s = 0, count = 1 + Math.floor(random() * 6); s < count; s++) {
++      ops.push(MOVE, coordinate(), coordinate());
++      for (
++        let k = 0, segments = 1 + Math.floor(random() * 5);
++        k < segments;
++        k++
++      ) {
++        const kind = [LINE, CUBIC, QUAD][Math.floor(random() * 3)];
++        ops.push(
++          kind,
++          ...Array.from(
++            { length: kind === CUBIC ? 6 : kind === QUAD ? 4 : 2 },
++            coordinate,
++          ),
++        );
++        if (random() < 0.15) ops.push(CLOSE);
++      }
++      ops.push(CLOSE);
++    }
++    // The values the reader decodes, which the oracle walks too.
++    const values = Array.from(Values.from(ops));
++    let left = Infinity,
++      low = Infinity,
++      right = -Infinity,
++      high = -Infinity;
++    const point = (x: number, y: number) => {
++      left = Math.min(left, x);
++      right = Math.max(right, x);
++      low = Math.min(low, y);
++      high = Math.max(high, y);
++    };
++    let at = [0, 0],
++      start = [0, 0];
++    for (let i = 0; i < values.length;) {
++      const op = values[i++];
++      const size = [2, 2, 6, 4, 0][op];
++      const p = values.slice(i, i + size);
++      i += size;
++      if (op === CLOSE) {
++        at = start;
++        continue;
++      }
++      if (op === MOVE) start = p;
++      else if (op !== LINE) {
++        const xs = [at[0], ...p.filter((_, k) => k % 2 === 0)],
++          ys = [at[1], ...p.filter((_, k) => k % 2 === 1)];
++        for (let k = 0; k <= STEPS; k++) {
++          const t = k / STEPS,
++            u = 1 - t;
++          const along = (c: number[]) =>
++            c.length === 4
++              ? u ** 3 * c[0] +
++                3 * u * u * t * c[1] +
++                3 * u * t * t * c[2] +
++                t ** 3 * c[3]
++              : u * u * c[0] + 2 * u * t * c[1] + t * t * c[2];
++          point(along(xs), along(ys));
++        }
++      }
++      point(p.at(-2)!, p.at(-1)!);
++      at = p.slice(-2);
++    }
++    const box = glyphInkBox(Values.from(ops).buffer as ArrayBuffer);
++    assert.ok(box, `outline ${n}`);
++    const sampled = [left, low, right, high];
++    // Contains every sampled point; wider by no more than sampling misses.
++    assert.ok(
++      box[0] <= left + 1e-12 && box[1] <= low + 1e-12,
++      `outline ${n}: ${box} ${sampled}`,
++    );
++    assert.ok(
++      box[2] >= right - 1e-12 && box[3] >= high - 1e-12,
++      `outline ${n}: ${box} ${sampled}`,
++    );
++    box.forEach((v, i) =>
++      assert.ok(
++        Math.abs(v - sampled[i]) < 1e-5,
++        `outline ${n}: ${box} ${sampled}`,
++      ),
++    );
++  }
++});
++
++void test('G10 P09: read clean with the outline box, as its ink, checked apart, says', async () => {
++  const { readNativePdfWordSource } =
++    await import('../lib/reconciliation/pdf.ts');
++  const bytes = await readFile(
++    'audit/bank-statement-holdout-g10/frozen/P09-statement.pdf',
++  );
++  const source = await readNativePdfWordSource(Uint8Array.from(bytes).buffer);
++  assert.deepEqual(source.readingIssues, []);
++});
