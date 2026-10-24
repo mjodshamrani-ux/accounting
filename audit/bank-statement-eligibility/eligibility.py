@@ -41,6 +41,7 @@ case the page accepts and an outstanding item for the checker's self-test.
   PYTHONPATH=<pymupdf 2.0> python3 -B eligibility.py <package> [--decide STORY] [--out file]
 """
 import argparse
+import hashlib
 import json
 import math
 import re
@@ -423,7 +424,7 @@ def check_page(path, doc, pno, clearance, reach):
 
 def check_pdf(path, clearance=0.05, reach=0.5):
     doc = pymupdf.open(str(path))
-    result = {'pages': doc.page_count, 'found': {}}
+    result = {'sha256': hashlib.sha256(Path(path).read_bytes()).hexdigest(), 'pages': doc.page_count, 'found': {}}
     if Path(path).stat().st_size > 8 * 1024 * 1024 or doc.page_count > 100:
         # The reader refuses the whole file; nothing else is read.
         result['found']['size'] = [{'bytes': Path(path).stat().st_size, 'pages': doc.page_count}]
