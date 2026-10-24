@@ -96,6 +96,14 @@ const rules = [
     '.flatMap((t) => glyphs?.get(t) ?? [ink?.get(t) ?? glyphBounds(t)])',
     '.flatMap((t) => [ink?.get(t) ?? glyphBounds(t)])',
   ],
+  [
+    'visibility by ink',
+    'G12',
+    'g1:visibility-by-metrics',
+    PDF,
+    'visibleOnBackground(color, clipBoxOf(box), backgrounds),',
+    'visibleOnBackground(color, box, backgrounds),',
+  ],
 ];
 
 async function run(change) {

@@ -101,6 +101,50 @@ void test('the guard returns each run’s proved ink box, and nothing for the re
   assert.equal(boxes[1], undefined);
 });
 
+// BNK-PDF-1 G12: white letters on a filled heading are judged visible by the
+// same ink. The fill is 699–709.5; the padded box (697–710) passes both
+// edges, as Noto Naskh and Kufi Arabic's ascent and descent passed jsPDF's
+// heading cells, while the letters (699.9–707.4) stay on the fill.
+const FILL = [30, 699, 110, 709.5];
+function heading(proved: GlyphInk | undefined) {
+  checkPdfOperators(
+    OPS,
+    [
+      OPS.setFillRGBColor,
+      OPS.constructPath,
+      OPS.setFillRGBColor,
+      OPS.setFont,
+      OPS.showText,
+    ],
+    [
+      ['#126e61'],
+      [
+        OPS.fill,
+        [[0, FILL[0], FILL[1], 1, FILL[2], FILL[1], 1, FILL[2], FILL[3], 1, FILL[0], FILL[3]]],
+        FILL,
+      ],
+      ['#ffffff'],
+      ['F1', SIZE],
+      [glyphs],
+    ],
+    600 * 842,
+    [padded],
+    ['Dp'],
+    undefined,
+    undefined,
+    proved,
+  );
+}
+const WHITE = /نصًا أبيض أو ضعيف التباين/;
+
+void test('white letters wholly on a heading fill are visible though the font box passes its edge', () => {
+  assert.doesNotThrow(() => heading(ink([0, 0.73])));
+  // Without proved ink the padded box decides, and part of it is on the page.
+  assert.throws(() => heading(undefined), WHITE);
+  // A descender down to −0.22 em reaches 697.7, below the fill: white on white.
+  assert.throws(() => heading(ink([-0.22, 0.73])), WHITE);
+});
+
 // Rows: two lines 12pt apart whose metric boxes meet (ascent 0.95, descent
 // −0.3 of 12pt) while their letters stay apart.
 const token = (text: string, y: number): PdfToken => ({

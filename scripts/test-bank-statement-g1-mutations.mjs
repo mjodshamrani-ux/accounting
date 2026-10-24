@@ -207,6 +207,12 @@ const mutations = [
   // G10: a rectangle traced back to its start, and each glyph's own box.
   ['rectangle-return-unclosed', PDF, 'path.points.length === 5 &&', 'false &&'],
   [
+    'visibility-by-metrics',
+    PDF,
+    'visibleOnBackground(color, clipBoxOf(box), backgrounds),',
+    'visibleOnBackground(color, box, backgrounds),',
+  ],
+  [
     'glyph-boxes-ignored',
     PDF,
     'const inkTargets = inkBoxes.flatMap((box, i) => glyphBoxes.get(i) ?? [box]);',

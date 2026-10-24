@@ -600,10 +600,12 @@ export function checkPdfOperators(
         throw new Error(
           'تؤثر شفافية PDF أو إعدادات إظهار محتواه في النص، ولا يمكن التحقق من ظهوره. اطلب Excel.',
         );
+      // Visible by the same ink as the clip test: a heading's letters can sit
+      // wholly on its fill while the font's ascent or descent passes its edge.
       const visible = (color: string) =>
         paints
           ? currentBoxes.every((box) =>
-              visibleOnBackground(color, box, backgrounds),
+              visibleOnBackground(color, clipBoxOf(box), backgrounds),
             )
           : color !== '#ffffff';
       const visibleFill = fill && state.fillColor && visible(state.fillColor);
