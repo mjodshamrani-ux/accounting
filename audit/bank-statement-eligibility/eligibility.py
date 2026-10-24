@@ -22,8 +22,11 @@ Checks on every page of every statement:
   size          a file over 8 MB or over 100 pages, the reader's limits
   pageEdge      a glyph's box beyond the page by more than 0.2 points
   hiddenText    text drawn invisible or with opacity below one
-  contrast      text whose contrast with the fill under it (or the white
-                page) is below 3, the reader's threshold
+  contrast      a run of text not wholly on one background it contrasts
+                with by 3, the reader's threshold: its box (the run's width,
+                its glyphs' ink height with the 0.01 em margin, as the
+                reader proves it since G12) must lie inside the latest
+                opaque filled rectangle under it, or on the white page
   ruleClearance a glyph box within 0.01 em of a stroke, or of a fill that is
                 not only rectangles: the margin the reader keeps around glyph
                 ink (an opaque filled rectangle is a background, as there)
@@ -327,6 +330,43 @@ def rgb(color):
     return color
 
 
+def origin_key(point):
+    return (round(point[0], 2), round(point[1], 2))
+
+
+def run_box(span, ink):
+    """A run's box as the reader judges its visibility: its width, and the
+    height of its glyphs' ink with the 0.01 em margin where every glyph's
+    ink is known, else the font's box."""
+    boxes = [pymupdf.Rect(c[3]) for c in span['chars'] if chr(c[0]).strip()]
+    x0, x1 = min(b.x0 for b in boxes), max(b.x1 for b in boxes)
+    glyphs = [ink.get(origin_key(c[2])) for c in span['chars'] if chr(c[0]).strip()]
+    if all(g is not None and not g.is_empty for g in glyphs):
+        margin = MARGIN_EM * span['size']
+        return pymupdf.Rect(x0, min(g.y0 for g in glyphs) - margin, x1, max(g.y1 for g in glyphs) + margin)
+    return pymupdf.Rect(x0, min(b.y0 for b in boxes), x1, max(b.y1 for b in boxes))
+
+
+def visible(color, box, fills):
+    """The reader's test (visibleOnBackground): from the latest background
+    down, one it does not contrast with refuses the run unless it is a thin
+    sliver; one it contrasts with must hold the whole box; else the page."""
+    slivers = 0
+    for _, b, background in sorted(fills, key=lambda f: f[0], reverse=True):
+        if not (b.x0 < box.x1 and b.x1 > box.x0 and b.y0 < box.y1 and b.y1 > box.y0):
+            continue
+        if ratio(color, background) < CONTRAST:
+            share = (b & box).get_area() / box.get_area() if box.get_area() else 1
+            if min(b.width, b.height) <= 1 and share <= 0.1:
+                slivers += share
+                if slivers <= 0.2:
+                    continue
+            return False
+        if b.contains(box):
+            return True
+    return ratio(color, (1, 1, 1)) >= CONTRAST
+
+
 def check_page(path, doc, pno, clearance, reach):
     page = doc[pno]
     found = {}
@@ -346,8 +386,10 @@ def check_page(path, doc, pno, clearance, reach):
             break
     rect = page.rect
     drawings = page.get_drawings()
+    # The reader's backgrounds: opaque rectangles filled and not stroked.
     fills = [(d['seqno'], pymupdf.Rect(d['rect']), rgb(d.get('fill'))) for d in drawings
-             if d.get('fill') is not None and 'f' in (d.get('type') or '')]
+             if d.get('fill') is not None and d.get('type') == 'f' and (d.get('fill_opacity') or 1) == 1
+             and all(item[0] == 're' for item in d['items'])]
     # As the reader sorts them: an opaque filled rectangle is a background,
     # judged by contrast (and, painted over text, by visibleInk); a stroke, or
     # a fill that is not only rectangles, is tested against the glyphs.
@@ -378,6 +420,7 @@ def check_page(path, doc, pno, clearance, reach):
                 continue
             rules.append(pymupdf.Rect(r.x0 - half, r.y0 - half, r.x1 + half, r.y1 + half))
     least_rule = None
+    ink = {}
     # Rules against MuPDF's glyph outline boxes, as verify.py measures them.
     for block in page.get_text('rawdict', flags=pymupdf.TEXT_ACCURATE_BBOXES)['blocks']:
         for line in block.get('lines', []):
@@ -385,6 +428,7 @@ def check_page(path, doc, pno, clearance, reach):
                 margin = MARGIN_EM * span['size']
                 for c in span['chars']:
                     g = pymupdf.Rect(c['bbox'])
+                    ink[origin_key(c['origin'])] = g
                     if not c['c'].strip() or g.is_empty:
                         continue
                     for r in rules:
@@ -407,12 +451,10 @@ def check_page(path, doc, pno, clearance, reach):
             if box.y0 < rect.y0 - EDGE or box.y1 > rect.y1 + EDGE or box.x0 < rect.x0 - EDGE or box.x1 > rect.x1 + EDGE:
                 add('pageEdge', ch)
                 break
-        middle = chars[0][0].tl + (chars[0][0].br - chars[0][0].tl) / 2
-        under = [f for f in fills if f[0] < span['seqno'] and f[1].contains(middle)]
-        background = max(under, key=lambda f: f[0])[2] if under else (1, 1, 1)
         color = rgb(span.get('color')) or (0, 0, 0)
-        if background and ratio(color, background) < CONTRAST:
-            add('contrast', [chars[0][1], round(ratio(color, background), 2)])
+        box = run_box(span, ink)
+        if not visible(color, box, [f for f in fills if f[0] < span['seqno']]):
+            add('contrast', [chars[0][1], [round(v, 2) for v in box]])
     gap = line_ink(path, pno, reach)
     if gap is not None and gap <= clearance:
         add('lineInk', round(gap, 2))

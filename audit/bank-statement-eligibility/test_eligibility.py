@@ -106,6 +106,24 @@ class Planted(unittest.TestCase):
             page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
         self.assertNotIn('contrast', found(statement('white-on-dark', heading)))
 
+    def test_white_letters_on_a_fill_their_font_box_passes(self):
+        # G12: the reader judges a run's visibility by its glyphs' ink, so a
+        # fill that holds the letters (126.6 to 136.3 with the margin) is
+        # enough though the font's box rises to 126.2, as in jsPDF's Arabic
+        # heads.
+        def heading(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 126.4, 384, 136.5), color=None, fill=(0.07, 0.43, 0.38))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+        self.assertNotIn('contrast', found(statement('white-ink-on-fill', heading)))
+
+    def test_white_letters_whose_ink_leaves_the_fill(self):
+        # The capitals rise to 126.7: a fill from 128 leaves their tops white
+        # on the white page.
+        def heading(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 128, 384, 136.5), color=None, fill=(0.07, 0.43, 0.38))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+        self.assertIn('contrast', found(statement('white-ink-off-fill', heading)))
+
     def test_rule_through_a_glyph(self):
         def struck(doc, page):
             page.draw_line((36, 77), (384, 77), color=(0.6, 0.6, 0.6), width=0.5)
