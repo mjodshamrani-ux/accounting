@@ -563,7 +563,7 @@ jobs:
           BNK_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-statement-interface-mutations
         run: pnpm test:bank-statement:interface-mutations
   bank-statement-holdout:
-    name: Bank statement holdouts from eight other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10)
+    name: Bank statement holdouts from ten other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10, G12)
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -597,6 +597,10 @@ jobs:
         env:
           BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
         run: pnpm test:bank-statement:g10-holdout
+      - name: Read and match the fifth sealed holdout in Node against its recorded outcome
+        env:
+          BNK_HOLDOUT_DIR: ${{ runner.temp }}/bank-statement-holdout
+        run: pnpm test:bank-statement:g12-holdout
       - run: pnpm build
       - name: Run the sealed holdout through the built bank workspace against its recorded outcome
         env:
@@ -614,6 +618,10 @@ jobs:
         env:
           BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
         run: pnpm test:bank-statement:g10-browser
+      - name: Run the fifth sealed holdout through the built bank workspace against its recorded outcome
+        env:
+          BNK_HOLDOUT_BROWSER_DIR: ${{ runner.temp }}/bank-statement-holdout-browser
+        run: pnpm test:bank-statement:g12-browser
   deploy:
     if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     needs:

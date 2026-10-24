@@ -1,0 +1,190 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-ablation/1",
+ "suite": "audit/bank-statement-holdout-g12",
+ "commit": "89d6c58567a76370ca9b6c2eba43d12e00ebfb46",
+ "productSourceChanged": false,
+ "plain": {
+  "positivesCompleted": [
+   "Q01",
+   "Q02",
+   "Q04",
+   "Q07",
+   "Q09"
+  ],
+  "positivesFailed": [
+   "Q03",
+   "Q06",
+   "Q08",
+   "Q10"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "Q05",
+   "Q11",
+   "Q12"
+  ],
+  "readingOk": [
+   "Q01",
+   "Q02",
+   "Q04",
+   "Q05",
+   "Q07",
+   "Q09",
+   "Q11",
+   "Q12"
+  ],
+  "refused": [
+   "Q03",
+   "Q06",
+   "Q08",
+   "Q10"
+  ],
+  "falseAutomatic": 0
+ },
+ "ablations": [
+  {
+   "rule": "drawing by ink",
+   "unit": "G8",
+   "mutant": "g1:drawing-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "rows by ink",
+   "unit": "G8",
+   "mutant": "g1:rows-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "Q02",
+    "Q04",
+    "Q07"
+   ],
+   "lostHeld": [
+    "Q11"
+   ],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q02": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q03": "BANK_STATEMENT_READING: page 1 line 6: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q04": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q07": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q11": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "DR after its amount",
+   "unit": "G8",
+   "mutant": "g1:debit-mark-ignored",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "date runs joined",
+   "unit": "G8",
+   "mutant": "g1:date-runs-not-joined",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "typed cashbook amounts",
+   "unit": "G8",
+   "mutant": "g2:typed-amount-as-text",
+   "file": "lib/reconciliation/bank-statement-match.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "rectangle traced back to its start",
+   "unit": "G10",
+   "mutant": "g1:rectangle-return-unclosed",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "Q01"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q01": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا مقصوصًا أو طريقة قص غير مدعومة. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "drawings by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:glyph-boxes-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  },
+  {
+   "rule": "rows by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:rows-glyphs-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "Q04"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "Q03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column",
+    "Q04": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "Q06": "BANK_STATEMENT_FIELD: page 6 line 6: date needs one value",
+    "Q08": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel.",
+    "Q10": "تعذرت قراءة صفحة PDF 1: يحتوي PDF نصًا أبيض أو ضعيف التباين، ولا يمكن التحقق من ظهوره على الخلفية. اطلب نسخة نصية بسيطة أو Excel."
+   }
+  }
+ ]
+}

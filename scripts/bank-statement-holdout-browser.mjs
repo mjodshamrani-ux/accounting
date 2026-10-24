@@ -1,5 +1,5 @@
 // BNK-PDF-1 holdout in the browser, on the built application: each sealed
-// statement of a holdout package (G6 to G10) with its cashbook (CSV, and a
+// statement of a holdout package (G6 to G12) with its cashbook (CSV, and a
 // story's XLSX) is uploaded through the bank workspace's statement path and
 // matched. A statement the page matches is compared with EXPECTED.json in the
 // facts' keys, saved, restored from the saved file on a fresh page and
