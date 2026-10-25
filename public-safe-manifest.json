@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 25135,
-      "sha256": "4d5cf019cef31f066f2e72146ef2ad3465d76502715b43c9913bd7aa3521d94b",
+      "bytes": 25225,
+      "sha256": "287996460b4a7f9d1d298ffab61084a8cec6a0bef0342328f73e4dc8398b3150",
       "kind": "text"
     },
     {
@@ -44555,6 +44555,374 @@
       "path": "docs/audits/BNK-PDF-1-G16.ar.md",
       "bytes": 24858,
       "sha256": "4a451b56178d4e79493fe7927166ac674f9aa6275b53eb81f03b4ca8d8f99144",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/README.ar.md",
+      "bytes": 8513,
+      "sha256": "1c61b153ab6a23256ebc57d9981fb1853a21968f005f8af191c81d208909a618",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/check_export.py",
+      "bytes": 2886,
+      "sha256": "557ccd8b0686c8be257fcbdd6ded47e7f2f1a0d590315eb7af8c6895591e3e23",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/check_seal.py",
+      "bytes": 6885,
+      "sha256": "da64fc6bf09d198b0d703f8288ae9fda8f898565ade35d170f5b8753f2076a8c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/common.py",
+      "bytes": 4697,
+      "sha256": "78ecd9fa5c2dda1d9540ad31dfc277f349c1bf83430ada7bf2d09cb690831bb4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/expected.py",
+      "bytes": 2903,
+      "sha256": "ab5664a952eceb943da612d93c4a15bb854b28b0b2753344e9eaa5b1e8ef5316",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/fonts.py",
+      "bytes": 3129,
+      "sha256": "1cc3dbc364d69c5b1c071e0a643e144216fabe98ac0854b005e332cf5ed2a951",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/ELIGIBILITY.json",
+      "bytes": 4401,
+      "sha256": "39d75ca353ab79b91fe01f3ac341941f0a1857986f77aaf9bac46d1e8331eb71",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/EXPECTED.json",
+      "bytes": 15648,
+      "sha256": "a074e70e03424c3d7c68526f3e1330cd251d87a3ddff80b8f53907cb11386299",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/INPUT-MANIFEST.json",
+      "bytes": 10591,
+      "sha256": "0a7edd3899307cd47fac43d4a4c7ae99a74ffa021dcc449b185d739dcf6b3dad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V01-cashbook.csv",
+      "bytes": 4813,
+      "sha256": "5f9a4843f7b941b8964c063d75d883a95d7d953101421d01782ea358e5f1f258",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V01-statement.pdf",
+      "bytes": 212352,
+      "sha256": "efd7a45d096d73b85e0fc5760757530069cdae2487d06a2f6d4d5323be68260b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V02-cashbook.csv",
+      "bytes": 4497,
+      "sha256": "c9653dc049c58e72aeea103f63c2ad1f24080c943751bd2767c818d2970b6321",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V02-statement.pdf",
+      "bytes": 94951,
+      "sha256": "046fcfb12cbfcafc804e0c335ef44cc343ce8939079fcb0ef0af63416ab5cb94",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V03-cashbook.csv",
+      "bytes": 4280,
+      "sha256": "7a661b6bc5c9ae6f837b7c77182e21adaaf240f64e0e865d75896c768a808473",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V03-cashbook.xlsx",
+      "bytes": 6185,
+      "sha256": "1b708008de4d508a2ebfb8eda95905e8e5b095ec30389d3bece1c5cdc56487af",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V03-statement.pdf",
+      "bytes": 55554,
+      "sha256": "dec8bd291d22a17bbb3287fb2b568c955c33ce9b61dbd3e4480849cd2703e07e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V04-cashbook.csv",
+      "bytes": 11230,
+      "sha256": "078ff1d88187d77dd4f0799abb1df64e2e85c5fb055aba940e7adff1ab025da3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V04-statement.pdf",
+      "bytes": 159135,
+      "sha256": "81a50797d16b46cb3099801f9f9083203f0f9d68424b45f30db0a9d728ea72ad",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V05-cashbook.csv",
+      "bytes": 4153,
+      "sha256": "614c90e0f5d43a809cf9d1cc75c4eaac5029068d17b65831aeb71166459c0ba0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V05-statement.pdf",
+      "bytes": 195012,
+      "sha256": "632e0fc3612621c27af7bc23acb963b0c52227d2df39889401fa6c091345371a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V06-cashbook.csv",
+      "bytes": 3746,
+      "sha256": "79ae0b21cae5f54cf22d16c01bbded7a3cb669bdcbec60b9a48743db91dc1d96",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V06-statement.pdf",
+      "bytes": 20572,
+      "sha256": "3c62c8a53bcae1423bb7f9dbaccb47813724db9947f6c5ef00da385bf3e80398",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V07-cashbook.csv",
+      "bytes": 5141,
+      "sha256": "000ebd2b9e13f6f1da99775dfe487f0b10c2e83a37160709f197b46e9d126e67",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V07-statement.pdf",
+      "bytes": 40064,
+      "sha256": "e4fe256e3dacb0133d3ee995517d7d87e075279acfaeeb64c38ef62fcf59ce73",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V08-cashbook.csv",
+      "bytes": 4637,
+      "sha256": "a903f8597015849c676504ed6a8f25c0a3dbc7067765331e256c687e12f82202",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V08-statement.pdf",
+      "bytes": 39577,
+      "sha256": "e879edff4aed02138b4edb68d06d289874e35d7a45058237d552dfed838849d4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V09-cashbook.csv",
+      "bytes": 5068,
+      "sha256": "72e7108c6629b2824412f42a174ff262c75927314d41567e701f8acbc2400ca0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V09-statement.pdf",
+      "bytes": 32584,
+      "sha256": "372843cf443869acb238350c336c9c92c9598d13736be8f61458542ad9f4986b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V10-cashbook.csv",
+      "bytes": 3629,
+      "sha256": "ed4d5e53368de0ed2e9051fa84fae1932b9c38391622f763896c2afeebe4cefd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V10-cashbook.xlsx",
+      "bytes": 5784,
+      "sha256": "ecc3f869175849a7d3cc2dade0d969477f3f26c8e9fe8677c6d723b22bcdd847",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V10-statement.pdf",
+      "bytes": 21864,
+      "sha256": "2a9f526c656db7f4fc83b76197511cde5b5fec2530ead0615d4158397cd04451",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V11-cashbook.csv",
+      "bytes": 3788,
+      "sha256": "83d0233d85a2ac87bc75d0257ccbec1de744c91095f67e16c6130cb75bc7e2c1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V11-statement.pdf",
+      "bytes": 16315,
+      "sha256": "2937e8172f6c77f98734fdac680db6eba22cc7cb30329d744122b465cb61f8d5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V12-cashbook.csv",
+      "bytes": 4835,
+      "sha256": "a21e80207eaae71fcb3013c14631544395b4422fb012308b369dcbca25867b92",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/V12-statement.pdf",
+      "bytes": 37620,
+      "sha256": "aaf65d8ee7c50284536efefc913a5bfe58b6c56ebc44d820a0091b9fb19d23ef",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G17 holdout: written by Prawn 2.5.0 with prawn-table 0.2.2 under Ruby 3.3, or drawn by a statement application on cairo 1.18.0 with HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and python-bidi 0.6.12 (statements, with fonts converted from Fontsource npm packages under the SIL Open Font License), or by caxlsx 4.2.0 or fastexcel 0.19.0 (cashbooks), from audit/bank-statement-holdout-g17/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF and the cashbook check, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/frozen/VERIFY.json",
+      "bytes": 9634,
+      "sha256": "b856426cb00352d7092202582cb21a2ca7cbeb1c4c64a618dd9d8a8f8ae30309",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/holdout.json",
+      "bytes": 15296,
+      "sha256": "afdad332f1d86569d63ffeb44f1b693e987757cf03798a3a1a6aedb1dfe5bd70",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/java/pom.xml",
+      "bytes": 1042,
+      "sha256": "0f5cf8b5af5772c94d9b38f2a0120f1ae08edc6106c882c326fbfd2a184c8bf1",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/java/src/main/java/tarasuf/holdout/Cashbooks.java",
+      "bytes": 2960,
+      "sha256": "4ebac530a8d61c84b16bcf66ad5815eefb0a0bf18231112aac4910446eaf316e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/js/package-lock.json",
+      "bytes": 4653,
+      "sha256": "3bf026acf8030a603b410ea380c1e3d6b4b084be38e0cb93c384131d22c0dacd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/js/package.json",
+      "bytes": 626,
+      "sha256": "0c3bf691a9a56686dab682c3e25c50ead7fa008964fe08bb324349380f6e6543",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/py/requirements.txt",
+      "bytes": 212,
+      "sha256": "f11d150b9f58844946e6f0d168831a85fc1cec18a7c8f91dea4bb72a249858e8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/render.py",
+      "bytes": 9119,
+      "sha256": "041a8c0ab918624bfc4f1c8111a7447a6e3ed575a36f1f85a2a7157abc6060aa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/render_cairo.py",
+      "bytes": 18267,
+      "sha256": "d0e56c04b7f64b95480e929de4b9173632ad00290bd05e5ef5049a317742aa9c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/render_prawn.py",
+      "bytes": 2200,
+      "sha256": "fd4a6ab44e5e2d2d3b1905944e8ddc8b8b3d257ebddf05d6592bab90fd8b3c41",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/ruby/Gemfile",
+      "bytes": 100,
+      "sha256": "c4c968077708771559505dce20c65254d158f2cd6512a51ec70f89f00eeada37",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/ruby/Gemfile.lock",
+      "bytes": 3203,
+      "sha256": "cd4fd41a72d4b4ce3a71f2f70d6c984fce68558dcdaa366ee08c89486d2d2fc5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/ruby/cashbooks.rb",
+      "bytes": 1514,
+      "sha256": "84e7df0fd428f6674386517e2a1b53da741a22a9e0f733577b493201378e4552",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/ruby/render_prawn.rb",
+      "bytes": 4084,
+      "sha256": "a3e146982555063102e3514f7993bb98934c224bd6539b706ffde18a64116008",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/stories.py",
+      "bytes": 33912,
+      "sha256": "d6143121b645b3196790249903367124e3792e622bb2d4fcb1bc0cc996c34624",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/test_seal.py",
+      "bytes": 5960,
+      "sha256": "c3910e2ace257cfe8a6caa706af93165308698b9d1302d4ac798bdf241a8a0cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g17/verify.py",
+      "bytes": 28719,
+      "sha256": "8645fbcc1f8090e4a700b96cdeee8cccf02acf98f34b595c11917434faf353a8",
       "kind": "text"
     }
   ],

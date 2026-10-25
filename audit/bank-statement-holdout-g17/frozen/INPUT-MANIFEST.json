@@ -1,0 +1,295 @@
+{
+ "version": "bank-statement-holdout-g17-1",
+ "producers": {
+  "prawn": "2.5.0",
+  "prawn-table": "0.2.2",
+  "pdf-core": "0.10.0",
+  "ttfunk": "1.8.0",
+  "caxlsx": "4.2.0",
+  "ruby": "3.3.6",
+  "fastexcel": "0.19.0",
+  "opczip": "1.2.0",
+  "java": "21.0.12.1+1-1-24.04.4-Ubuntu",
+  "cairo": "1.18.0",
+  "harfbuzz": "15.0.0",
+  "uharfbuzz": "0.57.0",
+  "python-bidi": "0.6.12",
+  "fonttools": "4.67.0",
+  "cashbookCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "alexandria-arabic-400.ttf": {
+   "source": "@fontsource/alexandria 5.3.0: alexandria-arabic-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "6cd6a5a19c54279dc3d43b5db7ceffd093e75b3cad7ea89b53ec78b4862b2a8f"
+  },
+  "alexandria-arabic-700.ttf": {
+   "source": "@fontsource/alexandria 5.3.0: alexandria-arabic-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "ec84178a42870ea2e5d87c1b4904a2dbb18b06bb518b3cce8e73659191a79f85"
+  },
+  "alexandria-latin-400.ttf": {
+   "source": "@fontsource/alexandria 5.3.0: alexandria-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "194028e65f6152b5e7c4e031ceaf11f03b8d01947ac7b3f62f0e894d8095f72c"
+  },
+  "alexandria-latin-700.ttf": {
+   "source": "@fontsource/alexandria 5.3.0: alexandria-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "264b809b1ae6247a7ba521f922d2450fd5313b9485e4982f51833de9d4b18331"
+  },
+  "libre-franklin-latin-400.ttf": {
+   "source": "@fontsource/libre-franklin 5.3.0: libre-franklin-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "90f417d33225912ad75475f19d8394c0047da61dc624ab8f8dfe236d5cd40ff5"
+  },
+  "libre-franklin-latin-700.ttf": {
+   "source": "@fontsource/libre-franklin 5.3.0: libre-franklin-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "c36a4559285479e5a1b0462907756b9c7943eddab3198fc86f86b363150df32a"
+  },
+  "merriweather-latin-400.ttf": {
+   "source": "@fontsource/merriweather 5.3.0: merriweather-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "e375e5c85d1bdea65096fdde69dd3a2d7d4af333078815fb83a1418882e2f0f1"
+  },
+  "merriweather-latin-700.ttf": {
+   "source": "@fontsource/merriweather 5.3.0: merriweather-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "f2f8c7ad704fd8ec7f429e5df6448079ff24e34c92da45c96cd2ca170bd5ce2e"
+  },
+  "nunito-sans-latin-400.ttf": {
+   "source": "@fontsource/nunito-sans 5.3.0: nunito-sans-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "a4591b8197c3606b891dbc0fa6b1075e5abef0d7614c62a5ab3b1aef523d3fd6"
+  },
+  "nunito-sans-latin-700.ttf": {
+   "source": "@fontsource/nunito-sans 5.3.0: nunito-sans-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "9a09d236cb3aa42fdd03cdce5b17dfc5adbbaf61686f74c1a6a28048c87cc16c"
+  },
+  "public-sans-latin-400.ttf": {
+   "source": "@fontsource/public-sans 5.3.0: public-sans-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "ec1c066b8d04b7af22aeb45b009e1e2b81e98def5efaaf944bd952ae1c7944e0"
+  },
+  "public-sans-latin-700.ttf": {
+   "source": "@fontsource/public-sans 5.3.0: public-sans-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "0b2e6da0f19ba2190e596db3dd01a7e1934545aa1e60b41721a1c8217ea0cbdf"
+  },
+  "readex-pro-arabic-400.ttf": {
+   "source": "@fontsource/readex-pro 5.3.0: readex-pro-arabic-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "5c32e7785556c5d33038b3cd513b5052c5fc69ef19fb905ccba589f047be3d48"
+  },
+  "readex-pro-arabic-700.ttf": {
+   "source": "@fontsource/readex-pro 5.3.0: readex-pro-arabic-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "1f7c6ccc62908950f33dc38f470efa11509604546c9d807baa6541528c6534c6"
+  },
+  "readex-pro-latin-400.ttf": {
+   "source": "@fontsource/readex-pro 5.3.0: readex-pro-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "3748088136d56fe240b43f6afe4b8bb0cafbe92ac0b19484b0b1c435fc716c9c"
+  },
+  "readex-pro-latin-700.ttf": {
+   "source": "@fontsource/readex-pro 5.3.0: readex-pro-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "94c25bac31e5fc2e45590b03019b8a18a3008b7f44ac7c71a5b93380c222958a"
+  },
+  "rubik-arabic-400.ttf": {
+   "source": "@fontsource/rubik 5.3.0: rubik-arabic-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "f8245bd6515a848bdeadf36b48609ee44640133ba5ada6e83fa69dfe671781ff"
+  },
+  "rubik-arabic-700.ttf": {
+   "source": "@fontsource/rubik 5.3.0: rubik-arabic-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "5de954510494bf8595db5eb99a800aee435aa9a8d9b9021a80b5d820273774a7"
+  },
+  "rubik-latin-400.ttf": {
+   "source": "@fontsource/rubik 5.3.0: rubik-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "32b9bf4e63a805afe66f81e2e1b3ee6719ef681573b8fb622373c745d0c7fe0e"
+  },
+  "rubik-latin-700.ttf": {
+   "source": "@fontsource/rubik 5.3.0: rubik-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "07fec938681fc5fa313126aea3a2a139064f3909a1196217c81810f38d8cfaff"
+  },
+  "source-code-pro-latin-400.ttf": {
+   "source": "@fontsource/source-code-pro 5.3.1: source-code-pro-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "5cd7d8662136e7e315479aaa197a4e37f8587d0e8051e130955668fa18f462aa"
+  },
+  "source-code-pro-latin-700.ttf": {
+   "source": "@fontsource/source-code-pro 5.3.1: source-code-pro-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "703f87df668429e9597d7277965fe6877b479e6e61af966d904046ede7c582dc"
+  },
+  "ubuntu-mono-latin-400.ttf": {
+   "source": "@fontsource/ubuntu-mono 5.3.0: ubuntu-mono-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "546a2acd88ee1d966b3353e2ddae0c7c98e17fc1ca7e16da0f847feba70a4392"
+  },
+  "ubuntu-mono-latin-700.ttf": {
+   "source": "@fontsource/ubuntu-mono 5.3.0: ubuntu-mono-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "97e3dff753aed04af94f16e801b9822c1dd58fe59f3f2db862df81ba5197183a"
+  },
+  "work-sans-latin-400.ttf": {
+   "source": "@fontsource/work-sans 5.3.0: work-sans-latin-400-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "d66fd6901cd7f288cb25133c0d24c8894e977e58b3317253138b7feb4caf7f45"
+  },
+  "work-sans-latin-700.ttf": {
+   "source": "@fontsource/work-sans 5.3.0: work-sans-latin-700-normal.woff",
+   "recipe": "converted by fontTools",
+   "sha256": "848f113bfd7830d5397ab714551bf15aaf0e7daed8cafedc3a2de75cf1d39683"
+  }
+ },
+ "holdout": {
+  "file": "holdout.json",
+  "sha256": "afdad332f1d86569d63ffeb44f1b693e987757cf03798a3a1a6aedb1dfe5bd70"
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "python3 -B audit/bank-statement-holdout-g17/stories.py",
+  "sha256": "1f5e952a04e862b688bd1633f77b8776d098d8b2d9c7a702864d6bd0aa502d59",
+  "bytes": 295198
+ },
+ "files": [
+  {
+   "file": "V01-cashbook.csv",
+   "sha256": "5f9a4843f7b941b8964c063d75d883a95d7d953101421d01782ea358e5f1f258",
+   "bytes": 4813
+  },
+  {
+   "file": "V01-statement.pdf",
+   "sha256": "efd7a45d096d73b85e0fc5760757530069cdae2487d06a2f6d4d5323be68260b",
+   "bytes": 212352
+  },
+  {
+   "file": "V02-cashbook.csv",
+   "sha256": "c9653dc049c58e72aeea103f63c2ad1f24080c943751bd2767c818d2970b6321",
+   "bytes": 4497
+  },
+  {
+   "file": "V02-statement.pdf",
+   "sha256": "046fcfb12cbfcafc804e0c335ef44cc343ce8939079fcb0ef0af63416ab5cb94",
+   "bytes": 94951
+  },
+  {
+   "file": "V03-cashbook.csv",
+   "sha256": "7a661b6bc5c9ae6f837b7c77182e21adaaf240f64e0e865d75896c768a808473",
+   "bytes": 4280
+  },
+  {
+   "file": "V03-cashbook.xlsx",
+   "sha256": "1b708008de4d508a2ebfb8eda95905e8e5b095ec30389d3bece1c5cdc56487af",
+   "bytes": 6185
+  },
+  {
+   "file": "V03-statement.pdf",
+   "sha256": "dec8bd291d22a17bbb3287fb2b568c955c33ce9b61dbd3e4480849cd2703e07e",
+   "bytes": 55554
+  },
+  {
+   "file": "V04-cashbook.csv",
+   "sha256": "078ff1d88187d77dd4f0799abb1df64e2e85c5fb055aba940e7adff1ab025da3",
+   "bytes": 11230
+  },
+  {
+   "file": "V04-statement.pdf",
+   "sha256": "81a50797d16b46cb3099801f9f9083203f0f9d68424b45f30db0a9d728ea72ad",
+   "bytes": 159135
+  },
+  {
+   "file": "V05-cashbook.csv",
+   "sha256": "614c90e0f5d43a809cf9d1cc75c4eaac5029068d17b65831aeb71166459c0ba0",
+   "bytes": 4153
+  },
+  {
+   "file": "V05-statement.pdf",
+   "sha256": "632e0fc3612621c27af7bc23acb963b0c52227d2df39889401fa6c091345371a",
+   "bytes": 195012
+  },
+  {
+   "file": "V06-cashbook.csv",
+   "sha256": "79ae0b21cae5f54cf22d16c01bbded7a3cb669bdcbec60b9a48743db91dc1d96",
+   "bytes": 3746
+  },
+  {
+   "file": "V06-statement.pdf",
+   "sha256": "3c62c8a53bcae1423bb7f9dbaccb47813724db9947f6c5ef00da385bf3e80398",
+   "bytes": 20572
+  },
+  {
+   "file": "V07-cashbook.csv",
+   "sha256": "000ebd2b9e13f6f1da99775dfe487f0b10c2e83a37160709f197b46e9d126e67",
+   "bytes": 5141
+  },
+  {
+   "file": "V07-statement.pdf",
+   "sha256": "e4fe256e3dacb0133d3ee995517d7d87e075279acfaeeb64c38ef62fcf59ce73",
+   "bytes": 40064
+  },
+  {
+   "file": "V08-cashbook.csv",
+   "sha256": "a903f8597015849c676504ed6a8f25c0a3dbc7067765331e256c687e12f82202",
+   "bytes": 4637
+  },
+  {
+   "file": "V08-statement.pdf",
+   "sha256": "e879edff4aed02138b4edb68d06d289874e35d7a45058237d552dfed838849d4",
+   "bytes": 39577
+  },
+  {
+   "file": "V09-cashbook.csv",
+   "sha256": "72e7108c6629b2824412f42a174ff262c75927314d41567e701f8acbc2400ca0",
+   "bytes": 5068
+  },
+  {
+   "file": "V09-statement.pdf",
+   "sha256": "372843cf443869acb238350c336c9c92c9598d13736be8f61458542ad9f4986b",
+   "bytes": 32584
+  },
+  {
+   "file": "V10-cashbook.csv",
+   "sha256": "ed4d5e53368de0ed2e9051fa84fae1932b9c38391622f763896c2afeebe4cefd",
+   "bytes": 3629
+  },
+  {
+   "file": "V10-cashbook.xlsx",
+   "sha256": "ecc3f869175849a7d3cc2dade0d969477f3f26c8e9fe8677c6d723b22bcdd847",
+   "bytes": 5784
+  },
+  {
+   "file": "V10-statement.pdf",
+   "sha256": "2a9f526c656db7f4fc83b76197511cde5b5fec2530ead0615d4158397cd04451",
+   "bytes": 21864
+  },
+  {
+   "file": "V11-cashbook.csv",
+   "sha256": "83d0233d85a2ac87bc75d0257ccbec1de744c91095f67e16c6130cb75bc7e2c1",
+   "bytes": 3788
+  },
+  {
+   "file": "V11-statement.pdf",
+   "sha256": "2937e8172f6c77f98734fdac680db6eba22cc7cb30329d744122b465cb61f8d5",
+   "bytes": 16315
+  },
+  {
+   "file": "V12-cashbook.csv",
+   "sha256": "a21e80207eaae71fcb3013c14631544395b4422fb012308b369dcbca25867b92",
+   "bytes": 4835
+  },
+  {
+   "file": "V12-statement.pdf",
+   "sha256": "aaf65d8ee7c50284536efefc913a5bfe58b6c56ebc44d820a0091b9fb19d23ef",
+   "bytes": 37620
+  }
+ ]
+}

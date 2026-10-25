@@ -1,0 +1,81 @@
+{
+  "schema": "tarasuf-bnk-pdf1-holdout/1",
+  "status": "frozen synthetic holdout for BNK-PDF-1 G17; sealed and committed before the product was run on any of its files",
+  "synthetic": true,
+  "holdout": true,
+  "contract": "audit/bank-statement-foundation/contract.json",
+  "question": "G16 made the cashbook reader refuse a row whose cells the generic workbook reader flags, and gave the eligibility check the product's cashbook reading; neither has met a cashbook from a writer it was not measured on. On statements from Prawn and from a cairo application, two writers not yet measured, with XLSX cashbooks from caxlsx and fastexcel, sealed with the full eligibility check (the statement checks and, since G16, each cashbook read as the product reads it), does bank-statement-native-1 complete every eligible positive with no false automatic approval, and do the product and the check read each XLSX cashbook alike?",
+  "changed": {
+    "producers": [
+      "Prawn 2.5.0 with prawn-table 0.2.2 (Ruby 3.3): a Rails-style statement job drawing each page of the facts as one table under the bank's heading; the family registered from its Latin TrueType files and embedded by Prawn as simple TrueType subsets with ToUnicode maps; the page number printed as the facts give it; English only, as Prawn lays out no right-to-left text",
+      "cairo 1.18.0 (the system libcairo, as a GTK or Pango application prints): a statement application drawing its own table on cairo's PDF surface, each line ordered by the Unicode Bidirectional Algorithm (python-bidi 0.6.12, over the unicode-bidi crate), each run shaped by HarfBuzz 15.0.0 (uharfbuzz 0.57.0) and drawn by cairo_show_text_glyphs with its text and clusters, so that cairo writes simple TrueType subsets for some glyphs and Type0 subsets for the rest, each with a ToUnicode map from the clusters; a family's Arabic and Latin files kept apart and each character drawn from the first that covers it, as fontconfig offers fallback fonts, so that a date in Arabic-Indic digits takes its digits from the Arabic file and its hyphens from the Latin one",
+      "caxlsx 4.2.0 (Ruby) for V03's typed XLSX cashbook: dates as Date cells styled yyyy-mm-dd, amounts as Floats in riyals styled #,##0.00, the other amount cell empty",
+      "fastexcel 0.19.0 (Java 21) for V10's text XLSX cashbook: every cell as a shared string, amounts as plain decimals with two places; fastexcel stamps docProps/core.xml with the clock's time and offers no setting for it, so a new render differs from the sealed file in that part alone"
+    ],
+    "fonts": ["Libre Franklin, Merriweather, Ubuntu Mono and Nunito Sans for Prawn", "Work Sans, Public Sans and Source Code Pro (English) and Readex Pro, Rubik and Alexandria (Arabic, each with its Latin file) for the cairo application", "all converted from Fontsource subsets and embedded subset by the writer"],
+    "geometry": ["A4 portrait", "US Letter", "A4 landscape", "a full grid", "a grid whose control lines span the first four columns with no edge through them", "rules under every row", "no rules but a heading rule", "striped rows", "a heading filled green, navy, dark green, brown, maroon or grey", "headings right-aligned over amounts, and left-aligned in V03", "monospaced type in V03 and V11", "descriptions wrapping over two lines in their cells", "page totals", "Arabic tables whose first column stands on the right and whose cells all start at their right edge"],
+    "periods": ["2028-01-01..2028-01-31", "2028-02-01..2028-02-29", "2028-03-01..2028-03-31", "2028-04-01..2028-06-30", "2028-05-01..2028-05-31", "2028-07-01..2028-07-31", "2028-08-01..2028-08-31", "2028-09-01..2028-09-30", "2028-10-01..2028-10-31", "2028-11-01..2028-11-30", "2028-12-01..2028-12-31", "2028-06-01..2028-06-30"],
+    "furniture": "two banks in English and one in Arabic (Peninsula Trade Bank, Hijaz Commercial Bank, بنك الحجاز التجاري), document titles and accounts other than the foundation's and earlier holdouts'",
+    "references": "retail chain remittances by chain and date (RMT-TAM-280804L), van-route cash deposits by date and route (DEP-280301-R6), importer payments by date and run (IMP-280306-007), SADAD numbers for customs, GOSI by month (GOSI-2809), fleet lease standing orders (SO-FLEET-2801), fuel card top-ups by date (FUEL-280305), WPS batches by month, returned-goods refunds (RTN-NES-2803), credit notes, cheque numbers, movements with no reference",
+    "relationships": "a food distributor's operating account: retail chains remitting by inward SARIE, each remittance booked from its advice on a business day up to three days later; each working day one van route's cash deposited and booked that day; importers paid each Monday; customs duties by SADAD as containers clear; the fleet lease by standing order; fuel cards topped up each Sunday; a WPS payroll by the 27th; GOSI by SADAD in mid-month. A remittance booked five days after it arrived; a remittance short of its invoices by a promotional rebate, and one less a listing fee; two equal cash deposits on one day against two equal entries, and an importer paid twice on one day against two entries, without references; an importer payment and a chain's remittance without their references on the statement; a returned-goods refund and a van-route deposit booked in the wrong direction; a customs payment debited twice under one SADAD number against one entry; a chain's refund booked twice in the cashbook; remittances valued after the period and customs before it; an importer's refund and credit note, a dishonoured customer cheque with its fee, a cash-handling fee and a quarterly account fee not yet booked; cheques to suppliers not yet presented; an account overdrawn the whole month, with DR after each amount",
+    "text": "descriptions that wrap where the writer breaks them; a continuation at the top of page 2 in Arabic, in the description column; Arabic descriptions holding Latin references and route numbers as runs of their own; Latin ligatures from HarfBuzz's default features in the cairo statements",
+    "faults": "a van-route deposit printed twice, one row under the other, the balances counting it once; page 3 printed under the number of page 2; a chain's remittance printed in the withdrawal column, the balances as the bank's ledger credited it",
+    "cashbookXlsx": "V03 as a typed XLSX from caxlsx and V10 as a text XLSX from fastexcel; every cashbook also as CSV"
+  },
+  "heldConstant": [
+    "the contract's column headings, control-line labels and Page n of N footer, in English and Arabic",
+    "the account/currency/period line as one line",
+    "dates as yyyy-mm-dd, SAR with two decimals, thousands separators, the DR suffix for an overdrawn balance",
+    "a real text layer; no scanned page; no image",
+    "the cashbook's six declared headings, one sheet, no hidden, merged, computed or reformatted cell"
+  ],
+  "independence": {
+    "author": "The same assistant wrote the product, the foundation, the oracle, the G6 to G15 holdouts, the fixes after them, the eligibility check with its G16 cashbook check, and this holdout, and knew the reader's rules when designing the stories. Prawn, the cairo application and the two XLSX writers are new to the product; the author is not. This is not a blind holdout.",
+    "oracle": "audit/bank-statement-foundation/oracle.py, unchanged: it reads the printed lines in the facts, the cashbook CSV and the contract, never recipe or intent, and imports nothing from the generator or the product. expected.py only runs it story by story with each story's own period.",
+    "verifier": "pdfminer.six, a PDF reader unrelated to the product's pdf.js, finds every printed line of the facts on its own row with all its values, and every description's words in order across the rows the writer wraps it over, Arabic in reading order glyph by glyph; and MuPDF finds no glyph drawn as .notdef (verify.py, with its own self-test of planted changes, two changed XLSX cashbooks, and a letter planted as .notdef in a Prawn simple TrueType font, a cairo Type0 font and a cairo simple TrueType font).",
+    "eligibility": "audit/bank-statement-eligibility/eligibility.py, run on the frozen files before the seal with MuPDF, the raw content streams and the Python standard library, never the product: every refusal the reader declares that it can check, the reading by columns (G13), each font's ToUnicode map as the prepared PDF.js reads it (G15), each XLSX cashbook as the product reads it (G16), the rules each statement exercises, and the decision story's case and outstanding item. Its report, ELIGIBILITY.json, is sealed and bound to the PDF hashes.",
+    "generator": "stories.py is a ninth lineage: a food distributor's operating account driven by a xoshiro128** generator seeded by SplitMix32; nothing is imported from the foundation's stories.mjs or from the G6 to G15 holdouts. common.py and expected.py are copied from G15.",
+    "drafts": "While the stories and writers were drafted, their PDFs and workbooks were read with pdfminer.six, MuPDF (text, glyph ids and page images), the eligibility check and its cashbook check only. No script that reads a file with the product's reader was run on any draft (DEV-61).",
+    "notTuned": "No product code changed between the start of G17 and the seal, and the product read none of these files."
+  },
+  "eligibility": {
+    "decided": "before any product run on these files",
+    "positives": ["V01", "V02", "V03", "V04", "V07", "V08", "V09", "V10", "V11"],
+    "held": {"V05": "balance-broken", "V06": "incomplete-pages", "V12": "balance-broken"},
+    "cashbookFormats": {"V03": "typed XLSX (caxlsx)", "V10": "text XLSX (fastexcel)"},
+    "writtenFor": {"reversedDate": ["V07", "V08"], "endAligned": ["V01", "V02", "V04", "V10", "V11"], "typedCashbook": ["V03"], "cashbookRead": ["V03", "V10"]},
+    "why": "Every statement stays inside the contract: its headings, labels, footer, line kinds, number and date formats and matching policy; every cashbook keeps the six declared headings on one sheet. The writer, font, table style, geometry, period, furniture and story are what the contract leaves open. The eligibility check found nothing in any of the twelve statements that the reader declares a reason to refuse, read every one by its columns and every font's ToUnicode map as the prepared PDF.js reads it, and read both XLSX cashbooks as the product reads them, every entry (ELIGIBILITY.json). So a refusal of a positive is not a correct one unless it is for a reason no check before the seal covers, which the report then names.",
+    "exercised": "As ELIGIBILITY.json counts them: dates read with their segments reversed in the Arabic statements with Arabic-Indic digits (V07, V08, V12); values placed in their columns by the end edge of a right-aligned heading in the English statements whose headings are right-aligned; V03's cashbook read with typed amounts and dates, V10's as text.",
+    "draftFindings": [
+      "The first cairo draft drew a full grid's column edges through the control lines, whose label spans the first four columns, so that a label crossed a rule; the reader refuses text a rule meets. The grid now draws each row's own edges and leaves out the interior edges of a spanned row.",
+      "In the first Arabic draft a SADAD reference in Readex Pro at 7.2 points was wider than its column and, starting at the cell's right edge, ran into the withdrawal column. The reference column was widened.",
+      "The first cairo drafts drew V08's continuation across the first four columns, so that its first word stood in no column: the eligibility check stopped V08 at page 2, line 6 (COLUMN). A continuation continues the description above it; it is now drawn in the description column, by Prawn as well. Drawn there, the first text wrapped over two rows; it was shortened to one.",
+      "fastexcel stamps docProps/core.xml with the clock's time and has no setting for it: two renders differed in that part alone. It is left as the writer writes it and recorded here.",
+      "With the Arabic file holding no hyphen, a date in Arabic-Indic digits is drawn as five runs from two fonts; the eligibility check reads it with its segments reversed (reversedDate) rather than as touching runs joined."
+    ]
+  },
+  "browserDecision": {
+    "story": "V01",
+    "ifRefused": ["V07", "V02"],
+    "why": "The browser run accepts the first acceptable case of one story and the export checker's self-test alters that story's workbook. V01 has a case the page accepts (date-gap) and items outstanding on both sides, so every alteration has a target; ELIGIBILITY.json checks it. If the product refuses V01, the next of V07 (date-gap, an item outstanding) and V02 (amount-date-suggestion, an item outstanding) it does not refuse is decided."
+  },
+  "attribution": {
+    "commit": "79b8e4c",
+    "what": "After the first run, the same package is run on the product as it was before G16 (79b8e4c: the cashbook reader did not yet refuse a row whose cells the generic reader flags) and recorded beside it, so that a difference in V03's or V10's XLSX cashbook says whether G16's refusal changed the outcome on writers it was not measured on. It is a diagnostic, not a second result."
+  },
+  "ablation": {
+    "script": "scripts/bank-statement-holdout-ablation.mjs",
+    "rules": ["drawing by ink", "rows by ink", "DR after its amount", "date runs joined", "typed cashbook amounts", "rectangle traced back to its start", "drawings by glyph boxes", "rows by glyph boxes", "visibility by ink"],
+    "what": "After the first run, on the commit it ran on, each rule is switched off in a private copy of the product, one at a time, and the package run again: a positive that completes with every rule and not with one off needed it. V03's typed XLSX cashbook is written to need typed cashbook amounts; whether it does is what the ablation measures. It is a diagnostic, not a second result."
+  },
+  "measures": {
+    "reading": "Every printed line read from the PDF equals the facts: kind, page, dates, reference, amounts, balances; descriptions and continuation text after NFKC and whitespace normalisation.",
+    "result": "The matching result, in the facts' keys, equals EXPECTED.json: automatic pairs, review groups with their reasons, both outstanding sides, timing, and held statements with their counts.",
+    "capacity": "Eligible positives whose result equals EXPECTED.json from upload through matching, save, restore and Excel in the browser.",
+    "falseAutomatic": "Automatic pairs that EXPECTED.json does not hold, over all twelve statements. Must be zero.",
+    "held": "A held statement is held whole, with the oracle's status, and nothing in it approved, suggested or called outstanding.",
+    "refusal": "A positive the product refuses, or holds without the oracle holding it, is a failed positive, never a correct abstention.",
+    "cashbookAgreement": "For V03 and V10, the product's reading of the XLSX cashbook equals the CSV's, and equals what the eligibility check read before the seal."
+  },
+  "afterRun": "Results are recorded as they come, with the commit they ran on. A fix made after seeing them turns this set into regression for that fix; a new claim of generalisation needs a new holdout."
+}
