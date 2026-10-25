@@ -1,6 +1,6 @@
 ---
 name: tarasuf-ai-integration
-description: Evaluate AI and OCR proposals in Tarasuf against the project's AI boundaries. AI may suggest a column role, a document relation or a description meaning from existing evidence; the deterministic engine decides. Use when reviewing or changing the existing suggestion paths (local-ai.ts, local-import-ai.ts, import-proposals.ts, visual review), or when someone proposes adding a model, provider, OCR engine or chat. تقييم اقتراحات الذكاء الاصطناعي وOCR، المساعد المحلي، مزود نموذج. Evaluation only. This skill does not authorize adding AI, dependencies, downloads, network calls or product changes.
+description: Evaluate AI and OCR proposals in Tarasuf against the project's AI boundaries. AI may suggest a column role, a document relation or a description meaning from existing evidence; the deterministic engine decides. Use when reviewing or changing the existing suggestion paths (local-ai.ts, local-import-ai.ts, import-proposals.ts, visual review), and whenever someone proposes adding or calling a model, hosted LLM API, provider, OCR engine, chat or download. تقييم اقتراحات الذكاء الاصطناعي وOCR، المساعد المحلي، مزود نموذج أو واجهة LLM. Evaluation only. This skill does not authorize adding AI, dependencies, downloads, network calls or product changes.
 ---
 
 # Tarasuf AI integration

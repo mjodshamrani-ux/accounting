@@ -1,6 +1,6 @@
 ---
 name: tarasuf-accounting-review
-description: Review whether a Tarasuf reconciliation result, rule or proposed engine change is accounting-correct. Checks parties, currencies, signs, dates and periods, references, the right group members (not just equal totals), no reuse of one movement or amount, partial allocation and remainder, rounding and tolerance as the contract states them, confirmed versus suggested versus needs-review, and a verifiable reason for every accepted result. Use when judging matches, groups, differences, tolerances or a rule that decides them. مراجعة محاسبية لنتيجة تسوية، صحة أعضاء المجموعة، الإشارة والعملة والفترة، السماحية. Not for code style, test selection, or interface copy.
+description: Review whether a Tarasuf reconciliation result, rule or proposed engine change is accounting-correct. Checks parties, currencies, signs, dates and periods, references, the right group members (not just equal totals), no reuse of one movement or amount, partial allocation and remainder, rounding and tolerance as the contract states them, confirmed versus suggested versus needs-review, and a verifiable reason for every accepted result. Use when judging matches, groups, differences or tolerances, including yes-or-no questions such as whether to accept a result, a baseline or a tolerance. مراجعة محاسبية لنتيجة تسوية، هل نقبل النتيجة، صحة أعضاء المجموعة، الإشارة والعملة والفترة، السماحية. Not for code style, test selection, or interface copy.
 ---
 
 # Tarasuf accounting review

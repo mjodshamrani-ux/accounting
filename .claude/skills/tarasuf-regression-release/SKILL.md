@@ -1,6 +1,6 @@
 ---
 name: tarasuf-regression-release
-description: Choose, run and record Tarasuf checks for a change. Selects tests by changed files, risk and contracts; runs focused checks first, then wider and cross-engine ones; compares performance when it matters; records command, result and tested commit; separates failures that existed before from new ones; never relaxes oracles, expectations or financial limits to pass, and never reports a check that could not run as passed. Use before committing, before asking for review, or when CI fails. اختيار الاختبارات وتشغيلها وتسجيل النتائج، الانحدار، فشل CI. Grants no permission to push, merge, deploy or release.
+description: Choose, run and record Tarasuf checks for a change. Selects tests by changed files, risk and contracts; runs focused checks first, then wider and cross-engine ones; compares performance when it matters; records command, result and tested commit; separates failures that existed before from new ones; never relaxes oracles, expectations or financial limits to pass, and never reports a check that could not run as passed. Use before committing or asking for review, when CI fails, and when someone proposes regenerating or editing a recorded result, snapshot or expected file to turn CI green. اختيار الاختبارات وتشغيلها وتسجيل النتائج، الانحدار، فشل CI، إعادة توليد النتائج المسجلة. Grants no permission to push, merge, deploy or release.
 ---
 
 # Tarasuf regression and release checks

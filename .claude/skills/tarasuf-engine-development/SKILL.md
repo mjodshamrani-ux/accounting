@@ -1,6 +1,6 @@
 ---
 name: tarasuf-engine-development
-description: Discipline for changing Tarasuf reconciliation engines, readers, normalization, matching, sessions and exports under lib/reconciliation. Contract first, reading kept apart from proposal and acceptance, integer minor units and determinism, bounded search measured at real sizes, the smallest change with a test that failed first, and its effect on sources, review, session and Excel. Use when fixing or extending engine, reader or matching code. تطوير محرك التسوية، إصلاح خلل في القراءة أو المطابقة، تعديل lib/reconciliation. Not for designing test cases alone, interface-only work, or documentation-only edits.
+description: Discipline for changing Tarasuf reconciliation engines, readers, normalization, matching, sessions and exports under lib/reconciliation. Contract first, reading kept apart from proposal and acceptance, integer minor units and determinism, bounded search measured at real sizes, the smallest change with a test that failed first, and its effect on sources, review, session and Excel. Use when fixing or extending engine, reader or matching code, and when someone proposes a matching rule, tie-break, ordering, tolerance or shortcut for the engine, even as a quick question. تطوير محرك التسوية، إصلاح خلل في القراءة أو المطابقة، اقتراح قاعدة أو ترجيح في المحرك، تعديل lib/reconciliation. Not for designing test cases alone, interface-only work, or documentation-only edits.
 ---
 
 # Tarasuf engine development

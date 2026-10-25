@@ -1,6 +1,6 @@
 ---
 name: tarasuf-product-workflow
-description: Check a Tarasuf user journey end to end in the interface. Covers opening files and import errors, matching, review, user decisions and export; that the screen, the engine result and the source agree; a clear needs-review state; no lost decisions and no stale results after a change; Arabic, right-to-left layout and accessibility; and behaviour-focused browser tests with the existing tools. Use when changing or reviewing upload, review screens, decisions, navigation, export buttons, copy or workspace state. مسار المستخدم، الواجهة، الرفع، المراجعة، القرارات، التصدير، العربية واتجاه RTL، الوصول. Not for engine logic or visual artwork alone.
+description: Check a Tarasuf user journey end to end in the interface. Covers opening files and import errors, matching, review, user decisions and export; that the screen, the engine result and the source agree; a clear needs-review state; no lost decisions and no stale results after a change; Arabic, right-to-left layout and accessibility; and behaviour-focused browser tests with the existing tools. Use when changing or reviewing upload, review screens, decisions, navigation, export buttons, copy or workspace state, including product questions about what the screen should show. مسار المستخدم، الواجهة، الرفع، المراجعة، القرارات، التصدير، العربية واتجاه RTL، الوصول. Not for engine logic or visual artwork alone.
 ---
 
 # Tarasuf product workflow
