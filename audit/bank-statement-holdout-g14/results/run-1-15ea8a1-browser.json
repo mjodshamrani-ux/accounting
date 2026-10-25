@@ -1,0 +1,147 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-browser/1",
+ "commit": "15ea8a1079a3c0cc1139561ad95b2c2a653c3c21",
+ "summary": {
+  "capacity": [
+   "R01",
+   "R08"
+  ],
+  "eligiblePositives": 9,
+  "heldWhole": [
+   "R06"
+  ],
+  "refused": [
+   "R02",
+   "R03",
+   "R04",
+   "R05",
+   "R07",
+   "R09",
+   "R10",
+   "R11",
+   "R12"
+  ],
+  "refusedWithResultShown": [],
+  "falseAutomatic": 0,
+  "workbooksChecked": 3,
+  "exportCheck": "passed",
+  "checkerSelfTest": 13,
+  "pageErrors": 0,
+  "externalRequests": 0
+ },
+ "runs": [
+  {
+   "id": "R01",
+   "cashbook": "R01-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "decision": [
+    [
+     "accept",
+     "Bank slip seen for the cash deposit"
+    ]
+   ],
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "R02",
+   "cashbook": "R02-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R03",
+   "cashbook": "R03-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R03",
+   "cashbook": "R03-cashbook.xlsx",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R04",
+   "cashbook": "R04-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R05",
+   "cashbook": "R05-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R06",
+   "cashbook": "R06-cashbook.csv",
+   "status": "held",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "R07",
+   "cashbook": "R07-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R07",
+   "cashbook": "R07-cashbook.xlsx",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R08",
+   "cashbook": "R08-cashbook.csv",
+   "status": "needs-review",
+   "equal": true,
+   "falseAutomatic": 0,
+   "saved": true,
+   "restored": true,
+   "exported": true
+  },
+  {
+   "id": "R09",
+   "cashbook": "R09-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R10",
+   "cashbook": "R10-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R11",
+   "cashbook": "R11-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  },
+  {
+   "id": "R12",
+   "cashbook": "R12-cashbook.csv",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "failureShown": "other",
+   "resultShown": 0
+  }
+ ]
+}

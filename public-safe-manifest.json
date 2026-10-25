@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 38509,
-      "sha256": "a27c591ce93054c66640d5eff6bc899d6c939c25cf1c3095df03a931af4a8450",
+      "bytes": 38993,
+      "sha256": "4a116c70d783cfce8d7aac46dc1ae0bb66c0a4e83a3aa39b5c532f1532250c70",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 23365,
-      "sha256": "fea110bd452b20571ee107aba21c184c2a04de37e54a884dca69db4b3518734f",
+      "bytes": 23912,
+      "sha256": "0a82f1344c81f83917697932684ac3fda5756d03d5c980489ec01e2b31474c4f",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 9831,
-      "sha256": "f3a18c176b104b2c025c489dcb569995ccff3ddaca2dbd1d22be7595a32f708b",
+      "bytes": 9909,
+      "sha256": "2ee133fb5080932dcae9cc6f3e5c46650095b958b7d9d3282211adb1b4c6f05b",
       "kind": "text"
     },
     {
@@ -41834,13 +41834,13 @@
     {
       "path": "scripts/bank-statement-holdout-browser.mjs",
       "bytes": 13965,
-      "sha256": "611950afbd2429611e05865d1a4ab00074cdeda5757a1c98b8d936df6c6a6f20",
+      "sha256": "1a57857a409d8e9925bb905a4840ca74a24ff994c37194959efee650e022d160",
       "kind": "text"
     },
     {
       "path": "scripts/bank-statement-holdout.mjs",
       "bytes": 11708,
-      "sha256": "cc59420553b5c692ee30bc48f21383e0f61b689f8cc0897223c850fef8bc4139",
+      "sha256": "7b117ad456950f5ee096d7b024389499223d87f6a7993097cf63798e7b4b7917",
       "kind": "text"
     },
     {
@@ -43795,6 +43795,30 @@
       "path": "audit/bank-statement-holdout-g14/verify.py",
       "bytes": 23913,
       "sha256": "12a9541eb436b039fdaa13800b33bb5cc850782008d987ca3caa165d296f1e91",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-15ea8a1.json",
+      "bytes": 15027,
+      "sha256": "90ed4a12fa651c003da6d0179f8d7943c9f7de4041fbef406ac2cb3b692b5118",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/results/diagnostic-before-g8-fix-a6ad5d9.json",
+      "bytes": 6301,
+      "sha256": "9a33f7d5160b06ba9844fd6f8fab9daa75c989ab9f528ca164a3ddc1b42d17a6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/results/run-1-15ea8a1-browser.json",
+      "bytes": 4004,
+      "sha256": "becf84184ac4c2de36d8f7fb7d9927ebecfc9cff8b17a5063644e913c7db6b53",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/results/run-1-15ea8a1.json",
+      "bytes": 6270,
+      "sha256": "d99498628f87c3722b510aaa8ae5d0e55a597724c8372b14c6fb741892292c48",
       "kind": "text"
     }
   ],

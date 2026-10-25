@@ -1,4 +1,4 @@
-// BNK-PDF-1 holdout: the product on a sealed holdout package (G6 to G12),
+// BNK-PDF-1 holdout: the product on a sealed holdout package (G6 to G14),
 // sealed before this script first ran on it. Nothing stops at the first
 // difference: every statement is measured layer by layer and the outcome
 // recorded as it comes.
