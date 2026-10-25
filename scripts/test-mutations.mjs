@@ -817,6 +817,26 @@ const mutations = [
     changes: [['!duplicatePosting &&', 'true &&']],
   },
   {
+    name: 'refuse-core-properties-under-another-prefix',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [
+      [
+        "if (core && renamedCoreProperties(await core.async('string')))",
+        'if (false)',
+      ],
+    ],
+  },
+  {
+    name: 'drop-core-properties-holding-anything-else',
+    file: 'lib/reconciliation/xlsx-namespaces.ts',
+    changes: [
+      [
+        'if (literal === undefined) known = false;',
+        'if (literal === undefined) known = true;',
+      ],
+    ],
+  },
+  {
     name: 'ignore-xlsx-overwritten-cell-addresses',
     file: 'lib/reconciliation/xlsx-namespaces.ts',
     changes: [['if (address && seenCells.has(address))', 'if (false)']],
