@@ -16,6 +16,7 @@ import {
 import { readNativePdfWordSource } from '../lib/reconciliation/pdf.ts';
 import { readFile } from '../lib/reconciliation/io.ts';
 import ExcelJS from 'exceljs';
+import JSZip from 'jszip';
 
 // bank-statement-native-1 matching. The proof against the oracle on all
 // sixteen frozen statements is scripts/bank-statement-g2-proof, and the
@@ -361,5 +362,99 @@ void test('a typed cashbook amount holds its value, not printed decimals (G8)', 
   await assert.rejects(
     async () => readBankCashbookTable(await csv('cashbook.csv', whole), 'SAR'),
     (e: unknown) => e instanceof CashbookReadError && e.code === 'AMOUNT',
+  );
+});
+
+void test('a cashbook cell the reader marked as hidden, unreadable, computed or re-written is refused (G16)', async () => {
+  // The generic XLSX reader records what Excel would not show as stored: a
+  // hidden column, an unreadable font, a formula, a merge, an error, an
+  // identifier a number format rewrites. The other families' readers use
+  // these records; a cashbook entry must not rest on such a cell either.
+  /** Optionally stores one cell's number as other digits, the way some
+   * writers do, after ExcelJS has written the workbook. */
+  const book = async (
+    edit: (ws: ExcelJS.Worksheet) => void = () => {},
+    stored?: [cell: string, digits: string],
+  ) => {
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet('Cashbook');
+    ws.addRow(['Date', 'Voucher', 'Description', 'Reference', 'Receipts', 'Payments']);
+    ws.addRow(['2026-07-01', 'RV-1', 'Synthetic receipt', 'FT1', '1150.00', null]);
+    ws.addRow(['2026-07-02', 'PV-1', 'Synthetic payment', 'FT2', null, '200.00']);
+    edit(ws);
+    let bytes: Uint8Array = Buffer.from(await wb.xlsx.writeBuffer());
+    if (stored) {
+      const zip = await JSZip.loadAsync(bytes);
+      const part = 'xl/worksheets/sheet1.xml';
+      const xml = await zip.file(part)!.async('string');
+      const changed = xml.replace(
+        new RegExp(`(<c r="${stored[0]}"[^>]*><v>)[^<]*(</v>)`),
+        `$1${stored[1]}$2`,
+      );
+      assert.notEqual(changed, xml, `no stored number in ${stored[0]}`);
+      zip.file(part, changed);
+      bytes = await zip.generateAsync({ type: 'nodebuffer' });
+    }
+    return readFile('cashbook.xlsx', Uint8Array.from(bytes).buffer);
+  };
+  /** A cashbook that must read: a refusal fails as an assertion. */
+  const accepted = (file: Awaited<ReturnType<typeof readFile>>) => {
+    let out: CashbookEntry[] = [];
+    assert.doesNotThrow(() => {
+      out = readBankCashbookTable(file, 'SAR');
+    });
+    return out;
+  };
+  assert.equal(accepted(await book()).length, 2);
+  const refused: [string, (ws: ExcelJS.Worksheet) => void, string, number][] = [
+    ['white amount on white', (ws) => {
+      ws.getCell('F3').value = 200;
+      ws.getCell('F3').font = { color: { argb: 'FFFFFFFF' } };
+    }, 'CELL', 3],
+    ['hidden amount column', (ws) => (ws.getColumn(5).hidden = true), 'CELL', 1],
+    ['formula with its stored result', (ws) => (ws.getCell('E2').value = { formula: '1000+150', result: 1150 }), 'CELL', 2],
+    ['description merged over the reference', (ws) => ws.mergeCells('C2:D2'), 'CELL', 2],
+    ['voucher typed as a number that loses digits', (ws) => (ws.getCell('B3').value = Number('12345678901234567890')), 'CELL', 3],
+    ['the only sheet hidden', (ws) => (ws.state = 'hidden'), 'SHEET', 1],
+    ['reference a number format rewrites', (ws) => {
+      ws.getCell('D3').value = 17;
+      ws.getCell('D3').numFmt = '0.00';
+    }, 'CELL', 3],
+  ];
+  for (const [name, edit, code, row] of refused)
+    await assert.rejects(
+      async () => readBankCashbookTable(await book(edit), 'SAR'),
+      (e: unknown) => e instanceof CashbookReadError && e.code === code && e.row === row,
+      name,
+    );
+  // Stored digits that do not survive reading: refused in an identifier,
+  // read by its value in an amount, where the typed-amount rule decides.
+  await assert.rejects(
+    async () =>
+      readBankCashbookTable(
+        await book((ws) => (ws.getCell('D2').value = 1709.1), ['D2', '1709.0999999999999']),
+        'SAR',
+      ),
+    (e: unknown) => e instanceof CashbookReadError && e.code === 'CELL' && e.row === 2,
+    'reference stored with digits the reader cannot keep',
+  );
+  const amount = await book(
+    (ws) => (ws.getCell('E2').value = 1150),
+    ['E2', '1149.9999999999999'],
+  );
+  assert.ok(amount.sheets[0].cellIssues?.['2:5']?.length);
+  assert.equal(accepted(amount)[0]?.amount, 115000);
+  // R03 of the G14 holdout, saved by PhpSpreadsheet: 8620.08 is stored as
+  // 8620.079999999999927. The precision note on a typed amount stays out;
+  // the typed-amount rule above already refuses a third decimal.
+  const g14 = (name: string) =>
+    fsRead(new URL(`../audit/bank-statement-holdout-g14/frozen/${name}`, import.meta.url));
+  const typed = await readFile('R03-cashbook.xlsx', Uint8Array.from(await g14('R03-cashbook.xlsx')).buffer);
+  assert.ok(Object.keys(typed.sheets[0].cellIssues ?? {}).length > 0);
+  assert.deepEqual(
+    accepted(typed),
+    accepted(
+      await readFile('R03-cashbook.csv', Uint8Array.from(await g14('R03-cashbook.csv')).buffer),
+    ),
   );
 });

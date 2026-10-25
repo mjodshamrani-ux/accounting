@@ -138,6 +138,34 @@ const mutations = [
     "const receipt = amount(receipts, at, 5, 'receipts');",
     "const receipt = amount(receipts, at, 4, 'receipts');",
   ],
+  // G16: a cell the generic reader marked is refused in the six columns.
+  ['cashbook-recorded-rows-ignored', ENGINE, '    recorded(at);\n', ''],
+  ['cashbook-recorded-header-ignored', ENGINE, '  recorded(1);\n', ''],
+  ['cashbook-sheet-issues-ignored', ENGINE, 'if (rowIssues.length)', 'if (false)'],
+  [
+    'cashbook-reference-issues-ignored',
+    ENGINE,
+    "name === 'Voucher' || name === 'Reference'",
+    'false',
+  ],
+  [
+    'cashbook-reference-issues-everywhere',
+    ENGINE,
+    "name === 'Voucher' || name === 'Reference'",
+    'true',
+  ],
+  [
+    'cashbook-precision-note-everywhere',
+    ENGINE,
+    "(name === 'Receipts' || name === 'Payments') &&",
+    '',
+  ],
+  [
+    'cashbook-precision-note-refused',
+    ENGINE,
+    'issue === numericPrecisionIssue(',
+    'false && issue === numericPrecisionIssue(',
+  ],
 ];
 const files = [
   ...new Set(mutations.map(([, file]) => file)),
@@ -197,6 +225,7 @@ if (report.baselinePassed)
         differential,
         'audit/bank-statement-foundation',
         'audit/bank-statement-holdout-g8/frozen',
+        'audit/bank-statement-holdout-g14/frozen',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });

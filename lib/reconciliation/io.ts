@@ -141,6 +141,10 @@ function rangeContains(ref: string, row: number, column: number): boolean {
     return true;
   });
 }
+/** The note recorded when a stored numeric lexeme does not survive reading
+ * as a JavaScript number. Its wording is also the translation catalog key. */
+export const numericPrecisionIssue = (cell: string) =>
+  `دقة القيمة الأصلية في ${cell} تتغير عند قراءتها رقميًا. راجع المصدر وثبّت المبلغ وفق المنازل العشرية للعملة قبل اعتماده.`;
 export function validateCellText(text: string): void {
   if (
     // XML 1.0 forbids these code points; retaining the rejection is intentional.
@@ -407,11 +411,7 @@ export async function readFile(
       const column = coordinate[1]
         .split('')
         .reduce((n, char) => n * 26 + char.charCodeAt(0) - 64, 0);
-      issue(
-        Number(coordinate[2]),
-        column,
-        `دقة القيمة الأصلية في ${raw.cell} تتغير عند قراءتها رقميًا. راجع المصدر وثبّت المبلغ وفق المنازل العشرية للعملة قبل اعتماده.`,
-      );
+      issue(Number(coordinate[2]), column, numericPrecisionIssue(raw.cell));
     }
     // ExcelJS 4.4 exposes this parsed model field but omits it from Worksheet's declarations.
     const formats = (

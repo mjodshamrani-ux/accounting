@@ -45,7 +45,8 @@ def tree(at):
         (audit / package.name).symlink_to(package)
     tool = audit / HERE.name
     tool.mkdir()
-    for name in ('columns.py', 'tounicode.py', 'eligibility.py', 'test_eligibility.py'):
+    for name in ('columns.py', 'tounicode.py', 'cashbook.py', 'eligibility.py', 'test_eligibility.py',
+                 'test_cashbook.py'):
         shutil.copy(HERE / name, tool / name)
     return tool
 

@@ -44,6 +44,11 @@ Checks on every page of every statement:
 and on the statement: columns, the reader's reading of each line by its
 page's column headers (columns.py), where it would stop; on a rotated page it
 is not read, as the reader refuses the page first;
+on each XLSX cashbook (cashbook.py, since G16): the product's reading of it,
+from the workbook's parts to the six declared columns, where it would stop,
+with the entries it would read and the rules it needs (typed amounts and
+dates, core properties left out, precision notes); a hidden row is noted, as
+its policy waits on a decision;
 and on the package: decision, the declared decision story must have a review
 case the page accepts and an outstanding item for the checker's self-test.
 
@@ -74,6 +79,7 @@ from pathlib import Path
 
 import pymupdf
 
+import cashbook
 import columns
 import tounicode
 
@@ -610,6 +616,8 @@ def main():
         raise SystemExit(f'the reader no longer carries what columns.py copies: {columns.drift()}')
     if tounicode.drift():
         raise SystemExit(f'the reader no longer carries what tounicode.py copies: {tounicode.drift()}')
+    if cashbook.drift():
+        raise SystemExit(f'the product no longer carries what cashbook.py copies: {cashbook.drift()}')
     package = Path(a.package)
     report = {'package': package.name, 'clearancePt': a.clearance, 'statements': {}}
     for pdf in sorted((package / 'frozen').glob('*-statement.pdf')):
@@ -618,6 +626,14 @@ def main():
         print(story, json.dumps(report['statements'][story]['found'], ensure_ascii=False)[:300],
               'rule', report['statements'][story]['leastRuleGapPt'],
               'line', report['statements'][story]['leastLineGapPt'], flush=True)
+    report['cashbooks'] = {}
+    for book in sorted((package / 'frozen').glob('*-cashbook.xlsx')):
+        story = book.name.split('-')[0]
+        verdict = cashbook.check(book)
+        # The entries are the cashbook's own rows; the record keeps their count.
+        report['cashbooks'][story] = {**verdict, 'entries': len(verdict['entries'])}
+        print(story, 'cashbook', json.dumps(verdict['refused'] or 'read', ensure_ascii=False),
+              len(verdict['entries']), json.dumps(verdict['exercised']), json.dumps(verdict['notes']), flush=True)
     if a.decide:
         report['decision'] = check_decision(package, a.decide)
         print('decision', report['decision'])

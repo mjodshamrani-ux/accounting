@@ -16,6 +16,7 @@ import type {
 } from './bank-statement-native.ts';
 import { BANK_STATEMENT_NATIVE } from './bank-statement-native.ts';
 import { currencyPrecision } from './currency-precision.ts';
+import { numericPrecisionIssue } from './io.ts';
 import type { SourceFile } from './types.ts';
 
 export const STATEMENT_DATE_WINDOW_DAYS = 3;
@@ -142,6 +143,35 @@ export function readBankCashbookTable(
     'u',
   );
   const numeric = file.sheets[0]?.numericCells;
+  // What the generic reader recorded about a cell that Excel would hide,
+  // merge, compute or write as another identifier. The other families'
+  // readers use these records; an entry must not rest on such a cell (G16). A
+  // typed amount whose stored digits outlive JavaScript keeps the rule
+  // above: its precision note stays out of the two amount columns only.
+  const sheet = file.sheets[0];
+  const recorded = (at: number) => {
+    const rowIssues = sheet.rowIssues?.[String(at)] ?? [];
+    if (rowIssues.length)
+      throw new CashbookReadError('SHEET', at, rowIssues.join('; '));
+    CASHBOOK_HEADERS.forEach((name, k) => {
+      const key = `${at}:${k + 1}`;
+      const issues = [
+        ...(sheet.cellIssues?.[key] ?? []),
+        ...(name === 'Voucher' || name === 'Reference'
+          ? (sheet.referenceIssues?.[key] ?? [])
+          : []),
+      ].filter(
+        (issue) =>
+          !(
+            (name === 'Receipts' || name === 'Payments') &&
+            issue === numericPrecisionIssue(`${'ABCDEF'[k]}${at}`)
+          ),
+      );
+      if (issues.length)
+        throw new CashbookReadError('CELL', at, `${name}: ${issues.join('; ')}`);
+    });
+  };
+  recorded(1);
   const amount = (s: string, at: number, column: number, name: string) => {
     if (!s) return 0;
     const m = (numeric?.[`${at}:${column}`] ? typedMoney : money).exec(s);
@@ -154,6 +184,7 @@ export function readBankCashbookTable(
   const vouchers = new Set<string>();
   for (const [i, row] of rows.slice(1).entries()) {
     const at = i + 2;
+    recorded(at);
     if (row.slice(CASHBOOK_HEADERS.length).some((s) => s.trim()))
       throw new CashbookReadError('COLUMN', at, 'a value outside the columns');
     const [date, voucher, description, reference, receipts, payments] =

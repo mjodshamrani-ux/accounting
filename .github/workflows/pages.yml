@@ -286,6 +286,8 @@ jobs:
           pnpm test:bank-statement:g3-mutations
           pnpm test:bank-statement:g4-mutations
           pnpm test:bank-statement:g5-mutations
+      - name: Verify the pre-seal cashbook check, its mutants and its recorded agreement with the product's cashbook reading (BNK-PDF-1 G16)
+        run: pnpm test:bank-statement:cashbook-check
       - name: Verify column hierarchy financial membership, native intervals, replay, independent exports and guard faults
         env:
           INV_COLUMN_PROOF_DIR: ${{ runner.temp }}/inventory-column-proof
