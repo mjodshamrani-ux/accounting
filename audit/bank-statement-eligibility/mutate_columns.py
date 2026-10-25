@@ -7,8 +7,9 @@ after the brought-forward line, and date runs joined; or stops counting one
 the record of exercised rules carries (G14). The tool is copied
 with the mutant into a temporary tree that links the repository's reader
 source, its scripts, the product's own Unicode fixtures and the sealed
-packages, and the tests run there; mutate_tounicode.py runs its mutants the
-same way. Exit status 1 if a mutant survives.
+packages, and the tests run there, after they pass there unmutated;
+mutate_tounicode.py and mutate_items.py run their mutants the same way. Exit
+status 1 if a mutant survives.
 """
 import shutil
 import subprocess
@@ -45,13 +46,20 @@ def tree(at):
         (audit / package.name).symlink_to(package)
     tool = audit / HERE.name
     tool.mkdir()
-    for name in ('columns.py', 'tounicode.py', 'cashbook.py', 'eligibility.py', 'test_eligibility.py',
-                 'test_cashbook.py'):
+    for name in ('columns.py', 'tounicode.py', 'cashbook.py', 'items.py', 'plant_items.py', 'eligibility.py',
+                 'test_eligibility.py', 'test_cashbook.py'):
         shutil.copy(HERE / name, tool / name)
     return tool
 
 
 def main(mutants=MUTANTS, module='columns.py', tests='test_eligibility.Columns'):
+    # The unmutated tree must pass, or every mutant would be killed by what
+    # the tree lacks rather than by an assertion (DEV-22).
+    with tempfile.TemporaryDirectory() as temp:
+        run = subprocess.run([sys.executable, '-B', '-m', 'unittest', tests],
+                             cwd=tree(Path(temp)), capture_output=True, text=True)
+        if run.returncode != 0:
+            raise SystemExit(f'the unmutated tree fails {tests}:\n{run.stderr[-2000:]}')
     survived = []
     for name, (old, new) in mutants.items():
         with tempfile.TemporaryDirectory() as temp:
@@ -62,8 +70,9 @@ def main(mutants=MUTANTS, module='columns.py', tests='test_eligibility.Columns')
             (tool / module).write_text(source.replace(old, new), encoding='utf-8')
             run = subprocess.run([sys.executable, '-B', '-m', 'unittest', tests],
                                  cwd=tool, capture_output=True, text=True)
-            killed = run.returncode != 0
-            print(name, 'killed' if killed else 'SURVIVED')
+            # A kill is a test's assertion failing, not an error (DEV-22).
+            killed = run.returncode != 0 and '\nFAIL: ' in run.stderr
+            print(name, 'killed' if killed else 'SURVIVED' if run.returncode == 0 else 'ERRORED, not killed')
             if not killed:
                 survived.append(name)
     sys.exit(1 if survived else 0)

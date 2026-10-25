@@ -41,6 +41,13 @@ Checks on every page of every statement:
   toUnicode     a font the page selects whose ToUnicode map PDF.js's
                 prepared decoder cannot read (an odd length), or a glyph
                 shown as U+FFFD: tounicode.py, since G15
+  overlap       a line whose PDF.js items, as the reader lays them out
+                without column cuts, start more than 0.2 points before the
+                end of the item before them: items.py, since G18, the items
+                built from the content stream as PDF.js builds them
+  items         a page items.py cannot reproduce (a Type3 or vertical font,
+                a form, an inline image): nothing was measured there, so no
+                eligibility until it is explained
 and on the statement: columns, the reader's reading of each line by its
 page's column headers (columns.py), where it would stop; on a rotated page it
 is not read, as the reader refuses the page first;
@@ -81,6 +88,7 @@ import pymupdf
 
 import cashbook
 import columns
+import items
 import tounicode
 
 HERE = Path(__file__).resolve().parent
@@ -547,13 +555,24 @@ def check_pdf(path, clearance=0.05, reach=0.5):
         return result
     if doc.get_ocgs():
         result['found']['layers'] = list(doc.get_ocgs())
-    least_rule, least_line = None, None
+    least_rule, least_line, most_overlap = None, None, None
     used, lone = Counter(), set()
     for pno in range(doc.page_count):
         found, rule, gap = check_page(str(path), doc, pno, clearance, reach, used)
         maps = tounicode.check_page(doc, pno, lone)
         if maps:
             found['toUnicode'] = maps
+        # The reader refuses a turned page before it lays the page out.
+        if not doc[pno].rotation:
+            try:
+                lines, most = items.check_page(doc, pno)
+            except items.Unmodelled as reason:
+                found['items'] = [str(reason)]
+            else:
+                if lines:
+                    found['overlap'] = lines
+                if most is not None:
+                    most_overlap = most if most_overlap is None else max(most_overlap, most)
         for k, v in found.items():
             result['found'].setdefault(k, []).extend([{'page': pno + 1, 'at': x} for x in v[:3]])
         if rule is not None:
@@ -585,6 +604,9 @@ def check_pdf(path, clearance=0.05, reach=0.5):
     result['exercised'] = dict(sorted((k, v) for k, v in used.items() if v))
     result['leastRuleGapPt'] = None if least_rule is None else round(least_rule, 2)
     result['leastLineGapPt'] = least_line   # None: no closer than reach
+    # The most one item starts under the end of the item before it in a
+    # line the reader lays out and keeps: the margin under its 0.2 points.
+    result['mostItemOverlapPt'] = None if most_overlap is None else round(most_overlap, 3)
     return result
 
 
@@ -616,6 +638,8 @@ def main():
         raise SystemExit(f'the reader no longer carries what columns.py copies: {columns.drift()}')
     if tounicode.drift():
         raise SystemExit(f'the reader no longer carries what tounicode.py copies: {tounicode.drift()}')
+    if items.drift():
+        raise SystemExit(f'the reader no longer carries what items.py copies: {items.drift()}')
     if cashbook.drift():
         raise SystemExit(f'the product no longer carries what cashbook.py copies: {cashbook.drift()}')
     package = Path(a.package)
@@ -625,7 +649,8 @@ def main():
         report['statements'][story] = check_pdf(pdf, a.clearance)
         print(story, json.dumps(report['statements'][story]['found'], ensure_ascii=False)[:300],
               'rule', report['statements'][story]['leastRuleGapPt'],
-              'line', report['statements'][story]['leastLineGapPt'], flush=True)
+              'line', report['statements'][story]['leastLineGapPt'],
+              'overlap', report['statements'][story]['mostItemOverlapPt'], flush=True)
     report['cashbooks'] = {}
     for book in sorted((package / 'frozen').glob('*-cashbook.xlsx')):
         story = book.name.split('-')[0]

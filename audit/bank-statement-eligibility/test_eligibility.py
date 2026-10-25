@@ -16,6 +16,8 @@ import pymupdf
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import columns  # noqa: E402
 import eligibility as el  # noqa: E402
+import items  # noqa: E402
+import plant_items  # noqa: E402
 import tounicode  # noqa: E402
 
 TMP = Path(tempfile.mkdtemp(prefix='eligibility-'))
@@ -525,6 +527,80 @@ class ToUnicode(unittest.TestCase):
 
     def test_what_it_copies_is_still_the_products(self):
         self.assertEqual(tounicode.drift(), [])
+
+
+def planted(name):
+    """A page of plant_items.py, built once."""
+    path = TMP / f'items-{name}.pdf'
+    if not path.exists():
+        plant_items.build(path, next(c for n, c, _, _ in plant_items.PAGES if n == name))
+    return path
+
+
+class Items(unittest.TestCase):
+    """PDF.js's text items as items.py builds them, and the reader's refusal
+    of overlapping text in a line. Each planted page's verdict is the
+    reader's own (measure_items.mjs reads them with the product)."""
+
+    def page(self, name):
+        return [i for i in items.page_items(pymupdf.open(str(planted(name))), 0) if i.text.strip()]
+
+    def test_each_planted_page_is_judged_as_the_reader_judges_it(self):
+        for name, _, refused, why in plant_items.PAGES:
+            with self.subTest(name, why=why):
+                lines, _ = items.check_page(pymupdf.open(str(planted(name))), 0)
+                self.assertEqual(bool(lines), refused)
+
+    def test_an_item_ends_where_pdfjs_ends_it(self):
+        ends = {name: [i.text for i in self.page(name)] for name, *_ in plant_items.PAGES}
+        two, one = ['Transfer', '1,250.00'], ['Transfer1,250.00']
+        self.assertEqual(ends['subsets-0.3'], two)           # two subsets of one font
+        self.assertEqual(ends['two-names-0.3'], one)         # one font under two names
+        self.assertEqual(ends['one-font-0.3'], one)
+        self.assertEqual(ends['marked-content-0.3'], two)    # marked content
+        self.assertEqual(ends['back-0.25em'], two)           # back past 0.2 em
+        self.assertEqual(ends['back-0.15em'], one)
+        self.assertEqual(ends['two-text-objects'], one)      # across BT
+        self.assertEqual(ends['space-then-tight'], two)      # a drawn space, then under 0.102 em
+
+    def test_the_overlap_is_measured_from_the_items_advances(self):
+        first, second = self.page('subsets-0.3')
+        self.assertAlmostEqual(first.width, 37.23, places=6)
+        self.assertAlmostEqual(first.x + first.width - second.x, 0.3, places=6)
+        lines, _ = items.check_page(pymupdf.open(str(planted('back-0.25em'))), 0)
+        self.assertEqual(lines, [{'line': 1, 'items': ['Transfer', '1,250.00'], 'overlapPt': 2.5}])
+
+    def test_eligibility_reports_the_line_and_the_margin_kept(self):
+        self.assertEqual(found(planted('subsets-0.3'))['overlap'],
+                         [{'page': 1, 'at': {'line': 1, 'items': ['Transfer', '1,250.00'], 'overlapPt': 0.3}}])
+        kept = el.check_pdf(planted('subsets-0.1'))
+        self.assertNotIn('overlap', kept['found'])
+        self.assertEqual(kept['mostItemOverlapPt'], 0.1)
+        # Glyphs overlapping inside one item are not the reader's concern.
+        self.assertIsNone(el.check_pdf(planted('one-font-0.3'))['mostItemOverlapPt'])
+
+    def test_lines_are_joined_as_the_reader_joins_them(self):
+        def item(x, y, h=10):
+            return items.Item('x', x, y, 5, h, 'F1')
+        # Within min(1, height / 8) of the line's first item: 1 point at 10,
+        # 0.75 at 6.
+        self.assertEqual(len(items.lines([item(0, 100), item(10, 99.0)])), 1)
+        self.assertEqual(len(items.lines([item(0, 100), item(10, 98.9)])), 2)
+        self.assertEqual(len(items.lines([item(0, 100, 6), item(10, 99.2, 6)])), 2)
+
+    def test_pdfjs_categories_of_a_glyphs_text(self):
+        self.assertEqual([items.category(s) for s in (' ', '\u00a0', 'a', 'a ', 'a\u064b', '\u200f', 'a\u200f', '\u200fa')],
+                         ['white', 'white', None, None, 'diacritic', 'format', 'format', None])
+
+    def test_a_page_it_cannot_reproduce_is_named(self):
+        def form(doc, page):
+            src = pymupdf.open()
+            src.new_page(width=100, height=40).insert_text((10, 20), 'Fee 15.00', fontsize=10)
+            page.show_pdf_page(pymupdf.Rect(200, 150, 300, 190), src, 0)
+        self.assertEqual(found(statement('items-form', form))['items'], [{'page': 1, 'at': 'form XObject'}])
+
+    def test_what_it_copies_is_still_the_products(self):
+        self.assertEqual(items.drift(), [])
 
 
 if __name__ == '__main__':
