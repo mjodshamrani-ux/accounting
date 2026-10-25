@@ -44445,8 +44445,8 @@
     },
     {
       "path": "audit/claude-skills/README.ar.md",
-      "bytes": 2345,
-      "sha256": "b62118a7403c54599846b8bcdf3e4d268976bad8064a5cc7548b34e5cbab09a7",
+      "bytes": 8129,
+      "sha256": "1f32143bc9c2ad48a0b1917d677d35f1917c2f86e3cd1c33dfdac57dd5ffe82d",
       "kind": "text"
     },
     {
@@ -44475,8 +44475,8 @@
     },
     {
       "path": "docs/reference/SKILLS.ar.md",
-      "bytes": 14593,
-      "sha256": "eb34f894386a4a278d204865eb42670072502523e2e815ae6b989a808d5a79dc",
+      "bytes": 15931,
+      "sha256": "c69b2986b157a1fc5671675f1d3667847266f69dce8cf858129c2314d75d4a2c",
       "kind": "text"
     },
     {
@@ -44495,6 +44495,24 @@
       "path": "scripts/claude-hook.test.mjs",
       "bytes": 3561,
       "sha256": "0c73dba052905d394cb74d5320889a4d8aba6735f23c434536ecdf9f4c81d442",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/results/run-2-holdout-triggers-24bde5c.json",
+      "bytes": 59958,
+      "sha256": "33c335bd5651a57811b842da10ec5298bde7a16656e37cfa6bed8d07d3d2274f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/results/run-2-holdout-triggers-780397f.json",
+      "bytes": 62634,
+      "sha256": "7a2f0713ebafb3ab7947d37fdf5ca48a36a8da21b6b31da919df26aaa536c19d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/results/run-3-insample-780397f.json",
+      "bytes": 34437,
+      "sha256": "aaf27548f8392506b9b4aa1155a11b8439d0296b1d1d0eca74857c25dc76e74e",
       "kind": "text"
     }
   ],
