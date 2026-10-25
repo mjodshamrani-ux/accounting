@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 9876,
-      "sha256": "1a5bc3368cb760bc33a13e874b9506ac4250e0323010e54276c3331ae7f7a17d",
+      "bytes": 10377,
+      "sha256": "43e66f10a704a73454eb664db5da214e56977799730359955c79c5d62299cca4",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 17071,
-      "sha256": "c14f8589e519ffa345415ac9a6f9dddda2db321d6a72ae06c8f80e332e8b4fd2",
+      "bytes": 17115,
+      "sha256": "c9b18c7c999da321abfb4855770e57efc668bf189fe6c9aaad9d4f8259a72df8",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 86198,
-      "sha256": "2b38f90fba3c46ee4199fba21eafe038dd30170578c6f78f5fdc90fcdb80c4df",
+      "bytes": 88035,
+      "sha256": "e76b330d61a39781130db858bcd217819c919164775363a4771c9669f66f83fb",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 27061,
-      "sha256": "a01354fc3b4c168c465b9b462da43a23be63bdb18d0f2c8f150c86cb69ad3712",
+      "bytes": 28149,
+      "sha256": "4ae301730d1a85a7ab74076aa56b86a8f6e6743c513ad2ddf5070b71a7635dff",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 60187,
-      "sha256": "3a67057284c6b311330c8699722e720fe6b88517fb529ec0412dca7b6e75741b",
+      "bytes": 60551,
+      "sha256": "691271fbfa1a44be2d0702b299298c7c882a1c98740c273f127caefc81f5ddca",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 19452,
-      "sha256": "4b2b4c73ee604bd2a206f49ecdb1ff640ae7001eac070d27ae844a7b8d062758",
+      "bytes": 20947,
+      "sha256": "b1624701aca15cf392adef1c78ef93861714b420eab33ee2c6d0e3474200f4ba",
       "kind": "text"
     },
     {
@@ -37420,7 +37420,7 @@
     {
       "path": "package.json",
       "bytes": 23912,
-      "sha256": "0a82f1344c81f83917697932684ac3fda5756d03d5c980489ec01e2b31474c4f",
+      "sha256": "ed754d221aaf26d430a7ba811374def1b05402cb78d2f221d0f8da348b0b649f",
       "kind": "text"
     },
     {
@@ -42937,14 +42937,14 @@
     },
     {
       "path": "audit/bank-statement-eligibility/README.ar.md",
-      "bytes": 17588,
-      "sha256": "16ff0ef1d0eb21cc52917a39686ae8de0d18bc056d35dea676badf8f1ef8f840",
+      "bytes": 18676,
+      "sha256": "c0922915932f6eb33af1c5fcb011dcbacc8f3de367e36e1292ed808298d31168",
       "kind": "text"
     },
     {
       "path": "audit/bank-statement-eligibility/eligibility.py",
-      "bytes": 28039,
-      "sha256": "e8f06597588fa6293804e2d837c37cd93451de32e2826c96ffaa09186789a6bb",
+      "bytes": 28190,
+      "sha256": "528d5f918e899567a0a3519fef28260811ecd13eddaa553b75f6410391eebe83",
       "kind": "text"
     },
     {
@@ -42973,8 +42973,8 @@
     },
     {
       "path": "audit/bank-statement-eligibility/test_eligibility.py",
-      "bytes": 20393,
-      "sha256": "1f16bfbfbef5c2514cc3df8a1e6f1972ab3e760a288dfc5112e77bef102d12cd",
+      "bytes": 21014,
+      "sha256": "6a43973eb53fdc4395301d3d3ea9763889c6879a306802fc1ee6ae4a4cabee02",
       "kind": "text"
     },
     {
@@ -43437,14 +43437,14 @@
     },
     {
       "path": "docs/audits/BNK-PDF-1-G13.ar.md",
-      "bytes": 14867,
-      "sha256": "ff5fa42e02659d0871793ab4fa7cdb7a0768967881eef5e14c44e99e3b0f4ad5",
+      "bytes": 15172,
+      "sha256": "8731ee39a73e8e4924f60b96607257221dfd61d70cbd29fcbc7c391d1617de47",
       "kind": "text"
     },
     {
       "path": "audit/bank-statement-holdout-g14/README.ar.md",
-      "bytes": 17730,
-      "sha256": "cb70d4c71eff7a43c31ab148c42905838c26f1536248d6335bcaf04d776c7e85",
+      "bytes": 17753,
+      "sha256": "90a03dffb316bb2ab025d4cb34dfcd64c3e1195071279c0fb43ef601a14dccb7",
       "kind": "text"
     },
     {
@@ -43858,6 +43858,36 @@
         "type": "synthetic",
         "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
       }
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/retro-after-g14.json",
+      "bytes": 32079,
+      "sha256": "7f94edda9196717a77d6420097e69655585531be35dd1b6ea19350aae9e68e68",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+      "bytes": 5850,
+      "sha256": "42cbb17a966e3851cce15f1ec6517261e11f5bb474da4d7e756f9d47c1122d76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/results/run-2-24e7584-browser.json",
+      "bytes": 3385,
+      "sha256": "2a4d54cb0bf4f1c29f501888086e741bc183993587f03ea06c1abff59f9552d4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g14/results/run-2-24e7584.json",
+      "bytes": 7922,
+      "sha256": "a81a659d6c866a02035a23373f0958d571d77ae7f34f550ca02a67dfc18d6dff",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-G14.ar.md",
+      "bytes": 21423,
+      "sha256": "a13db88ed49bfd1dadbc1be79389d7fb40d538f790ba50e9155652d1090bd511",
+      "kind": "text"
     }
   ],
   "distribution": [

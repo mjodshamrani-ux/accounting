@@ -450,7 +450,9 @@ def check_page(path, doc, pno, clearance, reach, used=None):
         rectangles = all(item[0] == 're' for item in d['items'])
         if not stroked and (rectangles and (d.get('fill_opacity') or 1) == 1):
             continue
-        half = (d.get('width') or 0) / 2 if stroked else 0
+        # The reader pads a stroke by half its width, and by half a point at
+        # least, before it meets the glyphs' ink (pdf.ts, pad).
+        half = max(0.5, (d.get('width') or 0) / 2) if stroked else 0
         for item in d['items']:
             if item[0] == 'l':
                 p, q = item[1], item[2]

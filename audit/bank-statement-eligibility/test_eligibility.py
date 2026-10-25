@@ -156,6 +156,16 @@ class Planted(unittest.TestCase):
             page.draw_line((36, 77), (384, 77), color=(0.6, 0.6, 0.6), width=0.5)
         self.assertIn('ruleClearance', found(statement('rule', struck)))
 
+    def test_a_thin_rule_is_padded_by_half_a_point_as_the_reader_pads_it(self):
+        # The ink of 'Fee 15.00' ends at 180.23. A rule 0.3 wide at 180.68 is
+        # 0.30 from it by half its width, clear of the 0.1 margin; the reader
+        # pads every stroke by half a point at least, and so meets the ink
+        # (G14: R04, TCPDF's 0.57-point rules).
+        def thin(doc, page):
+            page.insert_text((40, 180), 'Fee 15.00', fontsize=10)
+            page.draw_line((36, 180.68), (384, 180.68), color=(0.6, 0.6, 0.6), width=0.3)
+        self.assertIn('ruleClearance', found(statement('thin-rule', thin)))
+
     def test_a_filled_sliver_under_text_is_a_background(self):
         # MuPDF draws a heading's background in pieces; a pale one 2 points
         # wide under a letter is not a rule, as the reader judges fills.
