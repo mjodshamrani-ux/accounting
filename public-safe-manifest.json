@@ -36151,8 +36151,8 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 88035,
-      "sha256": "e76b330d61a39781130db858bcd217819c919164775363a4771c9669f66f83fb",
+      "bytes": 89620,
+      "sha256": "8b5062b147b74954fa400a50afb4e197efef86131da7f1c965276da39abfcacb",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 23912,
-      "sha256": "ed754d221aaf26d430a7ba811374def1b05402cb78d2f221d0f8da348b0b649f",
+      "bytes": 24002,
+      "sha256": "20c184d6f7755d05ac0e24793eab7e1b14c313940df4e5179940e909640bc702",
       "kind": "text"
     },
     {
@@ -42937,14 +42937,14 @@
     },
     {
       "path": "audit/bank-statement-eligibility/README.ar.md",
-      "bytes": 18676,
-      "sha256": "c0922915932f6eb33af1c5fcb011dcbacc8f3de367e36e1292ed808298d31168",
+      "bytes": 22713,
+      "sha256": "293f90e702bf9a6c284a3a96f68505b2f1af485c9941af0cc863e5d0371a2b28",
       "kind": "text"
     },
     {
       "path": "audit/bank-statement-eligibility/eligibility.py",
-      "bytes": 28190,
-      "sha256": "528d5f918e899567a0a3519fef28260811ecd13eddaa553b75f6410391eebe83",
+      "bytes": 28872,
+      "sha256": "cf94d733116147495d6a130190aed42771c7a80486d64980590ea3367a6127e2",
       "kind": "text"
     },
     {
@@ -42973,8 +42973,8 @@
     },
     {
       "path": "audit/bank-statement-eligibility/test_eligibility.py",
-      "bytes": 21014,
-      "sha256": "6a43973eb53fdc4395301d3d3ea9763889c6879a306802fc1ee6ae4a4cabee02",
+      "bytes": 26350,
+      "sha256": "b8e8cbfacd82eac025b8b87a39eda5eb17817f751538b1624c38ca47ef39d267",
       "kind": "text"
     },
     {
@@ -43413,8 +43413,8 @@
     },
     {
       "path": "audit/bank-statement-eligibility/mutate_columns.py",
-      "bytes": 3362,
-      "sha256": "99afceb1a2e26036575d87bfec077b138ef8c806ca5513f7030a1231626e50e0",
+      "bytes": 3605,
+      "sha256": "cd34e978b58d6f18985a34e4a383514d93dcc2aac920f397c0508c9791887f50",
       "kind": "text"
     },
     {
@@ -43887,6 +43887,392 @@
       "path": "docs/audits/BNK-PDF-1-G14.ar.md",
       "bytes": 21423,
       "sha256": "a13db88ed49bfd1dadbc1be79389d7fb40d538f790ba50e9155652d1090bd511",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/mutate_tounicode.py",
+      "bytes": 1380,
+      "sha256": "1b6020fa7159e8587cb9517af1673664a397e8d1fb9fde92d45030065367f464",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/retro-after-g15.json",
+      "bytes": 32480,
+      "sha256": "84b52c883155d12204de6f33e45b59173d15d069b46b7e43b408f3922b403b88",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/tounicode.py",
+      "bytes": 12935,
+      "sha256": "66c78bfb6231160d8b057b3b83696fbefa8d2d93514c39f7d43c9923919e6848",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/README.ar.md",
+      "bytes": 7510,
+      "sha256": "fae9469cb194526e2c03b2adf6295571268b2c2090363598b890657ad2fea40d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/check_export.py",
+      "bytes": 2886,
+      "sha256": "692f242367344c7237badfc3a28c26cfb15acd47d4d890ce50b5731a7a8ba7f7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/check_seal.py",
+      "bytes": 5972,
+      "sha256": "6c1ffebf0ff3824234291be6a317df544d17a7fa33fb621d30610ad2a7a7c429",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/common.py",
+      "bytes": 4690,
+      "sha256": "26a7dc10f853841c672016ce7cb823937f9eb5e49af533e113838d65821c1cfd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/expected.py",
+      "bytes": 2903,
+      "sha256": "e1f054c3be3c3b94e10bd0d4ef80724e53f75a680c1fd13959eb51e47f8d7f39",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/fonts.py",
+      "bytes": 3324,
+      "sha256": "8520d07fb1130c3e20a023c30b5de444c520b121a6edf2c9a109b076850efc52",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/ELIGIBILITY.json",
+      "bytes": 4401,
+      "sha256": "2f31e94f6308005752cc2601e864255a076af12f6c77544ff66982516b0cf6cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/EXPECTED.json",
+      "bytes": 11325,
+      "sha256": "fde2e69ab589a39d6cc762645cb6aee04207adc6126a664a9c1cf20541c5572e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/INPUT-MANIFEST.json",
+      "bytes": 8669,
+      "sha256": "c0f97b20119ec9fa99dc61614dd5a8f1c59fee15e7ffd543a1dcf343c49f8b6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T01-cashbook.csv",
+      "bytes": 2237,
+      "sha256": "d71956039707a0748df25627b6b059277f59e952081bdc4247cf697a726078b2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T01-statement.pdf",
+      "bytes": 20372,
+      "sha256": "6a5c93552f4667bcfc15eb8ef3c71e0a78051ea0079802ff8a9f42c65b7d1de3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T02-cashbook.csv",
+      "bytes": 2387,
+      "sha256": "b68f544347595f9ba36fbd0da2d89cf5c2dbeb06cd16d76627aed8acab34a363",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T02-statement.pdf",
+      "bytes": 22370,
+      "sha256": "8a18fede6a6de3eb0416bcd5284b176e41fa21bf93e29fe199ebab32b001da54",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T03-cashbook.csv",
+      "bytes": 2334,
+      "sha256": "de2962ae66a1b518e6a802c05b5d09a03d0968bb52846a23eb663928748d8adf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T03-cashbook.xlsx",
+      "bytes": 7348,
+      "sha256": "db0e0a9a873eb504d24f979e24dbc449732028364fd9b7b5af54f0ed9fac6444",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T03-statement.pdf",
+      "bytes": 15219,
+      "sha256": "19146be90e198601497624e29a666db914c2ecebd919ebf29be1c697a80f60f0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T04-cashbook.csv",
+      "bytes": 6089,
+      "sha256": "4df454dec8c32ba8951962d13408e10d5f7509043284cf247e0fd6b098efec6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T04-statement.pdf",
+      "bytes": 24704,
+      "sha256": "c95e06b1c4e10ba57e946ce6dde5071cc4dd2ea8d6a4f3a074aaa3ad0894776c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T05-cashbook.csv",
+      "bytes": 2167,
+      "sha256": "9490267e2f40d1e8766b1fa2ed81d7f9344afb6d978941b7c159ae23b6c67432",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T05-statement.pdf",
+      "bytes": 21330,
+      "sha256": "0e9dabfdffa7414622d44ef2312f356eda8e89d094ef16d8a98bc09b9cf77869",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T06-cashbook.csv",
+      "bytes": 2220,
+      "sha256": "d1b8dd0ac562c7134df8ac510804d53d75dd7067bff112ce7bde5825c655fbd5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T06-statement.pdf",
+      "bytes": 21970,
+      "sha256": "4a2213ce284d4100d5b3b637053645c126b5504685bc96abcc9fe7f1ca8c0daf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T07-cashbook.csv",
+      "bytes": 3106,
+      "sha256": "36b5a9dca7eb30579f0d055079a9891fd6e823bdc16932105d0d28d3cd95d196",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T07-statement.pdf",
+      "bytes": 34048,
+      "sha256": "228ea37d8fa9c397d4bdf5ff5bfe1d31c32d4106e42562ee76cee40fc17336bd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T08-cashbook.csv",
+      "bytes": 3016,
+      "sha256": "b541c2335329f74aa89a026f40310f5811ca9edec9af0a89a25c98846ca99728",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T08-statement.pdf",
+      "bytes": 30858,
+      "sha256": "3fb0a8be9ab66afbd05b1ac2fb4692ee80d22f4c18c35665426597e2dc14ceb4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T09-cashbook.csv",
+      "bytes": 2867,
+      "sha256": "bcd81312e1f35aa8b3c5228d8e6c518803dac547d854d338bd742aee5eed0f07",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T09-statement.pdf",
+      "bytes": 24357,
+      "sha256": "555502f8ae8d6ea19b8aa1ed218d7fb0440c149b66c6f697e4f24c69870e4693",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T10-cashbook.csv",
+      "bytes": 2133,
+      "sha256": "06f68ae4b4f4738d9a6ad22423e10adfe66b2fea543732e2caf0cea7e71ac054",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T10-cashbook.xlsx",
+      "bytes": 7261,
+      "sha256": "10984dc0c57d7f2f6ad8dd76e046d3da1f6aeb15acb6442bc4a90d9dabf47fc8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T10-statement.pdf",
+      "bytes": 19920,
+      "sha256": "35c5da2f06f8c561606d4f818f57e7b0abd8bde31decb4d3f2792a0ce9d44ca3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T11-cashbook.csv",
+      "bytes": 2489,
+      "sha256": "325358cd4b6a8d1bb7a087803577522348fb3e9e79901a8cea05fe222a953ad5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T11-statement.pdf",
+      "bytes": 16819,
+      "sha256": "adc13942203d88a7a8fe67aa38a7f47926739c4f870af0bf8417dc44f04a1b40",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T12-cashbook.csv",
+      "bytes": 2733,
+      "sha256": "57226a624c3b588eccb96e532a42d08c31a28ba31f16c7aba8a72b02d13a23c5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/T12-statement.pdf",
+      "bytes": 32774,
+      "sha256": "d620ecba77c9985dafbb711d8842d16cb706153f1ee4fefe93a4c2f727c2c9cb",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the BNK-PDF-1 G15 holdout: written by Dompdf 3.1.6 under PHP 8.3 or by a Go application with go-pdf/fpdf 0.9.0 and golang.org/x/text 0.29.0 (statements, with fonts built from Fontsource npm packages under the SIL Open Font License), or by excelize 2.9.1 (cashbooks), from audit/bank-statement-holdout-g15/stories.py, sealed by frozen/INPUT-MANIFEST.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/frozen/VERIFY.json",
+      "bytes": 8072,
+      "sha256": "109f103015bbcf1c21e964816f14159c8ae6e0715f7bdfbe608e44b8369cbebe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/go/arabic.go",
+      "bytes": 4600,
+      "sha256": "8a5fe2d6fb32ec3e424dc553a65e9f635ca2632b3806544ae373091f3ade4897",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/go/go.mod",
+      "bytes": 506,
+      "sha256": "ae93daf9f0c9307fc562ce9f27ec51e38865dc3818ef68131a6993e8d7f9d55d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/go/go.sum",
+      "bytes": 2582,
+      "sha256": "bf528bd6d74e26142a67d9ded0a2e5d5d71bb4bf0378ad6837093e1fc77b209d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/go/main.go",
+      "bytes": 13647,
+      "sha256": "5efeb87bc2c0787590976443976ebcae5f16fd3614570806a69edd449e8dc681",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/holdout.json",
+      "bytes": 15894,
+      "sha256": "57f6ae85b1f1e12bf6cbc38ad15d183e58ac671024ea75ae24c6479060ef865f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/js/package-lock.json",
+      "bytes": 4212,
+      "sha256": "64a11d872ee80663c5cd1b0aba399f9a5a0098bfe91737950bb899bb9c6623b2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/js/package.json",
+      "bytes": 579,
+      "sha256": "7c0d02a6af40088f4760b752e08cd6cd1a07f21aaf624f846a74699eef01250e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/php/composer.json",
+      "bytes": 354,
+      "sha256": "6915dc6086577d8e7edaf7e27c5c4670405468c7b03af5895fdb2f8603ea6f00",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/php/composer.lock",
+      "bytes": 11991,
+      "sha256": "fa7512b2442e7a4bff9a70d5f1b3a48b4e9961096b623432159526c79522fbcf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/php/render_dompdf.php",
+      "bytes": 6638,
+      "sha256": "ae60b6c9df07b683c7917f34a33ba557a355a0c03cd39869a63b53c6136d6323",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/render.py",
+      "bytes": 7805,
+      "sha256": "2d493f0d181c23a9e05bd02cb4abd6f1eacfa8cb3935df95c45439b939e26728",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/render_dompdf.py",
+      "bytes": 2590,
+      "sha256": "651eaedb0d5873c3356e186d8bd4140cbc7e1417770578f30f1c4d99649679bd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/render_gofpdf.py",
+      "bytes": 3103,
+      "sha256": "bc57154e3f5bdec081554d7a2165b6b60fda0aef81063e1a39c41881632ac0d9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/stories.py",
+      "bytes": 33922,
+      "sha256": "f3a07d7af33b172aed0b422d73e91efa99bfc0fd77184cd3a8a75cf3c19cbdcd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/test_seal.py",
+      "bytes": 5208,
+      "sha256": "a89e11969d0571bd8742d7438f773c69a86b5fa9d7264ff926c7b6d4ce470caa",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g15/verify.py",
+      "bytes": 26072,
+      "sha256": "b6b1630910ac8371ba488b8e0625d9ba35b544014b153df97f3f0a16478ce8b2",
       "kind": "text"
     }
   ],

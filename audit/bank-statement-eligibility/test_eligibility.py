@@ -16,6 +16,7 @@ import pymupdf
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import columns  # noqa: E402
 import eligibility as el  # noqa: E402
+import tounicode  # noqa: E402
 
 TMP = Path(tempfile.mkdtemp(prefix='eligibility-'))
 
@@ -423,6 +424,107 @@ class Columns(unittest.TestCase):
 
     def test_what_it_copies_is_still_the_readers(self):
         self.assertEqual(columns.drift(), [])
+
+
+HERE = Path(__file__).resolve().parent
+NATIVE = HERE.parent / 'native-unicode' / 'frozen'
+G14 = HERE.parent / 'bank-statement-holdout-g14'
+
+
+def mapped(name, cmap, inside_form=False):
+    """The two-line statement page with a ToUnicode map given to its font;
+    with inside_form, the page drawn again as a form on a new page."""
+    doc = pymupdf.open(statement(name))
+    font = doc[0].get_fonts(full=True)[0][0]
+    xref = doc.get_new_xref()
+    doc.update_object(xref, '<<>>')
+    doc.update_stream(xref, cmap.encode('latin-1'))
+    doc.xref_set_key(font, 'ToUnicode', f'{xref} 0 R')
+    if inside_form:
+        outer = pymupdf.open()
+        outer.new_page(width=420, height=300).show_pdf_page(pymupdf.Rect(0, 0, 420, 300), doc, 0)
+        doc = outer
+    path = TMP / f'{name}-mapped.pdf'
+    doc.save(path)
+    return path
+
+
+def cmap(*sections):
+    return ('/CIDInit /ProcSet findresource begin 12 dict begin begincmap /CMapName /T def /CMapType 2 def '
+            '1 begincodespacerange <00> <FF> endcodespacerange ' + ' '.join(sections) +
+            ' endcmap CMapName currentdict /CMap defineresource pop end end')
+
+
+IDENTITY = 'beginbfrange <20> <7E> <0020> endbfrange'
+
+
+def refused(path):
+    doc = pymupdf.open(path)
+    lone = set()
+    return [f for p in range(doc.page_count) for f in tounicode.check_page(doc, p, lone)], lone
+
+
+class ToUnicode(unittest.TestCase):
+    def tearDown(self):
+        tounicode.STRICT = False
+
+    def test_the_products_own_fixtures_are_read_as_it_reads_them(self):
+        # tests/pdf-native-unicode.test.ts reads every accepted fixture and
+        # refuses every invalid one: a drawn glyph whose pair is broken, and
+        # an odd length, alone or beside a font that is sound.
+        for pdf in sorted(NATIVE.glob('*.pdf')):
+            accepted = json.loads(pdf.with_suffix('.json').read_text(encoding='utf-8'))['accepted']
+            self.assertEqual(not refused(pdf)[0], accepted, pdf.name)
+        self.assertEqual(refused(NATIVE / 'surrogate-range.pdf')[1], {'Helvetica'})
+
+    def test_before_g14_it_finds_what_the_first_g14_run_refused(self):
+        # With the decoder as G1 to G13 prepared it, every statement the
+        # first G14 run refused for a font, and no other.
+        tounicode.STRICT = True
+        run = json.loads((G14 / 'results' / 'run-1-15ea8a1.json').read_text(encoding='utf-8'))
+        flagged = sorted(p.name.split('-')[0] for p in (G14 / 'frozen').glob('*-statement.pdf') if refused(p)[0])
+        self.assertEqual(flagged, run['summary']['refused'])
+        self.assertTrue(refused(NATIVE / 'surrogate-range.pdf')[0])
+
+    def test_a_font_that_loads_only_by_lone_surrogates_is_counted(self):
+        self.assertEqual(refused(G14 / 'frozen' / 'R10-statement.pdf'), ([], {'FreeSansBold'}))
+        self.assertEqual(refused(G14 / 'frozen' / 'R08-statement.pdf'), ([], set()))
+        self.assertEqual(refused(NATIVE / 'letters.pdf'), ([], set()))
+        lone = mapped('lone', cmap(IDENTITY, 'beginbfrange <80> <FF> <D800> endbfrange'))
+        self.assertEqual(el.check_pdf(lone)['exercised'].get('loneSurrogates'), 1)
+
+    def test_a_shown_glyph_mapped_to_a_broken_surrogate(self):
+        # 'T' of Transfer to a high surrogate alone, then to an odd length.
+        high = mapped('high', cmap(IDENTITY, 'beginbfchar <54> <D801> endbfchar'))
+        self.assertEqual(el.check_pdf(high)['found']['toUnicode'][0]['at'],
+                         {'font': 'Helvetica', 'shows': '0054', 'as': 'U+FFFD'})
+        odd = mapped('odd', cmap(IDENTITY, 'beginbfchar <FE> <D801DC> endbfchar'))
+        self.assertEqual(refused(odd)[0], [{'font': 'Helvetica', 'unreadable': 'odd length'}])
+
+    def test_a_glyph_shown_inside_a_form_is_read(self):
+        form = mapped('form', cmap(IDENTITY, 'beginbfchar <54> <DC00> endbfchar'), inside_form=True)
+        self.assertEqual(refused(form)[0], [{'font': 'Helvetica', 'shows': '0054', 'as': 'U+FFFD'}])
+
+    def test_the_map_is_parsed_as_pdfjs_parses_it(self):
+        parsed = tounicode.parse(cmap(
+            'beginbfrange <00FE> <0101> <00FE> endbfrange',         # the carry past 255
+            'beginbfrange <10> <12> [<0041> <0042>] endbfrange',      # an array shorter than its range
+            'beginbfchar <20> <00 4> endbfchar',                      # a lone last digit dropped
+            'beginbfchar <21> /space endbfchar',                      # malformed: the section is skipped
+            'beginbfchar <22> <0043> endbfchar').encode('latin-1'))
+        self.assertEqual([parsed[c] for c in (0xFE, 0xFF, 0x100, 0x101)],
+                         [(0, 0xFE), (0, 0xFF), (1, 0), (1, 1)])
+        self.assertEqual((parsed[0x10], parsed[0x11], 0x12 in parsed), ((0, 0x41), (0, 0x42), False))
+        self.assertEqual(parsed[0x20], (0,))
+        self.assertEqual((0x21 in parsed, parsed[0x22]), (False, (0, 0x43)))
+        with self.assertRaises(tounicode.Unreadable):
+            tounicode.decode(parsed[0x20])
+        self.assertEqual(tounicode.decode((0xD8, 0x01, 0xDC, 0x37)), [0x10437])
+        self.assertEqual(tounicode.decode((0xDC, 0x00, 0xD8, 0x01)), [0xFFFD, 0xFFFD])
+        self.assertEqual(tounicode.decode((0xD8, 0x01, 0x00, 0x41)), [0xFFFD, 0x41])
+
+    def test_what_it_copies_is_still_the_products(self):
+        self.assertEqual(tounicode.drift(), [])
 
 
 if __name__ == '__main__':

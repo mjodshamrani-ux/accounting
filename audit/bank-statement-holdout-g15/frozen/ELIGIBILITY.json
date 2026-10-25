@@ -1,0 +1,236 @@
+{
+ "package": "bank-statement-holdout-g15",
+ "clearancePt": 0.05,
+ "statements": {
+  "T01": {
+   "sha256": "6a5c93552f4667bcfc15eb8ef3c71e0a78051ea0079802ff8a9f42c65b7d1de3",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 18.52,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 45,
+    "loneSurrogates": 2,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 2.75,
+   "leastLineGapPt": null
+  },
+  "T02": {
+   "sha256": "8a18fede6a6de3eb0416bcd5284b176e41fa21bf93e29fe199ebab32b001da54",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 17.55,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 47,
+    "loneSurrogates": 2,
+    "wordParts": 10
+   },
+   "leastRuleGapPt": 4.41,
+   "leastLineGapPt": null
+  },
+  "T03": {
+   "sha256": "19146be90e198601497624e29a666db914c2ecebd919ebf29be1c697a80f60f0",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 16.88,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "drAfterAmount": 32,
+    "loneSurrogates": 2
+   },
+   "leastRuleGapPt": 4.66,
+   "leastLineGapPt": null
+  },
+  "T04": {
+   "sha256": "c95e06b1c4e10ba57e946ce6dde5071cc4dd2ea8d6a4f3a074aaa3ad0894776c",
+   "pages": 6,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 16.95,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 132,
+    "loneSurrogates": 2,
+    "wordParts": 12
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null
+  },
+  "T05": {
+   "sha256": "0e9dabfdffa7414622d44ef2312f356eda8e89d094ef16d8a98bc09b9cf77869",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 18.52,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 45,
+    "loneSurrogates": 2,
+    "wordParts": 7
+   },
+   "leastRuleGapPt": 2.75,
+   "leastLineGapPt": null
+  },
+  "T06": {
+   "sha256": "4a2213ce284d4100d5b3b637053645c126b5504685bc96abcc9fe7f1ca8c0daf",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 17.55,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 44,
+    "loneSurrogates": 2,
+    "wordParts": 7
+   },
+   "leastRuleGapPt": 4.41,
+   "leastLineGapPt": null
+  },
+  "T07": {
+   "sha256": "228ea37d8fa9c397d4bdf5ff5bfe1d31c32d4106e42562ee76cee40fc17336bd",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "dateRuns": 60,
+    "loneSurrogates": 2
+   },
+   "leastRuleGapPt": 1.56,
+   "leastLineGapPt": null
+  },
+  "T08": {
+   "sha256": "3fb0a8be9ab66afbd05b1ac2fb4692ee80d22f4c18c35665426597e2dc14ceb4",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "continuation": 1,
+    "dateRuns": 60,
+    "loneSurrogates": 2
+   },
+   "leastRuleGapPt": 1.5,
+   "leastLineGapPt": null
+  },
+  "T09": {
+   "sha256": "555502f8ae8d6ea19b8aa1ed218d7fb0440c149b66c6f697e4f24c69870e4693",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "loneSurrogates": 2
+   },
+   "leastRuleGapPt": 1.81,
+   "leastLineGapPt": null
+  },
+  "T10": {
+   "sha256": "35c5da2f06f8c561606d4f818f57e7b0abd8bde31decb4d3f2792a0ce9d44ca3",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.5,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 47,
+    "loneSurrogates": 2,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 2.77,
+   "leastLineGapPt": null
+  },
+  "T11": {
+   "sha256": "adc13942203d88a7a8fe67aa38a7f47926739c4f870af0bf8417dc44f04a1b40",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 9.83,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 55,
+    "loneSurrogates": 2,
+    "wordParts": 7
+   },
+   "leastRuleGapPt": 2.18,
+   "leastLineGapPt": null
+  },
+  "T12": {
+   "sha256": "d620ecba77c9985dafbb711d8842d16cb706153f1ee4fefe93a4c2f727c2c9cb",
+   "pages": 3,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.0,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "dateRuns": 50,
+    "loneSurrogates": 2
+   },
+   "leastRuleGapPt": 1.56,
+   "leastLineGapPt": null
+  }
+ },
+ "decision": {
+  "story": "T01",
+  "reasons": [
+   "date-gap"
+  ],
+  "problems": []
+ }
+}

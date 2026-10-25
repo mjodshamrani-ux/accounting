@@ -38,6 +38,9 @@ Checks on every page of every statement:
                 meet the others: the line test measured nothing there
   visibleInk    text ink that is not dark where the page is drawn: covered by
                 a later fill, or cut away by a clip
+  toUnicode     a font the page selects whose ToUnicode map PDF.js's
+                prepared decoder cannot read (an odd length), or a glyph
+                shown as U+FFFD: tounicode.py, since G15
 and on the statement: columns, the reader's reading of each line by its
 page's column headers (columns.py), where it would stop; on a rotated page it
 is not read, as the reader refuses the page first;
@@ -52,8 +55,11 @@ reversedDate (a date read with its segments reversed), endAligned (a value
 placed by its header's end), wordParts (an item placed by its words) and
 continuation come from columns.py; visibleByInk is a run of text visible by
 its glyphs' ink (G12) and not by its font's declared box, the ascent and
-descent its descriptor gives PDF.js, by which the reader judged before. A story written for a rule
-is thus seen to reach it before the seal (DEV-59).
+descent its descriptor gives PDF.js, by which the reader judged before;
+loneSurrogates is a font whose map carries a surrogate without its pair,
+read as U+FFFD and shown by no glyph (G14), that would not load otherwise
+(tounicode.py). A story written for a rule is thus seen to reach it before
+the seal (DEV-59).
 
   PYTHONPATH=<pymupdf 2.0> python3 -B eligibility.py <package> [--decide STORY] [--out file]
 """
@@ -69,6 +75,7 @@ from pathlib import Path
 import pymupdf
 
 import columns
+import tounicode
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
@@ -535,9 +542,12 @@ def check_pdf(path, clearance=0.05, reach=0.5):
     if doc.get_ocgs():
         result['found']['layers'] = list(doc.get_ocgs())
     least_rule, least_line = None, None
-    used = Counter()
+    used, lone = Counter(), set()
     for pno in range(doc.page_count):
         found, rule, gap = check_page(str(path), doc, pno, clearance, reach, used)
+        maps = tounicode.check_page(doc, pno, lone)
+        if maps:
+            found['toUnicode'] = maps
         for k, v in found.items():
             result['found'].setdefault(k, []).extend([{'page': pno + 1, 'at': x} for x in v[:3]])
         if rule is not None:
@@ -562,9 +572,10 @@ def check_pdf(path, clearance=0.05, reach=0.5):
         stop = columns.check_statement(doc, used)
         if stop:
             result['found']['columns'] = [stop]
-    # The rules the reader needs to read this statement (columns.py and the
-    # contrast test above), so that a story written for a rule is seen to
-    # reach it before the seal (DEV-59).
+    # The rules the reader needs to read this statement (columns.py, the
+    # contrast test above and tounicode.py), so that a story written for a
+    # rule is seen to reach it before the seal (DEV-59).
+    used['loneSurrogates'] = len(lone)
     result['exercised'] = dict(sorted((k, v) for k, v in used.items() if v))
     result['leastRuleGapPt'] = None if least_rule is None else round(least_rule, 2)
     result['leastLineGapPt'] = least_line   # None: no closer than reach
@@ -597,6 +608,8 @@ def main():
         raise SystemExit(f'ACCEPTABLE drifted from {VIEW}: {acceptable_in_source()}')
     if columns.drift():
         raise SystemExit(f'the reader no longer carries what columns.py copies: {columns.drift()}')
+    if tounicode.drift():
+        raise SystemExit(f'the reader no longer carries what tounicode.py copies: {tounicode.drift()}')
     package = Path(a.package)
     report = {'package': package.name, 'clearancePt': a.clearance, 'statements': {}}
     for pdf in sorted((package / 'frozen').glob('*-statement.pdf')):
