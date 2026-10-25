@@ -126,7 +126,9 @@ void test('settings: no permission or environment changes, reviewed hook events,
 
 void test('hygiene: secrets and local machine paths are refused', () => {
   fails((f) => (f[SKILL] += '\nKey sk-ant-api03-abcdefghijklmnop\n'), /contains an Anthropic key/);
-  fails((f) => (f[SKILL] += '\nSee /home/someone/private.xlsx\n'), /contains a local machine path/);
+  // Built at run time, as in the public-content guard's own tests.
+  const homePath = ['/', 'home/', 'someone/', 'private.xlsx'].join('');
+  fails((f) => (f[SKILL] += `\nSee ${homePath}\n`), /contains a local machine path/);
   fails((f) => (f['.claude/rules/scripts.md'] += '\nAccount SA0380000000608010167519\n'), /IBAN-shaped/);
 });
 
