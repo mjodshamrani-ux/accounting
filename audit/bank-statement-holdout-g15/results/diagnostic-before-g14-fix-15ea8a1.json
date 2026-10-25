@@ -1,0 +1,183 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "15ea8a1079a3c0cc1139561ad95b2c2a653c3c21",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [],
+  "positivesFailed": [
+   "T01",
+   "T02",
+   "T03",
+   "T04",
+   "T07",
+   "T08",
+   "T09",
+   "T10",
+   "T11"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [],
+  "readingOk": [],
+  "refused": [
+   "T01",
+   "T02",
+   "T03",
+   "T04",
+   "T05",
+   "T06",
+   "T07",
+   "T08",
+   "T09",
+   "T10",
+   "T11",
+   "T12"
+  ],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "T01",
+   "producer": "dompdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T02",
+   "producer": "dompdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T03",
+   "producer": "dompdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T04",
+   "producer": "dompdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T05",
+   "producer": "dompdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T06",
+   "producer": "dompdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T07",
+   "producer": "gofpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T08",
+   "producer": "gofpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T09",
+   "producer": "gofpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T10",
+   "producer": "gofpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T11",
+   "producer": "gofpdf",
+   "layout": "en",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  },
+  {
+   "id": "T12",
+   "producer": "gofpdf",
+   "layout": "ar",
+   "refused": "تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel",
+   "reading": {
+    "ok": false,
+    "differences": [
+     "refused: تعذرت قراءة صفحة PDF 1: تعذر التحقق من نص أحد خطوط PDF؛ اطلب نسخة سليمة أو Excel"
+    ]
+   }
+  }
+ ]
+}

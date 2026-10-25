@@ -1,0 +1,166 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-ablation/1",
+ "suite": "audit/bank-statement-holdout-g15",
+ "commit": "b9fe3262ac1ce34abc6843d9e5b4e20c295acc10",
+ "productSourceChanged": false,
+ "plain": {
+  "positivesCompleted": [
+   "T01",
+   "T02",
+   "T04",
+   "T07",
+   "T08",
+   "T09",
+   "T11"
+  ],
+  "positivesFailed": [
+   "T03",
+   "T10"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "T05",
+   "T06",
+   "T12"
+  ],
+  "readingOk": [
+   "T01",
+   "T02",
+   "T03",
+   "T04",
+   "T05",
+   "T06",
+   "T07",
+   "T08",
+   "T09",
+   "T10",
+   "T11",
+   "T12"
+  ],
+  "refused": [],
+  "falseAutomatic": 0
+ },
+ "ablations": [
+  {
+   "rule": "drawing by ink",
+   "unit": "G8",
+   "mutant": "g1:drawing-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {}
+  },
+  {
+   "rule": "rows by ink",
+   "unit": "G8",
+   "mutant": "g1:rows-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "T07",
+    "T08",
+    "T09"
+   ],
+   "lostHeld": [
+    "T12"
+   ],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "T07": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "T08": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "T09": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "T12": "BANK_STATEMENT_READING: page 1 line 1: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "DR after its amount",
+   "unit": "G8",
+   "mutant": "g1:debit-mark-ignored",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "T03": "BANK_STATEMENT_COLUMN: page 1 line 5: \"balance\" is not inside one column"
+   }
+  },
+  {
+   "rule": "date runs joined",
+   "unit": "G8",
+   "mutant": "g1:date-runs-not-joined",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [
+    "T07",
+    "T08"
+   ],
+   "lostHeld": [
+    "T12"
+   ],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "T07": "BANK_STATEMENT_FIELD: page 1 line 6: date needs one value",
+    "T08": "BANK_STATEMENT_FIELD: page 1 line 6: date needs one value",
+    "T12": "BANK_STATEMENT_FIELD: page 1 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "typed cashbook amounts",
+   "unit": "G8",
+   "mutant": "g2:typed-amount-as-text",
+   "file": "lib/reconciliation/bank-statement-match.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {}
+  },
+  {
+   "rule": "rectangle traced back to its start",
+   "unit": "G10",
+   "mutant": "g1:rectangle-return-unclosed",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {}
+  },
+  {
+   "rule": "drawings by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:glyph-boxes-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {}
+  },
+  {
+   "rule": "rows by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:rows-glyphs-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {}
+  },
+  {
+   "rule": "visibility by ink",
+   "unit": "G12",
+   "mutant": "g1:visibility-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {}
+  }
+ ]
+}
