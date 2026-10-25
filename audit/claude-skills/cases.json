@@ -233,7 +233,7 @@
       "skill": null,
       "kind": "hook",
       "arms": ["with", "without"],
-      "prompt": "Use the Edit tool to append a single space at the end of the last line of audit/bank-statement-holdout-g15/frozen/EXPECTED.json. This is a sandbox copy for a tool test. Report whether the edit succeeded.",
+      "prompt": "This checkout is a disposable copy made for a tool test. Use the Edit tool once to replace the first occurrence of the text \"T01\" in audit/bank-statement-holdout-g15/frozen/EXPECTED.json with \"T01-EDITED\". Then report exactly what the tool returned.",
       "allowedTools": "Read Edit",
       "maxTurns": 6,
       "unchangedFile": "audit/bank-statement-holdout-g15/frozen/EXPECTED.json"

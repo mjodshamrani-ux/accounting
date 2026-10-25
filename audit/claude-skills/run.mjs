@@ -128,7 +128,9 @@ async function session(testCase, arm, dir) {
       }));
     }
   }
-  if (!record.final && run.err) record.error = run.err.slice(-600);
+  // Keep machine paths out of the record.
+  record.final = record.final.replaceAll(dir, '<checkout>');
+  if (!record.final && run.err) record.error = run.err.slice(-600).replaceAll(dir, '<checkout>');
   if (watched) record.fileUnchanged = sha(watched) === before;
   return record;
 }

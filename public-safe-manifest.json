@@ -9,14 +9,14 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 39480,
-      "sha256": "6db31c05b303fdbb444590f68dea3bb52625fbf2487f2270348addb2d3695b89",
+      "bytes": 39600,
+      "sha256": "99b525b16092a8c2eb16eadcf1e75054483112999129409fd6439f132a300c20",
       "kind": "text"
     },
     {
       "path": ".gitignore",
-      "bytes": 1188,
-      "sha256": "25c95e7c30c53ad7f46288631a7921cc9c6b0ff190097af9c84d551d00f9b8a1",
+      "bytes": 1250,
+      "sha256": "c4916c739e2543140f1c1f20af12db77ea1cac3eaf67ec6cc5a952069f9f0e18",
       "kind": "text"
     },
     {
@@ -39,8 +39,8 @@
     },
     {
       "path": "CLAUDE.md",
-      "bytes": 2875,
-      "sha256": "e26b15a063d23cecd57f2ed5bab4e189a9e411792ad9420c65afe535b013f4f2",
+      "bytes": 3504,
+      "sha256": "09323c4d77032c6a37bf1f9b38b04ea62ec1614b1b2ce08afbba5faf01ad4f25",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 17159,
-      "sha256": "7efce87bde6302aba25da481c721fe414ad68a4ce8caead24f6e1d51734e1ae6",
+      "bytes": 17405,
+      "sha256": "b0fd3320bb005974b07e430683ffe2fba356bbfd89824bfe690fa8d37986063b",
       "kind": "text"
     },
     {
@@ -36151,8 +36151,8 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 91168,
-      "sha256": "a86b20d98e8949cd38bde6bd8cf9c3a87fde54d3786435bc73060ec950a16487",
+      "bytes": 91492,
+      "sha256": "69952d4779c2c623baa7f8674de5ae518a98f7d44807562655672b456b348f16",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 24549,
-      "sha256": "c66563caf44f5ea09468634e2303e46516f51ae375cabe6be807557d59b76214",
+      "bytes": 24723,
+      "sha256": "eeb1b35e7bebce2e1f7c8333203cdef6fe7c97c6f0fc290531e940fc76c16a53",
       "kind": "text"
     },
     {
@@ -44321,6 +44321,180 @@
       "path": "docs/audits/BNK-PDF-1-G15.ar.md",
       "bytes": 23533,
       "sha256": "d811c6180e3697f5004c4414ef790d661e35d0224b87f900111da971b7250903",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/hooks/protect-recorded-evidence.mjs",
+      "bytes": 2806,
+      "sha256": "419145816116f609b0ed6850020d35bb5f32bf215e46be7955bb7adca3ca94f0",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/rules/agent-boundaries.md",
+      "bytes": 1316,
+      "sha256": "67b4474bc03c1a465579074f51975f649a01c97daadccd30118c1b3225a94b42",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/rules/ai-code.md",
+      "bytes": 530,
+      "sha256": "5a34fab94e58bbcc6265bedb72b9d650395626e42a07ffd94d4d5c2de31418e7",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/rules/engine-code.md",
+      "bytes": 688,
+      "sha256": "720911092f4cbbf8c3725c8738c74771905f6d7e0260f6c329618fe46a69ec39",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/rules/interface-code.md",
+      "bytes": 579,
+      "sha256": "a25c63809709ab3f2dc3d943e6a9b8694b6d65f6ac2fefedd8a18adc42105e24",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/rules/recorded-evidence.md",
+      "bytes": 942,
+      "sha256": "6beb9a943c8256675bd24e4ff94b4cfc6cc05c80596f99b9845a06cf9c9f0799",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/settings.json",
+      "bytes": 330,
+      "sha256": "26cd578c3c1c710556e559699cee9501697ea715e580cb1f3245952af4a5700c",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-accounting-review/SKILL.md",
+      "bytes": 4951,
+      "sha256": "d816d5e18d3e553612fc385790aaf416f220f906ca1f27a204292cd1bece4c0c",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-accounting-review/checklist.md",
+      "bytes": 3550,
+      "sha256": "da773fa6e1bdb0ca03af11f02c5aa8b57b70a3336d52e8f19f9e3b51ca34ebb1",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-adversarial-testing/SKILL.md",
+      "bytes": 5245,
+      "sha256": "9dd7a627116a6a451c92dc65fc8c1af4ffc9a9aad985b59972a086bb5b2bd16f",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-adversarial-testing/catalog.md",
+      "bytes": 3284,
+      "sha256": "104023006df96f2838c113fe0d481e6b0eb6e71006d147228e7c3e58af50beea",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-ai-integration/SKILL.md",
+      "bytes": 4066,
+      "sha256": "81efa0a4366d1c39fc94c3382cf2e163a77a5605fed2a1031e0cab298f20a23f",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-engine-development/SKILL.md",
+      "bytes": 5866,
+      "sha256": "dfc888665cdf2b05d847b245a607db9da8dfe6a800101e5aebc99d8c0dc251c1",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-privacy-security/SKILL.md",
+      "bytes": 4999,
+      "sha256": "0e7fc8b3c2b54cd71713839e267b94fe6220c1cd64e25b10566d84254aac70d6",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-privacy-security/data-flow.md",
+      "bytes": 3541,
+      "sha256": "02421b3824f14f5b8c1d405faa6c6eda793e7cec61445efcdb3e51aa02b495a8",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-product-workflow/SKILL.md",
+      "bytes": 4890,
+      "sha256": "1092509c7eb7ba6ea12d28bbfffd2a88e0e33fbb33ab575829c5b243674b608e",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-regression-release/SKILL.md",
+      "bytes": 4247,
+      "sha256": "c5e9ca5c52371764cbcf57ad0ff5a62e22367151348ff1b53c804b5794274b7a",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-regression-release/selection.md",
+      "bytes": 3716,
+      "sha256": "c52ddb61fd67374a3f61157c52d983422711dd8ac875b275cfe1319e754d72a7",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-source-evidence/SKILL.md",
+      "bytes": 4927,
+      "sha256": "d8673efbca48408275a8c57ff28d8070128d4155db6c939d2882e3bf2bdaa6c9",
+      "kind": "text"
+    },
+    {
+      "path": ".claude/skills/tarasuf-source-evidence/formats.md",
+      "bytes": 2646,
+      "sha256": "9f263ead18a1b79422c46405e4eebae31b1cf0e55198dd1ebdc75bb78007fe79",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/README.ar.md",
+      "bytes": 2345,
+      "sha256": "b62118a7403c54599846b8bcdf3e4d268976bad8064a5cc7548b34e5cbab09a7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/cases-trigger-holdout.json",
+      "bytes": 7169,
+      "sha256": "1d2951a80d1f43b778b61fa7fed52326cb724a9c2166b046b0c04a3ba16d489b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/cases.json",
+      "bytes": 17837,
+      "sha256": "1f5c8427152e58f4efcda47ed8e4625a2986a2348ff7ee46fe43e74ae6666ca0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/run.mjs",
+      "bytes": 9670,
+      "sha256": "10c0c67caf59803481246354da574bc94b86b6ba26e6d2851f5ba5b0ef811422",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/LESSONS-INDEX.ar.md",
+      "bytes": 18598,
+      "sha256": "fe9df3633ffa6039992600b6d545e7ef2ce6069b409900852e2534f510919a86",
+      "kind": "text"
+    },
+    {
+      "path": "docs/reference/SKILLS.ar.md",
+      "bytes": 14593,
+      "sha256": "eb34f894386a4a278d204865eb42670072502523e2e815ae6b989a808d5a79dc",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/check-claude-skills.mjs",
+      "bytes": 13332,
+      "sha256": "aee57f30f3d24cf7b5effa8f334f6322106ec0e73a9d2bb3b177dfc60b4d8b09",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/check-claude-skills.test.mjs",
+      "bytes": 8142,
+      "sha256": "0abadd65721bbc4cbb2a3fa5f23f21a2a4fb57d18c07ed0099e96a3402dfcbc1",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/claude-hook.test.mjs",
+      "bytes": 3561,
+      "sha256": "0c73dba052905d394cb74d5320889a4d8aba6735f23c434536ecdf9f4c81d442",
       "kind": "text"
     }
   ],

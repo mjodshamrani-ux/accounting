@@ -32,6 +32,8 @@ jobs:
       - run: pnpm audit --prod --audit-level=moderate
       - run: pnpm lint
       - run: pnpm typecheck
+      - name: Verify Claude Code skills, rules, hook settings and their references
+        run: pnpm test:claude-skills
       - name: Verify integrated family CI syntax and required gate wiring offline
         run: pnpm test:source-families:ci
       - run: pnpm test
