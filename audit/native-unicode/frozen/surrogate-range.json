@@ -1,0 +1,56 @@
+{
+  "synthetic": true,
+  "name": "surrogate-range",
+  "sourceSha256": "b8bf259a8ad79a4bfa44a6ff2c662f249d1fa6e811e14b41e18d586bffba5e19",
+  "cuts": [
+    20,
+    40,
+    70,
+    85
+  ],
+  "rows": [
+    [
+      "SYNTHETIC ONLY",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Currency: SAR",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "Date",
+      "Reference",
+      "Description",
+      "Debit",
+      "Credit"
+    ],
+    [
+      "Invoice: UNI-41",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "2026-10-08",
+      "UNI-41",
+      "surrogate range 𐐀 𝐀",
+      "12.34",
+      "0"
+    ],
+    [
+      "2026-10-09",
+      "UNI-41",
+      "credit 𐐨 𝒜 𠀀",
+      "0",
+      "0.56"
+    ]
+  ],
+  "accepted": true
+}

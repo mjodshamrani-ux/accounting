@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib,json,zlib,csv,io
 ROOT=Path(__file__).parent/'frozen'
 
-def make(rows, special, compressed=False, ranged=False, mixed=False):
+def make(rows, special, compressed=False, ranged=False, mixed=False, surrogate_ranges=False):
     # Assign a CID to each source character; one deliberately maps to a sequence.
     chars=sorted(set(''.join(''.join(row) for row in rows)));ids={c:i+1 for i,c in enumerate(chars)}
     mapping={c:c.encode('utf-16-be').hex().upper() for c in chars}
@@ -13,6 +13,9 @@ def make(rows, special, compressed=False, ranged=False, mixed=False):
         cm += [f'{len(chars)} beginbfrange']+[f'<{ids[c]:04X}> <{ids[c]:04X}> [<{mapping[c]}>]' for c in chars]+['endbfrange']
     else:
         cm += [f'{len(chars)} beginbfchar']+[f'<{ids[c]:04X}> <{mapping[c]}>' for c in chars]+['endbfchar']
+    if surrogate_ranges:
+        # An identity map over the surrogate block, as TCPDF and mPDF write it; no glyph uses these codes.
+        cm += ['2 beginbfrange','<D800> <DBFF> <D800>','<DC00> <DFFF> <DC00>','endbfrange']
     cm += ['endcmap CMapName currentdict /CMap defineresource pop end end']
     def stream(b, compress=False):
         b=b.encode() if isinstance(b,str) else b
@@ -50,4 +53,7 @@ save('unicode-reference',rows('reference 𐐀','REF-𐐀-𝐀-𠀀'))
 for name,code in [('high-only','D801'),('low-only','DC00'),('high-ascii','D8010041'),('reversed','DC00D801'),('double-high','D801D801'),('odd-byte','D801DC')]:save('invalid-'+name,rows('invalid § value'),{'§':code})
 print('Generated independent synthetic native source bytes and facts; no product extraction.')
 
+save('surrogate-range',rows('surrogate range 𐐀 𝐀'),surrogate_ranges=True)
 mixed_rows=rows('invalid § value');mixed_rows[-1][2]='credit good';save('invalid-mixed-font',mixed_rows,{'§':'D8010041'},mixed=True)
+# A font that still fails to load (odd UTF-16BE) beside a valid one: no valid remainder of the page is a source (G14).
+save('invalid-mixed-font-odd',mixed_rows,{'§':'D801DC'},mixed=True)

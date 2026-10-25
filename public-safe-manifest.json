@@ -17105,8 +17105,8 @@
     },
     {
       "path": "audit/native-unicode/generate.py",
-      "bytes": 4856,
-      "sha256": "92d6cb594364bc850d689445e0985466478325562cdfcefdb947b1431aafddfa",
+      "bytes": 5372,
+      "sha256": "4cbb8c05a0dcd0c6be5338b4b74cbd1964683c397a8a22bf63d0a27c3d16bb28",
       "kind": "text"
     },
     {
@@ -38075,8 +38075,8 @@
     },
     {
       "path": "scripts/prepare-native-pdf.mjs",
-      "bytes": 2439,
-      "sha256": "b4012f65eef6557a987b12205cd627cda0c71d197ba38401ed4557cbbd921e58",
+      "bytes": 2570,
+      "sha256": "00bed2aaf401c3f18cbf9a43965ccb7fbd9340f68640ea9b7638e7cec5091092",
       "kind": "text"
     },
     {
@@ -38327,8 +38327,8 @@
     },
     {
       "path": "scripts/test-native-pdf-mutations.mjs",
-      "bytes": 3992,
-      "sha256": "c0b7830e429ac6d919617cdfde2d117991316e265703635f1f7094b62b8d305e",
+      "bytes": 4142,
+      "sha256": "8c16bf420fc971c56c1f25fde5088ddc4744604e93b1c9ea415e5d082277fd51",
       "kind": "text"
     },
     {
@@ -40127,8 +40127,8 @@
     },
     {
       "path": "tests/pdf-native-unicode.test.ts",
-      "bytes": 5676,
-      "sha256": "faafe3d8bbf6dbe5b209c1f2bf7449ee774772141f5a39c720df490b384404ff",
+      "bytes": 5795,
+      "sha256": "ee10fda030eec67cf1e0354e13fb92e235e929f418ecc09d24393f7b7d0a856c",
       "kind": "text"
     },
     {
@@ -43820,6 +43820,44 @@
       "bytes": 6270,
       "sha256": "d99498628f87c3722b510aaa8ae5d0e55a597724c8372b14c6fb741892292c48",
       "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-mixed-font-odd.json",
+      "bytes": 750,
+      "sha256": "2113777d0bcf0f09d3f2fd292d8024a57aaa67371af677a00f7c5b9bdf766651",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/invalid-mixed-font-odd.pdf",
+      "bytes": 3256,
+      "sha256": "6e453c17491da11e321af0de9afa33c886645be3e30710d4b4c42b38cbe8bcce",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
+    },
+    {
+      "path": "audit/native-unicode/frozen/surrogate-range.csv",
+      "bytes": 142,
+      "sha256": "2c2f1b160e982ddf64a6ac5e09df9ce6e95960875bea0c3eae090d27151f4f90",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/surrogate-range.json",
+      "bytes": 761,
+      "sha256": "3c84bae8a717fc2fab70f1f52e5afc2ce6d17306f2b6bbffbc6d27525e61743a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/native-unicode/frozen/surrogate-range.pdf",
+      "bytes": 3538,
+      "sha256": "b8bf259a8ad79a4bfa44a6ff2c662f249d1fa6e811e14b41e18d586bffba5e19",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "Public literal PDF containing synthetic fixed facts only. Source and expected CSV hashes independently frozen before regression product imports. Proposed distribution requires independent final candidate review."
+      }
     }
   ],
   "distribution": [
