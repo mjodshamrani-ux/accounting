@@ -38,6 +38,9 @@ Checks on every page of every statement:
                 meet the others: the line test measured nothing there
   visibleInk    text ink that is not dark where the page is drawn: covered by
                 a later fill, or cut away by a clip
+and on the statement: columns, the reader's reading of each line by its
+page's column headers (columns.py), where it would stop; on a rotated page it
+is not read, as the reader refuses the page first;
 and on the package: decision, the declared decision story must have a review
 case the page accepts and an outstanding item for the checker's self-test.
 
@@ -52,6 +55,8 @@ import sys
 from pathlib import Path
 
 import pymupdf
+
+import columns
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
@@ -499,6 +504,10 @@ def check_pdf(path, clearance=0.05, reach=0.5):
         # Two lines meet one way only; more must meet both ways.
         if not (all(seen) if len(lines) >= 3 else any(seen)):
             result['found']['lineControl'] = [{'page': 1, 'at': half}]
+    if 'rotation' not in result['found']:
+        stop = columns.check_statement(doc)
+        if stop:
+            result['found']['columns'] = [stop]
     result['leastRuleGapPt'] = None if least_rule is None else round(least_rule, 2)
     result['leastLineGapPt'] = least_line   # None: no closer than reach
     return result
@@ -528,6 +537,8 @@ def main():
     a = ap.parse_args()
     if acceptable_in_source() != ACCEPTABLE:
         raise SystemExit(f'ACCEPTABLE drifted from {VIEW}: {acceptable_in_source()}')
+    if columns.drift():
+        raise SystemExit(f'the reader no longer carries what columns.py copies: {columns.drift()}')
     package = Path(a.package)
     report = {'package': package.name, 'clearancePt': a.clearance, 'statements': {}}
     for pdf in sorted((package / 'frozen').glob('*-statement.pdf')):

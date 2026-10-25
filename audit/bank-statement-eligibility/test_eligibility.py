@@ -13,6 +13,7 @@ from pathlib import Path
 import pymupdf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import columns  # noqa: E402
 import eligibility as el  # noqa: E402
 
 TMP = Path(tempfile.mkdtemp(prefix='eligibility-'))
@@ -33,13 +34,17 @@ def statement(name, build=None, **text):
 
 
 def found(path):
-    return el.check_pdf(path)['found']
+    """The page checks' findings. These pages are fragments of a statement,
+    without its header, so the reading by columns is tested on whole
+    statements in Columns below."""
+    return {k: v for k, v in el.check_pdf(path)['found'].items() if k != 'columns'}
 
 
 class Planted(unittest.TestCase):
     def test_clean_page_passes_every_check(self):
         result = el.check_pdf(statement('clean'))
-        self.assertEqual(result['found'], {})
+        self.assertEqual({k: v for k, v in result['found'].items() if k != 'columns'}, {})
+        self.assertEqual(result['found']['columns'][0]['code'], 'HEADER')
         self.assertIsNotNone(result['leastRuleGapPt'])
 
     def test_rotation(self):
@@ -224,6 +229,116 @@ class Decision(unittest.TestCase):
 
     def test_the_page_rule_is_read_from_the_product(self):
         self.assertEqual(el.acceptable_in_source(), el.ACCEPTABLE)
+
+
+HEADERS = ['Date', 'Value Date', 'Description', 'Reference', 'Withdrawal', 'Deposit', 'Balance']
+STARTS = [40, 100, 160, 290]    # columns read from their left edge
+ENDS = [430, 500, 570]          # amount columns, right-aligned
+
+
+def put(page, y, cells, end_shift=0, start_shift=0):
+    for k, text in enumerate(cells):
+        if not text:
+            continue
+        if k < 4:
+            x = STARTS[k] + (start_shift if k == 0 and y > 80 else 0)
+        else:
+            x = ENDS[k - 4] - pymupdf.get_text_length(text, fontname='helv', fontsize=8) - (end_shift if y > 80 else 0)
+        page.insert_text((x, y), text, fontsize=8, fontname='helv')
+
+
+def whole(name, pages, headers=HEADERS, **shift):
+    """A statement whose pages are lists of table rows, each seven cells."""
+    doc = pymupdf.open()
+    for n, rows in enumerate(pages, 1):
+        page = doc.new_page(width=600, height=400)
+        page.insert_text((40, 40), 'Harbor Line Bank', fontsize=12)
+        page.insert_text((40, 58), 'Account: SA00 1000 · Currency: SAR · Period: 2026-04-01 — 2026-04-30', fontsize=8)
+        put(page, 80, headers)
+        for i, row in enumerate(rows):
+            put(page, 96 + 14 * i, row, **shift)
+        page.insert_text((270, 370), f'Page {n} of {len(pages)}', fontsize=8)
+    path = TMP / f'{name}.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
+ONE = [['Opening balance', '', '', '', '', '', '1,000.00'],
+       ['2026-04-02', '2026-04-02', 'Card settlement', 'CS-01', '', '250.00', '1,250.00'],
+       ['2026-04-03', '2026-04-03', 'Rent', 'RT-02', '400.00', '', '850.00'],
+       ['Closing balance', '', '', '', '', '', '850.00'],
+       ['Total withdrawals / deposits', '', '', '', '400.00', '250.00', '']]
+
+
+def two(continuation):
+    return [[['Opening balance', '', '', '', '', '', '1,000.00'],
+             ['2026-04-02', '2026-04-02', 'Card settlement for', 'CS-01', '', '250.00', '1,250.00'],
+             ['Balance carried forward', '', '', '', '', '', '1,250.00']],
+            [['Balance brought forward', '', '', '', '', '', '1,250.00'],
+             ['', '', continuation, '', '', '', ''],
+             ['Closing balance', '', '', '', '', '', '1,250.00'],
+             ['Total withdrawals / deposits', '', '', '', '0.00', '250.00', '']]]
+
+
+def stop(doc):
+    r = columns.check_statement(doc)
+    return r and (r['code'], r['page'], r['line'])
+
+
+def code(doc):
+    return (stop(doc) or (None,))[0]
+
+
+class Columns(unittest.TestCase):
+    """The reader's reading by columns (columns.py), on planted statements
+    and on sealed ones whose reading the reader has recorded."""
+
+    def test_a_whole_statement_reads(self):
+        self.assertIsNone(stop(whole('columns-clean', [ONE])))
+
+    def test_a_value_starts_within_the_cell_padding_of_its_column(self):
+        # 2.5 points before the header's left edge is inside; 2.6 is not.
+        self.assertIsNone(stop(whole('columns-pad-in', [ONE], start_shift=-2.4)))
+        self.assertEqual(code(whole('columns-pad-out', [ONE], start_shift=-2.6)), 'COLUMN')
+
+    def test_amounts_ending_a_slot_before_their_header(self):
+        # As Q03 of G12: a DR slot of 14.4 points after every amount.
+        self.assertEqual(code(whole('columns-slot', [ONE], end_shift=14.4)), 'COLUMN')
+        self.assertIsNone(stop(whole('columns-slot-small', [ONE], end_shift=2.4)))
+
+    def test_a_continuation_in_its_column_and_across_columns(self):
+        self.assertIsNone(stop(whole('columns-continued', two('(continued) at the till'))))
+        # Run on across the reference column, a word lies across its edge: the
+        # reader stops there, at "for" (checked with the reader). Q06, whose
+        # words fall wholly inside the reference column, is read as a
+        # movement without its date instead (below).
+        self.assertEqual(stop(whole('columns-across', two('(continued) at the till of the branch for the whole of April'))),
+                         ('COLUMN', 2, 5))
+
+    def test_a_header_not_declared(self):
+        self.assertEqual(code(whole('columns-header', [ONE], headers=HEADERS[:3] + ['Ref.'] + HEADERS[4:])), 'HEADER')
+
+    def test_a_description_line_without_its_movement(self):
+        stray = [ONE[0], ['', '', 'Card settlement', '', '', '', '']] + ONE[1:]
+        self.assertEqual(stop(whole('columns-stray', [stray])), ('LINE', 1, 5))
+
+    def test_sealed_statements_read_as_the_reader_read_them(self):
+        # Completed by the reader: right-to-left DR balances as one item (Q10)
+        # and as two the reader joins (H04), dates in touching runs (Q02),
+        # lam-alef ligatures (K05, N04).
+        # Refused by it, with its page and line (run records; K04 and P09 with
+        # the earlier guards off, G13).
+        root = Path(__file__).resolve().parent.parent
+        cases = {('g12', 'Q10'): None, ('g6', 'H04'): None, ('g12', 'Q02'): None, ('g8', 'K05'): None,
+                 ('g9', 'N04'): None,
+                 ('g12', 'Q03'): ('COLUMN', 1, 5), ('g12', 'Q06'): ('FIELD', 6, 6),
+                 ('g8', 'K01'): ('COLUMN', 1, 5), ('g8', 'K04'): ('COLUMN', 1, 6), ('g10', 'P09'): ('COLUMN', 1, 7)}
+        for (package, sid), want in cases.items():
+            doc = pymupdf.open(root / f'bank-statement-holdout-{package}' / 'frozen' / f'{sid}-statement.pdf')
+            self.assertEqual(stop(doc), want, sid)
+
+    def test_what_it_copies_is_still_the_readers(self):
+        self.assertEqual(columns.drift(), [])
 
 
 if __name__ == '__main__':

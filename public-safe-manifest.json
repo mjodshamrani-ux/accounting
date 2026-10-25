@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 9352,
-      "sha256": "ce400e2671f7c684fcfa92a72d923856ff4e941ea3cb68c18bd1d47df81ba918",
+      "bytes": 9876,
+      "sha256": "1a5bc3368cb760bc33a13e874b9506ac4250e0323010e54276c3331ae7f7a17d",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 16991,
-      "sha256": "478baee9c99ca60aaf4bf88155ede28ec6a995927974dfaac739d19c77cebcb5",
+      "bytes": 17071,
+      "sha256": "c14f8589e519ffa345415ac9a6f9dddda2db321d6a72ae06c8f80e332e8b4fd2",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 82429,
-      "sha256": "e30814a33a5ad7d809ca1c425ee982c368ef70afbceaba53c3a45523e5609c07",
+      "bytes": 84411,
+      "sha256": "a934f22510e4102c9b157a5aaa7c3cad1167f6e54ae6fa6e823653151ab02b16",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 25992,
-      "sha256": "4ee17066758c7c3d77a8f953de75864093ada79e80b2c4357d2e560a40072f68",
+      "bytes": 27061,
+      "sha256": "a01354fc3b4c168c465b9b462da43a23be63bdb18d0f2c8f150c86cb69ad3712",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 59869,
-      "sha256": "ae197f42fd29141f7505f342a66cf65022043200f37a9e2b3c710ada585f0f2b",
+      "bytes": 60187,
+      "sha256": "3a67057284c6b311330c8699722e720fe6b88517fb529ec0412dca7b6e75741b",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 18357,
-      "sha256": "f90471e54d2e61a3f7873985c0905881822ac73125f1f345bb9c098ef546d421",
+      "bytes": 19452,
+      "sha256": "4b2b4c73ee604bd2a206f49ecdb1ff640ae7001eac070d27ae844a7b8d062758",
       "kind": "text"
     },
     {
@@ -42937,14 +42937,14 @@
     },
     {
       "path": "audit/bank-statement-eligibility/README.ar.md",
-      "bytes": 9466,
-      "sha256": "6af1142f47cd16ff6a33436762f3906357000f859b70ed44d69f1cbbb81a0493",
+      "bytes": 15229,
+      "sha256": "4cf889b0565cd1013f7bd8a760ce1d28e44b3f5253a770b69a7fb2879ae29938",
       "kind": "text"
     },
     {
       "path": "audit/bank-statement-eligibility/eligibility.py",
-      "bytes": 24681,
-      "sha256": "03eaa31e5d09208ef6273bfc74f0127f1d0cba1a06a45fc1f360e1ccdbbe4403",
+      "bytes": 25173,
+      "sha256": "88a8d5ed1786011acdf7af86845ee9ed0f8ed98cbc9d510bea513aacbc5431f3",
       "kind": "text"
     },
     {
@@ -42973,8 +42973,8 @@
     },
     {
       "path": "audit/bank-statement-eligibility/test_eligibility.py",
-      "bytes": 10461,
-      "sha256": "09e8fd1fd36f5bb2f9d4fd7af357ccc8a10e668e750c67f0eeaf7ed5f94b6ec6",
+      "bytes": 16264,
+      "sha256": "4d7c21f92219f132f13e189bf308c0c4be0d57436b7f292beae921cc154cb707",
       "kind": "text"
     },
     {
@@ -42997,8 +42997,8 @@
     },
     {
       "path": "docs/audits/BNK-PDF-1-G11.ar.md",
-      "bytes": 15637,
-      "sha256": "6a2b23d0f25daccf266dd723f0c4abe31155f2403c66cef67879e526fed9457a",
+      "bytes": 15914,
+      "sha256": "1d564d4095f1cdaa0719c833dd8445f46a927c1a5a483f7459910e55a805d977",
       "kind": "text"
     },
     {
@@ -43401,8 +43401,44 @@
     },
     {
       "path": "docs/audits/BNK-PDF-1-G12.ar.md",
-      "bytes": 29315,
-      "sha256": "4d62c5477cd65fdba4619a7e8fd8c75aa66c2598a1dc0f81df64ac9b00ad4478",
+      "bytes": 29484,
+      "sha256": "d63d8f9d803fd595d11e49b370eac05623283ee52d530b39f2667f077f8e1fd9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/columns.py",
+      "bytes": 18916,
+      "sha256": "6b72d2d5640ea2ae735a3b12b578f6618a4106f9abffc282aaf1486d9d7440e5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/mutate_columns.py",
+      "bytes": 3002,
+      "sha256": "55db71d9f6a997e1556cf59b549f602967ec385d59040dd8f40f0badbc1b6ba2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/columns-vs-reader-g13.json",
+      "bytes": 12640,
+      "sha256": "8b06646a1ed8a958f54a3f5532e861f9ce458283ef515ea1560bb43acbc4b172",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/g13-reader-earlier-guards-off.diff",
+      "bytes": 1522,
+      "sha256": "58dd5eb583f3ed8846d8db3901c13bc00885da55b98a98c03c42c10de9479f90",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/retro-after-g13.json",
+      "bytes": 23316,
+      "sha256": "ab7435fbdacf13b76a6c677b28899312d67d5f0ad941767be39d23233a932347",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-G13.ar.md",
+      "bytes": 14867,
+      "sha256": "ff5fa42e02659d0871793ab4fa7cdb7a0768967881eef5e14c44e99e3b0f4ad5",
       "kind": "text"
     }
   ],
