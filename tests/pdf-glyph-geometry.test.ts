@@ -180,6 +180,51 @@ void test('an item is split only where placement reproduces its geometry', () =>
   );
 });
 
+void test('a word part records a space the writer drew before it, not one PDF.js read from a gap (G17)', () => {
+  const placed = new Map([
+    [
+      7,
+      [
+        { x0: 100, x1: 105, y: 700 },
+        { x0: 105, x1: 110, y: 700 },
+        { x0: 110.25, x1: 113, y: 700 },
+        { x0: 113.5, x1: 118, y: 700 },
+      ],
+    ],
+  ]);
+  const pieces = new Map<number, [number, number][]>([
+    [
+      0,
+      [
+        [7, 0],
+        [7, 1],
+        [7, 2],
+        [7, 3],
+      ],
+    ],
+  ]);
+  const token = { text: 'AB - C', x: 90, y: 700, width: 18 };
+  const parts = (raw: string) =>
+    splitTextItems([token], pieces, new Map([[0, raw]]), placed, 10).get(0);
+  // Kerned tight, the space glyphs are still drawn between the words.
+  assert.deepEqual(parts('AB - C'), [
+    { text: 'AB', x: 90, width: 10 },
+    { text: '-', x: 100.25, width: 2.75, drawnSpace: true },
+    { text: 'C', x: 103.5, width: 4.5, drawnSpace: true },
+  ]);
+  // The same words with no space glyph drawn: PDF.js read the gaps.
+  assert.deepEqual(parts('AB-C'), [
+    { text: 'AB', x: 90, width: 10 },
+    { text: '-', x: 100.25, width: 2.75 },
+    { text: 'C', x: 103.5, width: 4.5 },
+  ]);
+  // A space drawn at one boundary only marks neither.
+  assert.deepEqual(
+    parts('AB -C')!.map((p) => p.drawnSpace === true),
+    [false, false, false],
+  );
+});
+
 const frozen = (id: string) =>
   fsRead(
     new URL(

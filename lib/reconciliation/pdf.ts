@@ -426,6 +426,8 @@ export function checkPdfOperators(
   runPieces?: Map<number, [operator: number, glyph: number][]>,
   // Receives each run's glyph ink boxes, where they were proved.
   glyphs?: Map<number, number[][]>,
+  // Receives, for a run drawn after a space glyph, the run drawn before it.
+  spaceAfter?: Map<number, number>,
 ): (number[] | undefined)[] {
   const runGlyphs: RunGlyphs | undefined = ink ? new Map() : undefined;
   const paints = textRuns
@@ -439,6 +441,7 @@ export function checkPdfOperators(
         literal,
         runGlyphs,
         runPieces,
+        spaceAfter,
       )
     : null;
   const clipBoxOf = inkClipBoxes(ops, fn, args, textBoxes, runGlyphs, ink);
@@ -989,7 +992,11 @@ type GuardedPdfPage = {
   view: [number, number, number, number];
   width: number;
   height: number;
-  tokens: (PdfToken & { item: number; parts?: PdfTokenPart[] })[];
+  tokens: (PdfToken & {
+    item: number;
+    parts?: PdfTokenPart[];
+    drawnSpaceAfter?: number;
+  })[];
   ink: Map<PdfToken, number[]>;
   glyphInk: Map<PdfToken, number[][]>;
 };
@@ -1161,6 +1168,7 @@ async function readGuardedPdf<T>(
         const runPieces = captureWords
           ? new Map<number, [number, number][]>()
           : undefined;
+        const spaceAfter = captureWords ? new Map<number, number>() : undefined;
         const literals: PdfLiteralTrace | undefined = captureLiteral
           ? {
               version: 'native-pdf-literals-1',
@@ -1203,6 +1211,7 @@ async function readGuardedPdf<T>(
             },
             runPieces,
             runGlyphBoxes,
+            spaceAfter,
           );
           // In the tokens' coordinates, for the row test of layoutPdfPage.
           for (const [i, box] of inkBoxes.entries())
@@ -1259,6 +1268,9 @@ async function readGuardedPdf<T>(
             page.view[0],
           );
           for (const [index, words] of parts) tokens[index].parts = words;
+          // A space glyph drawn between two items: the item drawn before.
+          for (const [index, previous] of spaceAfter ?? [])
+            tokens[index].drawnSpaceAfter = tokens[previous].item;
           // A run drawn with glyphs of several right-to-left letters reads by
           // glyph (pdf-glyph-order.ts); PDF.js's own reading stays beside it.
           for (const [index, raw] of rawRuns) {
@@ -1424,7 +1436,7 @@ export async function readNativePdfWordSource(
     onProgress,
     async (pages, original) => ({
       ...(await projectNativePdfSource(pages, original)),
-      wordVersion: 'native-pdf-words-2',
+      wordVersion: 'native-pdf-words-3',
     }),
     false,
     true,

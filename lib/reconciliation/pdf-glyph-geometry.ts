@@ -190,8 +190,15 @@ export function placeGlyphs(
   return placed;
 }
 
-/** A word of an extracted text item, in the item's x convention. */
-export type PdfTokenPart = { text: string; x: number; width: number };
+/** A word of an extracted text item, in the item's x convention.
+ * `drawnSpace` when the writer drew a space glyph before it, not a gap that
+ * PDF.js read as a space. */
+export type PdfTokenPart = {
+  text: string;
+  x: number;
+  width: number;
+  drawnSpace?: true;
+};
 
 // Within half a point of PDF.js's own item geometry.
 const ITEM_TOLERANCE = 0.5;
@@ -250,6 +257,11 @@ export function splitTextItems(
       boxes.some((g) => Math.abs(g.y - token.y) > ITEM_TOLERANCE)
     )
       continue;
+    // The writer drew a space glyph at every boundary when its own glyphs,
+    // spaces included, read as these words; a kerned space is still a space.
+    const drawn = rawRuns.get(index)?.trim().split(/\s+/u) ?? [];
+    const spacesDrawn =
+      drawn.length === words.length && drawn.every((w, k) => w === words[k]);
     const parts: PdfTokenPart[] = [];
     let at = 0,
       end = -Infinity,
@@ -260,7 +272,12 @@ export function splitTextItems(
         x1 = Math.max(...span.map((g) => g.x1));
       if (x0 < end - 0.01) ordered = false;
       end = x1;
-      parts.push({ text: word, x: x0 - offsetX, width: x1 - x0 });
+      parts.push({
+        text: word,
+        x: x0 - offsetX,
+        width: x1 - x0,
+        ...(spacesDrawn && parts.length ? { drawnSpace: true as const } : {}),
+      });
     }
     if (ordered) split.set(index, parts);
   }

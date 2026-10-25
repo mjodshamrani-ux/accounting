@@ -106,6 +106,31 @@ const mutations = [
     'false ||',
   ],
   ['split-rtl', GEOMETRY, "token.direction === 'rtl' ||", ''],
+  // A space the writer drew, kept however tight the kerning (G17).
+  [
+    'drawn-space-ignored',
+    READER,
+    'gap > 0.15 * Math.min(p.height, q.height) || spaceDrawn(p, q)',
+    'gap > 0.15 * Math.min(p.height, q.height)',
+  ],
+  [
+    'drawn-space-any-item',
+    READER,
+    'later.token.drawnSpaceAfter === earlier.token.item;',
+    'true;',
+  ],
+  [
+    'drawn-space-between-items-unrecorded',
+    PAINT,
+    'spaceAfter.set(runs[run].index, runs[run - 1].index);',
+    'void 0;',
+  ],
+  [
+    'drawn-space-in-every-split',
+    GEOMETRY,
+    'drawn.length === words.length && drawn.every((w, k) => w === words[k]);',
+    'true;',
+  ],
   // The statement reader and its proof.
   ['column-left-edge', READER, 'p.x0 >= c.start[k] - PADDING &&', 'true &&'],
   // G6: headers aligned with their column's end, and the heading's words.

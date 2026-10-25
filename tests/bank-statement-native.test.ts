@@ -215,6 +215,37 @@ void test('a continuation needs the last movement of the previous page', async (
   refused(s, 'LINE');
 });
 
+void test('a space the writer drew between two items stays, however tight its kerning (G17 V10)', async () => {
+  // cairo with HarfBuzz kerns hyphen-space and space-T in Public Sans: the
+  // space glyph is drawn after the hyphen, PDF.js starts a new item at the T,
+  // and the hyphen's box ends 0.6 points before it.
+  const bytes = await fsRead(
+    new URL(
+      '../audit/bank-statement-holdout-g17/frozen/V10-statement.pdf',
+      import.meta.url,
+    ),
+  );
+  const words = await readNativePdfWordSource(Uint8Array.from(bytes).buffer);
+  const first = (s: NativePdfWordSource) =>
+    readBankStatementPdf(s).lines.find((l) => l.kind === 'movement')!
+      .description;
+  assert.equal(
+    first(structuredClone(words)),
+    'Inward SARIE - Tamimi Markets remittance',
+  );
+  // Without the drawn space, the gap alone joins the hyphen to the word.
+  const gapOnly = structuredClone(words);
+  for (const page of gapOnly.pages)
+    for (const t of page.tokens) delete t.drawnSpaceAfter;
+  assert.equal(first(gapOnly), 'Inward SARIE -Tamimi Markets remittance');
+  // A space drawn after another item does not part these two.
+  const elsewhere = structuredClone(words);
+  for (const page of elsewhere.pages)
+    for (const t of page.tokens)
+      if (t.drawnSpaceAfter !== undefined) t.drawnSpaceAfter = -1;
+  assert.equal(first(elsewhere), 'Inward SARIE -Tamimi Markets remittance');
+});
+
 void test('a combined item is never divided without proved word parts', async () => {
   const header = await source('BS08');
   delete token(header, 2, 'Withdrawal Deposit').parts;

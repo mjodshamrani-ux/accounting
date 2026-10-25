@@ -212,6 +212,10 @@ type Piece = {
   rtl: boolean;
   item: number;
   token: Token;
+  /** A word part's place in its token, and whether the writer drew a space
+   * glyph before it. */
+  part?: number;
+  drawnSpace?: boolean;
 };
 const pieceOf = (t: Token): Piece => ({
   text: t.text,
@@ -228,12 +232,14 @@ const pieceOf = (t: Token): Piece => ({
   token: t,
 });
 const partsOf = (t: Token): Piece[] =>
-  t.parts?.map((p) => ({
+  t.parts?.map((p, k) => ({
     ...pieceOf(t),
     text: p.text,
     readings: [p.text],
     x0: p.x,
     x1: p.x + p.width,
+    part: k,
+    drawnSpace: p.drawnSpace === true,
   })) ?? [pieceOf(t)];
 const strongLtr = (p: Piece) => !p.rtl && /[\p{L}\p{N}]/u.test(p.text);
 const strongRtl = (p: Piece) => p.rtl && /\p{Script=Arabic}/u.test(p.text);
@@ -258,7 +264,27 @@ function readingOrder(pieces: Piece[], direction: 'ltr' | 'rtl'): Piece[] {
   }
   return out;
 }
-/** Text of pieces in reading order; touching pieces join without a space. */
+/** A space glyph the writer drew between two neighbouring pieces, kept
+ * however tight the kerning sets them (G17): between two words of one item,
+ * or between the end of one item and the start of the item drawn right after
+ * it. A space PDF.js reads from a gap is neither, and the gap decides. */
+const firstPiece = (p: Piece) => p.part === undefined || p.part === 0;
+const lastPiece = (p: Piece) =>
+  p.part === undefined || p.part === (p.token.parts?.length ?? 1) - 1;
+const drawnAfter = (later: Piece, earlier: Piece) =>
+  firstPiece(later) &&
+  lastPiece(earlier) &&
+  later.token.drawnSpaceAfter !== undefined &&
+  later.token.drawnSpaceAfter === earlier.token.item;
+const spaceDrawn = (p: Piece, q: Piece) =>
+  p.token === q.token
+    ? p.part !== undefined &&
+      q.part !== undefined &&
+      Math.abs(p.part - q.part) === 1 &&
+      (p.part > q.part ? p.drawnSpace : q.drawnSpace) === true
+    : drawnAfter(p, q) || drawnAfter(q, p);
+/** Text of pieces in reading order; touching pieces join without a space,
+ * unless the writer drew one between them. */
 function textOf(pieces: Piece[], direction: 'ltr' | 'rtl'): string {
   const ordered = readingOrder(pieces, direction);
   let out = '';
@@ -266,7 +292,10 @@ function textOf(pieces: Piece[], direction: 'ltr' | 'rtl'): string {
     if (i) {
       const q = ordered[i - 1];
       const gap = Math.max(p.x0, q.x0) - Math.min(p.x1, q.x1);
-      out += gap > 0.15 * Math.min(p.height, q.height) ? ' ' : '';
+      out +=
+        gap > 0.15 * Math.min(p.height, q.height) || spaceDrawn(p, q)
+          ? ' '
+          : '';
     }
     out += p.text;
   }

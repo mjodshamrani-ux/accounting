@@ -23,6 +23,10 @@ export function bindTextPaints(
   // The drawing operator and glyph index of each non-space character of each
   // run, in drawing order.
   runPieces?: Map<number, [operator: number, glyph: number][]>,
+  // For a run that a space glyph was drawn before, after the end of the run
+  // drawn before it: that run's index. A space PDF.js reads from a gap is not
+  // a drawn glyph and is not recorded.
+  spaceAfter?: Map<number, number>,
 ): Map<number, number[][]> {
   const compact = (text: string) => text.replace(/\s/gu, '');
   const runs = texts
@@ -92,6 +96,8 @@ export function bindTextPaints(
           // Spaces may be inserted geometrically by PDF.js. Keep real internal
           // spaces for its bidi direction threshold, without counting them.
           if (length) raw += char;
+          else if (spaceAfter && run > 0 && runs[run])
+            spaceAfter.set(runs[run].index, runs[run - 1].index);
           continue;
         }
         const current = runs[run];

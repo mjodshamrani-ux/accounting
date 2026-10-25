@@ -50,13 +50,17 @@ export type NativePdfSource = {
  * without parts are whole words or could not be split; a reader must not
  * divide them by any other means. Version 2: a right-to-left item drawn with
  * a glyph of several letters reads by glyph (pdf-glyph-order.ts), with
- * PDF.js's own reading kept in `extractionText`.
+ * PDF.js's own reading kept in `extractionText`. Version 3 (G17): where the
+ * writer drew a space glyph, a part says so (`drawnSpace`), and an item drawn
+ * right after a space glyph names the item drawn before it
+ * (`drawnSpaceAfter`); a space PDF.js reads from a gap is neither.
  */
 export type NativePdfWordSource = Omit<NativePdfSource, 'pages'> & {
-  wordVersion: 'native-pdf-words-2';
+  wordVersion: 'native-pdf-words-3';
   pages: (Omit<NativePdfSource['pages'][number], 'tokens'> & {
     tokens: (NativePdfSource['pages'][number]['tokens'][number] & {
       parts?: PdfTokenPart[];
+      drawnSpaceAfter?: number;
     })[];
   })[];
 };
