@@ -1,0 +1,8 @@
+{
+  "name": "bank-statement-holdout-g14-fonts",
+  "private": true,
+  "description": "The Fontsource font the G14 holdout builds for TCPDF: IBM Plex Sans Arabic. Installed outside the repository: npm ci --prefix <dir> --ignore-scripts after copying this file and package-lock.json there.",
+  "dependencies": {
+    "@fontsource/ibm-plex-sans-arabic": "5.3.0"
+  }
+}

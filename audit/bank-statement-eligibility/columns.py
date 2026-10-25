@@ -23,6 +23,7 @@ source text (drift).
 """
 import re
 import unicodedata
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -242,22 +243,26 @@ class Columns:
     def __init__(self, start, spans, direction):
         self.start, self.spans, self.direction = start, spans, direction
 
-    def of(self, p):
+    def placed(self, p):
+        """(column, how): by the start edge rule or by end alignment."""
         for k, s in enumerate(self.start):
             nxt = self.start[k + 1] if k + 1 < len(self.start) else None
             if self.direction == 'ltr':
                 if p.x0 >= s - PADDING and (nxt is None or p.x1 <= nxt - SEPARATION):
-                    return k
+                    return k, 'start'
             elif p.x1 <= s + PADDING and (nxt is None or p.x0 >= nxt + SEPARATION):
-                return k
+                return k, 'start'
         k = next((k for k, (a, b) in enumerate(self.spans) if p.x0 < b - UNDER and p.x1 > a + UNDER), None)
         if k is None:
-            return None
+            return None, None
         own = self.spans[k]
         ends = abs(p.x1 - own[1]) <= PADDING if self.direction == 'ltr' else abs(p.x0 - own[0]) <= PADDING
         clear = all(s == own or (p.x0 >= s[1] + SEPARATION if s[1] <= own[0] else p.x1 <= s[0] - SEPARATION)
                     for s in self.spans)
-        return k if ends and clear else None
+        return (k, 'end') if ends and clear else (None, None)
+
+    def of(self, p):
+        return self.placed(p)[0]
 
     def fitted(self, p):
         return [p] if self.of(p) is not None else p.parts()
@@ -301,7 +306,7 @@ def find_header(lines, v):
     return None
 
 
-def debit_marked(pieces, columns):
+def debit_marked(pieces, columns, used):
     rtl = columns.direction == 'rtl'
     out = list(pieces)
     for mark in pieces:
@@ -320,6 +325,7 @@ def debit_marked(pieces, columns):
         joined.text = f'{found.text} DR'
         out[out.index(found)] = joined
         out.remove(mark)
+        used['drAfterAmount'] += 1
     return out
 
 
@@ -329,9 +335,10 @@ class Refused(Exception):
         self.code, self.page, self.line, self.detail = code, page, line, detail
 
 
-def read_page(number, lines, layout):
+def read_page(number, lines, layout, used=None):
     """The reader's lines of one page (kinds only); raises Refused where the
-    reader would."""
+    reader would. `used` counts the rules its lines needed."""
+    used = Counter() if used is None else used
     v = VOCABULARY[layout]
     header = find_header(lines, v)
     if header is None:
@@ -347,7 +354,10 @@ def read_page(number, lines, layout):
 
         def fail(code, detail):
             raise Refused(code, number, at, detail)
-        pieces = debit_marked([q for p in lines[index] for q in columns.fitted(p)], columns)
+        fitted = [columns.fitted(p) for p in lines[index]]
+        used['wordParts'] += sum(1 for p, f in zip(lines[index], fitted) if f != [p])
+        pieces = debit_marked([q for f in fitted for q in f], columns, used)
+        used['endAligned'] += sum(1 for p in pieces if columns.placed(p)[1] == 'end')
         amounts, label = {}, []
         for p in pieces:
             col = columns.of(p)
@@ -383,6 +393,7 @@ def read_page(number, lines, layout):
             elif out and out[-1] == 'brought-forward':
                 wrap = ['continuation']
                 out.append(wrap)
+                used['continuation'] += 1
             else:
                 fail('LINE', 'description text without its movement')
             continue
@@ -391,11 +402,14 @@ def read_page(number, lines, layout):
             if len(cells[col]) > 1 and not re.search(r'\s', joined):
                 if not statement_date(joined, layout):
                     fail('DATE', f'{name} "{joined}" is not one date')
+                used['dateRuns'] += 1
+                used['reversedDate'] += not iso_date(joined)
                 continue
             if len(cells[col]) != 1:
                 fail('FIELD', f'{name} needs one value')
             if not statement_date(cells[col][0].text, layout):
                 fail('DATE', f'{name} "{cells[col][0].text}" is not one date')
+            used['reversedDate'] += not iso_date(cells[col][0].text)
         money = {}
         for col in (WITHDRAWAL, DEPOSIT, BALANCE):
             if cells[col]:
@@ -411,9 +425,10 @@ def read_page(number, lines, layout):
     return [k if isinstance(k, str) else k[0] for k in out]
 
 
-def check_statement(doc):
+def check_statement(doc, used=None):
     """The first place the reader would stop reading this statement, or None;
-    and the layout whose headers it found."""
+    and the layout whose headers it found. `used` counts the rules the
+    statement's lines needed, up to where the reader would stop."""
     layout = None
     previous = None
     for number, page in enumerate(doc, 1):
@@ -421,7 +436,7 @@ def check_statement(doc):
         if layout is None:
             layout = next((name for name, v in VOCABULARY.items() if find_header(lines, v)), 'en')
         try:
-            kinds = read_page(number, lines, layout)
+            kinds = read_page(number, lines, layout, used)
         except Refused as e:
             return {'layout': layout, 'code': e.code, 'page': e.page, 'line': e.line, 'detail': e.detail}
         if 'continuation' in kinds and (previous is None or 'movement' not in previous):

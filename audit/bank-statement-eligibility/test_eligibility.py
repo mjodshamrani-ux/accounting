@@ -8,6 +8,7 @@ import json
 import sys
 import tempfile
 import unittest
+from collections import Counter
 from pathlib import Path
 
 import pymupdf
@@ -120,6 +121,27 @@ class Planted(unittest.TestCase):
             page.draw_rect(pymupdf.Rect(36, 126.4, 384, 136.5), color=None, fill=(0.07, 0.43, 0.38))
             page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
         self.assertNotIn('contrast', found(statement('white-ink-on-fill', heading)))
+
+    def test_visibility_by_ink_is_recorded_as_exercised(self):
+        def tight(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 126.4, 384, 136.5), color=None, fill=(0.07, 0.43, 0.38))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+
+        def roomy(doc, page):
+            page.draw_rect(pymupdf.Rect(36, 120, 384, 140), color=None, fill=(0.1, 0.1, 0.3))
+            page.insert_text((40, 134), 'Date  Description  Balance', fontsize=10, color=(1, 1, 1))
+        self.assertEqual(el.check_pdf(statement('ink-tight', tight))['exercised'].get('visibleByInk'), 1)
+        self.assertNotIn('visibleByInk', el.check_pdf(statement('ink-roomy', roomy))['exercised'])
+
+    def test_visibility_by_ink_is_counted_by_the_declared_font_box(self):
+        # G14's R08: FreeSerif from mPDF, its heading fill holding every
+        # letter's ink but not the ascent and descent its descriptor declares,
+        # by which the reader judged before G12; MuPDF's own glyph box is the
+        # font size and would count nothing. R07's monospaced heading passes
+        # by either box.
+        root = Path(__file__).resolve().parent.parent / 'bank-statement-holdout-g14' / 'frozen'
+        self.assertEqual(el.check_pdf(root / 'R08-statement.pdf')['exercised'].get('visibleByInk'), 14)
+        self.assertNotIn('visibleByInk', el.check_pdf(root / 'R07-statement.pdf')['exercised'])
 
     def test_white_letters_whose_ink_leaves_the_fill(self):
         # The capitals rise to 126.7: a fill from 128 leaves their tops white
@@ -285,6 +307,45 @@ def stop(doc):
     return r and (r['code'], r['page'], r['line'])
 
 
+def exercised(doc):
+    used = Counter()
+    return columns.check_statement(doc, used), {k: v for k, v in used.items() if v}
+
+
+def runs(name):
+    """A statement whose Balance heading starts its column, an overdrawn
+    balance printed with its DR 0.75 em after the amount, and a date printed
+    as touching runs in two fonts, as a writer that changes font for the
+    separators does."""
+    doc = pymupdf.open()
+    page = doc.new_page(width=600, height=400)
+    page.insert_text((40, 40), 'Harbor Line Bank', fontsize=12)
+    page.insert_text((40, 58), 'Account: SA00 1000 · Currency: SAR · Period: 2026-04-01 — 2026-04-30', fontsize=8)
+    put(page, 80, HEADERS[:6] + [''])
+    page.insert_text((520, 80), 'Balance', fontsize=8, fontname='helv')
+
+    def balance(y, text, debit=False):
+        page.insert_text((560 - pymupdf.get_text_length(text, fontname='helv', fontsize=8), y), text, fontsize=8,
+                         fontname='helv')
+        if debit:
+            page.insert_text((566, y), 'DR', fontsize=8, fontname='helv')
+    put(page, 96, ['Opening balance'])
+    balance(96, '100.00')
+    x = 40
+    for text, font in (('2026', 'helv'), ('-', 'cour'), ('04', 'helv'), ('-', 'cour'), ('03', 'helv')):
+        page.insert_text((x, 110), text, fontsize=8, fontname=font)
+        x += pymupdf.get_text_length(text, fontname=font, fontsize=8)
+    put(page, 110, ['', '2026-04-03', 'Rent', 'RT-02', '400.00', ''])
+    balance(110, '300.00', debit=True)
+    put(page, 124, ['Closing balance'])
+    balance(124, '300.00', debit=True)
+    put(page, 138, ['Total withdrawals / deposits', '', '', '', '400.00', '0.00'])
+    page.insert_text((270, 370), 'Page 1 of 1', fontsize=8)
+    path = TMP / f'{name}.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
 def code(doc):
     return (stop(doc) or (None,))[0]
 
@@ -336,6 +397,19 @@ class Columns(unittest.TestCase):
         for (package, sid), want in cases.items():
             doc = pymupdf.open(root / f'bank-statement-holdout-{package}' / 'frozen' / f'{sid}-statement.pdf')
             self.assertEqual(stop(doc), want, sid)
+
+    def test_the_rules_a_statement_needs_are_counted(self):
+        # The labels Opening balance and Closing balance cross the Date
+        # column's edge and are placed by their words.
+        self.assertEqual(exercised(whole('columns-counted', [ONE])), (None, {'wordParts': 2}))
+        # Ending 2.4 points before their header, the two balances of the
+        # movements no longer start inside it and are placed by its end.
+        self.assertEqual(exercised(whole('columns-end', [ONE], end_shift=2.4)),
+                         (None, {'wordParts': 2, 'endAligned': 2}))
+        self.assertEqual(exercised(runs('columns-runs')),
+                         (None, {'wordParts': 2, 'drAfterAmount': 2, 'dateRuns': 1}))
+        self.assertEqual(exercised(whole('columns-continued-counted', two('(continued) at the till'))),
+                         (None, {'wordParts': 4, 'continuation': 1}))
 
     def test_what_it_copies_is_still_the_readers(self):
         self.assertEqual(columns.drift(), [])

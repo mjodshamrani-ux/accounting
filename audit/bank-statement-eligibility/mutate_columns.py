@@ -3,7 +3,8 @@
 Each mutant changes one rule copied from the reader: the cell padding,
 PDF.js's item gap, right-to-left items kept whole, ligature letters kept in
 their glyph, end alignment, DR joined to its amount, a continuation only
-after the brought-forward line, and date runs joined. The tool is copied
+after the brought-forward line, and date runs joined; or stops counting one
+the record of exercised rules carries (G14). The tool is copied
 with the mutant into a temporary tree that links the repository's reader
 source and sealed packages, and the tests run there. Exit status 1 if a
 mutant survives.
@@ -23,10 +24,13 @@ MUTANTS = {
     'rtl-split': ('        if self.rtl or len(self.words) == 1:', '        if len(self.words) == 1:'),
     'ligature-apart': ("                word[-1]['c'] += ch      # a further letter of the same glyph\n                continue",
                        '                pass'),
-    'end-alignment-off': ('        return k if ends and clear else None', '        return None'),
+    'end-alignment-off': ("        return (k, 'end') if ends and clear else (None, None)", '        return None, None'),
     'dr-join-off': ("        if mark.text != 'DR' or columns.of(mark) != BALANCE:", '        if True:'),
     'continuation-anywhere': ("            elif out and out[-1] == 'brought-forward':", '            elif out:'),
     'date-runs-apart': ("            if len(cells[col]) > 1 and not re.search(r'\\s', joined):", '            if False:'),
+    'dr-uncounted': ("        used['drAfterAmount'] += 1\n", ''),
+    'date-runs-uncounted': ("                used['dateRuns'] += 1\n", ''),
+    'end-alignment-uncounted': ("        used['endAligned'] += sum(1 for p in pieces if columns.placed(p)[1] == 'end')\n", ''),
 }
 
 

@@ -1,0 +1,300 @@
+{
+ "version": "bank-statement-holdout-g14-1",
+ "producers": {
+  "tcpdf": "6.10.0",
+  "mpdf": "v8.3.1",
+  "phpspreadsheet": "5.10.0",
+  "php": "8.3.6",
+  "fonttools": "4.67.0",
+  "cashbookCsv": "Python csv, UTF-8, CRLF"
+ },
+ "fonts": {
+  "ibm-plex-sans-arabic-400.ttf": {
+   "source": "@fontsource/ibm-plex-sans-arabic 5.3.0: ibm-plex-sans-arabic-arabic-400-normal.woff, ibm-plex-sans-arabic-latin-400-normal.woff",
+   "recipe": "merged by fontTools",
+   "sha256": "992a0ae17168b28a7f88278fc7bec2234e4c82b3f49f8527bd9841d620735082"
+  },
+  "ibm-plex-sans-arabic-700.ttf": {
+   "source": "@fontsource/ibm-plex-sans-arabic 5.3.0: ibm-plex-sans-arabic-arabic-700-normal.woff, ibm-plex-sans-arabic-latin-700-normal.woff",
+   "recipe": "merged by fontTools",
+   "sha256": "78ff6dcfbf98556241270e7e18e6017819d2341624a5cded206daa235638ae9d"
+  },
+  "dejavusans.php": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusans.php in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "2311c1906b07b3e86e1444e1e2315e086f3efbb89f117f97ff81a8b44ea61d2b"
+  },
+  "dejavusans.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusans.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "0b911bc136718959ad0c6e175537dcd3f4c91d1765ddb2c36427af3b50f4a7e1"
+  },
+  "dejavusans.ctg.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusans.ctg.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "6d983c257d60508cb24c69e3fa716ff7bebaa9c5e3fd724dab1ba7908f10b87d"
+  },
+  "dejavusansb.php": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansb.php in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "b2d8a30e2f7823ecab8c612cab6c664f3c4b9dbf31e7729bd1620d90a1a4933a"
+  },
+  "dejavusansb.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansb.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "18c349b1f422d5b3764a8706949af3306f01baa5b74b8660260a7fa140b2a974"
+  },
+  "dejavusansb.ctg.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansb.ctg.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "a640299ef8dab84c25c558c71c8608625c9f762edd3cf305a4716d13a5b68de9"
+  },
+  "dejavusansmono.php": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansmono.php in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "1d629de00d34cc94a53c1e065e0786f09c6326317f83f879186fae5d489f6731"
+  },
+  "dejavusansmono.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansmono.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "367e500a616149efaf6faaf269aacf15d7d6cce9688558a5a6c8b83449acbeca"
+  },
+  "dejavusansmono.ctg.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansmono.ctg.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "a515d829384130976db8f388bf9aaba3a264dea6e972e4fb74c16f5383b2c3f2"
+  },
+  "dejavusansmonob.php": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansmonob.php in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "c92a00146391e02a4e36c93d847a8b51d481d8feeaa7bdbae84de8b433e8eb26"
+  },
+  "dejavusansmonob.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansmonob.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "08f5b12694a69b404d8dc4c543de51f9e896ea3f87ffda512faa9cde822ecc43"
+  },
+  "dejavusansmonob.ctg.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavusansmonob.ctg.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "2ca0468ccb10f2a9c5c2a5e93be2b6513ad47efff33d65a3e835c1dec32f109e"
+  },
+  "dejavuserif.php": {
+   "source": "tecnickcom/tcpdf/fonts/dejavuserif.php in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "d0d45b6ee9fbf6842d112112d7e41b9dd4148ba191b3827b34f43da8f4bdb8a0"
+  },
+  "dejavuserif.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavuserif.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "bb61517a33c4ce844cd3277ed28260d93751a140005a8ebaca6820ab3f4c4a36"
+  },
+  "dejavuserif.ctg.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavuserif.ctg.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "0fe8e4df8bf597312d39efeae0e54df6d5b1fc692b6e5b64d03423990012e8a9"
+  },
+  "dejavuserifb.php": {
+   "source": "tecnickcom/tcpdf/fonts/dejavuserifb.php in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "63ebe37916c547bdd394715eeef07ed5481595d81754e00badd1642530f86c9c"
+  },
+  "dejavuserifb.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavuserifb.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "b30de2442f3cb1866c33661a2b51053e72a361f67f76ba5b5aa298fe424a5345"
+  },
+  "dejavuserifb.ctg.z": {
+   "source": "tecnickcom/tcpdf/fonts/dejavuserifb.ctg.z in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "6e22606d7bf6d399050692cf6ad201e4ed105cd5d0ef3c77e4f97c2a5fd20214"
+  },
+  "DejaVuSans.ttf": {
+   "source": "mpdf/mpdf/ttfonts/DejaVuSans.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "08ca98e69d9d8fa1065584b4f9ab7d49b6205abea6572b90e171b254845bb990"
+  },
+  "DejaVuSans-Bold.ttf": {
+   "source": "mpdf/mpdf/ttfonts/DejaVuSans-Bold.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "7e69e81478e233b81c3ad730f5b10abe76c792d48ec6c3e7cc3b3596a37bb3b1"
+  },
+  "DejaVuSansMono.ttf": {
+   "source": "mpdf/mpdf/ttfonts/DejaVuSansMono.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "67fa085e9e72a7565ac36cb6a77bdac701e18c7a46d0c15b9b08714a1e1a2042"
+  },
+  "DejaVuSansMono-Bold.ttf": {
+   "source": "mpdf/mpdf/ttfonts/DejaVuSansMono-Bold.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "b908e119ab3a02a34f5ebeb479a1dcbf5682e90cdbdb5c13d68bb55b4d423326"
+  },
+  "FreeSans.ttf": {
+   "source": "mpdf/mpdf/ttfonts/FreeSans.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "c80858440d8fb618e0ac5ff6f16251dbfa6b3316f00f3cdd17d477297dd87b04"
+  },
+  "FreeSansBold.ttf": {
+   "source": "mpdf/mpdf/ttfonts/FreeSansBold.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "982534a3731416a15e2756601721f26053f68bf4239011550f3dd23ce6308215"
+  },
+  "FreeSerif.ttf": {
+   "source": "mpdf/mpdf/ttfonts/FreeSerif.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "658563c732eafdc851de2b3f38b27d0afcde5674b2f93440971b9693438c6494"
+  },
+  "FreeSerifBold.ttf": {
+   "source": "mpdf/mpdf/ttfonts/FreeSerifBold.ttf in the Composer package",
+   "recipe": "as shipped",
+   "sha256": "973791e2bb5ef4ba7ac9e7423f8a8d8441468da3a37c7e38ab38256011f5f261"
+  },
+  "Helvetica, Helvetica-Bold": {
+   "source": "PDF standard fonts",
+   "recipe": "not embedded"
+  }
+ },
+ "holdout": {
+  "file": "holdout.json",
+  "sha256": "9c448ee8a4b7090fbeaa60b13495052824fb7f09f25593e1bf5e78985b493929"
+ },
+ "facts": {
+  "file": "stories.json",
+  "stored": false,
+  "recipe": "python3 -B audit/bank-statement-holdout-g14/stories.py",
+  "sha256": "b5bff82895e0cb8bef7440916b955ac3c488ad07d53dd08747fad729dbf14b4e",
+  "bytes": 150372
+ },
+ "files": [
+  {
+   "file": "R01-cashbook.csv",
+   "sha256": "820e52d8e376f1ae9f75d3ee85d9f4724c9e9e746f0fa0fbe6d41fc8979e684a",
+   "bytes": 1906
+  },
+  {
+   "file": "R01-statement.pdf",
+   "sha256": "ee2c72f0849922701897b719bcd675204a5a0ebb14e7005acb8af388e6ae32b5",
+   "bytes": 11721
+  },
+  {
+   "file": "R02-cashbook.csv",
+   "sha256": "836cd0e4b2c2a7d6402a5823e64ed30eca20b7bf440d27501789fae423508fc3",
+   "bytes": 2271
+  },
+  {
+   "file": "R02-statement.pdf",
+   "sha256": "02f5bc06736890d650ad23da54f48a136b2100de8b9e0aa5dc2ae573dfd2455c",
+   "bytes": 52984
+  },
+  {
+   "file": "R03-cashbook.csv",
+   "sha256": "eb6a5def004629bff258531e7d83130ab54d27a903b184c0bd1cec7dd4ae3d39",
+   "bytes": 1899
+  },
+  {
+   "file": "R03-cashbook.xlsx",
+   "sha256": "b935224074789f0dd5ad2c66312bbc98a777cc0c9b65a23d1437356b57fe9811",
+   "bytes": 7539
+  },
+  {
+   "file": "R03-statement.pdf",
+   "sha256": "ff9032ca527fddc87ce46b7b93c75b186c6799487d33f4d1c49af883e9b5ba4d",
+   "bytes": 78696
+  },
+  {
+   "file": "R04-cashbook.csv",
+   "sha256": "dc716a151fb373d645733c50b3eca6b9b17c3515baebd6094cbe8968be8e44d4",
+   "bytes": 2241
+  },
+  {
+   "file": "R04-statement.pdf",
+   "sha256": "416c23f7a0265ada1f9350255f8767525a4eeccf33ac08b899176c8fc94ef9c2",
+   "bytes": 123304
+  },
+  {
+   "file": "R05-cashbook.csv",
+   "sha256": "c7ac34da30711e9ec30265e11973a515412d379322b1a1d14cd6bf032e23fc91",
+   "bytes": 1739
+  },
+  {
+   "file": "R05-statement.pdf",
+   "sha256": "2f9f4548904282004f9da208e50aacdb2ab87d6f13a2e2ce06b4e9520f7615e2",
+   "bytes": 94738
+  },
+  {
+   "file": "R06-cashbook.csv",
+   "sha256": "833757cfb9ba7ebab6e7a25889ed74a284a3708b64fc10803d2d18b7e6ccfc2d",
+   "bytes": 1834
+  },
+  {
+   "file": "R06-statement.pdf",
+   "sha256": "cb072596687ee1be17725cb1b08f90b3d08aa50c6bc70f0245ef4fa01606a878",
+   "bytes": 11489
+  },
+  {
+   "file": "R07-cashbook.csv",
+   "sha256": "448d43b2550093f275bb755c5c50a5bd2253d025ada8b6221a8ae8a891af5369",
+   "bytes": 1751
+  },
+  {
+   "file": "R07-cashbook.xlsx",
+   "sha256": "48a9b0feaadc16292596b96d7915a9b367da0febe4834a3dc52d42b0f26b4500",
+   "bytes": 7362
+  },
+  {
+   "file": "R07-statement.pdf",
+   "sha256": "178f37dbfd888c1e59233739c5e731b6da209ca4c7e6667edcaf86c8ced60e62",
+   "bytes": 39898
+  },
+  {
+   "file": "R08-cashbook.csv",
+   "sha256": "67a7ba00c6cf2ff348a27a8e9349c06954bb4e5fcd9101456914eacf127e6a57",
+   "bytes": 2369
+  },
+  {
+   "file": "R08-statement.pdf",
+   "sha256": "e8ff77fe0abea7b241d3a0d158c6b5882228ca4846470fcb69fb8d3ecd97ed24",
+   "bytes": 60696
+  },
+  {
+   "file": "R09-cashbook.csv",
+   "sha256": "dcf533cf22f9b4f1d6aa0bd4e0f0f18d770c1347f6b6140bfe0b9a6c01694b5c",
+   "bytes": 2370
+  },
+  {
+   "file": "R09-statement.pdf",
+   "sha256": "3d192177d877b83cafc7e3d62601b3ffb34213b904e85b8ac38ef008c0b87f7c",
+   "bytes": 63361
+  },
+  {
+   "file": "R10-cashbook.csv",
+   "sha256": "f614fbdee76e74c34de9e5b08dd2af062f936e3d48b3a92c833a3aabca4e015c",
+   "bytes": 6177
+  },
+  {
+   "file": "R10-statement.pdf",
+   "sha256": "e10faf406876a5eac74a90357e7bdd9bffef2c3ad03939fec21d59cbe57dc056",
+   "bytes": 49048
+  },
+  {
+   "file": "R11-cashbook.csv",
+   "sha256": "d6be72e460b35d564150f67918e0d72c726f918fe0a9afef463a79149f2ba5b9",
+   "bytes": 1588
+  },
+  {
+   "file": "R11-statement.pdf",
+   "sha256": "c478eb4084d4f23db5fc1bbf2c5929788695472cc8f7b9626346692c57b238df",
+   "bytes": 48592
+  },
+  {
+   "file": "R12-cashbook.csv",
+   "sha256": "345476feb9cbfdc7b43ef32c2718b9f7d290933fcef8fd1e677a4c7ba7544f82",
+   "bytes": 1596
+  },
+  {
+   "file": "R12-statement.pdf",
+   "sha256": "86a3f29afb8f4b1c9f8eff7abba2482a8b76f9c6e233546eaa2559417080eff3",
+   "bytes": 41045
+  }
+ ]
+}

@@ -44,10 +44,22 @@ is not read, as the reader refuses the page first;
 and on the package: decision, the declared decision story must have a review
 case the page accepts and an outstanding item for the checker's self-test.
 
+Beside what it finds, each statement records what it exercises: how many
+times its lines need each rule the reader keeps for one writer's way of
+printing, up to where the reader would stop. drAfterAmount (a DR joined to
+the amount before it), dateRuns (touching runs joined into one date),
+reversedDate (a date read with its segments reversed), endAligned (a value
+placed by its header's end), wordParts (an item placed by its words) and
+continuation come from columns.py; visibleByInk is a run of text visible by
+its glyphs' ink (G12) and not by its font's declared box, the ascent and
+descent its descriptor gives PDF.js, by which the reader judged before. A story written for a rule
+is thus seen to reach it before the seal (DEV-59).
+
   PYTHONPATH=<pymupdf 2.0> python3 -B eligibility.py <package> [--decide STORY] [--out file]
 """
 import argparse
 import hashlib
+from collections import Counter
 import json
 import math
 import re
@@ -352,6 +364,38 @@ def run_box(span, ink):
     return pymupdf.Rect(x0, min(b.y0 for b in boxes), x1, max(b.y1 for b in boxes))
 
 
+def declared_metrics(doc):
+    """Each embedded font's Ascent and Descent from its descriptor, in em,
+    by its name without the subset tag: the metrics PDF.js gives the reader
+    for a run's box where no glyph's ink is proved."""
+    out = {}
+    for xref in range(1, doc.xref_length()):
+        try:
+            obj = doc.xref_object(xref)
+        except Exception:
+            continue
+        if not re.search(r'/Type\s*/FontDescriptor', obj):
+            continue
+        name = re.search(r'/FontName\s*/([^\s/<>\[\]()]+)', obj)
+        ascent = re.search(r'/Ascent\s+(-?[\d.]+)', obj)
+        descent = re.search(r'/Descent\s+(-?[\d.]+)', obj)
+        if name and ascent and descent and float(ascent.group(1)) > float(descent.group(1)):
+            out[name.group(1).split('+')[-1]] = (float(ascent.group(1)) / 1000, float(descent.group(1)) / 1000)
+    return out
+
+
+def declared_box(span, metrics):
+    """A run's box by its font's declared ascent and descent, or, for a font
+    without them, MuPDF's."""
+    found = next((m for name, m in metrics.items() if name.startswith(span['font'])), None)
+    if found is None:
+        return run_box(span, {})
+    boxes = [pymupdf.Rect(c[3]) for c in span['chars'] if chr(c[0]).strip()]
+    y = span['chars'][0][2][1]
+    return pymupdf.Rect(min(b.x0 for b in boxes), y - found[0] * span['size'], max(b.x1 for b in boxes),
+                        y - found[1] * span['size'])
+
+
 def visible(color, box, fills):
     """The reader's test (visibleOnBackground): from the latest background
     down, one it does not contrast with refuses the run unless it is a thin
@@ -372,9 +416,10 @@ def visible(color, box, fills):
     return ratio(color, (1, 1, 1)) >= CONTRAST
 
 
-def check_page(path, doc, pno, clearance, reach):
+def check_page(path, doc, pno, clearance, reach, used=None):
     page = doc[pno]
     found = {}
+    used = Counter() if used is None else used
 
     def add(check, what):
         found.setdefault(check, []).append(what)
@@ -425,6 +470,7 @@ def check_page(path, doc, pno, clearance, reach):
                 continue
             rules.append(pymupdf.Rect(r.x0 - half, r.y0 - half, r.x1 + half, r.y1 + half))
     least_rule = None
+    metrics = declared_metrics(doc)
     ink = {}
     # Rules against MuPDF's glyph outline boxes, as verify.py measures them.
     for block in page.get_text('rawdict', flags=pymupdf.TEXT_ACCURATE_BBOXES)['blocks']:
@@ -458,8 +504,13 @@ def check_page(path, doc, pno, clearance, reach):
                 break
         color = rgb(span.get('color')) or (0, 0, 0)
         box = run_box(span, ink)
-        if not visible(color, box, [f for f in fills if f[0] < span['seqno']]):
+        under = [f for f in fills if f[0] < span['seqno']]
+        if not visible(color, box, under):
             add('contrast', [chars[0][1], [round(v, 2) for v in box]])
+        elif not visible(color, declared_box(span, metrics), under):
+            # Visible only as G12 judges it, by its glyphs' ink, and not by
+            # the font's declared box the reader judged by before.
+            used['visibleByInk'] += 1
     gap = line_ink(path, pno, reach)
     if gap is not None and gap <= clearance:
         add('lineInk', round(gap, 2))
@@ -482,8 +533,9 @@ def check_pdf(path, clearance=0.05, reach=0.5):
     if doc.get_ocgs():
         result['found']['layers'] = list(doc.get_ocgs())
     least_rule, least_line = None, None
+    used = Counter()
     for pno in range(doc.page_count):
-        found, rule, gap = check_page(str(path), doc, pno, clearance, reach)
+        found, rule, gap = check_page(str(path), doc, pno, clearance, reach, used)
         for k, v in found.items():
             result['found'].setdefault(k, []).extend([{'page': pno + 1, 'at': x} for x in v[:3]])
         if rule is not None:
@@ -505,9 +557,13 @@ def check_pdf(path, clearance=0.05, reach=0.5):
         if not (all(seen) if len(lines) >= 3 else any(seen)):
             result['found']['lineControl'] = [{'page': 1, 'at': half}]
     if 'rotation' not in result['found']:
-        stop = columns.check_statement(doc)
+        stop = columns.check_statement(doc, used)
         if stop:
             result['found']['columns'] = [stop]
+    # The rules the reader needs to read this statement (columns.py and the
+    # contrast test above), so that a story written for a rule is seen to
+    # reach it before the seal (DEV-59).
+    result['exercised'] = dict(sorted((k, v) for k, v in used.items() if v))
     result['leastRuleGapPt'] = None if least_rule is None else round(least_rule, 2)
     result['leastLineGapPt'] = least_line   # None: no closer than reach
     return result

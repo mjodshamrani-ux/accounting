@@ -1,0 +1,16 @@
+{
+    "name": "tarasuf/bank-statement-holdout-g14-writers",
+    "description": "The PHP writers of the G14 holdout: TCPDF and mPDF for statements, PhpSpreadsheet for XLSX cashbooks. Installed outside the repository: composer install --no-plugins --no-scripts --working-dir <dir> after copying this file and composer.lock there.",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": ">=8.1",
+        "tecnickcom/tcpdf": "6.10.0",
+        "mpdf/mpdf": "8.3.1",
+        "phpoffice/phpspreadsheet": "5.10.0"
+    },
+    "config": {
+        "platform": {"php": "8.3.6"},
+        "allow-plugins": false
+    }
+}
