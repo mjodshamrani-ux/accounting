@@ -14,7 +14,7 @@ Run the rows that match the changed paths, focused column first. Every command h
 | Interface: `components/**`, `app/**`, `styles/**`, `lib/i18n/**` | `node --experimental-strip-types --test tests/i18n.test.ts` | `pnpm typecheck`, `pnpm lint`, `pnpm build` | `pnpm test:browser`, `pnpm test:browser:domain-navigation`, `pnpm test:browser:unified-workspace`, `pnpm test:bank-statement:interface-mutations` |
 | Build, CSP, assets: `scripts/harden-build.mjs`, `vite.config.ts`, `public/**` | `pnpm build` | `node scripts/public-content-check.mjs --dist` | `pnpm test:browser` (records external requests) |
 | `package.json`, `pnpm-lock.yaml` | `pnpm test:mutation-runner` (checks script entries) | `pnpm test:source-families:ci` | everything CI runs |
-| Holdout tools `audit/bank-statement-*` | the package's `test_seal.py` or eligibility tests; `pnpm test:bank-statement:cashbook-check` for `cashbook.py`; for `items.py`, `mutate_items.py` and `measure_items.mjs --assert` (MuPDF, local) | `pnpm test:bank-statement:holdout-seal` | the holdout runs |
+| Holdout tools `audit/bank-statement-*` | the package's `test_seal.py` or eligibility tests; `pnpm test:bank-statement:cashbook-check` for `cashbook.py`; for `items.py` and `columns.py`, `mutate_items.py`, `mutate_columns.py`, `measure_items.mjs --assert` and `measure_columns.mjs --assert` (MuPDF, local) | `pnpm test:bank-statement:holdout-seal` | the holdout runs |
 
 The full release list is in the [delivery guide](../../../docs/reference/DELIVERY.ar.md#الاختبارات); CI also runs the sharded mutations, oracles and specialized gates in `.github/workflows/pages.yml`.
 

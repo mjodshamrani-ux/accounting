@@ -49,8 +49,9 @@ Checks on every page of every statement:
                 a form, an inline image): nothing was measured there, so no
                 eligibility until it is explained
 and on the statement: columns, the reader's reading of each line by its
-page's column headers (columns.py), where it would stop; on a rotated page it
-is not read, as the reader refuses the page first;
+page's column headers (columns.py, on items.py's PDF.js items since G19),
+where it would stop; on a rotated page it is not read, as the reader refuses
+the page first;
 on each XLSX cashbook (cashbook.py, since G16): the product's reading of it,
 from the workbook's parts to the six declared columns, where it would stop,
 with the entries it would read and the rules it needs (typed amounts and

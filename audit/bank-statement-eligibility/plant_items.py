@@ -38,6 +38,8 @@ PAGES = [
      'a new text object 1.1 points back: PDF.js keeps one item across BT'),
     ('space-then-tight', b'BT /F1 10 Tf 40 120 Td [(Transfer ) 200 (1,250.00)] TJ ET', False,
      'a drawn space, then 0.078 em: two items side by side (G17 V10)'),
+    ('gap-0.8em', b'BT /F1 10 Tf 40 120 Td [(Transfer) -800 (1,250.00)] TJ ET', False,
+     'a gap of 0.8 em, past PDF.js\'s 0.6: two items (G19)'),
 ]
 
 

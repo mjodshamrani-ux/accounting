@@ -12,19 +12,26 @@ balance). A value that lies in no column, or a line that fits no form,
 stops the reading. G12 found two statements refused this way that no check
 before the seal had read (DEV-58).
 
-The pieces are the reader's: PDF.js text items, built here from MuPDF's
-characters by PDF.js's own spacing rule (a new item past a gap of 0.6 em,
-back 0.2 em, or a change of font; a word break inside an item past 0.102
-em), each with its advance box; an item that fits no column counts through
-its words if it reads left to right, as the reader's word parts do, and
-whole if it reads right to left. Nothing is imported from the product; the
-vocabulary and the constants below are the reader's, checked against its
-source text (drift).
+The pieces are the reader's: PDF.js text items as items.py builds them from
+the content stream (since G19), each with its advance box. An item that
+fits no column counts through its word parts, as the reader's do: a
+left-to-right item whose text PDF.js spaces into words, each part as wide
+as its glyphs; a right-to-left item stays whole.
+From G13 to G18 the items were built from MuPDF's characters by PDF.js's
+spacing rule alone (mupdf_items, kept for the comparison); MuPDF names two
+subsets of one font alike and does not see marked content, so they were not
+PDF.js's items wherever a writer changed subset or marked its text (DEV-67).
+Nothing is imported from the product; the vocabulary and the constants
+below are the reader's, checked against its source text (drift).
 """
+import json
 import re
+import sys
 import unicodedata
 from collections import Counter
 from pathlib import Path
+
+import items as pdfjs
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 READER = ROOT / 'lib' / 'reconciliation' / 'bank-statement-native.ts'
@@ -135,7 +142,9 @@ class Piece:
         self.text = normal(' '.join(word_text(w) for w in ordered))
 
     def parts(self):
-        """The reader's word parts: a left-to-right item combined across a gap."""
+        """The reader's word parts: a left-to-right item PDF.js spaced into
+        words (pdf-glyph-geometry.ts, splitTextItems). A glyph of two letters
+        does not stop it (G19, measured with the reader)."""
         if self.rtl or len(self.words) == 1:
             return [self]
         return [Piece([w], False) for w in self.words]
@@ -151,8 +160,32 @@ def word_text(glyphs):
 
 
 def items(page):
-    """PDF.js's text items of a page, line by line, top down: lists of Pieces.
-    The glyphs are taken in the order the page draws them (MuPDF's text
+    """PDF.js's text items of a page as items.py builds them, line by line,
+    top down: lists of Pieces, in MuPDF's page coordinates (y down)."""
+    mb, cb = page.mediabox, page.cropbox
+    top = mb.y1 - cb.y0
+    found = []
+    for item in pdfjs.page_items(page.parent, page.number):
+        if not item.text.strip():
+            continue
+        words = [[{'c': c, 'x0': a - cb.x0, 'x1': b - cb.x0, 'y': top - item.y, 'size': item.height}
+                  for c, a, b in w] for w in item.words]
+        count = sum(bidi_class(ch) for ch in item.text)
+        piece = Piece(words, count > 0 and not (count / len(item.text) < 0.3 and len(item.text) > 4))
+        piece.x0, piece.x1 = item.x - cb.x0, item.x + item.width - cb.x0
+        found.append(piece)
+    lines = []
+    for p in sorted(found, key=lambda p: (p.y, p.x0)):
+        if lines and abs(lines[-1][0].y - p.y) <= SAME_LINE:
+            lines[-1].append(p)
+        else:
+            lines.append([p])
+    return [sorted(line, key=lambda p: p.x0) for line in lines]
+
+
+def mupdf_items(page):
+    """The model of G13 to G18: PDF.js's text items of a page, line by line,
+    top down: lists of Pieces. The glyphs are taken in the order the page draws them (MuPDF's text
     trace), as PDF.js meets them, and joined into items by its spacing: the
     gap from the end of the last glyph with an advance, a new item past 0.6
     em, back past 0.2 em, a shift across the line past a quarter of the size,
@@ -432,7 +465,11 @@ def check_statement(doc, used=None):
     layout = None
     previous = None
     for number, page in enumerate(doc, 1):
-        lines = items(page)
+        try:
+            lines = items(page)
+        except pdfjs.Unmodelled as reason:
+            # Not read: eligibility.py's items check names the page.
+            return {'layout': layout or 'en', 'code': 'UNMODELLED', 'page': number, 'line': 0, 'detail': str(reason)}
         if layout is None:
             layout = next((name for name, v in VOCABULARY.items() if find_header(lines, v)), 'en')
         try:
@@ -444,3 +481,23 @@ def check_statement(doc, used=None):
                     'detail': 'a continuation without a movement on the previous page'}
         previous = kinds
     return None
+
+
+def main(args):
+    """For measure_columns.mjs: each statement's stop (or null) and the rules
+    it needs, read from items.py's items, or with --mupdf from the MuPDF
+    model of G13 to G18."""
+    import pymupdf
+    global items
+    if args and args[0] == '--mupdf':
+        items, args = mupdf_items, args[1:]
+    out = {}
+    for path in args:
+        used = Counter()
+        stop = check_statement(pymupdf.open(path), used)
+        out[path] = {'stop': stop, 'exercised': dict(sorted((k, v) for k, v in used.items() if v))}
+    print(json.dumps(out, ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    main(sys.argv[1:])

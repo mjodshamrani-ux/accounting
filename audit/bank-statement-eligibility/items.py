@@ -274,8 +274,13 @@ class State:
 
 
 class Item:
-    def __init__(self, text, x, y, width, height, font):
+    """A PDF.js text item: its text, place, width, height and font; and its
+    glyphs as words, split where PDF.js puts a space in the text, each glyph
+    (text, start, end) along the line (columns.py's word parts)."""
+
+    def __init__(self, text, x, y, width, height, font, words=()):
         self.text, self.x, self.y, self.width, self.height, self.font = text, x, y, width, height, font
+        self.words = [w for w in words if w]
 
     def __repr__(self):
         return f'Item({self.text!r}, x={self.x:.3f}, y={self.y:.3f}, w={self.width:.3f})'
@@ -288,6 +293,7 @@ class Builder:
     def __init__(self, view):
         self.view, self.items = view, []
         self.initialized, self.str, self.width, self.total_width, self.height = False, [], 0.0, 0.0, 0.0
+        self.words = [[]]
         self.prev, self.prev_rise, self.scale, self.transform, self.font_name = None, 0.0, 0.0, None, None
         self.tracking = self.not_a_space = self.negative = self.space_min = self.space_max = 0.0
         self.last, self.slot = [' ', ' '], 0
@@ -311,8 +317,9 @@ class Builder:
             return
         self.total_width += self.width * self.scale
         t = self.transform
-        self.items.append(Item(''.join(self.str), t[4], t[5], abs(self.total_width), abs(self.height), self.font_name))
-        self.initialized, self.str = False, []
+        self.items.append(Item(''.join(self.str), t[4], t[5], abs(self.total_width), abs(self.height), self.font_name,
+                               self.words))
+        self.initialized, self.str, self.words = False, [], [[]]
 
     def eol(self):
         self.reset_last()
@@ -345,6 +352,7 @@ class Builder:
             if self.initialized:
                 self.reset_last()
                 self.str.append(' ')
+                self.words.append([])
             return False
         self.flush()
         self.reset_last()
@@ -440,13 +448,17 @@ class Builder:
             if kind == 'diacritic':
                 advance = 0
             advance *= st.hscale
+            start = st.current()[4]
             st.translate(advance, 0)
             self.width += advance
             if advance:
                 self.prev, self.prev_rise = st.current(), st.rise
             if self.save_last(text):
                 self.str.append(' ')
+                self.words.append([])
             self.str.append(text)
+            end = st.current()[4]
+            self.words[-1].append((text, min(start, end), max(start, end)))
             if after:
                 st.translate(after * st.hscale, 0)
 
@@ -602,11 +614,11 @@ def check_items(page):
 
 def columns_equal(doc, pno, page):
     """How many of the page's items with text columns.py's MuPDF model
-    (columns.items) gives a piece of, by start, end and baseline within
+    (columns.mupdf_items) gives a piece of, by start, end and baseline within
     0.01 points: the item model the reading by columns has used since G13."""
     import columns
     height = doc[pno].mediabox.y1
-    pieces = [(p.x0, p.x1, height - p.y) for line in columns.items(doc[pno]) for p in line]
+    pieces = [(p.x0, p.x1, height - p.y) for line in columns.mupdf_items(doc[pno]) for p in line]
     return sum(1 for i in page if i.text.strip() and any(
         abs(a - i.x) < 0.01 and abs(b - i.x - i.width) < 0.01 and abs(y - i.y) < 0.01 for a, b, y in pieces))
 

@@ -1,0 +1,3835 @@
+{
+ "schema": "tarasuf-bnk-pdf1-columns-vs-reader/2",
+ "what": "columns.py against the guarded reader's reading by columns, the reader with its earlier guards off as in G13; tool: columns.py on items.py's items; mupdfModel: on the MuPDF model of G13 to G18.",
+ "sealed": [
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS03-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS05-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS06-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS08-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "endAligned": 1,
+    "wordParts": 11
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "endAligned": 1,
+     "wordParts": 11
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS09-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS10-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS11-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "reversedDate": 20
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "reversedDate": 20
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS12-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS13-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS14-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 61,
+    "wordParts": 211
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 61,
+     "wordParts": 211
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS15-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 92,
+    "wordParts": 301
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 92,
+     "wordParts": 301
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS16-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 46,
+    "wordParts": 34
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 46,
+     "wordParts": 34
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 74
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 74
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P03-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 70,
+    "reversedDate": 62
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 70,
+     "reversedDate": 62
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 60,
+    "wordParts": 13
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 60,
+     "wordParts": 13
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P05-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 67,
+    "wordParts": 47
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 67,
+     "wordParts": 47
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P06-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "endAligned": 189,
+    "wordParts": 124
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "endAligned": 189,
+     "wordParts": 124
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 57,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 57,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf",
+   "reader": {
+    "stopped": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel."
+   },
+   "tool": {
+    "code": "HEADER",
+    "page": 1,
+    "line": 0
+   },
+   "same": null,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": {
+     "code": "HEADER",
+     "page": 1,
+     "line": 0
+    },
+    "same": null,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P09-statement.pdf",
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 7
+   },
+   "tool": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 7
+   },
+   "same": true,
+   "exercised": {
+    "endAligned": 5
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 7
+    },
+    "same": true,
+    "exercised": {
+     "endAligned": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 60,
+    "reversedDate": 46
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 60,
+     "reversedDate": 46
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P11-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 35,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 35,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P12-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 45,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 45,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 45,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 45,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 65,
+    "reversedDate": 58
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 65,
+     "reversedDate": 58
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q03-statement.pdf",
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5
+   },
+   "tool": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5
+   },
+   "same": true,
+   "exercised": {
+    "wordParts": 1
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 5
+    },
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 82
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 82
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q05-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 39,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 39,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q06-statement.pdf",
+   "reader": {
+    "code": "FIELD",
+    "page": 6,
+    "line": 6
+   },
+   "tool": {
+    "code": "FIELD",
+    "page": 6,
+    "line": 6
+   },
+   "same": true,
+   "exercised": {
+    "endAligned": 101,
+    "wordParts": 12
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "FIELD",
+     "page": 6,
+     "line": 6
+    },
+    "same": true,
+    "exercised": {
+     "endAligned": 101,
+     "wordParts": 12
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 45,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 45,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q08-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 73
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 73
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q09-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 39,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 39,
+     "wordParts": 1
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 70,
+    "reversedDate": 58
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 70,
+     "reversedDate": 58
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q11-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 34,
+    "wordParts": 6
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 34,
+     "wordParts": 6
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q12-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 28,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 28,
+     "wordParts": 1
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R03-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "drAfterAmount": 27
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "drAfterAmount": 27
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R05-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 1,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 1,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R06-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "drAfterAmount": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "drAfterAmount": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R08-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R09-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "reversedDate": 52
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "reversedDate": 52
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 16
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 16
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R11-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 1,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 1,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R12-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "drAfterAmount": 2
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "drAfterAmount": 2
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 45,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 45,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 47,
+    "wordParts": 10
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 47,
+     "wordParts": 10
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T03-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "drAfterAmount": 32
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "drAfterAmount": 32
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 132,
+    "wordParts": 12
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 132,
+     "wordParts": 12
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T05-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 45,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 45,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T06-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 44,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 44,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "dateRuns": 60
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "dateRuns": 60
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T08-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "dateRuns": 60
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "dateRuns": 60
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T09-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 47,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 47,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T11-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 55,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 55,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T12-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "dateRuns": 50
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "dateRuns": 50
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 101,
+    "wordParts": 9
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 101,
+     "wordParts": 9
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 78,
+    "wordParts": 13
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 78,
+     "wordParts": 13
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V03-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 9
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 9
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 248,
+    "wordParts": 17
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 248,
+     "wordParts": 17
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V05-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 90,
+    "wordParts": 9
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 90,
+     "wordParts": 9
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V06-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 66,
+    "wordParts": 9
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 66,
+     "wordParts": 9
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "dateRuns": 106
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "reversedDate": 106
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V08-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "dateRuns": 96
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "reversedDate": 96
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V09-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 79,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 79,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V11-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 82,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 82,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V12-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "dateRuns": 96
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "reversedDate": 96
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H03-statement.pdf",
+   "reader": {
+    "code": "HEADER",
+    "page": 1,
+    "line": 0
+   },
+   "tool": {
+    "code": "HEADER",
+    "page": 1,
+    "line": 0
+   },
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": {
+     "code": "HEADER",
+     "page": 1,
+     "line": 0
+    },
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "drAfterAmount": 16
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "drAfterAmount": 16
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H05-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "wordParts": 90
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "wordParts": 90
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H06-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 30,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 30,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H08-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 31,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 31,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H09-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 44,
+    "wordParts": 9
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 44,
+     "wordParts": 9
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 23,
+    "wordParts": 4
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 23,
+     "wordParts": 4
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H11-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 27
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 27
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H12-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 14,
+    "wordParts": 3
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 14,
+     "wordParts": 3
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K01-statement.pdf",
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5
+   },
+   "tool": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5
+   },
+   "same": true,
+   "exercised": {
+    "endAligned": 1,
+    "wordParts": 1
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 5
+    },
+    "same": true,
+    "exercised": {
+     "endAligned": 1,
+     "wordParts": 1
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K03-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "drAfterAmount": 480,
+    "endAligned": 42
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "drAfterAmount": 480,
+     "endAligned": 42
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf",
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 6
+   },
+   "tool": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 6
+   },
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 6
+    },
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K05-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "dateRuns": 26
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "dateRuns": 26
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K06-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 6
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 6
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 6
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 6
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K08-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 32,
+    "wordParts": 3
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 32,
+     "wordParts": 3
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K09-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "drAfterAmount": 12,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "drAfterAmount": 12,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "reversedDate": 28
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "reversedDate": 28
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K11-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K12-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 6
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 6
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N01-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 43,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 43,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N02-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 35,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 35,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N03-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 48
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 48
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N04-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 54,
+    "reversedDate": 44
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 54,
+     "reversedDate": 44
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N05-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "endAligned": 466,
+    "wordParts": 88
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "endAligned": 466,
+     "wordParts": 88
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N06-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 14,
+    "wordParts": 2
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 14,
+     "wordParts": 2
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N07-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 31,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 31,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N08-statement.pdf",
+   "reader": {
+    "stopped": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب"
+   },
+   "tool": null,
+   "same": null,
+   "exercised": {
+    "endAligned": 26,
+    "wordParts": 5
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": null,
+    "exercised": {
+     "endAligned": 26,
+     "wordParts": 5
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N09-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 75
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 75
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N10-statement.pdf",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 57,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 57,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N11-statement.pdf",
+   "reader": {
+    "read": "incomplete-pages"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 41,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 41,
+     "wordParts": 7
+    }
+   }
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N12-statement.pdf",
+   "reader": {
+    "read": "balance-broken"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 39,
+    "wordParts": 7
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 39,
+     "wordParts": 7
+    }
+   }
+  }
+ ],
+ "planted": [
+  {
+   "case": "columns-across",
+   "reader": {
+    "code": "COLUMN",
+    "page": 2,
+    "line": 5
+   },
+   "tool": {
+    "code": "COLUMN",
+    "page": 2,
+    "line": 5
+   },
+   "same": true,
+   "exercised": {
+    "wordParts": 4
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "COLUMN",
+     "page": 2,
+     "line": 5
+    },
+    "same": true,
+    "exercised": {
+     "wordParts": 4
+    }
+   }
+  },
+  {
+   "case": "columns-clean",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 2
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 2
+    }
+   }
+  },
+  {
+   "case": "columns-continued",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "continuation": 1,
+    "wordParts": 4
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "continuation": 1,
+     "wordParts": 4
+    }
+   }
+  },
+  {
+   "case": "columns-end",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 2,
+    "wordParts": 2
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 2,
+     "wordParts": 2
+    }
+   }
+  },
+  {
+   "case": "columns-header",
+   "reader": {
+    "code": "HEADER",
+    "page": 1,
+    "line": 0
+   },
+   "tool": {
+    "code": "HEADER",
+    "page": 1,
+    "line": 0
+   },
+   "same": true,
+   "exercised": {},
+   "mupdfModel": {
+    "tool": {
+     "code": "HEADER",
+     "page": 1,
+     "line": 0
+    },
+    "same": true,
+    "exercised": {}
+   }
+  },
+  {
+   "case": "columns-ligature-mapped",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 3
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 3
+    }
+   }
+  },
+  {
+   "case": "columns-pad-in",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "wordParts": 1
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 1
+    }
+   }
+  },
+  {
+   "case": "columns-pad-out",
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5
+   },
+   "tool": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 5
+   },
+   "same": true,
+   "exercised": {
+    "wordParts": 1
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 5
+    },
+    "same": true,
+    "exercised": {
+     "wordParts": 1
+    }
+   }
+  },
+  {
+   "case": "columns-runs",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "dateRuns": 1,
+    "drAfterAmount": 2,
+    "wordParts": 2
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "dateRuns": 1,
+     "drAfterAmount": 2,
+     "wordParts": 2
+    }
+   }
+  },
+  {
+   "case": "columns-slot-small",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "endAligned": 2,
+    "wordParts": 2
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "endAligned": 2,
+     "wordParts": 2
+    }
+   }
+  },
+  {
+   "case": "columns-slot",
+   "reader": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 4
+   },
+   "tool": {
+    "code": "COLUMN",
+    "page": 1,
+    "line": 4
+   },
+   "same": true,
+   "exercised": {
+    "wordParts": 1
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "COLUMN",
+     "page": 1,
+     "line": 4
+    },
+    "same": true,
+    "exercised": {
+     "wordParts": 1
+    }
+   }
+  },
+  {
+   "case": "columns-stray",
+   "reader": {
+    "code": "LINE",
+    "page": 1,
+    "line": 5
+   },
+   "tool": {
+    "code": "LINE",
+    "page": 1,
+    "line": 5
+   },
+   "same": true,
+   "exercised": {
+    "wordParts": 1
+   },
+   "mupdfModel": {
+    "tool": {
+     "code": "LINE",
+     "page": 1,
+     "line": 5
+    },
+    "same": true,
+    "exercised": {
+     "wordParts": 1
+    }
+   }
+  },
+  {
+   "case": "columns-subsets-runs",
+   "reader": {
+    "read": "verified"
+   },
+   "tool": null,
+   "same": true,
+   "exercised": {
+    "dateRuns": 1,
+    "wordParts": 2
+   },
+   "mupdfModel": {
+    "tool": null,
+    "same": true,
+    "exercised": {
+     "wordParts": 2
+    }
+   }
+  }
+ ],
+ "ablations": [
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "DR after its amount",
+   "statement": "P12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g10/results/diagnostic-ablation-ca83157.json",
+   "rule": "date runs joined",
+   "statement": "P12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "DR after its amount",
+   "statement": "Q12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-89d6c58.json",
+   "rule": "date runs joined",
+   "statement": "Q12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "DR after its amount",
+   "statement": "Q12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g12/results/diagnostic-ablation-c7e867e.json",
+   "rule": "date runs joined",
+   "statement": "Q12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-15ea8a1.json",
+   "rule": "DR after its amount",
+   "statement": "R01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-15ea8a1.json",
+   "rule": "DR after its amount",
+   "statement": "R08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-15ea8a1.json",
+   "rule": "DR after its amount",
+   "statement": "R06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-15ea8a1.json",
+   "rule": "date runs joined",
+   "statement": "R01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-15ea8a1.json",
+   "rule": "date runs joined",
+   "statement": "R08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-15ea8a1.json",
+   "rule": "date runs joined",
+   "statement": "R06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R03",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R07",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "DR after its amount",
+   "statement": "R12",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g14/results/diagnostic-ablation-24e7584.json",
+   "rule": "date runs joined",
+   "statement": "R12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T03",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "DR after its amount",
+   "statement": "T12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T07",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T08",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-3f973af.json",
+   "rule": "date runs joined",
+   "statement": "T12",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "DR after its amount",
+   "statement": "T12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T07",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T08",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T09",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g15/results/diagnostic-ablation-b9fe326.json",
+   "rule": "date runs joined",
+   "statement": "T12",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": true
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "DR after its amount",
+   "statement": "V12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V07",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V08",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-a9f3230.json",
+   "rule": "date runs joined",
+   "statement": "V12",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V07",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V08",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "DR after its amount",
+   "statement": "V12",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V01",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V02",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V03",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V04",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V07",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V08",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V10",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V11",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V05",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V06",
+   "productNeeds": false,
+   "counts": false,
+   "countsMupdfModel": false
+  },
+  {
+   "record": "audit/bank-statement-holdout-g17/results/diagnostic-ablation-f1e2bc3.json",
+   "rule": "date runs joined",
+   "statement": "V12",
+   "productNeeds": true,
+   "counts": true,
+   "countsMupdfModel": false
+  }
+ ],
+ "summary": {
+  "sealed": 112,
+  "planted": 13,
+  "same": "123/123",
+  "sameMupdfModel": "123/123",
+  "notComparable": [
+   "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf",
+   "audit/bank-statement-holdout-g9/frozen/N08-statement.pdf"
+  ],
+  "differ": [],
+  "differMupdfModel": [],
+  "rulesAsAblations": "168/168",
+  "rulesAsAblationsMupdfModel": "162/168"
+ }
+}

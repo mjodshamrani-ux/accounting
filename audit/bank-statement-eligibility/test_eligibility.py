@@ -363,6 +363,67 @@ def code(doc):
     return (stop(doc) or (None,))[0]
 
 
+def ligature(name):
+    """The statement of ONE whose first movement prints its date and value
+    date as one item, 2026-04-~ and 2026-04-02 0.56 em apart (one item to
+    PDF.js, under 0.6 em): the first word ends inside the Date column, the
+    second starts inside Value Date and ends 4.6 points past its header, so
+    the item lies in no column and its words each in one. Its font's
+    ToUnicode map reads the ~ as the two digits 0 and 2. The reader splits
+    the item into its two words all the same, and reads the statement: first
+    expected otherwise here, and measured with the reader (G19)."""
+    doc = whole(name, [[ONE[0], ['', '', *ONE[1][2:]], *ONE[2:]]])
+    page = doc[0]
+    font = page.get_fonts(full=True)[0]
+    first = 98.8 - pymupdf.get_text_length('2026-04-~', fontname='helv', fontsize=8)
+    stream = doc.get_new_xref()
+    doc.update_object(stream, '<< >>')
+    doc.update_stream(stream, b'BT /%s 8 Tf 1 0 0 1 %.3f 290 Tm [(2026-04-~) -560 (2026-04-02)] TJ ET'
+                      % (font[4].encode(), first))
+    doc.xref_set_key(page.xref, 'Contents', '[' + ' '.join(f'{x} 0 R' for x in page.get_contents() + [stream]) + ']')
+    xref = doc.get_new_xref()
+    doc.update_object(xref, '<<>>')
+    doc.update_stream(xref, cmap('beginbfrange <20> <7D> <0020> endbfrange',
+                                 'beginbfchar <7E> <00300032> endbfchar').encode('latin-1'))
+    doc.xref_set_key(font[0], 'ToUnicode', f'{xref} 0 R')
+    path = TMP / f'{name}-mapped.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
+def subsets(name):
+    """The statement of ONE whose first movement's date is drawn as runs in
+    two subsets of one embedded font, its digits in one and its hyphens in
+    the other, as G17's cairo application draws its dates: one name to MuPDF,
+    two fonts to PDF.js, so the reader joins the runs."""
+    doc = pymupdf.open(whole(name, [[ONE[0], ['', *ONE[1][1:]], *ONE[2:]]]).name)
+    page = doc[0]
+    first = page.insert_font(fontname='S1', fontbuffer=pymupdf.Font('helv').buffer, set_simple=True)
+    desc = int(doc.xref_get_key(first, 'FontDescriptor')[1].split()[0])
+    second, second_desc = doc.get_new_xref(), doc.get_new_xref()
+    doc.update_object(second_desc, doc.xref_object(desc))
+    doc.update_object(second, doc.xref_object(first))
+    doc.xref_set_key(second, 'FontDescriptor', f'{second_desc} 0 R')
+    for xref, d, tag in ((first, desc, 'AAAAAA'), (second, second_desc, 'BBBBBB')):
+        doc.xref_set_key(xref, 'BaseFont', f'/{tag}+NimbusSans-Regular')
+        doc.xref_set_key(d, 'FontName', f'/{tag}+NimbusSans-Regular')
+    names = {f[4]: f[0] for f in page.get_fonts(full=True)} | {'S2': second}
+    kind, value = doc.xref_get_key(page.xref, 'Resources')
+    owner = int(value.split()[0]) if kind == 'xref' else page.xref
+    key = 'Font' if kind == 'xref' else 'Resources/Font'
+    doc.xref_set_key(owner, key, '<<' + ''.join(f' /{n} {x} 0 R' for n, x in names.items()) + ' >>')
+    runs = b' '.join(b'/%s 8 Tf (%s) Tj' % (f, s) for s, f in
+                     ((b'2026', b'S1'), (b'-', b'S2'), (b'04', b'S1'), (b'-', b'S2'), (b'02', b'S1')))
+    stream = doc.get_new_xref()
+    doc.update_object(stream, '<< >>')
+    doc.update_stream(stream, b'BT 1 0 0 1 40 %.2f Tm ' % (400 - 110) + runs + b' ET')
+    contents = page.get_contents()
+    doc.xref_set_key(page.xref, 'Contents', '[' + ' '.join(f'{x} 0 R' for x in contents + [stream]) + ']')
+    path = TMP / f'{name}-runs.pdf'
+    doc.save(path)
+    return pymupdf.open(path)
+
+
 class Columns(unittest.TestCase):
     """The reader's reading by columns (columns.py), on planted statements
     and on sealed ones whose reading the reader has recorded."""
@@ -423,6 +484,17 @@ class Columns(unittest.TestCase):
                          (None, {'wordParts': 2, 'drAfterAmount': 2, 'dateRuns': 1}))
         self.assertEqual(exercised(whole('columns-continued-counted', two('(continued) at the till'))),
                          (None, {'wordParts': 4, 'continuation': 1}))
+
+    def test_an_item_with_a_glyph_of_two_letters_is_split_as_the_reader_splits_it(self):
+        self.assertEqual(exercised(ligature('columns-ligature')), (None, {'wordParts': 3}))
+
+    def test_dates_drawn_in_two_subsets_of_one_font_are_runs(self):
+        # PDF.js ends an item where the page changes subset; MuPDF names both
+        # subsets alike, so the model of G13 to G18 read one piece (DEV-67).
+        doc = subsets('columns-subsets')
+        self.assertEqual(exercised(doc), (None, {'wordParts': 2, 'dateRuns': 1}))
+        old = [p.text for line in columns.mupdf_items(doc[0]) for p in line if p.text.startswith('2026')]
+        self.assertEqual(old[0], '2026-04-02')
 
     def test_what_it_copies_is_still_the_readers(self):
         self.assertEqual(columns.drift(), [])
@@ -562,6 +634,7 @@ class Items(unittest.TestCase):
         self.assertEqual(ends['back-0.15em'], one)
         self.assertEqual(ends['two-text-objects'], one)      # across BT
         self.assertEqual(ends['space-then-tight'], two)      # a drawn space, then under 0.102 em
+        self.assertEqual(ends['gap-0.8em'], two)             # past 0.6 em
 
     def test_the_overlap_is_measured_from_the_items_advances(self):
         first, second = self.page('subsets-0.3')
@@ -578,6 +651,12 @@ class Items(unittest.TestCase):
         self.assertEqual(kept['mostItemOverlapPt'], 0.1)
         # Glyphs overlapping inside one item are not the reader's concern.
         self.assertIsNone(el.check_pdf(planted('one-font-0.3'))['mostItemOverlapPt'])
+
+    def test_a_glyph_keeps_the_letters_its_map_gives_it(self):
+        dates = [i for i in items.page_items(ligature('items-ligature'), 0) if i.text.startswith('2026-04-0') and ' ' in i.text]
+        self.assertEqual([d.text for d in dates], ['2026-04-02 2026-04-02'])
+        dates = dates[0]
+        self.assertEqual([g[0] for g in dates.words[0]], ['2', '0', '2', '6', '-', '0', '4', '-', '02'])
 
     def test_lines_are_joined_as_the_reader_joins_them(self):
         def item(x, y, h=10):
