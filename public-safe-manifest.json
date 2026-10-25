@@ -44367,8 +44367,8 @@
     },
     {
       "path": ".claude/skills/tarasuf-accounting-review/SKILL.md",
-      "bytes": 4951,
-      "sha256": "d816d5e18d3e553612fc385790aaf416f220f906ca1f27a204292cd1bece4c0c",
+      "bytes": 5049,
+      "sha256": "3a47b710b6c37a0d5b0a1f3f52c99511d698ce6192e1c4c1c90dccd741282b4d",
       "kind": "text"
     },
     {
@@ -44379,8 +44379,8 @@
     },
     {
       "path": ".claude/skills/tarasuf-adversarial-testing/SKILL.md",
-      "bytes": 5245,
-      "sha256": "9dd7a627116a6a451c92dc65fc8c1af4ffc9a9aad985b59972a086bb5b2bd16f",
+      "bytes": 5387,
+      "sha256": "6a35b69ed471b93a87a1bc8eed1d43e8da4aa8d0740b5abe30b8920ba2b21330",
       "kind": "text"
     },
     {
@@ -44391,20 +44391,20 @@
     },
     {
       "path": ".claude/skills/tarasuf-ai-integration/SKILL.md",
-      "bytes": 4066,
-      "sha256": "81efa0a4366d1c39fc94c3382cf2e163a77a5605fed2a1031e0cab298f20a23f",
+      "bytes": 4128,
+      "sha256": "4a298a0fee3a87b8d7644da9a226323b8aa78bd24607b2603fb977c711edb29b",
       "kind": "text"
     },
     {
       "path": ".claude/skills/tarasuf-engine-development/SKILL.md",
-      "bytes": 5866,
-      "sha256": "dfc888665cdf2b05d847b245a607db9da8dfe6a800101e5aebc99d8c0dc251c1",
+      "bytes": 6054,
+      "sha256": "6936775e94f6999cff7c6a5c153b2e001da7dbad06cfaf08d851c91c33d42480",
       "kind": "text"
     },
     {
       "path": ".claude/skills/tarasuf-privacy-security/SKILL.md",
-      "bytes": 4999,
-      "sha256": "0e7fc8b3c2b54cd71713839e267b94fe6220c1cd64e25b10566d84254aac70d6",
+      "bytes": 5142,
+      "sha256": "eeca91b5f4a542acde25009c12dcfb02bc312b88b2e171477e7a73db3401da5d",
       "kind": "text"
     },
     {
@@ -44415,14 +44415,14 @@
     },
     {
       "path": ".claude/skills/tarasuf-product-workflow/SKILL.md",
-      "bytes": 4890,
-      "sha256": "1092509c7eb7ba6ea12d28bbfffd2a88e0e33fbb33ab575829c5b243674b608e",
+      "bytes": 4953,
+      "sha256": "bc4b02e9dfd0781713c475a58c5a897de931913cf9e964e29e912f8a649006fd",
       "kind": "text"
     },
     {
       "path": ".claude/skills/tarasuf-regression-release/SKILL.md",
-      "bytes": 4247,
-      "sha256": "c5e9ca5c52371764cbcf57ad0ff5a62e22367151348ff1b53c804b5794274b7a",
+      "bytes": 4406,
+      "sha256": "b7ff7b50ad8cab2fcce5b0c1060d6f1c0b02ef7eaadce0036e98c1061e355315",
       "kind": "text"
     },
     {
@@ -44433,8 +44433,8 @@
     },
     {
       "path": ".claude/skills/tarasuf-source-evidence/SKILL.md",
-      "bytes": 4927,
-      "sha256": "d8673efbca48408275a8c57ff28d8070128d4155db6c939d2882e3bf2bdaa6c9",
+      "bytes": 5017,
+      "sha256": "1a34bc8df4b625ae9f0a5ab153c2db554e6279a379b725de784bad25c7076a13",
       "kind": "text"
     },
     {
@@ -44513,6 +44513,12 @@
       "path": "audit/claude-skills/results/run-3-insample-780397f.json",
       "bytes": 34437,
       "sha256": "aaf27548f8392506b9b4aa1155a11b8439d0296b1d1d0eca74857c25dc76e74e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/claude-skills/results/run-1-24bde5c.json",
+      "bytes": 142022,
+      "sha256": "684361bae86bdb0c3e1759689be7e84a23d9c787580decc2a926f688ac355563",
       "kind": "text"
     }
   ],
