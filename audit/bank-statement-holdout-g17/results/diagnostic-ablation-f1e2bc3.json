@@ -1,0 +1,176 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-ablation/1",
+ "suite": "audit/bank-statement-holdout-g17",
+ "commit": "f1e2bc39aafa8729d8dedefbc5c54cbea36bc7f5",
+ "productSourceChanged": false,
+ "plain": {
+  "positivesCompleted": [
+   "V01",
+   "V02",
+   "V03",
+   "V04",
+   "V07",
+   "V08",
+   "V10",
+   "V11"
+  ],
+  "positivesFailed": [
+   "V09"
+  ],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "V05",
+   "V06",
+   "V12"
+  ],
+  "readingOk": [
+   "V01",
+   "V02",
+   "V03",
+   "V04",
+   "V05",
+   "V06",
+   "V07",
+   "V08",
+   "V10",
+   "V11",
+   "V12"
+  ],
+  "refused": [
+   "V09"
+  ],
+  "falseAutomatic": 0
+ },
+ "ablations": [
+  {
+   "rule": "drawing by ink",
+   "unit": "G8",
+   "mutant": "g1:drawing-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "rows by ink",
+   "unit": "G8",
+   "mutant": "g1:rows-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [
+    "V03"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V03": "BANK_STATEMENT_READING: page 1 line 13: تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "DR after its amount",
+   "unit": "G8",
+   "mutant": "g1:debit-mark-ignored",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "date runs joined",
+   "unit": "G8",
+   "mutant": "g1:date-runs-not-joined",
+   "file": "lib/reconciliation/bank-statement-native.ts",
+   "lostPositives": [
+    "V07",
+    "V08"
+   ],
+   "lostHeld": [
+    "V12"
+   ],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V07": "BANK_STATEMENT_FIELD: page 1 line 6: date needs one value",
+    "V08": "BANK_STATEMENT_FIELD: page 1 line 6: date needs one value",
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة.",
+    "V12": "BANK_STATEMENT_FIELD: page 1 line 6: date needs one value"
+   }
+  },
+  {
+   "rule": "typed cashbook amounts",
+   "unit": "G8",
+   "mutant": "g2:typed-amount-as-text",
+   "file": "lib/reconciliation/bank-statement-match.ts",
+   "lostPositives": [
+    "V03"
+   ],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "rectangle traced back to its start",
+   "unit": "G10",
+   "mutant": "g1:rectangle-return-unclosed",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "drawings by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:glyph-boxes-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "rows by glyph boxes",
+   "unit": "G10",
+   "mutant": "g1:rows-glyphs-ignored",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  },
+  {
+   "rule": "visibility by ink",
+   "unit": "G12",
+   "mutant": "g1:visibility-by-metrics",
+   "file": "lib/reconciliation/pdf.ts",
+   "lostPositives": [],
+   "lostHeld": [],
+   "gainedPositives": [],
+   "falseAutomatic": 0,
+   "refusals": {
+    "V09": "BANK_STATEMENT_READING: page 1 line 9: توجد نصوص متداخلة، لذلك لا يمكن التحقق من صحة القراءة."
+   }
+  }
+ ]
+}

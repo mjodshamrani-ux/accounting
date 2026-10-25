@@ -415,6 +415,7 @@ if (report.baselinePassed)
         'audit/bank-statement-holdout-g6/frozen',
         'audit/bank-statement-holdout-g8/frozen',
         'audit/bank-statement-holdout-g10/frozen',
+        'audit/bank-statement-holdout-g17/frozen',
         'package.json',
       ])
         await cp(join(root, name), join(tree, name), { recursive: true });

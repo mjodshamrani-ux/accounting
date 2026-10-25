@@ -208,12 +208,15 @@ class Cashbook(unittest.TestCase):
         # its cashbooks: N02 and N10 refused at row 2, these payments.
         self.assertEqual((before_g8['N02']['row'], before_g8['N02']['detail']), (2, "payments '12732'"))
         self.assertEqual((before_g8['N10']['row'], before_g8['N10']['detail']), (2, "payments '14267'"))
-        self.assertEqual(sorted(before_g8), ['K02', 'N02', 'N10', 'P04', 'Q03', 'R03', 'T03'])
+        # V03 (G17, caxlsx) was written to need typed amounts; the G17
+        # ablation found the product needing them there too.
+        self.assertEqual(sorted(before_g8), ['K02', 'N02', 'N10', 'P04', 'Q03', 'R03', 'T03', 'V03'])
         self.assertEqual(sorted(k for k, v in refused(renamed_core=False).items() if v), ['T03', 'T10'])
         self.assertFalse(any(refused().values()))
 
     def test_each_sealed_workbook_reads_as_its_text_twin(self):
-        self.assertEqual(len(SEALED), 15)
+        # A new sealed cashbook is counted here when its package is sealed.
+        self.assertEqual(len(SEALED), 17)
         for path in SEALED:
             with self.subTest(Path(path).name):
                 rows = list(csv.reader(io.StringIO(Path(path[:-4] + 'csv').read_text(encoding='utf-8'))))
