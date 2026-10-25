@@ -1,0 +1,109 @@
+# مهارات Claude Code وقواعده وفحوصه في تراصف
+
+أُضيف هذا النظام في 25 أكتوبر 2026 فوق الالتزام `16e7cd1`. يحدد ما يحمله Claude Code إلى كل مهمة: قواعد قصيرة دائمة، ومهارات تُحمّل عند الحاجة، وفحوصًا تُشغَّل. المهارات تحيل إلى العقود ولا تنسخها: [AGENTS.md](../../AGENTS.md) و[العقد المحاسبي](ACCOUNTING-CONTRACT.ar.md) و[الجودة](QUALITY.ar.md) و[دليل التسليم](DELIVERY.ar.md) تبقى المرجع.
+
+نتائج التقييم الفعلية، وما بقي دون تحقق، في [سجل تقييم المهارات](../../audit/claude-skills/README.ar.md).
+
+## الطبقات الثلاث وحدود كل منها
+
+| الطبقة | الملفات | متى تعمل | ما لا تفعله |
+| --- | --- | --- | --- |
+| قواعد ثابتة | [CLAUDE.md](../../CLAUDE.md) يستورد `AGENTS.md`، و`.claude/rules/` | `agent-boundaries.md` في كل جلسة؛ البقية حين يعمل Claude على ملفات تطابق `paths` | توجيه للنموذج، لا إلزام. قد يخالفها، ولا يقرؤها Codex أو غيره إلا `AGENTS.md` |
+| مهارات | `.claude/skills/<name>/SKILL.md` وملفات مساندة | يرى Claude الوصف دائمًا ويحمّل المهارة حين تطابق المهمة، أو بطلب `/name` | لا تمنح صلاحية دفع أو دمج أو نشر أو تثبيت. قد لا تُحمّل حين يلزم، ويقيس السجل ذلك |
+| فحص هيكلي | `scripts/check-claude-skills.mjs` واختباراته، `pnpm test:claude-skills` | يدويًا، وضمن `pnpm check`، وفي CI | يفحص الشكل والروابط والأوامر والإعدادات، لا فائدة المهارة |
+| خطاف محلي | `.claude/settings.json` و`.claude/hooks/protect-recorded-evidence.mjs` | قبل كل استدعاء لأدوات Edit وWrite وMultiEdit وNotebookEdit في Claude Code | لا يرى أوامر الصدفة، ويمر إذا تعذر قراءة مدخله أو انتهت مهلته. CI هو الحاجز |
+
+**ليس شيء من هذا حاجزًا أمنيًا شاملًا.** التعليمات نص يقرؤه النموذج، والخطاف تنبيه مبكر لأداة واحدة. الحاجز الفعلي فحوص CI وحارس المحتوى العام والمراجعة.
+
+## المهارات المعتمدة
+
+| المهارة | الوظيفة | ملفات مساندة |
+| --- | --- | --- |
+| `tarasuf-engine-development` | تغيير المحرك أو القارئ أو المطابقة: العقد أولًا، وفصل الطبقات، والوحدات الصغرى، والحتمية، والقياس، واختبار فشل قبل الإصلاح | — |
+| `tarasuf-accounting-review` | هل النتيجة صحيحة محاسبيًا: الأعضاء والأدلة قبل المجاميع، والإشارة والعملة والفترة، والحالات الثلاث | [checklist.md](../../.claude/skills/tarasuf-accounting-review/checklist.md) |
+| `tarasuf-adversarial-testing` | حالات تكشف خطأ: منافس بالمبلغ نفسه، وتحويرات تحفظ المعنى أو تمنعه، وأوراكل مستقل، وholdout، وطفرات | [catalog.md](../../.claude/skills/tarasuf-adversarial-testing/catalog.md) |
+| `tarasuf-privacy-security` | خريطة تدفق البيانات، والشبكة، والاعتماديات، والتخزين، والملفات غير الموثوقة، ورصد فعلي بدل قراءة الشفرة | [data-flow.md](../../.claude/skills/tarasuf-privacy-security/data-flow.md) |
+| `tarasuf-source-evidence` | أصل كل قيمة وأثرها من الملف إلى Excel، ومخاطر الصيغ | [formats.md](../../.claude/skills/tarasuf-source-evidence/formats.md) |
+| `tarasuf-regression-release` | اختيار الفحوص وتشغيلها وتسجيلها، والتمييز بين فشل قديم وجديد | [selection.md](../../.claude/skills/tarasuf-regression-release/selection.md) |
+| `tarasuf-product-workflow` | مسار المستخدم في الواجهة: الرفع والمراجعة والقرارات والتصدير وRTL والوصول | — |
+| `tarasuf-ai-integration` | تقييم اقتراحات AI وOCR ضمن حدودها؛ تقييم فقط، لا تفويض بإضافة مزود أو نموذج | — |
+
+**قرار الدمج:** أُبقيت المهارات الثماني المقترحة منفصلة لأن لكل منها مدخلات وفحوصًا مختلفة. فصلنا تصميم الحالات (`tarasuf-adversarial-testing`) عن اختيار الفحوص وتسجيلها (`tarasuf-regression-release`)، وفصلنا صحة المعنى المحاسبي (`tarasuf-accounting-review`) عن صحة القراءة والأصل (`tarasuf-source-evidence`). وتُحمّل مهارة AI تلقائيًا لأن في الشفرة مسارات AI قائمة، لكنها تقييمية فقط.
+
+**الاستدعاء:** يحمّل Claude المهارة حين تطابق المهمة وصفها. للطلب الصريح اكتب `/tarasuf-accounting-review` مثلًا، ويمكن إضافة نص المهمة بعدها.
+
+## خريطة المهمة إلى المهارات والفحوص
+
+| نوع المهمة | المهارات | الفحوص الأولى | قبل طلب المراجعة |
+| --- | --- | --- | --- |
+| إصلاح خلل في محرك أو قارئ | `tarasuf-engine-development` ثم `tarasuf-accounting-review` | اختبار الملف المركّز يفشل ثم ينجح | `tarasuf-regression-release`: النوع والفحص والطفرات وبوابات المجال |
+| عائلة مصدر جديدة | `tarasuf-source-evidence` و`tarasuf-adversarial-testing` و`tarasuf-engine-development` | الحقيقة المرجعية قبل القارئ، وفحص الفاحص | الجلسة وExcel والمتصفح |
+| holdout جديد | `tarasuf-adversarial-testing` | الختم والتحقق المستقل قبل أي تشغيل للمنتج | أول تشغيل كما جاء، ثم التشخيص |
+| مراجعة نتيجة أو قاعدة مطابقة | `tarasuf-accounting-review` | [checklist.md](../../.claude/skills/tarasuf-accounting-review/checklist.md) | — |
+| تغيير شبكة أو اعتمادية أو CSP أو تخزين | `tarasuf-privacy-security` | خريطة التدفق، ثم رصد فعلي | `pnpm test:browser`، وحارس المحتوى |
+| تغيير في الواجهة | `tarasuf-product-workflow` | `pnpm typecheck` و`pnpm lint` | سكربت المتصفح للمجال |
+| مسار AI أو OCR | `tarasuf-ai-integration` و`tarasuf-privacy-security` | تصنيف الطلب، ثم ظرف الاقتراح | تفويض المستخدم قبل أي مزود أو تنزيل |
+| فشل CI | `tarasuf-regression-release` | إعادة الفشل على الأساس في نسخة منفصلة | نتيجة CI على الرأس نفسه |
+| توثيق فقط | لا مهارة | `tests/docs-status.test.ts` | حارس المحتوى العام |
+| تعديل المهارات والقواعد | — | `pnpm test:claude-skills` | تقييم سلوكي لما تغير، انظر السجل |
+
+## ما وُجد قبل هذه المهمة
+
+حالة كل عنصر عند الالتزام `16e7cd1`، قبل إضافة النظام:
+
+| العنصر | الحالة | الدليل |
+| --- | --- | --- |
+| `.claude/` بمهارات أو قواعد أو خطافات | غير موجود | `ls -a` في الجذر |
+| `AGENTS.md` يصل إلى جلسات Claude Code | موجود وغير متحقق منه | `CLAUDE.md` يحيل إليه برابط. ووثائق Claude Code تقول إنه لا يُقرأ تلقائيًا حين يوجد `CLAUDE.md`. أُصلح باستيراد `@AGENTS.md`، وقيس أثره في السجل |
+| قواعد الحدود والتسليم والجودة | موجود ومتحقق منه | `AGENTS.md` و[DELIVERY](DELIVERY.ar.md) و[QUALITY](QUALITY.ar.md)، وبوابات CI في `.github/workflows/pages.yml` |
+| منع الاتصال الخارجي في المنتج | موجود ومتحقق منه في CI | CSP `connect-src 'none'` في `scripts/harden-build.mjs`، و`scripts/browser-test.mjs` يرصد الطلبات الخارجية؛ لم يُشغَّل في هذه المهمة |
+| حارس المحتوى العام | موجود ومتحقق منه | `scripts/public-content-check.mjs` واختباره، في CI |
+| حالات صعبة وتصنيف وتصغير | موجود ومتحقق منه | `audit/hard-cases/` و`pnpm test:hard-cases` في CI |
+| طفرات تشترط فشل assertion | موجود ومتحقق منه | `scripts/mutation-runner-support.mjs` واختباره |
+| `/code-review` و`/security-review` | موجودة في قائمة مهارات هذه الجلسة، ولم تُشغَّل | قائمة المهارات المدمجة في الجلسة |
+| `/verify` و`/run-skill-generator` | غير موجودين في هذه البيئة | لا يظهران في قائمة مهارات الجلسة |
+| مهارة skill-creator من Anthropic | موجودة على مستوى الحساب | انظر القسم التالي |
+| AI-1 إلى AI-3 وOCR-1، والحسابات والتحليلات | مخطط | [AI-AND-OCR](AI-AND-OCR.ar.md) و[خطة الحسابات](../roadmap/accounts-privacy-business.ar.md) |
+
+## الإضافات الخارجية
+
+**skill-creator من Anthropic: مقبولة للاستعمال، ولم تُنسخ إلى المستودع.**
+
+- **المصدر:** حزمة Anthropic المتاحة في هذه الجلسة عبر مزامنة الحساب باسم `anthropic-skills:skill-creator`. نسختها مطابقة لنسخة الأمثلة في بيئة التشغيل. رخصتها Apache 2.0.
+- **الإصدار:** لا تحمل النسخة رقم التزام. تختلف عن رأس المستودع العام `anthropics/skills` عند `dbd4588` في صيغة حالات التقييم. بصمة `SKILL.md` المحلية تبدأ بـ`db7ec493`، وبصمة نسخة المستودع العام تبدأ بـ`dcd4803e`.
+- **ما تشغله:**
+  - سكربتات Python تستدعي `claude -p`، فتُرسل نصوص التقييم إلى مزود النموذج كأي جلسة.
+  - `run_eval.py` يكتب ملفات مؤقتة في `.claude/commands/` داخل المشروع.
+  - عارض التقارير يحمّل خطوط Google.
+  - لا تطلب صلاحيات جديدة.
+- **القرار:** نستعمل منهجها وقواعد التحقق فيها، مثل طول الاسم والوصف، ونشغّل التقييم في نسخة معزولة لا داخل المستودع. لم تُثبّت إضافات أخرى. لا يلزم تثبيت إضافة حتى يعمل نظام المهارات هذا.
+- **التعطيل:** من إعدادات المهارات في الحساب، أو بإضافة اسمها إلى `skillOverrides` بقيمة `"off"` في إعدادات المستخدم.
+
+## العيوب والتعارضات المكتشفة
+
+1. **`AGENTS.md` لم يكن يصل تلقائيًا إلى Claude Code.** وجود `CLAUDE.md` يجعل Claude Code يقرؤه بدلًا من `AGENTS.md`، و`CLAUDE.md` كان يكتفي برابط. أُصلح بالاستيراد، وقيس الأثر في السجل.
+2. **دليل التسليم يطلب `pnpm exec playwright install chromium`.** هذا صحيح في CI. لكنه يضر في حاوية متصفحها مثبت مسبقًا بإصدار آخر، إذ يثبت متصفحًا ثانيًا لا يجده Playwright المستودع. وُثق ذلك في [selection.md](../../.claude/skills/tarasuf-regression-release/selection.md) دون تغيير الدليل.
+3. **المنتج يقرأ طبقة نص PDF ولا يفحص أن الحرف مرسوم** (DEV-63). خريطة ToUnicode هوية قد تعطي حرفًا رُسم مربعًا. هذا معروف ومسجل في G15، وفحصه في أداة الأهلية فقط. لم يُغيَّر المنتج في هذه المهمة.
+4. **سؤال منتج مفتوح من G15:** «DR» تحت عنوان عمود محاذى لليمين أوقف فحص الأعمدة في T03 قبل الختم. سُجل في [تقرير G15](../audits/BNK-PDF-1-G15.ar.md)، ولم يُعالج هنا.
+5. **سكربت التقييم في skill-creator يكتب داخل المشروع.** لذلك لا يُشغَّل داخل هذا المستودع.
+
+لم تُغيَّر سلوكيات المحرك أو المنتج في هذه المهمة، ولم يُنشر إصدار.
+
+## التشغيل والتعطيل
+
+```sh
+pnpm test:claude-skills          # الفحص الهيكلي واختباراته
+node audit/claude-skills/run.mjs --help   # التقييم السلوكي، يدويًا ويستهلك استخدام النموذج
+```
+
+- **تعطيل مهارة:** احذف مجلدها، أو أضف `disable-model-invocation: true` إلى رأسها فتبقى متاحة بـ`/name` وحده. ويمكن لكل مطور ضبط `skillOverrides` في `.claude/settings.local.json`.
+- **تعطيل قاعدة:** احذف ملفها من `.claude/rules/`.
+- **تعطيل الخطاف:** احذف مدخله من `.claude/settings.json`. ولجلسة واحدة: `claude --settings '{"disableAllHooks": true}'`. ولمطور واحد: `"disableAllHooks": true` في `.claude/settings.local.json`، وهو ملف لا يُرفع.
+- **تعطيل الفحص في CI:** احذف خطوته من `.github/workflows/pages.yml`، و`pnpm test:claude-skills` من `check`.
+
+## صيانة المهارات
+
+- يبقى `SKILL.md` قصيرًا، بأقسام ثابتة يفحصها `pnpm test:claude-skills`. تنتقل التفاصيل إلى ملف مساند، وتبقى العقود في مكانها.
+- لا تُضاف حقول `allowed-tools` أو `hooks` أو `model` أو `context` إلى رأس المهارة. يرفضها الفحص، لأنها توسع الصلاحيات أو تشغل شفرة عند التحميل.
+- يحدَّث [فهرس الدروس](LESSONS-INDEX.ar.md) بكل درس قابل للتعميم. وتُحدَّث المهارة فقط حين يغير الدرس خطوة عامة فيها.
+- كل تغيير في وصف مهارة يعاد قياس اختيارها بعده: حالة يجب أن تُحمّل فيها، وحالة لا يجب.
