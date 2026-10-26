@@ -18,6 +18,8 @@ import columns  # noqa: E402
 import eligibility as el  # noqa: E402
 import items  # noqa: E402
 import plant_items  # noqa: E402
+import plant_rows  # noqa: E402
+import rows  # noqa: E402
 import tounicode  # noqa: E402
 
 TMP = Path(tempfile.mkdtemp(prefix='eligibility-'))
@@ -680,6 +682,61 @@ class Items(unittest.TestCase):
 
     def test_what_it_copies_is_still_the_products(self):
         self.assertEqual(items.drift(), [])
+
+
+class Rows(unittest.TestCase):
+    """The reader's test of adjacent rows in its three forms, as rows.py
+    judges it: by glyph boxes, by ink, by the fonts' ascent and descent. Each
+    verdict here is the reader's, plain and with each rule off
+    (measure_rows.mjs, results/rows-vs-reader-g21.json)."""
+
+    @classmethod
+    def setUpClass(cls):
+        plant_rows.main(TMP / 'rows')
+
+    @staticmethod
+    def path(name):
+        return TMP / 'rows' / f'{name}.pdf'
+
+    def test_each_planted_page_is_judged_in_each_form_as_the_reader_judges_it(self):
+        for name, _, want, why in plant_rows.PAGES:
+            with self.subTest(name, why=why):
+                try:
+                    forms = rows.check_page(pymupdf.open(str(self.path(name))), 0)
+                except Exception as e:  # a crash is a wrong verdict too
+                    self.fail(f'{name}: {e!r}')
+                self.assertEqual(forms, want)
+
+    def test_sealed_statements_in_each_form(self):
+        # Lines refused (metric, ink, glyph), each as the reader refused it:
+        # composite TrueType of PDFKit (W07), FOP (P01), OpenPDF (P09) and
+        # jsPDF (Q10); simple TrueType of Prawn (V03); a cmap that does not
+        # parse, of mPDF (R10); CID-keyed CFF of PDFKit (W10) and simple
+        # Type1C of iText (W02).
+        root = Path(__file__).resolve().parent.parent
+        cases = {('g20', 'W07'): (12, 8, 0), ('g10', 'P01'): (32, 0, 0), ('g10', 'P09'): (47, 44, 12),
+                 ('g12', 'Q10'): (80, 4, 0), ('g17', 'V03'): (8, 0, 0), ('g14', 'R10'): (0, 0, 0),
+                 ('g20', 'W10'): (0, 0, 0), ('g20', 'W02'): (0, 0, 0)}
+        for (package, sid), want in cases.items():
+            pages = rows.check_pdf(root / f'bank-statement-holdout-{package}' / 'frozen' / f'{sid}-statement.pdf')
+            self.assertEqual(tuple(sum(len(p[f]) for p in pages) for f in rows.FORMS), want, sid)
+
+    def test_eligibility_finds_what_the_reader_refuses_today_and_counts_the_rest(self):
+        def rules(name):
+            result = el.check_pdf(self.path(name))
+            return result['found'].get('rows'), {k: v for k, v in result['exercised'].items() if k.startswith('rows')}
+        self.assertEqual(rules('glyphs-overlap'), ([{'page': 1, 'at': 1}, {'page': 1, 'at': 2}], {}))
+        self.assertEqual(rules('metric-only'), (None, {'rowsByInk': 2}))
+        self.assertEqual(rules('ink-not-glyph'), (None, {'rowsByInk': 2, 'rowsByGlyphs': 2}))
+        self.assertEqual(rules('apart'), (None, {}))
+        # The same counts without the checks that render the page.
+        self.assertEqual({k: v for k, v in el.counts(self.path('ink-not-glyph')).items() if k.startswith('rows')},
+                         {'rowsByInk': 2, 'rowsByGlyphs': 2})
+        self.assertEqual(found(self.path('no-metrics'))['metrics'],
+                         [{'page': 1, 'at': 'a font whose ascent and descent PDF.js cannot give'}])
+
+    def test_what_it_copies_is_still_the_readers(self):
+        self.assertEqual(rows.drift(), [])
 
 
 if __name__ == '__main__':

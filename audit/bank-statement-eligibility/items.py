@@ -148,6 +148,8 @@ class Font:
             holder = int(re.search(r'(\d+) 0 R', value).group(1)) if kind == 'array' else int(value.split()[0])
         kind, desc = doc.xref_get_key(holder, 'FontDescriptor')
         desc = int(desc.split()[0]) if kind == 'xref' else None
+        # Where rows.py finds the font's descriptor and program.
+        self.xref, self.holder, self.desc = xref, holder, desc
         name = doc.xref_get_key(desc, 'FontName')[1] if desc else 'null'
         self.name = (name if name != 'null' else doc.xref_get_key(xref, 'BaseFont')[1]).lstrip('/')
         try:
@@ -278,9 +280,13 @@ class Item:
     glyphs as words, split where PDF.js puts a space in the text, each glyph
     (text, start, end) along the line (columns.py's word parts)."""
 
-    def __init__(self, text, x, y, width, height, font, words=()):
+    def __init__(self, text, x, y, width, height, font, words=(), face=None, marks=()):
         self.text, self.x, self.y, self.width, self.height, self.font = text, x, y, width, height, font
         self.words = [w for w in words if w]
+        # The Font PDF.js names the item's style after (its font when the item
+        # began), and each glyph shown in it: (Font, code, matrix, left,
+        # right), for rows.py.
+        self.face, self.marks = face, list(marks)
 
     def __repr__(self):
         return f'Item({self.text!r}, x={self.x:.3f}, y={self.y:.3f}, w={self.width:.3f})'
@@ -294,6 +300,7 @@ class Builder:
         self.view, self.items = view, []
         self.initialized, self.str, self.width, self.total_width, self.height = False, [], 0.0, 0.0, 0.0
         self.words = [[]]
+        self.face, self.marks = None, []
         self.prev, self.prev_rise, self.scale, self.transform, self.font_name = None, 0.0, 0.0, None, None
         self.tracking = self.not_a_space = self.negative = self.space_min = self.space_max = 0.0
         self.last, self.slot = [' ', ' '], 0
@@ -318,8 +325,8 @@ class Builder:
         self.total_width += self.width * self.scale
         t = self.transform
         self.items.append(Item(''.join(self.str), t[4], t[5], abs(self.total_width), abs(self.height), self.font_name,
-                               self.words))
-        self.initialized, self.str, self.words = False, [], [[]]
+                               self.words, self.face, self.marks))
+        self.initialized, self.str, self.words, self.marks = False, [], [[]], []
 
     def eol(self):
         self.reset_last()
@@ -329,7 +336,7 @@ class Builder:
         if self.initialized:
             return
         st, t = self.st, self.st.current()
-        self.font_name, self.transform = st.font_name, t
+        self.font_name, self.transform, self.face = st.font_name, t, st.font
         self.width = self.total_width = 0.0
         self.height = math.hypot(t[2], t[3])
         self.scale = math.hypot(st.ctm[0], st.ctm[1]) * math.hypot(st.tlm[0], st.tlm[1])
@@ -448,7 +455,8 @@ class Builder:
             if kind == 'diacritic':
                 advance = 0
             advance *= st.hscale
-            start = st.current()[4]
+            matrix = st.current()
+            start = matrix[4]
             st.translate(advance, 0)
             self.width += advance
             if advance:
@@ -459,6 +467,11 @@ class Builder:
             self.str.append(text)
             end = st.current()[4]
             self.words[-1].append((text, min(start, end), max(start, end)))
+            # The reader's placement of the glyph (pdf-glyph-geometry.ts): its
+            # width and the spacing after it, a diacritic's too.
+            em = width * 0.001 + ((spacing + (st.word_spacing if code == 32 else 0)) / st.size if st.size else 0)
+            reach = matrix[0] * em + matrix[4]
+            self.marks.append((font, code, matrix, min(start, reach), max(start, reach)))
             if after:
                 st.translate(after * st.hscale, 0)
 

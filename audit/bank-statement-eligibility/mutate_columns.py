@@ -46,8 +46,8 @@ def tree(at):
         (audit / package.name).symlink_to(package)
     tool = audit / HERE.name
     tool.mkdir()
-    for name in ('columns.py', 'tounicode.py', 'cashbook.py', 'items.py', 'plant_items.py', 'eligibility.py',
-                 'test_eligibility.py', 'test_cashbook.py'):
+    for name in ('columns.py', 'tounicode.py', 'cashbook.py', 'items.py', 'plant_items.py', 'rows.py', 'plant_rows.py',
+                 'eligibility.py', 'test_eligibility.py', 'test_cashbook.py'):
         shutil.copy(HERE / name, tool / name)
     return tool
 
@@ -61,13 +61,15 @@ def main(mutants=MUTANTS, module='columns.py', tests='test_eligibility.Columns')
         if run.returncode != 0:
             raise SystemExit(f'the unmutated tree fails {tests}:\n{run.stderr[-2000:]}')
     survived = []
-    for name, (old, new) in mutants.items():
+    for name, change in mutants.items():
+        # A mutant of another module than the one named names its own.
+        target, (old, new) = (change[0], change[1:]) if len(change) == 3 else (module, change)
         with tempfile.TemporaryDirectory() as temp:
             tool = tree(Path(temp))
-            source = (tool / module).read_text(encoding='utf-8')
+            source = (tool / target).read_text(encoding='utf-8')
             if source.count(old) != 1:
-                raise SystemExit(f'{name}: the line it mutates is not in {module} once')
-            (tool / module).write_text(source.replace(old, new), encoding='utf-8')
+                raise SystemExit(f'{name}: the line it mutates is not in {target} once')
+            (tool / target).write_text(source.replace(old, new), encoding='utf-8')
             run = subprocess.run([sys.executable, '-B', '-m', 'unittest', tests],
                                  cwd=tool, capture_output=True, text=True)
             # A kill is a test's assertion failing, not an error (DEV-22).

@@ -90,6 +90,7 @@ import pymupdf
 import cashbook
 import columns
 import items
+import rows
 import tounicode
 
 HERE = Path(__file__).resolve().parent
@@ -438,6 +439,77 @@ def visible(color, box, fills):
     return ratio(color, (1, 1, 1)) >= CONTRAST
 
 
+def contrast(page, fills, ink, metrics, add, used):
+    """The reader's contrast test on each run, by its glyphs' ink; a run
+    visible so and not by its font's declared box counts visibleByInk."""
+    for span in page.get_texttrace():
+        chars = [chr(c[0]) for c in span['chars'] if chr(c[0]).strip()]
+        if not chars:
+            continue
+        color = rgb(span.get('color')) or (0, 0, 0)
+        box = run_box(span, ink)
+        under = [f for f in fills if f[0] < span['seqno']]
+        if not visible(color, box, under):
+            add('contrast', [chars[0], [round(v, 2) for v in box]])
+        elif not visible(color, declared_box(span, metrics), under):
+            # Visible only as G12 judges it, by its glyphs' ink, and not by
+            # the font's declared box the reader judged by before.
+            used['visibleByInk'] += 1
+
+
+def backgrounds(page):
+    """The reader's backgrounds: opaque rectangles filled and not stroked."""
+    return [(d['seqno'], pymupdf.Rect(d['rect']), rgb(d.get('fill'))) for d in page.get_drawings()
+            if d.get('fill') is not None and d.get('type') == 'f' and (d.get('fill_opacity') or 1) == 1
+            and all(item[0] == 're' for item in d['items'])]
+
+
+def glyph_ink(page):
+    """MuPDF's glyph outline boxes by origin, as verify.py measures them
+    (check_page builds the same while it measures the rules)."""
+    ink = {}
+    for block in page.get_text('rawdict', flags=pymupdf.TEXT_ACCURATE_BBOXES)['blocks']:
+        for line in block.get('lines', []):
+            for span in line['spans']:
+                for c in span['chars']:
+                    ink[origin_key(c['origin'])] = pymupdf.Rect(c['bbox'])
+    return ink
+
+
+def adjacent_rows(doc, pno, used):
+    """The reader's test of adjacent rows in its three forms (rows.py, since
+    G21): what today's form refuses is a finding; what only an earlier form
+    refuses is a rule the statement needs, counted by its lines."""
+    forms = rows.check_page(doc, pno)
+    if 'unprovable' in forms.values():
+        return {'metrics': ['a font whose ascent and descent PDF.js cannot give']}
+    today = set(forms['glyph'])
+    used['rowsByInk'] += len(set(forms['metric']) - today)
+    used['rowsByGlyphs'] += len(set(forms['ink']) - today)
+    return {'rows': sorted(today)} if today else {}
+
+
+def counts(path):
+    """The rules a statement exercises, without the checks that render the
+    page: the rows forms (rows.py), the contrast test by ink, and the reading
+    by columns; for measure_rows.mjs."""
+    doc = pymupdf.open(str(path))
+    used, ignored = Counter(), {}
+    def add(check, what):
+        ignored.setdefault(check, []).append(what)
+    for pno in range(doc.page_count):
+        page = doc[pno]
+        contrast(page, backgrounds(page), glyph_ink(page), declared_metrics(doc), add, used)
+        if not page.rotation:
+            try:
+                adjacent_rows(doc, pno, used)
+            except items.Unmodelled:
+                continue
+    if not any(doc[p].rotation for p in range(doc.page_count)):
+        columns.check_statement(doc, used)
+    return dict(sorted((k, v) for k, v in used.items() if v))
+
+
 def check_page(path, doc, pno, clearance, reach, used=None):
     page = doc[pno]
     found = {}
@@ -458,10 +530,7 @@ def check_page(path, doc, pno, clearance, reach, used=None):
             break
     rect = page.rect
     drawings = page.get_drawings()
-    # The reader's backgrounds: opaque rectangles filled and not stroked.
-    fills = [(d['seqno'], pymupdf.Rect(d['rect']), rgb(d.get('fill'))) for d in drawings
-             if d.get('fill') is not None and d.get('type') == 'f' and (d.get('fill_opacity') or 1) == 1
-             and all(item[0] == 're' for item in d['items'])]
+    fills = backgrounds(page)
     # As the reader sorts them: an opaque filled rectangle is a background,
     # judged by contrast (and, painted over text, by visibleInk); a stroke, or
     # a fill that is not only rectangles, is tested against the glyphs.
@@ -526,15 +595,7 @@ def check_page(path, doc, pno, clearance, reach, used=None):
             if box.y0 < rect.y0 - EDGE or box.y1 > rect.y1 + EDGE or box.x0 < rect.x0 - EDGE or box.x1 > rect.x1 + EDGE:
                 add('pageEdge', ch)
                 break
-        color = rgb(span.get('color')) or (0, 0, 0)
-        box = run_box(span, ink)
-        under = [f for f in fills if f[0] < span['seqno']]
-        if not visible(color, box, under):
-            add('contrast', [chars[0][1], [round(v, 2) for v in box]])
-        elif not visible(color, declared_box(span, metrics), under):
-            # Visible only as G12 judges it, by its glyphs' ink, and not by
-            # the font's declared box the reader judged by before.
-            used['visibleByInk'] += 1
+    contrast(page, fills, ink, metrics, add, used)
     gap = line_ink(path, pno, reach)
     if gap is not None and gap <= clearance:
         add('lineInk', round(gap, 2))
@@ -574,6 +635,7 @@ def check_pdf(path, clearance=0.05, reach=0.5):
                     found['overlap'] = lines
                 if most is not None:
                     most_overlap = most if most_overlap is None else max(most_overlap, most)
+                found.update(adjacent_rows(doc, pno, used))
         for k, v in found.items():
             result['found'].setdefault(k, []).extend([{'page': pno + 1, 'at': x} for x in v[:3]])
         if rule is not None:
@@ -632,7 +694,11 @@ def main():
     ap.add_argument('--decide')
     ap.add_argument('--clearance', type=float, default=0.05)
     ap.add_argument('--out')
+    ap.add_argument('--counts', nargs='*', help='statements: print the rules each exercises, and stop')
     a = ap.parse_args()
+    if a.counts is not None:
+        print(json.dumps({p: counts(p) for p in [a.package] + a.counts}))
+        return
     if acceptable_in_source() != ACCEPTABLE:
         raise SystemExit(f'ACCEPTABLE drifted from {VIEW}: {acceptable_in_source()}')
     if columns.drift():
@@ -641,6 +707,8 @@ def main():
         raise SystemExit(f'the reader no longer carries what tounicode.py copies: {tounicode.drift()}')
     if items.drift():
         raise SystemExit(f'the reader no longer carries what items.py copies: {items.drift()}')
+    if rows.drift():
+        raise SystemExit(f'the reader no longer carries what rows.py copies: {rows.drift()}')
     if cashbook.drift():
         raise SystemExit(f'the product no longer carries what cashbook.py copies: {cashbook.drift()}')
     package = Path(a.package)
