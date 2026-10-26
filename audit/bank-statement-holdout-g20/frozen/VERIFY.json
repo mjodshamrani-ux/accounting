@@ -1,0 +1,287 @@
+{
+ "reader": "pdfminer.six, glyph by glyph, rows by baseline, Arabic descriptions in reading order",
+ "factsSha256": "ba6a0bd1c70bd8ef0e74b01efc2407c435c381c2e52698567aa9a0791f26dc6a",
+ "statements": [
+  {
+   "id": "W01",
+   "file": "W01-statement.pdf",
+   "sha256": "f0003d93b73439eb8f6096ddffd2fd04cf1ceccadb3ab4225d954cbfc0257eb9",
+   "pages": 4,
+   "valuesFound": 352,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement service (iText)",
+   "producer": "iText® Core 9.8.0 (AGPL version) ©2000-2026 Apryse Group NV",
+   "fonts": [
+    "HKCGRU+Karla-Regular",
+    "ZHWNSN+Karla-Bold"
+   ],
+   "fontDeclared": "Karla",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W02",
+   "file": "W02-statement.pdf",
+   "sha256": "e8c4a4215877b7f863f8863fd04e4d902079a063b4454f31f95ff3de8070bc7e",
+   "pages": 4,
+   "valuesFound": 345,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement service (iText)",
+   "producer": "iText® Core 9.8.0 (AGPL version) ©2000-2026 Apryse Group NV",
+   "fonts": [
+    "SourceSans3-Bold",
+    "SourceSans3-Regular"
+   ],
+   "fontDeclared": "Source Sans 3",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W03",
+   "file": "W03-statement.pdf",
+   "sha256": "7d99095db4417d814c18f3792368c984091949d9e5ba4afdb2066675a3d16633",
+   "pages": 4,
+   "valuesFound": 328,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement service (iText)",
+   "producer": "iText® Core 9.8.0 (AGPL version) ©2000-2026 Apryse Group NV",
+   "fonts": [
+    "NXWEHW+RobotoMono-Bold",
+    "ZNPLYK+RobotoMono-Regular"
+   ],
+   "fontDeclared": "Roboto Mono",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W04",
+   "file": "W04-statement.pdf",
+   "sha256": "428644e8a0d1f8f93989cf9c3a5a08fe5b29292178d2be508a68433fdca709ae",
+   "pages": 9,
+   "valuesFound": 793,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement service (iText)",
+   "producer": "iText® Core 9.8.0 (AGPL version) ©2000-2026 Apryse Group NV",
+   "fonts": [
+    "GCTFRU+Lora-Regular",
+    "HBIATH+Lora-Bold"
+   ],
+   "fontDeclared": "Lora",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W05",
+   "file": "W05-statement.pdf",
+   "sha256": "11a3a1b66227718342280068c8fa5563ff9fc653a5aff42a872757c71c34fc34",
+   "pages": 4,
+   "valuesFound": 342,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement service (iText)",
+   "producer": "iText® Core 9.8.0 (AGPL version) ©2000-2026 Apryse Group NV",
+   "fonts": [
+    "UQMQLH+Karla-Bold",
+    "YIUOLY+Karla-Regular"
+   ],
+   "fontDeclared": "Karla",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W06",
+   "file": "W06-statement.pdf",
+   "sha256": "4835c7b79bd4711f818c98f2c5c4328d195282b7c7fdf9f7e6b0744a0270bd45",
+   "pages": 4,
+   "valuesFound": 340,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement application (PDFKit)",
+   "producer": "PDFKit",
+   "fonts": [
+    "CZZZZZ+DMSans-Bold",
+    "DZZZZZ+DMSans-Regular"
+   ],
+   "fontDeclared": "DM Sans",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W07",
+   "file": "W07-statement.pdf",
+   "sha256": "d0b8e426a757084803b9ad3be8ee9662bdc81d7c21846d4bc7645c5a3af4744c",
+   "pages": 4,
+   "valuesFound": 272,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement application (PDFKit)",
+   "producer": "PDFKit",
+   "fonts": [
+    "CZZZZZ+Changa-Bold",
+    "DZZZZZ+Changa-Regular"
+   ],
+   "fontDeclared": "Changa",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W08",
+   "file": "W08-statement.pdf",
+   "sha256": "fe0a41bcff1c76099db4ac9405fa44d862d7c624ee813831e9adc4d2e4a24687",
+   "pages": 4,
+   "valuesFound": 255,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement application (PDFKit)",
+   "producer": "PDFKit",
+   "fonts": [
+    "CZZZZZ+Kufam-Bold",
+    "DZZZZZ+Kufam-Regular"
+   ],
+   "fontDeclared": "Kufam",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W09",
+   "file": "W09-statement.pdf",
+   "sha256": "71b2a3e938488f35a100a944ea5529b8035e7d4944a8ae2ff359fa42d0488e7d",
+   "pages": 4,
+   "valuesFound": 290,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement application (PDFKit)",
+   "producer": "PDFKit",
+   "fonts": [
+    "CZZZZZ+BalooBhaijaan2-Bold",
+    "DZZZZZ+BalooBhaijaan2-Regular"
+   ],
+   "fontDeclared": "Baloo Bhaijaan 2",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W10",
+   "file": "W10-statement.pdf",
+   "sha256": "a880d74ff0be8fdc4494a24f2a331a45785ff81364c8abb20123d3f97a92895b",
+   "pages": 5,
+   "valuesFound": 408,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement application (PDFKit)",
+   "producer": "PDFKit",
+   "fonts": [
+    "CZZZZZ+SourceSans3-Bold",
+    "DZZZZZ+SourceSans3-Regular"
+   ],
+   "fontDeclared": "Source Sans 3",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W11",
+   "file": "W11-statement.pdf",
+   "sha256": "3d029d6bc57efe241e41a0d124382321e54ed573cff3a0d97ae41630da529f39",
+   "pages": 4,
+   "valuesFound": 333,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement application (PDFKit)",
+   "producer": "PDFKit",
+   "fonts": [
+    "CZZZZZ+Inconsolata-Bold",
+    "DZZZZZ+Inconsolata-Regular"
+   ],
+   "fontDeclared": "Inconsolata",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  },
+  {
+   "id": "W12",
+   "file": "W12-statement.pdf",
+   "sha256": "0c7f789f7232a8d92f852820af36472c71eb3bac997d8709e0df92934975439e",
+   "pages": 4,
+   "valuesFound": 245,
+   "ok": true,
+   "problems": [],
+   "creator": "G20 statement application (PDFKit)",
+   "producer": "PDFKit",
+   "fonts": [
+    "CZZZZZ+Changa-Bold",
+    "DZZZZZ+Changa-Regular"
+   ],
+   "fontDeclared": "Changa",
+   "fontPresent": true,
+   "notdefGlyphs": 0
+  }
+ ],
+ "ok": true,
+ "cashbookXlsx": [
+  {
+   "file": "W03-cashbook.xlsx",
+   "kind": "typed",
+   "cellTypes": [
+    "n"
+   ],
+   "sameAsCsv": true,
+   "sha256": "5be887cd875264fce188e4ea8cef9d8aff079632f67cc09da7372e4426beb360"
+  },
+  {
+   "file": "W10-cashbook.xlsx",
+   "kind": "text",
+   "sameAsCsv": true,
+   "sha256": "26b3e64eb42026e13b693b09063c99470911418cb7713ad1dbacdfde4990b2be"
+  }
+ ],
+ "selfTest": [
+  "W01: iText Karla, grid: a withdrawal one halala off",
+  "W01: iText Karla, grid: two balances swapped between rows",
+  "W01: iText Karla, grid: the late remittance reference changed",
+  "W01: iText Karla, grid: a description word changed",
+  "W02: iText Source Sans 3, page totals: a page total changed",
+  "W02: iText Source Sans 3, page totals: the payout net of commission changed",
+  "W02: iText Source Sans 3, page totals: one of two equal refunds one halala off",
+  "W02: iText Source Sans 3, page totals: the unreferenced supplier payment one halala off",
+  "W03: iText Roboto Mono, DR: an overdrawn balance without DR",
+  "W03: iText Roboto Mono, DR: the second supplier debit reference changed",
+  "W03: iText Roboto Mono, DR: a deposit one halala off",
+  "W04: iText Lora, landscape: a word inside a wrapped description",
+  "W04: iText Lora, landscape: the printed page numbers changed",
+  "W04: iText Lora, landscape: the value date after the period changed",
+  "W05: iText Karla, page total short: a deposit one halala off",
+  "W05: iText Karla, page total short: page 2's deposit total read back whole",
+  "W06: PDFKit DM Sans, page of five: the third page read back as of 4",
+  "W07: PDFKit Arabic, Changa, Arabic-Indic digits: a date changed",
+  "W07: PDFKit Arabic, Changa, Arabic-Indic digits: the late remittance reference changed",
+  "W07: PDFKit Arabic, Changa, Arabic-Indic digits: a description word changed",
+  "W07: PDFKit Arabic, Changa, Arabic-Indic digits: the gateway fee changed",
+  "W08: PDFKit Arabic, Kufam: the continuation text changed",
+  "W08: PDFKit Arabic, Kufam: the value date after the period changed",
+  "W08: PDFKit Arabic, Kufam: the returned transfer fee changed",
+  "W08: PDFKit Arabic, Kufam: a description word changed",
+  "W09: PDFKit Arabic, Baloo Bhaijaan 2, Latin digits: a description word changed",
+  "W09: PDFKit Arabic, Baloo Bhaijaan 2, Latin digits: the refund reference changed",
+  "W09: PDFKit Arabic, Baloo Bhaijaan 2, Latin digits: a date changed",
+  "W10: PDFKit Source Sans 3, stripes: the settlement net of MDR changed",
+  "W10: PDFKit Source Sans 3, stripes: the credit note reference changed",
+  "W10: PDFKit Source Sans 3, stripes: a description word changed",
+  "W10: PDFKit Source Sans 3, stripes: two balances swapped between rows",
+  "W11: PDFKit Inconsolata: the unreferenced remittance changed",
+  "W11: PDFKit Inconsolata: the marketplace payout reference changed",
+  "W11: PDFKit Inconsolata: a withdrawal one halala off",
+  "W12: PDFKit Arabic, Changa, brought forward swapped: the closing balance changed",
+  "W12: PDFKit Arabic, Changa, brought forward swapped: a withdrawal one halala off",
+  "W12: PDFKit Arabic, Changa, brought forward swapped: page 3's balance brought forward read back as the ledger's",
+  "W03: XLSX cashbook one halala off its CSV",
+  "W10: XLSX cashbook one halala off its CSV",
+  "W01: the letter D drawn as .notdef",
+  "W02: the letter D drawn as .notdef",
+  "W03: the letter D drawn as .notdef",
+  "W07: the letter ي drawn as .notdef",
+  "W10: the letter R drawn as .notdef"
+ ]
+}
