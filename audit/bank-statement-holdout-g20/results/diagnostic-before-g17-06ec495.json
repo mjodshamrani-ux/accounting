@@ -1,0 +1,436 @@
+{
+ "schema": "tarasuf-bnk-pdf1-holdout-run/1",
+ "commit": "06ec4958efaf5fe09e4a38f5ad849a7aa5f4c3cc",
+ "productSourceChanged": false,
+ "summary": {
+  "positivesCompleted": [
+   "W01",
+   "W02",
+   "W03",
+   "W04",
+   "W07",
+   "W08",
+   "W09",
+   "W10",
+   "W11"
+  ],
+  "positivesFailed": [],
+  "eligiblePositives": 9,
+  "heldCorrectly": [
+   "W05",
+   "W06",
+   "W12"
+  ],
+  "readingOk": [
+   "W01",
+   "W02",
+   "W03",
+   "W04",
+   "W05",
+   "W06",
+   "W07",
+   "W08",
+   "W09",
+   "W10",
+   "W11",
+   "W12"
+  ],
+  "refused": [],
+  "falseAutomatic": 0
+ },
+ "statements": [
+  {
+   "id": "W01",
+   "producer": "itext",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2029-01-01",
+     "end": "2029-01-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 57,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W02",
+   "producer": "itext",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2029-02-01",
+     "end": "2029-02-28"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 56,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W03",
+   "producer": "itext",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2029-03-01",
+     "end": "2029-03-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 52,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 52,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W04",
+   "producer": "itext",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 9,
+    "period": {
+     "start": "2029-04-01",
+     "end": "2029-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 128,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W05",
+   "producer": "itext",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 2: page totals differ from its movements",
+    "pages": 4,
+    "period": {
+     "start": "2029-05-01",
+     "end": "2029-05-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 54,
+    "equal": true,
+    "held": "balance-broken: page 2: page totals differ from its movements",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W06",
+   "producer": "pdfkit",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "incomplete-pages",
+    "expected": "incomplete-pages",
+    "reason": "pages 1,2,3,4 of 4,5",
+    "pages": 4,
+    "period": {
+     "start": "2029-07-01",
+     "end": "2029-07-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 55,
+    "equal": true,
+    "held": "incomplete-pages: pages 1,2,3,4 of 4,5",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W07",
+   "producer": "pdfkit",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2029-08-01",
+     "end": "2029-08-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 52,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W08",
+   "producer": "pdfkit",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2029-09-01",
+     "end": "2029-09-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 47,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W09",
+   "producer": "pdfkit",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2029-10-01",
+     "end": "2029-10-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 57,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W10",
+   "producer": "pdfkit",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 5,
+    "period": {
+     "start": "2029-11-01",
+     "end": "2029-11-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 65,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   },
+   "xlsx": {
+    "cashbookRows": 65,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W11",
+   "producer": "pdfkit",
+   "layout": "en",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "verified",
+    "expected": "verified",
+    "reason": null,
+    "pages": 4,
+    "period": {
+     "start": "2029-12-01",
+     "end": "2029-12-31"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "en",
+    "layoutOk": true,
+    "openingOk": true,
+    "closingOk": true
+   },
+   "csv": {
+    "cashbookRows": 54,
+    "equal": true,
+    "held": null,
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  },
+  {
+   "id": "W12",
+   "producer": "pdfkit",
+   "layout": "ar",
+   "reading": {
+    "ok": true,
+    "differences": []
+   },
+   "statement": {
+    "status": "balance-broken",
+    "expected": "balance-broken",
+    "reason": "page 3: brought-forward 33987697 != 33897697",
+    "pages": 4,
+    "period": {
+     "start": "2029-06-01",
+     "end": "2029-06-30"
+    },
+    "periodOk": true,
+    "currency": "SAR",
+    "layout": "ar",
+    "layoutOk": true
+   },
+   "csv": {
+    "cashbookRows": 47,
+    "equal": true,
+    "held": "balance-broken: page 3: brought-forward 33987697 != 33897697",
+    "falseAutomatic": 0,
+    "differences": []
+   }
+  }
+ ],
+ "diagnostic": "The G20 package run on the product as it was before G17's fix (06ec495), as holdout.json declares (attribution); not a second result."
+}

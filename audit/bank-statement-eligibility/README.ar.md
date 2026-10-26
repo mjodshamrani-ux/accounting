@@ -64,6 +64,10 @@
   - **ويفترقان في عدّ القواعد.** قارنته الأداة بما يقوله تعطيل كل قاعدة في المنتج نفسه (سجلات `diagnostic-ablation` في الحزم): كشف يخسره المنتج بلا القاعدة يجب أن تعدّها الأداة له، وكشف لا يخسره لا تعدّها. **العناصر الجديدة 168 من 168، والقديمة 162:** لم تعدّ وصل قطع التاريخ في V07 وV08 وV12 من G17.
   - **وتغير العد في تسعة مواضع فقط:** أجزاء الكلمات في Q03 وQ09 وQ12 من G12، ووصل قطع التاريخ مكان التاريخ المعكوس في V07 وV08 وV12.
   - **والطفرات بعد G19:** عشر في `columns.py`، منها القراءة بالنموذج القديم. وانتقلت طفرتا فجوة PDF.js وحروف الرسم المركب إلى `mutate_items.py`، حيث صارت القاعدتان.
+- **وقيست بعد التشغيل الأول لـG20،** على كاتبين لم تُقس عليهما ([`columns-vs-reader-g20.json`](results/columns-vs-reader-g20.json)):
+  - **124 كشفًا مختومًا و13 مزروعًا:** الحكم 135 من 135، والنموذج القديم كذلك.
+  - **وعدّ القواعد يوافق تعطيلها في المنتج 192 من 192،** والنموذج القديم 185. أخطأ القديم `DR` بعد المبلغ في W03 من iText، فعدّ له أجزاء كلمات.
+  - **ولم يُقس العد إلا على قاعدتين.** احتاج المنتج في G20 «الصفوف بالحبر» لثلاثة كشوف عربية من PDFKit، والأداة لا تعدّها.
 - **حدودها:**
   - **أجزاء الكلمات:** يكتبها القارئ حيث تعيد مواضع الرسوم عنصره، وتفترضها الأداة دائمًا.
   - **المسافة المرسومة بين قطعتين** التي يحفظها القارئ منذ G17 لا تنسخها الأداة في `text_of`: تصل القطعتين بالفجوة وحدها. لم يغير ذلك حكمًا في الكشوف المقيسة.
@@ -116,6 +120,10 @@
   - يحتاج MuPDF، فلا يجري في CI. وسجل المقارنة يعاد بـ`--assert`.
   - **ونُقل إليه `columns.py` في G19،** بكلمات العنصر، وقيس من جديد على القارئ (أعلاه).
   - **وبعد G19 صفحة مزروعة عاشرة،** فجوة 0.8 em، لطفرة الفجوة المنقولة. والسجل الجديد [`items-vs-reader-g19.json`](results/items-vs-reader-g19.json): 122 ملفًا عناصرها كعناصر المنتج، والحكم في 117. وبقي سجل G18 كما قيس.
+  - **وبعد التشغيل الأول لـG20** ([`items-vs-reader-g20.json`](results/items-vs-reader-g20.json)):
+    - **كشوف iText وPDFKit الاثنا عشر عناصرها كعناصر المنتج،** 5,764 عنصرًا.
+    - فصارت 134 ملفًا من 134، و88,021 عنصرًا مختومًا، والحكم في 129 من 129.
+    - ومنها خطوط iText البسيطة بترميز WinAnsi بلا خريطة ToUnicode، وType1C كاملًا، ومحور PDFKit المقلوب.
 
 ## كيف تقرأ الأداة دفتر النقدية
 
@@ -144,6 +152,10 @@
   - وافق المنتج في دفتري G17 أيضًا، V03 من caxlsx وV10 من fastexcel، فصارت **17/17**. والمزروعة كما هي.
   - ويجد `--before-g8` دفتر V03 أيضًا، وقد كُتب ليحتاج المبالغ المرقمة.
   - صار CI يطلب هذا السجل. وبقي سجل G16 كما قيس يومها.
+- **وبعد ختم G20 وتشغيله الأول** ([`cashbook-vs-reader-g20.json`](results/cashbook-vs-reader-g20.json)):
+  - وافق المنتج في دفتري G20: W03 من OpenSpout بنصوص في الخلايا نفسها، وW10 من write-excel-file بلا أي جزء لخصائص المستند. فصارت **19/19**، والمزروعة كما هي.
+  - ويجد `--before-g8` دفتر W03 أيضًا، وقد كُتب ليحتاج المبالغ المرقمة، كما وجد التعطيل في المنتج.
+  - صار CI يطلب هذا السجل، وبقي سجلا G16 وG17 كما قيسا.
 - **وبقواعد المنتج القديمة** (`--before-g8` و`--before-g15`) يجد على الدفاتر المختومة ما رفضه قارئ الدفتر في G8 وG15 بالضبط: K02 من G8، وT03 وT10 من G15. ويجد ستة دفاتر كُتبت بعد G8 بمبالغ مرقمة.
 - **22 طفرة** يقتلها اختبارها كلها (`mutate_cashbook.py`).
 - **حدوده:**
@@ -227,8 +239,8 @@ PYTHONPATH=<pymupdf 2.0> python3 -B -m unittest discover -s audit/bank-statement
 PYTHONPATH=<pymupdf 2.0> python3 -B audit/bank-statement-eligibility/mutate_columns.py
 PYTHONPATH=<pymupdf 2.0> python3 -B audit/bank-statement-eligibility/mutate_tounicode.py
 PYTHONPATH=<pymupdf 2.0> python3 -B audit/bank-statement-eligibility/mutate_items.py
-PYTHONPATH=<pymupdf 2.0> node --experimental-strip-types audit/bank-statement-eligibility/measure_items.mjs --assert audit/bank-statement-eligibility/results/items-vs-reader-g19.json
-PYTHONPATH=<pymupdf 2.0> node --experimental-strip-types audit/bank-statement-eligibility/measure_columns.mjs --assert audit/bank-statement-eligibility/results/columns-vs-reader-g19.json
+PYTHONPATH=<pymupdf 2.0> node --experimental-strip-types audit/bank-statement-eligibility/measure_items.mjs --assert audit/bank-statement-eligibility/results/items-vs-reader-g20.json
+PYTHONPATH=<pymupdf 2.0> node --experimental-strip-types audit/bank-statement-eligibility/measure_columns.mjs --assert audit/bank-statement-eligibility/results/columns-vs-reader-g20.json
 pnpm test:bank-statement:cashbook-check
 python3 -B audit/bank-statement-eligibility/cashbook.py [--before-g8] [--before-g15] <cashbook.xlsx> ...
 PYTHONPATH=<pymupdf 2.0> python3 -B audit/bank-statement-eligibility/eligibility.py <package> --decide <story> --out <package>/frozen/ELIGIBILITY.json
@@ -269,7 +281,7 @@ PYTHONPATH=<pymupdf 2.0> python3 -B audit/bank-statement-eligibility/eligibility
 وبعد G16:
 
 - **لم يتغير فحص الكشوف.** صار التقرير يحمل `cashbooks`: حكم كل دفتر XLSX وعدد قيوده وما احتاجه. وعلى G15 قُرئ T03 وT10 بخصائص مستند متروكة.
-- **ونتيجة الدفاتر المختومة كلها** في [`cashbook-vs-reader-g16.json`](results/cashbook-vs-reader-g16.json)، ثم في [`cashbook-vs-reader-g17.json`](results/cashbook-vs-reader-g17.json) بعد ختم G17، لا في سجل لكل حزمة.
+- **ونتيجة الدفاتر المختومة كلها** في [`cashbook-vs-reader-g16.json`](results/cashbook-vs-reader-g16.json)، ثم في [`cashbook-vs-reader-g17.json`](results/cashbook-vs-reader-g17.json) بعد ختم G17، ثم في [`cashbook-vs-reader-g20.json`](results/cashbook-vs-reader-g20.json) بعد G20، لا في سجل لكل حزمة.
 
 وبعد G18 على الحزم الثماني ([`retro-after-g18.json`](results/retro-after-g18.json)):
 

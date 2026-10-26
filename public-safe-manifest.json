@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 40276,
-      "sha256": "e95fb912d7b9865f8643b9b4e95c599320c32fc2f9ed89d16a1687e456c3ee1e",
+      "bytes": 40758,
+      "sha256": "c922751e1bd212373d82bd04d674e0d1c0b6bd53b40e0c43808d248c4c5019cd",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 13775,
-      "sha256": "23d4cb1bc3455ab8f3ac6d7d7256eb413ccd058fa0574ad0d51ccfd2671ff0f3",
+      "bytes": 14691,
+      "sha256": "f02d97f9a830018bb5b171d6bb0e67b0a68336121e37d72530b625b48adc3997",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 17678,
-      "sha256": "3f32b3bf31dd3d1ffc0d1d985844b74631b114265dd165089dfa78d453f6974f",
+      "bytes": 17722,
+      "sha256": "28310e173085274066852b73dc5a2a78657681132415370eff581c208500ad36",
       "kind": "text"
     },
     {
@@ -36151,14 +36151,14 @@
     },
     {
       "path": "docs/reference/DEVELOPMENT-LESSONS.ar.md",
-      "bytes": 97968,
-      "sha256": "d89511ccd299d706340a81e1d3117e057ac4a4acd72c4aefa6c7d19c500fae61",
+      "bytes": 100239,
+      "sha256": "b27af1c46eff9153fad080fd99f84526acd87c462d1ee691b397eb381d3f89f2",
       "kind": "text"
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 33790,
-      "sha256": "40a6023a8b2ab470487301bb62c39c1f4ef654d755fc685fc2a38d95ad0d039e",
+      "bytes": 34923,
+      "sha256": "aac970e346816935c73d0b0567d02da01e65aaffe5efb89ba232b0434c5609e4",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 62514,
-      "sha256": "225a41085c4013a458ffc9d404e68ca883c3b66f6bc77ac9af1be7cf083d52c5",
+      "bytes": 62999,
+      "sha256": "d2f848e2b791bd7476fbe3ca94a66c64a0cf4f4281a46301b8d50350c17eba92",
       "kind": "text"
     },
     {
@@ -36217,8 +36217,8 @@
     },
     {
       "path": "docs/roadmap/bank.ar.md",
-      "bytes": 27603,
-      "sha256": "a0133c268c9cc2a9a9c72b46e1877835aa75e42c0d0ad1e3a0783e036e615547",
+      "bytes": 28872,
+      "sha256": "38b3174eef442fde8aaefaae98802701d8183083ac6f5fdd0be3be85e7c6cbc6",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 25862,
-      "sha256": "69c860d950619125fb4a3a0a50159d975cb21d2608645d1a7a9c9e61a8a52064",
+      "bytes": 26409,
+      "sha256": "248302536834457cd396c2aba1998bc9a2849d5e43be6b4196f3dfdbc389eb78",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 10065,
-      "sha256": "d262e8962cb390f9dd0ee730260a1bd8e2dc42524736b10c41f2dac839bec4f5",
+      "bytes": 10143,
+      "sha256": "9919684614b23fbc8c82e69f7b21c9bb113ea0837bef0da5d9651f726ba3c969",
       "kind": "text"
     },
     {
@@ -42937,8 +42937,8 @@
     },
     {
       "path": "audit/bank-statement-eligibility/README.ar.md",
-      "bytes": 38098,
-      "sha256": "66f3b3704c5f8214ed263c73f0665a549728b24ceeb6529a3943519c60cdbaf2",
+      "bytes": 40050,
+      "sha256": "6180e978e92babf9b93556a09941a6a23e198805a962b9d560a8f9a2f809fb83",
       "kind": "text"
     },
     {
@@ -44439,8 +44439,8 @@
     },
     {
       "path": ".claude/skills/tarasuf-source-evidence/formats.md",
-      "bytes": 3459,
-      "sha256": "8a3c1d861d6757351d0005ef2b8cd62ded5d81713f9665d2d3e6f54b73b92794",
+      "bytes": 3849,
+      "sha256": "64d9cbccd76b1e4e211d4702424ffbe833f816b953fdc53977d28f0127a21d7d",
       "kind": "text"
     },
     {
@@ -44469,8 +44469,8 @@
     },
     {
       "path": "docs/reference/LESSONS-INDEX.ar.md",
-      "bytes": 21811,
-      "sha256": "cfb70b70d7c1ae644d6cf03490c85f889b1b555b522651424f1ddf68ec5c5125",
+      "bytes": 22784,
+      "sha256": "9f616161fa2dad116c9a6f8e476949f91a6f7d01044940d6468cdc6dd9f7a052",
       "kind": "text"
     },
     {
@@ -45423,6 +45423,54 @@
       "path": "audit/bank-statement-holdout-g20/verify.py",
       "bytes": 32182,
       "sha256": "9c23b30ff4c1e18b46a0ec65149001c9e17cd0c8c40ba2b6fc4f76daf1998120",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/cashbook-vs-reader-g20.json",
+      "bytes": 14636,
+      "sha256": "68e38fafbc4241706275230007308fa9ef66a2bbf0f5731aefa99969e514cdf6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/columns-vs-reader-g20.json",
+      "bytes": 91615,
+      "sha256": "3939a376ca3f2b05db8ace36435e88a4ae7b0d22d55a984ee2a979a007e093f3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/items-vs-reader-g20.json",
+      "bytes": 33957,
+      "sha256": "c96999907a293141bc39e884d77fa4f65d5e8430bb41a2db48e6eb8a8f3ccdcf",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g20/results/diagnostic-ablation-47e026f.json",
+      "bytes": 3985,
+      "sha256": "76068d026392e3f2d7535830e9a4f4fede3d9c86250591a27ba59ab3b4c649a3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g20/results/diagnostic-before-g17-06ec495.json",
+      "bytes": 8051,
+      "sha256": "87f42c392f3ff51ddc8a6d08f64839c9e17c03001ea2f646c388a9904fe90eec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g20/results/run-1-47e026f-browser.json",
+      "bytes": 3242,
+      "sha256": "19fbada9119bd7e589d8f2bb848f00ae0e8db91b1dce4b6d19a95fec2ddb0ccc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g20/results/run-1-47e026f.json",
+      "bytes": 7899,
+      "sha256": "44af7979ac1e6039cc8ee974a55e0779239388ff3c8cd0949973d1af8f52cd86",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/BNK-PDF-1-G20.ar.md",
+      "bytes": 15590,
+      "sha256": "cd02cd7e57804257117ecc3057ed2f3b9e675a4d790e942d1b7eb65d880c3dc6",
       "kind": "text"
     }
   ],
