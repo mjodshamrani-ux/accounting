@@ -167,6 +167,7 @@ const required = [
   'test:bank-tolerance:seal',
   'test:bank-tolerance:baseline',
   'test:bank-tolerance:proof',
+  'test:bank-tolerance:lifecycle',
   'test:bank-tolerance:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',

@@ -115,6 +115,26 @@ const ar = {
       'العمر بنهايات الفترات',
     ],
   },
+  tolerance: {
+    policy: 'السماحية المعلنة: حد الزوج، وحد الفترة، وسببها',
+    headers: [
+      'الاتجاه',
+      'الحالة',
+      'حركة الكشف',
+      'قيد الدفتر',
+      'مبلغ الكشف',
+      'بالوحدات الصغرى',
+      'مبلغ الدفتر',
+      'بالوحدات الصغرى',
+      'الأثر في الفرق',
+      'بالوحدات الصغرى',
+    ],
+    section: 'فروق ضمن السماحية المعلنة (أثرها في الفرق)',
+    directions: { in: 'قبض', out: 'دفع' },
+    unexplained: 'الباقي بلا تفسير (الفرق − المسموح)',
+    claim:
+      'والسماحية يعلنها المحاسب، وتُذكر كل حالة سمحت بها بمبلغيها وأثرها، ولا تغير مبلغًا ولا تُخفي الباقي بلا تفسير.',
+  },
   claim:
     'رصيد البنك من الكشف المطبوع المثبت، ورصيد الدفتر يعلنه المحاسب، والبنود من نتيجة المطابقة والقرارات المسجلة فقط. ليست إثباتًا لاكتمال الدفتر، ولا رأيًا مهنيًا، ولا اعتمادًا للبنود. «أعده» و«راجعه» حقلان نصيان، لا توقيع رقمي ولا تحقق من هوية.',
 };
@@ -230,6 +250,26 @@ const en: Copy = {
       'Reason',
       'Age in period ends',
     ],
+  },
+  tolerance: {
+    policy: 'Declared tolerance: per pair, per period, and its reason',
+    headers: [
+      'Direction',
+      'Case',
+      'Statement movement',
+      'Cashbook entry',
+      'Statement amount',
+      'In minor units',
+      'Cashbook amount',
+      'In minor units',
+      'Effect on the difference',
+      'In minor units',
+    ],
+    section: 'Differences within the declared tolerance (their effect)',
+    directions: { in: 'Receipt', out: 'Payment' },
+    unexplained: 'Unexplained rest (difference − tolerated)',
+    claim:
+      'The tolerance is declared by the accountant; every case it clears is listed with both amounts and its effect, and it changes no amount and hides no unexplained rest.',
   },
   claim:
     'Bank balance from the proved printed statement; book balance declared by the accountant; items from the matching result and the recorded decisions only. Not proof that the books are complete, not a professional opinion, not an approval of the items. Prepared and reviewed are text fields, not a digital signature or an identity check.',

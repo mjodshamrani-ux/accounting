@@ -1,8 +1,9 @@
 // WF-1 TOL-1 code mutations: each planted defect in a private copy of the
 // declared tolerance (bank-statement-tolerance.ts, and where the lifecycle,
-// the sheet and the state capture carry it, T1) must make the unit tests or
-// the proof against the sealed EXPECTED.json fail with an assertion. A
-// survivor is a rule nothing holds.
+// the sheet and the state capture carry it, T1; the session formats and the
+// workbook, T2) must make the unit tests, the proof against the sealed
+// EXPECTED.json or the lifecycle proof with its independent workbook checker
+// fail with an assertion. A survivor is a rule nothing holds.
 //   node scripts/test-bank-tolerance-mutations.mjs
 import {
   cp,
@@ -28,13 +29,19 @@ const output =
   join(root, 'work/bank-tolerance-mutations');
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
-// BANK_TOLERANCE_PROOF_ONLY=1 measures the proof alone, without the unit tests.
+// BANK_TOLERANCE_PROOF_ONLY=1 measures the two proofs alone, without the unit
+// tests.
 const only = process.env.BANK_TOLERANCE_PROOF_ONLY;
 const tests = only ? [] : ['tests/bank-statement-tolerance.test.ts'];
-const proofs = [['scripts/bank-tolerance-proof.mjs']];
+const proofs = [
+  ['scripts/bank-tolerance-proof.mjs'],
+  ['scripts/bank-tolerance-lifecycle.mjs'],
+];
 const packages = [
   'audit/bank-tolerance-foundation',
   'audit/bank-roll-foundation',
+  // The matching window the workbook checker reads.
+  'audit/bank-statement-foundation/contract.json',
 ];
 const TOL = 'lib/reconciliation/bank-statement-tolerance.ts';
 const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
@@ -151,12 +158,6 @@ const mutations = [
     "      if (c.status !== 'matched-tolerated' && (c.status !== 'needs-review' || !ACCEPTABLE.has(c.reason)))",
   ],
   [
-    'exported-without-the-policy',
-    LIFE,
-    "  if (result.tolerance) fail('EXPORT_TOLERANCE');\n",
-    '',
-  ],
-  [
     'sheet-drops-the-policy',
     LIFE,
     '    decisions: state.decisions,\n    ...(state.tolerance ? { tolerance: state.tolerance } : {}),\n',
@@ -200,6 +201,92 @@ const mutations = [
     '    sheet: snapshotSheetInputs(sheet),\n    ...(state.tolerance ? { tolerance: state.tolerance } : {}),\n',
     '    sheet: snapshotSheetInputs(sheet),\n',
   ],
+  // The session formats (T2).
+  [
+    'session-drops-the-policy',
+    LIFE,
+    '      decisions: state.decisions,\n      ...(state.tolerance ? { tolerance: state.tolerance } : {}),\n',
+    '      decisions: state.decisions,\n',
+  ],
+  [
+    'roll-session-drops-the-policy',
+    LIFE,
+    '      },\n      ...(state.tolerance ? { tolerance: state.tolerance } : {}),\n',
+    '      },\n',
+  ],
+  [
+    'sheet-session-drops-the-policy',
+    LIFE,
+    '      sheet: state.sheet,\n      ...(state.tolerance ? { tolerance: state.tolerance } : {}),\n',
+    '      sheet: state.sheet,\n',
+  ],
+  [
+    'session-policy-not-read',
+    LIFE,
+    '      ...(declared ? { tolerance: parsed.tolerance } : {}),\n',
+    '',
+  ],
+  // The workbook (T2).
+  [
+    'workbook-pair-dropped',
+    LIFE,
+    '      tolerance.eligible.map((p) => [',
+    '      tolerance.eligible.slice(1).map((p) => [',
+  ],
+  [
+    'workbook-outcome',
+    LIFE,
+    "        ['Outcome', tolerance.exceeded ? 'exceeded' : 'tolerated'],",
+    "        ['Outcome', 'tolerated'],",
+  ],
+  [
+    'workbook-tolerated-flag',
+    LIFE,
+    "        tolerance.exceeded ? 'no' : 'yes',",
+    "        'yes',",
+  ],
+  [
+    'workbook-sum-as-cap',
+    LIFE,
+    "        ['Sum of absolute differences minor units', tolerance.sum],",
+    "        ['Sum of absolute differences minor units', tolerance.policy.perPeriod],",
+  ],
+  [
+    'summary-claim-silent',
+    LIFE,
+    "          (result.tolerance\n            ? '. A tolerance",
+    "          (false\n            ? '. A tolerance",
+  ],
+  [
+    'sheet-item-dropped',
+    LIFE,
+    '      for (const d of sheet.toleratedDifferences!)',
+    '      for (const d of sheet.toleratedDifferences!.slice(1))',
+  ],
+  [
+    'sheet-effect-as-difference',
+    LIFE,
+    '          ...money(d.effect),',
+    '          ...money(d.amounts.difference),',
+  ],
+  [
+    'sheet-unexplained-as-difference',
+    LIFE,
+    "      rows.push(['unexplained', t.unexplained, ...money(sheet.unexplained!)]);",
+    "      rows.push(['unexplained', t.unexplained, ...money(sheet.difference)]);",
+  ],
+  [
+    'sheet-policy-period-as-item',
+    LIFE,
+    '          ...money(sheet.tolerance.perPeriod),',
+    '          ...money(sheet.tolerance.perItem),',
+  ],
+  [
+    'sheet-claim-silent',
+    LIFE,
+    '      ? `${copy.claim} ${copy.tolerance.claim}`',
+    '      ? copy.claim',
+  ],
 ];
 const files = [
   ...new Set(mutations.map(([, file]) => file)),
@@ -232,7 +319,13 @@ const run = (cwd) => {
     last = spawnSync(
       process.execPath,
       ['--experimental-strip-types', proof, ...args],
-      options,
+      {
+        ...options,
+        env: {
+          ...process.env,
+          BANK_TOLERANCE_LIFECYCLE_DIR: join(out, 'lifecycle'),
+        },
+      },
     );
     if (!completedSuccessfully(last)) return last;
   }

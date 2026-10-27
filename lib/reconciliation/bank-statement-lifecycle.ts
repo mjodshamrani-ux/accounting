@@ -594,6 +594,7 @@ export async function saveBankStatement(input: unknown): Promise<ArrayBuffer> {
       })),
       scope: state.scope,
       decisions: state.decisions,
+      ...(state.tolerance ? { tolerance: state.tolerance } : {}),
     }),
   ).buffer;
   statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
@@ -621,7 +622,9 @@ function sessionState(session: ArrayBuffer): BankStatementState {
 
 /** What a session file holds: its originals, scope and decisions, and, in the
  * proposed roll format (bank-statement-roll-1), the previous period's session
- * file as it was saved, unread. Its fingerprint is checked by its reader. */
+ * file as it was saved, unread. Its fingerprint is checked by its reader. In
+ * any format, a declared tolerance (bank-tolerance-1) is an optional member,
+ * absent when there is none, so a session without one keeps its form. */
 export function statementSessionParts(session: ArrayBuffer): {
   state: BankStatementState;
   previous: StatementSource | null;
@@ -642,6 +645,7 @@ export function statementSessionParts(session: ArrayBuffer): {
   // file, and `sheet` holds the sheet inputs.
   const withSheet =
     statementPlain(parsed) && parsed.version === BANK_STATEMENT_SHEET_VERSION;
+  const declared = statementPlain(parsed) && 'tolerance' in parsed;
   if (
     !statementPlain(parsed) ||
     !statementKeys(parsed, [
@@ -652,6 +656,7 @@ export function statementSessionParts(session: ArrayBuffer): {
       'decisions',
       ...(roll || withSheet ? ['previous'] : []),
       ...(withSheet ? ['sheet'] : []),
+      ...(declared ? ['tolerance'] : []),
     ]) ||
     parsed.format !== BANK_STATEMENT_SESSION_FORMAT ||
     (parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION &&
@@ -697,6 +702,7 @@ export function statementSessionParts(session: ArrayBuffer): {
       files,
       scope: parsed.scope,
       decisions: parsed.decisions,
+      ...(declared ? { tolerance: parsed.tolerance } : {}),
     }),
     previous,
     sheet: withSheet ? snapshotSheetInputs(parsed.sheet) : null,
@@ -830,6 +836,7 @@ export async function saveRolledStatement(
         sha256: state.previous.sha256,
         data: encode(state.previous.original),
       },
+      ...(state.tolerance ? { tolerance: state.tolerance } : {}),
     }),
   ).buffer;
   statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
@@ -924,6 +931,7 @@ export async function saveSheetStatement(
         data: encode(state.previous.original),
       },
       sheet: state.sheet,
+      ...(state.tolerance ? { tolerance: state.tolerance } : {}),
     }),
   ).buffer;
   statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
@@ -960,9 +968,6 @@ export async function exportBankStatement(
 ): Promise<ArrayBuffer> {
   const { state, result } = await replay(input);
   if (!sameStatementData(result, expected)) fail('STALE_RESULT');
-  // The workbook does not yet name a tolerance (bank-tolerance-1 T6), so a
-  // period with one is not exported.
-  if (result.tolerance) fail('EXPORT_TOLERANCE');
   const { reading, match } = result;
   const book = new ExcelJS.Workbook();
   book.creator = 'Tarasuf';
@@ -1025,9 +1030,12 @@ export async function exportBankStatement(
       ['Context', result.context],
       [
         'Claim',
-        result.sheet
+        (result.sheet
           ? 'Statement-to-cashbook movement matching, and the closing reconciliation sheet first in this workbook: the bank balance proved from the printed statement, the book balance declared by the accountant, every item not cleared listed alone. Completeness of the books, fee or currency inference, ERP posting and source authenticity are not claimed'
-          : 'Statement-to-cashbook movement matching only. Completeness rests on printed page numbers with a closing balance, or on a closing balance the accountant confirmed; no balance bridge, fee or currency inference, ERP posting or source authenticity assurance',
+          : 'Statement-to-cashbook movement matching only. Completeness rests on printed page numbers with a closing balance, or on a closing balance the accountant confirmed; no balance bridge, fee or currency inference, ERP posting or source authenticity assurance') +
+          (result.tolerance
+            ? '. A tolerance the accountant declared (sheets Tolerance and Tolerance pairs) clears only the pairs listed there, each with both amounts and its difference; it changes no amount and makes no pair'
+            : ''),
       ],
     ],
   );
@@ -1209,6 +1217,50 @@ export async function exportBankStatement(
       ];
     }),
   );
+  // A declared tolerance (bank-tolerance-1): the policy, and every eligible
+  // pair with both amounts, its difference and whether it was tolerated.
+  const { tolerance } = result;
+  if (tolerance) {
+    table(
+      'Tolerance',
+      ['Property', 'Value'],
+      [
+        ['Family', tolerance.family],
+        ['Per item minor units', tolerance.policy.perItem],
+        ['Per period minor units', tolerance.policy.perPeriod],
+        ['Note', tolerance.policy.note],
+        ['Eligible pairs', tolerance.eligible.length],
+        ['Sum of absolute differences minor units', tolerance.sum],
+        ['Outcome', tolerance.exceeded ? 'exceeded' : 'tolerated'],
+      ],
+    );
+    const status = new Map(result.cases.map((c) => [c.id, c.status]));
+    table(
+      'Tolerance pairs',
+      [
+        'Case ID',
+        'Statement ID',
+        'Cashbook ID',
+        'Direction',
+        'Statement amount minor units',
+        'Cashbook amount minor units',
+        'Difference minor units',
+        'Tolerated',
+        'Case status',
+      ],
+      tolerance.eligible.map((p) => [
+        p.case,
+        p.statement,
+        p.cashbook,
+        movements.get(p.statement)!.direction,
+        p.amounts.statement,
+        p.amounts.cashbook,
+        p.amounts.difference,
+        tolerance.exceeded ? 'no' : 'yes',
+        status.get(p.case)!,
+      ]),
+    );
+  }
   table(
     'Decisions',
     ['Index', 'Decision', 'Type', 'Case', 'Context', 'Device UTC', 'Note'],
@@ -1396,6 +1448,34 @@ function reconciliationWorksheet(book: ExcelJS.Workbook, s: StatementSheet) {
       ['adjustedBook', copy.adjustedBook, ...money(sheet.adjustedBook)],
       ['difference', copy.difference, ...money(sheet.difference)],
     );
+    // With a declared tolerance: the policy, each tolerated difference by its
+    // effect, their sum, and what no tolerance explains.
+    if (sheet.tolerance) {
+      const t = copy.tolerance;
+      rows.push(
+        [
+          'tolerance',
+          t.policy,
+          ...money(sheet.tolerance.perItem),
+          ...money(sheet.tolerance.perPeriod),
+          sheet.tolerance.note,
+        ],
+        ['toleratedHeaders', ...t.headers],
+        ['tolerated', t.section, ...money(sheet.tolerated!)],
+      );
+      for (const d of sheet.toleratedDifferences!)
+        rows.push([
+          'toleratedItem',
+          t.directions[d.direction],
+          d.case,
+          d.statement,
+          d.cashbook,
+          ...money(d.amounts.statement),
+          ...money(d.amounts.cashbook),
+          ...money(d.effect),
+        ]);
+      rows.push(['unexplained', t.unexplained, ...money(sheet.unexplained!)]);
+    }
   }
   for (const kind of ['prepared', 'reviewed'] as const) {
     const signoff = s[kind];
@@ -1409,7 +1489,13 @@ function reconciliationWorksheet(book: ExcelJS.Workbook, s: StatementSheet) {
         signoff.valid ? 'valid' : 'void',
       ]);
   }
-  rows.push(['claim', copy.labels.claim, copy.claim]);
+  rows.push([
+    'claim',
+    copy.labels.claim,
+    outcome.refusal === null && outcome.sheet.tolerance
+      ? `${copy.claim} ${copy.tolerance.claim}`
+      : copy.claim,
+  ]);
   for (const row of rows)
     for (const value of row) validateExportText(value, 'BANK_SHEET_EXPORT_CELL');
   const ws = book.addWorksheet(copy.sheetName);

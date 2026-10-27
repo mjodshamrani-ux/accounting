@@ -2,13 +2,22 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import ExcelJS from 'exceljs';
 import {
   exportBankStatement,
+  exportSheetStatement,
   replayBankStatement,
   replayRolledStatement,
   replaySheetStatement,
   replayVerified,
+  restoreAnyStatement,
+  restoreBankStatement,
+  restoreRolledStatement,
+  restoreSheetStatement,
   saveBankStatement,
+  saveRolledStatement,
+  saveSheetStatement,
+  statementSessionParts,
   type BankStatementResult,
 } from '../lib/reconciliation/bank-statement-lifecycle.ts';
 import {
@@ -734,14 +743,275 @@ void test('in a period that carries, a carried case is never tolerated and the p
   );
 });
 
-void test('until the workbook and session name a tolerance, neither is written with one', async () => {
+const r10 = async () => {
+  const buffer = (b: Buffer) => Uint8Array.from(b).buffer;
+  const previous = buffer(await roll('R10-previous-session.json'));
+  return {
+    version: 'bank-statement-roll-1' as const,
+    files: [
+      source(
+        'R10-AUG-statement.pdf',
+        buffer(await roll('R10-AUG-statement.pdf')),
+      ),
+      source(
+        'R10-AUG-cashbook.csv',
+        buffer(await roll('R10-AUG-cashbook.csv')),
+      ),
+    ],
+    scope: { currency: null, period: null, confirmedClosing: null },
+    decisions: [],
+    previous: {
+      name: 'previous-session.json',
+      sha256: sha(previous),
+      original: previous,
+    },
+  };
+};
+const doc = (b: ArrayBuffer) => JSON.parse(new TextDecoder().decode(b));
+/** What a save, restore or export gives; a refusal fails as an assertion. */
+async function settled<T>(work: Promise<T>): Promise<T> {
+  try {
+    return await work;
+  } catch (error) {
+    return assert.fail(`refused: ${(error as Error).message}`);
+  }
+}
+const encoded = (d: unknown) =>
+  new TextEncoder().encode(JSON.stringify(d)).buffer;
+
+void test('the policy is saved with the period in each session format, and absent without one', async () => {
+  const plain = table(
+    'SAR',
+    [line('R1', 10_001)],
+    [entry('PV-1', 'R1', 10_000)],
+  );
+  const saved = await settled(saveBankStatement(withPolicy(plain)));
+  assert.deepEqual(doc(saved).tolerance, POLICY);
+  const restored = await settled(restoreBankStatement(saved));
+  assert.deepEqual(restored.state.tolerance, POLICY);
+  assert.equal(restored.result.cases[0].status, 'matched-tolerated');
+  assert.equal(
+    'tolerance' in doc(await settled(saveBankStatement(plain))),
+    false,
+  );
+  // The sheet format.
+  const t01 = await sheetOf('T01', POLICY);
+  const sheetSession = await settled(saveSheetStatement(t01.state));
+  assert.deepEqual(doc(sheetSession).tolerance, POLICY);
+  const back = await settled(restoreSheetStatement(sheetSession));
+  assert.deepEqual(back.result, t01.result);
+  assert.equal(
+    'tolerance' in
+      doc(
+        await settled(saveSheetStatement((await sheetOf('T01', null)).state)),
+      ),
+    false,
+  );
+  // The roll format, and any format by its version.
+  const policy = { ...POLICY, perItem: 99, perPeriod: 9_999 };
+  const rolled = await settled(
+    saveRolledStatement({
+      ...(await r10()),
+      tolerance: policy,
+    }),
+  );
+  assert.deepEqual(doc(rolled).tolerance, policy);
+  const again = await settled(restoreRolledStatement(rolled));
+  assert.deepEqual(again.state.tolerance, policy);
+  assert.deepEqual(
+    (await settled(restoreAnyStatement(rolled))).result,
+    again.result,
+  );
+  assert.deepEqual(statementSessionParts(rolled).state.tolerance, policy);
+});
+
+void test('a session whose policy was changed is refused, by its decisions or by the rule it breaks', async () => {
   const state = withPolicy(
-    table('SAR', [line('R1', 10_001)], [entry('PV-1', 'R1', 10_000)]),
+    table(
+      'SAR',
+      [line('R1', 10_001), line('R2', 500)],
+      [entry('PV-1', 'R1', 10_000), entry('PV-2', 'R2', 500)],
+    ),
   );
   const { result } = await replayBankStatement(state);
-  await assert.rejects(
-    exportBankStatement(state, result),
-    refusal('EXPORT_TOLERANCE'),
+  const saved = doc(
+    await settled(
+      saveBankStatement({
+        ...state,
+        decisions: [decision(result, 'D1', 'reject', 'S1')],
+      }),
+    ),
   );
-  await assert.rejects(saveBankStatement(state), refusal('SESSION'));
+  const changed = async (
+    change: (
+      d: Record<string, unknown> & { tolerance: Record<string, unknown> },
+    ) => void,
+  ) => {
+    const d = structuredClone(saved);
+    change(d);
+    return restoreBankStatement(encoded(d));
+  };
+  await assert.rejects(
+    changed((d) => (d.tolerance.perPeriod = 6)),
+    refusal('DECISION'),
+  );
+  await assert.rejects(
+    changed((d) => {
+      delete (d as Record<string, unknown>).tolerance;
+    }),
+    refusal('DECISION'),
+  );
+  await assert.rejects(
+    changed((d) => (d.tolerance.perItem = 100)),
+    refusal('TOLERANCE: PER_ITEM'),
+  );
+  await assert.rejects(
+    changed((d) => (d.tolerance.scope = 'all')),
+    refusal('INPUT'),
+  );
+  await assert.rejects(
+    changed((d) => (d.extra = 1)),
+    refusal('SESSION'),
+  );
+  // Unchanged, it restores with its decision.
+  assert.equal(
+    (await settled(changed(() => undefined))).result.cases[1].status,
+    'rejected',
+  );
+});
+
+/** A workbook's sheets as rows of cell values. */
+async function sheets(workbook: ArrayBuffer) {
+  const book = new ExcelJS.Workbook();
+  await book.xlsx.load(workbook);
+  const out = new Map<string, unknown[][]>();
+  book.eachSheet((ws) => {
+    const rows: unknown[][] = [];
+    ws.eachRow({ includeEmpty: true }, (row) => {
+      rows.push((row.values as unknown[]).slice(1));
+    });
+    out.set(ws.name, rows);
+  });
+  return out;
+}
+
+void test('the workbook names the policy and every eligible pair, tolerated or not', async () => {
+  const lines = [line('R1', 10_001), line('R2', 20_000, 'in'), line('R3', 500)];
+  const entries = [
+    entry('PV-1', 'R1', 10_000),
+    entry('RV-2', 'R2', 20_002, 'in'),
+    entry('PV-3', 'R3', 500),
+  ];
+  const base = table('SAR', lines, entries);
+  const at = async (tolerance: unknown) => {
+    const state = tolerance ? withPolicy(base, tolerance) : base;
+    const { result } = await replayBankStatement(state);
+    return sheets(await settled(exportBankStatement(state, result)));
+  };
+  const within = await at({ ...POLICY, perItem: 2, perPeriod: 3 });
+  assert.deepEqual(within.get('Tolerance'), [
+    ['Property', 'Value'],
+    ['Family', 'bank-tolerance-1'],
+    ['Per item minor units', 2],
+    ['Per period minor units', 3],
+    ['Note', POLICY.note],
+    ['Eligible pairs', 2],
+    ['Sum of absolute differences minor units', 3],
+    ['Outcome', 'tolerated'],
+  ]);
+  assert.deepEqual(within.get('Tolerance pairs')!.slice(1), [
+    ['C2', 'S1', 'PV-1', 'out', 10_001, 10_000, 1, 'yes', 'matched-tolerated'],
+    ['C3', 'S2', 'RV-2', 'in', 20_000, 20_002, -2, 'yes', 'matched-tolerated'],
+  ]);
+  const claim = (s: Map<string, unknown[][]>) =>
+    s.get('Summary')!.find((r) => r[0] === 'Claim')![1] as string;
+  assert.match(claim(within), /tolerance the accountant declared/u);
+  const over = await at({ ...POLICY, perItem: 2, perPeriod: 2 });
+  assert.deepEqual(over.get('Tolerance')!.slice(-2), [
+    ['Sum of absolute differences minor units', 3],
+    ['Outcome', 'exceeded'],
+  ]);
+  assert.deepEqual(
+    over
+      .get('Tolerance pairs')!
+      .slice(1)
+      .map((r) => r.slice(-2)),
+    [
+      ['no', 'needs-review'],
+      ['no', 'needs-review'],
+    ],
+  );
+  const none = await at(null);
+  assert.equal(none.has('Tolerance'), false);
+  assert.equal(none.has('Tolerance pairs'), false);
+  assert.doesNotMatch(claim(none), /tolerance/iu);
+});
+
+void test('the reconciliation worksheet lists the policy, each tolerated difference and the unexplained rest', async () => {
+  for (const language of ['en', 'ar'] as const) {
+    const { state, result } = await sheetOf('T23', POLICY);
+    const own = { ...state, sheet: { ...state.sheet, language } };
+    const replay = await replaySheetStatement(own);
+    const rows = [
+      ...(
+        await sheets(await settled(exportSheetStatement(own, replay.result)))
+      ).values(),
+    ][0];
+    const by = (key: string) => rows.filter((r) => r[0] === key);
+    const s = sheet(result);
+    assert.deepEqual(by('status')[0][3], 'difference');
+    assert.deepEqual(by('tolerance')[0].slice(2), [
+      '0.01',
+      1,
+      '0.05',
+      5,
+      POLICY.note,
+    ]);
+    assert.deepEqual(by('tolerated')[0].slice(2), [
+      (s.tolerated! / 100).toFixed(2),
+      s.tolerated,
+    ]);
+    assert.equal(by('toleratedItem').length, 1);
+    const [item] = by('toleratedItem');
+    const d = s.toleratedDifferences![0];
+    assert.deepEqual(item.slice(2, 5), [d.case, d.statement, d.cashbook]);
+    assert.deepEqual(
+      [item[6], item[8], item[10]],
+      [d.amounts.statement, d.amounts.cashbook, d.effect],
+    );
+    assert.deepEqual(
+      by('unexplained')[0].slice(2),
+      ['50.00', 5000].map((v, i) =>
+        i
+          ? Math.sign(s.unexplained!) * 5000
+          : `${s.unexplained! < 0 ? '-' : ''}${v}`,
+      ),
+    );
+    assert.match(
+      by('claim')[0][2] as string,
+      language === 'ar' ? /السماحية/u : /tolerance/u,
+    );
+  }
+  const { result } = await sheetOf('T22', null);
+  const plain = [
+    ...(
+      await sheets(
+        await settled(
+          exportSheetStatement((await sheetOf('T22', null)).state, result),
+        ),
+      )
+    ).values(),
+  ][0];
+  for (const key of [
+    'tolerance',
+    'toleratedHeaders',
+    'tolerated',
+    'toleratedItem',
+    'unexplained',
+  ])
+    assert.equal(
+      plain.some((r) => r[0] === key),
+      false,
+      key,
+    );
 });

@@ -18,6 +18,7 @@
 | [`test_oracle.py`](test_oracle.py) | 7 اختبارات: النية في كل قصة، وعدم قراءة الوصفة والنية، و**تسوية كل فترة بمنزلتين كما يسويها [أوراكل ROLL-1](../bank-roll-foundation/oracle.py) المختوم**، وأن ما يُسمح به فرق مبلغ وحده بلا تغيير في الأعضاء أو المبالغ، وأن الفرق يساوي المسموح مع الباقي |
 | [`mutate_oracle.py`](mutate_oracle.py) | 16 عيبًا مزروعًا في نسخة من الأوراكل؛ كل كشف فشل تأكيد |
 | [`verify.py`](verify.py) | قراءة مستقلة لكل PDF بـpdfminer.six عبر فاحص ROLL-1 المختوم كما هو، والكشف بالدينار بالفاحص نفسه ومبالغه بثلاث منازل؛ وستة تغييرات مزروعة يجب أن تُرفض |
+| [`check_export.py`](check_export.py) | مدقق مستقل لمصنف المنتج (T2)، أُضيف بعد الختم: الحالات، وورقتا السماحية بكل زوج مؤهل يستخرجه من الحقائق المطبوعة وملف الدفتر، وصفوف ورقة التسوية تُجمع من خلاياها، والملفان المختومان من ورقة المصادر؛ و18 تغييرًا ذاتيًا يجب أن تُكتشف |
 | [`seal.py`](seal.py) و[`check_seal.py`](check_seal.py) | الختم وفحصه في CI، ويعيد `stories.mjs` الحقائق بايتًا ببايت |
 
 ## القصص
@@ -59,6 +60,7 @@ pnpm test:bank-tolerance:seal
 # المنتج: سجل الأساس قبل T1 في results/baseline-048eb24.json، وبعده في results/after-t1.json
 pnpm test:bank-tolerance:baseline
 pnpm test:bank-tolerance:proof
+pnpm test:bank-tolerance:lifecycle   # الجلسة والمصنف، والمصنفات إلى check_export.py
 pnpm test:bank-tolerance:mutations
 # إعادة الطباعة والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 MIZAN_CHROMIUM=... node audit/bank-tolerance-foundation/render.mjs --out <dir>
