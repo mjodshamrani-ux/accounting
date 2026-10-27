@@ -1,0 +1,602 @@
+{
+ "package": "bank-sheet-holdout-r4",
+ "tool": {
+  "eligibility.py": "f4cfd84770066871f01386b23f34c15d66abcc3a97f14ec0b65cec31887a4eb3",
+  "items.py": "6b9722fd314af6df178ce85444390e212962e03b3b9a58fcab95ded907dbf3bf",
+  "columns.py": "25a71c1a5c741185edf120adcb159728dc63488b0bf0fc34b3a2c60fd398deec",
+  "tounicode.py": "66c78bfb6231160d8b057b3b83696fbefa8d2d93514c39f7d43c9923919e6848",
+  "rows.py": "72bef92be3845bdd784829e6771114147ddadf7862fa3dff350b3cc56de50f76",
+  "drawings.py": "222b44ea845a53cc59372ee41daa3c0b61dd6d0e0dd5258ab8867e8e06f61c0a",
+  "cashbook.py": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c"
+ },
+ "clearancePt": 0.05,
+ "statements": {
+  "K01JAN": {
+   "sha256": "869cab2d3fb10ad3fe2ca894c5c286850f468c7598768bbfc5a49364522896ed",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K02FEB": {
+   "sha256": "c05be52de78ccc938a8bef0fdb93c61b24f7fc5cdcb0d57567bfcb8bf9999872",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K03MAR": {
+   "sha256": "4e5f0eac98fd4283bc908317a3972336827413a7ae7300e69f9bfa703d30faa0",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.75,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 14,
+    "rowsByInk": 3
+   },
+   "leastRuleGapPt": 2.59,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K04DEC": {
+   "sha256": "51799d7dc07ec3ae6905b8353e95abbe3aaf89c98ad9a3e736b6727c310abe35",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K05JAN": {
+   "sha256": "4fade1fc4230d5c3eea098394ec7182e6a2bf5986c21788f2e36853d3440572c",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.52,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": 3.2,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K06FEB": {
+   "sha256": "fa17cf61b295817332523a0ceff76f8ae75e7ed38cb0dbb3d042a864a7272467",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 17,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K07MAR": {
+   "sha256": "6c5e4f0f57c4220aff22b05497805609e775848f80275b28068682d33fcfa0f4",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 14,
+    "rowsByInk": 6,
+    "wordParts": 5
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K08DEC": {
+   "sha256": "5103dfc5cbc979fcbc6c1779b3fe5c93355503a596d13b0dbd873d2539d18f6c",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K09JAN": {
+   "sha256": "317308b94364ef21ca0f62e090603a23639f55c0e64d4df6dc3f40a5a44e4e90",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.08,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 3.56,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K10DEC": {
+   "sha256": "d2435ee69854928ee0cd145259ca6dccce28fe4ba08ecc3ce2e0ceff54196646",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K10JAN": {
+   "sha256": "aa9234411163c8ed1b26270f6ae28e919f4cb6bcc9e8ec1a95743fc69dae5729",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 8,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K11FEB": {
+   "sha256": "3ca864146b40d98c0e5b594af60c574d82b2170d711831e16dcd5b01ea81aee5",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K11MAR": {
+   "sha256": "34e9b5eda51db73b89c810a2ea0b0ea3966389714feeddd9c1de0586ade1dcf9",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K12DEC": {
+   "sha256": "5b0a65d5a039b77842d1c650ab47b06db18d49d26352c9313d198d9fd982f4d2",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K12FEB": {
+   "sha256": "fc6e7568839a091f4b0ae16e6a8f05defe589462c175e60713dd7599e9151b6d",
+   "pages": 2,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K12JAN": {
+   "sha256": "cf81095a12628a9e24c0f904895e7b45880ab92a6ef7b5511921cd29eb3bd978",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K13FEB": {
+   "sha256": "7031c7bb4ee09a45fc87fca587e83c960576ebdc9ddf01372850d7fabdab46d1",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K13JAN": {
+   "sha256": "0c03db9788860c8b1b942d8b0e888e5eddc9a68e7bb9a7899ed6b35d1e8c6f06",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.45,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 8,
+    "rowsByInk": 3,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 5.99,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K14DEC": {
+   "sha256": "d8356595a5ec934c246b68d3d1d77a0a0b94bca6d9eee931a0cd3e94e7ccc0af",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 13,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K14JAN": {
+   "sha256": "cee22fb5100f6223ad639b332993f88944ad8ef0c850e9dd8152dfc08f91dffc",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 12,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K15FEB": {
+   "sha256": "da8d68bb61abfc62fcb32ac972063cc225c51230171a9d9049f110c88278ccbf",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.52,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": 3.2,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K15JAN": {
+   "sha256": "e810c257dd5db712614386029d207f1fa5706889065e4890ebaf32a98866f6e2",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 12.52,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": 3.2,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K16FEB": {
+   "sha256": "7c4bf10500c7d625194f4be52925edf290917ea9a94e9383f9766936b4acc6de",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K16MAR": {
+   "sha256": "f171c93c070f7dddfe865b24925f5754b85a4b2bce815676c7d2d6335716b1cd",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.92,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "rowsByInk": 2
+   },
+   "leastRuleGapPt": 4.73,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K17MAR": {
+   "sha256": "adcf7c52821ba2e29ff6878f7b7a04c52e77e67453644fa2221aad583234b42e",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.17,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 9,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K18JAN": {
+   "sha256": "1e0b135078edfc46f69ac4dd44ed0987e8363282ddd0ff0c8d92a56991af122e",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 10,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.7,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K19DEC": {
+   "sha256": "9f29e09eec29e32f2a3f3a0c1082adab9ba6bd2c098a585a48eb2190ccf1e36a",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.4,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 13,
+    "wordParts": 3
+   },
+   "leastRuleGapPt": 2.72,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K20JAN": {
+   "sha256": "cc4da135cda31e9d71c0c30aa609d0c3002b7828b7c1cbf33c987684ea7bcffb",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 15.75,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "reversedDate": 12,
+    "rowsByInk": 3
+   },
+   "leastRuleGapPt": 2.59,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K21DEC": {
+   "sha256": "42b45fb4a582365fac1fb915c2b7e41b04c9354bfa6a88ae9b0085395d2166b1",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.7,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 7,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K21JAN": {
+   "sha256": "40a9d641eb97656a761cfb202ac28898ba092b886550a44fa203bff749f70923",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 11.62,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {
+    "endAligned": 11,
+    "wordParts": 1
+   },
+   "leastRuleGapPt": null,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  },
+  "K22MAR": {
+   "sha256": "559e8dc7b7e88cf95d1d0660545799adfb8f16e80395ddbce27819c46ab823e0",
+   "pages": 1,
+   "found": {},
+   "lineControl": {
+    "shiftPt": 10.65,
+    "found": [
+     true,
+     true
+    ]
+   },
+   "exercised": {},
+   "leastRuleGapPt": 2.25,
+   "leastLineGapPt": null,
+   "mostItemOverlapPt": null
+  }
+ },
+ "cashbooks": {}
+}

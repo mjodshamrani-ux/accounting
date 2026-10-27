@@ -1,0 +1,40 @@
+{
+ "schema": "tarasuf-wf1-report1-r4-seal/1",
+ "statement": "Sealed and committed before any product run on these files.",
+ "pins": {
+  "INPUT-MANIFEST.json": "ed093a61acb87ac5cee8b14fc9a2f8ca89ef461252913be95f7e695a23559ac7",
+  "EXPECTED.json": "7580613724e0cf220e449468934edcc1823ff9397efd2cb01e98dd77fef7b6fd",
+  "VERIFY.json": "c37428708c620b334300586809d0d0905028b9ce239f5895190bdd1f52755d43",
+  "ELIGIBILITY.json": "432708d5ed35caffc858017fbbcbd418181fe0707cc9f5c23dbe22f094b48591",
+  "stories.py": "ea2fa4ab56b9beda5178a5da972e0de444667fb188552c90819dfefb2bf0da14",
+  "render.py": "2df9131245dc280e5bcf4356a630612ec7ee0ae29926c85a24adbe21f51ce62a",
+  "verify.py": "78bf3402b465ce5c601cbac3972ffb8a5fd40367bb64c958dad46cc8d6bbf842",
+  "common.py": "9b206e957790d9ba5d8f5513d07dbb2dd7f85ef1bb1af71e809308a7d681c562",
+  "fonts.py": "a05ce927ba79aa61c23cb6956672854910f3734a5d5650bf75e37b1a05fdcd87",
+  "render_hexapdf.py": "00780b61ce62e2f8861ff5e370eba43bf62c9790f370550c4d934fe22c73965e",
+  "render_pdflib.py": "6cdf284ef56a373f0db991894e00c6bfc0b842b6f049f0a95d9ecddc89b93d8d",
+  "ruby/statements.rb": "53db6a930b68896b8093453c6cc16d82789d1da28a7a6d6fe0abb7767c26d37b",
+  "ruby/Gemfile": "bb0540b65b96b5b7c3723bdbbf50b7a99c25ed80cd4e469dda669b7a5e527d5f",
+  "ruby/Gemfile.lock": "7bf40acd65d4688a6f771427ef97a17a16259401568f0fefaa2a8657e2a41666",
+  "js/render_pdflib.mjs": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26",
+  "js/package.json": "2b30084612d1b2794ab38d2d42a02f5df42774a298979e1f13cb660ae3ddacb7",
+  "js/package-lock.json": "078872e9c078bbe08668ad7565db7df8ad805d01dc56d0bd056b0896346eeef8",
+  "seal.py": "aedcfb8cccda4469b6c22f5ea3add5067e33ebb67fcdca2c83cd16b230b68d3f",
+  "../bank-sheet-foundation/contract.json": "88b7ba47beb10e790440104385a00ed9b79c7006da15ff941545be2fec1b1562",
+  "../bank-sheet-foundation/oracle.py": "9b10989f78e49ec7949e77239fb4a841c9c56e789ed0a726119ab69128f65b9d",
+  "../bank-sheet-foundation/check_export.py": "6711ecfd6f20289d8b71fe7cea6dc6ef9a0c1fba75094e06bc0ade25176d5bfd",
+  "../bank-roll-foundation/contract.json": "7c19cfe6a79062bd804575078f0253413eb39d94d88288399076e759b9cc9a94",
+  "../bank-roll-foundation/oracle.py": "936980876594b7128754fcb7bc254167a87608a13d43f193b012d5f65265c537",
+  "../bank-statement-foundation/contract.json": "400b8cbcda2447bf36710d38a8f91786d1f07951fc20e8894f71a969c93f7e34",
+  "../bank-statement-foundation/oracle.py": "07033ecfcf3ce4bc5ae8617ee28d9cbb3f51623a41ccdb3c0cf3716ed8f543f2"
+ },
+ "eligibilityTool": {
+  "eligibility.py": "f4cfd84770066871f01386b23f34c15d66abcc3a97f14ec0b65cec31887a4eb3",
+  "items.py": "6b9722fd314af6df178ce85444390e212962e03b3b9a58fcab95ded907dbf3bf",
+  "columns.py": "25a71c1a5c741185edf120adcb159728dc63488b0bf0fc34b3a2c60fd398deec",
+  "tounicode.py": "66c78bfb6231160d8b057b3b83696fbefa8d2d93514c39f7d43c9923919e6848",
+  "rows.py": "72bef92be3845bdd784829e6771114147ddadf7862fa3dff350b3cc56de50f76",
+  "drawings.py": "222b44ea845a53cc59372ee41daa3c0b61dd6d0e0dd5258ab8867e8e06f61c0a",
+  "cashbook.py": "f757c143b02b7d158da14b2e5aa82fa37989b464a9ada20acfaf31b8e8eaac2c"
+ }
+}

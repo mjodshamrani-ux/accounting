@@ -298,6 +298,7 @@ jobs:
           pnpm test:bank-sheet:oracle
           pnpm test:bank-sheet:oracle-mutants
           pnpm test:bank-sheet:seal
+          pnpm test:bank-sheet:r4-seal
           pnpm test:bank-sheet:baseline
           pnpm test:bank-sheet:proof
           pnpm test:bank-sheet:lifecycle
