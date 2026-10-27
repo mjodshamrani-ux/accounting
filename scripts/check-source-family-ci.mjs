@@ -115,6 +115,7 @@ const required = [
   'test:ar-statement:a1-proof',
   'test:ar-statement:a2-proof',
   'test:ar-statement:a3-proof',
+  'test:ar-statement:a5-holdout',
   'test:ar-statement:browser',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',

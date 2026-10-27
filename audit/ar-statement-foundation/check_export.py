@@ -19,6 +19,7 @@ What it requires of the workbook:
 - the decisions, when the run recorded any, and their effect on the cases.
 
   python3 -B audit/ar-statement-foundation/check_export.py STORY WORKBOOK.xlsx [--reopened DOC ...]
+      [--frozen DIR]   another sealed package of this family, such as the A5 holdout's frozen/
 """
 import argparse
 import base64
@@ -113,10 +114,10 @@ def text(value):
     return '' if value is None else str(value)
 
 
-def check(story_id, workbook, reopened=()):
-    facts = json.loads((FROZEN / 'stories.json').read_text(encoding='utf-8'))
+def check(story_id, workbook, reopened=(), frozen=FROZEN):
+    facts = json.loads((frozen / 'stories.json').read_text(encoding='utf-8'))
     story = next(s for s in facts['stories'] if s['id'] == story_id)
-    want = json.loads((FROZEN / 'EXPECTED.json').read_text(encoding='utf-8'))['stories'][story_id]
+    want = json.loads((frozen / 'EXPECTED.json').read_text(encoding='utf-8'))['stories'][story_id]
     sheets = read_workbook(workbook)
 
     # The originals, byte for byte.
@@ -125,7 +126,7 @@ def check(story_id, workbook, reopened=()):
         chunks = sorted((r for r in sources if r['Side'] == side), key=lambda r: r['Chunk'])
         require(chunks, f'source {side}')
         data = base64.b64decode(''.join(text(r['Original bytes base64']) for r in chunks))
-        original = (FROZEN / name).read_bytes()
+        original = (frozen / name).read_bytes()
         equal(hashlib.sha256(data).hexdigest(), hashlib.sha256(original).hexdigest(), f'source {side} bytes')
         equal({text(r['Source SHA-256']) for r in chunks}, {hashlib.sha256(original).hexdigest()}, f'source {side} hash')
         equal({text(r['Role']) for r in chunks}, {ROLES[side]}, f'source {side} role')
@@ -221,9 +222,10 @@ def main():
     parser.add_argument('story')
     parser.add_argument('workbook')
     parser.add_argument('--reopened', nargs='*', default=[])
+    parser.add_argument('--frozen', type=Path, default=FROZEN)
     args = parser.parse_args()
     try:
-        print(json.dumps(check(args.story, args.workbook, tuple(args.reopened))))
+        print(json.dumps(check(args.story, args.workbook, tuple(args.reopened), args.frozen.resolve())))
     except CheckFailure as failure:
         print(f'check failed: {failure}', file=sys.stderr)
         sys.exit(1)

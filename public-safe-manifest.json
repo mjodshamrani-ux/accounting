@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 43249,
-      "sha256": "cc475baf948ae002f9a7ef7a91c2689af3306bf79ba8d252cad84535b7323c5b",
+      "bytes": 43359,
+      "sha256": "e07f1df5a27240041d3500df7c4a4bf509f564299983cb8f52966e0a5b6e5b9e",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 29005,
-      "sha256": "69e81c4c5b5d320889c49f68fbbbb035ef4d079ed9a5abe0de1d62f3eee4d287",
+      "bytes": 29250,
+      "sha256": "f9270e81a57d2b4fec07fb87b53ecf234f1fd977d00d2b0113af62962d62abf1",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 10667,
-      "sha256": "794ff5dc97a7726c1964b57d5f6118fc0426c787cede8356b94332300cb65f1a",
+      "bytes": 10701,
+      "sha256": "d650d2824f318788a578c3ae712468da738954542e86826519d5bbf5c240e0a1",
       "kind": "text"
     },
     {
@@ -46885,8 +46885,8 @@
     },
     {
       "path": "audit/ar-statement-foundation/check_export.py",
-      "bytes": 10194,
-      "sha256": "4061704902cf4e6d80d7c3ad7df7dea79dbff4e525eb72759a3b2c8dcedaf78d",
+      "bytes": 10390,
+      "sha256": "d71cf5c6d61ce9fd1a723d39e953d30578830e005b3feed022cbbe204f9a963c",
       "kind": "text"
     },
     {
@@ -47325,6 +47325,24 @@
       "path": "audit/ar-statement-holdout-a5/verify.py",
       "bytes": 11202,
       "sha256": "e79f6ff61ccded19c2b0912c9f91c243af32641b31ea6be8b9b5d52f6c80c7b0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/results/run-1-6a472f3-first-execution.json",
+      "bytes": 24683,
+      "sha256": "c2f2da9d8860d2171e84d9d6c19cca266e44b136ffd3d07989fa1d4ce9bf316a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/ar-statement-holdout-a5/results/run-1-6a472f3.json",
+      "bytes": 14284,
+      "sha256": "ed65244d4244b54eb7ae0428a28508fb72f828168ea763920ced7a6df4863b57",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/ar-statement-holdout.mjs",
+      "bytes": 16967,
+      "sha256": "3723218dee1067aac46db6265b913df9cd758732e08140160a5c0c9cd49ba954",
       "kind": "text"
     }
   ],
