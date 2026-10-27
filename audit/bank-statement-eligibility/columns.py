@@ -21,6 +21,12 @@ From G13 to G18 the items were built from MuPDF's characters by PDF.js's
 spacing rule alone (mupdf_items, kept for the comparison); MuPDF names two
 subsets of one font alike and does not see marked content, so they were not
 PDF.js's items wherever a writer changed subset or marked its text (DEV-67).
+Amounts are read at the decimals of the one currency the first page's
+heading names, as the reader reads them, and a heading that names no single
+currency the reader knows stops the reading there (SCOPE); until T4 of
+TOL-1 every amount was read at two decimals, so that a dinar or yen
+statement the reader reads was refused here at its first amount. The
+reader's other SCOPE rule, two dates for the period, is not reproduced.
 Nothing is imported from the product; the vocabulary and the constants
 below are the reader's, checked against its source text (drift).
 """
@@ -32,9 +38,11 @@ from collections import Counter
 from pathlib import Path
 
 import items as pdfjs
+from cashbook import DECIMALS
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 READER = ROOT / 'lib' / 'reconciliation' / 'bank-statement-native.ts'
+PRECISION = ROOT / 'lib' / 'reconciliation' / 'currency-precision.ts'
 
 PADDING, SEPARATION, UNDER = 2.5, 1, 0.5        # columnOf
 SAME_LINE = 1                                   # linesOf: baselines within 1 point
@@ -68,9 +76,12 @@ def drift():
     missing = [w for v in VOCABULARY.values() for w in v['headers'] + list(v['labels'].values())
                if f"'{w}'" not in text]
     for const in ('PADDING = 2.5', 'SEPARATION = 1', 'UNDER = 0.5', 'Math.abs(last.y - t.y) <= 1',
-                  '0.15 * Math.min(p.height, q.height)'):
+                  '0.15 * Math.min(p.height, q.height)', 'currencies.length === 1 ? currencyPrecision(currencies[0])',
+                  r'/^[A-Z]{3}$/u.test(p.text)'):
         if const not in text:
             missing.append(const)
+    precision = PRECISION.read_text(encoding='utf-8')
+    missing += [f'{code}: {n}' for code, n in DECIMALS.items() if f'  {code}: {n},\n' not in precision]
     return missing
 
 
@@ -88,8 +99,23 @@ def squeeze(s):
 
 
 def amount(text, allow_debit, decimals=2):
-    m = re.fullmatch(rf'(\d{{1,3}}(?:,\d{{3}})*|\d+)\.(\d{{{decimals}}})( DR)?', latin_digits(normal(text)))
-    return None if not m or (m.group(3) and not allow_debit) else m
+    fraction = rf'\.\d{{{decimals}}}' if decimals else ''
+    m = re.fullmatch(rf'(?:\d{{1,3}}(?:,\d{{3}})*|\d+){fraction}(?P<dr> DR)?', latin_digits(normal(text)))
+    return None if not m or (m.group('dr') and not allow_debit) else m
+
+
+def heading_decimals(lines, layout):
+    """The decimals of the one currency the heading above the first page's
+    column headers names (a word of three capitals, in its items' word parts
+    or in its line read in order), or None where it names none, or more than
+    one, or one the reader does not know."""
+    header = find_header(lines, VOCABULARY[layout])
+    heading = lines[:header[0]] if header else []
+    words = [q.text for line in heading for p in line for q in p.parts()]
+    words += [w for line in heading for w in text_of([q for p in line for q in p.parts()],
+                                                      VOCABULARY[layout]['direction']).split()]
+    currencies = {w for w in words if re.fullmatch(r'[A-Z]{3}', w)}
+    return DECIMALS.get(currencies.pop()) if len(currencies) == 1 else None
 
 
 def iso_date(s):
@@ -368,9 +394,10 @@ class Refused(Exception):
         self.code, self.page, self.line, self.detail = code, page, line, detail
 
 
-def read_page(number, lines, layout, used=None):
-    """The reader's lines of one page (kinds only); raises Refused where the
-    reader would. `used` counts the rules its lines needed."""
+def read_page(number, lines, layout, used=None, decimals=2):
+    """The reader's lines of one page (kinds only), its amounts at
+    `decimals`; raises Refused where the reader would. `used` counts the
+    rules its lines needed."""
     used = Counter() if used is None else used
     v = VOCABULARY[layout]
     header = find_header(lines, v)
@@ -394,7 +421,7 @@ def read_page(number, lines, layout, used=None):
         amounts, label = {}, []
         for p in pieces:
             col = columns.of(p)
-            if col is not None and col >= WITHDRAWAL and amount(p.text, col == BALANCE):
+            if col is not None and col >= WITHDRAWAL and amount(p.text, col == BALANCE, decimals):
                 amounts.setdefault(col, []).append(p)
             else:
                 label.append(p)
@@ -448,7 +475,7 @@ def read_page(number, lines, layout, used=None):
             if cells[col]:
                 if len(cells[col]) != 1:
                     fail('FIELD', 'amount needs one value')
-                if not amount(cells[col][0].text, col == BALANCE):
+                if not amount(cells[col][0].text, col == BALANCE, decimals):
                     fail('AMOUNT', f'"{cells[col][0].text}" is not an amount')
                 money[col] = True
         if (WITHDRAWAL in money) == (DEPOSIT in money) or BALANCE not in money:
@@ -464,6 +491,7 @@ def check_statement(doc, used=None):
     statement's lines needed, up to where the reader would stop."""
     layout = None
     previous = None
+    decimals = None
     for number, page in enumerate(doc, 1):
         try:
             lines = items(page)
@@ -472,8 +500,13 @@ def check_statement(doc, used=None):
             return {'layout': layout or 'en', 'code': 'UNMODELLED', 'page': number, 'line': 0, 'detail': str(reason)}
         if layout is None:
             layout = next((name for name, v in VOCABULARY.items() if find_header(lines, v)), 'en')
+        if decimals is None and number == 1 and find_header(lines, VOCABULARY[layout]):
+            decimals = heading_decimals(lines, layout)
+            if decimals is None:
+                return {'layout': layout, 'code': 'SCOPE', 'page': 1, 'line': 1,
+                        'detail': 'the heading must state one currency the reader knows'}
         try:
-            kinds = read_page(number, lines, layout, used)
+            kinds = read_page(number, lines, layout, used, 2 if decimals is None else decimals)
         except Refused as e:
             return {'layout': layout, 'code': e.code, 'page': e.page, 'line': e.line, 'detail': e.detail}
         if 'continuation' in kinds and (previous is None or 'movement' not in previous):

@@ -327,6 +327,7 @@ jobs:
           pnpm test:bank-tolerance:proof
           pnpm test:bank-tolerance:lifecycle
           pnpm test:bank-tolerance:mutations
+          pnpm test:bank-tolerance:t4-seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

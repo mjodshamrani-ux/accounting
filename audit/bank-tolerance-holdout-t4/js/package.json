@@ -1,0 +1,22 @@
+{
+  "name": "bank-statement-holdout-g23-js",
+  "private": true,
+  "description": "The G23 statement application (pdf-lib with @pdf-lib/fontkit, bidi-js), the text XLSX cashbook writer (SheetJS xlsx) and the fonts (Google Fonts TrueType files packaged by @expo-google-fonts); installed outside the repository.",
+  "dependencies": {
+    "pdf-lib": "1.17.1",
+    "@pdf-lib/fontkit": "1.1.1",
+    "bidi-js": "1.0.3",
+    "xlsx": "0.18.5",
+    "@expo-google-fonts/work-sans": "0.4.2",
+    "@expo-google-fonts/merriweather": "0.4.2",
+    "@expo-google-fonts/fira-sans": "0.4.1",
+    "@expo-google-fonts/space-mono": "0.4.2",
+    "@expo-google-fonts/tajawal": "0.4.1",
+    "@expo-google-fonts/cairo": "0.4.2",
+    "@expo-google-fonts/readex-pro": "0.4.1",
+    "@expo-google-fonts/alexandria": "0.4.2",
+    "@expo-google-fonts/lemonada": "0.4.2",
+    "@expo-google-fonts/marhey": "0.4.2",
+    "@expo-google-fonts/rubik": "0.4.2"
+  }
+}

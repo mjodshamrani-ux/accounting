@@ -4,7 +4,8 @@ Each mutant changes one rule copied from the reader: the cell padding,
 right-to-left items kept whole, end alignment, DR joined to its amount, a
 continuation only after the brought-forward line, and date runs joined;
 reads by the MuPDF model of G13 to G18 (G19); or stops counting one the
-record of exercised rules carries (G14). PDF.js's item gap and ligature letters kept in their glyph
+record of exercised rules carries (G14); or reads every amount at two
+decimals, takes a heading of no known currency, or one of two (TOL-1 T4). PDF.js's item gap and ligature letters kept in their glyph
 were mutated here until G18, in the MuPDF model; since G19 the items are
 items.py's, and mutate_items.py mutates those two rules there. The tool is copied
 with the mutant into a temporary tree that links the repository's reader
@@ -33,6 +34,13 @@ MUTANTS = {
     'date-runs-uncounted': ("                used['dateRuns'] += 1\n", ''),
     'end-alignment-uncounted': ("        used['endAligned'] += sum(1 for p in pieces if columns.placed(p)[1] == 'end')\n", ''),
     'mupdf-model': ('            lines = items(page)\n', '            lines = mupdf_items(page)\n'),
+    # TOL-1 T4: amounts at the heading currency's decimals.
+    'decimals-always-two': ('            kinds = read_page(number, lines, layout, used, 2 if decimals is None else decimals)',
+                            '            kinds = read_page(number, lines, layout, used)'),
+    'scope-never': ("            if decimals is None:\n                return {'layout': layout, 'code': 'SCOPE'",
+                    "            if False:\n                return {'layout': layout, 'code': 'SCOPE'"),
+    'two-currencies-taken': ('    return DECIMALS.get(currencies.pop()) if len(currencies) == 1 else None',
+                             '    return DECIMALS.get(currencies.pop()) if currencies else None'),
 }
 
 
@@ -42,7 +50,8 @@ def tree(at):
     (at / 'scripts').symlink_to(ROOT / 'scripts')
     audit = at / 'audit'
     audit.mkdir()
-    for package in sorted((ROOT / 'audit').glob('bank-statement-holdout-*')) + [ROOT / 'audit' / 'native-unicode']:
+    for package in sorted((ROOT / 'audit').glob('bank-statement-holdout-*')) + [
+            ROOT / 'audit' / 'native-unicode', ROOT / 'audit' / 'bank-tolerance-foundation']:
         (audit / package.name).symlink_to(package)
     tool = audit / HERE.name
     tool.mkdir()

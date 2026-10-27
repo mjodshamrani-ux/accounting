@@ -51,7 +51,9 @@ R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
 P = 'http://schemas.openxmlformats.org/package/2006/relationships'
 WINDOW = json.loads((HERE.parent / 'bank-statement-foundation' / 'contract.json').read_text(encoding='utf-8'))[
     'matching']['dateWindowDays']
-DECIMALS = {'SAR': 2, 'KWD': 3}
+# The sealed oracle's exponents (oracle.EXPONENT); the yen since the T4
+# holdout, whose yen period without a policy is exported.
+DECIMALS = {'SAR': 2, 'KWD': 3, 'JPY': 0}
 NAMES = {'ar': 'التسوية', 'en': 'Reconciliation'}
 ARABIC = re.compile('[؀-ۿ]')
 # The product names two statuses as the sealed oracle does not.

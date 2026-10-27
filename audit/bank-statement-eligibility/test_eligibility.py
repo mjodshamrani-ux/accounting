@@ -292,13 +292,15 @@ def put(page, y, cells, end_shift=0, start_shift=0):
         page.insert_text((x, y), text, fontsize=8, fontname='helv')
 
 
-def whole(name, pages, headers=HEADERS, **shift):
-    """A statement whose pages are lists of table rows, each seven cells."""
+def whole(name, pages, headers=HEADERS, currency='SAR', **shift):
+    """A statement whose pages are lists of table rows, each seven cells;
+    its heading names `currency`."""
     doc = pymupdf.open()
     for n, rows in enumerate(pages, 1):
         page = doc.new_page(width=600, height=400)
         page.insert_text((40, 40), 'Harbor Line Bank', fontsize=12)
-        page.insert_text((40, 58), 'Account: SA00 1000 · Currency: SAR · Period: 2026-04-01 — 2026-04-30', fontsize=8)
+        page.insert_text((40, 58), f'Account: SA00 1000 · Currency: {currency} · Period: 2026-04-01 — 2026-04-30',
+                         fontsize=8)
         put(page, 80, headers)
         for i, row in enumerate(rows):
             put(page, 96 + 14 * i, row, **shift)
@@ -505,6 +507,29 @@ class Columns(unittest.TestCase):
         self.assertEqual(exercised(doc), (None, {'wordParts': 2, 'dateRuns': 1}))
         old = [p.text for line in columns.mupdf_items(doc[0]) for p in line if p.text.startswith('2026')]
         self.assertEqual(old[0], '2026-04-02')
+
+    def test_amounts_are_read_at_the_decimals_of_the_heading_currency(self):
+        # As the reader reads them (TOL-1 T4). Read at two decimals, a dinar
+        # or yen amount is no amount, and the first one stops the reading.
+        dinar = [[cell.replace('.00', '.000') for cell in row] for row in ONE]
+        yen = [[cell.replace('.00', '') for cell in row] for row in ONE]
+        self.assertIsNone(stop(whole('columns-dinar', [dinar], currency='KWD')))
+        self.assertIsNone(stop(whole('columns-yen', [yen], currency='JPY')))
+        self.assertEqual(code(whole('columns-dinar-as-riyal', [dinar])), 'COLUMN')
+        self.assertEqual(code(whole('columns-riyal-as-dinar', [ONE], currency='KWD')), 'COLUMN')
+        self.assertEqual(code(whole('columns-yen-as-riyal', [yen])), 'COLUMN')
+        # A heading naming no currency the reader knows, or two, stops it.
+        self.assertEqual(stop(whole('columns-unknown-currency', [ONE], currency='XAU')), ('SCOPE', 1, 1))
+        self.assertEqual(stop(whole('columns-two-currencies', [ONE], currency='SAR / USD')), ('SCOPE', 1, 1))
+        # Sealed: the dinar statement of the tolerance foundation, which the
+        # reader read (its baseline record), was refused here before T4.
+        root = Path(__file__).resolve().parent.parent
+        doc = pymupdf.open(root / 'bank-tolerance-foundation' / 'frozen' / 'T07-DEC-statement.pdf')
+        self.assertIsNone(stop(doc))
+        self.assertEqual(columns.heading_decimals(columns.items(doc[0]), 'en'), 3)
+        with self.assertRaises(columns.Refused) as refused:
+            columns.read_page(1, columns.items(doc[0]), 'en', decimals=2)
+        self.assertEqual((refused.exception.code, refused.exception.line), ('COLUMN', 5))
 
     def test_what_it_copies_is_still_the_readers(self):
         self.assertEqual(columns.drift(), [])

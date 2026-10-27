@@ -13,12 +13,16 @@
 // the independent checker audit/bank-tolerance-foundation/check_export.py,
 // and every saved session is read here from its JSON and restored. Worker
 // replies are only observed; nothing is fabricated or injected.
-//   pnpm build && node --experimental-strip-types scripts/bank-tolerance-browser.mjs
+// --suite=<dir> plays another sealed package of the same schema (the T4
+// holdout) as it came: a story that differs is recorded with its reason, not
+// thrown, the checker's self-test alters every workbook, and --out writes or
+// --assert requires the record (in <dir>/results).
+//   pnpm build && node --experimental-strip-types scripts/bank-tolerance-browser.mjs [--suite=dir] [--out=f | --assert=f]
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
-import { mkdir, mkdtemp, readFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from 'playwright';
 import { bankStatementCopy } from '../lib/i18n/bank-statement.ts';
@@ -31,9 +35,15 @@ const root = path.resolve(import.meta.dirname, '..'),
   // BANK_TOLERANCE_DIST: another build of the same source, for the
   // interface mutation gate (scripts/test-bank-tolerance-interface-mutations.mjs).
   dist = process.env.BANK_TOLERANCE_DIST ?? path.join(root, 'dist'),
-  suite = path.join(root, 'audit/bank-tolerance-foundation'),
+  arg = (name) =>
+    process.argv
+      .find((a) => a.startsWith(`--${name}=`))
+      ?.slice(name.length + 3),
+  foundation = path.join(root, 'audit/bank-tolerance-foundation'),
+  suite = path.join(root, arg('suite') ?? 'audit/bank-tolerance-foundation'),
+  holdout = suite !== foundation,
   frozen = path.join(suite, 'frozen'),
-  checker = path.join(suite, 'check_export.py');
+  checker = path.join(foundation, 'check_export.py');
 const output =
   process.env.BANK_TOLERANCE_BROWSER_DIR ??
   path.join(root, 'work/bank-tolerance-browser');
@@ -52,7 +62,7 @@ for (const [name, entry] of Object.entries(manifest.files))
   );
 const facts = await json(path.join(frozen, 'stories.json'));
 const expected = (await json(path.join(frozen, 'EXPECTED.json'))).stories;
-assert.equal(facts.stories.length, 23);
+if (!holdout) assert.equal(facts.stories.length, 23);
 const STATUS = {
   'matched-automatic': 'matched',
   'matched-accepted': 'accepted',
@@ -632,13 +642,13 @@ try {
       : {}),
   });
   const started = performance.now();
-  const ar = await open('ar', 1440),
-    en = await open('en', 390);
+  const width = { ar: 1440, en: 390 };
+  const ui = { ar: await open('ar', width.ar), en: await open('en', width.en) };
 
   // The fields the screen refuses before anything is sent, and the way back
-  // to no tolerance.
-  {
-    const u = en;
+  // to no tolerance, on the foundation's T01.
+  if (!holdout) {
+    const u = ui.en;
     await u.choose('statement', 'T01-DEC-statement.pdf');
     await u.choose('cashbook', 'T01-DEC-cashbook.csv');
     const first = await u.act(() => u.button(u.c.compare).click());
@@ -687,125 +697,169 @@ try {
   }
 
   for (const [index, story] of facts.stories.entries()) {
-    const u = index % 2 ? ar : en;
+    const lang = index % 2 ? 'ar' : 'en';
+    const u = ui[lang];
     const style = index % 3 === 2 ? 'arabic' : 'plain';
     const record = { lang: u.lang };
     stories[story.id] = record;
     const want = expected[story.id];
-    const { value, policy, locked, refused, screen } = await play(
-      u,
-      story,
-      style,
-    );
-    if (locked) {
-      assert.equal(
-        want.refused,
-        'DECISION',
-        `${story.id}: fixed fields where none were expected`,
+    try {
+      const { value, policy, locked, refused, screen } = await play(
+        u,
+        story,
+        style,
       );
-      record.outcome = 'locked';
-      continue;
+      if (locked) {
+        assert.equal(
+          want.refused,
+          'DECISION',
+          `${story.id}: fixed fields where none were expected`,
+        );
+        record.outcome = 'locked';
+        continue;
+      }
+      if (refused) {
+        assert.equal(want.refused, `TOLERANCE:${refused}`);
+        record.outcome = `refused ${refused}${screen ? ' on screen' : ''}`;
+        continue;
+      }
+      assert.equal(want.refused, null, `${story.id}: expected ${want.refused}`);
+      const got = asOracle(value.result);
+      assert.ok(
+        same(got, wanted(want)),
+        `${story.id}: the installed result differs from the expectation`,
+      );
+      await shown(u, story.id, value.result, policy);
+      // The workbook, to the independent checker; the session, read and restored.
+      const workbook = await u.download(u.c.export, `${story.id}.xlsx`);
+      exportsToCheck.push({
+        label: story.id,
+        story: story.id,
+        path: workbook,
+        language: u.lang,
+      });
+      const session = await u.download(u.c.save, `${story.id}-session.json`);
+      const saved = JSON.parse(await readFile(session, 'utf8'));
+      assert.deepEqual(
+        saved.tolerance ?? null,
+        policy,
+        `${story.id}: the policy in the session`,
+      );
+      assert.equal(saved.version, 'bank-reconciliation-sheet-1');
+      const back = await u.restore(session);
+      assert.ok(
+        same(back.result, value.result),
+        `${story.id}: the restored result differs`,
+      );
+      await shown(u, story.id, back.result, policy);
+      // The restored policy is the one the form shows and the next request
+      // carries: the sheet applied again keeps it.
+      const decimals = back.result.reading.decimals;
+      assert.deepEqual(
+        [
+          await u.field(u.t.perItem).inputValue(),
+          await u.field(u.t.perPeriod).inputValue(),
+          await u.field(u.t.note).inputValue(),
+        ],
+        policy
+          ? [
+              typed(policy.perItem, decimals),
+              typed(policy.perPeriod, decimals),
+              policy.note,
+            ]
+          : ['', '', ''],
+        `${story.id}: the form after restoring`,
+      );
+      const again = await u.act(() => u.button(u.h.screen.apply).click());
+      assert.deepEqual(
+        again.state.tolerance ?? null,
+        policy,
+        `${story.id}: the policy after restoring`,
+      );
+      assert.ok(
+        same(again.result, value.result),
+        `${story.id}: the result after restoring`,
+      );
+      record.outcome = want.sheet.status;
+      record.tolerated = want.cases.filter(
+        (k) => k.status === 'matched-tolerated',
+      ).length;
+    } catch (error) {
+      // A holdout as it came: the story's difference is recorded, and its
+      // page opened afresh for the next story.
+      if (!holdout) throw error;
+      record.failure =
+        error instanceof Error ? error.message.split('\n')[0] : String(error);
+      await u.page.context().close();
+      ui[lang] = await open(lang, width[lang]);
     }
-    if (refused) {
-      assert.equal(want.refused, `TOLERANCE:${refused}`);
-      record.outcome = `refused ${refused}${screen ? ' on screen' : ''}`;
-      continue;
-    }
-    assert.equal(want.refused, null, `${story.id}: expected ${want.refused}`);
-    const got = asOracle(value.result);
-    assert.ok(
-      same(got, wanted(want)),
-      `${story.id}: the installed result differs from the expectation`,
-    );
-    await shown(u, story.id, value.result, policy);
-    // The workbook, to the independent checker; the session, read and restored.
-    const workbook = await u.download(u.c.export, `${story.id}.xlsx`);
-    exportsToCheck.push({
-      label: story.id,
-      story: story.id,
-      path: workbook,
-      language: u.lang,
-    });
-    const session = await u.download(u.c.save, `${story.id}-session.json`);
-    const saved = JSON.parse(await readFile(session, 'utf8'));
-    assert.deepEqual(
-      saved.tolerance ?? null,
-      policy,
-      `${story.id}: the policy in the session`,
-    );
-    assert.equal(saved.version, 'bank-reconciliation-sheet-1');
-    const back = await u.restore(session);
-    assert.ok(
-      same(back.result, value.result),
-      `${story.id}: the restored result differs`,
-    );
-    await shown(u, story.id, back.result, policy);
-    // The restored policy is the one the form shows and the next request
-    // carries: the sheet applied again keeps it.
-    const decimals = back.result.reading.decimals;
-    assert.deepEqual(
-      [
-        await u.field(u.t.perItem).inputValue(),
-        await u.field(u.t.perPeriod).inputValue(),
-        await u.field(u.t.note).inputValue(),
-      ],
-      policy
-        ? [
-            typed(policy.perItem, decimals),
-            typed(policy.perPeriod, decimals),
-            policy.note,
-          ]
-        : ['', '', ''],
-      `${story.id}: the form after restoring`,
-    );
-    const again = await u.act(() => u.button(u.h.screen.apply).click());
-    assert.deepEqual(
-      again.state.tolerance ?? null,
-      policy,
-      `${story.id}: the policy after restoring`,
-    );
-    assert.ok(
-      same(again.result, value.result),
-      `${story.id}: the result after restoring`,
-    );
-    record.outcome = want.sheet.status;
-    record.tolerated = want.cases.filter(
-      (k) => k.status === 'matched-tolerated',
-    ).length;
   }
 
   const r = spawnSync('python3', ['-B', checker], {
     input: JSON.stringify({
       frozen,
       exports: exportsToCheck,
-      selfTest: ['T07', 'T04', 'T19', 'T23', 'T08'],
+      selfTest: holdout
+        ? exportsToCheck.map((e) => e.label)
+        : ['T07', 'T04', 'T19', 'T23', 'T08'],
     }),
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024,
   });
-  assert.equal(r.status, 0, `the workbook checker: ${r.stderr || r.stdout}`);
-  const report = JSON.parse(r.stdout);
-  assert.equal(report.checked, exportsToCheck.length);
+  if (!holdout || r.status === 0)
+    assert.equal(r.status, 0, `the workbook checker: ${r.stderr || r.stdout}`);
+  const report =
+    r.status === 0
+      ? JSON.parse(r.stdout)
+      : {
+          checked: 0,
+          selfTest: {},
+          refused: (r.stderr || r.stdout).trim().slice(-2000),
+        };
+  if (r.status === 0) assert.equal(report.checked, exportsToCheck.length);
   assert.deepEqual(errors, [], 'page errors');
   assert.deepEqual(external, [], 'requests outside the page');
   assert.deepEqual(nonGet, [], 'requests other than GET');
   const all = Object.values(stories);
+  const summary = {
+    stories: all.length,
+    reconciled: all.filter((s) =>
+      /^reconciled|^difference|^draft/u.test(s.outcome),
+    ).length,
+    refused: all.filter((s) => s.outcome?.startsWith('refused')).length,
+    locked: all.filter((s) => s.outcome === 'locked').length,
+    tolerated: all.reduce((n, s) => n + (s.tolerated ?? 0), 0),
+    workbooks: report.checked,
+    selfTest: Object.keys(report.selfTest).length,
+    checks: checks.length,
+  };
   console.log(
     JSON.stringify({
-      stories: all.length,
-      reconciled: all.filter((s) =>
-        /^reconciled|^difference|^draft/u.test(s.outcome),
-      ).length,
-      refused: all.filter((s) => s.outcome?.startsWith('refused')).length,
-      locked: all.filter((s) => s.outcome === 'locked').length,
-      tolerated: all.reduce((n, s) => n + (s.tolerated ?? 0), 0),
-      workbooks: report.checked,
-      selfTest: Object.keys(report.selfTest).length,
-      checks: checks.length,
+      ...summary,
       seconds: Math.round((performance.now() - started) / 1000),
       out: path.relative(root, out),
     }),
   );
+  if (holdout) {
+    const run = {
+      suite: path.relative(root, suite),
+      ...summary,
+      checker: report.refused ?? null,
+      stories,
+    };
+    const results = path.join(suite, 'results');
+    if (arg('out'))
+      await writeFile(
+        path.join(results, arg('out')),
+        JSON.stringify(run, null, 1) + '\n',
+      );
+    if (arg('assert'))
+      assert.deepEqual(
+        run,
+        JSON.parse(await readFile(path.join(results, arg('assert')), 'utf8')),
+        'the run differs from the recorded first run',
+      );
+  }
 } finally {
   await browser?.close();
   server.close();

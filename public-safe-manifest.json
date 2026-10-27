@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 55983,
-      "sha256": "f2b9d1d115df8ad04bebdcf950e6f6ce67e25e137df20fa3ae016b6cf74cb69b",
+      "bytes": 56026,
+      "sha256": "fc98f2b5f378e4c79aa8c09e80e4bb13f5cb938cc87a03fe61395fbe3b81a708",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 33495,
-      "sha256": "2b4af6b88d08918f1758c0eca669091ce7973a5000ef9113c5d84710ca617efb",
+      "bytes": 34020,
+      "sha256": "7c94f3907c48867090b7fd6cd372e52aa7947beaed7534113fc72c27b84003d7",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 19960,
-      "sha256": "5a35b7eb3388f97049c046ab91f8624458a89d73911a9f5c8e2bc4dcbf875270",
+      "bytes": 20024,
+      "sha256": "899f58bb099aa3bcd7052f79c5f52a324510ab5d9de5bc706da8788913364d81",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 79293,
-      "sha256": "27ca85520ce2fc233a99e3578eb405089c2dc8170e9a6699986745c8d35aa20e",
+      "bytes": 80297,
+      "sha256": "71b3dcda59d01bb5f03012b2579febac5d7e6174eacca45868599ca12c1fac24",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 75171,
-      "sha256": "e4860d73b601268f39db3488df94c02c35854a71da65cc47fae8cb777403f7bd",
+      "bytes": 75352,
+      "sha256": "60de03ef34947c46eee2b580348265ae9c1e55c53d593da8c41d8074990d01b4",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 37031,
-      "sha256": "1432f6c38194db0b6ab4a2c3ff420a005d2761f1ad40206490f16c5c366cddb3",
+      "bytes": 37162,
+      "sha256": "0f19fbd3cb93b5098d26f43dd67cfc0b817a1fa077f221ce8d6745e5afe98505",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 13861,
-      "sha256": "4f53917b5d62bd2cc057f2d732ece010754ecead96fba78e744d96510899d62b",
+      "bytes": 13894,
+      "sha256": "51111e203c12e5413367a4bbb4719304ba73e880ab3482604e1d5a89c165f8be",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 22052,
-      "sha256": "082996e62cda8d85aaf8024411720bed8498357864e2b3d87068145112690565",
+      "bytes": 23436,
+      "sha256": "7e16b2a549c6e22825ecff1aeb2816c54afe1bd55cab33ec14e8d7222dbed530",
       "kind": "text"
     },
     {
@@ -42937,8 +42937,8 @@
     },
     {
       "path": "audit/bank-statement-eligibility/README.ar.md",
-      "bytes": 52026,
-      "sha256": "f4f5bf2dcea4d32846352f3934b8474b6e70873904ccd6dabdb961ab2941e603",
+      "bytes": 52510,
+      "sha256": "3fb86dc3317d937e9819370239990f9db59c310eeeea24159d26319f009ee5b0",
       "kind": "text"
     },
     {
@@ -42973,8 +42973,8 @@
     },
     {
       "path": "audit/bank-statement-eligibility/test_eligibility.py",
-      "bytes": 42660,
-      "sha256": "24011e2b422a4ae1308270123c296ff7587e789d708fdffefbaa8f1583ab4c32",
+      "bytes": 44481,
+      "sha256": "849b730d483f69398783d566fea5da35902b519edfcf7f68c9085fadac47b679",
       "kind": "text"
     },
     {
@@ -43407,14 +43407,14 @@
     },
     {
       "path": "audit/bank-statement-eligibility/columns.py",
-      "bytes": 22175,
-      "sha256": "25a71c1a5c741185edf120adcb159728dc63488b0bf0fc34b3a2c60fd398deec",
+      "bytes": 24316,
+      "sha256": "fa5309e91c8c0af7a794dd549a5a5e9c15931ed12dcfca36462dc06858c6c05b",
       "kind": "text"
     },
     {
       "path": "audit/bank-statement-eligibility/mutate_columns.py",
-      "bytes": 4581,
-      "sha256": "641226e4b0dfc528cd774009098720d008a939e8edf3b26bfd3e86269dac2daf",
+      "bytes": 5448,
+      "sha256": "fc79337d716738ea187f411312c7ac5d1f5568fea6aff166d25d7115876c675b",
       "kind": "text"
     },
     {
@@ -53395,8 +53395,8 @@
     },
     {
       "path": "scripts/bank-tolerance-proof.mjs",
-      "bytes": 9491,
-      "sha256": "8e8bf429865c46a602a06f1d5314f3757e5a87fcff710cef8a8cbdf5f8da2aa9",
+      "bytes": 9688,
+      "sha256": "e02e495fa08d025fb5015dba7b1a0decafd01e0948986555c09e99d33f59ae09",
       "kind": "text"
     },
     {
@@ -53413,8 +53413,8 @@
     },
     {
       "path": "audit/bank-tolerance-foundation/check_export.py",
-      "bytes": 20330,
-      "sha256": "a5d8abaa89a089571d96afe8b63ffa0e69fdb41ac216ad1b3570b7717c012aeb",
+      "bytes": 20470,
+      "sha256": "b4bfd59d38c7ce101f5749419e7e5bad5a4cd4570bff87a8c19966541c7c1e83",
       "kind": "text"
     },
     {
@@ -53425,8 +53425,8 @@
     },
     {
       "path": "scripts/bank-tolerance-lifecycle.mjs",
-      "bytes": 10034,
-      "sha256": "eb6e0b4de2cbd094942d67bff4ae3baed4b50a32c048efbc82a373dddbd3f3e4",
+      "bytes": 10510,
+      "sha256": "107cd1e326a020898a074268cf11418440725dd0ccba4e4d6bd8885110a465d4",
       "kind": "text"
     },
     {
@@ -53437,14 +53437,478 @@
     },
     {
       "path": "scripts/bank-tolerance-browser.mjs",
-      "bytes": 28006,
-      "sha256": "df269563500025ce7557d707e2f99c3366650aa2612b80bcc15dec51ee06dd9e",
+      "bytes": 30097,
+      "sha256": "eed79b21a88d1b128df5855bacdd0fa79bb7ecbff657ddcc5e7791b1a184ef7c",
       "kind": "text"
     },
     {
       "path": "scripts/test-bank-tolerance-interface-mutations.mjs",
       "bytes": 7926,
       "sha256": "bf2edfb8003f8c63528e9005360d0c04bdc50efd286699cd6c6a2df6dedca4a8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/README.ar.md",
+      "bytes": 9630,
+      "sha256": "40cfd7550d0db7fc6a99d769f4a66cef8e17c6d1084c165e1c0f217bcab39a8f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/check_seal.py",
+      "bytes": 4676,
+      "sha256": "892b562831a815a2e2ff679a6dc09bc1d041693f922e584d3e047578cacda283",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/common.py",
+      "bytes": 5386,
+      "sha256": "29d4ce9fd412623eaca0ba742df9f034d25c9beb1bf6b86cdd6b92fa985c0bb2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/fonts.py",
+      "bytes": 4479,
+      "sha256": "a05ce927ba79aa61c23cb6956672854910f3734a5d5650bf75e37b1a05fdcd87",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/ELIGIBILITY.json",
+      "bytes": 7948,
+      "sha256": "86baa05855c547f875c21a5f9fd2ca0bb0e04a27d0bdffe372d8b9d8c3586a88",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/EXPECTED.json",
+      "bytes": 47286,
+      "sha256": "be6566726d6bd88b2d1a501c9f8a3b796b3ac8ae32d86d06eb615ab1ef5b07cc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/INPUT-MANIFEST.json",
+      "bytes": 9662,
+      "sha256": "2f7e4956f3225dbc709e13ecb37097d48acf4c9ecdbf3646e30e593eb411fbe2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/SEAL.json",
+      "bytes": 3020,
+      "sha256": "62a7fed092b0283090eaa2cb3e1eae861e367ff96b6c453779e0c44f32d0faed",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U01-JAN-cashbook.csv",
+      "bytes": 394,
+      "sha256": "a6ff04120bda005e8c63ac118c6a5a7574ccffe22a02881498dae91c49b88f42",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U01-JAN-statement.pdf",
+      "bytes": 12150,
+      "sha256": "2f3d4423008de39376320b1f6efbceb26ed7692427e7794a6302b9c3853476de",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U02-JAN-cashbook.csv",
+      "bytes": 511,
+      "sha256": "53645735b307be448324b25dc0b7309a2daa87c3a26d71ade56dee00cc1445a9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U02-JAN-statement.pdf",
+      "bytes": 13834,
+      "sha256": "85d6fc30992d328f57f54fbc81c247dd94ef3c3e7e2302896eac09d986aaf07a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U03-JAN-cashbook.csv",
+      "bytes": 511,
+      "sha256": "0589733d0d10bcf833db3f9e97aa4fd11abc09292b16bd3351717c74944c0ff5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U03-JAN-statement.pdf",
+      "bytes": 14469,
+      "sha256": "133a9f5def3d34934ad47e96117f9416a20c1e9fa56fcc2ad61ce82b37b96234",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U04-FEB-cashbook.csv",
+      "bytes": 518,
+      "sha256": "59a882ab921c956c7457e536ff2326f57b9141ca4ab90b5a68b6837190dbfc5e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U04-FEB-statement.pdf",
+      "bytes": 12329,
+      "sha256": "707373aedeb862bf552cbb7e747c16c3117b7ce57888089b349f1cd680f9a009",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U05-FEB-cashbook.csv",
+      "bytes": 461,
+      "sha256": "19154ee3ce2820607bbbf4e1e8fbd6dd8f45bebf9f8146047805ae2091d8e9a4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U05-FEB-statement.pdf",
+      "bytes": 19026,
+      "sha256": "a429e6d2bd75a7152a89580e047950d8c633ac2f84ee3136b944d701e9982b2d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U06-MAR-cashbook.csv",
+      "bytes": 400,
+      "sha256": "deeb2cf1bcf49c2f8447b67958975b1877b39657f302cd9d1b2b9ee24e2a3cf7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U06-MAR-statement.pdf",
+      "bytes": 13498,
+      "sha256": "2adfa6b94110c0fb7198a6dd683cad940cf2c2c74fdee311e24304f3a1f4c259",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U07-MAR-cashbook.csv",
+      "bytes": 394,
+      "sha256": "488db76ecdf8756fdea1bf1b8f745c1d645fe49cf957b9d725c4d5f58e998fff",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U07-MAR-statement.pdf",
+      "bytes": 17391,
+      "sha256": "070d240f0a45f20fb615c8a0e0fdad6f81f3a7370de0cbef7dc448e04ac03be4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U08-JAN-cashbook.csv",
+      "bytes": 392,
+      "sha256": "27677cd2e5b0ae4a7ce7f441d619373d3b3f979e661aaad7320d76cb42519f2a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U08-JAN-statement.pdf",
+      "bytes": 11639,
+      "sha256": "8a9d9bb76496710992813ad8b93a4a84037eb3ed977b0a9bc8dcb3ae155288aa",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U09-JAN-cashbook.csv",
+      "bytes": 392,
+      "sha256": "2b4272281ff5a930f5bcbeb9301c6f48adcfc6236ffd646e76e7fcee5af1d672",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U09-JAN-statement.pdf",
+      "bytes": 13351,
+      "sha256": "ba9f325bac434b89776fe393afb6ce75614745816414a83782b929050c4ff39b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U10-FEB-cashbook.csv",
+      "bytes": 395,
+      "sha256": "46e18710c6aec0db6364a45cd23d57fd150a0167765f7c692ba0f1a38c755abb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U10-FEB-statement.pdf",
+      "bytes": 12007,
+      "sha256": "749efc527d7e49362a1aadf172d9ba59120f25f06aadf86defc3bdc51afec9d1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U11-FEB-cashbook.csv",
+      "bytes": 986,
+      "sha256": "59f88fb9fe4fcf807c133e06d4e61c3e83b59834b69051350ad2b7863efbd8f6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U11-FEB-statement.pdf",
+      "bytes": 21553,
+      "sha256": "04766f9c5e699402eb6a71959ab94561174d97d0cfcebf08fc4b369720b31bb2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U12-MAR-cashbook.csv",
+      "bytes": 457,
+      "sha256": "633a340e5e90e39f2b35aaa9a35b9cfcf10897ca7f8fd68a74d81f7902c645e7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U12-MAR-statement.pdf",
+      "bytes": 14451,
+      "sha256": "2fbd32cb52200951d3c3553a9573495fd68f59579bbc48358708353409c1bb71",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U13-JAN-cashbook.csv",
+      "bytes": 454,
+      "sha256": "520a138da39538f1c01f161e01bf13dbc969392d5ed389e774f808cb84bf264a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U13-JAN-statement.pdf",
+      "bytes": 14489,
+      "sha256": "78c28dea1867ba47c5f24a027d6b3d00905a4b9bb9a039626f633e9210cf3921",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U14-FEB-cashbook.csv",
+      "bytes": 396,
+      "sha256": "ab35b7bc7c72be087877af7b3fbeaa9a01173604e2746e683381d77103219e73",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U14-FEB-statement.pdf",
+      "bytes": 19034,
+      "sha256": "a5d5ce83987e1f652a846e09a490bed715fa4c7c45958b1f3e0e2bbd2406fa66",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U15-MAR-cashbook.csv",
+      "bytes": 446,
+      "sha256": "949d8983d0605abdc31276ba7aa335af91514e171490827cdb24b244a680571c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U15-MAR-statement.pdf",
+      "bytes": 14075,
+      "sha256": "b650c68a1c3c9cc92eb04b4378eea6cf93c4049914d9dc5e4e8a4b5c7e7bd974",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U16-FEB-cashbook.csv",
+      "bytes": 452,
+      "sha256": "6470f7115a2fc945cf367a8e7427c0e880cd292e3a7efe404b38e3b338607bbb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U16-FEB-statement.pdf",
+      "bytes": 13373,
+      "sha256": "455d0e537a491bb44ea359b11276c3b63ae8c5980ab2318823d464c4e22ece8f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U17-FEB-cashbook.csv",
+      "bytes": 512,
+      "sha256": "828d9339deb5e61650afd14cd72efd7e7586e01091d0d7aa2d469c363c41861d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U17-FEB-statement.pdf",
+      "bytes": 12283,
+      "sha256": "0c8847820546039f4b6b6554c9fa1ecd7edf9fbe13f22cc7a114fa63539a748e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U18-MAR-cashbook.csv",
+      "bytes": 460,
+      "sha256": "72773997496e11e93b35a916574c708497cf34a2f94cc26e2ea9c07a9128d1e4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U18-MAR-statement.pdf",
+      "bytes": 11830,
+      "sha256": "7b0a0cdb4b5384d098a88e273637e01a2ca4b331bc22801c988d423a24b00927",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U19-MAR-cashbook.csv",
+      "bytes": 2098,
+      "sha256": "9794361805a7b162dceb6f70657ff2b76fc90b6b752db99b3e5f6a0e94726c76",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U19-MAR-statement.pdf",
+      "bytes": 21201,
+      "sha256": "62a403051ac1f363a2d91fa2375f70964b90ee26f0c53b3387ca5bf34a6ec38b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U20-JAN-cashbook.csv",
+      "bytes": 446,
+      "sha256": "b606c0ad44efef8859c739c87ec98cd0e74009e37952bbd83942d43f1625c68d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/U20-JAN-statement.pdf",
+      "bytes": 15371,
+      "sha256": "96001d7a7ade3f9e249c2a55dac9ad53204d6774e834b710064ac506185c67f6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 TOL-1 T4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the WF-1 REVIEW-1 R3 holdout (itself copied from R4, W4 and BNK-PDF-1 G23), amounts to the currency exponent (SAR two decimals, KWD three, JPY none), with Google Fonts files from @expo-google-fonts, from audit/bank-tolerance-holdout-t4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed TOL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/VERIFY.json",
+      "bytes": 11599,
+      "sha256": "20e85e27bb7236472233d9f2e18dc2b6579e0de7f8ff01dc36accfdaeec39e79",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/records.json",
+      "bytes": 101190,
+      "sha256": "093eb7fe580a4f868bf489ac80af8efd8b8854c17bcf9c9c8a14189cc8d9785e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/frozen/stories.json",
+      "bytes": 125479,
+      "sha256": "34a154840f1bf6efac9b5947495dc40fc0f959ad889a69682c862237b7535cf4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/js/package-lock.json",
+      "bytes": 10823,
+      "sha256": "078872e9c078bbe08668ad7565db7df8ad805d01dc56d0bd056b0896346eeef8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/js/package.json",
+      "bytes": 927,
+      "sha256": "2b30084612d1b2794ab38d2d42a02f5df42774a298979e1f13cb660ae3ddacb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/render.py",
+      "bytes": 6375,
+      "sha256": "c0215c32d1e2c7d47cb1e61533e78fb87dcd760aea67f0d49f7ada5ff71c7307",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/render_hexapdf.py",
+      "bytes": 2659,
+      "sha256": "00780b61ce62e2f8861ff5e370eba43bf62c9790f370550c4d934fe22c73965e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/render_pdflib.py",
+      "bytes": 2363,
+      "sha256": "6cdf284ef56a373f0db991894e00c6bfc0b842b6f049f0a95d9ecddc89b93d8d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/ruby/Gemfile",
+      "bytes": 204,
+      "sha256": "bb0540b65b96b5b7c3723bdbbf50b7a99c25ed80cd4e469dda669b7a5e527d5f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/ruby/Gemfile.lock",
+      "bytes": 1302,
+      "sha256": "7bf40acd65d4688a6f771427ef97a17a16259401568f0fefaa2a8657e2a41666",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/ruby/statements.rb",
+      "bytes": 7624,
+      "sha256": "53db6a930b68896b8093453c6cc16d82789d1da28a7a6d6fe0abb7767c26d37b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/seal.py",
+      "bytes": 4126,
+      "sha256": "269a652931b8cdceab41b5d536a939f1695678d5cd27d527f0d504a08d56234d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/stories.py",
+      "bytes": 29619,
+      "sha256": "3fcb34c04536a4072b9752c5b88f13649176c91f9da0bfdf6d3e2b9c28d0189f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-holdout-t4/verify.py",
+      "bytes": 29923,
+      "sha256": "4582962dd482a5e456936d3d5aa096602c20ed4002800b35465f0b90009515f4",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-tolerance-holdout.mjs",
+      "bytes": 2603,
+      "sha256": "d0f0bde91885cea3bc2d25e7ebc664a7c66aaa1af4be34da6dceb6ce97712faa",
       "kind": "text"
     }
   ],

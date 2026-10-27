@@ -12,6 +12,9 @@
 //   - both workbooks are written and handed to the independent checker
 //     (audit/bank-tolerance-foundation/check_export.py) with its self-test.
 // A failure is recorded and asserted at the end, not thrown.
+// BANK_TOLERANCE_SUITE names another sealed package of the same schema (a
+// holdout); the checker's self-test then alters every workbook written, so
+// that no choice of workbooks made before the run decides what it covers.
 //   node --experimental-strip-types scripts/bank-tolerance-lifecycle.mjs
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
@@ -20,7 +23,10 @@ import { mkdir, mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
-const suite = path.join(root, 'audit/bank-tolerance-foundation');
+const foundation = path.join(root, 'audit/bank-tolerance-foundation');
+const suite = process.env.BANK_TOLERANCE_SUITE
+  ? path.join(root, process.env.BANK_TOLERANCE_SUITE)
+  : foundation;
 const frozen = path.join(suite, 'frozen');
 const json = async (p) => JSON.parse(await readFile(p, 'utf8'));
 const sha = (b) => createHash('sha256').update(new Uint8Array(b)).digest('hex');
@@ -252,19 +258,22 @@ for (const [index, story] of facts.stories.entries()) {
 // rest, and one with no policy.
 const checker = spawnSync(
   'python3',
-  ['-B', path.join(suite, 'check_export.py')],
+  ['-B', path.join(foundation, 'check_export.py')],
   {
     input: JSON.stringify({
       frozen,
       exports,
-      selfTest: [
-        'T07-sheet',
-        'T04-sheet',
-        'T19-sheet',
-        'T23-sheet',
-        'T08-sheet',
-        'T01-period',
-      ],
+      selfTest:
+        suite === foundation
+          ? [
+              'T07-sheet',
+              'T04-sheet',
+              'T19-sheet',
+              'T23-sheet',
+              'T08-sheet',
+              'T01-period',
+            ]
+          : exports.map((e) => e.label),
     }),
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024,

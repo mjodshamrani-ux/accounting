@@ -14,6 +14,8 @@
 // unexplained rest equal to the difference are what it is compared with.
 // The measure the contract names is reported: cases awaiting a decision on
 // the same stories with and without the policy.
+// BANK_TOLERANCE_SUITE names another sealed package of the same schema (a
+// holdout); its summary line is what bank-tolerance-holdout.mjs records.
 //   node --experimental-strip-types scripts/bank-tolerance-proof.mjs
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -21,7 +23,11 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
-const frozen = path.join(root, 'audit/bank-tolerance-foundation/frozen');
+const frozen = path.join(
+  root,
+  process.env.BANK_TOLERANCE_SUITE ?? 'audit/bank-tolerance-foundation',
+  'frozen',
+);
 const json = async (p) => JSON.parse(await readFile(p, 'utf8'));
 const sha = (b) => createHash('sha256').update(new Uint8Array(b)).digest('hex');
 const message = (error) =>

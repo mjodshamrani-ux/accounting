@@ -1,0 +1,5120 @@
+{
+ "version": "bank-tolerance-holdout-t4-1",
+ "stories": [
+  {
+   "id": "U01",
+   "title": "A receipt the book records one halala short",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Work Sans",
+    "paper": "A4",
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U01-JAN",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0101",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-01-01",
+       "end": "2027-01-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 79865000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-01-02",
+          "valueDate": "2027-01-02",
+          "description": "Distributor payment",
+          "reference": "COL01JA001",
+          "withdrawal": 0,
+          "deposit": 409158,
+          "balance": 80274158
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "Distributor payment",
+          "reference": "COL01JA002",
+          "withdrawal": 0,
+          "deposit": 79564,
+          "balance": 80353722
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-01-12",
+          "valueDate": "2027-01-12",
+          "description": "Customer remittance",
+          "reference": "RCV-U01-01",
+          "withdrawal": 0,
+          "deposit": 240000,
+          "balance": 80593722
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Office rent",
+          "reference": "TRF01JA003",
+          "withdrawal": 16767,
+          "deposit": 0,
+          "balance": 80576955
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-01-20",
+          "valueDate": "2027-01-20",
+          "description": "Maintenance contract",
+          "reference": "TRF01JA004",
+          "withdrawal": 378630,
+          "deposit": 0,
+          "balance": 80198325
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-01-27",
+          "valueDate": "2027-01-27",
+          "description": "Maintenance contract",
+          "reference": "TRF01JA005",
+          "withdrawal": 55268,
+          "deposit": 0,
+          "balance": 80143057
+         },
+         {
+          "kind": "closing",
+          "balance": 80143057
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 450665,
+          "deposit": 728722
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-01-01",
+       "voucher": "RV01JA01",
+       "description": "Receipt voucher",
+       "reference": "COL01JA001",
+       "receipt": 409158,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-06",
+       "voucher": "RV01JA02",
+       "description": "Receipt voucher",
+       "reference": "COL01JA002",
+       "receipt": 79564,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-12",
+       "voucher": "PV01JA03",
+       "description": "Payment voucher",
+       "reference": "TRF01JA003",
+       "receipt": 0,
+       "payment": 16767
+      },
+      {
+       "date": "2027-01-12",
+       "voucher": "RV-U01-01",
+       "description": "Receipt voucher",
+       "reference": "RCV-U01-01",
+       "receipt": 239999,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-19",
+       "voucher": "PV01JA04",
+       "description": "Payment voucher",
+       "reference": "TRF01JA004",
+       "receipt": 0,
+       "payment": 378630
+      },
+      {
+       "date": "2027-01-25",
+       "voucher": "PV01JA05",
+       "description": "Payment voucher",
+       "reference": "TRF01JA005",
+       "receipt": 0,
+       "payment": 55268
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 80143056,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 5,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "a 2,400.00 remittance the book receives as 2,399.99 under its reference; a policy of 0.01 a pair and 0.05 a period; the book balance is the opening with the book's receipts and payments",
+   "intent": {
+    "tolerated": [
+     [
+      "RCV-U01-01",
+      1
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": 1,
+     "tolerated": 1,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U02",
+   "title": "Differences of both signs meet the period limit exactly",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Rubik",
+    "paper": "A4",
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U02-JAN",
+     "statement": {
+      "account": "SA71 6000 0000 3381 0900 0202",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-01-01",
+       "end": "2027-01-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 55615000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-01-02",
+          "valueDate": "2027-01-02",
+          "description": "Supplier settlement",
+          "reference": "TRF02JA001",
+          "withdrawal": 250091,
+          "deposit": 0,
+          "balance": 55364909
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-01-06",
+          "valueDate": "2027-01-06",
+          "description": "Supplier transfer",
+          "reference": "INV-U02-01",
+          "withdrawal": 310002,
+          "deposit": 0,
+          "balance": 55054907
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "Maintenance contract",
+          "reference": "TRF02JA002",
+          "withdrawal": 83464,
+          "deposit": 0,
+          "balance": 54971443
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Freight forwarding",
+          "reference": "TRF02JA003",
+          "withdrawal": 423001,
+          "deposit": 0,
+          "balance": 54548442
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Customer remittance",
+          "reference": "RCV-U02-02",
+          "withdrawal": 0,
+          "deposit": 87503,
+          "balance": 54635945
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-01-20",
+          "valueDate": "2027-01-20",
+          "description": "Distributor payment",
+          "reference": "COL02JA004",
+          "withdrawal": 0,
+          "deposit": 282801,
+          "balance": 54918746
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-01-23",
+          "valueDate": "2027-01-23",
+          "description": "Supplier transfer",
+          "reference": "INV-U02-03",
+          "withdrawal": 129995,
+          "deposit": 0,
+          "balance": 54788751
+         },
+         {
+          "kind": "movement",
+          "key": "S8",
+          "date": "2027-01-27",
+          "valueDate": "2027-01-27",
+          "description": "Distributor payment",
+          "reference": "COL02JA005",
+          "withdrawal": 0,
+          "deposit": 267171,
+          "balance": 55055922
+         },
+         {
+          "kind": "closing",
+          "balance": 55055922
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1196553,
+          "deposit": 637475
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-01-01",
+       "voucher": "PV02JA01",
+       "description": "Payment voucher",
+       "reference": "TRF02JA001",
+       "receipt": 0,
+       "payment": 250091
+      },
+      {
+       "date": "2027-01-06",
+       "voucher": "PV-U02-01",
+       "description": "Payment voucher",
+       "reference": "INV-U02-01",
+       "receipt": 0,
+       "payment": 310000
+      },
+      {
+       "date": "2027-01-07",
+       "voucher": "PV02JA02",
+       "description": "Payment voucher",
+       "reference": "TRF02JA002",
+       "receipt": 0,
+       "payment": 83464
+      },
+      {
+       "date": "2027-01-13",
+       "voucher": "PV02JA03",
+       "description": "Payment voucher",
+       "reference": "TRF02JA003",
+       "receipt": 0,
+       "payment": 423001
+      },
+      {
+       "date": "2027-01-14",
+       "voucher": "RV-U02-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U02-02",
+       "receipt": 87500,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-19",
+       "voucher": "RV02JA04",
+       "description": "Receipt voucher",
+       "reference": "COL02JA004",
+       "receipt": 282801,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-23",
+       "voucher": "PV-U02-03",
+       "description": "Payment voucher",
+       "reference": "INV-U02-03",
+       "receipt": 0,
+       "payment": 130000
+      },
+      {
+       "date": "2027-01-26",
+       "voucher": "RV02JA05",
+       "description": "Receipt voucher",
+       "reference": "COL02JA005",
+       "receipt": 267171,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 55055916,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 5,
+      "perPeriod": 10,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "three differences of 0.02, 0.03 and 0.05, the last where the book pays more than the bank; a policy of 0.05 a pair and 0.10 a period: the absolute sum meets the period limit exactly",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U02-01",
+      2
+     ],
+     [
+      "RCV-U02-02",
+      3
+     ],
+     [
+      "INV-U02-03",
+      -5
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": 6,
+     "tolerated": 6,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U03",
+   "title": "The same differences past the period limit by one halala",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Merriweather",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U03-JAN",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0103",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-01-01",
+       "end": "2027-01-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 62519000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-01-02",
+          "valueDate": "2027-01-02",
+          "description": "Marketplace payout",
+          "reference": "COL03JA001",
+          "withdrawal": 0,
+          "deposit": 143036,
+          "balance": 62662036
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-01-06",
+          "valueDate": "2027-01-06",
+          "description": "Supplier transfer",
+          "reference": "INV-U03-01",
+          "withdrawal": 310002,
+          "deposit": 0,
+          "balance": 62352034
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "Card settlement",
+          "reference": "COL03JA002",
+          "withdrawal": 0,
+          "deposit": 251222,
+          "balance": 62603256
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Marketplace payout",
+          "reference": "COL03JA003",
+          "withdrawal": 0,
+          "deposit": 138096,
+          "balance": 62741352
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Customer remittance",
+          "reference": "RCV-U03-02",
+          "withdrawal": 0,
+          "deposit": 87503,
+          "balance": 62828855
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-01-20",
+          "valueDate": "2027-01-20",
+          "description": "Distributor payment",
+          "reference": "COL03JA004",
+          "withdrawal": 0,
+          "deposit": 413151,
+          "balance": 63242006
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-01-23",
+          "valueDate": "2027-01-23",
+          "description": "Supplier transfer",
+          "reference": "INV-U03-03",
+          "withdrawal": 129995,
+          "deposit": 0,
+          "balance": 63112011
+         },
+         {
+          "kind": "movement",
+          "key": "S8",
+          "date": "2027-01-27",
+          "valueDate": "2027-01-27",
+          "description": "Customer remittance",
+          "reference": "COL03JA005",
+          "withdrawal": 0,
+          "deposit": 37266,
+          "balance": 63149277
+         },
+         {
+          "kind": "closing",
+          "balance": 63149277
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 439997,
+          "deposit": 1070274
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-01-01",
+       "voucher": "RV03JA01",
+       "description": "Receipt voucher",
+       "reference": "COL03JA001",
+       "receipt": 143036,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-06",
+       "voucher": "PV-U03-01",
+       "description": "Payment voucher",
+       "reference": "INV-U03-01",
+       "receipt": 0,
+       "payment": 310000
+      },
+      {
+       "date": "2027-01-07",
+       "voucher": "RV03JA02",
+       "description": "Receipt voucher",
+       "reference": "COL03JA002",
+       "receipt": 251222,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-13",
+       "voucher": "RV03JA03",
+       "description": "Receipt voucher",
+       "reference": "COL03JA003",
+       "receipt": 138096,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-14",
+       "voucher": "RV-U03-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U03-02",
+       "receipt": 87500,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-18",
+       "voucher": "RV03JA04",
+       "description": "Receipt voucher",
+       "reference": "COL03JA004",
+       "receipt": 413151,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-23",
+       "voucher": "PV-U03-03",
+       "description": "Payment voucher",
+       "reference": "INV-U03-03",
+       "receipt": 0,
+       "payment": 130000
+      },
+      {
+       "date": "2027-01-25",
+       "voucher": "RV03JA05",
+       "description": "Receipt voucher",
+       "reference": "COL03JA005",
+       "receipt": 37266,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 63149271,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 5,
+      "perPeriod": 9,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "U02's three differences, summing to 0.10, under a period limit of 0.09: none is tolerated",
+   "intent": {
+    "tolerated": [],
+    "exceeded": {
+     "sum": 10,
+     "cap": 9
+    },
+    "open": 3,
+    "sheet": {
+     "status": "draft",
+     "difference": 0,
+     "tolerated": 0,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U04",
+   "title": "Dinar: two differences within the limit, a third rejected",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Readex Pro",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U04-FEB",
+     "statement": {
+      "account": "KW81 CBKU 0000 0000 0000 1234 5604 04",
+      "currency": "KWD",
+      "period": {
+       "start": "2027-02-01",
+       "end": "2027-02-28"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 302920000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-02-02",
+          "valueDate": "2027-02-02",
+          "description": "Office rent",
+          "reference": "TRF04FE001",
+          "withdrawal": 322027,
+          "deposit": 0,
+          "balance": 302597973
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-02-05",
+          "valueDate": "2027-02-05",
+          "description": "Supplier transfer",
+          "reference": "INV-U04-01",
+          "withdrawal": 1250001,
+          "deposit": 0,
+          "balance": 301347972
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-02-08",
+          "valueDate": "2027-02-08",
+          "description": "Card scheme fees",
+          "reference": "TRF04FE002",
+          "withdrawal": 1094965,
+          "deposit": 0,
+          "balance": 300253007
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-02-13",
+          "valueDate": "2027-02-13",
+          "description": "Customer remittance",
+          "reference": "RCV-U04-02",
+          "withdrawal": 0,
+          "deposit": 460007,
+          "balance": 300713014
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-02-14",
+          "valueDate": "2027-02-14",
+          "description": "Marketplace payout",
+          "reference": "COL04FE003",
+          "withdrawal": 0,
+          "deposit": 4228320,
+          "balance": 304941334
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-02-20",
+          "valueDate": "2027-02-20",
+          "description": "Card scheme fees",
+          "reference": "TRF04FE004",
+          "withdrawal": 3916311,
+          "deposit": 0,
+          "balance": 301025023
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-02-21",
+          "valueDate": "2027-02-21",
+          "description": "Supplier transfer",
+          "reference": "INV-U04-03",
+          "withdrawal": 980012,
+          "deposit": 0,
+          "balance": 300045011
+         },
+         {
+          "kind": "movement",
+          "key": "S8",
+          "date": "2027-02-27",
+          "valueDate": "2027-02-27",
+          "description": "Customer remittance",
+          "reference": "COL04FE005",
+          "withdrawal": 0,
+          "deposit": 1953849,
+          "balance": 301998860
+         },
+         {
+          "kind": "closing",
+          "balance": 301998860
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7563316,
+          "deposit": 6642176
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-02-02",
+       "voucher": "PV04FE01",
+       "description": "Payment voucher",
+       "reference": "TRF04FE001",
+       "receipt": 0,
+       "payment": 322027
+      },
+      {
+       "date": "2027-02-05",
+       "voucher": "PV-U04-01",
+       "description": "Payment voucher",
+       "reference": "INV-U04-01",
+       "receipt": 0,
+       "payment": 1250000
+      },
+      {
+       "date": "2027-02-07",
+       "voucher": "PV04FE02",
+       "description": "Payment voucher",
+       "reference": "TRF04FE002",
+       "receipt": 0,
+       "payment": 1094965
+      },
+      {
+       "date": "2027-02-12",
+       "voucher": "RV04FE03",
+       "description": "Receipt voucher",
+       "reference": "COL04FE003",
+       "receipt": 4228320,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-13",
+       "voucher": "RV-U04-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U04-02",
+       "receipt": 460000,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-19",
+       "voucher": "PV04FE04",
+       "description": "Payment voucher",
+       "reference": "TRF04FE004",
+       "receipt": 0,
+       "payment": 3916311
+      },
+      {
+       "date": "2027-02-21",
+       "voucher": "PV-U04-03",
+       "description": "Payment voucher",
+       "reference": "INV-U04-03",
+       "receipt": 0,
+       "payment": 980000
+      },
+      {
+       "date": "2027-02-27",
+       "voucher": "RV04FE05",
+       "description": "Receipt voucher",
+       "reference": "COL04FE005",
+       "receipt": 1953849,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 301998866,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 10,
+      "perPeriod": 50,
+      "note": "Rounding by the payment network"
+     }
+    },
+    {
+     "reject": {
+      "statement": [
+       "S7"
+      ],
+      "cashbook": [
+       "PV-U04-03"
+      ]
+     }
+    }
+   ],
+   "recipe": "dinar: differences of one, seven and twelve fils under a policy of ten fils a pair and fifty a period: two tolerated; the twelve-fils difference stays and the accountant rejects it",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U04-01",
+      1
+     ],
+     [
+      "RCV-U04-02",
+      7
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": 6,
+     "tolerated": 6,
+     "unexplained": 0
+    },
+    "rejected": 1
+   }
+  },
+  {
+   "id": "U05",
+   "title": "Dinar at its largest limits",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Fira Sans",
+    "paper": "A4-landscape",
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U05-FEB",
+     "statement": {
+      "account": "KW81 CBKU 0000 0000 0000 1234 5605 05",
+      "currency": "KWD",
+      "period": {
+       "start": "2027-02-01",
+       "end": "2027-02-28"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 314350000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-02-02",
+          "valueDate": "2027-02-02",
+          "description": "Customer remittance",
+          "reference": "COL05FE001",
+          "withdrawal": 0,
+          "deposit": 3976859,
+          "balance": 318326859
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-02-08",
+          "valueDate": "2027-02-08",
+          "description": "Marketplace payout",
+          "reference": "COL05FE002",
+          "withdrawal": 0,
+          "deposit": 3576010,
+          "balance": 321902869
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-02-09",
+          "valueDate": "2027-02-09",
+          "description": "Supplier transfer",
+          "reference": "INV-U05-01",
+          "withdrawal": 3400999,
+          "deposit": 0,
+          "balance": 318501870
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-02-14",
+          "valueDate": "2027-02-14",
+          "description": "Supplier settlement",
+          "reference": "TRF05FE003",
+          "withdrawal": 1185594,
+          "deposit": 0,
+          "balance": 317316276
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-02-17",
+          "valueDate": "2027-02-17",
+          "description": "Customer remittance",
+          "reference": "RCV-U05-02",
+          "withdrawal": 0,
+          "deposit": 2200500,
+          "balance": 319516776
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-02-20",
+          "valueDate": "2027-02-20",
+          "description": "Office rent",
+          "reference": "TRF05FE004",
+          "withdrawal": 4233509,
+          "deposit": 0,
+          "balance": 315283267
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-02-27",
+          "valueDate": "2027-02-27",
+          "description": "Distributor payment",
+          "reference": "COL05FE005",
+          "withdrawal": 0,
+          "deposit": 267773,
+          "balance": 315551040
+         },
+         {
+          "kind": "closing",
+          "balance": 315551040
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 8820102,
+          "deposit": 10021142
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-02-01",
+       "voucher": "RV05FE01",
+       "description": "Receipt voucher",
+       "reference": "COL05FE001",
+       "receipt": 3976859,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-08",
+       "voucher": "RV05FE02",
+       "description": "Receipt voucher",
+       "reference": "COL05FE002",
+       "receipt": 3576010,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-09",
+       "voucher": "PV-U05-01",
+       "description": "Payment voucher",
+       "reference": "INV-U05-01",
+       "receipt": 0,
+       "payment": 3400000
+      },
+      {
+       "date": "2027-02-12",
+       "voucher": "PV05FE03",
+       "description": "Payment voucher",
+       "reference": "TRF05FE003",
+       "receipt": 0,
+       "payment": 1185594
+      },
+      {
+       "date": "2027-02-17",
+       "voucher": "RV-U05-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U05-02",
+       "receipt": 2201000,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-19",
+       "voucher": "PV05FE04",
+       "description": "Payment voucher",
+       "reference": "TRF05FE004",
+       "receipt": 0,
+       "payment": 4233509
+      },
+      {
+       "date": "2027-02-26",
+       "voucher": "RV05FE05",
+       "description": "Receipt voucher",
+       "reference": "COL05FE005",
+       "receipt": 267773,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 315552539,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 999,
+      "perPeriod": 99999,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "dinar: differences of 0.999 and 0.500 under the largest limits the contract admits, 0.999 a pair and 99.999 a period",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U05-01",
+      999
+     ],
+     [
+      "RCV-U05-02",
+      -500
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": -1499,
+     "tolerated": -1499,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U06",
+   "title": "Dinar: a pair limit of one dinar is refused",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Rubik",
+    "paper": "A4",
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U06-MAR",
+     "statement": {
+      "account": "KW81 CBKU 0000 0000 0000 1234 5606 06",
+      "currency": "KWD",
+      "period": {
+       "start": "2027-03-01",
+       "end": "2027-03-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 888540000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-03-02",
+          "valueDate": "2027-03-02",
+          "description": "Marketplace payout",
+          "reference": "COL06MA001",
+          "withdrawal": 0,
+          "deposit": 476857,
+          "balance": 889016857
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "Distributor payment",
+          "reference": "COL06MA002",
+          "withdrawal": 0,
+          "deposit": 4114581,
+          "balance": 893131438
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "Supplier transfer",
+          "reference": "INV-U06-01",
+          "withdrawal": 715000,
+          "deposit": 0,
+          "balance": 892416438
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-03-14",
+          "valueDate": "2027-03-14",
+          "description": "Distributor payment",
+          "reference": "COL06MA003",
+          "withdrawal": 0,
+          "deposit": 2716637,
+          "balance": 895133075
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "Maintenance contract",
+          "reference": "TRF06MA004",
+          "withdrawal": 105330,
+          "deposit": 0,
+          "balance": 895027745
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-03-27",
+          "valueDate": "2027-03-27",
+          "description": "Customer remittance",
+          "reference": "COL06MA005",
+          "withdrawal": 0,
+          "deposit": 4526656,
+          "balance": 899554401
+         },
+         {
+          "kind": "closing",
+          "balance": 899554401
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 820330,
+          "deposit": 11834731
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-03-01",
+       "voucher": "RV06MA01",
+       "description": "Receipt voucher",
+       "reference": "COL06MA001",
+       "receipt": 476857,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-07",
+       "voucher": "RV06MA02",
+       "description": "Receipt voucher",
+       "reference": "COL06MA002",
+       "receipt": 4114581,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-08",
+       "voucher": "PV-U06-01",
+       "description": "Payment voucher",
+       "reference": "INV-U06-01",
+       "receipt": 0,
+       "payment": 714999
+      },
+      {
+       "date": "2027-03-12",
+       "voucher": "RV06MA03",
+       "description": "Receipt voucher",
+       "reference": "COL06MA003",
+       "receipt": 2716637,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-19",
+       "voucher": "PV06MA04",
+       "description": "Payment voucher",
+       "reference": "TRF06MA004",
+       "receipt": 0,
+       "payment": 105330
+      },
+      {
+       "date": "2027-03-27",
+       "voucher": "RV06MA05",
+       "description": "Receipt voucher",
+       "reference": "COL06MA005",
+       "receipt": 4526656,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 899554402,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1000,
+      "perPeriod": 5000,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "dinar: a pair limit of 1.000, one dinar, which is not less than one major unit",
+   "intent": {
+    "refused": "TOLERANCE:PER_ITEM"
+   }
+  },
+  {
+   "id": "U07",
+   "title": "A period limit of one hundred riyals is refused",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Space Mono",
+    "paper": "Letter",
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U07-MAR",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0107",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-03-01",
+       "end": "2027-03-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 71262000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-03-02",
+          "valueDate": "2027-03-02",
+          "description": "Maintenance contract",
+          "reference": "TRF07MA001",
+          "withdrawal": 325144,
+          "deposit": 0,
+          "balance": 70936856
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "Maintenance contract",
+          "reference": "TRF07MA002",
+          "withdrawal": 102684,
+          "deposit": 0,
+          "balance": 70834172
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-03-11",
+          "valueDate": "2027-03-11",
+          "description": "Supplier transfer",
+          "reference": "INV-U07-01",
+          "withdrawal": 52050,
+          "deposit": 0,
+          "balance": 70782122
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-03-14",
+          "valueDate": "2027-03-14",
+          "description": "Maintenance contract",
+          "reference": "TRF07MA003",
+          "withdrawal": 71693,
+          "deposit": 0,
+          "balance": 70710429
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "Maintenance contract",
+          "reference": "TRF07MA004",
+          "withdrawal": 176774,
+          "deposit": 0,
+          "balance": 70533655
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-03-27",
+          "valueDate": "2027-03-27",
+          "description": "Freight forwarding",
+          "reference": "TRF07MA005",
+          "withdrawal": 31694,
+          "deposit": 0,
+          "balance": 70501961
+         },
+         {
+          "kind": "closing",
+          "balance": 70501961
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 760039,
+          "deposit": 0
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-03-01",
+       "voucher": "PV07MA01",
+       "description": "Payment voucher",
+       "reference": "TRF07MA001",
+       "receipt": 0,
+       "payment": 325144
+      },
+      {
+       "date": "2027-03-07",
+       "voucher": "PV07MA02",
+       "description": "Payment voucher",
+       "reference": "TRF07MA002",
+       "receipt": 0,
+       "payment": 102684
+      },
+      {
+       "date": "2027-03-11",
+       "voucher": "PV-U07-01",
+       "description": "Payment voucher",
+       "reference": "INV-U07-01",
+       "receipt": 0,
+       "payment": 52000
+      },
+      {
+       "date": "2027-03-14",
+       "voucher": "PV07MA03",
+       "description": "Payment voucher",
+       "reference": "TRF07MA003",
+       "receipt": 0,
+       "payment": 71693
+      },
+      {
+       "date": "2027-03-19",
+       "voucher": "PV07MA04",
+       "description": "Payment voucher",
+       "reference": "TRF07MA004",
+       "receipt": 0,
+       "payment": 176774
+      },
+      {
+       "date": "2027-03-26",
+       "voucher": "PV07MA05",
+       "description": "Payment voucher",
+       "reference": "TRF07MA005",
+       "receipt": 0,
+       "payment": 31694
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 70502011,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 50,
+      "perPeriod": 10000,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "a period limit of 100.00, which is not less than one hundred major units",
+   "intent": {
+    "refused": "TOLERANCE:PER_PERIOD"
+   }
+  },
+  {
+   "id": "U08",
+   "title": "Yen: no tolerance for a currency without a minor unit",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Readex Pro",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U08-JAN",
+     "statement": {
+      "account": "JP12 3456 0000 0000 9100 0808",
+      "currency": "JPY",
+      "period": {
+       "start": "2027-01-01",
+       "end": "2027-01-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 89130000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-01-02",
+          "valueDate": "2027-01-02",
+          "description": "Customer remittance",
+          "reference": "COL08JA001",
+          "withdrawal": 0,
+          "deposit": 392800,
+          "balance": 89522800
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "Distributor payment",
+          "reference": "COL08JA002",
+          "withdrawal": 0,
+          "deposit": 669134,
+          "balance": 90191934
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-01-10",
+          "valueDate": "2027-01-10",
+          "description": "Supplier transfer",
+          "reference": "INV-U08-01",
+          "withdrawal": 1250001,
+          "deposit": 0,
+          "balance": 88941933
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Card settlement",
+          "reference": "COL08JA003",
+          "withdrawal": 0,
+          "deposit": 566579,
+          "balance": 89508512
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-01-20",
+          "valueDate": "2027-01-20",
+          "description": "Maintenance contract",
+          "reference": "TRF08JA004",
+          "withdrawal": 864294,
+          "deposit": 0,
+          "balance": 88644218
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-01-27",
+          "valueDate": "2027-01-27",
+          "description": "Distributor payment",
+          "reference": "COL08JA005",
+          "withdrawal": 0,
+          "deposit": 875842,
+          "balance": 89520060
+         },
+         {
+          "kind": "closing",
+          "balance": 89520060
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2114295,
+          "deposit": 2504355
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-01-01",
+       "voucher": "RV08JA01",
+       "description": "Receipt voucher",
+       "reference": "COL08JA001",
+       "receipt": 392800,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-06",
+       "voucher": "RV08JA02",
+       "description": "Receipt voucher",
+       "reference": "COL08JA002",
+       "receipt": 669134,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-10",
+       "voucher": "PV-U08-01",
+       "description": "Payment voucher",
+       "reference": "INV-U08-01",
+       "receipt": 0,
+       "payment": 1250000
+      },
+      {
+       "date": "2027-01-12",
+       "voucher": "RV08JA03",
+       "description": "Receipt voucher",
+       "reference": "COL08JA003",
+       "receipt": 566579,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-18",
+       "voucher": "PV08JA04",
+       "description": "Payment voucher",
+       "reference": "TRF08JA004",
+       "receipt": 0,
+       "payment": 864294
+      },
+      {
+       "date": "2027-01-27",
+       "voucher": "RV08JA05",
+       "description": "Receipt voucher",
+       "reference": "COL08JA005",
+       "receipt": 875842,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 89520061,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 5,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "yen: a one-yen difference and a policy of one a pair and five a period; the yen has no minor unit",
+   "intent": {
+    "refused": "TOLERANCE:CURRENCY"
+   }
+  },
+  {
+   "id": "U09",
+   "title": "Yen without a policy",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Rubik",
+    "paper": "A4",
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U09-JAN",
+     "statement": {
+      "account": "JP12 3456 0000 0000 9100 0909",
+      "currency": "JPY",
+      "period": {
+       "start": "2027-01-01",
+       "end": "2027-01-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 45860000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-01-02",
+          "valueDate": "2027-01-02",
+          "description": "Maintenance contract",
+          "reference": "TRF09JA001",
+          "withdrawal": 496781,
+          "deposit": 0,
+          "balance": 45363219
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "Freight forwarding",
+          "reference": "TRF09JA002",
+          "withdrawal": 701300,
+          "deposit": 0,
+          "balance": 44661919
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-01-10",
+          "valueDate": "2027-01-10",
+          "description": "Supplier transfer",
+          "reference": "INV-U09-01",
+          "withdrawal": 1250001,
+          "deposit": 0,
+          "balance": 43411918
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Maintenance contract",
+          "reference": "TRF09JA003",
+          "withdrawal": 342269,
+          "deposit": 0,
+          "balance": 43069649
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-01-20",
+          "valueDate": "2027-01-20",
+          "description": "Marketplace payout",
+          "reference": "COL09JA004",
+          "withdrawal": 0,
+          "deposit": 634780,
+          "balance": 43704429
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-01-27",
+          "valueDate": "2027-01-27",
+          "description": "Marketplace payout",
+          "reference": "COL09JA005",
+          "withdrawal": 0,
+          "deposit": 203692,
+          "balance": 43908121
+         },
+         {
+          "kind": "closing",
+          "balance": 43908121
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2790351,
+          "deposit": 838472
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-01-01",
+       "voucher": "PV09JA01",
+       "description": "Payment voucher",
+       "reference": "TRF09JA001",
+       "receipt": 0,
+       "payment": 496781
+      },
+      {
+       "date": "2027-01-07",
+       "voucher": "PV09JA02",
+       "description": "Payment voucher",
+       "reference": "TRF09JA002",
+       "receipt": 0,
+       "payment": 701300
+      },
+      {
+       "date": "2027-01-10",
+       "voucher": "PV-U09-01",
+       "description": "Payment voucher",
+       "reference": "INV-U09-01",
+       "receipt": 0,
+       "payment": 1250000
+      },
+      {
+       "date": "2027-01-13",
+       "voucher": "PV09JA03",
+       "description": "Payment voucher",
+       "reference": "TRF09JA003",
+       "receipt": 0,
+       "payment": 342269
+      },
+      {
+       "date": "2027-01-20",
+       "voucher": "RV09JA04",
+       "description": "Receipt voucher",
+       "reference": "COL09JA004",
+       "receipt": 634780,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-25",
+       "voucher": "RV09JA05",
+       "description": "Receipt voucher",
+       "reference": "COL09JA005",
+       "receipt": 203692,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 43908122,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [],
+   "recipe": "U08's yen period without a policy: the one-yen difference awaits a decision",
+   "intent": {
+    "tolerated": [],
+    "exceeded": null,
+    "open": 1,
+    "sheet": {
+     "status": "draft",
+     "difference": 0,
+     "tolerated": 0,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U10",
+   "title": "A reason of no-break spaces is refused",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Work Sans",
+    "paper": "A4",
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U10-FEB",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0110",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-02-01",
+       "end": "2027-02-28"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 72509000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-02-02",
+          "valueDate": "2027-02-02",
+          "description": "Card scheme fees",
+          "reference": "TRF10FE001",
+          "withdrawal": 441570,
+          "deposit": 0,
+          "balance": 72067430
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-02-07",
+          "valueDate": "2027-02-07",
+          "description": "Supplier transfer",
+          "reference": "INV-U10-01",
+          "withdrawal": 66601,
+          "deposit": 0,
+          "balance": 72000829
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-02-08",
+          "valueDate": "2027-02-08",
+          "description": "Marketplace payout",
+          "reference": "COL10FE002",
+          "withdrawal": 0,
+          "deposit": 408427,
+          "balance": 72409256
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-02-14",
+          "valueDate": "2027-02-14",
+          "description": "Supplier settlement",
+          "reference": "TRF10FE003",
+          "withdrawal": 51368,
+          "deposit": 0,
+          "balance": 72357888
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-02-20",
+          "valueDate": "2027-02-20",
+          "description": "Maintenance contract",
+          "reference": "TRF10FE004",
+          "withdrawal": 486960,
+          "deposit": 0,
+          "balance": 71870928
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-02-27",
+          "valueDate": "2027-02-27",
+          "description": "Marketplace payout",
+          "reference": "COL10FE005",
+          "withdrawal": 0,
+          "deposit": 253088,
+          "balance": 72124016
+         },
+         {
+          "kind": "closing",
+          "balance": 72124016
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1046499,
+          "deposit": 661515
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-02-02",
+       "voucher": "PV10FE01",
+       "description": "Payment voucher",
+       "reference": "TRF10FE001",
+       "receipt": 0,
+       "payment": 441570
+      },
+      {
+       "date": "2027-02-06",
+       "voucher": "RV10FE02",
+       "description": "Receipt voucher",
+       "reference": "COL10FE002",
+       "receipt": 408427,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-07",
+       "voucher": "PV-U10-01",
+       "description": "Payment voucher",
+       "reference": "INV-U10-01",
+       "receipt": 0,
+       "payment": 66600
+      },
+      {
+       "date": "2027-02-14",
+       "voucher": "PV10FE03",
+       "description": "Payment voucher",
+       "reference": "TRF10FE003",
+       "receipt": 0,
+       "payment": 51368
+      },
+      {
+       "date": "2027-02-20",
+       "voucher": "PV10FE04",
+       "description": "Payment voucher",
+       "reference": "TRF10FE004",
+       "receipt": 0,
+       "payment": 486960
+      },
+      {
+       "date": "2027-02-27",
+       "voucher": "RV10FE05",
+       "description": "Receipt voucher",
+       "reference": "COL10FE005",
+       "receipt": 253088,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 72124017,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 5,
+      "note": "  "
+     }
+    }
+   ],
+   "recipe": "a reason of two no-break spaces, empty once trimmed",
+   "intent": {
+    "refused": "TOLERANCE:NOTE"
+   }
+  },
+  {
+   "id": "U11",
+   "title": "Arabic: a tolerated pair rejected, undone and rejected again",
+   "layout": "ar",
+   "digits": "arabic",
+   "print": {
+    "producer": "pdflib",
+    "font": "Cairo",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    },
+    "bank": "بنك السدو التجاري",
+    "documentTitle": "كشف حساب جاري"
+   },
+   "periods": [
+    {
+     "id": "U11-FEB",
+     "statement": {
+      "account": "SA09 8000 0000 6123 4500 1111",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-02-01",
+       "end": "2027-02-28"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 2,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 57845000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-02-02",
+          "valueDate": "2027-02-02",
+          "description": "عقد صيانة",
+          "reference": "TRF11FE001",
+          "withdrawal": 458188,
+          "deposit": 0,
+          "balance": 57386812
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-02-03",
+          "valueDate": "2027-02-03",
+          "description": "مستحقات متجر إلكتروني",
+          "reference": "COL11FE002",
+          "withdrawal": 0,
+          "deposit": 144769,
+          "balance": 57531581
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-02-05",
+          "valueDate": "2027-02-05",
+          "description": "شحن بضائع",
+          "reference": "TRF11FE003",
+          "withdrawal": 196794,
+          "deposit": 0,
+          "balance": 57334787
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-02-07",
+          "valueDate": "2027-02-07",
+          "description": "حوالة عميل",
+          "reference": "COL11FE004",
+          "withdrawal": 0,
+          "deposit": 299543,
+          "balance": 57634330
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-02-08",
+          "valueDate": "2027-02-08",
+          "description": "دفعة موزع",
+          "reference": "COL11FE005",
+          "withdrawal": 0,
+          "deposit": 393186,
+          "balance": 58027516
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-02-10",
+          "valueDate": "2027-02-10",
+          "description": "شحن بضائع",
+          "reference": "TRF11FE006",
+          "withdrawal": 450710,
+          "deposit": 0,
+          "balance": 57576806
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-02-12",
+          "valueDate": "2027-02-12",
+          "description": "دفعة موزع",
+          "reference": "COL11FE007",
+          "withdrawal": 0,
+          "deposit": 34131,
+          "balance": 57610937
+         },
+         {
+          "kind": "movement",
+          "key": "S8",
+          "date": "2027-02-13",
+          "valueDate": "2027-02-13",
+          "description": "مستحقات متجر إلكتروني",
+          "reference": "COL11FE008",
+          "withdrawal": 0,
+          "deposit": 31340,
+          "balance": 57642277
+         },
+         {
+          "kind": "movement",
+          "key": "S9",
+          "date": "2027-02-15",
+          "valueDate": "2027-02-15",
+          "description": "دفعة موزع",
+          "reference": "COL11FE009",
+          "withdrawal": 0,
+          "deposit": 280410,
+          "balance": 57922687
+         },
+         {
+          "kind": "carried-forward",
+          "balance": 57922687
+         }
+        ]
+       },
+       {
+        "number": 2,
+        "of": 2,
+        "lines": [
+         {
+          "kind": "brought-forward",
+          "balance": 57922687
+         },
+         {
+          "kind": "movement",
+          "key": "S10",
+          "date": "2027-02-17",
+          "valueDate": "2027-02-17",
+          "description": "رسوم بطاقات",
+          "reference": "TRF11FE010",
+          "withdrawal": 463413,
+          "deposit": 0,
+          "balance": 57459274
+         },
+         {
+          "kind": "movement",
+          "key": "S11",
+          "date": "2027-02-18",
+          "valueDate": "2027-02-18",
+          "description": "حوالة عميل",
+          "reference": "COL11FE011",
+          "withdrawal": 0,
+          "deposit": 51052,
+          "balance": 57510326
+         },
+         {
+          "kind": "movement",
+          "key": "S12",
+          "date": "2027-02-20",
+          "valueDate": "2027-02-20",
+          "description": "سداد مورد",
+          "reference": "TRF11FE012",
+          "withdrawal": 61623,
+          "deposit": 0,
+          "balance": 57448703
+         },
+         {
+          "kind": "movement",
+          "key": "S13",
+          "date": "2027-02-22",
+          "valueDate": "2027-02-22",
+          "description": "مستحقات متجر إلكتروني",
+          "reference": "COL11FE013",
+          "withdrawal": 0,
+          "deposit": 438990,
+          "balance": 57887693
+         },
+         {
+          "kind": "movement",
+          "key": "S14",
+          "date": "2027-02-23",
+          "valueDate": "2027-02-23",
+          "description": "تسوية بطاقات",
+          "reference": "COL11FE014",
+          "withdrawal": 0,
+          "deposit": 120917,
+          "balance": 58008610
+         },
+         {
+          "kind": "movement",
+          "key": "S15",
+          "date": "2027-02-24",
+          "valueDate": "2027-02-24",
+          "description": "سداد فاتورة",
+          "reference": "INV-U11-01",
+          "withdrawal": 488801,
+          "deposit": 0,
+          "balance": 57519809
+         },
+         {
+          "kind": "movement",
+          "key": "S16",
+          "date": "2027-02-25",
+          "valueDate": "2027-02-25",
+          "description": "إيجار مكتب",
+          "reference": "TRF11FE015",
+          "withdrawal": 272978,
+          "deposit": 0,
+          "balance": 57246831
+         },
+         {
+          "kind": "movement",
+          "key": "S17",
+          "date": "2027-02-27",
+          "valueDate": "2027-02-27",
+          "description": "حوالة عميل",
+          "reference": "COL11FE016",
+          "withdrawal": 0,
+          "deposit": 408579,
+          "balance": 57655410
+         },
+         {
+          "kind": "closing",
+          "balance": 57655410
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2392507,
+          "deposit": 2202917
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-02-01",
+       "voucher": "PV11FE01",
+       "description": "سند صرف",
+       "reference": "TRF11FE001",
+       "receipt": 0,
+       "payment": 458188
+      },
+      {
+       "date": "2027-02-01",
+       "voucher": "RV11FE02",
+       "description": "سند قبض",
+       "reference": "COL11FE002",
+       "receipt": 144769,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-05",
+       "voucher": "PV11FE03",
+       "description": "سند صرف",
+       "reference": "TRF11FE003",
+       "receipt": 0,
+       "payment": 196794
+      },
+      {
+       "date": "2027-02-06",
+       "voucher": "RV11FE04",
+       "description": "سند قبض",
+       "reference": "COL11FE004",
+       "receipt": 299543,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-08",
+       "voucher": "RV11FE05",
+       "description": "سند قبض",
+       "reference": "COL11FE005",
+       "receipt": 393186,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-10",
+       "voucher": "PV11FE06",
+       "description": "سند صرف",
+       "reference": "TRF11FE006",
+       "receipt": 0,
+       "payment": 450710
+      },
+      {
+       "date": "2027-02-12",
+       "voucher": "RV11FE07",
+       "description": "سند قبض",
+       "reference": "COL11FE007",
+       "receipt": 34131,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-12",
+       "voucher": "RV11FE08",
+       "description": "سند قبض",
+       "reference": "COL11FE008",
+       "receipt": 31340,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-13",
+       "voucher": "RV11FE09",
+       "description": "سند قبض",
+       "reference": "COL11FE009",
+       "receipt": 280410,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-17",
+       "voucher": "PV11FE10",
+       "description": "سند صرف",
+       "reference": "TRF11FE010",
+       "receipt": 0,
+       "payment": 463413
+      },
+      {
+       "date": "2027-02-17",
+       "voucher": "RV11FE11",
+       "description": "سند قبض",
+       "reference": "COL11FE011",
+       "receipt": 51052,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-20",
+       "voucher": "PV11FE12",
+       "description": "سند صرف",
+       "reference": "TRF11FE012",
+       "receipt": 0,
+       "payment": 61623
+      },
+      {
+       "date": "2027-02-20",
+       "voucher": "RV11FE13",
+       "description": "سند قبض",
+       "reference": "COL11FE013",
+       "receipt": 438990,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-22",
+       "voucher": "RV11FE14",
+       "description": "سند قبض",
+       "reference": "COL11FE014",
+       "receipt": 120917,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-24",
+       "voucher": "PV-U11-01",
+       "description": "سند صرف",
+       "reference": "INV-U11-01",
+       "receipt": 0,
+       "payment": 488800
+      },
+      {
+       "date": "2027-02-25",
+       "voucher": "PV11FE15",
+       "description": "سند صرف",
+       "reference": "TRF11FE015",
+       "receipt": 0,
+       "payment": 272978
+      },
+      {
+       "date": "2027-02-25",
+       "voucher": "RV11FE16",
+       "description": "سند قبض",
+       "reference": "COL11FE016",
+       "receipt": 408579,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 57655411,
+    "note": "رصيد حساب البنك في الأستاذ العام"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 3,
+      "note": "فروق تقريب شبكة المدفوعات"
+     }
+    },
+    {
+     "reject": {
+      "statement": [
+       "S15"
+      ],
+      "cashbook": [
+       "PV-U11-01"
+      ]
+     }
+    },
+    {
+     "undo": {
+      "statement": [
+       "S15"
+      ],
+      "cashbook": [
+       "PV-U11-01"
+      ]
+     }
+    },
+    {
+     "reject": {
+      "statement": [
+       "S15"
+      ],
+      "cashbook": [
+       "PV-U11-01"
+      ]
+     }
+    }
+   ],
+   "recipe": "Arabic, Arabic-Indic digits, two pages: a 4,888.01 supplier payment the book pays as 4,888.00, on page 2 after the balance brought forward; tolerated, rejected, undone, rejected again: both members outstanding, and nothing tolerated",
+   "intent": {
+    "tolerated": [],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled",
+     "difference": 0,
+     "tolerated": 0,
+     "unexplained": 0
+    },
+    "rejected": 1
+   }
+  },
+  {
+   "id": "U12",
+   "title": "A difference one day beyond the window is not tolerated",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Merriweather",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U12-MAR",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0112",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-03-01",
+       "end": "2027-03-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 33037000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-03-02",
+          "valueDate": "2027-03-02",
+          "description": "Card scheme fees",
+          "reference": "TRF12MA001",
+          "withdrawal": 433832,
+          "deposit": 0,
+          "balance": 32603168
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "Distributor payment",
+          "reference": "COL12MA002",
+          "withdrawal": 0,
+          "deposit": 412176,
+          "balance": 33015344
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-03-09",
+          "valueDate": "2027-03-09",
+          "description": "Supplier transfer",
+          "reference": "INV-U12A-01",
+          "withdrawal": 91001,
+          "deposit": 0,
+          "balance": 32924343
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-03-14",
+          "valueDate": "2027-03-14",
+          "description": "Card settlement",
+          "reference": "COL12MA003",
+          "withdrawal": 0,
+          "deposit": 336189,
+          "balance": 33260532
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "Maintenance contract",
+          "reference": "TRF12MA004",
+          "withdrawal": 384874,
+          "deposit": 0,
+          "balance": 32875658
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-03-22",
+          "valueDate": "2027-03-22",
+          "description": "Supplier transfer",
+          "reference": "INV-U12B-01",
+          "withdrawal": 73301,
+          "deposit": 0,
+          "balance": 32802357
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-03-27",
+          "valueDate": "2027-03-27",
+          "description": "Distributor payment",
+          "reference": "COL12MA005",
+          "withdrawal": 0,
+          "deposit": 228924,
+          "balance": 33031281
+         },
+         {
+          "kind": "closing",
+          "balance": 33031281
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 983008,
+          "deposit": 977289
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-03-02",
+       "voucher": "PV12MA01",
+       "description": "Payment voucher",
+       "reference": "TRF12MA001",
+       "receipt": 0,
+       "payment": 433832
+      },
+      {
+       "date": "2027-03-06",
+       "voucher": "PV-U12A-01",
+       "description": "Payment voucher",
+       "reference": "INV-U12A-01",
+       "receipt": 0,
+       "payment": 91000
+      },
+      {
+       "date": "2027-03-08",
+       "voucher": "RV12MA02",
+       "description": "Receipt voucher",
+       "reference": "COL12MA002",
+       "receipt": 412176,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-12",
+       "voucher": "RV12MA03",
+       "description": "Receipt voucher",
+       "reference": "COL12MA003",
+       "receipt": 336189,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-18",
+       "voucher": "PV-U12B-01",
+       "description": "Payment voucher",
+       "reference": "INV-U12B-01",
+       "receipt": 0,
+       "payment": 73300
+      },
+      {
+       "date": "2027-03-20",
+       "voucher": "PV12MA04",
+       "description": "Payment voucher",
+       "reference": "TRF12MA004",
+       "receipt": 0,
+       "payment": 384874
+      },
+      {
+       "date": "2027-03-26",
+       "voucher": "RV12MA05",
+       "description": "Receipt voucher",
+       "reference": "COL12MA005",
+       "receipt": 228924,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 33031283,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 5,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "two one-halala differences: one booked three days before the bank, at the edge of the window, tolerated; one booked four days before, one day beyond it, still an amount difference",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U12A-01",
+      1
+     ]
+    ],
+    "exceeded": null,
+    "open": 1,
+    "sheet": {
+     "status": "draft",
+     "difference": -1,
+     "tolerated": -1,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U13",
+   "title": "Two tolerated differences whose effects cancel",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Lemonada",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U13-JAN",
+     "statement": {
+      "account": "SA71 6000 0000 3381 0900 0213",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-01-01",
+       "end": "2027-01-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 53140000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-01-02",
+          "valueDate": "2027-01-02",
+          "description": "Card scheme fees",
+          "reference": "TRF13JA001",
+          "withdrawal": 92375,
+          "deposit": 0,
+          "balance": 53047625
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "Office rent",
+          "reference": "TRF13JA002",
+          "withdrawal": 395375,
+          "deposit": 0,
+          "balance": 52652250
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "Customer remittance",
+          "reference": "RCV-U13-01",
+          "withdrawal": 0,
+          "deposit": 150001,
+          "balance": 52802251
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "Marketplace payout",
+          "reference": "COL13JA003",
+          "withdrawal": 0,
+          "deposit": 344279,
+          "balance": 53146530
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-01-19",
+          "valueDate": "2027-01-19",
+          "description": "Supplier transfer",
+          "reference": "INV-U13-02",
+          "withdrawal": 150001,
+          "deposit": 0,
+          "balance": 52996529
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-01-20",
+          "valueDate": "2027-01-20",
+          "description": "Office rent",
+          "reference": "TRF13JA004",
+          "withdrawal": 454046,
+          "deposit": 0,
+          "balance": 52542483
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-01-27",
+          "valueDate": "2027-01-27",
+          "description": "Supplier settlement",
+          "reference": "TRF13JA005",
+          "withdrawal": 279360,
+          "deposit": 0,
+          "balance": 52263123
+         },
+         {
+          "kind": "closing",
+          "balance": 52263123
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1371157,
+          "deposit": 494280
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-01-01",
+       "voucher": "PV13JA01",
+       "description": "Payment voucher",
+       "reference": "TRF13JA001",
+       "receipt": 0,
+       "payment": 92375
+      },
+      {
+       "date": "2027-01-06",
+       "voucher": "PV13JA02",
+       "description": "Payment voucher",
+       "reference": "TRF13JA002",
+       "receipt": 0,
+       "payment": 395375
+      },
+      {
+       "date": "2027-01-08",
+       "voucher": "RV-U13-01",
+       "description": "Receipt voucher",
+       "reference": "RCV-U13-01",
+       "receipt": 150000,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-13",
+       "voucher": "RV13JA03",
+       "description": "Receipt voucher",
+       "reference": "COL13JA003",
+       "receipt": 344279,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-19",
+       "voucher": "PV13JA04",
+       "description": "Payment voucher",
+       "reference": "TRF13JA004",
+       "receipt": 0,
+       "payment": 454046
+      },
+      {
+       "date": "2027-01-19",
+       "voucher": "PV-U13-02",
+       "description": "Payment voucher",
+       "reference": "INV-U13-02",
+       "receipt": 0,
+       "payment": 150000
+      },
+      {
+       "date": "2027-01-27",
+       "voucher": "PV13JA05",
+       "description": "Payment voucher",
+       "reference": "TRF13JA005",
+       "receipt": 0,
+       "payment": 279360
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 52263123,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 2,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "a receipt and a payment of 1,500.01 the book records as 1,500.00: both tolerated, their effects cancel, and the sheet is reconciled within the tolerance with nothing tolerated in sum",
+   "intent": {
+    "tolerated": [
+     [
+      "RCV-U13-01",
+      1
+     ],
+     [
+      "INV-U13-02",
+      1
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": 0,
+     "tolerated": 0,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U14",
+   "title": "Overdrawn, with a rest the tolerance does not explain",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Fira Sans",
+    "paper": "A4-landscape",
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U14-FEB",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0114",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-02-01",
+       "end": "2027-02-28"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": -2500000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-02-02",
+          "valueDate": "2027-02-02",
+          "description": "Freight forwarding",
+          "reference": "TRF14FE001",
+          "withdrawal": 237087,
+          "deposit": 0,
+          "balance": -2737087
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-02-08",
+          "valueDate": "2027-02-08",
+          "description": "Maintenance contract",
+          "reference": "TRF14FE002",
+          "withdrawal": 309024,
+          "deposit": 0,
+          "balance": -3046111
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-02-14",
+          "valueDate": "2027-02-14",
+          "description": "Card scheme fees",
+          "reference": "TRF14FE003",
+          "withdrawal": 74527,
+          "deposit": 0,
+          "balance": -3120638
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-02-15",
+          "valueDate": "2027-02-15",
+          "description": "Supplier transfer",
+          "reference": "INV-U14-01",
+          "withdrawal": 1830002,
+          "deposit": 0,
+          "balance": -4950640
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-02-20",
+          "valueDate": "2027-02-20",
+          "description": "Distributor payment",
+          "reference": "COL14FE004",
+          "withdrawal": 0,
+          "deposit": 19121,
+          "balance": -4931519
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-02-27",
+          "valueDate": "2027-02-27",
+          "description": "Supplier settlement",
+          "reference": "TRF14FE005",
+          "withdrawal": 339998,
+          "deposit": 0,
+          "balance": -5271517
+         },
+         {
+          "kind": "closing",
+          "balance": -5271517
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2790638,
+          "deposit": 19121
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-02-01",
+       "voucher": "PV14FE01",
+       "description": "Payment voucher",
+       "reference": "TRF14FE001",
+       "receipt": 0,
+       "payment": 237087
+      },
+      {
+       "date": "2027-02-08",
+       "voucher": "PV14FE02",
+       "description": "Payment voucher",
+       "reference": "TRF14FE002",
+       "receipt": 0,
+       "payment": 309024
+      },
+      {
+       "date": "2027-02-12",
+       "voucher": "PV14FE03",
+       "description": "Payment voucher",
+       "reference": "TRF14FE003",
+       "receipt": 0,
+       "payment": 74527
+      },
+      {
+       "date": "2027-02-15",
+       "voucher": "PV-U14-01",
+       "description": "Payment voucher",
+       "reference": "INV-U14-01",
+       "receipt": 0,
+       "payment": 1830000
+      },
+      {
+       "date": "2027-02-19",
+       "voucher": "RV14FE04",
+       "description": "Receipt voucher",
+       "reference": "COL14FE004",
+       "receipt": 19121,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-25",
+       "voucher": "PV14FE05",
+       "description": "Payment voucher",
+       "reference": "TRF14FE005",
+       "receipt": 0,
+       "payment": 339998
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": -5274015,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 2,
+      "perPeriod": 5,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "an overdrawn account (opening 25,000.00 DR): a 18,300.02 payment the book records as 18,300.00, tolerated; the declared book balance is 25.00 lower than the book: a rest without explanation",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U14-01",
+      2
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "difference",
+     "difference": 2498,
+     "tolerated": -2,
+     "unexplained": 2500
+    }
+   }
+  },
+  {
+   "id": "U15",
+   "title": "Arabic dinar statement with two tolerated differences",
+   "layout": "ar",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Tajawal",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    },
+    "bank": "بنك السدو التجاري",
+    "documentTitle": "كشف حساب جاري"
+   },
+   "periods": [
+    {
+     "id": "U15-MAR",
+     "statement": {
+      "account": "KW81 CBKU 0000 0000 0000 1234 5615 15",
+      "currency": "KWD",
+      "period": {
+       "start": "2027-03-01",
+       "end": "2027-03-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 348360000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-03-02",
+          "valueDate": "2027-03-02",
+          "description": "مستحقات متجر إلكتروني",
+          "reference": "COL15MA001",
+          "withdrawal": 0,
+          "deposit": 2557073,
+          "balance": 350917073
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-03-06",
+          "valueDate": "2027-03-06",
+          "description": "تحصيل فاتورة",
+          "reference": "RCV-U15-01",
+          "withdrawal": 0,
+          "deposit": 615004,
+          "balance": 351532077
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "إيجار مكتب",
+          "reference": "TRF15MA002",
+          "withdrawal": 1599226,
+          "deposit": 0,
+          "balance": 349932851
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-03-14",
+          "valueDate": "2027-03-14",
+          "description": "شحن بضائع",
+          "reference": "TRF15MA003",
+          "withdrawal": 3737667,
+          "deposit": 0,
+          "balance": 346195184
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "حوالة عميل",
+          "reference": "COL15MA004",
+          "withdrawal": 0,
+          "deposit": 4869178,
+          "balance": 351064362
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "سداد فاتورة",
+          "reference": "INV-U15-02",
+          "withdrawal": 277100,
+          "deposit": 0,
+          "balance": 350787262
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-03-27",
+          "valueDate": "2027-03-27",
+          "description": "سداد مورد",
+          "reference": "TRF15MA005",
+          "withdrawal": 2959698,
+          "deposit": 0,
+          "balance": 347827564
+         },
+         {
+          "kind": "closing",
+          "balance": 347827564
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 8573691,
+          "deposit": 8041255
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-03-01",
+       "voucher": "RV15MA01",
+       "description": "سند قبض",
+       "reference": "COL15MA001",
+       "receipt": 2557073,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-06",
+       "voucher": "PV15MA02",
+       "description": "سند صرف",
+       "reference": "TRF15MA002",
+       "receipt": 0,
+       "payment": 1599226
+      },
+      {
+       "date": "2027-03-06",
+       "voucher": "RV-U15-01",
+       "description": "سند قبض",
+       "reference": "RCV-U15-01",
+       "receipt": 615000,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-13",
+       "voucher": "PV15MA03",
+       "description": "سند صرف",
+       "reference": "TRF15MA003",
+       "receipt": 0,
+       "payment": 3737667
+      },
+      {
+       "date": "2027-03-20",
+       "voucher": "RV15MA04",
+       "description": "سند قبض",
+       "reference": "COL15MA004",
+       "receipt": 4869178,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-20",
+       "voucher": "PV-U15-02",
+       "description": "سند صرف",
+       "reference": "INV-U15-02",
+       "receipt": 0,
+       "payment": 277103
+      },
+      {
+       "date": "2027-03-27",
+       "voucher": "PV15MA05",
+       "description": "سند صرف",
+       "reference": "TRF15MA005",
+       "receipt": 0,
+       "payment": 2959698
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 347827557,
+    "note": "رصيد حساب البنك في الأستاذ العام"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 5,
+      "perPeriod": 20,
+      "note": "فروق تقريب بالفلس"
+     }
+    }
+   ],
+   "recipe": "Arabic, Latin digits, dinar: a receipt four fils over and a payment three fils under, tolerated",
+   "intent": {
+    "tolerated": [
+     [
+      "RCV-U15-01",
+      4
+     ],
+     [
+      "INV-U15-02",
+      -3
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": 7,
+     "tolerated": 7,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U16",
+   "title": "Equal pair and period limits",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Rubik",
+    "paper": "A4",
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U16-FEB",
+     "statement": {
+      "account": "SA71 6000 0000 3381 0900 0216",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-02-01",
+       "end": "2027-02-28"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 62256000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-02-02",
+          "valueDate": "2027-02-02",
+          "description": "Customer remittance",
+          "reference": "COL16FE001",
+          "withdrawal": 0,
+          "deposit": 77579,
+          "balance": 62333579
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-02-04",
+          "valueDate": "2027-02-04",
+          "description": "Supplier transfer",
+          "reference": "INV-U16-01",
+          "withdrawal": 40001,
+          "deposit": 0,
+          "balance": 62293578
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-02-08",
+          "valueDate": "2027-02-08",
+          "description": "Customer remittance",
+          "reference": "COL16FE002",
+          "withdrawal": 0,
+          "deposit": 209889,
+          "balance": 62503467
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-02-14",
+          "valueDate": "2027-02-14",
+          "description": "Distributor payment",
+          "reference": "COL16FE003",
+          "withdrawal": 0,
+          "deposit": 169288,
+          "balance": 62672755
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-02-20",
+          "valueDate": "2027-02-20",
+          "description": "Distributor payment",
+          "reference": "COL16FE004",
+          "withdrawal": 0,
+          "deposit": 143876,
+          "balance": 62816631
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-02-25",
+          "valueDate": "2027-02-25",
+          "description": "Customer remittance",
+          "reference": "RCV-U16-02",
+          "withdrawal": 0,
+          "deposit": 90002,
+          "balance": 62906633
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-02-27",
+          "valueDate": "2027-02-27",
+          "description": "Maintenance contract",
+          "reference": "TRF16FE005",
+          "withdrawal": 368408,
+          "deposit": 0,
+          "balance": 62538225
+         },
+         {
+          "kind": "closing",
+          "balance": 62538225
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 408409,
+          "deposit": 690634
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-02-01",
+       "voucher": "RV16FE01",
+       "description": "Receipt voucher",
+       "reference": "COL16FE001",
+       "receipt": 77579,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-04",
+       "voucher": "PV-U16-01",
+       "description": "Payment voucher",
+       "reference": "INV-U16-01",
+       "receipt": 0,
+       "payment": 40000
+      },
+      {
+       "date": "2027-02-06",
+       "voucher": "RV16FE02",
+       "description": "Receipt voucher",
+       "reference": "COL16FE002",
+       "receipt": 209889,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-14",
+       "voucher": "RV16FE03",
+       "description": "Receipt voucher",
+       "reference": "COL16FE003",
+       "receipt": 169288,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-19",
+       "voucher": "RV16FE04",
+       "description": "Receipt voucher",
+       "reference": "COL16FE004",
+       "receipt": 143876,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-25",
+       "voucher": "PV16FE05",
+       "description": "Payment voucher",
+       "reference": "TRF16FE005",
+       "receipt": 0,
+       "payment": 368408
+      },
+      {
+       "date": "2027-02-25",
+       "voucher": "RV-U16-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U16-02",
+       "receipt": 90000,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 62538224,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 3,
+      "perPeriod": 3,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "differences of 0.01 and 0.02 under a policy of 0.03 a pair and 0.03 a period, equal limits",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U16-01",
+      1
+     ],
+     [
+      "RCV-U16-02",
+      2
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": 1,
+     "tolerated": 1,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U17",
+   "title": "Decisions on tolerated and untolerated pairs under one policy",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Work Sans",
+    "paper": "A4",
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U17-FEB",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0117",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-02-01",
+       "end": "2027-02-28"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 67460000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-02-02",
+          "valueDate": "2027-02-02",
+          "description": "Card settlement",
+          "reference": "COL17FE001",
+          "withdrawal": 0,
+          "deposit": 416334,
+          "balance": 67876334
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-02-05",
+          "valueDate": "2027-02-05",
+          "description": "Supplier transfer",
+          "reference": "INV-U17-01",
+          "withdrawal": 220001,
+          "deposit": 0,
+          "balance": 67656333
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-02-08",
+          "valueDate": "2027-02-08",
+          "description": "Freight forwarding",
+          "reference": "TRF17FE002",
+          "withdrawal": 266802,
+          "deposit": 0,
+          "balance": 67389531
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-02-12",
+          "valueDate": "2027-02-12",
+          "description": "Customer remittance",
+          "reference": "RCV-U17-02",
+          "withdrawal": 0,
+          "deposit": 315000,
+          "balance": 67704531
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-02-14",
+          "valueDate": "2027-02-14",
+          "description": "Freight forwarding",
+          "reference": "TRF17FE003",
+          "withdrawal": 342270,
+          "deposit": 0,
+          "balance": 67362261
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-02-20",
+          "valueDate": "2027-02-20",
+          "description": "Maintenance contract",
+          "reference": "TRF17FE004",
+          "withdrawal": 260072,
+          "deposit": 0,
+          "balance": 67102189
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-02-21",
+          "valueDate": "2027-02-21",
+          "description": "Supplier transfer",
+          "reference": "INV-U17-03",
+          "withdrawal": 78000,
+          "deposit": 0,
+          "balance": 67024189
+         },
+         {
+          "kind": "movement",
+          "key": "S8",
+          "date": "2027-02-27",
+          "valueDate": "2027-02-27",
+          "description": "Office rent",
+          "reference": "TRF17FE005",
+          "withdrawal": 479570,
+          "deposit": 0,
+          "balance": 66544619
+         },
+         {
+          "kind": "closing",
+          "balance": 66544619
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1646715,
+          "deposit": 731334
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-02-01",
+       "voucher": "RV17FE01",
+       "description": "Receipt voucher",
+       "reference": "COL17FE001",
+       "receipt": 416334,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-05",
+       "voucher": "PV-U17-01",
+       "description": "Payment voucher",
+       "reference": "INV-U17-01",
+       "receipt": 0,
+       "payment": 220000
+      },
+      {
+       "date": "2027-02-08",
+       "voucher": "PV17FE02",
+       "description": "Payment voucher",
+       "reference": "TRF17FE002",
+       "receipt": 0,
+       "payment": 266802
+      },
+      {
+       "date": "2027-02-12",
+       "voucher": "RV-U17-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U17-02",
+       "receipt": 314500,
+       "payment": 0
+      },
+      {
+       "date": "2027-02-13",
+       "voucher": "PV17FE03",
+       "description": "Payment voucher",
+       "reference": "TRF17FE003",
+       "receipt": 0,
+       "payment": 342270
+      },
+      {
+       "date": "2027-02-18",
+       "voucher": "PV17FE04",
+       "description": "Payment voucher",
+       "reference": "TRF17FE004",
+       "receipt": 0,
+       "payment": 260072
+      },
+      {
+       "date": "2027-02-21",
+       "voucher": "PV-U17-03",
+       "description": "Payment voucher",
+       "reference": "INV-U17-03",
+       "receipt": 0,
+       "payment": 77950
+      },
+      {
+       "date": "2027-02-26",
+       "voucher": "PV17FE05",
+       "description": "Payment voucher",
+       "reference": "TRF17FE005",
+       "receipt": 0,
+       "payment": 479570
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 66544170,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 5,
+      "note": "Rounding by the payment network"
+     }
+    },
+    {
+     "reject": {
+      "statement": [
+       "S4"
+      ],
+      "cashbook": [
+       "RV-U17-02"
+      ]
+     }
+    },
+    {
+     "reject": {
+      "statement": [
+       "S2"
+      ],
+      "cashbook": [
+       "PV-U17-01"
+      ]
+     }
+    },
+    {
+     "undo": {
+      "statement": [
+       "S4"
+      ],
+      "cashbook": [
+       "RV-U17-02"
+      ]
+     }
+    }
+   ],
+   "recipe": "a one-halala difference tolerated, and two of 5.00 and 0.50 that are not; the accountant rejects the 5.00 difference, then the tolerated pair, then undoes the first rejection: the 5.00 and 0.50 differences await a decision",
+   "intent": {
+    "tolerated": [],
+    "exceeded": null,
+    "open": 2,
+    "sheet": {
+     "status": "draft",
+     "difference": 0,
+     "tolerated": 0,
+     "unexplained": 0
+    },
+    "rejected": 1
+   }
+  },
+  {
+   "id": "U18",
+   "title": "One halala across a million",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "pdflib",
+    "font": "Readex Pro",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    },
+    "bank": "Dune Harbor Bank",
+    "documentTitle": "Statement of Account"
+   },
+   "periods": [
+    {
+     "id": "U18-MAR",
+     "statement": {
+      "account": "SA71 6000 0000 3381 0900 0218",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-03-01",
+       "end": "2027-03-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 300000000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-03-02",
+          "valueDate": "2027-03-02",
+          "description": "Card settlement",
+          "reference": "COL18MA001",
+          "withdrawal": 0,
+          "deposit": 404155,
+          "balance": 300404155
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-03-06",
+          "valueDate": "2027-03-06",
+          "description": "Supplier transfer",
+          "reference": "INV-U18-01",
+          "withdrawal": 125000000,
+          "deposit": 0,
+          "balance": 175404155
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "Card scheme fees",
+          "reference": "TRF18MA002",
+          "withdrawal": 149172,
+          "deposit": 0,
+          "balance": 175254983
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-03-14",
+          "valueDate": "2027-03-14",
+          "description": "Customer remittance",
+          "reference": "COL18MA003",
+          "withdrawal": 0,
+          "deposit": 45839,
+          "balance": 175300822
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-03-18",
+          "valueDate": "2027-03-18",
+          "description": "Customer remittance",
+          "reference": "RCV-U18-02",
+          "withdrawal": 0,
+          "deposit": 99999999,
+          "balance": 275300821
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "Card settlement",
+          "reference": "COL18MA004",
+          "withdrawal": 0,
+          "deposit": 475647,
+          "balance": 275776468
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-03-27",
+          "valueDate": "2027-03-27",
+          "description": "Distributor payment",
+          "reference": "COL18MA005",
+          "withdrawal": 0,
+          "deposit": 220345,
+          "balance": 275996813
+         },
+         {
+          "kind": "closing",
+          "balance": 275996813
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 125149172,
+          "deposit": 101145985
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-03-01",
+       "voucher": "RV18MA01",
+       "description": "Receipt voucher",
+       "reference": "COL18MA001",
+       "receipt": 404155,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-06",
+       "voucher": "PV-U18-01",
+       "description": "Payment voucher",
+       "reference": "INV-U18-01",
+       "receipt": 0,
+       "payment": 124999999
+      },
+      {
+       "date": "2027-03-07",
+       "voucher": "PV18MA02",
+       "description": "Payment voucher",
+       "reference": "TRF18MA002",
+       "receipt": 0,
+       "payment": 149172
+      },
+      {
+       "date": "2027-03-12",
+       "voucher": "RV18MA03",
+       "description": "Receipt voucher",
+       "reference": "COL18MA003",
+       "receipt": 45839,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-18",
+       "voucher": "RV-U18-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U18-02",
+       "receipt": 100000000,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-20",
+       "voucher": "RV18MA04",
+       "description": "Receipt voucher",
+       "reference": "COL18MA004",
+       "receipt": 475647,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-25",
+       "voucher": "RV18MA05",
+       "description": "Receipt voucher",
+       "reference": "COL18MA005",
+       "receipt": 220345,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 275996815,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 1,
+      "perPeriod": 2,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "a 1,250,000.00 transfer the book pays as 1,249,999.99, and a 999,999.99 remittance the book receives as 1,000,000.00: one halala each, across a million",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U18-01",
+      1
+     ],
+     [
+      "RCV-U18-02",
+      -1
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": -2,
+     "tolerated": -2,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U19",
+   "title": "Six differences over three pages",
+   "layout": "en",
+   "digits": "latin",
+   "print": {
+    "producer": "hexapdf",
+    "font": "Space Mono",
+    "paper": "Letter",
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    },
+    "bank": "Cedar Gulf Bank",
+    "documentTitle": "Current Account Statement"
+   },
+   "periods": [
+    {
+     "id": "U19-MAR",
+     "statement": {
+      "account": "SA44 2000 0000 7104 3300 0119",
+      "currency": "SAR",
+      "period": {
+       "start": "2027-03-01",
+       "end": "2027-03-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 3,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 21134000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-03-02",
+          "valueDate": "2027-03-02",
+          "description": "Card scheme fees",
+          "reference": "TRF19MA001",
+          "withdrawal": 29460,
+          "deposit": 0,
+          "balance": 21104540
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-03-02",
+          "valueDate": "2027-03-02",
+          "description": "Supplier settlement",
+          "reference": "TRF19MA002",
+          "withdrawal": 67448,
+          "deposit": 0,
+          "balance": 21037092
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-03-03",
+          "valueDate": "2027-03-03",
+          "description": "Supplier settlement",
+          "reference": "TRF19MA003",
+          "withdrawal": 331759,
+          "deposit": 0,
+          "balance": 20705333
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-03-03",
+          "valueDate": "2027-03-03",
+          "description": "Supplier transfer",
+          "reference": "INV-U19-01",
+          "withdrawal": 50001,
+          "deposit": 0,
+          "balance": 20655332
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-03-04",
+          "valueDate": "2027-03-04",
+          "description": "Card settlement",
+          "reference": "COL19MA004",
+          "withdrawal": 0,
+          "deposit": 148289,
+          "balance": 20803621
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-03-05",
+          "valueDate": "2027-03-05",
+          "description": "Marketplace payout",
+          "reference": "COL19MA005",
+          "withdrawal": 0,
+          "deposit": 384617,
+          "balance": 21188238
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-03-06",
+          "valueDate": "2027-03-06",
+          "description": "Card settlement",
+          "reference": "COL19MA006",
+          "withdrawal": 0,
+          "deposit": 246004,
+          "balance": 21434242
+         },
+         {
+          "kind": "movement",
+          "key": "S8",
+          "date": "2027-03-07",
+          "valueDate": "2027-03-07",
+          "description": "Card scheme fees",
+          "reference": "TRF19MA007",
+          "withdrawal": 439750,
+          "deposit": 0,
+          "balance": 20994492
+         },
+         {
+          "kind": "movement",
+          "key": "S9",
+          "date": "2027-03-07",
+          "valueDate": "2027-03-07",
+          "description": "Customer remittance",
+          "reference": "RCV-U19-02",
+          "withdrawal": 0,
+          "deposit": 60002,
+          "balance": 21054494
+         },
+         {
+          "kind": "movement",
+          "key": "S10",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "Customer remittance",
+          "reference": "COL19MA008",
+          "withdrawal": 0,
+          "deposit": 480677,
+          "balance": 21535171
+         },
+         {
+          "kind": "movement",
+          "key": "S11",
+          "date": "2027-03-08",
+          "valueDate": "2027-03-08",
+          "description": "Card scheme fees",
+          "reference": "TRF19MA009",
+          "withdrawal": 111291,
+          "deposit": 0,
+          "balance": 21423880
+         },
+         {
+          "kind": "movement",
+          "key": "S12",
+          "date": "2027-03-09",
+          "valueDate": "2027-03-09",
+          "description": "Freight forwarding",
+          "reference": "TRF19MA010",
+          "withdrawal": 372477,
+          "deposit": 0,
+          "balance": 21051403
+         },
+         {
+          "kind": "movement",
+          "key": "S13",
+          "date": "2027-03-10",
+          "valueDate": "2027-03-10",
+          "description": "Marketplace payout",
+          "reference": "COL19MA011",
+          "withdrawal": 0,
+          "deposit": 56825,
+          "balance": 21108228
+         },
+         {
+          "kind": "movement",
+          "key": "S14",
+          "date": "2027-03-11",
+          "valueDate": "2027-03-11",
+          "description": "Supplier settlement",
+          "reference": "TRF19MA012",
+          "withdrawal": 11185,
+          "deposit": 0,
+          "balance": 21097043
+         },
+         {
+          "kind": "carried-forward",
+          "balance": 21097043
+         }
+        ]
+       },
+       {
+        "number": 2,
+        "of": 3,
+        "lines": [
+         {
+          "kind": "brought-forward",
+          "balance": 21097043
+         },
+         {
+          "kind": "movement",
+          "key": "S15",
+          "date": "2027-03-12",
+          "valueDate": "2027-03-12",
+          "description": "Marketplace payout",
+          "reference": "COL19MA013",
+          "withdrawal": 0,
+          "deposit": 35459,
+          "balance": 21132502
+         },
+         {
+          "kind": "movement",
+          "key": "S16",
+          "date": "2027-03-12",
+          "valueDate": "2027-03-12",
+          "description": "Supplier transfer",
+          "reference": "INV-U19-03",
+          "withdrawal": 70002,
+          "deposit": 0,
+          "balance": 21062500
+         },
+         {
+          "kind": "movement",
+          "key": "S17",
+          "date": "2027-03-13",
+          "valueDate": "2027-03-13",
+          "description": "Marketplace payout",
+          "reference": "COL19MA014",
+          "withdrawal": 0,
+          "deposit": 73908,
+          "balance": 21136408
+         },
+         {
+          "kind": "movement",
+          "key": "S18",
+          "date": "2027-03-14",
+          "valueDate": "2027-03-14",
+          "description": "Supplier settlement",
+          "reference": "TRF19MA015",
+          "withdrawal": 278319,
+          "deposit": 0,
+          "balance": 20858089
+         },
+         {
+          "kind": "movement",
+          "key": "S19",
+          "date": "2027-03-14",
+          "valueDate": "2027-03-14",
+          "description": "Distributor payment",
+          "reference": "COL19MA016",
+          "withdrawal": 0,
+          "deposit": 243513,
+          "balance": 21101602
+         },
+         {
+          "kind": "movement",
+          "key": "S20",
+          "date": "2027-03-15",
+          "valueDate": "2027-03-15",
+          "description": "Freight forwarding",
+          "reference": "TRF19MA017",
+          "withdrawal": 369775,
+          "deposit": 0,
+          "balance": 20731827
+         },
+         {
+          "kind": "movement",
+          "key": "S21",
+          "date": "2027-03-16",
+          "valueDate": "2027-03-16",
+          "description": "Freight forwarding",
+          "reference": "TRF19MA018",
+          "withdrawal": 186525,
+          "deposit": 0,
+          "balance": 20545302
+         },
+         {
+          "kind": "movement",
+          "key": "S22",
+          "date": "2027-03-16",
+          "valueDate": "2027-03-16",
+          "description": "Customer remittance",
+          "reference": "RCV-U19-04",
+          "withdrawal": 0,
+          "deposit": 80001,
+          "balance": 20625303
+         },
+         {
+          "kind": "movement",
+          "key": "S23",
+          "date": "2027-03-17",
+          "valueDate": "2027-03-17",
+          "description": "Marketplace payout",
+          "reference": "COL19MA019",
+          "withdrawal": 0,
+          "deposit": 364422,
+          "balance": 20989725
+         },
+         {
+          "kind": "movement",
+          "key": "S24",
+          "date": "2027-03-18",
+          "valueDate": "2027-03-18",
+          "description": "Card settlement",
+          "reference": "COL19MA020",
+          "withdrawal": 0,
+          "deposit": 481670,
+          "balance": 21471395
+         },
+         {
+          "kind": "movement",
+          "key": "S25",
+          "date": "2027-03-19",
+          "valueDate": "2027-03-19",
+          "description": "Marketplace payout",
+          "reference": "COL19MA021",
+          "withdrawal": 0,
+          "deposit": 387057,
+          "balance": 21858452
+         },
+         {
+          "kind": "movement",
+          "key": "S26",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "Supplier settlement",
+          "reference": "TRF19MA022",
+          "withdrawal": 340747,
+          "deposit": 0,
+          "balance": 21517705
+         },
+         {
+          "kind": "movement",
+          "key": "S27",
+          "date": "2027-03-20",
+          "valueDate": "2027-03-20",
+          "description": "Office rent",
+          "reference": "TRF19MA023",
+          "withdrawal": 240538,
+          "deposit": 0,
+          "balance": 21277167
+         },
+         {
+          "kind": "movement",
+          "key": "S28",
+          "date": "2027-03-21",
+          "valueDate": "2027-03-21",
+          "description": "Maintenance contract",
+          "reference": "TRF19MA024",
+          "withdrawal": 322447,
+          "deposit": 0,
+          "balance": 20954720
+         },
+         {
+          "kind": "carried-forward",
+          "balance": 20954720
+         }
+        ]
+       },
+       {
+        "number": 3,
+        "of": 3,
+        "lines": [
+         {
+          "kind": "brought-forward",
+          "balance": 20954720
+         },
+         {
+          "kind": "movement",
+          "key": "S29",
+          "date": "2027-03-21",
+          "valueDate": "2027-03-21",
+          "description": "Supplier transfer",
+          "reference": "INV-U19-05",
+          "withdrawal": 90002,
+          "deposit": 0,
+          "balance": 20864718
+         },
+         {
+          "kind": "movement",
+          "key": "S30",
+          "date": "2027-03-22",
+          "valueDate": "2027-03-22",
+          "description": "Card settlement",
+          "reference": "COL19MA025",
+          "withdrawal": 0,
+          "deposit": 104176,
+          "balance": 20968894
+         },
+         {
+          "kind": "movement",
+          "key": "S31",
+          "date": "2027-03-23",
+          "valueDate": "2027-03-23",
+          "description": "Card settlement",
+          "reference": "COL19MA026",
+          "withdrawal": 0,
+          "deposit": 146416,
+          "balance": 21115310
+         },
+         {
+          "kind": "movement",
+          "key": "S32",
+          "date": "2027-03-24",
+          "valueDate": "2027-03-24",
+          "description": "Office rent",
+          "reference": "TRF19MA027",
+          "withdrawal": 93521,
+          "deposit": 0,
+          "balance": 21021789
+         },
+         {
+          "kind": "movement",
+          "key": "S33",
+          "date": "2027-03-25",
+          "valueDate": "2027-03-25",
+          "description": "Office rent",
+          "reference": "TRF19MA028",
+          "withdrawal": 107943,
+          "deposit": 0,
+          "balance": 20913846
+         },
+         {
+          "kind": "movement",
+          "key": "S34",
+          "date": "2027-03-26",
+          "valueDate": "2027-03-26",
+          "description": "Card settlement",
+          "reference": "COL19MA029",
+          "withdrawal": 0,
+          "deposit": 223082,
+          "balance": 21136928
+         },
+         {
+          "kind": "movement",
+          "key": "S35",
+          "date": "2027-03-27",
+          "valueDate": "2027-03-27",
+          "description": "Freight forwarding",
+          "reference": "TRF19MA030",
+          "withdrawal": 28098,
+          "deposit": 0,
+          "balance": 21108830
+         },
+         {
+          "kind": "movement",
+          "key": "S36",
+          "date": "2027-03-27",
+          "valueDate": "2027-03-27",
+          "description": "Customer remittance",
+          "reference": "RCV-U19-06",
+          "withdrawal": 0,
+          "deposit": 11002,
+          "balance": 21119832
+         },
+         {
+          "kind": "closing",
+          "balance": 21119832
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3541288,
+          "deposit": 3527120
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-03-01",
+       "voucher": "PV19MA02",
+       "description": "Payment voucher",
+       "reference": "TRF19MA002",
+       "receipt": 0,
+       "payment": 67448
+      },
+      {
+       "date": "2027-03-02",
+       "voucher": "PV19MA01",
+       "description": "Payment voucher",
+       "reference": "TRF19MA001",
+       "receipt": 0,
+       "payment": 29460
+      },
+      {
+       "date": "2027-03-03",
+       "voucher": "PV19MA03",
+       "description": "Payment voucher",
+       "reference": "TRF19MA003",
+       "receipt": 0,
+       "payment": 331759
+      },
+      {
+       "date": "2027-03-03",
+       "voucher": "RV19MA04",
+       "description": "Receipt voucher",
+       "reference": "COL19MA004",
+       "receipt": 148289,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-03",
+       "voucher": "PV-U19-01",
+       "description": "Payment voucher",
+       "reference": "INV-U19-01",
+       "receipt": 0,
+       "payment": 50000
+      },
+      {
+       "date": "2027-03-04",
+       "voucher": "RV19MA06",
+       "description": "Receipt voucher",
+       "reference": "COL19MA006",
+       "receipt": 246004,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-05",
+       "voucher": "RV19MA05",
+       "description": "Receipt voucher",
+       "reference": "COL19MA005",
+       "receipt": 384617,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-06",
+       "voucher": "PV19MA07",
+       "description": "Payment voucher",
+       "reference": "TRF19MA007",
+       "receipt": 0,
+       "payment": 439750
+      },
+      {
+       "date": "2027-03-07",
+       "voucher": "RV19MA08",
+       "description": "Receipt voucher",
+       "reference": "COL19MA008",
+       "receipt": 480677,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-07",
+       "voucher": "RV-U19-02",
+       "description": "Receipt voucher",
+       "reference": "RCV-U19-02",
+       "receipt": 60000,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-08",
+       "voucher": "PV19MA09",
+       "description": "Payment voucher",
+       "reference": "TRF19MA009",
+       "receipt": 0,
+       "payment": 111291
+      },
+      {
+       "date": "2027-03-08",
+       "voucher": "PV19MA10",
+       "description": "Payment voucher",
+       "reference": "TRF19MA010",
+       "receipt": 0,
+       "payment": 372477
+      },
+      {
+       "date": "2027-03-08",
+       "voucher": "RV19MA11",
+       "description": "Receipt voucher",
+       "reference": "COL19MA011",
+       "receipt": 56825,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-10",
+       "voucher": "PV19MA12",
+       "description": "Payment voucher",
+       "reference": "TRF19MA012",
+       "receipt": 0,
+       "payment": 11185
+      },
+      {
+       "date": "2027-03-11",
+       "voucher": "RV19MA14",
+       "description": "Receipt voucher",
+       "reference": "COL19MA014",
+       "receipt": 73908,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-12",
+       "voucher": "RV19MA13",
+       "description": "Receipt voucher",
+       "reference": "COL19MA013",
+       "receipt": 35459,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-12",
+       "voucher": "PV-U19-03",
+       "description": "Payment voucher",
+       "reference": "INV-U19-03",
+       "receipt": 0,
+       "payment": 70000
+      },
+      {
+       "date": "2027-03-13",
+       "voucher": "PV19MA15",
+       "description": "Payment voucher",
+       "reference": "TRF19MA015",
+       "receipt": 0,
+       "payment": 278319
+      },
+      {
+       "date": "2027-03-13",
+       "voucher": "RV19MA16",
+       "description": "Receipt voucher",
+       "reference": "COL19MA016",
+       "receipt": 243513,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-13",
+       "voucher": "PV19MA17",
+       "description": "Payment voucher",
+       "reference": "TRF19MA017",
+       "receipt": 0,
+       "payment": 369775
+      },
+      {
+       "date": "2027-03-16",
+       "voucher": "PV19MA18",
+       "description": "Payment voucher",
+       "reference": "TRF19MA018",
+       "receipt": 0,
+       "payment": 186525
+      },
+      {
+       "date": "2027-03-16",
+       "voucher": "RV-U19-04",
+       "description": "Receipt voucher",
+       "reference": "RCV-U19-04",
+       "receipt": 80000,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-17",
+       "voucher": "RV19MA19",
+       "description": "Receipt voucher",
+       "reference": "COL19MA019",
+       "receipt": 364422,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-18",
+       "voucher": "RV19MA20",
+       "description": "Receipt voucher",
+       "reference": "COL19MA020",
+       "receipt": 481670,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-19",
+       "voucher": "RV19MA21",
+       "description": "Receipt voucher",
+       "reference": "COL19MA021",
+       "receipt": 387057,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-19",
+       "voucher": "PV19MA22",
+       "description": "Payment voucher",
+       "reference": "TRF19MA022",
+       "receipt": 0,
+       "payment": 340747
+      },
+      {
+       "date": "2027-03-19",
+       "voucher": "PV19MA23",
+       "description": "Payment voucher",
+       "reference": "TRF19MA023",
+       "receipt": 0,
+       "payment": 240538
+      },
+      {
+       "date": "2027-03-19",
+       "voucher": "PV19MA24",
+       "description": "Payment voucher",
+       "reference": "TRF19MA024",
+       "receipt": 0,
+       "payment": 322447
+      },
+      {
+       "date": "2027-03-20",
+       "voucher": "RV19MA25",
+       "description": "Receipt voucher",
+       "reference": "COL19MA025",
+       "receipt": 104176,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-21",
+       "voucher": "PV-U19-05",
+       "description": "Payment voucher",
+       "reference": "INV-U19-05",
+       "receipt": 0,
+       "payment": 90000
+      },
+      {
+       "date": "2027-03-22",
+       "voucher": "PV19MA27",
+       "description": "Payment voucher",
+       "reference": "TRF19MA027",
+       "receipt": 0,
+       "payment": 93521
+      },
+      {
+       "date": "2027-03-23",
+       "voucher": "RV19MA26",
+       "description": "Receipt voucher",
+       "reference": "COL19MA026",
+       "receipt": 146416,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-24",
+       "voucher": "RV19MA29",
+       "description": "Receipt voucher",
+       "reference": "COL19MA029",
+       "receipt": 223082,
+       "payment": 0
+      },
+      {
+       "date": "2027-03-25",
+       "voucher": "PV19MA28",
+       "description": "Payment voucher",
+       "reference": "TRF19MA028",
+       "receipt": 0,
+       "payment": 107943
+      },
+      {
+       "date": "2027-03-26",
+       "voucher": "PV19MA30",
+       "description": "Payment voucher",
+       "reference": "TRF19MA030",
+       "receipt": 0,
+       "payment": 28098
+      },
+      {
+       "date": "2027-03-27",
+       "voucher": "RV-U19-06",
+       "description": "Receipt voucher",
+       "reference": "RCV-U19-06",
+       "receipt": 11000,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 21119832,
+    "note": "General ledger bank account, closing balance"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 2,
+      "perPeriod": 12,
+      "note": "Rounding by the payment network"
+     }
+    }
+   ],
+   "recipe": "thirty ordinary movements and six differences of one or two halalas over three pages: 0.10 in all under a period limit of 0.12",
+   "intent": {
+    "tolerated": [
+     [
+      "INV-U19-01",
+      1
+     ],
+     [
+      "RCV-U19-02",
+      2
+     ],
+     [
+      "INV-U19-03",
+      2
+     ],
+     [
+      "RCV-U19-04",
+      1
+     ],
+     [
+      "INV-U19-05",
+      2
+     ],
+     [
+      "RCV-U19-06",
+      2
+     ]
+    ],
+    "exceeded": null,
+    "open": 0,
+    "sheet": {
+     "status": "reconciled-within-tolerance",
+     "difference": 0,
+     "tolerated": 0,
+     "unexplained": 0
+    }
+   }
+  },
+  {
+   "id": "U20",
+   "title": "Arabic dinar: past the period limit, both differences rejected",
+   "layout": "ar",
+   "digits": "arabic",
+   "print": {
+    "producer": "pdflib",
+    "font": "Cairo",
+    "paper": "A4",
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    },
+    "bank": "بنك السدو التجاري",
+    "documentTitle": "كشف حساب جاري"
+   },
+   "periods": [
+    {
+     "id": "U20-JAN",
+     "statement": {
+      "account": "KW81 CBKU 0000 0000 0000 1234 5620 20",
+      "currency": "KWD",
+      "period": {
+       "start": "2027-01-01",
+       "end": "2027-01-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 643480000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2027-01-02",
+          "valueDate": "2027-01-02",
+          "description": "رسوم بطاقات",
+          "reference": "TRF20JA001",
+          "withdrawal": 4387625,
+          "deposit": 0,
+          "balance": 639092375
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2027-01-08",
+          "valueDate": "2027-01-08",
+          "description": "حوالة عميل",
+          "reference": "COL20JA002",
+          "withdrawal": 0,
+          "deposit": 2708739,
+          "balance": 641801114
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2027-01-09",
+          "valueDate": "2027-01-09",
+          "description": "سداد فاتورة",
+          "reference": "INV-U20-01",
+          "withdrawal": 330005,
+          "deposit": 0,
+          "balance": 641471109
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2027-01-14",
+          "valueDate": "2027-01-14",
+          "description": "سداد مورد",
+          "reference": "TRF20JA003",
+          "withdrawal": 1167452,
+          "deposit": 0,
+          "balance": 640303657
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2027-01-20",
+          "valueDate": "2027-01-20",
+          "description": "عقد صيانة",
+          "reference": "TRF20JA004",
+          "withdrawal": 1804702,
+          "deposit": 0,
+          "balance": 638498955
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2027-01-22",
+          "valueDate": "2027-01-22",
+          "description": "تحصيل فاتورة",
+          "reference": "RCV-U20-02",
+          "withdrawal": 0,
+          "deposit": 120004,
+          "balance": 638618959
+         },
+         {
+          "kind": "movement",
+          "key": "S7",
+          "date": "2027-01-27",
+          "valueDate": "2027-01-27",
+          "description": "سداد مورد",
+          "reference": "TRF20JA005",
+          "withdrawal": 2664368,
+          "deposit": 0,
+          "balance": 635954591
+         },
+         {
+          "kind": "closing",
+          "balance": 635954591
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 10354152,
+          "deposit": 2828743
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2027-01-01",
+       "voucher": "PV20JA01",
+       "description": "سند صرف",
+       "reference": "TRF20JA001",
+       "receipt": 0,
+       "payment": 4387625
+      },
+      {
+       "date": "2027-01-06",
+       "voucher": "RV20JA02",
+       "description": "سند قبض",
+       "reference": "COL20JA002",
+       "receipt": 2708739,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-09",
+       "voucher": "PV-U20-01",
+       "description": "سند صرف",
+       "reference": "INV-U20-01",
+       "receipt": 0,
+       "payment": 330000
+      },
+      {
+       "date": "2027-01-13",
+       "voucher": "PV20JA03",
+       "description": "سند صرف",
+       "reference": "TRF20JA003",
+       "receipt": 0,
+       "payment": 1167452
+      },
+      {
+       "date": "2027-01-19",
+       "voucher": "PV20JA04",
+       "description": "سند صرف",
+       "reference": "TRF20JA004",
+       "receipt": 0,
+       "payment": 1804702
+      },
+      {
+       "date": "2027-01-22",
+       "voucher": "RV-U20-02",
+       "description": "سند قبض",
+       "reference": "RCV-U20-02",
+       "receipt": 120000,
+       "payment": 0
+      },
+      {
+       "date": "2027-01-25",
+       "voucher": "PV20JA05",
+       "description": "سند صرف",
+       "reference": "TRF20JA005",
+       "receipt": 0,
+       "payment": 2664368
+      }
+     ]
+    }
+   ],
+   "book": {
+    "balance": 635954592,
+    "note": "رصيد حساب البنك في الأستاذ العام"
+   },
+   "actions": [
+    {
+     "policy": {
+      "perItem": 5,
+      "perPeriod": 8,
+      "note": "فروق تقريب بالفلس"
+     }
+    },
+    {
+     "reject": {
+      "statement": [
+       "S3"
+      ],
+      "cashbook": [
+       "PV-U20-01"
+      ]
+     }
+    },
+    {
+     "reject": {
+      "statement": [
+       "S6"
+      ],
+      "cashbook": [
+       "RV-U20-02"
+      ]
+     }
+    }
+   ],
+   "recipe": "Arabic, Arabic-Indic digits, dinar: differences of five and four fils, nine in all, past a period limit of eight: none tolerated; both rejected, all four members outstanding",
+   "intent": {
+    "tolerated": [],
+    "exceeded": {
+     "sum": 9,
+     "cap": 8
+    },
+    "open": 0,
+    "sheet": {
+     "status": "reconciled",
+     "difference": 0,
+     "tolerated": 0,
+     "unexplained": 0
+    },
+    "rejected": 2
+   }
+  }
+ ]
+}
