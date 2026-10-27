@@ -725,13 +725,17 @@ export async function restoreRolledStatement(
 }
 
 /** The workbook cites every value: statement lines by page and PDF.js text
- * item (or table row), cashbook entries by row, and carries both originals. */
+ * item (or table row), cashbook entries by row, and carries both originals;
+ * in a period that carries, also every carried item with its provenance, the
+ * carried cases' members and the previous session file. */
 export async function exportBankStatement(
   input: unknown,
   expected: unknown,
   replay: (
     input: unknown,
-  ) => Promise<BankStatementReplay> = replayBankStatement,
+  ) => Promise<
+    BankStatementReplay | BankStatementRollReplay
+  > = replayBankStatement,
 ): Promise<ArrayBuffer> {
   const { state, result } = await replay(input);
   if (!sameStatementData(result, expected)) fail('STALE_RESULT');
@@ -973,12 +977,86 @@ export async function exportBankStatement(
       ...e.cashbook.map((id) => [e.id, 'cashbook', id]),
     ]),
   );
+  const { roll } = result;
+  if (roll) {
+    table(
+      'Previous period',
+      ['Property', 'Value'],
+      [
+        ['Name', roll.previous.name],
+        ['SHA256', roll.previous.sha256],
+        ['Status', roll.previous.status],
+        ['Code', roll.previous.status === 'refused' ? roll.previous.code : ''],
+        [
+          'Detail',
+          roll.previous.status === 'refused' ? roll.previous.detail : '',
+        ],
+        [
+          'Claim',
+          'Carried items are candidate evidence from a closed previous period, re-read from its session file; none is cleared automatically, and no write-off, balance bridge or timing classification is made',
+        ],
+      ],
+    );
+    const left = new Map(roll.outstanding.map((c) => [c.key, c.age]));
+    table(
+      'Carried items',
+      [
+        'Key',
+        'Side',
+        'ID',
+        'Period start',
+        'Period end',
+        'Page or row',
+        'Date',
+        'Direction',
+        'Amount minor units',
+        'Reference',
+        'Origin',
+        'Age',
+        'Source SHA256',
+        'Session SHA256',
+        'Outstanding at period end',
+        'Age at period end',
+      ],
+      roll.carried.map((c) => [
+        c.key,
+        c.side,
+        c.id,
+        c.period.start,
+        c.period.end,
+        (c.page ?? c.row)!,
+        c.date,
+        c.direction,
+        c.amount,
+        c.reference,
+        c.origin,
+        c.age,
+        c.source,
+        c.session,
+        left.has(c.key) ? 'yes' : 'no',
+        left.get(c.key) ?? '',
+      ]),
+    );
+    table(
+      'Carried case members',
+      ['Case ID', 'Carried key'],
+      result.cases.flatMap((c) => (c.carried ?? []).map((k) => [c.id, k])),
+    );
+    table('Withheld', ['Side', 'ID'], [
+      ...roll.withheld.statement.map((id) => ['statement', id]),
+      ...roll.withheld.cashbook.map((id) => ['cashbook', id]),
+    ]);
+  }
   const chunks: (string | number)[][] = [];
-  for (const [i, f] of state.files.entries()) {
+  const originals = [
+    ...state.files,
+    ...('previous' in state ? [state.previous] : []),
+  ];
+  for (const [i, f] of originals.entries()) {
     const data = encode(f.original);
     for (let at = 0; at < data.length; at += 30000)
       chunks.push([
-        i === 0 ? 'statement' : 'cashbook',
+        (['statement', 'cashbook', 'previous'] as const)[i],
         f.name,
         f.sha256,
         at / 30000,
@@ -990,6 +1068,10 @@ export async function exportBankStatement(
   statementBytes(workbook, BANK_STATEMENT_EXPORT_LIMIT, 'EXPORT');
   return workbook;
 }
+
+/** A period that carries, exported from its own replay. */
+export const exportRolledStatement = (input: unknown, expected: unknown) =>
+  exportBankStatement(input, expected, replayRolledStatement);
 
 /** A worker reply is installed only if this thread, from the captured
  * request's own originals, computes the same thing. The originals are read

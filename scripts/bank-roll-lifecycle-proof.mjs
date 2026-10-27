@@ -11,10 +11,15 @@
 //   3. save the session, restore it, and require the same result, with the
 //      previous session file kept byte for byte;
 //   4. require that a decision taken in another context, or on another
-//      previous file, is refused.
+//      previous file, is refused;
+//   5. export the workpaper, undecided and decided (and, for a refused
+//      previous period, undecided), and have the independent checker
+//      audit/bank-roll-foundation/check_export.py hold each against the
+//      sealed package, then catch its own planted alterations.
 //   node --experimental-strip-types scripts/bank-roll-lifecycle-proof.mjs
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -27,6 +32,7 @@ const {
   saveRolledStatement,
   restoreRolledStatement,
   statementSessionParts,
+  exportRolledStatement,
 } = await import(path.join(root, 'lib/reconciliation/bank-statement-lifecycle.ts'));
 const { CARRIED_ACCEPTABLE } = await import(
   path.join(root, 'lib/reconciliation/bank-statement-roll.ts')
@@ -58,10 +64,18 @@ const decision = (c, type, context, id) => ({
   note: 'synthetic proof decision',
 });
 
+const out = process.env.BANK_ROLL_LIFECYCLE_DIR ?? path.join(root, 'work/bank-roll-lifecycle');
+await mkdir(out, { recursive: true });
+const exports = [];
+const exported = async (story, input, result, decided) => {
+  const file = path.join(out, `${story}-${decided ? 'decided' : 'undecided'}.xlsx`);
+  await writeFile(file, new Uint8Array(await exportRolledStatement(input, result)));
+  exports.push({ story, path: file, decided });
+};
 const stories = {};
 for (const story of facts.stories) {
   const want = expected[story.id];
-  if (want.previous !== 'accepted') continue;
+  if (!story.previous) continue;
   const current = story.periods.at(-1);
   const statement = await bytes(`${current.id}-statement.pdf`);
   const cashbook = await bytes(`${current.id}-cashbook.csv`);
@@ -77,6 +91,8 @@ for (const story of facts.stories) {
     previous: { name: `${story.id}-previous-session.json`, sha256: sha(previous), original: previous },
   };
   const first = (await replayRolledStatement(state)).result;
+  await exported(story.id, state, first, false);
+  if (want.previous !== 'accepted') continue;
   const now = month(first.match.statement.period);
   const carried = first.cases.filter((c) => c.kind === 'carried');
   assert.equal(carried.length, want.cases.length, story.id);
@@ -127,6 +143,8 @@ for (const story of facts.stories) {
     `${story.id}: the decided period differs from the contract's rule on EXPECTED.json`,
   );
 
+  await exported(story.id, decided, result, true);
+
   // Saved and restored, the same; the previous file byte for byte.
   const saved = await saveRolledStatement(decided);
   const parts = statementSessionParts(saved);
@@ -153,6 +171,20 @@ for (const story of facts.stories) {
   };
 }
 
+// The workpapers, held against the sealed package by the independent checker.
+const check = spawnSync(
+  process.env.PYTHON ?? 'python3',
+  ['-B', path.join(root, 'audit/bank-roll-foundation/check_export.py')],
+  {
+    input: JSON.stringify({ frozen, selfTest: ['R07', 'R09', 'R04'], exports }),
+    encoding: 'utf8',
+    maxBuffer: 16 * 1024 * 1024,
+  },
+);
+assert.equal(check.status, 0, `the workpaper check failed: ${check.stdout}${check.stderr}`);
+const checked = JSON.parse(check.stdout);
+assert.equal(checked.checked, exports.length);
+
 const ids = Object.keys(stories);
 const summary = {
   stories: ids.length,
@@ -161,8 +193,8 @@ const summary = {
   rejected: ids.reduce((n, id) => n + stories[id].rejected, 0),
   savedAndRestored: ids.length,
   largestSessionBytes: Math.max(...ids.map((id) => stories[id].sessionBytes)),
+  workpapersChecked: checked.checked,
+  checkerAlterationsCaught: Object.keys(checked.selfTest).length,
 };
-const out = process.env.BANK_ROLL_LIFECYCLE_DIR ?? path.join(root, 'work/bank-roll-lifecycle');
-await mkdir(out, { recursive: true });
 await writeFile(path.join(out, 'lifecycle.json'), `${JSON.stringify({ summary, stories }, null, 1)}\n`);
 console.log(JSON.stringify(summary));

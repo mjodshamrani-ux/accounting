@@ -176,6 +176,13 @@ const mutations = [
     '    value.version !== BANK_STATEMENT_ROLL_VERSION\n',
     '    false\n',
   ],
+  // The workpaper (W2b): each must be caught by the independent checker.
+  ['workpaper-without-previous-file', LIFE, "...('previous' in state ? [state.previous] : []),", ''],
+  ['workpaper-outstanding-flag-inverted', LIFE, "left.has(c.key) ? 'yes' : 'no',", "left.has(c.key) ? 'no' : 'yes',"],
+  ['workpaper-carried-age-at-end', LIFE, "left.get(c.key) ?? '',", "c.age,"],
+  ['workpaper-carried-members-missing', LIFE, 'result.cases.flatMap((c) => (c.carried ?? []).map((k) => [c.id, k])),', '[],'],
+  ['workpaper-withheld-missing', LIFE, "      ...roll.withheld.statement.map((id) => ['statement', id]),\n", ''],
+  ['workpaper-previous-status', LIFE, "        ['Status', roll.previous.status],", "        ['Status', 'accepted'],"],
   // The roll session format.
   ['roll-format-key-missing', LIFE, "...(roll ? ['previous'] : []),", '...([] as string[]),'],
   ['any-session-version', LIFE, '(parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION && !roll) ||', 'false ||'],
