@@ -330,6 +330,23 @@ export function namedCashbookMap(
   });
 }
 
+/** Columns as a session holds them with its cashbook file: the header row
+ * and the roles' columns and labels of a valid map, nothing else. */
+export function cashbookColumnsOf(value: unknown): CashbookColumns {
+  if (!plain(value) || !sameKeys(value, ['header', 'columns']))
+    return refuse('MAP_KEYS', 'columns of a session');
+  return mapColumns(
+    validateCashbookMap({
+      format: CASHBOOK_MAP_FORMAT,
+      version: CASHBOOK_MAP_VERSION,
+      role: CASHBOOK_MAP_ROLE,
+      name: 'session',
+      header: value.header,
+      columns: value.columns,
+    }),
+  );
+}
+
 /** The columns a map carries, without its name. */
 export const mapColumns = (map: CashbookMap): CashbookColumns => ({
   header: map.header,

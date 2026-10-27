@@ -4,6 +4,8 @@
 // reading and match is recomputed from the original bytes on each replay.
 // This module has no reader or workbook dependency, so the worker protocol
 // and client can capture a request before anything yields.
+import { cashbookColumnsOf } from './bank-cashbook-map.ts';
+import type { CashbookColumns } from './bank-cashbook-map.ts';
 import { currencyPrecision } from './currency-precision.ts';
 import { bookBalance, type BookBalance } from './bank-statement-sheet.ts';
 import { MAX_FILE_BYTES } from './types.ts';
@@ -25,6 +27,10 @@ export type StatementSource = {
   name: string;
   sha256: string;
   original: ArrayBuffer;
+  /** The cashbook only: the columns it is read with when its first row is
+   * not the declared headers (bank-cashbook-map-1, proposed). Absent for
+   * the declared reading. */
+  columns?: CashbookColumns;
 };
 export type StatementScope = {
   /** A table statement's currency; null for a PDF, which prints its own. */
@@ -224,9 +230,16 @@ export function snapshotBankStatementState(value: unknown): BankStatementState {
   )
     fail('INPUT');
   const files = value.files.map((f, i) => {
+    // Columns are a reading choice of the cashbook, and of nothing else.
+    const mapped = i === 1 && statementPlain(f) && 'columns' in f;
     if (
       !statementPlain(f) ||
-      !statementKeys(f, ['name', 'sha256', 'original']) ||
+      !statementKeys(f, [
+        'name',
+        'sha256',
+        'original',
+        ...(mapped ? ['columns'] : []),
+      ]) ||
       !statementText(f.name, 255) ||
       !(i === 0 ? STATEMENT_FILE : CASHBOOK_FILE).test(f.name) ||
       typeof f.sha256 !== 'string' ||
@@ -234,6 +247,20 @@ export function snapshotBankStatementState(value: unknown): BankStatementState {
     )
       fail('SOURCE');
     statementBytes(f.original);
+    if (mapped) {
+      let columns: CashbookColumns;
+      try {
+        columns = cashbookColumnsOf(f.columns);
+      } catch {
+        fail('SOURCE_COLUMNS');
+      }
+      return {
+        name: f.name,
+        sha256: f.sha256,
+        original: f.original.slice(0),
+        columns,
+      };
+    }
     return { name: f.name, sha256: f.sha256, original: f.original.slice(0) };
   });
   return {

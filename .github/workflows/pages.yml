@@ -282,6 +282,7 @@ jobs:
           BANK_REVIEW_MUTATION_DIR: ${{ runner.temp }}/bank-review-mutations
           BANK_REVIEW_HOLDOUT_DIR: ${{ runner.temp }}/bank-review-holdout
           BANK_MAP_MUTATION_DIR: ${{ runner.temp }}/bank-map-mutations
+          BANK_MAP_LIFECYCLE_DIR: ${{ runner.temp }}/bank-map-lifecycle
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
           BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
@@ -314,6 +315,7 @@ jobs:
           pnpm test:bank-map:seal
           pnpm test:bank-map:baseline
           pnpm test:bank-map:proof
+          pnpm test:bank-map:lifecycle
           pnpm test:bank-map:mutations
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof

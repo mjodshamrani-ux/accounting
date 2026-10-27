@@ -157,6 +157,7 @@ const required = [
   'test:bank-map:seal',
   'test:bank-map:baseline',
   'test:bank-map:proof',
+  'test:bank-map:lifecycle',
   'test:bank-map:mutations',
   'test:bank-review:baseline',
   'test:bank-review:proof',

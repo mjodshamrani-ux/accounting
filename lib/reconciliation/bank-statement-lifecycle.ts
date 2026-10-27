@@ -26,6 +26,7 @@ import {
 import {
   matchBankStatement,
   readBankCashbookTable,
+  readMappedBankCashbook,
   type ReviewReason,
   type StatementMatchResult,
 } from './bank-statement-match.ts';
@@ -42,6 +43,12 @@ import {
   type RollRefusal,
 } from './bank-statement-roll.ts';
 import { MAX_FILE_BYTES } from './types.ts';
+import {
+  CASHBOOK_ROLES,
+  cashbookColumnsUnread,
+  columnLetters,
+  type MappedColumn,
+} from './bank-cashbook-map.ts';
 import {
   BANK_SHEET_FAMILY as BANK_SHEET_FAMILY_NAME,
   reconciliationSheet,
@@ -199,6 +206,8 @@ type StatementBase = {
   reading: BankStatementReading;
   match: StatementMatchResult;
   context: string;
+  /** With columns (bank-cashbook-map-1): what the reading left out. */
+  unread?: { above: number; unread: MappedColumn[] };
 };
 function frozen<T>(value: T): T {
   if (value && typeof value === 'object' && !Object.isFrozen(value)) {
@@ -262,7 +271,11 @@ async function readStatement(
     cashbookFile.original.slice(0),
   );
   if (cashbookSource.sha256 !== cashbookFile.sha256) fail('SOURCE_HASH');
-  const cashbook = readBankCashbookTable(cashbookSource, reading.currency);
+  // Columns are re-proved from the bytes by the mapped reader itself.
+  const { columns } = cashbookFile;
+  const cashbook = columns
+    ? readMappedBankCashbook(cashbookSource, reading.currency, columns)
+    : readBankCashbookTable(cashbookSource, reading.currency);
   const match = matchBankStatement(reading, cashbook, {
     ...(scope.period ? { period: scope.period } : {}),
     ...(scope.confirmedClosing === null
@@ -277,7 +290,18 @@ async function readStatement(
     match.statement.period,
     scope.confirmedClosing,
     match.statement.completeness,
+    // A decision taken under other columns, or under the declared reading,
+    // is refused; a session without columns keeps its context.
+    ...(columns ? [columns] : []),
   ]);
+  // With columns, the base also says what the reading left out.
+  if (columns)
+    return frozen({
+      reading,
+      match,
+      context,
+      unread: cashbookColumnsUnread(cashbookSource, columns),
+    });
   return frozen({ reading, match, context });
 }
 
@@ -435,6 +459,9 @@ function settleStatement(
         name: f.name,
         sha256: f.sha256,
         format: formatOf(f.name),
+        ...(f.columns
+          ? { columns: structuredClone(f.columns), ...base.unread }
+          : {}),
       })),
       scope: structuredClone(scope),
       reading,
@@ -454,7 +481,7 @@ function settleStatement(
  * without reading the PDF again; anything else is read from its bytes.
  */
 let verified: {
-  files: { name: string; sha256: string; original: ArrayBuffer }[];
+  files: StatementSource[];
   scope: string;
   base: StatementBase;
 } | null = null;
@@ -476,6 +503,8 @@ export async function replayVerified(
     v.files.every(
       (f, i) =>
         f.name === state.files[i].name &&
+        JSON.stringify(f.columns ?? null) ===
+          JSON.stringify(state.files[i].columns ?? null) &&
         f.sha256 === state.files[i].sha256 &&
         sameBytes(f.original, state.files[i].original),
     )
@@ -524,6 +553,7 @@ export async function saveBankStatement(input: unknown): Promise<ArrayBuffer> {
         name: f.name,
         sha256: f.sha256,
         data: encode(f.original),
+        ...(f.columns ? { columns: f.columns } : {}),
       })),
       scope: state.scope,
       decisions: state.decisions,
@@ -594,10 +624,18 @@ export function statementSessionParts(session: ArrayBuffer): {
     parsed.files.length !== 2
   )
     fail('SESSION');
-  const files = parsed.files.map((f) => {
-    if (!statementPlain(f) || !statementKeys(f, ['name', 'sha256', 'data']))
-      fail('SESSION');
-    return { name: f.name, sha256: f.sha256, original: decode(f.data) };
+  const files = parsed.files.map((f, i) => {
+    // The cashbook may carry the columns it is read with; the snapshot
+    // checks their form, and the replay proves them from the bytes.
+    const mapped = i === 1 && statementPlain(f) && 'columns' in f;
+    const keys = ['name', 'sha256', 'data', ...(mapped ? ['columns'] : [])];
+    if (!statementPlain(f) || !statementKeys(f, keys)) fail('SESSION');
+    return {
+      name: f.name,
+      sha256: f.sha256,
+      original: decode(f.data),
+      ...(mapped ? { columns: f.columns } : {}),
+    };
   });
   let previous: StatementSource | null = null;
   if (roll || (withSheet && parsed.previous !== null)) {
@@ -746,6 +784,7 @@ export async function saveRolledStatement(
         name: f.name,
         sha256: f.sha256,
         data: encode(f.original),
+        ...(f.columns ? { columns: f.columns } : {}),
       })),
       scope: state.scope,
       decisions: [...state.decisions],
@@ -833,6 +872,7 @@ export async function saveSheetStatement(
         name: f.name,
         sha256: f.sha256,
         data: encode(f.original),
+        ...(f.columns ? { columns: f.columns } : {}),
       })),
       scope: state.scope,
       decisions: [...state.decisions],
@@ -1005,6 +1045,32 @@ export async function exportBankStatement(
       c.amount,
     ]),
   );
+  // The columns the cashbook was read with, when not the declared ones
+  // (bank-cashbook-map-1): the header row, each role's column and label,
+  // and what the reading left out.
+  const mapped = state.files[1].columns;
+  const left = result.sources[1] as {
+    above?: number;
+    unread?: MappedColumn[];
+  };
+  if (mapped)
+    table(
+      'Cashbook columns',
+      ['Item', 'Column', 'Label'],
+      [
+        ['header row', mapped.header, ''],
+        ...CASHBOOK_ROLES.map((role) => {
+          const c = mapped.columns[role];
+          return [role, c ? columnLetters(c.column) : '', c?.label ?? ''];
+        }),
+        ['rows above the header', left.above ?? 0, ''],
+        ...(left.unread ?? []).map((c) => [
+          'not read',
+          columnLetters(c.column),
+          c.label,
+        ]),
+      ],
+    );
   table(
     'Cases',
     [

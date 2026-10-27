@@ -29,8 +29,16 @@ await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
 // BANK_MAP_PROOF_ONLY=1 measures the proof alone, without the unit tests.
 const only = process.env.BANK_MAP_PROOF_ONLY;
-const tests = only ? [] : ['tests/bank-cashbook-map.test.ts'];
-const proofs = [['scripts/bank-map-proof.mjs']];
+const tests = only
+  ? []
+  : [
+      'tests/bank-cashbook-map.test.ts',
+      'tests/bank-statement-map-lifecycle.test.ts',
+    ];
+const proofs = [
+  ['scripts/bank-map-proof.mjs'],
+  ['scripts/bank-map-lifecycle.mjs'],
+];
 // The proof reads the sealed periods where they are sealed.
 const packages = [
   'audit/bank-map-foundation',
@@ -39,6 +47,8 @@ const packages = [
 ];
 const MAP = 'lib/reconciliation/bank-cashbook-map.ts';
 const READ = 'lib/reconciliation/bank-statement-match.ts';
+const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
+const REQ = 'lib/reconciliation/bank-statement-request.ts';
 const mutations = [
   // The normal form of a label.
   [
@@ -207,6 +217,79 @@ const mutations = [
     '            numericPrecisionIssue(`${columnLetters(column)}${row}`) === issue',
     "            numericPrecisionIssue(`${'ABCDEF'[column - 1]}${row}`) === issue",
   ],
+  // M2: the columns in the lifecycle and the session.
+  [
+    'mapped-reader-not-used',
+    LIFE,
+    '  const cashbook = columns\n    ? readMappedBankCashbook(cashbookSource, reading.currency, columns)\n    : readBankCashbookTable(cashbookSource, reading.currency);',
+    '  const cashbook = readBankCashbookTable(cashbookSource, reading.currency);',
+  ],
+  [
+    'context-without-columns',
+    LIFE,
+    '    ...(columns ? [columns] : []),\n  ]);',
+    '  ]);',
+  ],
+  [
+    'reading-reused-across-columns',
+    LIFE,
+    '        JSON.stringify(f.columns ?? null) ===\n          JSON.stringify(state.files[i].columns ?? null) &&\n',
+    '',
+  ],
+  [
+    'session-drops-columns',
+    LIFE,
+    '      version: BANK_STATEMENT_LIFECYCLE_VERSION,\n      files: state.files.map((f) => ({\n        name: f.name,\n        sha256: f.sha256,\n        data: encode(f.original),\n        ...(f.columns ? { columns: f.columns } : {}),\n',
+    '      version: BANK_STATEMENT_LIFECYCLE_VERSION,\n      files: state.files.map((f) => ({\n        name: f.name,\n        sha256: f.sha256,\n        data: encode(f.original),\n',
+  ],
+  [
+    'restore-drops-columns',
+    LIFE,
+    '      ...(mapped ? { columns: f.columns } : {}),\n',
+    '',
+  ],
+  [
+    'result-without-what-was-left-out',
+    LIFE,
+    '          ? { columns: structuredClone(f.columns), ...base.unread }',
+    '          ? { columns: structuredClone(f.columns) }',
+  ],
+  [
+    'mapped-reading-writable',
+    LIFE,
+    '  if (columns)\n    return frozen({\n',
+    '  if (columns)\n    return ({\n',
+  ],
+  [
+    'workbook-without-columns-sheet',
+    LIFE,
+    "  if (mapped)\n    table(\n      'Cashbook columns',",
+    "  if (false)\n    table(\n      'Cashbook columns',",
+  ],
+  [
+    'columns-on-the-statement-accepted',
+    REQ,
+    "    const mapped = i === 1 && statementPlain(f) && 'columns' in f;",
+    "    const mapped = statementPlain(f) && 'columns' in f;",
+  ],
+  [
+    'mapped-state-shares-bytes',
+    REQ,
+    '        original: f.original.slice(0),\n        columns,\n',
+    '        original: f.original,\n        columns,\n',
+  ],
+  [
+    'session-columns-unchecked',
+    REQ,
+    '        columns = cashbookColumnsOf(f.columns);',
+    '        columns = f.columns as CashbookColumns;',
+  ],
+  [
+    'session-columns-carry-other-keys',
+    MAP,
+    "  if (!plain(value) || !sameKeys(value, ['header', 'columns']))\n    return refuse(",
+    '  if (!plain(value))\n    return refuse(',
+  ],
 ];
 const files = [
   ...new Set(mutations.map(([, file]) => file)),
@@ -241,7 +324,7 @@ const run = (cwd) => {
       ['--experimental-strip-types', proof, ...args],
       {
         ...options,
-        env: process.env,
+        env: { ...process.env, BANK_MAP_LIFECYCLE_DIR: out },
       },
     );
     if (!completedSuccessfully(last)) return last;
