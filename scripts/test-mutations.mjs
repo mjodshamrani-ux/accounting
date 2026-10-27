@@ -1273,7 +1273,7 @@ const mutations = [
   {
     name: 'sup2-wrap-any-line-without-date-or-amount',
     file: 'lib/reconciliation/transaction-references.ts',
-    changes: [[/rest &&\s*\[mapping\.date, \.\.\.money\]/, '[mapping.date, ...money]']],
+    changes: [[/rest &&\s*!summaryLabel/, '!summaryLabel']],
   },
   {
     name: 'sup2-wrap-ignore-the-date',
@@ -1381,10 +1381,15 @@ const mutations = [
 const args = process.argv.slice(2);
 let filter = '';
 let listOnly = false;
+let anchorsOnly = false;
 for (let i = 0; i < args.length; i++) {
   const arg = args[i];
   if (arg === '--list' && !listOnly) {
     listOnly = true;
+    continue;
+  }
+  if (arg === '--anchors' && !anchorsOnly) {
+    anchorsOnly = true;
     continue;
   }
   if (arg === '--filter' && !filter) filter = args[++i] ?? '';
@@ -1392,7 +1397,7 @@ for (let i = 0; i < args.length; i++) {
     filter = arg.slice('--filter='.length);
   else
     throw Error(
-      'Usage: node scripts/test-mutations.mjs [--filter name-substring] [--list]',
+      'Usage: node scripts/test-mutations.mjs [--filter name-substring] [--list] [--anchors]',
     );
   if (!filter || filter.startsWith('--'))
     throw Error('Mutation filter must not be empty or another option');
@@ -1433,6 +1438,31 @@ const selection = {
   ...(filter ? { filter } : {}),
   ...(shard ? { shard } : {}),
 };
+// Every anchor must match exactly once, in the order the runner applies the
+// changes. A stale anchor otherwise surfaces only when its shard reaches it.
+// This reads the sources in place and writes nothing.
+if (anchorsOnly) {
+  const stale = [];
+  for (const mutation of selectedMutations) {
+    let source = await readFile(join(root, mutation.file), 'utf8');
+    for (const [before, after] of mutation.changes) {
+      const count =
+        before instanceof RegExp
+          ? [...source.matchAll(new RegExp(before.source, 'g'))].length
+          : source.split(before).length - 1;
+      if (count !== 1) {
+        stale.push({ mutation: mutation.name, file: mutation.file, count });
+        break;
+      }
+      source = source.replace(
+        before,
+        typeof after === 'function' ? after : () => after,
+      );
+    }
+  }
+  console.log(JSON.stringify({ ...selection, checked: selectedMutations.length, stale }, null, 2));
+  process.exit(stale.length ? 1 : 0);
+}
 // Dry inspection does not run the baseline, copy files or modify a source.
 if (listOnly) {
   console.log(

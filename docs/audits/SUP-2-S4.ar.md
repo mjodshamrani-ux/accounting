@@ -129,12 +129,22 @@
 | `test:reliability:p2` و`:partial` و`:quick` | نجحت، و40/40 |
 | holdouts البنك G6 وG8 وG9 وG10 وG12 وG14 وG15 وG17 وG20 وG23، و`holdout-seal` و`cashbook-check` | تطابقت سجلاتها |
 | `test:native-pdf:mutations` | نجح |
+| طفرات `pdf.ts` الأربع الأخرى، و`sup2-wrap-any-line-without-date-or-amount` بمرساها الجديد | 5/5 مكتشفة |
+| `node scripts/test-mutations.mjs --anchors` و`pnpm test:mutation-runner` | 245 مرسى بلا قديم، ونجح |
 | `test:supplier-statement:s3-seal` و`:s3-holdout` على `run-3` | نجحا |
 | `pnpm build` و`pnpm test:browser` و`test:browser:main-integration` | نجحت |
 | مركّب PDF، 72 كشفًا، البذور 1–3، على `16d2d54` ثم على شجرة العمل | الأحكام الـ72 نفسها حالة بحالة |
 | `test:source-families:ci` و`test:claude-skills` | نجحا |
 
 **لم يُشغَّل محليًا:** مجموعة الطفرات الكاملة، وبقية بوابات المتصفح غير المذكورة. يشغلها CI. والمركّب ليس في CI.
+
+## فشل CI على إيداع S3، وفحص المراسي
+
+- **فشلت شريحة الطفرات 4/6 على `16d2d54`** ([التشغيل 40447430629](https://github.com/mjodshamrani-ux/accounting/actions/runs/40447430629)): «Stale or non-unique mutation anchor: sup2-wrap-any-line-without-date-or-amount».
+  - **السبب:** أضاف إصلاح هـ في S3 سطرًا بين جزأي المرسى الذي تبحث عنه طفرة S2. ولم تُشغَّل مجموعة الطفرات الكاملة محليًا في S3.
+  - **الإصلاح:** يُزيل المرسى الجديد `rest &&` قبل فحص سطر الرصيد، وهو قصد الطفرة نفسه: كل سطر بلا تاريخ ولا مبلغ، ولو كان فارغًا.
+- **ولئلا يتكرر:** `node scripts/test-mutations.mjs --anchors` يفحص مراسي الطفرات كلها، بترتيب تطبيقها، دون تشغيل أي طفرة ودون كتابة شيء. ويشغّله `test:mutation-runner` في CI في أول دقائقه، بجانب الشرائح لا بعدها. واختبار يزرع مرسى قديمًا ويتوقع أن يُبلَّغ عنه باسمه.
+  - **245 مرسى، صفر قديم.**
 
 ## الحدود
 

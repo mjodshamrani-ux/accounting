@@ -64,3 +64,35 @@ void test('cleanup removes copied read-only directories and preserves linked ori
     await assert.rejects(removePrivateTree(scratch), /unregistered/);
   }
 });
+
+// A stale anchor otherwise fails only when its shard reaches it, after the
+// shard's earlier faults have run. Every anchor is checked without running.
+void test('every mutation anchor matches exactly once, and a stale anchor is reported', async () => {
+  const runner = join(import.meta.dirname, 'test-mutations.mjs');
+  const all = spawnSync(process.execPath, [runner, '--anchors'], { encoding: 'utf8', timeout: 60000 });
+  assert.equal(all.status, 0, all.stdout + all.stderr);
+  const report = JSON.parse(all.stdout);
+  assert.equal(report.checked, report.available);
+  assert.deepEqual(report.stale, []);
+  const copy = await createPrivateTree();
+  try {
+    const name = 'sup2-wrap-any-line-without-date-or-amount';
+    const file = 'lib/reconciliation/transaction-references.ts';
+    await mkdir(join(copy, 'scripts'));
+    await mkdir(join(copy, 'lib/reconciliation'), { recursive: true });
+    for (const script of ['test-mutations.mjs', 'mutation-runner-support.mjs'])
+      await cp(join(import.meta.dirname, script), join(copy, 'scripts', script));
+    const source = await readFile(join(import.meta.dirname, '..', file), 'utf8');
+    const check = () => spawnSync(process.execPath,
+      [join(copy, 'scripts/test-mutations.mjs'), '--anchors', '--filter', name],
+      { encoding: 'utf8', timeout: 60000 });
+    await writeFile(join(copy, file), source);
+    assert.equal(check().status, 0);
+    await writeFile(join(copy, file), source.replace(/rest &&\s*!summaryLabel/, '!summaryLabel'));
+    const stale = check();
+    assert.equal(stale.status, 1);
+    assert.deepEqual(JSON.parse(stale.stdout).stale, [{ mutation: name, file, count: 0 }]);
+  } finally {
+    await removePrivateTree(copy);
+  }
+});
