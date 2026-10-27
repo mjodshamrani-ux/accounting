@@ -57,7 +57,8 @@ const STATUS = {
   'matched-automatic': 'matched',
   'matched-accepted': 'accepted',
 };
-const plain = (x) => JSON.parse(JSON.stringify(x));
+// undefined stays undefined, so a missing field fails its assertion (DEV-22).
+const plain = (x) => (x === undefined ? x : JSON.parse(JSON.stringify(x)));
 const base = process.env.BANK_MAP_LIFECYCLE_DIR ?? path.join(root, 'work');
 await mkdir(base, { recursive: true });
 const out = await mkdtemp(path.join(base, 'bank-map-lifecycle-'));

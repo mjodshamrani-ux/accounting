@@ -1,0 +1,459 @@
+{
+ "holdout": "audit/bank-map-holdout-m4",
+ "summary": {
+  "stories": 20,
+  "storiesEqual": 20,
+  "actions": 56,
+  "equal": 56,
+  "imports": 15,
+  "importsEqual": 15,
+  "exports": 1,
+  "reads": 40,
+  "readingsEqual": 40,
+  "periods": 31,
+  "periodsEqual": 31,
+  "sessions": 30,
+  "sessionsEqual": 30,
+  "workbooks": 30,
+  "workbooksAccepted": 30,
+  "errors": 0,
+  "checkerSelfTest": true
+ },
+ "stories": {
+  "P01": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P02": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P03": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P04": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P05": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P06": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P07": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P08": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P09": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true
+   }
+  ],
+  "P10": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P11": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P12": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true
+   }
+  ],
+  "P13": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P14": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true
+   }
+  ],
+  "P15": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true
+   }
+  ],
+  "P16": [
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P17": [
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "import",
+    "equal": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "export",
+    "equal": true
+   }
+  ],
+  "P18": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "declared",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "declared",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P19": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ],
+  "P20": [
+   {
+    "do": "read",
+    "equal": true,
+    "by": "hand",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   },
+   {
+    "do": "read",
+    "equal": true,
+    "by": "map",
+    "reading": true,
+    "period": true,
+    "session": true,
+    "workbook": true
+   }
+  ]
+ }
+}

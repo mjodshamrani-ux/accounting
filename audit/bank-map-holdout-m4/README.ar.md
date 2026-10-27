@@ -81,11 +81,22 @@ holdout مختوم للعقد المقترح `bank-cashbook-map-1`، خُتم و
 
 **الكتّاب يختمون الوقت في ملفاتهم،** فلا يُكتب مصنف مرتين بالبايتات نفسها. لذا يحفظ الختم كل مصنف ببصمته، و`VERIFY.json` بمحتواه. وبـ`--facts-only` لا يعمل كاتب، فتُعاد الحقائق والخرائط وملفات CSV بايتًا ببايت، وهذا ما يفحصه `check_seal.py`.
 
+## النتائج
+
+التشغيل الأول كما جاء، بعد دفع الختم في `a8159eb`، في [التقرير](../../docs/audits/WF-1-MAP-M4.ar.md):
+
+- **على المكتبة والدورة** ([`results/run-1.json`](results/run-1.json)): 56/56 فعلًا و20/20 قصة تساوي `EXPECTED.json`، و31/31 فترة، و30/30 جلسة حُفظت واستُعيدت، و30/30 مصنفًا يقبلها المدقق المستقل.
+- **وفي المتصفح** ([`results/browser-run-1.json`](results/browser-run-1.json)): 20/20 قصة، و31/31 جلسة ومصنفًا؛ وقراءة دفتر جديد بخريطة تناسبه 5.0 أفعال في المتوسط مقابل 10.7 باليد.
+
+لم يتغير المنتج بعد الختم.
+
 ## الإعادة
 
 ```sh
 pnpm test:bank-map:m4-seal
 pnpm test:bank-map:m4-intent
+pnpm test:bank-map:m4-holdout   # يطلب أن يساوي التشغيل results/run-1.json
+pnpm build && pnpm test:bank-map:m4-browser   # results/browser-run-1.json
 # إعادة الكتابة والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 python3 -B audit/bank-map-holdout-m4/stories.py --out <dir>   # يطلب python3.13 بـopenpyxl وXlsxWriter، وexceljs، وsoffice
 python3 -B audit/bank-map-holdout-m4/verify.py <dir>

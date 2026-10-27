@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 52120,
-      "sha256": "22f6089d31552422addd062836b1757a79b001cd3f1ceb4fdb302905e0770b7a",
+      "bytes": 53341,
+      "sha256": "10efbda35fe2b71bed288407fccd6f5ab6f387ed1520792764009c60a43856f0",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 31343,
-      "sha256": "2750d027093600a54757c73cfaa176bd77ac9ed5e36087b35cd6c7422b5c9435",
+      "bytes": 31550,
+      "sha256": "43ba275d8ff9261cc365363089dfb86e643a703570061d7973055730385b37f9",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 19709,
-      "sha256": "c2acccc167bfc49b0070753a616597f5a1d123bbdbc1be583b1c8d2d4e5bb89e",
+      "bytes": 19677,
+      "sha256": "9608ed0fcbad07e5f475adafba57ad0a95dcdbe25eb067727288ee1832a584fd",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 73752,
-      "sha256": "a09bfee85ad1245f8161bd72ba6039d02689b0033817ca3caa08270e5d7a161f",
+      "bytes": 74755,
+      "sha256": "82ed19756963e627506cfee3c9cb08cc1c494d3e460a881fd988ee2aed903a6b",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 74450,
-      "sha256": "b2d568f374a906fdb21680095b713640afa70934bb0ec484b0b888cdffabcb3e",
+      "bytes": 74500,
+      "sha256": "2d0aeddf93befc58292bc6a91d1358b2e256ed5450b3be966459805ef8b4b0df",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 35391,
-      "sha256": "8cd4b3418effff3701906313ecf92544af8008e88d589d87234cb0adc3a23608",
+      "bytes": 35731,
+      "sha256": "2a40c37d8b8a728634dbc723e1a637cdae52903f84dbf41b67b0ea290318d0dd",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 13389,
-      "sha256": "3fc7d91d568fe5c4da587e5beeb6e25d766da98bc9f88785a60dd22cc96b6af4",
+      "bytes": 13469,
+      "sha256": "2833988594d44dc7ef43a415d859fc6565710dfd19bd92c3b38f638d0f4886d4",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 18184,
-      "sha256": "32c6ceb8d580a62bcb52dca3910e9a3839a6bab316bdd1e8b3afc5bd59f5a95f",
+      "bytes": 18392,
+      "sha256": "f975800925423a63353f7bc554507d1e8bd830f575515ad6a5bd2b9f6b006d8d",
       "kind": "text"
     },
     {
@@ -52305,8 +52305,8 @@
     },
     {
       "path": "scripts/test-bank-map-mutations.mjs",
-      "bytes": 12072,
-      "sha256": "fafbf93d7fa436501535089bcb8cdc096732ecc0cae275a94cea0cb1c3ef68c0",
+      "bytes": 12558,
+      "sha256": "59e79d775b3f1fe2ce4ff3308b213e45cb55eea58d6d04f47e44bc35a5f98200",
       "kind": "text"
     },
     {
@@ -52329,8 +52329,8 @@
     },
     {
       "path": "scripts/bank-map-lifecycle.mjs",
-      "bytes": 11141,
-      "sha256": "94e6f54f72af1d342b6f1711f4881a32ecf7b81f0d35f60b60ec284e6ecd7716",
+      "bytes": 11244,
+      "sha256": "ef4dbb768ed09a6995c7ce5f881239a02b855a5e543ab246b6ea277e431bc699",
       "kind": "text"
     },
     {
@@ -52371,8 +52371,8 @@
     },
     {
       "path": "audit/bank-map-holdout-m4/README.ar.md",
-      "bytes": 12463,
-      "sha256": "7887db4aa73e3d22a83078fe10cf8a85b3472642f840c4094a57b92a8ab39126",
+      "bytes": 13385,
+      "sha256": "e27b4a11984c675d5002e18703448c55b51792b7f76d5f8afd42fa2582ec01a1",
       "kind": "text"
     },
     {
@@ -52879,6 +52879,24 @@
       "path": "scripts/bank-map-holdout.mjs",
       "bytes": 14799,
       "sha256": "eecf9342fd140e40e770b922d3edff5d90f18bbee8e8e11c6400ceb27e81e7d9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/results/browser-run-1.json",
+      "bytes": 2140,
+      "sha256": "bfcf4cab945799fcd21c57099c4c4f81928ffb0f772019e0681f7ffdc867428f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/results/run-1.json",
+      "bytes": 6836,
+      "sha256": "ebc7a676b46147fa4bd23de25e4dfa4a00caae7e61586bbae76a74951d1e9dee",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/WF-1-MAP-M4.ar.md",
+      "bytes": 8866,
+      "sha256": "944167fb266a13b6d20c6d8b88714b8050c2c2269ccd52d29a618c9ecd11c079",
       "kind": "text"
     }
   ],

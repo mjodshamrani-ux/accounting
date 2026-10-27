@@ -27,24 +27,33 @@ const output =
   process.env.BANK_MAP_MUTATION_DIR ?? join(root, 'work/bank-map-mutations');
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
-// BANK_MAP_PROOF_ONLY=1 measures the proof alone, without the unit tests.
-const only = process.env.BANK_MAP_PROOF_ONLY;
+// BANK_MAP_PROOF_ONLY=1 measures the proof alone, without the unit tests;
+// BANK_MAP_HOLDOUT_ONLY=1 the M4 holdout's recorded first run alone.
+const holdout = process.env.BANK_MAP_HOLDOUT_ONLY;
+const only = process.env.BANK_MAP_PROOF_ONLY || holdout;
 const tests = only
   ? []
   : [
       'tests/bank-cashbook-map.test.ts',
       'tests/bank-statement-map-lifecycle.test.ts',
     ];
-const proofs = [
-  ['scripts/bank-map-proof.mjs'],
-  ['scripts/bank-map-lifecycle.mjs'],
-];
+const proofs = holdout
+  ? [['scripts/bank-map-holdout.mjs', '--assert=run-1.json']]
+  : [['scripts/bank-map-proof.mjs'], ['scripts/bank-map-lifecycle.mjs']];
 // The proof reads the sealed periods where they are sealed.
-const packages = [
-  'audit/bank-map-foundation',
-  'audit/bank-roll-foundation',
-  'audit/bank-review-foundation',
-];
+const packages = holdout
+  ? [
+      'audit/bank-map-foundation',
+      'audit/bank-map-holdout-m4',
+      'audit/bank-roll-holdout-w4',
+      'audit/bank-sheet-holdout-r4',
+      'audit/bank-review-holdout-r3',
+    ]
+  : [
+      'audit/bank-map-foundation',
+      'audit/bank-roll-foundation',
+      'audit/bank-review-foundation',
+    ];
 const MAP = 'lib/reconciliation/bank-cashbook-map.ts';
 const READ = 'lib/reconciliation/bank-statement-match.ts';
 const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
@@ -324,7 +333,11 @@ const run = (cwd) => {
       ['--experimental-strip-types', proof, ...args],
       {
         ...options,
-        env: { ...process.env, BANK_MAP_LIFECYCLE_DIR: out },
+        env: {
+          ...process.env,
+          BANK_MAP_LIFECYCLE_DIR: out,
+          BANK_MAP_HOLDOUT_DIR: out,
+        },
       },
     );
     if (!completedSuccessfully(last)) return last;

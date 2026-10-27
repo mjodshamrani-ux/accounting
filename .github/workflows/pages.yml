@@ -319,6 +319,7 @@ jobs:
           pnpm test:bank-map:mutations
           pnpm test:bank-map:m4-seal
           pnpm test:bank-map:m4-intent
+          pnpm test:bank-map:m4-holdout
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -399,10 +400,6 @@ jobs:
         env:
           BANK_REVIEW_BROWSER_DIR: ${{ runner.temp }}/bank-review-r3-browser
         run: pnpm test:bank-review:r3-browser
-      - name: Verify the cashbook columns in the bank workspace through the actual Worker, all 21 sealed map stories by hand and by saved map, imports and downloads, sessions, independently checked Excel, and the actions measured (WF-1 MAP-1 M3)
-        env:
-          BANK_MAP_BROWSER_DIR: ${{ runner.temp }}/bank-map-browser
-        run: pnpm test:bank-map:browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:
@@ -770,6 +767,34 @@ jobs:
         env:
           BANK_MAP_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-map-interface-mutations
         run: pnpm test:bank-map:interface-mutations
+  bank-map-browser:
+    name: Bank cashbook columns in the built application, on the sealed foundation and on the M4 holdout against its recorded first run (WF-1 MAP-1 M3, M4)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24.19.0
+          cache: pnpm
+      - name: Verify approved public source and privacy guard
+        run: |
+          node --test scripts/public-content-check.test.mjs
+          node scripts/public-content-check.mjs --source
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - name: Verify the cashbook columns in the bank workspace through the actual Worker, all 21 sealed map stories by hand and by saved map, imports and downloads, sessions, independently checked Excel, and the actions measured (WF-1 MAP-1 M3)
+        env:
+          BANK_MAP_BROWSER_DIR: ${{ runner.temp }}/bank-map-browser
+        run: pnpm test:bank-map:browser
+      - name: Verify the cashbook columns on the sealed M4 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 MAP-1 M4)
+        env:
+          BANK_MAP_BROWSER_DIR: ${{ runner.temp }}/bank-map-m4-browser
+        run: pnpm test:bank-map:m4-browser
   bank-statement-holdout:
     name: Bank statement holdouts from eighteen other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10, G12, G14, G15, G17, G20)
     runs-on: ubuntu-latest

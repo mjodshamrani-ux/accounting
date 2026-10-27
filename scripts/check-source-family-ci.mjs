@@ -161,6 +161,7 @@ const required = [
   'test:bank-map:mutations',
   'test:bank-map:m4-seal',
   'test:bank-map:m4-intent',
+  'test:bank-map:m4-holdout',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -183,7 +184,6 @@ const required = [
   'test:bank-sheet:r4-browser',
   'test:bank-review:browser',
   'test:bank-review:r3-browser',
-  'test:bank-map:browser',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',
   'test:bank-statement:g1-mutations',
@@ -301,6 +301,7 @@ const separate = {
     'test:bank-review:interface-mutations',
   ],
   'bank-map-interface-mutations': ['test:bank-map:interface-mutations'],
+  'bank-map-browser': ['test:bank-map:browser', 'test:bank-map:m4-browser'],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',
