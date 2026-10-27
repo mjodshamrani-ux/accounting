@@ -1,0 +1,255 @@
+{
+ "holdout": "audit/bank-roll-holdout-w4",
+ "summary": {
+  "stories": 22,
+  "equalToExpected": 22,
+  "refusedByProduct": 0,
+  "previousVerdictEqual": 22,
+  "carriedCasesExpected": 14,
+  "storiesWithCarriedCasesEqual": 13,
+  "automaticWithCarried": 0,
+  "automaticWithWithheld": 0,
+  "carriedCasesNotAwaiting": 0,
+  "decidedStories": 13,
+  "decidedEqualToContract": 13,
+  "savedAndRestored": 13,
+  "workpapers": {
+   "exported": 34,
+   "accepted": 34
+  }
+ },
+ "stories": {
+  "H01": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 1,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H02": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 1,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H03": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 1,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H04": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 1,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H05": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 2,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H06": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 0,
+    "rejected": 1,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H07": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 0,
+    "rejected": 1,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H08": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 0,
+    "rejected": 1,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H09": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 0,
+    "rejected": 1,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H10": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 0,
+    "rejected": 1,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H11": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H12": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H13": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H14": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H15": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H16": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H17": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 1,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H18": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 1,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H19": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H20": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  },
+  "H21": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0,
+   "decided": {
+    "accepted": 1,
+    "rejected": 0,
+    "equal": true
+   },
+   "savedAndRestored": true
+  },
+  "H22": {
+   "equal": true,
+   "differences": [],
+   "automaticWithCarried": 0,
+   "automaticWithWithheld": 0,
+   "carriedCasesNotAwaiting": 0
+  }
+ }
+}

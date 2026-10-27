@@ -70,10 +70,22 @@ holdout مختوم للعقد المقترح `bank-statement-roll-1`، خُتم 
 
 `ELIGIBILITY.json` كتبته [أداة الأهلية](../bank-statement-eligibility/README.ar.md) على نسخة من الكشوف بأسماء بلا شرطة بين القصة والشهر: `H01DEC` لـ`H01-DEC`. فالأداة تأخذ اسم القصة مما قبل أول شرطة.
 
+## النتائج
+
+التشغيل الأول كما جاء في [`results/run-1.json`](results/run-1.json)، بالمشغّل [`scripts/bank-roll-holdout.mjs`](../../scripts/bank-roll-holdout.mjs):
+
+- **22/22 قصة تساوي `EXPECTED.json`،** و14/14 حالة مرحّلة؛
+- **وصفر مطابقة آلية** لبند مرحّل أو محجوب؛
+- **و13 قصة قُررت** كما يشتق العقد، وحُفظت واستُعيدت بالنتيجة نفسها؛
+- **و34/34 ورقة عمل** يقبلها [`check_export.py`](../bank-roll-foundation/check_export.py).
+
+لم يتغير المنتج بعد الختم. والتفاصيل في [التقرير](../../docs/audits/WF-1-ROLL-W4.ar.md).
+
 ## الإعادة
 
 ```sh
 pnpm test:bank-roll:w4-seal
+pnpm test:bank-roll:w4-holdout   # يطلب أن يساوي التشغيل results/run-1.json
 # إعادة الرسم والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 PYTHONPATH=<pymupdf, fontTools> python3 -B audit/bank-roll-holdout-w4/render.py --modules <js>/node_modules --gems <ruby> --out <dir>
 python3 -B audit/bank-roll-holdout-w4/stories.py --records > <dir>/records.json
