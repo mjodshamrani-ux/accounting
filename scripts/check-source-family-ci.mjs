@@ -116,6 +116,7 @@ const required = [
   'test:bank-roll:seal',
   'test:bank-roll:baseline',
   'test:bank-roll:proof',
+  'test:bank-roll:lifecycle',
   'test:bank-roll:mutations',
   'test:ar-statement:baseline',
   'test:ar-statement:a1-proof',

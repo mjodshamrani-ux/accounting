@@ -1,5 +1,6 @@
-// WF-1 ROLL-1 W1: the carrying engine (lib/reconciliation/bank-statement-roll.ts)
-// on the sealed two- and three-period stories of audit/bank-roll-foundation,
+// WF-1 ROLL-1: a period that carries, replayed by the lifecycle
+// (replayRolledStatement, with the rules of bank-statement-roll.ts), on the
+// sealed two- and three-period stories of audit/bank-roll-foundation,
 // against the independent oracle's EXPECTED.json, field by field:
 //   - the previous session accepted, or refused with the expected code;
 //   - every carried item with its provenance (period, side, id, page or row,
@@ -21,8 +22,8 @@ const root = path.resolve(import.meta.dirname, '..');
 const frozen = path.join(root, 'audit/bank-roll-foundation/frozen');
 const json = async (p) => JSON.parse(await readFile(p, 'utf8'));
 const sha = (b) => createHash('sha256').update(b).digest('hex');
-const { rollBankStatement } = await import(
-  path.join(root, 'lib/reconciliation/bank-statement-roll.ts')
+const { replayBankStatement, replayRolledStatement } = await import(
+  path.join(root, 'lib/reconciliation/bank-statement-lifecycle.ts')
 );
 
 // The seal first.
@@ -52,18 +53,35 @@ for (const story of facts.stories) {
   const current = story.periods.at(-1);
   const statement = await bytes(`${current.id}-statement.pdf`);
   const cashbook = await bytes(`${current.id}-cashbook.csv`);
-  const roll = await rollBankStatement({
-    previous: story.previous ? await bytes(`${story.id}-previous-session.json`) : null,
-    current: {
-      version: 'bank-statement-lifecycle-1',
-      files: [
-        { name: `${current.id}-statement.pdf`, sha256: sha(new Uint8Array(statement)), original: statement },
-        { name: `${current.id}-cashbook.csv`, sha256: sha(new Uint8Array(cashbook)), original: cashbook },
-      ],
-      scope: { currency: null, period: null, confirmedClosing: null },
-      decisions: [],
-    },
-  });
+  const own = {
+    version: 'bank-statement-lifecycle-1',
+    files: [
+      { name: `${current.id}-statement.pdf`, sha256: sha(new Uint8Array(statement)), original: statement },
+      { name: `${current.id}-cashbook.csv`, sha256: sha(new Uint8Array(cashbook)), original: cashbook },
+    ],
+    scope: { currency: null, period: null, confirmedClosing: null },
+    decisions: [],
+  };
+  const sessionName = `${story.id}-previous-session.json`;
+  const previous = story.previous ? await bytes(sessionName) : null;
+  const { result } = previous
+    ? await replayRolledStatement({
+        ...own,
+        version: 'bank-statement-roll-1',
+        previous: { name: sessionName, sha256: sha(new Uint8Array(previous)), original: previous },
+      })
+    : await replayBankStatement(own);
+  const carriedCases = result.cases.filter((c) => c.kind === 'carried');
+  const roll = {
+    previous: result.roll?.previous ?? { status: 'none' },
+    carried: result.roll?.carried ?? [],
+    cases: carriedCases,
+    still: (result.roll?.outstanding ?? []),
+    withheld: result.roll?.withheld ?? { statement: [], cashbook: [] },
+    match: result.match,
+  };
+  // Every carried case awaits the accountant; none is automatic or decided.
+  for (const c of carriedCases) assert.equal(c.status, 'needs-review', `${story.id} ${c.id}`);
   const now = month(roll.match.statement.period);
   const name = (c) => `${month(c.period)}:${c.id}`;
   const item = (c) => ({

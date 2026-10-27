@@ -1,7 +1,8 @@
-// WF-1 ROLL-1 W1 code mutations: each planted defect in a private copy of the
-// carrying engine, the matcher's withheld items or the roll session reading
-// must make the roll and matching tests, or the proof against the sealed
-// EXPECTED.json, fail with an assertion. A survivor is a rule nothing holds.
+// WF-1 ROLL-1 code mutations: each planted defect in a private copy of the
+// carrying rules, the matcher's withheld items, the roll lifecycle or the roll
+// session reading must make the roll and matching tests, the proof against
+// the sealed EXPECTED.json or the lifecycle proof fail with an assertion. A
+// survivor is a rule nothing holds.
 //   node scripts/test-bank-roll-mutations.mjs
 import {
   cp,
@@ -30,27 +31,28 @@ const tests = [
   'tests/bank-statement-roll.test.ts',
   'tests/bank-statement-match.test.ts',
 ];
-const proof = 'scripts/bank-roll-proof.mjs';
+const proofs = ['scripts/bank-roll-proof.mjs', 'scripts/bank-roll-lifecycle-proof.mjs'];
 const ROLL = 'lib/reconciliation/bank-statement-roll.ts';
 const MATCH = 'lib/reconciliation/bank-statement-match.ts';
 const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
+const REQUEST = 'lib/reconciliation/bank-statement-request.ts';
 const mutations = [
   // The previous period: read whole, printed, proved and closed.
   [
     'previous-table-statement-read',
-    ROLL,
-    '      scope.currency !== null ||\n      scope.period !== null ||\n      scope.confirmedClosing !== null\n',
-    '      false\n',
+    LIFE,
+    "if (Object.values(state.scope).some((v) => v !== null)) fail('STATE_SCOPE');",
+    '',
   ],
   [
     'previous-held-not-named',
-    ROLL,
+    LIFE,
     "if (result.status === 'held')\n    refuse('ROLL_PREVIOUS_HELD'",
     "if (false)\n    refuse('ROLL_PREVIOUS_HELD'",
   ],
   [
     'previous-undecided-carried',
-    ROLL,
+    LIFE,
     "if (result.status !== 'reviewed') refuse('ROLL_PREVIOUS_UNDECIDED');",
     '',
   ],
@@ -75,24 +77,18 @@ const mutations = [
   ],
   // The chain.
   [
-    'chain-fingerprint-unchecked',
-    ROLL,
-    'if ((await digest(parts.previous.original)) !== parts.previous.sha256)',
-    'if (false)',
-  ],
-  [
-    'chain-continuity-unchecked',
-    ROLL,
-    "    if (problem)\n      refuse('ROLL_PREVIOUS_UNREADABLE', `its previous period: ${problem}`);",
+    'previous-fingerprint-unchecked',
+    LIFE,
+    "if ((await digest(file.original)) !== file.sha256) fail('SOURCE_HASH');",
     '',
   ],
+  ['chain-refusal-ignored', LIFE, "if (before?.status === 'refused')", 'if (false)'],
   [
-    'chain-open-carried-case',
-    ROLL,
-    'if (cleared.cases.length)',
-    'if (false)',
+    'chain-age-not-advanced',
+    LIFE,
+    '...(result.roll?.outstanding ?? []),',
+    '...(result.roll?.carried ?? []),',
   ],
-  ['chain-age-not-advanced', ROLL, 'left.push(...cleared.still);', 'left.push(...before.left);'],
   ['still-age-not-advanced', ROLL, '.map((c) => ({ ...c, age: c.age + 1 }))', '.map((c) => ({ ...c }))'],
   // Provenance.
   ['source-always-statement', ROLL, 'source: m ? statement256 : cashbook256,', 'source: statement256,'],
@@ -147,13 +143,46 @@ const mutations = [
     '    cashbook.filter((r) => !used.has(`C:${r.id}`)),\n',
     '    cashbook,\n',
   ],
+  // Decisions and what they leave (W2).
+  [
+    'carried-amount-difference-acceptable',
+    ROLL,
+    "  'carried-amount-suggestion',\n];",
+    "  'carried-amount-suggestion',\n  'carried-amount-difference',\n];",
+  ],
+  ['context-without-previous', LIFE, '    file.sha256,\n  ]);', '  ]);'],
+  [
+    'carried-members-outstanding',
+    LIFE,
+    "if (c.kind === 'carried' && c.status !== 'rejected') {",
+    'if (false) {',
+  ],
+  [
+    'rejected-carried-item-cleared',
+    LIFE,
+    "c.kind === 'carried' && c.status !== 'rejected' ? c.carried! : []",
+    "c.kind === 'carried' ? c.carried! : []",
+  ],
+  [
+    'carried-outstanding-not-older',
+    LIFE,
+    '      .map((c) => ({ ...c, age: c.age + 1 })),',
+    '      .map((c) => ({ ...c })),',
+  ],
+  ['restore-roll-without-previous', LIFE, "  if (!previous) fail('SESSION');\n  return replayRolledStatement(", '  return replayRolledStatement('],
+  [
+    'roll-state-any-version',
+    REQUEST,
+    '    value.version !== BANK_STATEMENT_ROLL_VERSION\n',
+    '    false\n',
+  ],
   // The roll session format.
   ['roll-format-key-missing', LIFE, "...(roll ? ['previous'] : []),", '...([] as string[]),'],
   ['any-session-version', LIFE, '(parsed.version !== BANK_STATEMENT_LIFECYCLE_VERSION && !roll) ||', 'false ||'],
   ['restore-reads-roll-format', LIFE, '  if (previous) fail(\'SESSION\');\n  return state;', '  return state;'],
 ];
 
-const files = [...new Set(mutations.map(([, file]) => file)), ...tests, proof];
+const files = [...new Set(mutations.map(([, file]) => file)), ...tests, ...proofs];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
   await Promise.all(
@@ -173,10 +202,19 @@ const run = (cwd) => {
     options,
   );
   if (!completedSuccessfully(unit)) return unit;
-  return spawnSync(process.execPath, ['--experimental-strip-types', proof], {
-    ...options,
-    env: { ...process.env, BANK_ROLL_PROOF_DIR: join(cwd, 'work/bank-roll-proof') },
-  });
+  let last = unit;
+  for (const proof of proofs) {
+    last = spawnSync(process.execPath, ['--experimental-strip-types', proof], {
+      ...options,
+      env: {
+        ...process.env,
+        BANK_ROLL_PROOF_DIR: join(cwd, 'work/bank-roll-proof'),
+        BANK_ROLL_LIFECYCLE_DIR: join(cwd, 'work/bank-roll-lifecycle'),
+      },
+    });
+    if (!completedSuccessfully(last)) return last;
+  }
+  return last;
 };
 const log = (name, r) =>
   writeFile(join(out, name + '.log'), (r.stdout ?? '') + (r.stderr ?? ''));
@@ -194,7 +232,7 @@ if (report.baselinePassed)
       for (const name of [
         'lib',
         ...tests,
-        proof,
+        ...proofs,
         'audit/bank-roll-foundation',
         'audit/bank-statement-foundation',
         'audit/bank-statement-holdout-g8/frozen',

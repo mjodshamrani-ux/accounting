@@ -273,6 +273,7 @@ jobs:
           AR_HOLDOUT_DIR: ${{ runner.temp }}/ar-statement-holdout
           BANK_ROLL_BASELINE_DIR: ${{ runner.temp }}/bank-roll-baseline
           BANK_ROLL_PROOF_DIR: ${{ runner.temp }}/bank-roll-proof
+          BANK_ROLL_LIFECYCLE_DIR: ${{ runner.temp }}/bank-roll-lifecycle
           BANK_ROLL_MUTATION_DIR: ${{ runner.temp }}/bank-roll-mutations
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
@@ -291,6 +292,7 @@ jobs:
           pnpm test:bank-roll:seal
           pnpm test:bank-roll:baseline
           pnpm test:bank-roll:proof
+          pnpm test:bank-roll:lifecycle
           pnpm test:bank-roll:mutations
           pnpm test:ar-statement:baseline
           pnpm test:ar-statement:a1-proof

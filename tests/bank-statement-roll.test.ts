@@ -4,22 +4,27 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import {
   clearCarried,
-  rollBankStatement,
   rollContinuity,
   type CarriedItem,
 } from '../lib/reconciliation/bank-statement-roll.ts';
 import {
+  replayBankStatement,
+  replayRolledStatement,
   restoreBankStatement,
+  restoreRolledStatement,
   saveBankStatement,
+  saveRolledStatement,
   statementSessionParts,
   type BankStatementResult,
 } from '../lib/reconciliation/bank-statement-lifecycle.ts';
+import type { StatementDecision } from '../lib/reconciliation/bank-statement-request.ts';
 import type { CashbookEntry } from '../lib/reconciliation/bank-statement-match.ts';
 import type { BankStatementReading } from '../lib/reconciliation/bank-statement-native.ts';
 
-// bank-statement-roll-1 (proposed), engine part. The proof against the
-// independent oracle on the twenty sealed stories is scripts/bank-roll-proof;
-// here each rule is held directly, with its near case.
+// bank-statement-roll-1 (proposed): the rules (bank-statement-roll.ts) and
+// the lifecycle of a period that carries (bank-statement-lifecycle.ts). The
+// proof against the independent oracle on the twenty sealed stories is
+// scripts/bank-roll-proof; here each rule is held directly, with its near case.
 
 const roll = (name: string) =>
   readFile(new URL(`../audit/bank-roll-foundation/frozen/${name}`, import.meta.url));
@@ -52,6 +57,22 @@ const edited = async (story: string, change: (doc: SessionDoc) => void) => {
   change(doc);
   return buffer(Buffer.from(JSON.stringify(doc)));
 };
+type State = Awaited<ReturnType<typeof current>>;
+const ROLL = 'bank-statement-roll-1' as const;
+/** The period carrying from a previous session file, as the lifecycle replays it. */
+const rolled = (state: State, previous: ArrayBuffer, decisions: StatementDecision[] = []) =>
+  replayRolledStatement({
+    ...state,
+    decisions,
+    version: ROLL,
+    previous: { name: 'previous-session.json', sha256: sha(previous), original: previous },
+  });
+/** The previous period's verdict and what it carried, or the period alone. */
+async function rollBankStatement({ previous, current }: { previous: ArrayBuffer | null; current: State }) {
+  if (!previous) return { previous: { status: 'none' as const }, carried: [], result: (await replayBankStatement(current)).result };
+  const { result } = await rolled(current, previous);
+  return { previous: result.roll!.previous, carried: result.roll!.carried, result };
+}
 const refused = (r: Awaited<ReturnType<typeof rollBankStatement>>) =>
   r.previous.status === 'refused' ? r.previous.code : r.previous.status;
 
@@ -273,9 +294,10 @@ void test('the previous session is replayed from its originals: a decision from 
   // Refused, nothing is carried and the period is matched as without it.
   const none = await rollBankStatement({ previous: null, current: state });
   const off = await rollBankStatement({ previous: undecided, current: state });
-  assert.deepEqual([off.carried, off.cases, off.still], [[], [], []]);
-  assert.deepEqual(off.match, none.match);
-  assert.deepEqual(none.match, none.current.result.match);
+  assert.deepEqual(off.carried, []);
+  assert.deepEqual(off.result.roll!.outstanding, []);
+  assert.deepEqual(off.result.match, none.result.match);
+  assert.deepEqual(off.result.cases, none.result.cases);
 });
 
 void test('only a printed statement carries: a table statement session is not read as a previous period', async () => {
@@ -361,13 +383,121 @@ test.before(async () => {
   r05 = (await roll('R05-previous-session.json')).toString('utf8');
 });
 
-void test('decisions on a period that carries are not taken here', async () => {
+const decision = (c: { id: string; statement: string[]; cashbook: string[] }, type: StatementDecision['type'], context: string, id = 'D1'): StatementDecision => ({
+  id,
+  type,
+  context,
+  at: '2026-08-31T00:00:00.000Z',
+  case: c.id,
+  statement: [...c.statement],
+  cashbook: [...c.cashbook],
+  note: 'checked against the bank advice',
+});
+
+void test('a carried case is decided like a review case, and bound to the previous session file too (R6)', async () => {
   const state = await current('R01-AUG');
-  await assert.rejects(
-    rollBankStatement({
-      previous: await session('R01'),
-      current: { ...state, decisions: [{ id: 'D1', type: 'reject', context: 'x', at: '2026-08-31T00:00:00.000Z', case: 'C1', statement: ['S1'], cashbook: ['PV-1'], note: 'n' }] },
-    }),
-    /BANK_STATEMENT_DECISION/u,
+  const previous = await session('R01');
+  const { result } = await rolled(state, previous);
+  const c = result.cases.find((x) => x.kind === 'carried')!;
+  assert.deepEqual(
+    [c.id, c.reason, c.statement, c.cashbook, c.carried, c.reference, c.status],
+    ['C5', 'carried-reference', ['S2'], [], ['C:PV-R01-90@2026-07-31'], 'CHQ-R01-900', 'needs-review'],
   );
+  assert.equal(result.status, 'needs-review');
+  // While the case stands, neither its movement nor the cheque is outstanding.
+  assert.deepEqual([result.outstanding, result.roll!.outstanding], [[], []]);
+  const accepted = (await rolled(state, previous, [decision(c, 'accept', result.context)])).result;
+  assert.deepEqual([accepted.status, accepted.cases[4].status], ['reviewed', 'matched-accepted']);
+  assert.deepEqual([accepted.outstanding, accepted.roll!.outstanding], [[], []]);
+  // Rejected, both stay outstanding: the movement here, the cheque carried, older.
+  const rejected = (await rolled(state, previous, [decision(c, 'reject', result.context)])).result;
+  assert.equal(rejected.status, 'reviewed');
+  assert.deepEqual(rejected.outstanding, [{ side: 'statement', id: 'S2', origin: 'C5' }]);
+  assert.deepEqual(rejected.roll!.outstanding.map((x) => [x.key, x.age]), [['C:PV-R01-90@2026-07-31', 2]]);
+  const undone = (await rolled(state, previous, [decision(c, 'reject', result.context), decision(c, 'undo', result.context, 'D2')])).result;
+  assert.deepEqual([undone.status, undone.cases[4].status], ['needs-review', 'needs-review']);
+  // The same files' lifecycle context does not bind it, nor does the context
+  // of another previous file with the same content.
+  const own = (await replayBankStatement(state)).result.context;
+  await assert.rejects(rolled(state, previous, [decision(c, 'accept', own)]), /BANK_STATEMENT_DECISION/u);
+  const respaced = buffer(Buffer.from(JSON.stringify(JSON.parse(Buffer.from(new Uint8Array(previous)).toString('utf8')), null, 1)));
+  const other = (await rolled(state, respaced)).result;
+  assert.equal(other.roll!.previous.status, 'accepted');
+  assert.notEqual(other.context, result.context);
+  await assert.rejects(rolled(state, respaced, [decision(c, 'accept', result.context)]), /BANK_STATEMENT_DECISION/u);
+  // A file whose bytes do not give its recorded fingerprint is refused outright.
+  await assert.rejects(
+    replayRolledStatement({ ...state, version: ROLL, previous: { name: 'p.json', sha256: 'e'.repeat(64), original: previous } }),
+    /BANK_STATEMENT_SOURCE_HASH/u,
+  );
+});
+
+void test('only the two carried reasons the contract names can be accepted', async () => {
+  for (const [story, reason, acceptable] of [
+    ['R10', 'carried-amount-difference', false],
+    ['R06', 'carried-ambiguous', false],
+    ['R07', 'carried-repeated', false],
+    ['R08', 'carried-restated', false],
+    ['R09', 'carried-amount-suggestion', true],
+  ] as const) {
+    const state = await current(`${story}-AUG`);
+    const previous = await session(story);
+    const { result } = await rolled(state, previous);
+    const c = result.cases.find((x) => x.kind === 'carried')!;
+    assert.equal(c.reason, reason, story);
+    const accept = rolled(state, previous, [decision(c, 'accept', result.context)]);
+    if (acceptable) assert.equal((await accept).result.status, 'reviewed', story);
+    else await assert.rejects(accept, /BANK_STATEMENT_INELIGIBLE/u, story);
+    // Any of them can be rejected, which closes the period with both outstanding.
+    const rejected = (await rolled(state, previous, [decision(c, 'reject', result.context)])).result;
+    assert.equal(rejected.status, 'reviewed', story);
+    assert.ok(rejected.roll!.outstanding.some((x) => c.carried!.includes(x.key)), story);
+  }
+});
+
+void test('a period that carries saves its previous session byte for byte, restores to the same result, and the next period reads it', async () => {
+  // August of R05, carrying July's session as the sealed August session does.
+  const doc = JSON.parse(r05);
+  const july = buffer(Buffer.from(doc.previous.data, 'base64'));
+  const august = await current('R05-AUG');
+  const input = { ...august, version: ROLL, previous: { name: doc.previous.name, sha256: sha(july), original: july } };
+  const saved = await saveRolledStatement(input);
+  const parts = statementSessionParts(saved);
+  assert.equal(sha(parts.previous!.original), sha(july));
+  assert.deepEqual(await restoreRolledStatement(saved), await replayRolledStatement(input));
+  // Written by the product from the documented format, it is the sealed file.
+  assert.equal(sha(saved), sha(await roll('R05-previous-session.json')));
+  // September carries what August left: July's cheque, two period ends old.
+  const september = await rollBankStatement({ previous: saved, current: await current('R05-SEP') });
+  assert.equal(refused(september), 'accepted');
+  assert.deepEqual(september.carried.map((c) => [c.key, c.age, c.session]), [['C:PV-R05-93@2026-07-31', 2, sha(july)]]);
+  // The lifecycle restore does not take it; the roll restore takes nothing else.
+  await assert.rejects(restoreBankStatement(saved), /BANK_STATEMENT_SESSION/u);
+  await assert.rejects(restoreRolledStatement(await session('R01')), /BANK_STATEMENT_SESSION/u);
+  await assert.rejects(
+    replayRolledStatement({ ...august, version: 'bank-statement-lifecycle-1', previous: input.previous }),
+    /BANK_STATEMENT_INPUT/u,
+  );
+  await assert.rejects(replayRolledStatement({ ...august, version: ROLL }), /BANK_STATEMENT_INPUT/u);
+});
+
+void test('a decided carried case closes the period for the next one', async () => {
+  // August of R01 with July's cheque rejected against its movement: every
+  // case is decided, so the session reads as closed.
+  const state = await current('R01-AUG');
+  const previous = await session('R01');
+  const { result } = await rolled(state, previous);
+  const c = result.cases.find((x) => x.kind === 'carried')!;
+  const saved = await saveRolledStatement({
+    ...state,
+    decisions: [decision(c, 'reject', result.context)],
+    version: ROLL,
+    previous: { name: 'R01-JUL-session.json', sha256: sha(previous), original: previous },
+  });
+  const parts = statementSessionParts(saved);
+  assert.equal(parts.state.decisions.length, 1);
+  // Read as a previous period (here against itself, which is not consecutive):
+  // it is closed, so the refusal is the continuity one, not UNDECIDED.
+  const again = await rollBankStatement({ previous: saved, current: state });
+  assert.equal(refused(again), 'ROLL_NOT_CONSECUTIVE');
 });

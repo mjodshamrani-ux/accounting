@@ -29,6 +29,18 @@ import {
   type ReviewReason,
   type StatementMatchResult,
 } from './bank-statement-match.ts';
+import {
+  CARRIED_ACCEPTABLE,
+  carriedItems,
+  clearCarried,
+  refuse,
+  rollContinuity,
+  RollRefused,
+  type CarriedClearing,
+  type CarriedItem,
+  type CarriedReason,
+  type RollRefusal,
+} from './bank-statement-roll.ts';
 import { MAX_FILE_BYTES } from './types.ts';
 import {
   BANK_STATEMENT_EXPORT_LIMIT,
@@ -40,11 +52,13 @@ import {
   sameStatementData,
   snapshotBankStatementRequest,
   snapshotBankStatementState,
+  snapshotRolledStatementState,
   statementBytes,
   statementKeys,
   statementPlain,
   statementText,
   type BankStatementExportRequest,
+  type BankStatementRollState,
   type BankStatementState,
   type StatementDecision,
   type StatementScope,
@@ -57,13 +71,16 @@ export type StatementCaseStatus =
   | 'matched-accepted'
   | 'rejected';
 export type StatementCase = {
-  /** C1, C2, …: automatic pairs, then review groups, in the engine's order. */
+  /** C1, C2, …: automatic pairs, then review groups, in the engine's order,
+   * then, in a period that carries, carried cases in carried order. */
   id: string;
-  kind: 'automatic' | 'review';
-  reason: 'reference' | ReviewReason;
+  kind: 'automatic' | 'review' | 'carried';
+  reason: 'reference' | ReviewReason | CarriedReason;
   reference: string;
   statement: string[];
   cashbook: string[];
+  /** A carried case's carried item keys, in carried order. */
+  carried?: string[];
   status: StatementCaseStatus;
   /** The decision in effect, if any. */
   decision: string | null;
@@ -74,8 +91,25 @@ export type OutstandingItem = {
   /** 'unmatched', or the rejected case that left it outstanding. */
   origin: string;
 };
+/** What a period that carries adds (bank-statement-roll-1, proposed). */
+export type StatementRoll = {
+  /** The previous period's session file, and whether it is carried. */
+  previous: { name: string; sha256: string } & (
+    | { status: 'accepted' }
+    | { status: 'refused'; code: RollRefusal; detail: string }
+  );
+  /** The items carried in, each with its provenance and age. */
+  carried: CarriedItem[];
+  /** Current items a repetition holds in its case. */
+  withheld: CarriedClearing['withheld'];
+  /** Carried items still outstanding at this period's end, with their age
+   * then: in no case, or in a rejected one. */
+  outstanding: CarriedItem[];
+};
 export type BankStatementResult = {
-  version: typeof BANK_STATEMENT_LIFECYCLE_VERSION;
+  version:
+    | typeof BANK_STATEMENT_LIFECYCLE_VERSION
+    | typeof BANK_STATEMENT_ROLL_VERSION;
   context: string;
   /** held: nothing matched; needs-review: a case awaits the accountant;
    * reviewed: every case is automatic or decided. Outstanding items are
@@ -93,17 +127,25 @@ export type BankStatementResult = {
   cases: StatementCase[];
   outstanding: OutstandingItem[];
   decisions: StatementDecision[];
+  /** Present only in a period that carries. */
+  roll?: StatementRoll;
 };
 export type BankStatementReplay = {
   state: BankStatementState;
   result: BankStatementResult;
 };
+export type BankStatementRollReplay = {
+  state: BankStatementRollState;
+  result: BankStatementResult;
+};
 
 /** Review reasons an accountant may accept as they stand: one movement and
- * one entry with the same direction and amount. */
-const ACCEPTABLE: ReadonlySet<string> = new Set<ReviewReason>([
+ * one entry with the same direction and amount; in a period that carries,
+ * also the two carried reasons the contract names. */
+const ACCEPTABLE: ReadonlySet<string> = new Set<ReviewReason | CarriedReason>([
   'amount-date-suggestion',
   'date-gap',
+  ...CARRIED_ACCEPTABLE,
 ]);
 const formatOf = (name: string) =>
   /\.pdf$/iu.test(name) ? 'pdf' : /\.csv$/iu.test(name) ? 'csv' : 'xlsx';
@@ -139,7 +181,7 @@ let reads = 0;
 /** How many times this thread has read a statement's originals. */
 export const statementReads = () => reads;
 async function readStatement(
-  state: BankStatementState,
+  state: BankStatementState | BankStatementRollState,
 ): Promise<StatementBase> {
   reads++;
   const [statementFile, cashbookFile] = state.files;
@@ -198,13 +240,36 @@ async function readStatement(
   return frozen({ reading, match, context });
 }
 
+/** What carrying adds to a period before any decision. */
+type StatementCarry = {
+  previous: StatementRoll['previous'];
+  carried: CarriedItem[];
+  clearing: CarriedClearing;
+};
 /** Applies the decisions to what the originals gave. Reads nothing. */
 function settleStatement(
   state: BankStatementState,
   base: StatementBase,
-): BankStatementReplay {
+): BankStatementReplay;
+function settleStatement(
+  state: BankStatementRollState,
+  base: StatementBase,
+  carry: StatementCarry,
+): BankStatementRollReplay;
+function settleStatement(
+  state: BankStatementState | BankStatementRollState,
+  base: StatementBase,
+  carry?: StatementCarry,
+): BankStatementReplay | BankStatementRollReplay {
   const { reading, match, context } = base;
   const { scope } = state;
+  const cited = new Map<string, string>([
+    ...match.movements.map((m) => [`S:${m.id}`, m.reference.trim()] as const),
+    ...match.cashbook.map((e) => [`C:${e.id}`, e.reference.trim()] as const),
+  ]);
+  const carriedReference = new Map(
+    carry?.carried.map((c) => [c.key, c.reference]),
+  );
   const cases: StatementCase[] = [
     ...match.auto.map((a) => ({
       kind: 'automatic' as const,
@@ -222,6 +287,28 @@ function settleStatement(
       cashbook: [...g.cashbook],
       status: 'needs-review' as const,
     })),
+    // The reference a carried case shows is its one carried item's, when
+    // every current member cites it too.
+    ...(carry?.clearing.cases ?? []).map((g) => {
+      const reference =
+        g.carried.length === 1 ? carriedReference.get(g.carried[0])! : '';
+      const members = [
+        ...g.statement.map((id) => `S:${id}`),
+        ...g.cashbook.map((id) => `C:${id}`),
+      ];
+      return {
+        kind: 'carried' as const,
+        reason: g.reason,
+        reference:
+          reference && members.every((k) => cited.get(k) === reference)
+            ? reference
+            : '',
+        statement: [...g.statement],
+        cashbook: [...g.cashbook],
+        carried: [...g.carried],
+        status: 'needs-review' as const,
+      };
+    }),
   ].map((c, i): StatementCase => ({ id: `C${i + 1}`, ...c, decision: null }));
   if (match.held && state.decisions.length) fail('HELD');
   const byId = new Map(cases.map((c) => [c.id, c]));
@@ -255,6 +342,13 @@ function settleStatement(
   const origin = new Map<string, string>();
   for (const id of match.statementOnly) origin.set(`S:${id}`, 'unmatched');
   for (const id of match.cashbookOnly) origin.set(`C:${id}`, 'unmatched');
+  // A current item in a carried case is not outstanding unless the case is
+  // rejected, as a member of any review case is not.
+  for (const c of cases)
+    if (c.kind === 'carried' && c.status !== 'rejected') {
+      for (const id of c.statement) origin.delete(`S:${id}`);
+      for (const id of c.cashbook) origin.delete(`C:${id}`);
+    }
   for (const c of cases)
     if (c.status === 'rejected') {
       for (const id of c.statement) origin.set(`S:${id}`, c.id);
@@ -270,10 +364,25 @@ function settleStatement(
       return o ? [{ side: 'cashbook' as const, id: c.id, origin: o }] : [];
     }),
   ];
+  // A carried item stays carried, one period older, unless its case is
+  // undecided or accepted.
+  const held = new Set(
+    cases.flatMap((c) =>
+      c.kind === 'carried' && c.status !== 'rejected' ? c.carried! : [],
+    ),
+  );
+  const roll: StatementRoll | undefined = carry && {
+    previous: carry.previous,
+    carried: carry.carried,
+    withheld: carry.clearing.withheld,
+    outstanding: carry.carried
+      .filter((c) => !held.has(c.key))
+      .map((c) => ({ ...c, age: c.age + 1 })),
+  };
   return {
     state,
     result: {
-      version: BANK_STATEMENT_LIFECYCLE_VERSION,
+      version: state.version,
       context,
       status: match.held
         ? 'held'
@@ -292,8 +401,9 @@ function settleStatement(
       cases,
       outstanding,
       decisions: structuredClone(state.decisions),
+      ...(roll ? { roll } : {}),
     },
-  };
+  } as BankStatementReplay | BankStatementRollReplay;
 }
 
 /**
@@ -466,6 +576,152 @@ export function statementSessionParts(session: ArrayBuffer): {
     }),
     previous,
   };
+}
+
+async function digest(bytes: ArrayBuffer) {
+  return Array.from(
+    new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)),
+    (n) => n.toString(16).padStart(2, '0'),
+  ).join('');
+}
+const messageOf = (error: unknown) =>
+  error instanceof Error ? error.message : String(error);
+
+/** A previous period's session file as the product reads it: replayed from
+ * its own originals as any restore is, then its items outstanding at its end
+ * with their age. Refuses with a roll code (RollRefused). */
+async function closedPeriod(
+  session: ArrayBuffer,
+): Promise<{ result: BankStatementResult; left: CarriedItem[] }> {
+  let result: BankStatementResult;
+  try {
+    const { state, previous } = statementSessionParts(session);
+    // Only a printed statement carries: it states its own currency, period,
+    // closing and opening, which no scope replaces.
+    if (Object.values(state.scope).some((v) => v !== null)) fail('STATE_SCOPE');
+    ({ result } = previous
+      ? await replayRolledStatement({
+          ...state,
+          version: BANK_STATEMENT_ROLL_VERSION,
+          previous,
+        })
+      : await replayBankStatement(state));
+  } catch (error) {
+    return refuse('ROLL_PREVIOUS_UNREADABLE', messageOf(error));
+  }
+  if (result.status === 'held')
+    refuse('ROLL_PREVIOUS_HELD', result.match.held?.reason);
+  if (result.status !== 'reviewed') refuse('ROLL_PREVIOUS_UNDECIDED');
+  // The chain: a period that could not carry its own previous period is not
+  // one the product can read as closed.
+  const before = result.roll?.previous;
+  if (before?.status === 'refused')
+    refuse(
+      'ROLL_PREVIOUS_UNREADABLE',
+      `its previous period: ${before.code}${before.detail ? `: ${before.detail}` : ''}`,
+    );
+  return {
+    result,
+    left: [
+      ...carriedItems(result, await digest(session)),
+      ...(result.roll?.outstanding ?? []),
+    ],
+  };
+}
+
+/** A period that carries: its own originals read as replayBankStatement
+ * reads them, the previous session file read as closedPeriod reads it, the
+ * carried items cleared by the contract's order, and the decisions applied.
+ * Every decision is bound to the previous file too (R6). */
+export async function replayRolledStatement(
+  input: unknown,
+): Promise<BankStatementRollReplay> {
+  const state = snapshotRolledStatementState(input);
+  const base = await readStatement(state);
+  const { previous: file, scope } = state;
+  if ((await digest(file.original)) !== file.sha256) fail('SOURCE_HASH');
+  let previous: StatementRoll['previous'];
+  let carried: CarriedItem[] = [];
+  try {
+    const closed = await closedPeriod(file.original.slice(0));
+    const problem = rollContinuity(closed.result, base);
+    if (problem) refuse(problem);
+    carried = closed.left;
+    previous = { name: file.name, sha256: file.sha256, status: 'accepted' };
+  } catch (error) {
+    if (!(error instanceof RollRefused)) throw error;
+    previous = {
+      name: file.name,
+      sha256: file.sha256,
+      status: 'refused',
+      code: error.code,
+      detail: error.detail,
+    };
+  }
+  const clearing = clearCarried(carried, base.reading, base.match.cashbook, {
+    ...(scope.period ? { period: scope.period } : {}),
+    ...(scope.confirmedClosing === null
+      ? {}
+      : { confirmedClosing: scope.confirmedClosing }),
+  });
+  const context = JSON.stringify([
+    BANK_STATEMENT_ROLL_VERSION,
+    BANK_STATEMENT_NATIVE,
+    state.files.map((source) => source.sha256),
+    base.reading.currency,
+    clearing.match.statement.period,
+    scope.confirmedClosing,
+    clearing.match.statement.completeness,
+    file.sha256,
+  ]);
+  return settleStatement(
+    state,
+    frozen({ reading: base.reading, match: clearing.match, context }),
+    frozen({ previous, carried, clearing }),
+  );
+}
+
+/** A period that carries is saved with its previous session file, byte for
+ * byte, and restored before it is returned. */
+export async function saveRolledStatement(
+  input: unknown,
+): Promise<ArrayBuffer> {
+  const replay = await replayRolledStatement(input);
+  const { state } = replay;
+  const session = new TextEncoder().encode(
+    JSON.stringify({
+      format: BANK_STATEMENT_SESSION_FORMAT,
+      version: BANK_STATEMENT_ROLL_VERSION,
+      files: state.files.map((f) => ({
+        name: f.name,
+        sha256: f.sha256,
+        data: encode(f.original),
+      })),
+      scope: state.scope,
+      decisions: [...state.decisions],
+      previous: {
+        name: state.previous.name,
+        sha256: state.previous.sha256,
+        data: encode(state.previous.original),
+      },
+    }),
+  ).buffer;
+  statementBytes(session, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
+  if (!sameStatementData(await restoreRolledStatement(session), replay))
+    fail('SESSION');
+  return session;
+}
+
+export async function restoreRolledStatement(
+  session: ArrayBuffer,
+): Promise<BankStatementRollReplay> {
+  const { state, previous } = statementSessionParts(session);
+  if (!previous) fail('SESSION');
+  return replayRolledStatement({
+    ...state,
+    version: BANK_STATEMENT_ROLL_VERSION,
+    previous,
+  });
 }
 
 /** The workbook cites every value: statement lines by page and PDF.js text

@@ -50,6 +50,12 @@ export type BankStatementState = {
   scope: StatementScope;
   decisions: StatementDecision[];
 };
+/** A period that carries (bank-statement-roll-1, proposed): its own state
+ * and the previous period's session file as it was saved. */
+export type BankStatementRollState = Omit<BankStatementState, 'version'> & {
+  version: typeof BANK_STATEMENT_ROLL_VERSION;
+  previous: StatementSource;
+};
 export type BankStatementExportRequest = {
   state: BankStatementState;
   result: unknown;
@@ -208,6 +214,43 @@ export function snapshotBankStatementState(value: unknown): BankStatementState {
     files: files as BankStatementState['files'],
     scope: snapshotScope(value.scope),
     decisions: value.decisions.map(snapshotDecision),
+  };
+}
+/** Captures a roll state synchronously: the period's own state as above,
+ * and the previous session file's name, fingerprint and copied bytes. */
+export function snapshotRolledStatementState(
+  value: unknown,
+): BankStatementRollState {
+  if (
+    !statementPlain(value) ||
+    !statementKeys(value, [
+      'version',
+      'files',
+      'scope',
+      'decisions',
+      'previous',
+    ]) ||
+    value.version !== BANK_STATEMENT_ROLL_VERSION
+  )
+    fail('INPUT');
+  const { previous: p, ...own } = value;
+  const state = snapshotBankStatementState({
+    ...own,
+    version: BANK_STATEMENT_LIFECYCLE_VERSION,
+  });
+  if (
+    !statementPlain(p) ||
+    !statementKeys(p, ['name', 'sha256', 'original']) ||
+    !statementText(p.name, 255) ||
+    typeof p.sha256 !== 'string' ||
+    !/^[a-f0-9]{64}$/u.test(p.sha256)
+  )
+    fail('SOURCE');
+  statementBytes(p.original, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
+  return {
+    ...state,
+    version: BANK_STATEMENT_ROLL_VERSION,
+    previous: { name: p.name, sha256: p.sha256, original: p.original.slice(0) },
   };
 }
 /** Captures a worker request before anything yields. */

@@ -1,23 +1,20 @@
-// bank-statement-roll-1 (proposed), engine part: a closed previous period's
+// bank-statement-roll-1 (proposed), rules part: a closed previous period's
 // outstanding items carried into the current bank statement period, by the
-// contract in audit/bank-roll-foundation/contract.json.
+// contract in audit/bank-roll-foundation/contract.json. The lifecycle reads
+// the previous session file and settles decisions (bank-statement-lifecycle.ts);
+// this module only decides, from readings it is given.
 //
-// The previous period is a session file the product saved. It is restored
-// from its own originals with the current engine, as any restore is; its
-// saved result is never read. It is carried only when it reads whole, its
-// statement is proved and printed, every case in it is automatic or decided,
-// and it ends the day before the current period in the same currency with a
-// printed closing equal to the current printed opening. Otherwise nothing is
-// carried and the refusal names its code.
+// A previous period is carried only when it reads whole, its statement is
+// proved and printed, every case in it is automatic or decided, and it ends
+// the day before the current period in the same currency with a printed
+// closing equal to the current printed opening. Otherwise nothing is carried
+// and the refusal names its code.
 //
 // A carried item is candidate evidence with its provenance, never an
 // approved fact. A current item that repeats it on its own side withholds
 // that reference from the period's own matching; what the own matching
 // leaves unmatched is set against the carried items; and every pairing with a
 // carried item is a review case. None is automatic.
-//
-// Decisions on carried cases, saving a session that carries, its export and
-// the interface are not here: no worker action reaches this module yet.
 import {
   matchBankStatement,
   statementMovements,
@@ -26,18 +23,7 @@ import {
   type StatementMatchResult,
 } from './bank-statement-match.ts';
 import type { BankStatementReading } from './bank-statement-native.ts';
-import {
-  replayBankStatement,
-  statementSessionParts,
-  type BankStatementReplay,
-  type BankStatementResult,
-} from './bank-statement-lifecycle.ts';
-import {
-  BANK_STATEMENT_SESSION_LIMIT,
-  fail,
-  snapshotBankStatementState,
-  statementBytes,
-} from './bank-statement-request.ts';
+import type { BankStatementResult } from './bank-statement-lifecycle.ts';
 
 /** In the order they are checked. */
 export const ROLL_REFUSALS = [
@@ -56,6 +42,13 @@ export type CarriedReason =
   | 'carried-amount-difference'
   | 'carried-ambiguous'
   | 'carried-amount-suggestion';
+/** Carried cases an accountant may accept as they stand: one carried item
+ * and one current item that agree by reference and amount, or by amount where
+ * a reference is missing. */
+export const CARRIED_ACCEPTABLE: readonly CarriedReason[] = [
+  'carried-reference',
+  'carried-amount-suggestion',
+];
 export type CarriedItem = {
   /** `S:<movement>@<period end>` or `C:<voucher>@<period end>`. */
   key: string;
@@ -96,17 +89,8 @@ export type CarriedClearing = {
   /** Carried items in no case, with their age at this period's end. */
   still: CarriedItem[];
 };
-export type BankStatementRoll = CarriedClearing & {
-  previous:
-    | { status: 'none' }
-    | { status: 'accepted'; sha256: string }
-    | { status: 'refused'; code: RollRefusal; detail: string };
-  carried: CarriedItem[];
-  /** The current period exactly as bank-statement-lifecycle-1 settles it. */
-  current: BankStatementReplay;
-};
-
-class RollRefused extends Error {
+/** A previous period that may not be carried, with its code. */
+export class RollRefused extends Error {
   readonly code: RollRefusal;
   readonly detail: string;
   constructor(code: RollRefusal, detail: string) {
@@ -115,27 +99,20 @@ class RollRefused extends Error {
     this.detail = detail;
   }
 }
-const refuse = (code: RollRefusal, detail = ''): never => {
+export const refuse = (code: RollRefusal, detail = ''): never => {
   throw new RollRefused(code, detail);
 };
-const messageOf = (error: unknown) =>
-  error instanceof Error ? error.message : String(error);
-async function digest(bytes: ArrayBuffer) {
-  return Array.from(
-    new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)),
-    (n) => n.toString(16).padStart(2, '0'),
-  ).join('');
-}
 const nextDay = (day: string) =>
   new Date(Date.parse(`${day}T00:00:00Z`) + 86_400_000)
     .toISOString()
     .slice(0, 10);
 
+type Period = Pick<BankStatementResult, 'reading' | 'match'>;
 /** Whether a closed period may hand its items to the next one: the same
  * currency, the day before, and its printed closing as the printed opening. */
 export function rollContinuity(
-  previous: BankStatementResult,
-  current: BankStatementResult,
+  previous: Period,
+  current: Period,
 ): RollRefusal | null {
   if (previous.reading.currency !== current.reading.currency)
     return 'ROLL_CURRENCY';
@@ -151,38 +128,17 @@ export function rollContinuity(
   return null;
 }
 
-/** A previous period's session file as the product reads it: its replay and
- * the items outstanding at its end, with their age. Refuses with a code. */
-async function closedPeriod(
-  session: ArrayBuffer,
-): Promise<{ replay: BankStatementReplay; left: CarriedItem[] }> {
-  let parts: ReturnType<typeof statementSessionParts>;
-  let replay: BankStatementReplay;
-  try {
-    parts = statementSessionParts(session);
-    // Only a printed statement carries: it states its own currency, period,
-    // closing and opening, which no scope replaces.
-    const { scope } = parts.state;
-    if (
-      scope.currency !== null ||
-      scope.period !== null ||
-      scope.confirmedClosing !== null
-    )
-      fail('STATE_SCOPE');
-    replay = await replayBankStatement(parts.state);
-  } catch (error) {
-    return refuse('ROLL_PREVIOUS_UNREADABLE', messageOf(error));
-  }
-  const { result } = replay;
-  if (result.status === 'held')
-    refuse('ROLL_PREVIOUS_HELD', result.match.held?.reason);
-  if (result.status !== 'reviewed') refuse('ROLL_PREVIOUS_UNDECIDED');
+/** A closed period's own outstanding items as carried items, one period end
+ * old, named by the session file that left them. */
+export function carriedItems(
+  result: BankStatementResult,
+  session256: string,
+): CarriedItem[] {
   const period = result.match.statement.period!;
-  const session256 = await digest(session);
   const [statement256, cashbook256] = result.sources.map((s) => s.sha256);
   const movements = new Map(result.match.movements.map((m) => [m.id, m]));
   const entries = new Map(result.match.cashbook.map((e) => [e.id, e]));
-  const left = result.outstanding.map((o): CarriedItem => {
+  return result.outstanding.map((o): CarriedItem => {
     const m = o.side === 'statement' ? movements.get(o.id)! : null;
     const e = o.side === 'cashbook' ? entries.get(o.id)! : null;
     const x = (m ?? e)!;
@@ -203,36 +159,6 @@ async function closedPeriod(
       session: session256,
     };
   });
-  if (parts.previous) {
-    // The chain: what this period carried in and did not clear is still
-    // outstanding at its end. Its own previous period is read the same way;
-    // any refusal there makes this session one the product cannot read.
-    let before: Awaited<ReturnType<typeof closedPeriod>>;
-    try {
-      if ((await digest(parts.previous.original)) !== parts.previous.sha256)
-        fail('SOURCE_HASH');
-      before = await closedPeriod(parts.previous.original);
-    } catch (error) {
-      return refuse(
-        'ROLL_PREVIOUS_UNREADABLE',
-        `its previous period: ${messageOf(error)}`,
-      );
-    }
-    const problem = rollContinuity(before.replay.result, result);
-    if (problem)
-      refuse('ROLL_PREVIOUS_UNREADABLE', `its previous period: ${problem}`);
-    const cleared = clearCarried(
-      before.left,
-      result.reading,
-      result.match.cashbook,
-    );
-    // A closed period leaves no carried case undecided; decisions on carried
-    // cases are not part of this engine yet.
-    if (cleared.cases.length)
-      refuse('ROLL_PREVIOUS_UNDECIDED', 'a carried case awaits a decision');
-    left.push(...cleared.still);
-  }
-  return { replay, left };
 }
 
 type Current = {
@@ -431,48 +357,4 @@ export function clearCarried(
       .filter((c) => !inCase.has(c.key))
       .map((c) => ({ ...c, age: c.age + 1 })),
   };
-}
-
-/** The current period with, optionally, the previous period's session file:
- * the previous period accepted or refused with its code, the items carried,
- * and how they meet the current period. Reads every original from its bytes. */
-export async function rollBankStatement(input: {
-  previous: ArrayBuffer | null;
-  current: unknown;
-}): Promise<BankStatementRoll> {
-  const state = snapshotBankStatementState(input.current);
-  // Decisions in a period that carries are bound to its previous session too
-  // (R6); they come with that session's format, not here.
-  if (state.decisions.length) fail('DECISION');
-  if (input.previous !== null)
-    statementBytes(input.previous, BANK_STATEMENT_SESSION_LIMIT, 'SESSION');
-  const previousFile = input.previous?.slice(0) ?? null;
-  const current = await replayBankStatement(state);
-  let previous: BankStatementRoll['previous'] = { status: 'none' };
-  let carried: CarriedItem[] = [];
-  if (previousFile) {
-    try {
-      const closed = await closedPeriod(previousFile);
-      const problem = rollContinuity(closed.replay.result, current.result);
-      if (problem) refuse(problem);
-      carried = closed.left;
-      previous = { status: 'accepted', sha256: await digest(previousFile) };
-    } catch (error) {
-      if (!(error instanceof RollRefused)) throw error;
-      previous = { status: 'refused', code: error.code, detail: error.detail };
-    }
-  }
-  const { scope } = state;
-  const clearing = clearCarried(
-    carried,
-    current.result.reading,
-    current.result.match.cashbook,
-    {
-      ...(scope.period ? { period: scope.period } : {}),
-      ...(scope.confirmedClosing === null
-        ? {}
-        : { confirmedClosing: scope.confirmedClosing }),
-    },
-  );
-  return { previous, carried, current, ...clearing };
 }
