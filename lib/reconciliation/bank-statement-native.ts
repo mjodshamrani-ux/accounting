@@ -149,14 +149,14 @@ const COLUMN = {
   balance: 6,
 } as const;
 
-const latinDigits = (s: string) =>
+export const latinDigits = (s: string) =>
   s
     .replace(/[٠-٩]/gu, (d) => String(d.charCodeAt(0) - 0x660))
     .replace(/[۰-۹]/gu, (d) => String(d.charCodeAt(0) - 0x6f0))
     .replace(/٬/gu, ',')
     .replace(/٫/gu, '.');
-const normal = (s: string) => s.normalize('NFKC').replace(/\s+/gu, ' ').trim();
-const squeeze = (s: string) => s.normalize('NFKC').replace(/\s+/gu, '');
+export const normal = (s: string) => s.normalize('NFKC').replace(/\s+/gu, ' ').trim();
+export const squeeze = (s: string) => s.normalize('NFKC').replace(/\s+/gu, '');
 
 /** Minor units of a printed amount in this family's format, or undefined. */
 export function statementAmount(
@@ -199,8 +199,8 @@ const isoDate = (s: string) => {
     : undefined;
 };
 
-type Token = NativePdfWordSource['pages'][number]['tokens'][number];
-type Piece = {
+export type Token = NativePdfWordSource['pages'][number]['tokens'][number];
+export type Piece = {
   text: string;
   /** The readings of this text: a whole token's text and PDF.js reading, or
    * a word part's own text. */
@@ -217,7 +217,7 @@ type Piece = {
   part?: number;
   drawnSpace?: boolean;
 };
-const pieceOf = (t: Token): Piece => ({
+export const pieceOf = (t: Token): Piece => ({
   text: t.text,
   readings: [
     t.text,
@@ -231,7 +231,7 @@ const pieceOf = (t: Token): Piece => ({
   item: t.item,
   token: t,
 });
-const partsOf = (t: Token): Piece[] =>
+export const partsOf = (t: Token): Piece[] =>
   t.parts?.map((p, k) => ({
     ...pieceOf(t),
     text: p.text,
@@ -246,7 +246,7 @@ const strongRtl = (p: Piece) => p.rtl && /\p{Script=Arabic}/u.test(p.text);
 
 /** Reading order of pieces on one line: the paragraph direction, with
  * opposite-direction runs kept in their own visual order. */
-function readingOrder(pieces: Piece[], direction: 'ltr' | 'rtl'): Piece[] {
+export function readingOrder(pieces: Piece[], direction: 'ltr' | 'rtl'): Piece[] {
   const sorted = [...pieces].sort((a, b) =>
     direction === 'ltr' ? a.x0 - b.x0 : b.x1 - a.x1,
   );
@@ -285,7 +285,7 @@ const spaceDrawn = (p: Piece, q: Piece) =>
     : drawnAfter(p, q) || drawnAfter(q, p);
 /** Text of pieces in reading order; touching pieces join without a space,
  * unless the writer drew one between them. */
-function textOf(pieces: Piece[], direction: 'ltr' | 'rtl'): string {
+export function textOf(pieces: Piece[], direction: 'ltr' | 'rtl'): string {
   const ordered = readingOrder(pieces, direction);
   let out = '';
   for (const [i, p] of ordered.entries()) {
@@ -302,8 +302,8 @@ function textOf(pieces: Piece[], direction: 'ltr' | 'rtl'): string {
   return normal(out);
 }
 
-type Line = { y: number; tokens: Token[] };
-function linesOf(tokens: Token[]): Line[] {
+export type Line = { y: number; tokens: Token[] };
+export function linesOf(tokens: Token[]): Line[] {
   const lines: Line[] = [];
   for (const t of [...tokens].sort((a, b) => b.y - a.y || a.x - b.x)) {
     const last = lines.at(-1);
@@ -324,12 +324,12 @@ function linesOf(tokens: Token[]): Line[] {
 const PADDING = 2.5,
   SEPARATION = 1,
   UNDER = 0.5;
-type Columns = {
+export type Columns = {
   start: number[];
   spans: { x0: number; x1: number }[];
   direction: 'ltr' | 'rtl';
 };
-function columnOf(c: Columns, p: Piece): number | undefined {
+export function columnOf(c: Columns, p: Piece): number | undefined {
   for (let k = 0; k < c.start.length; k++) {
     const next = c.start[k + 1];
     if (c.direction === 'ltr') {
@@ -363,7 +363,7 @@ function columnOf(c: Columns, p: Piece): number | undefined {
 
 /** A token as it sits in the table: whole when it fits one column, else
  * its proved word parts (or itself, to be refused by the caller). */
-function fitted(columns: Columns, t: Token): Piece[] {
+export function fitted(columns: Columns, t: Token): Piece[] {
   const whole = pieceOf(t);
   return columnOf(columns, whole) !== undefined ? [whole] : partsOf(t);
 }

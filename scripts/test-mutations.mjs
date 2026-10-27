@@ -84,6 +84,7 @@ const tests = [
   'tests/pdf-header-separators.test.ts',
   'tests/pdf-arabic-supplier-lines.test.ts',
   'tests/pdf-column-proposals.test.ts',
+  'tests/ar-statement-pdf.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -1370,6 +1371,71 @@ const mutations = [
     name: 'sup2-s4-transform-names-its-own-column',
     file: 'lib/reconciliation/pdf.ts',
     changes: [['          column: placed.get(token)! + 1,', '          column: cuts.filter((c) => (token.x / width) * 100 >= c).length + 1,']],
+  },
+  {
+    name: 'ar-pdf-any-header-continues',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          if (section !== undefined && next === key && scope) {", "          if (section !== undefined && scope) {"]],
+  },
+  {
+    name: 'ar-pdf-continuation-by-customer',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["            (['customer', 'name', 'account', 'currency', 'period'] as const).map(", "            (['customer'] as const).map("]],
+  },
+  {
+    name: 'ar-pdf-orphan-line-unreported',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        error('AR_PDF_ORPHAN_LINE', at.page, at.line);\n", ""]],
+  },
+  {
+    name: 'ar-pdf-value-first-in-any-direction',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["    if (rtl && (text.endsWith(`:${label}`) || text.endsWith(`: ${label}`)))", "    if ((text.endsWith(`:${label}`) || text.endsWith(`: ${label}`)))"]],
+  },
+  {
+    name: 'ar-pdf-unknown-heading-accepted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          known.length !== roles.length ||\n", ""]],
+  },
+  {
+    name: 'ar-pdf-required-heading-optional',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          REQUIRED.some((r) => !known.includes(r))", "          false"]],
+  },
+  {
+    name: 'ar-pdf-sign-not-checked',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["      if (kind === 'invoice' ? amount < 0 : amount > 0) {", "      if (false) {"]],
+  },
+  {
+    name: 'ar-pdf-zero-is-an-amount',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  if (!Number.isSafeInteger(value) || value === 0) return undefined;", "  if (!Number.isSafeInteger(value)) return undefined;"]],
+  },
+  {
+    name: 'ar-pdf-period-unchecked',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["      if (date < s.scope.start || date > s.scope.end) {", "      if (false) {"]],
+  },
+  {
+    name: 'ar-pdf-repeated-header-field-accepted',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["        if (pending.fields[field] !== undefined) pending.bad = true;\n", ""]],
+  },
+  {
+    name: 'ar-pdf-document-header-change-ignored',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          error('AR_PDF_DOCUMENT_HEADER', at.page, at.line);\n", ""]],
+  },
+  {
+    name: 'ar-pdf-value-outside-columns-dropped',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["          if (!role) outside = true;", "          if (!role) continue;"]],
+  },
+  {
+    name: 'ar-pdf-reading-issues-ignored',
+    file: 'lib/reconciliation/ar-statement-pdf.ts',
+    changes: [["  if (source.readingIssues.length)\n    throw new ArStatementReadError(", "  if (false)\n    throw new ArStatementReadError("]],
   },
   {
     name: 'sup2-s4-run-across-a-column-gap',

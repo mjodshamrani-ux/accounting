@@ -76,6 +76,13 @@ export const NOT_SHOWN: Record<string, string[]> = {
     'الرصيد الختامي',
     'إجمالي السحب / الإيداع',
     'إجمالي الصفحة سحب / إيداع',
+    // A customer statement as printed (ar-statement-pdf-1): its title, header
+    // labels, section total and column headings.
+    'كشف حساب',
+    'صادر عن',
+    'رقم العميل',
+    'إجمالي القسم',
+    'المبلغ المفتوح',
     // Sheets and headings of an exported Tarasuf workpaper, recognised when a
     // workpaper is uploaded again.
     'صف المصدر',
