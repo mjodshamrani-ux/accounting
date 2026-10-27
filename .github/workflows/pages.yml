@@ -328,6 +328,7 @@ jobs:
           pnpm test:bank-tolerance:lifecycle
           pnpm test:bank-tolerance:mutations
           pnpm test:bank-tolerance:t4-seal
+          pnpm test:bank-tolerance:t4-holdout
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -827,7 +828,7 @@ jobs:
           BANK_TOLERANCE_INTERFACE_MUTATION_DIR: ${{ runner.temp }}/bank-tolerance-interface-mutations
         run: pnpm test:bank-tolerance:interface-mutations
   bank-tolerance-browser:
-    name: Bank declared tolerance in the built application, on the sealed foundation stories (WF-1 TOL-1 T3)
+    name: Bank declared tolerance in the built application, on the sealed foundation stories and the T4 holdout (WF-1 TOL-1 T3, T4)
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -850,6 +851,10 @@ jobs:
         env:
           BANK_TOLERANCE_BROWSER_DIR: ${{ runner.temp }}/bank-tolerance-browser
         run: pnpm test:bank-tolerance:browser
+      - name: Verify the declared tolerance on the sealed T4 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 TOL-1 T4)
+        env:
+          BANK_TOLERANCE_BROWSER_DIR: ${{ runner.temp }}/bank-tolerance-t4-browser
+        run: pnpm test:bank-tolerance:t4-browser
   bank-statement-holdout:
     name: Bank statement holdouts from eighteen other PDF producers against their recorded outcomes (BNK-PDF-1 G6, G8, G9, G10, G12, G14, G15, G17, G20)
     runs-on: ubuntu-latest

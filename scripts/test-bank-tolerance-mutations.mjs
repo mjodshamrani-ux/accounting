@@ -30,18 +30,35 @@ const output =
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
 // BANK_TOLERANCE_PROOF_ONLY=1 measures the two proofs alone, without the unit
-// tests.
+// tests; BANK_TOLERANCE_PROOF_ONLY=holdout measures the T4 holdout's record
+// alone (scripts/bank-tolerance-holdout.mjs --assert=run-2.json), which runs
+// both proofs on the holdout.
 const only = process.env.BANK_TOLERANCE_PROOF_ONLY;
 const tests = only ? [] : ['tests/bank-statement-tolerance.test.ts'];
-const proofs = [
-  ['scripts/bank-tolerance-proof.mjs'],
-  ['scripts/bank-tolerance-lifecycle.mjs'],
+const proofs =
+  only === 'holdout'
+    ? [['scripts/bank-tolerance-holdout.mjs', '--assert=run-2.json']]
+    : [
+        ['scripts/bank-tolerance-proof.mjs'],
+        ['scripts/bank-tolerance-lifecycle.mjs'],
+      ];
+const scripts = [
+  'scripts/bank-tolerance-proof.mjs',
+  'scripts/bank-tolerance-lifecycle.mjs',
+  ...(only === 'holdout' ? ['scripts/bank-tolerance-holdout.mjs'] : []),
 ];
 const packages = [
   'audit/bank-tolerance-foundation',
   'audit/bank-roll-foundation',
   // The matching window the workbook checker reads.
   'audit/bank-statement-foundation/contract.json',
+  // The holdout and what its seal pins outside it.
+  ...(only === 'holdout'
+    ? [
+        'audit/bank-tolerance-holdout-t4',
+        'audit/bank-statement-foundation/oracle.py',
+      ]
+    : []),
 ];
 const TOL = 'lib/reconciliation/bank-statement-tolerance.ts';
 const LIFE = 'lib/reconciliation/bank-statement-lifecycle.ts';
@@ -291,7 +308,7 @@ const mutations = [
 const files = [
   ...new Set(mutations.map(([, file]) => file)),
   ...tests,
-  ...proofs.map(([script]) => script),
+  ...scripts,
 ];
 const digest = (b) => createHash('sha256').update(b).digest('hex');
 const before = Object.fromEntries(
@@ -347,7 +364,7 @@ if (report.baselinePassed)
       for (const name of [
         'lib',
         ...tests,
-        ...proofs.map(([script]) => script),
+        ...scripts,
         ...packages,
         'package.json',
       ])

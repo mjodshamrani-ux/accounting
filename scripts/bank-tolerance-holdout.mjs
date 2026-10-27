@@ -24,7 +24,10 @@ const seal = spawnSync(
   ['-B', path.join(root, suite, 'check_seal.py')],
   { encoding: 'utf8' },
 );
-assert.equal(seal.status, 0, `the seal: ${seal.stdout}${seal.stderr}`);
+// A seal that does not hold is not a finding about the product: it stops the
+// run with an error, never an assertion a mutation gate would count.
+if (seal.status !== 0)
+  throw new Error(`the seal: ${seal.stdout}${seal.stderr}`);
 
 /** A script's summary line, whatever its exit: the run as it came. */
 function run(script) {

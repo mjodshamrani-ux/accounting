@@ -8,7 +8,9 @@
 //     the session file exactly when declared, restored and held equal to the
 //     replay; in the sheet session, the policy changed by one minor unit
 //     must refuse the session when a decision is bound to it, and removed
-//     must too, or give the period without a policy when none is;
+//     must too, or give the period without a policy when none is; a period
+//     limit that unit takes to 100 major units refuses it by PER_PERIOD
+//     first, since nothing is read under a policy the contract refuses;
 //   - both workbooks are written and handed to the independent checker
 //     (audit/bank-tolerance-foundation/check_export.py) with its self-test.
 // A failure is recorded and asserted at the end, not thrown.
@@ -65,6 +67,9 @@ const refusal = (error) => {
   const m = /^BANK_STATEMENT_([A-Z_]+)(?:: ([A-Z_]+))?/u.exec(message(error));
   return m ? (m[2] ? `${m[1]}:${m[2]}` : m[1]) : `error: ${message(error)}`;
 };
+// ISO 4217 exponents of the currencies the sealed packages use, as the
+// independent checker knows them; the contract's limits are in these units.
+const EXPONENT = { SAR: 2, KWD: 3, JPY: 0 };
 const doc = (b) => JSON.parse(new TextDecoder().decode(b));
 const encoded = (d) => new TextEncoder().encode(JSON.stringify(d)).buffer;
 const out = process.env.BANK_TOLERANCE_LIFECYCLE_DIR ?? path.join(root, 'work');
@@ -218,7 +223,15 @@ for (const [index, story] of facts.stories.entries()) {
           } catch (error) {
             got = refusal(error);
           }
-          if (decisions.length) {
+          const currency = story.periods[0].statement.currency;
+          assert.ok(currency in EXPONENT, `${currency}: no exponent`);
+          if (
+            change === 'perPeriod + 1' &&
+            policy.perPeriod + 1 >= 100 * 10 ** EXPONENT[currency]
+          ) {
+            if (got !== 'TOLERANCE:PER_PERIOD')
+              fail(`${change}: ${typeof got === 'string' ? got : 'restored'}`);
+          } else if (decisions.length) {
             if (got !== 'DECISION')
               fail(`${change}: ${typeof got === 'string' ? got : 'restored'}`);
           } else if (typeof got === 'string') fail(`${change}: ${got}`);

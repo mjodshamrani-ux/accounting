@@ -170,6 +170,7 @@ const required = [
   'test:bank-tolerance:lifecycle',
   'test:bank-tolerance:mutations',
   'test:bank-tolerance:t4-seal',
+  'test:bank-tolerance:t4-holdout',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',
@@ -313,7 +314,10 @@ const separate = {
   'bank-tolerance-interface-mutations': [
     'test:bank-tolerance:interface-mutations',
   ],
-  'bank-tolerance-browser': ['test:bank-tolerance:browser'],
+  'bank-tolerance-browser': [
+    'test:bank-tolerance:browser',
+    'test:bank-tolerance:t4-browser',
+  ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',
