@@ -146,6 +146,8 @@ const required = [
   'test:bank-sheet:oracle-mutants',
   'test:bank-sheet:seal',
   'test:bank-sheet:baseline',
+  'test:bank-sheet:proof',
+  'test:bank-sheet:mutations',
   'test:bank-roll:baseline',
   'test:bank-roll:proof',
   'test:bank-roll:lifecycle',

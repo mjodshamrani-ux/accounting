@@ -276,6 +276,7 @@ jobs:
           BANK_ROLL_LIFECYCLE_DIR: ${{ runner.temp }}/bank-roll-lifecycle
           BANK_ROLL_MUTATION_DIR: ${{ runner.temp }}/bank-roll-mutations
           BANK_ROLL_HOLDOUT_DIR: ${{ runner.temp }}/bank-roll-holdout
+          BANK_SHEET_MUTATION_DIR: ${{ runner.temp }}/bank-sheet-mutations
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
           BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
@@ -297,6 +298,8 @@ jobs:
           pnpm test:bank-sheet:oracle-mutants
           pnpm test:bank-sheet:seal
           pnpm test:bank-sheet:baseline
+          pnpm test:bank-sheet:proof
+          pnpm test:bank-sheet:mutations
           pnpm test:bank-roll:baseline
           pnpm test:bank-roll:proof
           pnpm test:bank-roll:lifecycle
