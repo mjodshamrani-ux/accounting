@@ -1,0 +1,655 @@
+{
+ "factsSha256": "f99d7fb5cd3b21f9fd2f87211669aef1d6a9413861646f6604c4b1c9fbb6db3f",
+ "files": {
+  "P01-DEC-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H01-DEC"
+  },
+  "P01-JAN-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H01-JAN"
+  },
+  "P02-FEB-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 2,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H02-FEB"
+  },
+  "P02-JAN-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 2,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H02-JAN"
+  },
+  "P03-FEB-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 4,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H03-FEB"
+  },
+  "P03-MAR-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 4,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H03-MAR"
+  },
+  "P04-DEC-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H04-DEC"
+  },
+  "P04-JAN-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H04-JAN"
+  },
+  "P04-NOV-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H04-NOV"
+  },
+  "P05-DEC-cashbook.xlsx": {
+   "entries": 7,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 2,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H05-DEC"
+  },
+  "P05-JAN-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 3,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H05-JAN"
+  },
+  "P06-DEC-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 1,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H06-DEC"
+  },
+  "P06-JAN-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 1,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H06-JAN"
+  },
+  "P07-FEB-cashbook.csv": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 1,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H07-FEB"
+  },
+  "P07-JAN-cashbook.csv": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 1,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H07-JAN"
+  },
+  "P08-DEC-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H08-DEC"
+  },
+  "P08-JAN-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H08-JAN"
+  },
+  "P09-DEC-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 2,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H09-DEC"
+  },
+  "P09-JAN-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 2,
+   "others": [],
+   "sheets": 2,
+   "twin": "bank-roll-holdout-w4/H09-JAN"
+  },
+  "P10-FEB-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "payments",
+    "receipts",
+    "voucher"
+   ],
+   "header": 1,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H10-FEB"
+  },
+  "P10-MAR-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "payments",
+    "receipts",
+    "voucher"
+   ],
+   "header": 1,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-roll-holdout-w4/H10-MAR"
+  },
+  "P11-DEC-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 4,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-sheet-holdout-r4/K10-DEC"
+  },
+  "P11-JAN-cashbook.xlsx": {
+   "entries": 5,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 4,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-sheet-holdout-r4/K10-JAN"
+  },
+  "P12-FEB-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-sheet-holdout-r4/K11-FEB"
+  },
+  "P13-DEC-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 2,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-sheet-holdout-r4/K12-DEC"
+  },
+  "P14-JAN-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [
+    12
+   ],
+   "sheets": 1,
+   "twin": "bank-sheet-holdout-r4/K13-JAN"
+  },
+  "P15-DEC-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [
+    6
+   ],
+   "sheets": 1,
+   "twin": "bank-sheet-holdout-r4/K14-DEC"
+  },
+  "P16-JAN-cashbook.xlsx": {
+   "entries": 6,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 2,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-sheet-holdout-r4/K15-JAN"
+  },
+  "P17-APR-cashbook.xlsx": {
+   "entries": 8,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-review-holdout-r3/R08-APR"
+  },
+  "P18-MAY-cashbook.xlsx": {
+   "entries": 8,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 1,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-review-holdout-r3/R03-MAY"
+  },
+  "P19-APR-cashbook.xlsx": {
+   "entries": 17,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-review-holdout-r3/R05-APR"
+  },
+  "P19-MAY-cashbook.xlsx": {
+   "entries": 9,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "voucher"
+   ],
+   "header": 5,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-review-holdout-r3/R06-MAY"
+  },
+  "P20-JUN-cashbook.xlsx": {
+   "entries": 50,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 4,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-review-holdout-r3/R04-JUN"
+  },
+  "P20-JUN2-cashbook.xlsx": {
+   "entries": 9,
+   "equal": true,
+   "fields": [
+    "date",
+    "description",
+    "payments",
+    "receipts",
+    "reference",
+    "voucher"
+   ],
+   "header": 4,
+   "others": [],
+   "sheets": 1,
+   "twin": "bank-review-holdout-r3/R07-JUN"
+  }
+ },
+ "passed": true,
+ "problems": [],
+ "selfTest": [
+  {
+   "plant": "csv-amount",
+   "rejected": true
+  },
+  {
+   "plant": "csv-reference",
+   "rejected": true
+  },
+  {
+   "plant": "openpyxl-voucher",
+   "rejected": true
+  },
+  {
+   "plant": "exceljs-amount",
+   "rejected": true
+  },
+  {
+   "plant": "xlsxwriter-dropped-row",
+   "rejected": true
+  },
+  {
+   "plant": "libreoffice-reference",
+   "rejected": true
+  },
+  {
+   "plant": "sealed-twin-changed",
+   "rejected": true
+  }
+ ],
+ "sources": {
+  "bank-review-holdout-r3/R02-APR-cashbook.csv": true,
+  "bank-review-holdout-r3/R02-APR-statement.pdf": true,
+  "bank-review-holdout-r3/R03-MAY-cashbook.csv": true,
+  "bank-review-holdout-r3/R03-MAY-statement.pdf": true,
+  "bank-review-holdout-r3/R04-JUN-cashbook.csv": true,
+  "bank-review-holdout-r3/R04-JUN-statement.pdf": true,
+  "bank-review-holdout-r3/R05-APR-cashbook.csv": true,
+  "bank-review-holdout-r3/R05-APR-statement.pdf": true,
+  "bank-review-holdout-r3/R06-MAY-cashbook.csv": true,
+  "bank-review-holdout-r3/R06-MAY-statement.pdf": true,
+  "bank-review-holdout-r3/R07-JUN-cashbook.csv": true,
+  "bank-review-holdout-r3/R07-JUN-statement.pdf": true,
+  "bank-review-holdout-r3/R08-APR-cashbook.csv": true,
+  "bank-review-holdout-r3/R08-APR-statement.pdf": true,
+  "bank-review-holdout-r3/stories.json": true,
+  "bank-roll-holdout-w4/H01-DEC-cashbook.csv": true,
+  "bank-roll-holdout-w4/H01-DEC-statement.pdf": true,
+  "bank-roll-holdout-w4/H01-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H01-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H02-FEB-cashbook.csv": true,
+  "bank-roll-holdout-w4/H02-FEB-statement.pdf": true,
+  "bank-roll-holdout-w4/H02-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H02-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H03-FEB-cashbook.csv": true,
+  "bank-roll-holdout-w4/H03-FEB-statement.pdf": true,
+  "bank-roll-holdout-w4/H03-MAR-cashbook.csv": true,
+  "bank-roll-holdout-w4/H03-MAR-statement.pdf": true,
+  "bank-roll-holdout-w4/H04-DEC-cashbook.csv": true,
+  "bank-roll-holdout-w4/H04-DEC-statement.pdf": true,
+  "bank-roll-holdout-w4/H04-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H04-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H04-NOV-cashbook.csv": true,
+  "bank-roll-holdout-w4/H04-NOV-statement.pdf": true,
+  "bank-roll-holdout-w4/H05-DEC-cashbook.csv": true,
+  "bank-roll-holdout-w4/H05-DEC-statement.pdf": true,
+  "bank-roll-holdout-w4/H05-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H05-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H06-DEC-cashbook.csv": true,
+  "bank-roll-holdout-w4/H06-DEC-statement.pdf": true,
+  "bank-roll-holdout-w4/H06-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H06-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H07-FEB-cashbook.csv": true,
+  "bank-roll-holdout-w4/H07-FEB-statement.pdf": true,
+  "bank-roll-holdout-w4/H07-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H07-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H08-DEC-cashbook.csv": true,
+  "bank-roll-holdout-w4/H08-DEC-statement.pdf": true,
+  "bank-roll-holdout-w4/H08-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H08-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H09-DEC-cashbook.csv": true,
+  "bank-roll-holdout-w4/H09-DEC-statement.pdf": true,
+  "bank-roll-holdout-w4/H09-JAN-cashbook.csv": true,
+  "bank-roll-holdout-w4/H09-JAN-statement.pdf": true,
+  "bank-roll-holdout-w4/H10-FEB-cashbook.csv": true,
+  "bank-roll-holdout-w4/H10-FEB-statement.pdf": true,
+  "bank-roll-holdout-w4/H10-MAR-cashbook.csv": true,
+  "bank-roll-holdout-w4/H10-MAR-statement.pdf": true,
+  "bank-roll-holdout-w4/stories.json": true,
+  "bank-sheet-holdout-r4/K10-DEC-cashbook.csv": true,
+  "bank-sheet-holdout-r4/K10-DEC-statement.pdf": true,
+  "bank-sheet-holdout-r4/K10-JAN-cashbook.csv": true,
+  "bank-sheet-holdout-r4/K10-JAN-statement.pdf": true,
+  "bank-sheet-holdout-r4/K11-FEB-cashbook.csv": true,
+  "bank-sheet-holdout-r4/K11-FEB-statement.pdf": true,
+  "bank-sheet-holdout-r4/K12-DEC-cashbook.csv": true,
+  "bank-sheet-holdout-r4/K12-DEC-statement.pdf": true,
+  "bank-sheet-holdout-r4/K13-JAN-cashbook.csv": true,
+  "bank-sheet-holdout-r4/K13-JAN-statement.pdf": true,
+  "bank-sheet-holdout-r4/K14-DEC-cashbook.csv": true,
+  "bank-sheet-holdout-r4/K14-DEC-statement.pdf": true,
+  "bank-sheet-holdout-r4/K15-JAN-cashbook.csv": true,
+  "bank-sheet-holdout-r4/K15-JAN-statement.pdf": true,
+  "bank-sheet-holdout-r4/stories.json": true
+ }
+}

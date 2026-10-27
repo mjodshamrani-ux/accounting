@@ -9,7 +9,8 @@ Standard library only.
 
 The columns each workbook must name are derived here from the sealed facts:
 a choice by hand from the action, with the header labels its own file holds
-(read by verify.py's reader); a saved map from the story's earlier save or
+(read by the reader of the package's own sealed verify.py: this
+foundation's, or a holdout's); a saved map from the story's earlier save or
 imported map file.
 
 Each workbook is read from its OOXML parts directly, never by the product,
@@ -53,9 +54,18 @@ ROLES = ['date', 'voucher', 'description', 'reference', 'receipts', 'payments']
 STATUS = {'matched-automatic': 'matched', 'matched-accepted': 'accepted'}
 NAMES = ['Cashbook', 'Cashbook columns', 'Cases', 'Sources']
 HERE = Path(__file__).resolve().parent
-_spec = importlib.util.spec_from_file_location('map_verify', HERE / 'verify.py')
-verify = importlib.util.module_from_spec(_spec)  # the sealed verification's reader
-_spec.loader.exec_module(verify)
+_readers = {}
+
+
+def reader(frozen):
+    """The sealed verification of the package under check, whose reader
+    gives the header labels: frozen/../verify.py."""
+    if frozen not in _readers:
+        spec = importlib.util.spec_from_file_location(f'map_verify_{len(_readers)}', frozen.parent / 'verify.py')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        _readers[frozen] = module
+    return _readers[frozen]
 
 
 class CheckError(Exception):
@@ -125,9 +135,10 @@ def normal(text):
     return ' '.join(unicodedata.normalize('NFC', text).replace('\u00a0', ' ').split())
 
 
-def header_labels(path, header):
+def header_labels(frozen, name, header):
     """The normal form of each cell of the header row, read by the sealed
     verification's own reader."""
+    verify, path = reader(frozen), frozen / name
     table = verify.xlsx_rows(path) if path.suffix == '.xlsx' else verify.csv_rows(path)
     return {c: normal(t) for c, t in table['rows'].get(header, {}).items()}
 
@@ -139,7 +150,7 @@ def columns_of(facts, expected, frozen, story, k):
     store = {}
 
     def by_hand(action):
-        labels = header_labels(frozen / action['file'], action['header'])
+        labels = header_labels(frozen, action['file'], action['header'])
         return {'header': action['header'],
                 'columns': {r: None if action['columns'][r] is None else
                             {'column': action['columns'][r], 'label': labels[action['columns'][r]]} for r in ROLES}}

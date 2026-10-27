@@ -159,6 +159,8 @@ const required = [
   'test:bank-map:proof',
   'test:bank-map:lifecycle',
   'test:bank-map:mutations',
+  'test:bank-map:m4-seal',
+  'test:bank-map:m4-intent',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

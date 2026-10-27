@@ -1,0 +1,33 @@
+{
+  "columns": {
+    "payments": {
+      "column": 8,
+      "label": "Cr"
+    },
+    "receipts": {
+      "column": 7,
+      "label": "Dr"
+    },
+    "reference": {
+      "column": 6,
+      "label": "Ext. Reference"
+    },
+    "description": {
+      "column": 5,
+      "label": "Memo"
+    },
+    "voucher": {
+      "column": 4,
+      "label": "Voucher #"
+    },
+    "date": {
+      "column": 2,
+      "label": "Value Date"
+    }
+  },
+  "header": 2,
+  "name": "GL 1020",
+  "role": "bank-cashbook",
+  "version": 1,
+  "format": "tarasuf-column-map"
+}

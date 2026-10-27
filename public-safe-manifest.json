@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 52044,
-      "sha256": "aa5607b82a62661ca2d6a6cf757d6904a155141f7fec6389ed395848f2773904",
+      "bytes": 52120,
+      "sha256": "22f6089d31552422addd062836b1757a79b001cd3f1ceb4fdb302905e0770b7a",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 31061,
-      "sha256": "c2f9f80132d742869a451b5cfe1eadae8a4f0662f275aa371e71d277d8e5956f",
+      "bytes": 31343,
+      "sha256": "2750d027093600a54757c73cfaa176bd77ac9ed5e36087b35cd6c7422b5c9435",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 19636,
-      "sha256": "6038acf0994c9507406a406552bda1a6a431380e9ccab7cbbe8aa56742404c70",
+      "bytes": 19709,
+      "sha256": "c2acccc167bfc49b0070753a616597f5a1d123bbdbc1be583b1c8d2d4e5bb89e",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 72353,
-      "sha256": "de31d2522179253df8384beb28f7b0edcb2e1c7d2165eadf0723d12c51373bb8",
+      "bytes": 73752,
+      "sha256": "a09bfee85ad1245f8161bd72ba6039d02689b0033817ca3caa08270e5d7a161f",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 74340,
-      "sha256": "76d6aba6d517ba6f0c76fb4f1789c2a3d40ae7e66fd025e55ef2fc414449d79b",
+      "bytes": 74450,
+      "sha256": "b2d568f374a906fdb21680095b713640afa70934bb0ec484b0b888cdffabcb3e",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 35133,
-      "sha256": "67edc5be4828c93ce15935e3600f31dd80e8347288384bfea51efd594b44424c",
+      "bytes": 35391,
+      "sha256": "8cd4b3418effff3701906313ecf92544af8008e88d589d87234cb0adc3a23608",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 13333,
-      "sha256": "c55724961b88bcf0f0c6a56e60cf7373d2e39cb9cd67bb55d876e85e8e86eb87",
+      "bytes": 13389,
+      "sha256": "3fc7d91d568fe5c4da587e5beeb6e25d766da98bc9f88785a60dd22cc96b6af4",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 17726,
-      "sha256": "d545bfb97f818ecc9704a1a79ad068b4ed3b0cf9fa6b396d62ae3a87d430ea51",
+      "bytes": 18184,
+      "sha256": "32c6ceb8d580a62bcb52dca3910e9a3839a6bab316bdd1e8b3afc5bd59f5a95f",
       "kind": "text"
     },
     {
@@ -52317,8 +52317,8 @@
     },
     {
       "path": "audit/bank-map-foundation/check_export.py",
-      "bytes": 12768,
-      "sha256": "3306f98bba36149e425b2c2717fe0bde702bac1b34e18aab8994b9d95e838568",
+      "bytes": 13154,
+      "sha256": "a78d7086363f02fd3a96944b8882c121af9f52dfa03ef513c8e95630e2688ee3",
       "kind": "text"
     },
     {
@@ -52359,14 +52359,526 @@
     },
     {
       "path": "scripts/bank-map-browser.mjs",
-      "bytes": 32348,
-      "sha256": "6d515f4a5db90e1e53053eee963914cd7730e5e9d26c67069f556cff317ece30",
+      "bytes": 36488,
+      "sha256": "f114ee3b31469c8189b4249943deccbea80895f6bf9effa208450be62472368e",
       "kind": "text"
     },
     {
       "path": "scripts/test-bank-map-interface-mutations.mjs",
       "bytes": 8500,
       "sha256": "466672f1febdf825594b545dde5aabb68b49e045ff54b6d6bb2ba72677981250",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/README.ar.md",
+      "bytes": 12463,
+      "sha256": "7887db4aa73e3d22a83078fe10cf8a85b3472642f840c4094a57b92a8ab39126",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/check_seal.py",
+      "bytes": 3547,
+      "sha256": "4c642c7c3b3744723654df2248c3087b46d3f1935afb81dc537aa1cbab2a6876",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/EXPECTED.json",
+      "bytes": 123237,
+      "sha256": "c5804987c6b2f8315815d7b2838188846211fa3ef6508b8a5c52f1bd3232e3f2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/INPUT-MANIFEST.json",
+      "bytes": 16075,
+      "sha256": "6521e3f9afc938637214743e6fb43a87001790a04b2c41cecbcc1eb5fa9696b5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P01-DEC-cashbook.xlsx",
+      "bytes": 5374,
+      "sha256": "f3f4b8a3c59521f49128edeba458f2c516d501311d1e899858d078645ac64418",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P01-JAN-cashbook.xlsx",
+      "bytes": 5323,
+      "sha256": "85d6872d76a8ce61a0815a5de0d352fa12317932971621d8512f7afd37f47bee",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P02-FEB-cashbook.xlsx",
+      "bytes": 6007,
+      "sha256": "3dbe90b7f4bf09e7371819885d7e406d332a41e2ddc8db90c8043d7608ec039d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P02-JAN-cashbook.xlsx",
+      "bytes": 5827,
+      "sha256": "ba3cc16e474cb941ecff83c5cf72e3149334619d870768bfd113077a4b28a0fc",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P03-FEB-cashbook.xlsx",
+      "bytes": 7021,
+      "sha256": "d7323a8a93f20f220e13cb92bb247c4dfa1d24698c5c5715027e97500649f5ab",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P03-MAR-cashbook.xlsx",
+      "bytes": 7091,
+      "sha256": "7163f5274afe11ad214394418492b8ed4febee6a896c0c77f30b22c8a5500dde",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P04-DEC-cashbook.xlsx",
+      "bytes": 6082,
+      "sha256": "10f95a5abc887a07fd00a3e3332ac7de39dae83116c988d397bf1b7c542492a7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P04-JAN-cashbook.xlsx",
+      "bytes": 6117,
+      "sha256": "4931b49e83e02802f5e1a8bd08eff7c236a0b1b968a82b65f86078a1bec5d198",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P04-NOV-cashbook.xlsx",
+      "bytes": 6143,
+      "sha256": "8db9429606974889eb648bbbe673c0b5d89055cfac89407c3101c444a0b323f8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P05-DEC-cashbook.xlsx",
+      "bytes": 5858,
+      "sha256": "d097f89effb38911121c797a7d3c5bc69bdfb798d8c119baae746bb2b11e13aa",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P05-JAN-cashbook.xlsx",
+      "bytes": 5763,
+      "sha256": "0a92e7f0de774d50776343aa1d2d969ac88049f79599b70528ec222c64203a44",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P06-DEC-cashbook.xlsx",
+      "bytes": 5190,
+      "sha256": "cf3e1f97db7d116a623c5f48155c952b54bd6a7cce8b5f8df7911eb6c3d9e727",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P06-JAN-cashbook.xlsx",
+      "bytes": 6742,
+      "sha256": "7e16025c03b057b34c4d5db34d766fb94092ff02be742d6cf7ae7472001a608f",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P07-FEB-cashbook.csv",
+      "bytes": 414,
+      "sha256": "1cb98af574b7815625de5346a3db4f950102c292a8bbe048da896cb28e935c11",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P07-JAN-cashbook.csv",
+      "bytes": 403,
+      "sha256": "5b71511da5698186d9613ed71bf3a012f2c12ca0ba59734474ced7361acc4843",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P08-DEC-cashbook.xlsx",
+      "bytes": 6940,
+      "sha256": "4eb486268b0cb03bcffbed6150fd51c9f0705218b05b292c066cbc331cbf7f79",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P08-JAN-cashbook.xlsx",
+      "bytes": 7030,
+      "sha256": "0ea2e975d3267670537b596ae047100b34266660063de5cb69c5cb6ba50836a7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P09-DEC-cashbook.xlsx",
+      "bytes": 6070,
+      "sha256": "cc36d5ea537ebe3819652d9d379568da6eedd082c594c810796ec95475a88965",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P09-JAN-cashbook.xlsx",
+      "bytes": 7169,
+      "sha256": "0a114e95e202f4a67f0bfe88cc6fa47b1a36cc6ed7f7dab25bad2b0cefcf2540",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P10-FEB-cashbook.xlsx",
+      "bytes": 5599,
+      "sha256": "f8d4432ae4b07177563ac4147925d33c8c0d603733089bf6c34eec4d8da58895",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P10-MAR-cashbook.xlsx",
+      "bytes": 5554,
+      "sha256": "982c9f13dc1903448077e601f8990253e7dda76a58e81a69e08263e9dd443c18",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P11-DEC-cashbook.xlsx",
+      "bytes": 6137,
+      "sha256": "bc2b35585c3c0c3b68afc4686d3bff2baac8a3660d9604c6e29adb259f3dabfd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P11-JAN-cashbook.xlsx",
+      "bytes": 6059,
+      "sha256": "9aeb22d793efc4b48a061081f6bda9d3702611603fcf45dcbae05ee089f5ba8a",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P12-FEB-cashbook.xlsx",
+      "bytes": 5416,
+      "sha256": "84a08b6f69ee4758c390348df2e5e653c0f6cb414bc5d7e21080a366301ce2b0",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P13-DEC-cashbook.xlsx",
+      "bytes": 6973,
+      "sha256": "df2d9741e3a0bb5d336c2f5814009c65bbd7e25a8a7a2d1ca17e526204ba6156",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P14-JAN-cashbook.xlsx",
+      "bytes": 5891,
+      "sha256": "3e6ee6b7bfdc06f69d3f83a883d99c340451365c21e2883603c13f9ca368ca2d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P15-DEC-cashbook.xlsx",
+      "bytes": 5394,
+      "sha256": "0b466df36ce059df67b0f609167f947af739e5457ad0f94dd3458e52f9fe724b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P16-JAN-cashbook.xlsx",
+      "bytes": 6096,
+      "sha256": "a7c0b92382574b70f63d0fefa9ac0b05c139a7d28e03ef70b99706d3dde71df7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P16-map.json",
+      "bytes": 578,
+      "sha256": "8a3d817d348d1a4a19df7b81a0a6bfa119bc1059567ad0d88d62d05ce8d33530",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-APR-cashbook.xlsx",
+      "bytes": 5946,
+      "sha256": "324e82c6827946224832f849d89d47c493f180ea0ec8ff16f43f9c96c1e63c48",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-bom-name81.json",
+      "bytes": 575,
+      "sha256": "592f7bd998bf959b6eba197e71369091e913ce3c409c9378ff56fe69eaf36593",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-column0.json",
+      "bytes": 508,
+      "sha256": "a7bfc802e8c285c4ca751f67a84e5aaa15cd5bdc1465e3bf7786bf4045801d39",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-description-null.json",
+      "bytes": 467,
+      "sha256": "3ce23a333c1ace83f42a92584442babfbfa5188634e0e3585d94b7cc316806c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-dup-header.json",
+      "bytes": 522,
+      "sha256": "e108e37d6e8595559ce1b942933413447b4eb67a99ea164d6184e9e3bd127b1e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-extra-note.json",
+      "bytes": 547,
+      "sha256": "2176f3462a063356d4c0fe85b7bbbd4e9df6dd2b66d0d64e0e20ae71aca67961",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-header-float.json",
+      "bytes": 510,
+      "sha256": "c41a1f11146c7364dd63f16e1c6d38b9c834b99555c722de62e5e05b97844f1e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-header-string.json",
+      "bytes": 510,
+      "sha256": "aa4576f4f5a590c8cb88314bfb3330b858ee1b1ec72b213439b8f0587efdc412",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-label121.json",
+      "bytes": 620,
+      "sha256": "177807968b02bc35cc92f863e6fddbad424b745f323d168c72f7891450547c21",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-name-nfd.json",
+      "bytes": 513,
+      "sha256": "bd1e873d94d49cf9a261c1b6337ebbe05e12d80188a24492906286b8db764d33",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-no-format.json",
+      "bytes": 475,
+      "sha256": "280ba7c875180ef0e1ed31c288b70ad362b38cccc8cccbc0e291a4e0930dde18",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-number-name.json",
+      "bytes": 493,
+      "sha256": "8d7a08ef8a01fb2c1d6a6d08203958122094c798c38d2a9375f3433ae96a0593",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-payments-null.json",
+      "bytes": 467,
+      "sha256": "4ed77a03326ead4214109ff335037851daade922b3bc3c3b6114d22f2f7db95f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map-tab-label.json",
+      "bytes": 509,
+      "sha256": "68d0e513bc8a86139a9df1f8acc5d496a53add431f4c34c616b86bf6dff575fb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P17-map.json",
+      "bytes": 508,
+      "sha256": "80cba9eaf5f3983ffe19d9167a2ba772d7c5250c150c3a75e2e20cf756f85931",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P18-MAY-cashbook.xlsx",
+      "bytes": 5218,
+      "sha256": "3c2ece2eae407ce76df8d3bb71af1366a9c20114408128f083c22bb17bb2fc41",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P19-APR-cashbook.xlsx",
+      "bytes": 6717,
+      "sha256": "70e3d0cd1103fe7efeb8a52c090eab5295947a2c41e2a28fa29499cca47b7cbd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P19-MAY-cashbook.xlsx",
+      "bytes": 6190,
+      "sha256": "b6bcf6f149dc7336214f7167676e9ba2d49c4cc433304f82af9bc706b6881b7b",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P20-JUN-cashbook.xlsx",
+      "bytes": 7397,
+      "sha256": "79c34d826c54b7a9f11b097d0b0526b0e4c209f06beb96a867789dc3f8de0df8",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/P20-JUN2-cashbook.xlsx",
+      "bytes": 7094,
+      "sha256": "6f157aae6349f04e6c9ae9641b1d359d6f1d6f5b9c147005581a568899e90f53",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic cashbook workbook for the WF-1 MAP-1 M4 holdout: written by openpyxl 3.1.5 or XlsxWriter 3.2.9 under Python 3.13, by exceljs 4.4.0 under Node, or by LibreOffice Calc 24.2.7 converting a flat OpenDocument spreadsheet, from audit/bank-map-holdout-m4/stories.py, every entry copied from a declared cashbook sealed by the ROLL-1 W4, REPORT-1 R4 or REVIEW-1 R3 holdout, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with its own ZIP and XML reader, EXPECTED.json from the sealed MAP-1 foundation oracle). Fictional companies, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/SEAL.json",
+      "bytes": 1853,
+      "sha256": "7a12a55fc9ae105dea721306254bc8ffcf1c5d6d36fcac76506d7e448cb116ae",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/VERIFY.json",
+      "bytes": 13828,
+      "sha256": "a5978b54aeeb45074dd6cc909f04a58c38d5e4af5df7e7df4e654e06af31c97e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/frozen/stories.json",
+      "bytes": 28012,
+      "sha256": "f99d7fb5cd3b21f9fd2f87211669aef1d6a9413861646f6604c4b1c9fbb6db3f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/seal.py",
+      "bytes": 3891,
+      "sha256": "424c35c284ea8a14cb3f038a1e46ab26dc7d4b6d6516e7c292f41232d17c2a12",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/stories.py",
+      "bytes": 28961,
+      "sha256": "943efbe4f1c15be7bffaa21f6da0a127e8abb8112f07ae136a49718de9feb18f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/test_intent.py",
+      "bytes": 2522,
+      "sha256": "8b263c93b0f55f995eb20e5886d455d6365d25ee2db091e883b383d0dd309cf6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/verify.py",
+      "bytes": 12676,
+      "sha256": "fbd9e346f7ca49e9187d676916c9df86fbe7b4b11132c5844509c1dfad0a034d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/write_exceljs.mjs",
+      "bytes": 1235,
+      "sha256": "6ace1473e9a22e34e3bd4fa735a60eb002ba93542f8f1e4a53cea022cbb409ec",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/write_libreoffice.py",
+      "bytes": 3920,
+      "sha256": "b7a79522e9a6922d9afb2a46a9cc506dd469f76b331f5c54b51b3a1c544e91ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-map-holdout-m4/write_python.py",
+      "bytes": 3050,
+      "sha256": "6a222e17570e36d094003ce16269e3178ad0f1bc2b8ea69494eef18a474fd9e2",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-map-holdout.mjs",
+      "bytes": 14799,
+      "sha256": "eecf9342fd140e40e770b922d3edff5d90f18bbee8e8e11c6400ceb27e81e7d9",
       "kind": "text"
     }
   ],

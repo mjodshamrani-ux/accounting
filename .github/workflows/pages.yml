@@ -317,6 +317,8 @@ jobs:
           pnpm test:bank-map:proof
           pnpm test:bank-map:lifecycle
           pnpm test:bank-map:mutations
+          pnpm test:bank-map:m4-seal
+          pnpm test:bank-map:m4-intent
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations

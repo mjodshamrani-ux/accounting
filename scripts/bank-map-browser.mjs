@@ -17,7 +17,13 @@
 // with columns is restored on a new page, and its columns chosen again.
 // The accountant's actions to read a cashbook by hand and by a saved map are
 // counted (reported, not required). Worker replies are only observed.
-//   pnpm build && node --experimental-strip-types scripts/bank-map-browser.mjs
+// With --suite=<sealed package> or BANK_MAP_SUITE (M4:
+// audit/bank-map-holdout-m4) it plays that package's stories instead,
+// records each story as it comes (a failing story is recorded with its first
+// failed check, not thrown), judges every workbook with the same checker, and
+// with --record=<file> writes the record to the package's results/, or with
+// --assert=<file> requires it to equal that record.
+//   pnpm build && node --experimental-strip-types scripts/bank-map-browser.mjs [--suite=<dir> [--record=<file> | --assert=<file>]]
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -35,9 +41,15 @@ const root = path.resolve(import.meta.dirname, '..'),
   // BANK_MAP_DIST: another build of the same source, for the interface
   // mutation gate (scripts/test-bank-map-interface-mutations.mjs).
   dist = process.env.BANK_MAP_DIST ?? path.join(root, 'dist'),
-  suite = path.join(root, 'audit/bank-map-foundation'),
+  option = (name) =>
+    process.argv
+      .find((a) => a.startsWith(`--${name}=`))
+      ?.slice(name.length + 3),
+  chosen = option('suite') ?? process.env.BANK_MAP_SUITE,
+  holdout = !!chosen,
+  suite = path.resolve(root, chosen ?? 'audit/bank-map-foundation'),
   frozen = path.join(suite, 'frozen'),
-  checker = path.join(suite, 'check_export.py');
+  checker = path.join(root, 'audit/bank-map-foundation/check_export.py');
 const output =
   process.env.BANK_MAP_BROWSER_DIR ?? path.join(root, 'work/bank-map-browser');
 await mkdir(output, { recursive: true });
@@ -82,7 +94,7 @@ for (const [name, entry] of Object.entries(manifest.files))
     entry.sha256,
     name,
   );
-for (const [name, digest] of Object.entries(manifest.external))
+for (const [name, digest] of Object.entries(manifest.external ?? {}))
   assert.equal(
     sha(await readFile(path.join(root, 'audit', name))),
     digest,
@@ -90,7 +102,7 @@ for (const [name, digest] of Object.entries(manifest.external))
   );
 const facts = await json(path.join(frozen, 'stories.json'));
 const expected = (await json(path.join(frozen, 'EXPECTED.json'))).stories;
-assert.equal(facts.stories.length, 21);
+if (!holdout) assert.equal(facts.stories.length, 21);
 
 const server = createServer(async (req, res) => {
   try {
@@ -745,12 +757,100 @@ async function play(story, lang, width) {
   }
 }
 
-try {
-  browser = await chromium.launch(
-    process.env.MIZAN_CHROMIUM
-      ? { executablePath: process.env.MIZAN_CHROMIUM }
-      : {},
+/** The sealed holdout, recorded as it comes: every story played on its own
+ * page as the foundation's are, in Arabic and English in turn and one at a
+ * phone's width. A failing story is recorded with its first failed check
+ * and the run goes on. Every workbook is judged by the checker against the
+ * sealed package, never against the product. */
+async function holdoutRun() {
+  const stories = {};
+  for (const [i, story] of facts.stories.entries()) {
+    const record = (stories[story.id] = { equal: false });
+    const before = exportsToCheck.length;
+    try {
+      await play(story, i % 2 ? 'en' : 'ar', i === 2 ? 390 : 1280);
+      record.equal = true;
+    } catch (error) {
+      record.error = String(
+        error instanceof Error ? error.message : error,
+      ).split('\n')[0];
+    }
+    record.workbooks = exportsToCheck.slice(before).map((e) => e.label);
+  }
+  assert.deepEqual(external, [], 'requests outside the application');
+  assert.deepEqual(nonGet, [], 'requests other than GET');
+  const check = spawnSync(process.env.PYTHON ?? 'python3', ['-B', checker], {
+    input: JSON.stringify({
+      frozen,
+      selfTest: exportsToCheck.map((e) => e.label),
+      exports: exportsToCheck,
+    }),
+    encoding: 'utf8',
+    maxBuffer: 16 * 1024 * 1024,
+  });
+  let judged;
+  try {
+    judged = JSON.parse(check.stdout);
+  } catch {
+    judged = { workbooks: -1, failed: [], selfTest: [] };
+  }
+  assert.equal(
+    judged.workbooks,
+    exportsToCheck.length,
+    check.stdout + check.stderr,
   );
+  const failed = new Map(judged.failed.map((f) => [f.label, f.problem]));
+  for (const record of Object.values(stories)) {
+    const bad = record.workbooks.filter((label) => failed.has(label));
+    if (!bad.length) continue;
+    record.equal = false;
+    record.workbookProblems = Object.fromEntries(
+      bad.map((label) => [label, failed.get(label)]),
+    );
+  }
+  // The scenes no story holds are the foundation's alone.
+  const played = Object.fromEntries(
+    Object.entries(counts).filter(
+      ([k]) => !['restored', 'keyboard'].includes(k),
+    ),
+  );
+  const summary = {
+    stories: facts.stories.length,
+    storiesEqual: Object.values(stories).filter((r) => r.equal).length,
+    ...played,
+    workbooksAccepted: exportsToCheck.length - failed.size,
+    checkerSelfTest: judged.selfTest.every((t) => t.rejected),
+    pageErrors: errors,
+    measure: {
+      hand: measure.hand.filter((x) => x.fresh).map((x) => x.actions),
+      map: measure.map.filter((x) => x.fresh).map((x) => x.actions),
+    },
+  };
+  const report = { holdout: path.relative(root, suite), summary, stories };
+  await writeFile(
+    path.join(out, 'holdout.json'),
+    `${JSON.stringify(report, null, 1)}\n`,
+  );
+  const record = option('record');
+  if (record) {
+    await mkdir(path.join(suite, 'results'), { recursive: true });
+    await writeFile(
+      path.join(suite, 'results', record),
+      `${JSON.stringify(report, null, 1)}\n`,
+    );
+  }
+  const against = option('assert');
+  if (against)
+    assert.deepEqual(
+      canonical(report),
+      canonical(await json(path.join(suite, 'results', against))),
+      `the run differs from results/${against}`,
+    );
+  console.log(JSON.stringify({ out, ...summary, measure: undefined }));
+}
+
+/** The foundation: its stories, then the scenes no story holds. */
+async function foundationRun() {
   // Arabic and English in turn; one story at a phone's width.
   for (const [i, story] of facts.stories.entries())
     await play(story, i % 2 ? 'en' : 'ar', story.id === 'M11' ? 390 : 1280);
@@ -927,6 +1027,16 @@ try {
     JSON.stringify({ ...summary, reads: measure }, null, 1) + '\n',
   );
   console.log(JSON.stringify(summary));
+}
+
+try {
+  browser = await chromium.launch(
+    process.env.MIZAN_CHROMIUM
+      ? { executablePath: process.env.MIZAN_CHROMIUM }
+      : {},
+  );
+  if (holdout) await holdoutRun();
+  else await foundationRun();
 } finally {
   await browser?.close();
   server.close();
