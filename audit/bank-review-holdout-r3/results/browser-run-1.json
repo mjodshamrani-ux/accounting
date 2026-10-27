@@ -1,0 +1,151 @@
+{
+ "holdout": "audit/bank-review-holdout-r3",
+ "summary": {
+  "stories": 20,
+  "equalToExpected": 20,
+  "shownAsExpected": 20,
+  "savedAndRestored": 15,
+  "failed": 0,
+  "pageErrors": 0,
+  "decisionActions": {
+   "withQueue": 25,
+   "caseByCase": 92
+  },
+  "workbooks": {
+   "exported": 18,
+   "accepted": 18,
+   "rejected": {}
+  }
+ },
+ "stories": {
+  "R01": {
+   "equal": true,
+   "shown": true,
+   "actions": 2,
+   "restored": true,
+   "caseByCase": 4
+  },
+  "R02": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true
+  },
+  "R03": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 3
+  },
+  "R04": {
+   "equal": true,
+   "shown": true,
+   "actions": 2,
+   "restored": true,
+   "caseByCase": 45
+  },
+  "R05": {
+   "equal": true,
+   "shown": true,
+   "actions": 0
+  },
+  "R06": {
+   "equal": true,
+   "shown": true,
+   "actions": 4,
+   "restored": true,
+   "caseByCase": 8
+  },
+  "R07": {
+   "equal": true,
+   "shown": true,
+   "actions": 2,
+   "restored": true,
+   "caseByCase": 4
+  },
+  "R08": {
+   "equal": true,
+   "shown": true,
+   "actions": 1
+  },
+  "R09": {
+   "equal": true,
+   "shown": true,
+   "actions": 0
+  },
+  "R10": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 2
+  },
+  "R11": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 2
+  },
+  "R12": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 2
+  },
+  "R13": {
+   "equal": true,
+   "shown": true,
+   "actions": 0
+  },
+  "R14": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 3
+  },
+  "R15": {
+   "equal": true,
+   "shown": true,
+   "actions": 2,
+   "restored": true,
+   "caseByCase": 5
+  },
+  "R16": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 4
+  },
+  "R17": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 3
+  },
+  "R18": {
+   "equal": true,
+   "shown": true,
+   "actions": 1,
+   "restored": true,
+   "caseByCase": 3
+  },
+  "R19": {
+   "equal": true,
+   "shown": true,
+   "actions": 3,
+   "restored": true,
+   "caseByCase": 4
+  },
+  "R20": {
+   "equal": true,
+   "shown": true,
+   "actions": 0
+  }
+ }
+}

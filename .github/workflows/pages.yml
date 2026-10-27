@@ -280,6 +280,7 @@ jobs:
           BANK_SHEET_LIFECYCLE_DIR: ${{ runner.temp }}/bank-sheet-lifecycle
           BANK_SHEET_HOLDOUT_DIR: ${{ runner.temp }}/bank-sheet-holdout
           BANK_REVIEW_MUTATION_DIR: ${{ runner.temp }}/bank-review-mutations
+          BANK_REVIEW_HOLDOUT_DIR: ${{ runner.temp }}/bank-review-holdout
           BNK_G3_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g3-mutations
           BNK_G4_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g4-mutations
           BNK_G5_MUTATION_DIR: ${{ runner.temp }}/bank-statement-g5-mutations
@@ -306,6 +307,7 @@ jobs:
           pnpm test:bank-review:oracle-mutants
           pnpm test:bank-review:seal
           pnpm test:bank-review:r3-seal
+          pnpm test:bank-review:r3-holdout
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
@@ -382,6 +384,10 @@ jobs:
         env:
           BANK_REVIEW_BROWSER_DIR: ${{ runner.temp }}/bank-review-browser
         run: pnpm test:bank-review:browser
+      - name: Verify the review queue on the sealed R3 holdout in the bank workspace through the actual Worker, against its recorded first run (WF-1 REVIEW-1 R3)
+        env:
+          BANK_REVIEW_BROWSER_DIR: ${{ runner.temp }}/bank-review-r3-browser
+        run: pnpm test:bank-review:r3-browser
       - run: pnpm test:browser
       - name: Verify sectioned inventory CSV and Excel uploads, Arabic and English source-bound downloads
         env:

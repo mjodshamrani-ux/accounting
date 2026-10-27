@@ -62,10 +62,21 @@ holdout مختوم للعقد المقترح `bank-review-queue-1`، خُتم و
 
 `ELIGIBILITY.json` كتبته [أداة الأهلية](../bank-statement-eligibility/README.ar.md): لم تجد سببًا يرفض به القارئ كشفًا. وR05 موقوف بصفحته الناقصة في المطابقة، لا في القراءة.
 
+## النتائج
+
+التشغيل الأول كما جاء، بعد دفع الختم في `7732c4b`، في [التقرير](../../docs/audits/WF-1-REVIEW-R3.ar.md):
+
+- **على مسار الدورة** ([`scripts/bank-review-holdout.mjs`](../../scripts/bank-review-holdout.mjs)، [`results/run-1.json`](results/run-1.json)): 20/20 قصة تساوي `EXPECTED.json`، والموقوف والمرفوض كما خُتما، و19/19 حُفظت واستُعيدت، و18/18 ورقة عمل يقبلها المدقق المستقل.
+- **وفي المتصفح** ([`scripts/bank-review-browser.mjs --suite`](../../scripts/bank-review-browser.mjs)، [`results/browser-run-1.json`](results/browser-run-1.json)): 20/20 على الشاشة وفي النتيجة، و15/15 بعد الحفظ والاستعادة، و18/18 ورقة عمل؛ و23 فعل قرار بالطابور مقابل 92 حالةً حالةً في القصص ذات القرار الجماعي.
+
+لم يتغير المنتج بعد الختم.
+
 ## الإعادة
 
 ```sh
 python3 -B audit/bank-review-holdout-r3/check_seal.py
+pnpm test:bank-review:r3-holdout   # يطلب أن يساوي التشغيل results/run-1.json
+pnpm build && pnpm test:bank-review:r3-browser   # results/browser-run-1.json
 # إعادة الرسم والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 PYTHONPATH=<pymupdf, fontTools> python3 -B audit/bank-review-holdout-r3/render.py --modules <js>/node_modules --gems <ruby> --out <dir>
 python3 -B audit/bank-review-holdout-r3/stories.py --records > <dir>/records.json

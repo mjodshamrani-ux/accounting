@@ -27,11 +27,19 @@ const output =
   join(root, 'work/bank-review-mutations');
 await mkdir(output, { recursive: true });
 const out = await mkdtemp(join(output, 'run-'));
-// BANK_REVIEW_PROOF_ONLY=1 measures the proof alone, without the unit tests.
+// BANK_REVIEW_PROOF_ONLY=1 measures the proof alone, without the unit tests;
+// BANK_REVIEW_PROOF_ONLY=holdout measures the R3 holdout's recorded first run
+// alone (scripts/bank-review-holdout.mjs --assert=run-1.json).
 const only = process.env.BANK_REVIEW_PROOF_ONLY;
 const tests = only ? [] : ['tests/bank-review-queue.test.ts'];
-const proofs = [['scripts/bank-review-proof.mjs']];
-const packages = ['audit/bank-review-foundation'];
+const proofs =
+  only === 'holdout'
+    ? [['scripts/bank-review-holdout.mjs', '--assert=run-1.json']]
+    : [['scripts/bank-review-proof.mjs']];
+const packages =
+  only === 'holdout'
+    ? ['audit/bank-review-foundation', 'audit/bank-review-holdout-r3']
+    : ['audit/bank-review-foundation'];
 const QUEUE = 'lib/reconciliation/bank-review-queue.ts';
 const mutations = [
   // Order.
@@ -184,7 +192,7 @@ const run = (cwd) => {
       ['--experimental-strip-types', proof, ...args],
       {
         ...options,
-        env: process.env,
+        env: { ...process.env, BANK_REVIEW_HOLDOUT_DIR: join(out, 'holdout') },
       },
     );
     if (!completedSuccessfully(last)) return last;

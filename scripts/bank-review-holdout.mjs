@@ -135,7 +135,9 @@ async function judge(story, record) {
 }
 
 const FIELDS = ['held', 'queue', 'actions', 'refusal', 'decisions', 'statuses', 'after', 'queueAfter'];
-const work = await mkdtemp(path.join(process.env.BANK_REVIEW_HOLDOUT_DIR ?? '/tmp', 'bank-review-holdout-'));
+const base = process.env.BANK_REVIEW_HOLDOUT_DIR ?? '/tmp';
+await mkdir(base, { recursive: true });
+const work = await mkdtemp(path.join(base, 'bank-review-holdout-'));
 const stories = {};
 const exportsToCheck = [];
 for (const story of facts.stories) {
