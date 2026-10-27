@@ -235,6 +235,8 @@ const separate = {
     'test:bank-statement:g17-browser',
     'test:bank-statement:g20-holdout',
     'test:bank-statement:g20-browser',
+    'test:bank-statement:g23-holdout',
+    'test:bank-statement:g23-browser',
   ],
 };
 for (const [jobName, names] of Object.entries(separate)) {

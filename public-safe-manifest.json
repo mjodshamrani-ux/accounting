@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 40758,
-      "sha256": "c922751e1bd212373d82bd04d674e0d1c0b6bd53b40e0c43808d248c4c5019cd",
+      "bytes": 41234,
+      "sha256": "5c68260f112761011a9c21290fb72b120773057244c63ac8508fcf569bf6ece9",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 26499,
-      "sha256": "eefcb5af4641f9991082c3819ac722cfd68aa65b8264a6349e0658d8b6787f36",
+      "bytes": 27046,
+      "sha256": "f1f0efb558fde6bd5bcfddd2daeb2fde20b1426f0209426ebeafe9e07e82d7ee",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 10143,
-      "sha256": "9919684614b23fbc8c82e69f7b21c9bb113ea0837bef0da5d9651f726ba3c969",
+      "bytes": 10221,
+      "sha256": "d33391e74178294499c45cb70f448aba71a3e90238e65a5edf758da113a734a3",
       "kind": "text"
     },
     {
@@ -45947,6 +45947,60 @@
       "path": "audit/bank-statement-holdout-g23/verify.py",
       "bytes": 32937,
       "sha256": "f129b89ccc91c5b2a35301d83b311b751cdf05d04ba14e770ab47a732e323210",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/cashbook-vs-reader-g23.json",
+      "bytes": 15183,
+      "sha256": "9661116f36b1e31b226684181146777e7a3403b41eab8b666a44e738f4834b54",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/columns-vs-reader-g23.json",
+      "bytes": 101278,
+      "sha256": "3085c313efe39ab1f9472f64855c9bd6c4f01796642b7c8d892e70c75ebbfc27",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/drawings-vs-reader-g23.json",
+      "bytes": 83554,
+      "sha256": "66e28c440f54527d0870650528c857af264f45cec826560e45ce60bbc38c75a4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/items-vs-reader-g23.json",
+      "bytes": 36681,
+      "sha256": "ed9284886e449cbed2f9b873cd18b502b1aab9436102d4ebedb2b18b046631d6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/rows-vs-reader-g23.json",
+      "bytes": 132426,
+      "sha256": "a6e49b53a4aed1397eb7d888a4e93b4d23a593b5019fb6f0229fc42735a9130f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-eligibility/results/rules-vs-ablations-g23.json",
+      "bytes": 195268,
+      "sha256": "3e79095015cae0269595899533c14bfa937b0ec8f01c725841ad0ac01d41b66f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g23/results/diagnostic-ablation-748bd7c.json",
+      "bytes": 3801,
+      "sha256": "88d69fef3671870c0513e7636aedbddd815f48418a7b77a68641826821d45044",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g23/results/run-1-748bd7c-browser.json",
+      "bytes": 3242,
+      "sha256": "5d3de032941500436b9482edca59bf0568149e60449c8a21802d5a042dd932d8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-statement-holdout-g23/results/run-1-748bd7c.json",
+      "bytes": 7909,
+      "sha256": "959bde2f87e448d616795ef789c0230c2cd464e079cd3181540a93db8bda7d90",
       "kind": "text"
     }
   ],

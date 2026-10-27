@@ -1,0 +1,1797 @@
+{
+ "schema": "tarasuf-bnk-pdf1-items-check/1",
+ "question": "Does items.py build the reader's PDF.js items, and find the lines the reader refuses for overlapping text?",
+ "sealed": [
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS01-statement.pdf",
+   "pages": 2,
+   "items": 93,
+   "itemsEqual": true,
+   "columnsModelEqual": 93,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS02-statement.pdf",
+   "pages": 2,
+   "items": 105,
+   "itemsEqual": true,
+   "columnsModelEqual": 105,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS03-statement.pdf",
+   "pages": 2,
+   "items": 98,
+   "itemsEqual": true,
+   "columnsModelEqual": 98,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS04-statement.pdf",
+   "pages": 2,
+   "items": 98,
+   "itemsEqual": true,
+   "columnsModelEqual": 98,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS05-statement.pdf",
+   "pages": 2,
+   "items": 99,
+   "itemsEqual": true,
+   "columnsModelEqual": 99,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS06-statement.pdf",
+   "pages": 2,
+   "items": 99,
+   "itemsEqual": true,
+   "columnsModelEqual": 99,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS07-statement.pdf",
+   "pages": 2,
+   "items": 105,
+   "itemsEqual": true,
+   "columnsModelEqual": 105,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS08-statement.pdf",
+   "pages": 2,
+   "items": 127,
+   "itemsEqual": true,
+   "columnsModelEqual": 112,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS09-statement.pdf",
+   "pages": 2,
+   "items": 117,
+   "itemsEqual": true,
+   "columnsModelEqual": 117,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS10-statement.pdf",
+   "pages": 2,
+   "items": 99,
+   "itemsEqual": true,
+   "columnsModelEqual": 99,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS11-statement.pdf",
+   "pages": 2,
+   "items": 363,
+   "itemsEqual": true,
+   "columnsModelEqual": 66,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS12-statement.pdf",
+   "pages": 2,
+   "items": 99,
+   "itemsEqual": true,
+   "columnsModelEqual": 99,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS13-statement.pdf",
+   "pages": 2,
+   "items": 99,
+   "itemsEqual": true,
+   "columnsModelEqual": 99,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS14-statement.pdf",
+   "pages": 70,
+   "items": 11343,
+   "itemsEqual": true,
+   "columnsModelEqual": 11343,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS15-statement.pdf",
+   "pages": 100,
+   "items": 16203,
+   "itemsEqual": true,
+   "columnsModelEqual": 16203,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-foundation/frozen/BS16-statement.pdf",
+   "pages": 2,
+   "items": 363,
+   "itemsEqual": true,
+   "columnsModelEqual": 66,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P01-statement.pdf",
+   "pages": 3,
+   "items": 167,
+   "itemsEqual": true,
+   "columnsModelEqual": 167,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P02-statement.pdf",
+   "pages": 3,
+   "items": 263,
+   "itemsEqual": true,
+   "columnsModelEqual": 263,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P03-statement.pdf",
+   "pages": 3,
+   "items": 240,
+   "itemsEqual": true,
+   "columnsModelEqual": 240,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P04-statement.pdf",
+   "pages": 4,
+   "items": 324,
+   "itemsEqual": true,
+   "columnsModelEqual": 324,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P05-statement.pdf",
+   "pages": 4,
+   "items": 239,
+   "itemsEqual": true,
+   "columnsModelEqual": 239,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P06-statement.pdf",
+   "pages": 8,
+   "items": 589,
+   "itemsEqual": true,
+   "columnsModelEqual": 589,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P07-statement.pdf",
+   "pages": 3,
+   "items": 259,
+   "itemsEqual": true,
+   "columnsModelEqual": 259,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf",
+   "pages": 2,
+   "items": 324,
+   "itemsEqual": true,
+   "columnsModelEqual": 0,
+   "overlapLines": [
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     7
+    ],
+    [
+     1,
+     8
+    ],
+    [
+     1,
+     18
+    ],
+    [
+     1,
+     23
+    ],
+    [
+     1,
+     25
+    ],
+    [
+     1,
+     32
+    ],
+    [
+     1,
+     34
+    ],
+    [
+     1,
+     36
+    ],
+    [
+     1,
+     42
+    ],
+    [
+     1,
+     43
+    ],
+    [
+     1,
+     44
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     2,
+     9
+    ],
+    [
+     2,
+     17
+    ],
+    [
+     2,
+     22
+    ],
+    [
+     2,
+     28
+    ],
+    [
+     2,
+     31
+    ],
+    [
+     2,
+     33
+    ],
+    [
+     2,
+     40
+    ],
+    [
+     2,
+     41
+    ],
+    [
+     2,
+     42
+    ]
+   ],
+   "readerStopped": "تعذرت قراءة صفحة PDF 1: الصفحة 1 مدوّرة. اطلب PDF باتجاه صحيح أو Excel.",
+   "agree": null
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P09-statement.pdf",
+   "pages": 3,
+   "items": 281,
+   "itemsEqual": true,
+   "columnsModelEqual": 281,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P10-statement.pdf",
+   "pages": 3,
+   "items": 210,
+   "itemsEqual": true,
+   "columnsModelEqual": 210,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P11-statement.pdf",
+   "pages": 2,
+   "items": 148,
+   "itemsEqual": true,
+   "columnsModelEqual": 148,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g10/frozen/P12-statement.pdf",
+   "pages": 2,
+   "items": 243,
+   "itemsEqual": true,
+   "columnsModelEqual": 243,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q01-statement.pdf",
+   "pages": 3,
+   "items": 282,
+   "itemsEqual": true,
+   "columnsModelEqual": 282,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q02-statement.pdf",
+   "pages": 3,
+   "items": 241,
+   "itemsEqual": true,
+   "columnsModelEqual": 241,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q03-statement.pdf",
+   "pages": 4,
+   "items": 551,
+   "itemsEqual": true,
+   "columnsModelEqual": 478,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q04-statement.pdf",
+   "pages": 4,
+   "items": 313,
+   "itemsEqual": true,
+   "columnsModelEqual": 313,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q05-statement.pdf",
+   "pages": 3,
+   "items": 252,
+   "itemsEqual": true,
+   "columnsModelEqual": 252,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q06-statement.pdf",
+   "pages": 8,
+   "items": 824,
+   "itemsEqual": true,
+   "columnsModelEqual": 824,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q07-statement.pdf",
+   "pages": 3,
+   "items": 273,
+   "itemsEqual": true,
+   "columnsModelEqual": 273,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q08-statement.pdf",
+   "pages": 3,
+   "items": 273,
+   "itemsEqual": true,
+   "columnsModelEqual": 273,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q09-statement.pdf",
+   "pages": 2,
+   "items": 344,
+   "itemsEqual": true,
+   "columnsModelEqual": 309,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q10-statement.pdf",
+   "pages": 3,
+   "items": 260,
+   "itemsEqual": true,
+   "columnsModelEqual": 260,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q11-statement.pdf",
+   "pages": 3,
+   "items": 222,
+   "itemsEqual": true,
+   "columnsModelEqual": 222,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g12/frozen/Q12-statement.pdf",
+   "pages": 2,
+   "items": 237,
+   "itemsEqual": true,
+   "columnsModelEqual": 202,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R01-statement.pdf",
+   "pages": 2,
+   "items": 185,
+   "itemsEqual": true,
+   "columnsModelEqual": 185,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R02-statement.pdf",
+   "pages": 2,
+   "items": 169,
+   "itemsEqual": true,
+   "columnsModelEqual": 169,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R03-statement.pdf",
+   "pages": 2,
+   "items": 359,
+   "itemsEqual": true,
+   "columnsModelEqual": 359,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf",
+   "pages": 3,
+   "items": 197,
+   "itemsEqual": true,
+   "columnsModelEqual": 197,
+   "overlapLines": [],
+   "readerStopped": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "agree": null
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R05-statement.pdf",
+   "pages": 2,
+   "items": 186,
+   "itemsEqual": true,
+   "columnsModelEqual": 186,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R06-statement.pdf",
+   "pages": 2,
+   "items": 173,
+   "itemsEqual": true,
+   "columnsModelEqual": 173,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R07-statement.pdf",
+   "pages": 2,
+   "items": 337,
+   "itemsEqual": true,
+   "columnsModelEqual": 337,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R08-statement.pdf",
+   "pages": 2,
+   "items": 177,
+   "itemsEqual": true,
+   "columnsModelEqual": 177,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R09-statement.pdf",
+   "pages": 3,
+   "items": 212,
+   "itemsEqual": true,
+   "columnsModelEqual": 212,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R10-statement.pdf",
+   "pages": 5,
+   "items": 575,
+   "itemsEqual": true,
+   "columnsModelEqual": 575,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R11-statement.pdf",
+   "pages": 3,
+   "items": 177,
+   "itemsEqual": true,
+   "columnsModelEqual": 177,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g14/frozen/R12-statement.pdf",
+   "pages": 3,
+   "items": 335,
+   "itemsEqual": true,
+   "columnsModelEqual": 335,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T01-statement.pdf",
+   "pages": 2,
+   "items": 195,
+   "itemsEqual": true,
+   "columnsModelEqual": 195,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T02-statement.pdf",
+   "pages": 3,
+   "items": 222,
+   "itemsEqual": true,
+   "columnsModelEqual": 222,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T03-statement.pdf",
+   "pages": 2,
+   "items": 424,
+   "itemsEqual": true,
+   "columnsModelEqual": 424,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T04-statement.pdf",
+   "pages": 6,
+   "items": 531,
+   "itemsEqual": true,
+   "columnsModelEqual": 531,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T05-statement.pdf",
+   "pages": 3,
+   "items": 208,
+   "itemsEqual": true,
+   "columnsModelEqual": 208,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T06-statement.pdf",
+   "pages": 3,
+   "items": 210,
+   "itemsEqual": true,
+   "columnsModelEqual": 210,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T07-statement.pdf",
+   "pages": 3,
+   "items": 539,
+   "itemsEqual": true,
+   "columnsModelEqual": 539,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T08-statement.pdf",
+   "pages": 3,
+   "items": 544,
+   "itemsEqual": true,
+   "columnsModelEqual": 544,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T09-statement.pdf",
+   "pages": 2,
+   "items": 197,
+   "itemsEqual": true,
+   "columnsModelEqual": 197,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T10-statement.pdf",
+   "pages": 3,
+   "items": 204,
+   "itemsEqual": true,
+   "columnsModelEqual": 204,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T11-statement.pdf",
+   "pages": 3,
+   "items": 249,
+   "itemsEqual": true,
+   "columnsModelEqual": 235,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g15/frozen/T12-statement.pdf",
+   "pages": 3,
+   "items": 474,
+   "itemsEqual": true,
+   "columnsModelEqual": 474,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V01-statement.pdf",
+   "pages": 4,
+   "items": 407,
+   "itemsEqual": true,
+   "columnsModelEqual": 407,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V02-statement.pdf",
+   "pages": 4,
+   "items": 392,
+   "itemsEqual": true,
+   "columnsModelEqual": 392,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V03-statement.pdf",
+   "pages": 4,
+   "items": 373,
+   "itemsEqual": true,
+   "columnsModelEqual": 373,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V04-statement.pdf",
+   "pages": 9,
+   "items": 930,
+   "itemsEqual": true,
+   "columnsModelEqual": 930,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V05-statement.pdf",
+   "pages": 4,
+   "items": 367,
+   "itemsEqual": true,
+   "columnsModelEqual": 367,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V06-statement.pdf",
+   "pages": 4,
+   "items": 334,
+   "itemsEqual": true,
+   "columnsModelEqual": 331,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V07-statement.pdf",
+   "pages": 5,
+   "items": 2879,
+   "itemsEqual": true,
+   "columnsModelEqual": 2225,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V08-statement.pdf",
+   "pages": 4,
+   "items": 2553,
+   "itemsEqual": true,
+   "columnsModelEqual": 1964,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V09-statement.pdf",
+   "pages": 4,
+   "items": 2113,
+   "itemsEqual": true,
+   "columnsModelEqual": 2047,
+   "overlapLines": [
+    [
+     1,
+     9
+    ],
+    [
+     1,
+     14
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     2,
+     10
+    ],
+    [
+     2,
+     12
+    ],
+    [
+     2,
+     15
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     3,
+     8
+    ],
+    [
+     3,
+     11
+    ],
+    [
+     3,
+     14
+    ],
+    [
+     3,
+     15
+    ],
+    [
+     4,
+     8
+    ],
+    [
+     4,
+     11
+    ]
+   ],
+   "readerLines": [
+    [
+     1,
+     9
+    ],
+    [
+     1,
+     14
+    ],
+    [
+     2,
+     7
+    ],
+    [
+     2,
+     10
+    ],
+    [
+     2,
+     12
+    ],
+    [
+     2,
+     15
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     3,
+     8
+    ],
+    [
+     3,
+     11
+    ],
+    [
+     3,
+     14
+    ],
+    [
+     3,
+     15
+    ],
+    [
+     4,
+     8
+    ],
+    [
+     4,
+     11
+    ]
+   ],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V10-statement.pdf",
+   "pages": 4,
+   "items": 371,
+   "itemsEqual": true,
+   "columnsModelEqual": 11,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V11-statement.pdf",
+   "pages": 3,
+   "items": 556,
+   "itemsEqual": true,
+   "columnsModelEqual": 531,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g17/frozen/V12-statement.pdf",
+   "pages": 4,
+   "items": 2538,
+   "itemsEqual": true,
+   "columnsModelEqual": 1949,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W01-statement.pdf",
+   "pages": 4,
+   "items": 431,
+   "itemsEqual": true,
+   "columnsModelEqual": 431,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W02-statement.pdf",
+   "pages": 4,
+   "items": 407,
+   "itemsEqual": true,
+   "columnsModelEqual": 407,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W03-statement.pdf",
+   "pages": 4,
+   "items": 751,
+   "itemsEqual": true,
+   "columnsModelEqual": 281,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W04-statement.pdf",
+   "pages": 9,
+   "items": 913,
+   "itemsEqual": true,
+   "columnsModelEqual": 913,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W05-statement.pdf",
+   "pages": 4,
+   "items": 434,
+   "itemsEqual": true,
+   "columnsModelEqual": 434,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W06-statement.pdf",
+   "pages": 4,
+   "items": 430,
+   "itemsEqual": true,
+   "columnsModelEqual": 430,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W07-statement.pdf",
+   "pages": 4,
+   "items": 378,
+   "itemsEqual": true,
+   "columnsModelEqual": 378,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W08-statement.pdf",
+   "pages": 4,
+   "items": 380,
+   "itemsEqual": true,
+   "columnsModelEqual": 380,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W09-statement.pdf",
+   "pages": 4,
+   "items": 399,
+   "itemsEqual": true,
+   "columnsModelEqual": 399,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W10-statement.pdf",
+   "pages": 5,
+   "items": 474,
+   "itemsEqual": true,
+   "columnsModelEqual": 474,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W11-statement.pdf",
+   "pages": 4,
+   "items": 422,
+   "itemsEqual": true,
+   "columnsModelEqual": 422,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g20/frozen/W12-statement.pdf",
+   "pages": 4,
+   "items": 345,
+   "itemsEqual": true,
+   "columnsModelEqual": 345,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X01-statement.pdf",
+   "pages": 4,
+   "items": 375,
+   "itemsEqual": true,
+   "columnsModelEqual": 375,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X02-statement.pdf",
+   "pages": 4,
+   "items": 385,
+   "itemsEqual": true,
+   "columnsModelEqual": 385,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X03-statement.pdf",
+   "pages": 4,
+   "items": 838,
+   "itemsEqual": true,
+   "columnsModelEqual": 838,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X04-statement.pdf",
+   "pages": 9,
+   "items": 992,
+   "itemsEqual": true,
+   "columnsModelEqual": 992,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X05-statement.pdf",
+   "pages": 4,
+   "items": 399,
+   "itemsEqual": true,
+   "columnsModelEqual": 399,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X06-statement.pdf",
+   "pages": 4,
+   "items": 418,
+   "itemsEqual": true,
+   "columnsModelEqual": 418,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X07-statement.pdf",
+   "pages": 4,
+   "items": 396,
+   "itemsEqual": true,
+   "columnsModelEqual": 396,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X08-statement.pdf",
+   "pages": 5,
+   "items": 444,
+   "itemsEqual": true,
+   "columnsModelEqual": 444,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X09-statement.pdf",
+   "pages": 5,
+   "items": 432,
+   "itemsEqual": true,
+   "columnsModelEqual": 432,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X10-statement.pdf",
+   "pages": 4,
+   "items": 381,
+   "itemsEqual": true,
+   "columnsModelEqual": 381,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X11-statement.pdf",
+   "pages": 4,
+   "items": 428,
+   "itemsEqual": true,
+   "columnsModelEqual": 428,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g23/frozen/X12-statement.pdf",
+   "pages": 4,
+   "items": 351,
+   "itemsEqual": true,
+   "columnsModelEqual": 351,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H01-statement.pdf",
+   "pages": 2,
+   "items": 117,
+   "itemsEqual": true,
+   "columnsModelEqual": 117,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H02-statement.pdf",
+   "pages": 3,
+   "items": 151,
+   "itemsEqual": true,
+   "columnsModelEqual": 151,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H03-statement.pdf",
+   "pages": 2,
+   "items": 300,
+   "itemsEqual": true,
+   "columnsModelEqual": 222,
+   "overlapLines": [
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     1,
+     5
+    ],
+    [
+     1,
+     14
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     10
+    ],
+    [
+     2,
+     11
+    ]
+   ],
+   "readerLines": [
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     4
+    ],
+    [
+     1,
+     5
+    ],
+    [
+     1,
+     14
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     4
+    ],
+    [
+     2,
+     5
+    ],
+    [
+     2,
+     10
+    ],
+    [
+     2,
+     11
+    ]
+   ],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H04-statement.pdf",
+   "pages": 2,
+   "items": 163,
+   "itemsEqual": true,
+   "columnsModelEqual": 163,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H05-statement.pdf",
+   "pages": 30,
+   "items": 4156,
+   "itemsEqual": true,
+   "columnsModelEqual": 4156,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H06-statement.pdf",
+   "pages": 2,
+   "items": 105,
+   "itemsEqual": true,
+   "columnsModelEqual": 105,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H07-statement.pdf",
+   "pages": 3,
+   "items": 154,
+   "itemsEqual": true,
+   "columnsModelEqual": 154,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H08-statement.pdf",
+   "pages": 3,
+   "items": 150,
+   "itemsEqual": true,
+   "columnsModelEqual": 150,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H09-statement.pdf",
+   "pages": 4,
+   "items": 213,
+   "itemsEqual": true,
+   "columnsModelEqual": 213,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H10-statement.pdf",
+   "pages": 2,
+   "items": 99,
+   "itemsEqual": true,
+   "columnsModelEqual": 92,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H11-statement.pdf",
+   "pages": 2,
+   "items": 98,
+   "itemsEqual": true,
+   "columnsModelEqual": 49,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g6/frozen/H12-statement.pdf",
+   "pages": 1,
+   "items": 60,
+   "itemsEqual": true,
+   "columnsModelEqual": 60,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K01-statement.pdf",
+   "pages": 3,
+   "items": 171,
+   "itemsEqual": true,
+   "columnsModelEqual": 91,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K02-statement.pdf",
+   "pages": 2,
+   "items": 139,
+   "itemsEqual": true,
+   "columnsModelEqual": 111,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K03-statement.pdf",
+   "pages": 42,
+   "items": 11103,
+   "itemsEqual": true,
+   "columnsModelEqual": 10163,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf",
+   "pages": 2,
+   "items": 233,
+   "itemsEqual": true,
+   "columnsModelEqual": 131,
+   "overlapLines": [],
+   "readerStopped": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "agree": null
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K05-statement.pdf",
+   "pages": 2,
+   "items": 309,
+   "itemsEqual": true,
+   "columnsModelEqual": 208,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K06-statement.pdf",
+   "pages": 3,
+   "items": 171,
+   "itemsEqual": true,
+   "columnsModelEqual": 171,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K07-statement.pdf",
+   "pages": 3,
+   "items": 161,
+   "itemsEqual": true,
+   "columnsModelEqual": 161,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K08-statement.pdf",
+   "pages": 2,
+   "items": 117,
+   "itemsEqual": true,
+   "columnsModelEqual": 117,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K09-statement.pdf",
+   "pages": 2,
+   "items": 143,
+   "itemsEqual": true,
+   "columnsModelEqual": 114,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf",
+   "pages": 2,
+   "items": 117,
+   "itemsEqual": true,
+   "columnsModelEqual": 117,
+   "overlapLines": [],
+   "readerStopped": "تعذرت قراءة صفحة PDF 1: يتداخل أحد رسوم PDF مع النص وقد يغطي رقمًا. راجع الملف الأصلي واطلب نسخة نصية بسيطة أو Excel.",
+   "agree": null
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K11-statement.pdf",
+   "pages": 3,
+   "items": 194,
+   "itemsEqual": true,
+   "columnsModelEqual": 194,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g8/frozen/K12-statement.pdf",
+   "pages": 3,
+   "items": 156,
+   "itemsEqual": true,
+   "columnsModelEqual": 156,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N01-statement.pdf",
+   "pages": 3,
+   "items": 185,
+   "itemsEqual": true,
+   "columnsModelEqual": 185,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N02-statement.pdf",
+   "pages": 2,
+   "items": 175,
+   "itemsEqual": true,
+   "columnsModelEqual": 175,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N03-statement.pdf",
+   "pages": 2,
+   "items": 152,
+   "itemsEqual": true,
+   "columnsModelEqual": 152,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N04-statement.pdf",
+   "pages": 4,
+   "items": 195,
+   "itemsEqual": true,
+   "columnsModelEqual": 195,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N05-statement.pdf",
+   "pages": 29,
+   "items": 2759,
+   "itemsEqual": true,
+   "columnsModelEqual": 1815,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N06-statement.pdf",
+   "pages": 1,
+   "items": 66,
+   "itemsEqual": true,
+   "columnsModelEqual": 66,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N07-statement.pdf",
+   "pages": 2,
+   "items": 140,
+   "itemsEqual": true,
+   "columnsModelEqual": 140,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N08-statement.pdf",
+   "pages": 2,
+   "items": 123,
+   "itemsEqual": true,
+   "columnsModelEqual": 121,
+   "overlapLines": [],
+   "readerStopped": "يحتوي PDF صورة قد تضم بيانات لا تُقرأ نصيًا، حتى لو كانت صغيرة. أرقام القراءة البصرية (OCR) لا تدخل التسوية حاليًا. اطلب",
+   "agree": null
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N09-statement.pdf",
+   "pages": 4,
+   "items": 1309,
+   "itemsEqual": true,
+   "columnsModelEqual": 1309,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N10-statement.pdf",
+   "pages": 3,
+   "items": 258,
+   "itemsEqual": true,
+   "columnsModelEqual": 240,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N11-statement.pdf",
+   "pages": 3,
+   "items": 180,
+   "itemsEqual": true,
+   "columnsModelEqual": 180,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "file": "audit/bank-statement-holdout-g9/frozen/N12-statement.pdf",
+   "pages": 3,
+   "items": 174,
+   "itemsEqual": true,
+   "columnsModelEqual": 171,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  }
+ ],
+ "planted": [
+  {
+   "case": "back-0.15em",
+   "pages": 1,
+   "items": 1,
+   "itemsEqual": true,
+   "columnsModelEqual": 1,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "case": "back-0.25em",
+   "pages": 1,
+   "items": 2,
+   "itemsEqual": true,
+   "columnsModelEqual": 2,
+   "overlapLines": [
+    [
+     1,
+     1
+    ]
+   ],
+   "readerLines": [
+    [
+     1,
+     1
+    ]
+   ],
+   "agree": true
+  },
+  {
+   "case": "gap-0.8em",
+   "pages": 1,
+   "items": 2,
+   "itemsEqual": true,
+   "columnsModelEqual": 2,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "case": "marked-content-0.3",
+   "pages": 1,
+   "items": 2,
+   "itemsEqual": true,
+   "columnsModelEqual": 0,
+   "overlapLines": [
+    [
+     1,
+     1
+    ]
+   ],
+   "readerLines": [
+    [
+     1,
+     1
+    ]
+   ],
+   "agree": true
+  },
+  {
+   "case": "one-font-0.3",
+   "pages": 1,
+   "items": 1,
+   "itemsEqual": true,
+   "columnsModelEqual": 1,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "case": "space-then-tight",
+   "pages": 1,
+   "items": 2,
+   "itemsEqual": true,
+   "columnsModelEqual": 0,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "case": "subsets-0.1",
+   "pages": 1,
+   "items": 2,
+   "itemsEqual": true,
+   "columnsModelEqual": 0,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "case": "subsets-0.3",
+   "pages": 1,
+   "items": 2,
+   "itemsEqual": true,
+   "columnsModelEqual": 0,
+   "overlapLines": [
+    [
+     1,
+     1
+    ]
+   ],
+   "readerLines": [
+    [
+     1,
+     1
+    ]
+   ],
+   "agree": true
+  },
+  {
+   "case": "two-names-0.3",
+   "pages": 1,
+   "items": 1,
+   "itemsEqual": true,
+   "columnsModelEqual": 1,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  },
+  {
+   "case": "two-text-objects",
+   "pages": 1,
+   "items": 1,
+   "itemsEqual": true,
+   "columnsModelEqual": 1,
+   "overlapLines": [],
+   "readerLines": [],
+   "agree": true
+  }
+ ],
+ "summary": {
+  "sealed": 136,
+  "sealedItems": 93860,
+  "sealedItemsColumnsModelHas": 87633,
+  "itemsEqual": "146/146",
+  "verdictsAgree": "141/141",
+  "readerStoppedFirst": [
+   "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf",
+   "audit/bank-statement-holdout-g14/frozen/R04-statement.pdf",
+   "audit/bank-statement-holdout-g8/frozen/K04-statement.pdf",
+   "audit/bank-statement-holdout-g8/frozen/K10-statement.pdf",
+   "audit/bank-statement-holdout-g9/frozen/N08-statement.pdf"
+  ],
+  "overlapFoundByItems": [
+   "audit/bank-statement-holdout-g10/frozen/P08-statement.pdf",
+   "audit/bank-statement-holdout-g17/frozen/V09-statement.pdf",
+   "audit/bank-statement-holdout-g6/frozen/H03-statement.pdf",
+   "back-0.25em",
+   "marked-content-0.3",
+   "subsets-0.3"
+  ]
+ }
+}
