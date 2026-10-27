@@ -9,14 +9,14 @@
 //   3. for every reading the expectation settles, the lifecycle on the
 //      period's declared twin: whether its cases equal the expected cases,
 //      which shows whether reading the columns is all that is missing.
-// And it records that no map can be imported or exported: the product has no
-// map format to accept one. A refusal or an error is recorded, not thrown.
+// And it records each import and export as an action with no path in the
+// product as it was. A refusal or an error is recorded, not thrown.
 // With --record=<file> the outcome is written to the package's results/; with
 // --assert=<file> it must equal that record.
 //   node --experimental-strip-types scripts/bank-map-baseline.mjs [--record=<file> | --assert=<file>]
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import { readFile, readdir, writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -197,19 +197,6 @@ for (const story of facts.stories) {
     out.push(entry);
   }
 }
-// The product has no column map: nothing in it names the map format.
-const library = path.join(root, 'lib/reconciliation');
-const mentions = [];
-for (const name of await readdir(library))
-  if (
-    name.endsWith('.ts') &&
-    (await readFile(path.join(library, name), 'utf8')).includes(
-      'tarasuf-column-map',
-    )
-  )
-    mentions.push(name);
-summary.mapFormatInProduct = mentions;
-
 const outcome = { suite: 'bank-map-foundation', stories, summary };
 const record = option('record'),
   check = option('assert');

@@ -17,6 +17,13 @@ import type {
 import { BANK_STATEMENT_NATIVE } from './bank-statement-native.ts';
 import { currencyPrecision } from './currency-precision.ts';
 import { numericPrecisionIssue } from './io.ts';
+import {
+  CASHBOOK_ROLES,
+  cashbookMapProblems,
+  columnLetters,
+  normalLabel,
+} from './bank-cashbook-map.ts';
+import type { CashbookColumns, CashbookRole } from './bank-cashbook-map.ts';
 import type { SourceFile } from './types.ts';
 
 export const STATEMENT_DATE_WINDOW_DAYS = 3;
@@ -220,6 +227,144 @@ export function readBankCashbookTable(
         isoDate(date) ??
         (() => {
           throw new CashbookReadError('DATE', at, JSON.stringify(date));
+        })(),
+      description,
+      reference,
+      direction: receipt ? 'in' : 'out',
+      amount: receipt || payment,
+    });
+  }
+  return entries;
+}
+
+/** Reads a cashbook with the columns a choice by hand or a map names
+ * (bank-cashbook-map-1), by the declared reading's rules in their order on
+ * those columns. The columns must fit the file. The rows above the header
+ * row are not read, nor the labelled columns no role names; a value under an
+ * empty header cell refuses its row, as a value outside the declared columns
+ * does. */
+export function readMappedBankCashbook(
+  file: SourceFile,
+  currency: string,
+  columns: CashbookColumns,
+): CashbookEntry[] {
+  const decimals = currencyPrecision(currency);
+  if (decimals === undefined)
+    throw new CashbookReadError('SCOPE', 0, 'unknown currency');
+  const problems = cashbookMapProblems(file, columns);
+  if (problems.length)
+    throw new CashbookReadError(
+      'MAP',
+      columns.header,
+      `the columns do not fit: ${problems.map((p) => (p.kind === 'column' ? p.role : p.kind)).join(', ')}`,
+    );
+  const sheet = file.sheets[0];
+  const { header } = columns;
+  const at = (role: CashbookRole) => columns.columns[role]?.column ?? 0;
+  const labelled = new Set(
+    (sheet.rows[header - 1] ?? []).flatMap((text, k) =>
+      normalLabel(text) ? [k + 1] : [],
+    ),
+  );
+  const money = new RegExp(
+    `^(\\d+)${decimals ? `[.](\\d{${decimals}})` : ''}$`,
+    'u',
+  );
+  const typedMoney = new RegExp(
+    `^(\\d+)${decimals ? `(?:[.](\\d{1,${decimals}}))?` : ''}$`,
+    'u',
+  );
+  // The records of the generic reader on a mapped cell, as the declared
+  // reading takes them on its six (G16).
+  const recorded = (row: number) => {
+    const marks = sheet.rowIssues?.[String(row)] ?? [];
+    if (marks.length)
+      throw new CashbookReadError('SHEET', row, marks.join('; '));
+    for (const role of CASHBOOK_ROLES) {
+      const column = at(role);
+      if (!column) continue;
+      const key = `${row}:${column}`;
+      const issues = [
+        ...(sheet.cellIssues?.[key] ?? []),
+        ...(role === 'voucher' || role === 'reference'
+          ? (sheet.referenceIssues?.[key] ?? [])
+          : []),
+      ].filter(
+        (issue) =>
+          !(
+            (role === 'receipts' || role === 'payments') &&
+            numericPrecisionIssue(`${columnLetters(column)}${row}`) === issue
+          ),
+      );
+      if (issues.length)
+        throw new CashbookReadError(
+          'CELL',
+          row,
+          `${columns.columns[role]!.label}: ${issues.join('; ')}`,
+        );
+    }
+  };
+  recorded(header);
+  const amount = (s: string, row: number, column: number, name: string) => {
+    if (!s) return 0;
+    const m = (
+      sheet.numericCells?.[`${row}:${column}`] ? typedMoney : money
+    ).exec(s);
+    const value = m ? Number(m[1] + (m[2] ?? '').padEnd(decimals, '0')) : NaN;
+    if (!Number.isSafeInteger(value))
+      throw new CashbookReadError(
+        'AMOUNT',
+        row,
+        `${name} ${JSON.stringify(s)}`,
+      );
+    return value;
+  };
+  const entries: CashbookEntry[] = [];
+  const vouchers = new Set<string>();
+  for (const [i, cells] of sheet.rows.slice(header).entries()) {
+    const row = i + header + 1;
+    recorded(row);
+    if (cells.some((s, k) => !labelled.has(k + 1) && s.trim()))
+      throw new CashbookReadError(
+        'COLUMN',
+        row,
+        'a value under an empty header cell',
+      );
+    const [date, voucher, description, reference, receipts, payments] =
+      CASHBOOK_ROLES.map((role) =>
+        at(role) ? (cells[at(role) - 1] ?? '').trim() : '',
+      );
+    if (
+      !date &&
+      !voucher &&
+      !description &&
+      !reference &&
+      !receipts &&
+      !payments
+    )
+      throw new CashbookReadError('ROW', row, 'no value in the mapped columns');
+    const receipt = amount(receipts, row, at('receipts'), 'receipts');
+    const payment = amount(payments, row, at('payments'), 'payments');
+    if (!receipt === !payment)
+      throw new CashbookReadError(
+        'AMOUNT',
+        row,
+        'one positive amount in Receipts or Payments',
+      );
+    if (voucher === '' || vouchers.has(voucher))
+      throw new CashbookReadError(
+        'VOUCHER',
+        row,
+        'a missing or repeated voucher',
+      );
+    vouchers.add(voucher);
+    entries.push({
+      id: voucher,
+      row,
+      date:
+        isoDate(date) ??
+        (() => {
+          throw new CashbookReadError('DATE', row, JSON.stringify(date));
         })(),
       description,
       reference,

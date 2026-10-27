@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 50336,
-      "sha256": "3336caf073cf1d2714fce70e2736d7e821aaadd7735b1838a08c322a5742ee49",
+      "bytes": 50481,
+      "sha256": "75eb586be453cbcb8648568b78add80d23a832f469290a51c0e75c194575bfeb",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 29328,
-      "sha256": "4287ec791980a12331478e54caa0a5740176df82e1760a1537613db3925d7dbc",
+      "bytes": 29783,
+      "sha256": "dae93c3d6942fecdf4b28b910891ae05f78ca70faf68afdc3e860fe35f8d4c0f",
       "kind": "text"
     },
     {
@@ -35943,8 +35943,8 @@
     },
     {
       "path": "docs/README.ar.md",
-      "bytes": 19427,
-      "sha256": "7f4470ae9368b8925d366a3fe70863b4e6bdc5c5d9271f08ce0851ac0c57ec79",
+      "bytes": 19495,
+      "sha256": "82672e440dc732d76955806e8b1f0642990e550156c81e9ccb044928fa4fed19",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 68847,
-      "sha256": "d09db326091ce1122bd3da6c7df8ed4fa0bb0e7cf52b93df4f568d2425b789c2",
+      "bytes": 69767,
+      "sha256": "e6f49c84f6d3e667f46b9b2024dbfd658f1b258fb0470a618c0f27621bd056f7",
       "kind": "text"
     },
     {
@@ -36169,8 +36169,8 @@
     },
     {
       "path": "docs/reference/STATE.ar.md",
-      "bytes": 73651,
-      "sha256": "9d8b497de0b0286124f958f1d032e03184a9eb190a02e9c9e48a9da40098bb12",
+      "bytes": 73906,
+      "sha256": "ba54eb9d8483f3e3744f0fa536acf44966a9d9422553fbf2bbf42c7ef770d201",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 34520,
-      "sha256": "50f6fe1555f42f6e89a733ca24bf055c58434d06b5a5088c640859e69dc90c2a",
+      "bytes": 34744,
+      "sha256": "03bc5e5d1c326884275b211e4a33bbdd66a388427c1b44951327509149130008",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 13150,
-      "sha256": "eec1d47f23a2e4db99135565b57a9eef7e3b6514378746906431728e781d1222",
+      "bytes": 13204,
+      "sha256": "321e872d88837077eeab46db5d53de106105b54d8ef9c054e819ab98bed0b90e",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 16559,
-      "sha256": "0fbfa26bfb0152a7ad26519e87e196851a432163acef026579ea388db5266974",
+      "bytes": 16883,
+      "sha256": "45c70e25490180d6e5766db68b0e351cb0a4877392674cb5e144001a41fd1b03",
       "kind": "text"
     },
     {
@@ -41321,8 +41321,8 @@
     },
     {
       "path": "lib/reconciliation/bank-statement-match.ts",
-      "bytes": 14501,
-      "sha256": "53381904b6e95a728859f5ba8a7be225343026e8ad2c4430b45876455a92dc3b",
+      "bytes": 19179,
+      "sha256": "f59b9a55f54ea5407dc788f98a0ea9245910dfb8e4736de6af8f16a0c830949f",
       "kind": "text"
     },
     {
@@ -52269,20 +52269,50 @@
     },
     {
       "path": "docs/audits/WF-1-MAP-FOUNDATION.ar.md",
-      "bytes": 22608,
-      "sha256": "ce5c3f5b8d0a3f6e7f08637a7fc11739b583114fc3c820f71c96e94d00d0539f",
+      "bytes": 22879,
+      "sha256": "a83e6de13a2c6ff65eefd00f88160d3e1afa1045f5e903c5fc556ca498fbae1e",
       "kind": "text"
     },
     {
       "path": "audit/bank-map-foundation/results/baseline-31c889b.json",
-      "bytes": 18166,
-      "sha256": "ab23c0bab1f6a15085f63c57d4521e89a237b2b21d6507f60389dfb60476b5bd",
+      "bytes": 18138,
+      "sha256": "196669b05c513747fbb548290149569c0aa57e500c25486a51b2daa383e267fa",
       "kind": "text"
     },
     {
       "path": "scripts/bank-map-baseline.mjs",
-      "bytes": 7760,
-      "sha256": "7a4f428f4e5d3bea670163d63e4ac87378bd4c37ea439e1960ef1ed72d7738b2",
+      "bytes": 7348,
+      "sha256": "b31db65b21d85765b59e3d63f2ce6f5e95d0ad8415228cd683e023745c0c555c",
+      "kind": "text"
+    },
+    {
+      "path": "docs/audits/WF-1-MAP-M1.ar.md",
+      "bytes": 9197,
+      "sha256": "c8f23d723b9506a11694268fd7a272cd16613657b2109d4376c66650278f1771",
+      "kind": "text"
+    },
+    {
+      "path": "lib/reconciliation/bank-cashbook-map.ts",
+      "bytes": 13104,
+      "sha256": "e79f56776a36f07f8abe5a8543b1b865813d6f7b5454db07477b33243b0b22a4",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-map-proof.mjs",
+      "bytes": 7771,
+      "sha256": "168c0ad567b1930ddc475d89f2e0f0638f0b68470203666e96cfa88c91589ccc",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/test-bank-map-mutations.mjs",
+      "bytes": 9337,
+      "sha256": "0e152bc2fe0a80be7cceb5a32d7b738acc982088dd2d1051686a26244848731c",
+      "kind": "text"
+    },
+    {
+      "path": "tests/bank-cashbook-map.test.ts",
+      "bytes": 20809,
+      "sha256": "46ede68efbaee905b72d9628543478d127b0d605632cf72343e31bd9c0429664",
       "kind": "text"
     }
   ],
