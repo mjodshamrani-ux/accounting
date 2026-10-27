@@ -1,0 +1,4790 @@
+{
+ "version": "bank-sheet-foundation-1",
+ "stories": [
+  {
+   "id": "T01",
+   "title": "Every movement matched: the sheet balances with no item",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T01-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77014417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 43311400
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 01N01",
+          "reference": "PAY-01N01",
+          "withdrawal": 1686561,
+          "deposit": 0,
+          "balance": 41624839
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-09",
+          "valueDate": "2026-11-09",
+          "description": "Transfer in 01N02",
+          "reference": "RCV-01N02",
+          "withdrawal": 0,
+          "deposit": 3713440,
+          "balance": 45338279
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-14",
+          "valueDate": "2026-11-14",
+          "description": "Transfer out 01N03",
+          "reference": "PAY-01N03",
+          "withdrawal": 4066852,
+          "deposit": 0,
+          "balance": 41271427
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-19",
+          "valueDate": "2026-11-19",
+          "description": "Transfer out 01N04",
+          "reference": "PAY-01N04",
+          "withdrawal": 2661073,
+          "deposit": 0,
+          "balance": 38610354
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 01N05",
+          "reference": "PAY-01N05",
+          "withdrawal": 1910949,
+          "deposit": 0,
+          "balance": 36699405
+         },
+         {
+          "kind": "closing",
+          "balance": 36699405
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 10325435,
+          "deposit": 3713440
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-04",
+       "voucher": "BP-01N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-01N01",
+       "receipt": 0,
+       "payment": 1686561
+      },
+      {
+       "date": "2026-11-09",
+       "voucher": "BR-01N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-01N02",
+       "receipt": 3713440,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-13",
+       "voucher": "BP-01N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-01N03",
+       "receipt": 0,
+       "payment": 4066852
+      },
+      {
+       "date": "2026-11-18",
+       "voucher": "BP-01N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-01N04",
+       "receipt": 0,
+       "payment": 2661073
+      },
+      {
+       "date": "2026-11-24",
+       "voucher": "BP-01N05",
+       "description": "Payment to supplier",
+       "reference": "PAY-01N05",
+       "receipt": 0,
+       "payment": 1910949
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 36699405,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "five movements recorded on both sides; the book balance is the ledger",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T02",
+   "title": "An outstanding cheque and a deposit in transit, prepared and reviewed",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T02-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77024417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 62039400
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 02N01",
+          "reference": "RCV-02N01",
+          "withdrawal": 0,
+          "deposit": 2375382,
+          "balance": 64414782
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 02N02",
+          "reference": "PAY-02N02",
+          "withdrawal": 3465915,
+          "deposit": 0,
+          "balance": 60948867
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 02N03",
+          "reference": "RCV-02N03",
+          "withdrawal": 0,
+          "deposit": 3901257,
+          "balance": 64850124
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 02N04",
+          "reference": "RCV-02N04",
+          "withdrawal": 0,
+          "deposit": 147462,
+          "balance": 64997586
+         },
+         {
+          "kind": "closing",
+          "balance": 64997586
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3465915,
+          "deposit": 6424101
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BR-02N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-02N01",
+       "receipt": 2375382,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-09",
+       "voucher": "BP-02N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-02N02",
+       "receipt": 0,
+       "payment": 3465915
+      },
+      {
+       "date": "2026-11-17",
+       "voucher": "BR-02N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-02N03",
+       "receipt": 3901257,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-24",
+       "voucher": "BR-02N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-02N04",
+       "receipt": 147462,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-27",
+       "voucher": "BP-T02-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T02-301",
+       "receipt": 0,
+       "payment": 518040
+      },
+      {
+       "date": "2026-11-30",
+       "voucher": "BR-T02-92",
+       "description": "Cash deposited",
+       "reference": "DEP-T02-302",
+       "receipt": 1275000,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 65754546,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "prepare": {
+      "name": "Prepared by A. Accountant",
+      "date": "2026-12-02"
+     }
+    },
+    {
+     "review": {
+      "name": "Reviewed by R. Reviewer",
+      "date": "2026-12-03"
+     }
+    }
+   ],
+   "recipe": "the cashbook pays CHQ-T02-301 and receives DEP-T02-302 at month end; the statement shows neither",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:BP-T02-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "unmatched"
+     },
+     {
+      "item": "NOV:BR-T02-92",
+      "section": "bookReceiptsNotOnStatement",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {
+     "prepared": "valid",
+     "reviewed": "valid"
+    }
+   }
+  },
+  {
+   "id": "T03",
+   "title": "A bank charge and interest not yet in the book",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T03-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77034417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 6152500
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 03N01",
+          "reference": "PAY-03N01",
+          "withdrawal": 1397407,
+          "deposit": 0,
+          "balance": 4755093
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 03N02",
+          "reference": "RCV-03N02",
+          "withdrawal": 0,
+          "deposit": 3610997,
+          "balance": 8366090
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 03N03",
+          "reference": "PAY-03N03",
+          "withdrawal": 3619850,
+          "deposit": 0,
+          "balance": 4746240
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 03N04",
+          "reference": "RCV-03N04",
+          "withdrawal": 0,
+          "deposit": 2411919,
+          "balance": 7158159
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-29",
+          "valueDate": "2026-11-29",
+          "description": "Account maintenance charge",
+          "reference": "FEE-T03-1129",
+          "withdrawal": 9775,
+          "deposit": 0,
+          "balance": 7148384
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2026-11-30",
+          "valueDate": "2026-11-30",
+          "description": "Interest credited",
+          "reference": "INT-T03-1130",
+          "withdrawal": 0,
+          "deposit": 41210,
+          "balance": 7189594
+         },
+         {
+          "kind": "closing",
+          "balance": 7189594
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5027032,
+          "deposit": 6064126
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-03",
+       "voucher": "BP-03N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-03N01",
+       "receipt": 0,
+       "payment": 1397407
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BR-03N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-03N02",
+       "receipt": 3610997,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-18",
+       "voucher": "BP-03N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-03N03",
+       "receipt": 0,
+       "payment": 3619850
+      },
+      {
+       "date": "2026-11-23",
+       "voucher": "BR-03N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-03N04",
+       "receipt": 2411919,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 7158159,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "the statement charges a fee and credits interest; the cashbook records neither",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:S5",
+      "section": "statementWithdrawalsNotInBook",
+      "origin": "unmatched"
+     },
+     {
+      "item": "NOV:S6",
+      "section": "statementDepositsNotInBook",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T04",
+   "title": "An Arabic statement and sheet with all four sections",
+   "layout": "ar",
+   "language": "ar",
+   "periods": [
+    {
+     "id": "T04-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77044417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 42606700
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 04N01",
+          "reference": "PAY-04N01",
+          "withdrawal": 2007373,
+          "deposit": 0,
+          "balance": 40599327
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 04N02",
+          "reference": "RCV-04N02",
+          "withdrawal": 0,
+          "deposit": 2266549,
+          "balance": 42865876
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 04N03",
+          "reference": "RCV-04N03",
+          "withdrawal": 0,
+          "deposit": 3246120,
+          "balance": 46111996
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 04N04",
+          "reference": "PAY-04N04",
+          "withdrawal": 3737249,
+          "deposit": 0,
+          "balance": 42374747
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-28",
+          "valueDate": "2026-11-28",
+          "description": "Card fee",
+          "reference": "FEE-T04-1128",
+          "withdrawal": 15000,
+          "deposit": 0,
+          "balance": 42359747
+         },
+         {
+          "kind": "movement",
+          "key": "S6",
+          "date": "2026-11-30",
+          "valueDate": "2026-11-30",
+          "description": "Profit credited",
+          "reference": "INT-T04-1130",
+          "withdrawal": 0,
+          "deposit": 22050,
+          "balance": 42381797
+         },
+         {
+          "kind": "closing",
+          "balance": 42381797
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5759622,
+          "deposit": 5534719
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BP-04N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-04N01",
+       "receipt": 0,
+       "payment": 2007373
+      },
+      {
+       "date": "2026-11-10",
+       "voucher": "BR-04N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-04N02",
+       "receipt": 2266549,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-18",
+       "voucher": "BR-04N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-04N03",
+       "receipt": 3246120,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BP-04N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-04N04",
+       "receipt": 0,
+       "payment": 3737249
+      },
+      {
+       "date": "2026-11-29",
+       "voucher": "BP-T04-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T04-401",
+       "receipt": 0,
+       "payment": 312500
+      },
+      {
+       "date": "2026-11-30",
+       "voucher": "BR-T04-92",
+       "description": "Cash deposited",
+       "reference": "DEP-T04-402",
+       "receipt": 880000,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 42942247,
+      "note": "دفتر الأستاذ، النقد لدى البنك"
+     }
+    }
+   ],
+   "recipe": "as T02 and T03 together, printed in Arabic with Arabic-Indic digits, the sheet in Arabic",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:BP-T04-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "unmatched"
+     },
+     {
+      "item": "NOV:BR-T04-92",
+      "section": "bookReceiptsNotOnStatement",
+      "origin": "unmatched"
+     },
+     {
+      "item": "NOV:S5",
+      "section": "statementWithdrawalsNotInBook",
+      "origin": "unmatched"
+     },
+     {
+      "item": "NOV:S6",
+      "section": "statementDepositsNotInBook",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T05",
+   "title": "A book balance declared 900.00 above the ledger",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T05-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77054417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 14752000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 05N01",
+          "reference": "RCV-05N01",
+          "withdrawal": 0,
+          "deposit": 1029672,
+          "balance": 15781672
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 05N02",
+          "reference": "PAY-05N02",
+          "withdrawal": 4317047,
+          "deposit": 0,
+          "balance": 11464625
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 05N03",
+          "reference": "PAY-05N03",
+          "withdrawal": 3916183,
+          "deposit": 0,
+          "balance": 7548442
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 05N04",
+          "reference": "PAY-05N04",
+          "withdrawal": 2770948,
+          "deposit": 0,
+          "balance": 4777494
+         },
+         {
+          "kind": "closing",
+          "balance": 4777494
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 11004178,
+          "deposit": 1029672
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-03",
+       "voucher": "BR-05N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-05N01",
+       "receipt": 1029672,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-10",
+       "voucher": "BP-05N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-05N02",
+       "receipt": 0,
+       "payment": 4317047
+      },
+      {
+       "date": "2026-11-17",
+       "voucher": "BP-05N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-05N03",
+       "receipt": 0,
+       "payment": 3916183
+      },
+      {
+       "date": "2026-11-24",
+       "voucher": "BP-05N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-05N04",
+       "receipt": 0,
+       "payment": 2770948
+      },
+      {
+       "date": "2026-11-26",
+       "voucher": "BP-T05-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T05-501",
+       "receipt": 0,
+       "payment": 204500
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 4662994,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "one outstanding cheque; the declared balance is 900.00 more than the ledger",
+   "intent": {
+    "status": "difference",
+    "difference": -90000,
+    "items": [
+     {
+      "item": "NOV:BP-T05-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T06",
+   "title": "The ledger holds a payment the cashbook file lacks",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T06-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77064417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 27825500
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 06N01",
+          "reference": "PAY-06N01",
+          "withdrawal": 1308243,
+          "deposit": 0,
+          "balance": 26517257
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-09",
+          "valueDate": "2026-11-09",
+          "description": "Transfer in 06N02",
+          "reference": "RCV-06N02",
+          "withdrawal": 0,
+          "deposit": 972880,
+          "balance": 27490137
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-14",
+          "valueDate": "2026-11-14",
+          "description": "Transfer in 06N03",
+          "reference": "RCV-06N03",
+          "withdrawal": 0,
+          "deposit": 366038,
+          "balance": 27856175
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-19",
+          "valueDate": "2026-11-19",
+          "description": "Transfer in 06N04",
+          "reference": "RCV-06N04",
+          "withdrawal": 0,
+          "deposit": 3380499,
+          "balance": 31236674
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 06N05",
+          "reference": "RCV-06N05",
+          "withdrawal": 0,
+          "deposit": 2026421,
+          "balance": 33263095
+         },
+         {
+          "kind": "closing",
+          "balance": 33263095
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1308243,
+          "deposit": 6745838
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BP-06N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-06N01",
+       "receipt": 0,
+       "payment": 1308243
+      },
+      {
+       "date": "2026-11-07",
+       "voucher": "BR-06N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-06N02",
+       "receipt": 972880,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-13",
+       "voucher": "BR-06N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-06N03",
+       "receipt": 366038,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-19",
+       "voucher": "BR-06N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-06N04",
+       "receipt": 3380499,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-23",
+       "voucher": "BR-06N05",
+       "description": "Receipt from customer",
+       "reference": "RCV-06N05",
+       "receipt": 2026421,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 33188095,
+      "note": "General ledger after a 750.00 accrual paid by cheque"
+     }
+    }
+   ],
+   "recipe": "the books record a 750.00 payment that is in neither the cashbook file nor the statement",
+   "intent": {
+    "status": "difference",
+    "difference": 75000,
+    "items": [],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T07",
+   "title": "An outstanding receipt and payment of the same amount are both listed",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T07-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77074417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 33575700
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 07N01",
+          "reference": "RCV-07N01",
+          "withdrawal": 0,
+          "deposit": 125754,
+          "balance": 33701454
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 07N02",
+          "reference": "PAY-07N02",
+          "withdrawal": 3500638,
+          "deposit": 0,
+          "balance": 30200816
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 07N03",
+          "reference": "PAY-07N03",
+          "withdrawal": 1520213,
+          "deposit": 0,
+          "balance": 28680603
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 07N04",
+          "reference": "RCV-07N04",
+          "withdrawal": 0,
+          "deposit": 1845550,
+          "balance": 30526153
+         },
+         {
+          "kind": "closing",
+          "balance": 30526153
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5020851,
+          "deposit": 1971304
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-03",
+       "voucher": "BR-07N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-07N01",
+       "receipt": 125754,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-10",
+       "voucher": "BP-07N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-07N02",
+       "receipt": 0,
+       "payment": 3500638
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BP-07N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-07N03",
+       "receipt": 0,
+       "payment": 1520213
+      },
+      {
+       "date": "2026-11-24",
+       "voucher": "BR-07N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-07N04",
+       "receipt": 1845550,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-30",
+       "voucher": "BR-T07-91",
+       "description": "Cash deposited",
+       "reference": "DEP-T07-701",
+       "receipt": 50000,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-30",
+       "voucher": "BP-T07-92",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T07-702",
+       "receipt": 0,
+       "payment": 50000
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 30526153,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "a 500.00 receipt and a 500.00 cheque, both at month end, both missing from the statement",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:BR-T07-91",
+      "section": "bookReceiptsNotOnStatement",
+      "origin": "unmatched"
+     },
+     {
+      "item": "NOV:BP-T07-92",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T08",
+   "title": "A difference equal to a listed cheque is still a difference",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T08-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77084417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 8200800
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 08N01",
+          "reference": "PAY-08N01",
+          "withdrawal": 1352629,
+          "deposit": 0,
+          "balance": 6848171
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 08N02",
+          "reference": "RCV-08N02",
+          "withdrawal": 0,
+          "deposit": 1905524,
+          "balance": 8753695
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 08N03",
+          "reference": "RCV-08N03",
+          "withdrawal": 0,
+          "deposit": 2728704,
+          "balance": 11482399
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 08N04",
+          "reference": "RCV-08N04",
+          "withdrawal": 0,
+          "deposit": 3832055,
+          "balance": 15314454
+         },
+         {
+          "kind": "closing",
+          "balance": 15314454
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1352629,
+          "deposit": 8466283
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-04",
+       "voucher": "BP-08N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-08N01",
+       "receipt": 0,
+       "payment": 1352629
+      },
+      {
+       "date": "2026-11-09",
+       "voucher": "BR-08N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-08N02",
+       "receipt": 1905524,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BR-08N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-08N03",
+       "receipt": 2728704,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BR-08N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-08N04",
+       "receipt": 3832055,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-27",
+       "voucher": "BP-T08-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T08-801",
+       "receipt": 0,
+       "payment": 230000
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 15314454,
+      "note": "General ledger before the cheque was posted"
+     }
+    }
+   ],
+   "recipe": "an outstanding 2,300.00 cheque; the declared balance omits it, so the difference equals its amount",
+   "intent": {
+    "status": "difference",
+    "difference": -230000,
+    "items": [
+     {
+      "item": "NOV:BP-T08-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T09",
+   "title": "One minor unit is a difference",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T09-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77094417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 20071200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 09N01",
+          "reference": "RCV-09N01",
+          "withdrawal": 0,
+          "deposit": 374916,
+          "balance": 20446116
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 09N02",
+          "reference": "PAY-09N02",
+          "withdrawal": 4192698,
+          "deposit": 0,
+          "balance": 16253418
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 09N03",
+          "reference": "PAY-09N03",
+          "withdrawal": 1544787,
+          "deposit": 0,
+          "balance": 14708631
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 09N04",
+          "reference": "RCV-09N04",
+          "withdrawal": 0,
+          "deposit": 2917422,
+          "balance": 17626053
+         },
+         {
+          "kind": "closing",
+          "balance": 17626053
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5737485,
+          "deposit": 3292338
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BR-09N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-09N01",
+       "receipt": 374916,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BP-09N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-09N02",
+       "receipt": 0,
+       "payment": 4192698
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BP-09N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-09N03",
+       "receipt": 0,
+       "payment": 1544787
+      },
+      {
+       "date": "2026-11-23",
+       "voucher": "BR-09N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-09N04",
+       "receipt": 2917422,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 17626052,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "the declared balance is one halala below the ledger",
+   "intent": {
+    "status": "difference",
+    "difference": 1,
+    "items": [],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T10",
+   "title": "An overdrawn account",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T10-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77104417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": -4520000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-06",
+          "valueDate": "2026-11-06",
+          "description": "Transfer out T10-01",
+          "reference": "PAY-T10-01",
+          "withdrawal": 1210000,
+          "deposit": 0,
+          "balance": -5730000
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in T10-02",
+          "reference": "RCV-T10-02",
+          "withdrawal": 0,
+          "deposit": 905050,
+          "balance": -4824950
+         },
+         {
+          "kind": "closing",
+          "balance": -4824950
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1210000,
+          "deposit": 905050
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-05",
+       "voucher": "BP-T10-01",
+       "description": "Payment to supplier",
+       "reference": "PAY-T10-01",
+       "receipt": 0,
+       "payment": 1210000
+      },
+      {
+       "date": "2026-11-17",
+       "voucher": "BR-T10-02",
+       "description": "Receipt from customer",
+       "reference": "RCV-T10-02",
+       "receipt": 905050,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-28",
+       "voucher": "BP-T10-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T10-901",
+       "receipt": 0,
+       "payment": 133300
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": -4958250,
+      "note": "General ledger, credit balance"
+     }
+    }
+   ],
+   "recipe": "the statement opens and closes in debit (DR); the books show a credit balance; one cheque outstanding",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:BP-T10-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T11",
+   "title": "An undecided suggestion makes a draft",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T11-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77114417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 8800800
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 11N01",
+          "reference": "RCV-11N01",
+          "withdrawal": 0,
+          "deposit": 4360774,
+          "balance": 13161574
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 11N02",
+          "reference": "PAY-11N02",
+          "withdrawal": 54207,
+          "deposit": 0,
+          "balance": 13107367
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 11N03",
+          "reference": "PAY-11N03",
+          "withdrawal": 3459201,
+          "deposit": 0,
+          "balance": 9648166
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-21",
+          "valueDate": "2026-11-21",
+          "description": "Cash deposit branch 12",
+          "reference": "",
+          "withdrawal": 0,
+          "deposit": 645000,
+          "balance": 10293166
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 11N04",
+          "reference": "PAY-11N04",
+          "withdrawal": 1999364,
+          "deposit": 0,
+          "balance": 8293802
+         },
+         {
+          "kind": "closing",
+          "balance": 8293802
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 5512772,
+          "deposit": 5005774
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-04",
+       "voucher": "BR-11N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-11N01",
+       "receipt": 4360774,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BP-11N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-11N02",
+       "receipt": 0,
+       "payment": 54207
+      },
+      {
+       "date": "2026-11-17",
+       "voucher": "BP-11N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-11N03",
+       "receipt": 0,
+       "payment": 3459201
+      },
+      {
+       "date": "2026-11-20",
+       "voucher": "BR-T11-91",
+       "description": "Counter sales banked",
+       "reference": "",
+       "receipt": 645000,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BP-11N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-11N04",
+       "receipt": 0,
+       "payment": 1999364
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 8293802,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "a 6,450.00 deposit and receipt without references; the suggestion is not decided",
+   "intent": {
+    "status": "draft",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:BR-T11-91",
+      "section": "bookReceiptsNotOnStatement",
+      "origin": "pending",
+      "reason": "amount-date-suggestion"
+     },
+     {
+      "item": "NOV:S4",
+      "section": "statementDepositsNotInBook",
+      "origin": "pending",
+      "reason": "amount-date-suggestion"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T12",
+   "title": "Prepared before a rejection, reviewed after",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T12-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77124417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 66266100
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 12N01",
+          "reference": "PAY-12N01",
+          "withdrawal": 475080,
+          "deposit": 0,
+          "balance": 65791020
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 12N02",
+          "reference": "RCV-12N02",
+          "withdrawal": 0,
+          "deposit": 4250937,
+          "balance": 70041957
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 12N03",
+          "reference": "RCV-12N03",
+          "withdrawal": 0,
+          "deposit": 899356,
+          "balance": 70941313
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-21",
+          "valueDate": "2026-11-21",
+          "description": "Cash deposit branch 12",
+          "reference": "",
+          "withdrawal": 0,
+          "deposit": 318800,
+          "balance": 71260113
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 12N04",
+          "reference": "PAY-12N04",
+          "withdrawal": 2083092,
+          "deposit": 0,
+          "balance": 69177021
+         },
+         {
+          "kind": "closing",
+          "balance": 69177021
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2558172,
+          "deposit": 5469093
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-03",
+       "voucher": "BP-12N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-12N01",
+       "receipt": 0,
+       "payment": 475080
+      },
+      {
+       "date": "2026-11-09",
+       "voucher": "BR-12N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-12N02",
+       "receipt": 4250937,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BR-12N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-12N03",
+       "receipt": 899356,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-20",
+       "voucher": "BR-T12-91",
+       "description": "Counter sales banked",
+       "reference": "",
+       "receipt": 318800,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-23",
+       "voucher": "BP-12N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-12N04",
+       "receipt": 0,
+       "payment": 2083092
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 69177021,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "prepare": {
+      "name": "Prepared by A. Accountant",
+      "date": "2026-12-02"
+     }
+    },
+    {
+     "decide": {
+      "type": "reject",
+      "statement": [
+       "S4"
+      ],
+      "cashbook": [
+       "BR-T12-91"
+      ],
+      "carried": []
+     }
+    },
+    {
+     "review": {
+      "name": "Reviewed by R. Reviewer",
+      "date": "2026-12-03"
+     }
+    }
+   ],
+   "recipe": "as T11 for 3,188.00; prepared, then the accountant rejects the suggestion, then reviewed",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:BR-T12-91",
+      "section": "bookReceiptsNotOnStatement",
+      "origin": "rejected",
+      "reason": "amount-date-suggestion"
+     },
+     {
+      "item": "NOV:S4",
+      "section": "statementDepositsNotInBook",
+      "origin": "rejected",
+      "reason": "amount-date-suggestion"
+     }
+    ],
+    "signoffs": {
+     "prepared": "void",
+     "reviewed": "valid"
+    }
+   }
+  },
+  {
+   "id": "T13",
+   "title": "An accepted suggestion clears both members",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T13-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77134417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 30053900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 13N01",
+          "reference": "RCV-13N01",
+          "withdrawal": 0,
+          "deposit": 3977481,
+          "balance": 34031381
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 13N02",
+          "reference": "PAY-13N02",
+          "withdrawal": 2358159,
+          "deposit": 0,
+          "balance": 31673222
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 13N03",
+          "reference": "PAY-13N03",
+          "withdrawal": 3362947,
+          "deposit": 0,
+          "balance": 28310275
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-21",
+          "valueDate": "2026-11-21",
+          "description": "Cash deposit branch 12",
+          "reference": "",
+          "withdrawal": 0,
+          "deposit": 92500,
+          "balance": 28402775
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 13N04",
+          "reference": "PAY-13N04",
+          "withdrawal": 3625785,
+          "deposit": 0,
+          "balance": 24776990
+         },
+         {
+          "kind": "closing",
+          "balance": 24776990
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 9346891,
+          "deposit": 4069981
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BR-13N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-13N01",
+       "receipt": 3977481,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BP-13N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-13N02",
+       "receipt": 0,
+       "payment": 2358159
+      },
+      {
+       "date": "2026-11-18",
+       "voucher": "BP-13N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-13N03",
+       "receipt": 0,
+       "payment": 3362947
+      },
+      {
+       "date": "2026-11-20",
+       "voucher": "BR-T13-91",
+       "description": "Counter sales banked",
+       "reference": "",
+       "receipt": 92500,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-23",
+       "voucher": "BP-13N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-13N04",
+       "receipt": 0,
+       "payment": 3625785
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 24776990,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "decide": {
+      "type": "accept",
+      "statement": [
+       "S4"
+      ],
+      "cashbook": [
+       "BR-T13-91"
+      ],
+      "carried": []
+     }
+    }
+   ],
+   "recipe": "as T11 for 925.00; the accountant accepts the suggestion",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T14",
+   "title": "A rejected amount difference leaves both sides listed",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T14-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77144417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 65358800
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 14N01",
+          "reference": "PAY-14N01",
+          "withdrawal": 4256058,
+          "deposit": 0,
+          "balance": 61102742
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 14N02",
+          "reference": "RCV-14N02",
+          "withdrawal": 0,
+          "deposit": 3464368,
+          "balance": 64567110
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-15",
+          "valueDate": "2026-11-15",
+          "description": "Cheque paid T14-140",
+          "reference": "CHQ-T14-140",
+          "withdrawal": 125000,
+          "deposit": 0,
+          "balance": 64442110
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 14N03",
+          "reference": "RCV-14N03",
+          "withdrawal": 0,
+          "deposit": 315166,
+          "balance": 64757276
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 14N04",
+          "reference": "RCV-14N04",
+          "withdrawal": 0,
+          "deposit": 1160218,
+          "balance": 65917494
+         },
+         {
+          "kind": "closing",
+          "balance": 65917494
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 4381058,
+          "deposit": 4939752
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BP-14N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-14N01",
+       "receipt": 0,
+       "payment": 4256058
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BR-14N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-14N02",
+       "receipt": 3464368,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-14",
+       "voucher": "BP-T14-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T14-140",
+       "receipt": 0,
+       "payment": 120500
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BR-14N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-14N03",
+       "receipt": 315166,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BR-14N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-14N04",
+       "receipt": 1160218,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 65921994,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "decide": {
+      "type": "reject",
+      "statement": [
+       "S3"
+      ],
+      "cashbook": [
+       "BP-T14-91"
+      ],
+      "carried": []
+     }
+    }
+   ],
+   "recipe": "CHQ-T14-140 paid 1,250.00 by the bank and booked as 1,205.00; the accountant rejects the pair",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:BP-T14-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "rejected",
+      "reason": "amount-difference"
+     },
+     {
+      "item": "NOV:S3",
+      "section": "statementWithdrawalsNotInBook",
+      "origin": "rejected",
+      "reason": "amount-difference"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T15",
+   "title": "A carried cheque cleared by an accepted case",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T15-OCT",
+     "statement": {
+      "account": "SA00 0000 0000 77154417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-10-01",
+       "end": "2026-10-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 40246000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-10-04",
+          "valueDate": "2026-10-04",
+          "description": "Transfer in 15O01",
+          "reference": "RCV-15O01",
+          "withdrawal": 0,
+          "deposit": 3073571,
+          "balance": 43319571
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-10-11",
+          "valueDate": "2026-10-11",
+          "description": "Transfer out 15O02",
+          "reference": "PAY-15O02",
+          "withdrawal": 2612234,
+          "deposit": 0,
+          "balance": 40707337
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-10-18",
+          "valueDate": "2026-10-18",
+          "description": "Transfer out 15O03",
+          "reference": "PAY-15O03",
+          "withdrawal": 2096161,
+          "deposit": 0,
+          "balance": 38611176
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-10-25",
+          "valueDate": "2026-10-25",
+          "description": "Transfer in 15O04",
+          "reference": "RCV-15O04",
+          "withdrawal": 0,
+          "deposit": 4207811,
+          "balance": 42818987
+         },
+         {
+          "kind": "closing",
+          "balance": 42818987
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 4708395,
+          "deposit": 7281382
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-10-04",
+       "voucher": "BR-15O01",
+       "description": "Receipt from customer",
+       "reference": "RCV-15O01",
+       "receipt": 3073571,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-09",
+       "voucher": "BP-15O02",
+       "description": "Payment to supplier",
+       "reference": "PAY-15O02",
+       "receipt": 0,
+       "payment": 2612234
+      },
+      {
+       "date": "2026-10-17",
+       "voucher": "BP-15O03",
+       "description": "Payment to supplier",
+       "reference": "PAY-15O03",
+       "receipt": 0,
+       "payment": 2096161
+      },
+      {
+       "date": "2026-10-23",
+       "voucher": "BR-15O04",
+       "description": "Receipt from customer",
+       "reference": "RCV-15O04",
+       "receipt": 4207811,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-29",
+       "voucher": "BP-T15-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T15-150",
+       "receipt": 0,
+       "payment": 482500
+      }
+     ]
+    },
+    {
+     "id": "T15-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77154417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 42818987
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 15N01",
+          "reference": "RCV-15N01",
+          "withdrawal": 0,
+          "deposit": 1138946,
+          "balance": 43957933
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Cheque paid T15-150",
+          "reference": "CHQ-T15-150",
+          "withdrawal": 482500,
+          "deposit": 0,
+          "balance": 43475433
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 15N02",
+          "reference": "PAY-15N02",
+          "withdrawal": 3519635,
+          "deposit": 0,
+          "balance": 39955798
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 15N03",
+          "reference": "PAY-15N03",
+          "withdrawal": 2482619,
+          "deposit": 0,
+          "balance": 37473179
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 15N04",
+          "reference": "RCV-15N04",
+          "withdrawal": 0,
+          "deposit": 4209194,
+          "balance": 41682373
+         },
+         {
+          "kind": "closing",
+          "balance": 41682373
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 6484754,
+          "deposit": 5348140
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-03",
+       "voucher": "BR-15N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-15N01",
+       "receipt": 1138946,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BP-15N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-15N02",
+       "receipt": 0,
+       "payment": 3519635
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BP-15N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-15N03",
+       "receipt": 0,
+       "payment": 2482619
+      },
+      {
+       "date": "2026-11-24",
+       "voucher": "BR-15N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-15N04",
+       "receipt": 4209194,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "OCT"
+    ],
+    "decisions": []
+   },
+   "sheet": [
+    {
+     "book": {
+      "balance": 41682373,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "decide": {
+      "type": "accept",
+      "statement": [
+       "S2"
+      ],
+      "cashbook": [],
+      "carried": [
+       "OCT:BP-T15-91"
+      ]
+     }
+    }
+   ],
+   "recipe": "October books CHQ-T15-150; November presents it; the accountant accepts the carried case",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T16",
+   "title": "A carried cheque still outstanding, the sheet in Arabic",
+   "layout": "en",
+   "language": "ar",
+   "periods": [
+    {
+     "id": "T16-OCT",
+     "statement": {
+      "account": "SA00 0000 0000 77164417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-10-01",
+       "end": "2026-10-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 50161300
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-10-04",
+          "valueDate": "2026-10-04",
+          "description": "Transfer out 16O01",
+          "reference": "PAY-16O01",
+          "withdrawal": 3481248,
+          "deposit": 0,
+          "balance": 46680052
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-10-11",
+          "valueDate": "2026-10-11",
+          "description": "Transfer in 16O02",
+          "reference": "RCV-16O02",
+          "withdrawal": 0,
+          "deposit": 3803868,
+          "balance": 50483920
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-10-18",
+          "valueDate": "2026-10-18",
+          "description": "Transfer in 16O03",
+          "reference": "RCV-16O03",
+          "withdrawal": 0,
+          "deposit": 4160472,
+          "balance": 54644392
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-10-25",
+          "valueDate": "2026-10-25",
+          "description": "Transfer in 16O04",
+          "reference": "RCV-16O04",
+          "withdrawal": 0,
+          "deposit": 1395474,
+          "balance": 56039866
+         },
+         {
+          "kind": "closing",
+          "balance": 56039866
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3481248,
+          "deposit": 9359814
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-10-03",
+       "voucher": "BP-16O01",
+       "description": "Payment to supplier",
+       "reference": "PAY-16O01",
+       "receipt": 0,
+       "payment": 3481248
+      },
+      {
+       "date": "2026-10-10",
+       "voucher": "BR-16O02",
+       "description": "Receipt from customer",
+       "reference": "RCV-16O02",
+       "receipt": 3803868,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-17",
+       "voucher": "BR-16O03",
+       "description": "Receipt from customer",
+       "reference": "RCV-16O03",
+       "receipt": 4160472,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-24",
+       "voucher": "BR-16O04",
+       "description": "Receipt from customer",
+       "reference": "RCV-16O04",
+       "receipt": 1395474,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-30",
+       "voucher": "BP-T16-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T16-160",
+       "receipt": 0,
+       "payment": 271000
+      }
+     ]
+    },
+    {
+     "id": "T16-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77164417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 56039866
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 16N01",
+          "reference": "RCV-16N01",
+          "withdrawal": 0,
+          "deposit": 741025,
+          "balance": 56780891
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 16N02",
+          "reference": "PAY-16N02",
+          "withdrawal": 32575,
+          "deposit": 0,
+          "balance": 56748316
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 16N03",
+          "reference": "RCV-16N03",
+          "withdrawal": 0,
+          "deposit": 1708040,
+          "balance": 58456356
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 16N04",
+          "reference": "PAY-16N04",
+          "withdrawal": 4225169,
+          "deposit": 0,
+          "balance": 54231187
+         },
+         {
+          "kind": "closing",
+          "balance": 54231187
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 4257744,
+          "deposit": 2449065
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BR-16N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-16N01",
+       "receipt": 741025,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-09",
+       "voucher": "BP-16N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-16N02",
+       "receipt": 0,
+       "payment": 32575
+      },
+      {
+       "date": "2026-11-17",
+       "voucher": "BR-16N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-16N03",
+       "receipt": 1708040,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BP-16N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-16N04",
+       "receipt": 0,
+       "payment": 4225169
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "OCT"
+    ],
+    "decisions": []
+   },
+   "sheet": [
+    {
+     "book": {
+      "balance": 53960187,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "October books CHQ-T16-160; November does not present it; an English statement with an Arabic sheet",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "OCT:BP-T16-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "carried",
+      "age": 2
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T17",
+   "title": "An undecided carried case makes a draft",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T17-OCT",
+     "statement": {
+      "account": "SA00 0000 0000 77174417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-10-01",
+       "end": "2026-10-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 54391000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-10-04",
+          "valueDate": "2026-10-04",
+          "description": "Transfer in 17O01",
+          "reference": "RCV-17O01",
+          "withdrawal": 0,
+          "deposit": 2503505,
+          "balance": 56894505
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-10-11",
+          "valueDate": "2026-10-11",
+          "description": "Transfer out 17O02",
+          "reference": "PAY-17O02",
+          "withdrawal": 951470,
+          "deposit": 0,
+          "balance": 55943035
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-10-18",
+          "valueDate": "2026-10-18",
+          "description": "Transfer out 17O03",
+          "reference": "PAY-17O03",
+          "withdrawal": 1195639,
+          "deposit": 0,
+          "balance": 54747396
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-10-25",
+          "valueDate": "2026-10-25",
+          "description": "Transfer in 17O04",
+          "reference": "RCV-17O04",
+          "withdrawal": 0,
+          "deposit": 583211,
+          "balance": 55330607
+         },
+         {
+          "kind": "closing",
+          "balance": 55330607
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2147109,
+          "deposit": 3086716
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-10-03",
+       "voucher": "BR-17O01",
+       "description": "Receipt from customer",
+       "reference": "RCV-17O01",
+       "receipt": 2503505,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-10",
+       "voucher": "BP-17O02",
+       "description": "Payment to supplier",
+       "reference": "PAY-17O02",
+       "receipt": 0,
+       "payment": 951470
+      },
+      {
+       "date": "2026-10-17",
+       "voucher": "BP-17O03",
+       "description": "Payment to supplier",
+       "reference": "PAY-17O03",
+       "receipt": 0,
+       "payment": 1195639
+      },
+      {
+       "date": "2026-10-23",
+       "voucher": "BR-17O04",
+       "description": "Receipt from customer",
+       "reference": "RCV-17O04",
+       "receipt": 583211,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-28",
+       "voucher": "BP-T17-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T17-170",
+       "receipt": 0,
+       "payment": 96000
+      }
+     ]
+    },
+    {
+     "id": "T17-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77174417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 55330607
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-03",
+          "valueDate": "2026-11-03",
+          "description": "Cheque paid T17-170",
+          "reference": "CHQ-T17-170",
+          "withdrawal": 96000,
+          "deposit": 0,
+          "balance": 55234607
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 17N01",
+          "reference": "RCV-17N01",
+          "withdrawal": 0,
+          "deposit": 1033472,
+          "balance": 56268079
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 17N02",
+          "reference": "RCV-17N02",
+          "withdrawal": 0,
+          "deposit": 2902756,
+          "balance": 59170835
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 17N03",
+          "reference": "PAY-17N03",
+          "withdrawal": 4400716,
+          "deposit": 0,
+          "balance": 54770119
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 17N04",
+          "reference": "PAY-17N04",
+          "withdrawal": 3731309,
+          "deposit": 0,
+          "balance": 51038810
+         },
+         {
+          "kind": "closing",
+          "balance": 51038810
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 8228025,
+          "deposit": 3936228
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-03",
+       "voucher": "BR-17N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-17N01",
+       "receipt": 1033472,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-09",
+       "voucher": "BR-17N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-17N02",
+       "receipt": 2902756,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BP-17N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-17N03",
+       "receipt": 0,
+       "payment": 4400716
+      },
+      {
+       "date": "2026-11-23",
+       "voucher": "BP-17N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-17N04",
+       "receipt": 0,
+       "payment": 3731309
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "OCT"
+    ],
+    "decisions": []
+   },
+   "sheet": [
+    {
+     "book": {
+      "balance": 51038810,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "as T15 for 960.00, the carried case left undecided",
+   "intent": {
+    "status": "draft",
+    "difference": 0,
+    "items": [
+     {
+      "item": "OCT:BP-T17-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "pending",
+      "reason": "carried-reference",
+      "age": 2
+     },
+     {
+      "item": "NOV:S1",
+      "section": "statementWithdrawalsNotInBook",
+      "origin": "pending",
+      "reason": "carried-reference"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T18",
+   "title": "A carried cheque presented for another amount, rejected",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T18-OCT",
+     "statement": {
+      "account": "SA00 0000 0000 77184417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-10-01",
+       "end": "2026-10-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 38538200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-10-04",
+          "valueDate": "2026-10-04",
+          "description": "Transfer out 18O01",
+          "reference": "PAY-18O01",
+          "withdrawal": 3191738,
+          "deposit": 0,
+          "balance": 35346462
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-10-11",
+          "valueDate": "2026-10-11",
+          "description": "Transfer in 18O02",
+          "reference": "RCV-18O02",
+          "withdrawal": 0,
+          "deposit": 2223421,
+          "balance": 37569883
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-10-18",
+          "valueDate": "2026-10-18",
+          "description": "Transfer in 18O03",
+          "reference": "RCV-18O03",
+          "withdrawal": 0,
+          "deposit": 756378,
+          "balance": 38326261
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-10-25",
+          "valueDate": "2026-10-25",
+          "description": "Transfer out 18O04",
+          "reference": "PAY-18O04",
+          "withdrawal": 91240,
+          "deposit": 0,
+          "balance": 38235021
+         },
+         {
+          "kind": "closing",
+          "balance": 38235021
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3282978,
+          "deposit": 2979799
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-10-04",
+       "voucher": "BP-18O01",
+       "description": "Payment to supplier",
+       "reference": "PAY-18O01",
+       "receipt": 0,
+       "payment": 3191738
+      },
+      {
+       "date": "2026-10-09",
+       "voucher": "BR-18O02",
+       "description": "Receipt from customer",
+       "reference": "RCV-18O02",
+       "receipt": 2223421,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-17",
+       "voucher": "BR-18O03",
+       "description": "Receipt from customer",
+       "reference": "RCV-18O03",
+       "receipt": 756378,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-25",
+       "voucher": "BP-18O04",
+       "description": "Payment to supplier",
+       "reference": "PAY-18O04",
+       "receipt": 0,
+       "payment": 91240
+      },
+      {
+       "date": "2026-10-29",
+       "voucher": "BP-T18-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T18-180",
+       "receipt": 0,
+       "payment": 348100
+      }
+     ]
+    },
+    {
+     "id": "T18-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77184417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 38235021
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 18N01",
+          "reference": "PAY-18N01",
+          "withdrawal": 3865398,
+          "deposit": 0,
+          "balance": 34369623
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-05",
+          "valueDate": "2026-11-05",
+          "description": "Cheque paid T18-180",
+          "reference": "CHQ-T18-180",
+          "withdrawal": 341800,
+          "deposit": 0,
+          "balance": 34027823
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 18N02",
+          "reference": "PAY-18N02",
+          "withdrawal": 4256494,
+          "deposit": 0,
+          "balance": 29771329
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 18N03",
+          "reference": "RCV-18N03",
+          "withdrawal": 0,
+          "deposit": 3349093,
+          "balance": 33120422
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 18N04",
+          "reference": "RCV-18N04",
+          "withdrawal": 0,
+          "deposit": 1000762,
+          "balance": 34121184
+         },
+         {
+          "kind": "closing",
+          "balance": 34121184
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 8463692,
+          "deposit": 4349855
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-04",
+       "voucher": "BP-18N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-18N01",
+       "receipt": 0,
+       "payment": 3865398
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BP-18N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-18N02",
+       "receipt": 0,
+       "payment": 4256494
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BR-18N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-18N03",
+       "receipt": 3349093,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BR-18N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-18N04",
+       "receipt": 1000762,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "OCT"
+    ],
+    "decisions": []
+   },
+   "sheet": [
+    {
+     "book": {
+      "balance": 34114884,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "decide": {
+      "type": "reject",
+      "statement": [
+       "S2"
+      ],
+      "cashbook": [],
+      "carried": [
+       "OCT:BP-T18-91"
+      ]
+     }
+    }
+   ],
+   "recipe": "October books CHQ-T18-180 as 3,481.00; November presents 3,418.00; the accountant rejects the case",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "OCT:BP-T18-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "rejected",
+      "reason": "carried-amount-difference",
+      "age": 2
+     },
+     {
+      "item": "NOV:S2",
+      "section": "statementWithdrawalsNotInBook",
+      "origin": "rejected",
+      "reason": "carried-amount-difference"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T19",
+   "title": "A carried cheque booked again in the next period and presented, rejected",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T19-OCT",
+     "statement": {
+      "account": "SA00 0000 0000 77194417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-10-01",
+       "end": "2026-10-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 67017200
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-10-04",
+          "valueDate": "2026-10-04",
+          "description": "Transfer in 19O01",
+          "reference": "RCV-19O01",
+          "withdrawal": 0,
+          "deposit": 2009271,
+          "balance": 69026471
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-10-11",
+          "valueDate": "2026-10-11",
+          "description": "Transfer out 19O02",
+          "reference": "PAY-19O02",
+          "withdrawal": 3438631,
+          "deposit": 0,
+          "balance": 65587840
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-10-18",
+          "valueDate": "2026-10-18",
+          "description": "Transfer out 19O03",
+          "reference": "PAY-19O03",
+          "withdrawal": 2743045,
+          "deposit": 0,
+          "balance": 62844795
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-10-25",
+          "valueDate": "2026-10-25",
+          "description": "Transfer out 19O04",
+          "reference": "PAY-19O04",
+          "withdrawal": 3204993,
+          "deposit": 0,
+          "balance": 59639802
+         },
+         {
+          "kind": "closing",
+          "balance": 59639802
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 9386669,
+          "deposit": 2009271
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-10-02",
+       "voucher": "BR-19O01",
+       "description": "Receipt from customer",
+       "reference": "RCV-19O01",
+       "receipt": 2009271,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-10",
+       "voucher": "BP-19O02",
+       "description": "Payment to supplier",
+       "reference": "PAY-19O02",
+       "receipt": 0,
+       "payment": 3438631
+      },
+      {
+       "date": "2026-10-18",
+       "voucher": "BP-19O03",
+       "description": "Payment to supplier",
+       "reference": "PAY-19O03",
+       "receipt": 0,
+       "payment": 2743045
+      },
+      {
+       "date": "2026-10-24",
+       "voucher": "BP-19O04",
+       "description": "Payment to supplier",
+       "reference": "PAY-19O04",
+       "receipt": 0,
+       "payment": 3204993
+      },
+      {
+       "date": "2026-10-30",
+       "voucher": "BP-T19-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T19-190",
+       "receipt": 0,
+       "payment": 157500
+      }
+     ]
+    },
+    {
+     "id": "T19-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77194417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 59639802
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 19N01",
+          "reference": "PAY-19N01",
+          "withdrawal": 4214807,
+          "deposit": 0,
+          "balance": 55424995
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-06",
+          "valueDate": "2026-11-06",
+          "description": "Cheque paid T19-190",
+          "reference": "CHQ-T19-190",
+          "withdrawal": 157500,
+          "deposit": 0,
+          "balance": 55267495
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 19N02",
+          "reference": "RCV-19N02",
+          "withdrawal": 0,
+          "deposit": 212657,
+          "balance": 55480152
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 19N03",
+          "reference": "PAY-19N03",
+          "withdrawal": 2810429,
+          "deposit": 0,
+          "balance": 52669723
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 19N04",
+          "reference": "RCV-19N04",
+          "withdrawal": 0,
+          "deposit": 2227578,
+          "balance": 54897301
+         },
+         {
+          "kind": "closing",
+          "balance": 54897301
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7182736,
+          "deposit": 2440235
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BP-T19-92",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T19-190",
+       "receipt": 0,
+       "payment": 157500
+      },
+      {
+       "date": "2026-11-04",
+       "voucher": "BP-19N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-19N01",
+       "receipt": 0,
+       "payment": 4214807
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BR-19N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-19N02",
+       "receipt": 212657,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BP-19N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-19N03",
+       "receipt": 0,
+       "payment": 2810429
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BR-19N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-19N04",
+       "receipt": 2227578,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "OCT"
+    ],
+    "decisions": []
+   },
+   "sheet": [
+    {
+     "book": {
+      "balance": 54739801,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "decide": {
+      "type": "reject",
+      "statement": [
+       "S2"
+      ],
+      "cashbook": [
+       "BP-T19-92"
+      ],
+      "carried": [
+       "OCT:BP-T19-91"
+      ]
+     }
+    }
+   ],
+   "recipe": "October books CHQ-T19-190; November books it again on 2 November and the bank presents it once; the restated case is rejected",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "OCT:BP-T19-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "rejected",
+      "reason": "carried-restated",
+      "age": 2
+     },
+     {
+      "item": "NOV:S2",
+      "section": "statementWithdrawalsNotInBook",
+      "origin": "rejected",
+      "reason": "carried-restated"
+     },
+     {
+      "item": "NOV:BP-T19-92",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "rejected",
+      "reason": "carried-restated"
+     }
+    ],
+    "signoffs": {}
+   }
+  },
+  {
+   "id": "T20",
+   "title": "A refused previous session gives no sheet",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T20-OCT",
+     "statement": {
+      "account": "SA00 0000 0000 77204417",
+      "currency": "USD",
+      "period": {
+       "start": "2026-10-01",
+       "end": "2026-10-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 67230000
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-10-04",
+          "valueDate": "2026-10-04",
+          "description": "Transfer in 20O01",
+          "reference": "RCV-20O01",
+          "withdrawal": 0,
+          "deposit": 61441,
+          "balance": 67291441
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-10-11",
+          "valueDate": "2026-10-11",
+          "description": "Transfer out 20O02",
+          "reference": "PAY-20O02",
+          "withdrawal": 814894,
+          "deposit": 0,
+          "balance": 66476547
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-10-18",
+          "valueDate": "2026-10-18",
+          "description": "Transfer out 20O03",
+          "reference": "PAY-20O03",
+          "withdrawal": 3023579,
+          "deposit": 0,
+          "balance": 63452968
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-10-25",
+          "valueDate": "2026-10-25",
+          "description": "Transfer out 20O04",
+          "reference": "PAY-20O04",
+          "withdrawal": 4431349,
+          "deposit": 0,
+          "balance": 59021619
+         },
+         {
+          "kind": "closing",
+          "balance": 59021619
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 8269822,
+          "deposit": 61441
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-10-03",
+       "voucher": "BR-20O01",
+       "description": "Receipt from customer",
+       "reference": "RCV-20O01",
+       "receipt": 61441,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-11",
+       "voucher": "BP-20O02",
+       "description": "Payment to supplier",
+       "reference": "PAY-20O02",
+       "receipt": 0,
+       "payment": 814894
+      },
+      {
+       "date": "2026-10-17",
+       "voucher": "BP-20O03",
+       "description": "Payment to supplier",
+       "reference": "PAY-20O03",
+       "receipt": 0,
+       "payment": 3023579
+      },
+      {
+       "date": "2026-10-23",
+       "voucher": "BP-20O04",
+       "description": "Payment to supplier",
+       "reference": "PAY-20O04",
+       "receipt": 0,
+       "payment": 4431349
+      },
+      {
+       "date": "2026-10-29",
+       "voucher": "BP-T20-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T20-200",
+       "receipt": 0,
+       "payment": 64000
+      }
+     ]
+    },
+    {
+     "id": "T20-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77204417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 59021619
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-03",
+          "valueDate": "2026-11-03",
+          "description": "Cheque paid T20-200",
+          "reference": "CHQ-T20-200",
+          "withdrawal": 64000,
+          "deposit": 0,
+          "balance": 58957619
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 20N01",
+          "reference": "PAY-20N01",
+          "withdrawal": 2305328,
+          "deposit": 0,
+          "balance": 56652291
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 20N02",
+          "reference": "PAY-20N02",
+          "withdrawal": 55333,
+          "deposit": 0,
+          "balance": 56596958
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer in 20N03",
+          "reference": "RCV-20N03",
+          "withdrawal": 0,
+          "deposit": 4062822,
+          "balance": 60659780
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer out 20N04",
+          "reference": "PAY-20N04",
+          "withdrawal": 1833333,
+          "deposit": 0,
+          "balance": 58826447
+         },
+         {
+          "kind": "closing",
+          "balance": 58826447
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 4257994,
+          "deposit": 4062822
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-04",
+       "voucher": "BP-20N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-20N01",
+       "receipt": 0,
+       "payment": 2305328
+      },
+      {
+       "date": "2026-11-10",
+       "voucher": "BP-20N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-20N02",
+       "receipt": 0,
+       "payment": 55333
+      },
+      {
+       "date": "2026-11-17",
+       "voucher": "BR-20N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-20N03",
+       "receipt": 4062822,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-24",
+       "voucher": "BP-20N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-20N04",
+       "receipt": 0,
+       "payment": 1833333
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "OCT"
+    ],
+    "decisions": []
+   },
+   "sheet": [
+    {
+     "book": {
+      "balance": 58826447,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "the October session is in USD; the November statement is in SAR",
+   "intent": {
+    "refusal": "SHEET_PREVIOUS_REFUSED",
+    "previous": "ROLL_CURRENCY"
+   }
+  },
+  {
+   "id": "T21",
+   "title": "A held statement gives no sheet",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T21-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77214417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 11223400
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer out 21N01",
+          "reference": "PAY-21N01",
+          "withdrawal": 1543508,
+          "deposit": 0,
+          "balance": 9679892
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-09",
+          "valueDate": "2026-11-09",
+          "description": "Transfer in 21N02",
+          "reference": "RCV-21N02",
+          "withdrawal": 0,
+          "deposit": 767884,
+          "balance": 10447776
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-14",
+          "valueDate": "2026-11-14",
+          "description": "Transfer in 21N03",
+          "reference": "RCV-21N03",
+          "withdrawal": 0,
+          "deposit": 1544272,
+          "balance": 11993048
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-19",
+          "valueDate": "2026-11-19",
+          "description": "Transfer out 21N04",
+          "reference": "PAY-21N04",
+          "withdrawal": 711832,
+          "deposit": 0,
+          "balance": 11280216
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 21N05",
+          "reference": "RCV-21N05",
+          "withdrawal": 0,
+          "deposit": 3189411,
+          "balance": 14469627
+         },
+         {
+          "kind": "closing",
+          "balance": 14469627
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 2255340,
+          "deposit": 5501567
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-04",
+       "voucher": "BP-21N01",
+       "description": "Payment to supplier",
+       "reference": "PAY-21N01",
+       "receipt": 0,
+       "payment": 1543508
+      },
+      {
+       "date": "2026-11-07",
+       "voucher": "BR-21N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-21N02",
+       "receipt": 767884,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-13",
+       "voucher": "BR-21N03",
+       "description": "Receipt from customer",
+       "reference": "RCV-21N03",
+       "receipt": 1544272,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-19",
+       "voucher": "BP-21N04",
+       "description": "Payment to supplier",
+       "reference": "PAY-21N04",
+       "receipt": 0,
+       "payment": 711832
+      },
+      {
+       "date": "2026-11-23",
+       "voucher": "BR-21N05",
+       "description": "Receipt from customer",
+       "reference": "RCV-21N05",
+       "receipt": 3189411,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 14469627,
+      "note": "General ledger, cash at bank, period end"
+     }
+    }
+   ],
+   "recipe": "the third printed balance is 10.00 off the chain",
+   "intent": {
+    "refusal": "SHEET_STATEMENT_HELD"
+   }
+  },
+  {
+   "id": "T22",
+   "title": "No book balance gives no sheet",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T22-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77224417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 3901900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 22N01",
+          "reference": "RCV-22N01",
+          "withdrawal": 0,
+          "deposit": 1973771,
+          "balance": 5875671
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 22N02",
+          "reference": "PAY-22N02",
+          "withdrawal": 4133203,
+          "deposit": 0,
+          "balance": 1742468
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 22N03",
+          "reference": "PAY-22N03",
+          "withdrawal": 3135789,
+          "deposit": 0,
+          "balance": -1393321
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 22N04",
+          "reference": "RCV-22N04",
+          "withdrawal": 0,
+          "deposit": 3897851,
+          "balance": 2504530
+         },
+         {
+          "kind": "closing",
+          "balance": 2504530
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7268992,
+          "deposit": 5871622
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BR-22N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-22N01",
+       "receipt": 1973771,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-10",
+       "voucher": "BP-22N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-22N02",
+       "receipt": 0,
+       "payment": 4133203
+      },
+      {
+       "date": "2026-11-16",
+       "voucher": "BP-22N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-22N03",
+       "receipt": 0,
+       "payment": 3135789
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BR-22N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-22N04",
+       "receipt": 3897851,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-27",
+       "voucher": "BP-T22-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T22-220",
+       "receipt": 0,
+       "payment": 41000
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [],
+   "recipe": "one outstanding cheque; no book balance is declared",
+   "intent": {
+    "refusal": "SHEET_NO_BOOK_BALANCE"
+   }
+  },
+  {
+   "id": "T23",
+   "title": "An October cheque still outstanding in December, through a chain",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T23-OCT",
+     "statement": {
+      "account": "SA00 0000 0000 77234417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-10-01",
+       "end": "2026-10-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 33580900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-10-04",
+          "valueDate": "2026-10-04",
+          "description": "Transfer out 23O01",
+          "reference": "PAY-23O01",
+          "withdrawal": 3660682,
+          "deposit": 0,
+          "balance": 29920218
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-10-11",
+          "valueDate": "2026-10-11",
+          "description": "Transfer in 23O02",
+          "reference": "RCV-23O02",
+          "withdrawal": 0,
+          "deposit": 2822701,
+          "balance": 32742919
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-10-18",
+          "valueDate": "2026-10-18",
+          "description": "Transfer in 23O03",
+          "reference": "RCV-23O03",
+          "withdrawal": 0,
+          "deposit": 1293834,
+          "balance": 34036753
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-10-25",
+          "valueDate": "2026-10-25",
+          "description": "Transfer in 23O04",
+          "reference": "RCV-23O04",
+          "withdrawal": 0,
+          "deposit": 3285054,
+          "balance": 37321807
+         },
+         {
+          "kind": "closing",
+          "balance": 37321807
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 3660682,
+          "deposit": 7401589
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-10-02",
+       "voucher": "BP-23O01",
+       "description": "Payment to supplier",
+       "reference": "PAY-23O01",
+       "receipt": 0,
+       "payment": 3660682
+      },
+      {
+       "date": "2026-10-10",
+       "voucher": "BR-23O02",
+       "description": "Receipt from customer",
+       "reference": "RCV-23O02",
+       "receipt": 2822701,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-17",
+       "voucher": "BR-23O03",
+       "description": "Receipt from customer",
+       "reference": "RCV-23O03",
+       "receipt": 1293834,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-24",
+       "voucher": "BR-23O04",
+       "description": "Receipt from customer",
+       "reference": "RCV-23O04",
+       "receipt": 3285054,
+       "payment": 0
+      },
+      {
+       "date": "2026-10-30",
+       "voucher": "BP-T23-91",
+       "description": "Supplier payment by cheque",
+       "reference": "CHQ-T23-230",
+       "receipt": 0,
+       "payment": 1110000
+      }
+     ]
+    },
+    {
+     "id": "T23-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77234417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 37321807
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 23N01",
+          "reference": "RCV-23N01",
+          "withdrawal": 0,
+          "deposit": 4454850,
+          "balance": 41776657
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer in 23N02",
+          "reference": "RCV-23N02",
+          "withdrawal": 0,
+          "deposit": 2654543,
+          "balance": 44431200
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 23N03",
+          "reference": "PAY-23N03",
+          "withdrawal": 789587,
+          "deposit": 0,
+          "balance": 43641613
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 23N04",
+          "reference": "RCV-23N04",
+          "withdrawal": 0,
+          "deposit": 343090,
+          "balance": 43984703
+         },
+         {
+          "kind": "closing",
+          "balance": 43984703
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 789587,
+          "deposit": 7452483
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BR-23N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-23N01",
+       "receipt": 4454850,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-10",
+       "voucher": "BR-23N02",
+       "description": "Receipt from customer",
+       "reference": "RCV-23N02",
+       "receipt": 2654543,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-18",
+       "voucher": "BP-23N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-23N03",
+       "receipt": 0,
+       "payment": 789587
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BR-23N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-23N04",
+       "receipt": 343090,
+       "payment": 0
+      }
+     ]
+    },
+    {
+     "id": "T23-DEC",
+     "statement": {
+      "account": "SA00 0000 0000 77234417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-12-01",
+       "end": "2026-12-31"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 43984703
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-12-04",
+          "valueDate": "2026-12-04",
+          "description": "Transfer out 23D01",
+          "reference": "PAY-23D01",
+          "withdrawal": 1135568,
+          "deposit": 0,
+          "balance": 42849135
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-12-11",
+          "valueDate": "2026-12-11",
+          "description": "Transfer in 23D02",
+          "reference": "RCV-23D02",
+          "withdrawal": 0,
+          "deposit": 2458261,
+          "balance": 45307396
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-12-18",
+          "valueDate": "2026-12-18",
+          "description": "Transfer out 23D03",
+          "reference": "PAY-23D03",
+          "withdrawal": 537242,
+          "deposit": 0,
+          "balance": 44770154
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-12-25",
+          "valueDate": "2026-12-25",
+          "description": "Transfer in 23D04",
+          "reference": "RCV-23D04",
+          "withdrawal": 0,
+          "deposit": 3745093,
+          "balance": 48515247
+         },
+         {
+          "kind": "closing",
+          "balance": 48515247
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 1672810,
+          "deposit": 6203354
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-12-03",
+       "voucher": "BP-23D01",
+       "description": "Payment to supplier",
+       "reference": "PAY-23D01",
+       "receipt": 0,
+       "payment": 1135568
+      },
+      {
+       "date": "2026-12-10",
+       "voucher": "BR-23D02",
+       "description": "Receipt from customer",
+       "reference": "RCV-23D02",
+       "receipt": 2458261,
+       "payment": 0
+      },
+      {
+       "date": "2026-12-16",
+       "voucher": "BP-23D03",
+       "description": "Payment to supplier",
+       "reference": "PAY-23D03",
+       "receipt": 0,
+       "payment": 537242
+      },
+      {
+       "date": "2026-12-24",
+       "voucher": "BR-23D04",
+       "description": "Receipt from customer",
+       "reference": "RCV-23D04",
+       "receipt": 3745093,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": {
+    "holds": [
+     "OCT",
+     "NOV"
+    ],
+    "decisions": []
+   },
+   "sheet": [
+    {
+     "book": {
+      "balance": 47405247,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "prepare": {
+      "name": "Prepared by A. Accountant",
+      "date": "2026-12-02"
+     }
+    },
+    {
+     "review": {
+      "name": "Reviewed by R. Reviewer",
+      "date": "2026-12-03"
+     }
+    }
+   ],
+   "recipe": "October books CHQ-T23-230; neither November nor December presents it; the November session carries October",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "OCT:BP-T23-91",
+      "section": "bookPaymentsNotOnStatement",
+      "origin": "carried",
+      "age": 3
+     }
+    ],
+    "signoffs": {
+     "prepared": "valid",
+     "reviewed": "valid"
+    }
+   }
+  },
+  {
+   "id": "T24",
+   "title": "A corrected book balance voids both sign-offs",
+   "layout": "en",
+   "language": "en",
+   "periods": [
+    {
+     "id": "T24-NOV",
+     "statement": {
+      "account": "SA00 0000 0000 77244417",
+      "currency": "SAR",
+      "period": {
+       "start": "2026-11-01",
+       "end": "2026-11-30"
+      },
+      "pages": [
+       {
+        "number": 1,
+        "of": 1,
+        "lines": [
+         {
+          "kind": "opening",
+          "balance": 40921900
+         },
+         {
+          "kind": "movement",
+          "key": "S1",
+          "date": "2026-11-04",
+          "valueDate": "2026-11-04",
+          "description": "Transfer in 24N01",
+          "reference": "RCV-24N01",
+          "withdrawal": 0,
+          "deposit": 4295669,
+          "balance": 45217569
+         },
+         {
+          "kind": "movement",
+          "key": "S2",
+          "date": "2026-11-11",
+          "valueDate": "2026-11-11",
+          "description": "Transfer out 24N02",
+          "reference": "PAY-24N02",
+          "withdrawal": 4421539,
+          "deposit": 0,
+          "balance": 40796030
+         },
+         {
+          "kind": "movement",
+          "key": "S3",
+          "date": "2026-11-18",
+          "valueDate": "2026-11-18",
+          "description": "Transfer out 24N03",
+          "reference": "PAY-24N03",
+          "withdrawal": 2639183,
+          "deposit": 0,
+          "balance": 38156847
+         },
+         {
+          "kind": "movement",
+          "key": "S4",
+          "date": "2026-11-25",
+          "valueDate": "2026-11-25",
+          "description": "Transfer in 24N04",
+          "reference": "RCV-24N04",
+          "withdrawal": 0,
+          "deposit": 1695775,
+          "balance": 39852622
+         },
+         {
+          "kind": "movement",
+          "key": "S5",
+          "date": "2026-11-30",
+          "valueDate": "2026-11-30",
+          "description": "Transfer charge",
+          "reference": "FEE-T24-1130",
+          "withdrawal": 5750,
+          "deposit": 0,
+          "balance": 39846872
+         },
+         {
+          "kind": "closing",
+          "balance": 39846872
+         },
+         {
+          "kind": "totals",
+          "withdrawal": 7066472,
+          "deposit": 5991444
+         }
+        ]
+       }
+      ]
+     },
+     "cashbook": [
+      {
+       "date": "2026-11-02",
+       "voucher": "BR-24N01",
+       "description": "Receipt from customer",
+       "reference": "RCV-24N01",
+       "receipt": 4295669,
+       "payment": 0
+      },
+      {
+       "date": "2026-11-11",
+       "voucher": "BP-24N02",
+       "description": "Payment to supplier",
+       "reference": "PAY-24N02",
+       "receipt": 0,
+       "payment": 4421539
+      },
+      {
+       "date": "2026-11-17",
+       "voucher": "BP-24N03",
+       "description": "Payment to supplier",
+       "reference": "PAY-24N03",
+       "receipt": 0,
+       "payment": 2639183
+      },
+      {
+       "date": "2026-11-25",
+       "voucher": "BR-24N04",
+       "description": "Receipt from customer",
+       "reference": "RCV-24N04",
+       "receipt": 1695775,
+       "payment": 0
+      }
+     ]
+    }
+   ],
+   "previous": null,
+   "sheet": [
+    {
+     "book": {
+      "balance": 39952622,
+      "note": "General ledger, cash at bank, period end"
+     }
+    },
+    {
+     "prepare": {
+      "name": "Prepared by A. Accountant",
+      "date": "2026-12-02"
+     }
+    },
+    {
+     "review": {
+      "name": "Reviewed by R. Reviewer",
+      "date": "2026-12-03"
+     }
+    },
+    {
+     "book": {
+      "balance": 39852622,
+      "note": "General ledger after correcting a posting"
+     }
+    }
+   ],
+   "recipe": "declared 1,000.00 high, prepared and reviewed, then corrected to the ledger",
+   "intent": {
+    "status": "reconciled",
+    "difference": 0,
+    "items": [
+     {
+      "item": "NOV:S5",
+      "section": "statementWithdrawalsNotInBook",
+      "origin": "unmatched"
+     }
+    ],
+    "signoffs": {
+     "prepared": "void",
+     "reviewed": "void"
+    }
+   }
+  }
+ ]
+}
