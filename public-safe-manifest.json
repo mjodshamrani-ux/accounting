@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 45388,
-      "sha256": "0504a9625126dce55fcabef5609c00feb001f8ce89654418bf15ba0afa661577",
+      "bytes": 45426,
+      "sha256": "c1dd9c748343944cb6dcaf6058ca17895794ed5086f1366d20e2775894930d0b",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 30468,
-      "sha256": "2f429bd530288c82332d256a9b3e37f5f7aa4cc22d547161a249a6b73caa8026",
+      "bytes": 30584,
+      "sha256": "01d4d3e3b26da947efdd4bda0a9c46f5d7b5f276b5f1aeff9b4740f54a64736e",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 12173,
-      "sha256": "79e06a5f15a7dce0d38c4eef077e845bdfd419e9ddafcc931f4f685dd993f724",
+      "bytes": 12201,
+      "sha256": "02b1d0a6179a63b6ca35756f31ae6040bed7f2586ce7e03fff0d9100694b67f4",
       "kind": "text"
     },
     {
@@ -48299,6 +48299,1006 @@
       "path": "scripts/test-bank-roll-interface-mutations.mjs",
       "bytes": 6881,
       "sha256": "85c0babe2f6f9e7b997cd636bd1c3ce856deff735fa5f3a2d76c61c62f1654b3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/README.ar.md",
+      "bytes": 7625,
+      "sha256": "7dc4ca0f2df22fcc3c01e5ef426a42268456c22a8b1d4bce6ba29788f533abd4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/check_seal.py",
+      "bytes": 4207,
+      "sha256": "7d4408952297a69d962819025379bef3f875991fc3d845210fa9c62d8e09fa5a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/common.py",
+      "bytes": 4711,
+      "sha256": "9b206e957790d9ba5d8f5513d07dbb2dd7f85ef1bb1af71e809308a7d681c562",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/fonts.py",
+      "bytes": 4479,
+      "sha256": "a05ce927ba79aa61c23cb6956672854910f3734a5d5650bf75e37b1a05fdcd87",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/ELIGIBILITY.json",
+      "bytes": 17544,
+      "sha256": "1d65923f772474182b57a3ac773e6572f35c0657310d339634e65c705f222490",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/EXPECTED.json",
+      "bytes": 14204,
+      "sha256": "f81987b64d78b6ebc6ba832524cc821fc1e0cfe34defac4b6e26c0154f4bbc83",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H01-DEC-cashbook.csv",
+      "bytes": 406,
+      "sha256": "c5c296da0ecc88aa23f3c1171cf3547400147205bbdf4d89d553fa97232fec23",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H01-DEC-statement.pdf",
+      "bytes": 12854,
+      "sha256": "fcb39e9a741ac8b83e5ca1e68246672155076d8084b8b8989a771d6f1b2a1b54",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H01-JAN-cashbook.csv",
+      "bytes": 346,
+      "sha256": "42aae985d0aaabc2c42e6e98bcd4d6b8d6d5104376d8325784fe0074517f5657",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H01-JAN-statement.pdf",
+      "bytes": 13375,
+      "sha256": "0bb00e52e25bbeb9bfad8dd83b826920f0795d36edaf2e78fed2de17ff216486",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H01-previous-session.json",
+      "bytes": 18092,
+      "sha256": "e4a8f7378ef506fbb6449772974e62b00c80c241cd08942b65f721b492817bf6",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H02-FEB-cashbook.csv",
+      "bytes": 351,
+      "sha256": "92984c872e2a90c6d4f4f67c07c7c9ed9a717cb7021e771387654dc8bca3207d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H02-FEB-statement.pdf",
+      "bytes": 13430,
+      "sha256": "2debcdf869611529f5511714b0a5d3b8e7b2a4c420db2321ca0a0b8671897217",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H02-JAN-cashbook.csv",
+      "bytes": 427,
+      "sha256": "360a3f9e9667eb1ce35dbad0cb08f36de2cb8ce73d2b8456a0cad3cfa4335b91",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H02-JAN-statement.pdf",
+      "bytes": 12967,
+      "sha256": "d7b4c6412e0bb41d0f238c51cd1a97dbef6cf05dde72611e339694710205c6d2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H02-previous-session.json",
+      "bytes": 18272,
+      "sha256": "92156ab1e41f532dd6e9c40973b7965fd7cab004a6e748589bfc0f91118a28ce",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H03-FEB-cashbook.csv",
+      "bytes": 347,
+      "sha256": "33be7752690be09da8e0d87ca0a951dd5325f2939af410e4996a90751d8449b2",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H03-FEB-statement.pdf",
+      "bytes": 14708,
+      "sha256": "3e0d58aa8794cd476ab8dda9b860a4751f92cde1a41e592c6941f28feb91028e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H03-MAR-cashbook.csv",
+      "bytes": 414,
+      "sha256": "7fffed1c10247ff24bf081b880c989896734fe8ac4319db85f2f3f5b37cb354f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H03-MAR-statement.pdf",
+      "bytes": 14066,
+      "sha256": "55172b8778422c1c53c00c7edc92e5077f1848fd29f73be7be4083ac8e098c14",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H03-previous-session.json",
+      "bytes": 20484,
+      "sha256": "ce83a32a5a968a8d2ca9d0ef4f4c1a40df559c9767a68b51aa0bd4304fd8a415",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H04-DEC-cashbook.csv",
+      "bytes": 358,
+      "sha256": "f97ec523fb475a7faf358f3191e48ac5c53be8b7e96662eb369830cf8bc04cbe",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H04-DEC-statement.pdf",
+      "bytes": 18482,
+      "sha256": "9312f599b11eae164400f76a6d72788433281a2d61d150bd1e5f9a9c27358200",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H04-JAN-cashbook.csv",
+      "bytes": 359,
+      "sha256": "14384d11294618db000b682f1318cdc3d6075b699db8af9d241e251d23168070",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H04-JAN-statement.pdf",
+      "bytes": 18998,
+      "sha256": "7babeecf7628158359e58e7dc507082af1814e96d41915fa90fc40f0627dfd41",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H04-NOV-cashbook.csv",
+      "bytes": 419,
+      "sha256": "602d28800a3ed734d627cd5fd268e67d1ed5f76f7911231b30547603f57d6ac7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H04-NOV-statement.pdf",
+      "bytes": 18573,
+      "sha256": "dc6bc4d7f84c336dfbae533818741cb6ef5cd781e690caff87fb620ebdbe5185",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H04-previous-session.json",
+      "bytes": 59968,
+      "sha256": "28efe8588ec41da07550855a19fc4592a023adc2005969dbc57b258ab9b49927",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H05-DEC-cashbook.csv",
+      "bytes": 458,
+      "sha256": "9e95061e105a4b9c7d3c18880fbf0be1713409b703feb0671b637db8d55d1126",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H05-DEC-statement.pdf",
+      "bytes": 11418,
+      "sha256": "fcb7276ce6fbe7f060498a95689468c6fd8415b0111ec03f338cf9de3fa03780",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H05-JAN-cashbook.csv",
+      "bytes": 345,
+      "sha256": "a04cccd49c4e5d7e468b8957f5bce88ac270de4ec88b219b29bacbcfba9928fb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H05-JAN-statement.pdf",
+      "bytes": 11966,
+      "sha256": "da09378a25c81ae0523867fe9f57fe64dbcf44f33edf081170c56bd09c97a487",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H05-previous-session.json",
+      "bytes": 16244,
+      "sha256": "55f315037444f56306ef18c2ef77c3c82817b645908640b58c8c755812927c35",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H06-DEC-cashbook.csv",
+      "bytes": 408,
+      "sha256": "86a7dae16db2eec3d7e29d6cda37ce9964dc94cd636580699072bd3f5c02ef7c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H06-DEC-statement.pdf",
+      "bytes": 17484,
+      "sha256": "3eaa0310606f043cecb233191ce90d3e70bab54dc0f3212045a8d2bbfb01a1a4",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H06-JAN-cashbook.csv",
+      "bytes": 343,
+      "sha256": "b4895f05fc91af606c132955ee1f5d8d1c2e8af8b28af00fa8e076d2f74bc92e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H06-JAN-statement.pdf",
+      "bytes": 17982,
+      "sha256": "c382403dcb7e0955a909df1204fd9da87044162d8f599e5491ff464827af8c23",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H06-previous-session.json",
+      "bytes": 24264,
+      "sha256": "e0357eacddb53e117c772016eb304ce8fd6c95dafa6da053b8a36bc14181708c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H07-FEB-cashbook.csv",
+      "bytes": 423,
+      "sha256": "4bd68f62f8c7ef0bfa0fe9c31649a074ebe7aa7f5503ac8ed9054587f1429015",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H07-FEB-statement.pdf",
+      "bytes": 14587,
+      "sha256": "7b149785cf387e05a768bec0805720ec59248ff40b28a753c4f668ec49c15cce",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H07-JAN-cashbook.csv",
+      "bytes": 412,
+      "sha256": "e9dc92859b6803aa778baf1fd7a610db74433bfe56a7092df6cae688dcc6fdd0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H07-JAN-statement.pdf",
+      "bytes": 13739,
+      "sha256": "8c81c033f12cb64d5a1a1bd1b78d2621a6378b5197e3e3f0e6ce82388e7a508d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H07-previous-session.json",
+      "bytes": 19280,
+      "sha256": "3012a0c34d282b6e185622701bbf8d7af955e046269682c686b050930f7c39ef",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H08-DEC-cashbook.csv",
+      "bytes": 348,
+      "sha256": "58bb6193cf14cf6953e24fb0b6e7dca3ba54ca209ccf9e060da0f4be020f5e9b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H08-DEC-statement.pdf",
+      "bytes": 12058,
+      "sha256": "8de4040b24bf3db963140f8148792003780ad73ad9d6786d910ccafa070e078c",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H08-JAN-cashbook.csv",
+      "bytes": 406,
+      "sha256": "f604bed42884e37a634b950296b75260e0257a5f89f314afa4a264d77f62b0fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H08-JAN-statement.pdf",
+      "bytes": 12279,
+      "sha256": "b5bc1565b6b2e7e6e2d1082e47e19d4d9d2ec723da67a2dae1b760a1a0c811d3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H08-previous-session.json",
+      "bytes": 16952,
+      "sha256": "1be2a1c70d39005f5ee264f1cc6ac70329a0a39e2bbe748ceace23b252f8aab4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H09-DEC-cashbook.csv",
+      "bytes": 406,
+      "sha256": "06bbd5825d80d75d97dac77e3efd76dbc60e29d9fb6f0f4d835b32153b7e96c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H09-DEC-statement.pdf",
+      "bytes": 13014,
+      "sha256": "92bb71e66a5677cd360c47c17238cb91d2c250075611aac3646d8d6910354f41",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H09-JAN-cashbook.csv",
+      "bytes": 348,
+      "sha256": "029986e98fe7de2112799cefc574378c9b56908d15f3f02614bf1a80d84d83dc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H09-JAN-statement.pdf",
+      "bytes": 14832,
+      "sha256": "005c8ec05a93b3a5f6a01e607dd82171c8389f95eeb0e45c343dca4996715a7d",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H09-previous-session.json",
+      "bytes": 18304,
+      "sha256": "6e9c87efe0784a72fc46f791bcc62474f0bb7fbde6eb13a3af91cca91f77dcf9",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H10-FEB-cashbook.csv",
+      "bytes": 406,
+      "sha256": "25b8976eac760262a205d08337cb0bd6d5499d45f6eed1144eb477e4985e3bcc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H10-FEB-statement.pdf",
+      "bytes": 14286,
+      "sha256": "a9aa888fedfd0343cc00ecfdbbe1ca410b4d0dab0401c3148a904a1a875567c9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H10-MAR-cashbook.csv",
+      "bytes": 358,
+      "sha256": "87ca7fc901bb00f14c5ce0edfa97fed3cba6d2037ad045b7a01a0a3e308c72ba",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H10-MAR-statement.pdf",
+      "bytes": 14072,
+      "sha256": "7beadd6776576e6f25f3925e6eac9e234b97d1ff1ae12351d5da9d1e5a02dc6e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H10-previous-session.json",
+      "bytes": 20000,
+      "sha256": "10a8db93dcc65da79949c8083e477de63474d14ccc57f5cd7eec4735350ae511",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H11-JAN-cashbook.csv",
+      "bytes": 413,
+      "sha256": "73aaeeff5856cb25eae777023e865572130f9b25cf6e63e4592e638c5e51f103",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H11-JAN-statement.pdf",
+      "bytes": 11349,
+      "sha256": "47a1b93c8a199fb02278e3797ac44e0b162f8ca6a74784e1e7f029f9137f3abe",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H11-MAR-cashbook.csv",
+      "bytes": 353,
+      "sha256": "114e878886c5725a7401553074578f5c2c4b31b7c532c9f02288a3ac5cbde566",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H11-MAR-statement.pdf",
+      "bytes": 11715,
+      "sha256": "757d1f5b07abf8704a28f282b0326be9a93bdf3a0c29eadb00ae40a7b2d9dac1",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H11-previous-session.json",
+      "bytes": 16092,
+      "sha256": "16d9d3799f250393f41e5b4bcb742ca61b3c0af73ca2db95e8342af4f1eb54d5",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H12-DEC-cashbook.csv",
+      "bytes": 405,
+      "sha256": "ad0d71651cdde655f76246abfee5fd94413fd426f2873a872fe28d432a026fc0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H12-DEC-statement.pdf",
+      "bytes": 17345,
+      "sha256": "70e0e1f0c26babdd5d25f8be3934e79ef6a225d144af578cef1ff39ce16df204",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H12-JAN-cashbook.csv",
+      "bytes": 343,
+      "sha256": "71a4a9747b65d6124b3af9d6db5769fafcd456ae6b3f30d0eb50297aa6ee05cb",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H12-JAN-statement.pdf",
+      "bytes": 18007,
+      "sha256": "127289d3e1860da200b2f9e14676fcbf800cf5f050cd52e67261af630b34a0c9",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H12-previous-session.json",
+      "bytes": 24076,
+      "sha256": "0b0a333fbfd647ac78f7db2e3a3cff42d51fd8cdf51a87f1eb40580bc837ec63",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H13-DEC-cashbook.csv",
+      "bytes": 406,
+      "sha256": "955d9e06eb70d4657210a478e1ae2dddc119657386c4a930c6f914aaf38eebc4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H13-DEC-statement.pdf",
+      "bytes": 13357,
+      "sha256": "abd4385d0776c89a2f0c119e9a31b3c1f085629cac443bf31d66e7cad2fa0343",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H13-JAN-cashbook.csv",
+      "bytes": 348,
+      "sha256": "4ac059347cdf52c09a947ef54bdfb764c74c081fe01e965c67caea5ebb7818d7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H13-JAN-statement.pdf",
+      "bytes": 14010,
+      "sha256": "50475182b3d8e0fc928a24f2478ce1a8b2739e19f06173c577d57c603b184ba6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H13-previous-session.json",
+      "bytes": 18764,
+      "sha256": "12cb2b128faff68ff8e07f0bb11bcebb342040dd6cccfb881ab8d03715b61846",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H14-DEC-cashbook.csv",
+      "bytes": 465,
+      "sha256": "4ffa87072280920052811ce261c1741b8bff8484d04510f3e2c009d9febb6584",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H14-DEC-statement.pdf",
+      "bytes": 18291,
+      "sha256": "0b95be87b4dbf1a0aeaf489af1d8e078f2b246d43115e5c9cd8783c9cb669ccd",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H14-JAN-cashbook.csv",
+      "bytes": 358,
+      "sha256": "7e9ebb7fc7e59faff097396d168831efa4394dfa82f648e21edc8879d1e31bda",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H14-JAN-statement.pdf",
+      "bytes": 18948,
+      "sha256": "3dae08d1619e6470f3ae0a4fb4178ea0293c38d9aa10a30600a424ad8a2c56f2",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H14-previous-session.json",
+      "bytes": 25416,
+      "sha256": "858b79d572614e34ec05f6c5265a317ce09e0b5bd64658a92e65605124060fcd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H15-DEC-cashbook.csv",
+      "bytes": 814,
+      "sha256": "cd15ca7bd47cf65ff135d5e2eb1828a82d95b6fbce9f288b7f48a41e552c9e61",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H15-DEC-statement.pdf",
+      "bytes": 14855,
+      "sha256": "bfca7a96dca99d96c4502e2b7c7daac56d26599c8a6015f18336d8ca50a9fbf5",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H15-JAN-cashbook.csv",
+      "bytes": 347,
+      "sha256": "23411cf945bedda4b2afbb8c9c95af178df375c3eb61abb9615f55c7f34c23fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H15-JAN-statement.pdf",
+      "bytes": 13340,
+      "sha256": "e5b38fadca97341b6e376abf666d3d806fa08d9e7075d222b96c42d7f6af6caf",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H15-previous-session.json",
+      "bytes": 21304,
+      "sha256": "bec0dd9d7004d3b94ac33375eec418ced655a3e899ab1a848738e4d47cd7a206",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H16-DEC-cashbook.csv",
+      "bytes": 411,
+      "sha256": "204ddae39905a88b740fa8e50718cefd2e7f4294a6f3c960c0976c41fea03291",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H16-DEC-statement.pdf",
+      "bytes": 11960,
+      "sha256": "cc120786633e32651339fb083080aecc11968dc251fb4dff3417230cfd55b965",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H16-JAN-cashbook.csv",
+      "bytes": 351,
+      "sha256": "4038dc8c9bc2a22f010257f27927cb462d91cbc29cb5bb001510ad79e4831dac",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H16-JAN-statement.pdf",
+      "bytes": 12481,
+      "sha256": "b73b58993a6c55729d5a432afd38a53de9f09aa3a59ab315f641298700bf87d6",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H16-previous-session.json",
+      "bytes": 16904,
+      "sha256": "a1a22c5eebc5d03f284ace61c5c6770c17d64e0192e213f61efd007d34b6224a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H17-DEC-cashbook.csv",
+      "bytes": 409,
+      "sha256": "b73780c3e93ed794cb51a21ee3bdb2fd19a292dd75b701c515760888e67e6a9b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H17-DEC-statement.pdf",
+      "bytes": 11387,
+      "sha256": "3bd361ce7ee885b69c43f6ea2b67bd3d6e3682895d84db8d195a2127c17ad3e3",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H17-JAN-cashbook.csv",
+      "bytes": 355,
+      "sha256": "3f80407a0c129b665de554a4dda56fd73ed8536e4df6f30fdaa6511e39af964d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H17-JAN-statement.pdf",
+      "bytes": 11647,
+      "sha256": "ae1b3a1ca3902d5e936b314a70ba19cb415bcd8e96fa648c69fa798cdda053af",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H17-previous-session.json",
+      "bytes": 16611,
+      "sha256": "c0fe812b100747d87987dc574b508c7c8d8dde1945cb6f549032237bbf9b044f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H18-DEC-cashbook.csv",
+      "bytes": 403,
+      "sha256": "95e18f42ef00e735a7911e1a2dff90d376b255e312de9a6affc32d281bb3f653",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H18-DEC-statement.pdf",
+      "bytes": 14548,
+      "sha256": "5238222d5fdb3183005bb74d07bebed79dc099d7e059de502de89c859ab988e7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H18-JAN-cashbook.csv",
+      "bytes": 335,
+      "sha256": "d214d75888b50531f900677bf73bbeefe872fa082f20a533655fe29e6320f54d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H18-JAN-statement.pdf",
+      "bytes": 17023,
+      "sha256": "af3ea17fa360a58c3a1506b70e8247f7aabf4013765756d40ab113439e47f7ec",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H18-previous-session.json",
+      "bytes": 20348,
+      "sha256": "bdd73ab507d37c8bd297b3ea51f3970f2e84c1328c92ea3d2571406bf2e6369b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H19-DEC-cashbook.csv",
+      "bytes": 410,
+      "sha256": "94da64040c867209b1f313048b5da454764fe139b4cfa49b4d96dd585896bdf8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H19-DEC-statement.pdf",
+      "bytes": 13171,
+      "sha256": "ad32e06574cd5fa56c8f26e08d563283c85306648480226bf8542b0773eede48",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H19-JAN-cashbook.csv",
+      "bytes": 342,
+      "sha256": "cf2308292944d8ce819adec6e2e40530cff9f4279f226b3a10c3c9730248eee4",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H19-JAN-statement.pdf",
+      "bytes": 13382,
+      "sha256": "cea7288c5ab539361b085be96f626f7d586fedf0d5bab6932522ae6cb4066121",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H19-previous-session.json",
+      "bytes": 18520,
+      "sha256": "3d7d9f92a28fcd55221e099b5673d861625a4c40940c57cdb3825e23ccf491d3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H20-DEC-cashbook.csv",
+      "bytes": 408,
+      "sha256": "d4908c023cd32992fc17dcc2a83cda6972c9a7e68a877ab40cdc61663b662f6a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H20-DEC-statement.pdf",
+      "bytes": 13838,
+      "sha256": "51f4c36d3229dd0e6c69f08ceecae257dd3315beafe58919fe714f42436916a7",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H20-JAN-cashbook.csv",
+      "bytes": 348,
+      "sha256": "5cbf861865998f36cb8d47e0ada0f3882af5424ca49a5811ad3bb91a98857ab8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H20-JAN-statement.pdf",
+      "bytes": 14668,
+      "sha256": "95823ee856ad775404cf9509ece834fde5bd51bfc622fbd0fa92f5626c6b0992",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H21-DEC-cashbook.csv",
+      "bytes": 453,
+      "sha256": "f56ecbb7f7706cc48cc74d42bc91914d3fde77e2dabfd71d053c2ac08d50c638",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H21-DEC-statement.pdf",
+      "bytes": 17659,
+      "sha256": "3c85b49a7551c8f6120a9894226d787887e8881d3877cacaa255be678430d964",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H21-JAN-cashbook.csv",
+      "bytes": 345,
+      "sha256": "31d3b510d6e3da878a58ad5e6cca4dc1ddaa21089b3d594491f1759f93c0fedc",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H21-JAN-statement.pdf",
+      "bytes": 17996,
+      "sha256": "170de942e4bed6b2733a67af38a1a7e8be303f0d01793567327c7400e89a725e",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H21-previous-session.json",
+      "bytes": 25013,
+      "sha256": "fdd370a9f6822652f28591b66f3c65f71e82017daab5dac5d70d526e1afcca72",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H22-DEC-cashbook.csv",
+      "bytes": 359,
+      "sha256": "9a6543f4705779519aa6b2fd7349ce309a0e4d265aaf8297e460b76caddfcfa3",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H22-DEC-statement.pdf",
+      "bytes": 13141,
+      "sha256": "ddab61105ec9c2a392ca4fbde79ca2ba2ee583287fee89d5256af58f4c1f9a52",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H22-JAN-cashbook.csv",
+      "bytes": 358,
+      "sha256": "c171269632abae80fd51d0ee560fe5ae696e5160918e042fb610c4b26d77bc89",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H22-JAN-statement.pdf",
+      "bytes": 14034,
+      "sha256": "12d96025b6bd5e119c442f0285e2510b3f72e98d3b418d30942c8bcdd3e64049",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H22-NOV-cashbook.csv",
+      "bytes": 418,
+      "sha256": "353b9aeb86bd501941e6df7b5844cb67bca1453bc67131e5f37192fe8c539236",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H22-NOV-statement.pdf",
+      "bytes": 13778,
+      "sha256": "5be38a0af2c2cb15615ff3189cfc6790c8494b52eefe2d4620b21184ed6a1ced",
+      "kind": "approved-binary",
+      "provenance": {
+        "type": "synthetic",
+        "description": "AI-authored synthetic bank statement asset for the WF-1 ROLL-1 W4 holdout: drawn by a statement service on HexaPDF 1.11.2 (Ruby) or a statement application on pdf-lib 1.17.1 (Node), both copied from the BNK-PDF-1 G23 holdout, with Google Fonts files from @expo-google-fonts, from audit/bank-roll-holdout-w4/stories.py, sealed by frozen/INPUT-MANIFEST.json and frozen/SEAL.json before any product run on these files and read back independently (VERIFY.json with pdfminer.six and MuPDF, ELIGIBILITY.json with MuPDF, EXPECTED.json from the sealed ROLL-1 foundation oracle). Fictional banks, accounts and amounts; no field originals or customer data."
+      }
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/H22-previous-session.json",
+      "bytes": 44324,
+      "sha256": "e5d4650bc83bdaad15bbdb97ba70675be63b2f6420165d14f6010df76e38129c",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/INPUT-MANIFEST.json",
+      "bytes": 19431,
+      "sha256": "aba6c9c1564914c8d6407a8fa3b779b7db0937458c1cfd683ee6744636881667",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/SEAL.json",
+      "bytes": 2776,
+      "sha256": "036b57c284e85f45c744a10d5576687964826e76cb4e8ce7c0a0249d1e9973e0",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/VERIFY.json",
+      "bytes": 23675,
+      "sha256": "e11f51ea6073f54521b6c1ba3b6e66b62261948945dd20dc6975e30de1a49c2a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/records.json",
+      "bytes": 164809,
+      "sha256": "7a223d78681eb5eaf8389fea523c54e67a608c176fae10821dc27bbe7d8629ad",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/frozen/stories.json",
+      "bytes": 183647,
+      "sha256": "ff5120b7b0c046b665451fdcbd9b9bd28d79d691f1d9eca49c5f9be266094099",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/js/package-lock.json",
+      "bytes": 10823,
+      "sha256": "078872e9c078bbe08668ad7565db7df8ad805d01dc56d0bd056b0896346eeef8",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/js/package.json",
+      "bytes": 927,
+      "sha256": "2b30084612d1b2794ab38d2d42a02f5df42774a298979e1f13cb660ae3ddacb7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/js/render_pdflib.mjs",
+      "bytes": 10839,
+      "sha256": "16e4dd57f9d3fc0ab786d82741ddf0c1fda72df2a4ec3ef9c414c7b8c2895d26",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/render.py",
+      "bytes": 9955,
+      "sha256": "810acfdd84fde95ca546046c6aa6833a0d3442c2642a4c1023b9286c310238fd",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/render_hexapdf.py",
+      "bytes": 2659,
+      "sha256": "00780b61ce62e2f8861ff5e370eba43bf62c9790f370550c4d934fe22c73965e",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/render_pdflib.py",
+      "bytes": 2363,
+      "sha256": "6cdf284ef56a373f0db991894e00c6bfc0b842b6f049f0a95d9ecddc89b93d8d",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/ruby/Gemfile",
+      "bytes": 204,
+      "sha256": "bb0540b65b96b5b7c3723bdbbf50b7a99c25ed80cd4e469dda669b7a5e527d5f",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/ruby/Gemfile.lock",
+      "bytes": 1302,
+      "sha256": "7bf40acd65d4688a6f771427ef97a17a16259401568f0fefaa2a8657e2a41666",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/ruby/statements.rb",
+      "bytes": 7624,
+      "sha256": "53db6a930b68896b8093453c6cc16d82789d1da28a7a6d6fe0abb7767c26d37b",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/seal.py",
+      "bytes": 3884,
+      "sha256": "4e34a001685a864a2541c3b8e977cdeae9cb678b1861a788226392ee0d50052a",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/stories.py",
+      "bytes": 35884,
+      "sha256": "8f675ad2b29a33863c2d7fa7c2e2e4d4ccb64a48f9a79e27b8c328d6da30b419",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-roll-holdout-w4/verify.py",
+      "bytes": 28955,
+      "sha256": "6ff96facb949a1c8158db11e70bbd20ecb378af3a150c0c3f4d2b71754fb4b7e",
       "kind": "text"
     }
   ],

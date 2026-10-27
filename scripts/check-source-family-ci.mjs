@@ -140,6 +140,7 @@ const required = [
   'test:bank-roll:oracle',
   'test:bank-roll:oracle-mutants',
   'test:bank-roll:seal',
+  'test:bank-roll:w4-seal',
   'test:bank-roll:baseline',
   'test:bank-roll:proof',
   'test:bank-roll:lifecycle',

@@ -290,6 +290,7 @@ jobs:
           pnpm test:bank-roll:oracle
           pnpm test:bank-roll:oracle-mutants
           pnpm test:bank-roll:seal
+          pnpm test:bank-roll:w4-seal
           pnpm test:bank-roll:baseline
           pnpm test:bank-roll:proof
           pnpm test:bank-roll:lifecycle
