@@ -181,6 +181,7 @@ const required = [
   'test:bank-sheet:r4-browser',
   'test:bank-review:browser',
   'test:bank-review:r3-browser',
+  'test:bank-map:browser',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',
   'test:bank-statement:g1-mutations',
@@ -297,6 +298,7 @@ const separate = {
   'bank-review-interface-mutations': [
     'test:bank-review:interface-mutations',
   ],
+  'bank-map-interface-mutations': ['test:bank-map:interface-mutations'],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',

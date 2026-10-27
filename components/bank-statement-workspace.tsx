@@ -19,7 +19,12 @@ import { bankReviewCopy } from '@/lib/i18n/bank-review';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { money } from '@/lib/reconciliation/core';
 import { currencyPrecision } from '@/lib/reconciliation/currency-precision';
-import { MAX_FILE_BYTES } from '@/lib/reconciliation/types';
+import { MAX_FILE_BYTES, type SourceFile } from '@/lib/reconciliation/types';
+import type { CashbookColumns } from '@/lib/reconciliation/bank-cashbook-map';
+import {
+  CashbookColumnsPanel,
+  CashbookColumnsUsed,
+} from './bank-cashbook-columns';
 import type {
   BankStatementReplay,
   BankStatementResult,
@@ -118,7 +123,9 @@ export function useBankStatement() {
     [sheetForm, setSheetForm] = useState<SheetForm>(sheetFormOf(null, 0)),
     [note, setNote] = useState(''),
     [busy, setBusy] = useState(false),
-    [failure, setFailure] = useState<Failure | null>(null);
+    [failure, setFailure] = useState<Failure | null>(null),
+    // The cashbook as read, for choosing its columns by hand or by a map.
+    [layout, setLayout] = useState<SourceFile | null>(null);
   const serial = useRef(0),
     controller = useRef<AbortController | null>(null);
   useEffect(
@@ -166,6 +173,8 @@ export function useBankStatement() {
     const [s, c] = v.state.files;
     setStatement(s);
     setCashbook(c);
+    // The file's layout is kept only for the same cashbook.
+    setLayout((l) => (l && l.sha256 === c.sha256 ? l : null));
     // A restored session brings its own previous file or none; a table's
     // comparison keeps a hidden one for when a printed statement returns.
     if ('previous' in v.state) setPrevious(v.state.previous);
@@ -212,6 +221,21 @@ export function useBankStatement() {
       }
     }
   }
+  /** The cashbook read for its columns (bank-cashbook-map-1). */
+  async function readLayout(signal: AbortSignal) {
+    const book = cashbook!;
+    setLayout(
+      await workerTask<SourceFile>(
+        'read',
+        { name: book.name, buffer: book.original.slice(0) },
+        signal,
+      ),
+    );
+  }
+  const headerRefused =
+    !!failure &&
+    failure.kind === 'cashbook' &&
+    /^BANK_CASHBOOK_HEADER\b/u.test(failure.detail);
   return {
     statement,
     cashbook,
@@ -229,6 +253,9 @@ export function useBankStatement() {
     failure,
     pdf,
     ready,
+    headerRefused,
+    layout:
+      layout && cashbook && layout.sha256 === cashbook.sha256 ? layout : null,
     hasWork: !!(statement || cashbook),
     setNote,
     setSheetForm(change: Partial<SheetForm>) {
@@ -261,6 +288,7 @@ export function useBankStatement() {
       controller.current = null;
       setBusy(false);
       invalidate();
+      if (role === 'cashbook') setLayout(null);
       if (file.size > limit || !formats.test(file.name)) {
         setFailure({ kind: 'other', detail: file.name });
         return;
@@ -280,15 +308,46 @@ export function useBankStatement() {
       invalidate();
     },
     compare: () =>
-      perform(async (signal) =>
+      perform(async (signal) => {
+        try {
+          install(
+            await workerTask<Replay>(
+              'bank-statement-reconcile',
+              state([], null),
+              signal,
+            ),
+          );
+        } catch (error) {
+          // The declared reading comes first; once it refuses the header
+          // row, the cashbook is read for its columns, for the accountant
+          // to choose them. Its refusal stays the one shown.
+          if (
+            !cashbook!.columns &&
+            error instanceof Error &&
+            /^BANK_CASHBOOK_HEADER\b/u.test(error.message)
+          )
+            await readLayout(signal).catch(() => undefined);
+          throw error;
+        }
+      }),
+    /** A new comparison with the cashbook read with these columns. */
+    readWith: (columns: CashbookColumns) =>
+      perform(async (signal) => {
+        const book = { ...cashbook!, columns };
+        setCashbook(book);
+        setResult(null);
+        // A new comparison: no decision and no sheet, the cashbook with its
+        // columns in the state as built from the sources shown.
+        const fresh = state([], null);
         install(
           await workerTask<Replay>(
             'bank-statement-reconcile',
-            state([], null),
+            { ...fresh, files: [fresh.files[0], book] },
             signal,
           ),
-        ),
-      ),
+        );
+      }),
+    loadLayout: () => perform(readLayout),
     decide: (c: StatementCase, type: StatementDecision['type']) =>
       perform(async (signal) => {
         if (!result) return;
@@ -627,6 +686,9 @@ export function BankStatementResults({
           )}
         </p>
       )}
+      {s.cashbook && (s.layout || s.cashbook.columns) && (
+        <CashbookColumnsPanel key={s.cashbook.sha256} s={s} locked={locked} />
+      )}
       {r && <Result r={r} s={s} locked={locked} />}
     </>
   );
@@ -846,6 +908,7 @@ function Result({
           ],
         ]}
       />
+      <CashbookColumnsUsed r={r} />
       <p className="bank-source-basis" data-bank-statement-claim>
         {r.sheet ? c.claimWithSheet : c.claim}
       </p>
