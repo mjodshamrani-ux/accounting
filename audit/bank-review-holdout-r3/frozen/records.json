@@ -1,0 +1,5200 @@
+{
+ "stories": [
+  {
+   "id": "R01-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Work Sans",
+   "paper": "A4",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0101",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 78787700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Freight forwarding",
+        "reference": "TRF01AP001",
+        "withdrawal": 1205583,
+        "deposit": 0,
+        "balance": 77582117
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-08",
+        "valueDate": "2028-04-08",
+        "description": "Card scheme fees",
+        "reference": "TRF01AP002",
+        "withdrawal": 4467439,
+        "deposit": 0,
+        "balance": 73114678
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-09",
+        "valueDate": "2028-04-09",
+        "description": "Cheque R01G-01 paid",
+        "reference": "CHQ-R01G-01",
+        "withdrawal": 300000,
+        "deposit": 0,
+        "balance": 72814678
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Marketplace payout",
+        "reference": "COL01AP003",
+        "withdrawal": 0,
+        "deposit": 3407514,
+        "balance": 76222192
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-15",
+        "valueDate": "2028-04-15",
+        "description": "Cheque R01G-02 paid",
+        "reference": "CHQ-R01G-02",
+        "withdrawal": 100000,
+        "deposit": 0,
+        "balance": 76122192
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Supplier settlement",
+        "reference": "TRF01AP004",
+        "withdrawal": 975459,
+        "deposit": 0,
+        "balance": 75146733
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 300000,
+        "deposit": 0,
+        "balance": 74846733
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-04-24",
+        "valueDate": "2028-04-24",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 100000,
+        "deposit": 0,
+        "balance": 74746733
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Card settlement",
+        "reference": "COL01AP005",
+        "withdrawal": 0,
+        "deposit": 2998548,
+        "balance": 77745281
+       },
+       {
+        "kind": "closing",
+        "balance": 77745281
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 7448481,
+        "deposit": 6406062
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-01",
+     "voucher": "PV01AP01",
+     "description": "Payment voucher",
+     "reference": "TRF01AP001",
+     "receipt": 0,
+     "payment": 1205583
+    },
+    {
+     "date": "2028-04-03",
+     "voucher": "BP-R01G-01",
+     "description": "Payment voucher",
+     "reference": "CHQ-R01G-01",
+     "receipt": 0,
+     "payment": 300000
+    },
+    {
+     "date": "2028-04-06",
+     "voucher": "PV01AP02",
+     "description": "Payment voucher",
+     "reference": "TRF01AP002",
+     "receipt": 0,
+     "payment": 4467439
+    },
+    {
+     "date": "2028-04-09",
+     "voucher": "BP-R01G-02",
+     "description": "Payment voucher",
+     "reference": "CHQ-R01G-02",
+     "receipt": 0,
+     "payment": 100000
+    },
+    {
+     "date": "2028-04-12",
+     "voucher": "RV01AP03",
+     "description": "Receipt voucher",
+     "reference": "COL01AP003",
+     "receipt": 3407514,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-20",
+     "voucher": "PV01AP04",
+     "description": "Payment voucher",
+     "reference": "TRF01AP004",
+     "receipt": 0,
+     "payment": 975459
+    },
+    {
+     "date": "2028-04-20",
+     "voucher": "PV-R01-01",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 300000
+    },
+    {
+     "date": "2028-04-23",
+     "voucher": "PV-R01-02",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 100000
+    },
+    {
+     "date": "2028-04-27",
+     "voucher": "RV01AP05",
+     "description": "Receipt voucher",
+     "reference": "COL01AP005",
+     "receipt": 2998548,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R02-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Rubik",
+   "paper": "A4",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0202",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 48960100
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Freight forwarding",
+        "reference": "TRF02AP001",
+        "withdrawal": 1939629,
+        "deposit": 0,
+        "balance": 47020471
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-07",
+        "valueDate": "2028-04-07",
+        "description": "Supplier transfer",
+        "reference": "INV-R02-71",
+        "withdrawal": 150000,
+        "deposit": 0,
+        "balance": 46870471
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-08",
+        "valueDate": "2028-04-08",
+        "description": "Card scheme fees",
+        "reference": "TRF02AP002",
+        "withdrawal": 4612593,
+        "deposit": 0,
+        "balance": 42257878
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Freight forwarding",
+        "reference": "TRF02AP003",
+        "withdrawal": 818886,
+        "deposit": 0,
+        "balance": 41438992
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-16",
+        "valueDate": "2028-04-16",
+        "description": "Supplier transfer",
+        "reference": "INV-R02-72",
+        "withdrawal": 150000,
+        "deposit": 0,
+        "balance": 41288992
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Marketplace payout",
+        "reference": "COL02AP004",
+        "withdrawal": 0,
+        "deposit": 883473,
+        "balance": 42172465
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Warehouse rent",
+        "reference": "TRF02AP005",
+        "withdrawal": 872095,
+        "deposit": 0,
+        "balance": 41300370
+       },
+       {
+        "kind": "closing",
+        "balance": 41300370
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 8543203,
+        "deposit": 883473
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-01",
+     "voucher": "PV02AP01",
+     "description": "Payment voucher",
+     "reference": "TRF02AP001",
+     "receipt": 0,
+     "payment": 1939629
+    },
+    {
+     "date": "2028-04-07",
+     "voucher": "PV02AP02",
+     "description": "Payment voucher",
+     "reference": "TRF02AP002",
+     "receipt": 0,
+     "payment": 4612593
+    },
+    {
+     "date": "2028-04-07",
+     "voucher": "RV-R02-71",
+     "description": "Refund received",
+     "reference": "INV-R02-71",
+     "receipt": 150000,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-14",
+     "voucher": "PV02AP03",
+     "description": "Payment voucher",
+     "reference": "TRF02AP003",
+     "receipt": 0,
+     "payment": 818886
+    },
+    {
+     "date": "2028-04-16",
+     "voucher": "PV-R02-72",
+     "description": "Payment voucher",
+     "reference": "INV-R02-72",
+     "receipt": 0,
+     "payment": 140000
+    },
+    {
+     "date": "2028-04-19",
+     "voucher": "RV02AP04",
+     "description": "Receipt voucher",
+     "reference": "COL02AP004",
+     "receipt": 883473,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-25",
+     "voucher": "PV02AP05",
+     "description": "Payment voucher",
+     "reference": "TRF02AP005",
+     "receipt": 0,
+     "payment": 872095
+    }
+   ]
+  },
+  {
+   "id": "R03-MAY",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Merriweather",
+   "paper": "A4",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0103",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-05-01",
+     "end": "2028-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 36171800
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-05-02",
+        "valueDate": "2028-05-02",
+        "description": "Warehouse rent",
+        "reference": "TRF03MA001",
+        "withdrawal": 2252890,
+        "deposit": 0,
+        "balance": 33918910
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-05-08",
+        "valueDate": "2028-05-08",
+        "description": "Supplier settlement",
+        "reference": "TRF03MA002",
+        "withdrawal": 3030509,
+        "deposit": 0,
+        "balance": 30888401
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-05-09",
+        "valueDate": "2028-05-06",
+        "description": "Cheque R03-01 paid",
+        "reference": "CHQ-R03-01",
+        "withdrawal": 482150,
+        "deposit": 0,
+        "balance": 30406251
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "Supplier settlement",
+        "reference": "TRF03MA003",
+        "withdrawal": 4302015,
+        "deposit": 0,
+        "balance": 26104236
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-05-16",
+        "valueDate": "2028-05-16",
+        "description": "Cheque R03-02 paid",
+        "reference": "CHQ-R03-02",
+        "withdrawal": 271930,
+        "deposit": 0,
+        "balance": 25832306
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-05-20",
+        "valueDate": "2028-05-20",
+        "description": "Supplier settlement",
+        "reference": "TRF03MA004",
+        "withdrawal": 2662256,
+        "deposit": 0,
+        "balance": 23170050
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-05-23",
+        "valueDate": "2028-05-18",
+        "description": "Cheque R03-03 paid",
+        "reference": "CHQ-R03-03",
+        "withdrawal": 133705,
+        "deposit": 0,
+        "balance": 23036345
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-05-27",
+        "valueDate": "2028-05-27",
+        "description": "Distributor payment",
+        "reference": "COL03MA005",
+        "withdrawal": 0,
+        "deposit": 4843481,
+        "balance": 27879826
+       },
+       {
+        "kind": "closing",
+        "balance": 27879826
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 13135455,
+        "deposit": 4843481
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-05-02",
+     "voucher": "PV03MA01",
+     "description": "Payment voucher",
+     "reference": "TRF03MA001",
+     "receipt": 0,
+     "payment": 2252890
+    },
+    {
+     "date": "2028-05-04",
+     "voucher": "BP-R03-01",
+     "description": "Payment voucher",
+     "reference": "CHQ-R03-01",
+     "receipt": 0,
+     "payment": 482150
+    },
+    {
+     "date": "2028-05-06",
+     "voucher": "PV03MA02",
+     "description": "Payment voucher",
+     "reference": "TRF03MA002",
+     "receipt": 0,
+     "payment": 3030509
+    },
+    {
+     "date": "2028-05-11",
+     "voucher": "BP-R03-02",
+     "description": "Payment voucher",
+     "reference": "CHQ-R03-02",
+     "receipt": 0,
+     "payment": 271930
+    },
+    {
+     "date": "2028-05-12",
+     "voucher": "PV03MA03",
+     "description": "Payment voucher",
+     "reference": "TRF03MA003",
+     "receipt": 0,
+     "payment": 4302015
+    },
+    {
+     "date": "2028-05-18",
+     "voucher": "BP-R03-03",
+     "description": "Payment voucher",
+     "reference": "CHQ-R03-03",
+     "receipt": 0,
+     "payment": 133705
+    },
+    {
+     "date": "2028-05-20",
+     "voucher": "PV03MA04",
+     "description": "Payment voucher",
+     "reference": "TRF03MA004",
+     "receipt": 0,
+     "payment": 2662256
+    },
+    {
+     "date": "2028-05-27",
+     "voucher": "RV03MA05",
+     "description": "Receipt voucher",
+     "reference": "COL03MA005",
+     "receipt": 4843481,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R04-JUN",
+   "layout": "ar",
+   "digits": "arabic",
+   "producer": "pdflib",
+   "font": "Cairo",
+   "paper": "A4",
+   "bank": "مصرف النخيل الأهلي",
+   "documentTitle": "كشف حساب جاري",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA05 8000 0000 5512 7300 0404",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-06-01",
+     "end": "2028-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 27055200
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "سداد مورد",
+        "reference": "TRF04JU001",
+        "withdrawal": 3807851,
+        "deposit": 0,
+        "balance": 23247349
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 100007,
+        "deposit": 0,
+        "balance": 23147342
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 212353,
+        "deposit": 0,
+        "balance": 22934989
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-06-03",
+        "valueDate": "2028-06-03",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 104328,
+        "deposit": 0,
+        "balance": 22830661
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-06-03",
+        "valueDate": "2028-06-03",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 216674,
+        "deposit": 0,
+        "balance": 22613987
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-06-03",
+        "valueDate": "2028-06-03",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 250003,
+        "balance": 22863990
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-06-04",
+        "valueDate": "2028-06-04",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 108649,
+        "deposit": 0,
+        "balance": 22755341
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-06-04",
+        "valueDate": "2028-06-04",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 220995,
+        "deposit": 0,
+        "balance": 22534346
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-06-04",
+        "valueDate": "2028-06-04",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 253920,
+        "balance": 22788266
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2028-06-05",
+        "valueDate": "2028-06-05",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 112970,
+        "deposit": 0,
+        "balance": 22675296
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2028-06-05",
+        "valueDate": "2028-06-05",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 225316,
+        "deposit": 0,
+        "balance": 22449980
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2028-06-05",
+        "valueDate": "2028-06-05",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 257837,
+        "balance": 22707817
+       },
+       {
+        "kind": "movement",
+        "key": "S13",
+        "date": "2028-06-06",
+        "valueDate": "2028-06-06",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 117291,
+        "deposit": 0,
+        "balance": 22590526
+       },
+       {
+        "kind": "movement",
+        "key": "S14",
+        "date": "2028-06-06",
+        "valueDate": "2028-06-06",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 261754,
+        "balance": 22852280
+       },
+       {
+        "kind": "movement",
+        "key": "S15",
+        "date": "2028-06-07",
+        "valueDate": "2028-06-07",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 121612,
+        "deposit": 0,
+        "balance": 22730668
+       },
+       {
+        "kind": "movement",
+        "key": "S16",
+        "date": "2028-06-07",
+        "valueDate": "2028-06-07",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 265671,
+        "balance": 22996339
+       },
+       {
+        "kind": "movement",
+        "key": "S17",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "دفعة موزع",
+        "reference": "COL04JU002",
+        "withdrawal": 0,
+        "deposit": 4659515,
+        "balance": 27655854
+       },
+       {
+        "kind": "movement",
+        "key": "S18",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 125933,
+        "deposit": 0,
+        "balance": 27529921
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 27529921
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 27529921
+       },
+       {
+        "kind": "movement",
+        "key": "S19",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 269588,
+        "balance": 27799509
+       },
+       {
+        "kind": "movement",
+        "key": "S20",
+        "date": "2028-06-09",
+        "valueDate": "2028-06-09",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 130254,
+        "deposit": 0,
+        "balance": 27669255
+       },
+       {
+        "kind": "movement",
+        "key": "S21",
+        "date": "2028-06-09",
+        "valueDate": "2028-06-09",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 273505,
+        "balance": 27942760
+       },
+       {
+        "kind": "movement",
+        "key": "S22",
+        "date": "2028-06-10",
+        "valueDate": "2028-06-10",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 134575,
+        "deposit": 0,
+        "balance": 27808185
+       },
+       {
+        "kind": "movement",
+        "key": "S23",
+        "date": "2028-06-10",
+        "valueDate": "2028-06-10",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 277422,
+        "balance": 28085607
+       },
+       {
+        "kind": "movement",
+        "key": "S24",
+        "date": "2028-06-11",
+        "valueDate": "2028-06-11",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 138896,
+        "deposit": 0,
+        "balance": 27946711
+       },
+       {
+        "kind": "movement",
+        "key": "S25",
+        "date": "2028-06-11",
+        "valueDate": "2028-06-11",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 281339,
+        "balance": 28228050
+       },
+       {
+        "kind": "movement",
+        "key": "S26",
+        "date": "2028-06-12",
+        "valueDate": "2028-06-12",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 143217,
+        "deposit": 0,
+        "balance": 28084833
+       },
+       {
+        "kind": "movement",
+        "key": "S27",
+        "date": "2028-06-12",
+        "valueDate": "2028-06-12",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 285256,
+        "balance": 28370089
+       },
+       {
+        "kind": "movement",
+        "key": "S28",
+        "date": "2028-06-13",
+        "valueDate": "2028-06-13",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 147538,
+        "deposit": 0,
+        "balance": 28222551
+       },
+       {
+        "kind": "movement",
+        "key": "S29",
+        "date": "2028-06-13",
+        "valueDate": "2028-06-13",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 289173,
+        "balance": 28511724
+       },
+       {
+        "kind": "movement",
+        "key": "S30",
+        "date": "2028-06-14",
+        "valueDate": "2028-06-14",
+        "description": "تسوية بطاقات",
+        "reference": "COL04JU003",
+        "withdrawal": 0,
+        "deposit": 1452059,
+        "balance": 29963783
+       },
+       {
+        "kind": "movement",
+        "key": "S31",
+        "date": "2028-06-14",
+        "valueDate": "2028-06-14",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 151859,
+        "deposit": 0,
+        "balance": 29811924
+       },
+       {
+        "kind": "movement",
+        "key": "S32",
+        "date": "2028-06-14",
+        "valueDate": "2028-06-14",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 293090,
+        "balance": 30105014
+       },
+       {
+        "kind": "movement",
+        "key": "S33",
+        "date": "2028-06-15",
+        "valueDate": "2028-06-15",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 156180,
+        "deposit": 0,
+        "balance": 29948834
+       },
+       {
+        "kind": "movement",
+        "key": "S34",
+        "date": "2028-06-15",
+        "valueDate": "2028-06-15",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 297007,
+        "balance": 30245841
+       },
+       {
+        "kind": "movement",
+        "key": "S35",
+        "date": "2028-06-16",
+        "valueDate": "2028-06-16",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 160501,
+        "deposit": 0,
+        "balance": 30085340
+       },
+       {
+        "kind": "movement",
+        "key": "S36",
+        "date": "2028-06-16",
+        "valueDate": "2028-06-16",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 300924,
+        "balance": 30386264
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 30386264
+       }
+      ]
+     },
+     {
+      "number": 3,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 30386264
+       },
+       {
+        "kind": "movement",
+        "key": "S37",
+        "date": "2028-06-17",
+        "valueDate": "2028-06-17",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 164822,
+        "deposit": 0,
+        "balance": 30221442
+       },
+       {
+        "kind": "movement",
+        "key": "S38",
+        "date": "2028-06-17",
+        "valueDate": "2028-06-17",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 304841,
+        "balance": 30526283
+       },
+       {
+        "kind": "movement",
+        "key": "S39",
+        "date": "2028-06-18",
+        "valueDate": "2028-06-18",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 169143,
+        "deposit": 0,
+        "balance": 30357140
+       },
+       {
+        "kind": "movement",
+        "key": "S40",
+        "date": "2028-06-19",
+        "valueDate": "2028-06-19",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 173464,
+        "deposit": 0,
+        "balance": 30183676
+       },
+       {
+        "kind": "movement",
+        "key": "S41",
+        "date": "2028-06-20",
+        "valueDate": "2028-06-20",
+        "description": "دفعة موزع",
+        "reference": "COL04JU004",
+        "withdrawal": 0,
+        "deposit": 899244,
+        "balance": 31082920
+       },
+       {
+        "kind": "movement",
+        "key": "S42",
+        "date": "2028-06-20",
+        "valueDate": "2028-06-20",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 177785,
+        "deposit": 0,
+        "balance": 30905135
+       },
+       {
+        "kind": "movement",
+        "key": "S43",
+        "date": "2028-06-21",
+        "valueDate": "2028-06-21",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 182106,
+        "deposit": 0,
+        "balance": 30723029
+       },
+       {
+        "kind": "movement",
+        "key": "S44",
+        "date": "2028-06-22",
+        "valueDate": "2028-06-22",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 186427,
+        "deposit": 0,
+        "balance": 30536602
+       },
+       {
+        "kind": "movement",
+        "key": "S45",
+        "date": "2028-06-23",
+        "valueDate": "2028-06-23",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 190748,
+        "deposit": 0,
+        "balance": 30345854
+       },
+       {
+        "kind": "movement",
+        "key": "S46",
+        "date": "2028-06-24",
+        "valueDate": "2028-06-24",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 195069,
+        "deposit": 0,
+        "balance": 30150785
+       },
+       {
+        "kind": "movement",
+        "key": "S47",
+        "date": "2028-06-25",
+        "valueDate": "2028-06-25",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 199390,
+        "deposit": 0,
+        "balance": 29951395
+       },
+       {
+        "kind": "movement",
+        "key": "S48",
+        "date": "2028-06-26",
+        "valueDate": "2028-06-26",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 203711,
+        "deposit": 0,
+        "balance": 29747684
+       },
+       {
+        "kind": "movement",
+        "key": "S49",
+        "date": "2028-06-27",
+        "valueDate": "2028-06-27",
+        "description": "عقد صيانة",
+        "reference": "TRF04JU005",
+        "withdrawal": 4683201,
+        "deposit": 0,
+        "balance": 25064483
+       },
+       {
+        "kind": "movement",
+        "key": "S50",
+        "date": "2028-06-27",
+        "valueDate": "2028-06-27",
+        "description": "سحب نقدي",
+        "reference": "",
+        "withdrawal": 208032,
+        "deposit": 0,
+        "balance": 24856451
+       },
+       {
+        "kind": "closing",
+        "balance": 24856451
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 13370897,
+        "deposit": 11172148
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-06-02",
+     "voucher": "PV04JU01",
+     "description": "سند صرف",
+     "reference": "TRF04JU001",
+     "receipt": 0,
+     "payment": 3807851
+    },
+    {
+     "date": "2028-06-02",
+     "voucher": "PV-R04O-01",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 100007
+    },
+    {
+     "date": "2028-06-02",
+     "voucher": "PV-R04O-02",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 104328
+    },
+    {
+     "date": "2028-06-02",
+     "voucher": "PV-R04O-27",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 212353
+    },
+    {
+     "date": "2028-06-02",
+     "voucher": "PV-R04O-28",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 216674
+    },
+    {
+     "date": "2028-06-03",
+     "voucher": "RV-R04I-01",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 250003,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-03",
+     "voucher": "RV-R04I-02",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 253920,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-04",
+     "voucher": "PV-R04O-03",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 108649
+    },
+    {
+     "date": "2028-06-04",
+     "voucher": "PV-R04O-04",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 112970
+    },
+    {
+     "date": "2028-06-04",
+     "voucher": "PV-R04O-29",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 220995
+    },
+    {
+     "date": "2028-06-04",
+     "voucher": "PV-R04O-30",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 225316
+    },
+    {
+     "date": "2028-06-05",
+     "voucher": "RV-R04I-03",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 257837,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-05",
+     "voucher": "RV-R04I-04",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 261754,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-06",
+     "voucher": "PV-R04O-05",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 117291
+    },
+    {
+     "date": "2028-06-06",
+     "voucher": "PV-R04O-06",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 121612
+    },
+    {
+     "date": "2028-06-07",
+     "voucher": "RV04JU02",
+     "description": "سند قبض",
+     "reference": "COL04JU002",
+     "receipt": 4659515,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-07",
+     "voucher": "RV-R04I-05",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 265671,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-07",
+     "voucher": "RV-R04I-06",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 269588,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-08",
+     "voucher": "PV-R04O-07",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 125933
+    },
+    {
+     "date": "2028-06-08",
+     "voucher": "PV-R04O-08",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 130254
+    },
+    {
+     "date": "2028-06-09",
+     "voucher": "RV-R04I-07",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 273505,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-09",
+     "voucher": "RV-R04I-08",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 277422,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-10",
+     "voucher": "PV-R04O-09",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 134575
+    },
+    {
+     "date": "2028-06-10",
+     "voucher": "PV-R04O-10",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 138896
+    },
+    {
+     "date": "2028-06-11",
+     "voucher": "RV-R04I-09",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 281339,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-11",
+     "voucher": "RV-R04I-10",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 285256,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-12",
+     "voucher": "RV04JU03",
+     "description": "سند قبض",
+     "reference": "COL04JU003",
+     "receipt": 1452059,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-12",
+     "voucher": "PV-R04O-11",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 143217
+    },
+    {
+     "date": "2028-06-12",
+     "voucher": "PV-R04O-12",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 147538
+    },
+    {
+     "date": "2028-06-13",
+     "voucher": "RV-R04I-11",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 289173,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-13",
+     "voucher": "RV-R04I-12",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 293090,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-14",
+     "voucher": "PV-R04O-13",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 151859
+    },
+    {
+     "date": "2028-06-14",
+     "voucher": "PV-R04O-14",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 156180
+    },
+    {
+     "date": "2028-06-15",
+     "voucher": "RV-R04I-13",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 297007,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-15",
+     "voucher": "RV-R04I-14",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 300924,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-16",
+     "voucher": "PV-R04O-15",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 160501
+    },
+    {
+     "date": "2028-06-16",
+     "voucher": "PV-R04O-16",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 164822
+    },
+    {
+     "date": "2028-06-17",
+     "voucher": "RV-R04I-15",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 304841,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-18",
+     "voucher": "PV-R04O-17",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 169143
+    },
+    {
+     "date": "2028-06-18",
+     "voucher": "PV-R04O-18",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 173464
+    },
+    {
+     "date": "2028-06-19",
+     "voucher": "RV04JU04",
+     "description": "سند قبض",
+     "reference": "COL04JU004",
+     "receipt": 899244,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-20",
+     "voucher": "PV-R04O-19",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 177785
+    },
+    {
+     "date": "2028-06-20",
+     "voucher": "PV-R04O-20",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 182106
+    },
+    {
+     "date": "2028-06-22",
+     "voucher": "PV-R04O-21",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 186427
+    },
+    {
+     "date": "2028-06-22",
+     "voucher": "PV-R04O-22",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 190748
+    },
+    {
+     "date": "2028-06-24",
+     "voucher": "PV-R04O-23",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 195069
+    },
+    {
+     "date": "2028-06-24",
+     "voucher": "PV-R04O-24",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 199390
+    },
+    {
+     "date": "2028-06-26",
+     "voucher": "PV04JU05",
+     "description": "سند صرف",
+     "reference": "TRF04JU005",
+     "receipt": 0,
+     "payment": 4683201
+    },
+    {
+     "date": "2028-06-26",
+     "voucher": "PV-R04O-25",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 203711
+    },
+    {
+     "date": "2028-06-26",
+     "voucher": "PV-R04O-26",
+     "description": "سند صرف",
+     "reference": "",
+     "receipt": 0,
+     "payment": 208032
+    }
+   ]
+  },
+  {
+   "id": "R05-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0105",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 52796700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Card scheme fees",
+        "reference": "TRF05AP001",
+        "withdrawal": 2113570,
+        "deposit": 0,
+        "balance": 50683130
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-03",
+        "valueDate": "2028-04-03",
+        "description": "Distributor payment",
+        "reference": "COL05AP002",
+        "withdrawal": 0,
+        "deposit": 2917189,
+        "balance": 53600319
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-05",
+        "valueDate": "2028-04-05",
+        "description": "Distributor payment",
+        "reference": "COL05AP003",
+        "withdrawal": 0,
+        "deposit": 2279715,
+        "balance": 55880034
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-05",
+        "valueDate": "2028-04-05",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 612345,
+        "deposit": 0,
+        "balance": 55267689
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-07",
+        "valueDate": "2028-04-07",
+        "description": "Maintenance contract",
+        "reference": "TRF05AP004",
+        "withdrawal": 338777,
+        "deposit": 0,
+        "balance": 54928912
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-09",
+        "valueDate": "2028-04-09",
+        "description": "Distributor payment",
+        "reference": "COL05AP005",
+        "withdrawal": 0,
+        "deposit": 1742624,
+        "balance": 56671536
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-11",
+        "valueDate": "2028-04-11",
+        "description": "Card settlement",
+        "reference": "COL05AP006",
+        "withdrawal": 0,
+        "deposit": 2142942,
+        "balance": 58814478
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 58814478
+       }
+      ]
+     },
+     {
+      "number": 3,
+      "of": 3,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 55764252
+       },
+       {
+        "kind": "movement",
+        "key": "S15",
+        "date": "2028-04-23",
+        "valueDate": "2028-04-23",
+        "description": "Marketplace payout",
+        "reference": "COL05AP012",
+        "withdrawal": 0,
+        "deposit": 4826553,
+        "balance": 60590805
+       },
+       {
+        "kind": "movement",
+        "key": "S16",
+        "date": "2028-04-25",
+        "valueDate": "2028-04-25",
+        "description": "Card scheme fees",
+        "reference": "TRF05AP013",
+        "withdrawal": 4653996,
+        "deposit": 0,
+        "balance": 55936809
+       },
+       {
+        "kind": "movement",
+        "key": "S17",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Customer remittance",
+        "reference": "COL05AP014",
+        "withdrawal": 0,
+        "deposit": 2840510,
+        "balance": 58777319
+       },
+       {
+        "kind": "closing",
+        "balance": 58777319
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 15648975,
+        "deposit": 21629594
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-01",
+     "voucher": "PV05AP01",
+     "description": "Payment voucher",
+     "reference": "TRF05AP001",
+     "receipt": 0,
+     "payment": 2113570
+    },
+    {
+     "date": "2028-04-01",
+     "voucher": "RV05AP02",
+     "description": "Receipt voucher",
+     "reference": "COL05AP002",
+     "receipt": 2917189,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-03",
+     "voucher": "RV05AP03",
+     "description": "Receipt voucher",
+     "reference": "COL05AP003",
+     "receipt": 2279715,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-05",
+     "voucher": "PV05AP04",
+     "description": "Payment voucher",
+     "reference": "TRF05AP004",
+     "receipt": 0,
+     "payment": 338777
+    },
+    {
+     "date": "2028-04-05",
+     "voucher": "PV-R05-01",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 612345
+    },
+    {
+     "date": "2028-04-07",
+     "voucher": "RV05AP05",
+     "description": "Receipt voucher",
+     "reference": "COL05AP005",
+     "receipt": 1742624,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-10",
+     "voucher": "RV05AP06",
+     "description": "Receipt voucher",
+     "reference": "COL05AP006",
+     "receipt": 2142942,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-11",
+     "voucher": "PV05AP07",
+     "description": "Payment voucher",
+     "reference": "TRF05AP007",
+     "receipt": 0,
+     "payment": 4092422
+    },
+    {
+     "date": "2028-04-11",
+     "voucher": "PV-R05-02",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 523456
+    },
+    {
+     "date": "2028-04-14",
+     "voucher": "PV05AP08",
+     "description": "Payment voucher",
+     "reference": "TRF05AP008",
+     "receipt": 0,
+     "payment": 2652747
+    },
+    {
+     "date": "2028-04-15",
+     "voucher": "RV05AP09",
+     "description": "Receipt voucher",
+     "reference": "COL05AP009",
+     "receipt": 104182,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-17",
+     "voucher": "PV05AP10",
+     "description": "Payment voucher",
+     "reference": "TRF05AP010",
+     "receipt": 0,
+     "payment": 227095
+    },
+    {
+     "date": "2028-04-19",
+     "voucher": "PV-R05-03",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 434567
+    },
+    {
+     "date": "2028-04-21",
+     "voucher": "RV05AP11",
+     "description": "Receipt voucher",
+     "reference": "COL05AP011",
+     "receipt": 4775879,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-22",
+     "voucher": "RV05AP12",
+     "description": "Receipt voucher",
+     "reference": "COL05AP012",
+     "receipt": 4826553,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-24",
+     "voucher": "PV05AP13",
+     "description": "Payment voucher",
+     "reference": "TRF05AP013",
+     "receipt": 0,
+     "payment": 4653996
+    },
+    {
+     "date": "2028-04-25",
+     "voucher": "RV05AP14",
+     "description": "Receipt voucher",
+     "reference": "COL05AP014",
+     "receipt": 2840510,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R06-MAY",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Readex Pro",
+   "paper": "A4",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0206",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-05-01",
+     "end": "2028-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 27046700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-05-02",
+        "valueDate": "2028-05-02",
+        "description": "Supplier settlement",
+        "reference": "TRF06MA001",
+        "withdrawal": 655812,
+        "deposit": 0,
+        "balance": 26390888
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-05-04",
+        "valueDate": "2028-05-04",
+        "description": "Supplier transfer",
+        "reference": "INV-R06-61",
+        "withdrawal": 218800,
+        "deposit": 0,
+        "balance": 26172088
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-05-08",
+        "valueDate": "2028-05-08",
+        "description": "Distributor payment",
+        "reference": "COL06MA002",
+        "withdrawal": 0,
+        "deposit": 2631892,
+        "balance": 28803980
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-05-10",
+        "valueDate": "2028-05-10",
+        "description": "Supplier transfer",
+        "reference": "INV-R06-62",
+        "withdrawal": 339900,
+        "deposit": 0,
+        "balance": 28464080
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "Distributor payment",
+        "reference": "COL06MA003",
+        "withdrawal": 0,
+        "deposit": 4575917,
+        "balance": 33039997
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-05-16",
+        "valueDate": "2028-05-16",
+        "description": "Supplier transfer",
+        "reference": "INV-R06-63",
+        "withdrawal": 157600,
+        "deposit": 0,
+        "balance": 32882397
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-05-20",
+        "valueDate": "2028-05-20",
+        "description": "Card settlement",
+        "reference": "COL06MA004",
+        "withdrawal": 0,
+        "deposit": 1041480,
+        "balance": 33923877
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-05-22",
+        "valueDate": "2028-05-22",
+        "description": "Supplier transfer",
+        "reference": "INV-R06-64",
+        "withdrawal": 284400,
+        "deposit": 0,
+        "balance": 33639477
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-05-27",
+        "valueDate": "2028-05-27",
+        "description": "Distributor payment",
+        "reference": "COL06MA005",
+        "withdrawal": 0,
+        "deposit": 1717550,
+        "balance": 35357027
+       },
+       {
+        "kind": "closing",
+        "balance": 35357027
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 1656512,
+        "deposit": 9966839
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-05-02",
+     "voucher": "PV06MA01",
+     "description": "Payment voucher",
+     "reference": "TRF06MA001",
+     "receipt": 0,
+     "payment": 655812
+    },
+    {
+     "date": "2028-05-04",
+     "voucher": "PV-R06-61",
+     "description": "Payment voucher",
+     "reference": "INV-R06-61",
+     "receipt": 0,
+     "payment": 219050
+    },
+    {
+     "date": "2028-05-08",
+     "voucher": "RV06MA02",
+     "description": "Receipt voucher",
+     "reference": "COL06MA002",
+     "receipt": 2631892,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-10",
+     "voucher": "PV-R06-62",
+     "description": "Payment voucher",
+     "reference": "INV-R06-62",
+     "receipt": 0,
+     "payment": 340400
+    },
+    {
+     "date": "2028-05-14",
+     "voucher": "RV06MA03",
+     "description": "Receipt voucher",
+     "reference": "COL06MA003",
+     "receipt": 4575917,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-16",
+     "voucher": "PV-R06-63",
+     "description": "Payment voucher",
+     "reference": "INV-R06-63",
+     "receipt": 0,
+     "payment": 158350
+    },
+    {
+     "date": "2028-05-19",
+     "voucher": "RV06MA04",
+     "description": "Receipt voucher",
+     "reference": "COL06MA004",
+     "receipt": 1041480,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-22",
+     "voucher": "PV-R06-64",
+     "description": "Payment voucher",
+     "reference": "INV-R06-64",
+     "receipt": 0,
+     "payment": 285400
+    },
+    {
+     "date": "2028-05-26",
+     "voucher": "RV06MA05",
+     "description": "Receipt voucher",
+     "reference": "COL06MA005",
+     "receipt": 1717550,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R07-JUN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Space Mono",
+   "paper": "Letter",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0107",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-06-01",
+     "end": "2028-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 63168200
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "Distributor payment",
+        "reference": "COL07JU001",
+        "withdrawal": 0,
+        "deposit": 720327,
+        "balance": 63888527
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-06-04",
+        "valueDate": "2028-06-04",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 731250,
+        "balance": 64619777
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "Maintenance contract",
+        "reference": "TRF07JU002",
+        "withdrawal": 4788805,
+        "deposit": 0,
+        "balance": 59830972
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-06-10",
+        "valueDate": "2028-06-10",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 466125,
+        "balance": 60297097
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-06-14",
+        "valueDate": "2028-06-14",
+        "description": "Warehouse rent",
+        "reference": "TRF07JU003",
+        "withdrawal": 160747,
+        "deposit": 0,
+        "balance": 60136350
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-06-17",
+        "valueDate": "2028-06-17",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 902375,
+        "balance": 61038725
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-06-20",
+        "valueDate": "2028-06-20",
+        "description": "Customer remittance",
+        "reference": "COL07JU004",
+        "withdrawal": 0,
+        "deposit": 4015835,
+        "balance": 65054560
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-06-24",
+        "valueDate": "2028-06-24",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 158840,
+        "balance": 65213400
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-06-27",
+        "valueDate": "2028-06-27",
+        "description": "Freight forwarding",
+        "reference": "TRF07JU005",
+        "withdrawal": 1880675,
+        "deposit": 0,
+        "balance": 63332725
+       },
+       {
+        "kind": "closing",
+        "balance": 63332725
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6830227,
+        "deposit": 6994752
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-06-02",
+     "voucher": "RV07JU01",
+     "description": "Receipt voucher",
+     "reference": "COL07JU001",
+     "receipt": 720327,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-04",
+     "voucher": "RV-R07-01",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 731250,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-07",
+     "voucher": "PV07JU02",
+     "description": "Payment voucher",
+     "reference": "TRF07JU002",
+     "receipt": 0,
+     "payment": 4788805
+    },
+    {
+     "date": "2028-06-09",
+     "voucher": "RV-R07-02",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 466125,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-14",
+     "voucher": "PV07JU03",
+     "description": "Payment voucher",
+     "reference": "TRF07JU003",
+     "receipt": 0,
+     "payment": 160747
+    },
+    {
+     "date": "2028-06-17",
+     "voucher": "RV-R07-03",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 902375,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-19",
+     "voucher": "RV07JU04",
+     "description": "Receipt voucher",
+     "reference": "COL07JU004",
+     "receipt": 4015835,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-23",
+     "voucher": "RV-R07-04",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 158840,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-26",
+     "voucher": "PV07JU05",
+     "description": "Payment voucher",
+     "reference": "TRF07JU005",
+     "receipt": 0,
+     "payment": 1880675
+    }
+   ]
+  },
+  {
+   "id": "R08-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Readex Pro",
+   "paper": "A4-landscape",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0208",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 89382700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Maintenance contract",
+        "reference": "TRF08AP001",
+        "withdrawal": 2084010,
+        "deposit": 0,
+        "balance": 87298690
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-06",
+        "valueDate": "2028-04-06",
+        "description": "Customer remittance",
+        "reference": "RCV-R08-81",
+        "withdrawal": 0,
+        "deposit": 175500,
+        "balance": 87474190
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-08",
+        "valueDate": "2028-04-08",
+        "description": "Marketplace payout",
+        "reference": "COL08AP002",
+        "withdrawal": 0,
+        "deposit": 4533951,
+        "balance": 92008141
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-13",
+        "valueDate": "2028-04-13",
+        "description": "Customer remittance",
+        "reference": "RCV-R08-82",
+        "withdrawal": 0,
+        "deposit": 264400,
+        "balance": 92272541
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Marketplace payout",
+        "reference": "COL08AP003",
+        "withdrawal": 0,
+        "deposit": 1922736,
+        "balance": 94195277
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Maintenance contract",
+        "reference": "TRF08AP004",
+        "withdrawal": 1332806,
+        "deposit": 0,
+        "balance": 92862471
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Customer remittance",
+        "reference": "RCV-R08-83",
+        "withdrawal": 0,
+        "deposit": 393300,
+        "balance": 93255771
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Warehouse rent",
+        "reference": "TRF08AP005",
+        "withdrawal": 4225039,
+        "deposit": 0,
+        "balance": 89030732
+       },
+       {
+        "kind": "closing",
+        "balance": 89030732
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 7641855,
+        "deposit": 7289887
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-01",
+     "voucher": "PV08AP01",
+     "description": "Payment voucher",
+     "reference": "TRF08AP001",
+     "receipt": 0,
+     "payment": 2084010
+    },
+    {
+     "date": "2028-04-06",
+     "voucher": "RV-R08-81",
+     "description": "Receipt voucher",
+     "reference": "RCV-R08-81",
+     "receipt": 175000,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-08",
+     "voucher": "RV08AP02",
+     "description": "Receipt voucher",
+     "reference": "COL08AP002",
+     "receipt": 4533951,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-13",
+     "voucher": "RV-R08-82",
+     "description": "Receipt voucher",
+     "reference": "RCV-R08-82",
+     "receipt": 263400,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-14",
+     "voucher": "RV08AP03",
+     "description": "Receipt voucher",
+     "reference": "COL08AP003",
+     "receipt": 1922736,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-19",
+     "voucher": "PV08AP04",
+     "description": "Payment voucher",
+     "reference": "TRF08AP004",
+     "receipt": 0,
+     "payment": 1332806
+    },
+    {
+     "date": "2028-04-20",
+     "voucher": "RV-R08-83",
+     "description": "Receipt voucher",
+     "reference": "RCV-R08-83",
+     "receipt": 391800,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-27",
+     "voucher": "PV08AP05",
+     "description": "Payment voucher",
+     "reference": "TRF08AP005",
+     "receipt": 0,
+     "payment": 4225039
+    }
+   ]
+  },
+  {
+   "id": "R09-MAY",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Work Sans",
+   "paper": "A4",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0109",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-05-01",
+     "end": "2028-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 71140700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-05-02",
+        "valueDate": "2028-05-02",
+        "description": "Warehouse rent",
+        "reference": "TRF09MA001",
+        "withdrawal": 418737,
+        "deposit": 0,
+        "balance": 70721963
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-05-03",
+        "valueDate": "2028-05-03",
+        "description": "Customer remittance",
+        "reference": "RCV-R09-91",
+        "withdrawal": 0,
+        "deposit": 80000,
+        "balance": 70801963
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-05-06",
+        "valueDate": "2028-05-06",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 700000,
+        "deposit": 0,
+        "balance": 70101963
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-05-08",
+        "valueDate": "2028-05-08",
+        "description": "Supplier settlement",
+        "reference": "TRF09MA002",
+        "withdrawal": 2144827,
+        "deposit": 0,
+        "balance": 67957136
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-05-09",
+        "valueDate": "2028-05-09",
+        "description": "Deposit R09-01",
+        "reference": "DEP-R09-01",
+        "withdrawal": 0,
+        "deposit": 900000,
+        "balance": 68857136
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-05-10",
+        "valueDate": "2028-05-10",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 33000,
+        "deposit": 0,
+        "balance": 68824136
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "Marketplace payout",
+        "reference": "COL09MA003",
+        "withdrawal": 0,
+        "deposit": 1016585,
+        "balance": 69840721
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "Cheque paid",
+        "reference": "CHQ-R09-92",
+        "withdrawal": 25000,
+        "deposit": 0,
+        "balance": 69815721
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-05-15",
+        "valueDate": "2028-05-15",
+        "description": "Cheque paid",
+        "reference": "CHQ-R09-92",
+        "withdrawal": 25000,
+        "deposit": 0,
+        "balance": 69790721
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2028-05-17",
+        "valueDate": "2028-05-17",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 640000,
+        "deposit": 0,
+        "balance": 69150721
+       },
+       {
+        "kind": "movement",
+        "key": "S11",
+        "date": "2028-05-19",
+        "valueDate": "2028-05-19",
+        "description": "Deposit R09-02",
+        "reference": "DEP-R09-02",
+        "withdrawal": 0,
+        "deposit": 50000,
+        "balance": 69200721
+       },
+       {
+        "kind": "movement",
+        "key": "S12",
+        "date": "2028-05-20",
+        "valueDate": "2028-05-20",
+        "description": "Customer remittance",
+        "reference": "COL09MA004",
+        "withdrawal": 0,
+        "deposit": 3825233,
+        "balance": 73025954
+       },
+       {
+        "kind": "carried-forward",
+        "balance": 73025954
+       }
+      ]
+     },
+     {
+      "number": 2,
+      "of": 2,
+      "lines": [
+       {
+        "kind": "brought-forward",
+        "balance": 73025954
+       },
+       {
+        "kind": "movement",
+        "key": "S13",
+        "date": "2028-05-21",
+        "valueDate": "2028-05-21",
+        "description": "Card settlement",
+        "reference": "INV-R09-94",
+        "withdrawal": 12000,
+        "deposit": 0,
+        "balance": 73013954
+       },
+       {
+        "kind": "movement",
+        "key": "S14",
+        "date": "2028-05-26",
+        "valueDate": "2028-05-26",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 15500,
+        "deposit": 0,
+        "balance": 72998454
+       },
+       {
+        "kind": "movement",
+        "key": "S15",
+        "date": "2028-05-27",
+        "valueDate": "2028-05-27",
+        "description": "Card scheme fees",
+        "reference": "TRF09MA005",
+        "withdrawal": 1767918,
+        "deposit": 0,
+        "balance": 71230536
+       },
+       {
+        "kind": "closing",
+        "balance": 71230536
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 5781982,
+        "deposit": 5871818
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-05-02",
+     "voucher": "PV09MA01",
+     "description": "Payment voucher",
+     "reference": "TRF09MA001",
+     "receipt": 0,
+     "payment": 418737
+    },
+    {
+     "date": "2028-05-02",
+     "voucher": "BR-R09-01",
+     "description": "Receipt voucher",
+     "reference": "DEP-R09-01",
+     "receipt": 900000,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-03",
+     "voucher": "RV-R09-91",
+     "description": "Receipt voucher",
+     "reference": "RCV-R09-91",
+     "receipt": 79000,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-06",
+     "voucher": "PV09MA02",
+     "description": "Payment voucher",
+     "reference": "TRF09MA002",
+     "receipt": 0,
+     "payment": 2144827
+    },
+    {
+     "date": "2028-05-06",
+     "voucher": "PV-R09-01",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 700000
+    },
+    {
+     "date": "2028-05-09",
+     "voucher": "PV-R09-93",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 33000
+    },
+    {
+     "date": "2028-05-11",
+     "voucher": "PV-R09-95",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 33000
+    },
+    {
+     "date": "2028-05-12",
+     "voucher": "RV09MA03",
+     "description": "Receipt voucher",
+     "reference": "COL09MA003",
+     "receipt": 1016585,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-12",
+     "voucher": "BR-R09-02",
+     "description": "Receipt voucher",
+     "reference": "DEP-R09-02",
+     "receipt": 50000,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-14",
+     "voucher": "PV-R09-92",
+     "description": "Payment voucher",
+     "reference": "CHQ-R09-92",
+     "receipt": 0,
+     "payment": 25000
+    },
+    {
+     "date": "2028-05-16",
+     "voucher": "PV-R09-02",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 640000
+    },
+    {
+     "date": "2028-05-18",
+     "voucher": "RV09MA04",
+     "description": "Receipt voucher",
+     "reference": "COL09MA004",
+     "receipt": 3825233,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-21",
+     "voucher": "RV-R09-94",
+     "description": "Card refund",
+     "reference": "INV-R09-94",
+     "receipt": 12000,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-26",
+     "voucher": "PV09MA05",
+     "description": "Payment voucher",
+     "reference": "TRF09MA005",
+     "receipt": 0,
+     "payment": 1767918
+    },
+    {
+     "date": "2028-05-26",
+     "voucher": "PV-R09-03",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 15500
+    }
+   ]
+  },
+  {
+   "id": "R10-JUN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Lemonada",
+   "paper": "A4",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0210",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-06-01",
+     "end": "2028-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 66783000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "Maintenance contract",
+        "reference": "TRF10JU001",
+        "withdrawal": 1543618,
+        "deposit": 0,
+        "balance": 65239382
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "Freight forwarding",
+        "reference": "TRF10JU002",
+        "withdrawal": 1149035,
+        "deposit": 0,
+        "balance": 64090347
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "Cheque paid",
+        "reference": "CHQ-R10-101",
+        "withdrawal": 412200,
+        "deposit": 0,
+        "balance": 63678147
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-06-14",
+        "valueDate": "2028-06-14",
+        "description": "Customer remittance",
+        "reference": "COL10JU003",
+        "withdrawal": 0,
+        "deposit": 1123967,
+        "balance": 64802114
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-06-19",
+        "valueDate": "2028-06-19",
+        "description": "Cheque paid",
+        "reference": "CHQ-R10-102",
+        "withdrawal": 377700,
+        "deposit": 0,
+        "balance": 64424414
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-06-20",
+        "valueDate": "2028-06-20",
+        "description": "Distributor payment",
+        "reference": "COL10JU004",
+        "withdrawal": 0,
+        "deposit": 431566,
+        "balance": 64855980
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-06-27",
+        "valueDate": "2028-06-27",
+        "description": "Maintenance contract",
+        "reference": "TRF10JU005",
+        "withdrawal": 3318881,
+        "deposit": 0,
+        "balance": 61537099
+       },
+       {
+        "kind": "closing",
+        "balance": 61537099
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6801434,
+        "deposit": 1555533
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-06-01",
+     "voucher": "PV10JU01",
+     "description": "Payment voucher",
+     "reference": "TRF10JU001",
+     "receipt": 0,
+     "payment": 1543618
+    },
+    {
+     "date": "2028-06-06",
+     "voucher": "PV10JU02",
+     "description": "Payment voucher",
+     "reference": "TRF10JU002",
+     "receipt": 0,
+     "payment": 1149035
+    },
+    {
+     "date": "2028-06-07",
+     "voucher": "PV-R10-11",
+     "description": "Payment voucher",
+     "reference": "CHQ-R10-101",
+     "receipt": 0,
+     "payment": 412200
+    },
+    {
+     "date": "2028-06-08",
+     "voucher": "PV-R10-12",
+     "description": "Payment voucher",
+     "reference": "CHQ-R10-101",
+     "receipt": 0,
+     "payment": 412200
+    },
+    {
+     "date": "2028-06-14",
+     "voucher": "RV10JU03",
+     "description": "Receipt voucher",
+     "reference": "COL10JU003",
+     "receipt": 1123967,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-18",
+     "voucher": "PV-R10-13",
+     "description": "Payment voucher",
+     "reference": "CHQ-R10-102",
+     "receipt": 0,
+     "payment": 377700
+    },
+    {
+     "date": "2028-06-20",
+     "voucher": "RV10JU04",
+     "description": "Receipt voucher",
+     "reference": "COL10JU004",
+     "receipt": 431566,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-20",
+     "voucher": "PV-R10-14",
+     "description": "Payment voucher",
+     "reference": "CHQ-R10-102",
+     "receipt": 0,
+     "payment": 377700
+    },
+    {
+     "date": "2028-06-27",
+     "voucher": "PV10JU05",
+     "description": "Payment voucher",
+     "reference": "TRF10JU005",
+     "receipt": 0,
+     "payment": 3318881
+    }
+   ]
+  },
+  {
+   "id": "R11-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Merriweather",
+   "paper": "A4",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0111",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 69272900
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Card settlement",
+        "reference": "COL11AP001",
+        "withdrawal": 0,
+        "deposit": 2938885,
+        "balance": 72211785
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-05",
+        "valueDate": "2028-04-05",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 120120,
+        "balance": 72331905
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-06",
+        "valueDate": "2028-04-06",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 120120,
+        "balance": 72452025
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-08",
+        "valueDate": "2028-04-08",
+        "description": "Warehouse rent",
+        "reference": "TRF11AP002",
+        "withdrawal": 2404265,
+        "deposit": 0,
+        "balance": 70047760
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Card settlement",
+        "reference": "COL11AP003",
+        "withdrawal": 0,
+        "deposit": 2960274,
+        "balance": 73008034
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-19",
+        "valueDate": "2028-04-19",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 98760,
+        "balance": 73106794
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Supplier settlement",
+        "reference": "TRF11AP004",
+        "withdrawal": 4851606,
+        "deposit": 0,
+        "balance": 68255188
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-04-21",
+        "valueDate": "2028-04-21",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 98760,
+        "balance": 68353948
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Card scheme fees",
+        "reference": "TRF11AP005",
+        "withdrawal": 4125519,
+        "deposit": 0,
+        "balance": 64228429
+       },
+       {
+        "kind": "closing",
+        "balance": 64228429
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 11381390,
+        "deposit": 6336919
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-02",
+     "voucher": "RV11AP01",
+     "description": "Receipt voucher",
+     "reference": "COL11AP001",
+     "receipt": 2938885,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-05",
+     "voucher": "RV-R11-11",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 120120,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-08",
+     "voucher": "PV11AP02",
+     "description": "Payment voucher",
+     "reference": "TRF11AP002",
+     "receipt": 0,
+     "payment": 2404265
+    },
+    {
+     "date": "2028-04-12",
+     "voucher": "RV11AP03",
+     "description": "Receipt voucher",
+     "reference": "COL11AP003",
+     "receipt": 2960274,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-20",
+     "voucher": "PV11AP04",
+     "description": "Payment voucher",
+     "reference": "TRF11AP004",
+     "receipt": 0,
+     "payment": 4851606
+    },
+    {
+     "date": "2028-04-20",
+     "voucher": "RV-R11-12",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 98760,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-25",
+     "voucher": "PV11AP05",
+     "description": "Payment voucher",
+     "reference": "TRF11AP005",
+     "receipt": 0,
+     "payment": 4125519
+    }
+   ]
+  },
+  {
+   "id": "R12-MAY",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Rubik",
+   "paper": "A4",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0212",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-05-01",
+     "end": "2028-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 63938600
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-05-02",
+        "valueDate": "2028-05-02",
+        "description": "Card settlement",
+        "reference": "COL12MA001",
+        "withdrawal": 0,
+        "deposit": 1917171,
+        "balance": 65855771
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-05-07",
+        "valueDate": "2028-05-07",
+        "description": "Cheque R12A-01 paid",
+        "reference": "CHQ-R12A-01",
+        "withdrawal": 345600,
+        "deposit": 0,
+        "balance": 65510171
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-05-08",
+        "valueDate": "2028-05-08",
+        "description": "Freight forwarding",
+        "reference": "TRF12MA002",
+        "withdrawal": 1336799,
+        "deposit": 0,
+        "balance": 64173372
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-05-12",
+        "valueDate": "2028-05-12",
+        "description": "Deposit R12B-01",
+        "reference": "DEP-R12B-01",
+        "withdrawal": 0,
+        "deposit": 567800,
+        "balance": 64741172
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-05-13",
+        "valueDate": "2028-05-13",
+        "description": "Cheque R12C-01 paid",
+        "reference": "CHQ-R12C-01",
+        "withdrawal": 654300,
+        "deposit": 0,
+        "balance": 64086872
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "Card scheme fees",
+        "reference": "TRF12MA003",
+        "withdrawal": 4113636,
+        "deposit": 0,
+        "balance": 59973236
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-05-17",
+        "valueDate": "2028-05-17",
+        "description": "Cheque R12A-02 paid",
+        "reference": "CHQ-R12A-02",
+        "withdrawal": 221100,
+        "deposit": 0,
+        "balance": 59752136
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-05-20",
+        "valueDate": "2028-05-20",
+        "description": "Distributor payment",
+        "reference": "COL12MA004",
+        "withdrawal": 0,
+        "deposit": 1326520,
+        "balance": 61078656
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-05-25",
+        "valueDate": "2028-05-25",
+        "description": "Cheque R12C-02 paid",
+        "reference": "CHQ-R12C-02",
+        "withdrawal": 432100,
+        "deposit": 0,
+        "balance": 60646556
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2028-05-27",
+        "valueDate": "2028-05-27",
+        "description": "Distributor payment",
+        "reference": "COL12MA005",
+        "withdrawal": 0,
+        "deposit": 1948710,
+        "balance": 62595266
+       },
+       {
+        "kind": "closing",
+        "balance": 62595266
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 7103535,
+        "deposit": 5760201
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-05-02",
+     "voucher": "RV12MA01",
+     "description": "Receipt voucher",
+     "reference": "COL12MA001",
+     "receipt": 1917171,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-03",
+     "voucher": "BP-R12A-01",
+     "description": "Payment voucher",
+     "reference": "CHQ-R12A-01",
+     "receipt": 0,
+     "payment": 345600
+    },
+    {
+     "date": "2028-05-05",
+     "voucher": "BP-R12C-01",
+     "description": "Payment voucher",
+     "reference": "CHQ-R12C-01",
+     "receipt": 0,
+     "payment": 654300
+    },
+    {
+     "date": "2028-05-07",
+     "voucher": "PV12MA02",
+     "description": "Payment voucher",
+     "reference": "TRF12MA002",
+     "receipt": 0,
+     "payment": 1336799
+    },
+    {
+     "date": "2028-05-08",
+     "voucher": "BR-R12B-01",
+     "description": "Receipt voucher",
+     "reference": "DEP-R12B-01",
+     "receipt": 567800,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-12",
+     "voucher": "PV12MA03",
+     "description": "Payment voucher",
+     "reference": "TRF12MA003",
+     "receipt": 0,
+     "payment": 4113636
+    },
+    {
+     "date": "2028-05-13",
+     "voucher": "BP-R12A-02",
+     "description": "Payment voucher",
+     "reference": "CHQ-R12A-02",
+     "receipt": 0,
+     "payment": 221100
+    },
+    {
+     "date": "2028-05-17",
+     "voucher": "BP-R12C-02",
+     "description": "Payment voucher",
+     "reference": "CHQ-R12C-02",
+     "receipt": 0,
+     "payment": 432100
+    },
+    {
+     "date": "2028-05-19",
+     "voucher": "RV12MA04",
+     "description": "Receipt voucher",
+     "reference": "COL12MA004",
+     "receipt": 1326520,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-27",
+     "voucher": "RV12MA05",
+     "description": "Receipt voucher",
+     "reference": "COL12MA005",
+     "receipt": 1948710,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R13-JUN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Work Sans",
+   "paper": "A4",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0113",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-06-01",
+     "end": "2028-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 21952400
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "Maintenance contract",
+        "reference": "TRF13JU001",
+        "withdrawal": 4229225,
+        "deposit": 0,
+        "balance": 17723175
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-06-05",
+        "valueDate": "2028-06-05",
+        "description": "Freight forwarding",
+        "reference": "TRF13JU002",
+        "withdrawal": 4889009,
+        "deposit": 0,
+        "balance": 12834166
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-06-09",
+        "valueDate": "2028-06-09",
+        "description": "Supplier settlement",
+        "reference": "TRF13JU003",
+        "withdrawal": 143323,
+        "deposit": 0,
+        "balance": 12690843
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-06-12",
+        "valueDate": "2028-06-12",
+        "description": "Card scheme fees",
+        "reference": "TRF13JU004",
+        "withdrawal": 3124941,
+        "deposit": 0,
+        "balance": 9565902
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-06-16",
+        "valueDate": "2028-06-16",
+        "description": "Distributor payment",
+        "reference": "COL13JU005",
+        "withdrawal": 0,
+        "deposit": 1026661,
+        "balance": 10592563
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-06-19",
+        "valueDate": "2028-06-19",
+        "description": "Customer remittance",
+        "reference": "COL13JU006",
+        "withdrawal": 0,
+        "deposit": 2984047,
+        "balance": 13576610
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-06-23",
+        "valueDate": "2028-06-23",
+        "description": "Supplier settlement",
+        "reference": "TRF13JU007",
+        "withdrawal": 2472308,
+        "deposit": 0,
+        "balance": 11104302
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-06-27",
+        "valueDate": "2028-06-27",
+        "description": "Card scheme fees",
+        "reference": "TRF13JU008",
+        "withdrawal": 100788,
+        "deposit": 0,
+        "balance": 11003514
+       },
+       {
+        "kind": "closing",
+        "balance": 11003514
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 14959594,
+        "deposit": 4010708
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-06-02",
+     "voucher": "PV13JU01",
+     "description": "Payment voucher",
+     "reference": "TRF13JU001",
+     "receipt": 0,
+     "payment": 4229225
+    },
+    {
+     "date": "2028-06-04",
+     "voucher": "PV13JU02",
+     "description": "Payment voucher",
+     "reference": "TRF13JU002",
+     "receipt": 0,
+     "payment": 4889009
+    },
+    {
+     "date": "2028-06-08",
+     "voucher": "PV13JU03",
+     "description": "Payment voucher",
+     "reference": "TRF13JU003",
+     "receipt": 0,
+     "payment": 143323
+    },
+    {
+     "date": "2028-06-10",
+     "voucher": "PV13JU04",
+     "description": "Payment voucher",
+     "reference": "TRF13JU004",
+     "receipt": 0,
+     "payment": 3124941
+    },
+    {
+     "date": "2028-06-15",
+     "voucher": "RV13JU05",
+     "description": "Receipt voucher",
+     "reference": "COL13JU005",
+     "receipt": 1026661,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-18",
+     "voucher": "RV13JU06",
+     "description": "Receipt voucher",
+     "reference": "COL13JU006",
+     "receipt": 2984047,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-23",
+     "voucher": "PV13JU07",
+     "description": "Payment voucher",
+     "reference": "TRF13JU007",
+     "receipt": 0,
+     "payment": 2472308
+    },
+    {
+     "date": "2028-06-27",
+     "voucher": "PV13JU08",
+     "description": "Payment voucher",
+     "reference": "TRF13JU008",
+     "receipt": 0,
+     "payment": 100788
+    }
+   ]
+  },
+  {
+   "id": "R14-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Space Mono",
+   "paper": "Letter",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "none",
+     "heading": "rule",
+     "headings": "left"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0114",
+    "currency": "USD",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 4500000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Freight forwarding",
+        "reference": "TRF14AP001",
+        "withdrawal": 223052,
+        "deposit": 0,
+        "balance": 4276948
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-06",
+        "valueDate": "2028-04-06",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 125075,
+        "deposit": 0,
+        "balance": 4151873
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-08",
+        "valueDate": "2028-04-08",
+        "description": "Warehouse rent",
+        "reference": "TRF14AP002",
+        "withdrawal": 4826402,
+        "deposit": 0,
+        "balance": -674529
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Card scheme fees",
+        "reference": "TRF14AP003",
+        "withdrawal": 2772582,
+        "deposit": 0,
+        "balance": -3447111
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 98050,
+        "deposit": 0,
+        "balance": -3545161
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Marketplace payout",
+        "reference": "COL14AP004",
+        "withdrawal": 0,
+        "deposit": 3740054,
+        "balance": 194893
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-22",
+        "valueDate": "2028-04-22",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 310025,
+        "deposit": 0,
+        "balance": -115132
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Marketplace payout",
+        "reference": "COL14AP005",
+        "withdrawal": 0,
+        "deposit": 3653007,
+        "balance": 3537875
+       },
+       {
+        "kind": "closing",
+        "balance": 3537875
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 8355186,
+        "deposit": 7393061
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-01",
+     "voucher": "PV14AP01",
+     "description": "Payment voucher",
+     "reference": "TRF14AP001",
+     "receipt": 0,
+     "payment": 223052
+    },
+    {
+     "date": "2028-04-06",
+     "voucher": "PV-R14-01",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 125075
+    },
+    {
+     "date": "2028-04-07",
+     "voucher": "PV14AP02",
+     "description": "Payment voucher",
+     "reference": "TRF14AP002",
+     "receipt": 0,
+     "payment": 4826402
+    },
+    {
+     "date": "2028-04-12",
+     "voucher": "PV14AP03",
+     "description": "Payment voucher",
+     "reference": "TRF14AP003",
+     "receipt": 0,
+     "payment": 2772582
+    },
+    {
+     "date": "2028-04-13",
+     "voucher": "PV-R14-02",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 98050
+    },
+    {
+     "date": "2028-04-18",
+     "voucher": "RV14AP04",
+     "description": "Receipt voucher",
+     "reference": "COL14AP004",
+     "receipt": 3740054,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-22",
+     "voucher": "PV-R14-03",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 310025
+    },
+    {
+     "date": "2028-04-26",
+     "voucher": "RV14AP05",
+     "description": "Receipt voucher",
+     "reference": "COL14AP005",
+     "receipt": 3653007,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R15-MAY",
+   "layout": "ar",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Tajawal",
+   "paper": "A4",
+   "bank": "مصرف النخيل الأهلي",
+   "documentTitle": "كشف حساب جاري",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA05 8000 0000 5512 7300 0415",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-05-01",
+     "end": "2028-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 42490700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-05-02",
+        "valueDate": "2028-05-02",
+        "description": "حوالة عميل",
+        "reference": "COL15MA001",
+        "withdrawal": 0,
+        "deposit": 882365,
+        "balance": 43373065
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-05-05",
+        "valueDate": "2028-05-05",
+        "description": "سداد مورد",
+        "reference": "INV-R15-51",
+        "withdrawal": 188850,
+        "deposit": 0,
+        "balance": 43184215
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-05-08",
+        "valueDate": "2028-05-08",
+        "description": "إيجار مستودع",
+        "reference": "TRF15MA002",
+        "withdrawal": 321068,
+        "deposit": 0,
+        "balance": 42863147
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-05-08",
+        "valueDate": "2028-05-08",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 512300,
+        "balance": 43375447
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "سداد مورد",
+        "reference": "TRF15MA003",
+        "withdrawal": 2586453,
+        "deposit": 0,
+        "balance": 40788994
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "سداد مورد",
+        "reference": "INV-R15-52",
+        "withdrawal": 246600,
+        "deposit": 0,
+        "balance": 40542394
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-05-16",
+        "valueDate": "2028-05-16",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 77450,
+        "balance": 40619844
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-05-20",
+        "valueDate": "2028-05-20",
+        "description": "تسوية بطاقات",
+        "reference": "COL15MA004",
+        "withdrawal": 0,
+        "deposit": 3613549,
+        "balance": 44233393
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-05-25",
+        "valueDate": "2028-05-25",
+        "description": "إيداع نقدي",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 361800,
+        "balance": 44595193
+       },
+       {
+        "kind": "movement",
+        "key": "S10",
+        "date": "2028-05-27",
+        "valueDate": "2028-05-27",
+        "description": "حوالة عميل",
+        "reference": "COL15MA005",
+        "withdrawal": 0,
+        "deposit": 180874,
+        "balance": 44776067
+       },
+       {
+        "kind": "closing",
+        "balance": 44776067
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 3342971,
+        "deposit": 5628338
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-05-01",
+     "voucher": "RV15MA01",
+     "description": "سند قبض",
+     "reference": "COL15MA001",
+     "receipt": 882365,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-05",
+     "voucher": "PV-R15-51",
+     "description": "سند صرف",
+     "reference": "INV-R15-51",
+     "receipt": 0,
+     "payment": 188700
+    },
+    {
+     "date": "2028-05-06",
+     "voucher": "PV15MA02",
+     "description": "سند صرف",
+     "reference": "TRF15MA002",
+     "receipt": 0,
+     "payment": 321068
+    },
+    {
+     "date": "2028-05-08",
+     "voucher": "RV-R15-01",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 512300,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-12",
+     "voucher": "PV15MA03",
+     "description": "سند صرف",
+     "reference": "TRF15MA003",
+     "receipt": 0,
+     "payment": 2586453
+    },
+    {
+     "date": "2028-05-14",
+     "voucher": "PV-R15-52",
+     "description": "سند صرف",
+     "reference": "INV-R15-52",
+     "receipt": 0,
+     "payment": 246450
+    },
+    {
+     "date": "2028-05-15",
+     "voucher": "RV-R15-02",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 77450,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-18",
+     "voucher": "RV15MA04",
+     "description": "سند قبض",
+     "reference": "COL15MA004",
+     "receipt": 3613549,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-25",
+     "voucher": "RV15MA05",
+     "description": "سند قبض",
+     "reference": "COL15MA005",
+     "receipt": 180874,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-25",
+     "voucher": "RV-R15-03",
+     "description": "سند قبض",
+     "reference": "",
+     "receipt": 361800,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R16-JUN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Rubik",
+   "paper": "A4",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "grid",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0216",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-06-01",
+     "end": "2028-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 85749800
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "Distributor payment",
+        "reference": "COL16JU001",
+        "withdrawal": 0,
+        "deposit": 3817175,
+        "balance": 89566975
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-06-04",
+        "valueDate": "2028-06-04",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 450000,
+        "deposit": 0,
+        "balance": 89116975
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "Warehouse rent",
+        "reference": "TRF16JU002",
+        "withdrawal": 3111253,
+        "deposit": 0,
+        "balance": 86005722
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 120000,
+        "deposit": 0,
+        "balance": 85885722
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-06-13",
+        "valueDate": "2028-06-13",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 450000,
+        "deposit": 0,
+        "balance": 85435722
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-06-14",
+        "valueDate": "2028-06-14",
+        "description": "Distributor payment",
+        "reference": "COL16JU003",
+        "withdrawal": 0,
+        "deposit": 2389343,
+        "balance": 87825065
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-06-20",
+        "valueDate": "2028-06-20",
+        "description": "Supplier settlement",
+        "reference": "TRF16JU004",
+        "withdrawal": 697266,
+        "deposit": 0,
+        "balance": 87127799
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-06-23",
+        "valueDate": "2028-06-23",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 450000,
+        "deposit": 0,
+        "balance": 86677799
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-06-27",
+        "valueDate": "2028-06-27",
+        "description": "Supplier settlement",
+        "reference": "TRF16JU005",
+        "withdrawal": 1601063,
+        "deposit": 0,
+        "balance": 85076736
+       },
+       {
+        "kind": "closing",
+        "balance": 85076736
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 6879582,
+        "deposit": 6206518
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-06-01",
+     "voucher": "RV16JU01",
+     "description": "Receipt voucher",
+     "reference": "COL16JU001",
+     "receipt": 3817175,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-04",
+     "voucher": "PV-R16-01",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 450000
+    },
+    {
+     "date": "2028-06-08",
+     "voucher": "PV16JU02",
+     "description": "Payment voucher",
+     "reference": "TRF16JU002",
+     "receipt": 0,
+     "payment": 3111253
+    },
+    {
+     "date": "2028-06-08",
+     "voucher": "PV-R16-02",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 120000
+    },
+    {
+     "date": "2028-06-12",
+     "voucher": "PV-R16-03",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 450000
+    },
+    {
+     "date": "2028-06-13",
+     "voucher": "RV16JU03",
+     "description": "Receipt voucher",
+     "reference": "COL16JU003",
+     "receipt": 2389343,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-19",
+     "voucher": "PV16JU04",
+     "description": "Payment voucher",
+     "reference": "TRF16JU004",
+     "receipt": 0,
+     "payment": 697266
+    },
+    {
+     "date": "2028-06-23",
+     "voucher": "PV-R16-04",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 450000
+    },
+    {
+     "date": "2028-06-27",
+     "voucher": "PV16JU05",
+     "description": "Payment voucher",
+     "reference": "TRF16JU005",
+     "receipt": 0,
+     "payment": 1601063
+    }
+   ]
+  },
+  {
+   "id": "R17-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Readex Pro",
+   "paper": "A4",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0217",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 24803500
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Maintenance contract",
+        "reference": "TRF17AP001",
+        "withdrawal": 748669,
+        "deposit": 0,
+        "balance": 24054831
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-05",
+        "valueDate": "2028-04-05",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 114400,
+        "deposit": 0,
+        "balance": 23940431
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-08",
+        "valueDate": "2028-04-08",
+        "description": "Card scheme fees",
+        "reference": "TRF17AP002",
+        "withdrawal": 4354165,
+        "deposit": 0,
+        "balance": 19586266
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-09",
+        "valueDate": "2028-04-09",
+        "description": "Cash deposit",
+        "reference": "",
+        "withdrawal": 0,
+        "deposit": 884400,
+        "balance": 20470666
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Marketplace payout",
+        "reference": "COL17AP003",
+        "withdrawal": 0,
+        "deposit": 2197873,
+        "balance": 22668539
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-15",
+        "valueDate": "2028-04-15",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 225500,
+        "deposit": 0,
+        "balance": 22443039
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Card scheme fees",
+        "reference": "TRF17AP004",
+        "withdrawal": 1508751,
+        "deposit": 0,
+        "balance": 20934288
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-04-25",
+        "valueDate": "2028-04-25",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 336600,
+        "deposit": 0,
+        "balance": 20597688
+       },
+       {
+        "kind": "movement",
+        "key": "S9",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Card scheme fees",
+        "reference": "TRF17AP005",
+        "withdrawal": 4353871,
+        "deposit": 0,
+        "balance": 16243817
+       },
+       {
+        "kind": "closing",
+        "balance": 16243817
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 11641956,
+        "deposit": 3082273
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-02",
+     "voucher": "PV17AP01",
+     "description": "Payment voucher",
+     "reference": "TRF17AP001",
+     "receipt": 0,
+     "payment": 748669
+    },
+    {
+     "date": "2028-04-05",
+     "voucher": "PV-R17O-01",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 114400
+    },
+    {
+     "date": "2028-04-08",
+     "voucher": "PV17AP02",
+     "description": "Payment voucher",
+     "reference": "TRF17AP002",
+     "receipt": 0,
+     "payment": 4354165
+    },
+    {
+     "date": "2028-04-09",
+     "voucher": "RV-R17I-01",
+     "description": "Counter receipt",
+     "reference": "",
+     "receipt": 884400,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-13",
+     "voucher": "RV17AP03",
+     "description": "Receipt voucher",
+     "reference": "COL17AP003",
+     "receipt": 2197873,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-14",
+     "voucher": "PV-R17O-02",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 225500
+    },
+    {
+     "date": "2028-04-19",
+     "voucher": "PV17AP04",
+     "description": "Payment voucher",
+     "reference": "TRF17AP004",
+     "receipt": 0,
+     "payment": 1508751
+    },
+    {
+     "date": "2028-04-25",
+     "voucher": "PV-R17O-03",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 336600
+    },
+    {
+     "date": "2028-04-27",
+     "voucher": "PV17AP05",
+     "description": "Payment voucher",
+     "reference": "TRF17AP005",
+     "receipt": 0,
+     "payment": 4353871
+    }
+   ]
+  },
+  {
+   "id": "R18-MAY",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Fira Sans",
+   "paper": "A4-landscape",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "stripes",
+     "heading": "filled"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0118",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-05-01",
+     "end": "2028-05-31"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 54712100
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-05-02",
+        "valueDate": "2028-05-02",
+        "description": "Warehouse rent",
+        "reference": "TRF18MA001",
+        "withdrawal": 140096,
+        "deposit": 0,
+        "balance": 54572004
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-05-06",
+        "valueDate": "2028-05-06",
+        "description": "Card settlement",
+        "reference": "REF-R18-81",
+        "withdrawal": 66600,
+        "deposit": 0,
+        "balance": 54505404
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-05-08",
+        "valueDate": "2028-05-08",
+        "description": "Warehouse rent",
+        "reference": "TRF18MA002",
+        "withdrawal": 4098544,
+        "deposit": 0,
+        "balance": 50406860
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "Customer remittance",
+        "reference": "COL18MA003",
+        "withdrawal": 0,
+        "deposit": 2541751,
+        "balance": 52948611
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-05-14",
+        "valueDate": "2028-05-14",
+        "description": "Card settlement",
+        "reference": "REF-R18-82",
+        "withdrawal": 155500,
+        "deposit": 0,
+        "balance": 52793111
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-05-20",
+        "valueDate": "2028-05-20",
+        "description": "Card settlement",
+        "reference": "COL18MA004",
+        "withdrawal": 0,
+        "deposit": 4884352,
+        "balance": 57677463
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-05-22",
+        "valueDate": "2028-05-22",
+        "description": "Card settlement",
+        "reference": "REF-R18-83",
+        "withdrawal": 244400,
+        "deposit": 0,
+        "balance": 57433063
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-05-27",
+        "valueDate": "2028-05-27",
+        "description": "Card settlement",
+        "reference": "COL18MA005",
+        "withdrawal": 0,
+        "deposit": 2154747,
+        "balance": 59587810
+       },
+       {
+        "kind": "closing",
+        "balance": 59587810
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 4705140,
+        "deposit": 9580850
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-05-01",
+     "voucher": "PV18MA01",
+     "description": "Payment voucher",
+     "reference": "TRF18MA001",
+     "receipt": 0,
+     "payment": 140096
+    },
+    {
+     "date": "2028-05-06",
+     "voucher": "RV-R18-81",
+     "description": "Card refund",
+     "reference": "REF-R18-81",
+     "receipt": 66600,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-08",
+     "voucher": "PV18MA02",
+     "description": "Payment voucher",
+     "reference": "TRF18MA002",
+     "receipt": 0,
+     "payment": 4098544
+    },
+    {
+     "date": "2028-05-14",
+     "voucher": "RV18MA03",
+     "description": "Receipt voucher",
+     "reference": "COL18MA003",
+     "receipt": 2541751,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-14",
+     "voucher": "RV-R18-82",
+     "description": "Card refund",
+     "reference": "REF-R18-82",
+     "receipt": 155500,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-18",
+     "voucher": "RV18MA04",
+     "description": "Receipt voucher",
+     "reference": "COL18MA004",
+     "receipt": 4884352,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-22",
+     "voucher": "RV-R18-83",
+     "description": "Card refund",
+     "reference": "REF-R18-83",
+     "receipt": 244400,
+     "payment": 0
+    },
+    {
+     "date": "2028-05-27",
+     "voucher": "RV18MA05",
+     "description": "Receipt voucher",
+     "reference": "COL18MA005",
+     "receipt": 2154747,
+     "payment": 0
+    }
+   ]
+  },
+  {
+   "id": "R19-JUN",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "hexapdf",
+   "font": "Merriweather",
+   "paper": "A4",
+   "bank": "Juniper Coast Bank",
+   "documentTitle": "Business Account Statement",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA27 4500 0000 6610 2200 0119",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-06-01",
+     "end": "2028-06-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 79005700
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-06-02",
+        "valueDate": "2028-06-02",
+        "description": "Supplier settlement",
+        "reference": "TRF19JU001",
+        "withdrawal": 4337651,
+        "deposit": 0,
+        "balance": 74668049
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-06-05",
+        "valueDate": "2028-06-05",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 287700,
+        "deposit": 0,
+        "balance": 74380349
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-06-08",
+        "valueDate": "2028-06-08",
+        "description": "Distributor payment",
+        "reference": "COL19JU002",
+        "withdrawal": 0,
+        "deposit": 294158,
+        "balance": 74674507
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-06-13",
+        "valueDate": "2028-06-13",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 198800,
+        "deposit": 0,
+        "balance": 74475707
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-06-14",
+        "valueDate": "2028-06-14",
+        "description": "Customer remittance",
+        "reference": "COL19JU003",
+        "withdrawal": 0,
+        "deposit": 3551702,
+        "balance": 78027409
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-06-20",
+        "valueDate": "2028-06-20",
+        "description": "Maintenance contract",
+        "reference": "TRF19JU004",
+        "withdrawal": 1588914,
+        "deposit": 0,
+        "balance": 76438495
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-06-21",
+        "valueDate": "2028-06-21",
+        "description": "Counter withdrawal",
+        "reference": "",
+        "withdrawal": 409900,
+        "deposit": 0,
+        "balance": 76028595
+       },
+       {
+        "kind": "movement",
+        "key": "S8",
+        "date": "2028-06-27",
+        "valueDate": "2028-06-27",
+        "description": "Freight forwarding",
+        "reference": "TRF19JU005",
+        "withdrawal": 1442278,
+        "deposit": 0,
+        "balance": 74586317
+       },
+       {
+        "kind": "closing",
+        "balance": 74586317
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 8265243,
+        "deposit": 3845860
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-06-02",
+     "voucher": "PV19JU01",
+     "description": "Payment voucher",
+     "reference": "TRF19JU001",
+     "receipt": 0,
+     "payment": 4337651
+    },
+    {
+     "date": "2028-06-05",
+     "voucher": "PV-R19-01",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 287700
+    },
+    {
+     "date": "2028-06-08",
+     "voucher": "RV19JU02",
+     "description": "Receipt voucher",
+     "reference": "COL19JU002",
+     "receipt": 294158,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-12",
+     "voucher": "RV19JU03",
+     "description": "Receipt voucher",
+     "reference": "COL19JU003",
+     "receipt": 3551702,
+     "payment": 0
+    },
+    {
+     "date": "2028-06-12",
+     "voucher": "PV-R19-02",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 198800
+    },
+    {
+     "date": "2028-06-18",
+     "voucher": "PV19JU04",
+     "description": "Payment voucher",
+     "reference": "TRF19JU004",
+     "receipt": 0,
+     "payment": 1588914
+    },
+    {
+     "date": "2028-06-21",
+     "voucher": "PV-R19-03",
+     "description": "Petty cash payment",
+     "reference": "",
+     "receipt": 0,
+     "payment": 409900
+    },
+    {
+     "date": "2028-06-25",
+     "voucher": "PV19JU05",
+     "description": "Payment voucher",
+     "reference": "TRF19JU005",
+     "receipt": 0,
+     "payment": 1442278
+    }
+   ]
+  },
+  {
+   "id": "R20-APR",
+   "layout": "en",
+   "digits": "latin",
+   "producer": "pdflib",
+   "font": "Lemonada",
+   "paper": "A4",
+   "bank": "Harborline Commercial Bank",
+   "documentTitle": "Statement of Account",
+   "recipe": {
+    "style": {
+     "rules": "rows",
+     "heading": "rule"
+    }
+   },
+   "statement": {
+    "account": "SA61 1000 0000 2290 4400 0220",
+    "currency": "SAR",
+    "period": {
+     "start": "2028-04-01",
+     "end": "2028-04-30"
+    },
+    "pages": [
+     {
+      "number": 1,
+      "of": 1,
+      "lines": [
+       {
+        "kind": "opening",
+        "balance": 150000000
+       },
+       {
+        "kind": "movement",
+        "key": "S1",
+        "date": "2028-04-02",
+        "valueDate": "2028-04-02",
+        "description": "Card scheme fees",
+        "reference": "TRF20AP001",
+        "withdrawal": 2331493,
+        "deposit": 0,
+        "balance": 147668507
+       },
+       {
+        "kind": "movement",
+        "key": "S2",
+        "date": "2028-04-08",
+        "valueDate": "2028-04-08",
+        "description": "Freight forwarding",
+        "reference": "TRF20AP002",
+        "withdrawal": 4064301,
+        "deposit": 0,
+        "balance": 143604206
+       },
+       {
+        "kind": "movement",
+        "key": "S3",
+        "date": "2028-04-09",
+        "valueDate": "2028-04-09",
+        "description": "Bank charge",
+        "reference": "INV-R20-201",
+        "withdrawal": 5000,
+        "deposit": 0,
+        "balance": 143599206
+       },
+       {
+        "kind": "movement",
+        "key": "S4",
+        "date": "2028-04-14",
+        "valueDate": "2028-04-14",
+        "description": "Card scheme fees",
+        "reference": "TRF20AP003",
+        "withdrawal": 2394614,
+        "deposit": 0,
+        "balance": 141204592
+       },
+       {
+        "kind": "movement",
+        "key": "S5",
+        "date": "2028-04-18",
+        "valueDate": "2028-04-18",
+        "description": "Property purchase",
+        "reference": "",
+        "withdrawal": 100000000,
+        "deposit": 0,
+        "balance": 41204592
+       },
+       {
+        "kind": "movement",
+        "key": "S6",
+        "date": "2028-04-20",
+        "valueDate": "2028-04-20",
+        "description": "Distributor payment",
+        "reference": "COL20AP004",
+        "withdrawal": 0,
+        "deposit": 102617,
+        "balance": 41307209
+       },
+       {
+        "kind": "movement",
+        "key": "S7",
+        "date": "2028-04-27",
+        "valueDate": "2028-04-27",
+        "description": "Distributor payment",
+        "reference": "COL20AP005",
+        "withdrawal": 0,
+        "deposit": 1182324,
+        "balance": 42489533
+       },
+       {
+        "kind": "closing",
+        "balance": 42489533
+       },
+       {
+        "kind": "totals",
+        "withdrawal": 108795408,
+        "deposit": 1284941
+       }
+      ]
+     }
+    ]
+   },
+   "cashbook": [
+    {
+     "date": "2028-04-01",
+     "voucher": "PV20AP01",
+     "description": "Payment voucher",
+     "reference": "TRF20AP001",
+     "receipt": 0,
+     "payment": 2331493
+    },
+    {
+     "date": "2028-04-06",
+     "voucher": "PV20AP02",
+     "description": "Payment voucher",
+     "reference": "TRF20AP002",
+     "receipt": 0,
+     "payment": 4064301
+    },
+    {
+     "date": "2028-04-09",
+     "voucher": "PV-R20-21",
+     "description": "Payment voucher",
+     "reference": "INV-R20-201",
+     "receipt": 0,
+     "payment": 5001
+    },
+    {
+     "date": "2028-04-14",
+     "voucher": "PV20AP03",
+     "description": "Payment voucher",
+     "reference": "TRF20AP003",
+     "receipt": 0,
+     "payment": 2394614
+    },
+    {
+     "date": "2028-04-17",
+     "voucher": "PV-R20-22",
+     "description": "Property purchase",
+     "reference": "",
+     "receipt": 0,
+     "payment": 100000000
+    },
+    {
+     "date": "2028-04-18",
+     "voucher": "RV20AP04",
+     "description": "Receipt voucher",
+     "reference": "COL20AP004",
+     "receipt": 102617,
+     "payment": 0
+    },
+    {
+     "date": "2028-04-27",
+     "voucher": "RV20AP05",
+     "description": "Receipt voucher",
+     "reference": "COL20AP005",
+     "receipt": 1182324,
+     "payment": 0
+    }
+   ]
+  }
+ ]
+}

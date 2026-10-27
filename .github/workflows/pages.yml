@@ -305,6 +305,7 @@ jobs:
           pnpm test:bank-review:oracle
           pnpm test:bank-review:oracle-mutants
           pnpm test:bank-review:seal
+          pnpm test:bank-review:r3-seal
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
