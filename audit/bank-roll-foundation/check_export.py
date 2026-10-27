@@ -43,7 +43,8 @@ HERE = Path(__file__).resolve().parent
 M = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'
 R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
 P = 'http://schemas.openxmlformats.org/package/2006/relationships'
-MONTHS = {'06': 'JUN', '07': 'JUL', '08': 'AUG', '09': 'SEP'}
+MONTHS = {'01': 'JAN', '02': 'FEB', '03': 'MAR', '04': 'APR', '05': 'MAY', '06': 'JUN', '07': 'JUL', '08': 'AUG',
+          '09': 'SEP', '10': 'OCT', '11': 'NOV', '12': 'DEC'}
 CARRIED_HEADER = ['Key', 'Side', 'ID', 'Period start', 'Period end', 'Page or row', 'Date', 'Direction',
                   'Amount minor units', 'Reference', 'Origin', 'Age', 'Source SHA256', 'Session SHA256',
                   'Outstanding at period end', 'Age at period end']

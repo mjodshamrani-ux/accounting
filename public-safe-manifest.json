@@ -48279,8 +48279,8 @@
     },
     {
       "path": "audit/bank-roll-foundation/check_export.py",
-      "bytes": 14597,
-      "sha256": "5691b8d5cc95ad7b370438704dbbab25de8dcc336c06e3271c6fd216d60e8ae4",
+      "bytes": 14711,
+      "sha256": "8e25d8eaa938bc759ea3641f15f11f7e44b8263391314c1fc7b768a38e5c1532",
       "kind": "text"
     },
     {
@@ -49299,6 +49299,12 @@
       "path": "audit/bank-roll-holdout-w4/verify.py",
       "bytes": 28955,
       "sha256": "6ff96facb949a1c8158db11e70bbd20ecb378af3a150c0c3f4d2b71754fb4b7e",
+      "kind": "text"
+    },
+    {
+      "path": "scripts/bank-roll-holdout.mjs",
+      "bytes": 13126,
+      "sha256": "317474d8e86ec30a9a26acb03f37c29c867c52f26c811dc3e993bada93b862a9",
       "kind": "text"
     }
   ],
