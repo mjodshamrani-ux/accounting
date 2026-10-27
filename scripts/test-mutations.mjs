@@ -85,6 +85,7 @@ const tests = [
   'tests/pdf-arabic-supplier-lines.test.ts',
   'tests/pdf-column-proposals.test.ts',
   'tests/ar-statement-pdf.test.ts',
+  'tests/ar-statement-match.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -1436,6 +1437,76 @@ const mutations = [
     name: 'ar-pdf-reading-issues-ignored',
     file: 'lib/reconciliation/ar-statement-pdf.ts',
     changes: [["  if (source.readingIssues.length)\n    throw new ArStatementReadError(", "  if (false)\n    throw new ArStatementReadError("]],
+  },
+  {
+    name: "ar-pdf-scope-any-document-header",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  const sameDocument =\n    reading.document.entity === scope.entity &&\n    reading.document.ledger === scope.ledger;", "  const sameDocument = true;"]],
+  },
+  {
+    name: "ar-pdf-scope-customer-only",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["(Object.keys(wanted) as (keyof ArStatementScope)[]).every(\n      (k) => s.scope![k] === wanted[k],\n    )", "s.scope.customer === wanted.customer"]],
+  },
+  {
+    name: "ar-pdf-scope-first-of-repeated-compared",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  const compared = chosen.length === 1 ? chosen[0] : null;", "  const compared = chosen.length >= 1 ? chosen[0] : null;"]],
+  },
+  {
+    name: "ar-pdf-scope-repeat-unreported",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  if (chosen.length > 1)\n    issues.push({", "  if (false)\n    issues.push({"]],
+  },
+  {
+    name: "ar-pdf-scope-not-found-unreported",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["    !chosen.length &&\n", "    false &&\n"]],
+  },
+  {
+    name: "ar-pdf-scope-not-found-despite-unreadable-header",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["    reading.sections.every((s) => s.scope) &&\n", ""]],
+  },
+  {
+    name: "ar-pdf-scope-other-section-members",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["    if (line.section !== compared) {", "    if (false) {"]],
+  },
+  {
+    name: "ar-pdf-scope-errors-isolated-to-compared-section",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  for (const e of reading.errors) {\n    const issue", "  for (const e of reading.errors.filter((x) => reading.lines.find((l) => l.page === x.page && l.line === x.line)?.section === compared)) {\n    const issue"], ["  for (const e of reading.errors)\n    codesAt.set(", "  for (const e of reading.errors.filter((x) => reading.lines.find((l) => l.page === x.page && l.line === x.line)?.section === compared))\n    codesAt.set("], ["    if (line.kind === 'error' && !codes.includes(line.code!)) {", "    if (line.kind === 'error' && line.section === compared && !codes.includes(line.code!)) {"]],
+  },
+  {
+    name: "ar-pdf-scope-header-lines-counted-apart",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["      const owner =\n", "      const owner = false &&\n"]],
+  },
+  {
+    name: "ar-pdf-scope-structural-total-shown",
+    file: "lib/reconciliation/ar-statement-scope.ts",
+    changes: [["  const structural = issues.some((i) => i.code.startsWith('AR_PDF_'));", "  const structural = false;"]],
+  },
+  {
+    name: "ar-pdf-statement-reading-not-bound",
+    file: "lib/reconciliation/ar.ts",
+    changes: [["    file.reading.sha256 !== file.sha256 ||\n", ""]],
+  },
+  {
+    name: "ar-pdf-statement-reading-unconfirmed",
+    file: "lib/reconciliation/ar.ts",
+    changes: [["    r.confirmed !== true\n  )", "    false\n  )"]],
+  },
+  {
+    name: "ar-pdf-statement-beside-other-ledger-family",
+    file: "lib/reconciliation/ar.ts",
+    changes: [["  if (statement && (!plain(input.readings[0]) || 'family' in input.readings[0]))", "  if (false)"]],
+  },
+  {
+    name: 'ar-pdf-statement-perspective-ignored',
+    file: 'lib/reconciliation/ar.ts',
+    changes: [["    !(r.perspective === 'seller-receivable' && r.basis === 'original-movement') ||\n", ""]],
   },
   {
     name: 'sup2-s4-run-across-a-column-gap',

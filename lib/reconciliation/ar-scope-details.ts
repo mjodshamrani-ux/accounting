@@ -89,6 +89,15 @@ export const arIssueCategories: Record<string, string> = {
   AR_CELL: 'error-cell',
   AR_DETAIL_EXTRA_CELL: 'unknown-detail-column',
   AR_TEXT_LIMIT: 'text-limit',
+  // A printed customer statement (ar-statement-pdf-1).
+  AR_PDF_DOCUMENT_HEADER: 'document-header',
+  AR_PDF_HEADER: 'section-header',
+  AR_PDF_COLUMNS: 'column-headings',
+  AR_PDF_ORPHAN_LINE: 'line-before-header',
+  AR_PDF_LINE: 'unplaced-value',
+  AR_PDF_SCOPE_NOT_FOUND: 'scope-not-found',
+  AR_PDF_SCOPE_REPEATED: 'scope-repeated',
+  AR_ORIGINAL_MISSING: 'original-amount-missing',
 };
 export const arIssueCategory = (code: string) =>
   arIssueCategories[code] ??

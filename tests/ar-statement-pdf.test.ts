@@ -8,69 +8,23 @@ import {
   readArStatementPdf,
   ArStatementReadError,
 } from '../lib/reconciliation/ar-statement-pdf.ts';
-import type { NativePdfWordSource } from '../lib/reconciliation/pdf-native-source.ts';
+import {
+  detail,
+  header,
+  headings,
+  invoice as printed,
+  line,
+  page,
+  source as pages,
+  text,
+  top,
+  X,
+  type Tokens,
+} from './helpers/ar-statement-pages.ts';
 
-type Cell = [x: number, text: string];
-const CHAR = 5;
-let item = 0;
-const line = (y: number, cells: Cell[]) =>
-  cells.map(([x, text]) => ({
-    text,
-    x,
-    y,
-    width: text.length * CHAR,
-    height: 9,
-    item: item++,
-    direction: 'ltr',
-  }));
-const text = (y: number, value: string) => line(y, [[40, value]]);
-const X = { date: 40, type: 110, document: 170, original: 260, balance: 340 };
-const headings = (y: number, roles = ['Date', 'Type', 'Document No', 'Original amount', 'Balance']) =>
-  line(
-    y,
-    roles.map((h, i) => [[X.date, X.type, X.document, X.original, X.balance][i], h]),
-  );
-const detail = (y: number, values: string[]) =>
-  line(
-    y,
-    values.flatMap((v, i) =>
-      v ? [[[X.date, X.type, X.document, X.original, X.balance][i], v] as Cell] : [],
-    ),
-  );
-const header = (
-  y: number,
-  { customer = 'C0001', name = 'Synthetic Buyer', account = '1200', currency = 'SAR' } = {},
-) => [
-  ...text(y, `Customer ID: ${customer}`),
-  ...text(y - 12, `Customer name: ${name}`),
-  ...text(y - 24, `Account: ${account}`),
-  ...text(y - 36, `Currency: ${currency}`),
-  ...text(y - 48, 'Period: 2026-09-01 to 2026-09-30'),
-];
-const top = (entity = 'Synthetic Seller Co') => [
-  ...text(780, 'Statement of account'),
-  ...text(766, `Issued by: ${entity}`),
-  ...text(754, 'Ledger: AR Book'),
-];
-const source = (...pages: ReturnType<typeof line>[]): NativePdfWordSource =>
-  ({
-    version: 'native-pdf-source-1',
-    wordVersion: 'native-pdf-words-3',
-    sha256: '0'.repeat(64),
-    byteLength: 0,
-    coordinateSystem: 'visible-page-bottom-left-pdf-units',
-    readingIssues: [],
-    pages: pages.map((tokens, i) => ({
-      page: i + 1,
-      view: [0, 0, 600, 800],
-      width: 600,
-      height: 800,
-      tokens,
-    })),
-  }) as unknown as NativePdfWordSource;
-const page = (...blocks: ReturnType<typeof line>[]) => blocks.flat();
+const source = (...p: Tokens[]) => pages(p);
 const invoice = (y: number, document = 'INV-1', amount = '1,250.00') =>
-  detail(y, ['2026-09-02', 'invoice', document, amount, amount]);
+  printed(y, document, amount);
 const codes = (r: ReturnType<typeof readArStatementPdf>) => r.errors.map((e) => e.code);
 
 void test('a section continues only on a page that repeats its header in every field', () => {

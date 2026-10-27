@@ -2,7 +2,7 @@ import { latinDigits, parseDate, parseMoney, safeSum } from './core.ts';
 import { currencyPrecision } from './currency-precision.ts';
 import { nativeDisplayIssue } from './xlsx-display.ts';
 import { assertSourceFile } from './protocol.ts';
-import type { SourceFile } from './types.ts';
+import type { SheetData, SourceFile } from './types.ts';
 import {
   AR_SCOPE_DETAILS_VERSION,
   arScopeReadingKeys,
@@ -17,6 +17,12 @@ import type {
   ArSourceIssue,
   ArSourceScope,
 } from './ar-scope-details.ts';
+import { AR_STATEMENT_PDF } from './ar-statement-pdf.ts';
+import {
+  arStatementSide,
+  type ArStatementFile,
+  type ArStatementSummary,
+} from './ar-statement-scope.ts';
 export {
   AR_SCOPE_DETAILS_VERSION,
   isArScopeReading,
@@ -53,6 +59,16 @@ export type ArLegacyReading = {
   confirmed: boolean;
 };
 export type ArReading = ArLegacyReading | ArScopeDetailsReading;
+/** The printed customer statement (ar-statement-pdf-1). Its lines come from
+ * the statement reading bound to the file, never from columns. */
+export type ArStatementPdfReading = {
+  family: typeof AR_STATEMENT_PDF;
+  role: 'company-issued-customer-statement';
+  perspective: 'seller-receivable';
+  basis: 'original-movement';
+  confirmed: boolean;
+};
+export type { ArStatementFile, ArStatementSummary };
 export type ArScope = {
   entity: string;
   ledger: string;
@@ -81,11 +97,13 @@ export type ArRow = {
   parentScopeId?: string;
   parentCell?: string;
   inheritedSourceCells?: Record<string, ArSourceCell>;
+  /** A printed statement line: its page, its line and its text items. */
+  pdf?: { page: number; line: number; items: number[] };
 };
 export type ArInventory = {
   side: 0 | 1;
   row: number;
-  kind: 'header' | 'blank' | 'movement' | 'error';
+  kind: 'header' | 'blank' | 'movement' | 'error' | 'out-of-scope';
   values: string[];
   error?: string;
   inventoryId?: string;
@@ -99,9 +117,21 @@ export type ArInventory = {
     | 'detail'
     | 'movement'
     | 'error'
-    | 'legacy-header';
+    | 'legacy-header'
+    | 'document-header'
+    | 'section-total'
+    | 'page-footer'
+    | 'out-of-scope';
   errors?: string[];
   lineSpan?: [number, number];
+  /** A printed statement line: its place and what the reader found there. */
+  pdf?: {
+    page: number;
+    line: number;
+    items: number[];
+    kind: string;
+    section?: number;
+  };
 };
 export type ArCase = {
   id: string;
@@ -137,6 +167,13 @@ export type ArInput = {
   scope: ArScope;
   events: ArEvent[];
 };
+/** The company ledger (ar-limited-1) against a printed customer statement. */
+export type ArStatementInput = {
+  files: [SourceFile, ArStatementFile];
+  readings: [ArLegacyReading, ArStatementPdfReading];
+  scope: ArScope;
+  events: ArEvent[];
+};
 export type ArResult = {
   version: string;
   context: string;
@@ -154,6 +191,7 @@ export type ArResult = {
   sourceScopes?: ArSourceScope[];
   receiptAllocations?: never[];
   financialCompletenessAsserted?: false;
+  statement?: ArStatementSummary;
 };
 function fail(code: string): never {
   throw new Error(`AR_${code}`);
@@ -227,6 +265,62 @@ const headerRoles = {
   currency: ['Currency', 'العملة'],
 } as const;
 const roleHeader = (text: string) => text.trim().toLowerCase();
+const statementReadingKeys = [
+  'family',
+  'role',
+  'perspective',
+  'basis',
+  'confirmed',
+] as const;
+const isStatementReading = (value: unknown): value is ArStatementPdfReading =>
+  plain(value) && value.family === AR_STATEMENT_PDF;
+/** The printed statement, when the second source is one. */
+function statementOf(input: ArInput): ArStatementFile | undefined {
+  const file: unknown = Array.isArray(input?.files) ? input.files[1] : undefined;
+  return plain(file) && file.kind === 'ar-statement-pdf'
+    ? (file as ArStatementFile)
+    : undefined;
+}
+// The statement's reading must be the one made from these bytes, and the
+// accountant's confirmation of the role must be explicit.
+type ArSide = {
+  sheet: SheetData;
+  selected: number[];
+  relatedColumns: number[];
+  parsed?: ReturnType<typeof parseArScopeDetails>;
+  statement?: ReturnType<typeof arStatementSide>;
+};
+function validateStatement(input: ArInput, file: ArStatementFile): ArSide {
+  const r: unknown = input.readings[1];
+  if (
+    !sameKeys(file, ['kind', 'name', 'sha256', 'reading']) ||
+    typeof file.name !== 'string' ||
+    file.name.length > 255 ||
+    !/\.pdf$/i.test(file.name) ||
+    !/^[a-f0-9]{64}$/.test(file.sha256 ?? '') ||
+    !plain(file.reading) ||
+    file.reading.family !== AR_STATEMENT_PDF ||
+    file.reading.sha256 !== file.sha256 ||
+    !Array.isArray(file.reading.lines) ||
+    !Array.isArray(file.reading.sections) ||
+    !Array.isArray(file.reading.errors)
+  )
+    fail('SOURCE');
+  if (
+    !isStatementReading(r) ||
+    !sameKeys(r, statementReadingKeys) ||
+    r.role !== roles[1] ||
+    !(r.perspective === 'seller-receivable' && r.basis === 'original-movement') ||
+    r.confirmed !== true
+  )
+    fail('READING');
+  return {
+    sheet: { name: 'PDF', rows: [], formulaRows: [], hiddenRows: [] },
+    selected: [] as number[],
+    relatedColumns: [] as number[],
+    statement: arStatementSide(file, input.scope),
+  };
+}
 function validate(input: ArInput) {
   if (
     !plain(input) ||
@@ -264,7 +358,12 @@ function validate(input: ArInput) {
     s.start > s.end
   )
     fail('SCOPE');
-  const sheets = input.files.map((file, side) => {
+  const statement = statementOf(input);
+  // The ledger beside a printed statement is read as ar-limited-1 only.
+  if (statement && (!plain(input.readings[0]) || 'family' in input.readings[0]))
+    fail('READING');
+  const sheets = input.files.map((file, side): ArSide => {
+    if (side === 1 && statement) return validateStatement(input, statement);
     if (
       !plain(file) ||
       file.kind !== undefined ||
@@ -344,8 +443,10 @@ function validate(input: ArInput) {
 }
 /** AR document comparison in the seller perspective, never AP matching or receipt allocation. */
 export function reconcileAr(input: ArInput): ArResult {
+  const statement = statementOf(input);
   const newFamily =
-    Array.isArray(input?.readings) && input.readings.some(isArScopeReading);
+    !!statement ||
+    (Array.isArray(input?.readings) && input.readings.some(isArScopeReading));
   let validated: ReturnType<typeof validate>;
   try {
     validated = validate(input);
@@ -356,14 +457,20 @@ export function reconcileAr(input: ArInput): ArResult {
     return invalidScopeResult(input, code);
   }
   const { sheets, decimals } = validated;
-  const version = newFamily ? AR_SCOPE_DETAILS_VERSION : AR_VERSION;
+  const version = statement
+    ? AR_STATEMENT_PDF
+    : newFamily
+      ? AR_SCOPE_DETAILS_VERSION
+      : AR_VERSION;
   const context = JSON.stringify([
     version,
     input.files.map((f) => f.sha256),
     input.readings.map((r) =>
-      isArScopeReading(r)
-        ? arScopeReadingKeys.map((k) => r[k])
-        : readingKeys.map((k) => r[k as keyof ArLegacyReading]),
+      isStatementReading(r)
+        ? statementReadingKeys.map((k) => r[k])
+        : isArScopeReading(r)
+          ? arScopeReadingKeys.map((k) => r[k])
+          : readingKeys.map((k) => r[k as keyof ArLegacyReading]),
     ),
     scopeKeys.map((k) => input.scope[k as keyof ArScope]),
   ]);
@@ -376,6 +483,14 @@ export function reconcileAr(input: ArInput): ArResult {
     const { sheet, selected, relatedColumns } = sheets[side],
       r = input.readings[side],
       s = input.scope;
+    const printed = sheets[side].statement;
+    if (printed) {
+      rows.push(...printed.rows);
+      inventory.push(...printed.inventory);
+      sourceIssues.push(...printed.issues);
+      if (printed.structural) structuralSides.add(side);
+      continue;
+    }
     if (isArScopeReading(r)) {
       const parsed = sheets[side].parsed!;
       rows.push(...parsed.rows);
@@ -550,6 +665,7 @@ export function reconcileAr(input: ArInput): ArResult {
   }
   const documentRole = input.readings.every(
     (r, side) =>
+      isStatementReading(r) ||
       isArScopeReading(r) ||
       /^(Own document number|رقم المستند الأصلي)$/i.test(
         sheets[side].sheet.rows[0][r.document].trim(),
@@ -697,8 +813,23 @@ export function reconcileAr(input: ArInput): ArResult {
           sourceScopes,
           receiptAllocations: [] as never[],
           financialCompletenessAsserted: false as const,
+          ...(statement
+            ? { statement: sheets[1].statement!.summary }
+            : {}),
         }
       : {}),
+  };
+}
+
+/** AR document comparison of the company ledger against a printed customer
+ * statement, in the confirmed scope only. */
+export function reconcileArStatement(input: ArStatementInput) {
+  return reconcileAr(input as unknown as ArInput) as unknown as Omit<
+    ArResult,
+    'readings'
+  > & {
+    readings: [ArLegacyReading, ArStatementPdfReading];
+    statement: ArStatementSummary;
   };
 }
 
@@ -706,7 +837,31 @@ export function reconcileAr(input: ArInput): ArResult {
  * Preserve its original inventory so callers can render a bounded source error. */
 function invalidScopeResult(input: ArInput, code: string): ArResult {
   const inventory: ArInventory[] = [];
+  const statement = statementOf(input);
   for (const side of [0, 1] as const) {
+    if (side === 1 && statement) {
+      if (!Array.isArray(statement.reading?.lines)) fail('SOURCE');
+      statement.reading.lines.forEach((line, index) =>
+        inventory.push({
+          side,
+          row: index + 1,
+          kind: 'error',
+          values: [line.text],
+          error: code,
+          errors: [code],
+          classification: 'error',
+          inventoryId: `1:${statement.sha256}:pdf:inventory:${line.page}:${line.line}`,
+          pdf: {
+            page: line.page,
+            line: line.line,
+            items: line.items,
+            kind: line.kind,
+            ...(line.section === undefined ? {} : { section: line.section }),
+          },
+        }),
+      );
+      continue;
+    }
     const file = input.files[side];
     assertSourceFile(file);
     const sheetIndex = Number.isSafeInteger(input.readings[side]?.sheet)
@@ -739,22 +894,28 @@ function invalidScopeResult(input: ArInput, code: string): ArResult {
       .map((item) => item.inventoryId!),
   }));
   if (input.events.length) fail('DECISION');
+  const version = statement ? AR_STATEMENT_PDF : AR_SCOPE_DETAILS_VERSION;
   return {
-    version: AR_SCOPE_DETAILS_VERSION,
+    version,
     context: JSON.stringify([
-      AR_SCOPE_DETAILS_VERSION,
+      version,
       input.files.map((file) => file.sha256),
       input.readings.map((reading) =>
-        isArScopeReading(reading)
-          ? arScopeReadingKeys.map((key) => reading[key])
-          : readingKeys.map((key) => reading[key as keyof ArLegacyReading]),
+        isStatementReading(reading)
+          ? statementReadingKeys.map((key) => reading[key])
+          : isArScopeReading(reading)
+            ? arScopeReadingKeys.map((key) => reading[key])
+            : readingKeys.map((key) => reading[key as keyof ArLegacyReading]),
       ),
       scopeKeys.map((key) => input.scope?.[key as keyof ArScope]),
     ]),
     sources: input.files.map((file, side) => ({
       hash: file.sha256!,
       name: file.name,
-      sheet: (file.sheets[input.readings[side].sheet] ?? file.sheets[0]).name,
+      sheet:
+        side === 1 && statement
+          ? 'PDF'
+          : (file.sheets[input.readings[side].sheet] ?? file.sheets[0]).name,
       role: roles[side],
     })),
     readings: input.readings.map((reading) => ({ ...reading })) as [

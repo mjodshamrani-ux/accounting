@@ -462,6 +462,7 @@ export const ar = {
       blank: 'صف فارغ',
       movement: 'حركة',
       error: 'خطأ قراءة',
+      'out-of-scope': 'نطاق آخر لا يُقارن',
     },
     reason: {
       'exact-own-document':

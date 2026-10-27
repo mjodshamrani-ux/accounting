@@ -473,6 +473,7 @@ export const en: Messages = {
       blank: 'Blank row',
       movement: 'Movement',
       error: 'Reading error',
+      'out-of-scope': 'Another scope, not compared',
     },
     reason: {
       'exact-own-document':

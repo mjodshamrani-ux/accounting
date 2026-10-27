@@ -282,6 +282,7 @@ jobs:
           pnpm test:ar-statement:seal
           pnpm test:ar-statement:baseline
           pnpm test:ar-statement:a1-proof
+          pnpm test:ar-statement:a2-proof
           pnpm test:bank-statement:baseline
           pnpm test:bank-statement:g1-proof
           pnpm test:bank-statement:g1-mutations
