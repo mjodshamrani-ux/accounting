@@ -165,6 +165,7 @@ const required = [
   'test:bank-tolerance:oracle',
   'test:bank-tolerance:oracle-mutants',
   'test:bank-tolerance:seal',
+  'test:bank-tolerance:baseline',
   'test:bank-review:baseline',
   'test:bank-review:proof',
   'test:bank-review:mutations',

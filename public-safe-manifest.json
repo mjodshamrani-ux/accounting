@@ -9,8 +9,8 @@
     },
     {
       "path": ".github/workflows/pages.yml",
-      "bytes": 53473,
-      "sha256": "6e1d4e4568b8af9e04790d87120fce74b2f973ec5b82e591f0636a37c0045f0b",
+      "bytes": 53517,
+      "sha256": "98047eaa4489e305c843230270d2362fde6af44775534bd51a4641ff2e967b29",
       "kind": "text"
     },
     {
@@ -35889,8 +35889,8 @@
     },
     {
       "path": "docs/CURRENT-PLAN.ar.md",
-      "bytes": 31862,
-      "sha256": "db899cff4cc052980c3535571a26d607aa7a8b1d59b7b8f5976d7656d07414e5",
+      "bytes": 32044,
+      "sha256": "671b32e363f9d9e04846e2980ed303ead9c80408f16eacb77fc4c2efab728c13",
       "kind": "text"
     },
     {
@@ -36157,8 +36157,8 @@
     },
     {
       "path": "docs/reference/HISTORY.ar.md",
-      "bytes": 75831,
-      "sha256": "dc68b3b2eeb55e4ea6cf8fcd62663e24875393907665a030b957f069c9ef92ec",
+      "bytes": 76087,
+      "sha256": "14a00848e8224fd180c624cd8f940e5a1a0a6189f1c2016ba0db4501527d03d8",
       "kind": "text"
     },
     {
@@ -37419,8 +37419,8 @@
     },
     {
       "path": "package.json",
-      "bytes": 36161,
-      "sha256": "7abac2e9e93eba6454403fbbf5e04e5c913a833204ff5d99dcf1e864bc39100d",
+      "bytes": 36336,
+      "sha256": "581b62d2f93123dda75feaf239fe3a466aa010379cecdb1cf32a36fabac4d2f3",
       "kind": "text"
     },
     {
@@ -37679,8 +37679,8 @@
     },
     {
       "path": "scripts/check-source-family-ci.mjs",
-      "bytes": 13571,
-      "sha256": "44776821b431ea97849a420003b4b6c2636744938974cd07ed76cb704202ebbb",
+      "bytes": 13605,
+      "sha256": "c7eeeae84b52f35cd5a13b61b2e4c5f9834b63a5812b3c9abea5be05cb56f413",
       "kind": "text"
     },
     {
@@ -40805,8 +40805,8 @@
     },
     {
       "path": "docs/roadmap/workflow.ar.md",
-      "bytes": 19296,
-      "sha256": "7cb385dceeff95c5f1fd3d16b3ba107bcf3f7bc8bd8bdeccf19c458567934727",
+      "bytes": 19529,
+      "sha256": "2a895714dcd85634e9ec66f410a8a50acf4add5e2ae5cd184c75f7da4bfe0be9",
       "kind": "text"
     },
     {
@@ -53359,14 +53359,20 @@
     },
     {
       "path": "docs/audits/WF-1-TOL-FOUNDATION.ar.md",
-      "bytes": 11110,
-      "sha256": "3de50fb6158683232e5b45ccba30af5696149dae50dbbc8977cc40cb5e8e6f5e",
+      "bytes": 12526,
+      "sha256": "53384d3d966d5901649f435b86933b9ee4b46539d18e78a38fca8c8802299443",
       "kind": "text"
     },
     {
       "path": "scripts/bank-tolerance-baseline.mjs",
       "bytes": 8532,
       "sha256": "84edaa6d8c1db25fb472597b6994a61c4ebf8888b083526ec3787049fe5ee7c7",
+      "kind": "text"
+    },
+    {
+      "path": "audit/bank-tolerance-foundation/results/baseline-048eb24.json",
+      "bytes": 9492,
+      "sha256": "cd9232f6d4e41ed1ce67f38864b6550be63c5721944d58812a391ebf1101419b",
       "kind": "text"
     }
   ],

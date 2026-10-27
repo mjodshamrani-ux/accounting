@@ -323,6 +323,7 @@ jobs:
           pnpm test:bank-tolerance:oracle
           pnpm test:bank-tolerance:oracle-mutants
           pnpm test:bank-tolerance:seal
+          pnpm test:bank-tolerance:baseline
           pnpm test:bank-review:baseline
           pnpm test:bank-review:proof
           pnpm test:bank-review:mutations
