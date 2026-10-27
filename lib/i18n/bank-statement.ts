@@ -95,11 +95,13 @@ const ar = {
     'carried-amount-difference': 'بند مرحّل بمرجعه ومبلغ آخر',
     'carried-ambiguous': 'أكثر من مقابل لبند مرحّل',
     'carried-amount-suggestion': 'اقتراح بالمبلغ لبند مرحّل',
+    'within-tolerance': 'فرق مبلغ تحت المرجع نفسه ضمن السماحية المعلنة',
   },
   caseStatus: {
     'matched-automatic': 'مطابقة آلية',
     'needs-review': 'تنتظر القرار',
     'matched-accepted': 'قبلها المحاسب',
+    'matched-tolerated': 'مطابقة ضمن السماحية المعلنة',
     rejected: 'رفضها المحاسب',
   },
   accept: 'اقبل',
@@ -326,11 +328,14 @@ const en: typeof ar = {
       'Carried item with its reference and another amount',
     'carried-ambiguous': 'More than one counterpart for a carried item',
     'carried-amount-suggestion': 'Amount suggestion for a carried item',
+    'within-tolerance':
+      'Amount difference under one reference, within the declared tolerance',
   },
   caseStatus: {
     'matched-automatic': 'Automatic match',
     'needs-review': 'Awaiting decision',
     'matched-accepted': 'Accepted by the accountant',
+    'matched-tolerated': 'Matched within the declared tolerance',
     rejected: 'Rejected by the accountant',
   },
   accept: 'Accept',

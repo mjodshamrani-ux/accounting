@@ -56,6 +56,10 @@
 pnpm test:bank-tolerance:oracle
 pnpm test:bank-tolerance:oracle-mutants
 pnpm test:bank-tolerance:seal
+# المنتج: سجل الأساس قبل T1 في results/baseline-048eb24.json، وبعده في results/after-t1.json
+pnpm test:bank-tolerance:baseline
+pnpm test:bank-tolerance:proof
+pnpm test:bank-tolerance:mutations
 # إعادة الطباعة والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 MIZAN_CHROMIUM=... node audit/bank-tolerance-foundation/render.mjs --out <dir>
 PYTHONPATH=<pdfminer.six> python3 -B audit/bank-tolerance-foundation/verify.py <dir> <dir>/stories.json

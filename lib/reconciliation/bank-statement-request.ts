@@ -54,12 +54,22 @@ export type StatementDecision = {
   cashbook: string[];
   note: string;
 };
+/** A tolerance as the accountant declared it (bank-tolerance-1, proposed):
+ * its three values as given. Whether they are a policy the contract admits
+ * depends on the statement currency, so it is decided on replay. */
+export type DeclaredTolerance = {
+  perItem: number | string | boolean | null;
+  perPeriod: number | string | boolean | null;
+  note: number | string | boolean | null;
+};
 export type BankStatementState = {
   version: typeof BANK_STATEMENT_LIFECYCLE_VERSION;
   /** The statement (PDF, CSV or XLSX), then the cashbook (CSV or XLSX). */
   files: [StatementSource, StatementSource];
   scope: StatementScope;
   decisions: StatementDecision[];
+  /** Absent when no tolerance is declared. */
+  tolerance?: DeclaredTolerance;
 };
 /** A period that carries (bank-statement-roll-1, proposed): its own state
  * and the previous period's session file as it was saved. */
@@ -217,9 +227,35 @@ function snapshotDecision(e: unknown): StatementDecision {
     note: e.note,
   };
 }
+/** A declared tolerance's own form: exactly its three values, each a plain
+ * value. Which rule they break, if any, is decided on replay. */
+function snapshotTolerance(value: unknown): DeclaredTolerance {
+  const plain = (v: unknown) =>
+    v === null || ['number', 'string', 'boolean'].includes(typeof v);
+  if (
+    !statementPlain(value) ||
+    !statementKeys(value, ['perItem', 'perPeriod', 'note']) ||
+    !plain(value.perItem) ||
+    !plain(value.perPeriod) ||
+    !plain(value.note)
+  )
+    fail('INPUT');
+  return {
+    perItem: value.perItem as DeclaredTolerance['perItem'],
+    perPeriod: value.perPeriod as DeclaredTolerance['perPeriod'],
+    note: value.note as DeclaredTolerance['note'],
+  };
+}
+/** Whether a state declares a tolerance, by its keys alone. */
+const declares = (value: Record<string, unknown>) => 'tolerance' in value;
+/** A state without its declared tolerance, the one optional member. */
+const withoutTolerance = (value: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(value).filter(([k]) => k !== 'tolerance'));
 /** Captures a state synchronously: the original bytes are copied, and no
  * reading, result or parsed cache is accepted beside them. */
-export function snapshotBankStatementState(value: unknown): BankStatementState {
+export function snapshotBankStatementState(input: unknown): BankStatementState {
+  const declared = statementPlain(input) && declares(input);
+  const value = declared ? withoutTolerance(input) : input;
   if (
     !statementPlain(value) ||
     !statementKeys(value, ['version', 'files', 'scope', 'decisions']) ||
@@ -268,6 +304,7 @@ export function snapshotBankStatementState(value: unknown): BankStatementState {
     files: files as BankStatementState['files'],
     scope: snapshotScope(value.scope),
     decisions: value.decisions.map(snapshotDecision),
+    ...(declared ? { tolerance: snapshotTolerance(input.tolerance) } : {}),
   };
 }
 /** Captures a roll state synchronously: the period's own state as above,
@@ -283,6 +320,7 @@ export function snapshotRolledStatementState(
       'scope',
       'decisions',
       'previous',
+      ...(declares(value) ? ['tolerance'] : []),
     ]) ||
     value.version !== BANK_STATEMENT_ROLL_VERSION
   )
@@ -357,6 +395,7 @@ export function snapshotSheetStatementState(
       'decisions',
       'previous',
       'sheet',
+      ...(declares(value) ? ['tolerance'] : []),
     ]) ||
     value.version !== BANK_STATEMENT_SHEET_VERSION
   )
@@ -380,6 +419,7 @@ export function snapshotSheetStatementState(
     decisions: state.decisions,
     previous: 'previous' in state ? state.previous : null,
     sheet: snapshotSheetInputs(sheet),
+    ...(state.tolerance ? { tolerance: state.tolerance } : {}),
   };
 }
 /** Captures a state of any kind, by its declared version. */

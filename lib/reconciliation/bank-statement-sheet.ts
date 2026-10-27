@@ -10,8 +10,14 @@
 // give. Only an automatic pair or an accepted case clears an item. The
 // difference is what remains; no entry, tolerance or matching amount closes
 // it. A sheet with a case awaiting a decision is a draft.
+//
+// With a tolerance the accountant declares (bank-tolerance-1, proposed), a
+// tolerated pair clears its members too, and the sheet lists every tolerated
+// difference in a section of its own beside the difference: their sum, and
+// the remainder no declared tolerance explains. Neither is netted out of view.
 import type { Direction } from './bank-statement-match.ts';
 import type { BankStatementResult } from './bank-statement-lifecycle.ts';
+import type { TolerancePolicy } from './bank-statement-tolerance.ts';
 
 export const BANK_SHEET_FAMILY = 'bank-reconciliation-sheet-1';
 /** In the order they are checked. */
@@ -61,9 +67,20 @@ export type SheetItem = {
   /** The file the item is read from. */
   source: string;
 };
+/** A tolerated pair as the sheet lists it: its members, both amounts, and
+ * its effect on the difference (statement minus cashbook for a receipt,
+ * cashbook minus statement for a payment). */
+export type ToleratedDifference = {
+  case: string;
+  statement: string;
+  cashbook: string;
+  direction: Direction;
+  amounts: { statement: number; cashbook: number; difference: number };
+  effect: number;
+};
 export type ReconciliationSheet = {
   family: typeof BANK_SHEET_FAMILY;
-  status: 'draft' | 'reconciled' | 'difference';
+  status: 'draft' | 'reconciled' | 'reconciled-within-tolerance' | 'difference';
   currency: string;
   decimals: number;
   period: { start: string; end: string };
@@ -74,6 +91,13 @@ export type ReconciliationSheet = {
   adjustedBook: number;
   /** adjustedBank - adjustedBook. */
   difference: number;
+  /** Present only when a tolerance is declared: the policy, every tolerated
+   * pair in case order, the sum of their effects, and difference minus that
+   * sum. */
+  tolerance?: TolerancePolicy;
+  toleratedDifferences?: ToleratedDifference[];
+  tolerated?: number;
+  unexplained?: number;
 };
 export type SheetOutcome =
   | { refusal: SheetRefusal }
@@ -235,15 +259,40 @@ export function reconciliationSheet(
     sections.statementDepositsNotInBook.total -
     sections.statementWithdrawalsNotInBook.total;
   const difference = adjustedBank - adjustedBook;
+  const toleratedDifferences = result.cases
+    .filter((c) => c.status === 'matched-tolerated')
+    .map((c): ToleratedDifference => {
+      const a = c.amounts ?? fail('TOLERATED');
+      const { direction } = movements.get(c.statement[0]) ?? fail('ITEM');
+      return {
+        case: c.id,
+        statement: c.statement[0],
+        cashbook: c.cashbook[0],
+        direction,
+        amounts: { ...a },
+        effect:
+          direction === 'in'
+            ? a.statement - a.cashbook
+            : a.cashbook - a.statement,
+      };
+    });
+  const tolerated = toleratedDifferences.reduce((t, d) => t + d.effect, 0);
+  const unexplained = difference - tolerated;
   return {
     refusal: null,
     sheet: {
       family: BANK_SHEET_FAMILY,
+      // A tolerated difference is judged by what no tolerance explains; a
+      // period with none, by its difference as before.
       status: items.some((i) => i.origin === 'pending')
         ? 'draft'
-        : difference === 0
-          ? 'reconciled'
-          : 'difference',
+        : toleratedDifferences.length
+          ? unexplained === 0
+            ? 'reconciled-within-tolerance'
+            : 'difference'
+          : difference === 0
+            ? 'reconciled'
+            : 'difference',
       currency: reading.currency,
       decimals: reading.decimals,
       period,
@@ -253,6 +302,14 @@ export function reconciliationSheet(
       adjustedBank,
       adjustedBook,
       difference,
+      ...(result.tolerance
+        ? {
+            tolerance: { ...result.tolerance.policy },
+            toleratedDifferences,
+            tolerated,
+            unexplained,
+          }
+        : {}),
     },
   };
 }

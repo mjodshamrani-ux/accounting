@@ -16,6 +16,8 @@ const ar = {
   status: {
     draft: 'مسودة: حالات تنتظر قرارك',
     reconciled: 'متوازنة: لا فرق غير مفسر',
+    'reconciled-within-tolerance':
+      'متوازنة ضمن السماحية المعلنة: الفروق المسموحة ظاهرة، ولا فرق غير مفسر',
     difference: 'فرق غير مفسر',
   },
   refusals: {
@@ -131,6 +133,8 @@ const en: Copy = {
   status: {
     draft: 'Draft: cases await your decision',
     reconciled: 'Reconciled: no unexplained difference',
+    'reconciled-within-tolerance':
+      'Reconciled within the declared tolerance: tolerated differences shown, no unexplained difference',
     difference: 'Unexplained difference',
   },
   refusals: {

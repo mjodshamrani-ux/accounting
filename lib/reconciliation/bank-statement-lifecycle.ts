@@ -13,6 +13,11 @@
 // suggestion, or a date gap under one reference), may reject any undecided
 // case, an automatic one included, and may undo a decision. A held statement
 // takes no decisions.
+//
+// A tolerance the accountant declares (bank-tolerance-1, proposed) is part of
+// that context. It is checked against the statement currency before anything
+// is settled, and the pairs it tolerates are a class of their own: cleared
+// without a decision, each with both amounts and its difference.
 import ExcelJS from 'exceljs';
 import { readFile } from './io.ts';
 import { readNativePdfWordSource } from './pdf.ts';
@@ -56,6 +61,11 @@ import {
   type ReconciliationSheet,
   type SheetOutcome,
 } from './bank-statement-sheet.ts';
+import {
+  tolerancePolicy,
+  toleratedPairs,
+  type StatementTolerance,
+} from './bank-statement-tolerance.ts';
 import { bankSheetCopy } from '../i18n/bank-sheet.ts';
 import {
   BANK_STATEMENT_SHEET_VERSION,
@@ -93,18 +103,23 @@ export type StatementCaseStatus =
   | 'matched-automatic'
   | 'needs-review'
   | 'matched-accepted'
+  | 'matched-tolerated'
   | 'rejected';
 export type StatementCase = {
   /** C1, C2, …: automatic pairs, then review groups, in the engine's order,
-   * then, in a period that carries, carried cases in carried order. */
+   * then, in a period that carries, carried cases in carried order. A
+   * tolerated pair keeps the number its review case has. */
   id: string;
-  kind: 'automatic' | 'review' | 'carried';
-  reason: 'reference' | ReviewReason | CarriedReason;
+  kind: 'automatic' | 'review' | 'carried' | 'tolerated';
+  reason: 'reference' | ReviewReason | CarriedReason | 'within-tolerance';
   reference: string;
   statement: string[];
   cashbook: string[];
   /** A carried case's carried item keys, in carried order. */
   carried?: string[];
+  /** A tolerated pair's two amounts and its difference, statement minus
+   * cashbook, in minor units. */
+  amounts?: { statement: number; cashbook: number; difference: number };
   status: StatementCaseStatus;
   /** The decision in effect, if any. */
   decision: string | null;
@@ -173,6 +188,8 @@ export type BankStatementResult = {
   roll?: StatementRoll;
   /** Present only in a period with its closing sheet. */
   sheet?: StatementSheet;
+  /** Present only when a tolerance is declared. */
+  tolerance?: StatementTolerance;
 };
 export type BankStatementReplay = {
   state: BankStatementState;
@@ -326,8 +343,16 @@ function settleStatement(
   base: StatementBase,
   carry?: StatementCarry,
 ): BankStatementReplay | BankStatementRollReplay {
-  const { reading, match, context } = base;
+  const { reading, match } = base;
   const { scope } = state;
+  // A declared tolerance is checked against the statement currency before
+  // anything is settled, and every decision is bound to it; a period without
+  // one keeps its context.
+  const policy =
+    state.tolerance && tolerancePolicy(state.tolerance, reading.currency);
+  const context = policy
+    ? JSON.stringify([...JSON.parse(base.context), { tolerance: policy }])
+    : base.context;
   const cited = new Map<string, string>([
     ...match.movements.map((m) => [`S:${m.id}`, m.reference.trim()] as const),
     ...match.cashbook.map((e) => [`C:${e.id}`, e.reference.trim()] as const),
@@ -375,8 +400,18 @@ function settleStatement(
       };
     }),
   ].map((c, i): StatementCase => ({ id: `C${i + 1}`, ...c, decision: null }));
-  if (match.held && state.decisions.length) fail('HELD');
+  // The eligible pairs are tolerated all together or not at all.
+  const tolerance = policy && toleratedPairs(cases, match, policy);
   const byId = new Map(cases.map((c) => [c.id, c]));
+  if (tolerance && !tolerance.exceeded)
+    for (const p of tolerance.eligible)
+      Object.assign(byId.get(p.case)!, {
+        kind: 'tolerated',
+        reason: 'within-tolerance',
+        status: 'matched-tolerated',
+        amounts: { ...p.amounts },
+      });
+  if (match.held && state.decisions.length) fail('HELD');
   const seen = new Set<string>();
   for (const e of state.decisions) {
     if (e.context !== context || seen.has(e.id)) fail('DECISION');
@@ -400,6 +435,7 @@ function settleStatement(
     } else {
       if (c.decision === null) fail('UNDO');
       c.status = c.kind === 'automatic' ? 'matched-automatic' : 'needs-review';
+      if (c.kind === 'tolerated') c.status = 'matched-tolerated';
       c.decision = null;
     }
   }
@@ -470,6 +506,7 @@ function settleStatement(
       outstanding,
       decisions: structuredClone(state.decisions),
       ...(roll ? { roll } : {}),
+      ...(tolerance ? { tolerance } : {}),
     },
   } as BankStatementReplay | BankStatementRollReplay;
 }
@@ -823,7 +860,12 @@ export async function replaySheetStatement(
 ): Promise<BankStatementSheetReplay> {
   const state = snapshotSheetStatementState(input);
   const { sheet, previous } = state;
-  const own = { files: state.files, scope: state.scope, decisions: state.decisions };
+  const own = {
+    files: state.files,
+    scope: state.scope,
+    decisions: state.decisions,
+    ...(state.tolerance ? { tolerance: state.tolerance } : {}),
+  };
   const { result } = previous
     ? await replayRolledStatement({
         ...own,
@@ -918,6 +960,9 @@ export async function exportBankStatement(
 ): Promise<ArrayBuffer> {
   const { state, result } = await replay(input);
   if (!sameStatementData(result, expected)) fail('STALE_RESULT');
+  // The workbook does not yet name a tolerance (bank-tolerance-1 T6), so a
+  // period with one is not exported.
+  if (result.tolerance) fail('EXPORT_TOLERANCE');
   const { reading, match } = result;
   const book = new ExcelJS.Workbook();
   book.creator = 'Tarasuf';
