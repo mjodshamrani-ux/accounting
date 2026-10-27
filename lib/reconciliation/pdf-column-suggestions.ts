@@ -18,8 +18,9 @@ const referenceHeader =
   /^(reference|document no\.?|invoice no\.?|ap voucher|supplier ref|supplier reference|vendor ref|المرجع|رقم المستند|رقم الفاتورة)$/i;
 const amountHeader =
   /^(amount|signed amount|debit|credit|المبلغ|مدين|دائن)(?:\s*\([a-z]{3}\))?$/i;
+const sideHeader = /^(debit|credit|مدين|دائن)(?:\s*\([a-z]{3}\))?$/i;
 const knownHeader =
-  /^(date|transaction date|posting date|invoice date|type|doc type|document type|document no\.?|invoice no\.?|reference|ap voucher|supplier ref|supplier reference|vendor ref|po\s*\/\s*bank ref|customer ref\s*\/\s*po|description|details|amount|signed amount|debit|credit|running balance|running ap balance|due date|currency|التاريخ|تاريخ الحركة|تاريخ الفاتورة|النوع|نوع المستند|المرجع|رقم المستند|رقم الفاتورة|الوصف|البيان|المبلغ|مدين|دائن|الرصيد|العملة)(?:\s*\([a-z]{3}\))?$/i;
+  /^(date|transaction date|posting date|invoice date|type|doc type|document type|document no\.?|invoice no\.?|reference|ap voucher|supplier ref|supplier reference|vendor ref|po\s*\/\s*bank ref|customer ref\s*\/\s*po|description|details|amount|signed amount|debit|credit|running balance|running ap balance|balance|due date|currency|التاريخ|تاريخ الحركة|تاريخ الفاتورة|النوع|نوع المستند|المرجع|رقم المستند|رقم الفاتورة|الوصف|البيان|المبلغ|مدين|دائن|الرصيد|العملة)(?:\s*\([a-z]{3}\))?$/i;
 const dateCell =
   /^(?:[0-9٠-٩۰-۹]{4}[-/.][0-9٠-٩۰-۹]{1,2}[-/.][0-9٠-٩۰-۹]{1,2}|[0-9٠-٩۰-۹]{1,2}[-/.](?:[0-9٠-٩۰-۹]{1,2}|[a-z]+)[-/.][0-9٠-٩۰-۹]{4})$/i;
 const label = normalizeHeaderLabel;
@@ -47,7 +48,7 @@ function joinedToken(parts: PdfToken[]): PdfToken {
     height: Math.max(...parts.map((part) => part.height)),
   };
 }
-function wordGap(left: PdfToken, right: PdfToken): boolean {
+export function wordGap(left: PdfToken, right: PdfToken): boolean {
   const gap = right.x - left.x - left.width;
   return gap >= -0.2 && gap <= Math.min(left.height, right.height) * 0.85;
 }
@@ -97,6 +98,32 @@ function bodyWords(tokens: PdfLine, headers: PdfLine): PdfLine {
     else groups.push([token]);
   }
   return groups.map(joinedToken);
+}
+
+// A row that fills every heading is read cell by cell, as before. A debit and
+// credit statement leaves one side empty: such a row is evidence only when
+// each of its words lies under a heading, in heading order, and only debit or
+// credit headings are left empty.
+function headerCells(
+  row: PdfLine,
+  header: PdfLine,
+): (PdfToken | undefined)[] | null {
+  if (row.length === header.length) return row;
+  if (row.length > header.length) return null;
+  const cells: (PdfToken | undefined)[] = header.map(() => undefined);
+  let previous = -1;
+  for (const word of row) {
+    const column = header.findIndex(
+      (heading) =>
+        word.x < heading.x + heading.width && word.x + word.width > heading.x,
+    );
+    if (column <= previous) return null;
+    cells[column] = word;
+    previous = column;
+  }
+  return cells.every((cell, i) => cell || sideHeader.test(header[i].text))
+    ? cells
+    : null;
 }
 
 function headerBands(lines: PdfLine[]): HeaderBand[] {
@@ -206,14 +233,16 @@ export function suggestPdfColumnLayout(
       .filter((row) => row.some((token) => dateCell.test(token.text.trim())));
     datedRows.push({ width: page.width, rows: body });
     const complete = body
-      .map((row) => bodyWords(row, header))
+      .map((row) => headerCells(bodyWords(row, header), header))
       .filter(
-        (row) =>
-          row.length === header.length &&
-          header.some(
-            (token, index) =>
-              dateHeader.test(token.text) && dateCell.test(row[index].text),
-          ),
+        (row): row is (PdfToken | undefined)[] =>
+          !!row &&
+          header.some((token, index) => {
+            const cell = row[index];
+            return (
+              dateHeader.test(token.text) && !!cell && dateCell.test(cell.text)
+            );
+          }),
       );
     if (!complete.length) return null;
     const rows = [header, ...complete];
@@ -221,13 +250,21 @@ export function suggestPdfColumnLayout(
       .slice(1)
       .map((_, i) =>
         Math.max(
-          ...rows.map((row) => ((row[i].x + row[i].width) / page.width) * 100),
+          ...rows.flatMap((row) => {
+            const cell = row[i];
+            return cell ? [((cell.x + cell.width) / page.width) * 100] : [];
+          }),
         ),
       );
     const right = header
       .slice(1)
       .map((_, i) =>
-        Math.min(...rows.map((row) => (row[i + 1].x / page.width) * 100)),
+        Math.min(
+          ...rows.flatMap((row) => {
+            const cell = row[i + 1];
+            return cell ? [(cell.x / page.width) * 100] : [];
+          }),
+        ),
       );
     if (!signature) {
       lower = left;

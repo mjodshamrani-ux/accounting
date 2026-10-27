@@ -28,6 +28,7 @@ import { guardPdfOperatorStreams } from './pdf-stream-integrity.ts';
 import {
   suggestPdfColumnLayout,
   projectPdfColumns,
+  wordGap,
 } from './pdf-column-suggestions.ts';
 
 export type PdfToken = {
@@ -907,16 +908,36 @@ export function layoutPdfPage(
       issues.push(
         'تتداخل نصوص من صفوف متجاورة، لذلك لا يمكن التحقق من صحة القراءة.',
       );
-    for (const t of line.tokens.sort((a, b) => a.x - b.x)) {
+    const ordered = line.tokens.sort((a, b) => a.x - b.x);
+    const crosses = ordered.map((t) => {
+      const left = (t.x / width) * 100,
+        right = ((t.x + t.width) / width) * 100;
+      return cuts.some((c) => c > left + 0.05 && c < right - 0.05);
+    });
+    // A producer may write each word as its own item. A run of words that
+    // crosses a cut is then one text, as it would be in one item: it stays
+    // whole in the column of its first word, and the crossing is recorded.
+    // Runs inside one column keep their own columns (SUP-2 S4).
+    const runs: number[] = [];
+    for (let i = 0; i < ordered.length; i++)
+      runs.push(i > 0 && wordGap(ordered[i - 1], ordered[i]) ? runs[i - 1] : i);
+    const crossingRuns = new Set(runs.filter((_, i) => crosses[i]));
+    const runColumn = new Map<number, number>();
+    const placed = new Map<PdfToken, number>();
+    for (const [i, t] of ordered.entries()) {
       const left = (t.x / width) * 100,
         right = ((t.x + t.width) / width) * 100;
       if (left < -0.1 || right > 100.1) issues.push('نص خارج حدود الصفحة');
-      if (cuts.some((c) => c > left + 0.05 && c < right - 0.05))
+      if (crosses[i])
         issues.push(
           'نص يعبر حد عمود؛ عدّل حدود أعمدة PDF دون تقسيم الرقم أو المرجع',
         );
-      const col = cuts.findIndex((c) => left < c);
-      cells[col < 0 ? cuts.length : col].push(t);
+      const cut = cuts.findIndex((c) => left < c);
+      const col = cut < 0 ? cuts.length : cut;
+      if (runs[i] === i) runColumn.set(i, col);
+      const column = crossingRuns.has(runs[i]) ? runColumn.get(runs[i])! : col;
+      placed.set(t, column);
+      cells[column].push(t);
     }
     const cellTransforms: Omit<
       NonNullable<SheetData['pdfTextTransforms']>[string][number],
@@ -972,10 +993,9 @@ export function layoutPdfPage(
     });
     const textTransforms = line.tokens.flatMap((token) => {
       if (token.extractionText === undefined) return [];
-      const cut = cuts.findIndex((c) => (token.x / width) * 100 < c);
       return [
         {
-          column: (cut < 0 ? cuts.length : cut) + 1,
+          column: placed.get(token)! + 1,
           extractedText: token.extractionText,
           glyphText: token.glyphText ?? token.text,
           usedText: token.text,

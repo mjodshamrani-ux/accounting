@@ -119,7 +119,7 @@
     "test:bank-statement:g20-browser": "node --experimental-strip-types scripts/bank-statement-holdout-browser.mjs --suite=audit/bank-statement-holdout-g20 --decide=W01 --assert=audit/bank-statement-holdout-g20/results/run-1-47e026f-browser.json",
     "test:bank-statement:g23-holdout": "node --experimental-strip-types scripts/bank-statement-holdout.mjs --suite=audit/bank-statement-holdout-g23 --assert=audit/bank-statement-holdout-g23/results/run-1-748bd7c.json",
     "test:bank-statement:g23-browser": "node --experimental-strip-types scripts/bank-statement-holdout-browser.mjs --suite=audit/bank-statement-holdout-g23 --decide=X01 --assert=audit/bank-statement-holdout-g23/results/run-1-748bd7c-browser.json",
-    "test:supplier-statement:s3-holdout": "node --experimental-strip-types audit/supplier-statement-holdout-s3/run2.mjs --assert=audit/supplier-statement-holdout-s3/results/run-2-s3-fixes.json",
+    "test:supplier-statement:s3-holdout": "node --experimental-strip-types audit/supplier-statement-holdout-s3/run2.mjs --assert=audit/supplier-statement-holdout-s3/results/run-3-s4-columns.json",
     "test:bank-statement:baseline": "node --experimental-strip-types scripts/bank-statement-baseline.mjs",
     "test:bank-statement:g1-proof": "node --experimental-strip-types scripts/bank-statement-g1-proof.mjs",
     "test:bank-statement:g1-mutations": "node scripts/test-bank-statement-g1-mutations.mjs",

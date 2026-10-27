@@ -83,6 +83,7 @@ const tests = [
   'tests/pdf-wrapped-reference.test.ts',
   'tests/pdf-header-separators.test.ts',
   'tests/pdf-arabic-supplier-lines.test.ts',
+  'tests/pdf-column-proposals.test.ts',
 ];
 const mutations = [
 {"name": "bank-ignore-scope", "file": "lib/reconciliation/bank.ts", "changes": [["if (get(h) !== input.scope[BANK_SCOPE_FIELDS[i]]) fail('ROW_SCOPE');", "if (false) fail('ROW_SCOPE');"]]},
@@ -1331,6 +1332,49 @@ const mutations = [
     name: 'sup2-wrap-flag-a-balance-line',
     file: 'lib/reconciliation/transaction-references.ts',
     changes: [['      !summaryLabel.test(normalizeHeaderLabel(rest)) &&\n', '']],
+  },
+  {
+    name: 'sup2-s4-balance-heading-unknown',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [['running ap balance|balance|due date|', 'running ap balance|due date|']],
+  },
+  {
+    name: 'sup2-s4-side-line-not-evidence',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [['  if (row.length > header.length) return null;', '  if (row.length !== header.length) return null;']],
+  },
+  {
+    name: 'sup2-s4-side-line-read-by-order',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [[
+      '    const column = header.findIndex(\n      (heading) =>\n        word.x < heading.x + heading.width && word.x + word.width > heading.x,\n    );',
+      '    const column = previous + 1;',
+    ]],
+  },
+  {
+    name: 'sup2-s4-any-heading-left-empty',
+    file: 'lib/reconciliation/pdf-column-suggestions.ts',
+    changes: [['  return cells.every((cell, i) => cell || sideHeader.test(header[i].text))', '  return cells.every(() => true)']],
+  },
+  {
+    name: 'sup2-s4-crossing-run-split',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['      const column = crossingRuns.has(runs[i]) ? runColumn.get(runs[i])! : col;', '      const column = col;']],
+  },
+  {
+    name: 'sup2-s4-every-run-kept-whole',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['      const column = crossingRuns.has(runs[i]) ? runColumn.get(runs[i])! : col;', '      const column = runColumn.get(runs[i])!;']],
+  },
+  {
+    name: 'sup2-s4-transform-names-its-own-column',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['          column: placed.get(token)! + 1,', '          column: cuts.filter((c) => (token.x / width) * 100 >= c).length + 1,']],
+  },
+  {
+    name: 'sup2-s4-run-across-a-column-gap',
+    file: 'lib/reconciliation/pdf.ts',
+    changes: [['      runs.push(i > 0 && wordGap(ordered[i - 1], ordered[i]) ? runs[i - 1] : i);', '      runs.push(i > 0 ? runs[i - 1] : i);']],
   },
 ];
 
