@@ -135,6 +135,19 @@
   gap: 1rem;
   min-width: 0;
 }
+/* The review queue: one block per group, its cases scrolling like the other
+   tables, its evidence and buttons below them. */
+.bank-review-queue,
+.bank-review-queue > section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+.bank-review-queue > section + section {
+  padding-block-start: 0.75rem;
+  border-block-start: 1px solid var(--border);
+}
 .bank-statement-result [data-bank-statement-table='sheet'] .gl-tb-table table {
   min-width: 0;
 }

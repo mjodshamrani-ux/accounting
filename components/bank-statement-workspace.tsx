@@ -15,6 +15,7 @@ import {
 import { useI18n } from '@/lib/i18n/context';
 import { bankStatementCopy } from '@/lib/i18n/bank-statement';
 import { bankSheetCopy } from '@/lib/i18n/bank-sheet';
+import { bankReviewCopy } from '@/lib/i18n/bank-review';
 import { prepareWorker, workerTask } from '@/lib/reconciliation/client';
 import { money } from '@/lib/reconciliation/core';
 import { currencyPrecision } from '@/lib/reconciliation/currency-precision';
@@ -34,6 +35,11 @@ import {
   type StatementSource,
 } from '@/lib/reconciliation/bank-statement-request';
 import { SHEET_SECTIONS } from '@/lib/reconciliation/bank-statement-sheet';
+import {
+  groupActions,
+  groupDecisions,
+  reviewQueue,
+} from '@/lib/reconciliation/bank-review-queue';
 import {
   BANK_CASHBOOK_FORMATS,
   BANK_STATEMENT_CURRENCIES,
@@ -298,6 +304,27 @@ export function useBankStatement() {
           await workerTask<Replay>(
             'bank-statement-reconcile',
             state([...result.decisions, decision]),
+            signal,
+          ),
+        );
+      }),
+    decideGroup: (signature: string, type: 'accept' | 'reject') =>
+      perform(async (signal) => {
+        if (!result) return;
+        // One ordinary decision per case of the group as it stands now.
+        const decisions = groupDecisions(
+          result,
+          signature,
+          type,
+          note,
+          () => crypto.randomUUID(),
+          new Date().toISOString(),
+        );
+        if (!decisions) return;
+        install(
+          await workerTask<Replay>(
+            'bank-statement-reconcile',
+            state([...result.decisions, ...decisions]),
             signal,
           ),
         );
@@ -845,6 +872,9 @@ function Result({
           </>
         )}
       </fieldset>
+      {r.reading.format === 'pdf' && r.status !== 'held' && (
+        <Queue r={r} s={s} locked={locked} members={members} format={format} />
+      )}
       {r.cases.some((k) => k.kind === 'review') && (
         <Table
           title={c.review}
@@ -1002,6 +1032,101 @@ function Result({
  * (bank-reconciliation-sheet-1, proposed): its inputs, the sheet or the
  * refusal in its place, and the sign-offs with their standing. Every figure
  * is the replayed result's; nothing here adds or nets an amount. */
+function Queue({
+  r,
+  s,
+  locked,
+  members,
+  format,
+}: {
+  r: BankStatementResult;
+  s: BankStatementSession;
+  locked: boolean;
+  members: (side: 'statement' | 'cashbook', ids: string[]) => ReactNode;
+  format: (n: number) => string;
+}) {
+  const { lang } = useI18n(),
+    c = bankStatementCopy[lang],
+    q = bankReviewCopy[lang];
+  const queue = reviewQueue(r);
+  return (
+    <section
+      className="bank-review-queue"
+      data-bank-review-queue={queue.length}
+    >
+      <h2>{q.title}</h2>
+      <p className="bank-source-basis">{q.intro}</p>
+      {queue.length === 0 ? (
+        <p data-bank-review-empty>{q.empty}</p>
+      ) : (
+        <p className="bank-source-basis">{q.bulkNote}</p>
+      )}
+      {queue.map((g, i) => {
+        const offered = groupActions(g, s.note);
+        const n = g.cases.length;
+        return (
+          <section
+            key={g.signature}
+            data-bank-review-group={g.signature}
+            data-bank-review-class={g.class}
+          >
+            <Table
+              title={`${q.classes[g.class]}: ${c.reasons[g.reason]}`}
+              headers={q.headers}
+              testId={`queue-${i + 1}`}
+              items={g.cases}
+              row={(k) => [
+                k.case,
+                members('statement', k.statement),
+                members('cashbook', k.cashbook),
+                <bdi key="impact" dir="ltr">
+                  {format(k.impact)}
+                </bdi>,
+              ]}
+            />
+            <p className="bank-source-basis" data-bank-review-evidence>
+              {q.directions[g.direction]} · {q.shape(g.statement, g.cashbook)}
+              {g.gap === undefined ? '' : ` · ${q.gap(g.gap)}`} · {q.cases(n)} ·{' '}
+              {q.impact}: <bdi dir="ltr">{format(g.impact)}</bdi>
+            </p>
+            {n < 2 ? (
+              <p className="bank-source-basis">{q.single}</p>
+            ) : (
+              <>
+                <div className="gl-tb-actions">
+                  {g.offers.accept && (
+                    <Button
+                      disabled={locked || !offered.accept}
+                      data-bank-review-bulk="accept"
+                      onClick={() => void s.decideGroup(g.signature, 'accept')}
+                    >
+                      {q.acceptAll(n)}
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    disabled={locked || !offered.reject}
+                    data-bank-review-bulk="reject"
+                    onClick={() => void s.decideGroup(g.signature, 'reject')}
+                  >
+                    {q.rejectAll(n)}
+                  </Button>
+                </div>
+                {!g.offers.accept && (
+                  <p className="bank-source-basis">{q.noBulkAccept}</p>
+                )}
+                {!s.note.trim() && (
+                  <p className="bank-source-basis">{q.needsNote}</p>
+                )}
+              </>
+            )}
+          </section>
+        );
+      })}
+    </section>
+  );
+}
+
 function Sheet({
   r,
   s,

@@ -170,6 +170,7 @@ const required = [
   'test:bank-roll:browser',
   'test:bank-sheet:browser',
   'test:bank-sheet:r4-browser',
+  'test:bank-review:browser',
   'test:bank-statement:baseline',
   'test:bank-statement:g1-proof',
   'test:bank-statement:g1-mutations',
@@ -283,6 +284,9 @@ const separate = {
   'ar-statement-interface-mutations': ['test:ar-statement:interface-mutations'],
   'bank-roll-interface-mutations': ['test:bank-roll:interface-mutations'],
   'bank-sheet-interface-mutations': ['test:bank-sheet:interface-mutations'],
+  'bank-review-interface-mutations': [
+    'test:bank-review:interface-mutations',
+  ],
   'bank-statement-holdout': [
     'test:bank-statement:g6-holdout',
     'test:bank-statement:g6-browser',
