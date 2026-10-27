@@ -60,12 +60,17 @@
 
 **لا قيد موازن ولا سماحية ولا مقاصة** تغلق فرقًا أو تخفيه.
 
+## سجل المنتج
+
+[`results/baseline-009e886.json`](results/baseline-009e886.json)، أول تشغيل بعد دفع الختم: يعيد المنتج الفترات الأربع والعشرين، وتسرد نتيجته كل بند تحتاجه الورقة في 21/21، ولا يصنع ورقة، 0/21، ويرفض حالة تحمل رصيد دفتر.
+
 ## الإعادة
 
 ```sh
 pnpm test:bank-sheet:oracle
 pnpm test:bank-sheet:oracle-mutants
 pnpm test:bank-sheet:seal
+pnpm test:bank-sheet:baseline
 # إعادة الطباعة والقراءة المستقلة (لا تُستعمل لتغيير أصول مختومة):
 MIZAN_CHROMIUM=<chromium> node audit/bank-sheet-foundation/render.mjs --out <dir>
 PYTHONPATH=<pdfminer.six> python3 -B audit/bank-sheet-foundation/verify.py <dir> <dir>/stories.json

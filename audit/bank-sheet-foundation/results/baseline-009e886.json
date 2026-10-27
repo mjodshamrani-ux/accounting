@@ -1,0 +1,400 @@
+{
+ "run": {
+  "name": "baseline",
+  "productCommit": "009e886",
+  "date": "2026-10-27",
+  "asItCame": true,
+  "command": "node --experimental-strip-types scripts/bank-sheet-baseline.mjs",
+  "note": "First product run on the REPORT-1 foundation, after the seal. The product has no reconciliation sheet on the bank statement path."
+ },
+ "schema": "tarasuf-wf1-report1-baseline/1",
+ "inputManifestSha256": "a975e39b7d267359ca0bae1e57c457dd686e9d909770ecdbbfd49c2f3ea28633",
+ "summary": {
+  "stories": 24,
+  "sheetsExpected": 21,
+  "refusalsExpected": 3,
+  "sheetsMade": 0,
+  "replayed": 24,
+  "decisionsApplied": 6,
+  "heldAgrees": 24,
+  "previousVerdictAgrees": 24,
+  "itemsEqual": "21/21",
+  "workbookReconciliationSheets": 0,
+  "workbooksClaimingNoBalanceBridge": "24/24",
+  "bookBalanceInput": {
+   "refused": true,
+   "error": "BANK_STATEMENT_INPUT"
+  }
+ },
+ "stories": {
+  "T01": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 0,
+    "listed": 0,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T02": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T03": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T04": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 4,
+    "listed": 4,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T05": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 1,
+    "listed": 1,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T06": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 0,
+    "listed": 0,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T07": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T08": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 1,
+    "listed": 1,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T09": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 0,
+    "listed": 0,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T10": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 1,
+    "listed": 1,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T11": {
+   "previous": "none",
+   "held": false,
+   "status": "needs-review",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T12": {
+   "previous": "none",
+   "held": false,
+   "decisions": 1,
+   "status": "reviewed",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T13": {
+   "previous": "none",
+   "held": false,
+   "decisions": 1,
+   "status": "reviewed",
+   "items": {
+    "expected": 0,
+    "listed": 0,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T14": {
+   "previous": "none",
+   "held": false,
+   "decisions": 1,
+   "status": "reviewed",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T15": {
+   "previous": "accepted",
+   "held": false,
+   "decisions": 1,
+   "status": "reviewed",
+   "items": {
+    "expected": 0,
+    "listed": 0,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T16": {
+   "previous": "accepted",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 1,
+    "listed": 1,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T17": {
+   "previous": "accepted",
+   "held": false,
+   "status": "needs-review",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T18": {
+   "previous": "accepted",
+   "held": false,
+   "decisions": 1,
+   "status": "reviewed",
+   "items": {
+    "expected": 2,
+    "listed": 2,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T19": {
+   "previous": "accepted",
+   "held": false,
+   "decisions": 1,
+   "status": "reviewed",
+   "items": {
+    "expected": 3,
+    "listed": 3,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T20": {
+   "previous": "ROLL_CURRENCY",
+   "held": false,
+   "status": "reviewed",
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T21": {
+   "previous": "none",
+   "held": true,
+   "status": "held",
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T22": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T23": {
+   "previous": "accepted",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 1,
+    "listed": 1,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  },
+  "T24": {
+   "previous": "none",
+   "held": false,
+   "status": "reviewed",
+   "items": {
+    "expected": 1,
+    "listed": 1,
+    "equal": true,
+    "missing": [],
+    "extra": []
+   },
+   "workbook": {
+    "reconciliationSheet": false,
+    "claimsNoBalanceBridge": true
+   }
+  }
+ }
+}
