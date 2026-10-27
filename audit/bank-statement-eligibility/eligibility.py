@@ -97,8 +97,11 @@ import tounicode
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 # What the page lets an accountant accept as it stands, as the bank workspace
-# declares it (lib/reconciliation/bank-statement-view.ts, ACCEPTABLE).
-ACCEPTABLE = {'amount-date-suggestion', 'date-gap'}
+# declares it (lib/reconciliation/bank-statement-view.ts, ACCEPTABLE). Since
+# WF-1 ROLL-1 W3 it also names the two reasons of a carried case the roll
+# contract lets an accountant accept; no bank statement holdout has a carried
+# case, so the decision check below reads its stories as before.
+ACCEPTABLE = {'amount-date-suggestion', 'date-gap', 'carried-reference', 'carried-amount-suggestion'}
 VIEW = ROOT / 'lib' / 'reconciliation' / 'bank-statement-view.ts'
 MARGIN_EM = 0.01      # the reader's ink margin per glyph, in em
 EDGE = 0.2            # the reader's page-edge tolerance, in points
