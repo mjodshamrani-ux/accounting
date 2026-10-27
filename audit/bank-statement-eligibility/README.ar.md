@@ -34,6 +34,7 @@
 | `overlap` | سطر تبدأ فيه عناصر PDF.js قبل نهاية العنصر قبلها بأكثر من 0.2 نقطة، كما يرتبها القارئ بلا حدود أعمدة. منذ G18، في [`items.py`](items.py) | `layoutPdfPage` كما يستدعيه `projectNativePdfSource`: ضم السطر، والترتيب بالموضع، و0.2 نقطة |
 | `rows` | سطر يرفضه القارئ لتداخل صناديقه مع سطر متجاور أكثر من 0.2 نقطة في الاتجاهين، بصناديق حبر الرسوم حيث يثبتها، وإلا بحبر العنصر، وإلا بمقاييس الخط. منذ G21، في [`rows.py`](rows.py) | `layoutPdfPage`، بالصناديق التي يعطيها `checkPdfOperators`: `glyphInkBoxes` و`inkClipBoxes` و`glyphBounds` |
 | `metrics` | خط لا يعطي PDF.js صعوده ونزوله، فيتوقف القارئ قبل الصفوف. منذ G21 | `glyphBounds` |
+| `drawings` | أول ما ترفضه في الصفحة اختبارات القارئ للرسم والقص والخلفية، بنوعه ورقم أمر النص قبله. منذ G22، في [`drawings.py`](drawings.py) | `checkPdfOperators`: الخلفية المستطيلة فوق نص قبلها، والرسم الذي يمس هدف نص، والقص الذي لا يثبته القارئ أو يقطع النص |
 | `items` | صفحة لا يعيد `items.py` بناء عناصرها: خط Type3 أو عمودي، أو ترميز مركب غير Identity-H، أو نموذج، أو صورة مضمنة. لم يُقس شيء فيها، فلا أهلية حتى يُفسَّر | — |
 | `columns` | أول موضع تتوقف فيه قراءة القارئ للكشف بأعمدة رأس كل صفحة: لا رأس معلنًا، أو لا تذييل برقم الصفحة، أو قيمة ليست في عمود واحد، أو سطر وصف بلا حركته، أو حركة بلا تاريخ واحد وتاريخ قيمة واحد وسحب أو إيداع ورصيد. منذ G13، في [`columns.py`](columns.py)؛ ولا يُقرأ كشف صفحته مدوّرة، لأن القارئ يرفضه قبل ذلك | قراءة القارئ نفسها في `bank-statement-native.ts`: الرأس، و`columnOf`، وأجزاء الكلمات، ووصل `DR`، وأنواع السطور، بثوابته ونصوصه |
 | `decision` | قصة قرار بلا حالة تقبلها الصفحة، أو بلا بند معلق | DEV-51 وDEV-55 |
@@ -181,12 +182,16 @@
 - **من اختبار الصفوف (`rows.py`)، منذ G21:**
   - `rowsByInk`: سطور يرفضها القارئ بمقاييس الخط، كما قبل G8، ولا يرفضها اليوم؛
   - و`rowsByGlyphs`: سطور يرفضها بحبر العنصر، كما قبل G10، ولا يرفضها اليوم.
+- **من اختبارات الرسم (`drawings.py`)، منذ G22، بالصفحات:**
+  - `drawingByInk`: صفحة يرفضها الرسم إن بقي عنصر بلا صناديق رسوم بصندوقه الممدود، كما قبل G8، ولا يرفضها اليوم؛
+  - و`drawingsByGlyphs`: صفحة يرفضها بصناديق الحبر مكان صناديق الرسوم، كما قبل G10؛
+  - و`rectangleTraced`: صفحة يرفضها حين لا يكون الجزء من خمس نقاط آخرها أولها مستطيلًا، خلفيةً أو قصًا، كما قبل G10.
 - **من فحص التباين:** `visibleByInk`، مقطع نص يظهر بحبر حروفه ولا يظهر بصندوق خطه المعلن.
   - والصندوق المعلن هو الصعود والنزول في واصف الخط، كما يعطيهما PDF.js للقارئ حيث لا حبر مثبتًا. وبه حكم القارئ قبل G12.
   - أول عدّ أخذ صندوق MuPDF، وارتفاعه في كشوف G14 حجم الخط تمامًا، فلم يكن صندوق القارئ. وللخط الذي لا واصف له يبقى صندوق MuPDF.
 - **ما يقيسه وما لا يقيسه:** العد يقول إن الكشف يصل إلى القاعدة بقراءة الأداة. أما هل يحتاجها المنتج فعلًا، فتقيسه تجربة الإسقاط بعد التشغيل.
 - **وقيس العد على تجارب الإسقاط كلها في G21** ([`rules-vs-ablations-g21.json`](results/rules-vs-ablations-g21.json)، بـ[`measure_rules.py`](measure_rules.py)): ست قواعد من تسع يعطلها المنتج، على سجلات التعطيل العشرة، 559 فحصًا من 559. كل كشف خسره المنتج بلا قاعدة تعدّها له الأداة، ولا تعدّها لكشف لم يخسره. والمبالغ المرقمة في الدفتر تُعدّ بفحص الدفتر بقواعد ما قبل G8.
-- **ولا تعدّ الأداة ثلاث قواعد:** الرسم بالحبر، والرسوم بصناديق الرسوم، والمستطيل العائد إلى بدايته. احتاجها P01 وP03 وQ01.
+- **ومنذ G22 تعدّ القواعد التسع كلها** ([`rules-vs-ablations-g22.json`](results/rules-vs-ablations-g22.json)): 847 فحصًا من 847. والثلاث الجديدة: الرسم بالحبر، ولم يحتجها كشف في السجلات؛ والرسوم بصناديق الرسوم، P01؛ والمستطيل العائد إلى بدايته، P01 وP03 وQ01.
 - **في الاختبار:** كشف مزروع بـ`DR` بعد مبلغه بثلاثة أرباع em، وتاريخ من قطع متلاصقة بخطين. يقرأه القارئ نفسه كاملًا، وتعدّ الأداة فيه ضمّين لـ`DR` وتاريخًا من قطع. وعدّ المحاذاة إلى النهاية والتتمة والظهور بالحبر في كشوف أخرى.
 
 ## كل رفض يعلنه القارئ، وما يغطيه
@@ -205,8 +210,8 @@
 | نص مخفي أو طبقة OCR | `hiddenText`؛ وطبقة نص لا تحمل النص الظاهر يفحصها `verify.py` ([DEV-47](../../docs/reference/DEVELOPMENT-LESSONS.ar.md)) |
 | نص أبيض أو ضعيف التباين | `contrast` |
 | شفافية أو إعدادات إظهار تؤثر في النص | `hiddenText` لشفافية النص، و`visibleInk` لما يغطيه |
-| نص مقصوص | `visibleInk` |
-| رسم يتداخل مع النص أو يغطيه | `ruleClearance` و`visibleInk` |
+| نص مقصوص | `drawings` لقص لا يثبته القارئ أو يقطع النص، منذ G22؛ و`visibleInk` بأثر القص على الحبر |
+| رسم يتداخل مع النص أو يغطيه | `drawings`، باختبار القارئ نفسه، منذ G22؛ و`ruleClearance` و`visibleInk` بحبر MuPDF |
 | صفوف متجاورة متداخلة | `rows`، بصناديق القارئ نفسها، منذ G21؛ و`lineInk` بالحبر بين السطور |
 | نصوص متداخلة في سطر | `overlap`، منذ G18. **وقبله نسبه هذا الجدول إلى `lineInk`،** و`lineInk` يقيس الحبر بين السطور لا العناصر في السطر. فرُفض به H03 من G6 وV09 من G17، ولم يجدهما فحص |
 | ترميز نص أو حدود حروف لا يُتحقق منها | `verify.py`: كل سطر وكل وصف بحروفه؛ و`toUnicode` لرسم يظهر U+FFFD؛ و`metrics` لخط بلا صعود ونزول، منذ G21 |
@@ -247,6 +252,21 @@
 - **وثلاث عشرة طفرة** يقتلها صنف `Rows` بتأكيد (`mutate_rows.py`).
 - **حدوده:** خط CFF بمفاتيح CID وType1C البسيط لم يُقيسا في كشف يحتاج فيه سطر قاعدة. ويحتاج MuPDF وfontTools، فلا يجري في CI.
 
+## كيف تحكم الأداة على الرسم فوق النص
+
+كُتب في [G22](../../docs/audits/BNK-PDF-1-G22.ar.md)، لتعدّ الأداة القواعد الثلاث الباقية من تسع يعطلها المنتج.
+
+- **[`drawings.py`](drawings.py) يعيد تعليمات الصفحة كما يعيدها `checkPdfOperators`:** المسارات كما يحزمها PDF.js، وحالة الرسم (`q` و`Q` و`cm` و`w` و`j` و`M` و`gs` واللون)، والقص، وأوامر النص بأرقامها.
+- **الخلفية:** مسار معبأ بلون واحد معتم، لا داخل قص لا يثبته القارئ، أجزاؤه مستطيلات منفصلة. تُرفض إن غطت نصًا رُسم قبلها، بالصناديق الممدودة.
+- **الرسم:** كل مسار سواها، يُرفض إن مس هدف أي نص في الصفحة: الخط جزءًا جزءًا بنصف عرضه ونصف نقطة على الأقل، بأطرافه وزواياه المدببة؛ والتعبئة بصندوق كل جزء؛ والمنحني بحدوده. ويُرفض مسار بلا حدود، والتظليل، وإعداد حدود لا يقبله القارئ.
+- **القص:** مستطيل واحد يحد النص تحته بفسحة 0.01 نقطة؛ وكل قص سواه يرفض النص تحته.
+- **الأهداف:** صناديق الرسوم حيث تثبت (`rows.py`)، وإلا صندوق الحبر حيث يثبت ولا نص مرفوع، وإلا الصندوق الممدود.
+- **وأربع صور:** اليوم، والرسم بالحبر معطلًا، والرسوم بصناديق الرسوم معطلة، والمستطيل العائد معطلًا.
+- **قيس على القارئ نفسه** ([`drawings-vs-reader-g22.json`](results/drawings-vs-reader-g22.json)، بـ[`measure_drawings.mjs`](measure_drawings.mjs)): 124 كشفًا مختومًا و14 صفحة مزروعة ([`plant_drawings.py`](plant_drawings.py))، 138 من 138 في كل صورة، والصفحة المدوّرة P08 لا تقارَن.
+- **ومواضع الرسوم كما يضعها القارئ:** يأخذ عروض PDF.js بالألف، وPDF.js يضربها في مصفوفة خط CFF إن لم تكن الألف (Inter في K02). فتطول مواضعه ولا يثبت صناديق رسوم لذلك الخط. تنسخ الأداة ذلك في `rows.py`، لا المواضع الصحيحة.
+- **وست عشرة طفرة** يقتلها صنف `Drawings` بتأكيد (`mutate_drawings.py`).
+- **حدوده:** لا نماذج XObject ولا صور مضمنة، كما `items.py`؛ والقناع الناعم من إعدادات الرسم وحدها. ويحتاج MuPDF وfontTools.
+
 ## حد الفحص بين السطور
 
 - **الحبر لا الصناديق:** القارئ يقارن صناديق الحروف، والصندوق أكبر من الحرف. فكشف لا يتلامس حبره قد يرفضه القارئ مع ذلك، كما في P09 من G10: أقرب حرفين فيه بينهما 0.14 نقطة، وهامش القارئ 0.16. فبهذا الفحص وحده P09 مؤهل يفشل فيه المنتج. ومنذ G13 يجده فحص `columns`: وصف عربي فيه يتجاوز حافة رأس عموده.
@@ -263,7 +283,9 @@ PYTHONPATH=<pymupdf 2.0> python3 -B audit/bank-statement-eligibility/mutate_item
 PYTHONPATH=<pymupdf 2.0> node --experimental-strip-types audit/bank-statement-eligibility/measure_items.mjs --assert audit/bank-statement-eligibility/results/items-vs-reader-g20.json
 PYTHONPATH=<pymupdf 2.0, fontTools> python3 -B audit/bank-statement-eligibility/mutate_rows.py
 PYTHONPATH=<pymupdf 2.0, fontTools> node --experimental-strip-types audit/bank-statement-eligibility/measure_rows.mjs --assert audit/bank-statement-eligibility/results/rows-vs-reader-g21.json
-PYTHONPATH=<pymupdf 2.0, fontTools> python3 -B audit/bank-statement-eligibility/measure_rules.py --assert audit/bank-statement-eligibility/results/rules-vs-ablations-g21.json
+PYTHONPATH=<pymupdf 2.0, fontTools> python3 -B audit/bank-statement-eligibility/mutate_drawings.py
+PYTHONPATH=<pymupdf 2.0, fontTools> node --experimental-strip-types audit/bank-statement-eligibility/measure_drawings.mjs --assert audit/bank-statement-eligibility/results/drawings-vs-reader-g22.json
+PYTHONPATH=<pymupdf 2.0, fontTools> python3 -B audit/bank-statement-eligibility/measure_rules.py --assert audit/bank-statement-eligibility/results/rules-vs-ablations-g22.json
 PYTHONPATH=<pymupdf 2.0> node --experimental-strip-types audit/bank-statement-eligibility/measure_columns.mjs --assert audit/bank-statement-eligibility/results/columns-vs-reader-g20.json
 pnpm test:bank-statement:cashbook-check
 python3 -B audit/bank-statement-eligibility/cashbook.py [--before-g8] [--before-g15] <cashbook.xlsx> ...
@@ -323,3 +345,9 @@ PYTHONPATH=<pymupdf 2.0, fontTools> python3 -B audit/bank-statement-eligibility/
 - **وجد `rows` ثلاثة كشوف رفضها القارئ:** P09 وP10 من G10، رُفضا بهذه الصفوف؛ وK04 من G8، رُفض قبلها برسم فوق النص.
 - **ولم يجد شيئًا في كشف أكمله المنتج،** فلا يتغير حكم سجل أهلية مختوم.
 - **وصار العد يحمل `rowsByInk` في 31 كشفًا و`rowsByGlyphs` في 8.** وما سوى ذلك كما بعد G19 وفي سجل G20 المختوم.
+
+وبعد G22 على الحزم التسع ([`retro-after-g22.json`](results/retro-after-g22.json)):
+
+- **وجد `drawings` ثلاثة كشوف رفضها القارئ برسم فوق النص:** K04 وK10 من G8، وR04 من G14.
+- **ولم يجد شيئًا في كشف أكمله المنتج.**
+- **وصار العد يحمل** `drawingByInk` في K02، و`drawingsByGlyphs` في P01، و`rectangleTraced` في P01 وP03 وQ01. وما سوى ذلك كما بعد G21.

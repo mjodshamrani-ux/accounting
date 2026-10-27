@@ -285,7 +285,8 @@ class Item:
         self.words = [w for w in words if w]
         # The Font PDF.js names the item's style after (its font when the item
         # began), and each glyph shown in it: (Font, code, matrix, left,
-        # right), for rows.py.
+        # right, the text operator's number on the page, the page width of
+        # its advance without the spacing), for rows.py and drawings.py.
         self.face, self.marks = face, list(marks)
 
     def __repr__(self):
@@ -300,7 +301,7 @@ class Builder:
         self.view, self.items = view, []
         self.initialized, self.str, self.width, self.total_width, self.height = False, [], 0.0, 0.0, 0.0
         self.words = [[]]
-        self.face, self.marks = None, []
+        self.face, self.marks, self.op = None, [], 0
         self.prev, self.prev_rise, self.scale, self.transform, self.font_name = None, 0.0, 0.0, None, None
         self.tracking = self.not_a_space = self.negative = self.space_min = self.space_max = 0.0
         self.last, self.slot = [' ', ' '], 0
@@ -471,7 +472,8 @@ class Builder:
             # width and the spacing after it, a diacritic's too.
             em = width * 0.001 + ((spacing + (st.word_spacing if code == 32 else 0)) / st.size if st.size else 0)
             reach = matrix[0] * em + matrix[4]
-            self.marks.append((font, code, matrix, min(start, reach), max(start, reach)))
+            self.marks.append((font, code, matrix, min(start, reach), max(start, reach), self.op,
+                               matrix[0] * width * 0.001))
             if after:
                 st.translate(after * st.hscale, 0)
 
@@ -552,10 +554,12 @@ def page_items(doc, pno):
                     loaded[name] = Font(doc, names[name])
                 st.font = loaded[name]
         elif t == b'Tj':
+            b.op += 1
             strings = [o for o in operands if o.startswith((b'(', b'<')) and o != b'<<']
             if strings:
                 b.show(tounicode.string_bytes(strings[-1]), 0)
         elif t in (b"'", b'"'):
+            b.op += 1
             strings = [o for o in operands if o.startswith((b'(', b'<')) and o != b'<<']
             if t == b'"' and len(nums) >= 2:
                 st.word_spacing, st.char_spacing = nums[-2], nums[-1]
@@ -563,6 +567,7 @@ def page_items(doc, pno):
             if strings:
                 b.show(tounicode.string_bytes(strings[-1]), 0)
         elif t == b'TJ':
+            b.op += 1
             k = -st.size / 1000
             pending = []
             for o in operands:

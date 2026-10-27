@@ -89,6 +89,7 @@ import pymupdf
 
 import cashbook
 import columns
+import drawings
 import items
 import rows
 import tounicode
@@ -489,10 +490,25 @@ def adjacent_rows(doc, pno, used):
     return {'rows': sorted(today)} if today else {}
 
 
+def drawing_tests(doc, pno, used):
+    """The reader's drawing, clip and background tests, as it is and with each
+    rule about them off (drawings.py, since G22): a refusal today is a
+    finding; a page refused only with a rule off counts the rule."""
+    forms = drawings.check_page(doc, pno)
+    if 'unprovable' in forms.values():
+        return {}      # the reader stops on the font first (metrics)
+    today = forms['today']
+    for config, rule in (('noInkDrawing', 'drawingByInk'), ('noGlyphDrawings', 'drawingsByGlyphs'),
+                         ('noRectangleReturn', 'rectangleTraced')):
+        if forms[config] and not today:
+            used[rule] += 1
+    return {'drawings': [today]} if today else {}
+
+
 def counts(path):
     """The rules a statement exercises, without the checks that render the
-    page: the rows forms (rows.py), the contrast test by ink, and the reading
-    by columns; for measure_rows.mjs."""
+    page: the rows forms (rows.py), the drawing tests (drawings.py), the
+    contrast test by ink, and the reading by columns; for measure_rules.py."""
     doc = pymupdf.open(str(path))
     used, ignored = Counter(), {}
     def add(check, what):
@@ -503,6 +519,7 @@ def counts(path):
         if not page.rotation:
             try:
                 adjacent_rows(doc, pno, used)
+                drawing_tests(doc, pno, used)
             except items.Unmodelled:
                 continue
     if not any(doc[p].rotation for p in range(doc.page_count)):
@@ -636,6 +653,7 @@ def check_pdf(path, clearance=0.05, reach=0.5):
                 if most is not None:
                     most_overlap = most if most_overlap is None else max(most_overlap, most)
                 found.update(adjacent_rows(doc, pno, used))
+                found.update(drawing_tests(doc, pno, used))
         for k, v in found.items():
             result['found'].setdefault(k, []).extend([{'page': pno + 1, 'at': x} for x in v[:3]])
         if rule is not None:
@@ -709,6 +727,8 @@ def main():
         raise SystemExit(f'the reader no longer carries what items.py copies: {items.drift()}')
     if rows.drift():
         raise SystemExit(f'the reader no longer carries what rows.py copies: {rows.drift()}')
+    if drawings.drift():
+        raise SystemExit(f'the reader no longer carries what drawings.py copies: {drawings.drift()}')
     if cashbook.drift():
         raise SystemExit(f'the product no longer carries what cashbook.py copies: {cashbook.drift()}')
     package = Path(a.package)

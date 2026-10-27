@@ -13,11 +13,14 @@ kept, this reads whether the tool counts the rule for the statement:
   DR after its amount       drAfterAmount columns.py
   date runs joined          dateRuns      columns.py
   typed cashbook amounts    the cashbook check before G8 refuses the statement's XLSX cashbook (cashbook.py)
+  drawing by ink            drawingByInk      pages refused by the drawing tests with padded boxes for
+                                              items without glyph boxes, and not today (drawings.py, G22)
+  drawings by glyph boxes   drawingsByGlyphs  pages refused with ink boxes in place of glyph boxes
+  rectangle traced back     rectangleTraced   pages refused when five points back to the first are no
+  to its start                                rectangle, as a background or a clip
 
-and names the three rules about drawings over text that the tool does not
-model yet: drawing by ink, drawings by glyph boxes, and the rectangle traced
-back to its start. It reads the tool and the recorded ablations only; the
-product is not run.
+Until G22 the last three were named and not counted. It reads the tool and
+the recorded ablations only; the product is not run.
 
   PYTHONPATH=<pymupdf 2.0, fontTools> python3 -B measure_rules.py [--out f.json | --assert f.json]
 """
@@ -39,8 +42,11 @@ COUNTED = {
     'DR after its amount': 'drAfterAmount',
     'date runs joined': 'dateRuns',
     'typed cashbook amounts': 'typedAmounts',
+    'drawing by ink': 'drawingByInk',
+    'drawings by glyph boxes': 'drawingsByGlyphs',
+    'rectangle traced back to its start': 'rectangleTraced',
 }
-NOT_MODELLED = ('drawing by ink', 'drawings by glyph boxes', 'rectangle traced back to its start')
+NOT_MODELLED = ()
 
 
 def typed_amounts(frozen, sid):

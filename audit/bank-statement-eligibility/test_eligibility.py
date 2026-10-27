@@ -15,8 +15,10 @@ import pymupdf
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import columns  # noqa: E402
+import drawings  # noqa: E402
 import eligibility as el  # noqa: E402
 import items  # noqa: E402
+import plant_drawings  # noqa: E402
 import plant_items  # noqa: E402
 import plant_rows  # noqa: E402
 import rows  # noqa: E402
@@ -171,12 +173,18 @@ class Planted(unittest.TestCase):
             page.draw_line((36, 180.68), (384, 180.68), color=(0.6, 0.6, 0.6), width=0.3)
         self.assertIn('ruleClearance', found(statement('thin-rule', thin)))
 
-    def test_a_filled_sliver_under_text_is_a_background(self):
+    def test_a_filled_sliver_under_text_closed_twice_is_a_drawing_to_the_reader(self):
         # MuPDF draws a heading's background in pieces; a pale one 2 points
-        # wide under a letter is not a rule, as the reader judges fills.
+        # wide under a letter meets no glyph's ink as a rule would
+        # (ruleClearance). G11 wrote that the reader takes it for a
+        # background, unmeasured. MuPDF writes it `re h f`, PDF.js packs the
+        # rectangle's close and h's, and the reader reads no rectangle in a
+        # path closed twice: a drawing over text, and the page is refused.
+        # Measured on the reader in G22 (plant_drawings.py, closed-twice).
         def sliver(doc, page):
             page.draw_rect(pymupdf.Rect(60, 70, 62, 82), color=None, fill=(0.9, 0.92, 0.91), overlay=False)
-        self.assertEqual(found(statement('sliver', sliver)), {})
+        self.assertEqual(found(statement('sliver', sliver)),
+                         {'drawings': [{'page': 1, 'at': {'kind': 'drawing', 'op': 0}}]})
 
     def test_lines_whose_ink_meets(self):
         def crowded(doc, page):
@@ -737,6 +745,63 @@ class Rows(unittest.TestCase):
 
     def test_what_it_copies_is_still_the_readers(self):
         self.assertEqual(rows.drift(), [])
+
+
+class Drawings(unittest.TestCase):
+    """The reader's drawing, clip and background tests as drawings.py
+    replays them, as the reader is and with each rule about them off. Each
+    verdict here is the reader's, plain and with each rule off
+    (measure_drawings.mjs, results/drawings-vs-reader-g22.json)."""
+
+    @classmethod
+    def setUpClass(cls):
+        plant_drawings.main(TMP / 'drawings')
+
+    @staticmethod
+    def path(name):
+        return TMP / 'drawings' / f'{name}.pdf'
+
+    def test_each_planted_page_is_judged_in_each_configuration_as_the_reader_judges_it(self):
+        for name, _, want, why in plant_drawings.PAGES:
+            with self.subTest(name, why=why):
+                try:
+                    got = drawings.check_page(pymupdf.open(str(self.path(name))), 0)
+                except Exception as e:  # a crash is a wrong verdict too
+                    self.fail(f'{name}: {e!r}')
+                self.assertEqual({c: v and v['kind'] for c, v in got.items()}, want)
+
+    def test_sealed_statements_in_each_configuration(self):
+        # The first page each configuration refuses, and how, as the reader
+        # refused it: FOP's grid and cells (P01 needs glyph boxes and the
+        # rectangle traced back; P03 the rectangle), PDFBox's clip (Q01),
+        # Typst's Inter, whose glyphs the reader places too far and so judges
+        # by their ink (K02), a rule meeting a hamza (R04), and none (W01).
+        root = Path(__file__).resolve().parent.parent
+        none = dict.fromkeys(drawings.CONFIGS)
+        cases = {('g10', 'P01'): dict(none, noGlyphDrawings=(1, 'drawing'), noRectangleReturn=(1, 'drawing')),
+                 ('g10', 'P03'): dict(none, noRectangleReturn=(1, 'drawing')),
+                 ('g12', 'Q01'): dict(none, noRectangleReturn=(1, 'clip')),
+                 ('g8', 'K02'): dict(none, noInkDrawing=(1, 'drawing')),
+                 ('g14', 'R04'): {c: (1, 'drawing') for c in drawings.CONFIGS},
+                 ('g20', 'W01'): none}
+        for (package, sid), want in cases.items():
+            pages = drawings.check_pdf(root / f'bank-statement-holdout-{package}' / 'frozen' / f'{sid}-statement.pdf')
+            got = {c: next(((k + 1, p[c]['kind']) for k, p in enumerate(pages) if p[c]), None) for c in drawings.CONFIGS}
+            self.assertEqual(got, want, sid)
+
+    def test_eligibility_finds_what_the_reader_refuses_today_and_counts_the_rest(self):
+        def rules(name):
+            result = el.check_pdf(self.path(name))
+            counted = ('drawingByInk', 'drawingsByGlyphs', 'rectangleTraced')
+            return result['found'].get('drawings'), {k: v for k, v in result['exercised'].items() if k in counted}
+        self.assertEqual(rules('rule-through'), ([{'page': 1, 'at': {'kind': 'drawing', 'op': 1}}], {}))
+        self.assertEqual(rules('rule-in-the-padding'), (None, {'drawingByInk': 1}))
+        self.assertEqual(rules('rule-beside-the-glyphs'), (None, {'drawingsByGlyphs': 1}))
+        self.assertEqual(rules('rectangle-traced-back'), (None, {'rectangleTraced': 1}))
+        self.assertEqual(rules('rule-apart'), (None, {}))
+
+    def test_what_it_copies_is_still_the_readers(self):
+        self.assertEqual(drawings.drift(), [])
 
 
 if __name__ == '__main__':

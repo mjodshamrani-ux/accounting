@@ -56,6 +56,7 @@ logging.getLogger('fontTools').setLevel(logging.ERROR)
 
 ROOT = Path(__file__).resolve().parent.parent.parent
 PDF = ROOT / 'lib' / 'reconciliation' / 'pdf.ts'
+GEOMETRY = ROOT / 'lib' / 'reconciliation' / 'pdf-glyph-geometry.ts'
 MARGIN = 0.01   # GLYPH_INK_MARGIN, in em
 PLACED = 0.5    # how far glyphInkBoxes lets a placement leave the item
 GAP = 0.2       # the overlap both ways that refuses the rows
@@ -68,6 +69,7 @@ SOURCE = ('const ascent = token.ascent ?? 0.8;',
           'lines[j].y - lines[i].y <= reach * 2',
           'Math.abs(at.y - run.baseline) > 0.5',
           'Math.abs(left - padded[0]) <= 0.5 &&',
+          'const widthScale = size * 0.001;',
           'return inkBoxes.map((box, i) => (box === textBoxes[i] ? undefined : box));',
           "fn.some((op, i) => op === ops.setTextRise && Number(args[i]?.[0]) !== 0)",
           REASON)
@@ -77,7 +79,7 @@ FORMS = ('metric', 'ink', 'glyph')
 
 
 def drift():
-    text = PDF.read_text(encoding='utf-8')
+    text = PDF.read_text(encoding='utf-8') + GEOMETRY.read_text(encoding='utf-8')
     return [s for s in SOURCE if s not in text]
 
 
@@ -135,6 +137,15 @@ class Face:
             if x is not None:
                 table = doc.xref_stream(x)
                 self.cid_gid = [int.from_bytes(table[i:i + 2], 'big') for i in range(0, len(table) - 1, 2)]
+        # PDF.js scales a CFF font's widths by its FontMatrix (adjustWidths)
+        # and keeps the matrix; the reader's glyph placement takes them as
+        # thousandths of an em, so its advances run this many times too far.
+        self.advance_scale = 1.0
+        if self.cff is not None:
+            top = self.cff[self.cff.fontNames[0]]
+            m = getattr(top, 'FontMatrix', None)
+            if m and m[0] and abs(m[0] - 0.001) > 1e-9:
+                self.advance_scale = 0.001 / m[0]
         self.cache = {}
 
     def outline(self, code):
@@ -253,7 +264,7 @@ def glyph_boxes(item, found):
     out = []
     if not item.marks:
         return None
-    for font, code, m, _, _ in item.marks:
+    for font, code, m, *_ in item.marks:
         o = found[id(font)].outline(code)
         if o is None or abs(m[5] - item.y) > PLACED:
             return None
@@ -262,6 +273,9 @@ def glyph_boxes(item, found):
         pts = [(m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]) for x, y in corners]
         out.append([min(p[0] for p in pts), min(p[1] for p in pts), max(p[0] for p in pts), max(p[1] for p in pts)])
     left, right = min(mark[3] for mark in item.marks), max(mark[4] for mark in item.marks)
+    # Where the reader's advances run long (a CFF FontMatrix), its last
+    # placement ends that much further on.
+    right += sum(mark[6] * (found[id(mark[0])].advance_scale - 1) for mark in item.marks)
     if abs(left - item.x) > PLACED or abs(right - (item.x + item.width)) > PLACED:
         return None
     return out

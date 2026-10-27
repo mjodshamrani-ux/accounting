@@ -47,7 +47,7 @@ def tree(at):
     tool = audit / HERE.name
     tool.mkdir()
     for name in ('columns.py', 'tounicode.py', 'cashbook.py', 'items.py', 'plant_items.py', 'rows.py', 'plant_rows.py',
-                 'eligibility.py', 'test_eligibility.py', 'test_cashbook.py'):
+                 'drawings.py', 'plant_drawings.py', 'eligibility.py', 'test_eligibility.py', 'test_cashbook.py'):
         shutil.copy(HERE / name, tool / name)
     return tool
 
